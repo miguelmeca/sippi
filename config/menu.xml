@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : menu.xml
+    Created on : 7 de junio de 2010, 19:36
+    Author     : iuga
+    Description:
+        Mantiene los items del menu principal de la aplicacion
+-->
+
+<menu>
+
+    <itemcat icono="/res/iconos/var/16x16/block.png" nombre="Gestionar Clientes">
+
+        <item icono="/res/iconos/var/16x16/block.png" nombre="Agregar Cliente"/>
+        <item icono="/res/iconos/var/16x16/block.png" nombre="Modificar Cliente"/>
+
+    </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/block.png" nombre="Gestionar Obras">
+
+        <item icono="/res/iconos/var/16x16/block.png" nombre="Agregar Obra"/>
+        <item icono="/res/iconos/var/16x16/block.png" nombre="Emma come moco"/>
+
+    </itemcat>
+
+</menu>
