@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author iuga
  */
-public class frmRegistrarConfirmacionInicioObra extends javax.swing.JFrame {
+public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarConfirmacionInicioObra */
-    public frmRegistrarConfirmacionInicioObra() {
+    public pantallaRegistrarConfirmacionInicioObra() {
         initComponents();
     }
 
@@ -140,7 +140,7 @@ public class frmRegistrarConfirmacionInicioObra extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarConfirmacionInicioObra().setVisible(true);
+                new pantallaRegistrarConfirmacionInicioObra().setVisible(true);
             }
         });
     }

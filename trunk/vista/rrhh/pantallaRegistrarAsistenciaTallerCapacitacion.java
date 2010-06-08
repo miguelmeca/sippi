@@ -15,10 +15,10 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class frmRegistrarAsistenciaTallerCapacitacion extends javax.swing.JFrame {
+public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarAsistenciaTallerCapacitacion */
-    public frmRegistrarAsistenciaTallerCapacitacion() {
+    public pantallaRegistrarAsistenciaTallerCapacitacion() {
         initComponents();
     }
 
@@ -204,7 +204,7 @@ public class frmRegistrarAsistenciaTallerCapacitacion extends javax.swing.JFrame
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarAsistenciaTallerCapacitacion().setVisible(true);
+                new pantallaRegistrarAsistenciaTallerCapacitacion().setVisible(true);
             }
         });
     }

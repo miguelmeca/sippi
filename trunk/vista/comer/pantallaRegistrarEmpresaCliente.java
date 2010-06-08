@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author iuga
  */
-public class frmRegistrarEmpresaCliente extends javax.swing.JFrame {
+public class pantallaRegistrarEmpresaCliente extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarEmpresaCliente */
-    public frmRegistrarEmpresaCliente() {
+    public pantallaRegistrarEmpresaCliente() {
         initComponents();
     }
 
@@ -121,7 +121,7 @@ public class frmRegistrarEmpresaCliente extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Barrio:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -334,7 +334,7 @@ public class frmRegistrarEmpresaCliente extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarEmpresaCliente().setVisible(true);
+                new pantallaRegistrarEmpresaCliente().setVisible(true);
             }
         });
     }

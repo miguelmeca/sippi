@@ -15,10 +15,10 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class frmRegistrarPlanSeguridad extends javax.swing.JFrame {
+public class pantallaRegistrarPlanSeguridad extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarPlanSeguridad */
-    public frmRegistrarPlanSeguridad() {
+    public pantallaRegistrarPlanSeguridad() {
         initComponents();
     }
 
@@ -51,15 +51,15 @@ public class frmRegistrarPlanSeguridad extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Un Nuevo Plan de Seguridad");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Número: ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre: ");
 
         jTextField1.setText("12000001");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Vencimiento: ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30/11/2010" }));
@@ -194,7 +194,7 @@ public class frmRegistrarPlanSeguridad extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarPlanSeguridad().setVisible(true);
+                new pantallaRegistrarPlanSeguridad().setVisible(true);
             }
         });
     }

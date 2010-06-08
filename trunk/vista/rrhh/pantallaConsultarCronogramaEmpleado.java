@@ -15,10 +15,10 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class frmConsultarCronogramaEmpleado extends javax.swing.JFrame {
+public class pantallaConsultarCronogramaEmpleado extends javax.swing.JFrame {
 
     /** Creates new form frmConsultarCronogramaEmpleado */
-    public frmConsultarCronogramaEmpleado() {
+    public pantallaConsultarCronogramaEmpleado() {
         initComponents();
     }
 
@@ -209,7 +209,7 @@ public class frmConsultarCronogramaEmpleado extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmConsultarCronogramaEmpleado().setVisible(true);
+                new pantallaConsultarCronogramaEmpleado().setVisible(true);
             }
         });
     }
