@@ -189,48 +189,48 @@ public class frmPrototipos extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        new vista.comer.frmRegistrarNuevaPlanta().setVisible(true);
+        new vista.comer.pantallaRegistrarNuevaPlanta().setVisible(true);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new vista.comer.frmRegistrarEmpresaCliente().setVisible(true);
+        new vista.comer.pantallaRegistrarEmpresaCliente().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new vista.comer.frmRegistrarConfirmacionInicioObra().setVisible(true);
+        new vista.comer.pantallaRegistrarConfirmacionInicioObra().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new vista.comer.frmRegistrarPedido().setVisible(true);
+        new vista.comer.pantallaRegistrarPedido().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        new vista.rrhh.frmGenerarListadoCompraIndumentaria().setVisible(true);
+        new vista.rrhh.pantallaGenerarListadoCompraIndumentaria().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    new vista.rrhh.frmRegistrarAsistenciaTallerCapacitacion().setVisible(true);
+    new vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       new vista.rrhh.frmRegistrarTallerCapacitacion().setVisible(true);
+       new vista.rrhh.pantallaRegistrarTallerCapacitacion().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       new vista.rrhh.frmRegistrarEmpleado().setVisible(true);
+       new vista.rrhh.pantallaRegistrarEmpleado().setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-      new vista.rrhh.frmRegistrarPlanSeguridad().setVisible(true);
+      new vista.rrhh.pantallaRegistrarPlanSeguridad().setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        new vista.comer.frmConsultarEmpresaCliente().setVisible(true);
+        new vista.comer.pantallaConsultarEmpresaCliente().setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        new vista.rrhh.frmConsultarCronogramaEmpleado().setVisible(true);
+        new vista.rrhh.pantallaConsultarCronogramaEmpleado().setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**

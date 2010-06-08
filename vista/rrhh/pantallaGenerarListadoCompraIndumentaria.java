@@ -15,10 +15,10 @@ package vista.rrhh;
  *
  * @author iuga
  */
-public class frmGenerarListadoCompraIndumentaria extends javax.swing.JFrame {
+public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JFrame {
 
     /** Creates new form frmGenerarListadoCompraIndumentaria */
-    public frmGenerarListadoCompraIndumentaria() {
+    public pantallaGenerarListadoCompraIndumentaria() {
         initComponents();
     }
 
@@ -186,7 +186,7 @@ public class frmGenerarListadoCompraIndumentaria extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmGenerarListadoCompraIndumentaria().setVisible(true);
+                new pantallaGenerarListadoCompraIndumentaria().setVisible(true);
             }
         });
     }

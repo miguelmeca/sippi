@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
+public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
 
     /** Creates new form frmConsultarEmpresaCliente */
-    public frmConsultarEmpresaCliente() {
+    public pantallaConsultarEmpresaCliente() {
         initComponents();
     }
 
@@ -69,26 +69,26 @@ public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Datos de una Empresa Cliente");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Empresa Cliente:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grupo Arcor" }));
 
         pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cliente"));
 
-        lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblRazonSocial.setText("Razon Social:");
 
-        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCUIT.setText("CUIT : ");
 
-        lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblDireccion.setText("Dirección:");
 
-        lblLocalidad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblLocalidad.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblLocalidad.setText("Localidad: ");
 
-        lblCodigoPostal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCodigoPostal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCodigoPostal.setText("Código Postal:");
 
         txtRazonSocial.setText("Grupo Arcor");
@@ -175,15 +175,15 @@ public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
                 .addComponent(btnConsultarPlanta))
         );
 
-        lblEmailEmp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblEmailEmp.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblEmailEmp.setText("e-mail :");
 
         txtEmailEmp.setText("arcor@arcor.com.ar");
 
-        lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblProvincia.setText("Provincia:");
 
-        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPais.setText("País:");
 
         txtProvincia.setText("San Luis");
@@ -192,17 +192,17 @@ public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
 
         txtPaginaWeb.setText("www.arcor.com.ar");
 
-        lblPaginaWeb.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblPaginaWeb.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPaginaWeb.setText("Página Web:");
 
         pnlContactoResponsable.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto Responsable"));
 
-        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNombre.setText("Nombre:");
 
         txtNombre.setText("Arnaldo André");
 
-        lblEmailCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblEmailCont.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblEmailCont.setText("e-mail :");
 
         txtEmailCont.setText("arnaldoandre@arcor.com.ar");
@@ -380,7 +380,7 @@ public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmConsultarEmpresaCliente().setVisible(true);
+                new pantallaConsultarEmpresaCliente().setVisible(true);
             }
         });
     }

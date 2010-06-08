@@ -15,10 +15,10 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class frmRegistrarEmpleado extends javax.swing.JFrame {
+public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarEmpleado */
-    public frmRegistrarEmpleado() {
+    public pantallaRegistrarEmpleado() {
         initComponents();
     }
 
@@ -462,7 +462,7 @@ public class frmRegistrarEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Número de Teléfono y Tipo:");
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabajo", "Contacto", "Emergencia" }));
@@ -584,7 +584,7 @@ public class frmRegistrarEmpleado extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarEmpleado().setVisible(true);
+                new pantallaRegistrarEmpleado().setVisible(true);
             }
         });
     }

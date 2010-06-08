@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class frmRegistrarNuevaPlanta extends javax.swing.JFrame {
+public class pantallaRegistrarNuevaPlanta extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarNuevaPlanta */
-    public frmRegistrarNuevaPlanta() {
+    public pantallaRegistrarNuevaPlanta() {
         initComponents();
     }
 
@@ -48,23 +48,23 @@ public class frmRegistrarNuevaPlanta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Nueva Planta");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Empresa: ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ARCOR" }));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre:  ");
 
         jTextField1.setText("Bagley");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Dirección: ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Teléfono: ");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Localidad: ");
 
         jTextField2.setText("Av. Sarmiento 147");
@@ -149,9 +149,10 @@ public class frmRegistrarNuevaPlanta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, 0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jComboBox2)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jComboBox2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -180,7 +181,7 @@ public class frmRegistrarNuevaPlanta extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmRegistrarNuevaPlanta().setVisible(true);
+                new pantallaRegistrarNuevaPlanta().setVisible(true);
             }
         });
     }

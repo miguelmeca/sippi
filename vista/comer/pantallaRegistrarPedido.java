@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class frmRegistrarPedido extends javax.swing.JFrame {
+public class pantallaRegistrarPedido extends javax.swing.JFrame {
 
     /** Creates new form frmRegistrarPedido */
-    public frmRegistrarPedido() {
+    public pantallaRegistrarPedido() {
         initComponents();
     }
 
@@ -118,7 +118,7 @@ public class frmRegistrarPedido extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10/05/2010" }));
@@ -138,10 +138,10 @@ public class frmRegistrarPedido extends javax.swing.JFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Pliego:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Planos:");
 
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class frmRegistrarPedido extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30/05/2010" }));
