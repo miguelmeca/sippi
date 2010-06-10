@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
+public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
 
     /** Creates new form frmConsultarEmpresaCliente */
-    public pantallaConsultarEmpresaCliente() {
+    public frmConsultarEmpresaCliente() {
         initComponents();
     }
 
@@ -44,6 +44,9 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JLabel();
         txtLocalidad = new javax.swing.JLabel();
         txtCodigoPostal = new javax.swing.JLabel();
+        pnlTelefonosContacto = new javax.swing.JPanel();
+        srcTelefonos = new javax.swing.JScrollPane();
+        tblTelefonos = new javax.swing.JTable();
         pnlDatosPlanta = new javax.swing.JPanel();
         srcPlantas = new javax.swing.JScrollPane();
         tblPlantas = new javax.swing.JTable();
@@ -93,6 +96,40 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
 
         txtCodigoPostal.setText("5730");
 
+        pnlTelefonosContacto.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefonos de Contacto"));
+
+        tblTelefonos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"0351-4681408", "0351-4280594", "0351-15-2849304"},
+                {null, null, null}
+            },
+            new String [] {
+                "Fijo", "Fax", "Celular "
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        srcTelefonos.setViewportView(tblTelefonos);
+
+        javax.swing.GroupLayout pnlTelefonosContactoLayout = new javax.swing.GroupLayout(pnlTelefonosContacto);
+        pnlTelefonosContacto.setLayout(pnlTelefonosContactoLayout);
+        pnlTelefonosContactoLayout.setHorizontalGroup(
+            pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(srcTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+        );
+        pnlTelefonosContactoLayout.setVerticalGroup(
+            pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTelefonosContactoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(srcTelefonos, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         pnlDatosPlanta.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de las plantas"));
 
         tblPlantas.setModel(new javax.swing.table.DefaultTableModel(
@@ -122,7 +159,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosPlantaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnConsultarPlanta))
-            .addComponent(srcPlantas, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+            .addComponent(srcPlantas, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
         );
         pnlDatosPlantaLayout.setVerticalGroup(
             pnlDatosPlantaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +237,8 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                                 .addComponent(lblPaginaWeb)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtPaginaWeb))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosClienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlDatosPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatosPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlDatosClienteLayout.setVerticalGroup(
@@ -237,7 +273,9 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                     .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPaginaWeb)
                         .addComponent(txtPaginaWeb)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDatosPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -260,7 +298,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, 367, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, 0, 355, Short.MAX_VALUE))
                     .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -273,7 +311,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -295,7 +333,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pantallaConsultarEmpresaCliente().setVisible(true);
+                new frmConsultarEmpresaCliente().setVisible(true);
             }
         });
     }
@@ -316,8 +354,11 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblRazonSocial;
     private javax.swing.JPanel pnlDatosCliente;
     private javax.swing.JPanel pnlDatosPlanta;
+    private javax.swing.JPanel pnlTelefonosContacto;
     private javax.swing.JScrollPane srcPlantas;
+    private javax.swing.JScrollPane srcTelefonos;
     private javax.swing.JTable tblPlantas;
+    private javax.swing.JTable tblTelefonos;
     private javax.swing.JLabel txtCUIT;
     private javax.swing.JLabel txtCodigoPostal;
     private javax.swing.JLabel txtDireccion;
