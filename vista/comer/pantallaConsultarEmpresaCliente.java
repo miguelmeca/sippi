@@ -15,10 +15,10 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
+public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
 
     /** Creates new form frmConsultarEmpresaCliente */
-    public frmConsultarEmpresaCliente() {
+    public pantallaConsultarEmpresaCliente() {
         initComponents();
     }
 
@@ -333,7 +333,7 @@ public class frmConsultarEmpresaCliente extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmConsultarEmpresaCliente().setVisible(true);
+                new pantallaConsultarEmpresaCliente().setVisible(true);
             }
         });
     }
