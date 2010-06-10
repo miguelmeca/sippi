@@ -11,16 +11,53 @@
 
 package vista.rrhh;
 
+import controlador.GestorRegistrarNuevoEmpleado;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import modelo.TipoDocumento;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import util.HibernateUtil;
+
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
+public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame {
+
+    GestorRegistrarNuevoEmpleado gestor;
 
     /** Creates new form frmRegistrarEmpleado */
     public pantallaRegistrarEmpleado() {
         initComponents();
+        gestor = new GestorRegistrarNuevoEmpleado(this);
+        this.habilitarVentana();
+      
+
+
+        
     }
+
+    private void habilitarVentana()
+    {
+        ArrayList<String> listaNombresTipoDocumento = gestor.mostrarTiposDeDocumento();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (String nombre : listaNombresTipoDocumento)
+        {
+            model.addElement(nombre);
+        }
+        cmbTipoDocumento.setModel(model);
+    }
+
+    public void opcionRegistrarEmpleado()
+    {
+
+
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -33,7 +70,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbTipoDocumento = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -94,7 +131,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Tipo de Documento: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "D.N.I", "L.C" }));
+        cmbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "D.N.I", "L.C" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Número de Documento: ");
@@ -114,7 +151,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -126,7 +163,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -590,6 +627,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbTipoDocumento;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -598,7 +636,6 @@ public class pantallaRegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
