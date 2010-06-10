@@ -1,6 +1,7 @@
 
 import javax.swing.UIManager;
 //import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.RefineryUtilities;
 import vista.VentanaPrincipal;
 import vista.frmPrototipos;
 
@@ -26,7 +27,7 @@ public class Loading extends javax.swing.JFrame {
 
         initComponents();
         this.setSize(400, 267);
-        //RefineryUtilities.centerFrameOnScreen(this);
+        RefineryUtilities.centerFrameOnScreen(this);
 
         CargarLibrerias();
 
