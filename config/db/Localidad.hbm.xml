@@ -8,7 +8,7 @@
       </id>
       <property name="nombre" type="string" column="NOMBRE"/>
 
-      <many-to-one name="Provincia" column="IDPROVINCIA"/>
+      <!--<many-to-one name="Provincia" column="IDPROVINCIA"/>-->
 
   </class>
 </hibernate-mapping>

@@ -18,45 +18,62 @@ import java.util.ArrayList;
 
 
 public class Provincia {
-	public String nombre;
-	public ArrayList<Localidad> localidades;
-	public void crear() {
-	
-	}
-	
-	public void getLocalidad() {
-	
-	}
-	
-	public void mostrarProvincia() {
-	
-	}
-	
-	public void mostrarNombre() {
-	
-	}
-	
-	public void mostrarLocalidades() {
-	
-	}
-	
-	public void buscarProvincia() {
-	
-	}
-	
-	public void getProvincia() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
-	public void mostrarNombresLocalidades() {
-	
-	}
-	
-	public void esProvincia() {
-	
-	}
+    private int id;
+    private String nombre;
+    private ArrayList<Localidad> localidades;
+
+    public Provincia() {
+    }
+
+    public void crear() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Localidad> getLocalidades() {
+        return localidades;
+    }
+
+    public void setLocalidades(ArrayList<Localidad> localidades){
+        this.localidades = localidades;
+    }
+
+    public void mostrarProvincia() {
+
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void mostrarLocalidades() {
+
+    }
+
+    public void buscarProvincia() {
+
+    }
+
+    public void getProvincia() {
+
+    }
+
+    public void mostrarNombresLocalidades() {
+
+    }
+
+    public void esProvincia() {
+
+    }
 }

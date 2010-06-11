@@ -3,7 +3,7 @@
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Pais" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
 
-      <id name="id" type="integer" column="IDPAIS">
+      <id name="id" type="integer" column="ID">
           <generator class="increment"></generator>
       </id>
       <property name="nombre" type="string" column="NOMBRE"/>

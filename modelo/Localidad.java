@@ -14,49 +14,60 @@ import java.util.ArrayList;
 //
 //
 
-
-
-
 public class Localidad {
-	public String nombre;
-	public ArrayList<Barrio> barrios;
-	public void crear() {
-	
-	}
-	
-	public void mostrarLocalidad() {
-	
-	}
-	
-	public void getBarrio() {
-	
-	}
-	
-	public void mostrarNombre() {
-	
-	}
-	
-	public void mostrarBarrios() {
-	
-	}
-	
-	public void buscarLocalidad() {
-	
-	}
-	
-	public void getLocalidad() {
-	
-	}
-	
-	public void mostrarNombresBarrios() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
-	public void esLocalidad() {
-	
-	}
+    private int id;
+    private String nombre;
+    private ArrayList<Barrio> barrios;
+
+    public Localidad() {
+    }
+
+    public void crear() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public void mostrarLocalidad() {
+
+    }
+
+    public ArrayList<Barrio> getBarrios() {
+        return this.barrios;
+    }
+
+    public void setBarrios(ArrayList<Barrio> barrios){
+        this.barrios = barrios;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void buscarLocalidad() {
+
+    }
+
+    public void getLocalidad() {
+
+    }
+
+    public void mostrarNombresBarrios() {
+
+    }
+
+
+    public void esLocalidad() {
+
+    }
 }

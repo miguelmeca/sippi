@@ -14,50 +14,64 @@ import java.util.ArrayList;
 //
 //
 
-
-
-
 public class Pais {
-	public String nombre;
-	public ArrayList<Provincia> provincias;
-	public void crear() {
-	
-	}
-	
-	public void mostrarPais() {
-	
-	}
-	
-	public void getProvincia() {
-	
-	}
-	
-	public void mostrarNombre() {
-	
-	}
-	
-	public void mostrarProvincias() {
-	
-	}
-	
+    private int id;
+    private String nombre;
+    private ArrayList<Provincia> provincias;
 
-	public void buscarPais() {
-	
-	}
-	
-	public void getPais() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
-	public void mostrarNombresProvincias() {
-	
-	}
-	
-	public void esPais() {
-	
-	}
+    public Pais() {
+    }
+
+    public void crear() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public void mostrarPais() {
+
+    }
+
+    public void getProvincia() {
+
+    }
+
+    public void setProvincia(ArrayList<Provincia> provincias){
+        this.provincias = provincias;
+    }
+
+    public void getNombre() {
+
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void mostrarProvincias() {
+
+    }
+
+
+    public void buscarPais() {
+
+    }
+
+    public void getPais() {
+
+    }
+
+    public void mostrarNombresProvincias() {
+
+    }
+
+    public void esPais() {
+
+    }
 }

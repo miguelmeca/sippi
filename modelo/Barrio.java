@@ -15,25 +15,42 @@ package modelo;
 
 
 public class Barrio {
-	public Object nombre;
-	public Object descripcion;
-	public void crear() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
-	public void setNombre() {
-	
-	}
-	
-	public void mostrarNombre() {
-	
-	}
-	
-	public void esBarrio() {
-	
-	}
+    private int id;
+    private String nombre;
+    private String descripcion;
+
+    public Barrio() {
+    }
+
+    public void crear() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void esBarrio() {
+
+    }
 }
