@@ -7,7 +7,7 @@
           <generator class="increment"></generator>
       </id>
       <property name="nombre" type="string" column="NOMBRE"/>
-
+      <property name="descripcion" type="string" column="DESCRIPCION"/>
       <!--<many-to-one name="Localidad" column="IDLOCALIDAD"/>-->
 
   </class>
