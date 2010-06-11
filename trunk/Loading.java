@@ -31,11 +31,10 @@ public class Loading extends javax.swing.JFrame {
         initComponents();
         habilitarVentana();
 
-        this.repaint();
+        
         CargarLibrerias(10,"Cargando Librerías...");
-        this.repaint();
         CargarHibernate(50,"Cargando Hibernate...");
-        this.repaint();
+        
 
         LanzarSistema();
     }
@@ -44,7 +43,7 @@ public class Loading extends javax.swing.JFrame {
     {
         this.setSize(400, 267);
         this.setVisible(true);
-        this.repaint();
+        this.update(this.getGraphics());
         setProgress(1);
         setProgress(0);
         lblMsg.setText("Inicializando...");
@@ -69,22 +68,26 @@ public class Loading extends javax.swing.JFrame {
     // Llama punto por punto cargando las librerias
     private void CargarLibrerias(int x,String txt)
     {
-        
+        lblMsg.setText(txt);
+        this.update(this.getGraphics());
 
         CargarLookAndFeel();
         jpb.setValue(20);
 
         setProgress(jpb.getValue()+x);
-        lblMsg.setText(txt);
+        this.update(this.getGraphics());
     }
 
     // Hace la carga inicial de Hibernate
     private void CargarHibernate(int x, String txt)
     {
+        lblMsg.setText(txt);
+        this.update(this.getGraphics());
+
         SessionFactory sf = HibernateUtil.getSessionFactory();
         
         setProgress(jpb.getValue()+x);
-        lblMsg.setText(txt);
+        this.update(this.getGraphics());
     }
 
     private void CargarLookAndFeel()
