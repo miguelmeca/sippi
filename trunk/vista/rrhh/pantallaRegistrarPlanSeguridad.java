@@ -15,7 +15,7 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class pantallaRegistrarPlanSeguridad extends javax.swing.JFrame {
+public class pantallaRegistrarPlanSeguridad extends javax.swing.JInternalFrame {
 
     /** Creates new form frmRegistrarPlanSeguridad */
     public pantallaRegistrarPlanSeguridad() {
@@ -48,7 +48,8 @@ public class pantallaRegistrarPlanSeguridad extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Registrar Un Nuevo Plan de Seguridad");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -178,7 +179,7 @@ public class pantallaRegistrarPlanSeguridad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

@@ -15,7 +15,7 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
+public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame {
 
     /** Creates new form frmConsultarEmpresaCliente */
     public pantallaConsultarEmpresaCliente() {
@@ -61,7 +61,8 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
         lblPaginaWeb = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Consultar Datos de una Empresa Cliente");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -298,7 +299,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, 355, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, 0, 367, Short.MAX_VALUE))
                     .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -313,7 +314,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JFrame {
                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCerrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

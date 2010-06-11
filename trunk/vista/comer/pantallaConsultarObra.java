@@ -113,53 +113,55 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Consultar Obra");
 
         jLabel1.setText("Consultar Obra:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bagley SA Villa Mercedez" }));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre del a Obra: ");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripcion:");
 
         jLabel5.setText("1. Modificar Cinta de Galletitas Oreo");
 
         jLabel6.setText("Ampliar la capacidad de la cinta transportadora");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("fecha de Registro:");
 
         jLabel7.setText("11/06/2009");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Fecha Límite de validez del presupuesto: ");
 
         jLabel9.setText("11/07/2009");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Fecha límite de entrega del presupuesto:");
 
         jLabel11.setText("28/06/2009");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha de Aceptación:");
 
         jLabel13.setText("10/07/2009");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("Ubicación del pliego:");
 
         jLabel15.setText("Estante A2");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Ubicación de los planos:");
 
         jLabel17.setText("Estante A3");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Monto de la Obra: $21000");
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -238,7 +240,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Datos de la Obra", jPanel1);
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel19.setText("Razón Social: ");
 
         jLabel20.setText("Dulciora SA");
@@ -502,7 +504,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblRazonSocial.setText("Razon Social:");
 
-        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCUIT.setText("CUIT : ");
 
         lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -511,7 +513,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         lblLocalidad.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblLocalidad.setText("Localidad: ");
 
-        lblCodigoPostal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCodigoPostal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCodigoPostal.setText("Código Postal:");
 
         txtRazonSocial.setText("Grupo Arcor");
@@ -563,7 +565,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblProvincia.setText("Provincia:");
 
-        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPais.setText("País:");
 
         txtProvincia.setText("San Luis");
@@ -761,7 +763,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

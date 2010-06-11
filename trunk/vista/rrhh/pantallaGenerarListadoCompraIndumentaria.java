@@ -15,7 +15,7 @@ package vista.rrhh;
  *
  * @author iuga
  */
-public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JFrame {
+public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JInternalFrame {
 
     /** Creates new form frmGenerarListadoCompraIndumentaria */
     public pantallaGenerarListadoCompraIndumentaria() {
@@ -46,7 +46,8 @@ public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JFrame
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Generar un listado de compra de indumentaria");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar Items"));
@@ -103,7 +104,7 @@ public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -174,7 +175,7 @@ public class pantallaGenerarListadoCompraIndumentaria extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

@@ -15,7 +15,7 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class pantallaRegistrarTallerCapacitacion extends javax.swing.JFrame {
+public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFrame {
 
     /** Creates new form frmRegistrarCursoCapacitacion */
     public pantallaRegistrarTallerCapacitacion() {
@@ -63,7 +63,9 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setForeground(java.awt.Color.white);
+        setIconifiable(true);
         setTitle("Registrar Taller de Capacitación para los empleados");
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -359,7 +361,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
