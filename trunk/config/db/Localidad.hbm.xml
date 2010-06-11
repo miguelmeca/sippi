@@ -9,6 +9,10 @@
       <property name="nombre" type="string" column="NOMBRE"/>
 
       <!--<many-to-one name="Provincia" column="IDPROVINCIA"/>-->
+      <set name="barrios">
+          <key column="localidad_id"/>
+          <one-to-many class="modelo.Barrio"/>
+      </set>
 
   </class>
 </hibernate-mapping>

@@ -38,11 +38,11 @@ public class Pais {
 
     }
 
-    public void getProvincia() {
-
+    public ArrayList<Provincia> getProvincias() {
+        return this.provincias;
     }
 
-    public void setProvincia(ArrayList<Provincia> provincias){
+    public void setProvincias(ArrayList<Provincia> provincias){
         this.provincias = provincias;
     }
 
