@@ -1,4 +1,5 @@
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 //import org.jfree.ui.RefineryUtilities;
 import org.hibernate.SessionFactory;
@@ -30,8 +31,11 @@ public class Loading extends javax.swing.JFrame {
         initComponents();
         habilitarVentana();
 
+        this.repaint();
         CargarLibrerias(10,"Cargando Librerías...");
+        this.repaint();
         CargarHibernate(50,"Cargando Hibernate...");
+        this.repaint();
 
         LanzarSistema();
     }
@@ -41,12 +45,22 @@ public class Loading extends javax.swing.JFrame {
         this.setSize(400, 267);
         this.setVisible(true);
         this.repaint();
-        jpb.setValue(1);
-        jpb.setValue(0);
+        setProgress(1);
+        setProgress(0);
         lblMsg.setText("Inicializando...");
         RefineryUtilities.centerFrameOnScreen(this);
     }
-     private void LanzarSistema()
+
+    public void setProgress(final int progress)
+      {
+        SwingUtilities.invokeLater(new Runnable() {
+          public void run() {
+            jpb.setValue(progress);
+          }
+        });
+      }
+
+    private void LanzarSistema()
     {
        new VentanaPrincipal().setVisible(true);
        this.dispose();
@@ -60,7 +74,7 @@ public class Loading extends javax.swing.JFrame {
         CargarLookAndFeel();
         jpb.setValue(20);
 
-        jpb.setValue(jpb.getValue()+x);
+        setProgress(jpb.getValue()+x);
         lblMsg.setText(txt);
     }
 
@@ -69,7 +83,7 @@ public class Loading extends javax.swing.JFrame {
     {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         
-        jpb.setValue(jpb.getValue()+x);
+        setProgress(jpb.getValue()+x);
         lblMsg.setText(txt);
     }
 
@@ -108,28 +122,19 @@ public class Loading extends javax.swing.JFrame {
         jpb.setBounds(10, 225, 380, 17);
 
         lblMsg.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMsg.setText("Mensajes de Carga ...");
         getContentPane().add(lblMsg);
         lblMsg.setBounds(10, 240, 380, 16);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Loading.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Splash.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 400, 270);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Loading().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
