@@ -18,6 +18,7 @@ import controlador.xml.XMLReaderMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.SwingPanel;
+import vista.comer.pantallaRegistrarPedido;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
@@ -239,12 +240,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         if(node==null) return;
 
-        if(node.getTitulo().compareTo("Nuevo Empleado")>=0)
+        //
+        if(node.getTitulo().equals("Nuevo Empleado"))
         {
             pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
             pre.opcionRegistrarEmpleado();
+            return;
+        }
+
+        // Nuevo Pedido de Obra
+        if(node.getTitulo().equals("Nuevo Pedido de Obra"))
+        {
+            pantallaRegistrarPedido pre = new pantallaRegistrarPedido();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
         }
 
     }//GEN-LAST:event_treeMenuValueChanged
