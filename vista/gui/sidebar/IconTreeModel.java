@@ -21,14 +21,12 @@ public class IconTreeModel implements TreeModel {
 
     public IconTreeModel()
     {
-        root = new TreeEntry("_ROOT_", null);
-
-   }
+    }
 
 
     public void RellenarArbol(TreeEntry te)
     {
-        root.add(te);
+        root = te;
     }
 
     public Object getRoot() {

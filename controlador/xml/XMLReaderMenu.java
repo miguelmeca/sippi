@@ -20,7 +20,7 @@ public class XMLReaderMenu extends XMLReader {
 
     public XMLReaderMenu(String urlXml) {
         super(urlXml);
-        this.root = new TreeEntry("asd","/res/iconos/var/16x16/heart.png");
+        this.root = new TreeEntry("_ROOT_", null);
     }
 
     public TreeEntry cargarMenu()
