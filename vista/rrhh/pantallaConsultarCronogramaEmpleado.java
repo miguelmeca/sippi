@@ -15,7 +15,7 @@ package vista.rrhh;
  *
  * @author Administrador
  */
-public class pantallaConsultarCronogramaEmpleado extends javax.swing.JFrame {
+public class pantallaConsultarCronogramaEmpleado extends javax.swing.JInternalFrame {
 
     /** Creates new form frmConsultarCronogramaEmpleado */
     public pantallaConsultarCronogramaEmpleado() {
@@ -49,7 +49,8 @@ public class pantallaConsultarCronogramaEmpleado extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Consultar el Cronograma de un empleado");
 
         jLabel1.setText("Empleado: ");
@@ -197,7 +198,7 @@ public class pantallaConsultarCronogramaEmpleado extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();

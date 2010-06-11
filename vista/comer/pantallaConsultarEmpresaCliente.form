@@ -2,7 +2,8 @@
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="closable" type="boolean" value="true"/>
+    <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Consultar Datos de una Empresa Cliente"/>
   </Properties>
   <SyntheticProperties>
@@ -30,7 +31,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jComboBox1" pref="355" max="32767" attributes="0"/>
+                      <Component id="jComboBox1" pref="367" max="32767" attributes="0"/>
                   </Group>
                   <Component id="btnCerrar" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
               </Group>
@@ -50,7 +51,7 @@
               <Component id="pnlDatosCliente" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

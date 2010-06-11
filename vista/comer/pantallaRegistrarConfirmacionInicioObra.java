@@ -15,7 +15,7 @@ package vista.comer;
  *
  * @author iuga
  */
-public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JFrame {
+public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JInternalFrame {
 
     /** Creates new form frmRegistrarConfirmacionInicioObra */
     public pantallaRegistrarConfirmacionInicioObra() {
@@ -55,7 +55,8 @@ public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JFrame 
         btnConsultarObra = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Confirmar Inicio de Obra");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles de la Obra"));
@@ -220,7 +221,7 @@ public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JFrame 
                     .addComponent(lblPedidosOPendientes)
                     .addComponent(cmbObrasPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultarObra))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

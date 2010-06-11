@@ -15,7 +15,7 @@ package vista.comer;
  *
  * @author Administrador
  */
-public class pantallaRegistrarNuevaPlanta extends javax.swing.JFrame {
+public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
 
     /** Creates new form frmRegistrarNuevaPlanta */
     public pantallaRegistrarNuevaPlanta() {
@@ -45,7 +45,8 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Registrar Nueva Planta");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -149,15 +150,13 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, 0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jComboBox2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5))))
+                    .addComponent(jComboBox2)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

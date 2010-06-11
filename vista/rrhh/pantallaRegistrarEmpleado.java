@@ -124,6 +124,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame {
         jButton8 = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
         setTitle("Registrar un nuevo empleado");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Documento de Identidad"));
@@ -577,7 +578,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();

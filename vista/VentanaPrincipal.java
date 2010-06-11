@@ -18,11 +18,22 @@ import controlador.xml.XMLReaderMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.SwingPanel;
+import vista.comer.pantallaConsultarEmpresaCliente;
+import vista.comer.pantallaConsultarObra;
+import vista.comer.pantallaRegistrarConfirmacionInicioObra;
+import vista.comer.pantallaRegistrarEmpresaCliente;
+import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
+import vista.rrhh.pantallaConsultarCronogramaEmpleado;
+import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
+import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
 import vista.rrhh.pantallaRegistrarEmpleado;
+import vista.rrhh.pantallaRegistrarPlanSeguridad;
+import vista.rrhh.pantallaRegistrarTaller;
+import vista.rrhh.pantallaRegistrarTallerCapacitacion;
 
 
 /**
@@ -239,7 +250,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         TreeEntry node = (TreeEntry)evt.getPath().getLastPathComponent();
 
         if(node==null) return;
-
         //
         if(node.getTitulo().equals("Nuevo Empleado"))
         {
@@ -249,7 +259,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.opcionRegistrarEmpleado();
             return;
         }
-
         // Nuevo Pedido de Obra
         if(node.getTitulo().equals("Nuevo Pedido de Obra"))
         {
@@ -258,7 +267,86 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.setVisible(true);
             return;
         }
-
+        //Nueva Empresa Cliente
+        if(node.getTitulo().equals("Nueva Empresa Cliente"))
+        {
+            pantallaRegistrarEmpresaCliente pre = new pantallaRegistrarEmpresaCliente();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        //Consultar Empresas Cliente
+         if(node.getTitulo().equals("Consultar Empresas Cliente"))
+        {
+            pantallaConsultarEmpresaCliente pre = new pantallaConsultarEmpresaCliente();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Nueva Planta
+        if(node.getTitulo().equals("Nueva Planta"))
+        {
+            pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Consultar Obras
+        if(node.getTitulo().equals("Consultar Obras"))
+        {
+            pantallaConsultarObra pre = new pantallaConsultarObra();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Dar Inicio a una Obra
+        if(node.getTitulo().equals("Dar Inicio a una Obra"))
+        {
+            pantallaRegistrarConfirmacionInicioObra pre = new pantallaRegistrarConfirmacionInicioObra();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Cronogramas de Trabajo
+        if(node.getTitulo().equals("Cronogramas de Trabajo"))
+        {
+            pantallaConsultarCronogramaEmpleado pre = new pantallaConsultarCronogramaEmpleado();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Nuevo Listado de Compra de Indumentaria
+        if(node.getTitulo().equals("Nuevo Listado de Compra de Indumentaria"))
+        {
+            pantallaGenerarListadoCompraIndumentaria pre = new pantallaGenerarListadoCompraIndumentaria();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Nuevo Plan de Seguridad
+        if(node.getTitulo().equals("Nuevo Plan de Seguridad"))
+        {
+            pantallaRegistrarPlanSeguridad pre = new pantallaRegistrarPlanSeguridad();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Nuevo Taller de Capcitación
+        if(node.getTitulo().equals("Nuevo Taller de Capcitación"))
+        {
+            pantallaRegistrarTaller pre = new pantallaRegistrarTaller();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Nuevo Plan de Seguridad
+        if(node.getTitulo().equals("Registrar Asistencias"))
+        {
+            pantallaRegistrarAsistenciaTallerCapacitacion pre = new pantallaRegistrarAsistenciaTallerCapacitacion();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_treeMenuValueChanged
 
     /**
