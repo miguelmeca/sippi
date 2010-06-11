@@ -10,15 +10,33 @@
 
 <menu>
 
-    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
+    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Clientes">
 
-        <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Empleado"/>
+         <item icono="/res/iconos/var/16x16/add.png" nombre="Nuevo Pedido de Obra"/>
+         <item icono="/res/iconos/var/16x16/user.png" nombre="Nueva Empresa Cliente"/>
+         <item icono="/res/iconos/var/16x16/search.png" nombre="Consultar Empresas Cliente"/>
+         <item icono="/res/iconos/var/16x16/add.png" nombre="Nueva Planta"/>
+         <item icono="/res/iconos/var/16x16/search.png" nombre="Consultar Obras"/>
+         <item icono="/res/iconos/var/16x16/accept.png" nombre="Dar Inicio a una Obra"/>
+
 
     </itemcat>
 
-    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">
+    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
 
-        
+        <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Empleado"/>
+        <item icono="/res/iconos/var/16x16/calendar.png" nombre="Cronogramas de Trabajo"/>
+        <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Listado de Compra de Indumentaria"/>
+
+    </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/comments.png" nombre="Talleres de Capacitación">
+        <item icono="/res/iconos/var/16x16/add_page.png" nombre="Plan de Seguridad"/>
+        <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Taller de Capcitación"/>
+        <item icono="/res/iconos/var/16x16/accept_page.png" nombre="Registrar Asistencia"/>
+    </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       
 
     </itemcat>
 
