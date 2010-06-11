@@ -10,17 +10,15 @@
 
 <menu>
 
-    <itemcat icono="/res/iconos/var/16x16/block.png" nombre="Gestionar Clientes">
+    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
 
-        <item icono="/res/iconos/var/16x16/block.png" nombre="Agregar Cliente"/>
-        <item icono="/res/iconos/var/16x16/block.png" nombre="Modificar Cliente"/>
+        <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Empleado"/>
 
     </itemcat>
 
-    <itemcat icono="/res/iconos/var/16x16/block.png" nombre="Gestionar Obras">
+    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">
 
-        <item icono="/res/iconos/var/16x16/block.png" nombre="Agregar Obra"/>
-        <item icono="/res/iconos/var/16x16/block.png" nombre="Emma come moco"/>
+        
 
     </itemcat>
 
