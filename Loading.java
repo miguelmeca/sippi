@@ -1,7 +1,9 @@
 
 import javax.swing.UIManager;
 //import org.jfree.ui.RefineryUtilities;
+import org.hibernate.SessionFactory;
 import org.jfree.ui.RefineryUtilities;
+import util.HibernateUtil;
 import vista.VentanaPrincipal;
 import vista.frmPrototipos;
 
@@ -26,30 +28,49 @@ public class Loading extends javax.swing.JFrame {
     public Loading() {
 
         initComponents();
-        this.setSize(400, 267);
-        RefineryUtilities.centerFrameOnScreen(this);
+        habilitarVentana();
 
-        CargarLibrerias();
+        CargarLibrerias(10,"Cargando Librerías...");
+        CargarHibernate(50,"Cargando Hibernate...");
 
         LanzarSistema();
     }
 
+    private void habilitarVentana()
+    {
+        this.setSize(400, 267);
+        this.setVisible(true);
+        this.repaint();
+        jpb.setValue(1);
+        jpb.setValue(0);
+        lblMsg.setText("Inicializando...");
+        RefineryUtilities.centerFrameOnScreen(this);
+    }
      private void LanzarSistema()
     {
        new VentanaPrincipal().setVisible(true);
-
+       this.dispose();
     }
 
     // Llama punto por punto cargando las librerias
-    private void CargarLibrerias()
+    private void CargarLibrerias(int x,String txt)
     {
-        jpb.setValue(0);
+        
 
         CargarLookAndFeel();
         jpb.setValue(20);
 
-        jpb.setValue(100);
+        jpb.setValue(jpb.getValue()+x);
+        lblMsg.setText(txt);
+    }
 
+    // Hace la carga inicial de Hibernate
+    private void CargarHibernate(int x, String txt)
+    {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        
+        jpb.setValue(jpb.getValue()+x);
+        lblMsg.setText(txt);
     }
 
     private void CargarLookAndFeel()
@@ -72,20 +93,25 @@ public class Loading extends javax.swing.JFrame {
     private void initComponents() {
 
         jpb = new javax.swing.JProgressBar();
-        jLabel2 = new javax.swing.JLabel();
+        lblMsg = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
         getContentPane().setLayout(null);
-        getContentPane().add(jpb);
-        jpb.setBounds(10, 225, 380, 14);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 2, 12));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Mensajes de Carga ...");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 240, 380, 15);
+        jpb.setDoubleBuffered(true);
+        jpb.setStringPainted(true);
+        getContentPane().add(jpb);
+        jpb.setBounds(10, 225, 380, 17);
+
+        lblMsg.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblMsg.setText("Mensajes de Carga ...");
+        getContentPane().add(lblMsg);
+        lblMsg.setBounds(10, 240, 380, 16);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Loading.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -107,8 +133,8 @@ public class Loading extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jpb;
+    private javax.swing.JLabel lblMsg;
     // End of variables declaration//GEN-END:variables
 
 }
