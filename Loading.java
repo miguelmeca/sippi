@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.jfree.ui.RefineryUtilities;
 import util.HibernateUtil;
 import vista.VentanaPrincipal;
-import vista.frmPrototipos;
 
 /*
  * To change this template, choose Tools | Templates
