@@ -19,7 +19,7 @@ public class main
             public void run()
             {
 
-                    new Loading().setVisible(true);
+                    new Loading();
 
             }
         });
