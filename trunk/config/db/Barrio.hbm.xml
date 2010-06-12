@@ -2,13 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Barrio" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-
-      <id name="id" type="integer" column="IDBARRIO">
-          <generator class="increment"></generator>
-      </id>
-      <property name="nombre" type="string" column="NOMBRE"/>
-      <property name="descripcion" type="string" column="DESCRIPCION"/>
-      <!--<many-to-one name="Localidad" column="IDLOCALIDAD"/>-->
-
+    <id column="IDBARRIO" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="NOMBRE" name="nombre" type="string"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <!--<many-to-one name="Localidad" column="IDLOCALIDAD"/>-->
   </class>
 </hibernate-mapping>
