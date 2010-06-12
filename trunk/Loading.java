@@ -1,7 +1,9 @@
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 //import org.jfree.ui.RefineryUtilities;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jfree.ui.RefineryUtilities;
 import util.HibernateUtil;
@@ -83,7 +85,25 @@ public class Loading extends javax.swing.JFrame {
         lblMsg.setText(txt);
         this.update(this.getGraphics());
 
-        SessionFactory sf = HibernateUtil.getSessionFactory();
+            try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession(); // Pruebo la conexion !!
+            }
+            catch(ExceptionInInitializerError e)
+            {
+                JOptionPane.showMessageDialog(this,"Error de Hibernate \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+            catch(NoClassDefFoundError e)
+            {
+                JOptionPane.showMessageDialog(this,"No se cargaron las librerías de Hibernate \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,"Error en la conexion a la base de datos \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
         
         setProgress(jpb.getValue()+x);
         this.update(this.getGraphics());
