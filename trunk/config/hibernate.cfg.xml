@@ -3,18 +3,24 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
-    <property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.1.105:1521/xe</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>
     <property name="hibernate.connection.username">administradornn</property>
     <property name="hibernate.connection.password">administradornn</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</property>
+
+    <!--.. CLASES DE MAPEO ....................................................-->
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
+
     <mapping package="modelo"  resource="config/db/Pais.hbm.xml"/>
     <mapping package="modelo"  resource="config/db/Provincia.hbm.xml"/>
     <mapping package="modelo"  resource="config/db/Barrio.hbm.xml"/>
     <mapping package="modelo"  resource="config/db/Localidad.hbm.xml"/>
+
     <mapping package="modelo"  resource="config/db/TipoEspecialidad.hbm.xml"/>
+    <mapping package="modelo"  resource="config/db/RangoEspecialidad.hbm.xml"/>
+    <mapping package="modelo"  resource="config/db/Especialidad.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
