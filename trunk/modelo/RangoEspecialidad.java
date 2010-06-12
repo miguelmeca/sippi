@@ -11,9 +11,6 @@ package modelo;
 //
 //
 
-
-
-
 public class RangoEspecialidad {
 
         public int id;
