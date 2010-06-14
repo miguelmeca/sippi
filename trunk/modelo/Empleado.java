@@ -1,3 +1,4 @@
+package modelo;
 
 import java.util.Date;
 
@@ -40,10 +41,6 @@ public class Empleado {
 	}
 	
 	public void mostrarCapacitacion() {
-	
-	}
-	
-	public void crear() {
 	
 	}
 	
@@ -99,7 +96,7 @@ public class Empleado {
 	
 	}
 	
-	public void fechaVencimientoCapacitaci�n() {
+	public void fechaVencimientoCapacitacion() {
 	
 	}
 }

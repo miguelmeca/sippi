@@ -1,3 +1,4 @@
+package modelo;
 
 import java.util.Date;
 
@@ -17,8 +18,8 @@ import java.util.Date;
 
 public class DetalleHorarioTaller {
 	private Date fecha;
-	private Object horaInicio;
-	private Object horaFin;
+	private String horaInicio;
+	private String horaFin;
 	private AsistenciaTallerCapacitacion asistencias;
 	public void crear() {
 	
