@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jfree.ui.RefineryUtilities;
+import test.DBExamplesLoader;
 import util.HibernateUtil;
 import vista.VentanaPrincipal;
 
@@ -35,9 +36,22 @@ public class Loading extends javax.swing.JFrame {
         
         CargarLibrerias(10,"Cargando Librerías...");
         CargarHibernate(50,"Cargando Hibernate...");
-        
+        CargarEjemplos(10,"Cargando Datos iniciales...");
 
         LanzarSistema();
+    }
+
+    private void CargarEjemplos(int i, String txt)
+    {
+        lblMsg.setText(txt);
+        this.update(this.getGraphics());
+
+        test.DBExamplesLoader load = new DBExamplesLoader();
+        load.cargarEjemplos();
+        jpb.setValue(20);
+
+        setProgress(jpb.getValue()+i);
+        this.update(this.getGraphics());
     }
 
     private void habilitarVentana()
@@ -133,7 +147,6 @@ public class Loading extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setAlwaysOnTop(true);
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
         getContentPane().setLayout(null);
@@ -143,7 +156,7 @@ public class Loading extends javax.swing.JFrame {
         getContentPane().add(jpb);
         jpb.setBounds(10, 225, 380, 17);
 
-        lblMsg.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        lblMsg.setFont(new java.awt.Font("Dialog", 2, 12));
         lblMsg.setForeground(new java.awt.Color(255, 255, 255));
         lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMsg.setText("Mensajes de Carga ...");
