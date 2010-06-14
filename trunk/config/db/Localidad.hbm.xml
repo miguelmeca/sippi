@@ -6,10 +6,12 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <!--<many-to-one name="Provincia" column="IDPROVINCIA"/>-->
-    <set name="barrios">
+
+    <list name="barrios" table="Barrio" cascade="all-delete-orphan">
       <key column="localidad_id"/>
+      <index column="IDLOCALIDAD"/>
       <one-to-many class="modelo.Barrio"/>
-    </set>
+    </list>
+
   </class>
 </hibernate-mapping>
