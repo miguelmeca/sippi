@@ -28,6 +28,7 @@ import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
+import vista.rrhh.pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion;
 import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
 import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
 import vista.rrhh.pantallaRegistrarEmpleado;
@@ -343,6 +344,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(node.getTitulo().equals("Registrar Asistencias"))
         {
             pantallaRegistrarAsistenciaTallerCapacitacion pre = new pantallaRegistrarAsistenciaTallerCapacitacion();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Emitir Listado de Asistencia
+        if(node.getTitulo().equals("Emitir Listado de Asistencia"))
+        {
+            pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion pre = new pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
             return;
