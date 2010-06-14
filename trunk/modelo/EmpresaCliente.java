@@ -12,78 +12,95 @@
 
 
 
-public class EmpresaCliente {
-	private ientos.Planta plantas;
-	private Grupo grupo;
-	public void crear() {
-	
-	}
-	
-	public void mostrarLocalidad() {
-	
-	}
-	
-	public void mostrarPlanta(String nombre) {
-	
-	}
-	
-	public void getRazonSocial() {
-	
-	}
-	
-	public void getDatosEmpresaCliente() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
-	public void getEmpresa(Planta planta) {
-	
-	}
-	
-	public void mostrarDatosRestantes() {
-	
-	}
-	
-	public void getTelefonos() {
-	
-	}
-	
-	public void getEmpresaCliente(String nombre) {
-	
-	}
-	
-	public void getDomicilio() {
-	
-	}
-	
-	public void getRazonSocialPlantas() {
-	
-	}
-	
-	public void getPlantas() {
-	
-	}
-	
-	public void esEstadoAlta() {
-	
-	}
-	
-	public void mostrarDatos() {
-	
-	}
-	
-	public void getCUIT() {
-	
-	}
-	
-	public void getEmail() {
-	
-	}
-	
-	public void getPaginaWeb() {
-	
-	}
+public class EmpresaCliente extends Empresa{
+	private int id;
+        private Planta plantas;
+
+    public EmpresaCliente() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public Planta getPlantas() {
+        return plantas;
+    }
+
+    public void setPlantas(Planta plantas) {
+        this.plantas = plantas;
+    }
+
+    // Sería el constructor...
+    public void crear() {
+
+    }
+
+    public void mostrarLocalidad() {
+
+    }
+
+    public void mostrarPlanta(String nombre) {
+
+    }
+
+    public void getRazonSocial() {
+
+    }
+
+    public void getDatosEmpresaCliente() {
+
+    }
+
+    public void getNombre() {
+
+    }
+
+    public void getEmpresa(Planta planta) {
+
+    }
+
+    public void mostrarDatosRestantes() {
+
+    }
+
+    public void getTelefonos() {
+
+    }
+
+    public void getEmpresaCliente(String nombre) {
+
+    }
+
+    public void getDomicilio() {
+
+    }
+
+    public void getRazonSocialPlantas() {
+
+    }
+
+    public void esEstadoAlta() {
+
+    }
+
+    public void mostrarDatos() {
+
+    }
+
+    public void getCUIT() {
+
+    }
+
+    public void getEmail() {
+
+    }
+
+    public void getPaginaWeb() {
+
+    }
 }
