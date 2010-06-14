@@ -112,14 +112,22 @@ public class pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion extends java
 
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Martinez, Raúl", "falta check box!!!", null, null},
-                {"Ibañez, Jorge", "preg a esteban como hace", null, null},
+                {"Martinez, Raúl", null, null, null},
+                {"Ibañez, Jorge", null, null, null},
                 {"Piazza, Roberto", null, null, null}
             },
             new String [] {
                 "Nombre", "12/05/2010 9:00 - 13:00", "14/05/2010 10:00 - 13:30", "19/05/2010 9:00 - 13:00"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblAsistencia);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -127,8 +135,8 @@ public class pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion extends java
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

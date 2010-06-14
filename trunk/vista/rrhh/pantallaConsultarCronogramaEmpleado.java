@@ -31,108 +31,102 @@ public class pantallaConsultarCronogramaEmpleado extends javax.swing.JInternalFr
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblNombreEmpleado = new javax.swing.JLabel();
+        cmbNombreEmpleado = new javax.swing.JComboBox();
+        pnlCronograma = new javax.swing.JPanel();
+        lblCronograma = new javax.swing.JLabel();
+        pnlDetalleActividad = new javax.swing.JPanel();
+        lblNombreTarea = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        lblPorcentajeAvance = new javax.swing.JLabel();
+        lblHerramientasAsociadas = new javax.swing.JLabel();
+        lblFechaFinEst = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Consultar el Cronograma de un empleado");
 
-        jLabel1.setText("Empleado: ");
+        lblNombreEmpleado.setText("Empleado: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Stark Tony" }));
+        cmbNombreEmpleado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Stark Tony" }));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cronograma"));
+        pnlCronograma.setBorder(javax.swing.BorderFactory.createTitledBorder("Cronograma"));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Gantt-BORRAR.png"))); // NOI18N
+        lblCronograma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Gantt-BORRAR.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2)
+        javax.swing.GroupLayout pnlCronogramaLayout = new javax.swing.GroupLayout(pnlCronograma);
+        pnlCronograma.setLayout(pnlCronogramaLayout);
+        pnlCronogramaLayout.setHorizontalGroup(
+            pnlCronogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblCronograma)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2)
+        pnlCronogramaLayout.setVerticalGroup(
+            pnlCronogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblCronograma)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Actividad"));
+        pnlDetalleActividad.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Actividad"));
 
-        jLabel8.setText("Nombre: Tarea 1");
+        lblNombreTarea.setText("Nombre: Tarea 1");
 
-        jLabel9.setText("Descripcion: Se detalla el alcance de la Tarea 1 ...");
+        lblDescripcion.setText("Descripcion: Se detalla el alcance de la Tarea 1 ...");
 
-        jLabel10.setText("Porcentaje de Avance: 10%");
+        lblPorcentajeAvance.setText("Porcentaje de Avance: 10%");
 
-        jLabel11.setText("Herramientas Asociadas: Moladora Portatil, Taladro Magnetico, etc.");
+        lblHerramientasAsociadas.setText("Herramientas Asociadas: Moladora Portatil, Taladro Magnetico, etc.");
 
-        jLabel12.setText("Fecha de Fin Estimada: 19/05/2010");
+        lblFechaFinEst.setText("Fecha de Fin Estimada: 19/05/2010");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlDetalleActividadLayout = new javax.swing.GroupLayout(pnlDetalleActividad);
+        pnlDetalleActividad.setLayout(pnlDetalleActividadLayout);
+        pnlDetalleActividadLayout.setHorizontalGroup(
+            pnlDetalleActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDetalleActividadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlDetalleActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHerramientasAsociadas, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                    .addGroup(pnlDetalleActividadLayout.createSequentialGroup()
+                        .addGroup(pnlDetalleActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescripcion)
+                            .addComponent(lblNombreTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPorcentajeAvance, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addComponent(jLabel12)))
+                        .addComponent(lblFechaFinEst)))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12))
+        pnlDetalleActividadLayout.setVerticalGroup(
+            pnlDetalleActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDetalleActividadLayout.createSequentialGroup()
+                .addGroup(pnlDetalleActividadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreTarea)
+                    .addComponent(lblPorcentajeAvance)
+                    .addComponent(lblFechaFinEst))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(lblDescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11))
+                .addComponent(lblHerramientasAsociadas))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton1.setText("Cerrar");
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCerrar.setText("Cerrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
+                        .addComponent(lblNombreEmpleado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(465, 465, 465))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(554, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnlCronograma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                    .addComponent(pnlDetalleActividad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -140,15 +134,15 @@ public class pantallaConsultarCronogramaEmpleado extends javax.swing.JInternalFr
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNombreEmpleado)
+                    .addComponent(cmbNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlCronograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlDetalleActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnCerrar)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,17 +160,17 @@ public class pantallaConsultarCronogramaEmpleado extends javax.swing.JInternalFr
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JComboBox cmbNombreEmpleado;
+    private javax.swing.JLabel lblCronograma;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblFechaFinEst;
+    private javax.swing.JLabel lblHerramientasAsociadas;
+    private javax.swing.JLabel lblNombreEmpleado;
+    private javax.swing.JLabel lblNombreTarea;
+    private javax.swing.JLabel lblPorcentajeAvance;
+    private javax.swing.JPanel pnlCronograma;
+    private javax.swing.JPanel pnlDetalleActividad;
     // End of variables declaration//GEN-END:variables
 
 }
