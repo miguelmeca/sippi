@@ -9,9 +9,6 @@
 //
 //
 
-
-
-
 public class GestorConsultarObra {
 	private PedidoObra pedidoObra;
 	private Planta planta;
