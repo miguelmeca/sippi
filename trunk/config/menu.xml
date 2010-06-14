@@ -27,6 +27,7 @@
         <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Empleado"/>
         <item icono="/res/iconos/var/16x16/calendar.png" nombre="Cronogramas de Trabajo"/>
         <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Listado de Compra de Indumentaria"/>
+        <item icono="/res/iconos/var/16x16/calendar.png" nombre="Emitir Listado de Asistencia"/>
 
     </itemcat>
 

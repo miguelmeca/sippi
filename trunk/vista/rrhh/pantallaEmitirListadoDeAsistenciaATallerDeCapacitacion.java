@@ -15,7 +15,7 @@ package vista.rrhh;
  *
  * @author Ana
  */
-public class pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion extends javax.swing.JFrame {
+public class pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion extends javax.swing.JInternalFrame {
 
     /** Creates new form emitirListadoDeAsistenciaATallerDeCapacitacion */
     public pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion() {
