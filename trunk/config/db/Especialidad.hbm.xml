@@ -5,9 +5,7 @@
     <id column="ID_ESP" name="id" type="integer">
       <generator class="increment"/>
     </id>
-
-      <one-to-one name="tipo" class="modelo.TipoEspecialidad"/>
-      <one-to-one name="rango" class="modelo.RangoEspecialidad"/>
-
+    <one-to-one class="modelo.TipoEspecialidad" name="tipo"/>
+    <one-to-one class="modelo.RangoEspecialidad" name="rango"/>
   </class>
 </hibernate-mapping>
