@@ -13,13 +13,18 @@
 
 
 public class Empresa {
-	private ientos.Telefono telefono;
-	private Object razonSocial;
-	private Object cuit;
-	private Object e-mail;
-	private ientos.Domicilio domicilio;
-	private ientos.ContactoResponsable contacto;
-	public Object paginaWeb;
+	private Telefono telefono;
+	private String razonSocial;
+	private String cuit;
+	private String email;
+	private Domicilio domicilio;
+	private ContactoResponsable contacto;
+	public String paginaWeb;
+
+
+
+
+
 	public void mostrarEmpresa() {
 	
 	}

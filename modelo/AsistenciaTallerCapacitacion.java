@@ -14,7 +14,7 @@
 
 public class AsistenciaTallerCapacitacion {
 	private Object asistio;
-	private Object empleado:Empleado;
+	private Empleado empleado;
 	public void crear() {
 	
 	}

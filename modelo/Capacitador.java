@@ -13,7 +13,7 @@
 
 
 public class Capacitador {
-	private ientos.TipoCapacitacion tipoCapacitacion;
+	private TipoCapacitacion tipoCapacitacion;
 	public void crear() {
 	
 	}
