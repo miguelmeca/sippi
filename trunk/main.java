@@ -1,3 +1,7 @@
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -18,7 +22,7 @@ public class main
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run()
             {
-
+                    JOptionPane.showMessageDialog(new JFrame(),"HOLA ANA !!","SVN", JOptionPane.ERROR_MESSAGE);
                     new Loading();
 
             }
