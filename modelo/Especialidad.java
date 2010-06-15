@@ -13,9 +13,20 @@ package modelo;
 
 public class Especialidad {
 
-        public int id;
-	public TipoEspecialidad tipo;
-	public RangoEspecialidad rango;
+        private int id;
+	private TipoEspecialidad tipo;
+	private RangoEspecialidad rango;
+
+    public Especialidad() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
 
     public RangoEspecialidad getRango() {
         return rango;
@@ -32,24 +43,4 @@ public class Especialidad {
     public void setTipo(TipoEspecialidad tipo) {
         this.tipo = tipo;
     }
-
-
-
-        public void getTipoEspecialidad() {
-	
-	}
-	
-	public void getRangoEspecialidad() {
-	
-	}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-	
-	
 }
