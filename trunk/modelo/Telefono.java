@@ -15,16 +15,38 @@ package modelo;
 
 
 public class Telefono {
-	private Object numero;
+        private int id;
+	private String numero;
 	private TipoTelefono tipo;
 	public void crear() {
 	
 	}
-	
-	public void getTelefono() {
-	
-	}
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public TipoTelefono getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoTelefono tipo) {
+        this.tipo = tipo;
+    }
+	
+        
 
 	public TipoTelefono mostrarTipoTelefono() {
             return tipo;
