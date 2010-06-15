@@ -18,9 +18,9 @@
     <mapping package="modelo" resource="config/db/Barrio.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Localidad.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoEspecialidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/PedidoObra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RangoEspecialidad.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Especialidad.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/PedidoObra.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/EstadoPedidoObra.hbm.xml"/>
+
   </session-factory>
 </hibernate-configuration>

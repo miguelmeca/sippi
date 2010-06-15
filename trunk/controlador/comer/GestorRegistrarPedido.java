@@ -6,6 +6,9 @@ import java.util.Date;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
 import vista.comer.pantallaRegistrarPedido;
 
 //
@@ -146,7 +149,7 @@ public class GestorRegistrarPedido {
             PedidoObra nuevo = new PedidoObra();
             nuevo.setNombre(nombre);
             nuevo.setDescripcion(descripcion);
-            nuevo.setFechaAceptacion(null);
+            nuevo.setFechaAceptacion(new Date());
             nuevo.setFechaDeRegistro(new Date());
             nuevo.setFechaFin(fechaFin);
             nuevo.setFechaInicio(fechaInicio);
@@ -161,6 +164,17 @@ public class GestorRegistrarPedido {
 
             nuevo.crear();
 
+            try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            sesion.save(nuevo);
+            sesion.getTransaction().commit();
+            }catch(Exception e)
+            {
+                System.out.println("ERROR:"+e.getMessage()+"|");
+                e.printStackTrace();
+            }
 	}
 
         private void crearPlanificacion()
@@ -185,4 +199,5 @@ public class GestorRegistrarPedido {
 	public void finCU() {
 	
 	}
+
 }
