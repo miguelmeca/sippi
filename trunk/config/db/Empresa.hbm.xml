@@ -29,10 +29,12 @@
         por medio del atributo ID de la clase/tabla EMPRESA-->
         <key column="ID"/>
 
-        <set name="plantas">
-            <key column="ID"/>
-            <one-to-many class="PLANTA"/>
-        </set>
+    <list name="plantas" table="Planta" cascade="all-delete-orphan">
+      <key column="Empresa_Planta_fk"/>
+      <index column="ID"/>
+      <one-to-many class="modelo.Planta"/>
+    </list>
+
     </joined-subclass>
     <joined-subclass name="Proveedor" table="PROVEEDOR">
         <key column="ID"/>
