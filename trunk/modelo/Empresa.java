@@ -15,18 +15,14 @@ package modelo;
 
 
 public class Empresa {
-	private Telefono telefono;
+
 	private String razonSocial;
 	private String cuit;
 	private String email;
+        public String paginaWeb;
 	private Domicilio domicilio;
-	private ContactoResponsable contacto;
-	public String paginaWeb;
-
-
-
-
-
+        private Telefono telefonos;
+	
 	public void mostrarEmpresa() {
 	
 	}

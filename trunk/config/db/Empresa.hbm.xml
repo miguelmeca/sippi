@@ -2,18 +2,40 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Empresa" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-    <id column="IDEMPRESA" name="id" type="integer">
+    <id column="ID" name="id" type="integer">
       <generator class="increment"/>
     </id>
     <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
     <property column="CUIT" name="cuit" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="PAGINAWEB" name="paginaWeb" type="string"/>
-    <joined-subclass name="EmpresaCliente" table="EMPRESACLIENTE">
+    <many-to-one name="domicilio" column="IDDOMICILIO"/>
+
+    <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO-->
+    <set name="telefonos" table="EMPRESAXTELEFONO">
+
+        <!-- La columna clave de la tabla EMPRESAXTELEFONO que se relaciona
+        con la clave primeria del objeto Empresa es IDEMPRESA-->
         <key column="IDEMPRESA"/>
+
+        <!-- La propiedad telefonos tiene una relacion "muchos-a-muchos"
+        con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO-->
+        <many-to-many class="mapeo.Telefono" column="IDTELEFONO"/>
+
+    </set>
+    <joined-subclass name="EmpresaCliente" table="EMPRESACLIENTE">
+        
+        <!-- La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
+        por medio del atributo ID de la clase/tabla EMPRESA-->
+        <key column="ID"/>
+
+        <set name="plantas">
+            <key column="ID"/>
+            <one-to-many class="PLANTA"/>
+        </set>
     </joined-subclass>
     <joined-subclass name="Proveedor" table="PROVEEDOR">
-        <key column="IDEMPRESA"/>
+        <key column="ID"/>
     </joined-subclass>
   </class>
 </hibernate-mapping>
