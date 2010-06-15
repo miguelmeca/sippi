@@ -105,7 +105,7 @@ public class Loading extends javax.swing.JFrame {
             }
             catch(ExceptionInInitializerError e)
             {
-                JOptionPane.showMessageDialog(this,"Error de Hibernate \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,"Error de Hibernate \n "+e.getLocalizedMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
                 System.exit(1);
             }
             catch(NoClassDefFoundError e)

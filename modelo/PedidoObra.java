@@ -18,23 +18,140 @@ import java.util.Date;
 
 
 public class PedidoObra {
+
+        private int id; // Tb guarda el numero del pedido
+
 	private PlanDeSeguridad planSeg;
 	private String descripcion;
 	private Date fechaLimiteValidezPresupuesto;
-	private int numero;
 	private String nombre;
 	private Date fechaDeRegistro;
 	private Date fechaAceptacion;
 	private Planta planta;
 	private PlanificacionObra planificacionObra;
-	private Object pliego;
-	private Object planos;
-	private Object monto;
-	private Object fechaLimiteEntregaPresupuesto;
+	private String pliego;
+	private String planos;
+	private double monto;
+	private Date fechaLimiteEntregaPresupuesto;
 	public void crear() {
 	
 	}
-	
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFechaAceptacion() {
+        return fechaAceptacion;
+    }
+
+    public void setFechaAceptacion(Date fechaAceptacion) {
+        this.fechaAceptacion = fechaAceptacion;
+    }
+
+    public Date getFechaDeRegistro() {
+        return fechaDeRegistro;
+    }
+
+    public void setFechaDeRegistro(Date fechaDeRegistro) {
+        this.fechaDeRegistro = fechaDeRegistro;
+    }
+
+    public Date getFechaLimiteEntregaPresupuesto() {
+        return fechaLimiteEntregaPresupuesto;
+    }
+
+    public void setFechaLimiteEntregaPresupuesto(Date fechaLimiteEntregaPresupuesto) {
+        this.fechaLimiteEntregaPresupuesto = fechaLimiteEntregaPresupuesto;
+    }
+
+    public Date getFechaLimiteValidezPresupuesto() {
+        return fechaLimiteValidezPresupuesto;
+    }
+
+    public void setFechaLimiteValidezPresupuesto(Date fechaLimiteValidezPresupuesto) {
+        this.fechaLimiteValidezPresupuesto = fechaLimiteValidezPresupuesto;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getNumero() {
+        return id;
+    }
+
+    public void setNumero(int numero) {
+        this.id = numero;
+    }
+
+    public PlanDeSeguridad getPlanSeg() {
+        return planSeg;
+    }
+
+    public void setPlanSeg(PlanDeSeguridad planSeg) {
+        this.planSeg = planSeg;
+    }
+
+    public PlanificacionObra getPlanificacionObra() {
+        return planificacionObra;
+    }
+
+    public void setPlanificacionObra(PlanificacionObra planificacionObra) {
+        this.planificacionObra = planificacionObra;
+    }
+
+    public String getPlanos() {
+        return planos;
+    }
+
+    public void setPlanos(String planos) {
+        this.planos = planos;
+    }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
+    }
+
+    public String getPliego() {
+        return pliego;
+    }
+
+    public void setPliego(String pliego) {
+        this.pliego = pliego;
+    }
+
+
+
+
 	public void mostrarPlanDeSeguridad() {
 	
 	}
