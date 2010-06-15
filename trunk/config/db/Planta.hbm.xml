@@ -14,7 +14,7 @@
       <many-to-many column="ID_TEL" class="modelo.Telefono"/>
     </set>
 
-    
+    <one-to-one name="domicilio" class="modelo.Domicilio" constrained="true"/>
 
   </class>
 </hibernate-mapping>
