@@ -106,17 +106,19 @@ public class Loading extends javax.swing.JFrame {
             catch(ExceptionInInitializerError e)
             {
                 JOptionPane.showMessageDialog(this,"Error de Hibernate \n "+e.getException().getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
-
+                e.printStackTrace();
                 System.exit(1);
             }
             catch(NoClassDefFoundError e)
             {
                 JOptionPane.showMessageDialog(this,"No se cargaron las librerías de Hibernate \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
                 System.exit(1);
             }
             catch(Exception e)
             {
                 JOptionPane.showMessageDialog(this,"Error en la conexion a la base de datos \n "+e.getMessage(),"Error de Conexion", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
                 System.exit(1);
             }
         

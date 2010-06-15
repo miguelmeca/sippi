@@ -35,7 +35,7 @@ public class PedidoObra {
 	private String planos;
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
-
+        private ContactoResponsable contacto;
         //private EstadoPedidoObra estado;
 
         // Crea el objeto, no me queda otra que asociarlo a hibernate
@@ -43,10 +43,18 @@ public class PedidoObra {
 
             crearPlanificacion(); // Xahora no hace nada ...
 
-            EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
+//            EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
 //            tomarEstadoPedidoObra(estado);
 
 	}
+
+        public ContactoResponsable getContacto() {
+            return contacto;
+        }
+
+        public void setContacto(ContactoResponsable contacto) {
+            this.contacto = contacto;
+        }
 
         public int getId() {
             return id;
@@ -55,6 +63,7 @@ public class PedidoObra {
         public void setId(int id) {
             this.id = id;
         }
+      
 
     public String getDescripcion() {
         return descripcion;
@@ -250,9 +259,12 @@ public class PedidoObra {
 	public void getEtapasPrimerNivel() {
 	
 	}
+
 	
 //	public void tomarEstadoPedidoObra(EstadoPedidoObra estado)
 //        {
 //            this.estado = estado;
 //	}
+
+        
 }

@@ -25,6 +25,7 @@
     <mapping package="modelo" resource="config/db/Planta.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoTelefono.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Telefono.hbm.xml"/>
-    <mapping resource="config/db/Domicilio.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Domicilio.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

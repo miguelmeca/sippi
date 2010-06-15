@@ -18,5 +18,9 @@
     <property column="FECHA_ACEPTO" name="fechaAceptacion" type="date"/>
     <property column="FECHA_LEP" name="fechaLimiteEntregaPresupuesto" type="date"/>
 
+    <many-to-one name="planta" class="modelo.Planta" column="ID_PLANTA"/>
+
+    <many-to-one name="cOntacto" class="modelo.ContactoResponsable" column="ID_CONTACTO"/>
+
   </class>
 </hibernate-mapping>
