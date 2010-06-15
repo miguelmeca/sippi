@@ -12,9 +12,13 @@
     <property column="PLANOS" name="planos" type="string"/>
 
     <property column="FECHALVP" name="fechaLimiteValidezPresupuesto" type="date"/>
+    <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
+    <property column="FECHA_FIN" name="fechaFin" type="date"/>
     <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
     <property column="FECHA_ACEPTO" name="fechaAceptacion" type="date"/>
     <property column="FECHA_LEP" name="fechaLimiteEntregaPresupuesto" type="date"/>
+
+    <one-to-one class="modelo.EstadoPedidoObra" name="estado"/>
 
   </class>
 </hibernate-mapping>

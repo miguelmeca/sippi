@@ -25,6 +25,8 @@ public class PedidoObra {
 	private String descripcion;
 	private Date fechaLimiteValidezPresupuesto;
 	private String nombre;
+	private Date fechaInicio;
+	private Date fechaFin;
 	private Date fechaDeRegistro;
 	private Date fechaAceptacion;
 	private Planta planta;
@@ -33,8 +35,15 @@ public class PedidoObra {
 	private String planos;
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
-	public void crear() {
-	
+
+        private EstadoPedidoObra estado;
+
+        // Crea el objeto, no me queda otra que asociarlo a hibernate
+        public void crear() {
+
+            EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
+            tomarEstadoPedidoObra(estado);
+
 	}
 
         public int getId() {
@@ -149,6 +158,30 @@ public class PedidoObra {
         this.pliego = pliego;
     }
 
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public EstadoPedidoObra getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPedidoObra estado) {
+        this.estado = estado;
+    }
+
 
 
 
@@ -216,7 +249,8 @@ public class PedidoObra {
 	
 	}
 	
-	public void tomarEstadoPedidoObra() {
-	
+	public void tomarEstadoPedidoObra(EstadoPedidoObra estado)
+        {
+            this.estado = estado;
 	}
 }
