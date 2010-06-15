@@ -159,9 +159,7 @@ public class GestorRegistrarPedido {
             generarNumeroPedido();           // AL PEDO
             buscarUltimoNumeroPedidoObra();  // AL PEDO
 
-
-            crearPlanificacion();
-
+            nuevo.crear();
 
 	}
 
