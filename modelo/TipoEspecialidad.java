@@ -16,6 +16,9 @@ public class TipoEspecialidad {
         public String nombre;
 	public String descripcion;
 
+    public TipoEspecialidad() {
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -28,7 +31,7 @@ public class TipoEspecialidad {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
