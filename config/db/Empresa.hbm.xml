@@ -20,7 +20,7 @@
 
         <!-- La propiedad telefonos tiene una relacion "muchos-a-muchos"
         con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO-->
-        <many-to-many class="mapeo.Telefono" column="IDTELEFONO"/>
+        <many-to-many class="modelo.Telefono" column="IDTELEFONO"/>
 
     </set>
     <joined-subclass name="EmpresaCliente" table="EMPRESACLIENTE">
