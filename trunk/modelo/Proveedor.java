@@ -12,9 +12,7 @@ package modelo;
 //
 
 
-
-
-public class Proveedor {
+public class Proveedor extends Empresa{
 	private Material materiales;
 	public void crear() {
 	
