@@ -4,6 +4,7 @@ package controlador.comer;
 
 import java.util.Date;
 import modelo.EmpresaCliente;
+import modelo.PedidoObra;
 import modelo.Planta;
 import vista.comer.pantallaRegistrarPedido;
 
@@ -30,11 +31,13 @@ public class GestorRegistrarPedido {
 	private Planta planta;
 	private Date fechaInicio;
 	private Date fechaFin;
-	private Object montoMaximo;
-	private Object fechaLEP;
-	private Object fechaLVP;
-	private Object pliegoObra;
-	private Object planosObra;
+        private Date fechaAceptacion;
+        private Date fechaRegistro;
+	private double montoMaximo;
+	private Date fechaLEP;
+	private Date fechaLVP;
+	private String pliegoObra;
+	private String planosObra;
 
         public GestorRegistrarPedido(pantallaRegistrarPedido pantalla)
         {
@@ -87,45 +90,98 @@ public class GestorRegistrarPedido {
 	public void seleccionPlanta() {
 	
 	}
+
+
+	public void fechaInicioYFin(Date fechaInicio, Date fechaFin)
+        {
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
+	}
+
+        /**
+         * Seteo el monto maximo de la obra
+         * @param monto
+         */
+	public void montoMaximo(double monto)
+        {
+            this.montoMaximo = monto;
+	}
 	
-	public void fechaInicioYFin() {
+	public void fechaLEP(Date fechaLEP) {
+
+            this.fechaLEP = fechaLEP;
 	
 	}
 	
-	public void montoMaximo() {
+	public void fechaLVP(Date fechaLVP) {
+
+            this.fechaLVP = fechaLVP;
 	
 	}
 	
-	public void fechaLEP() {
+	public void pliegoObra(String pliego) {
+
+            this.pliegoObra = pliego;
 	
 	}
 	
-	public void fechaLVP() {
+	public void planosObra(String planos) {
+
+            this.planosObra = planos;
 	
 	}
-	
-	public void pliegoObra() {
-	
-	}
-	
-	public void planosObra() {
-	
-	}
-	
+
+        /**
+         * Toma la confirmacion del registro y empieza con el kilombo para
+         * agregar un nuevo pedido
+         */
 	public void confirmacionRegistro() {
-	
+
+            crearPedidoObra();
+
 	}
 	
-	public void crearPedidoObra() {
-	
+	private void crearPedidoObra() {
+
+            PedidoObra nuevo = new PedidoObra();
+            nuevo.setNombre(nombre);
+            nuevo.setDescripcion(descripcion);
+            nuevo.setFechaAceptacion(null);
+            nuevo.setFechaDeRegistro(new Date());
+            nuevo.setFechaFin(fechaFin);
+            nuevo.setFechaInicio(fechaInicio);
+            nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
+            nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
+            nuevo.setMonto(montoMaximo);
+            nuevo.setPlanos(planosObra);
+            nuevo.setPliego(pliegoObra);
+
+            generarNumeroPedido();           // AL PEDO
+            buscarUltimoNumeroPedidoObra();  // AL PEDO
+
+
+            crearPlanificacion();
+
+
+	}
+
+        private void crearPlanificacion()
+        {
+
+        }
+
+	private void generarNumeroPedido() {
+
+            // Deberia buscarlo, pero hibernate se encarga solo de ésto y
+            // es transparente a nosotros =)
+
 	}
 	
-	public void generarNumeroPedido() {
-	
-	}
-	
-	public void buscarUltimoNumeroPedidoObra() {
-	
+	private void buscarUltimoNumeroPedidoObra() {
+
+            // Deberia buscarlo, pero hibernate se encarga solo de ésto y
+            // es transparente a nosotros =)
+
 	}
 	
 	public void finCU() {
