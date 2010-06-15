@@ -41,6 +41,8 @@ public class PedidoObra {
         // Crea el objeto, no me queda otra que asociarlo a hibernate
         public void crear() {
 
+            crearPlanificacion(); // Xahora no hace nada ...
+
             EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
             tomarEstadoPedidoObra(estado);
 
