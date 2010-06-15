@@ -7,6 +7,5 @@
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
-
   </class>
 </hibernate-mapping>

@@ -6,12 +6,10 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-
-    <list name="localidades" table="Localidad" cascade="all-delete-orphan">
+    <list cascade="all-delete-orphan" name="localidades" table="Localidad">
       <key column="provincia_id"/>
       <index column="IDPROVINCIA"/>
       <one-to-many class="modelo.Localidad"/>
     </list>
-
   </class>
 </hibernate-mapping>

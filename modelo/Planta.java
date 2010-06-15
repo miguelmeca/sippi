@@ -23,7 +23,7 @@ public class Planta {
 	private String razonSocial;
 	private List telefonos;
 	private Domicilio domicilio;
-	private ContactoResponsable cOntacto;
+	private ContactoResponsable contacto;
 
 	public void crear() {
 	
@@ -57,12 +57,12 @@ public class Planta {
 	
 	}
 
-    public ContactoResponsable getcOntacto() {
-        return cOntacto;
+    public ContactoResponsable getContacto() {
+        return contacto;
     }
 
-    public void setcOntacto(ContactoResponsable contacto) {
-        this.cOntacto = contacto;
+    public void setContacto(ContactoResponsable contacto) {
+        this.contacto = contacto;
     }
 
     public void setDomicilio(Domicilio domicilio) {
