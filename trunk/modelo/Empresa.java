@@ -16,22 +16,82 @@ package modelo;
 
 public class Empresa {
 
-	private String razonSocial;
-	private String cuit;
-	private String email;
-        public String paginaWeb;
-	private Domicilio domicilio;
-        private Telefono telefonos;
-	
-	public void mostrarEmpresa() {
-	
-	}
-	
-	public void mostrarDomicilio() {
-	
-	}
-	
-	public void mostrarTelefono() {
-	
-	}
+    private int id;
+    private String razonSocial;
+    private String cuit;
+    private String email;
+    private String paginaWeb;
+    private Domicilio domicilio;
+    private Telefono telefonos;
+
+    public Empresa() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCuit() {
+        return cuit;
+    }
+
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
+
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPaginaWeb() {
+        return paginaWeb;
+    }
+
+    public void setPaginaWeb(String paginaWeb) {
+        this.paginaWeb = paginaWeb;
+    }
+
+    public String getRazonSocial() {
+        return razonSocial;
+    }
+
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
+    }
+
+    public Telefono getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(Telefono telefonos) {
+        this.telefonos = telefonos;
+    }
+
+    public void mostrarEmpresa() {
+
+    }
+
+    public void mostrarDomicilio() {
+
+    }
+
+    public void mostrarTelefono() {
+
+    }
 }

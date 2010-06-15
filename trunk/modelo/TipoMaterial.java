@@ -15,12 +15,36 @@ package modelo;
 
 
 public class TipoMaterial {
-	private String descripcion;
-	public void crear() {
-	
-	}
-	
-	public void mostrarTipoMaterial() {
-	
-	}
+    private int id;
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TipoMaterial() {
+    }
+
+    
+
+
+    public void crear() {
+
+    }
+
+    public void mostrarTipoMaterial() {
+
+    }
 }

@@ -15,18 +15,47 @@ package modelo;
 
 
 public class Material {
+    private int id;
 	private String nombre;
-	private TipoMaterial tipoMaterial;
-	private int codigo;
+	private TipoMaterial tipoMaterial;	
 	public void crear() {
 	
 	}
-	
-	public void mostrarMaterial() {
-	
-	}
-	
-	public void mostrarTipoMaterial() {
-	
-	}
+
+    public Material() {
+    }
+
+        
+        
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public TipoMaterial getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public void setTipoMaterial(TipoMaterial tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
+    }
+
+    public void mostrarMaterial() {
+
+    }
+
+    public void mostrarTipoMaterial() {
+
+    }
 }
