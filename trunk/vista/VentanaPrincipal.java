@@ -15,6 +15,7 @@ package vista;
 
 import controlador.xml.XMLReader;
 import controlador.xml.XMLReaderMenu;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.SwingPanel;
@@ -85,7 +86,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
+        btnNuevoPedidoObra = new javax.swing.JButton();
+        btnNuevoEmpleado = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -107,17 +109,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/user.png"))); // NOI18N
-        jButton1.setText("Registrar Nuevo Empleado");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoPedidoObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
+        btnNuevoPedidoObra.setText("Nuevo Pedido de Obra");
+        btnNuevoPedidoObra.setFocusable(false);
+        btnNuevoPedidoObra.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnNuevoPedidoObra.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNuevoPedidoObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnNuevoPedidoObraActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnNuevoPedidoObra);
+
+        btnNuevoEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/user.png"))); // NOI18N
+        btnNuevoEmpleado.setText("Registrar Nuevo Empleado");
+        btnNuevoEmpleado.setFocusable(false);
+        btnNuevoEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnNuevoEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNuevoEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoEmpleadoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnNuevoEmpleado);
 
         jToolBar2.setRollover(true);
         jToolBar2.setMaximumSize(new java.awt.Dimension(500, 500));
@@ -126,6 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToolBar2.add(jLabel1);
 
         jTextField1.setText("Buscar..");
+        jTextField1.setMaximumSize(new java.awt.Dimension(200, 200));
         jToolBar2.add(jTextField1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -226,6 +241,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         jMenuItem1.setText("Salir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -241,9 +261,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
+            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            pre.opcionRegistrarEmpleado();
+    }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
 
@@ -358,6 +381,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_treeMenuValueChanged
 
+    private void btnNuevoPedidoObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPedidoObraActionPerformed
+
+            pantallaRegistrarPedido pre = new pantallaRegistrarPedido();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+
+    }//GEN-LAST:event_btnNuevoPedidoObraActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+        int op = JOptionPane.showConfirmDialog (null, "¿Está seguro que desea salir?");
+        if(op == JOptionPane.YES_OPTION)
+        {
+            System.exit(1);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -370,7 +410,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnNuevoEmpleado;
+    private javax.swing.JButton btnNuevoPedidoObra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
