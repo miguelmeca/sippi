@@ -16,5 +16,7 @@
 
     <one-to-one name="domicilio" class="modelo.Domicilio" constrained="true"/>
 
+    <many-to-one name="contacto" class="modelo.ContactoResponsable" column="ID_CONTACTO"/>
+
   </class>
 </hibernate-mapping>
