@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Empresa" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="IDEMPRESA" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
+    <property column="CUIT" name="cuit" type="string"/>
+    <property column="EMAIL" name="email" type="string"/>
+    <property column="PAGINAWEB" name="paginaWeb" type="string"/>
+    <joined-subclass name="EmpresaCliente" table="EMPRESACLIENTE">
+        <key column="IDEMPRESA"/>
+    </joined-subclass>
+    <joined-subclass name="Proveedor" table="PROVEEDOR">
+        <key column="IDEMPRESA"/>
+    </joined-subclass>
+  </class>
+</hibernate-mapping>
