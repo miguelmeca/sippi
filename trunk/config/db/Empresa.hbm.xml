@@ -38,6 +38,11 @@
     </joined-subclass>
     <joined-subclass name="Proveedor" table="PROVEEDOR">
         <key column="ID"/>
-    </joined-subclass>
+        <list name="materiales" table="Material" cascade="all-delete-orphan">
+            <key column="Proveedor_Empresa_Fk"/>
+            <index column="ID"/>
+            <many-to-many class="modelo.Material"/>
+        </list>
+        </joined-subclass>
   </class>
 </hibernate-mapping>
