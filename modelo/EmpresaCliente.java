@@ -15,18 +15,9 @@ package modelo;
 
 
 public class EmpresaCliente extends Empresa{
-	private int id;
-        private Planta plantas;
+    private Planta plantas;
 
     public EmpresaCliente() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    private void setId(int id) {
-        this.id = id;
     }
 
     public Planta getPlantas() {
@@ -50,10 +41,6 @@ public class EmpresaCliente extends Empresa{
 
     }
 
-    public void getRazonSocial() {
-
-    }
-
     public void getDatosEmpresaCliente() {
 
     }
@@ -70,15 +57,7 @@ public class EmpresaCliente extends Empresa{
 
     }
 
-    public void getTelefonos() {
-
-    }
-
     public void getEmpresaCliente(String nombre) {
-
-    }
-
-    public void getDomicilio() {
 
     }
 
@@ -95,14 +74,6 @@ public class EmpresaCliente extends Empresa{
     }
 
     public void getCUIT() {
-
-    }
-
-    public void getEmail() {
-
-    }
-
-    public void getPaginaWeb() {
 
     }
 }
