@@ -17,7 +17,7 @@ import modelo.*;
 
 
 public class GestorRegistrarNuevaEmpresaCliente {
-	private Object paises;
+	private  paises;
 	private Object provincias;
 	private Object localidades;
 	private Object barrios;

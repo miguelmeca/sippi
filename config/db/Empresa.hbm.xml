@@ -33,11 +33,6 @@
     </joined-subclass>
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID"/>
-      <list cascade="all-delete-orphan" name="plantas" table="Planta">
-        <key column="Empresa_Planta_fk"/>
-        <index column="ID"/>
-        <one-to-many class="modelo.Planta"/>
-      </list>
     </joined-subclass>
   </class>
 </hibernate-mapping>

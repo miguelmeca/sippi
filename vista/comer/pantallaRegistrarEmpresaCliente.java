@@ -11,16 +11,30 @@
 
 package vista.comer;
 
+import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author iuga
  */
 public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame {
+    private GestorRegistrarNuevaEmpresaCliente gestor;
+    private DefaultTableModel moldeTabla;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
+        gestor = new GestorRegistrarNuevaEmpresaCliente();
         initComponents();
+        habilitarVentana();
     }
+
+    public void habilitarVentana()
+    {
+
+    }
+
+
 
     /** This method is called from within the constructor to
      * initialize the form.

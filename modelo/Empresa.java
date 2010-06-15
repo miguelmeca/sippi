@@ -11,11 +11,7 @@ package modelo;
 //
 //
 
-
-
-
 public class Empresa {
-
     private int id;
     private String razonSocial;
     private String cuit;
