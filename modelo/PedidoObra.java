@@ -21,7 +21,7 @@ public class PedidoObra {
 
         private int id; // Tb guarda el numero del pedido
 
-	private PlanDeSeguridad planSeg;
+	//private PlanDeSeguridad planSeg;
 	private String descripcion;
 	private Date fechaLimiteValidezPresupuesto;
 	private String nombre;
@@ -30,13 +30,13 @@ public class PedidoObra {
 	private Date fechaDeRegistro;
 	private Date fechaAceptacion;
 	private Planta planta;
-	private PlanificacionObra planificacionObra;
+	// private PlanificacionObra planificacionObra;
 	private String pliego;
 	private String planos;
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
 
-        private EstadoPedidoObra estado;
+        //private EstadoPedidoObra estado;
 
         // Crea el objeto, no me queda otra que asociarlo a hibernate
         public void crear() {
@@ -44,7 +44,7 @@ public class PedidoObra {
             crearPlanificacion(); // Xahora no hace nada ...
 
             EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
-            tomarEstadoPedidoObra(estado);
+//            tomarEstadoPedidoObra(estado);
 
 	}
 
@@ -120,21 +120,21 @@ public class PedidoObra {
         this.id = numero;
     }
 
-    public PlanDeSeguridad getPlanSeg() {
-        return planSeg;
-    }
+//    public PlanDeSeguridad getPlanSeg() {
+//        return planSeg;
+//    }
+//
+//    public void setPlanSeg(PlanDeSeguridad planSeg) {
+//        this.planSeg = planSeg;
+//    }
 
-    public void setPlanSeg(PlanDeSeguridad planSeg) {
-        this.planSeg = planSeg;
-    }
-
-    public PlanificacionObra getPlanificacionObra() {
-        return planificacionObra;
-    }
-
-    public void setPlanificacionObra(PlanificacionObra planificacionObra) {
-        this.planificacionObra = planificacionObra;
-    }
+//    public PlanificacionObra getPlanificacionObra() {
+//        return planificacionObra;
+//    }
+//
+//    public void setPlanificacionObra(PlanificacionObra planificacionObra) {
+//        this.planificacionObra = planificacionObra;
+//    }
 
     public String getPlanos() {
         return planos;
@@ -176,13 +176,13 @@ public class PedidoObra {
         this.fechaInicio = fechaInicio;
     }
 
-    public EstadoPedidoObra getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoPedidoObra estado) {
-        this.estado = estado;
-    }
+//    public EstadoPedidoObra getEstado() {
+//        return estado;
+//    }
+//
+//    public void setEstado(EstadoPedidoObra estado) {
+//        this.estado = estado;
+//    }
 
 
 
@@ -251,8 +251,8 @@ public class PedidoObra {
 	
 	}
 	
-	public void tomarEstadoPedidoObra(EstadoPedidoObra estado)
-        {
-            this.estado = estado;
-	}
+//	public void tomarEstadoPedidoObra(EstadoPedidoObra estado)
+//        {
+//            this.estado = estado;
+//	}
 }

@@ -2,23 +2,21 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.PedidoObra" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-    <id column="ID" name="id" type="integer">
-      <generator class="increment"/>
+
+    <id column="ID_PEDIDO_OBRA" name="id" type="integer">
+      <generator class="native"/>
     </id>
 
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="NOMBRE" name="nombre" type="string"/>
     <property column="PLIEGO" name="pliego" type="string"/>
     <property column="PLANOS" name="planos" type="string"/>
-
     <property column="FECHALVP" name="fechaLimiteValidezPresupuesto" type="date"/>
     <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
     <property column="FECHA_FIN" name="fechaFin" type="date"/>
     <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
     <property column="FECHA_ACEPTO" name="fechaAceptacion" type="date"/>
     <property column="FECHA_LEP" name="fechaLimiteEntregaPresupuesto" type="date"/>
-
-    <many-to-one name="modelo.EstadoPedidoObra" column="ESTADO_ID"/>
 
   </class>
 </hibernate-mapping>
