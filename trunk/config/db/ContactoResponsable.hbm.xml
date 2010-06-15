@@ -2,21 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.ContactoResponsable" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-
     <id column="ID_CONTACTO" name="id" type="integer">
       <generator class="increment"/>
     </id>
-
     <property column="CARGO" name="cargo" type="string"/>
     <property column="NOMBRE" name="nombre" type="string"/>
     <property column="APELLIDO" name="apellido" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="CUIL" name="cuil" type="string"/>
-
     <set name="telefonos" table="ContactoResponsableXTelefono">
       <key column="ID_CONTACTO"/>
-      <many-to-many column="ID_TEL" class="modelo.Telefono"/>
+      <many-to-many class="modelo.Telefono" column="ID_TEL"/>
     </set>
-
   </class>
 </hibernate-mapping>

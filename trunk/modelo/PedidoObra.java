@@ -21,6 +21,7 @@ public class PedidoObra {
 
         private int id; // Tb guarda el numero del pedido
 
+        private ContactoResponsable contacto;
 	//private PlanDeSeguridad planSeg;
 	private String descripcion;
 	private Date fechaLimiteValidezPresupuesto;
@@ -35,7 +36,7 @@ public class PedidoObra {
 	private String planos;
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
-        private ContactoResponsable contacto;
+        
         //private EstadoPedidoObra estado;
 
         // Crea el objeto, no me queda otra que asociarlo a hibernate
@@ -48,13 +49,15 @@ public class PedidoObra {
 
 	}
 
-        public ContactoResponsable getContacto() {
-            return contacto;
-        }
+    public ContactoResponsable getContacto() {
+        return contacto;
+    }
 
-        public void setContacto(ContactoResponsable contacto) {
-            this.contacto = contacto;
-        }
+    public void setContacto(ContactoResponsable contacto) {
+        this.contacto = contacto;
+    }
+
+        
 
         public int getId() {
             return id;
