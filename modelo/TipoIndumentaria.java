@@ -7,7 +7,7 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : TipoIndumentaria.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -15,7 +15,31 @@ package modelo;
 
 
 public class TipoIndumentaria {
+
+        private int id;
 	private String nombre;
+
+        public TipoIndumentaria() {
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+
+
 	public void crear() {
 	
 	}
