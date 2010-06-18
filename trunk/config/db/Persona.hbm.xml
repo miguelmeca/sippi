@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+  <!-- Defino la clase Padre -->
   <class name="modelo.Persona">
-    <id column="ID" name="oid" type="integer" unsaved-value="null">
+    <id column="ID_PERSONA" name="oid" type="integer" unsaved-value="null">
       <generator class="native"/>
     </id>
     <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
@@ -11,5 +12,33 @@
     <property column="NRO_DOC" name="nroDoc" type="date"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="CUIL" name="cuil" type="string"/>
+
+    <many-to-one class="modelo.TipoDocumento" column="ID_TIPO_DOC" name="tipoDoc"/>
+
+    <set name="telefonos" table="PersonaXTelefono">
+      <key column="ID_PERSONA"/>
+      <many-to-many class="modelo.Telefono" column="ID_TEL"/>
+    </set>
+
+    <one-to-one class="modelo.Domicilio" constrained="true" name="domicilio"/>
+
+    <!-- AHORA VIENEN LAS HERENCIAS -->
+    <joined-subclass name="modelo.Empleado" table="EMPLEADO">
+        <!-- Definio la PK de la tabla Empleado que se va a
+             emparejar con la de Persona -->
+        <key column="LEGAJO"/>
+
+        <!-- Defino las propiedades del Empleado -->
+        <property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/>
+        <property column="FECH_BAJA" name="fechaBaja" type="date"/>
+        <property column="RANGO" name="rango" type="string"/>
+
+        <set name="especialiades" table="ESPECIALIDADXEMPLEADO">
+          <key column="ID_PERSONA"/>
+          <many-to-many class="modelo.Especialidad" column="ID_ESPECIALIDAD"/>
+        </set>
+
+    </joined-subclass>
+
   </class>
 </hibernate-mapping>

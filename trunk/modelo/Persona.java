@@ -22,7 +22,7 @@ public class Persona {
 	private Date fechadeNac;
 	private TipoDocumento tipoDoc;
 	private String nroDoc;
-	private Telefono telefono;
+	private Telefono telefonos;
 	private String email;
 	private String cuil;
 	private Domicilio domicilio;
@@ -119,12 +119,12 @@ public class Persona {
         this.nroDoc = nroDoc;
     }
 
-    public Telefono getTelefono() {
-        return telefono;
+    public Telefono getTelefonos() {
+        return telefonos;
     }
 
-    public void setTelefono(Telefono telefono) {
-        this.telefono = telefono;
+    public void setTelefonos(Telefono telefono) {
+        this.telefonos = telefono;
     }
 
     public TipoDocumento getTipoDoc() {
