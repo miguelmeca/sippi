@@ -35,8 +35,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         Iterator<Tupla> it = tipos.iterator();
         while(it.hasNext()){
             Tupla tu = it.next();
-            cmbTipoTelefono.insertIntemAt(tu.getNombre(),tu.getId());
-
+            cmbTipoTelefono.insertItemAt(tu.getNombre(),tu.getId());
         }
     }
 
