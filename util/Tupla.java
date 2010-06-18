@@ -36,4 +36,20 @@ public class Tupla {
         this.id = id;
         this.nombre = nombre;
     }
+
+    /**
+     * @author Iuga
+     * Este metodo es para que la tupla se pueda mostrar directamente en un
+     * JComboBox y que cuando se seleccione un valor devuelva la tupla.
+     * Para ver como funciona ir a pantallaRegistrarNuevaPlanta.mostrarPaises()
+     * @return String
+     */
+    @Override
+    public String toString()
+    {
+        return nombre;
+    }
+
+
+
 }

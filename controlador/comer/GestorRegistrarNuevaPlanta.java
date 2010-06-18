@@ -1,6 +1,14 @@
 package controlador.comer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import modelo.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
+import util.Tupla;
+import vista.comer.pantallaRegistrarNuevaPlanta;
 
 //
 //
@@ -17,23 +25,36 @@ import modelo.*;
 
 
 public class GestorRegistrarNuevaPlanta {
-	public Object listaEmpresas;
-	public Object nombrePlanta;
-	public Object telefonoPlanta;
-	public Object calle;
-	public Object altura;
-	public Object piso;
-	public Object depto;
-	public Object listaPais;
-	public Object listaProvincia;
-	public Object listaLocalidad;
-	public Object listaBarrio;
-	public Object pais;
-	public Object provincia;
-	public Object localidad;
-	public Object barrio;
-	public void mostrarEmpresasCliente() {
-	
+
+        private pantallaRegistrarNuevaPlanta pantalla;
+	public ArrayList<Empresa> listaEmpresas;
+	public String nombrePlanta;
+	public String telefonoPlanta;
+	public String calle;
+	public int altura;
+	public int piso;
+	public int depto;
+	public ArrayList<Pais> listaPais;
+	public ArrayList<Provincia> listaProvincias;
+	public ArrayList<Localidad> listaLocalidad;
+	public ArrayList<Barrio> listaBarrio;
+	public Pais pais;
+	public Provincia provincia;
+	public Localidad localidad;
+	public Barrio barrio;
+
+        public GestorRegistrarNuevaPlanta(pantallaRegistrarNuevaPlanta pantalla) {
+            this.pantalla = pantalla;
+            listaPais = new ArrayList<Pais>();
+            listaBarrio = new ArrayList<Barrio>();
+            listaLocalidad = new ArrayList<Localidad>();
+            listaProvincias = new ArrayList<Provincia>();
+        }
+        
+	public ArrayList<Tupla> mostrarEmpresasCliente() {
+
+            return null;
+
 	}
 	
 	public void empresaCliente() {
@@ -52,33 +73,122 @@ public class GestorRegistrarNuevaPlanta {
 	
 	}
 	
-	public void mostrarPaises() {
-	
+	public ArrayList<Tupla> mostrarPaises() {
+
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+
+                Iterator iter = sesion.createQuery("from Pais q order by q.nombre").iterate();
+                while ( iter.hasNext() )
+                {
+                    Pais p = (Pais) iter.next();
+                    listaPais.add(p);
+                    Tupla tupla = new Tupla(p.getId(),p.getNombre());
+                    tuplas.add(tupla);
+                }
+
+            return tuplas;
+
 	}
 	
 	public void paisPlanta() {
 	
 	}
 	
-	public void mostrarProvincias() {
+	public ArrayList<Tupla> mostrarProvincias(int idPais)
+        {
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            Pais paisSeleccionado = null;
+
+            Iterator<Pais> it = listaPais.iterator();
+            while (it.hasNext())
+            {
+                Pais p = it.next();
+                if(p.getId() == idPais)
+                paisSeleccionado = p;
+            }
+
+            List<Provincia> lista = paisSeleccionado.getProvincias();
+            Iterator i = lista.iterator();
+            while (i.hasNext())
+            {
+                Provincia provincia = (Provincia)i.next();
+                listaProvincias.add(provincia);
+                Tupla tupla = new Tupla(provincia.getId(),provincia.getNombre());
+                tuplas.add(tupla);
+            }
+
+
+            return tuplas;
 	
 	}
-	
+
+        public ArrayList<Tupla> mostrarLocalidades(int idProvincia) {
+
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            Provincia provinciaSeleccionada = null;
+
+            Iterator<Provincia> it =  listaProvincias.iterator();
+            while (it.hasNext())
+            {
+                Provincia provincia = it.next();
+                if(provincia.getId() == idProvincia)
+                provinciaSeleccionada = provincia;
+            }
+
+            List<Localidad> lista = provinciaSeleccionada.getLocalidades();
+            Iterator i = lista.iterator();
+            while (i.hasNext())
+            {
+                Localidad l = (Localidad)i.next();
+                listaLocalidad.add(l);
+                Tupla tupla = new Tupla(l.getId(),l.getNombre());
+                tuplas.add(tupla);
+            }
+            return tuplas;
+
+	}
+
+	public ArrayList<Tupla> mostrarBarrios(int idLocalidad) {
+
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            Localidad localidadSeleccionada = null;
+
+            Iterator<Localidad> it =  listaLocalidad.iterator();
+            while (it.hasNext())
+            {
+                Localidad loc = it.next();
+                if(loc.getId() == idLocalidad)
+                localidadSeleccionada = loc;
+            }
+
+            List<Barrio> lista = localidadSeleccionada.getBarrios();
+            Iterator i = lista.iterator();
+            while (i.hasNext())
+            {
+                Barrio b = (Barrio)i.next();
+                listaBarrio.add(b);
+                Tupla tupla = new Tupla(b.getId(),b.getNombre());
+                tuplas.add(tupla);
+            }
+            return tuplas;
+
+	}
+
 	public void provinciaPlanta() {
 	
 	}
 	
-	public void mostrarLocalidades() {
-	
-	}
+
 	
 	public void LocalidadPlanta() {
 	
 	}
 	
-	public void mostrarBarrios() {
-	
-	}
+
 	
 	public void barrioPlanta() {
 	
