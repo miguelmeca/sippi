@@ -20,102 +20,125 @@ import util.Cupla;
 
 
 public class GestorRegistrarNuevaEmpresaCliente {
-	private ArrayList<Pais> paises;
-	private ArrayList<Provincia> provincias;
-	private ArrayList<Localidad> localidades;
-	private ArrayList<Barrio> barrios;
-	private Pais pais;
-	private Provincia provincia;
-	private Localidad localidad;
-	private Barrio barrio;
-	private String cuit;
-	private String email;
-	private ArrayList<Telefono> telefonos;
-	private ArrayList<Domicilio> domicilio;
-	public void finCU() {
-	
-	}
-	
-	public void llamarCURegistrarNuevaPlanta() {
-	
-	}
-	
-	public void mostrarNombrePaises() {
-	
-	}
-	
-	public void seleccionPais() {
-	
-	}
-	
-	public void seleccionProvincia() {
-	
-	}
-	
-	public void seleccionLocalidad() {
-	
-	}
-	
-	public void seleccionBarrio() {
-	
-	}
-	
-	public void nombreEmpresa() {
-	
-	}
-	
-	public void CUIT() {
-	
-	}
-	
-	public void datosDomicilio() {
-	
-	}
-	
-	public void EMail() {
-	
-	}
-	
-	public void telefono() {
-	
-	}
-	
-	public void seleccionTipoTelefono() {
-	
-	}
-	
-	public void agregarNuevaPlanta() {
-	
-	}
-	
-	public void confirmacionRegistro() {
-	
-	}
-	
-	public void mostrarTiposTelefono() {
-	
-	}
-	
-	public void registrarNuevaEmpresa() {
-	
-	}
-	
-	public void mostrarLocalidades() {
-	
-	}
-	
-	public ArrayList<Cupla> mostrarProvincias() {
-            ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
-            Cupla cupla = new Cupla();
-            for (Provincia prov : provincias) {
-                cupla.setId(prov.getId());
-                cupla.setNombre(prov.getNombre());
-                cuplas.add(cupla);
-            }
-            return cuplas;
-	}
-	
-	public void mostrarBarrios() {
-	
-	}
+    private ArrayList<Pais> paises;
+    private ArrayList<Provincia> provincias;
+    private ArrayList<Localidad> localidades;
+    private ArrayList<Barrio> barrios;
+    private Pais pais;
+    private Provincia provincia;
+    private Localidad localidad;
+    private Barrio barrio;
+    private String cuit;
+    private String email;
+    private ArrayList<Telefono> telefonos;
+    private ArrayList<Domicilio> domicilio;
+    public void finCU() {
+
+    }
+
+    public void llamarCURegistrarNuevaPlanta() {
+
+    }
+
+    public void mostrarNombrePaises() {
+
+    }
+
+    public void seleccionPais() {
+
+    }
+
+    public void seleccionProvincia() {
+
+    }
+
+    public void seleccionLocalidad() {
+
+    }
+
+    public void seleccionBarrio() {
+
+    }
+
+    public void nombreEmpresa() {
+
+    }
+
+    public void CUIT() {
+
+    }
+
+    public void datosDomicilio() {
+
+    }
+
+    public void EMail() {
+
+    }
+
+    public void telefono() {
+
+    }
+
+    public void seleccionTipoTelefono() {
+
+    }
+
+    public void agregarNuevaPlanta() {
+
+    }
+
+    public void confirmacionRegistro() {
+
+    }
+
+    public ArrayList<Cupla> mostrarTiposTelefono() {
+        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
+        Cupla cupla = new Cupla();
+        ArrayList<TipoTelefono> tts = new ArrayList<TipoTelefono>();
+        // FALTA RECUPERARLOS DE LA BASE DE DATOS
+        for (TipoTelefono tel : tts) {
+            cupla.setId(tel.getId());
+            cupla.setNombre(tel.getNombre());
+            cuplas.add(cupla);
+        }
+        return cuplas;
+    }
+
+    public void registrarNuevaEmpresa() {
+
+    }
+
+    public ArrayList<Cupla> mostrarLocalidades() {
+        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
+        Cupla cupla = new Cupla();
+        for (Localidad loc : localidades) {
+            cupla.setId(loc.getId());
+            cupla.setNombre(loc.getNombre());
+            cuplas.add(cupla);
+        }
+        return cuplas;
+    }
+
+    public ArrayList<Cupla> mostrarProvincias() {
+        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
+        Cupla cupla = new Cupla();
+        for (Provincia prov : provincias) {
+            cupla.setId(prov.getId());
+            cupla.setNombre(prov.getNombre());
+            cuplas.add(cupla);
+        }
+        return cuplas;
+    }
+
+    public ArrayList<Cupla> mostrarBarrios() {
+        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
+        Cupla cupla = new Cupla();
+        for (Barrio barrio : barrios) {
+            cupla.setId(barrio.getId());
+            cupla.setNombre(barrio.getNombre());
+            cuplas.add(cupla);
+        }
+        return cuplas;
+    }
 }
