@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.Persona">
+    <id column="ID" name="oid" type="integer" unsaved-value="null">
+      <generator class="native"/>
+    </id>
+    <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
+    <property column="APELLIDO" name="apellido" not-null="true" type="string"/>
+    <property column="FECH_NAC" name="fechadeNac" not-null="true" type="date"/>
+    <property column="NRO_DOC" name="nroDoc" type="date"/>
+    <property column="EMAIL" name="email" type="string"/>
+    <property column="CUIL" name="cuil" type="string"/>
+  </class>
+</hibernate-mapping>

@@ -10,19 +10,18 @@ import java.util.Date;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : Persona.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
-
-
-
 
 public class Persona {
-	private String nombre;
+	
+        private int oid;
+        private String nombre;
 	private String apellido;
 	private Date fechadeNac;
 	private TipoDocumento tipoDoc;
-	private int nroDoc;
+	private String nroDoc;
 	private Telefono telefono;
 	private String email;
 	private String cuil;
@@ -39,4 +38,110 @@ public class Persona {
 	public void tomarDomicilo() {
 	
 	}
+
+    public Persona() {
+
+    }
+
+    public int getOid() {
+        return oid;
+    }
+
+    public int getoId() {
+        return oid;
+    }
+
+    public int getoid() {
+        return oid;
+    }
+
+    public int getOID() {
+        return oid;
+    }
+
+    public void setOid(int id) {
+        this.oid = id;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCuil() {
+        return cuil;
+    }
+
+    public void setCuil(String cuil) {
+        this.cuil = cuil;
+    }
+
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getFechadeNac() {
+        return fechadeNac;
+    }
+
+    public void setFechadeNac(Date fechadeNac) {
+        this.fechadeNac = fechadeNac;
+    }
+
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int id) {
+        this.oid = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNroDoc() {
+        return nroDoc;
+    }
+
+    public void setNroDoc(String nroDoc) {
+        this.nroDoc = nroDoc;
+    }
+
+    public Telefono getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Telefono telefono) {
+        this.telefono = telefono;
+    }
+
+    public TipoDocumento getTipoDoc() {
+        return tipoDoc;
+    }
+
+    public void setTipoDoc(TipoDocumento tipoDoc) {
+        this.tipoDoc = tipoDoc;
+    }
+
+        
 }
