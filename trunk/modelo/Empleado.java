@@ -22,8 +22,8 @@ public class Empleado extends Persona {
 	private Date fechaBaja;
 	private int legajo;
 	private String rango;
-	private Capacitacion capacitacion;
-	private ItemIndumentaria indumentaria;
+	private List capacitacion;
+	private List indumentaria;
 	private Especialidad especialiades;
 
     public Empleado() {

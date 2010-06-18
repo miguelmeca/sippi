@@ -7,7 +7,7 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : TipoCapacitacion.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -15,17 +15,45 @@ package modelo;
 
 
 public class TipoCapacitacion {
+
+        private int id;
 	private String nombre;
 	private String descripcion;
+
+        public TipoCapacitacion() {
+        }
+
+        public String getDescripcion() {
+            return descripcion;
+        }
+
+        public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+
+
 	public void crear() {
 	
 	}
 	
 	public void mostrarTipoCapacitacion() {
-	
-	}
-	
-	public void getNombre() {
 	
 	}
 	
