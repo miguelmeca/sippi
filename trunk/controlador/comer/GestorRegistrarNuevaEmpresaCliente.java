@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.transaction.Transaction;
 import modelo.*;
+import modelo.Pais;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.Tupla;
@@ -58,10 +59,10 @@ public class GestorRegistrarNuevaEmpresaCliente {
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre").iterate();
+            Iterator iter = sesion.createQuery("from Pais q order by q.nombre").iterate();
             while ( iter.hasNext() ) {
-                TipoTelefono tipo = (TipoTelefono) iter.next();
-                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                Pais p = (Pais) iter.next();
+                tupla = new Tupla(p.getId(),p.getNombre());
                 tuplas.add(tupla);
             }
         }catch(Exception e)
@@ -144,15 +145,15 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     }
 
-    public ArrayList<Tupla> mostrarLocalidades() {
+    public ArrayList<Tupla> mostrarLocalidades(Tupla prov) {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
         Tupla tupla = null;
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre").iterate();
+            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre where q.id="+prov.getId()).iterate();
             while ( iter.hasNext() ) {
-                TipoTelefono tipo = (TipoTelefono) iter.next();
+                Localidad tipo = (Localidad) iter.next();
                 tupla = new Tupla(tipo.getId(),tipo.getNombre());
                 tuplas.add(tupla);
             }
@@ -164,24 +165,42 @@ public class GestorRegistrarNuevaEmpresaCliente {
         return tuplas;
     }
 
-    public ArrayList<Tupla> mostrarProvincias() {
+    public ArrayList<Tupla> mostrarProvincias(Tupla pais) {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-        Tupla tupla = new Tupla();
-        for (Provincia prov : provincias) {
-            tupla.setId(prov.getId());
-            tupla.setNombre(prov.getNombre());
-            tuplas.add(tupla);
+        Tupla tupla = null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from Pais q order by q.nombre where q.id="+pais.getId()).iterate();
+            while ( iter.hasNext() ) {
+                Localidad tipo = (Localidad) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
         return tuplas;
     }
 
-    public ArrayList<Tupla> mostrarBarrios() {
-        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-        Tupla tupla = new Tupla();
-        for (Barrio ba : barrios) {
-            tupla.setId(ba.getId());
-            tupla.setNombre(ba.getNombre());
-            tuplas.add(tupla);
+    public ArrayList<Tupla> mostrarBarrios(Tupla loc) {
+          ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre where q.id="+pais.getId()).iterate();
+            while ( iter.hasNext() ) {
+                Localidad tipo = (Localidad) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
         return tuplas;
     }
