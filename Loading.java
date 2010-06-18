@@ -48,6 +48,7 @@ public class Loading extends javax.swing.JFrame {
 
         test.DBExamplesLoader load = new DBExamplesLoader();
         load.cargarEjemplos();
+        load.cargarTipoTelefono();
         jpb.setValue(20);
 
         setProgress(jpb.getValue()+i);
