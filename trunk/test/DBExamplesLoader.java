@@ -41,7 +41,7 @@ public class DBExamplesLoader {
             Provincia prov1 = new Provincia();
             prov1.setNombre("Córdoba");
             Provincia prov2 = new Provincia();
-            prov1.setNombre("San Luis");
+            prov2.setNombre("San Luis");
             p1.addProvincia(prov1);
             p1.addProvincia(prov2);
 
@@ -60,7 +60,16 @@ public class DBExamplesLoader {
                     l2.addBarrio(b2);
 
         Pais p2 = new Pais();
-        p1.setNombre("Brazil");
+        p2.setNombre("Brazil");
+
+            Provincia prov3 = new Provincia();
+            prov3.setNombre("Ceara");
+            p2.addProvincia(prov3);
+
+                Localidad l3 = new Localidad();
+                l3.setNombre("Fortaleza");
+                prov3.addLocalidad(l3);
+
 
         sesion.beginTransaction();
         sesion.save(b1);
@@ -71,6 +80,8 @@ public class DBExamplesLoader {
         sesion.save(prov2);
         sesion.save(p1);
         sesion.save(p2);
+        sesion.save(prov3);
+        sesion.save(l3);
         sesion.getTransaction().commit();
     }
 

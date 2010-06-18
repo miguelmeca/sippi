@@ -21,14 +21,21 @@
     <mapping package="modelo" resource="config/db/PedidoObra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RangoEspecialidad.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Especialidad.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/Empresa.hbm.xml"/>
+    <!--mapping package="modelo" resource="config/db/Empresa.hbm.xml"/-->
     <mapping package="modelo" resource="config/db/Planta.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoTelefono.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Telefono.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Domicilio.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/TipoMaterial.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/Material.hbm.xml"/>
+    <!--mapping package="modelo" resource="config/db/TipoMaterial.hbm.xml"/-->
+    <!--mapping package="modelo" resource="config/db/Material.hbm.xml"/-->
     <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/Indumentaria.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/Talle.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/TipoIndumentaria.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/ItemIndumentaria.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
+    <mapping class="" file="" jar="" package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
-  </session-factory>
+
+    </session-factory>
 </hibernate-configuration>
