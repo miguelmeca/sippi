@@ -9,6 +9,7 @@ import modelo.Barrio;
 import modelo.Localidad;
 import modelo.Pais;
 import modelo.Provincia;
+import modelo.TipoTelefono;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -73,4 +74,18 @@ public class DBExamplesLoader {
         sesion.getTransaction().commit();
     }
 
+    public void cargarTipoTelefono()
+    {
+        TipoTelefono tt1 = new TipoTelefono();
+        tt1.setNombre("TEL. PARTICULAR");
+        TipoTelefono tt2 = new TipoTelefono();
+        tt2.setNombre("FAX");
+        TipoTelefono tt3 = new TipoTelefono();
+        tt3.setNombre("CELULAR");
+        sesion.beginTransaction();
+        sesion.save(tt1);
+        sesion.save(tt2);
+        sesion.save(tt3);
+        sesion.getTransaction().commit();
+    }
 }

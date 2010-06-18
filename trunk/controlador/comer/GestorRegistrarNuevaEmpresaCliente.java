@@ -52,8 +52,24 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     }
 
-    public void mostrarNombrePaises() {
-
+    public ArrayList<Tupla> mostrarNombrePaises() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre").iterate();
+            while ( iter.hasNext() ) {
+                TipoTelefono tipo = (TipoTelefono) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+        return tuplas;
     }
 
     public void seleccionPais() {
@@ -105,34 +121,23 @@ public class GestorRegistrarNuevaEmpresaCliente {
     }
 
     public ArrayList<Tupla> mostrarTiposTelefono() {
-        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
-        Tupla cupla = null;
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            sesion.beginTransaction();
-            TipoTelefono tt1 = new TipoTelefono();
-            tt1.setNombre("TEL. PARTICULAR");
-            sesion.save(tt1);
-            TipoTelefono tt2 = new TipoTelefono();
-            tt2.setNombre("FAX");
-            sesion.save(tt2);
-            TipoTelefono tt3 = new TipoTelefono();
-            tt3.setNombre("CELULAR");
-            sesion.save(tt3);
-            sesion.getTransaction().commit();
             Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
             while ( iter.hasNext() ) {
                 TipoTelefono tipo = (TipoTelefono) iter.next();
-                cupla = new Tupla(tipo.getId(),tipo.getNombre());
-                cuplas.add(cupla);
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
             }
         }catch(Exception e)
         {
             System.out.println("ERROR:"+e.getMessage()+"|");
             e.printStackTrace();
         }
-        return cuplas;
+        return tuplas;
     }
 
     public void registrarNuevaEmpresa() {
@@ -140,35 +145,44 @@ public class GestorRegistrarNuevaEmpresaCliente {
     }
 
     public ArrayList<Tupla> mostrarLocalidades() {
-        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
-        Tupla cupla = new Tupla();
-        for (Localidad loc : localidades) {
-            cupla.setId(loc.getId());
-            cupla.setNombre(loc.getNombre());
-            cuplas.add(cupla);
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from Localidad q order by q.nombre").iterate();
+            while ( iter.hasNext() ) {
+                TipoTelefono tipo = (TipoTelefono) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
-        return cuplas;
+        return tuplas;
     }
 
     public ArrayList<Tupla> mostrarProvincias() {
-        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
-        Tupla cupla = new Tupla();
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = new Tupla();
         for (Provincia prov : provincias) {
-            cupla.setId(prov.getId());
-            cupla.setNombre(prov.getNombre());
-            cuplas.add(cupla);
+            tupla.setId(prov.getId());
+            tupla.setNombre(prov.getNombre());
+            tuplas.add(tupla);
         }
-        return cuplas;
+        return tuplas;
     }
 
     public ArrayList<Tupla> mostrarBarrios() {
-        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
-        Tupla cupla = new Tupla();
-        for (Barrio barrio : barrios) {
-            cupla.setId(barrio.getId());
-            cupla.setNombre(barrio.getNombre());
-            cuplas.add(cupla);
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = new Tupla();
+        for (Barrio ba : barrios) {
+            tupla.setId(ba.getId());
+            tupla.setNombre(ba.getNombre());
+            tuplas.add(tupla);
         }
-        return cuplas;
+        return tuplas;
     }
 }
