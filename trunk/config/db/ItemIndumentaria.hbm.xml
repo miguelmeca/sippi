@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="modelo.ItemIndumentaria" table="ITEM_INDUMENTARIA">
+      
+    <id column="ID_ITEM_INDUMENTARIA" name="id" type="integer">
+      <generator class="native"/>
+    </id>   
+    
+    <many-to-one class="modelo.Indumentaria" column="ID_INDUMENTARIA" name="indumentaria"/>
+      
+  </class>
+
+</hibernate-mapping>
