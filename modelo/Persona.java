@@ -103,14 +103,6 @@ public class Persona {
         this.fechadeNac = fechadeNac;
     }
 
-    public int getOid() {
-        return oid;
-    }
-
-    public void setOid(int id) {
-        this.oid = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
