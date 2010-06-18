@@ -9,14 +9,15 @@ import java.util.Date;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : Empleado.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
 
 
 
-public class Empleado {
+public class Empleado extends Persona {
+
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private int legajo;
@@ -24,7 +25,71 @@ public class Empleado {
 	private Capacitacion capacitacion;
 	private ItemIndumentaria indumentaria;
 	private Especialidad especialiades;
-	public void crear() {
+
+    public Empleado() {
+    }
+
+    
+
+    public Capacitacion getCapacitacion() {
+        return capacitacion;
+    }
+
+    public void setCapacitacion(Capacitacion capacitacion) {
+        this.capacitacion = capacitacion;
+    }
+
+    public Especialidad getEspecialiades() {
+        return especialiades;
+    }
+
+    public void setEspecialiades(Especialidad especialiades) {
+        this.especialiades = especialiades;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public ItemIndumentaria getIndumentaria() {
+        return indumentaria;
+    }
+
+    public void setIndumentaria(ItemIndumentaria indumentaria) {
+        this.indumentaria = indumentaria;
+    }
+
+    public int getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(int legajo) {
+        this.legajo = legajo;
+    }
+
+    public String getRango() {
+        return rango;
+    }
+
+    public void setRango(String rango) {
+        this.rango = rango;
+    }
+
+
+
+        public void crear() {
 	
 	}
 	
