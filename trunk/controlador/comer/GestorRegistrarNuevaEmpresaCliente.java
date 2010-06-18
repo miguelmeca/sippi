@@ -1,6 +1,9 @@
 package controlador.comer;
 
+import java.util.ArrayList;
+//import java.util.List;
 import modelo.*;
+import util.Cupla;
 
 //
 //
@@ -17,18 +20,18 @@ import modelo.*;
 
 
 public class GestorRegistrarNuevaEmpresaCliente {
-	private Pais paises;
-	private Object provincias;
-	private Object localidades;
-	private Object barrios;
-	private Object pais;
-	private Object provincia;
-	private Object localidad;
-	private Object barrio;
-	private Object cuit;
-	private Object email;
-	private Object telefonos;
-	private Object domicilio;
+	private ArrayList<Pais> paises;
+	private ArrayList<Provincia> provincias;
+	private ArrayList<Localidad> localidades;
+	private ArrayList<Barrio> barrios;
+	private Pais pais;
+	private Provincia provincia;
+	private Localidad localidad;
+	private Barrio barrio;
+	private String cuit;
+	private String email;
+	private ArrayList<Telefono> telefonos;
+	private ArrayList<Domicilio> domicilio;
 	public void finCU() {
 	
 	}
@@ -101,8 +104,15 @@ public class GestorRegistrarNuevaEmpresaCliente {
 	
 	}
 	
-	public void mostrarProvincias() {
-	
+	public ArrayList<Cupla> mostrarProvincias() {
+            ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
+            Cupla cupla = new Cupla();
+            for (Provincia prov : provincias) {
+                cupla.setId(prov.getId());
+                cupla.setNombre(prov.getNombre());
+                cuplas.add(cupla);
+            }
+            return cuplas;
 	}
 	
 	public void mostrarBarrios() {
