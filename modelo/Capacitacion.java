@@ -10,7 +10,7 @@ import java.util.Date;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : Capacitacion.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -18,9 +18,41 @@ import java.util.Date;
 
 
 public class Capacitacion {
+
+        private int id;
 	private TipoCapacitacion tipoCapacitacion;
 	private Date fechaVencimiento;
-	public void crear() {
+
+        public Capacitacion() {
+        }
+
+        public Date getFechaVencimiento() {
+            return fechaVencimiento;
+        }
+
+        public void setFechaVencimiento(Date fechaVencimiento) {
+            this.fechaVencimiento = fechaVencimiento;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public TipoCapacitacion getTipoCapacitacion() {
+            return tipoCapacitacion;
+        }
+
+        public void setTipoCapacitacion(TipoCapacitacion tipoCapacitacion) {
+            this.tipoCapacitacion = tipoCapacitacion;
+        }
+
+
+
+        public void crear() {
 	
 	}
 	
@@ -33,10 +65,6 @@ public class Capacitacion {
 	}
 	
 	public void esTuTipo() {
-	
-	}
-	
-	public void getFechaVencimiento() {
 	
 	}
 	
