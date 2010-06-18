@@ -29,5 +29,6 @@
     <mapping package="modelo" resource="config/db/TipoMaterial.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Material.hbm.xml"/>
     <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
