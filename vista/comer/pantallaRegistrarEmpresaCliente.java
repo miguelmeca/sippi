@@ -12,7 +12,11 @@
 package vista.comer;
 
 import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
+import modelo.TipoTelefono;
+import util.Tupla;
 
 /**
  *
@@ -27,6 +31,13 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         gestor = new GestorRegistrarNuevaEmpresaCliente(this);
         initComponents();
         habilitarVentana();
+        ArrayList<Tupla> tipos = gestor.mostrarTiposTelefono();
+        Iterator<Tupla> it = tipos.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            cmbTipoTelefono.insertIntemAt(tu.getNombre(),tu.getId());
+
+        }
     }
 
     public void habilitarVentana()
@@ -82,7 +93,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jTable2 = new javax.swing.JTable();
         jTextField11 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox();
+        cmbTipoTelefono = new javax.swing.JComboBox();
         jButton8 = new javax.swing.JButton();
 
         setClosable(true);
@@ -317,10 +328,10 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Tipo y Número de Teléfono :");
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabajo", "Contacto", "Emergencia" }));
+        cmbTipoTelefono.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabajo", "Contacto", "Emergencia" }));
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
         jButton8.setText("Agregar");
@@ -339,7 +350,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.Alignment.TRAILING, 0, 193, Short.MAX_VALUE)
+                    .addComponent(cmbTipoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, 0, 193, Short.MAX_VALUE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
                 .addContainerGap())
@@ -351,7 +362,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTipoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -401,7 +412,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -431,6 +442,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbTipoTelefono;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -442,7 +454,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
-    private javax.swing.JComboBox jComboBox7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
