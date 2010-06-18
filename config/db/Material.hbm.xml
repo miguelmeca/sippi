@@ -5,7 +5,7 @@
     <id column="ID" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property name="nombre" column="NOMBRE" type="string"/>
-    <many-to-one name="tipoMaterial" column="IDTIPOMATERIAL" class="modelo.TipoMaterial"/>
+    <property column="NOMBRE" name="nombre" type="string"/>
+    <many-to-one class="modelo.TipoMaterial" column="IDTIPOMATERIAL" name="tipoMaterial"/>
   </class>
 </hibernate-mapping>

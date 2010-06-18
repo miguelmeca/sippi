@@ -24,7 +24,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
-        gestor = new GestorRegistrarNuevaEmpresaCliente();
+        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
         initComponents();
         habilitarVentana();
     }

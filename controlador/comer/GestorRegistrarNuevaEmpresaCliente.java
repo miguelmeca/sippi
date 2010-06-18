@@ -2,8 +2,14 @@ package controlador.comer;
 
 import java.util.ArrayList;
 //import java.util.List;
+import java.util.Iterator;
+import javax.transaction.Transaction;
 import modelo.*;
-import util.Cupla;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import util.Tupla;
+import util.HibernateUtil;
+import vista.comer.pantallaRegistrarEmpresaCliente;
 
 //
 //
@@ -32,6 +38,12 @@ public class GestorRegistrarNuevaEmpresaCliente {
     private String email;
     private ArrayList<Telefono> telefonos;
     private ArrayList<Domicilio> domicilio;
+    private pantallaRegistrarEmpresaCliente pantalla;
+
+    public GestorRegistrarNuevaEmpresaCliente(pantallaRegistrarEmpresaCliente pantalla) {
+        this.pantalla = pantalla;
+    }
+
     public void finCU() {
 
     }
@@ -92,15 +104,23 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     }
 
-    public ArrayList<Cupla> mostrarTiposTelefono() {
-        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
-        Cupla cupla = new Cupla();
-        ArrayList<TipoTelefono> tts = new ArrayList<TipoTelefono>();
-        // FALTA RECUPERARLOS DE LA BASE DE DATOS
-        for (TipoTelefono tel : tts) {
-            cupla.setId(tel.getId());
-            cupla.setNombre(tel.getNombre());
-            cuplas.add(cupla);
+    public ArrayList<Tupla> mostrarTiposTelefono() {
+        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
+        Tupla cupla = new Tupla();
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from tipotelefono q order by q.nombre").iterate();
+            while ( iter.hasNext() ) {
+                TipoTelefono tipo = (TipoTelefono) iter.next();
+                cupla.setId(tipo.getId());
+                cupla.setNombre(tipo.getNombre());
+                cuplas.add(cupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
         return cuplas;
     }
@@ -109,9 +129,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     }
 
-    public ArrayList<Cupla> mostrarLocalidades() {
-        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
-        Cupla cupla = new Cupla();
+    public ArrayList<Tupla> mostrarLocalidades() {
+        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
+        Tupla cupla = new Tupla();
         for (Localidad loc : localidades) {
             cupla.setId(loc.getId());
             cupla.setNombre(loc.getNombre());
@@ -120,9 +140,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
         return cuplas;
     }
 
-    public ArrayList<Cupla> mostrarProvincias() {
-        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
-        Cupla cupla = new Cupla();
+    public ArrayList<Tupla> mostrarProvincias() {
+        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
+        Tupla cupla = new Tupla();
         for (Provincia prov : provincias) {
             cupla.setId(prov.getId());
             cupla.setNombre(prov.getNombre());
@@ -131,9 +151,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
         return cuplas;
     }
 
-    public ArrayList<Cupla> mostrarBarrios() {
-        ArrayList<Cupla> cuplas = new ArrayList<Cupla>();
-        Cupla cupla = new Cupla();
+    public ArrayList<Tupla> mostrarBarrios() {
+        ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
+        Tupla cupla = new Tupla();
         for (Barrio barrio : barrios) {
             cupla.setId(barrio.getId());
             cupla.setNombre(barrio.getNombre());
