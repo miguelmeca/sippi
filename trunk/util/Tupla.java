@@ -9,7 +9,7 @@ package util;
  *
  * @author Emmanuel
  */
-public class Cupla {
+public class Tupla {
     private int id;
     private String nombre;
 
@@ -29,10 +29,10 @@ public class Cupla {
         this.nombre = nombre;
     }
 
-    public Cupla() {
+    public Tupla() {
     }
 
-    public Cupla(int id, String nombre) {
+    public Tupla(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

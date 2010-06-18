@@ -21,15 +21,16 @@
       <many-to-many class="modelo.Telefono" column="IDTELEFONO"/>
     </set>
     <joined-subclass name="modelo.EmpresaCliente" table="EMPRESACLIENTE">
-         <!--La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
+      <!--La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
         La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
         por medio del atributo ID de la clase/tabla EMPRESA-->
-        <key column="ID"/>
-        <list name="plantas" table="Planta" cascade="all-delete-orphan">
-          <key column="ID_EMPRESA"/>
-          <index column="ID"/>
-          <one-to-many class="modelo.Planta"/>
-        </list> <!-- NO ME TERMINA DE CONVENCER QUE TENGA DOS COLUMNAS DE FOREIGN KEY-->
+      <key column="ID"/>
+      <list cascade="all-delete-orphan" name="plantas" table="Planta">
+        <key column="ID_EMPRESA"/>
+        <index column="ID"/>
+        <one-to-many class="modelo.Planta"/>
+      </list>
+      <!-- NO ME TERMINA DE CONVENCER QUE TENGA DOS COLUMNAS DE FOREIGN KEY-->
     </joined-subclass>
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID"/>
