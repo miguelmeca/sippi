@@ -26,10 +26,10 @@
         por medio del atributo ID de la clase/tabla EMPRESA-->
         <key column="ID"/>
         <list name="plantas" table="Planta" cascade="all-delete-orphan">
-          <key column="Empresa_Planta_fk"/>
+          <key column="ID_EMPRESA"/>
           <index column="ID"/>
           <one-to-many class="modelo.Planta"/>
-        </list>
+        </list> <!-- NO ME TERMINA DE CONVENCER QUE TENGA DOS COLUMNAS DE FOREIGN KEY-->
     </joined-subclass>
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID"/>
