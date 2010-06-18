@@ -106,15 +106,25 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     public ArrayList<Tupla> mostrarTiposTelefono() {
         ArrayList<Tupla> cuplas = new ArrayList<Tupla>();
-        Tupla cupla = new Tupla();
+        Tupla cupla = null;
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            Iterator iter = sesion.createQuery("from tipotelefono q order by q.nombre").iterate();
+            sesion.beginTransaction();
+            TipoTelefono tt1 = new TipoTelefono();
+            tt1.setNombre("TEL. PARTICULAR");
+            sesion.save(tt1);
+            TipoTelefono tt2 = new TipoTelefono();
+            tt2.setNombre("FAX");
+            sesion.save(tt2);
+            TipoTelefono tt3 = new TipoTelefono();
+            tt3.setNombre("CELULAR");
+            sesion.save(tt3);
+            sesion.getTransaction().commit();
+            Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
             while ( iter.hasNext() ) {
                 TipoTelefono tipo = (TipoTelefono) iter.next();
-                cupla.setId(tipo.getId());
-                cupla.setNombre(tipo.getNombre());
+                cupla = new Tupla(tipo.getId(),tipo.getNombre());
                 cuplas.add(cupla);
             }
         }catch(Exception e)
