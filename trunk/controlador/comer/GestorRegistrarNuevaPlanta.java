@@ -1,5 +1,6 @@
 package controlador.comer;
 
+import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -75,22 +76,8 @@ public class GestorRegistrarNuevaPlanta {
 	
 	public ArrayList<Tupla> mostrarPaises() {
 
-            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
-
-                Iterator iter = sesion.createQuery("from Pais q order by q.nombre").iterate();
-                while ( iter.hasNext() )
-                {
-                    Pais p = (Pais) iter.next();
-                    listaPais.add(p);
-                    Tupla tupla = new Tupla(p.getId(),p.getNombre());
-                    tuplas.add(tupla);
-                }
-
-            return tuplas;
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getPaises();
 
 	}
 	
@@ -100,81 +87,21 @@ public class GestorRegistrarNuevaPlanta {
 	
 	public ArrayList<Tupla> mostrarProvincias(int idPais)
         {
-            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            Pais paisSeleccionado = null;
-
-            Iterator<Pais> it = listaPais.iterator();
-            while (it.hasNext())
-            {
-                Pais p = it.next();
-                if(p.getId() == idPais)
-                paisSeleccionado = p;
-            }
-
-            List<Provincia> lista = paisSeleccionado.getProvincias();
-            Iterator i = lista.iterator();
-            while (i.hasNext())
-            {
-                Provincia provincia = (Provincia)i.next();
-                listaProvincias.add(provincia);
-                Tupla tupla = new Tupla(provincia.getId(),provincia.getNombre());
-                tuplas.add(tupla);
-            }
-
-
-            return tuplas;
-	
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getProvincias(idPais);
 	}
 
         public ArrayList<Tupla> mostrarLocalidades(int idProvincia) {
 
-            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            Provincia provinciaSeleccionada = null;
-
-            Iterator<Provincia> it =  listaProvincias.iterator();
-            while (it.hasNext())
-            {
-                Provincia provincia = it.next();
-                if(provincia.getId() == idProvincia)
-                provinciaSeleccionada = provincia;
-            }
-
-            List<Localidad> lista = provinciaSeleccionada.getLocalidades();
-            Iterator i = lista.iterator();
-            while (i.hasNext())
-            {
-                Localidad l = (Localidad)i.next();
-                listaLocalidad.add(l);
-                Tupla tupla = new Tupla(l.getId(),l.getNombre());
-                tuplas.add(tupla);
-            }
-            return tuplas;
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getLocalidades(idProvincia);
 
 	}
 
 	public ArrayList<Tupla> mostrarBarrios(int idLocalidad) {
 
-            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            Localidad localidadSeleccionada = null;
-
-            Iterator<Localidad> it =  listaLocalidad.iterator();
-            while (it.hasNext())
-            {
-                Localidad loc = it.next();
-                if(loc.getId() == idLocalidad)
-                localidadSeleccionada = loc;
-            }
-
-            List<Barrio> lista = localidadSeleccionada.getBarrios();
-            Iterator i = lista.iterator();
-            while (i.hasNext())
-            {
-                Barrio b = (Barrio)i.next();
-                listaBarrio.add(b);
-                Tupla tupla = new Tupla(b.getId(),b.getNombre());
-                tuplas.add(tupla);
-            }
-            return tuplas;
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getBarrios(idLocalidad);
 
 	}
 
