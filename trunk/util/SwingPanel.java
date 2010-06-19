@@ -7,6 +7,7 @@ package util;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,6 +39,11 @@ public class SwingPanel {
        win.setLocation(panel.getWidth()/2 - win.getWidth()/2 ,panel.getHeight()/2 - win.getHeight()/2 - 20);
        panel.add(win);
    }
+
+   public void mensajeEnConstruccion()
+    {
+        JOptionPane.showMessageDialog(panel,"Esta funcionalidad se encuentra bajo construcción\n Espere a versiones posteriores para su utilización","En Construcción",JOptionPane.INFORMATION_MESSAGE);
+    }
 
 
 

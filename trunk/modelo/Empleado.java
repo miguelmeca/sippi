@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.Date;
+import java.util.List;
 
 //
 //
@@ -31,11 +32,11 @@ public class Empleado extends Persona {
 
     
 
-    public Capacitacion getCapacitacion() {
+    public List getCapacitacion() {
         return capacitacion;
     }
 
-    public void setCapacitacion(Capacitacion capacitacion) {
+    public void setCapacitacion(List capacitacion) {
         this.capacitacion = capacitacion;
     }
 
@@ -63,11 +64,11 @@ public class Empleado extends Persona {
         this.fechaBaja = fechaBaja;
     }
 
-    public ItemIndumentaria getIndumentaria() {
+    public List getIndumentaria() {
         return indumentaria;
     }
 
-    public void setIndumentaria(ItemIndumentaria indumentaria) {
+    public void setIndumentaria(List indumentaria) {
         this.indumentaria = indumentaria;
     }
 
