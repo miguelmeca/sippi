@@ -101,6 +101,15 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     private void mostrarEmpresasCliente()
     {
         ArrayList<Tupla> lista = gestor.mostrarEmpresasCliente();
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbEmpresa.setModel(valores);
     }
 
 
@@ -114,7 +123,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbEmpresa = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -142,7 +151,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnNuevoContacto = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
@@ -152,8 +161,6 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Empresa: ");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ARCOR" }));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre:  ");
@@ -275,7 +282,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,7 +299,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -301,17 +308,17 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPais, 0, 224, Short.MAX_VALUE)
+                            .addComponent(cmbPais, 0, 235, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbProvincias, 0, 190, Short.MAX_VALUE)
+                                .addComponent(cmbProvincias, 0, 201, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnNuevaProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbBarrio, 0, 190, Short.MAX_VALUE)
+                                .addComponent(cmbBarrio, 0, 201, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbLocalidades, 0, 190, Short.MAX_VALUE)
+                                .addComponent(cmbLocalidades, 0, 201, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
@@ -344,7 +351,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                     .addComponent(cmbPais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(cmbProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel8)
                     .addComponent(btnNuevaProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -355,9 +362,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
                     .addComponent(cmbBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11))
+                .addGap(12, 12, 12))
         );
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -373,8 +380,13 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto de la Empresa"));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton6.setText("Agregar Contacto");
+        btnNuevoContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevoContacto.setText("Agregar Contacto");
+        btnNuevoContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoContactoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -382,12 +394,12 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(87, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                .addComponent(btnNuevoContacto)
                 .addGap(87, 87, 87))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton6)
+            .addComponent(btnNuevoContacto)
         );
 
         jTextField3.setText("555-12377");
@@ -410,11 +422,11 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                             .addComponent(jTextField3)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -427,7 +439,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -451,7 +463,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        SwingPanel.getInstance().mensajeEnConstruccion();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cmbLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadesActionPerformed
@@ -461,7 +475,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        this.dispose();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -483,6 +499,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
 
     private void btnNuevaProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaProvinciaActionPerformed
 
+       SwingPanel.getInstance().mensajeEnConstruccion();
         
 
     }//GEN-LAST:event_btnNuevaProvinciaActionPerformed
@@ -492,7 +509,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbBarrioActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+
+        SwingPanel.getInstance().mensajeEnConstruccion();
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -507,10 +526,18 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
+    private void btnNuevoContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoContactoActionPerformed
+
+        SwingPanel.getInstance().mensajeEnConstruccion();
+
+    }//GEN-LAST:event_btnNuevoContactoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevaProvincia;
+    private javax.swing.JButton btnNuevoContacto;
     private javax.swing.JComboBox cmbBarrio;
+    private javax.swing.JComboBox cmbEmpresa;
     private javax.swing.JComboBox cmbLocalidades;
     private javax.swing.JComboBox cmbPais;
     private javax.swing.JComboBox cmbProvincias;
@@ -518,8 +545,6 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

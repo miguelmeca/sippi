@@ -54,7 +54,19 @@ public class GestorRegistrarNuevaPlanta {
         
 	public ArrayList<Tupla> mostrarEmpresasCliente() {
 
-            return null;
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+
+            sesion.beginTransaction();
+            Iterator iter = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
+            while ( iter.hasNext() )
+            {
+                EmpresaCliente ec = (EmpresaCliente)iter.next();
+                Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
+                tuplas.add(tupla);
+            }
+            return tuplas;
 
 	}
 	
