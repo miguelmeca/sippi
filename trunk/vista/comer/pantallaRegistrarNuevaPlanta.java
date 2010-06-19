@@ -17,12 +17,13 @@ import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
+public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame implements IAyuda {
 
     GestorRegistrarNuevaPlanta gestor;
 
@@ -567,5 +568,26 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
+
+    // ----------------------------------------------------------------------
+    //                              AYUDA
+    // ----------------------------------------------------------------------
+    public int getIdAyuda()
+    {
+        return 0;
+    }
+
+    public String getResumenAyuda() {
+        return "Ingrese los datos de la nueva planta a cargar. También puede asignar la persona que será contacto";
+    }
+
+    public String getTituloAyuda() {
+        return "Opción: Nueva Planta";
+    }
+
+    // ----------------------------------------------------------------------
+
+
+
 
 }
