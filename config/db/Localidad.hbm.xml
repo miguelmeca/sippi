@@ -3,7 +3,7 @@
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Localidad" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
     <id column="IDLOCALIDAD" name="id" type="integer">
-      <generator class="native"/>
+      <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
     <list cascade="all-delete-orphan" name="barrios" table="Barrio">

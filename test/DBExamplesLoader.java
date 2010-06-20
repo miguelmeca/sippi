@@ -40,16 +40,16 @@ public class DBExamplesLoader {
         p1.setNombre("Argentina");
 
             Provincia prov1 = new Provincia();
-            prov1.setNombre("Córdoba");
+            prov1.setNombre("Cordoba");
             Provincia prov2 = new Provincia();
             prov2.setNombre("San Luis");
             p1.addProvincia(prov1);
             p1.addProvincia(prov2);
 
                 Localidad l1 = new Localidad();
-                l1.setNombre("Alta Grácia");
+                l1.setNombre("Alta Gracia");
                 Localidad l2 = new Localidad();
-                l2.setNombre("Córdoba");
+                l2.setNombre("Cordoba");
                 prov1.addLocalidad(l1);
                 prov1.addLocalidad(l2);
 
