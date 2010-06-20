@@ -11,9 +11,6 @@ package modelo;
 //
 //
 
-
-
-
 public class Indumentaria {
 	
         private int id;

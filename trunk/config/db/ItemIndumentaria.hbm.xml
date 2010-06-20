@@ -5,7 +5,7 @@
   <class name="modelo.ItemIndumentaria" table="ITEM_INDUMENTARIA">
       
     <id column="ID_ITEM_INDUMENTARIA" name="id" type="integer">
-      <generator class="native"/>
+      <generator class="increment"/>
     </id>   
     
     <many-to-one class="modelo.Indumentaria" column="ID_INDUMENTARIA" name="indumentaria"/>
