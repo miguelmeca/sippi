@@ -10,6 +10,7 @@ import modelo.Localidad;
 import modelo.Pais;
 import modelo.Provincia;
 import modelo.TipoTelefono;
+import modelo.TipoDocumento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -84,7 +85,23 @@ public class DBExamplesLoader {
         sesion.save(l3);
         sesion.getTransaction().commit();
     }
-
+    public void cargarTipoDocumento()
+    {
+        TipoDocumento td1= new TipoDocumento();
+        td1.setNombre("D.N.I.");
+        td1.setDescripcion("Documento Nacional de Identidad");
+        TipoDocumento td2= new TipoDocumento();
+        td2.setNombre("L.E.");
+        td2.setDescripcion("Libreta de Enrolamiento");
+        TipoDocumento td3= new TipoDocumento();
+        td3.setNombre("L.C.");
+        td3.setDescripcion("Libreta Civica");
+        sesion.beginTransaction();
+        sesion.save(td1);
+        sesion.save(td2);
+        sesion.save(td3);
+        sesion.getTransaction().commit();
+    }
     public void cargarTipoTelefono()
     {
         TipoTelefono tt1 = new TipoTelefono();
