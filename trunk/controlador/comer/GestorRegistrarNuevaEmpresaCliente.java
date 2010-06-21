@@ -158,7 +158,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
         ArrayList<Planta> listaPlantas = new ArrayList<Planta>();
         listaPlantas.add(this.planta);
-        nueva.setPlantas(listaPlantas);
+        //nueva.setPlantas(listaPlantas);
 
         nueva.setTelefonos(this.telefonos);
 
@@ -171,6 +171,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
                 HibernateUtil.beginTransaction();
                 sesion.save(d);
                 sesion.save(nueva);
+                nueva.setPlantas(listaPlantas);
+                sesion.update(nueva);
+                //sesion.saveOrUpdate(nueva);
                 HibernateUtil.commitTransaction();
             }catch(Exception e) {
                 System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());

@@ -5,7 +5,7 @@
     <id column="ID" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <discriminator column="TIPOEMPRESA" type="string"/>
+    <!--<discriminator column="TIPOEMPRESA" type="string"/>-->
     <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
     <property column="CUIT" name="cuit" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
@@ -36,7 +36,6 @@
         <index column="ID"/>
         <one-to-many class="modelo.Planta"/>
       </list>
-      <!-- NO ME TERMINA DE CONVENCER QUE TENGA DOS COLUMNAS DE FOREIGN KEY-->
     </joined-subclass>
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID"/>
