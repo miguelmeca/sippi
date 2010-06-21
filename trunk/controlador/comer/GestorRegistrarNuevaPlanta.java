@@ -5,7 +5,10 @@ import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.*;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -29,21 +32,22 @@ import vista.comer.pantallaRegistrarNuevaPlanta;
 public class GestorRegistrarNuevaPlanta {
 
         private pantallaRegistrarNuevaPlanta pantalla;
-	public ArrayList<Empresa> listaEmpresas;
-	public String nombrePlanta;
-	public String telefonoPlanta;
-	public String calle;
-	public int altura;
-	public int piso;
-	public int depto;
-	public ArrayList<Pais> listaPais;
-	public ArrayList<Provincia> listaProvincias;
-	public ArrayList<Localidad> listaLocalidad;
-	public ArrayList<Barrio> listaBarrio;
-	public Pais pais;
-	public Provincia provincia;
-	public Localidad localidad;
-	public Barrio barrio;
+	private ArrayList<Empresa> listaEmpresas;
+	private String nombrePlanta;
+	private String calle;
+	private int altura;
+	private int piso;
+	private String depto;
+        private String codigoPostal;
+	private ArrayList<Pais> listaPais;
+	private ArrayList<Provincia> listaProvincias;
+	private ArrayList<Localidad> listaLocalidad;
+	private ArrayList<Barrio> listaBarrio;
+        private ArrayList<Telefono> listaTelefonos;
+	private Pais pais;
+	private Provincia provincia;
+	private Localidad localidad;
+	private Barrio barrio;
 
         public GestorRegistrarNuevaPlanta(pantallaRegistrarNuevaPlanta pantalla) {
             this.pantalla = pantalla;
@@ -86,12 +90,17 @@ public class GestorRegistrarNuevaPlanta {
             this.nombrePlanta = nombre;
 	}
 	
-	public void telefonoPlanta() {
-	
+	public void telefonoPlanta(ArrayList<Telefono> lista) {
+            this.listaTelefonos = lista;
 	}
 	
-	public void DomicilioPlanta() {
-	
+	public void DomicilioPlanta(String calle, int altura, int piso, String depto, String codigoPostal)
+        {
+            this.calle = calle;
+            this.altura = altura;
+            this.piso = piso;
+            this.depto = depto;
+            this.codigoPostal = codigoPostal;
 	}
 	
 	public ArrayList<Tupla> mostrarPaises() {
@@ -101,19 +110,23 @@ public class GestorRegistrarNuevaPlanta {
 
 	}
 	
-	public void paisPlanta() {
-	
-	}
-	
 	public ArrayList<Tupla> mostrarProvincias(int idPais)
         {
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+
+            // GUARDO EL PAIS PARA CUANDO CREE
+            this.pais = ggl.getPais(idPais);
+
            return ggl.getProvincias(idPais);
 	}
 
         public ArrayList<Tupla> mostrarLocalidades(int idProvincia) {
 
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+
+            // GUARDO LA PROVINCIA PARA CUANDO CREE
+            this.provincia = ggl.getProvincia(idProvincia);
+
            return ggl.getLocalidades(idProvincia);
 
 	}
@@ -125,20 +138,28 @@ public class GestorRegistrarNuevaPlanta {
 
 	}
 
-	public void provinciaPlanta() {
-	
+        /*
+         *  SETERS DE LA GEOPOSICION ---------------------------------------
+         */
+
+	public void paisPlanta(int idPais) {
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+            this.pais = ggl.getPais(idPais);
+	}
+
+	public void provinciaPlanta(int idProvincia) {
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+            this.provincia = ggl.getProvincia(idProvincia);
 	}
 	
-
-	
-	public void LocalidadPlanta() {
-	
+	public void LocalidadPlanta(int idLocalidad) {
+            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+            this.localidad = ggl.getLocalidad(idLocalidad);
 	}
 	
-
-	
-	public void barrioPlanta() {
-	
+	public void barrioPlanta(int idBarrio) {
+            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+            this.barrio = (Barrio)ggl.getBarrio(idBarrio);
 	}
 	
 	public void PlantaConfirmada() {
@@ -147,7 +168,45 @@ public class GestorRegistrarNuevaPlanta {
 
         public int PlantaConfirmadaSinEmpresa()
         {
-            return -1;
+            // GUARDO LA PLANTA, SIN LA EMPRESA
+            Planta p = new Planta();
+            p.setRazonSocial(this.nombrePlanta);
+            p.setTelefonos(this.listaTelefonos);
+
+            Domicilio d = new Domicilio();
+            d.setBarrio((Barrio)barrio);
+            d.setCalle(calle);
+            d.setCodigoPostal(codigoPostal);
+            d.setDepto(depto);
+            d.setNumero(altura);
+            d.setPiso(piso);
+              p.setDomicilio(d);
+            
+                    SessionFactory sf = HibernateUtil.getSessionFactory();
+                    Session sesion;
+                    try {
+                    sesion = HibernateUtil.getSession();
+
+                    try{
+                    HibernateUtil.beginTransaction();
+
+                        sesion.save(d);
+
+                        sesion.save(p);
+
+                        HibernateUtil.commitTransaction();
+                    }catch(Exception e) { 
+                        System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
+                        HibernateUtil.rollbackTransaction();
+                    }
+
+
+                    HibernateUtil.closeSession();
+
+                    } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
+
+             return p.getId();
+
         }
 	
 	public void CrearPlanta() {

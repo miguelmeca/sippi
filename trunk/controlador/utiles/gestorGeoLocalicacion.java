@@ -158,4 +158,44 @@ public class gestorGeoLocalicacion {
             return tuplas;
     }
 
+    /**
+     * Me devuelve el Pais al que refiere el idPais
+     * @param idPais
+     * @return Pais
+     */
+    public Pais getPais(int idPais)
+    {
+        return (Pais) sesion.load(Pais.class,idPais);
+    }
+
+    /**
+     * Me devuelve la provincia al que refiere el idProvincia
+     * @param idProvincia
+     * @return Provincia
+     */
+    public Provincia getProvincia(int idProvincia)
+    {
+        return (Provincia) sesion.load(Provincia.class,idProvincia);
+    }
+
+    /**
+     * Me devuelve la Localidad al que refiere el idLocalidad
+     * @param idLocalidad
+     * @return Localidad
+     */
+    public Localidad getLocalidad(int idLocalidad)
+    {
+        return (Localidad) sesion.load(Localidad.class,idLocalidad);
+    }
+
+    /**
+     * Me devuelve el Barrio al que refiere el idBarrio
+     * @param idBarrio
+     * @return Barrio
+     */
+    public Barrio getBarrio(int idBarrio)
+    {
+        return (Barrio) sesion.load(Barrio.class,idBarrio);
+    }
+
 }

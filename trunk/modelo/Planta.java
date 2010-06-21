@@ -25,37 +25,13 @@ public class Planta {
 	private Domicilio domicilio;
 	private ContactoResponsable contacto;
 
-	public void crear() {
-	
-	}
-	
-	public void mostrarPlanta() {
-	
-	}
-	
-	public void mostrarDomicilio() {
-	
-	}
-	
-	public void crearDomicilio() {
-	
-	}
-	
-	public void getDatosPlanta() {
-	
-	}
-	
-	public void getPlanta() {
-	
-	}
-	
-	public void getRazonSocial() {
-	
-	}
-	
-	public void getDomicilio() {
-	
-	}
+    public Domicilio getDomicilio() {
+        return domicilio;
+    }
+
+    public String getRazonSocial() {
+        return razonSocial;
+    }
 
     public ContactoResponsable getContacto() {
         return contacto;
@@ -88,6 +64,7 @@ public class Planta {
     public void setTelefonos(List telefono) {
         this.telefonos = telefono;
     }
+
 
 
 }
