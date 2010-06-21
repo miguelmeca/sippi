@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
@@ -24,10 +24,41 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< .mine
+          <Group type="102" alignment="0" attributes="0">
+=======
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
+>>>>>>> .r121
               <EmptySpace max="-2" attributes="0"/>
+<<<<<<< .mine
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel5" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanel3" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButton5" min="-2" pref="260" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+=======
+>>>>>>> .r121
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -69,7 +100,11 @@
                   <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnNuevaEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+<<<<<<< .mine
+              <EmptySpace pref="24" max="32767" attributes="0"/>
+=======
               <EmptySpace min="-2" max="-2" attributes="0"/>
+>>>>>>> .r121
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,7 +140,11 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
+<<<<<<< .mine
+                                      <Component id="cmbPaises" alignment="0" pref="187" max="32767" attributes="1"/>
+=======
                                       <Component id="cmbPais" alignment="0" pref="187" max="32767" attributes="1"/>
+>>>>>>> .r121
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jTextField8" min="-2" pref="91" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -131,8 +170,13 @@
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< .mine
+                                              <Component id="cmbBarrios" alignment="0" pref="107" max="32767" attributes="0"/>
+                                              <Component id="cmbProvincias" alignment="0" max="32767" attributes="0"/>
+=======
                                               <Component id="cmbBarrio" alignment="0" pref="107" max="32767" attributes="0"/>
                                               <Component id="cmbProvincias" alignment="0" max="32767" attributes="0"/>
+>>>>>>> .r121
                                           </Group>
                                       </Group>
                                   </Group>
@@ -173,7 +217,11 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+<<<<<<< .mine
+                      <Component id="cmbPaises" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
                       <Component id="cmbPais" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> .r121
                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cmbProvincias" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -186,7 +234,11 @@
                       </Group>
                       <Component id="jButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+<<<<<<< .mine
+                          <Component id="cmbBarrios" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
                           <Component id="cmbBarrio" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> .r121
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -255,15 +307,22 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pais: "/>
+            <Property name="text" type="java.lang.String" value="Pa&#xed;s: "/>
           </Properties>
         </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JComboBox" name="cmbPaises">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbPaisesActionPerformed"/>
+          </Events>
+=======
         <Component class="javax.swing.JComboBox" name="cmbPais">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+>>>>>>> .r121
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbPaisActionPerformed"/>
           </Events>
@@ -276,12 +335,19 @@
             <Property name="text" type="java.lang.String" value="Provincia:"/>
           </Properties>
         </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JComboBox" name="cmbProvincias">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbProvinciasActionPerformed"/>
+          </Events>
+=======
         <Component class="javax.swing.JComboBox" name="cmbProvincias">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+>>>>>>> .r121
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbProvinciasActionPerformed"/>
           </Events>
@@ -292,6 +358,9 @@
               <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -301,12 +370,19 @@
             <Property name="text" type="java.lang.String" value="Localidad: "/>
           </Properties>
         </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JComboBox" name="cmbLocalidades">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbLocalidadesActionPerformed"/>
+          </Events>
+=======
         <Component class="javax.swing.JComboBox" name="cmbLocalidades">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+>>>>>>> .r121
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbLocalidadesActionPerformed"/>
           </Events>
@@ -317,6 +393,9 @@
               <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
@@ -326,7 +405,11 @@
             <Property name="text" type="java.lang.String" value="Barrio:"/>
           </Properties>
         </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JComboBox" name="cmbBarrios">
+=======
         <Component class="javax.swing.JComboBox" name="cmbBarrio">
+>>>>>>> .r121
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
@@ -339,6 +422,9 @@
               <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -357,6 +443,22 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< .mine
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jTextField1" pref="420" max="32767" attributes="1"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="jTextField2" pref="121" max="32767" attributes="1"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jTextField3" min="-2" pref="252" max="-2" attributes="1"/>
+                      </Group>
+=======
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -371,6 +473,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jTextField3" min="-2" pref="265" max="-2" attributes="1"/>
                       </Group>
+>>>>>>> .r121
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -385,12 +488,15 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+<<<<<<< .mine
+=======
                       <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> .r121
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -398,10 +504,14 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Razon Social: "/>
+            <Property name="text" type="java.lang.String" value="Raz&#xf3;n Social: "/>
           </Properties>
         </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JTextField" name="jTextField1">
+=======
         <Component class="javax.swing.JTextField" name="txtRazonSocial">
+>>>>>>> .r121
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -414,7 +524,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CUIT"/>
+            <Property name="text" type="java.lang.String" value="CUIT:"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -438,12 +548,15 @@
         <Property name="text" type="java.lang.String" value="Aceptar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel5">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="N&#xfa;meros de Telefono"/>
+            <TitledBorder title="N&#xfa;meros de Tel&#xe9;fono"/>
           </Border>
         </Property>
       </Properties>
@@ -454,11 +567,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jScrollPane3" min="-2" pref="298" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+<<<<<<< .mine
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="txtTelefono" alignment="1" pref="197" max="32767" attributes="0"/>
+                      <Component id="cmbTipoTelefono" alignment="1" pref="197" max="32767" attributes="0"/>
+                      <Component id="jLabel17" alignment="0" pref="197" max="32767" attributes="0"/>
+                      <Component id="btnAgregarTel" alignment="0" pref="197" max="32767" attributes="0"/>
+                      <Component id="btnQuitarTel" alignment="1" pref="197" max="32767" attributes="0"/>
+=======
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtNumeroTelefono" alignment="1" pref="193" max="32767" attributes="0"/>
                       <Component id="cmbTipoTelefono" alignment="1" pref="193" max="32767" attributes="0"/>
                       <Component id="jLabel17" alignment="0" pref="193" max="32767" attributes="0"/>
                       <Component id="btnNuevoTelefono" alignment="0" pref="193" max="32767" attributes="0"/>
+>>>>>>> .r121
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -467,6 +589,17 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+<<<<<<< .mine
+                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="cmbTipoTelefono" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <Component id="btnAgregarTel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnQuitarTel" min="-2" max="-2" attributes="0"/>
+=======
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="1">
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
@@ -479,8 +612,10 @@
                       </Group>
                       <Component id="jScrollPane3" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
+>>>>>>> .r121
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
+              <Component id="jScrollPane3" alignment="0" pref="141" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -492,18 +627,37 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
+<<<<<<< .mine
+            <Component class="javax.swing.JTable" name="tbTelefonos">
+=======
             <Component class="javax.swing.JTable" name="tablaTelefonos">
+>>>>>>> .r121
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+<<<<<<< .mine
+                  <Table columnCount="2" rowCount="0">
+                    <Column editable="true" title="N&#xfa;mero" type="java.lang.String"/>
+                    <Column editable="true" title="Tipo" type="java.lang.String"/>
+                  </Table>
+=======
                   <Table columnCount="0" rowCount="0"/>
+>>>>>>> .r121
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
+<<<<<<< .mine
+        <Component class="javax.swing.JTextField" name="txtTelefono">
+=======
         <Component class="javax.swing.JTextField" name="txtNumeroTelefono">
+>>>>>>> .r121
           <Events>
+<<<<<<< .mine
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
+=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumeroTelefonoActionPerformed"/>
+>>>>>>> .r121
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
@@ -515,21 +669,43 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbTipoTelefono">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTipoTelefonoActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnNuevoTelefono">
+        <Component class="javax.swing.JButton" name="btnAgregarTel">
           <Properties>
+<<<<<<< .mine
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/res/iconos/var/16x16/back.png"/>
+=======
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+>>>>>>> .r121
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarTelActionPerformed"/>
+          </Events>
+        </Component>
+<<<<<<< .mine
+        <Component class="javax.swing.JButton" name="btnQuitarTel">
+=======
+        <Component class="javax.swing.JButton" name="btnNuevoTelefono">
+>>>>>>> .r121
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/iconos/var/16x16/next.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Quitar"/>
+          </Properties>
+          <Events>
+<<<<<<< .mine
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarTelActionPerformed"/>
+=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoTelefonoActionPerformed"/>
+>>>>>>> .r121
           </Events>
         </Component>
       </SubComponents>
