@@ -42,14 +42,7 @@ public class pantallaRegistrarEmpleado_viejo extends javax.swing.JInternalFrame 
 
     private void habilitarVentana()
     {
-        ArrayList<String> listaNombresTipoDocumento = gestor.mostrarTiposDeDocumento();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (String nombre : listaNombresTipoDocumento)
-        {
-            model.addElement(nombre);
-        }
-        cmbTipoDocumento.setModel(model);
+       
     }
 
     public void opcionRegistrarEmpleado()
