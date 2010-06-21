@@ -3,7 +3,10 @@ package controlador.comer;
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 //import java.util.List;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import javax.transaction.Transaction;
 import modelo.*;
 import modelo.Pais;
@@ -153,7 +156,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
         d.setDepto(this.dpto);
         nueva.setDomicilio(d);
 
-        nueva.setPlantas(this.planta);
+        ArrayList<Planta> listaPlantas = new ArrayList<Planta>();
+        listaPlantas.add(this.planta);
+        nueva.setPlantas(listaPlantas);
 
         nueva.setTelefonos(this.telefonos);
 
@@ -164,7 +169,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
             try{
                 HibernateUtil.beginTransaction();
-                //sesion.save(d); CREO Q LA VA A CREAR SOLA !
+                sesion.save(d);
                 sesion.save(nueva);
                 HibernateUtil.commitTransaction();
             }catch(Exception e) {
