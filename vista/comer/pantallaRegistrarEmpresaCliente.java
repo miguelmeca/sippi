@@ -209,6 +209,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Calle: ");
 
+        txtCalle.setText("Av. Julio A. Roca");
         txtCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCalleActionPerformed(evt);
@@ -218,14 +219,27 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Nº:");
 
+        txtAltura.setText("1234");
+        txtAltura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAlturaActionPerformed(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Piso:");
+
+        txtPiso.setText("1");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Dpto:");
 
+        txtDpto.setText("D");
+
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("CP:");
+
+        txtCP.setText("5000");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Pais: ");
@@ -367,7 +381,18 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
         jLabel1.setText("Razon Social: ");
 
+        txtRazonSocial.setText("ESMAM S.R.L.");
+
         jLabel3.setText("Email:");
+
+        txtEmail.setText("esman@gmail.com");
+
+        txtCuit.setText("345564");
+        txtCuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("CUIT");
 
@@ -435,6 +460,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         ));
         jScrollPane3.setViewportView(tablaTelefonos);
 
+        txtNumeroTelefono.setText("5455");
         txtNumeroTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroTelefonoActionPerformed(evt);
@@ -644,6 +670,14 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnNuevaEmpresaActionPerformed
+
+    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitActionPerformed
+
+    private void txtAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAlturaActionPerformed
 
         private ArrayList<Telefono> cargarTelefonos()
     {
