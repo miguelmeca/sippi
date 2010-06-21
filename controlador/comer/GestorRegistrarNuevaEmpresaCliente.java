@@ -151,13 +151,6 @@ public class GestorRegistrarNuevaEmpresaCliente {
      */
     public ArrayList<Tupla> mostrarNombrePaises() {
 
-<<<<<<< .mine
-    public ArrayList<Tupla> mostrarPaises() {
-
-       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-       return ggl.getPaises();
-
-=======
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getPaises();
     }
@@ -170,13 +163,8 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getLocalidades(prov.getId());
->>>>>>> .r121
     }
 
-<<<<<<< .mine
-    public void paisPlanta() {
-
-=======
     /**
      * IUGA
      * @return
@@ -185,15 +173,8 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getProvincias(pais.getId());
->>>>>>> .r121
     }
 
-<<<<<<< .mine
-    public ArrayList<Tupla> mostrarProvincias(int idPais)
-    {
-       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-       return ggl.getProvincias(idPais);
-=======
     /**
      * IUGA
      * @return
@@ -202,21 +183,6 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getBarrios(loc.getId());
-
->>>>>>> .r121
-    }
-
-    public ArrayList<Tupla> mostrarLocalidades(int idProvincia) {
-
-       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-       return ggl.getLocalidades(idProvincia);
-
-    }
-
-    public ArrayList<Tupla> mostrarBarrios(int idLocalidad) {
-
-       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-       return ggl.getBarrios(idLocalidad);
 
     }
 }
