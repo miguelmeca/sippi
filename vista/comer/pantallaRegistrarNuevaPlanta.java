@@ -15,8 +15,12 @@ import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
 import controlador.comer.GestorRegistrarNuevaPlanta;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Telefono;
+import modelo.TipoTelefono;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IAyuda;
@@ -174,12 +178,12 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         jLabel1 = new javax.swing.JLabel();
         cmbEmpresa = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombrePlanta = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCalle = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtCodPostal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cmbPais = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -192,11 +196,11 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         cmbBarrio = new javax.swing.JComboBox();
         jButton5 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtAltura = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtPiso = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtDepto = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnNuevaPlanta = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -219,22 +223,27 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre:  ");
 
-        jTextField1.setText("Bagley");
+        txtNombrePlanta.setText("Bagley");
+        txtNombrePlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombrePlantaActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Calle:");
 
-        jTextField2.setText("Av. Sarmiento 147");
+        txtCalle.setText("Av. Sarmiento 147");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Código Postal:");
 
-        jTextField4.setText("X5000CFG");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtCodPostal.setText("X5000CFG");
+        txtCodPostal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtCodPostalActionPerformed(evt);
             }
         });
 
@@ -298,30 +307,30 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Altura:");
 
-        jTextField5.setText("147");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtAltura.setText("147");
+        txtAltura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtAlturaActionPerformed(evt);
             }
         });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Piso:");
 
-        jTextField6.setText("PB");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtPiso.setText("PB");
+        txtPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtPisoActionPerformed(evt);
             }
         });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Depto.:");
 
-        jTextField7.setText("PB");
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtDepto.setText("PB");
+        txtDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtDeptoActionPerformed(evt);
             }
         });
 
@@ -361,18 +370,18 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                .addComponent(txtPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                                 .addGap(35, 35, 35)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))))
+                                .addComponent(txtDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCodPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -385,18 +394,18 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                         .addComponent(jLabel11))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -479,7 +488,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Tipo y Número de Teléfono :");
 
         btnNuevoTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
@@ -535,7 +544,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbEmpresa, 0, 341, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)))
+                            .addComponent(txtNombrePlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -556,8 +565,8 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNombrePlanta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -591,9 +600,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodPostalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtCodPostalActionPerformed
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
 
@@ -625,17 +634,17 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtAlturaActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPisoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtPisoActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeptoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtDeptoActionPerformed
 
     private void btnNuevoContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoContactoActionPerformed
 
@@ -643,19 +652,67 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     }//GEN-LAST:event_btnNuevoContactoActionPerformed
 
+    private ArrayList<Telefono> cargarTelefonos()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+        Iterator it = modelo.getDataVector().iterator();
+        ArrayList<Telefono> listaTelefonos = new ArrayList<Telefono>();
+        while (it.hasNext())
+        {
+            Vector fila = (Vector)it.next();
+
+            System.out.println("HOLA");
+            Tupla tipo = (Tupla)fila.get(0);
+
+            Telefono tel = new Telefono();
+            tel.setNumero((String)fila.get(1));
+
+            TipoTelefono ttel = new TipoTelefono();
+            ttel.setNombre(tipo.getNombre());
+            ttel.setId(tipo.getId()); // MAGIA? REZEMOS A HIBERNATE =)
+            tel.setTipo(ttel);
+
+            listaTelefonos.add(tel);
+        }
+        return listaTelefonos;
+    }
+
     private void btnNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlantaActionPerformed
+
+        // PASO EL NOMBRE
+        gestor.nombrePlanta(txtNombrePlanta.getText());
+
+        // PASO LOS TELEFONOS
+        gestor.telefonoPlanta(cargarTelefonos());
+
+        // PASO LOS DATOS DEL DOMICILIO
+        gestor.DomicilioPlanta(txtCalle.getText(),Integer.parseInt(txtAltura.getText()),Integer.parseInt(txtPiso.getText()),txtDepto.getText(),txtCodPostal.getText());
+
+        // PASO LA GEOLOCALIZACION ;)
+        // MIERDA AL PEDO !!! SOLO NECESITO EL BARRIO
+        Tupla aux;
+        aux = (Tupla)cmbPais.getSelectedItem();
+        gestor.paisPlanta(aux.getId());
+        aux = (Tupla)cmbProvincias.getSelectedItem();
+        gestor.provinciaPlanta(aux.getId());
+        aux = (Tupla)cmbLocalidades.getSelectedItem();
+        gestor.LocalidadPlanta(aux.getId());
+        aux = (Tupla)cmbBarrio.getSelectedItem();
+        gestor.barrioPlanta(aux.getId());
 
         // SI ES NULO VENGO DESDE EL ACTOR
         if(gestorEmpresaCliente == null)
         {
+            //TODO: PASO LA EMPRESA
             gestor.PlantaConfirmada();
         }
         // SI NO ES NULO, VENGO DEL INCLUDE DE REGISTRAR EMPRESA CLIENTE
         else
         {
-            int id = 0;
             // MANDO A GUARDAR LA PLANTA
-            gestorEmpresaCliente.setNuevaPlanta(gestor.PlantaConfirmadaSinEmpresa());
+            int id = gestor.PlantaConfirmadaSinEmpresa();
+            gestorEmpresaCliente.setNuevaPlanta(id);
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
 
@@ -681,6 +738,10 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         }
         txtNumeroTelefono.setText(""); // lo vacio para q cargue otro
     }//GEN-LAST:event_btnNuevoTelefonoActionPerformed
+
+    private void txtNombrePlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombrePlantaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombrePlantaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -713,14 +774,14 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTable tablaTelefonos;
+    private javax.swing.JTextField txtAltura;
+    private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtCodPostal;
+    private javax.swing.JTextField txtDepto;
+    private javax.swing.JTextField txtNombrePlanta;
     private javax.swing.JTextField txtNumeroTelefono;
+    private javax.swing.JTextField txtPiso;
     // End of variables declaration//GEN-END:variables
 
     // ----------------------------------------------------------------------
