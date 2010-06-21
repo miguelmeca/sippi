@@ -11,15 +11,21 @@
     <property column="EMAIL" name="email" type="string"/>
     <property column="PAGINAWEB" name="paginaWeb" type="string"/>
     <many-to-one column="IDDOMICILIO" name="domicilio"/>
-    <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO-->
+
+    <list cascade="all-delete-orphan" name="telefonos" table="EMPRESAXTELEFONO">
+      <key column="ID_EMPRESA"/>
+      <index column="ID"/>
+      <many-to-many class="modelo.Telefono"/>
+    </list>
+    <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO
     <set name="telefonos" table="EMPRESAXTELEFONO">
-      <!-- La columna clave de la tabla EMPRESAXTELEFONO que se relaciona
-        con la clave primeria del objeto Empresa es IDEMPRESA-->
+       La columna clave de la tabla EMPRESAXTELEFONO que se relaciona
+        con la clave primeria del objeto Empresa es IDEMPRESA
       <key column="IDEMPRESA"/>
-      <!-- La propiedad telefonos tiene una relacion "muchos-a-muchos"
-        con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO-->
+       La propiedad telefonos tiene una relacion "muchos-a-muchos"
+        con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO
       <many-to-many class="modelo.Telefono" column="IDTELEFONO"/>
-    </set>
+    </set>-->
     <joined-subclass name="modelo.EmpresaCliente" table="EMPRESACLIENTE">
       <!--La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
         La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
