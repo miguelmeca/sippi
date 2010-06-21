@@ -54,7 +54,11 @@ public class SwingPanel {
    public void addWindow(JInternalFrame win)
    {
        win.setLocation(panel.getWidth()/2 - win.getWidth()/2 ,panel.getHeight()/2 - win.getHeight()/2 - 20);
-       mostrarAyuda((IAyuda) win);
+       // WORKARROUND !!
+       if(win instanceof IAyuda)
+       {
+            mostrarAyuda((IAyuda) win);
+       }
        panel.add(win);
    }
 
