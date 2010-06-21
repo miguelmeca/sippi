@@ -198,14 +198,10 @@ public class GestorRegistrarNuevaPlanta {
                     }catch(Exception e) { 
                         System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
-                    }
-
-
-                    HibernateUtil.closeSession();
-
-                    } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
-
-             return p.getId();
+                }
+                HibernateUtil.closeSession();
+            } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
+            return p.getId();
 
         }
 	

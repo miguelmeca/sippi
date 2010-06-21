@@ -43,6 +43,13 @@ public class GestorRegistrarNuevaEmpresaCliente {
     private ArrayList<Telefono> telefonos;
     private ArrayList<Domicilio> domicilio;
     private pantallaRegistrarEmpresaCliente pantalla;
+    private Planta planta;
+    private String nombreEmpresaCliente;
+    private String calle;
+    private String altura;
+    private String piso;
+    private String dpto;
+    private String cp;
 
     public GestorRegistrarNuevaEmpresaCliente(pantallaRegistrarEmpresaCliente pantalla) {
         this.pantalla = pantalla;
@@ -63,6 +70,13 @@ public class GestorRegistrarNuevaEmpresaCliente {
         //TODO: UNA VEZ QUE YA REGISTRASTE LA NUEVA EMPRESA, TENES QUE BUSCAR LA PLANTA CREADA
         // Y  ACTUALIZARLE EL ID DE LA EMPRESA que va a estar en NULL... SI O SI !!!
         //(Usa el id este para encontrarla y actualizarla)
+
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        this.planta = (Planta)sesion.load(Planta.class, id);
+
+        sesion.close();
     }
 
     public void finCU() {
@@ -70,55 +84,96 @@ public class GestorRegistrarNuevaEmpresaCliente {
     }
 
     public void llamarCURegistrarNuevaPlanta() {
-
+        // DEPRECATED - DIRECTAMENTE SE LLAMA A REGISTRARNUEVAPLANTA()
     }
 
-    public void seleccionPais() {
-
+    public void seleccionPais(int id) {
+        gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+        this.pais = ggl.getPais(id);
     }
 
-    public void seleccionProvincia() {
-
+    public void seleccionProvincia(int id) {
+        gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+        this.provincia = ggl.getProvincia(id);
     }
 
-    public void seleccionLocalidad() {
-
+    public void seleccionLocalidad(int id) {
+        gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+        this.localidad = ggl.getLocalidad(id);
     }
 
-    public void seleccionBarrio() {
-
+    public void seleccionBarrio(int id) {
+        gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+        this.barrio = ggl.getBarrio(id);
     }
 
-    public void nombreEmpresa() {
-
+    public void nombreEmpresa(String nombre) {
+        this.nombreEmpresaCliente = nombre;
     }
 
-    public void CUIT() {
-
+    public void CUIT(String cuit) {
+        this.cuit = cuit;
     }
 
-    public void datosDomicilio() {
-
+    public void datosDomicilio(String calle,String altura,String piso,String dpto,String cp) {
+        this.calle = calle;
+        this.altura = altura;
+        this.piso = piso;
+        this.dpto = dpto;
+        this.cp = cp;
     }
 
-    public void EMail() {
-
+    public void EMail(String email) {
+        this.email = email;
     }
 
-    public void telefono() {
-
+    public void telefono(ArrayList<Telefono> telefonos) {
+        this.telefonos = telefonos;
     }
 
     public void seleccionTipoTelefono() {
-
+        // DEPRECATED - NO SIRVE DE NADA... ESTA INFO VA EN TELEFONO()
     }
 
     public void agregarNuevaPlanta() {
-
+        // DEPRECATED - AHORA SE LLAMA REGISTRARNUEVAPLANTA()
     }
 
-    public void confirmacionRegistro() {
+    public int confirmacionRegistro() {
+        EmpresaCliente nueva = new EmpresaCliente();
+        nueva.setRazonSocial(this.nombreEmpresaCliente);
+        nueva.setCuit(this.cuit);
+        nueva.setEmail(this.email);
 
+        Domicilio d = new Domicilio();
+        d.setCalle(this.calle);
+        d.setCodigoPostal(this.cp);
+        d.setNumero(Integer.parseInt(this.altura));
+        d.setPiso(Integer.parseInt(this.piso));
+        d.setDepto(this.dpto);
+        nueva.setDomicilio(d);
+
+        nueva.setPlantas(this.planta);
+
+        nueva.setTelefonos(this.telefonos);
+
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion;
+        try {
+            sesion = HibernateUtil.getSession();
+
+            try{
+                HibernateUtil.beginTransaction();
+                //sesion.save(d); CREO Q LA VA A CREAR SOLA !
+                sesion.save(nueva);
+                HibernateUtil.commitTransaction();
+            }catch(Exception e) {
+                System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
+                HibernateUtil.rollbackTransaction();
+        }
+            HibernateUtil.closeSession();
+        } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
+        return nueva.getId();
     }
 
     public ArrayList<Tupla> mostrarTiposTelefono() {
