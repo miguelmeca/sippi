@@ -18,18 +18,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.TipoTelefono;
 import util.Tupla;
-import util.SwingPanel;
-import vista.interfaces.IAyuda;
 
 /**
  *
  * @author iuga
  */
-public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame implements IAyuda{
-
+public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame {
     private GestorRegistrarNuevaEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
-    private DefaultTableModel tm;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
@@ -59,18 +55,9 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     }
 
-    private void mostrarPaises()
+    public void habilitarVentana()
     {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        ArrayList<Tupla> lista = gestor.mostrarPaises();
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-
-        cmbPaises.setModel(valores);
     }
 
     public void plantaAgregada()
@@ -234,8 +221,8 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Código Postal:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("País: ");
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setText("Pais: ");
 
         cmbPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,11 +240,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("Localidad: ");
@@ -269,21 +251,11 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Barrio:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -375,7 +347,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Empresa"));
 
-        jLabel1.setText("Razón Social: ");
+        jLabel1.setText("Razon Social: ");
 
         jLabel3.setText("Email:");
 
@@ -410,6 +382,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -427,13 +400,8 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
         btnNuevaEmpresa.setText("Aceptar");
         btnNuevaEmpresa.setEnabled(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Números de Teléfono"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Números de Telefono"));
 
         tablaTelefonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -459,14 +427,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         btnNuevoTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoTelefonoActionPerformed(evt);
-            }
-        });
-
-        btnQuitarTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
-        btnQuitarTel.setText("Quitar");
-        btnQuitarTel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarTelActionPerformed(evt);
             }
         });
 
@@ -498,7 +458,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addComponent(btnNuevoTelefono))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar una Nueva Planta"));
@@ -683,17 +642,5 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JTextField txtNumeroTelefono;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
-
-    public String getTituloAyuda() {
-        return "Opción: Nueva Empresa Cliente";
-    }
-
-    public String getResumenAyuda() {
-        return "Ingrese los datos de la nueva empresa cliente.";
-    }
-
-    public int getIdAyuda() {
-        return 0;
-    }
 
 }
