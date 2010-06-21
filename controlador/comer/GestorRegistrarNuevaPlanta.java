@@ -1,5 +1,6 @@
 package controlador.comer;
 
+import controlador.utiles.gestorBDvarios;
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -69,13 +70,20 @@ public class GestorRegistrarNuevaPlanta {
             return tuplas;
 
 	}
-	
+
+        public ArrayList<Tupla> mostrarTiposTelefono()
+        {
+            gestorBDvarios gaux = new gestorBDvarios();
+            return gaux.getTiposDeTelefono();
+        }
+
 	public void empresaCliente() {
 	
 	}
 	
-	public void nombrePlanta() {
-	
+	public void nombrePlanta(String nombre)
+        {
+            this.nombrePlanta = nombre;
 	}
 	
 	public void telefonoPlanta() {
@@ -136,6 +144,11 @@ public class GestorRegistrarNuevaPlanta {
 	public void PlantaConfirmada() {
 	
 	}
+
+        public int PlantaConfirmadaSinEmpresa()
+        {
+            return -1;
+        }
 	
 	public void CrearPlanta() {
 	
