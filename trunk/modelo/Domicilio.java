@@ -25,6 +25,19 @@ public class Domicilio {
 	public void crear() {
 	
 	}
+        public Domicilio()
+        {
+
+        }
+        public Domicilio(String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD)
+        {
+            calle=calleD;
+            numero=numeroD;
+            piso=pisoD;
+            depto=deptoD;
+            codigoPostal=codigoPostalD;
+            barrio=barrioD;
+        }
 	
 	public void mostrarDomicilio() {
 	
