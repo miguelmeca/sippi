@@ -5,6 +5,9 @@ package controlador.rrhh;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.TipoDocumento;
+import modelo.Domicilio;
+import modelo.Barrio;
+import modelo.Empleado;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -30,13 +33,13 @@ import java.util.Date;
 public class GestorRegistrarNuevoEmpleado {
 
         private pantallaRegistrarEmpleado pantalla;
-        private Object listaTiposDocumento;
-	private Object nroDocumento;
+        private TipoDocumento TipoDocumentoEmpleado;
+	private String nroDocumento;
         private String nombreEmpleado;
         private String apellidoEmpleado;
         private String emailEmpleado;
         private Date fechaNacimientoEmpleado;
-	private Object domicilioEmpleado;
+	private Domicilio domicilioEmpleado;
 	private Object listaPaises;
 	private Object listaProvincias;
 	private Object listaLocalidades;
@@ -46,6 +49,12 @@ public class GestorRegistrarNuevoEmpleado {
 	private Object especialidadesYRangos;
 	private Object fechaActual;
 	private Object legajoEmpleado;
+        private String calle;
+        private int nmro;
+        private int piso;
+        private String depto;
+        private String cp;
+        private Barrio barrio;
 
     public GestorRegistrarNuevoEmpleado(pantallaRegistrarEmpleado pantalla) {
         this.pantalla = pantalla;
@@ -81,16 +90,25 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void datosPersonalesEmpleado(String nombre, String apellido, Date fechaNac, String email)
+	public void datosPersonalesEmpleado(String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac, String email)
         {
+            
+            nroDocumento=nmroDoc;
+            gestorBDvarios bdv = new gestorBDvarios();                        
+            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
             nombreEmpleado=nombre;
-            String apellidoEmpleado=apellido;
-            String emailEmpleado=email;
+            apellidoEmpleado=apellido;
+            emailEmpleado=email;
             fechaNacimientoEmpleado=fechaNac;
 	
 	}
 	
-	public void datosDomicilioEmpleado() {
+	public void datosDomicilioEmpleado(String calle, String nro, String depto, String pisoD, String cp, Tupla tBarrio)
+        {
+            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();                        
+            barrio =ggl.getBarrio(tBarrio.getId());
+            nmro=Integer.parseInt(nro);
+            piso=Integer.parseInt(pisoD);
 	
 	}
 
@@ -143,11 +161,17 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void mostrarTipoEspecialidad() {
+	public ArrayList<Tupla> mostrarTipoEspecialidad() 
+        {
+            gestorBDvarios bdv = new gestorBDvarios();
+           return bdv.getTipoEspecialidades();
 	
 	}
 	
-	public void mostrarRangoEspecialidad() {
+	public ArrayList<Tupla> mostrarRangoEspecialidad()
+        {
+            gestorBDvarios bdv = new gestorBDvarios();
+           return bdv.getRangosEspecialidad();
 	
 	}
 	
@@ -155,11 +179,44 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void empleadoConfirmado() {
+        
+	public void empleadoConfirmado() 
+        {   
+           /* gestorBDvarios bdv = new gestorBDvarios();
+            Empleado emp=new Empleado()
+            nroDocumento=nmroDoc;
+                                    
+            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
+            nombreEmpleado=nombre;
+            apellidoEmpleado=apellido;
+            emailEmpleado=email;
+            fechaNacimientoEmpleado=fechaNac;
+            
+            */
 	
 	}
 	
-	public void generarLegajoEmpleado() {
+	public int generarLegajoEmpleado()
+        {
+             SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            int mayorLegajo;
+            //try{
+
+            Object ob =sesion.createQuery("Select MAX(legajo) from Empleado").uniqueResult();
+            if(ob!=null)
+            {mayorLegajo=(Integer)ob;}
+            else{mayorLegajo=0;}
+            sesion.getTransaction().commit();
+            //}
+
+            //catch(Exception e)
+            //{
+              //  mayorLegajo=0;
+            //}
+
+            return (mayorLegajo+1);
 	
 	}
 	
@@ -175,7 +232,9 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void telefonosEmpleado() {
+	public void telefonosEmpleado(ArrayList<String> numero,ArrayList<Tupla> tipo )
+        {
+
 	
 	}
 	
