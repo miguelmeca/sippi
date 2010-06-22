@@ -49,6 +49,8 @@ public class GestorRegistrarNuevaPlanta {
 	private Localidad localidad;
 	private Barrio barrio;
 
+        private EmpresaCliente empresa = null;
+
         public GestorRegistrarNuevaPlanta(pantallaRegistrarNuevaPlanta pantalla) {
             this.pantalla = pantalla;
             listaPais = new ArrayList<Pais>();
@@ -81,7 +83,23 @@ public class GestorRegistrarNuevaPlanta {
             return gaux.getTiposDeTelefono();
         }
 
-	public void empresaCliente() {
+	public void empresaCliente(Tupla ec)
+        {
+                    SessionFactory sf = HibernateUtil.getSessionFactory();
+                    Session sesion;
+                    try {
+                    sesion = HibernateUtil.getSession();
+                    try{
+                    HibernateUtil.beginTransaction();
+
+                        this.empresa = (EmpresaCliente) sesion.load(EmpresaCliente.class,ec.getId());
+
+                        HibernateUtil.commitTransaction();
+                    }catch(Exception e) {
+                        System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
+                        HibernateUtil.rollbackTransaction();
+                }
+            } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
 	
 	}
 	
@@ -162,11 +180,7 @@ public class GestorRegistrarNuevaPlanta {
             this.barrio = (Barrio)ggl.getBarrio(idBarrio);
 	}
 	
-	public void PlantaConfirmada() {
-	
-	}
-
-        public int PlantaConfirmadaSinEmpresa()
+        public int PlantaConfirmada()
         {
             // GUARDO LA PLANTA, SIN LA EMPRESA
             Planta p = new Planta();
@@ -186,21 +200,34 @@ public class GestorRegistrarNuevaPlanta {
                     Session sesion;
                     try {
                     sesion = HibernateUtil.getSession();
-
                     try{
                     HibernateUtil.beginTransaction();
 
-                        sesion.save(d);
-
-                        sesion.save(p);
+                        if(this.empresa == null)
+                        {
+                            for (Telefono tell : listaTelefonos) 
+                            {
+                                sesion.save(tell);
+                            }
+                            sesion.save(d);
+                            sesion.save(p);
+                        }
+                        else
+                        {
+                            empresa.addPlanta(p);
+                            //sesion.flush();
+                            //sesion.saveOrUpdate(empresa);
+                        }
 
                         HibernateUtil.commitTransaction();
                     }catch(Exception e) { 
                         System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
                 }
-                HibernateUtil.closeSession();
-            } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
+            } catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion");
+            }
             return p.getId();
 
         }

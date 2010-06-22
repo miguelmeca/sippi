@@ -19,6 +19,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.EmpresaCliente;
 import modelo.Telefono;
 import modelo.TipoTelefono;
 import util.SwingPanel;
@@ -317,7 +318,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Piso:");
 
-        txtPiso.setText("PB");
+        txtPiso.setText("9");
         txtPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPisoActionPerformed(evt);
@@ -566,7 +567,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombrePlanta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -703,14 +704,18 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         // SI ES NULO VENGO DESDE EL ACTOR
         if(gestorEmpresaCliente == null)
         {
+            // YA TENGO LA PLANTA !! ... corcholis ... y ahora?
+            gestor.empresaCliente((Tupla)cmbEmpresa.getSelectedItem());
             //TODO: PASO LA EMPRESA
-            gestor.PlantaConfirmada();
+            int id = gestor.PlantaConfirmada();
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         }
         // SI NO ES NULO, VENGO DEL INCLUDE DE REGISTRAR EMPRESA CLIENTE
         else
         {
             // MANDO A GUARDAR LA PLANTA
-            int id = gestor.PlantaConfirmadaSinEmpresa();
+            int id = gestor.PlantaConfirmada();
             gestorEmpresaCliente.setNuevaPlanta(id);
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

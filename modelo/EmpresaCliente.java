@@ -79,4 +79,9 @@ public class EmpresaCliente extends Empresa{
     public void getCUIT() {
 
     }
+
+    public void addPlanta(Planta p)
+    {
+        this.plantas.add(p);
+    }
 }
