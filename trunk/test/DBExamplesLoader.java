@@ -5,10 +5,15 @@
 
 package test;
 
+import java.util.ArrayList;
 import modelo.Barrio;
+import modelo.Domicilio;
+import modelo.EmpresaCliente;
 import modelo.Localidad;
 import modelo.Pais;
+import modelo.Planta;
 import modelo.Provincia;
+import modelo.Telefono;
 import modelo.TipoTelefono;
 import modelo.TipoDocumento;
 import org.hibernate.Session;
@@ -116,4 +121,35 @@ public class DBExamplesLoader {
         sesion.save(tt3);
         sesion.getTransaction().commit();
     }
+/**
+    public void cargarEmpresasYPlantas(){
+        EmpresaCliente ec1 = new EmpresaCliente();
+        ec1.setRazonSocial("ARCOR SRL");
+        ec1.setCuit("66688990-5");
+        ec1.setEmail("contacto@arcor.com.ar");
+        ec1.setPaginaWeb("www.arcor.com.ar");
+
+        Domicilio d = new Domicilio();
+        d.setCalle("Av. Chacabuco");
+        d.setNumero(4545);
+        d.setPiso(4);
+        d.setDepto("G");
+        d.setCodigoPostal("X5000UGT");
+        sesion.beginTransaction();
+        Barrio b = (Barrio)sesion.load(Barrio.class, 1);
+        sesion.getTransaction().commit();
+        d.setBarrio(b);
+        ec1.setDomicilio(d);
+
+        Telefono tel = new Telefono();
+        tel.setNumero("4567888");
+        tel.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+        ArrayList<Telefono> tels = new ArrayList<Telefono>();
+        tels.add(tel);
+        ec1.setTelefonos(tels);
+
+        Planta planta1 = new Planta();
+        planta1.set
+        ec1.setPlantas();
+    }**/
 }

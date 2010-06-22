@@ -96,7 +96,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel5" min="-2" pref="47" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Component id="cmbPlanta" min="-2" pref="102" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton4" min="-2" pref="29" max="-2" attributes="0"/>
                                   </Group>
@@ -135,7 +135,7 @@
                   <Component id="cmbEmpresa" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="btnAgregarEmpresaCliente" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="cmbPlanta" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jButton4" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -236,13 +236,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbEmpresa">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="ARCOR"/>
-          </StringArray>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEmpresaActionPerformed"/>
       </Events>
@@ -255,14 +248,10 @@
         <Property name="text" type="java.lang.String" value="Planta:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Bagley"/>
-          </StringArray>
-        </Property>
-      </Properties>
+    <Component class="javax.swing.JComboBox" name="cmbPlanta">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbPlantaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>

@@ -59,6 +59,20 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         cmbEmpresa.setModel(valores);
     }
 
+    public void mostrarPlantasEmpresaCliente()
+    {
+        ArrayList<Tupla> lista = gestor.mostrarPlantasEmpresaCliente(((Tupla)cmbEmpresa.getSelectedItem()).getId());
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbPlanta.setModel(valores);
+    }
+
     private void habilitarVentana()
     {
         // Seteo los combos de la fecha, para que seleccione...
@@ -105,7 +119,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cmbEmpresa = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbPlanta = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -161,7 +175,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Empresa Cliente:");
 
-        cmbEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ARCOR" }));
         cmbEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbEmpresaActionPerformed(evt);
@@ -171,7 +184,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Planta:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bagley" }));
+        cmbPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPlantaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Fecha de Inicio:");
@@ -309,7 +326,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel7))))
@@ -337,7 +354,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                     .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,7 +450,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPlanosFocusLost
 
     private void cmbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresaActionPerformed
-        // TODO add your handling code here:
+        this.mostrarPlantasEmpresaCliente();
     }//GEN-LAST:event_cmbEmpresaActionPerformed
 
     private void btnAgregarEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaClienteActionPerformed
@@ -444,13 +461,17 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPlantaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEmpresaCliente;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JComboBox cmbEmpresa;
+    private javax.swing.JComboBox cmbPlanta;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

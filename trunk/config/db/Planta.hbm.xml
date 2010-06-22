@@ -7,7 +7,7 @@
     </id>
     <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
     <!--cascade="all-delete-orphan"-->
-    <list cascade="all-delete-orphan" name="telefonos" table="PlantaXTelefono">
+    <list cascade="delete-orphan" name="telefonos" table="PlantaXTelefono">
           <key column="ID_PLANTA"/>
           <index column="ID"/>
           <many-to-many class="modelo.Telefono"/>
