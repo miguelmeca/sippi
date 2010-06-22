@@ -162,11 +162,13 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
         nueva.setTelefonos(this.telefonos);
 
+        nueva.setPaginaWeb("www.ubuntulife.net");
+
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion;
         try {
-            //sesion = HibernateUtil.getSession();
-            sesion = sf.openSession();
+            sesion = HibernateUtil.getSession();
+            //sesion = sf.openSession();
             try{
                 HibernateUtil.beginTransaction();
                 sesion.save(d);
