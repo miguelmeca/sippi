@@ -12,6 +12,7 @@
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</property>
     <!--.. CLASES DE MAPEO ....................................................-->
+    <property name="hibernate.show_sql">true</property>
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Pais.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Provincia.hbm.xml"/>
@@ -36,6 +37,5 @@
     <mapping class="" file="" jar="" package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
     <mapping class="" file="" jar="" package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
-
-    </session-factory>
+  </session-factory>
 </hibernate-configuration>

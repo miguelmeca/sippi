@@ -10,6 +10,7 @@ import modelo.PedidoObra;
 import modelo.Planta;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.collection.PersistentList;
 import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
@@ -225,4 +226,22 @@ public class GestorRegistrarPedido {
         return tuplas;
     }
 
+    public ArrayList<Tupla> mostrarPlantasEmpresaCliente(int id) {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        EmpresaCliente ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, id);
+        //ArrayList<Planta> plantas = (ArrayList<Planta>)ec.getPlantas();
+        PersistentList plantas = (PersistentList) ec.getPlantas();
+        Iterator iter = plantas.iterator();
+        while ( iter.hasNext() )
+        {
+            Planta pl = (Planta)iter.next();
+            Tupla tupla = new Tupla(pl.getId(),pl.getRazonSocial());
+            tuplas.add(tupla);
+        }
+        return tuplas;
+    }
 }
