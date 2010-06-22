@@ -9,7 +9,7 @@
     <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
     <property column="APELLIDO" name="apellido" not-null="true" type="string"/>
     <property column="FECH_NAC" name="fechadeNac" not-null="true" type="date"/>
-    <property column="NRO_DOC" name="nroDoc" type="date"/>
+    <property column="NRO_DOC" name="nroDoc" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="CUIL" name="cuil" type="string"/>
 
@@ -20,15 +20,16 @@
       <many-to-many class="modelo.Telefono" column="ID_TEL"/>
     </set>
 
-    <one-to-one class="modelo.Domicilio" constrained="true" name="domicilio"/>
+    <!--one-to-one class="modelo.Domicilio" constrained="true" name="domicilio" property-ref="id_persona"/-->
 
     <!-- AHORA VIENEN LAS HERENCIAS -->
     <joined-subclass name="modelo.Empleado" table="EMPLEADO">
         <!-- Definio la PK de la tabla Empleado que se va a
              emparejar con la de Persona -->
-        <key column="LEGAJO"/>
+        <key column="ID_EMPLEADO" />
 
         <!-- Defino las propiedades del Empleado -->
+        <property column="LEGAJO" name="legajo" not-null="true" type="integer"/>
         <property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/>
         <property column="FECH_BAJA" name="fechaBaja" type="date"/>
         <property column="RANGO" name="rango" type="string"/>
