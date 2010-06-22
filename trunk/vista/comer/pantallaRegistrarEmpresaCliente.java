@@ -12,6 +12,7 @@
 package vista.comer;
 
 import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import controlador.comer.GestorRegistrarPedido;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
@@ -32,6 +33,7 @@ import util.Tupla;
 public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame {
     private GestorRegistrarNuevaEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
+    private final GestorRegistrarPedido grp;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
@@ -40,15 +42,26 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         habilitarVentana();
         mostrarPaises();
         formatearTablaTelefonos();
+        grp = null;
+        mostrarTiposTelefono();
+    }
 
-//        ArrayList<Tupla> tipos = gestor.mostrarTiposTelefono();
-//        Iterator<Tupla> it = tipos.iterator();
-//        while(it.hasNext()){
-//            Tupla tu = it.next();
-//            cmbTipoTelefono.insertItemAt(tu.getNombre(),tu.getId());
-//        }
-        
-        // CORREGIDA LA CARGA DEL COMBO BOX !! (IUGA)
+    public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
+        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
+        initComponents();
+        habilitarVentana();
+        mostrarPaises();
+        formatearTablaTelefonos();
+        grp = aThis;
+        mostrarTiposTelefono();
+    }
+
+    public void habilitarVentana()
+    {
+
+    }
+
+    private void mostrarTiposTelefono(){
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         ArrayList<Tupla> lista = gestor.mostrarTiposTelefono();
         Iterator<Tupla> it = lista.iterator();
@@ -57,13 +70,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             valores.addElement(tu);
         }
         cmbTipoTelefono.setModel(valores);
-
-
-    }
-
-    public void habilitarVentana()
-    {
-
     }
 
     public void plantaAgregada()
@@ -668,6 +674,9 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
         int id = gestor.confirmacionRegistro();
         JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+        if(grp !=null){
+            grp.recargarComboBox();
+        }
         this.dispose();
     }//GEN-LAST:event_btnNuevaEmpresaActionPerformed
 

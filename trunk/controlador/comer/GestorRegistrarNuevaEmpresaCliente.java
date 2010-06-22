@@ -205,7 +205,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
             e.printStackTrace();
         }
         return tuplas;
-    }
+        }
 
     public void registrarNuevaEmpresa() {
 

@@ -2,13 +2,18 @@ package controlador.comer;
 
 //
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
+import util.SwingPanel;
+import util.Tupla;
+import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarPedido;
 
 //
@@ -70,13 +75,6 @@ public class GestorRegistrarPedido {
         {
             this.descripcion = descripcion;
         }
-
-        /**
-         * Busco los nombres de las empresas cliente
-         */
-	public void mostrarEmpresasCliente() {
-	
-	}
 	
 	public void seleccionEmpresaCliente() {
 	
@@ -199,5 +197,32 @@ public class GestorRegistrarPedido {
 	public void finCU() {
 	
 	}
+
+    public void llamarCURegistrarNuevaEmpresaCliente() {
+        pantallaRegistrarEmpresaCliente np = new pantallaRegistrarEmpresaCliente(this);
+        SwingPanel.getInstance().addWindow(np);
+        np.setVisible(true);
+    }
+
+    public void recargarComboBox() {
+        this.pantalla.mostrarEmpresasCliente();
+    }
+
+    public ArrayList<Tupla> mostrarEmpresasCliente()
+    {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        Iterator iter = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
+        while ( iter.hasNext() )
+        {
+            EmpresaCliente ec = (EmpresaCliente)iter.next();
+            Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
+            tuplas.add(tupla);
+        }
+        return tuplas;
+    }
 
 }
