@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import modelo.TipoDocumento;
 import modelo.TipoTelefono;
+import modelo.RangoEspecialidad;
+import modelo.TipoEspecialidad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -30,6 +32,7 @@ public class gestorBDvarios
         sesion = sf.openSession();
     }
 
+
      public ArrayList<Tupla> getTiposDeDocumento()
     {
          sesion.beginTransaction();
@@ -48,6 +51,18 @@ public class gestorBDvarios
             return tuplas;
     }
 
+     public  TipoDocumento getTipoDeDocumento(int idTipoDoc)
+    {
+        TipoDocumento td = (TipoDocumento)sesion.load(TipoDocumento.class,idTipoDoc);
+        return td;
+    }
+
+      public  TipoTelefono getTipoDeTelefono(int idTipoTel)
+    {
+        TipoTelefono tt = (TipoTelefono)sesion.load(TipoTelefono.class,idTipoTel);
+        return tt;
+    }
+
      public ArrayList<Tupla> getTiposDeTelefono()
     {
          sesion.beginTransaction();
@@ -60,6 +75,55 @@ public class gestorBDvarios
                 TipoTelefono tt = (TipoTelefono)lista.get(i);
                // listaNombres.add(td.getNombre());
                 Tupla tupla = new Tupla(tt.getId(),tt.getNombre());
+                    tuplas.add(tupla);
+            }
+
+            return tuplas;
+    }
+
+
+       public  TipoEspecialidad getTipoEspecialidad(int idTipoEspecialidad)
+    {
+        TipoEspecialidad esp = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,idTipoEspecialidad);
+        return esp;
+    }
+
+     public ArrayList<Tupla> getTipoEspecialidades()
+    {
+         sesion.beginTransaction();
+            List lista = sesion.createQuery("from TipoEspecialidad").list();
+            sesion.getTransaction().commit();
+
+            //ArrayList<String> listaNombres = new ArrayList<String>();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++) {
+                TipoEspecialidad te = (TipoEspecialidad)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                Tupla tupla = new Tupla(te.getId(),te.getNombre());
+                    tuplas.add(tupla);
+            }
+
+            return tuplas;
+    }
+
+     public  RangoEspecialidad getRangoEspecialidad(int idRango)
+    {
+        RangoEspecialidad rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);
+        return rng;
+    }
+
+     public ArrayList<Tupla> getRangosEspecialidad()
+    {
+         sesion.beginTransaction();
+            List lista = sesion.createQuery("from RangoEspecialidad").list();
+            sesion.getTransaction().commit();
+
+            //ArrayList<String> listaNombres = new ArrayList<String>();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++) {
+                RangoEspecialidad rng = (RangoEspecialidad)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                Tupla tupla = new Tupla(rng.getId(),rng.getNombre());
                     tuplas.add(tupla);
             }
 
