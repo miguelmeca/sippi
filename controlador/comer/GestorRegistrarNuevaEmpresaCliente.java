@@ -165,14 +165,15 @@ public class GestorRegistrarNuevaEmpresaCliente {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion;
         try {
-            sesion = HibernateUtil.getSession();
-
+            //sesion = HibernateUtil.getSession();
+            sesion = sf.openSession();
             try{
                 HibernateUtil.beginTransaction();
                 sesion.save(d);
                 sesion.save(nueva);
-                nueva.setPlantas(listaPlantas);
-                sesion.update(nueva);
+                //sesion.update(planta);
+                //nueva.setPlantas(listaPlantas);
+                //sesion.update(nueva);
                 //sesion.saveOrUpdate(nueva);
                 HibernateUtil.commitTransaction();
             }catch(Exception e) {

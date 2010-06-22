@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.List;
 
 //
@@ -64,7 +65,15 @@ public class Planta {
     public void setTelefonos(List telefono) {
         this.telefonos = telefono;
     }
-
-
-
+/*
+    @Override
+    public String toString()
+    {
+        String cadena="";
+        ArrayList<Telefono> tel = (ArrayList<Telefono>) this.telefonos;
+        for (Telefono telefono : tel) {
+            cadena+="tel:"+telefono.getNumero()+" - "+telefono.getTipo().getNombre()+"\n";
+        }
+        return id+":"+razonSocial+":\n"+cadena;
+    }*/
 }
