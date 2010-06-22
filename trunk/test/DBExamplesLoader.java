@@ -7,7 +7,10 @@ package test;
 
 import java.util.ArrayList;
 import modelo.Barrio;
+import modelo.Empleado;
 import modelo.Domicilio;
+import modelo.RangoEspecialidad;
+import modelo.TipoEspecialidad;
 import modelo.EmpresaCliente;
 import modelo.Localidad;
 import modelo.Pais;
@@ -19,6 +22,7 @@ import modelo.TipoDocumento;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
+import java.util.Date;
 
 /**
  * Carga datos de prueba en la BD para que los podamos unsar
@@ -76,6 +80,34 @@ public class DBExamplesLoader {
                 l3.setNombre("Fortaleza");
                 prov3.addLocalidad(l3);
 
+///////////////////////////////////////////
+        Empleado emp=new Empleado();//
+        emp.setApellido("sorongo");//
+        emp.setNombre("pedro");//
+        emp.setLegajo(53);//
+        emp.setNroDoc("12345678");//
+        Date d=new Date();
+        d.setTime(894665);
+        emp.setFechadeNac(d);
+        emp.setFechaAlta(d);
+        Domicilio dom=new Domicilio();
+        //Barrio b=new Barrio();
+       // b.setNombre("la concha d tu vieja");
+        dom.setCalle("Av. MeImportaUnCarajo");
+        emp.setDomicilio(dom);
+////////////////////////////////////////////
+        TipoEspecialidad te= new TipoEspecialidad();
+        te.setNombre("Soldador");
+        TipoEspecialidad te2= new TipoEspecialidad();
+        te2.setNombre("Chapista");
+        RangoEspecialidad rng1= new RangoEspecialidad();
+        rng1.setNombre("1");
+        RangoEspecialidad rng2= new RangoEspecialidad();
+        rng2.setNombre("2");
+        RangoEspecialidad rng3= new RangoEspecialidad();
+        rng3.setNombre("3");
+
+
 
         sesion.beginTransaction();
         sesion.save(b1);
@@ -88,6 +120,12 @@ public class DBExamplesLoader {
         sesion.save(p2);
         sesion.save(prov3);
         sesion.save(l3);
+        sesion.save(te);
+        sesion.save(te2);
+        sesion.save(rng1);
+        sesion.save(rng2);
+        sesion.save(rng3);
+        //sesion.save(emp); //
         sesion.getTransaction().commit();
     }
     public void cargarTipoDocumento()
