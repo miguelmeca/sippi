@@ -145,6 +145,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel4.setText("Empresa Cliente:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ARCOR" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Planta:");
@@ -331,7 +336,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnConfirmar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -400,6 +405,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
         gestor.planosObra(txtPlanos.getText());
     }//GEN-LAST:event_txtPlanosFocusLost
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
