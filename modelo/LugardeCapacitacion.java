@@ -7,7 +7,7 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : LugardeCapacitacion.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -15,21 +15,49 @@ package modelo;
 
 
 public class LugardeCapacitacion {
+
+        private int id;
 	private String nombre;
 	private Domicilio domicilio;
 	private EstadoLugar estado;
-	public void crear() {
-	
-	}
-	
-	public void mostrarLugarCap() {
-	
-	}
-	
-	public void getNombre() {
-	
-	}
-	
+
+        public LugardeCapacitacion() {
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public Domicilio getDomicilio() {
+            return domicilio;
+        }
+
+        public void setDomicilio(Domicilio domicilio) {
+            this.domicilio = domicilio;
+        }
+
+        public EstadoLugar getEstado() {
+            return estado;
+        }
+
+        public void setEstado(EstadoLugar estado) {
+            this.estado = estado;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+
+
 	public void mostrarLugaresDisponibles() {
 	
 	}
@@ -38,7 +66,4 @@ public class LugardeCapacitacion {
 	
 	}
 	
-	public void getDomicilio() {
-	
-	}
 }

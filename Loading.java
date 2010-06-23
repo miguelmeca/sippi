@@ -47,9 +47,7 @@ public class Loading extends javax.swing.JFrame {
         this.update(this.getGraphics());
 
         test.DBExamplesLoader load = new DBExamplesLoader();
-        load.cargarEjemplos();
-        load.cargarTipoTelefono();
-        load.cargarTipoDocumento();
+        load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
         jpb.setValue(20);
 
         setProgress(jpb.getValue()+i);

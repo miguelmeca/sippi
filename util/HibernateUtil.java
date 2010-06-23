@@ -46,7 +46,7 @@ public class HibernateUtil {
 			sessionFactory = configuration.configure("config/hibernate.cfg.xml").buildSessionFactory();
 		} catch (Throwable ex) {
 
-                        JOptionPane.showMessageDialog(new JFrame(),"ERROR DE HIBERNATE","No se puso iniciar:\n"+ex.getMessage(),JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(new JFrame(),"No se puso iniciar:\n"+ex.getMessage(),"ERROR DE HIBERNATE",JOptionPane.ERROR_MESSAGE);
 			throw new ExceptionInInitializerError(ex);
 		}
 	}

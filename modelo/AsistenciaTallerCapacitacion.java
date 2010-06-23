@@ -7,7 +7,7 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : AsistenciaTallerCapacitacion.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -15,11 +15,38 @@ package modelo;
 
 
 public class AsistenciaTallerCapacitacion {
-	private Boolean asistio;
+
+        private int id;
+        private Boolean asistio;
 	private Empleado empleado;
-	public void crear() {
-	
-	}
+
+        public AsistenciaTallerCapacitacion() {
+        }
+
+        public Boolean getAsistio() {
+            return asistio;
+        }
+
+        public void setAsistio(Boolean asistio) {
+            this.asistio = asistio;
+        }
+
+        public Empleado getEmpleado() {
+            return empleado;
+        }
+
+        public void setEmpleado(Empleado empleado) {
+            this.empleado = empleado;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
 	
 	public void mostrarEmpleado() {
 	
