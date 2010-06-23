@@ -11,6 +11,7 @@
     <property name="hibernate.hbm2ddl.auto">create</property>
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</property>
+
     <!--.. CLASES DE MAPEO ....................................................-->
     <property name="hibernate.show_sql">true</property>
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
@@ -30,12 +31,16 @@
     <!--mapping package="modelo" resource="config/db/TipoMaterial.hbm.xml"/-->
     <!--mapping package="modelo" resource="config/db/Material.hbm.xml"/-->
     <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/Indumentaria.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/Talle.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/TipoIndumentaria.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/ItemIndumentaria.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
-    <mapping class="" file="" jar="" package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Indumentaria.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoIndumentaria.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/ItemIndumentaria.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/LugarCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/AsistenciaTallerCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/DetalleHorarioTaller.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TallerCapacitacion.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -36,14 +36,20 @@ public class DBExamplesLoader {
     {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         sesion = sf.openSession();
-
     }
 
     /**
      * Cargo datos de prueba, como algunos paises, provincias, etc
      */
-
     public void cargarEjemplos()
+    {
+          this.cargarPaises();
+          this.cargarTipoDocumento();
+          this.cargarTipoTelefono();
+       // this.cargarEmpresasYPlantas();
+    }
+
+    private void cargarPaises()
     {
         Pais p1 = new Pais();
         p1.setNombre("Argentina");
@@ -128,6 +134,8 @@ public class DBExamplesLoader {
         //sesion.save(emp); //
         sesion.getTransaction().commit();
     }
+
+
     public void cargarTipoDocumento()
     {
         TipoDocumento td1= new TipoDocumento();
@@ -159,35 +167,59 @@ public class DBExamplesLoader {
         sesion.save(tt3);
         sesion.getTransaction().commit();
     }
-/**
+
     public void cargarEmpresasYPlantas(){
+
         EmpresaCliente ec1 = new EmpresaCliente();
         ec1.setRazonSocial("ARCOR SRL");
         ec1.setCuit("66688990-5");
         ec1.setEmail("contacto@arcor.com.ar");
         ec1.setPaginaWeb("www.arcor.com.ar");
 
-        Domicilio d = new Domicilio();
-        d.setCalle("Av. Chacabuco");
-        d.setNumero(4545);
-        d.setPiso(4);
-        d.setDepto("G");
-        d.setCodigoPostal("X5000UGT");
+            Domicilio d = new Domicilio();
+            d.setCalle("Av. Chacabuco");
+            d.setNumero(4545);
+            d.setPiso(4);
+            d.setDepto("G");
+            d.setCodigoPostal("X5000UGT");
+
+            sesion.beginTransaction();
+            Barrio b = (Barrio)sesion.load(Barrio.class, 1);
+            sesion.getTransaction().commit();
+            d.setBarrio(b);
+            ec1.setDomicilio(d);
+
+            Telefono tel = new Telefono();
+            tel.setNumero("4567888");
+            tel.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+            ArrayList<Telefono> tels = new ArrayList<Telefono>();
+            tels.add(tel);
+            ec1.setTelefonos(tels);
+
+            Planta planta1 = new Planta();
+            planta1.setRazonSocial("Bagleysita SA");
+
+                Domicilio d2 = new Domicilio();
+                d2.setCalle("Chacabucoxios");
+                d2.setNumero(123);
+                d2.setPiso(9);
+                d2.setDepto("A");
+                d2.setCodigoPostal("X5000UGT");
+                planta1.setDomicilio(d2);
+
+                Telefono t9 = new Telefono();
+                t9.setNumero("420708");
+                t9.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 2)));
+                planta1.addTelefono(t9);
+
+            ArrayList<Planta> aux = new ArrayList<Planta>();
+            aux.add(planta1);
+            ec1.setPlantas(aux);
+
         sesion.beginTransaction();
-        Barrio b = (Barrio)sesion.load(Barrio.class, 1);
+        sesion.save(d);
+        sesion.save(ec1);
         sesion.getTransaction().commit();
-        d.setBarrio(b);
-        ec1.setDomicilio(d);
 
-        Telefono tel = new Telefono();
-        tel.setNumero("4567888");
-        tel.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-        ArrayList<Telefono> tels = new ArrayList<Telefono>();
-        tels.add(tel);
-        ec1.setTelefonos(tels);
-
-        Planta planta1 = new Planta();
-        planta1.set
-        ec1.setPlantas();
-    }**/
+    }
 }

@@ -1,6 +1,8 @@
 package modelo;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 //
 //
@@ -9,7 +11,7 @@ import java.util.Date;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : DetalleHorarioTaller.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
@@ -17,31 +19,71 @@ import java.util.Date;
 
 
 public class DetalleHorarioTaller {
-	private Date fecha;
+	
+        private int id;
+        private Date fecha;
 	private String horaInicio;
 	private String horaFin;
-	private AsistenciaTallerCapacitacion asistencias;
-	public void crear() {
-	
-	}
-	
+	private Set<AsistenciaTallerCapacitacion> asistencias;
+
+        public DetalleHorarioTaller() {
+
+            this.asistencias = new HashSet<AsistenciaTallerCapacitacion>();
+
+        }
+
+        public void addAsistenciaTallerCapacitacion(AsistenciaTallerCapacitacion atc)
+        {
+            this.asistencias.add(atc);
+        }
+
+        public Set<AsistenciaTallerCapacitacion> getAsistencias() {
+            return asistencias;
+        }
+
+        public void setAsistencias(Set<AsistenciaTallerCapacitacion> asistencias) {
+            this.asistencias = asistencias;
+        }
+
+        public Date getFecha() {
+            return fecha;
+        }
+
+        public void setFecha(Date fecha) {
+            this.fecha = fecha;
+        }
+
+        public String getHoraFin() {
+            return horaFin;
+        }
+
+        public void setHoraFin(String horaFin) {
+            this.horaFin = horaFin;
+        }
+
+        public String getHoraInicio() {
+            return horaInicio;
+        }
+
+        public void setHoraInicio(String horaInicio) {
+            this.horaInicio = horaInicio;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+
+
 	public void getDetalle() {
 	
 	}
 	
 	public void buscarApellidoYNombre() {
-	
-	}
-	
-	public void getFecha() {
-	
-	}
-	
-	public void getHoraInicio() {
-	
-	}
-	
-	public void getHoraFin() {
 	
 	}
 	

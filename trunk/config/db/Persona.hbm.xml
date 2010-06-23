@@ -20,7 +20,7 @@
       <many-to-many class="modelo.Telefono" column="ID_TEL"/>
     </set>
 
-    <one-to-one class="modelo.Domicilio" constrained="true" name="domicilio" property-ref="id_persona">
+    <one-to-one class="modelo.Domicilio" name="domicilio"/>
 
     <!-- AHORA VIENEN LAS HERENCIAS -->
     <joined-subclass name="modelo.Empleado" table="EMPLEADO">
