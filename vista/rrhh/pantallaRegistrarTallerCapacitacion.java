@@ -11,15 +11,63 @@
 
 package vista.rrhh;
 
+import controlador.rrhh.GestorRegistrarTallerDeCapacitacion;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.TimeZone;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import util.FechaUtil;
+import util.SwingPanel;
+import util.Tupla;
+import vista.interfaces.ICallBack;
+
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFrame {
+public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFrame implements ICallBack {
+
+    private GestorRegistrarTallerDeCapacitacion gestor;
 
     /** Creates new form frmRegistrarCursoCapacitacion */
     public pantallaRegistrarTallerCapacitacion() {
         initComponents();
+
+        gestor = new GestorRegistrarTallerDeCapacitacion(this);
+
+    }
+
+    public void mostrarTiposCapacitacion()
+    {
+        ArrayList<Tupla> lista = gestor.buscarTiposDeCapacitacion();
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbTipoCapacitacion.setModel(valores);
+    }
+
+    public void mostrarLugaresCapacitacion()
+    {
+        ArrayList<Tupla> lista = gestor.buscarLugarDeTaller();
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbNombreLugarCapacitacion.setModel(valores);
+
+        mostrarDomicilioLugarSeleccionado();
+
     }
 
     /** This method is called from within the constructor to
@@ -31,6 +79,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupTablaHorarios = new javax.swing.JPopupMenu();
+        menuBorrar = new javax.swing.JMenuItem();
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -63,6 +113,15 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEmpleadosQueAsistiran = new javax.swing.JTable();
 
+        menuBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        menuBorrar.setText("Quitar");
+        menuBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBorrarActionPerformed(evt);
+            }
+        });
+        popupTablaHorarios.add(menuBorrar);
+
         setClosable(true);
         setForeground(java.awt.Color.white);
         setIconifiable(true);
@@ -90,13 +149,13 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         tblHorarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"11/06/2010", "13:00", "18:00"},
-                {"13/06/2010", "9:00", "13:00"}
+
             },
             new String [] {
                 "Fecha", "Hora de Inicio", "Hora de Fin"
             }
         ));
+        tblHorarios.setComponentPopupMenu(popupTablaHorarios);
         jScrollPane3.setViewportView(tblHorarios);
 
         btnAgregarHorario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -144,10 +203,21 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         btnNuevoTipoCapacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevoTipoCapacitacion.setText("Nuevo Tipo de Capacitacion");
+        btnNuevoTipoCapacitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoTipoCapacitacionActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Lugar de la Capacitación"));
 
         lblNombreLugarCapacitacion.setText("Nombre:");
+
+        cmbNombreLugarCapacitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNombreLugarCapacitacionActionPerformed(evt);
+            }
+        });
 
         lblDieccionLugar.setText("Dirección:");
 
@@ -290,20 +360,19 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                                     .addComponent(lblTipoCapacitacion))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                                    .addComponent(txtNombreTaller, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                                    .addComponent(txtNombreTaller, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(cmbTipoCapacitacion, 0, 288, Short.MAX_VALUE)
+                                        .addComponent(cmbTipoCapacitacion, 0, 294, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnNuevoTipoCapacitacion)
-                                        .addGap(8, 8, 8))))
+                                        .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(lblNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNuevoCapacitador, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))))
+                                .addComponent(btnNuevoCapacitador, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -359,7 +428,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -378,7 +447,12 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHorarioActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tblHorarios.getModel();
+        Object[] fila = new Object[3];
+        fila[0] = "00/00/"+FechaUtil.getYear();
+        fila[1] = "00:00";
+        fila[2] = "00:00";
+        modelo.addRow(fila);
     }//GEN-LAST:event_btnAgregarHorarioActionPerformed
 
     private void txtNombreTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreTallerActionPerformed
@@ -386,12 +460,43 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     }//GEN-LAST:event_txtNombreTallerActionPerformed
 
     private void btnNuevoLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLugarActionPerformed
-        // TODO add your handling code here:
+
+        pantallaRegistrarLugarCapacitacion win = new pantallaRegistrarLugarCapacitacion();
+        SwingPanel.getInstance().addWindow(win);
+        win.setPantalla(this);
+        win.setVisible(true);
+
     }//GEN-LAST:event_btnNuevoLugarActionPerformed
 
     private void btnNuevoCapacitadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCapacitadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoCapacitadorActionPerformed
+
+    private void btnNuevoTipoCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoTipoCapacitacionActionPerformed
+
+        pantallaGestionarTipoCapacitacion win = new pantallaGestionarTipoCapacitacion();
+        SwingPanel.getInstance().addWindow(win);
+        win.setPantalla(this);
+        win.setVisible(true);
+
+    }//GEN-LAST:event_btnNuevoTipoCapacitacionActionPerformed
+
+    private void menuBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBorrarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tblHorarios.getModel();
+        modelo.removeRow(tblHorarios.getSelectedRow());
+    }//GEN-LAST:event_menuBorrarActionPerformed
+
+    private void mostrarDomicilioLugarSeleccionado()
+    {
+        Tupla t = (Tupla)cmbNombreLugarCapacitacion.getSelectedItem();
+        txtDireccionLugar.setText(gestor.buscarDomicilioDelLugarSeleccionado(t.getId()));
+    }
+
+    private void cmbNombreLugarCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNombreLugarCapacitacionActionPerformed
+
+        mostrarDomicilioLugarSeleccionado();
+
+    }//GEN-LAST:event_cmbNombreLugarCapacitacionActionPerformed
 
     /**
     * @param args the command line arguments
@@ -430,6 +535,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JLabel lblNombreLugarCapacitacion;
     private javax.swing.JLabel lblNombreTaller;
     private javax.swing.JLabel lblTipoCapacitacion;
+    private javax.swing.JMenuItem menuBorrar;
+    private javax.swing.JPopupMenu popupTablaHorarios;
     private javax.swing.JTable tblEmpleados;
     private javax.swing.JTable tblEmpleadosQueAsistiran;
     private javax.swing.JTable tblHorarios;
@@ -437,5 +544,11 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JTextField txtDireccionLugar;
     private javax.swing.JTextField txtNombreTaller;
     // End of variables declaration//GEN-END:variables
+
+    public void actualizar() {
+
+        mostrarTiposCapacitacion();
+        mostrarLugaresCapacitacion();
+    }
 
 }

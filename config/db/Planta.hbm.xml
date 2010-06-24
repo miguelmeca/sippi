@@ -6,15 +6,12 @@
       <generator class="increment"/>
     </id>
     <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
-
     <!--cascade="all-delete-orphan"-->
     <set cascade="all" name="telefonos" table="PlantaXTelefono">
-          <key column="ID_PLANTA"/>
-          <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
+      <key column="ID_PLANTA"/>
+      <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
     </set>
-
     <one-to-one class="modelo.Domicilio" name="domicilio"/>
     <many-to-one class="modelo.ContactoResponsable" column="ID_CONTACTO" name="contacto"/>
-
   </class>
 </hibernate-mapping>

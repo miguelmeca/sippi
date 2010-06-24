@@ -2,14 +2,10 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="modelo.Capacitacion" table="CAPACITACION">
-
     <id column="ID" name="id" type="integer">
       <generator class="native"/>
     </id>
-
     <property column="FECHA_VENCIMIENTO" name="fechaVencimiento" type="date"/>
-
-    <many-to-one  class="modelo.TipoCapacitacion" column="ID_TIPO_CAPACITACION" name="tipoCapacitacion"/>
-
+    <many-to-one class="modelo.TipoCapacitacion" column="ID_TIPO_CAPACITACION" name="tipoCapacitacion"/>
   </class>
 </hibernate-mapping>

@@ -38,7 +38,14 @@ public class Domicilio {
             codigoPostal=codigoPostalD;
             barrio=barrioD;
         }
-	
+
+    @Override
+    public String toString() {
+        return calle+" "+numero+" ("+piso+" "+depto+") "+ codigoPostal;
+    }
+
+
+
 	public void mostrarDomicilio() {
 	
 	}
