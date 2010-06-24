@@ -1,6 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPopupMenu" name="popupTablaHorarios">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="menuBorrar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/iconos/var/16x16/delete.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Quitar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBorrarActionPerformed"/>
+          </Events>
+        </MenuItem>
+      </SubComponents>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -54,7 +75,7 @@
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,13 +132,12 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane4" pref="491" max="32767" attributes="0"/>
-                                      <Component id="txtNombreTaller" alignment="0" pref="491" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" pref="497" max="32767" attributes="0"/>
+                                      <Component id="txtNombreTaller" alignment="0" pref="497" max="32767" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="cmbTipoCapacitacion" pref="288" max="32767" attributes="0"/>
+                                          <Component id="cmbTipoCapacitacion" pref="294" max="32767" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnNuevoTipoCapacitacion" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                          <Component id="btnNuevoTipoCapacitacion" min="-2" pref="193" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -127,7 +147,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cmbNombreCapacitador" min="-2" pref="227" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnNuevoCapacitador" pref="215" max="32767" attributes="0"/>
+                                  <Component id="btnNuevoCapacitador" pref="221" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -214,20 +234,14 @@
                 <Component class="javax.swing.JTable" name="tblHorarios">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="2">
-                        <Column editable="true" title="Fecha" type="java.lang.Object">
-                          <Data value="11/06/2010"/>
-                          <Data value="13/06/2010"/>
-                        </Column>
-                        <Column editable="true" title="Hora de Inicio" type="java.lang.Object">
-                          <Data value="13:00"/>
-                          <Data value="9:00"/>
-                        </Column>
-                        <Column editable="true" title="Hora de Fin" type="java.lang.Object">
-                          <Data value="18:00"/>
-                          <Data value="13:00"/>
-                        </Column>
+                      <Table columnCount="3" rowCount="0">
+                        <Column editable="true" title="Fecha" type="java.lang.Object"/>
+                        <Column editable="true" title="Hora de Inicio" type="java.lang.Object"/>
+                        <Column editable="true" title="Hora de Fin" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="popupTablaHorarios"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -295,6 +309,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nuevo Tipo de Capacitacion"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoTipoCapacitacionActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">
           <Properties>
@@ -351,6 +368,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbNombreLugarCapacitacionActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDieccionLugar">
               <Properties>

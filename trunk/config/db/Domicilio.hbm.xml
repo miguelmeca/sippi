@@ -5,13 +5,11 @@
     <id column="ID_DOMICILIO" name="id" type="integer">
       <generator class="increment"/>
     </id>
-
     <property column="CALLE" name="calle" type="string"/>
     <property column="DEPTO" name="depto" type="string"/>
     <property column="COD_POSTAL" name="codigoPostal" type="string"/>
     <property column="NUMERO" name="numero" type="integer"/>
     <property column="PISO" name="piso" type="integer"/>
     <many-to-one class="modelo.Barrio" column="IDBARRIO" name="barrio"/>
-
   </class>
 </hibernate-mapping>
