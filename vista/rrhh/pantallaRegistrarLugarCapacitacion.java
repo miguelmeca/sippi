@@ -258,17 +258,17 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPais, 0, 304, Short.MAX_VALUE)
+                            .addComponent(cmbPais, 0, 312, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbProvincias, 0, 270, Short.MAX_VALUE)
+                                .addComponent(cmbProvincias, 0, 278, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnNuevaProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbBarrio, 0, 270, Short.MAX_VALUE)
+                                .addComponent(cmbBarrio, 0, 278, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbLocalidades, 0, 270, Short.MAX_VALUE)
+                                .addComponent(cmbLocalidades, 0, 278, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,7 +290,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCodPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))))
+                            .addComponent(txtCodPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -321,7 +321,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                     .addComponent(cmbPais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(cmbProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel8)
                     .addComponent(btnNuevaProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -355,8 +355,8 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -447,7 +447,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         if(ok)
         {
             JOptionPane.showMessageDialog(this,"Operación Exitosa","Se realizó con éxito la carga del Lugar de Capacitacion",JOptionPane.INFORMATION_MESSAGE);
-            win.actualizar();
+            win.actualizar(1);
             this.dispose();
         }
         else
