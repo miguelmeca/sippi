@@ -82,10 +82,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtNombre" alignment="0" pref="397" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" pref="397" max="32767" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" pref="397" max="32767" attributes="0"/>
-                      <Component id="txtDesc" alignment="0" pref="397" max="32767" attributes="0"/>
+                      <Component id="txtNombre" alignment="0" pref="401" max="32767" attributes="0"/>
+                      <Component id="jLabel1" alignment="0" pref="401" max="32767" attributes="0"/>
+                      <Component id="jLabel2" alignment="0" pref="401" max="32767" attributes="0"/>
+                      <Component id="txtDesc" alignment="0" pref="401" max="32767" attributes="0"/>
                       <Component id="btnNuevo" alignment="1" min="-2" pref="154" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

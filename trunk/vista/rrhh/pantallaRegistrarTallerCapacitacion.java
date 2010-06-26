@@ -33,6 +33,9 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
     private GestorRegistrarTallerDeCapacitacion gestor;
 
+    private int FLAG_TIPO_CAPACITACION = 0;
+    private int FLAG_LUGAR_CAPACITACION = 1;
+
     /** Creates new form frmRegistrarCursoCapacitacion */
     public pantallaRegistrarTallerCapacitacion() {
         initComponents();
@@ -545,10 +548,19 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JTextField txtNombreTaller;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizar() {
 
-        mostrarTiposCapacitacion();
-        mostrarLugaresCapacitacion();
+
+    public void actualizar(int flag)
+    {
+        if(flag == FLAG_TIPO_CAPACITACION)
+        {
+            mostrarTiposCapacitacion();
+        }
+        if(flag == FLAG_LUGAR_CAPACITACION)
+        {
+            mostrarLugaresCapacitacion();
+        }
+
     }
 
 }
