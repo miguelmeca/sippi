@@ -487,7 +487,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbPlantaActionPerformed
 
     private void btnAgregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlantaActionPerformed
-        gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()).getNombre());
+        gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()));
     }//GEN-LAST:event_btnAgregarPlantaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
