@@ -13,6 +13,7 @@ package vista.comer;
 
 import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
 import controlador.comer.GestorRegistrarNuevaPlanta;
+import controlador.comer.GestorRegistrarPedido;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,6 +34,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     GestorRegistrarNuevaPlanta gestor;
     GestorRegistrarNuevaEmpresaCliente gestorEmpresaCliente;
+    private GestorRegistrarPedido gestorRegistrarPedido;
 
     /** Creates new form frmRegistrarNuevaPlanta */
     public pantallaRegistrarNuevaPlanta() {
@@ -62,6 +64,21 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         btnCancelar.setEnabled(false);
         this.setClosable(false);
         
+    }
+
+    public pantallaRegistrarNuevaPlanta(GestorRegistrarPedido aThis, String empresa) {
+        initComponents();
+        this.gestor = new GestorRegistrarNuevaPlanta(this);
+        habilitarVentana();
+
+        // VAMOS POR EL INCLUDE
+        this.gestorRegistrarPedido = aThis;
+        // LA EMPRESA YA ESTÁ ELEGIDA
+        cmbEmpresa.setSelectedItem(empresa);
+        cmbEmpresa.setEnabled(false);
+        // No puedo cancelar
+        btnCancelar.setEnabled(false);
+        this.setClosable(false);
     }
 
     private void habilitarVentana()
@@ -718,7 +735,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         gestor.barrioPlanta(aux.getId());
 
         // SI ES NULO VENGO DESDE EL ACTOR
-        if(gestorEmpresaCliente == null)
+        if(gestorEmpresaCliente == null && gestorRegistrarPedido == null)
         {
             // YA TENGO LA PLANTA !! ... corcholis ... y ahora?
             gestor.empresaCliente((Tupla)cmbEmpresa.getSelectedItem());
@@ -727,14 +744,23 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
-        // SI NO ES NULO, VENGO DEL INCLUDE DE REGISTRAR EMPRESA CLIENTE
+        // SI NO ES NULO, VENGO DEL INCLUDE DE REGISTRAR EMPRESA CLIENTE O DEL EXTEND REGISTRAR PEDIDO
         else
         {
-            // MANDO A GUARDAR LA PLANTA
-            int id = gestor.PlantaConfirmada();
-            gestorEmpresaCliente.setNuevaPlanta(id);
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            if(gestorEmpresaCliente != null){
+                // MANDO A GUARDAR LA PLANTA
+                int id = gestor.PlantaConfirmada();
+                gestorEmpresaCliente.setNuevaPlanta(id);
+                JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+            else
+            {
+                int id = gestor.PlantaConfirmada();
+                gestorRegistrarPedido.setNuevaPlanta(id);
+                JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
         }
 
     }//GEN-LAST:event_btnNuevaPlantaActionPerformed
