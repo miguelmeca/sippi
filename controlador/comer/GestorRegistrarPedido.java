@@ -15,6 +15,7 @@ import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
 import vista.comer.pantallaRegistrarEmpresaCliente;
+import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
 
 //
@@ -270,5 +271,15 @@ public class GestorRegistrarPedido {
             tuplas.add(tupla);
         }
         return tuplas;
+    }
+
+    public void llamarCURegistrarNuevaPlanta(String nombre) {
+        pantallaRegistrarNuevaPlanta np = new pantallaRegistrarNuevaPlanta(this,nombre);
+        SwingPanel.getInstance().addWindow(np);
+        np.setVisible(true);
+    }
+
+    public void setNuevaPlanta(int id) {
+        this.pantalla.mostrarPlantasEmpresaCliente();
     }
 }

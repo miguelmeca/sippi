@@ -1,6 +1,12 @@
 package controlador.comer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import modelo.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
+import util.Tupla;
 
 //
 //
@@ -24,8 +30,26 @@ public class GestorConsultarObra {
 	
 	}
 	
-	public void buscarObrasConfirmadas() {
-	
+	public ArrayList<Tupla> buscarObrasConfirmadas() {
+            /**
+             *
+             * OJO! TODAVIA FALTA SABER COMO VAMOS A VER Q SEAN CONFIRMADAS!!! XD
+             * POR AHORA MUESTRO TODAS LAS OBRAS.
+             *
+            **/
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+
+            sesion.beginTransaction();
+            Iterator iter = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
+            while ( iter.hasNext() )
+            {
+                EmpresaCliente ec = (EmpresaCliente)iter.next();
+                Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
+                tuplas.add(tupla);
+            }
+            return tuplas;
 	}
 	
 	public void seleccionObra() {
