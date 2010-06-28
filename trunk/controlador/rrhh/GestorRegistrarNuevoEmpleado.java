@@ -201,11 +201,13 @@ public class GestorRegistrarNuevoEmpleado {
 	}
 	
         
-	public void empleadoConfirmado() 
+	public boolean empleadoConfirmado()
         {
-
-           crearEmpleado();
-	
+            try{
+           Empleado empleado=crearEmpleado();
+           return true;}
+            catch(Exception e)
+            {return false;}
 	}
 	
 	public int generarLegajoEmpleado()
@@ -238,19 +240,14 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	public Empleado crearEmpleado()
         {
-	 gestorBDvarios bdv = new gestorBDvarios();
-            
-            /*nroDocumento=nmroDoc;
-                                    
-            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
-            nombreEmpleado=nombre;
-            apellidoEmpleado=apellido;
-            emailEmpleado=email;
-            fechaNacimientoEmpleado=fechaNac;*/
-            Empleado emp=new Empleado();//(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  numeroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , Date fecha_Alta)
+
+            Date fechaAltaActual=new Date();
+           // fecha_Alta=System
+            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, fechaAltaActual);
             
             
             return emp;
+
 	}
 	
 	public void finCU() {
