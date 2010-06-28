@@ -189,11 +189,11 @@ public class GestorRegistrarNuevaEmpresaCliente {
             try{
                 HibernateUtil.beginTransaction();
                 sesion.save(d);
-                //sesion.save(nueva);
-                //sesion.update(planta);
-                //nueva.setPlantas(listaPlantas);
-                //sesion.update(nueva);
-                sesion.saveOrUpdate(nueva);
+                for (Telefono tell : this.telefonos)
+                {
+                    sesion.save(tell);
+                }
+                sesion.save(nueva);
                 HibernateUtil.commitTransaction();
             }catch(Exception e) {
                 System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
