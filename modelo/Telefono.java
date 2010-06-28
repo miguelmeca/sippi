@@ -14,14 +14,23 @@ package modelo;
 
 
 
-public class Telefono {
+public class Telefono
+{
         private int id;
 	private String numero;
 	private TipoTelefono tipo;
-	public void crear() {
-	
-	}
+    public void crear()
+    {}
+public Telefono()
+    {
 
+    }
+    public Telefono(String nro, TipoTelefono tp)
+    {
+        numero=nro;
+	 tipo=tp;
+
+    }
     public int getId() {
         return id;
     }
