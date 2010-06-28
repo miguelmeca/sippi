@@ -15,6 +15,10 @@ public class NTupla {
     private String nombre;
     private Object data;
 
+    public NTupla()
+    {
+    }
+
     public NTupla(int id)
     {
         this.id = id;
