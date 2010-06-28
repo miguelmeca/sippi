@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 //
 //
@@ -23,29 +24,85 @@ public class Empleado extends Persona {
 	private Date fechaBaja;
 	private int legajo;
 	private String rango;
-	private List capacitacion;
-	private List indumentaria;
-	private Especialidad especialiades;
+	private ArrayList capacitacion;
+	private ArrayList indumentaria;
+	private ArrayList<Especialidad> especialidades;
 
-    public Empleado() {
+
+
+
+    public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+    {
+        legajo=leg;
+        super.setNombre(nom);
+        super.setApellido(apell);
+        super.setFechadeNac(fechadeNac);
+        super.setTipoDoc(tipoDoc);
+        super.setNroDoc(nroDoc);
+        super.setCuil(cuil);
+        super.setEmail(email);
+        super.setDomicilio(domicilio);
+        setEspecialidades(tipoEspecialiades, rangoEspecialiades);
+        //especialiades= new ArrayList();
+        //indumentaria= new ArrayList();
+        //capacitacion= new ArrayList();
+        fechaAlta=fecha_Alta;
+        super.setTelefonos(listaNroTel, listaTipoTel);
+
+    }
+     public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+    {
+        legajo=leg;
+        super.setNombre(nom);
+        super.setApellido(apell);
+        super.setFechadeNac(fechadeNac);
+        super.setTipoDoc(tipoDoc);
+        super.setNroDoc(nroDoc);
+        super.setCuil(cuil);
+        super.setEmail(email);
+        //super.setDomicilio(domicilio);
+        setEspecialidades(tipoEspecialiades, rangoEspecialiades);
+        //especialiades= new ArrayList();
+        //indumentaria= new ArrayList();
+        //capacitacion= new ArrayList();
+        fechaAlta=fecha_Alta;
+        super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
+        super.setTelefonos(listaNroTel,  listaTipoTel);
     }
 
-    
+
+
+     public Empleado()
+     {
+        /* especialiades= new ArrayList();
+         indumentaria= new ArrayList();
+         capacitacion= new ArrayList();*/
+    }
 
     public List getCapacitacion() {
         return capacitacion;
     }
 
-    public void setCapacitacion(List capacitacion) {
+    public void setCapacitacion(ArrayList capacitacion) {
         this.capacitacion = capacitacion;
     }
 
-    public Especialidad getEspecialiades() {
-        return especialiades;
+    public ArrayList<Especialidad> getEspecialiades() {
+        return especialidades;
     }
 
-    public void setEspecialiades(Especialidad especialiades) {
-        this.especialiades = especialiades;
+    public void setEspecialidades(ArrayList<Especialidad> especialiades) {
+        this.especialidades = especialiades;
+    }
+
+    public void setEspecialidades(ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades)
+    {
+        especialidades= new ArrayList();
+        for(int i=0; i< tipoEspecialiades.size();i++)
+        {
+           Especialidad especialidad = new Especialidad(tipoEspecialiades.get(i), rangoEspecialiades.get(i));
+           especialidades.add(especialidad);
+        }
     }
 
     public Date getFechaAlta() {
@@ -68,7 +125,7 @@ public class Empleado extends Persona {
         return indumentaria;
     }
 
-    public void setIndumentaria(List indumentaria) {
+    public void setIndumentaria(ArrayList indumentaria) {
         this.indumentaria = indumentaria;
     }
 
