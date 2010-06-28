@@ -34,7 +34,7 @@
       <property column="FECH_BAJA" name="fechaBaja" type="date"/>
       <property column="RANGO" name="rango" type="string"/>
 
-      <set name="especialiades" table="ESPECIALIDADXEMPLEADO">
+      <set name="especialidades" table="ESPECIALIDADXEMPLEADO">
         <key column="ID_PERSONA"/>
         <many-to-many class="modelo.Especialidad" column="ID_ESPECIALIDAD"/>
       </set>
