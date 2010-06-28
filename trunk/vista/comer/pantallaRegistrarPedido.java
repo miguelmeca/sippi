@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import modelo.EmpresaCliente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,6 +43,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
+        txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
         mostrarEmpresasCliente();
     }
 
@@ -110,7 +112,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNroPedido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtNombreObra = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -142,9 +144,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Número de Pedido:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("120001");
+        txtNroPedido.setEditable(false);
+        txtNroPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNroPedido.setText("120001");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre de la Obra:");
@@ -275,7 +277,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -339,7 +341,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -376,10 +378,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnConfirmar)))
+                    .addComponent(btnConfirmar))
+                .addGap(5, 5, 5))
         );
 
         pack();
@@ -408,7 +411,12 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
         Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
         gestor.fechaLEP(fechaLEP);
         // LANZO EL CREAR
-        gestor.confirmacionRegistro();
+        gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
+        int id = gestor.confirmacionRegistro();
+        
+        JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
@@ -485,10 +493,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombreObra;
+    private javax.swing.JTextField txtNroPedido;
     private javax.swing.JTextField txtPlanos;
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables

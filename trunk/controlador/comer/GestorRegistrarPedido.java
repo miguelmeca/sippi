@@ -89,8 +89,18 @@ public class GestorRegistrarPedido {
 	
 	}
 	
-	public void seleccionPlanta() {
-	
+	public void seleccionPlanta(Tupla p) {
+            try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            this.planta = (Planta)sesion.load(Planta.class, p.getId());
+            sesion.getTransaction().commit();
+            }catch(Exception e)
+            {
+                System.out.println("ERROR:"+e.getMessage()+"|");
+                e.printStackTrace();
+            }
 	}
 
 
@@ -133,17 +143,38 @@ public class GestorRegistrarPedido {
 	
 	}
 
+        public int generarNumeroPedido()
+        {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            int mayorLegajo=0;
+            try{
+                Object ob =sesion.createQuery("Select MAX(id) from PedidoObra").uniqueResult();
+                if(ob!=null)
+                {mayorLegajo=(Integer)ob;}
+                else{mayorLegajo=0;}
+                sesion.getTransaction().commit();
+            }
+            catch(Exception e){
+              System.out.println("ERROR:"+e.getMessage()+"|");
+                e.printStackTrace();
+            }
+            return (mayorLegajo+1);
+	}
+
+
         /**
          * Toma la confirmacion del registro y empieza con el kilombo para
          * agregar un nuevo pedido
          */
-	public void confirmacionRegistro() {
+	public int confirmacionRegistro() {
 
-            crearPedidoObra();
+            return crearPedidoObra();
 
 	}
 	
-	private void crearPedidoObra() {
+	private int crearPedidoObra() {
 
             PedidoObra nuevo = new PedidoObra();
             nuevo.setNombre(nombre);
@@ -158,35 +189,31 @@ public class GestorRegistrarPedido {
             nuevo.setPlanos(planosObra);
             nuevo.setPliego(pliegoObra);
 
+            nuevo.setPlanta(planta);
+
             generarNumeroPedido();           // AL PEDO
             buscarUltimoNumeroPedidoObra();  // AL PEDO
 
             nuevo.crear();
 
             try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
-            sesion.save(nuevo);
-            sesion.getTransaction().commit();
+                SessionFactory sf = HibernateUtil.getSessionFactory();
+                Session sesion = sf.openSession();
+                sesion.beginTransaction();
+                sesion.save(nuevo);
+                sesion.getTransaction().commit();
             }catch(Exception e)
             {
                 System.out.println("ERROR:"+e.getMessage()+"|");
                 e.printStackTrace();
             }
+            return nuevo.getId();
 	}
 
         private void crearPlanificacion()
         {
 
         }
-
-	private void generarNumeroPedido() {
-
-            // Deberia buscarlo, pero hibernate se encarga solo de ésto y
-            // es transparente a nosotros =)
-
-	}
 	
 	private void buscarUltimoNumeroPedidoObra() {
 
