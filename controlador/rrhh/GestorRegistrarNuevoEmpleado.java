@@ -5,7 +5,10 @@ package controlador.rrhh;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.TipoDocumento;
+import modelo.TipoTelefono;
 import modelo.Domicilio;
+import modelo.TipoEspecialidad;
+import modelo.RangoEspecialidad;
 import modelo.Barrio;
 import modelo.Empleado;
 import org.hibernate.Session;
@@ -33,28 +36,34 @@ import java.util.Date;
 public class GestorRegistrarNuevoEmpleado {
 
         private pantallaRegistrarEmpleado pantalla;
-        private TipoDocumento TipoDocumentoEmpleado;
+        private TipoDocumento tipoDocumentoEmpleado;
 	private String nroDocumento;
         private String nombreEmpleado;
         private String apellidoEmpleado;
         private String emailEmpleado;
+        private String cuilEmpleado;
         private Date fechaNacimientoEmpleado;
 	private Domicilio domicilioEmpleado;
 	private Object listaPaises;
 	private Object listaProvincias;
 	private Object listaLocalidades;
 	private Object listaBarrios;
-	private Object listaTipoEspecialidad;
-	private Object listaRangos;
+        private ArrayList<TipoEspecialidad> listaTipoEspecialidades;
+        private ArrayList<RangoEspecialidad> listaRangoEspecialidades;
+        private ArrayList<String> listaNroTel;
+        private ArrayList<TipoTelefono> listaTipoTel;
+	//private Object listaRangos;
 	private Object especialidadesYRangos;
 	private Object fechaActual;
-	private Object legajoEmpleado;
-        private String calle;
-        private int nmro;
-        private int piso;
-        private String depto;
-        private String cp;
-        private Barrio barrio;
+	private int legajoEmpleado;
+        private String calleD;
+        private int nmroD;
+        private int pisoD;
+        private String departamentoD;
+        private String codigoPostalD;
+        private Barrio barrioD;
+
+
 
     public GestorRegistrarNuevoEmpleado(pantallaRegistrarEmpleado pantalla) {
         this.pantalla = pantalla;
@@ -90,25 +99,29 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void datosPersonalesEmpleado(String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac, String email)
+	public void datosPersonalesEmpleado(int leg,String cuil, String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac, String email)
         {
-            
+            legajoEmpleado=leg;
             nroDocumento=nmroDoc;
             gestorBDvarios bdv = new gestorBDvarios();                        
-            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
+            tipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
             nombreEmpleado=nombre;
             apellidoEmpleado=apellido;
             emailEmpleado=email;
             fechaNacimientoEmpleado=fechaNac;
+            cuilEmpleado=cuil;
 	
 	}
 	
-	public void datosDomicilioEmpleado(String calle, String nro, String depto, String pisoD, String cp, Tupla tBarrio)
+	public void datosDomicilioEmpleado(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio)
         {
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();                        
-            barrio =ggl.getBarrio(tBarrio.getId());
-            nmro=Integer.parseInt(nro);
-            piso=Integer.parseInt(pisoD);
+            barrioD =ggl.getBarrio(tBarrio.getId());
+            nmroD=Integer.parseInt(nro);
+            pisoD =Integer.parseInt(piso);
+            calleD=calle;
+            departamentoD=depto;
+            codigoPostalD=cp;
 	
 	}
 
@@ -125,9 +138,9 @@ public class GestorRegistrarNuevoEmpleado {
 
 	}
 	
-	public void paisEmpleado() {
+	/*public void paisEmpleado() {
 	
-	}
+	}*/
 	
 	public ArrayList<Tupla> mostrarProvincias(int idPais)
         {
@@ -149,7 +162,7 @@ public class GestorRegistrarNuevoEmpleado {
 
 	}
 	
-	public void provinciaEmpleado() {
+	/*public void provinciaEmpleado() {
 	
 	}		
 	
@@ -160,7 +173,7 @@ public class GestorRegistrarNuevoEmpleado {
 	public void barrioEmpleado() {
 	
 	}
-	
+	*/
 	public ArrayList<Tupla> mostrarTipoEspecialidad() 
         {
             gestorBDvarios bdv = new gestorBDvarios();
@@ -175,24 +188,23 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void tipoEspecialidadYRango() {
+	public void tipoEspecialidadYRango(ArrayList<Tupla> lstTipoEspecialidad, ArrayList<Tupla> lstRangoEspecialidad)
+        {
+            gestorBDvarios bdv = new gestorBDvarios();
+            for(int i=0; i<lstTipoEspecialidad.size();i++)
+            {
+
+                listaTipoEspecialidades.add(bdv.getTipoEspecialidad(lstTipoEspecialidad.get(i).getId()));
+                listaRangoEspecialidades.add(bdv.getRangoEspecialidad(lstRangoEspecialidad.get(i).getId()));
+            }
 	
 	}
 	
         
 	public void empleadoConfirmado() 
-        {   
-           /* gestorBDvarios bdv = new gestorBDvarios();
-            Empleado emp=new Empleado()
-            nroDocumento=nmroDoc;
-                                    
-            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
-            nombreEmpleado=nombre;
-            apellidoEmpleado=apellido;
-            emailEmpleado=email;
-            fechaNacimientoEmpleado=fechaNac;
-            
-            */
+        {
+
+           crearEmpleado();
 	
 	}
 	
@@ -224,8 +236,21 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	}
 	
-	public void crearEmpleado() {
-	
+	public Empleado crearEmpleado()
+        {
+	 gestorBDvarios bdv = new gestorBDvarios();
+            
+            /*nroDocumento=nmroDoc;
+                                    
+            TipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
+            nombreEmpleado=nombre;
+            apellidoEmpleado=apellido;
+            emailEmpleado=email;
+            fechaNacimientoEmpleado=fechaNac;*/
+            Empleado emp=new Empleado();//(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  numeroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , Date fecha_Alta)
+            
+            
+            return emp;
 	}
 	
 	public void finCU() {
@@ -234,8 +259,16 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	public void telefonosEmpleado(ArrayList<String> numero,ArrayList<Tupla> tipo )
         {
+            listaNroTel=numero;
+            listaTipoTel=new ArrayList();
+            gestorBDvarios bdv = new gestorBDvarios();
+            for(int i=0; i<tipo.size();i++)
+            {
+               TipoTelefono td= bdv.getTipoDeTelefono(tipo.get(i).getId());
+               listaTipoTel.add(td); 
+            }
 
-	
+            //listaTipoTel=tipo;
 	}
 	
 	public void seleccionTipoDocumento() {
