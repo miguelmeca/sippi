@@ -12,11 +12,10 @@
     <property column="PAGINAWEB" name="paginaWeb" type="string"/>
     <many-to-one column="IDDOMICILIO" name="domicilio"/>
 
-    <list cascade="all-delete-orphan" name="telefonos" table="EMPRESAXTELEFONO">
+    <set cascade="all" name="telefonos" table="EmpresaXTelefono">
       <key column="ID_EMPRESA"/>
-      <index column="ID"/>
-      <many-to-many class="modelo.Telefono"/>
-    </list>
+      <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
+    </set>
     <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO
     <set name="telefonos" table="EMPRESAXTELEFONO">
        La columna clave de la tabla EMPRESAXTELEFONO que se relaciona

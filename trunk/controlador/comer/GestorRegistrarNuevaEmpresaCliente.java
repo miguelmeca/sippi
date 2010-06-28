@@ -2,6 +2,7 @@ package controlador.comer;
 
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import javax.transaction.Transaction;
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.Tupla;
 import util.HibernateUtil;
+import util.NTupla;
 import util.SwingPanel;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
@@ -40,7 +42,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
     private Barrio barrio;
     private String cuit;
     private String email;
-    private ArrayList<Telefono> telefonos;
+    private HashSet<Telefono> telefonos;
     private ArrayList<Domicilio> domicilio;
     private pantallaRegistrarEmpresaCliente pantalla;
     private Planta planta;
@@ -127,8 +129,26 @@ public class GestorRegistrarNuevaEmpresaCliente {
         this.email = email;
     }
 
-    public void telefono(ArrayList<Telefono> telefonos) {
-        this.telefonos = telefonos;
+    public void telefono(HashSet<NTupla> listaTel) {
+            HashSet<Telefono> lista = new HashSet();
+            // Convierto el NTupla en Telefono
+            Iterator it = listaTel.iterator();
+            while (it.hasNext())
+            {
+                NTupla nt = (NTupla)it.next();
+                Telefono tel = new Telefono();
+                tel.setNumero(nt.getNombre());
+
+                TipoTelefono ttel = new TipoTelefono();
+                Tupla aux = (Tupla)nt.getData();
+                ttel.setId(aux.getId());
+                ttel.setNombre(aux.getNombre());
+                tel.setTipo(ttel);
+                lista.add(tel);
+
+            }
+
+            this.telefonos = lista;
     }
 
     public void seleccionTipoTelefono() {

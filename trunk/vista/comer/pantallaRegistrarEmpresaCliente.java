@@ -14,15 +14,15 @@ package vista.comer;
 import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
 import controlador.comer.GestorRegistrarPedido;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Telefono;
 import modelo.TipoTelefono;
+import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 
@@ -688,11 +688,12 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlturaActionPerformed
 
-        private ArrayList<Telefono> cargarTelefonos()
+    private HashSet<NTupla> cargarTelefonos()
     {
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Iterator it = modelo.getDataVector().iterator();
-        ArrayList<Telefono> listaTelefonos = new ArrayList<Telefono>();
+
+        HashSet<NTupla> listaTelefonos = new HashSet<NTupla>();
         while (it.hasNext())
         {
             Vector fila = (Vector)it.next();
@@ -700,15 +701,16 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             System.out.println("HOLA");
             Tupla tipo = (Tupla)fila.get(0);
 
-            Telefono tel = new Telefono();
-            tel.setNumero((String)fila.get(1));
+            NTupla nt = new NTupla();
+            nt.setNombre((String)fila.get(1));
 
-            TipoTelefono ttel = new TipoTelefono();
-            ttel.setNombre(tipo.getNombre());
-            ttel.setId(tipo.getId()); // MAGIA? REZEMOS A HIBERNATE =)
-            tel.setTipo(ttel);
+            Tupla ttt = new Tupla();
+            ttt.setId(tipo.getId());
+            ttt.setNombre(tipo.getNombre());
 
-            listaTelefonos.add(tel);
+            nt.setData(ttt);
+
+            listaTelefonos.add(nt);
         }
         return listaTelefonos;
     }
