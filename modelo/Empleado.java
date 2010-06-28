@@ -87,7 +87,7 @@ public class Empleado extends Persona {
         this.capacitacion = capacitacion;
     }
 
-    public ArrayList<Especialidad> getEspecialiades() {
+    public ArrayList<Especialidad> getEspecialidades() {
         return especialidades;
     }
 
