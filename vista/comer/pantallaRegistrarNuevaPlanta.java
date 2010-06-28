@@ -66,7 +66,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         
     }
 
-    public pantallaRegistrarNuevaPlanta(GestorRegistrarPedido aThis, String empresa) {
+    public pantallaRegistrarNuevaPlanta(GestorRegistrarPedido aThis, Tupla empresa) {
         initComponents();
         this.gestor = new GestorRegistrarNuevaPlanta(this);
         habilitarVentana();
@@ -756,6 +756,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             }
             else
             {
+                gestor.empresaCliente((Tupla)cmbEmpresa.getSelectedItem());
                 int id = gestor.PlantaConfirmada();
                 gestorRegistrarPedido.setNuevaPlanta(id);
                 JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);

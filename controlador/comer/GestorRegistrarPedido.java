@@ -273,8 +273,8 @@ public class GestorRegistrarPedido {
         return tuplas;
     }
 
-    public void llamarCURegistrarNuevaPlanta(String nombre) {
-        pantallaRegistrarNuevaPlanta np = new pantallaRegistrarNuevaPlanta(this,nombre);
+    public void llamarCURegistrarNuevaPlanta(Tupla empresa) {
+        pantallaRegistrarNuevaPlanta np = new pantallaRegistrarNuevaPlanta(this,empresa);
         SwingPanel.getInstance().addWindow(np);
         np.setVisible(true);
     }
