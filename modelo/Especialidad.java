@@ -17,7 +17,13 @@ public class Especialidad {
 	private TipoEspecialidad tipo;
 	private RangoEspecialidad rango;
 
-    public Especialidad() {
+    public Especialidad()
+    {
+    }
+    public Especialidad(TipoEspecialidad tp, RangoEspecialidad rng)
+    {
+        tipo=tp;
+        rango=rng;
     }
 
     public int getId() {
