@@ -23,6 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Carga datos de prueba en la BD para que los podamos unsar
@@ -192,7 +193,7 @@ public class DBExamplesLoader {
             Telefono tel = new Telefono();
             tel.setNumero("4567888");
             tel.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-            ArrayList<Telefono> tels = new ArrayList<Telefono>();
+            HashSet<Telefono> tels = new HashSet<Telefono>();
             tels.add(tel);
             ec1.setTelefonos(tels);
 
