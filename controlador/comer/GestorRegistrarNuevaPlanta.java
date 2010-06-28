@@ -10,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
+import util.NTupla;
 import util.Tupla;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 
@@ -97,7 +98,26 @@ public class GestorRegistrarNuevaPlanta {
             this.nombrePlanta = nombre;
 	}
 	
-	public void telefonoPlanta(HashSet<Telefono> lista) {
+	public void telefonoPlanta(HashSet<NTupla> listaTel) {
+
+            HashSet<Telefono> lista = new HashSet();
+            // Convierto el NTupla en Telefono
+            Iterator it = listaTel.iterator();
+            while (it.hasNext())
+            {
+                NTupla nt = (NTupla)it.next();
+                Telefono tel = new Telefono();
+                tel.setNumero(nt.getNombre());
+
+                TipoTelefono ttel = new TipoTelefono();
+                Tupla aux = (Tupla)nt.getData();
+                ttel.setId(aux.getId());
+                ttel.setNombre(aux.getNombre());
+                tel.setTipo(ttel);
+                lista.add(tel);
+
+            }
+
             this.listaTelefonos = lista;
 	}
 	
