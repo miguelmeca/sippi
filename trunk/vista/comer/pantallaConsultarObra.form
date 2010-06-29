@@ -32,7 +32,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jComboBox1" pref="473" max="32767" attributes="0"/>
+                      <Component id="cmbObra" pref="473" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jButton4" alignment="1" min="-2" pref="197" max="-2" attributes="0"/>
               </Group>
@@ -46,7 +46,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbObra" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
@@ -54,7 +54,7 @@
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +65,7 @@
         <Property name="text" type="java.lang.String" value="Consultar Obra:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="cmbObra">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
@@ -73,6 +73,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbObraActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 
@@ -93,7 +96,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel18" alignment="0" pref="539" max="32767" attributes="0"/>
+                          <Component id="lblMonto" alignment="0" pref="539" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel16" alignment="0" max="32767" attributes="1"/>
@@ -105,12 +108,12 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel6" pref="400" max="32767" attributes="0"/>
-                                  <Component id="jLabel5" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblDescripcionObra" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblNombreObra" alignment="0" pref="400" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel13" max="32767" attributes="1"/>
-                                          <Component id="jLabel7" alignment="0" pref="76" max="32767" attributes="1"/>
+                                          <Component id="lblFechaAceptacion" max="32767" attributes="1"/>
+                                          <Component id="lblFechaRegistro" alignment="0" pref="76" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -119,12 +122,12 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel11" pref="78" max="32767" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" pref="78" max="32767" attributes="0"/>
+                                          <Component id="lblFechaLEP" pref="78" max="32767" attributes="0"/>
+                                          <Component id="lblFechaLVP" alignment="0" pref="78" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel15" alignment="0" pref="400" max="32767" attributes="0"/>
-                                  <Component id="jLabel17" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblPliego" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblPlanos" alignment="0" pref="400" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -138,39 +141,39 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNombreObra" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDescripcionObra" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFechaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFechaLVP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFechaLEP" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFechaAceptacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPliego" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPlanos" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblMonto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="208" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -193,12 +196,12 @@
                 <Property name="text" type="java.lang.String" value="Descripcion:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="lblNombreObra">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1. Modificar Cinta de Galletitas Oreo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="lblDescripcionObra">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ampliar la capacidad de la cinta transportadora"/>
               </Properties>
@@ -211,7 +214,7 @@
                 <Property name="text" type="java.lang.String" value="fecha de Registro:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="lblFechaRegistro">
               <Properties>
                 <Property name="text" type="java.lang.String" value="11/06/2009"/>
               </Properties>
@@ -224,7 +227,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha L&#xed;mite de validez del presupuesto: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JLabel" name="lblFechaLVP">
               <Properties>
                 <Property name="text" type="java.lang.String" value="11/07/2009"/>
               </Properties>
@@ -237,7 +240,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha l&#xed;mite de entrega del presupuesto:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="lblFechaLEP">
               <Properties>
                 <Property name="text" type="java.lang.String" value="28/06/2009"/>
               </Properties>
@@ -250,7 +253,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha de Aceptaci&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel13">
+            <Component class="javax.swing.JLabel" name="lblFechaAceptacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="10/07/2009"/>
               </Properties>
@@ -263,7 +266,7 @@
                 <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n del pliego:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel15">
+            <Component class="javax.swing.JLabel" name="lblPliego">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Estante A2"/>
               </Properties>
@@ -276,12 +279,12 @@
                 <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n de los planos:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel17">
+            <Component class="javax.swing.JLabel" name="lblPlanos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Estante A3"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel18">
+            <Component class="javax.swing.JLabel" name="lblMonto">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
@@ -335,8 +338,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlContactoResponsable" min="-2" pref="156" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="pnlContactoResponsable" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -385,14 +388,14 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jComboBox3" alignment="0" pref="199" max="32767" attributes="1"/>
+                                              <Component id="jComboBox3" alignment="0" pref="202" max="32767" attributes="1"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jTextField8" min="-2" pref="91" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jComboBox5" pref="157" max="32767" attributes="0"/>
+                                                  <Component id="jComboBox5" pref="160" max="32767" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jButton2" min="-2" pref="36" max="-2" attributes="0"/>
                                               </Group>
@@ -423,10 +426,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextField10" alignment="0" pref="50" max="32767" attributes="0"/>
-                              <Component id="jTextField7" alignment="0" pref="50" max="32767" attributes="0"/>
-                              <Component id="jButton1" alignment="0" pref="50" max="32767" attributes="1"/>
-                              <Component id="jButton3" alignment="0" pref="50" max="32767" attributes="0"/>
+                              <Component id="jTextField10" alignment="0" pref="53" max="32767" attributes="0"/>
+                              <Component id="jTextField7" alignment="0" pref="53" max="32767" attributes="0"/>
+                              <Component id="jButton1" alignment="0" pref="53" max="32767" attributes="1"/>
+                              <Component id="jButton3" alignment="0" pref="53" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -660,7 +663,7 @@
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Component id="lblEmailCont" min="-2" pref="46" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtEmailCont" pref="153" max="32767" attributes="0"/>
+                                  <Component id="txtEmailCont" pref="159" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -676,7 +679,7 @@
                               <Component id="lblEmailCont" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEmailCont" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="8" max="32767" attributes="0"/>
                           <Component id="pnlTelefonosContacto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -724,7 +727,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="srcTelefonos" pref="473" max="32767" attributes="0"/>
+                              <Component id="srcTelefonos" pref="485" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -797,7 +800,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlDatosCliente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="72" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -837,7 +840,7 @@
                                   <Component id="txtRazonSocial" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="202" max="32767" attributes="0"/>
+                          <EmptySpace pref="208" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblCodigoPostal" min="-2" max="-2" attributes="1"/>
@@ -990,7 +993,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="srcTelefonos1" pref="493" max="32767" attributes="0"/>
+                              <Component id="srcTelefonos1" pref="505" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1080,7 +1083,7 @@
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="lblEmailCont1" min="-2" pref="46" max="-2" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtEmailCont1" pref="153" max="32767" attributes="0"/>
+                              <Component id="txtEmailCont1" pref="165" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1159,7 +1162,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jProgressBar1" pref="526" max="32767" attributes="0"/>
+                  <Component id="pbAvanceObra" pref="532" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -1167,14 +1170,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="pbAvanceObra" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+        <Component class="javax.swing.JProgressBar" name="pbAvanceObra">
           <Properties>
             <Property name="value" type="int" value="37"/>
             <Property name="stringPainted" type="boolean" value="true"/>
