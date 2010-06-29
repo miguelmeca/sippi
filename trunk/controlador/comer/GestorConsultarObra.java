@@ -1,11 +1,15 @@
 package controlador.comer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import sun.util.calendar.CalendarDate;
 import util.HibernateUtil;
+import util.NTupla;
 import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 
@@ -27,10 +31,14 @@ public class GestorConsultarObra {
 	private Telefono telefonos;
 	private Integer porcentaje;
 	private EmpresaCliente empresaCliente;
+
+        private SimpleDateFormat formato;
+
     private final pantallaConsultarObra pantalla;
 
     public GestorConsultarObra(pantallaConsultarObra aThis) {
         this.pantalla = aThis;
+        formato = new SimpleDateFormat("dd/MM/yyyy");
     }
 
 
@@ -80,7 +88,17 @@ public class GestorConsultarObra {
     }
 
     public void buscarDatosPlanta() {
-
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            //this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
+            sesion.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
     }
 
     public void buscarContactoYTelefono() {
@@ -108,22 +126,102 @@ public class GestorConsultarObra {
     }
 
     public String mostrarFechaRegistro(){
-        return this.pedidoObra.getFechaDeRegistro().toString();
+        return formato.format(this.pedidoObra.getFechaDeRegistro());
     }
 
     public String mostrarFechaLVP(){
-        return this.pedidoObra.getFechaLimiteValidezPresupuesto().toString();
+        return formato.format(this.pedidoObra.getFechaAceptacion());
     }
 
     public String mostrarFechaAceptacion(){
-        return this.pedidoObra.getFechaAceptacion().toString();
+        return formato.format(this.pedidoObra.getFechaAceptacion());
     }
 
     public String mostrarFechaLEP(){
-        return this.pedidoObra.getFechaLimiteEntregaPresupuesto().toString();
+        return formato.format(this.pedidoObra.getFechaLimiteEntregaPresupuesto());
+    }
+
+    public String mostrarPliego(){
+        return this.pedidoObra.getPliego();
+    }
+
+    public String mostrarPlanos(){
+        return this.pedidoObra.getPlanos();
     }
 
     public String mostrarMontoObra(){
-        return String.valueOf(this.pedidoObra.getMonto());
+        return ""+this.pedidoObra.getMonto();
+    }
+
+    public String mostrarRazonSocialPlanta(){
+        return this.planta.getRazonSocial();
+    }
+
+    public String mostrarCallePlanta(){
+        return this.planta.getDomicilio().getCalle();
+    }
+
+    public String mostrarNumeroPlanta(){
+        return ""+this.planta.getDomicilio().getNumero();
+    }
+
+    public String mostrarPisoPlanta(){
+        return ""+this.planta.getDomicilio().getPiso();
+    }
+
+    public String mostrarDptoPlanta(){
+        return this.planta.getDomicilio().getDepto();
+    }
+
+    public String mostrarCPPlanta(){
+        return this.planta.getDomicilio().getCodigoPostal();
+    }
+
+    public String mostrarPaisPlanta(){
+        return "S/D";
+    }
+
+    public String mostrarProvinciaPlanta(){
+        return "S/D";
+    }
+
+    public String mostrarLocalidadPlanta(){
+        return "S/D";
+    }
+
+    public String mostrarBarrioPlanta(){
+        return "S/D";
+    }
+
+    public String mostrarRazonSocialEC(){
+        return this.empresaCliente.getRazonSocial();
+    }
+
+    public String mostrarCUITEC(){
+        return this.empresaCliente.getCuit();
+    }
+
+    public String mostrarDireccionEC(){
+        return this.empresaCliente.getDomicilio().toString();
+    }
+
+    public String mostrarBarrioEC(){
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public String mostrarLocalidadEC(){
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public String mostrarProvinciaEC(){
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public String mostrarPaisEC(){
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public ArrayList<NTupla> mostrarTelefonosEC() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

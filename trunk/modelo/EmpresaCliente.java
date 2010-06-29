@@ -48,10 +48,6 @@ public class EmpresaCliente extends Empresa{
 
     }
 
-    public void getNombre() {
-
-    }
-
     public void getEmpresa(Planta planta) {
 
     }
@@ -73,10 +69,6 @@ public class EmpresaCliente extends Empresa{
     }
 
     public void mostrarDatos() {
-
-    }
-
-    public void getCUIT() {
 
     }
 

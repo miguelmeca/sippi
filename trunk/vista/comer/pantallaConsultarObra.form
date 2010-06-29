@@ -28,11 +28,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jTabbedPane1" alignment="0" pref="564" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" alignment="0" pref="541" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmbObra" pref="473" max="32767" attributes="0"/>
+                      <Component id="cmbObra" pref="450" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jButton4" alignment="1" min="-2" pref="197" max="-2" attributes="0"/>
               </Group>
@@ -54,7 +54,7 @@
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,7 +96,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblMonto" alignment="0" pref="539" max="32767" attributes="0"/>
+                          <Component id="lblMonto" alignment="0" pref="516" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel16" alignment="0" max="32767" attributes="1"/>
@@ -108,8 +108,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblDescripcionObra" pref="400" max="32767" attributes="0"/>
-                                  <Component id="lblNombreObra" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblDescripcionObra" pref="377" max="32767" attributes="0"/>
+                                  <Component id="lblNombreObra" alignment="0" pref="377" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="lblFechaAceptacion" max="32767" attributes="1"/>
@@ -122,12 +122,12 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblFechaLEP" pref="78" max="32767" attributes="0"/>
-                                          <Component id="lblFechaLVP" alignment="0" pref="78" max="32767" attributes="0"/>
+                                          <Component id="lblFechaLEP" pref="55" max="32767" attributes="0"/>
+                                          <Component id="lblFechaLVP" alignment="0" pref="55" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="lblPliego" alignment="0" pref="400" max="32767" attributes="0"/>
-                                  <Component id="lblPlanos" alignment="0" pref="400" max="32767" attributes="0"/>
+                                  <Component id="lblPliego" alignment="0" pref="377" max="32767" attributes="0"/>
+                                  <Component id="lblPlanos" alignment="0" pref="377" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -174,7 +174,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblMonto" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <EmptySpace pref="330" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -197,14 +197,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNombreObra">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="1. Modificar Cinta de Galletitas Oreo"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblDescripcionObra">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ampliar la capacidad de la cinta transportadora"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -215,9 +209,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaRegistro">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="11/06/2009"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -228,9 +219,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaLVP">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="11/07/2009"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -241,9 +229,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaLEP">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="28/06/2009"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
@@ -254,9 +239,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaAceptacion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="10/07/2009"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
@@ -267,9 +249,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPliego">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Estante A2"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
@@ -280,9 +259,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPlanos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Estante A3"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblMonto">
               <Properties>
@@ -290,7 +266,7 @@
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Monto de la Obra: $21000"/>
+                <Property name="text" type="java.lang.String" value="Monto de la Obra: "/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder/>
@@ -319,7 +295,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel19" min="-2" pref="98" max="-2" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel20" pref="435" max="32767" attributes="0"/>
+                              <Component id="txtRazonSocialPlanta" pref="412" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -333,13 +309,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtRazonSocialPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlContactoResponsable" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="143" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -353,7 +329,7 @@
                 <Property name="text" type="java.lang.String" value="Raz&#xf3;n Social: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel20">
+            <Component class="javax.swing.JLabel" name="txtRazonSocialPlanta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dulciora SA"/>
               </Properties>
@@ -374,6 +350,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="294" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -382,54 +362,49 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTextField6" min="-2" pref="321" max="-2" attributes="0"/>
+                                          <Component id="txtCallePlanta" min="-2" pref="321" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="jComboBox3" alignment="0" pref="202" max="32767" attributes="1"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jTextField8" min="-2" pref="91" max="-2" attributes="0"/>
+                                                  <Component id="txtPisoPlanta" min="-2" pref="91" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jComboBox5" pref="160" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jButton2" min="-2" pref="36" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="cmbLocalidadPlanta" alignment="0" max="32767" attributes="1"/>
+                                                  <Component id="cmbPaisPlanta" alignment="0" pref="148" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jTextField9" min="-2" pref="94" max="-2" attributes="0"/>
+                                                  <Component id="txtDptoPlanta" min="-2" pref="94" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel28" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
-                                                      <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel28" min="-2" pref="66" max="-2" attributes="0"/>
+                                                      <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jComboBox6" alignment="0" pref="107" max="32767" attributes="0"/>
-                                                      <Component id="jComboBox4" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cmbBarrioPlanta" pref="109" max="32767" attributes="0"/>
+                                                      <Component id="cmbProvinciaPlanta" alignment="0" pref="109" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextField10" alignment="0" pref="53" max="32767" attributes="0"/>
-                              <Component id="jTextField7" alignment="0" pref="53" max="32767" attributes="0"/>
-                              <Component id="jButton1" alignment="0" pref="53" max="32767" attributes="1"/>
-                              <Component id="jButton3" alignment="0" pref="53" max="32767" attributes="0"/>
+                              <Component id="txtCPPlanta" alignment="0" pref="46" max="32767" attributes="0"/>
+                              <Component id="txtNroPlanta" alignment="0" pref="46" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -439,42 +414,39 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCallePlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNroPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPisoPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDptoPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCPPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbPaisPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="cmbProvinciaPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbLocalidadPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbBarrioPlanta" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -488,12 +460,13 @@
                     <Property name="text" type="java.lang.String" value="Calle: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField6">
+                <Component class="javax.swing.JTextField" name="txtCallePlanta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Stark Tower"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField6ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCallePlantaActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
@@ -504,9 +477,10 @@
                     <Property name="text" type="java.lang.String" value="N&#xba;:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField7">
+                <Component class="javax.swing.JTextField" name="txtNroPlanta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="112"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel24">
@@ -517,9 +491,10 @@
                     <Property name="text" type="java.lang.String" value="Piso:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField8">
+                <Component class="javax.swing.JTextField" name="txtPisoPlanta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="31"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
@@ -530,9 +505,10 @@
                     <Property name="text" type="java.lang.String" value="Departamento: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField9">
+                <Component class="javax.swing.JTextField" name="txtDptoPlanta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="B"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
@@ -543,9 +519,10 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo Postal:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField10">
+                <Component class="javax.swing.JTextField" name="txtCPPlanta">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="5186"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel27">
@@ -556,13 +533,14 @@
                     <Property name="text" type="java.lang.String" value="Pais: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
+                <Component class="javax.swing.JComboBox" name="cmbPaisPlanta">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
                         <StringItem index="0" value="Estados Unidos"/>
                       </StringArray>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
@@ -573,20 +551,14 @@
                     <Property name="text" type="java.lang.String" value="Provincia:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox4">
+                <Component class="javax.swing.JComboBox" name="cmbProvinciaPlanta">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
                         <StringItem index="0" value="Florida"/>
                       </StringArray>
                     </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel29">
@@ -597,20 +569,14 @@
                     <Property name="text" type="java.lang.String" value="Localidad: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox5">
+                <Component class="javax.swing.JComboBox" name="cmbLocalidadPlanta">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
                         <StringItem index="0" value="Miami"/>
                       </StringArray>
                     </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel30">
@@ -621,18 +587,12 @@
                     <Property name="text" type="java.lang.String" value="Barrio:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox6">
+                <Component class="javax.swing.JComboBox" name="cmbBarrioPlanta">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
                     </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton3">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -659,11 +619,11 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblNombre" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtNombre" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="txtNombreContacto" min="-2" pref="101" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Component id="lblEmailCont" min="-2" pref="46" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtEmailCont" pref="159" max="32767" attributes="0"/>
+                                  <Component id="txtEmailContacto" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -675,9 +635,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNombreContacto" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEmailCont" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtEmailCont" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtEmailContacto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="8" max="32767" attributes="0"/>
                           <Component id="pnlTelefonosContacto" min="-2" max="-2" attributes="0"/>
@@ -695,7 +655,7 @@
                     <Property name="text" type="java.lang.String" value="Nombre:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtNombre">
+                <Component class="javax.swing.JLabel" name="txtNombreContacto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Arnaldo Andr&#xe9;"/>
                   </Properties>
@@ -708,7 +668,7 @@
                     <Property name="text" type="java.lang.String" value="e-mail :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtEmailCont">
+                <Component class="javax.swing.JLabel" name="txtEmailContacto">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="arnaldoandre@arcor.com.ar"/>
                   </Properties>
@@ -727,7 +687,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="srcTelefonos" pref="485" max="32767" attributes="0"/>
+                              <Component id="srcTelefonos" pref="462" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -763,6 +723,7 @@
                                 </Column>
                               </Table>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
@@ -800,7 +761,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlDatosCliente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="72" max="32767" attributes="0"/>
+                      <EmptySpace pref="257" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -829,84 +790,90 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtProvincia" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDireccion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtLocalidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDireccionEC" min="-2" pref="132" max="-2" attributes="0"/>
+                                      <Component id="txtProvinciaEC" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <Component id="txtLocalidadEC" min="-2" pref="109" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblRazonSocial" min="-2" pref="76" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtRazonSocial" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtRazonSocialEC" min="-2" pref="134" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="208" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblCodigoPostal" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCodigoPostal" min="-2" pref="42" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lblCUIT" min="-2" max="-2" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txtCUITEC" min="-2" pref="89" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="lblPais" min="-2" max="-2" attributes="1"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="txtPaisEC" pref="112" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblCUIT" min="-2" max="-2" attributes="1"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCUIT" min="-2" pref="89" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblPais" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtPais" min="-2" pref="59" max="-2" attributes="0"/>
+                                  <Component id="txtBarrioEC" min="-2" pref="122" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="pnlContactoResponsable1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="pnlTelefonosContacto1" alignment="0" max="32767" attributes="1"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="pnlTelefonosContacto1" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblRazonSocial" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtRazonSocial" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtRazonSocialEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDireccionEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtLocalidadEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtProvinciaEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" attributes="1">
                                   <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txtCUITEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                       <Component id="lblCUIT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCUIT" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="26" pref="26" max="26" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblCodigoPostal" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCodigoPostal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtBarrioEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblPais" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtPais" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPaisEC" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pnlContactoResponsable1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlTelefonosContacto1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -946,38 +913,13 @@
                     <Property name="text" type="java.lang.String" value="Localidad: "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblCodigoPostal">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="C&#xf3;digo Postal:"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtRazonSocialEC">
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtRazonSocial">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Grupo Arcor"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtCUITEC">
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtCUIT">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="12-1212131-23"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtDireccionEC">
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtDireccion">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value=" Av. Sarmiento 137 - 4 B"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="txtLocalidad">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Villa Mercedes"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="txtCodigoPostal">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="5730"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtLocalidadEC">
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnlTelefonosContacto1">
                   <Properties>
@@ -991,9 +933,9 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="srcTelefonos1" pref="472" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="srcTelefonos1" pref="505" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1018,16 +960,11 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="2" rowCount="2">
-                                <Column editable="true" title="Telefono" type="java.lang.String">
-                                  <Data value="0351-4681408"/>
-                                  <Data value="null"/>
-                                </Column>
-                                <Column editable="true" title="Tipo Telefono" type="java.lang.String">
-                                  <Data value="0351-4280594"/>
-                                  <Data value="null"/>
-                                </Column>
+                                <Column editable="true" title="Tipo" type="java.lang.String"/>
+                                <Column editable="true" title="N&#xfa;mero" type="java.lang.String"/>
                               </Table>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
@@ -1053,84 +990,20 @@
                     <Property name="text" type="java.lang.String" value="Pa&#xed;s:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtProvincia">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="San Luis"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtProvinciaEC">
                 </Component>
-                <Component class="javax.swing.JLabel" name="txtPais">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Argentina"/>
-                  </Properties>
+                <Component class="javax.swing.JLabel" name="txtPaisEC">
                 </Component>
-                <Container class="javax.swing.JPanel" name="pnlContactoResponsable1">
+                <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Contacto Responsable"/>
-                      </Border>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
                     </Property>
+                    <Property name="text" type="java.lang.String" value="Barrio:"/>
                   </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblNombre1" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtNombre1" min="-2" pref="101" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="lblEmailCont1" min="-2" pref="46" max="-2" attributes="1"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtEmailCont1" pref="165" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblNombre1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtNombre1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmailCont1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtEmailCont1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lblNombre1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Nombre:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="txtNombre1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Arnaldo Andr&#xe9;"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblEmailCont1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="e-mail :"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="txtEmailCont1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="arnaldoandre@arcor.com.ar"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
+                </Component>
+                <Component class="javax.swing.JLabel" name="txtBarrioEC">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -1162,7 +1035,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pbAvanceObra" pref="532" max="32767" attributes="0"/>
+                  <Component id="pbAvanceObra" pref="509" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

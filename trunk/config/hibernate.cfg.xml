@@ -8,7 +8,7 @@
     <property name="hibernate.connection.username">administradornn</property>
     <property name="hibernate.connection.password">administradornn</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <!--<property name="hibernate.hbm2ddl.auto">create</property>-->
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</property>
 
