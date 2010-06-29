@@ -56,7 +56,7 @@
         <one-to-many class="modelo.Indumentaria"/>
       </set>
 
-      <set name="capacitacion" >
+      <set name="capacitaciones" >
         <key column="ID_CAPACITACION"/>
         <one-to-many class="modelo.Capacitacion"/>
       </set>
