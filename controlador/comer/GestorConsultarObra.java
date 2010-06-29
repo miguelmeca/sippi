@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import util.Tupla;
+import vista.comer.pantallaConsultarObra;
 
 //
 //
@@ -26,57 +27,103 @@ public class GestorConsultarObra {
 	private Telefono telefonos;
 	private Integer porcentaje;
 	private EmpresaCliente empresaCliente;
-	public void consultarObra() {
-	
-	}
-	
-	public ArrayList<Tupla> buscarObrasConfirmadas() {
-            /**
-             *
-             * OJO! TODAVIA FALTA SABER COMO VAMOS A VER Q SEAN CONFIRMADAS!!! XD
-             * POR AHORA MUESTRO TODAS LAS OBRAS.
-             *
-            **/
-            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+    private final pantallaConsultarObra pantalla;
+
+    public GestorConsultarObra(pantallaConsultarObra aThis) {
+        this.pantalla = aThis;
+    }
+
+
+    public void consultarObra() {
+
+    }
+
+    public ArrayList<Tupla> buscarObrasConfirmadas() {
+        /**
+         *
+         * OJO! TODAVIA FALTA SABER COMO VAMOS A VER Q SEAN CONFIRMADAS!!! XD
+         * POR AHORA MUESTRO TODAS LAS OBRAS.
+         *
+        **/
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        Iterator iter = sesion.createQuery("from PedidoObra p order by p.nombre").iterate();
+        while ( iter.hasNext() )
+        {
+            PedidoObra p = (PedidoObra)iter.next();
+            Tupla tupla = new Tupla(p.getId(),p.getNombre());
+            tuplas.add(tupla);
+        }
+        sesion.close();
+        return tuplas;
+    }
+
+    public void seleccionObra(Tupla obra) {
+        try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-
             sesion.beginTransaction();
-            Iterator iter = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
-            while ( iter.hasNext() )
-            {
-                EmpresaCliente ec = (EmpresaCliente)iter.next();
-                Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
-                tuplas.add(tupla);
-            }
-            return tuplas;
-	}
-	
-	public void seleccionObra() {
-	
-	}
-	
-	public void buscarDatosObra() {
-	
-	}
-	
-	public void buscarDatosPlanta() {
-	
-	}
-	
-	public void buscarContactoYTelefono() {
-	
-	}
-	
-	public void buscarEmpresaCliente() {
-	
-	}
-	
-	public void calcularPorcentajeCompletado() {
-	
-	}
-	
-	public void finCU() {
-	
-	}
+            this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
+            sesion.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+    }
+
+    public void buscarDatosObra() {
+
+    }
+
+    public void buscarDatosPlanta() {
+
+    }
+
+    public void buscarContactoYTelefono() {
+
+    }
+
+    public void buscarEmpresaCliente() {
+
+    }
+
+    public void calcularPorcentajeCompletado() {
+
+    }
+
+    public void finCU() {
+
+    }
+
+    public String mostrarNombreObra(){
+        return this.pedidoObra.getNombre();
+    }
+
+    public String mostrarDescripcionObra(){
+        return this.pedidoObra.getDescripcion();
+    }
+
+    public String mostrarFechaRegistro(){
+        return this.pedidoObra.getFechaDeRegistro().toString();
+    }
+
+    public String mostrarFechaLVP(){
+        return this.pedidoObra.getFechaLimiteValidezPresupuesto().toString();
+    }
+
+    public String mostrarFechaAceptacion(){
+        return this.pedidoObra.getFechaAceptacion().toString();
+    }
+
+    public String mostrarFechaLEP(){
+        return this.pedidoObra.getFechaLimiteEntregaPresupuesto().toString();
+    }
+
+    public String mostrarMontoObra(){
+        return String.valueOf(this.pedidoObra.getMonto());
+    }
 }

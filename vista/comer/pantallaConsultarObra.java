@@ -11,15 +11,26 @@
 
 package vista.comer;
 
+import controlador.comer.GestorConsultarObra;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
+import util.Tupla;
+
 /**
  *
  * @author Administrador
  */
 public class pantallaConsultarObra extends javax.swing.JInternalFrame {
+    private final GestorConsultarObra gestor;
 
     /** Creates new form pantallaConsultarObra */
     public pantallaConsultarObra() {
         initComponents();
+
+        gestor = new GestorConsultarObra(this);
+
+        habilitarVentana();
     }
 
     /** This method is called from within the constructor to
@@ -32,26 +43,26 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbObra = new javax.swing.JComboBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblNombreObra = new javax.swing.JLabel();
+        lblDescripcionObra = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblFechaRegistro = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblFechaLVP = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblFechaLEP = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblFechaAceptacion = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblPliego = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        lblPlanos = new javax.swing.JLabel();
+        lblMonto = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -111,7 +122,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         txtEmailCont1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pbAvanceObra = new javax.swing.JProgressBar();
 
         setClosable(true);
         setIconifiable(true);
@@ -119,7 +130,12 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Consultar Obra:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bagley SA Villa Mercedez" }));
+        cmbObra.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bagley SA Villa Mercedez" }));
+        cmbObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbObraActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre del a Obra: ");
@@ -127,44 +143,44 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripcion:");
 
-        jLabel5.setText("1. Modificar Cinta de Galletitas Oreo");
+        lblNombreObra.setText("1. Modificar Cinta de Galletitas Oreo");
 
-        jLabel6.setText("Ampliar la capacidad de la cinta transportadora");
+        lblDescripcionObra.setText("Ampliar la capacidad de la cinta transportadora");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("fecha de Registro:");
 
-        jLabel7.setText("11/06/2009");
+        lblFechaRegistro.setText("11/06/2009");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Fecha Límite de validez del presupuesto: ");
 
-        jLabel9.setText("11/07/2009");
+        lblFechaLVP.setText("11/07/2009");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Fecha límite de entrega del presupuesto:");
 
-        jLabel11.setText("28/06/2009");
+        lblFechaLEP.setText("28/06/2009");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha de Aceptación:");
 
-        jLabel13.setText("10/07/2009");
+        lblFechaAceptacion.setText("10/07/2009");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("Ubicación del pliego:");
 
-        jLabel15.setText("Estante A2");
+        lblPliego.setText("Estante A2");
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Ubicación de los planos:");
 
-        jLabel17.setText("Estante A3");
+        lblPlanos.setText("Estante A3");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Monto de la Obra: $21000");
-        jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblMonto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblMonto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMonto.setText("Monto de la Obra: $21000");
+        lblMonto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,7 +189,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,22 +200,22 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(lblDescripcionObra, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(lblNombreObra, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                                    .addComponent(lblFechaAceptacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblFechaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)))
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))))
+                                    .addComponent(lblFechaLEP, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                                    .addComponent(lblFechaLVP, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)))
+                            .addComponent(lblPliego, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(lblPlanos, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -208,33 +224,33 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(lblNombreObra))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel6))
+                    .addComponent(lblDescripcionObra))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel7)
+                    .addComponent(lblFechaRegistro)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(lblFechaLVP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11)
+                    .addComponent(lblFechaLEP)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(lblFechaAceptacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(lblPliego))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addComponent(lblPlanos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
+                .addComponent(lblMonto)
                 .addContainerGap(208, Short.MAX_VALUE))
         );
 
@@ -321,13 +337,13 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel23))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, 199, Short.MAX_VALUE)
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, 202, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                         .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel25))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jComboBox5, 0, 157, Short.MAX_VALUE)
+                                        .addComponent(jComboBox5, 0, 160, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,10 +363,10 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                     .addComponent(jLabel27))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -428,7 +444,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTelefonosContactoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(srcTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
+                .addComponent(srcTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
         );
         pnlTelefonosContactoLayout.setVerticalGroup(
             pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +468,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                         .addGap(38, 38, 38)
                         .addComponent(lblEmailCont, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmailCont, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                        .addComponent(txtEmailCont, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                         .addGap(114, 114, 114))))
         );
         pnlContactoResponsableLayout.setVerticalGroup(
@@ -463,7 +479,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                     .addComponent(txtNombre)
                     .addComponent(lblEmailCont)
                     .addComponent(txtEmailCont))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -493,8 +509,8 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlContactoResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlContactoResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos de la Planta", jPanel2);
@@ -553,7 +569,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             pnlTelefonosContacto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTelefonosContacto1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(srcTelefonos1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+                .addComponent(srcTelefonos1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
         );
         pnlTelefonosContacto1Layout.setVerticalGroup(
             pnlTelefonosContacto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,7 +612,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38)
                 .addComponent(lblEmailCont1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmailCont1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(txtEmailCont1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addGap(96, 96, 96))
         );
         pnlContactoResponsable1Layout.setVerticalGroup(
@@ -631,7 +647,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                         .addComponent(lblRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRazonSocial)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                         .addComponent(lblCodigoPostal)
@@ -700,7 +716,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos del Cliente", jPanel3);
@@ -715,8 +731,8 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Avance de la Obra"));
 
-        jProgressBar1.setValue(37);
-        jProgressBar1.setStringPainted(true);
+        pbAvanceObra.setValue(37);
+        pbAvanceObra.setStringPainted(true);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -724,13 +740,13 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+                .addComponent(pbAvanceObra, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pbAvanceObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -746,7 +762,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, 473, Short.MAX_VALUE))
+                        .addComponent(cmbObra, 0, 473, Short.MAX_VALUE))
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -756,14 +772,14 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -777,27 +793,35 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void cmbObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbObraActionPerformed
+        gestor.seleccionObra((Tupla)cmbObra.getSelectedItem()); // Encargado de traer el objeto Pedido al Gestor
+        this.lblNombre.setText(gestor.mostrarNombreObra());
+        this.lblDescripcionObra.setText(gestor.mostrarDescripcionObra());
+        this.lblFechaRegistro.setText(gestor.mostrarFechaRegistro());
+        this.lblFechaLVP.setText(gestor.mostrarFechaLVP());
+        this.lblFechaAceptacion.setText(gestor.mostrarFechaAceptacion());
+        this.lblFechaLEP.setText(gestor.mostrarFechaLEP());
+        this.lblMonto.setText(gestor.mostrarMontoObra());
+
+        //mostrarDatosPlantaYContacto();
+    }//GEN-LAST:event_cmbObraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbObra;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -812,17 +836,12 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField6;
@@ -831,15 +850,25 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lblCUIT;
     private javax.swing.JLabel lblCodigoPostal;
+    private javax.swing.JLabel lblDescripcionObra;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblEmailCont;
     private javax.swing.JLabel lblEmailCont1;
+    private javax.swing.JLabel lblFechaAceptacion;
+    private javax.swing.JLabel lblFechaLEP;
+    private javax.swing.JLabel lblFechaLVP;
+    private javax.swing.JLabel lblFechaRegistro;
     private javax.swing.JLabel lblLocalidad;
+    private javax.swing.JLabel lblMonto;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre1;
+    private javax.swing.JLabel lblNombreObra;
     private javax.swing.JLabel lblPais;
+    private javax.swing.JLabel lblPlanos;
+    private javax.swing.JLabel lblPliego;
     private javax.swing.JLabel lblProvincia;
     private javax.swing.JLabel lblRazonSocial;
+    private javax.swing.JProgressBar pbAvanceObra;
     private javax.swing.JPanel pnlContactoResponsable;
     private javax.swing.JPanel pnlContactoResponsable1;
     private javax.swing.JPanel pnlDatosCliente;
@@ -862,4 +891,20 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtRazonSocial;
     // End of variables declaration//GEN-END:variables
 
+    private void habilitarVentana() {
+        mostrarObras();
+    }
+
+    private void mostrarObras() {
+        ArrayList<Tupla> lista = gestor.buscarObrasConfirmadas();
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbObra.setModel(valores);
+    }
 }
