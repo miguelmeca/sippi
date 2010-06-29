@@ -12,6 +12,7 @@ import modelo.TipoDocumento;
 import modelo.TipoTelefono;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
+import modelo.TipoCapacitacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -130,6 +131,28 @@ public class gestorBDvarios
             return tuplas;
     }
 
+    public  TipoCapacitacion getTipoCapacitacion(int idTipoCapacitacion)
+    {
+        TipoCapacitacion cap = (TipoCapacitacion)sesion.load(TipoCapacitacion.class,idTipoCapacitacion);
+        return cap;
+    }
 
+     public ArrayList<Tupla> getTipoCapacitacion()
+    {
+         sesion.beginTransaction();
+            List lista = sesion.createQuery("from TipoCapacitacion").list();
+            sesion.getTransaction().commit();
+
+            //ArrayList<String> listaNombres = new ArrayList<String>();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++) {
+                TipoCapacitacion tc = (TipoCapacitacion)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                Tupla tupla = new Tupla(tc.getId(),tc.getNombre());
+                    tuplas.add(tupla);
+            }
+
+            return tuplas;
+    }
 
 }
