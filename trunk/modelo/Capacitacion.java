@@ -26,6 +26,11 @@ public class Capacitacion {
         public Capacitacion() {
         }
 
+        public Capacitacion(TipoCapacitacion tc, Date fv) {
+            tipoCapacitacion=tc;
+            fechaVencimiento=fv;
+        }
+
         public Date getFechaVencimiento() {
             return fechaVencimiento;
         }
