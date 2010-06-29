@@ -11,6 +11,7 @@ import modelo.Empleado;
 import modelo.Domicilio;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
+import modelo.TipoCapacitacion;
 import modelo.EmpresaCliente;
 import modelo.Localidad;
 import modelo.Pais;
@@ -24,6 +25,7 @@ import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
 import java.util.HashSet;
+//import java.util.Set;
 
 /**
  * Carga datos de prueba en la BD para que los podamos unsar
@@ -113,7 +115,10 @@ public class DBExamplesLoader {
         rng2.setNombre("2");
         RangoEspecialidad rng3= new RangoEspecialidad();
         rng3.setNombre("3");
-
+        TipoCapacitacion tc= new TipoCapacitacion();
+        tc.setNombre("Seguridad 1");
+        TipoCapacitacion tc2= new TipoCapacitacion();
+        tc2.setNombre("Manejo de Herramienta");
 
 
         sesion.beginTransaction();
@@ -129,6 +134,8 @@ public class DBExamplesLoader {
         sesion.save(l3);
         sesion.save(te);
         sesion.save(te2);
+        sesion.save(tc);
+        sesion.save(tc2);
         sesion.save(rng1);
         sesion.save(rng2);
         sesion.save(rng3);
