@@ -38,7 +38,7 @@
         <key column="ID_PERSONA"/>
         <many-to-many class="modelo.Especialidad" column="ID_ESPECIALIDAD"/>
       </set>
-
+<!--
       <list cascade="all-delete-orphan" name="indumentaria" table="ITEM_INDUMENTARIA">
         <key column="ID_ITEM_INDUMENTARIA"/>
         <index column="LEGAJO"/>
@@ -50,7 +50,16 @@
         <index column="LEGAJO"/>
         <one-to-many class="modelo.Capacitacion"/>
       </list>
+-->
+      <set name="indumentaria" >
+        <key column="IDINDUMENTARIA"/>
+        <one-to-many class="modelo.Indumentaria"/>
+      </set>
 
+      <set name="capacitacion" >
+        <key column="ID_CAPACITACION"/>
+        <one-to-many class="modelo.Capacitacion"/>
+      </set>
     </joined-subclass>
 
   </class>
