@@ -509,8 +509,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
 
         tblTelefonosEC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Tipo", "Número"
@@ -843,18 +842,18 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         txtPisoPlanta.setText(gestor.mostrarPisoPlanta());
         txtDptoPlanta.setText(gestor.mostrarDptoPlanta());
         txtCPPlanta.setText(gestor.mostrarCPPlanta());
-        DefaultComboBoxModel modeloPais = new DefaultComboBoxModel();
-        modeloPais.addElement(gestor.mostrarPaisPlanta());
-        cmbPaisPlanta.setModel(modeloPais);
-        DefaultComboBoxModel modeloProvincia = new DefaultComboBoxModel();
-        modeloProvincia.addElement(gestor.mostrarProvinciaPlanta());
-        cmbProvinciaPlanta.setModel(modeloProvincia);
-        DefaultComboBoxModel modeloLocalidad = new DefaultComboBoxModel();
-        modeloLocalidad.addElement(gestor.mostrarLocalidadPlanta());
-        cmbLocalidadPlanta.setModel(modeloLocalidad);
         DefaultComboBoxModel modeloBarrio = new DefaultComboBoxModel();
         modeloBarrio.addElement(gestor.mostrarBarrioPlanta());
         cmbBarrioPlanta.setModel(modeloBarrio);
+        DefaultComboBoxModel modeloLocalidad = new DefaultComboBoxModel();
+        modeloLocalidad.addElement(gestor.mostrarLocalidadPlanta());
+        cmbLocalidadPlanta.setModel(modeloLocalidad);
+        DefaultComboBoxModel modeloProvincia = new DefaultComboBoxModel();
+        modeloProvincia.addElement(gestor.mostrarProvinciaPlanta());
+        cmbProvinciaPlanta.setModel(modeloProvincia);
+        DefaultComboBoxModel modeloPais = new DefaultComboBoxModel();
+        modeloPais.addElement(gestor.mostrarPaisPlanta());
+        cmbPaisPlanta.setModel(modeloPais);
 
         // FALTARIA EL TEMA DEL CONTACTO DE LA PLANTA
     }
@@ -872,17 +871,13 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Tipo");
         modelo.addColumn("Número");
-        for (NTupla nTupla : tels) {
-            agregarTelefonoTabla(nTupla);
-        }
-    }
 
-    private void agregarTelefonoTabla(NTupla tel)
-    {
-        DefaultTableModel modelo = (DefaultTableModel) tblTelefonosEC.getModel();
-        Object[] item = new Object[2];
-        item[0] = tel.getNombre();
-        item[1] = (String)tel.getData();
-        modelo.addRow(item);
+        for (NTupla nTupla : tels) {
+            Object[] item = new Object[2];
+            item[0] = nTupla.getNombre();
+            item[1] = (String)nTupla.getData();
+            modelo.addRow(item);
+        }
+        tblTelefonosEC.setModel(modelo);
     }
 }

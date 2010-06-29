@@ -29,16 +29,19 @@ import vista.comer.pantallaConsultarObra;
 //
 
 public class GestorConsultarObra {
-	private PedidoObra pedidoObra;
-	private Planta planta;
-	private ContactoResponsable contacto;
-	private Telefono telefonos;
-	private Integer porcentaje;
-	private EmpresaCliente empresaCliente;
-
-        private SimpleDateFormat formato;
-
+    private PedidoObra pedidoObra;
+    private Planta planta;
+    private ContactoResponsable contacto;
+    private Telefono telefonos;
+    private Integer porcentaje;
+    private EmpresaCliente empresaCliente;
+    private SimpleDateFormat formato;
     private final pantallaConsultarObra pantalla;
+    private Localidad localidad;
+    private Provincia provincia;
+    private Localidad localidadPlanta;
+    private Provincia provinciaPlanta;
+
 
     public GestorConsultarObra(pantallaConsultarObra aThis) {
         this.pantalla = aThis;
@@ -69,7 +72,7 @@ public class GestorConsultarObra {
             Tupla tupla = new Tupla(p.getId(),p.getNombre());
             tuplas.add(tupla);
         }
-        sesion.close();
+        //sesion.flush();
         return tuplas;
     }
 
@@ -112,14 +115,16 @@ public class GestorConsultarObra {
 
     public void buscarEmpresaCliente() {
         try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
-            this.planta = pedidoObra.getPlanta();
-            Barrio b = planta.getDomicilio().getBarrio();
-            BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
-            this.empresaCliente = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEC.intValue());
-           sesion.getTransaction().commit();
+            //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+            //sesion.beginTransaction();
+            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
+            //this.empresaCliente = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEC.intValue());
+            //sesion.getTransaction().commit();
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
+            this.empresaCliente = (EmpresaCliente)HibernateUtil.getSession().load(EmpresaCliente.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
@@ -196,32 +201,50 @@ public class GestorConsultarObra {
     }
 
     public String mostrarPaisPlanta(){
-
-        return "S/D";
-    }
-
-    public String mostrarProvinciaPlanta(){
-        return "S/D";
-    }
-
-    public String mostrarLocalidadPlanta(){/**
-        Localidad l=null;
+        Pais p = null;
         try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
-            this.planta = pedidoObra.getPlanta();
-            Barrio b = planta.getDomicilio().getBarrio();
-            l = (Localidad)sesion.createQuery("from localidad where barrios="+b);
-            //this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
-           sesion.getTransaction().commit();
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provinciaPlanta.getId()).uniqueResult();
+            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
             e.printStackTrace();
        }
-        return l.getNombre();**/
-        return "NO FUNCIONA AUN";
+       return p.getNombre();
+    }
+
+    public String mostrarProvinciaPlanta(){
+        Provincia p = null;
+        try{
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidadPlanta.getId()).uniqueResult();
+            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+        this.provinciaPlanta = p;
+       return p.getNombre();
+    }
+
+    public String mostrarLocalidadPlanta(){
+        Localidad l = null;
+        try{
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.planta.getDomicilio().getBarrio().getId()).uniqueResult();
+            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+        this.localidadPlanta = l;
+       return l.getNombre();
     }
 
     public String mostrarBarrioPlanta(){
@@ -241,28 +264,79 @@ public class GestorConsultarObra {
     }
 
     public String mostrarBarrioEC(){
-        return "S/D";
+       return this.empresaCliente.getDomicilio().getBarrio().getNombre();
     }
 
     public String mostrarLocalidadEC(){
-        return "S/D";
+        Localidad l = null;
+        try{
+            //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+            //sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.empresaCliente.getDomicilio().getBarrio().getId()).uniqueResult();
+            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC.intValue());
+            //sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+        this.localidad = l;
+       return l.getNombre();
     }
 
     public String mostrarProvinciaEC(){
-        return "S/D";
+        Provincia p = null;
+        try{
+            //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+            //sesion.beginTransaction();
+            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
+            //p = (Provincia)sesion.load(Provincia.class,idEC.intValue());
+            //sesion.getTransaction().commit();
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
+            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+        this.provincia = p;
+       return p.getNombre();
     }
 
     public String mostrarPaisEC(){
-        return "S/D";
+        Pais p = null;
+        try{
+            //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+            //sesion.beginTransaction();
+            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.localidad.getId()).uniqueResult();
+            //p = (Pais)sesion.load(Pais.class,idEC.intValue());
+            //sesion.getTransaction().commit();
+            HibernateUtil.beginTransaction();
+            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provincia.getId()).uniqueResult();
+            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC.intValue());
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+       return p.getNombre();
     }
 
     public HashSet<NTupla> mostrarTelefonosEC() {
         HashSet<NTupla> retorno = new HashSet<NTupla>();
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-        sesion.beginTransaction();
+//        SessionFactory sf = HibernateUtil.getSessionFactory();
+//        Session sesion = sf.openSession();
+//        sesion.beginTransaction();
         PersistentSet tels = (PersistentSet) this.empresaCliente.getTelefonos();
-        sesion.getTransaction().commit();
+//        sesion.getTransaction().commit();
         for (Object telefono : tels) {
             Telefono t = (Telefono)telefono;
             NTupla nt = new NTupla();
