@@ -171,6 +171,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
         d.setNumero(Integer.parseInt(this.altura));
         d.setPiso(Integer.parseInt(this.piso));
         d.setDepto(this.dpto);
+        d.setBarrio(this.barrio);
         nueva.setDomicilio(d);
 
         ArrayList<Planta> listaPlantas = new ArrayList<Planta>();
