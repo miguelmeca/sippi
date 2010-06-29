@@ -13,8 +13,10 @@ package vista.comer;
 
 import controlador.comer.GestorConsultarObra;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.Tupla;
 
@@ -106,7 +108,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         txtLocalidadEC = new javax.swing.JLabel();
         pnlTelefonosContacto1 = new javax.swing.JPanel();
         srcTelefonos1 = new javax.swing.JScrollPane();
-        tblTelefonos1 = new javax.swing.JTable();
+        tblTelefonosEC = new javax.swing.JTable();
         lblProvincia = new javax.swing.JLabel();
         lblPais = new javax.swing.JLabel();
         txtProvinciaEC = new javax.swing.JLabel();
@@ -228,7 +230,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                     .addComponent(lblPlanos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMonto)
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos de la Obra", jPanel1);
@@ -278,19 +280,16 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel27.setText("Pais: ");
 
-        cmbPaisPlanta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estados Unidos" }));
         cmbPaisPlanta.setEnabled(false);
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Provincia:");
 
-        cmbProvinciaPlanta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Florida" }));
         cmbProvinciaPlanta.setEnabled(false);
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel29.setText("Localidad: ");
 
-        cmbLocalidadPlanta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Miami" }));
         cmbLocalidadPlanta.setEnabled(false);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -340,12 +339,12 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel30))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cmbBarrioPlanta, 0, 109, Short.MAX_VALUE)
-                                            .addComponent(cmbProvinciaPlanta, 0, 109, Short.MAX_VALUE))))))
+                                            .addComponent(cmbBarrioPlanta, 0, 108, Short.MAX_VALUE)
+                                            .addComponent(cmbProvinciaPlanta, 0, 108, Short.MAX_VALUE))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCPPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(txtNroPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                    .addComponent(txtCPPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(txtNroPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -487,7 +486,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlContactoResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos de la Planta", jPanel2);
@@ -508,7 +507,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
 
         pnlTelefonosContacto1.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefonos de Contacto"));
 
-        tblTelefonos1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTelefonosEC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null}
@@ -525,8 +524,8 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
-        tblTelefonos1.setEnabled(false);
-        srcTelefonos1.setViewportView(tblTelefonos1);
+        tblTelefonosEC.setEnabled(false);
+        srcTelefonos1.setViewportView(tblTelefonosEC);
 
         javax.swing.GroupLayout pnlTelefonosContacto1Layout = new javax.swing.GroupLayout(pnlTelefonosContacto1);
         pnlTelefonosContacto1.setLayout(pnlTelefonosContacto1Layout);
@@ -645,7 +644,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos del Cliente", jPanel3);
@@ -686,12 +685,12 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbObra, 0, 450, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -703,7 +702,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(cmbObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -789,7 +788,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane srcTelefonos;
     private javax.swing.JScrollPane srcTelefonos1;
     private javax.swing.JTable tblTelefonos;
-    private javax.swing.JTable tblTelefonos1;
+    private javax.swing.JTable tblTelefonosEC;
     private javax.swing.JLabel txtBarrioEC;
     private javax.swing.JTextField txtCPPlanta;
     private javax.swing.JLabel txtCUITEC;
@@ -844,10 +843,18 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         txtPisoPlanta.setText(gestor.mostrarPisoPlanta());
         txtDptoPlanta.setText(gestor.mostrarDptoPlanta());
         txtCPPlanta.setText(gestor.mostrarCPPlanta());
-        cmbPaisPlanta.setSelectedItem((String)gestor.mostrarPaisPlanta());
-        cmbProvinciaPlanta.setSelectedItem((String)gestor.mostrarProvinciaPlanta());
-        cmbLocalidadPlanta.setSelectedItem((String)gestor.mostrarLocalidadPlanta());
-        cmbBarrioPlanta.setSelectedItem((String)gestor.mostrarBarrioPlanta());
+        DefaultComboBoxModel modeloPais = new DefaultComboBoxModel();
+        modeloPais.addElement(gestor.mostrarPaisPlanta());
+        cmbPaisPlanta.setModel(modeloPais);
+        DefaultComboBoxModel modeloProvincia = new DefaultComboBoxModel();
+        modeloProvincia.addElement(gestor.mostrarProvinciaPlanta());
+        cmbProvinciaPlanta.setModel(modeloProvincia);
+        DefaultComboBoxModel modeloLocalidad = new DefaultComboBoxModel();
+        modeloLocalidad.addElement(gestor.mostrarLocalidadPlanta());
+        cmbLocalidadPlanta.setModel(modeloLocalidad);
+        DefaultComboBoxModel modeloBarrio = new DefaultComboBoxModel();
+        modeloBarrio.addElement(gestor.mostrarBarrioPlanta());
+        cmbBarrioPlanta.setModel(modeloBarrio);
 
         // FALTARIA EL TEMA DEL CONTACTO DE LA PLANTA
     }
@@ -861,6 +868,21 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
         txtLocalidadEC.setText(gestor.mostrarLocalidadEC());
         txtProvinciaEC.setText(gestor.mostrarProvinciaEC());
         txtPaisEC.setText(gestor.mostrarPaisEC());
-        ArrayList<NTupla> tels = gestor.mostrarTelefonosEC();
+        HashSet<NTupla> tels = gestor.mostrarTelefonosEC();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Número");
+        for (NTupla nTupla : tels) {
+            agregarTelefonoTabla(nTupla);
+        }
+    }
+
+    private void agregarTelefonoTabla(NTupla tel)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tblTelefonosEC.getModel();
+        Object[] item = new Object[2];
+        item[0] = tel.getNombre();
+        item[1] = (String)tel.getData();
+        modelo.addRow(item);
     }
 }

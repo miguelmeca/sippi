@@ -1,12 +1,16 @@
 package controlador.comer;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.collection.PersistentSet;
 import sun.util.calendar.CalendarDate;
 import util.HibernateUtil;
 import util.NTupla;
@@ -88,17 +92,18 @@ public class GestorConsultarObra {
     }
 
     public void buscarDatosPlanta() {
-        try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
+//        try{
+//            SessionFactory sf = HibernateUtil.getSessionFactory();
+//            Session sesion = sf.openSession();
+//            sesion.beginTransaction();
+            this.planta = pedidoObra.getPlanta();
             //this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
-            sesion.getTransaction().commit();
-        }
-        catch(Exception e){
-            System.out.println("ERROR:"+e.getMessage()+"|");
-            e.printStackTrace();
-        }
+ //           sesion.getTransaction().commit();
+ //       }
+ //       catch(Exception e){
+ //           System.out.println("ERROR:"+e.getMessage()+"|");
+ //           e.printStackTrace();
+  //      }
     }
 
     public void buscarContactoYTelefono() {
@@ -106,7 +111,20 @@ public class GestorConsultarObra {
     }
 
     public void buscarEmpresaCliente() {
-
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            this.planta = pedidoObra.getPlanta();
+            Barrio b = planta.getDomicilio().getBarrio();
+            BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
+            this.empresaCliente = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEC.intValue());
+           sesion.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
     }
 
     public void calcularPorcentajeCompletado() {
@@ -178,6 +196,7 @@ public class GestorConsultarObra {
     }
 
     public String mostrarPaisPlanta(){
+
         return "S/D";
     }
 
@@ -185,12 +204,28 @@ public class GestorConsultarObra {
         return "S/D";
     }
 
-    public String mostrarLocalidadPlanta(){
-        return "S/D";
+    public String mostrarLocalidadPlanta(){/**
+        Localidad l=null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            this.planta = pedidoObra.getPlanta();
+            Barrio b = planta.getDomicilio().getBarrio();
+            l = (Localidad)sesion.createQuery("from localidad where barrios="+b);
+            //this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
+           sesion.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+        return l.getNombre();**/
+        return "NO FUNCIONA AUN";
     }
 
     public String mostrarBarrioPlanta(){
-        return "S/D";
+        return this.planta.getDomicilio().getBarrio().getNombre();
     }
 
     public String mostrarRazonSocialEC(){
@@ -206,22 +241,36 @@ public class GestorConsultarObra {
     }
 
     public String mostrarBarrioEC(){
-        throw new UnsupportedOperationException("Not yet implemented");
+        return "S/D";
     }
 
     public String mostrarLocalidadEC(){
-        throw new UnsupportedOperationException("Not yet implemented");
+        return "S/D";
     }
 
     public String mostrarProvinciaEC(){
-        throw new UnsupportedOperationException("Not yet implemented");
+        return "S/D";
     }
 
     public String mostrarPaisEC(){
-        throw new UnsupportedOperationException("Not yet implemented");
+        return "S/D";
     }
 
-    public ArrayList<NTupla> mostrarTelefonosEC() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public HashSet<NTupla> mostrarTelefonosEC() {
+        HashSet<NTupla> retorno = new HashSet<NTupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+        sesion.beginTransaction();
+        PersistentSet tels = (PersistentSet) this.empresaCliente.getTelefonos();
+        sesion.getTransaction().commit();
+        for (Object telefono : tels) {
+            Telefono t = (Telefono)telefono;
+            NTupla nt = new NTupla();
+            nt.setId(t.getId());
+            nt.setNombre(t.getTipo().getNombre());
+            nt.setData(t.getNumero());
+            retorno.add(nt);
+        }
+        return retorno;
     }
 }
