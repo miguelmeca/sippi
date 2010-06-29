@@ -3,6 +3,8 @@ package modelo;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 //
 //
@@ -24,14 +26,19 @@ public class Empleado extends Persona {
 	private Date fechaBaja;
 	private int legajo;
 	private String rango;
-	private ArrayList capacitacion;
-	private ArrayList indumentaria;
-	private ArrayList<Especialidad> especialidades;
+	//private ArrayList capacitacion;
+	//private ArrayList indumentaria;
+	//private ArrayList<Especialidad> especialidades;
+        
+	private Set indumentaria;
+	private Set<Especialidad> especialidades;
+        private Set<Capacitacion> capacitaciones;
 
 
 
 
-    public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+   
+public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -48,9 +55,10 @@ public class Empleado extends Persona {
         //capacitacion= new ArrayList();
         fechaAlta=fecha_Alta;
         super.setTelefonos(listaNroTel, listaTipoTel);
+        setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
 
     }
-     public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+     public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -68,10 +76,8 @@ public class Empleado extends Persona {
         fechaAlta=fecha_Alta;
         super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
         super.setTelefonos(listaNroTel,  listaTipoTel);
+        setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
     }
-
-
-
      public Empleado()
      {
         /* especialiades= new ArrayList();
@@ -79,7 +85,22 @@ public class Empleado extends Persona {
          capacitacion= new ArrayList();*/
     }
 
-    public List getCapacitacion() {
+    public Set getCapacitaciones() {
+        return capacitaciones;
+    }
+
+    public void setCapacitaciones(Set capacitacion) {
+        this.capacitaciones = capacitacion;
+    }
+
+    public Set<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(Set<Especialidad> especialiades) {
+        this.especialidades = especialiades;
+    }
+   /* public List getCapacitacion() {
         return capacitacion;
     }
 
@@ -93,11 +114,10 @@ public class Empleado extends Persona {
 
     public void setEspecialidades(ArrayList<Especialidad> especialiades) {
         this.especialidades = especialiades;
-    }
-
+    }*/
     public void setEspecialidades(ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades)
     {
-        especialidades= new ArrayList();
+        especialidades= new HashSet();
         for(int i=0; i< tipoEspecialiades.size();i++)
         {
            Especialidad especialidad = new Especialidad(tipoEspecialiades.get(i), rangoEspecialiades.get(i));
@@ -105,6 +125,24 @@ public class Empleado extends Persona {
         }
     }
 
+    public void setCapacitaciones(ArrayList<TipoCapacitacion> tipoCapacitaciones,ArrayList<Date> vencimientosCapacitaciones)
+    {
+        capacitaciones= new HashSet();
+        for(int i=0; i< tipoCapacitaciones.size();i++)
+        {
+           Capacitacion cap = new Capacitacion(tipoCapacitaciones.get(i), vencimientosCapacitaciones.get(i));
+           capacitaciones.add(cap);
+        }
+    }
+    /*public void setEspecialidades(ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades)
+    {
+        especialidades= new ArrayList();
+        for(int i=0; i< tipoEspecialiades.size();i++)
+        {
+           Especialidad especialidad = new Especialidad(tipoEspecialiades.get(i), rangoEspecialiades.get(i));
+           especialidades.add(especialidad);
+        }
+    }*/
     public Date getFechaAlta() {
         return fechaAlta;
     }
@@ -121,14 +159,22 @@ public class Empleado extends Persona {
         this.fechaBaja = fechaBaja;
     }
 
-    public List getIndumentaria() {
+    public Set getIndumentaria() {
+        return indumentaria;
+    }
+
+    public void setIndumentaria(Set indumentaria) {
+        this.indumentaria = indumentaria;
+    }
+    /*
+  public List getIndumentaria() {
         return indumentaria;
     }
 
     public void setIndumentaria(ArrayList indumentaria) {
         this.indumentaria = indumentaria;
     }
-
+ */
     public int getLegajo() {
         return legajo;
     }
