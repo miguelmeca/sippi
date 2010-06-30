@@ -48,7 +48,25 @@ public class GestorRegistrarNuevaPlanta {
             listaLocalidad = new ArrayList<Localidad>();
             listaProvincias = new ArrayList<Provincia>();
         }
-        
+ 
+	public ArrayList<Tupla> mostrarContactos() {
+
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+
+            sesion.beginTransaction();
+            Iterator iter = sesion.createQuery("from ContactoResponsable ec order by ec.id DESC").iterate();
+            while ( iter.hasNext() )
+            {
+                ContactoResponsable cr = (ContactoResponsable)iter.next();
+                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
+                tuplas.add(tupla);
+            }
+            return tuplas;
+
+	}
+
 	public ArrayList<Tupla> mostrarEmpresasCliente() {
 
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();

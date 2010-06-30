@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import vista.VentanaPrincipal;
 import vista.interfaces.IAyuda;
-import vista.MenuPrincipal;
 
 /**
  *
@@ -23,7 +22,6 @@ public class SwingPanel {
 
    private JDesktopPane panel;
    private VentanaPrincipal ventanaPrincipal;
-   private MenuPrincipal menuPrincipal;
 
    protected SwingPanel() {
       // Exists only to defeat instantiation.
@@ -44,10 +42,6 @@ public class SwingPanel {
         this.ventanaPrincipal = ventanaPrincipal;
     }
 
-    
-    public void setMenuPrincipal(MenuPrincipal menuPrincipal) {
-        this.menuPrincipal = menuPrincipal;
-    }
    
    private void mostrarAyuda(IAyuda win)
    {

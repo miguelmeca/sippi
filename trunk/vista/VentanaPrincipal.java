@@ -104,10 +104,74 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblAyudaDesc = new javax.swing.JTextArea();
         panel = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        mObra = new javax.swing.JMenu();
+        miNuevo = new javax.swing.JMenuItem();
+        miConsultar = new javax.swing.JMenuItem();
+        miModificar = new javax.swing.JMenuItem();
+        miCompraMateriales = new javax.swing.JMenuItem();
+        mPlanificacion = new javax.swing.JMenu();
+        miEPresupuesto = new javax.swing.JMenuItem();
+        miNueva = new javax.swing.JMenuItem();
+        miPModificar = new javax.swing.JMenuItem();
+        miPlanSeguridad = new javax.swing.JMenuItem();
+        mEjecucion = new javax.swing.JMenu();
+        miLanzamientoyFin = new javax.swing.JMenuItem();
+        miReLanz = new javax.swing.JMenuItem();
+        miAvance = new javax.swing.JMenuItem();
+        miOrdenesTrab = new javax.swing.JMenuItem();
+        mEtapa = new javax.swing.JMenu();
+        miEtapaConsultar = new javax.swing.JMenuItem();
+        miEtapaModificar = new javax.swing.JMenuItem();
+        miEtapaEliminar = new javax.swing.JMenuItem();
+        mRRHH = new javax.swing.JMenu();
+        miNuevoRH = new javax.swing.JMenuItem();
+        miConsultarRH = new javax.swing.JMenuItem();
+        miModificarRH = new javax.swing.JMenuItem();
+        miDarDeBajaRH = new javax.swing.JMenuItem();
+        miCronogramaRH = new javax.swing.JMenuItem();
+        miLicencia = new javax.swing.JMenuItem();
+        mTalleres = new javax.swing.JMenu();
+        mNuevoTaller = new javax.swing.JMenu();
+        miParaEmpleado = new javax.swing.JMenuItem();
+        miParaObra = new javax.swing.JMenuItem();
+        miCapacitadores = new javax.swing.JMenuItem();
+        miRegistroDeAsistencia = new javax.swing.JMenuItem();
+        miLugaresDeCapacitacion = new javax.swing.JMenuItem();
+        mVer = new javax.swing.JMenu();
+        mSistema = new javax.swing.JMenu();
+        mEmpresa = new javax.swing.JMenu();
+        miNuevaEmpresa = new javax.swing.JMenuItem();
+        miConsultarEmpresa = new javax.swing.JMenuItem();
+        miModificarEmpresa = new javax.swing.JMenuItem();
+        mPlanta = new javax.swing.JMenu();
+        miNuevaPlanta = new javax.swing.JMenuItem();
+        miConsultarPlanta = new javax.swing.JMenuItem();
+        miModificarPlanta = new javax.swing.JMenuItem();
+        mContactos = new javax.swing.JMenu();
+        miGestionContactos = new javax.swing.JMenuItem();
+        mProveedor = new javax.swing.JMenu();
+        miGestionProveedor = new javax.swing.JMenuItem();
+        mHerramienta = new javax.swing.JMenu();
+        miGestionHerramienta = new javax.swing.JMenuItem();
+        mIndumentaria = new javax.swing.JMenu();
+        miGestionIndumentaria = new javax.swing.JMenuItem();
+        miOrdenDeCompra = new javax.swing.JMenuItem();
+        mMateriales = new javax.swing.JMenu();
+        miGestionMateriales = new javax.swing.JMenuItem();
+        mUbicaciones = new javax.swing.JMenu();
+        mLocalidad = new javax.swing.JMenu();
+        miGestionLocalidad = new javax.swing.JMenuItem();
+        mBarrio = new javax.swing.JMenu();
+        miGestionBarrio = new javax.swing.JMenuItem();
+        mProvincia = new javax.swing.JMenu();
+        miGestionProvincia = new javax.swing.JMenuItem();
+        mPais = new javax.swing.JMenu();
+        miGestionPais = new javax.swing.JMenuItem();
+        mUsuarios = new javax.swing.JMenu();
+        miCerrarSesion = new javax.swing.JMenuItem();
+        miCambiarUsuario = new javax.swing.JMenuItem();
+        mAyuda = new javax.swing.JMenu();
+        mSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema");
@@ -202,7 +266,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 7, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -222,14 +286,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1094, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -252,25 +316,287 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Archivo");
+        mObra.setText("Pedido Obra");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        jMenuItem1.setText("Salir");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        miNuevo.setText("Nuevo");
+        miNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                miNuevoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mObra.add(miNuevo);
 
-        jMenuBar1.add(jMenu1);
+        miConsultar.setText("Consultar");
+        miConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultarActionPerformed(evt);
+            }
+        });
+        mObra.add(miConsultar);
 
-        jMenu2.setText("Edición");
-        jMenuBar1.add(jMenu2);
+        miModificar.setText("Modificar");
+        mObra.add(miModificar);
 
-        jMenu3.setText("Ayuda");
-        jMenuBar1.add(jMenu3);
+        miCompraMateriales.setText("Compra de Materiales");
+        mObra.add(miCompraMateriales);
+
+        mPlanificacion.setText("Planificación");
+
+        miEPresupuesto.setText("Emisión de Presupuesto");
+        mPlanificacion.add(miEPresupuesto);
+
+        miNueva.setText("Nueva");
+        mPlanificacion.add(miNueva);
+
+        miPModificar.setText("Modificar");
+        mPlanificacion.add(miPModificar);
+
+        miPlanSeguridad.setText("Plan de Seguridad");
+        mPlanificacion.add(miPlanSeguridad);
+
+        mObra.add(mPlanificacion);
+
+        mEjecucion.setText("Ejecución");
+        mEjecucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mEjecucionActionPerformed(evt);
+            }
+        });
+
+        miLanzamientoyFin.setText("Lanzamiento y Fin");
+        mEjecucion.add(miLanzamientoyFin);
+
+        miReLanz.setText("Re-Lanzamiento");
+        mEjecucion.add(miReLanz);
+
+        miAvance.setText("Avance");
+        mEjecucion.add(miAvance);
+
+        miOrdenesTrab.setText("Órdenes de Trabajo");
+        mEjecucion.add(miOrdenesTrab);
+
+        mEtapa.setText("Etapa");
+
+        miEtapaConsultar.setText("Consultar");
+        mEtapa.add(miEtapaConsultar);
+
+        miEtapaModificar.setText("Modificar");
+        mEtapa.add(miEtapaModificar);
+
+        miEtapaEliminar.setText("Eliminar");
+        mEtapa.add(miEtapaEliminar);
+
+        mEjecucion.add(mEtapa);
+
+        mObra.add(mEjecucion);
+
+        jMenuBar1.add(mObra);
+
+        mRRHH.setText("Recursos Humanos");
+
+        miNuevoRH.setText("Nuevo");
+        miNuevoRH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miNuevoRHActionPerformed(evt);
+            }
+        });
+        mRRHH.add(miNuevoRH);
+
+        miConsultarRH.setText("Consultar");
+        mRRHH.add(miConsultarRH);
+
+        miModificarRH.setText("Modificar");
+        mRRHH.add(miModificarRH);
+
+        miDarDeBajaRH.setText("Dar de Baja");
+        mRRHH.add(miDarDeBajaRH);
+
+        miCronogramaRH.setText("Cronograma");
+        miCronogramaRH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCronogramaRHActionPerformed(evt);
+            }
+        });
+        mRRHH.add(miCronogramaRH);
+
+        miLicencia.setText("Licencias");
+        mRRHH.add(miLicencia);
+
+        jMenuBar1.add(mRRHH);
+
+        mTalleres.setText("Capacitaciones");
+
+        mNuevoTaller.setText("Nuevo Taller");
+
+        miParaEmpleado.setText("Para Empleados");
+        mNuevoTaller.add(miParaEmpleado);
+
+        miParaObra.setText("Para una Obra");
+        mNuevoTaller.add(miParaObra);
+
+        mTalleres.add(mNuevoTaller);
+
+        miCapacitadores.setText("Capacitadores");
+        mTalleres.add(miCapacitadores);
+
+        miRegistroDeAsistencia.setText("Registro de Asistencias");
+        mTalleres.add(miRegistroDeAsistencia);
+
+        miLugaresDeCapacitacion.setText("Lugares de Capacitacion");
+        mTalleres.add(miLugaresDeCapacitacion);
+
+        jMenuBar1.add(mTalleres);
+        jMenuBar1.add(mVer);
+
+        mSistema.setText("Cargas Básicas");
+
+        mEmpresa.setText("Empresa");
+
+        miNuevaEmpresa.setText("Nueva");
+        miNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miNuevaEmpresaActionPerformed(evt);
+            }
+        });
+        mEmpresa.add(miNuevaEmpresa);
+
+        miConsultarEmpresa.setText("Consultar");
+        miConsultarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultarEmpresaActionPerformed(evt);
+            }
+        });
+        mEmpresa.add(miConsultarEmpresa);
+
+        miModificarEmpresa.setText("Modificar");
+        miModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miModificarEmpresaActionPerformed(evt);
+            }
+        });
+        mEmpresa.add(miModificarEmpresa);
+
+        mSistema.add(mEmpresa);
+
+        mPlanta.setText("Planta");
+
+        miNuevaPlanta.setText("Nueva");
+        miNuevaPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miNuevaPlantaActionPerformed(evt);
+            }
+        });
+        mPlanta.add(miNuevaPlanta);
+
+        miConsultarPlanta.setText("Consultar");
+        mPlanta.add(miConsultarPlanta);
+
+        miModificarPlanta.setText("Modificar");
+        mPlanta.add(miModificarPlanta);
+
+        mSistema.add(mPlanta);
+
+        mContactos.setText("Contactos");
+
+        miGestionContactos.setText("Gestión");
+        mContactos.add(miGestionContactos);
+
+        mSistema.add(mContactos);
+
+        mProveedor.setText("Proveedor");
+
+        miGestionProveedor.setText("Gestión");
+        mProveedor.add(miGestionProveedor);
+
+        mSistema.add(mProveedor);
+
+        mHerramienta.setText("Herramienta");
+
+        miGestionHerramienta.setText("Gestión");
+        mHerramienta.add(miGestionHerramienta);
+
+        mSistema.add(mHerramienta);
+
+        mIndumentaria.setText("Indumentaria");
+
+        miGestionIndumentaria.setText("Gestión");
+        mIndumentaria.add(miGestionIndumentaria);
+
+        miOrdenDeCompra.setText("Orden de Compra");
+        miOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miOrdenDeCompraActionPerformed(evt);
+            }
+        });
+        mIndumentaria.add(miOrdenDeCompra);
+
+        mSistema.add(mIndumentaria);
+
+        mMateriales.setText("Materiales");
+
+        miGestionMateriales.setText("Gestión");
+        mMateriales.add(miGestionMateriales);
+
+        mSistema.add(mMateriales);
+
+        mUbicaciones.setText("Ubicaciones");
+
+        mLocalidad.setText("Localidad");
+
+        miGestionLocalidad.setText("Gestión");
+        mLocalidad.add(miGestionLocalidad);
+
+        mUbicaciones.add(mLocalidad);
+
+        mBarrio.setText("Barrio");
+
+        miGestionBarrio.setText("Gestión");
+        miGestionBarrio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miGestionBarrioActionPerformed(evt);
+            }
+        });
+        mBarrio.add(miGestionBarrio);
+
+        mUbicaciones.add(mBarrio);
+
+        mProvincia.setText("Provincia");
+
+        miGestionProvincia.setText("Gestión");
+        mProvincia.add(miGestionProvincia);
+
+        mUbicaciones.add(mProvincia);
+
+        mPais.setText("País");
+
+        miGestionPais.setText("Gestión");
+        mPais.add(miGestionPais);
+
+        mUbicaciones.add(mPais);
+
+        mSistema.add(mUbicaciones);
+
+        jMenuBar1.add(mSistema);
+
+        mUsuarios.setText("Usuarios");
+
+        miCerrarSesion.setText("Cerrar Sesión");
+        mUsuarios.add(miCerrarSesion);
+
+        miCambiarUsuario.setText("Cambiar de Usuario");
+        mUsuarios.add(miCambiarUsuario);
+
+        jMenuBar1.add(mUsuarios);
+
+        mAyuda.setText("Ayuda");
+        jMenuBar1.add(mAyuda);
+
+        mSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSalirActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(mSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -405,14 +731,91 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnNuevoPedidoObraActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void miNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevoActionPerformed
+        // TODO add your handling code here:
+        pantallaRegistrarPedido pre = new pantallaRegistrarPedido();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_miNuevoActionPerformed
 
-        int op = JOptionPane.showConfirmDialog (null, "¿Está seguro que desea salir?");
-        if(op == JOptionPane.YES_OPTION)
-        {
+    private void miConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultarActionPerformed
+        // TODO add your handling code here:
+        pantallaConsultarObra pre = new pantallaConsultarObra();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+}//GEN-LAST:event_miConsultarActionPerformed
+
+    private void mEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEjecucionActionPerformed
+        // TODO add your handling code here:
+        pantallaRegistrarConfirmacionInicioObra pre = new pantallaRegistrarConfirmacionInicioObra();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_mEjecucionActionPerformed
+
+    private void miNuevoRHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevoRHActionPerformed
+        // TODO add your handling code here:
+        pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        pre.opcionRegistrarEmpleado();
+        return;
+}//GEN-LAST:event_miNuevoRHActionPerformed
+
+    private void miCronogramaRHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCronogramaRHActionPerformed
+        // TODO add your handling code here:
+        pantallaConsultarCronogramaEmpleado pre = new pantallaConsultarCronogramaEmpleado();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_miCronogramaRHActionPerformed
+
+    private void miNuevaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevaEmpresaActionPerformed
+        // TODO add your handling code here:
+        pantallaRegistrarEmpresaCliente pre = new pantallaRegistrarEmpresaCliente();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_miNuevaEmpresaActionPerformed
+
+    private void miConsultarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultarEmpresaActionPerformed
+
+        //new Agregar().setVisible(true);
+        // TODO add your handling code here:
+}//GEN-LAST:event_miConsultarEmpresaActionPerformed
+
+    private void miModificarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miModificarEmpresaActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_miModificarEmpresaActionPerformed
+
+    private void miNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevaPlantaActionPerformed
+        // TODO add your handling code here:
+        pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_miNuevaPlantaActionPerformed
+
+    private void miOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miOrdenDeCompraActionPerformed
+        // TODO add your handling code here:
+        pantallaGenerarListadoCompraIndumentaria pre = new pantallaGenerarListadoCompraIndumentaria();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_miOrdenDeCompraActionPerformed
+
+    private void miGestionBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miGestionBarrioActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_miGestionBarrioActionPerformed
+
+    private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
+
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");
+        if(op == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mSalirActionPerformed
 
     /**
     * @param args the command line arguments
@@ -429,11 +832,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JButton btnNuevoPedidoObra;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -447,6 +846,74 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextArea lblAyudaDesc;
     private javax.swing.JLabel lblAyudaTitulo;
+    private javax.swing.JMenu mAyuda;
+    private javax.swing.JMenu mBarrio;
+    private javax.swing.JMenu mContactos;
+    private javax.swing.JMenu mEjecucion;
+    private javax.swing.JMenu mEmpresa;
+    private javax.swing.JMenu mEtapa;
+    private javax.swing.JMenu mHerramienta;
+    private javax.swing.JMenu mIndumentaria;
+    private javax.swing.JMenu mLocalidad;
+    private javax.swing.JMenu mMateriales;
+    private javax.swing.JMenu mNuevoTaller;
+    private javax.swing.JMenu mObra;
+    private javax.swing.JMenu mPais;
+    private javax.swing.JMenu mPlanificacion;
+    private javax.swing.JMenu mPlanta;
+    private javax.swing.JMenu mProveedor;
+    private javax.swing.JMenu mProvincia;
+    private javax.swing.JMenu mRRHH;
+    private javax.swing.JMenu mSalir;
+    private javax.swing.JMenu mSistema;
+    private javax.swing.JMenu mTalleres;
+    private javax.swing.JMenu mUbicaciones;
+    private javax.swing.JMenu mUsuarios;
+    private javax.swing.JMenu mVer;
+    private javax.swing.JMenuItem miAvance;
+    private javax.swing.JMenuItem miCambiarUsuario;
+    private javax.swing.JMenuItem miCapacitadores;
+    private javax.swing.JMenuItem miCerrarSesion;
+    private javax.swing.JMenuItem miCompraMateriales;
+    private javax.swing.JMenuItem miConsultar;
+    private javax.swing.JMenuItem miConsultarEmpresa;
+    private javax.swing.JMenuItem miConsultarPlanta;
+    private javax.swing.JMenuItem miConsultarRH;
+    private javax.swing.JMenuItem miCronogramaRH;
+    private javax.swing.JMenuItem miDarDeBajaRH;
+    private javax.swing.JMenuItem miEPresupuesto;
+    private javax.swing.JMenuItem miEtapaConsultar;
+    private javax.swing.JMenuItem miEtapaEliminar;
+    private javax.swing.JMenuItem miEtapaModificar;
+    private javax.swing.JMenuItem miGestionBarrio;
+    private javax.swing.JMenuItem miGestionContactos;
+    private javax.swing.JMenuItem miGestionHerramienta;
+    private javax.swing.JMenuItem miGestionIndumentaria;
+    private javax.swing.JMenuItem miGestionLocalidad;
+    private javax.swing.JMenuItem miGestionMateriales;
+    private javax.swing.JMenuItem miGestionPais;
+    private javax.swing.JMenuItem miGestionProveedor;
+    private javax.swing.JMenuItem miGestionProvincia;
+    private javax.swing.JMenuItem miLanzamientoyFin;
+    private javax.swing.JMenuItem miLicencia;
+    private javax.swing.JMenuItem miLugaresDeCapacitacion;
+    private javax.swing.JMenuItem miModificar;
+    private javax.swing.JMenuItem miModificarEmpresa;
+    private javax.swing.JMenuItem miModificarPlanta;
+    private javax.swing.JMenuItem miModificarRH;
+    private javax.swing.JMenuItem miNueva;
+    private javax.swing.JMenuItem miNuevaEmpresa;
+    private javax.swing.JMenuItem miNuevaPlanta;
+    private javax.swing.JMenuItem miNuevo;
+    private javax.swing.JMenuItem miNuevoRH;
+    private javax.swing.JMenuItem miOrdenDeCompra;
+    private javax.swing.JMenuItem miOrdenesTrab;
+    private javax.swing.JMenuItem miPModificar;
+    private javax.swing.JMenuItem miParaEmpleado;
+    private javax.swing.JMenuItem miParaObra;
+    private javax.swing.JMenuItem miPlanSeguridad;
+    private javax.swing.JMenuItem miReLanz;
+    private javax.swing.JMenuItem miRegistroDeAsistencia;
     private javax.swing.JDesktopPane panel;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables
