@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : menu.xml
+    Created on : 28 de junio de 2010, 19:36
+    Author     : ana
+    Description:
+        Mantiene los items del menu principal de la aplicacion
+-->
+
+<menu>
+
+    <itemcat icono="/res/iconos/var/16x16/text_page.png" nombre="Emitir Presupuesto">
+      </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/add.png" nombre="Registrar Nuevo Pedido de Obra">
+      </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/search.png" nombre="Ver Obras Activas">
+      </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/calendar.png" nombre="Cronograma de Empleado">
+     </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/next.png" nombre="Próximos Talleres">
+     </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/add_page.png" nombre="Ir a Cargas Básicas">
+    </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/info.png" nombre="Avance de las Obras">
+    </itemcat>
+       
+    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       
+
+    </itemcat>
+
+</menu>
