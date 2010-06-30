@@ -36,7 +36,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         this.idPlanta = idPlanta;
 
         // PARA PRUEBAS !!!!!!!
-        this.idPlanta = 1;
+        // this.idPlanta = 1;
         //---------------------
 
         // Paso el id de la planta !!
