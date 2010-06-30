@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import modelo.TipoDocumento;
 import modelo.TipoTelefono;
+import modelo.EmpresaCliente;
+import modelo.Planta;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
 import modelo.TipoCapacitacion;
@@ -153,6 +155,62 @@ public class gestorBDvarios
             }
 
             return tuplas;
+    }
+
+
+
+
+     /////////////////////////////////////////////////////////
+     public ArrayList<Tupla> getEmpresas()
+    {
+         sesion.beginTransaction();
+            List lista = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").list();
+            sesion.getTransaction().commit();
+
+            //ArrayList<String> listaNombres = new ArrayList<String>();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++) {
+                EmpresaCliente emp = (EmpresaCliente)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                Tupla tupla = new Tupla(emp.getId(),emp.getRazonSocial());
+                    tuplas.add(tupla);
+            }
+
+            return tuplas;
+    }
+
+     public  EmpresaCliente getEmpresa(int idEmpresa)
+    {
+        EmpresaCliente emp = (EmpresaCliente)sesion.load(TipoDocumento.class,idEmpresa);
+        return emp;
+    }
+
+
+
+    public  ArrayList<Tupla> getPlantas(int idEmpresa)
+    {
+        // Tengo solo el ID, así que busco el objeto
+        EmpresaCliente ec = getEmpresa(idEmpresa);
+        return this.getPlantas(ec);
+    }
+    public  ArrayList<Tupla> getPlantas(EmpresaCliente ec)
+    {
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+
+            List<Planta> lista = ec.getPlantas();
+            Iterator i = lista.iterator();
+            while (i.hasNext())
+            {
+                Planta planta = (Planta)i.next();
+                Tupla tupla = new Tupla(planta.getId(),planta.getRazonSocial());
+                tuplas.add(tupla);
+            }
+            return tuplas;
+    }
+
+    public Planta getPlanta(int idPlanta)
+    {
+        return (Planta) sesion.load(Planta.class,idPlanta);
     }
 
 }
