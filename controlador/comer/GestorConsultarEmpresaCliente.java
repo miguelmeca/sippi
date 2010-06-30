@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
 import org.hibernate.SessionFactory;
+import org.hibernate.collection.PersistentList;
 import org.hibernate.collection.PersistentSet;
 import util.HibernateUtil;
 import util.NTupla;
@@ -39,6 +40,7 @@ public class GestorConsultarEmpresaCliente {
     private String provincia;
     private String pais;
     private ArrayList<NTupla> listaTelefonos;
+    private ArrayList<NTupla> listaPlantas;
 
     public GestorConsultarEmpresaCliente(pantallaConsultarEmpresaCliente pantalla) {
         this.pantalla = pantalla;
@@ -62,6 +64,8 @@ public class GestorConsultarEmpresaCliente {
         this.pantalla.mostrarPaisEmpresa(this.pais);
         buscarTelefonos();
         this.pantalla.mostrarDatosTelefono(this.listaTelefonos);
+        this.buscarPlantas();
+        this.pantalla.mostrarDatosPlantas(this.listaPlantas);
     }
 
     public void buscarEmpresasClientes() {
@@ -147,6 +151,17 @@ public class GestorConsultarEmpresaCliente {
     }
 
     public void buscarPlantas() {
+        this.listaPlantas = new ArrayList<NTupla>();
+        Iterator<Planta> iPlantas = ((PersistentList) empresa.getPlantas()).iterator();
+        Planta p = null;
+        while(iPlantas.hasNext()){
+            p = iPlantas.next();
+            NTupla nt = new NTupla();
+            nt.setId(p.getId());
+            nt.setNombre(p.getRazonSocial());
+            nt.setData(p.getDomicilio().toString());
+            this.listaPlantas.add(nt);
+        }
 
     }
 
