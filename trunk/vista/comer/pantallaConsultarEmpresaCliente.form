@@ -24,17 +24,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmbEmpresas" pref="436" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="btnCerrar" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
-                      <Component id="pnlDatosCliente" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCerrar" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="1">
+                          <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cmbEmpresas" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="pnlDatosCliente" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,7 +51,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pnlDatosCliente" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -93,71 +93,69 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblEmailEmp" min="-2" max="-2" attributes="1"/>
+                                  <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                  <Component id="txtRazonSocial" pref="181" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="lblEmailEmp" min="-2" max="-2" attributes="1"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="txtEmailEmp" pref="211" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblProvincia" min="-2" max="-2" attributes="1"/>
                                               <Component id="lblDireccion" alignment="0" min="-2" max="-2" attributes="1"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtProvincia" max="32767" attributes="1"/>
-                                              <Component id="txtDireccion" alignment="0" pref="158" max="32767" attributes="1"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtProvincia" pref="202" max="32767" attributes="1"/>
+                                              <Component id="txtDireccion" alignment="0" pref="202" max="32767" attributes="1"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="1">
-                                          <Component id="lblRazonSocial" min="-2" pref="76" max="-2" attributes="1"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtRazonSocial" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="1">
+                                      <Component id="lblRazonSocial" alignment="0" min="-2" pref="76" max="-2" attributes="1"/>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblLocalidad1" min="-2" max="-2" attributes="1"/>
                                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="txtBarrio" max="32767" attributes="0"/>
+                                          <Component id="txtBarrio" pref="224" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                                  <Component id="txtEmailEmp" pref="214" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCUIT" alignment="0" min="-2" max="-2" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblCUIT" min="-2" max="-2" attributes="1"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCUIT" pref="170" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="1">
                                   <Component id="lblPais" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtPais" pref="176" max="32767" attributes="0"/>
+                                  <Component id="txtPais" pref="173" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblPaginaWeb" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtPaginaWeb" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPaginaWeb" pref="134" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblLocalidad" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="txtLocalidad" pref="151" max="32767" attributes="0"/>
+                                  <Component id="txtLocalidad" pref="148" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="324" pref="324" max="324" attributes="0"/>
+                          <Component id="txtCUIT" pref="194" max="32767" attributes="0"/>
+                      </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="pnlTelefonosContacto" alignment="0" max="32767" attributes="1"/>
                           <Component id="pnlDatosPlanta" alignment="0" max="32767" attributes="1"/>
+                          <Component id="pnlTelefonosContacto" alignment="0" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -171,55 +169,56 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblRazonSocial" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtRazonSocial" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRazonSocial" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDireccion" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblLocalidad1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtBarrio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtBarrio" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtProvincia" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblEmailEmp" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtEmailEmp" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtEmailEmp" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblCUIT" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCUIT" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCUIT" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtLocalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtLocalidad" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblPais" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPais" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPais" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblPaginaWeb" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPaginaWeb" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPaginaWeb" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="pnlTelefonosContacto" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnlDatosPlanta" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -258,24 +257,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtRazonSocial">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Grupo Arcor"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtCUIT">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="12-1212131-23"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtDireccion">
-          <Properties>
-            <Property name="text" type="java.lang.String" value=" Av. Sarmiento 137 - 4 B"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtLocalidad">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Villa Mercedes"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="pnlTelefonosContacto">
           <Properties>
@@ -292,7 +279,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="476" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -323,19 +310,10 @@
                     <Component class="javax.swing.JTable" name="tblTelefonos">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="3" rowCount="2">
-                            <Column editable="true" title="Fijo" type="java.lang.String">
-                              <Data value="0351-4681408"/>
-                              <Data value="null"/>
-                            </Column>
-                            <Column editable="true" title="Fax" type="java.lang.String">
-                              <Data value="0351-4280594"/>
-                              <Data value="null"/>
-                            </Column>
-                            <Column editable="true" title="Celular " type="java.lang.String">
-                              <Data value="0351-15-2849304"/>
-                              <Data value="null"/>
-                            </Column>
+                          <Table columnCount="3" rowCount="1">
+                            <Column editable="true" title="Fijo" type="java.lang.String"/>
+                            <Column editable="true" title="Fax" type="java.lang.String"/>
+                            <Column editable="true" title="Celular " type="java.lang.String"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -380,18 +358,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnConsultarPlanta" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnConsultarPlanta" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="496" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="srcPlantas" alignment="0" pref="496" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="srcPlantas" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="138" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnConsultarPlanta" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -399,62 +378,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="srcPlantas">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="tblPlantas">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="3">
-                        <Column editable="true" title="Raz&#xf3;n Social" type="java.lang.Object">
-                          <Data value="Bagley Argentina S.A."/>
-                          <Data value="Productos Naturales S.A."/>
-                          <Data value="Dulciora S.A. Planta 1"/>
-                        </Column>
-                        <Column editable="true" title="Localidad" type="java.lang.Object">
-                          <Data value="Villa Mercedes"/>
-                          <Data value="Villa Mercedes"/>
-                          <Data value="Villa Mercedes"/>
-                        </Column>
-                        <Column editable="true" title="Provincia" type="java.lang.Object">
-                          <Data value=" San Luis"/>
-                          <Data value="San Luis"/>
-                          <Data value="San Luis"/>
-                        </Column>
-                      </Table>
-                    </Property>
-                    <Property name="autoResizeMode" type="int" value="1"/>
-                    <Property name="autoscrolls" type="boolean" value="false"/>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                      </TableColumnModel>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JButton" name="btnConsultarPlanta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -466,6 +389,68 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarPlantaActionPerformed"/>
               </Events>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="srcPlantas">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="tblPlantas">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="3" rowCount="3">
+                            <Column editable="true" title="Raz&#xf3;n Social" type="java.lang.Object">
+                              <Data value="Bagley Argentina S.A."/>
+                              <Data value="Productos Naturales S.A."/>
+                              <Data value="Dulciora S.A. Planta 1"/>
+                            </Column>
+                            <Column editable="true" title="Localidad" type="java.lang.Object">
+                              <Data value="Villa Mercedes"/>
+                              <Data value="Villa Mercedes"/>
+                              <Data value="Villa Mercedes"/>
+                            </Column>
+                            <Column editable="true" title="Provincia" type="java.lang.Object">
+                              <Data value=" San Luis"/>
+                              <Data value="San Luis"/>
+                              <Data value="San Luis"/>
+                            </Column>
+                          </Table>
+                        </Property>
+                        <Property name="autoResizeMode" type="int" value="1"/>
+                        <Property name="autoscrolls" type="boolean" value="false"/>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lblEmailEmp">
@@ -477,9 +462,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtEmailEmp">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="arcor@arcor.com.ar"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProvincia">
           <Properties>
@@ -498,19 +480,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtProvincia">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="San Luis"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtPais">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Argentina"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtPaginaWeb">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="www.arcor.com.ar"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPaginaWeb">
           <Properties>
@@ -521,9 +494,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtBarrio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Villa Mercedes"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLocalidad1">
           <Properties>
