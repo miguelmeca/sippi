@@ -1,6 +1,19 @@
 package controlador.comer;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.collection.PersistentSet;
+import util.HibernateUtil;
+import util.NTupla;
+import util.Tupla;
+import vista.comer.pantallaConsultarEmpresaCliente;
 
 //
 //
@@ -13,65 +26,135 @@ import modelo.*;
 //
 //
 
-
-
-
 public class GestorConsultarEmpresaCliente {
-	private Object listaRazonSocialEmpresas;
-	private Object datosEmpresaCliente;
-	private Object datosPlantas;
-	private Object listaPaises;
-	private Object listaPronvincias;
-	private Object listaLocalidades;
-	public void consultarEmpresaCliente() {
-	
-	}
-	
-	public void seleccionEmpresaCliente() {
-	
-	}
-	
-	public void buscarEmpresasClientes() {
-	
-	}
-	
-	public void buscarDatosEmpresa() {
-	
-	}
-	
-	public void finCU() {
-	
-	}
-	
-	public void buscarLocalidad() {
-	
-	}
-	
-	public void buscarProvincia() {
-	
-	}
-	
-	public void buscarPais() {
-	
-	}
-	
-	public void buscarDatosDomicilio() {
-	
-	}
-	
-	public void buscarTelefonos() {
-	
-	}
-	
-	public void buscarPlantas() {
-	
-	}
-	
-	public void buscarLocalidadPlanta() {
-	
-	}
-	
-	public void buscarProvinciaPlanta() {
-	
-	}
+    private List listaRazonSocialEmpresas;
+    private Object datosEmpresaCliente;
+    private Object datosPlantas;
+    private List listaPaises;
+    private List listaPronvincias;
+    private List listaLocalidades;
+    private pantallaConsultarEmpresaCliente pantalla;
+    private EmpresaCliente empresa;
+    private String localidad;
+    private String provincia;
+    private String pais;
+    private ArrayList<NTupla> listaTelefonos;
+
+    public GestorConsultarEmpresaCliente(pantallaConsultarEmpresaCliente pantalla) {
+        this.pantalla = pantalla;
+    }
+
+    public void consultarEmpresaCliente() {
+
+    }
+
+    public void seleccionEmpresaCliente(Tupla empresa) {
+        buscarDatosEmpresa(empresa.getId());
+        this.pantalla.mostrarRZEmpresa(this.empresa.getRazonSocial());
+        this.pantalla.mostrarCUITEmpresa(this.empresa.getCuit());
+        this.pantalla.mostrarEmailEmpresa(this.empresa.getEmail());
+        this.pantalla.mostrarPaginaWebEmpresa(this.empresa.getPaginaWeb());
+        buscarDatosDomicilio();
+        this.pantalla.mostrarDomicilioEmpresa(this.empresa.getDomicilio().toString());
+        this.pantalla.mostrarBarrioEmpresa(this.empresa.getDomicilio().getBarrio().getNombre());
+        this.pantalla.mostrarLocalidadEmpresa(this.localidad);
+        this.pantalla.mostrarProvinciaEmpresa(this.provincia);
+        this.pantalla.mostrarPaisEmpresa(this.pais);
+        buscarTelefonos();
+        this.pantalla.mostrarDatosTelefono(this.listaTelefonos);
+    }
+
+    public void buscarEmpresasClientes() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        try {
+            HibernateUtil.beginTransaction();
+            Iterator iter = HibernateUtil.getSession().createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
+            while ( iter.hasNext() )
+            {
+                EmpresaCliente ec = (EmpresaCliente)iter.next();
+                Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
+                tuplas.add(tupla);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorConsultarEmpresaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pantalla.mostrarRazonSocial(tuplas);
+    }
+
+    public void buscarDatosEmpresa(int id) {
+        try{
+            HibernateUtil.beginTransaction();
+            this.empresa = (EmpresaCliente)HibernateUtil.getSession().load(EmpresaCliente.class, id);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+    }
+
+    public void finCU() {
+
+    }
+
+    public void buscarLocalidad() {
+
+    }
+
+    public void buscarProvincia() {
+
+    }
+
+    public void buscarPais() {
+
+    }
+
+    public void buscarDatosDomicilio() {
+        Localidad l = null;
+        Provincia pr = null;
+        Pais pa = null;
+        try{
+            HibernateUtil.beginTransaction();
+            BigDecimal idLocalidad = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.empresa.getDomicilio().getBarrio().getId()).uniqueResult();
+            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idLocalidad.intValue());
+            this.localidad = l.getNombre();
+            BigDecimal idProvincia = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+l.getId()).uniqueResult();
+            pr = (Provincia)HibernateUtil.getSession().load(Provincia.class,idProvincia.intValue());
+            this.provincia = pr.getNombre();
+            BigDecimal idPais = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+pr.getId()).uniqueResult();
+            pa = (Pais)HibernateUtil.getSession().load(Pais.class,idPais.intValue());
+            this.pais = pa.getNombre();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+       }
+    }
+
+    public void buscarTelefonos() {
+        this.listaTelefonos = new ArrayList<NTupla>();
+        PersistentSet tels = (PersistentSet) this.empresa.getTelefonos();
+        Iterator<Telefono> i =tels.iterator();
+        while(i.hasNext()) {
+            Telefono t = i.next();
+            NTupla nt = new NTupla();
+            nt.setId(t.getId());
+            nt.setNombre(t.mostrarTipoTelefono().getNombre());
+            nt.setData((String)t.getNumero());
+            this.listaTelefonos.add(nt);
+        }
+    }
+
+    public void buscarPlantas() {
+
+    }
+
+    public void buscarLocalidadPlanta() {
+
+    }
+
+    public void buscarProvinciaPlanta() {
+
+    }
 }
