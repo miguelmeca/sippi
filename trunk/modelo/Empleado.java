@@ -22,8 +22,8 @@ import java.util.Set;
 
 public class Empleado extends Persona {
 
-	private Date fechaAlta;
-	private Date fechaBaja;
+	//private Date fechaAlta;
+	//private Date fechaBaja;
 	private int legajo;
 	private String rango;
 	//private ArrayList capacitacion;
@@ -54,7 +54,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         //especialiades= new ArrayList();
         //indumentaria= new ArrayList();
         //capacitacion= new ArrayList();
-        fechaAlta=fecha_Alta;
+        super.setFechaAlta(fecha_Alta);
         super.setTelefonos(listaNroTel, listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
         estado=new EstadoEmpleadoActivo();
@@ -75,7 +75,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         //especialiades= new ArrayList();
         //indumentaria= new ArrayList();
         //capacitacion= new ArrayList();
-        fechaAlta=fecha_Alta;
+        super.setFechaAlta(fecha_Alta);
         super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
         super.setTelefonos(listaNroTel,  listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
@@ -154,22 +154,9 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
            especialidades.add(especialidad);
         }
     }*/
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
+    
 
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public Date getFechaBaja() {
-        return fechaBaja;
-    }
-
-    public void setFechaBaja(Date fechaBaja) {
-        this.fechaBaja = fechaBaja;
-    }
-
+    
     public Set getIndumentaria() {
         return indumentaria;
     }
