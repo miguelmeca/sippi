@@ -52,7 +52,7 @@
       </list>
 -->
       <set name="indumentaria" >
-        <key column="IDINDUMENTARIA"/>
+        <key column="ID_EMPLEADO"/>
         <one-to-many class="modelo.Indumentaria"/>
       </set>
 
