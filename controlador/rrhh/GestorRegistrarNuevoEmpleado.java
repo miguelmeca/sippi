@@ -353,7 +353,7 @@ public class GestorRegistrarNuevoEmpleado {
         {
              SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            sesion.beginTransaction();
+            //sesion.beginTransaction();
             int mayorLegajo;
             //try{
 
@@ -361,7 +361,7 @@ public class GestorRegistrarNuevoEmpleado {
             if(ob!=null)
             {mayorLegajo=(Integer)ob;}
             else{mayorLegajo=0;}
-            sesion.getTransaction().commit();
+            //sesion.getTransaction().commit();
             //}
 
             //catch(Exception e)
