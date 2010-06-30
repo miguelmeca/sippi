@@ -30,6 +30,8 @@ public class Persona {
 	private String email;
 	private String cuil;
 	private Domicilio domicilio;
+        private Date fechaAlta;
+        private Date fechaBaja;
 	//private Object estado; COMO ES ESTO??? PERSONA TIENE ESTADO??? O EMPLEADO Y CLIENTE??? ESTA MAL MODELADO EN NUESTRO MODELOADO!!!
 	public void mostrarPersona() {
 	
@@ -110,6 +112,21 @@ public class Persona {
 
     public void setFechadeNac(Date fechadeNac) {
         this.fechadeNac = fechadeNac;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
     }
 
     public String getNombre() {
