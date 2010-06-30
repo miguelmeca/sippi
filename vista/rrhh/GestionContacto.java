@@ -9,7 +9,7 @@
  * Created on 30/06/2010, 10:24:59
  */
 
-package CargasBasicas;
+package vista.rrhh;
 
 import controlador.comer.GestorGestionContacto;
 import java.util.ArrayList;

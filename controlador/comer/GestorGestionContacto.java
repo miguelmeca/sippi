@@ -32,7 +32,7 @@ private HashSet<Telefono> telefonos;
         nuevo.setCargo(cargo);
         nuevo.setCuil(cuil);
         nuevo.setEmail(email);
-        nuevo.setTelefonos(telefono);
+        //nuevo.setTelefonos(telefono);
 
 
          SessionFactory sf = HibernateUtil.getSessionFactory();

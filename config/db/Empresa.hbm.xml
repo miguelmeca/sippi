@@ -11,7 +11,6 @@
     <property column="EMAIL" name="email" type="string"/>
     <property column="PAGINAWEB" name="paginaWeb" type="string"/>
     <many-to-one column="IDDOMICILIO" name="domicilio"/>
-
     <set cascade="all" name="telefonos" table="EmpresaXTelefono">
       <key column="ID_EMPRESA"/>
       <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>

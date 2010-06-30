@@ -15,31 +15,26 @@
     <property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/>
     <property column="FECH_BAJA" name="fechaBaja" type="date"/>
     <many-to-one class="modelo.TipoDocumento" column="ID_TIPO_DOC" name="tipoDoc"/>
-
     <set name="telefonos" table="PersonaXTelefono">
       <key column="ID_PERSONA"/>
       <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
     </set>
-
     <one-to-one class="modelo.Domicilio" name="domicilio"/>
-
     <!-- AHORA VIENEN LAS HERENCIAS -->
     <joined-subclass name="modelo.Empleado" table="EMPLEADO">
       <!-- Definio la PK de la tabla Empleado que se va a
              emparejar con la de Persona -->
-        <key column="ID_EMPLEADO" />
-
+      <key column="ID_EMPLEADO"/>
       <!-- Defino las propiedades del Empleado -->
       <property column="LEGAJO" name="legajo" not-null="true" type="integer"/>
       <!--property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/-->
       <!--property column="FECH_BAJA" name="fechaBaja" type="date"/-->
       <property column="RANGO" name="rango" type="string"/>
-
-      <set name="especialidades" >
+      <set name="especialidades">
         <key column="ID_Empleado"/>
         <one-to-many class="modelo.Especialidad"/>
       </set>
-<!--
+      <!--
       <list cascade="all-delete-orphan" name="indumentaria" table="ITEM_INDUMENTARIA">
         <key column="ID_ITEM_INDUMENTARIA"/>
         <index column="LEGAJO"/>
@@ -52,34 +47,24 @@
         <one-to-many class="modelo.Capacitacion"/>
       </list>
 -->
-      <set name="indumentaria" >
+      <set name="indumentaria">
         <key column="ID_EMPLEADO"/>
         <one-to-many class="modelo.Indumentaria"/>
       </set>
-
-      <set name="capacitaciones" >
+      <set name="capacitaciones">
         <key column="ID_EMPLEADO"/>
         <one-to-many class="modelo.Capacitacion"/>
       </set>
     </joined-subclass>
-
     <joined-subclass name="modelo.Capacitador" table="CAPACITADOR">
       <!-- Definio la PK de la tabla CAPACITOR que se va a
              emparejar con la de Persona -->
-        <key column="ID_CAPACITADOR" />
-
+      <key column="ID_CAPACITADOR"/>
       <!-- Defino las propiedades del DISCAPACITADOR -->
-
-      <set name="tiposCapacitacion"  table="TIPOSCAPACITACIONxCAPACITADOR">
+      <set name="tiposCapacitacion" table="TIPOSCAPACITACIONxCAPACITADOR">
         <key column="ID_CAPACITADOR"/>
-        <many-to-many class="modelo.TipoCapacitacion"  column="ID_TIPOCAPACITACION"/>
+        <many-to-many class="modelo.TipoCapacitacion" column="ID_TIPOCAPACITACION"/>
       </set>
-
     </joined-subclass>
-
-
-
-
-
   </class>
 </hibernate-mapping>
