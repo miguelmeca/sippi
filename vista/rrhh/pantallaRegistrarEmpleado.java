@@ -88,8 +88,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         cmbfechaVencimiento = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
         cmbfechaVencimiento.setBounds(110,135,100,22); // x y ancho alto
         jpCapacitaciones.add(cmbfechaVencimiento);
-        String legajo=""+gestor.generarLegajoEmpleado();
-        txtLegajo.setText(legajo);
+        
 
 KeyAdapter kaNuemros=(new KeyAdapter()
 {
@@ -130,7 +129,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtTelefono.setDocument(new LimitadorCaracteres(txtApellido,15));
 
 
-
+        String legajo=""+gestor.generarLegajoEmpleado();
+        txtLegajo.setText(legajo);
 
 
 
@@ -1198,14 +1198,23 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtNroDomicilio.setText("");
         txtPisoDomicilio.setText("");
         txtTelefono.setText("");
-        ((DefaultTableModel)tablaEspecialidades.getModel()).setNumRows(0);
+        tablaEspecialidades.setModel(new DefaultTableModel());
+        tablaTelefonos.setModel(new DefaultTableModel());
+        tablaCapacitaciones.setModel(new DefaultTableModel());
+        /*((DefaultTableModel)tablaEspecialidades.getModel()).setNumRows(0);
         ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
         ((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
-        
+        */
         String legajo=""+gestor.generarLegajoEmpleado();
         txtLegajo.setText(legajo);
         mostrarTiposEspecialidad();
         mostrarTiposCapacitacion();
+        listaNroTel=new ArrayList<String>();
+        listaTipoTel=new ArrayList<Tupla>();
+        listaTipoEspecialidad=new ArrayList<Tupla>();
+        listaRangoEspecialidad=new ArrayList<Tupla>();
+        listaTipoCapacitacion=new ArrayList<Tupla>();
+        listaVencimientoCapacitacion=new ArrayList<Date>();
 
     }
         private boolean ValidarDatos()
