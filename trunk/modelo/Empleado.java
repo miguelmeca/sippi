@@ -33,6 +33,7 @@ public class Empleado extends Persona {
 	private Set indumentaria;
 	private Set<Especialidad> especialidades;
         private Set<Capacitacion> capacitaciones;
+        private EstadoEmpleado estado;
 
 
 
@@ -56,6 +57,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         fechaAlta=fecha_Alta;
         super.setTelefonos(listaNroTel, listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
+        estado=new EstadoEmpleadoActivo();
 
     }
      public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
@@ -77,6 +79,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
         super.setTelefonos(listaNroTel,  listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
+        estado=new EstadoEmpleadoActivo();
     }
      public Empleado()
      {
@@ -85,6 +88,14 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
          capacitacion= new ArrayList();*/
     }
 
+     public EstadoEmpleado getEstado()
+     {
+         return estado;
+     }
+     public void setEstado(EstadoEmpleado ee)
+     {
+         estado=ee;
+     }
     public Set getCapacitaciones() {
         return capacitaciones;
     }
