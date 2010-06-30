@@ -1558,10 +1558,10 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }
 
     public String getResumenAyuda() {
-        return "Ingrese los datos de la nueva planta a cargar. También puede asignar la persona que será contacto";
+        return "Ingrese los datos del nuevo empleado.";
     }
 
     public String getTituloAyuda() {
-        return "Opción: Nueva Planta";
+        return "Opción: Nuevo Empleado";
     }
 }
