@@ -304,13 +304,14 @@ public class GestorRegistrarNuevoEmpleado {
             }
             Session sesion;
             ///////////////////////////////////
-           ///  try {
+             try {
                     //sesion = HibernateUtil.getSession();
                      SessionFactory sf = HibernateUtil.getSessionFactory();
                     sesion = sf.openSession();
-                   /// try{
+                    try{
                     //HibernateUtil.beginTransaction();
                     sesion.beginTransaction();
+
                     Iterator itt=empleado.getTelefonos().iterator();
                     while(itt.hasNext())
                     {
@@ -341,7 +342,7 @@ public class GestorRegistrarNuevoEmpleado {
                     //HibernateUtil.commitTransaction();
 
                     return true;
-                   /* }catch(Exception e) {
+                    }catch(Exception e) {
                         System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
                         return false;
@@ -350,7 +351,7 @@ public class GestorRegistrarNuevoEmpleado {
             {
                 System.out.println("No se pudo abrir la sesion");
                 return false;
-            }*/
+            }
             
 	}
 	
