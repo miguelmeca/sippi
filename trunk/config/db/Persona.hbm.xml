@@ -35,9 +35,9 @@
       <!--property column="FECH_BAJA" name="fechaBaja" type="date"/-->
       <property column="RANGO" name="rango" type="string"/>
 
-      <set name="especialidades" table="ESPECIALIDADXEMPLEADO">
-        <key column="ID_PERSONA"/>
-        <many-to-many class="modelo.Especialidad" column="ID_ESPECIALIDAD"/>
+      <set name="especialidades" >
+        <key column="ID_Empleado"/>
+        <one-to-many class="modelo.Especialidad"/>
       </set>
 <!--
       <list cascade="all-delete-orphan" name="indumentaria" table="ITEM_INDUMENTARIA">
