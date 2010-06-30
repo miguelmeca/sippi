@@ -29,7 +29,9 @@ import javax.swing.JComponent;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import java.util.Vector;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import util.LimitadorCaracteres;
 /**
  *
  * @author Administrador
@@ -70,9 +72,6 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
    private void habilitarVentana()
     {
 
-
-
-
         mostrarTiposDeDocumento();
         mostrarPaises();
         mostrarProvincias();
@@ -91,8 +90,51 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         jpCapacitaciones.add(cmbfechaVencimiento);
         String legajo=""+gestor.generarLegajoEmpleado();
         txtLegajo.setText(legajo);
-        
-    }
+
+KeyAdapter kaNuemros=(new KeyAdapter()
+{
+
+            @Override
+   public  void keyTyped(KeyEvent e)
+   {
+      char caracter = e.getKeyChar();
+
+      // Verificar si la tecla pulsada no es un digito
+      if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != KeyEvent.VK_BACK_SPACE))
+      {
+         e.consume();  // ignorar el evento de teclado
+      }
+   }
+});
+        //-----------------------
+        txtCUIL.addKeyListener(kaNuemros);
+        txtLegajo.addKeyListener(kaNuemros);
+        txtNroDocumento.addKeyListener(kaNuemros);
+        txtNroDomicilio.addKeyListener(kaNuemros);
+        txtPisoDomicilio.addKeyListener(kaNuemros);
+        //txtTelefono.addKeyListener(kaNuemros);
+
+        txtApellido.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtCPDomicilio.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtCUIL.setDocument(new LimitadorCaracteres(txtApellido,15));
+        txtCalleDomicilio.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtDeptoDomicilio.setDocument(new LimitadorCaracteres(txtApellido,10));
+        txtEmail.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtLegajo.setDocument(new LimitadorCaracteres(txtApellido,10));
+        txtNombre.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtNroDocumento.setDocument(new LimitadorCaracteres(txtApellido,9));
+        txtNroDomicilio.setDocument(new LimitadorCaracteres(txtApellido,6));
+        txtPisoDomicilio.setDocument(new LimitadorCaracteres(txtApellido,3));
+        txtTelefono.setDocument(new LimitadorCaracteres(txtApellido,15));
+
+
+
+
+
+
+   }
 
    public void mostrarRangosEspecialidad()
     {
@@ -1158,16 +1200,22 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         txtTelefono.setText("");
         ((DefaultTableModel)tablaEspecialidades.getModel()).setNumRows(0);
         ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
+        ((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
+        
         String legajo=""+gestor.generarLegajoEmpleado();
         txtLegajo.setText(legajo);
+        mostrarTiposEspecialidad();
+        mostrarTiposCapacitacion();
 
     }
         private boolean ValidarDatos()
     {
-        //VALIDAR Q EL NRO DE DOC SEA SOLO NUMEROS :TODO:
-        //Validar nro doc unico :TODO:  EN GESTOR
-        //validar legajo unico :TODO: EN GESTOR
         
+        //Validar nro doc unico :TODO:  EN GESTOR
+        //Validar cuil doc unico :TODO:  EN GESTOR
+        //validar legajo unico :TODO: EN GESTOR
+        //validar campos not null: TODO: EN PANTALLA
+        boolean ban=true;
             Date fechaAct=new Date();
             if(  (((JDateChooser) cmbfechaNacimiento).getDate()== null ) )
            {
@@ -1184,27 +1232,73 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
                
            }
             
-        boolean ban=true;
+        
         if(txtNroDocumento.getText().equals(""))
         {JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Numero de documento'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
          ban=false;
+         return ban;
         }
         else
         {
-            if(txtNombre.getText().equals(""))
-            {
+            if(!gestor.ValidarDocumento(txtNroDocumento.getText()))
+            {ban=false;
+             JOptionPane.showMessageDialog(this.getParent(),"El numero de documento ingresado ya existe para un empleado registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+         return ban;}
+            
+        }
+            ///////////////////////
+        if(txtLegajo.getText().equals(""))
+        {JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Legajo'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+         ban=false;
+         return ban;
+        }
+        else
+        {
+            if(!gestor.ValidarLegajo(txtLegajo.getText()))
+            {ban=false;
+             JOptionPane.showMessageDialog(this.getParent(),"El numero de legajo ingresado ya existe para un empleado registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+         return ban;}
+
+        }
+        ///////////////////////
+        if(txtCUIL.getText().equals(""))
+        {JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'CUIL'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+         ban=false;
+         return ban;
+        }
+        else
+        {
+            if(!gestor.ValidarCuil(txtCUIL.getText()))
+            {ban=false;
+             JOptionPane.showMessageDialog(this.getParent(),"El numero de cuil ingresado ya existe para un empleado registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+         return ban;}
+
+        }
+        /////////////////////////
+        if(txtNombre.getText().equals(""))
+        {
                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nombre'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                 ban=false;
-            }
-            else 
-            {if(txtApellido.getText().equals(""))
-             {
+                return ban;
+        }
+        if(txtApellido.getText().equals(""))
+        {
                  JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Apellido'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                  ban=false;
-             }
-            }
-        }
-
+                 return ban;
+         }
+       /* if(txtCalleDomicilio.getText().equals(""))
+        {
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Calle' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+                 ban=false;
+                 return ban;
+         }
+        if(txtNroDomicilio.getText().equals(""))
+        {
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+                 ban=false;
+                 return ban;
+         } */
 
         return ban;
         
@@ -1444,7 +1538,9 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     private javax.swing.JTextField txtPisoDomicilio;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-public int getIdAyuda()
+
+
+    public int getIdAyuda()
     {
         return 0;
     }
