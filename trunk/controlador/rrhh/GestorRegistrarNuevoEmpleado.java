@@ -70,8 +70,8 @@ public class GestorRegistrarNuevoEmpleado {
         private String departamentoD;
         private String codigoPostalD;
         private Barrio barrioD;
-        private HashSet<String> HlistaNroTel;
-        private HashSet<TipoTelefono> HlistaTipoTel;
+        //private HashSet<String> HlistaNroTel;
+        //private HashSet<TipoTelefono> HlistaTipoTel;
 
 
     public GestorRegistrarNuevoEmpleado(pantallaRegistrarEmpleado pantalla)
@@ -266,6 +266,8 @@ public class GestorRegistrarNuevoEmpleado {
 	}
 	public void tipoEspecialidadYRango(ArrayList<Tupla> lstTipoEspecialidad, ArrayList<Tupla> lstRangoEspecialidad)
         {
+            listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
+        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
             gestorBDvarios bdv = new gestorBDvarios();
             for(int i=0; i<lstTipoEspecialidad.size();i++)
             {
@@ -277,6 +279,9 @@ public class GestorRegistrarNuevoEmpleado {
 	
         public void capacitaciones(ArrayList<Tupla> lstTipoCapacitaciones, ArrayList<Date> lstVencimientosCapacitaciones)
         {
+           
+        listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
+         listaVencimientoCapacitaciones=new ArrayList<Date>();
             gestorBDvarios bdv = new gestorBDvarios();
             for(int i=0; i<lstTipoCapacitaciones.size();i++)
             {
@@ -396,6 +401,8 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	public void telefonosEmpleado(ArrayList<String> numero,ArrayList<Tupla> tipo )
         {
+           
+
             listaNroTel=numero;
             listaTipoTel=new ArrayList();
             gestorBDvarios bdv = new gestorBDvarios();
