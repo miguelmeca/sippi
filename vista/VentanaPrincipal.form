@@ -30,9 +30,6 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miConsultar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miConsultarActionPerformed"/>
               </Events>
@@ -173,7 +170,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mTalleres">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Capacitaciones"/>
+            <Property name="text" type="java.lang.String" value="Talleres de Capacitaci&#xf3;n"/>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="mNuevoTaller">
@@ -209,8 +206,6 @@
               </Properties>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mVer">
         </Menu>
         <Menu class="javax.swing.JMenu" name="mSistema">
           <Properties>
@@ -417,7 +412,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mUsuarios">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Usuarios"/>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miCerrarSesion">
@@ -442,11 +437,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mSalir">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mSalirActionPerformed"/>
-          </Events>
         </Menu>
       </SubComponents>
     </Menu>

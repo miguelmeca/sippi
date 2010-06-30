@@ -157,7 +157,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miCapacitadores = new javax.swing.JMenuItem();
         miRegistroDeAsistencia = new javax.swing.JMenuItem();
         miLugaresDeCapacitacion = new javax.swing.JMenuItem();
-        mVer = new javax.swing.JMenu();
         mSistema = new javax.swing.JMenu();
         mEmpresa = new javax.swing.JMenu();
         miNuevaEmpresa = new javax.swing.JMenuItem();
@@ -191,7 +190,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miCerrarSesion = new javax.swing.JMenuItem();
         miCambiarUsuario = new javax.swing.JMenuItem();
         mAyuda = new javax.swing.JMenu();
-        mSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema");
@@ -358,7 +356,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mObra.add(miNuevo);
 
-        miConsultar.setText("Consultar");
         miConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miConsultarActionPerformed(evt);
@@ -456,7 +453,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mRRHH);
 
-        mTalleres.setText("Capacitaciones");
+        mTalleres.setText("Talleres de Capacitación");
 
         mNuevoTaller.setText("Nuevo Taller");
 
@@ -478,7 +475,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mTalleres.add(miLugaresDeCapacitacion);
 
         jMenuBar1.add(mTalleres);
-        jMenuBar1.add(mVer);
 
         mSistema.setText("Cargas Básicas");
 
@@ -613,7 +609,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mSistema);
 
-        mUsuarios.setText("Usuarios");
+        mUsuarios.setText("Usuario");
 
         miCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/lock.png"))); // NOI18N
         miCerrarSesion.setText("Cerrar Sesión");
@@ -627,13 +623,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mAyuda.setText("Ayuda");
         jMenuBar1.add(mAyuda);
-
-        mSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mSalirActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(mSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -844,14 +833,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_miGestionBarrioActionPerformed
 
-    private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
-
-        int op = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡ seguro que desea salir?");
-        if(op == JOptionPane.YES_OPTION) {
-            System.exit(1);
-        }
-    }//GEN-LAST:event_mSalirActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
 
         Salir();
@@ -907,12 +888,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mProveedor;
     private javax.swing.JMenu mProvincia;
     private javax.swing.JMenu mRRHH;
-    private javax.swing.JMenu mSalir;
     private javax.swing.JMenu mSistema;
     private javax.swing.JMenu mTalleres;
     private javax.swing.JMenu mUbicaciones;
     private javax.swing.JMenu mUsuarios;
-    private javax.swing.JMenu mVer;
     private javax.swing.JMenuItem miAvance;
     private javax.swing.JMenuItem miCambiarUsuario;
     private javax.swing.JMenuItem miCapacitadores;
