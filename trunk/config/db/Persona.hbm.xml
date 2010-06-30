@@ -64,11 +64,11 @@
     </joined-subclass>
 
     <joined-subclass name="modelo.Capacitador" table="CAPACITADOR">
-      <!-- Definio la PK de la tabla CAPACITADOR que se va a
+      <!-- Definio la PK de la tabla CAPACITOR que se va a
              emparejar con la de Persona -->
         <key column="ID_CAPACITADOR" />
 
-      <!-- Defino las propiedades del Empleado -->
+      <!-- Defino las propiedades del DISCAPACITADOR -->
 
       <set name="tiposCapacitacion"  table="TIPOSCAPACITACIONxCAPACITADOR">
         <key column="ID_CAPACITADOR"/>
@@ -76,6 +76,7 @@
       </set>
 
     </joined-subclass>
+
 
 
 
