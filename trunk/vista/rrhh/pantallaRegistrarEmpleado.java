@@ -155,6 +155,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
         ArrayList<Tupla> lista = gestor.mostrarPaises();
+
         Iterator<Tupla> it = lista.iterator();
         while(it.hasNext()){
             Tupla tu = it.next();
@@ -162,10 +163,13 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         }
 
         cmbPaises.setModel(valores);
+
     }
 
     private void mostrarProvincias()
     {
+       if(cmbPaises.getSelectedIndex()!=-1)
+       {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
         Tupla t = (Tupla) cmbPaises.getSelectedItem() ;
@@ -176,10 +180,13 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
             valores.addElement(tu);
         }
         cmbProvincias.setModel(valores);
+       }
     }
 
     private void mostrarLocalidades()
     {
+        if(cmbProvincias.getSelectedIndex()!=-1)
+       {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
         Tupla t = (Tupla) cmbProvincias.getSelectedItem() ;
@@ -190,10 +197,13 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
             valores.addElement(tu);
         }
         cmbLocalidades.setModel(valores);
+        }
     }
 
     private void mostrarBarrios()
     {
+        if(cmbLocalidades.getSelectedIndex()!=-1)
+       {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
         Tupla t = (Tupla) cmbLocalidades.getSelectedItem() ;
@@ -204,6 +214,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
             valores.addElement(tu);
         }
         cmbBarrios.setModel(valores);
+      }
     }
     private void cargarTelefonos()
     {
