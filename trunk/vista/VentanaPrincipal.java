@@ -18,6 +18,7 @@ import controlador.xml.XMLReaderMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import util.HibernateUtil;
 import util.SwingPanel;
 import vista.comer.pantallaConsultarEmpresaCliente;
 import vista.comer.pantallaConsultarObra;
@@ -76,6 +77,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }
 
+    private void Salir()
+    {
+        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");
+        if(op == JOptionPane.YES_OPTION)
+        {
+            HibernateUtil.closeSession();
+            System.exit(0);
+        }
+    }
+
+    private void NuevaPlanta()
+    {
+            pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -91,6 +109,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         btnNuevoPedidoObra = new javax.swing.JButton();
         btnNuevoEmpleado = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnSalir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
@@ -201,6 +221,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnNuevoEmpleado);
+        jToolBar1.add(jSeparator1);
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setFocusable(false);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnSalir);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,7 +242,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
@@ -263,7 +295,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(29, 29, 29)
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
@@ -293,7 +325,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -452,6 +484,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mEmpresa.setText("Empresa");
 
+        miNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         miNuevaEmpresa.setText("Nueva");
         miNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,6 +493,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mEmpresa.add(miNuevaEmpresa);
 
+        miConsultarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
         miConsultarEmpresa.setText("Consultar");
         miConsultarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -468,7 +502,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mEmpresa.add(miConsultarEmpresa);
 
-        miModificarEmpresa.setText("Modificar");
+        miModificarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
         miModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miModificarEmpresaActionPerformed(evt);
@@ -480,6 +514,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mPlanta.setText("Planta");
 
+        miNuevaPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         miNuevaPlanta.setText("Nueva");
         miNuevaPlanta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,9 +523,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mPlanta.add(miNuevaPlanta);
 
+        miConsultarPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
         miConsultarPlanta.setText("Consultar");
         mPlanta.add(miConsultarPlanta);
 
+        miModificarPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
         miModificarPlanta.setText("Modificar");
         mPlanta.add(miModificarPlanta);
 
@@ -539,8 +576,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mSistema.add(mMateriales);
 
-        mUbicaciones.setText("Ubicaciones");
-
         mLocalidad.setText("Localidad");
 
         miGestionLocalidad.setText("Gestión");
@@ -580,9 +615,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mUsuarios.setText("Usuarios");
 
+        miCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/lock.png"))); // NOI18N
         miCerrarSesion.setText("Cerrar Sesión");
         mUsuarios.add(miCerrarSesion);
 
+        miCambiarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
         miCambiarUsuario.setText("Cambiar de Usuario");
         mUsuarios.add(miCambiarUsuario);
 
@@ -652,9 +689,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Nueva Planta
         if(node.getTitulo().equals("Nueva Planta"))
         {
-            pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
+            NuevaPlanta();
             return;
         }
         // Consultar Obras
@@ -697,8 +732,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.setVisible(true);
             return;
         }
-        // Nuevo Taller de Capcitación
-        if(node.getTitulo().equals("Nuevo Taller de Capcitación"))
+        // Nuevo Taller de CapcitaciÃ³n
+        if(node.getTitulo().equals("Nuevo Taller de CapcitaciÃ³n"))
         {
             pantallaRegistrarTaller pre = new pantallaRegistrarTaller();
             SwingPanel.getInstance().addWindow(pre);
@@ -811,11 +846,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
 
-        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");
+        int op = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡ seguro que desea salir?");
         if(op == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
     }//GEN-LAST:event_mSalirActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+
+        Salir();
+
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
     * @param args the command line arguments
@@ -831,6 +872,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JButton btnNuevoPedidoObra;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -841,6 +883,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JToolBar jToolBar1;
