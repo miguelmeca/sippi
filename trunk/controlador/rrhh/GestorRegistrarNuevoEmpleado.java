@@ -3,7 +3,7 @@ package controlador.rrhh;
 //
 
 import java.util.ArrayList;
-//import java.util.List;
+import java.util.List;
 import modelo.TipoDocumento;
 import modelo.TipoTelefono;
 import modelo.Telefono;
@@ -114,7 +114,56 @@ public class GestorRegistrarNuevoEmpleado {
 	public void verificarExistenciaEmpleado() {
 	
 	}
-	
+        public boolean ValidarDocumento(String nroDoc)
+        {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            List listNroDoc=new ArrayList();
+            boolean aprobado=true;
+            listNroDoc =sesion.createQuery("Select nroDoc from modelo.Empleado").list();//
+            String n;
+            for(int i=0; i<listNroDoc.size();i++)
+            {
+                n=(String)listNroDoc.get(i);
+                if(n.equals(nroDoc))
+                {aprobado=false;}
+            }
+            return aprobado;
+        }
+	public boolean ValidarLegajo(String leg)
+        {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            List listNroDoc=new ArrayList();
+            boolean aprobado=true;
+            listNroDoc =sesion.createQuery("Select legajo from modelo.Empleado").list();//
+            int nleg;
+            nleg=Integer.parseInt(leg);
+            int n;
+            for(int i=0; i<listNroDoc.size();i++)
+            {
+                n=(Integer)listNroDoc.get(i);
+                if(n==(nleg))
+                {aprobado=false;}
+            }
+            return aprobado;
+        }
+        public boolean ValidarCuil(String cuil)
+        {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            List listNroDoc=new ArrayList();
+            boolean aprobado=true;
+            listNroDoc =sesion.createQuery("Select cuil from modelo.Empleado").list();//
+            String n;
+            for(int i=0; i<listNroDoc.size();i++)
+            {
+                n=(String)listNroDoc.get(i);
+                if(n.equals(cuil))
+                {aprobado=false;}
+            }
+            return aprobado;
+        }
 	public void datosPersonalesEmpleado(int leg,String cuil, String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac, String email)
         {
             legajoEmpleado=leg;
@@ -133,8 +182,14 @@ public class GestorRegistrarNuevoEmpleado {
         {
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();                        
             barrioD =ggl.getBarrio(tBarrio.getId());
-            nmroD=Integer.parseInt(nro);
-            pisoD =Integer.parseInt(piso);
+            if(nro.equals(""))
+            {nmroD=0;}
+            else{
+            nmroD=Integer.parseInt(nro);}
+            if(nro.equals(""))
+            {pisoD=0;}
+            else{
+            pisoD =Integer.parseInt(piso);}
             calleD=calle;
             departamentoD=depto;
             codigoPostalD=cp;
@@ -327,6 +382,7 @@ public class GestorRegistrarNuevoEmpleado {
 
             Date fechaAltaActual=new Date();
            // fecha_Alta=System
+            
             Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
