@@ -88,8 +88,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         cmbfechaVencimiento = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
         cmbfechaVencimiento.setBounds(110,135,100,22); // x y ancho alto
         jpCapacitaciones.add(cmbfechaVencimiento);
-        String legajo=""+gestor.generarLegajoEmpleado();
-        txtLegajo.setText(legajo);
+        
 
 KeyAdapter kaNuemros=(new KeyAdapter()
 {
@@ -130,7 +129,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtTelefono.setDocument(new LimitadorCaracteres(txtApellido,15));
 
 
-
+        String legajo=""+gestor.generarLegajoEmpleado();
+        txtLegajo.setText(legajo);
 
 
 
