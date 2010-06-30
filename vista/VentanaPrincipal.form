@@ -224,6 +224,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="miNuevaEmpresa">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Nueva"/>
                   </Properties>
                   <Events>
@@ -232,6 +235,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="miConsultarEmpresa">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/search_page.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consultar"/>
                   </Properties>
                   <Events>
@@ -240,7 +246,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="miModificarEmpresa">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Modificar"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/add_page.png"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miModificarEmpresaActionPerformed"/>
@@ -255,6 +263,9 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="miNuevaPlanta">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Nueva"/>
                   </Properties>
                   <Events>
@@ -263,11 +274,17 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="miConsultarPlanta">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/search_page.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consultar"/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="miModificarPlanta">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/add_page.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Modificar"/>
                   </Properties>
                 </MenuItem>
@@ -342,9 +359,6 @@
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="mUbicaciones">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ubicaciones"/>
-              </Properties>
               <SubComponents>
                 <Menu class="javax.swing.JMenu" name="mLocalidad">
                   <Properties>
@@ -408,11 +422,17 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miCerrarSesion">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/iconos/var/16x16/lock.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miCambiarUsuario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/iconos/var/16x16/users.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar de Usuario"/>
               </Properties>
             </MenuItem>
@@ -469,7 +489,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jToolBar1" alignment="0" pref="36" max="32767" attributes="0"/>
+              <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -507,6 +527,21 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoEmpleadoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JToolBar$Separator" name="jSeparator1">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSalir">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/iconos/var/16x16/block.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Salir"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="verticalTextPosition" type="int" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -557,7 +592,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jSplitPane2" pref="626" max="32767" attributes="0"/>
+                      <Component id="jSplitPane2" pref="637" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -640,7 +675,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                   <Component id="lblAyudaTitulo" min="-2" pref="14" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jScrollPane2" pref="6" max="32767" attributes="0"/>
