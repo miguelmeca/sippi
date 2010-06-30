@@ -4,7 +4,7 @@
   <!-- Defino la clase Padre -->
   <class name="modelo.Persona">
     <id column="ID_PERSONA" name="oid" type="integer" unsaved-value="null">
-      <generator class="native"/>
+      <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
     <property column="APELLIDO" name="apellido" not-null="true" type="string"/>
@@ -17,7 +17,7 @@
 
     <set name="telefonos" table="PersonaXTelefono">
       <key column="ID_PERSONA"/>
-      <many-to-many class="modelo.Telefono" column="ID_TEL"/>
+      <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
     </set>
 
     <one-to-one class="modelo.Domicilio" name="domicilio"/>
@@ -57,7 +57,7 @@
       </set>
 
       <set name="capacitaciones" >
-        <key column="ID_CAPACITACION"/>
+        <key column="ID_EMPLEADO"/>
         <one-to-many class="modelo.Capacitacion"/>
       </set>
     </joined-subclass>
