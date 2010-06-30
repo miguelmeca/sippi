@@ -36,7 +36,7 @@ public class Loading extends javax.swing.JFrame {
         
         CargarLibrerias(10,"Cargando Librerías...");
         CargarHibernate(50,"Cargando Hibernate...");
-        //CargarEjemplos(10,"Cargando Datos iniciales...");
+        CargarEjemplos(10,"Cargando Datos iniciales...");
 
         LanzarSistema();
     }
