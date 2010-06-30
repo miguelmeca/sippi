@@ -936,7 +936,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
            gestor.tiposCapacitacion(listaTipoCapacitacion );
             if(gestor.capacitadorConfirmado())
             {
-                JOptionPane.showMessageDialog(this.getParent(),"Capacitador Registrado correctamente","Empleado Registrado",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this.getParent(),"Capacitador Registrado correctamente","Capacitador Registrado",JOptionPane.INFORMATION_MESSAGE);
                 vaciarCampos();
             }
             else
@@ -960,12 +960,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtNroDomicilio.setText("");
         txtPisoDomicilio.setText("");
         txtTelefono.setText("");
-        tablaTelefonos.setModel(new DefaultTableModel());
-        tablaCapacitaciones.setModel(new DefaultTableModel());
-        /*
+        //tablaTelefonos.setModel(new DefaultTableModel());
+        //tablaCapacitaciones.setModel(new DefaultTableModel());
+        
         ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
         ((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
-        */
+        
         
         mostrarTiposCapacitacion();
         listaNroTel=new ArrayList<String>();
@@ -1211,10 +1211,10 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }
 
     public String getResumenAyuda() {
-        return "Ingrese los datos de la nueva planta a cargar. También puede asignar la persona que será contacto";
+        return "Ingrese los datos del nuevo capacitador.";
     }
 
     public String getTituloAyuda() {
-        return "Opción: Nueva Planta";
+        return "Opción: Registrar Nuevo capacitador";
     }
 }
