@@ -27,7 +27,6 @@ public class Domicilio {
 	}
         public Domicilio()
         {
-
         }
         public Domicilio(String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD)
         {
@@ -41,6 +40,19 @@ public class Domicilio {
 
     @Override
     public String toString() {
+        // WORKARROUND PARA QUE NO MUESTRE null EN EL TEXTO
+        if(calle == null)
+        {
+            calle = "";
+        }
+        if(depto == null)
+        {
+            depto = "-";
+        }
+        if(codigoPostal == null)
+        {
+            codigoPostal = "";
+        }
         return calle+" "+numero+" ("+piso+" "+depto+") "+ codigoPostal;
     }
 

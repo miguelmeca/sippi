@@ -622,7 +622,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaPlanta))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

@@ -11,7 +11,7 @@
       <key column="ID_PLANTA"/>
       <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
     </set>
-    <one-to-one class="modelo.Domicilio" name="domicilio"/>
+    <many-to-one class="modelo.Domicilio" name="domicilio"/>
     <many-to-one class="modelo.ContactoResponsable" column="ID_CONTACTO" name="contacto"/>
   </class>
 </hibernate-mapping>

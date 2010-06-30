@@ -349,7 +349,10 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPlantaActionPerformed
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        //TODO: HAY QUE PASARLE EL ID DE LA PLANTA !!!!!
+        pantallaConsultarPlantas pcp = new pantallaConsultarPlantas(1);
+        SwingPanel.getInstance().addWindow(pcp);
+        pcp.setVisible(true);
     }//GEN-LAST:event_btnConsultarPlantaActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
