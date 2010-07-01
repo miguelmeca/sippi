@@ -75,4 +75,13 @@ public class Planta {
         this.telefonos.add(t);
     }
 
+    public boolean esPlanta(int idp)
+    {
+        if(id== idp)
+        {return true;}
+        else
+        {return false;}
+    }
+
+
 }
