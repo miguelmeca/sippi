@@ -24,12 +24,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import util.Tupla;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
+public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implements IAyuda{
 
     private GestorRegistrarPedido gestor;
 
@@ -518,6 +519,16 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
 
+    public String getTituloAyuda() {
+        return "Opción: Nuevo Pedido";
+    }
 
+    public String getResumenAyuda() {
+        return "Ingrese los datos del Pedido a cargar.";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
 
 }

@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Telefono;
@@ -25,12 +26,13 @@ import modelo.TipoTelefono;
 import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author iuga
  */
-public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame {
+public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda{
     private GestorRegistrarNuevaEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
     private final GestorRegistrarPedido grp;
@@ -44,6 +46,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         formatearTablaTelefonos();
         grp = null;
         mostrarTiposTelefono();
+        JFormattedTextField f = new JFormattedTextField();
     }
 
     public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
@@ -193,6 +196,8 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         txtEmail = new javax.swing.JTextField();
         txtCuit = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtPaginaWeb = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnNuevaEmpresa = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -385,10 +390,12 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Empresa"));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Razon Social: ");
 
         txtRazonSocial.setText("ESMAM S.R.L.");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Email:");
 
         txtEmail.setText("esman@gmail.com");
@@ -400,7 +407,13 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("CUIT");
+
+        txtPaginaWeb.setText("www.esman.com.ar");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Página Web:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -412,11 +425,15 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -435,7 +452,11 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addComponent(jLabel2)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap())
         );
 
         btnCancelar.setText("Cancelar");
@@ -561,7 +582,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -593,7 +614,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -662,22 +683,24 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_cmbProvinciasActionPerformed
 
     private void btnNuevaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaEmpresaActionPerformed
-        gestor.nombreEmpresa(txtRazonSocial.getText());
-        gestor.CUIT(txtCuit.getText());
-        gestor.EMail(txtEmail.getText());
-        gestor.datosDomicilio(txtCalle.getText(), txtAltura.getText(), txtPiso.getText(), txtDpto.getText(), txtCP.getText());
-        gestor.seleccionBarrio(((Tupla)cmbBarrio.getSelectedItem()).getId());
-        gestor.seleccionLocalidad(((Tupla)cmbLocalidades.getSelectedItem()).getId());
-        gestor.seleccionProvincia(((Tupla)cmbProvincias.getSelectedItem()).getId());
-        gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
-        gestor.telefono(this.cargarTelefonos());
-
-        int id = gestor.confirmacionRegistro();
-        JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-        if(grp !=null){
-            grp.recargarComboBox();
+        if(ValidarDatos()){
+            gestor.nombreEmpresa(txtRazonSocial.getText());
+            gestor.CUIT(txtCuit.getText());
+            gestor.EMail(txtEmail.getText());
+            gestor.datosDomicilio(txtCalle.getText(), txtAltura.getText(), txtPiso.getText(), txtDpto.getText(), txtCP.getText());
+            gestor.seleccionBarrio(((Tupla)cmbBarrio.getSelectedItem()).getId());
+            gestor.seleccionLocalidad(((Tupla)cmbLocalidades.getSelectedItem()).getId());
+            gestor.seleccionProvincia(((Tupla)cmbProvincias.getSelectedItem()).getId());
+            gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
+            gestor.telefono(this.cargarTelefonos());
+            gestor.paginaWeb(this.txtPaginaWeb.getText());
+            int id = gestor.confirmacionRegistro();
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(grp !=null){
+                grp.recargarComboBox();
+            }
+            this.dispose();
         }
-        this.dispose();
     }//GEN-LAST:event_btnNuevaEmpresaActionPerformed
 
     private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
@@ -727,6 +750,67 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         });
     }
 
+    private boolean ValidarDatos()
+    {
+        boolean ban=true;
+        String mensaje="Faltan ingresar/seleccionar los siguientes campos:\n";
+        if(txtRazonSocial.getText().equals("")){
+            mensaje+="- Razón Social\n";
+            ban=false;
+        }
+        if(txtCuit.getText().equals("")){
+            mensaje+="- CUIT\n";
+            ban=false;
+        }
+        if(txtEmail.getText().equals("")){
+            mensaje+="- Email\n";
+            ban=false;
+        }
+        if(txtPaginaWeb.getText().equals("")){
+            mensaje+="- Página Web\n";
+            ban=false;
+        }
+        if(tablaTelefonos.getRowCount() == 0){
+            mensaje+="- Un teléfono al menos\n";
+            ban=false;
+        }
+        if(txtCalle.getText().equals("")){
+            mensaje+="- Calle\n";
+            ban=false;
+        }
+        if(txtAltura.getText().equals("")){
+            mensaje+="- Altura\n";
+            ban=false;
+        }
+        if(txtPiso.getText().equals("")){
+            mensaje+="- Piso\n";
+            ban=false;
+        }
+        if(txtPaginaWeb.getText().equals("")){
+            mensaje+="- Departamento\n";
+            ban=false;
+        }
+        if(cmbBarrio.getSelectedIndex() == -1){
+            mensaje+="- Barrio\n";
+            ban=false;
+        }
+        if(cmbLocalidades.getSelectedIndex() == -1){
+            mensaje+="- Localidad\n";
+            ban=false;
+        }
+        if(cmbProvincias.getSelectedIndex() == -1){
+            mensaje+="- Provincia\n";
+            ban=false;
+        }
+        if(cmbPais.getSelectedIndex() == -1){
+            mensaje+="- Pais\n";
+            ban=false;
+        }
+        JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        return ban;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevaEmpresa;
@@ -751,6 +835,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -767,8 +852,21 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JTextField txtDpto;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNumeroTelefono;
+    private javax.swing.JTextField txtPaginaWeb;
     private javax.swing.JTextField txtPiso;
     private javax.swing.JTextField txtRazonSocial;
     // End of variables declaration//GEN-END:variables
+
+    public String getTituloAyuda() {
+        return "Opción: Nueva Empresa Cliente";
+    }
+
+    public String getResumenAyuda() {
+        return "Ingrese los datos de la nueva Empresa Cliente a cargar.";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
 
 }

@@ -52,6 +52,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
     private String piso;
     private String dpto;
     private String cp;
+    private String paginaWeb;
 
     public GestorRegistrarNuevaEmpresaCliente(pantallaRegistrarEmpresaCliente pantalla) {
         this.pantalla = pantalla;
@@ -180,7 +181,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
         nueva.setTelefonos(this.telefonos);
 
-        nueva.setPaginaWeb("www.ubuntulife.net");
+        nueva.setPaginaWeb(this.paginaWeb);
 
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion;
@@ -268,5 +269,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getBarrios(loc.getId());
 
+    }
+
+    public void paginaWeb(String text) {
+        this.paginaWeb = text;
     }
 }

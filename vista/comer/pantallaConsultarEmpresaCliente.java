@@ -23,12 +23,13 @@ import javax.swing.table.TableColumn;
 import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame {
+public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame implements IAyuda{
     private GestorConsultarEmpresaCliente gestor;
     /** Creates new form frmConsultarEmpresaCliente */
     public pantallaConsultarEmpresaCliente() {
@@ -499,4 +500,15 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         tblPlantas.setModel(tm);
     }
 
+    public String getTituloAyuda() {
+        return "Opción: Consultar Empresa Cliente";
+    }
+
+    public String getResumenAyuda() {
+        return "Podrá consultar los datos de las empresas cliente.";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
 }

@@ -19,12 +19,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.Tupla;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultarObra extends javax.swing.JInternalFrame {
+public class pantallaConsultarObra extends javax.swing.JInternalFrame implements IAyuda{
     private final GestorConsultarObra gestor;
 
     /** Creates new form pantallaConsultarObra */
@@ -879,5 +880,17 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame {
             modelo.addRow(item);
         }
         tblTelefonosEC.setModel(modelo);
+    }
+
+    public String getTituloAyuda() {
+        return "Opción: Consultar Obra";
+    }
+
+    public String getResumenAyuda() {
+        return "Aquí podrá consultar las obras confirmadas";
+    }
+
+    public int getIdAyuda() {
+        return 0;
     }
 }
