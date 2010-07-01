@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.TimeZone;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.FechaUtil;
 import util.NTupla;
@@ -50,18 +51,37 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private void habilitarVentana()
     {
         initTablaEmpleado();
+        initTablaEmpleadoAsiste();
         mostrarTiposCapacitacion();
         mostrarLugaresCapacitacion();
     }
 
-    private void initTablaEmpleado()
+
+    private void initTablaEmpleadoAsiste()
     {
-        Object[] nombreColumnas = {"Nombre","Vencimiento","Realizada"};
+
         DefaultTableModel modelo = new DefaultTableModel();
+
+        Object[] nombreColumnas = {"Nombre Completo"};
         for (int i = 0; i < nombreColumnas.length; i++)
         {
            modelo.addColumn(nombreColumnas[i]);
         }
+
+        tblEmpleadosQueAsistiran.setModel(modelo);
+    }
+
+    private void initTablaEmpleado()
+    {
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        Object[] nombreColumnas = {"Nombre","Vencimiento","Realizada"};
+        for (int i = 0; i < nombreColumnas.length; i++)
+        {
+           modelo.addColumn(nombreColumnas[i]);
+        }
+
         tblEmpleados.setModel(modelo);
     }
 
@@ -88,9 +108,9 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 fila[1] = data[0];
 
                 if(data[1].equals("TRUE"))
-                { fila[2] = true;}
+                { fila[2] = "Si";}
                 else
-                { fila[2] = false; }
+                { fila[2] = "No"; }
 
                 modelo.addRow(fila);
             }
@@ -376,6 +396,11 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -515,14 +540,47 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadoActionPerformed
-        // TODO add your handling code here:
+
+        if(tblEmpleados.getSelectedRow()!=-1)
+        {
+            // Agrego la fila
+            DefaultTableModel modelo = (DefaultTableModel) tblEmpleadosQueAsistiran.getModel();
+            Object[] item = new Object[1];
+
+            DefaultTableModel modeloEm = (DefaultTableModel) tblEmpleados.getModel();
+            NTupla tp = (NTupla) modeloEm.getValueAt(tblEmpleados.getSelectedRow(),0);
+            item[0] = tp;
+
+
+            // Veo que no hay duplicados
+            boolean existe = false;
+            for (int i = 0; i < modelo.getRowCount(); i++)
+            {
+                NTupla tpaux = (NTupla) modelo.getValueAt(i,0);
+                if(tpaux.getId() == tp.getId())
+                {
+                    existe = true;
+                }
+            }
+
+            if(!existe)
+            {
+                modelo.addRow(item);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this.getParent(),"El empleado ya está asignado a este Taller","Cuidado",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        }
+
     }//GEN-LAST:event_btnAgregarEmpleadoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -595,6 +653,16 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         mostrarEmpleados();
 
     }//GEN-LAST:event_cmbTipoCapacitacionActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+
+        if((tblEmpleadosQueAsistiran.getSelectedRowCount())==1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel) tblEmpleadosQueAsistiran.getModel();
+            modelo.removeRow(tblEmpleadosQueAsistiran.getSelectedRow());
+        }
+
+    }//GEN-LAST:event_btnQuitarActionPerformed
 
     /**
     * @param args the command line arguments
