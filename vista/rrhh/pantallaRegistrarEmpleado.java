@@ -21,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 //import util.HibernateUtil;
 import javax.swing.JOptionPane;
 import util.Tupla;
+import util.NTupla;
 import util.FechaUtil;
 import java.util.Iterator;
 import vista.interfaces.IAyuda;
@@ -310,7 +311,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             //System.out.println("HOLA");
             listaTipoCapacitacion.add((Tupla)fila.get(0));
-            listaVencimientoCapacitacion.add((Date)fila.get(1));
+            listaVencimientoCapacitacion.add((Date)((NTupla)fila.get(1)).getData());
 
         }
 
@@ -1436,8 +1437,15 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 /////////
                 DefaultTableModel modelo = (DefaultTableModel) tablaCapacitaciones.getModel();
                 Object[] item = new Object[2];
+                NTupla nt=new NTupla();
+                nt.setId(1);
+                nt.setNombre(FechaUtil.getFecha(fechaVen));
+                nt.setData(fechaVen);
+                FechaUtil fe=new FechaUtil();
                 item[0] = tipo;                 
-                item[1] = FechaUtil.getFecha(fechaVen);
+                //item[1] = FechaUtil.getFecha(fechaVen);
+                item[1] = nt;
+                
                 modelo.addRow(item);
                 ///////////
                 ((DefaultComboBoxModel)lstTiposCapacitacion.getModel()).removeElementAt(lstTiposCapacitacion.getSelectedIndex());
