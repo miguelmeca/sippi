@@ -5,6 +5,7 @@
 
 package util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,6 +64,12 @@ public class FechaUtil {
         return DATE_FORMAT.format(d);
     }
 
+    public static Date getDate(String fecha) throws ParseException
+    {
+        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+        return DATE_FORMAT.parse(fecha);
+    }
 
 
 }
