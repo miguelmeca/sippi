@@ -2,6 +2,7 @@ package modelo;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 //
 //
@@ -13,9 +14,6 @@ import java.util.Set;
 //  @ Author : 
 //
 //
-
-
-
 
 public class Capacitador extends Persona
 {
@@ -73,4 +71,21 @@ public class Capacitador extends Persona
 	public void esCapacitador() {
 	
 	}
+
+        public boolean tieneTipoCapacitacion(TipoCapacitacion tc)
+        {
+            HashSet lista = new HashSet<Telefono>();
+            lista.addAll((Set)this.tiposCapacitacion);
+            
+            Iterator it = lista.iterator();
+            while (it.hasNext())
+            {
+                TipoCapacitacion ntc = (TipoCapacitacion)it.next();
+                if(tc.getId() == ntc.getId())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 }
