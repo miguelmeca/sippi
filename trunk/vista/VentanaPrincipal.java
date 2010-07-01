@@ -23,6 +23,7 @@ import util.SwingPanel;
 import vista.comer.pantallaConsultarEmpresaCliente;
 import vista.comer.pantallaConsultarObra;
 import vista.comer.pantallaRegistrarConfirmacionInicioObra;
+import vista.comer.pantallaRegistrarContactoResponsable;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
@@ -33,6 +34,7 @@ import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion;
 import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
 import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
+import vista.rrhh.pantallaRegistrarCapacitador;
 import vista.rrhh.pantallaRegistrarEmpleado;
 import vista.rrhh.pantallaRegistrarPlanSeguridad;
 import vista.rrhh.pantallaRegistrarTaller;
@@ -665,7 +667,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             return;
         }
         // Nuevo Pedido de Obra
-        if(node.getTitulo().equals("Nuevo Pedido de Obra"))
+        if(node.getTitulo().equals("Registrar Nuevo Pedido de Obra"))
         {
             pantallaRegistrarPedido pre = new pantallaRegistrarPedido();
             SwingPanel.getInstance().addWindow(pre);
@@ -756,6 +758,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion pre = new pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
+            return;
+        }
+        // Nuevo Capacitador
+        if(node.getTitulo().equals("Nuevo Capacitador"))
+        {
+            pantallaRegistrarCapacitador prc = new pantallaRegistrarCapacitador();
+            SwingPanel.getInstance().addWindow(prc);
+            prc.setVisible(true);
+            return;
+        }
+        // Nuevo Contacto
+        if(node.getTitulo().equals("Nuevo Contacto"))
+        {
+            pantallaRegistrarContactoResponsable prc = new pantallaRegistrarContactoResponsable();
+            SwingPanel.getInstance().addWindow(prc);
+            prc.setVisible(true);
             return;
         }
     }//GEN-LAST:event_treeMenuValueChanged
