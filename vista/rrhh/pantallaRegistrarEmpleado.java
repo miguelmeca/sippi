@@ -10,7 +10,6 @@
  */
 
 package vista.rrhh;
-import vista.comer.pantallaRegistrarContactoResponsable;
 import controlador.rrhh.GestorRegistrarNuevoEmpleado;
 import java.util.ArrayList;
 //import java.util.List;
@@ -1437,9 +1436,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 /////////
                 DefaultTableModel modelo = (DefaultTableModel) tablaCapacitaciones.getModel();
                 Object[] item = new Object[2];
-                item[0] = tipo;
-                FechaUtil fu=new FechaUtil();
-                item[1] = fu.getFecha(fechaVen);
+                item[0] = tipo;                 
+                item[1] = FechaUtil.getFecha(fechaVen);
                 modelo.addRow(item);
                 ///////////
                 ((DefaultComboBoxModel)lstTiposCapacitacion.getModel()).removeElementAt(lstTiposCapacitacion.getSelectedIndex());
