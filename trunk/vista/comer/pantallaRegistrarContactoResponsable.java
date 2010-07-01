@@ -58,11 +58,11 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
    
     public pantallaRegistrarContactoResponsable(ICallBack cuSoli) {
         initComponents();
+        pantallaCUSolicitante=cuSoli;
         gestor = new GestorRegistrarNuevoContactoResponsable(this);
         this.habilitarVentana();
         listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();
-        pantallaCUSolicitante=cuSoli;
+        listaTipoTel= new ArrayList<Tupla>();        
         if (pantallaCUSolicitante!= null)
         {cmbEmpresas.setEnabled(false);
         cmbPlantas.setEnabled(false);}
@@ -78,8 +78,10 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
     {
 
         mostrarTiposDeTelefono();
+        if (pantallaCUSolicitante== null)
+        {
         mostrarEmpresas();
-        mostrarPlantas();
+        mostrarPlantas();}
        
 KeyAdapter kaNuemros=(new KeyAdapter()
 {
