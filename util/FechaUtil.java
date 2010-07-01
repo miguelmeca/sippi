@@ -55,6 +55,13 @@ public class FechaUtil {
         Date fechaDate = new Date();
         return DATE_FORMAT.format(fechaDate);
     }
+    
+    public static String getFecha(Date d)
+    {
+        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+        return DATE_FORMAT.format(d);
+    }
 
 
 
