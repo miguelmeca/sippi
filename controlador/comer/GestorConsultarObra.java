@@ -379,6 +379,5 @@ public class GestorConsultarObra {
         else{
             return null;
         }
-        }
     }
 }
