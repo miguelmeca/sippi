@@ -251,9 +251,15 @@ public class GestorRegistrarNuevaPlanta {
                         }
                         else
                         {
-                            empresa.addPlanta(p);
-                            //sesion.flush();
-                            //sesion.saveOrUpdate(empresa);
+                            for (Telefono tell : listaTelefonos)
+                            {
+                                sesion.save(tell);
+                            }
+                            sesion.save(d);
+                            sesion.save(p);
+
+                            empresa.addPlanta(p);              // ???
+                            sesion.saveOrUpdate(this.empresa); // ???
                         }
 
                         HibernateUtil.commitTransaction();
