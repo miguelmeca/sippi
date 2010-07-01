@@ -883,7 +883,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10));
         tablaCapacitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1107,7 +1107,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -1130,7 +1130,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        if(resp==JOptionPane.YES_OPTION)
+        {       this.dispose();}
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
