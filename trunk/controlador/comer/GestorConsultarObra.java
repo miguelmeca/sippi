@@ -347,4 +347,38 @@ public class GestorConsultarObra {
         }
         return retorno;
     }
+
+    public String mostrarNombreCompletoContacto(){
+        if(this.planta.getContacto() != null)
+            return this.planta.getContacto().getApellido()+", "+this.planta.getContacto().getNombre();
+        else
+            return "";
+    }
+
+    public String mostrarEmailContacto(){
+        if(this.planta.getContacto() != null)
+            return this.planta.getContacto().getEmail();
+        else
+            return "";
+    }
+
+    public HashSet<NTupla> mostrarTelefonosContacto(){
+        if(this.planta.getContacto() != null){
+            HashSet<NTupla> retorno = new HashSet<NTupla>();
+            PersistentSet tels = (PersistentSet) this.planta.getContacto().getTelefonos();
+            for (Object telefono : tels) {
+                Telefono t = (Telefono)telefono;
+                NTupla nt = new NTupla();
+                nt.setId(t.getId());
+                nt.setNombre(t.getTipo().getNombre());
+                nt.setData(t.getNumero());
+                retorno.add(nt);
+            }
+            return retorno;
+        }
+        else{
+            return null;
+        }
+        }
+    }
 }

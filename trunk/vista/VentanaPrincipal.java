@@ -247,16 +247,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSalir);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1142, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel2.add(jToolBar1);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -278,7 +269,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblAyudaTitulo.setText("Titulo de la Ayuda");
 
         jButton1.setFont(new java.awt.Font("Dialog", 2, 10));
@@ -338,7 +329,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -371,6 +362,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mObra.add(miNuevo);
 
+        miConsultar.setText("Ver Obras Activas");
         miConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miConsultarActionPerformed(evt);
@@ -462,8 +454,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         mRRHH.add(miCronogramaRH);
-
-        miLicencia.setText("Licencias");
         mRRHH.add(miLicencia);
 
         jMenuBar1.add(mRRHH);
@@ -697,7 +687,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             return;
         }
         // Consultar Obras
-        if(node.getTitulo().equals("Consultar Obras"))
+        if(node.getTitulo().equals("Ver Obras Activas"))
         {
             pantallaConsultarObra pre = new pantallaConsultarObra();
             SwingPanel.getInstance().addWindow(pre);

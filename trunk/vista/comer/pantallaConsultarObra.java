@@ -157,7 +157,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Ubicación de los planos:");
 
-        lblMonto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblMonto.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblMonto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMonto.setText("Monto de la Obra: ");
         lblMonto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -283,7 +283,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
 
         cmbPaisPlanta.setEnabled(false);
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel28.setText("Provincia:");
 
         cmbProvinciaPlanta.setEnabled(false);
@@ -293,7 +293,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
 
         cmbLocalidadPlanta.setEnabled(false);
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel30.setText("Barrio:");
 
         cmbBarrioPlanta.setEnabled(false);
@@ -412,6 +412,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                 return types [columnIndex];
             }
         });
+        tblTelefonos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblTelefonos.setEnabled(false);
         srcTelefonos.setViewportView(tblTelefonos);
 
@@ -421,7 +422,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
             pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTelefonosContactoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(srcTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
+                .addComponent(srcTelefonos, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
         );
         pnlTelefonosContactoLayout.setVerticalGroup(
             pnlTelefonosContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +437,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                 .addContainerGap()
                 .addGroup(pnlContactoResponsableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
-                        .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
                         .addComponent(lblNombre)
@@ -494,10 +495,10 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
 
         pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cliente"));
 
-        lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblRazonSocial.setText("Razon Social:");
 
-        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCUIT.setText("CUIT : ");
 
         lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -545,10 +546,10 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblProvincia.setText("Provincia:");
 
-        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPais.setText("País:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Barrio:");
 
         javax.swing.GroupLayout pnlDatosClienteLayout = new javax.swing.GroupLayout(pnlDatosCliente);
@@ -707,7 +708,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -855,8 +856,11 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         DefaultComboBoxModel modeloPais = new DefaultComboBoxModel();
         modeloPais.addElement(gestor.mostrarPaisPlanta());
         cmbPaisPlanta.setModel(modeloPais);
-
-        // FALTARIA EL TEMA DEL CONTACTO DE LA PLANTA
+        txtNombreContacto.setText(gestor.mostrarNombreCompletoContacto());
+        txtEmailContacto.setText(gestor.mostrarEmailContacto());
+        HashSet<NTupla> tels = gestor.mostrarTelefonosContacto();
+        if(tels != null)
+            mostrarDatosTelefono(tels);
     }
 
     private void cargarDatosEmpresaCliente(){
@@ -880,6 +884,19 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
             modelo.addRow(item);
         }
         tblTelefonosEC.setModel(modelo);
+    }
+
+    public void mostrarDatosTelefono(HashSet<NTupla> listaTelefonos) {
+        DefaultTableModel tm = new DefaultTableModel();
+        int i = 0;
+        Object[] item = new Object[listaTelefonos.size()];
+        for (NTupla tel : listaTelefonos) {
+            tm.addColumn(tel.getNombre());
+            item[i] = (String)tel.getData();
+            i++;
+        }
+        tm.addRow(item);
+        tblTelefonos.setModel(tm);
     }
 
     public String getTituloAyuda() {
