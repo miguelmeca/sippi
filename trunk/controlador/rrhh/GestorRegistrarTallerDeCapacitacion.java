@@ -3,16 +3,21 @@ package controlador.rrhh;
 //
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Capacitacion;
 import modelo.Capacitador;
 import modelo.Domicilio;
+import modelo.Empleado;
 import modelo.LugardeCapacitacion;
 import modelo.TipoCapacitacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import util.FechaUtil;
 import util.HibernateUtil;
+import util.NTupla;
 import util.Tupla;
 import vista.rrhh.pantallaRegistrarTallerCapacitacion;
 
@@ -236,8 +241,53 @@ public class GestorRegistrarTallerDeCapacitacion {
 	
 	}
 	
-	public void buscarEmpleadosActivosConFechaVencimiento() {
-	
+	public ArrayList<NTupla>  buscarEmpleadosActivosConFechaVencimiento(int idTipoCapacitacion)
+        {
+            ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+                try
+                {
+                    TipoCapacitacion tcx = (TipoCapacitacion) HibernateUtil.getSession().load(TipoCapacitacion.class, idTipoCapacitacion);
+
+                    Iterator it = HibernateUtil.getSession().createQuery("from Empleado").iterate();
+
+                    while (it.hasNext())
+                    {
+                        NTupla tuplaEmpleado = new NTupla();
+                        Empleado e = (Empleado)it.next();
+
+                        tuplaEmpleado.setId(e.getoId());
+                        tuplaEmpleado.setNombre(e.getApellido()+", "+e.getNombre());
+                        String[] params = new String[2];
+
+
+                        HashSet listaCaps = new HashSet(e.getCapacitaciones());
+
+                        Iterator itc = listaCaps.iterator();
+                        params[0] = "";
+                        params[1] = "FALSE";
+                        while (itc.hasNext())
+                        {
+                            Capacitacion cpc = (Capacitacion)itc.next();
+                            if(cpc.getTipoCapacitacion().getId() == tcx.getId())
+                            {
+                                
+                                params[0] = FechaUtil.getFecha(cpc.getFechaVencimiento());
+                                params[1] = "TRUE";
+                            }
+                        }
+
+                        tuplaEmpleado.setData(params);
+                        lista.add(tuplaEmpleado);
+                    }
+
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            return lista;
 	}
 	
 	public void registrarTallerDeCapacitacionParaLosEmpleadosDeLaEmpresa() {

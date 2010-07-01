@@ -21,6 +21,7 @@ import java.util.TimeZone;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import util.FechaUtil;
+import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.ICallBack;
@@ -48,8 +49,52 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
     private void habilitarVentana()
     {
+        initTablaEmpleado();
         mostrarTiposCapacitacion();
         mostrarLugaresCapacitacion();
+    }
+
+    private void initTablaEmpleado()
+    {
+        Object[] nombreColumnas = {"Nombre","Vencimiento","Realizada"};
+        DefaultTableModel modelo = new DefaultTableModel();
+        for (int i = 0; i < nombreColumnas.length; i++)
+        {
+           modelo.addColumn(nombreColumnas[i]);
+        }
+        tblEmpleados.setModel(modelo);
+    }
+
+    private void mostrarEmpleados()
+    {
+        initTablaEmpleado();
+        DefaultTableModel modelo =  (DefaultTableModel) tblEmpleados.getModel();
+
+        // Busco el tipo de capacitacion seleccionada
+        Tupla tp = (Tupla)cmbTipoCapacitacion.getSelectedItem();
+        // Si es cero es que no selecciono xq no hay
+        if(tp.getId()!=0)
+        {
+            ArrayList<NTupla> lista = gestor.buscarEmpleadosActivosConFechaVencimiento(tp.getId());
+            Iterator it = lista.iterator();
+            while (it.hasNext())
+            {
+                Object[] fila = new Object[3];
+                NTupla obj = (NTupla)it.next();
+                System.out.println("$ "+obj.getId()+" - "+obj.getNombre());
+                fila[0] = obj;
+                String[] data = (String[])obj.getData();
+                
+                fila[1] = data[0];
+
+                if(data[1].equals("TRUE"))
+                { fila[2] = true;}
+                else
+                { fila[2] = false; }
+
+                modelo.addRow(fila);
+            }
+        }
     }
 
     public void mostrarTiposCapacitacion()
@@ -334,9 +379,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Campos, Oscar", "20/05/2010", new Boolean(true)},
-                {"Castro, Raul", "10/12/2010", new Boolean(true)},
-                {"Oviedo, Fernando", "-", null}
+
             },
             new String [] {
                 "Nombre", "Vencimiento", "Realizada"
@@ -366,13 +409,13 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -383,7 +426,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGap(40, 40, 40)
                 .addComponent(btnAgregarEmpleado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuitar))
+                .addComponent(btnQuitar)
+                .addGap(10, 10, 10))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
             .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE)
         );
@@ -547,7 +591,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private void cmbTipoCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoCapacitacionActionPerformed
 
         // ELIGIO UN TIPO DE CAPACITACION ASI QUE CARGO LOS CAPACITADORES
-        this.mostrarCapacitadores();
+        mostrarCapacitadores();
+        mostrarEmpleados();
 
     }//GEN-LAST:event_cmbTipoCapacitacionActionPerformed
 
