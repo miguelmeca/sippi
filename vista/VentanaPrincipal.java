@@ -736,8 +736,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.setVisible(true);
             return;
         }
-        // Nuevo Taller de CapcitaciÃ³n
-        if(node.getTitulo().equals("Nuevo Taller de CapcitaciÃ³n"))
+        // Nuevo Taller de Capcitación
+        if(node.getTitulo().equals("Nuevo Taller de Capcitación"))
         {
             pantallaRegistrarTaller pre = new pantallaRegistrarTaller();
             SwingPanel.getInstance().addWindow(pre);

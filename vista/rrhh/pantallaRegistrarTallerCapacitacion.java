@@ -27,7 +27,7 @@ import vista.interfaces.ICallBack;
 
 /**
  *
- * @author Administrador
+ * @author Iuga
  */
 public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFrame implements ICallBack {
 
@@ -42,6 +42,14 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         gestor = new GestorRegistrarTallerDeCapacitacion(this);
 
+        habilitarVentana();
+
+    }
+
+    private void habilitarVentana()
+    {
+        mostrarTiposCapacitacion();
+        mostrarLugaresCapacitacion();
     }
 
     public void mostrarTiposCapacitacion()
@@ -54,6 +62,16 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             Tupla tu = it.next();
             valores.addElement(tu);
         }
+        
+        // Si la lista no tiene elementos cargo una por defecto
+        if(lista.size()==0)
+        {
+            Tupla tpn = new Tupla();
+            tpn.setId(0);
+            tpn.setNombre("Seleccione un Tipo de Capacitación...");
+            valores.addElement(tpn);
+        }
+
         cmbTipoCapacitacion.setModel(valores);
     }
 
@@ -70,7 +88,26 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         cmbNombreLugarCapacitacion.setModel(valores);
 
         mostrarDomicilioLugarSeleccionado();
+    }
 
+    public void mostrarCapacitadores()
+    {
+        // Busco el tipo de capacitacion seleccionada
+        Tupla tp = (Tupla)cmbTipoCapacitacion.getSelectedItem();
+
+        // Si es cero es que no selecciono xq no hay
+        if(tp.getId()!=0)
+        {
+            ArrayList<Tupla> lista = gestor.buscarCapacitadoresParaTipoCapacitacion(tp.getId());
+
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
+            Iterator<Tupla> it = lista.iterator();
+            while(it.hasNext()){
+                Tupla tu = it.next();
+                valores.addElement(tu);
+            }
+            cmbNombreCapacitador.setModel(valores);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -177,7 +214,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAgregarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -204,6 +241,12 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         lblTipoCapacitacion.setText("Tipo de Capacitación:");
 
+        cmbTipoCapacitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoCapacitacionActionPerformed(evt);
+            }
+        });
+
         btnNuevoTipoCapacitacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevoTipoCapacitacion.setText("Nuevo Tipo de Capacitacion");
         btnNuevoTipoCapacitacion.addActionListener(new java.awt.event.ActionListener() {
@@ -216,6 +259,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         lblNombreLugarCapacitacion.setText("Nombre:");
 
+        cmbNombreLugarCapacitacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elija un Lugar ..." }));
         cmbNombreLugarCapacitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNombreLugarCapacitacionActionPerformed(evt);
@@ -247,8 +291,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addComponent(lblDieccionLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevoLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(txtDireccionLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+                    .addComponent(btnNuevoLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                    .addComponent(txtDireccionLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -265,7 +309,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         lblNombreCapacitador.setText("Nombre del Capacitador: ");
 
-        cmbNombreCapacitador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sulma Lovato", "Item 2", "Item 3", "Item 4" }));
+        cmbNombreCapacitador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Tipo de Capacitación..." }));
 
         btnNuevoCapacitador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevoCapacitador.setText("Nuevo Capacitador");
@@ -327,8 +371,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                    .addComponent(btnAgregarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -348,34 +392,32 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(lblNombreTaller, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-                                    .addComponent(lblTipoCapacitacion))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                                    .addComponent(txtNombreTaller, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(cmbTipoCapacitacion, 0, 294, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNuevoCapacitador, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)))))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblNombreTaller, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                            .addComponent(lblTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                            .addComponent(txtNombreTaller, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmbTipoCapacitacion, 0, 321, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNuevoCapacitador, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -394,14 +436,14 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                     .addComponent(cmbTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoTipoCapacitacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombreCapacitador)
                     .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoCapacitador))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -413,14 +455,12 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)
-                        .addGap(19, 19, 19))))
+                        .addComponent(btnCancelar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +471,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -492,7 +532,10 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private void mostrarDomicilioLugarSeleccionado()
     {
         Tupla t = (Tupla)cmbNombreLugarCapacitacion.getSelectedItem();
-        txtDireccionLugar.setText(gestor.buscarDomicilioDelLugarSeleccionado(t.getId()));
+        if(t!=null)
+        {
+            txtDireccionLugar.setText(gestor.buscarDomicilioDelLugarSeleccionado(t.getId()));
+        }
     }
 
     private void cmbNombreLugarCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNombreLugarCapacitacionActionPerformed
@@ -500,6 +543,13 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         mostrarDomicilioLugarSeleccionado();
 
     }//GEN-LAST:event_cmbNombreLugarCapacitacionActionPerformed
+
+    private void cmbTipoCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoCapacitacionActionPerformed
+
+        // ELIGIO UN TIPO DE CAPACITACION ASI QUE CARGO LOS CAPACITADORES
+        this.mostrarCapacitadores();
+
+    }//GEN-LAST:event_cmbTipoCapacitacionActionPerformed
 
     /**
     * @param args the command line arguments

@@ -4,6 +4,9 @@ package controlador.rrhh;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Capacitador;
 import modelo.Domicilio;
 import modelo.LugardeCapacitacion;
 import modelo.TipoCapacitacion;
@@ -124,8 +127,48 @@ public class GestorRegistrarTallerDeCapacitacion {
              return dire;
 
 	}
-	
-	public void buscarCapacitadoresParaTipoCapacitacion() {
+
+	public ArrayList<Tupla> buscarCapacitadoresParaTipoCapacitacion(int idTipoCapacitacion)
+        {
+            // ALTO BARDO, BUSCO EN LOS CAPACITADORES cuales tienen ese tipo de capacitacion
+            // Guardo los capacitadores listos
+            ArrayList<Capacitador> listaCap = new ArrayList<Capacitador>();
+
+                // LOGICA LOGICA LOGICA
+                try
+                {
+                    TipoCapacitacion tc = (TipoCapacitacion) HibernateUtil.getSession().load(TipoCapacitacion.class, idTipoCapacitacion);
+
+
+                    Iterator it = HibernateUtil.getSession().createQuery("from Capacitador").iterate();
+
+                        while (it.hasNext())
+                        {
+                            Capacitador cp = (Capacitador)it.next();
+                            // Ahora verifico si tiene ese tipo de capacitacion
+                            if(cp.tieneTipoCapacitacion(tc))
+                            {
+                                listaCap.add(cp);
+                            }
+                        }
+
+                }
+                catch (Exception ex) {
+
+                }
+
+
+
+            // Ya tengo los capacitadores, los paso a tuplas y los devuelvo
+            ArrayList<Tupla> listaCapTuplas = new ArrayList<Tupla>();
+            Iterator it = listaCap.iterator();
+            while (it.hasNext())
+            {
+                Capacitador cp = (Capacitador)it.next();
+                Tupla tp = new Tupla(cp.getoId(),cp.getApellido()+", "+cp.getNombre());
+                listaCapTuplas.add(tp);
+            }
+            return listaCapTuplas;
 	
 	}
 	
