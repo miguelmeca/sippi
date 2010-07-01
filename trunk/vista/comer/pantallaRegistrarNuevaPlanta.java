@@ -623,7 +623,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaPlanta))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -893,15 +893,22 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         return "Opción: Nueva Planta";
     }
 
-    public void actualizar(int flag) {
+    public void actualizar(int flag,boolean exito) {
 
         // 1: VIENE DEL UC Registrar Contacto Responsable
-        if(flag==1)
+        switch(flag)
         {
-            mostrarContactos();
+            case 1:
+                if(exito==true)
+                {
+                    mostrarContactos();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this.getParent(),"No se registro correctamente el Contacto Responsable","Error",JOptionPane.INFORMATION_MESSAGE);
+                }
+                break;
         }
-
-
     }
 
     // ----------------------------------------------------------------------
