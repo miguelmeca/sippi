@@ -103,6 +103,48 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         
     }
 
+    private boolean ValidarDatos()
+    {
+        boolean ban=true;
+        String mensaje="Faltan ingresar/seleccionar los siguientes campos:\n";
+        if(txtNombreObra.getText().equals("")){
+            mensaje+="- Nombre de la Obra\n";
+            ban=false;
+        }
+        if(cmbEmpresa.getSelectedIndex() == -1){
+            mensaje+="- Empresa\n";
+            ban=false;
+        }
+        if(cmbPlanta.getSelectedIndex() == -1){
+            mensaje+="- Planta\n";
+            ban=false;
+        }
+        if(((JDateChooser)cmbfechaInicio).getDate() == null){
+            mensaje+="- Fecha de Inicio\n";
+            ban=false;
+        }
+        if(((JDateChooser)cmbfechaFin).getDate() == null){
+            mensaje+="- Fecha de Fin\n";
+            ban=false;
+        }
+        if(txtMonto.getText().equals("")){
+            mensaje+="- Monto de la Obra\n";
+            ban=false;
+        }
+        if(((JDateChooser)cmbLEP).getDate() == null){
+            mensaje+="- Fecha Límite de Entrega de Presupuesto\n";
+            ban=false;
+        }
+        if(((JDateChooser)cmbLVP).getDate() == null){
+            mensaje+="- Fecha Límite de Validez del Presupuesto\n";
+            ban=false;
+        }
+        if(!ban){
+            JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        }
+        return ban;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -407,23 +449,24 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     }//GEN-LAST:event_txtMontoActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        if(ValidarDatos()){
+            //VALIDO LAS FECHAS
+            // HACER
+            //PASO LAS FECHAS AL GESTOR
+            Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
+            Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
+            gestor.fechaInicioYFin(fechaI, fechaF);
+            Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
+            gestor.fechaLVP(fechaLVP);
+            Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
+            gestor.fechaLEP(fechaLEP);
+            // LANZO EL CREAR
+            gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
+            int id = gestor.confirmacionRegistro();
 
-        //VALIDO LAS FECHAS
-        // HACER
-        //PASO LAS FECHAS AL GESTOR
-        Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
-        Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
-        gestor.fechaInicioYFin(fechaI, fechaF);
-        Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
-        gestor.fechaLVP(fechaLVP);
-        Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
-        gestor.fechaLEP(fechaLEP);
-        // LANZO EL CREAR
-        gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
-        int id = gestor.confirmacionRegistro();
-        
-        JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

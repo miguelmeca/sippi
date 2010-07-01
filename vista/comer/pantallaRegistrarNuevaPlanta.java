@@ -752,6 +752,22 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             JOptionPane.showMessageDialog(this.getParent(),"Por favor ingrese el Código Postal","Faltan Datos",JOptionPane.INFORMATION_MESSAGE);
             validado = false;
         }
+        if(cmbBarrio.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this.getParent(),"Por favor seleccione el barrio","Faltan Datos",JOptionPane.INFORMATION_MESSAGE);
+            validado=false;
+        }
+        if(cmbLocalidades.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this.getParent(),"Por favor seleccione la localidad","Faltan Datos",JOptionPane.INFORMATION_MESSAGE);
+            validado=false;
+        }
+        if(cmbProvincias.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this.getParent(),"Por favor seleccione la provincia","Faltan Datos",JOptionPane.INFORMATION_MESSAGE);
+            validado=false;
+        }
+        if(cmbPais.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this.getParent(),"Por favor seleccione el pais","Faltan Datos",JOptionPane.INFORMATION_MESSAGE);
+            validado=false;
+        }
 
         if(validado==true)
         {
@@ -765,12 +781,14 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             gestor.DomicilioPlanta(txtCalle.getText(),Integer.parseInt(txtAltura.getText()),Integer.parseInt(txtPiso.getText()),txtDepto.getText(),txtCodPostal.getText());
 
             // PASO EL CONTACTO RESPONSABLE
-            Tupla tp = (Tupla) cmbContactos.getSelectedItem();
-            if(tp.getId()!=0)
+            if(cmbContactos.getSelectedItem() instanceof Tupla)
             {
-                gestor.contactoResponsable(tp.getId());
+                Tupla tp = (Tupla) cmbContactos.getSelectedItem();
+                if(tp.getId()!=0)
+                {
+                    gestor.contactoResponsable(tp.getId());
+                }
             }
-
             // PASO LA GEOLOCALIZACION ;)
             // MIERDA AL PEDO !!! SOLO NECESITO EL BARRIO
             Tupla aux;
