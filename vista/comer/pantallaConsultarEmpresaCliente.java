@@ -15,6 +15,7 @@ import controlador.comer.GestorConsultarEmpresaCliente;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -157,9 +158,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
 
         tblPlantas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Bagley Argentina S.A.", "Villa Mercedes", " San Luis"},
-                {"Productos Naturales S.A.", "Villa Mercedes", "San Luis"},
-                {"Dulciora S.A. Planta 1", "Villa Mercedes", "San Luis"}
+
             },
             new String [] {
                 "Razón Social", "Localidad", "Provincia"
@@ -214,12 +213,12 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
                                 .addGap(92, 92, 92)
-                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblEmailEmp)
                                 .addGap(10, 10, 10)
-                                .addComponent(txtEmailEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                                .addComponent(txtEmailEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,32 +228,32 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
                                             .addComponent(lblDireccion))
                                         .addGap(6, 6, 6)
                                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                                            .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                            .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
                                     .addComponent(lblRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                         .addComponent(lblLocalidad1)
                                         .addGap(2, 2, 2)
-                                        .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))))
+                                        .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCUIT)
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblPais)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                                .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblPaginaWeb)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                                .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblLocalidad)
                                 .addGap(2, 2, 2)
-                                .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
+                                .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
                         .addGap(30, 30, 30))
                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                         .addGap(324, 324, 324)
-                        .addComponent(txtCUIT, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                        .addComponent(txtCUIT, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                     .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(pnlDatosPlanta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -342,17 +341,33 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPlantaActionPerformed
-        //TODO: HAY QUE PASARLE EL ID DE LA PLANTA !!!!!
-        pantallaConsultarPlantas pcp = new pantallaConsultarPlantas(1);
-        SwingPanel.getInstance().addWindow(pcp);
-        pcp.setVisible(true);
+        //HAY QUE PASARLE EL ID DE LA PLANTA, lo Busco
+        DefaultTableModel modelo = (DefaultTableModel) tblPlantas.getModel();
+        int fila = tblPlantas.getSelectedRow();
+        if(fila>0)
+        {
+            NTupla nt=(NTupla) tblPlantas.getValueAt(fila,0);
+            if(nt.getId() != 0)
+            {
+                pantallaConsultarPlantas pco = new pantallaConsultarPlantas(nt.getId());
+                SwingPanel.getInstance().addWindow(pco);
+                pco.setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this.getParent(),"El identificador de la planta no es valido","Error",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+
+
     }//GEN-LAST:event_btnConsultarPlantaActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -477,7 +492,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         tm.addColumn("Dirección");
         for (NTupla planta : listaPlantas) {
             Object[] item = new Object[2];
-            item[0] = (planta.getNombre());
+            item[0] = planta;
             item[1] = (String)planta.getData();
             tm.addRow(item);
         }
