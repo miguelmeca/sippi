@@ -5,12 +5,16 @@
 
 package controlador.comer;
 
+import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import modelo.Domicilio;
+import modelo.Localidad;
+import modelo.Pais;
 import modelo.Planta;
+import modelo.Provincia;
 import modelo.Telefono;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
@@ -31,6 +35,8 @@ public class GestorConsultarPlanta {
 
     private pantallaConsultarPlantas pantalla;
     private Planta planta;
+    private int id_localidad;
+    private int id_provincia;
 
     public GestorConsultarPlanta(pantallaConsultarPlantas pantalla) {
         this.pantalla = pantalla;
@@ -93,17 +99,25 @@ public class GestorConsultarPlanta {
 
    public String mostrarNombreLocalidad()
    {
-        return "x";
+       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+       Localidad l = ggl.getLocalidadDeBarrio(this.planta.getDomicilio().getBarrio().getId());
+       this.id_localidad = l.getId();
+       return l.getNombre();
    }
 
    public String mostrarNombreProvincia()
    {
-        return "x";
+       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+       Provincia p = ggl.getProvinciaDeLocalidad(id_localidad);
+       this.id_provincia = p.getId();
+       return p.getNombre();
    }
 
    public String mostrarNombrePais()
    {
-       return "x";
+       gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+       Pais p = ggl.getPaisDeProvincia(id_provincia);
+       return p.getNombre();
    }
 
    public String mostrarNombreContacto()

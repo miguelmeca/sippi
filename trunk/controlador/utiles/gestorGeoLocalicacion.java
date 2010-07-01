@@ -198,4 +198,62 @@ public class gestorGeoLocalicacion {
         return (Barrio) sesion.load(Barrio.class,idBarrio);
     }
 
+    /**
+     * Se le pasa el ID de un Barrio por parametro y devuelve la localidad donde
+     * se encuentra ese barrio.
+     * @param idBarrio
+     * @return Localidad
+     */
+    public Localidad getLocalidadDeBarrio(int idBarrio)
+    {
+          sesion.beginTransaction();
+          Localidad l = null;
+          Iterator it = sesion.createQuery("from Localidad as loc left join loc.barrios as barrio where barrio.id = :pid").setParameter("pid",idBarrio).list().iterator();
+          while (it.hasNext())
+          {
+            Object[] row = (Object[])it.next();
+            l = (Localidad) row[0];
+          }
+          return l;
+    }
+
+
+     /**
+     * Se le pasa el ID de una Localidad por parametro y devuelve la Provincia donde
+     * se encuentra esa Localidad.
+     * @param idLocalidad
+     * @return Provincia
+     */
+    public Provincia getProvinciaDeLocalidad(int idLocalidad)
+    {
+          sesion.beginTransaction();
+          Provincia p = null;
+          Iterator it = sesion.createQuery("from Provincia as prov left join prov.localidades as loc where loc.id = :pid").setParameter("pid",idLocalidad).list().iterator();
+          while (it.hasNext())
+          {
+            Object[] row = (Object[])it.next();
+            p = (Provincia) row[0];
+          }
+          return p;
+    }
+
+     /**
+     * Se le pasa el ID de una Provincia por parametro y devuelve el Pais donde
+     * se encuentra esa Provincia.
+     * @param idProvincia
+     * @return Pais
+     */
+    public Pais getPaisDeProvincia(int idProvincia)
+    {
+          sesion.beginTransaction();
+          Pais p = null;
+          Iterator it = sesion.createQuery("from Pais as p left join p.provincias as prov where prov.id = :pid").setParameter("pid",idProvincia).list().iterator();
+          while (it.hasNext())
+          {
+            Object[] row = (Object[])it.next();
+            p = (Pais) row[0];
+          }
+          return p;
+    }
+
 }

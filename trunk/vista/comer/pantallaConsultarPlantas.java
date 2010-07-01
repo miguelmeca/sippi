@@ -54,8 +54,13 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         initTablas();
         lblNombrePlanta.setText(gestor.mostrarRazonSocialPlanta());
         mostrarTelefonosPlanta();
+
         txtDireccion.setText(gestor.mostrarDireccionPlanta());
         txtBarrio.setText(gestor.mostrarNombreBarrio());
+        txtLocalidad.setText(gestor.mostrarNombreLocalidad());
+        txtProvincia.setText(gestor.mostrarNombreProvincia());
+        txtPais.setText(gestor.mostrarNombrePais());
+
         txtNombreContacto.setText(gestor.mostrarNombreContacto());
         txtEmailContacto.setText(gestor.mostrarEmailContacto());
         txtCUILContacto.setText(gestor.mostrarCUILContacto());
