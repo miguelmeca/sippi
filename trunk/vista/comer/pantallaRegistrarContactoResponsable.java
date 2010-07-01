@@ -540,12 +540,15 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       if(pantallaCUSolicitante !=null)
+int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        if(resp==JOptionPane.YES_OPTION)
+        { if(pantallaCUSolicitante !=null)
                 {
                    pantallaCUSolicitante.actualizar(1, true);
                     
                 }
-       this.dispose();
+       this.dispose();      }       
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
