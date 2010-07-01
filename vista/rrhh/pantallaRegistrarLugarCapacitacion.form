@@ -47,7 +47,7 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,19 +77,19 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbPais" alignment="0" pref="312" max="32767" attributes="0"/>
+                              <Component id="cmbPais" alignment="0" pref="317" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="cmbProvincias" pref="278" max="32767" attributes="0"/>
+                                  <Component id="cmbProvincias" pref="283" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnNuevaProvincia" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="cmbBarrio" pref="278" max="32767" attributes="0"/>
+                                  <Component id="cmbBarrio" pref="283" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButton5" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cmbLocalidades" pref="278" max="32767" attributes="0"/>
+                                  <Component id="cmbLocalidades" pref="283" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButton1" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
@@ -104,20 +104,20 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtCalle" pref="171" max="32767" attributes="0"/>
+                                  <Component id="txtCalle" pref="184" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtAltura" min="-2" pref="53" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="1">
-                                  <Component id="txtPiso" pref="124" max="32767" attributes="0"/>
+                                  <Component id="txtPiso" pref="137" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="txtDepto" min="-2" pref="75" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txtCodPostal" alignment="0" pref="291" max="32767" attributes="0"/>
+                              <Component id="txtCodPostal" alignment="0" pref="297" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

@@ -75,7 +75,7 @@
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="43" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,10 +132,10 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane4" pref="499" max="32767" attributes="0"/>
-                                      <Component id="txtNombreTaller" alignment="0" pref="499" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" pref="543" max="32767" attributes="0"/>
+                                      <Component id="txtNombreTaller" alignment="0" pref="543" max="32767" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="cmbTipoCapacitacion" pref="294" max="32767" attributes="0"/>
+                                          <Component id="cmbTipoCapacitacion" pref="340" max="32767" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="btnNuevoTipoCapacitacion" min="-2" pref="193" max="-2" attributes="0"/>
                                       </Group>
@@ -147,7 +147,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="cmbNombreCapacitador" min="-2" pref="227" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnNuevoCapacitador" pref="253" max="32767" attributes="0"/>
+                                  <Component id="btnNuevoCapacitador" pref="267" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -207,7 +207,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="btnAgregarHorario" alignment="1" min="-2" pref="164" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" alignment="1" pref="610" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="1" pref="612" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -334,8 +334,8 @@
                       <Component id="lblDieccionLugar" min="-2" pref="55" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnNuevoLugar" alignment="1" pref="288" max="32767" attributes="0"/>
-                          <Component id="txtDireccionLugar" alignment="1" pref="288" max="32767" attributes="0"/>
+                          <Component id="btnNuevoLugar" alignment="1" pref="314" max="32767" attributes="0"/>
+                          <Component id="txtDireccionLugar" alignment="1" pref="314" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

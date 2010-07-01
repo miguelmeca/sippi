@@ -195,7 +195,7 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
         // LLAMO AL METODO DE CALLBACK DE LA PANTALLA DE LA QUE EXTENDIO
-        this.pantalla.actualizar(0);
+        this.pantalla.actualizar(0,true);
 
     }//GEN-LAST:event_formInternalFrameClosed
 

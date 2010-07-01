@@ -550,7 +550,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
 
 
-    public void actualizar(int flag)
+    public void actualizar(int flag,boolean exito)
     {
         if(flag == FLAG_TIPO_CAPACITACION)
         {
