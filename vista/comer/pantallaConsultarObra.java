@@ -386,18 +386,13 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNombre.setText("Nombre:");
 
-        txtNombreContacto.setText("Arnaldo André");
-
         lblEmailCont.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblEmailCont.setText("e-mail :");
-
-        txtEmailContacto.setText("arnaldoandre@arcor.com.ar");
 
         pnlTelefonosContacto.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefonos de Contacto"));
 
         tblTelefonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"0351-4681408", "0351-4280594", "0351-15-2849304"},
                 {null, null, null}
             },
             new String [] {
@@ -436,27 +431,25 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
             .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlContactoResponsableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
-                        .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
                         .addComponent(lblNombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblEmailCont, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmailContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(114, 114, 114))))
+                        .addComponent(txtEmailContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlContactoResponsableLayout.setVerticalGroup(
             pnlContactoResponsableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContactoResponsableLayout.createSequentialGroup()
                 .addGroup(pnlContactoResponsableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
-                    .addComponent(txtNombreContacto)
+                    .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmailCont)
-                    .addComponent(txtEmailContacto))
+                    .addComponent(txtEmailContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -708,7 +701,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
