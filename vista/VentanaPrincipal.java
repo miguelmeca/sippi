@@ -107,6 +107,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        btnConsultarClientes = new javax.swing.JButton();
         btnNuevoPedidoObra = new javax.swing.JButton();
         btnNuevoEmpleado = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -195,6 +196,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setTitle("Sistema");
 
         jToolBar1.setRollover(true);
+
+        btnConsultarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
+        btnConsultarClientes.setText("Consultar Clientes");
+        btnConsultarClientes.setFocusable(false);
+        btnConsultarClientes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnConsultarClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConsultarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarClientesActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnConsultarClientes);
 
         btnNuevoPedidoObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
         btnNuevoPedidoObra.setText("Nuevo Pedido de Obra");
@@ -839,6 +852,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClientesActionPerformed
+            pantallaConsultarEmpresaCliente pre = new pantallaConsultarEmpresaCliente();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+    }//GEN-LAST:event_btnConsultarClientesActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -851,6 +870,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultarClientes;
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JButton btnNuevoPedidoObra;
     private javax.swing.JButton btnSalir;

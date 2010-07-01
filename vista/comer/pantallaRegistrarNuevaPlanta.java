@@ -25,12 +25,13 @@ import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame implements IAyuda {
+public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame implements IAyuda, ICallBack {
 
     GestorRegistrarNuevaPlanta gestor;
     GestorRegistrarNuevaEmpresaCliente gestorEmpresaCliente;
@@ -622,7 +623,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaPlanta))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -686,9 +687,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     private void btnNuevoContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoContactoActionPerformed
 
-        pantallaRegistrarContactoResponsable rcr = new pantallaRegistrarContactoResponsable();
-        SwingPanel.getInstance().addWindow(rcr);
-        rcr.setVisible(true);
+       // pantallaRegistrarContactoResponsable rcr = new pantallaRegistrarContactoResponsable(this);
+       // SwingPanel.getInstance().addWindow(rcr);
+       // rcr.setVisible(true);
         //SwingPanel.getInstance().mensajeEnConstruccion();
 
     }//GEN-LAST:event_btnNuevoContactoActionPerformed
@@ -890,6 +891,17 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     public String getTituloAyuda() {
         return "Opción: Nueva Planta";
+    }
+
+    public void actualizar(int flag) {
+
+        // 1: VIENE DEL UC Registrar Contacto Responsable
+        if(flag==1)
+        {
+            mostrarContactos();
+        }
+
+
     }
 
     // ----------------------------------------------------------------------
