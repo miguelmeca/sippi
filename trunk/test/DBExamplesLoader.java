@@ -70,13 +70,22 @@ public class DBExamplesLoader {
                 l2.setNombre("Cordoba");
                 prov1.addLocalidad(l1);
                 prov1.addLocalidad(l2);
+                Localidad l3 = new Localidad();
+                l3.setNombre("Villa Mercedes");
+                prov2.addLocalidad(l3);
 
                     Barrio b1 = new Barrio();
                     b1.setNombre("Carlos Pellegrini");
                     Barrio b2 = new Barrio();
                     b2.setNombre("Las Flores");
+                    Barrio b3 = new Barrio();
+                    b3.setNombre("Norte");
+                    Barrio b4 = new Barrio();
+                    b4.setNombre("Sarmiento");
                     l1.addBarrio(b1);
                     l2.addBarrio(b2);
+                    l3.addBarrio(b3);
+                    l3.addBarrio(b4);
 
         Pais p2 = new Pais();
         p2.setNombre("Brazil");
@@ -85,9 +94,9 @@ public class DBExamplesLoader {
             prov3.setNombre("Ceara");
             p2.addProvincia(prov3);
 
-                Localidad l3 = new Localidad();
-                l3.setNombre("Fortaleza");
-                prov3.addLocalidad(l3);
+                Localidad l9 = new Localidad();
+                l9.setNombre("Fortaleza");
+                prov3.addLocalidad(l9);
 
 ///////////////////////////////////////////
         Empleado emp=new Empleado();//
@@ -124,14 +133,17 @@ public class DBExamplesLoader {
         sesion.beginTransaction();
         sesion.save(b1);
         sesion.save(b2);
+        sesion.save(b3);
+        sesion.save(b4);
         sesion.save(l1);
         sesion.save(l2);
+        sesion.save(l3);
         sesion.save(prov1);
         sesion.save(prov2);
         sesion.save(p1);
         sesion.save(p2);
         sesion.save(prov3);
-        sesion.save(l3);
+        sesion.save(l9);
         sesion.save(te);
         sesion.save(te2);
         sesion.save(tc);

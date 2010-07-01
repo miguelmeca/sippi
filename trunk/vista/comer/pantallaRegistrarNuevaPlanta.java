@@ -95,7 +95,11 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     private void mostrarContactos()
     {
+        Tupla noAsigna = new Tupla(0,"Ninguno");
+
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        valores.addElement(noAsigna);
+
         ArrayList<Tupla> lista = gestor.mostrarContactos();
         Iterator<Tupla> it = lista.iterator();
         while(it.hasNext()){
@@ -488,7 +492,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             }
         });
 
-        cmbContactos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cargue un Contacto..." }));
+        cmbContactos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ninguno" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -623,7 +627,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaPlanta))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -753,6 +757,13 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
             // PASO LOS DATOS DEL DOMICILIO
             gestor.DomicilioPlanta(txtCalle.getText(),Integer.parseInt(txtAltura.getText()),Integer.parseInt(txtPiso.getText()),txtDepto.getText(),txtCodPostal.getText());
+
+            // PASO EL CONTACTO RESPONSABLE
+            Tupla tp = (Tupla) cmbContactos.getSelectedItem();
+            if(tp.getId()!=0)
+            {
+                gestor.contactoResponsable(tp.getId());
+            }
 
             // PASO LA GEOLOCALIZACION ;)
             // MIERDA AL PEDO !!! SOLO NECESITO EL BARRIO

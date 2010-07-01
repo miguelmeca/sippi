@@ -11,15 +11,34 @@
 
 package vista.comer;
 
+import controlador.comer.GestorRegistrarConfirmacionInicioObra;
+
 /**
  *
  * @author iuga
  */
 public class pantallaRegistrarConfirmacionInicioObra extends javax.swing.JInternalFrame {
 
+    private GestorRegistrarConfirmacionInicioObra gestor;
+
     /** Creates new form frmRegistrarConfirmacionInicioObra */
     public pantallaRegistrarConfirmacionInicioObra() {
         initComponents();
+
+        gestor = new GestorRegistrarConfirmacionInicioObra(this);
+
+        habilitarVentana();
+
+    }
+
+    private void habilitarVentana()
+    {
+        cargarObrasPendientes();
+    }
+
+    private void cargarObrasPendientes()
+    {
+        
     }
 
     /** This method is called from within the constructor to

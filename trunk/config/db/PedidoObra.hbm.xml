@@ -17,6 +17,9 @@
     <property column="FECHA_LEP" name="fechaLimiteEntregaPresupuesto" type="date"/>
     <property column="MONTO" name="monto" type="double"/>
     <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
+
+    <many-to-one class="modelo.EstadoPedidoObra" column="ID_ESTADO" name="estadoObra"/>
+
     <!-- Da error vaya uno a saber porque -->
     <!--many-to-one name="contacto" class="modelo.ContactoResponsable" column="ID_CONTACTO"/-->
   </class>

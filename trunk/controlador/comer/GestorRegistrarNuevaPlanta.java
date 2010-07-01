@@ -5,6 +5,8 @@ import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -38,6 +40,7 @@ public class GestorRegistrarNuevaPlanta {
 	private Provincia provincia;
 	private Localidad localidad;
 	private Barrio barrio;
+        private ContactoResponsable contacto;
 
         private EmpresaCliente empresa = null;
 
@@ -206,7 +209,14 @@ public class GestorRegistrarNuevaPlanta {
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
             this.barrio = (Barrio)ggl.getBarrio(idBarrio);
 	}
-	
+
+        public void contactoResponsable(int id_cr)
+        {
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
+        }
+
         public int PlantaConfirmada()
         {
             // GUARDO LA PLANTA, SIN LA EMPRESA

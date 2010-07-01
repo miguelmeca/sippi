@@ -37,25 +37,33 @@ public class PedidoObra {
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
         
-        //private EstadoPedidoObra estado;
+        private EstadoPedidoObra estadoObra;
+        private EstadoPedidoObra estado;
 
         // Crea el objeto, no me queda otra que asociarlo a hibernate
         public void crear() {
 
             crearPlanificacion(); // Xahora no hace nada ...
-
-//            EstadoPedidoObraSolicitado estado = new EstadoPedidoObraSolicitado();
-//            tomarEstadoPedidoObra(estado);
+            estadoObra = new EstadoPedidoObraSolicitado();
 
 	}
 
-    public ContactoResponsable getContacto() {
-        return contacto;
-    }
+        public EstadoPedidoObra getEstado()
+        {
+            if(estadoObra.getNombre().equals("Solicitado"))
+            {
+                this.estado = new EstadoPedidoObraSolicitado();
+            }
+            return this.estado;
+        }
 
-    public void setContacto(ContactoResponsable contacto) {
-        this.contacto = contacto;
-    }
+        public ContactoResponsable getContacto() {
+            return contacto;
+        }
+
+        public void setContacto(ContactoResponsable contacto) {
+            this.contacto = contacto;
+        }
 
         
 
