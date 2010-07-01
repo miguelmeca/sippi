@@ -231,13 +231,14 @@ public class GestorRegistrarNuevaPlanta {
             d.setDepto(depto);
             d.setNumero(altura);
             d.setPiso(piso);
-              p.setDomicilio(d);
+            p.setDomicilio(d);
+            p.setContacto(contacto);
             
-                    SessionFactory sf = HibernateUtil.getSessionFactory();
-                    Session sesion;
-                    try {
-                    sesion = HibernateUtil.getSession();
-                    try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion;
+            try {
+                sesion = HibernateUtil.getSession();
+                try{
                     HibernateUtil.beginTransaction();
 
                         if(this.empresa == null)
