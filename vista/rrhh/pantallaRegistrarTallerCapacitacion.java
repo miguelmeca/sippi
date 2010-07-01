@@ -21,6 +21,7 @@ import java.util.TimeZone;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.TallerCapacitacion;
 import util.FechaUtil;
 import util.NTupla;
 import util.SwingPanel;
@@ -193,9 +194,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         jScrollPane3 = new javax.swing.JScrollPane();
         tblHorarios = new javax.swing.JTable();
         btnAgregarHorario = new javax.swing.JButton();
-        lblNombreTaller = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
-        txtNombreTaller = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         lblTipoCapacitacion = new javax.swing.JLabel();
@@ -209,7 +208,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         btnNuevoLugar = new javax.swing.JButton();
         lblNombreCapacitador = new javax.swing.JLabel();
         cmbNombreCapacitador = new javax.swing.JComboBox();
-        btnNuevoCapacitador = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnAgregarEmpleado = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
@@ -290,15 +288,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addComponent(btnAgregarHorario))
         );
 
-        lblNombreTaller.setText("Nombre: ");
-
         lblDescripcion.setText("Descripción:");
-
-        txtNombreTaller.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreTallerActionPerformed(evt);
-            }
-        });
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -375,14 +365,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         lblNombreCapacitador.setText("Nombre del Capacitador: ");
 
         cmbNombreCapacitador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Tipo de Capacitación..." }));
-
-        btnNuevoCapacitador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnNuevoCapacitador.setText("Nuevo Capacitador");
-        btnNuevoCapacitador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoCapacitadorActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleados que asistirán"));
 
@@ -464,28 +446,25 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblNombreTaller, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-                            .addComponent(lblTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbTipoCapacitacion, 0, 321, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                            .addComponent(txtNombreTaller, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(cmbTipoCapacitacion, 0, 321, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNuevoCapacitador, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                            .addComponent(cmbNombreCapacitador, 0, 524, Short.MAX_VALUE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -493,23 +472,18 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombreTaller)
-                    .addComponent(txtNombreTaller, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTipoCapacitacion)
+                    .addComponent(cmbTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDescripcion)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTipoCapacitacion)
-                    .addComponent(cmbTipoCapacitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoTipoCapacitacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombreCapacitador)
                     .addComponent(cmbNombreCapacitador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoCapacitador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblNombreCapacitador))
+                .addGap(16, 16, 16)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,7 +498,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -540,7 +514,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -584,11 +558,56 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     }//GEN-LAST:event_btnAgregarEmpleadoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+
+        this.dispose();
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+
+        
+        boolean valido = true;
+        if(txtDescripcion.getText().isEmpty())
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Ingrese una descripción para el Taller","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(tblHorarios.getRowCount()==0)
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Ingrese al menos un horario para realizar el Taller","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            //TODO: Ver que ho haya fechas y horarios repetidos
+        }
+        if(tblEmpleadosQueAsistiran.getRowCount()==0)
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Ingrese al menos un Empleado para que asista al Taller","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cmbTipoCapacitacion.getSelectedItem()==null)
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Seleccione el Tipo de Capacitación que se dicatará","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cmbNombreCapacitador.getSelectedItem()==null)
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Seleccione capacitador que dicatará el Taller","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cmbNombreLugarCapacitacion.getSelectedItem()==null)
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this.getParent(),"Seleccione el Lugar donde se dictará el Taller","Faltan Datos Requeridos",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        if(valido)
+        {
+            confirmarTaller();
+        }
+        
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHorarioActionPerformed
@@ -600,10 +619,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         modelo.addRow(fila);
     }//GEN-LAST:event_btnAgregarHorarioActionPerformed
 
-    private void txtNombreTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreTallerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreTallerActionPerformed
-
     private void btnNuevoLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLugarActionPerformed
 
         pantallaRegistrarLugarCapacitacion win = new pantallaRegistrarLugarCapacitacion();
@@ -612,10 +627,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         win.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoLugarActionPerformed
-
-    private void btnNuevoCapacitadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCapacitadorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNuevoCapacitadorActionPerformed
 
     private void btnNuevoTipoCapacitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoTipoCapacitacionActionPerformed
 
@@ -680,7 +691,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JButton btnAgregarEmpleado;
     private javax.swing.JButton btnAgregarHorario;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnNuevoCapacitador;
     private javax.swing.JButton btnNuevoLugar;
     private javax.swing.JButton btnNuevoTipoCapacitacion;
     private javax.swing.JButton btnQuitar;
@@ -699,7 +709,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JLabel lblDieccionLugar;
     private javax.swing.JLabel lblNombreCapacitador;
     private javax.swing.JLabel lblNombreLugarCapacitacion;
-    private javax.swing.JLabel lblNombreTaller;
     private javax.swing.JLabel lblTipoCapacitacion;
     private javax.swing.JMenuItem menuBorrar;
     private javax.swing.JPopupMenu popupTablaHorarios;
@@ -708,7 +717,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JTable tblHorarios;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccionLugar;
-    private javax.swing.JTextField txtNombreTaller;
     // End of variables declaration//GEN-END:variables
 
 
@@ -723,6 +731,41 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         {
             mostrarLugaresCapacitacion();
         }
+
+    }
+
+    public void confirmarTaller()
+    {
+        // BUENO BUENO, AHORA TENGO QUE GUARDAR TODA LA BATATOLA DE DATOS
+        // 1) Paso la descripcion del taller
+        gestor.descripcionTaller(txtDescripcion.getText());
+        // 2) Paso el Tipo de Capacitacion
+        gestor.tipoCapacitacion((Tupla)cmbTipoCapacitacion.getSelectedItem());
+        // 3) Paso el Capacitador
+        gestor.capacitador((Tupla)cmbNombreCapacitador.getSelectedItem());
+        // 4) Paso el lugar de la capacitacion
+        gestor.lugarCapacitacion((Tupla) cmbNombreLugarCapacitacion.getSelectedItem());
+        // 5) Paso el detalle de los horarios
+            ArrayList<String[]> lista = new ArrayList<String[]>();
+            DefaultTableModel modelo = (DefaultTableModel)tblHorarios.getModel();
+            for (int i = 0; i < tblHorarios.getRowCount(); i++)
+            {
+                String[] fila = new String[3];
+                fila[0] = (String) modelo.getValueAt(i, 0);
+                fila[1] = (String) modelo.getValueAt(i, 1);
+                fila[2] = (String) modelo.getValueAt(i, 2);
+                lista.add(fila);
+            }
+            gestor.horariosYFechas(lista);
+        // 6) Paso el detalle de los que van a asistir al taller
+            ArrayList<Tupla> listaEmpleados = new ArrayList<Tupla>();
+            DefaultTableModel modelox = (DefaultTableModel)tblEmpleadosQueAsistiran.getModel();
+            for (int i = 0; i < tblEmpleadosQueAsistiran.getRowCount(); i++)
+            {
+                Tupla taux = (Tupla)modelox.getValueAt(i,0);
+                listaEmpleados.add(taux);
+            }
+            gestor.empleadosQueAsistiran(listaEmpleados);
 
     }
 

@@ -2,16 +2,21 @@ package controlador.rrhh;
 
 //
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.AsistenciaTallerCapacitacion;
 import modelo.Capacitacion;
 import modelo.Capacitador;
+import modelo.DetalleHorarioTaller;
 import modelo.Domicilio;
 import modelo.Empleado;
 import modelo.LugardeCapacitacion;
+import modelo.TallerCapacitacion;
 import modelo.TipoCapacitacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,6 +44,17 @@ public class GestorRegistrarTallerDeCapacitacion {
 	public ArrayList<String> idNombreEmpleados;
 	public ArrayList<String> fechasVencimientos;
         private pantallaRegistrarTallerCapacitacion pantalla;
+
+        private String descripcion;
+        private TipoCapacitacion tipoCapacitacion;
+        private Capacitador capacitador;
+        private LugardeCapacitacion lugar;
+        private Set detalleHorarios;
+        private Set listaAsistencia;
+
+        public void descripcionTaller(String descripcion) {
+            this.descripcion = descripcion;
+        }
 
         public GestorRegistrarTallerDeCapacitacion(pantallaRegistrarTallerCapacitacion pantalla) {
             this.pantalla = pantalla;
@@ -73,10 +89,6 @@ public class GestorRegistrarTallerDeCapacitacion {
 	}
 	
 	public void seleccionTipoCapacitacion() {
-	
-	}
-	
-	public void ingresoDeHorariosYFechas() {
 	
 	}
 	
@@ -189,10 +201,6 @@ public class GestorRegistrarTallerDeCapacitacion {
 	
 	}
 	
-	public void confirmacionRegistro() {
-	
-	}
-	
 	public void validarDatos() {
 	
 	}
@@ -293,4 +301,141 @@ public class GestorRegistrarTallerDeCapacitacion {
 	public void registrarTallerDeCapacitacionParaLosEmpleadosDeLaEmpresa() {
 	
 	}
+
+        public void tipoCapacitacion(Tupla tipo)
+        {
+            try
+            {
+                TipoCapacitacion tc = (TipoCapacitacion)HibernateUtil.getSession().get(TipoCapacitacion.class,tipo.getId());
+                this.tipoCapacitacion = tc;
+            }
+            catch(Exception e)
+            {
+                System.out.println("ERROR: "+e.getMessage());
+            }
+        }
+
+        public void capacitador(Tupla tipo)
+        {
+            try
+            {
+                Capacitador c = (Capacitador)HibernateUtil.getSession().get(Capacitador.class,tipo.getId());
+                this.capacitador = c;
+            }
+            catch(Exception e)
+            {
+                System.out.println("ERROR: "+e.getMessage());
+            }
+        }
+
+        public void lugarCapacitacion(Tupla tipo)
+        {
+            try
+            {
+                LugardeCapacitacion lc = (LugardeCapacitacion)HibernateUtil.getSession().get(LugardeCapacitacion.class,tipo.getId());
+                this.lugar = lc;
+            }
+            catch(Exception e)
+            {
+                System.out.println("ERROR: "+e.getMessage());
+            }
+        }
+
+        public void horariosYFechas(ArrayList<String[]> lista)
+        {
+            HashSet listaDetalle = new HashSet();
+            Iterator it = lista.iterator();
+            while (it.hasNext())
+            {
+                String[] fila = (String[])it.next();
+                DetalleHorarioTaller dht = new DetalleHorarioTaller();
+                try {
+                dht.setFecha(FechaUtil.getDate(fila[0]));
+                } catch (ParseException ex) {
+                    System.out.println("Error: "+ex.getMessage());
+                }
+                dht.setHoraInicio(fila[1]);
+                dht.setHoraFin(fila[2]);
+                listaDetalle.add(dht);
+            }
+            this.detalleHorarios = listaDetalle;
+	}
+
+        public void empleadosQueAsistiran(ArrayList<Tupla> lista)
+        {
+            listaAsistencia = new HashSet();
+            Iterator it = lista.iterator();
+            while (it.hasNext())
+            {
+                Tupla fila = (Tupla)it.next();
+                Empleado eqa = null;
+                 try
+                    {
+                        eqa = (Empleado)HibernateUtil.getSession().get(Empleado.class,fila.getId());
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("ERROR: "+e.getMessage());
+                    }
+
+                AsistenciaTallerCapacitacion atc = new AsistenciaTallerCapacitacion();
+                atc.setAsistio(Boolean.FALSE);
+                atc.setEmpleado(eqa);
+
+                listaAsistencia.add(atc);
+            }
+        }
+
+
+        private void asignarAsistenciaADetalle()
+        {
+            // SON MUCHOS Q SE RELACIONAN CON MUCHOS TODOS IGUALES .... COPIO VARIAS VECES TODO
+            Iterator it = detalleHorarios.iterator();
+            while (it.hasNext())
+            {
+                HashSet items = new HashSet(listaAsistencia);
+                DetalleHorarioTaller dht = (DetalleHorarioTaller)it.next();
+                dht.setAsistencias(items);
+            }
+        }
+
+        public boolean confirmacionRegistro()
+        {
+            // GUARDO:
+            // 1) Creo el Taller con sus objetos (YA CREADOS)
+            TallerCapacitacion tc = new TallerCapacitacion();
+            tc.setDescripcion(descripcion);
+            tc.setTipoCapacitacion(tipoCapacitacion);
+            tc.setCapacitador(capacitador);
+            tc.setLugar(lugar);
+            tc.setDetalle(detalleHorarios);
+            // 2) Creo el detalle con la asistencia
+            asignarAsistenciaADetalle();
+            // 3) Me la mando a guardar =)
+            try
+                {
+                    HibernateUtil.beginTransaction();
+                    // GUARDO TODAS LAS ASISTENCIAS PRIMERO Y DESPUES EL DETALLE
+                    for (DetalleHorarioTaller det : tc.getDetalle())
+                    {
+                        for(AsistenciaTallerCapacitacion as : det.getAsistencias())
+                        {
+                            HibernateUtil.getSession().save(as);
+                        }
+                        HibernateUtil.getSession().save(det);
+                    }
+
+                    HibernateUtil.getSession().save(tc);
+
+                }
+                catch(Exception e)
+                {
+                    HibernateUtil.rollbackTransaction();
+                    System.out.println("ERROR ! : "+e.getMessage());
+                }
+
+
+            return true;
+	}
+
 }
