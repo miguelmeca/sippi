@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 //import util.HibernateUtil;
 import javax.swing.JOptionPane;
 import util.Tupla;
+import util.FechaUtil;
 import java.util.Iterator;
 import vista.interfaces.IAyuda;
 import com.toedter.calendar.JDateChooser;
@@ -1437,7 +1438,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 DefaultTableModel modelo = (DefaultTableModel) tablaCapacitaciones.getModel();
                 Object[] item = new Object[2];
                 item[0] = tipo;
-                item[1] = fechaVen;
+                FechaUtil fu=new FechaUtil();
+                item[1] = fu.getFecha(fechaVen);
                 modelo.addRow(item);
                 ///////////
                 ((DefaultComboBoxModel)lstTiposCapacitacion.getModel()).removeElementAt(lstTiposCapacitacion.getSelectedIndex());
