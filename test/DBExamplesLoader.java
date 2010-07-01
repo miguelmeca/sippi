@@ -194,7 +194,7 @@ public class DBExamplesLoader {
         ec1.setRazonSocial("ARCOR SRL");
         ec1.setCuit("66688990-5");
         ec1.setEmail("contacto@arcor.com.ar");
-        ec1.setPaginaWeb("www.arcor.com.ar");
+        ec1.setPaginaWeb("http://www.arcor.com.ar");
 
             Domicilio d = new Domicilio();
             d.setCalle("Av. Chacabuco");
@@ -204,7 +204,7 @@ public class DBExamplesLoader {
             d.setCodigoPostal("X5000UGT");
 
             sesion.beginTransaction();
-            Barrio b = (Barrio)sesion.load(Barrio.class, 1);
+            Barrio b = (Barrio)sesion.get(Barrio.class, 1);
             sesion.getTransaction().commit();
             d.setBarrio(b);
             ec1.setDomicilio(d);
@@ -225,6 +225,7 @@ public class DBExamplesLoader {
                 d2.setPiso(9);
                 d2.setDepto("A");
                 d2.setCodigoPostal("X5000UGT");
+                d2.setBarrio(b); // Se les olvido esto !!
                 planta1.setDomicilio(d2);
 
                 Telefono t9 = new Telefono();
