@@ -34,7 +34,7 @@ import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
 /**
  *
- * @author Administrador
+ * @author Fran
  */
 public class pantallaRegistrarCapacitador extends javax.swing.JInternalFrame implements IAyuda {
 

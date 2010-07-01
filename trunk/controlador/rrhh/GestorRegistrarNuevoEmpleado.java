@@ -32,7 +32,7 @@ import java.util.Iterator;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : GestorRegistrarNuevoEmpleado.java
 //  @ Date : 10/06/2010
-//  @ Author : 
+//  @ Author : Fran
 //
 //
 
@@ -305,12 +305,12 @@ public class GestorRegistrarNuevoEmpleado {
             Session sesion;
             ///////////////////////////////////
              try {
-                    //sesion = HibernateUtil.getSession();
-                     SessionFactory sf = HibernateUtil.getSessionFactory();
-                    sesion = sf.openSession();
+                    sesion = HibernateUtil.getSession();
+                     //SessionFactory sf = HibernateUtil.getSessionFactory();
+                    //sesion = sf.openSession();
                     try{
-                    //HibernateUtil.beginTransaction();
-                    sesion.beginTransaction();
+                    HibernateUtil.beginTransaction();
+                    //sesion.beginTransaction();
 
                     Iterator itt=empleado.getTelefonos().iterator();
                     while(itt.hasNext())
@@ -338,13 +338,14 @@ public class GestorRegistrarNuevoEmpleado {
                     sesion.save(empleado);
 
 
-                    sesion.getTransaction().commit();
-                    //HibernateUtil.commitTransaction();
-
+                     //sesion.getTransaction().commit();
+                   HibernateUtil.commitTransaction();
+                   
                     return true;
                     }catch(Exception e) {
                         System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
+                        
                         return false;
                 }
             } catch (Exception ex)
@@ -357,10 +358,16 @@ public class GestorRegistrarNuevoEmpleado {
 	
 	public int generarLegajoEmpleado()
         {
-             SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            //sesion.beginTransaction();
             int mayorLegajo;
+            Session sesion;
+            try{
+             //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+            sesion = HibernateUtil.getSession();
+            
+            
+            //sesion.beginTransaction();
+            
             //try{
 
             Object ob =sesion.createQuery("Select MAX(legajo) from Empleado").uniqueResult();
@@ -369,11 +376,12 @@ public class GestorRegistrarNuevoEmpleado {
             else{mayorLegajo=0;}
             //sesion.getTransaction().commit();
             //}
-
-            //catch(Exception e)
-            //{
-              //  mayorLegajo=0;
-            //}
+            }
+            catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion");
+                mayorLegajo=0;
+            }
 
             return (mayorLegajo+1);
 	

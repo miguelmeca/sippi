@@ -15,6 +15,7 @@ import modelo.Planta;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
 import modelo.TipoCapacitacion;
+import org.hibernate.EntityMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -31,8 +32,15 @@ public class gestorBDvarios
 
     public gestorBDvarios()
     {
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        sesion = sf.openSession();
+        try{
+        //SessionFactory sf = HibernateUtil.getSessionFactory();
+        //sesion = sf.openSession();
+        sesion= HibernateUtil.getSession();
+        } catch (Exception ex)////////////
+            {//////////////////////////////////////////
+                System.out.println("No se pudo abrir la sesion");//////////
+                
+            }
     }
 
 
@@ -181,7 +189,7 @@ public class gestorBDvarios
 
      public  EmpresaCliente getEmpresa(int idEmpresa)
     {
-        EmpresaCliente emp = (EmpresaCliente)sesion.load(TipoDocumento.class,idEmpresa);
+        EmpresaCliente emp = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEmpresa);
         return emp;
     }
 

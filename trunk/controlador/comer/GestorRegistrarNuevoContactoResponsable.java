@@ -28,7 +28,7 @@ import java.util.Iterator;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : GestorRegistrarNuevoEmpleado.java
 //  @ Date : 10/06/2010
-//  @ Author : 
+//  @ Author : Fran
 //
 //
 
@@ -123,11 +123,11 @@ public class GestorRegistrarNuevoContactoResponsable {
             cuilContactoResponsable=cuil;
             cargoContactoResponsable=cargo;
             empresaCliente=bdv.getEmpresa(empr.getId());
-            ArrayList<Planta> plnts= (ArrayList<Planta>) empresaCliente.getPlantas();
+            List plnts=  empresaCliente.getPlantas();
             boolean todoOK=false;
             for(int i=0; i<plnts.size(); i++)
             {
-                Planta p=plnts.get(i);
+                Planta p=(Planta)plnts.get(i);
                 if(p.esPlanta(plant.getId()))
                 {planta=p;
                 todoOK=true;}
@@ -173,15 +173,20 @@ public class GestorRegistrarNuevoContactoResponsable {
             Session sesion;
             ///////////////////////////////////
              try {
-                    //sesion = HibernateUtil.getSession();
-                     SessionFactory sf = HibernateUtil.getSessionFactory();
+                    sesion = HibernateUtil.getSession();
+                     //SessionFactory sf = HibernateUtil.getSessionFactory();
 
-
-                    sesion = sf.openSession();
+            
+                    //sesion = sf.openSession();
+                   } catch (Exception ex)////////////
+            {//////////////////////////////////////////
+                System.out.println("No se pudo abrir la sesion");//////////
+                return false;//////////////
+            }//////////////////////////////////////////////////
                     try{
-                    //HibernateUtil.beginTransaction();
-                    sesion.beginTransaction();
-
+                    HibernateUtil.beginTransaction();
+                    //sesion.beginTransaction();
+            
                     Iterator itt=contacto.getTelefonos().iterator();
                     while(itt.hasNext())
                     {
@@ -192,20 +197,17 @@ public class GestorRegistrarNuevoContactoResponsable {
                     sesion.save(contacto);
                     if(planta!=null)
                     {sesion.saveOrUpdate(planta);}
-                    sesion.getTransaction().commit();
-                    //HibernateUtil.commitTransaction();
-
+                    //sesion.getTransaction().commit();
+                    HibernateUtil.commitTransaction();
+                    
                     return true;
                     }catch(Exception e) {
                         System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
+                        
                         return false;
                 }
-            } catch (Exception ex)
-            {
-                System.out.println("No se pudo abrir la sesion");
-                return false;
-            }
+           
             
 	}
 		

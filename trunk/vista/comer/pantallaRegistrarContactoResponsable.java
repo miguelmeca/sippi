@@ -35,7 +35,7 @@ import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
 /**
  *
- * @author Administrador
+ * @author Fran
  */
 public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda
 {
@@ -622,8 +622,9 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
         txtEmail.setText("");        
         txtNombre.setText("");
         txtTelefono.setText("");
-        tablaTelefonos.setModel(new DefaultTableModel());
-        //((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
+        txtCargo.setText("");
+        //tablaTelefonos.setModel(new DefaultTableModel()); ERROR
+        ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
         //((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
         
         
