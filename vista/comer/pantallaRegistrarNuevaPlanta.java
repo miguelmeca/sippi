@@ -687,9 +687,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     private void btnNuevoContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoContactoActionPerformed
 
-       // pantallaRegistrarContactoResponsable rcr = new pantallaRegistrarContactoResponsable(this);
-       // SwingPanel.getInstance().addWindow(rcr);
-       // rcr.setVisible(true);
+        pantallaRegistrarContactoResponsable rcr = new pantallaRegistrarContactoResponsable(this);
+        SwingPanel.getInstance().addWindow(rcr);
+        rcr.setVisible(true);
         //SwingPanel.getInstance().mensajeEnConstruccion();
 
     }//GEN-LAST:event_btnNuevoContactoActionPerformed
@@ -905,7 +905,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(this.getParent(),"No se registro correctamente el Contacto Responsable","Error",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this.getParent(),"No se registro correctamente el Contacto Responsable\nIntentelo Nuevamente","Error",JOptionPane.INFORMATION_MESSAGE);
                 }
                 break;
         }
