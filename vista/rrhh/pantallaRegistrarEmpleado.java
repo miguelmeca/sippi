@@ -10,7 +10,7 @@
  */
 
 package vista.rrhh;
-
+import vista.comer.pantallaRegistrarContactoResponsable;
 import controlador.rrhh.GestorRegistrarNuevoEmpleado;
 import java.util.ArrayList;
 //import java.util.List;
@@ -32,9 +32,12 @@ import java.util.Vector;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
+
+
+import util.SwingPanel;
 /**
  *
- * @author Administrador
+ * @author Fran
  */
 public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implements IAyuda {
 

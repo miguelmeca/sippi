@@ -29,7 +29,7 @@ import java.util.Iterator;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : GestorRegistrarNuevoEmpleado.java
 //  @ Date : 10/06/2010
-//  @ Author : 
+//  @ Author : Fran
 //
 //
 
@@ -248,11 +248,12 @@ public class GestorRegistrarNuevoCapacitador {
 
                     sesion.getTransaction().commit();
                     //HibernateUtil.commitTransaction();
-
+                    
                     return true;
                     }catch(Exception e) {
                         System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
                         HibernateUtil.rollbackTransaction();
+                        
                         return false;
                 }
             } catch (Exception ex)
