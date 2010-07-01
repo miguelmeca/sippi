@@ -34,6 +34,7 @@ public class ContactoResponsable {
             cuil=cUil;
             email=eMail;
             fechaAlta=fecha_Alta;
+            telefonos = new HashSet();
             setTelefonos(listaNroTel,  listaTipoTel);
         }
 
