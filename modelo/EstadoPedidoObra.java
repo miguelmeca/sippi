@@ -13,7 +13,7 @@ package modelo;
 
 
 
-public class EstadoPedidoObra {
+public abstract class EstadoPedidoObra {
 
         private int id;
         private String nombre;
@@ -22,24 +22,24 @@ public class EstadoPedidoObra {
 	
 	}
 
-    public String getNombre() {
-        return nombre;
-    }
+        public String getNombre() {
+            return nombre;
+        }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
 
 
-    public int getId() {
-        return id;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+        public void setId(int id) {
+            this.id = id;
+        }
 
-        
+
 
 	public boolean esActiva() {
             return false;

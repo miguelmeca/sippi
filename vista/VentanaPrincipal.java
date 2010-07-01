@@ -193,7 +193,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema");
+        setTitle("Sistema Industrial de Planificación y Presupuestación");
 
         jToolBar1.setRollover(true);
 
@@ -276,7 +276,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblAyudaTitulo.setText("Titulo de la Ayuda");
 
         jButton1.setFont(new java.awt.Font("Dialog", 2, 10));
@@ -306,7 +306,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
