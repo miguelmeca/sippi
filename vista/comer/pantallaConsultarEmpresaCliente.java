@@ -351,7 +351,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         //HAY QUE PASARLE EL ID DE LA PLANTA, lo Busco
         DefaultTableModel modelo = (DefaultTableModel) tblPlantas.getModel();
         int fila = tblPlantas.getSelectedRow();
-        if(fila>0)
+        if(fila!=1)
         {
             NTupla nt=(NTupla) tblPlantas.getValueAt(fila,0);
             if(nt.getId() != 0)
