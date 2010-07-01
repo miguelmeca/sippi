@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import util.Tupla;
 import java.util.Iterator;
 import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComponent;
 import java.util.Date;
@@ -36,13 +37,15 @@ import util.LimitadorCaracteres;
  *
  * @author Administrador
  */
-public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda {
+public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda
+{
 
     GestorRegistrarNuevoContactoResponsable gestor;
     private JComponent cmbfechaNacimiento;
     
     private ArrayList<String> listaNroTel;
     private ArrayList<Tupla> listaTipoTel;
+    private ICallBack pantallaCUSolicitante;
     //private Date fechaVencimientoCapActual;
    
     public pantallaRegistrarContactoResponsable() {
@@ -51,13 +54,17 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
         this.habilitarVentana();
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
-
-      
-
-
-        
+            
     }
-
+   
+    public pantallaRegistrarContactoResponsable(ICallBack cuSoli) {
+        initComponents();
+        gestor = new GestorRegistrarNuevoContactoResponsable(this);
+        this.habilitarVentana();
+        listaNroTel= new ArrayList<String>();
+        listaTipoTel= new ArrayList<Tupla>();
+        pantallaCUSolicitante=cuSoli;
+    }
    
 
    public void opcionRegistrarEmpleado()
@@ -200,7 +207,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         tablaTelefonos = new javax.swing.JTable();
         btnQuitarTelefono = new javax.swing.JButton();
         btnConfirmar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtCargo = new javax.swing.JTextField();
@@ -393,11 +400,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton6.setText("Cancelar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -489,7 +496,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addGap(294, 294, 294)
                         .addComponent(btnConfirmar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                        .addComponent(btnCancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -503,7 +510,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
-                    .addComponent(jButton6))
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -529,9 +536,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       if(pantallaCUSolicitante !=null)
+                {
+                   pantallaCUSolicitante.actualizar(1, true);
+                    
+                }
+       this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
@@ -570,6 +582,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             {
                 JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
                 vaciarCampos();
+                if(pantallaCUSolicitante !=null)
+                {
+                   pantallaCUSolicitante.actualizar(1, true);
+                    this.dispose();
+                }
             }
             else
             {
@@ -688,6 +705,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarTelefono;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnQuitarTelefono;
     private javax.swing.JComboBox cmbEmpresas;
@@ -695,7 +713,6 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JComboBox cmbTiposTelefono;
     private javax.swing.JMenuItem emAgregarTelefono;
     private javax.swing.JMenuItem emQuitarTelefono;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
