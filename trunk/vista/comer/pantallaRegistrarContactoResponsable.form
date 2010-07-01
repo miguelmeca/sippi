@@ -393,19 +393,19 @@
                           <Component id="jLabel20" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbPlantas" pref="194" max="32767" attributes="1"/>
-                          <Component id="cmbEmpresas" alignment="0" pref="194" max="32767" attributes="1"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cmbPlantas" max="32767" attributes="1"/>
+                          <Component id="cmbEmpresas" alignment="0" pref="185" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel18" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel18" pref="50" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="txtCUIL" max="32767" attributes="1"/>
-                          <Component id="txtCargo" alignment="0" pref="161" max="32767" attributes="1"/>
+                          <Component id="txtCargo" alignment="1" pref="153" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -449,10 +449,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Cargo: "/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtCargo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -461,6 +460,8 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Empresa: "/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtCargo">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
