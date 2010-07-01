@@ -332,7 +332,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         tablaTelefonos = new javax.swing.JTable();
         btnQuitarTelefono = new javax.swing.JButton();
         btnConfirmar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         emAgregarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         emAgregarTelefono.setText("Agregar");
@@ -647,7 +647,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10));
         tablaCapacitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -811,11 +811,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton6.setText("Cancelar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -840,7 +840,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnConfirmar)
                         .addGap(37, 37, 37)
-                        .addComponent(jButton6)
+                        .addComponent(btnCancelar)
                         .addGap(35, 35, 35))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -857,7 +857,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
-                    .addComponent(jButton6))
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -891,9 +891,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        if(resp==JOptionPane.YES_OPTION)
+        {       this.dispose();}
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
@@ -1143,6 +1145,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCapacitacion;
     private javax.swing.JButton btnAgregarTelefono;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnQuitarCapacitacion;
     private javax.swing.JButton btnQuitarTelefono;
@@ -1158,7 +1161,6 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
