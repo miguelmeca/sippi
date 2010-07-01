@@ -806,7 +806,9 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             mensaje+="- Pais\n";
             ban=false;
         }
-        JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        if(!ban){
+            JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        }
         return ban;
     }
 
