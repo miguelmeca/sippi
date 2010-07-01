@@ -59,6 +59,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         // VAMOS POR EL INCLUDE
         this.gestorEmpresaCliente = gestor;
         // LA EMPRESA YA ESTÁ ELEGIDA
+        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+        cbm.addElement(Empresa);
+        cmbEmpresa.setModel(cbm);
         cmbEmpresa.setSelectedItem(Empresa);
         cmbEmpresa.setEnabled(false);
         // No puedo cancelar
@@ -75,6 +78,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         // VAMOS POR EL INCLUDE
         this.gestorRegistrarPedido = aThis;
         // LA EMPRESA YA ESTÁ ELEGIDA
+        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+        cbm.addElement(empresa);
+        cmbEmpresa.setModel(cbm);
         cmbEmpresa.setSelectedItem(empresa);
         cmbEmpresa.setEnabled(false);
         // No puedo cancelar
