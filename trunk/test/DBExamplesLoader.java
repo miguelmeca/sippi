@@ -49,7 +49,7 @@ public class DBExamplesLoader {
           this.cargarPaises();
           this.cargarTipoDocumento();
           this.cargarTipoTelefono();
-       // this.cargarEmpresasYPlantas();
+        this.cargarEmpresasYPlantas();
     }
 
     private void cargarPaises()
@@ -237,6 +237,11 @@ public class DBExamplesLoader {
             ec1.setPlantas(aux);
 
         sesion.beginTransaction();
+        sesion.save(tel);
+        sesion.save(t9);
+        sesion.save(d2);
+        sesion.save(planta1);
+        
         sesion.save(d);
         sesion.save(ec1);
         sesion.getTransaction().commit();
