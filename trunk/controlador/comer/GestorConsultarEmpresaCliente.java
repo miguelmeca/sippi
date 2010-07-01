@@ -1,5 +1,6 @@
 package controlador.comer;
 
+import controlador.utiles.gestorGeoLocalicacion;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -116,7 +117,7 @@ public class GestorConsultarEmpresaCliente {
     public void buscarDatosDomicilio() {
         Localidad l = null;
         Provincia pr = null;
-        Pais pa = null;
+        Pais pa = null;/**
         try{
             HibernateUtil.beginTransaction();
             BigDecimal idLocalidad = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.empresa.getDomicilio().getBarrio().getId()).uniqueResult();
@@ -133,7 +134,14 @@ public class GestorConsultarEmpresaCliente {
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
             e.printStackTrace();
-       }
+       }**/
+       gestorGeoLocalicacion g = new gestorGeoLocalicacion();
+       l = g.getLocalidadDeBarrio(this.empresa.getDomicilio().getBarrio().getId());
+       this.localidad = l.getNombre();
+       pr = g.getProvinciaDeLocalidad(l.getId());
+       this.provincia = pr.getNombre();
+       pa = g.getPaisDeProvincia(pr.getId());
+       this.pais = pa.getNombre();
     }
 
     public void buscarTelefonos() {
