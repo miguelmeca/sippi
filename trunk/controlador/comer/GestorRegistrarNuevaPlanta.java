@@ -258,8 +258,8 @@ public class GestorRegistrarNuevaPlanta {
                             sesion.save(d);
                             sesion.save(p);
 
-                            empresa.addPlanta(p);              // ???
-                            sesion.saveOrUpdate(this.empresa); // ???
+                            empresa.addPlanta(p);              
+                            sesion.saveOrUpdate(this.empresa); 
                         }
 
                         HibernateUtil.commitTransaction();

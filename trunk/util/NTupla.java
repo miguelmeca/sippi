@@ -48,5 +48,14 @@ public class NTupla {
         this.nombre = nombre;
     }
 
+    // IUGA: Para poder mostrar Directamente la NTupla en una tabla o un combo
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+
+
+
 
 }
