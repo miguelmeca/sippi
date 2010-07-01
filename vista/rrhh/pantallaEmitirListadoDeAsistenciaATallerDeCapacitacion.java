@@ -20,6 +20,7 @@ public class pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion extends java
     /** Creates new form emitirListadoDeAsistenciaATallerDeCapacitacion */
     public pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion() {
         initComponents();
+        this.setClosable(true);
     }
 
     /** This method is called from within the constructor to

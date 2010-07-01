@@ -4,58 +4,47 @@
     Document   : menu.xml
     Created on : 7 de junio de 2010, 19:36
     Author     : iuga
-    Description:
+    Version    : 1.0
+    Descricion:
         Mantiene los items del menu principal de la aplicacion
+        (Se cargan automaticamente en el menu)
+        Para configurar el comportamiento de cada item ir a:
+        ventanaPrincipal.treeMenuValueChanged();
 -->
 
 <menu>
 
-
-    <itemcat icono="/res/iconos/var/16x16/text_page.png" nombre="Emitir Presupuesto">
-      </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/add.png" nombre="Registrar Nuevo Pedido de Obra">
-      </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/search.png" nombre="Ver Obras Activas">
-      </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/calendar.png" nombre="Cronograma de Empleado">
-     </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/next.png" nombre="Próximos Talleres">
-     </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/add_page.png" nombre="Ir a Cargas Básicas">
-    </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/info.png" nombre="Avance de las Obras">
+    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Obras">
+        <item icono="/res/iconos/var/16x16/add.png" nombre="Registrar Nuevo Pedido de Obra"/>
+        <item icono="/res/iconos/var/16x16/accept.png" nombre="Dar Inicio a una Obra"/>
+        <item icono="/res/iconos/var/16x16/info.png" nombre="Avance de las Obras"/>
+        <item icono="/res/iconos/var/16x16/search.png" nombre="Ver Obras Activas"/>
     </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Clientes">
-
          <item icono="/res/iconos/var/16x16/user.png" nombre="Nueva Empresa Cliente"/>
-         <item icono="/res/iconos/var/16x16/search.png" nombre="Consultar Empresas Cliente"/>
          <item icono="/res/iconos/var/16x16/add.png" nombre="Nueva Planta"/>
-         <item icono="/res/iconos/var/16x16/accept.png" nombre="Dar Inicio a una Obra"/>
-
-
+         <item icono="/res/iconos/var/16x16/search.png" nombre="Consultar Empresas Cliente"/>
+         <item icono="/res/iconos/var/16x16/add.png" nombre="Nuevo Contacto"/>
     </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
-
         <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Empleado"/>
         <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Listado de Compra de Indumentaria"/>
         <item icono="/res/iconos/var/16x16/calendar.png" nombre="Emitir Listado de Asistencia"/>
-
+        <item icono="/res/iconos/var/16x16/calendar.png" nombre="Cronograma de Empleado"/>
     </itemcat>
 
-    <itemcat icono="/res/iconos/var/16x16/comments.png" nombre="Talleres de Capacitación">
-        <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Plan de Seguridad"/>
+    <itemcat icono="/res/iconos/var/16x16/comments.png" nombre="Capacitación">
         <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Taller de Capcitación"/>
+        <item icono="/res/iconos/var/16x16/user.png" nombre="Nuevo Capacitador"/>
+        <item icono="/res/iconos/var/16x16/add_page.png" nombre="Nuevo Plan de Seguridad"/>
         <item icono="/res/iconos/var/16x16/accept_page.png" nombre="Registrar Asistencias"/>
+        <item icono="/res/iconos/var/16x16/next.png" nombre="Próximos Talleres"/>
     </itemcat>
 
+    <itemcat icono="/res/iconos/var/16x16/add_page.png" nombre="Ir a Cargas Básicas">
+    </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       
     </itemcat>
