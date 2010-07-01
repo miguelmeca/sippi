@@ -41,7 +41,6 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
 {
 
     GestorRegistrarNuevoContactoResponsable gestor;
-    private JComponent cmbfechaNacimiento;
     
     private ArrayList<String> listaNroTel;
     private ArrayList<Tupla> listaTipoTel;
@@ -64,6 +63,9 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
         pantallaCUSolicitante=cuSoli;
+        if (pantallaCUSolicitante!= null)
+        {cmbEmpresas.setEnabled(false);
+        cmbPlantas.setEnabled(false);}
     }
    
 
@@ -210,8 +212,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         btnCancelar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        txtCargo = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtCUIL = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -410,7 +412,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Laborales"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Cargo: ");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -444,17 +447,17 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(jLabel19)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbPlantas, 0, 194, Short.MAX_VALUE)
-                    .addComponent(cmbEmpresas, 0, 194, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbPlantas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbEmpresas, 0, 185, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtCUIL)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -573,24 +576,38 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         if(ValidarDatos())
         {
             cargarTelefonos();
-            Date fechaNac = ((JDateChooser) cmbfechaNacimiento).getDate();
-            
-            gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(),txtApellido.getText(),txtEmail.getText(),txtCargo.getText());
-            gestor.telefonosContactoResponsable(listaNroTel, listaTipoTel);
-            
-            if(gestor.capacitadorConfirmado())
-            {
-                JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
-                vaciarCampos();
-                if(pantallaCUSolicitante !=null)
-                {
-                   pantallaCUSolicitante.actualizar(1, true);
-                    this.dispose();
-                }
+
+
+            if (pantallaCUSolicitante== null)
+            {gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(),txtApellido.getText(),txtEmail.getText(),txtCargo.getText(), (Tupla)cmbEmpresas.getSelectedItem(),(Tupla)cmbPlantas.getSelectedItem());
             }
             else
             {
-               JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
+            gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(),txtApellido.getText(),txtEmail.getText(),txtCargo.getText());
+            }
+
+            gestor.telefonosContactoResponsable(listaNroTel, listaTipoTel);
+            if(!gestor.validarPlantaSinContacto())
+            {
+                 JOptionPane.showMessageDialog(this.getParent(),"La planta seleccionada ya posee un contato registrado. Si lo desea puede modificarlo modificando la planta","ERROR",JOptionPane.ERROR_MESSAGE);
+
+            }
+            else
+            {
+                if(gestor.capacitadorConfirmado())
+                {
+                    JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
+                    vaciarCampos();
+                    if(pantallaCUSolicitante !=null)
+                    {
+                       pantallaCUSolicitante.actualizar(1, true);
+                        this.dispose();
+                    }
+                }
+                else
+                {
+                   JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
+                }
             }
     }//GEN-LAST:event_btnConfirmarActionPerformed
     }
@@ -648,18 +665,22 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                  ban=false;
                  return ban;
          }
-       /* if(txtCalleDomicilio.getText().equals(""))
+        if (pantallaCUSolicitante== null)
         {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Calle' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        if(cmbPlantas.getSelectedIndex()==-1)
+        {
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionarse una Planta","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                  ban=false;
                  return ban;
          }
-        if(txtNroDomicilio.getText().equals(""))
+        if(cmbEmpresas.getSelectedIndex()==-1)//Al pedo... pero nunca se sabe...
         {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionarse una Empresa","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                  ban=false;
                  return ban;
-         } */
+         }
+
+        }
 
         return ban;
         
