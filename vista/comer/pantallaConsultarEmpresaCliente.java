@@ -470,7 +470,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     }
 
     public void mostrarPaisEmpresa(String pais) {
-        this.txtPaginaWeb.setText(pais);
+        this.txtPais.setText(pais);
     }
 
     public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos) {
