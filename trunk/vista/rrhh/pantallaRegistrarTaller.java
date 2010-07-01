@@ -148,6 +148,7 @@ public class pantallaRegistrarTaller extends javax.swing.JInternalFrame {
         pantallaRegistrarTallerCapacitacionObra pre = new pantallaRegistrarTallerCapacitacionObra();
         SwingPanel.getInstance().addWindow(pre);
         pre.setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -156,6 +157,7 @@ public class pantallaRegistrarTaller extends javax.swing.JInternalFrame {
         pantallaRegistrarTallerCapacitacion pre = new pantallaRegistrarTallerCapacitacion();
         SwingPanel.getInstance().addWindow(pre);
         pre.setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
