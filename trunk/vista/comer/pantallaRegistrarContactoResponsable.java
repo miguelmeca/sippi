@@ -414,7 +414,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Laborales"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Cargo: ");
 
@@ -436,6 +436,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         cmbEmpresas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbEmpresasActionPerformed(evt);
+            }
+        });
+
+        cmbPlantas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPlantasActionPerformed(evt);
             }
         });
 
@@ -721,6 +727,10 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private void cmbEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasActionPerformed
         mostrarPlantas();
     }//GEN-LAST:event_cmbEmpresasActionPerformed
+
+    private void cmbPlantasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPlantasActionPerformed
  
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
