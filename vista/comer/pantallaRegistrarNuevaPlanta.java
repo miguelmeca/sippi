@@ -945,10 +945,4 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 break;
         }
     }
-
-    // ----------------------------------------------------------------------
-
-
-
-
 }
