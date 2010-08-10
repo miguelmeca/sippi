@@ -361,13 +361,13 @@ public class GestorRegistrarTallerDeCapacitacion {
             this.detalleHorarios = listaDetalle;
 	}
 
-        public void empleadosQueAsistiran(ArrayList<Tupla> lista)
+        public void empleadosQueAsistiran(ArrayList<NTupla> lista)
         {
             listaAsistencia = new HashSet();
             Iterator it = lista.iterator();
             while (it.hasNext())
             {
-                Tupla fila = (Tupla)it.next();
+                NTupla fila = (NTupla)it.next();
                 Empleado eqa = null;
                  try
                     {
@@ -415,6 +415,7 @@ public class GestorRegistrarTallerDeCapacitacion {
             try
                 {
                     HibernateUtil.beginTransaction();
+
                     // GUARDO TODAS LAS ASISTENCIAS PRIMERO Y DESPUES EL DETALLE
                     for (DetalleHorarioTaller det : tc.getDetalle())
                     {
@@ -427,11 +428,14 @@ public class GestorRegistrarTallerDeCapacitacion {
 
                     HibernateUtil.getSession().save(tc);
 
+                    HibernateUtil.commitTransaction();
+
                 }
                 catch(Exception e)
                 {
                     HibernateUtil.rollbackTransaction();
                     System.out.println("ERROR ! : "+e.getMessage());
+                    return false;
                 }
 
 
