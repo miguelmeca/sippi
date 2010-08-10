@@ -17,6 +17,7 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.TipoCapacitacion;
+import util.NTupla;
 import util.Tupla;
 import vista.interfaces.ICallBack;
 
@@ -28,11 +29,14 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
 
     private GestorABMTipoCapacitacion gestor;
     private ICallBack pantalla;
+    private int oidEdit; // 0: No estoy en el modo EDICION
 
     /** Creates new form pantallaRegistrarNuevoTipoCapacitacion */
     public pantallaGestionarTipoCapacitacion() {
         initComponents();
-        
+        btnCancelEdit.setVisible(false);
+        oidEdit = 0;
+
         gestor = new GestorABMTipoCapacitacion();
 
         llenarTabla();
@@ -62,6 +66,9 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
         jLabel2 = new javax.swing.JLabel();
         txtDesc = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
+        btnCancelEdit = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Gestionar Tipos de Capacitación");
@@ -99,14 +106,21 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
                 return types [columnIndex];
             }
         });
+        tablaTipos.setShowHorizontalLines(false);
         jScrollPane1.setViewportView(tablaTipos);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Tipo de Capacitación"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Tipo de Capacitación"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Nombre:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Descripción:");
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -117,6 +131,14 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
             }
         });
 
+        btnCancelEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCancelEdit.setText("Cancelar Modificación");
+        btnCancelEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelEditActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,11 +146,14 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                    .addComponent(txtDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .addComponent(txtDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCancelEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -142,8 +167,26 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(btnNuevo))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnCancelEdit)))
         );
+
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,7 +196,11 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -162,8 +209,12 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,21 +224,44 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
 
      if(!txtNombre.getText().isEmpty())
      {
-        TipoCapacitacion nuevo = gestor.crear(txtNombre.getText(),txtDesc.getText());
+         if(this.oidEdit == 0)
+         {
+                TipoCapacitacion nuevo = gestor.crear(txtNombre.getText(),txtDesc.getText());
 
-        if(nuevo!=null)
-        {
-            // CARGA CORRECTA
-            txtNombre.setText("");
-            txtDesc.setText("");
-            JOptionPane.showMessageDialog(this,"Carga Exitosa","Se completo correctamente la carga de "+nuevo.getNombre(),JOptionPane.INFORMATION_MESSAGE);
-            llenarTabla();
-        }
-        else
-        {
-            // CARGA INCORRECTA
-            JOptionPane.showMessageDialog(this,"Error","Se produjo un error al intentar crear el Tipo de Capacitación",JOptionPane.INFORMATION_MESSAGE);
-        }
+                if(nuevo!=null)
+                {
+                    // CARGA CORRECTA
+                    txtNombre.setText("");
+                    txtDesc.setText("");
+                    JOptionPane.showMessageDialog(this,"Carga Exitosa","Se completo correctamente la carga de "+nuevo.getNombre(),JOptionPane.INFORMATION_MESSAGE);
+                    llenarTabla();
+                }
+                else
+                {
+                    // CARGA INCORRECTA
+                    JOptionPane.showMessageDialog(this,"Error","Se produjo un error al intentar crear el Tipo de Capacitación",JOptionPane.INFORMATION_MESSAGE);
+                }
+         }
+         else
+         {
+                if(gestor.modificar(oidEdit,txtNombre.getText(),txtDesc.getText()))
+                {
+                    // CARGA CORRECTA
+                    txtNombre.setText("");
+                    txtDesc.setText("");
+                    this.oidEdit = 0;
+                    btnCancelEdit.setVisible(false);
+                    btnNuevo.setText("Agregar Nuevo");
+
+                    JOptionPane.showMessageDialog(this,"Modificación Exitosa","Se completo correctamente la modificación",JOptionPane.INFORMATION_MESSAGE);
+                    llenarTabla();
+                }
+                else
+                {
+                    // CARGA INCORRECTA
+                    JOptionPane.showMessageDialog(this,"Error","Se produjo un error al modificar el Tipo de Capacitación",JOptionPane.INFORMATION_MESSAGE);
+                }
+         }
      }
 
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -199,10 +273,67 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
 
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+       NTupla dato = (NTupla) tablaTipos.getModel().getValueAt(tablaTipos.getSelectedRow(),0);
+
+       txtNombre.setText(dato.getNombre());
+       txtDesc.setText((String)dato.getData());
+       this.oidEdit = dato.getId();
+       btnNuevo.setText("Guardar Cambios");
+
+       btnCancelEdit.setVisible(true);
+
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnCancelEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditActionPerformed
+
+        txtNombre.setText("");
+        txtDesc.setText("");
+        this.oidEdit = 0;
+        btnNuevo.setText("Agregar Nuevo");
+        btnCancelEdit.setVisible(false);
+
+    }//GEN-LAST:event_btnCancelEditActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        NTupla dato = (NTupla) tablaTipos.getModel().getValueAt(tablaTipos.getSelectedRow(),0);
+        int ret = gestor.eliminar(dato.getId());
+
+        switch(ret)
+        {
+            case 1:
+            JOptionPane.showMessageDialog(this,"Eliminación Exitosa","Se eliminó correctamente el Tipo de Capacitación",JOptionPane.INFORMATION_MESSAGE);
+            break;
+
+            case 0:
+            JOptionPane.showMessageDialog(this,"Eliminación Fallida","Se produjo un error desconocido al eliminar el Tipo de Capacitación",JOptionPane.ERROR_MESSAGE);
+            break;
+
+            case 2:
+            JOptionPane.showMessageDialog(this,"Eliminación Fallida","El Tipo de Capacitación seleccionado está en uso, por lo que no puede eliminarse",JOptionPane.ERROR_MESSAGE);
+            
+        }
+
+        llenarTabla();
+
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+
+        if(gestor.existeTipo(txtNombre.getText()))
+        {
+            JOptionPane.showMessageDialog(this,"Ya existe un Tipo de Capacitación con ese nombre","Ingrese otro nombre",JOptionPane.ERROR_MESSAGE);
+            txtNombre.setText("");
+        }
+
+    }//GEN-LAST:event_txtNombreFocusLost
+
     public void llenarTabla()
     {
 
-        Object[] nombreColumnas = {"Nombre"};
+        Object[] nombreColumnas = {"Nombre","Descripción"};
         DefaultTableModel modelo = new DefaultTableModel();
         for (int i = 0; i < nombreColumnas.length; i++)
         {
@@ -212,15 +343,16 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
 
         modelo = (DefaultTableModel) tablaTipos.getModel();
 
-        ArrayList<Tupla> lista = gestor.mostrarNombreTiposCapacitacion();
+        ArrayList<NTupla> lista = gestor.mostrarNombreTiposCapacitacion();
         Iterator it = lista.iterator();
 
-        Object[] fila = new Object[1];
+        Object[] fila = new Object[2];
 
         while (it.hasNext())
         {
-            Tupla t = (Tupla)it.next();
+            NTupla t = (NTupla)it.next();
             fila[0] = t;
+            fila[1] = t.getData();
             modelo.addRow(fila);
         }
 
@@ -228,6 +360,9 @@ public class pantallaGestionarTipoCapacitacion extends javax.swing.JInternalFram
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelEdit;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

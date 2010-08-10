@@ -64,6 +64,14 @@ public class FechaUtil {
         return DATE_FORMAT.format(d);
     }
 
+    public static String getFechaActual()
+    {
+        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+        Date fechaDate = new Date();
+        return DATE_FORMAT.format(fechaDate);
+    }
+
     public static Date getDate(String fecha) throws ParseException
     {
         DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
