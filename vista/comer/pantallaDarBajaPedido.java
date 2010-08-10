@@ -4,9 +4,9 @@
  */
 
 /*
- * frmRegistrarPedido.java
+ * pantallaDarBajaPedido.java
  *
- * Created on 08-may-2010, 18:53:08
+ * Created on 10/08/2010, 14:10:46
  */
 
 package vista.comer;
@@ -17,39 +17,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import modelo.EmpresaCliente;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import util.HibernateUtil;
 import util.Tupla;
-import vista.interfaces.IAyuda;
 import vista.interfaces.IPantallaPedidoABM;
 
 /**
  *
- * @author Administrador
+ * @author Emmanuel
  */
-public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM{
-
+public class pantallaDarBajaPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
-/*
-    private JComponent cmbfechaInicio;
-    private JComponent cmbfechaFin;
-    private JComponent cmbLEP;
-    private JComponent cmbLVP;
-*/
-    /** Creates new form frmRegistrarPedido */
-    public pantallaRegistrarPedido() {
+    /** Creates new form pantallaDarBajaPedido */
+    public pantallaDarBajaPedido() {
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
         txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
         mostrarEmpresasCliente();
     }
-
-    public void mostrarEmpresasCliente()
+        public void mostrarEmpresasCliente()
     {
         ArrayList<Tupla> lista = gestor.mostrarEmpresasCliente();
 
@@ -99,12 +85,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
     }
 
-    private void registrarPedido()
-    {
-        
-    }
-
-    private boolean ValidarDatos()
+       private boolean ValidarDatos()
     {
         boolean ban=true;
         String mensaje="Faltan ingresar/seleccionar los siguientes campos:\n";
@@ -146,6 +127,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         return ban;
     }
 
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -155,99 +137,82 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtNroPedido = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtNombreObra = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDescripcion = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        cmbEmpresa = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
-        cmbPlanta = new javax.swing.JComboBox();
+        btnCancelar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtPliego = new javax.swing.JTextField();
+        btnConfirmar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtPlanos = new javax.swing.JTextField();
+        txtMonto = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        btnConfirmar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnAgregarEmpresaCliente = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        cmbPlanta = new javax.swing.JComboBox();
         btnAgregarPlanta = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        txtPliego = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        txtPlanos = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        txtNroPedido = new javax.swing.JTextField();
+        btnAgregarEmpresaCliente = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cmbEmpresa = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        txtNombreObra = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         cmbfechaInicio = new com.toedter.calendar.JDateChooser();
         cmbfechaFin = new com.toedter.calendar.JDateChooser();
         cmbLEP = new com.toedter.calendar.JDateChooser();
         cmbLVP = new com.toedter.calendar.JDateChooser();
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("Registrar Pedido");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Número de Pedido:");
-
-        txtNroPedido.setEditable(false);
-        txtNroPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel2.setText("Nombre de la Obra:");
-
-        txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreObraActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        txtNombreObra.addFocusListener(new java.awt.event.FocusAdapter() {
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setText("Pliego:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
+
+        txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreObraFocusLost(evt);
+                txtPliegoFocusLost(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel3.setText("Descripción:");
-
-        txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
-        txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDescripcionFocusLost(evt);
-            }
-        });
-        jScrollPane1.setViewportView(txtDescripcion);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel4.setText("Empresa Cliente:");
-
-        cmbEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnConfirmar.setText("Aceptar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEmpresaActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel5.setText("Planta:");
-
-        cmbPlanta.setEnabled(false);
-        cmbPlanta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPlantaActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel6.setText("Fecha de Inicio:");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel7.setText("Fecha de Fin:");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel11.setText("Planos:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Presupuesto Máximo ($):");
+
+        txtPlanos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlanosActionPerformed(evt);
+            }
+        });
+        txtPlanos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlanosFocusLost(evt);
+            }
+        });
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMonto.addActionListener(new java.awt.event.ActionListener() {
@@ -261,29 +226,22 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
 
-        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnConfirmar.setText("Aceptar");
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
-            }
-        });
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setText("Fecha de Inicio:");
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setText("Fecha de Fin:");
 
-        btnAgregarEmpresaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAgregarEmpresaCliente.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setText("Planta:");
+
+        cmbPlanta.setEnabled(false);
+        cmbPlanta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEmpresaClienteActionPerformed(evt);
+                cmbPlantaActionPerformed(evt);
             }
         });
 
@@ -295,31 +253,53 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel10.setText("Pliego:");
+        txtNroPedido.setEditable(false);
+        txtNroPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPliegoFocusLost(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel11.setText("Planos:");
-
-        txtPlanos.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarEmpresaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarEmpresaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlanosActionPerformed(evt);
-            }
-        });
-        txtPlanos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPlanosFocusLost(evt);
+                btnAgregarEmpresaClienteActionPerformed(evt);
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setText("Número de Pedido:");
+
+        cmbEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEmpresaActionPerformed(evt);
+            }
+        });
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDescripcionFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setText("Descripción:");
+
+        txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreObraActionPerformed(evt);
+            }
+        });
+        txtNombreObra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreObraFocusLost(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setText("Nombre de la Obra:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setText("Empresa Cliente:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -397,7 +377,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -429,15 +409,15 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                             .addComponent(jLabel8)
                             .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9)
                     .addComponent(cmbLEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12)
                     .addComponent(cmbLVP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtPliego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -455,15 +435,13 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreObraActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+}//GEN-LAST:event_btnCancelarActionPerformed
 
-        
-
-    }//GEN-LAST:event_txtNombreObraActionPerformed
-
-    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMontoActionPerformed
+    private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
+        gestor.pliegoObra(txtPliego.getText());
+}//GEN-LAST:event_txtPliegoFocusLost
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if(ValidarDatos()){
@@ -484,72 +462,72 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
-
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
-        
-    }//GEN-LAST:event_txtPlanosActionPerformed
 
-    private void txtNombreObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreObraFocusLost
+}//GEN-LAST:event_txtPlanosActionPerformed
 
-        gestor.nombreObra(txtNombreObra.getText()); // le paso el nombre al gestor
+    private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
+        gestor.planosObra(txtPlanos.getText());
+}//GEN-LAST:event_txtPlanosFocusLost
 
-    }//GEN-LAST:event_txtNombreObraFocusLost
-
-    private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
-
-        gestor.descripcionObra(txtDescripcion.getText());
-
-    }//GEN-LAST:event_txtDescripcionFocusLost
-
-//    private void cmbfechaInicioFocusLost(java.awt.event.FocusEvent evt) {
-//
-//        Date fecha = ((JDateChooser) cmbfechaInicio).getDate();
-//        gestor.fechaInicio(fecha);
-//
-//    }
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_txtMontoActionPerformed
 
     private void txtMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoFocusLost
 
 
         gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
-
     }//GEN-LAST:event_txtMontoFocusLost
 
-    private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
-        gestor.pliegoObra(txtPliego.getText());
-    }//GEN-LAST:event_txtPliegoFocusLost
+    private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_cmbPlantaActionPerformed
 
-    private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
-        gestor.planosObra(txtPlanos.getText());
-    }//GEN-LAST:event_txtPlanosFocusLost
+    private void btnAgregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlantaActionPerformed
+        gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()));
+}//GEN-LAST:event_btnAgregarPlantaActionPerformed
+
+    private void btnAgregarEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaClienteActionPerformed
+        gestor.llamarCURegistrarNuevaEmpresaCliente();
+}//GEN-LAST:event_btnAgregarEmpresaClienteActionPerformed
 
     private void cmbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresaActionPerformed
         this.mostrarPlantasEmpresaCliente();
         if(cmbEmpresa.getSelectedIndex() != -1){
             btnAgregarPlanta.setEnabled(true);
-            cmbPlanta.setEnabled(true);}
-        else{
+            cmbPlanta.setEnabled(true);} else{
             btnAgregarPlanta.setEnabled(false);
             cmbPlanta.setEnabled(false);}
-    }//GEN-LAST:event_cmbEmpresaActionPerformed
+}//GEN-LAST:event_cmbEmpresaActionPerformed
 
-    private void btnAgregarEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaClienteActionPerformed
-        gestor.llamarCURegistrarNuevaEmpresaCliente();
-    }//GEN-LAST:event_btnAgregarEmpresaClienteActionPerformed
+    private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        gestor.descripcionObra(txtDescripcion.getText());
+    }//GEN-LAST:event_txtDescripcionFocusLost
 
-    private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPlantaActionPerformed
+    private void txtNombreObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreObraActionPerformed
 
-    private void btnAgregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlantaActionPerformed
-        gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()));
-    }//GEN-LAST:event_btnAgregarPlantaActionPerformed
+
+    }//GEN-LAST:event_txtNombreObraActionPerformed
+
+    private void txtNombreObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreObraFocusLost
+
+        gestor.nombreObra(txtNombreObra.getText()); // le paso el nombre al gestor
+    }//GEN-LAST:event_txtNombreObraFocusLost
+
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new pantallaDarBajaPedido().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEmpresaCliente;
@@ -582,17 +560,5 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JTextField txtPlanos;
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
-
-    public String getTituloAyuda() {
-        return "Opción: Nuevo Pedido";
-    }
-
-    public String getResumenAyuda() {
-        return "Ingrese los datos del Pedido a cargar.";
-    }
-
-    public int getIdAyuda() {
-        return 0;
-    }
 
 }
