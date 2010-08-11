@@ -2,6 +2,8 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //
@@ -75,5 +77,16 @@ public class EmpresaCliente extends Empresa{
     public void addPlanta(Planta p)
     {
         this.plantas.add(p);
+    }
+
+    public boolean esMiPlanta(int id){
+        Iterator it = plantas.iterator();
+        Planta p = null;
+        while(it.hasNext()){
+            p = (Planta) it.next();
+            if(p.getId() == id)
+                return true;
+        }
+        return false;
     }
 }

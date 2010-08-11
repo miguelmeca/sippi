@@ -27,13 +27,15 @@ import vista.interfaces.IPantallaPedidoABM;
  */
 public class pantallaConsultarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
+    private int idPedido;
     /** Creates new form pantallaConsultarPedido */
-    public pantallaConsultarPedido() {
+    public pantallaConsultarPedido(int id) {
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
         txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
         mostrarEmpresasCliente();
+        this.idPedido = id;
     }
 
             public void mostrarEmpresasCliente()

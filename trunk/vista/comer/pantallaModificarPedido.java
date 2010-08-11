@@ -29,12 +29,23 @@ import vista.interfaces.IPantallaPedidoABM;
 public class pantallaModificarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
     /** Creates new form pantallaModificarPedido */
-    public pantallaModificarPedido(PedidoObra po) {
-        gestor = new GestorRegistrarPedido(this,po);
+    public pantallaModificarPedido(int id) {
+        gestor = new GestorRegistrarPedido(this,id);
         initComponents();
         habilitarVentana();
-        txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
+        txtNroPedido.setText(String.valueOf(gestor.getIdPedido()));
+
+        this.txtNombreObra.setText(gestor.getNombrePedido());
+        this.txtDescripcion.setText(gestor.getDescripcionPedido());
         mostrarEmpresasCliente();
+        mostrarPlantasEmpresaCliente();
+        cmbfechaInicio.setDate(gestor.getFechaInicioPedido());
+        cmbfechaFin.setDate(gestor.getFechaFinPedido());
+        txtMonto.setText(gestor.getMontoPedido());
+        cmbLEP.setDate(gestor.getFechaLEPPedido());
+        cmbLVP.setDate(gestor.getFechaLVPPedido());
+        txtPliego.setText(gestor.getPliegoPedido());
+        txtPlanos.setText(gestor.getPlanosPedido());
     }
 
         public void mostrarEmpresasCliente()
@@ -66,12 +77,16 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         while(it.hasNext()){
             Tupla tu = it.next();
             valores.addElement(tu);
+            if (tu.getId() == gestor.getIdPlantaPedido())
+                valores.setSelectedItem(tu);
         }
         cmbPlanta.setModel(valores);
     }
 
     private void habilitarVentana()
     {
+        cmbPlanta.setEnabled(true);
+
         // Seteo los combos de la fecha, para que seleccione...
         // FECHA DE INICIO
         //cmbfechaInicio = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
@@ -456,6 +471,12 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
             //VALIDO LAS FECHAS
             // HACER
             //PASO LAS FECHAS AL GESTOR
+            gestor.nombreObra(txtNombreObra.getText());
+            gestor.descripcionObra(txtDescripcion.getText());
+            gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
+            gestor.pliegoObra(txtPliego.getText());
+            gestor.planosObra(txtPlanos.getText());
+
             Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
             Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
             gestor.fechaInicioYFin(fechaI, fechaF);

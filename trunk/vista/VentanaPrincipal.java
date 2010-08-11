@@ -20,6 +20,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.HibernateUtil;
 import util.SwingPanel;
+import vista.comer.pantallaBuscarPedido;
 import vista.comer.pantallaConsultarEmpresaCliente;
 import vista.comer.pantallaConsultarObra;
 import vista.comer.pantallaRegistrarConfirmacionInicioObra;
@@ -371,6 +372,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mObra.add(miConsultar);
 
         miModificar.setText("Modificar");
+        miModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miModificarActionPerformed(evt);
+            }
+        });
         mObra.add(miModificar);
 
         miCompraMateriales.setText("Compra de Materiales");
@@ -865,6 +871,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
     }//GEN-LAST:event_btnConsultarClientesActionPerformed
+
+    private void miModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miModificarActionPerformed
+        pantallaBuscarPedido pre = new pantallaBuscarPedido();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+    }//GEN-LAST:event_miModificarActionPerformed
 
     /**
     * @param args the command line arguments

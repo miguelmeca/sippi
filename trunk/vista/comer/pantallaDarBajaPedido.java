@@ -27,8 +27,14 @@ import vista.interfaces.IPantallaPedidoABM;
  */
 public class pantallaDarBajaPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
-    /** Creates new form pantallaDarBajaPedido */
+    private int idPedido;
+
     public pantallaDarBajaPedido() {
+    }
+    /** Creates new form pantallaDarBajaPedido */
+    
+    public pantallaDarBajaPedido(int id) {
+        this.idPedido = id;
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();

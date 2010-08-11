@@ -18,6 +18,7 @@ public class EstadoPedidoObraSolicitado extends EstadoPedidoObra {
 
         public void crear() {
             super.crear();
+            this.setNombre("Solicitado");
 	}
 	
 	public boolean esSolicitado() {
