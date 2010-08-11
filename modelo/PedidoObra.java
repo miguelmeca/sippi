@@ -40,6 +40,12 @@ public class PedidoObra {
         private EstadoPedidoObra estadoObra;
         private EstadoPedidoObra estado;
 
+        public PedidoObra() {
+            crear();
+        }
+
+
+
         // Crea el objeto, no me queda otra que asociarlo a hibernate
         public void crear() {
 
@@ -50,11 +56,12 @@ public class PedidoObra {
 
         public EstadoPedidoObra getEstado()
         {
-            if(estadoObra.getNombre().equals("Solicitado"))
-            {
-                this.estado = new EstadoPedidoObraSolicitado();
-            }
-            return this.estado;
+            //if(estadoObra.getNombre().equals("Solicitado"))
+            //{
+            //    this.estado = new EstadoPedidoObraSolicitado();
+            //}
+            // return this.estado;
+            return new EstadoPedidoObraSolicitado();
         }
 
         public ContactoResponsable getContacto() {

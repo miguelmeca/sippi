@@ -6,8 +6,15 @@
 package controlador.comer;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import modelo.EmpresaCliente;
+import modelo.PedidoObra;
+import org.hibernate.Session;
 import util.HibernateUtil;
+import util.NTupla;
 import vista.comer.pantallaBuscarPedido;
 
 /**
@@ -21,6 +28,55 @@ public class GestorBuscarPedido {
     public GestorBuscarPedido(pantallaBuscarPedido aThis) {
         this.pantalla = aThis;
         empresaCliente = null;
+    }
+
+/***
+ *  Metodo que permite buscar los datos de los pedidos del sistema. Se muestran los datos
+ *  en el siguiente orden:
+ *  - Id pedido
+ *  - Nombre pedido
+ *  - Estado
+ *  - Datos del contacto del pedido
+ *  - Nombre de la empresa cliente
+ *  - Nombre de la planta asociada al pedido
+ *  - Fecha de Registro
+ *  - Fecha de Aceptación
+ *  - Fecha de Inicio
+ *  - Fecha de Fin
+ * @return Lista de Pedidos HASHSET
+ */
+    public ArrayList<NTupla> getPedidosObra(){
+        ArrayList<NTupla> pedidos = new ArrayList<NTupla>();
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Iterator it = sesion.createQuery("from PedidoObra p order by p.nombre").iterate();
+        PedidoObra po;
+        while(it.hasNext()){
+            ArrayList<String> datos = new ArrayList<String>();
+            po = (PedidoObra)it.next();
+            NTupla p = new NTupla();
+            p.setId(po.getId());
+            p.setNombre(po.getNombre());
+            datos.add("ERROR CON EL ESTADO DEL PEDIDO");
+            datos.add("ERROR CON EL CONTACTO DEL PEDIDO");
+            //datos.add(new String (po.getEstado().getNombre()));
+            //datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
+            Iterator itEmpresa = sesion.createQuery("from EmpresaCliente").iterate();
+            EmpresaCliente ec = null;
+            while(itEmpresa.hasNext()){
+                ec = (EmpresaCliente)itEmpresa.next();
+                if(ec.esMiPlanta(po.getPlanta().getId()))
+                    break;
+            }
+            if(ec !=null)
+                datos.add(ec.getRazonSocial());
+            datos.add(po.getPlanta().getRazonSocial());
+            datos.add(po.getFechaDeRegistro().toString());
+            datos.add(po.getFechaInicio().toString());
+            datos.add(po.getFechaFin().toString());
+            p.setData(datos);
+            pedidos.add(p);
+        }
+        return pedidos;
     }
 
 

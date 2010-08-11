@@ -12,6 +12,14 @@
 package vista.comer;
 
 import controlador.comer.GestorBuscarPedido;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import javax.swing.JScrollBar;
+import javax.swing.JViewport;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.SwingPanel;
 import vista.*;
 
 /**
@@ -24,7 +32,54 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
     public pantallaBuscarPedido() {
         gestor = new GestorBuscarPedido(this);
         initComponents();
+        tablaPedido.setPreferredScrollableViewportSize(tablaPedido.getPreferredSize());
+        llenarTabla();
     }
+
+        private void llenarTabla() {
+        ArrayList<NTupla> pedidos = gestor.getPedidosObra();
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Nro.");
+        dtm.addColumn("Nombre del Pedido");
+        dtm.addColumn("Estado");
+        dtm.addColumn("Contacto");
+        dtm.addColumn("Empresa Cliente");
+        dtm.addColumn("Planta");
+        dtm.addColumn("Fecha Registro");
+        dtm.addColumn("Fecha Inicio");
+        dtm.addColumn("Fecha Fin");
+
+        Iterator it = pedidos.iterator();
+        Iterator itdatos;
+        while (it.hasNext()){
+            NTupla tu = (NTupla)it.next();
+            Object[] item = new Object[9];
+            item[0] = tu.getId();
+            item[1] = (String)tu.getNombre();
+            ArrayList<String> datos = (ArrayList<String>)tu.getData();
+            itdatos = datos.iterator();
+            int i = 2;
+            String dato= "";
+            while(itdatos.hasNext()){
+                dato = (String)itdatos.next();
+                item[i] = dato;
+                i++;
+            }
+            dtm.addRow(item);
+        }
+        tablaPedido.setModel(dtm);
+    }
+
+    private int getIdPedidoSeleccionado(){
+        int tipo = -1;
+         if((tablaPedido.getSelectedRowCount())==1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel) tablaPedido.getModel();
+            tipo = (Integer) modelo.getValueAt(tablaPedido.getSelectedRow(), 0);
+        }
+        return tipo;
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -37,14 +92,15 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
 
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaPedido = new javax.swing.JTable();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -62,7 +118,43 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
+        jButton1.setText("Dar de Baja");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
+        jButton3.setText("Nuevo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        jButton4.setText("Ver Detalles");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton1.setText("Filtro Opcional");
+
+        jRadioButton2.setText("Filtro Opcional 2");
+
+        tablaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -72,33 +164,27 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
                 "Legajo", "Nombre", "Apellido"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaPedido.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tablaPedido.setRowSelectionAllowed(false);
+        jScrollPane1.setViewportView(tablaPedido);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
-        jButton1.setText("Dar de Baja");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        jButton2.setText("Modificar");
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
-        jButton3.setText("Nuevo");
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        jButton4.setText("Ver Detalles");
-
-        jRadioButton1.setText("Filtro Opcional");
-
-        jRadioButton2.setText("Filtro Opcional 2");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton2)
@@ -106,14 +192,16 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,13 +216,14 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
                         .addComponent(jRadioButton1)
                         .addComponent(jRadioButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -150,8 +239,37 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtBuscarMouseClicked
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        pantallaConsultarPedido p = new pantallaConsultarPedido(this.getIdPedidoSeleccionado());
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        pantallaRegistrarPedido p = new pantallaRegistrarPedido();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        pantallaModificarPedido p = new pantallaModificarPedido(this.getIdPedidoSeleccionado());
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pantallaDarBajaPedido p = new pantallaDarBajaPedido(this.getIdPedidoSeleccionado());
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -160,7 +278,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaPedido;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

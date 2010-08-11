@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
@@ -35,214 +37,215 @@ import vista.interfaces.IPantallaPedidoABM;
 
 
 public class GestorRegistrarPedido {
+    //private pantallaRegistrarPedido pantalla;
+    private IPantallaPedidoABM pantalla;
 
-        //private pantallaRegistrarPedido pantalla;
-        private IPantallaPedidoABM pantalla;
+    private String nombre;
+    private String descripcion;
+    private EmpresaCliente empresa;
+    private Planta planta;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private Date fechaAceptacion;
+    private Date fechaRegistro;
+    private double montoMaximo;
+    private Date fechaLEP;
+    private Date fechaLVP;
+    private String pliegoObra;
+    private String planosObra;
 
-        private String nombre;
-        private String descripcion;
-        private EmpresaCliente empresa;
-	private Planta planta;
-	private Date fechaInicio;
-	private Date fechaFin;
-        private Date fechaAceptacion;
-        private Date fechaRegistro;
-	private double montoMaximo;
-	private Date fechaLEP;
-	private Date fechaLVP;
-	private String pliegoObra;
-	private String planosObra;
-
-        private PedidoObra pedido;
+    private PedidoObra pedido;
 /*
-        public GestorRegistrarPedido(pantallaRegistrarPedido pantalla)
-        {
-            this.pantalla = pantalla;
-        }
-  */
-        public GestorRegistrarPedido(IPantallaPedidoABM pantalla)
-        {
-            this.pantalla = pantalla;
-        }
-
-    public GestorRegistrarPedido(pantallaModificarPedido aThis, PedidoObra po) {
+    public GestorRegistrarPedido(pantallaRegistrarPedido pantalla)
+    {
         this.pantalla = pantalla;
-        this.pedido = po;
+    }
+*/
+    public GestorRegistrarPedido(IPantallaPedidoABM pantalla)
+    {
+        this.pantalla = pantalla;
+
+    }
+
+    public GestorRegistrarPedido(IPantallaPedidoABM aThis, int id) {
+        this.pantalla = pantalla;
+        this.pedido = (PedidoObra) HibernateUtil.getSessionFactory().openSession().load(PedidoObra.class, id);
     }
 
 
-	public void registrarPedido()
-        {
-            
-	}
+    public void registrarPedido()
+    {
 
-        /**
-         * Tomo el nombre  de la obra
-         * @param nombre
-         * @param descripcion
-         */
-	public void nombreObra(String nombre)
-        {
-            this.nombre = nombre;
-	}
+    }
 
-        /**
-         * Tomo la descripcion de la obra
-         * @param descripcion
-         */
-        public void descripcionObra(String descripcion)
+    /**
+     * Tomo el nombre  de la obra
+     * @param nombre
+     * @param descripcion
+     */
+    public void nombreObra(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Tomo la descripcion de la obra
+     * @param descripcion
+     */
+    public void descripcionObra(String descripcion)
+    {
+        this.descripcion = descripcion;
+    }
+
+    public void seleccionEmpresaCliente() {
+
+    }
+
+    public void buscarPlantas() {
+
+    }
+
+    public void mostrarPlantasEmpresaSeleccionada() {
+
+    }
+
+    public void seleccionPlanta(Tupla p) {
+        try{
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+        sesion.beginTransaction();
+        this.planta = (Planta)sesion.load(Planta.class, p.getId());
+        sesion.getTransaction().commit();
+        }catch(Exception e)
         {
-            this.descripcion = descripcion;
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
-	
-	public void seleccionEmpresaCliente() {
-	
-	}
-	
-	public void buscarPlantas() {
-	
-	}
-	
-	public void mostrarPlantasEmpresaSeleccionada() {
-	
-	}
-	
-	public void seleccionPlanta(Tupla p) {
-            try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            sesion.beginTransaction();
-            this.planta = (Planta)sesion.load(Planta.class, p.getId());
+    }
+
+
+    public void fechaInicioYFin(Date fechaInicio, Date fechaFin)
+    {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
+    /**
+     * Seteo el monto maximo de la obra
+     * @param monto
+     */
+    public void montoMaximo(double monto)
+    {
+        this.montoMaximo = monto;
+    }
+
+    public void fechaLEP(Date fechaLEP) {
+
+        this.fechaLEP = fechaLEP;
+
+    }
+
+    public void fechaLVP(Date fechaLVP) {
+
+        this.fechaLVP = fechaLVP;
+
+    }
+
+    public void pliegoObra(String pliego) {
+
+        this.pliegoObra = pliego;
+
+    }
+
+    public void planosObra(String planos) {
+
+        this.planosObra = planos;
+
+    }
+
+    public int generarNumeroPedido()
+    {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+        sesion.beginTransaction();
+        int mayorLegajo=0;
+        try{
+            Object ob =sesion.createQuery("Select MAX(id) from PedidoObra").uniqueResult();
+            if(ob!=null)
+            {mayorLegajo=(Integer)ob;}
+            else{mayorLegajo=0;}
             sesion.getTransaction().commit();
-            }catch(Exception e)
-            {
-                System.out.println("ERROR:"+e.getMessage()+"|");
-                e.printStackTrace();
-            }
-	}
+        }
+        catch(Exception e){
+          System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+        return (mayorLegajo+1);
+    }
 
 
-	public void fechaInicioYFin(Date fechaInicio, Date fechaFin)
-        {
-            this.fechaInicio = fechaInicio;
-            this.fechaFin = fechaFin;
-	}
+    /**
+     * Toma la confirmacion del registro y empieza con el kilombo para
+     * agregar un nuevo pedido
+     */
+    public int confirmacionRegistro() {
 
-        /**
-         * Seteo el monto maximo de la obra
-         * @param monto
-         */
-	public void montoMaximo(double monto)
-        {
-            this.montoMaximo = monto;
-	}
-	
-	public void fechaLEP(Date fechaLEP) {
+        return crearPedidoObra();
 
-            this.fechaLEP = fechaLEP;
-	
-	}
-	
-	public void fechaLVP(Date fechaLVP) {
+    }
 
-            this.fechaLVP = fechaLVP;
-	
-	}
-	
-	public void pliegoObra(String pliego) {
+    private int crearPedidoObra() {
 
-            this.pliegoObra = pliego;
-	
-	}
-	
-	public void planosObra(String planos) {
+        PedidoObra nuevo = new PedidoObra();
 
-            this.planosObra = planos;
-	
-	}
+        nuevo.setNombre(nombre);
+        nuevo.setDescripcion(descripcion);
+        nuevo.setFechaAceptacion(new Date());
+        nuevo.setFechaDeRegistro(new Date());
+        nuevo.setFechaFin(fechaFin);
+        nuevo.setFechaInicio(fechaInicio);
+        nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
+        nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
+        nuevo.setMonto(montoMaximo);
+        nuevo.setPlanos(planosObra);
+        nuevo.setPliego(pliegoObra);
 
-        public int generarNumeroPedido()
-        {
+        nuevo.setPlanta(planta);
+
+        generarNumeroPedido();           // AL PEDO
+        buscarUltimoNumeroPedidoObra();  // AL PEDO
+
+        nuevo.crear();
+
+        try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
             sesion.beginTransaction();
-            int mayorLegajo=0;
-            try{
-                Object ob =sesion.createQuery("Select MAX(id) from PedidoObra").uniqueResult();
-                if(ob!=null)
-                {mayorLegajo=(Integer)ob;}
-                else{mayorLegajo=0;}
-                sesion.getTransaction().commit();
-            }
-            catch(Exception e){
-              System.out.println("ERROR:"+e.getMessage()+"|");
-                e.printStackTrace();
-            }
-            return (mayorLegajo+1);
-	}
-
-
-        /**
-         * Toma la confirmacion del registro y empieza con el kilombo para
-         * agregar un nuevo pedido
-         */
-	public int confirmacionRegistro() {
-
-            return crearPedidoObra();
-
-	}
-	
-	private int crearPedidoObra() {
-
-            PedidoObra nuevo = new PedidoObra();
-            nuevo.setNombre(nombre);
-            nuevo.setDescripcion(descripcion);
-            nuevo.setFechaAceptacion(new Date());
-            nuevo.setFechaDeRegistro(new Date());
-            nuevo.setFechaFin(fechaFin);
-            nuevo.setFechaInicio(fechaInicio);
-            nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
-            nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
-            nuevo.setMonto(montoMaximo);
-            nuevo.setPlanos(planosObra);
-            nuevo.setPliego(pliegoObra);
-
-            nuevo.setPlanta(planta);
-
-            generarNumeroPedido();           // AL PEDO
-            buscarUltimoNumeroPedidoObra();  // AL PEDO
-
-            nuevo.crear();
-
-            try{
-                SessionFactory sf = HibernateUtil.getSessionFactory();
-                Session sesion = sf.openSession();
-                sesion.beginTransaction();
-                sesion.save(nuevo);
-                sesion.getTransaction().commit();
-            }catch(Exception e)
-            {
-                System.out.println("ERROR:"+e.getMessage()+"|");
-                e.printStackTrace();
-            }
-            return nuevo.getId();
-	}
-
-        private void crearPlanificacion()
+            sesion.saveOrUpdate(nuevo);
+            sesion.getTransaction().commit();
+        }catch(Exception e)
         {
-
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
         }
-	
-	private void buscarUltimoNumeroPedidoObra() {
+        return nuevo.getId();
+    }
 
-            // Deberia buscarlo, pero hibernate se encarga solo de ésto y
-            // es transparente a nosotros =)
+    private void crearPlanificacion()
+    {
 
-	}
-	
-	public void finCU() {
-	
-	}
+    }
+
+    private void buscarUltimoNumeroPedidoObra() {
+
+        // Deberia buscarlo, pero hibernate se encarga solo de ésto y
+        // es transparente a nosotros =)
+
+    }
+
+    public void finCU() {
+
+    }
 
     public void llamarCURegistrarNuevaEmpresaCliente() {
         pantallaRegistrarEmpresaCliente np = new pantallaRegistrarEmpresaCliente(this);
@@ -300,9 +303,9 @@ public class GestorRegistrarPedido {
         this.pantalla.mostrarPlantasEmpresaCliente();
     }
 
-     /***
-      * De aquí en adelante se programan los metodos para los ABMs
-      */
+ /***
+  * De aquí en adelante se programan los metodos para los ABMs
+  */
     public int buscarEmpresaCliente() {
         EmpresaCliente empresaCliente=null;
         try{
@@ -318,4 +321,91 @@ public class GestorRegistrarPedido {
         return empresaCliente.getId();
     }
 
+    public int getIdPedido(){
+        return pedido.getId();
+    }
+
+    public String getNombrePedido(){
+        if (pedido != null)
+            return pedido.getNombre();
+        else
+            return "";
+    }
+
+    public String getDescripcionPedido(){
+        if (pedido != null)
+            return pedido.getDescripcion();
+        else
+            return "";
+    }
+
+    public int getIdEmpresaClientePedido(){
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Iterator itEmpresa = sesion.createQuery("from EmpresaCliente").iterate();
+        EmpresaCliente ec = null;
+        while(itEmpresa.hasNext()){
+            ec = (EmpresaCliente)itEmpresa.next();
+            if(ec.esMiPlanta(pedido.getPlanta().getId()))
+                break;
+        }
+        if(ec !=null)
+            return ec.getId();
+        return -1;
+    }
+
+    public int getIdPlantaPedido(){
+        if (pedido != null)
+            return pedido.getId();
+        else
+            return -1;
+    }
+
+    public Date getFechaInicioPedido(){
+        if (pedido != null)
+            return pedido.getFechaInicio();
+        else
+            return null;
+    }
+
+    public Date getFechaFinPedido(){
+        if (pedido != null)
+            return pedido.getFechaFin();
+        else
+            return null;
+    }
+
+    public String getMontoPedido(){
+        if (pedido != null)
+            return String.valueOf(pedido.getMonto());
+        else
+            return "";
+    }
+
+    public Date getFechaLEPPedido(){
+        if (pedido != null)
+            return pedido.getFechaLimiteEntregaPresupuesto();
+        else
+            return null;
+    }
+
+    public Date getFechaLVPPedido(){
+        if (pedido != null)
+            return pedido.getFechaLimiteValidezPresupuesto();
+        else
+            return null;
+    }
+
+    public String getPliegoPedido(){
+        if (pedido != null)
+            return pedido.getPliego();
+        else
+            return "";
+    }
+
+    public String getPlanosPedido(){
+        if (pedido != null)
+            return pedido.getPlanos();
+        else
+            return "";
+    }
 }
