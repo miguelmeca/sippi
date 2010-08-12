@@ -793,6 +793,10 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+
+
+
+
     private void btnAgregarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHorarioActionPerformed
 
         DefaultTableModel modelo = (DefaultTableModel) tblHorarios.getModel();
@@ -997,17 +1001,29 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             gestor.empleadosQueAsistiran(listaEmpleados);
 
         // 7) Creo que ya estaría todo ... probemos
+            gestor.confirmacionRegistro();
+            
+                
+    }
 
-            if(gestor.confirmacionRegistro())
-            {
-                // Se guardó en orden
-                JOptionPane.showMessageDialog(this.getParent(),"Se registró correctamente el Taller de Capacitación","Carga Exitosa",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else
-            {
-                // Error al guardar
-                JOptionPane.showMessageDialog(this.getParent(),"Se detecto un error al cargar el Taller de Capacitación","Error en la Carga",JOptionPane.INFORMATION_MESSAGE);
-            }
+    /**
+     * MI-0001 : Se registro correctamente el taller
+     * EG-0001 : Error al hacer commit en la BD
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("MI-0001"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"Se registró correctamente el Taller de Capacitación","Carga Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("EG-0001"))
+        {
+            // Error al guardar
+            JOptionPane.showMessageDialog(this.getParent(),"Se detecto un error al cargar el Taller de Capacitación\nCompruebe todos los datos e intentelo nuevamente","Error en la Carga",JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 }

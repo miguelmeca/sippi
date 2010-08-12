@@ -2,20 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="modelo.TallerCapacitacion" table="TALLERES">
-    
-    <id column="ID" name="id" type="integer" unsaved-value="-1">
+    <id column="ID_TALLER" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
-
     <property name="descripcion" type="string"/>
-
     <set cascade="all" name="detalle" table="Det_Horario_TallerXTaller">
-      <key column="ID"/>
-      <many-to-many class="modelo.AsistenciaTallerCapacitacion" column="ID_DETALLE_HORARIO_TALLER"/>
+      <key column="ID_TALLER"/>
+      <many-to-many class="modelo.DetalleHorarioTaller" column="ID_DETALLE_HORARIO_TALLER"/>
     </set>
-
     <many-to-one class="modelo.LugardeCapacitacion" column="ID_LUGAR_TALLER" name="lugar"/>
     <many-to-one class="modelo.TipoCapacitacion" column="ID_TIPO_CAPAC" name="tipoCapacitacion"/>
-
   </class>
 </hibernate-mapping>

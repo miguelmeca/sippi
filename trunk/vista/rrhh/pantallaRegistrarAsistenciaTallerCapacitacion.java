@@ -11,16 +11,102 @@
 
 package vista.rrhh;
 
+import controlador.rrhh.GestorRegistrarAsistenciaTallerCapacitacion;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.TablaUtil;
+import util.Tupla;
+
 /**
  *
  * @author Administrador
  */
 public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.JInternalFrame {
 
+    private GestorRegistrarAsistenciaTallerCapacitacion gestor;
+    private int SELECTED_DetalleHorario = 0;
+
+
     /** Creates new form frmRegistrarAsistenciaTallerCapacitacion */
     public pantallaRegistrarAsistenciaTallerCapacitacion() {
         initComponents();
+        
+        this.gestor = new GestorRegistrarAsistenciaTallerCapacitacion(this);
+
+        habilitarVentana();
+        
     }
+
+    private void habilitarVentana()
+    {
+        //initTablaAsistencia();
+        mostrarTalleres();
+    }
+
+    private void initTablaAsistencia()
+    {
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        Object[] nombreColumnas = {"Nombre del Empleado","Asistencia"};
+        for (int i = 0; i < nombreColumnas.length; i++)
+        {
+           modelo.addColumn(nombreColumnas[i]);
+        }
+
+        tblAsistencia.setModel(modelo);
+    }
+
+    private void mostrarTalleres()
+    {
+        ArrayList<Tupla> lista = gestor.buscarTalleresNoRealizados();
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        Iterator<Tupla> it = lista.iterator();
+
+        if(lista.size()==0)
+        {
+            valores.addElement(new Tupla(0,"No hay Talleres de Capacitación Cargados"));
+        }
+
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+
+        cmbTaller.setModel(valores);
+    }
+
+    private void cargarListaAsistencia()
+    {
+        Tupla tx = (Tupla)cmbHora.getSelectedItem();
+
+        if(tx.getId()!=0)
+        {
+            SELECTED_DetalleHorario = tx.getId();
+
+            ArrayList<NTupla> lista = gestor.ListaAsistencia(tx.getId());
+
+            DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
+            modelo = TablaUtil.vaciarDefaultTableModel(modelo); // Limpio las filas
+
+            Iterator it = lista.iterator();
+            while (it.hasNext())
+            {
+                NTupla nt = (NTupla) it.next();
+                Object[] fila = new Object[2];
+                fila[0] = nt;
+                fila[1] = nt.getData();
+                modelo.addRow(fila);
+            }
+
+            tblAsistencia.setModel(modelo);
+        }
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -34,17 +120,18 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbFecha = new javax.swing.JComboBox();
+        cmbHora = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        cmbTaller = new javax.swing.JComboBox();
+        btnCargarLista = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tblAsistencia = new javax.swing.JTable();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnMarcarTodos = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -54,21 +141,27 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
         jLabel1.setText("Fecha:");
 
-        jLabel2.setText("Hora: ");
+        jLabel2.setText("Horario: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11/06/2010" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09:00 - 13:00" }));
+        cmbFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFechaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Taller de Capacitación: ");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Higiene y Seguridad Industrial" }));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/download.png"))); // NOI18N
-        jButton1.setText("Cargar Lista");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cmbTaller.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cmbTallerActionPerformed(evt);
+            }
+        });
+
+        btnCargarLista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/download.png"))); // NOI18N
+        btnCargarLista.setText("Cargar Lista");
+        btnCargarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarListaActionPerformed(evt);
             }
         });
 
@@ -79,47 +172,42 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, 232, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCargarLista, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, 0, 319, Short.MAX_VALUE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(cmbTaller, 0, 319, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbHora, 0, 157, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(cmbTaller, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
+                    .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(btnCargarLista))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Lista"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Schubert", new Boolean(true)},
-                {"Chopin", null},
-                {"Haydn", new Boolean(true)},
-                {"Mozart", null},
-                {"Mendelssohn", new Boolean(true)},
-                {"Weber", new Boolean(true)}
+
             },
             new String [] {
                 "Empleado", "Asistencia"
@@ -133,7 +221,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAsistencia);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,40 +229,60 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton2.setText("Cancelar");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cerrar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        jButton3.setText("Aceptar");
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnGuardar.setText("Guardar Cambios");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         jButton4.setText("Imprimir");
+
+        btnMarcarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/favorite.png"))); // NOI18N
+        btnMarcarTodos.setText("Marcar Todos");
+        btnMarcarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarcarTodosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnMarcarTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -183,48 +291,174 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar)
+                    .addComponent(jButton4)
+                    .addComponent(btnMarcarTodos))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCargarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarListaActionPerformed
+
+        cargarListaAsistencia();
+
+    }//GEN-LAST:event_btnCargarListaActionPerformed
+
+    private void cmbTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTallerActionPerformed
+
+        Tupla tx = (Tupla)cmbTaller.getSelectedItem();
+        if(tx.getId()!=0)
+        {
+            ArrayList<Tupla> lista = gestor.mostrarFechasDeTaller(tx);
+
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
+            Iterator<Tupla> it = lista.iterator();
+
+            if(lista.isEmpty())
+            {
+                valores.addElement(new Tupla(0,"No hay Fechas para este taller"));
+            }
+
+            while(it.hasNext()){
+                Tupla tu = it.next();
+                valores.addElement(tu);
+            }
+
+            cmbFecha.setModel(valores);
+
+        }
+
+
+    }//GEN-LAST:event_cmbTallerActionPerformed
+
+    private void cmbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFechaActionPerformed
+        Tupla tx = (Tupla)cmbFecha.getSelectedItem();
+        Tupla ty = (Tupla)cmbTaller.getSelectedItem();
+
+        if(tx.getId()!=0)
+        {
+            ArrayList<Tupla> lista = gestor.mostrarHorariosDeTaller(ty,tx);
+
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
+            Iterator<Tupla> it = lista.iterator();
+
+            if(lista.isEmpty())
+            {
+                valores.addElement(new Tupla(0,"No hay Horarios para este taller"));
+            }
+
+            while(it.hasNext()){
+                Tupla tu = it.next();
+                valores.addElement(tu);
+            }
+
+            cmbHora.setModel(valores);
+
+        }
+    }//GEN-LAST:event_cmbFechaActionPerformed
+
+    private void marcarAsistenciaTodos()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
+        int siz = modelo.getRowCount();
+        for (int i = 0; i < siz; i++)
+        {
+            modelo.setValueAt(true,i,1);
+        }
+    }
+
+    private void btnMarcarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcarTodosActionPerformed
+
+        marcarAsistenciaTodos();
+
+    }//GEN-LAST:event_btnMarcarTodosActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        // Bue, ahora viene la batatola, por suerte no valido
+        // Recolecto los datos de la tabla
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
+        int siz = modelo.getRowCount();
+        for (int i = 0; i < siz; i++)
+        {
+            NTupla nt;
+            nt = (NTupla) modelo.getValueAt(i,0);
+            nt.setData(modelo.getValueAt(i,1));
+            lista.add(nt);
+        }
+
+        gestor.confirmarListaAsistencia(lista);
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        this.dispose();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new pantallaRegistrarAsistenciaTallerCapacitacion().setVisible(true);
-            }
-        });
+     * EL-0002 : No se pudo cargar el combo de talleres de capacitacion
+     * EL-0003 : No se pudo cargar la lista de Fechas del Taller
+     * EL-0004 : No se pudo cargar la lista de Horarios del Taller
+     * EL-0005 : No se pudo cargar la lista de Asistencia
+     * EG-0006 : No se pudo guardar la lista de asistencia
+     * MI-0002 : Se registraron los cambios en la lista de Asistencia
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("EL-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Talleres de Capacitación","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("EL-0003"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Fechas del Taller","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("EL-0004"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Horarios del Taller","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("EL-0005"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Asistencia","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("EL-0006"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo Guardar la lista de asistencia","Error en la Registración",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("MI-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se registraron los cambios en la lista de Asistencia","Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCargarLista;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnMarcarTodos;
+    private javax.swing.JComboBox cmbFecha;
+    private javax.swing.JComboBox cmbHora;
+    private javax.swing.JComboBox cmbTaller;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAsistencia;
     // End of variables declaration//GEN-END:variables
 
 }
