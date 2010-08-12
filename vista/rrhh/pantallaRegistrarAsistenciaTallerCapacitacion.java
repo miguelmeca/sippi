@@ -88,28 +88,36 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
     private void cargarListaAsistencia()
     {
-        Tupla tx = (Tupla)cmbHora.getSelectedItem();
-
-        if(tx.getId()!=0)
+        if(cmbHora.getItemCount()!=0)
         {
-            SELECTED_DetalleHorario = tx.getId();
 
-            ArrayList<NTupla> lista = gestor.ListaAsistencia(tx.getId());
+            Tupla tx = (Tupla)cmbHora.getSelectedItem();
 
-            DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
-            modelo = TablaUtil.vaciarDefaultTableModel(modelo); // Limpio las filas
-
-            Iterator it = lista.iterator();
-            while (it.hasNext())
+            if(tx.getId()!=0)
             {
-                NTupla nt = (NTupla) it.next();
-                Object[] fila = new Object[2];
-                fila[0] = nt;
-                fila[1] = nt.getData();
-                modelo.addRow(fila);
-            }
+                SELECTED_DetalleHorario = tx.getId();
 
-            tblAsistencia.setModel(modelo);
+                ArrayList<NTupla> lista = gestor.ListaAsistencia(tx.getId());
+
+                DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
+                modelo = TablaUtil.vaciarDefaultTableModel(modelo); // Limpio las filas
+
+                Iterator it = lista.iterator();
+                while (it.hasNext())
+                {
+                    NTupla nt = (NTupla) it.next();
+                    Object[] fila = new Object[2];
+                    fila[0] = nt;
+                    fila[1] = nt.getData();
+                    modelo.addRow(fila);
+                }
+
+                tblAsistencia.setModel(modelo);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Seleccione el horario de un Taller","Atención",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -241,7 +249,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -263,6 +271,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
+        btnImprimir.setEnabled(false);
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -318,7 +327,8 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
     private void btnCargarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarListaActionPerformed
 
         cargarListaAsistencia();
-
+        btnImprimir.setEnabled(true);
+        
     }//GEN-LAST:event_btnCargarListaActionPerformed
 
     private void cmbTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTallerActionPerformed
@@ -418,11 +428,16 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
 
+      if(SELECTED_DetalleHorario!=0)
+      {
+           String urlReporte = "/vista/reportes/ListaAsistencia.jrxml";
 
-        ReporteUtil ru = new ReporteUtil();
-        ru.mostrarReporte();
+           Map params = new HashMap();
+           params.put("HORARIO_TALLER",SELECTED_DetalleHorario);
 
-
+           ReporteUtil ru = new ReporteUtil();
+           ru.mostrarReporte(urlReporte,params);
+      }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
 
