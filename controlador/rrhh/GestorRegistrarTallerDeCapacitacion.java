@@ -189,33 +189,6 @@ public class GestorRegistrarTallerDeCapacitacion {
 	
 	}
 	
-	public void seleccionCapacitador() {
-	
-	}
-	
-	public void buscarEmpleadosDeObraSeleccionadaDeEseTipoYMaxFechaVencimiento() {
-	
-	}
-	
-	public void seleccionEmpleados() {
-	
-	}
-	
-	public void validarDatos() {
-	
-	}
-	
-	public void registrarTallerDeCapacitacionParaObra() {
-	
-	}
-	
-	public void finCU() {
-	
-	}
-	
-	public void registrarTallerCapacitacionParaLosEmpleadosDeLaEmpresa() {
-	
-	}
 	
 	public ArrayList<Tupla> buscarTiposDeCapacitacion() {
 
@@ -243,10 +216,6 @@ public class GestorRegistrarTallerDeCapacitacion {
 
            return lista;
 
-	}
-	
-	public void buscarNombresEmpleadosActivos() {
-	
 	}
 	
 	public ArrayList<NTupla>  buscarEmpleadosActivosConFechaVencimiento(int idTipoCapacitacion)
@@ -298,9 +267,6 @@ public class GestorRegistrarTallerDeCapacitacion {
             return lista;
 	}
 	
-	public void registrarTallerDeCapacitacionParaLosEmpleadosDeLaEmpresa() {
-	
-	}
 
         public void tipoCapacitacion(Tupla tipo)
         {
@@ -395,11 +361,24 @@ public class GestorRegistrarTallerDeCapacitacion {
             {
                 HashSet items = new HashSet(listaAsistencia);
                 DetalleHorarioTaller dht = (DetalleHorarioTaller)it.next();
-                dht.setAsistencias(items);
+
+                    // TENGO QUE DUPLICAR
+                    HashSet itemsCopia = new HashSet();
+                    Iterator<AsistenciaTallerCapacitacion> itx = items.iterator();
+                    while (itx.hasNext())
+                    {
+                        AsistenciaTallerCapacitacion ac = itx.next();
+                        AsistenciaTallerCapacitacion atcn = new AsistenciaTallerCapacitacion();
+
+                        atcn.setEmpleado(ac.getEmpleado());
+                        atcn.setAsistio(ac.getAsistio());
+                        itemsCopia.add(atcn);
+                    }
+                dht.setAsistencias(itemsCopia);
             }
         }
 
-        public boolean confirmacionRegistro()
+        public void confirmacionRegistro()
         {
             // GUARDO:
             // 1) Creo el Taller con sus objetos (YA CREADOS)
@@ -434,12 +413,13 @@ public class GestorRegistrarTallerDeCapacitacion {
                 catch(Exception e)
                 {
                     HibernateUtil.rollbackTransaction();
-                    System.out.println("ERROR ! : "+e.getMessage());
-                    return false;
+                    System.out.println("EG-0001 : "+e.getMessage());
+                    pantalla.MostrarMensaje("EG-0001");
                 }
 
 
-            return true;
+            pantalla.MostrarMensaje("MI-0001");
+
 	}
 
 }

@@ -144,12 +144,9 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Calle:");
 
-        txtCalle.setText("Av. Sarmiento 147");
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Código Postal:");
 
-        txtCodPostal.setText("X5000CFG");
         txtCodPostal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodPostalActionPerformed(evt);
@@ -168,6 +165,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Provincia:");
 
+        cmbProvincias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Pais ..." }));
         cmbProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbProvinciasActionPerformed(evt);
@@ -184,6 +182,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Localidad: ");
 
+        cmbLocalidades.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Provincia ..." }));
         cmbLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbLocalidadesActionPerformed(evt);
@@ -200,6 +199,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Barrio:");
 
+        cmbBarrio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Localidad ..." }));
         cmbBarrio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbBarrioActionPerformed(evt);
@@ -216,7 +216,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Altura:");
 
-        txtAltura.setText("147");
         txtAltura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlturaActionPerformed(evt);
@@ -226,7 +225,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Piso:");
 
-        txtPiso.setText("9");
         txtPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPisoActionPerformed(evt);
@@ -236,7 +234,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Depto.:");
 
-        txtDepto.setText("PB");
         txtDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDeptoActionPerformed(evt);
@@ -372,7 +369,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
