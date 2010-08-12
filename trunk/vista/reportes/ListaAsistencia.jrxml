@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaAsistencia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1"/>
+	<subDataset name="Table Dataset 1"/>
+	<subDataset name="DS_Asistencia">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     PERSONA."APELLIDO" AS PERSONA_APELLIDO,
+     PERSONA."NOMBRE" AS PERSONA_NOMBRE,
+     PERSONA."NRO_DOC" AS PERSONA_NRO_DOC,
+     TIPODOCUMENTO."NOMBRE" AS TIPODOCUMENTO_NOMBRE,
+     EMPLEADO."LEGAJO" AS EMPLEADO_LEGAJO,
+     ASISTENCIATALLERCAPACITACION."ASISTIO" AS ASISTENCIATALLERCAPACITACION_A
+FROM
+     "ADMINISTRADORNN"."DETALLEHORARIOTALLER" DETALLEHORARIOTALLER INNER JOIN "ADMINISTRADORNN"."DETALLE_ASISXASIS_TALLER" DETALLE_ASISXASIS_TALLER ON DETALLEHORARIOTALLER."ID_DETALLE_HORARIO_TALLER" = DETALLE_ASISXASIS_TALLER."ID_DETALLE_HORARIO_TALLER"
+     INNER JOIN "ADMINISTRADORNN"."ASISTENCIATALLERCAPACITACION" ASISTENCIATALLERCAPACITACION ON DETALLE_ASISXASIS_TALLER."ID_ASISTENCIA_TALLER" = ASISTENCIATALLERCAPACITACION."ID_ASISTENCIA_TALLER"
+     INNER JOIN "ADMINISTRADORNN"."EMPLEADO" EMPLEADO ON ASISTENCIATALLERCAPACITACION."ID_EMPLEADO" = EMPLEADO."ID_EMPLEADO"
+     INNER JOIN "ADMINISTRADORNN"."PERSONA" PERSONA ON EMPLEADO."ID_EMPLEADO" = PERSONA."ID_PERSONA"
+     INNER JOIN "ADMINISTRADORNN"."TIPODOCUMENTO" TIPODOCUMENTO ON PERSONA."ID_TIPO_DOC" = TIPODOCUMENTO."ID"]]>
+		</queryString>
+		<field name="PERSONA_APELLIDO" class="java.lang.String"/>
+		<field name="PERSONA_NOMBRE" class="java.lang.String"/>
+		<field name="PERSONA_NRO_DOC" class="java.lang.String"/>
+		<field name="TIPODOCUMENTO_NOMBRE" class="java.lang.String"/>
+		<field name="EMPLEADO_LEGAJO" class="java.math.BigDecimal"/>
+		<field name="ASISTENCIATALLERCAPACITACION_A" class="java.math.BigDecimal"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT
+     PERSONA."APELLIDO" AS PERSONA_APELLIDO,
+     PERSONA."NOMBRE" AS PERSONA_NOMBRE,
+     PERSONA."NRO_DOC" AS PERSONA_NRO_DOC,
+     TIPODOCUMENTO."NOMBRE" AS TIPODOCUMENTO_NOMBRE,
+     EMPLEADO."LEGAJO" AS EMPLEADO_LEGAJO,
+     ASISTENCIATALLERCAPACITACION."ASISTIO" AS ASISTENCIATALLERCAPACITACION_A
+FROM
+     "ADMINISTRADORNN"."DETALLEHORARIOTALLER" DETALLEHORARIOTALLER INNER JOIN "ADMINISTRADORNN"."DETALLE_ASISXASIS_TALLER" DETALLE_ASISXASIS_TALLER ON DETALLEHORARIOTALLER."ID_DETALLE_HORARIO_TALLER" = DETALLE_ASISXASIS_TALLER."ID_DETALLE_HORARIO_TALLER"
+     INNER JOIN "ADMINISTRADORNN"."ASISTENCIATALLERCAPACITACION" ASISTENCIATALLERCAPACITACION ON DETALLE_ASISXASIS_TALLER."ID_ASISTENCIA_TALLER" = ASISTENCIATALLERCAPACITACION."ID_ASISTENCIA_TALLER"
+     INNER JOIN "ADMINISTRADORNN"."EMPLEADO" EMPLEADO ON ASISTENCIATALLERCAPACITACION."ID_EMPLEADO" = EMPLEADO."ID_EMPLEADO"
+     INNER JOIN "ADMINISTRADORNN"."PERSONA" PERSONA ON EMPLEADO."ID_EMPLEADO" = PERSONA."ID_PERSONA"
+     INNER JOIN "ADMINISTRADORNN"."TIPODOCUMENTO" TIPODOCUMENTO ON PERSONA."ID_TIPO_DOC" = TIPODOCUMENTO."ID"]]>
+	</queryString>
+	<field name="PERSONA_APELLIDO" class="java.lang.String"/>
+	<field name="PERSONA_NOMBRE" class="java.lang.String"/>
+	<field name="PERSONA_NRO_DOC" class="java.lang.String"/>
+	<field name="TIPODOCUMENTO_NOMBRE" class="java.lang.String"/>
+	<field name="EMPLEADO_LEGAJO" class="java.math.BigDecimal"/>
+	<field name="ASISTENCIATALLERCAPACITACION_A" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="554" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Asistencia]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="59" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="58" width="554" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="39" width="89" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="39" width="86" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="39" width="168" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="39" width="86" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Legajo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="39" width="54" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Asistio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PERSONA_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PERSONA_NRO_DOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EMPLEADO_LEGAJO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ASISTENCIATALLERCAPACITACION_A}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPODOCUMENTO_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PERSONA_APELLIDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="34" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="34" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -203,4 +203,35 @@ public class HibernateUtil {
 			(Interceptor) threadInterceptor.get();
 		return interceptor;
 	}
+
+
+        public static boolean isConected() throws Exception
+         {
+		Session session = getSession();
+                try {
+                    if (session.isConnected()&& session.isOpen())
+                    {
+                        return true;
+                    }
+                    return false;
+		}catch (HibernateException ex)
+                {
+			throw new HibernateException(ex);
+		}
+
+        }
+
+        public static String getCadenaConexion()
+        {
+            return configuration.getProperty("hibernate.connection.url");
+        }
+        public static String getUsuarioConexion()
+        {
+            return configuration.getProperty("hibernate.connection.username");
+        }
+        public static String getPasswordConexion()
+        {
+            return configuration.getProperty("hibernate.connection.password");
+        }
+
 }
