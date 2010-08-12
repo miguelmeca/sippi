@@ -32,7 +32,7 @@ import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
-import vista.rrhh.pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion;
+import vista.rrhh.pantallaConsultarTallerCapacitacion;
 import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
 import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
 import vista.rrhh.pantallaRegistrarCapacitador;
@@ -111,6 +111,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnConsultarClientes = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         btnNuevoPedidoObra = new javax.swing.JButton();
         btnNuevoEmpleado = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -198,6 +199,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Industrial de Planificación y Presupuestación");
 
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         btnConsultarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
@@ -211,6 +215,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnConsultarClientes);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/full_page.png"))); // NOI18N
+        jButton2.setText("Consultar Talleres de Capacitación");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
 
         btnNuevoPedidoObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
         btnNuevoPedidoObra.setText("Nuevo Pedido de Obra");
@@ -248,7 +264,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSalir);
 
-        jPanel2.add(jToolBar1);
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, -1));
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -878,6 +894,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pre.setVisible(true);
     }//GEN-LAST:event_miModificarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        pantallaConsultarTallerCapacitacion pctc = new pantallaConsultarTallerCapacitacion();
+        SwingPanel.getInstance().addWindow(pctc);
+        pctc.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -895,6 +917,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoPedidoObra;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
