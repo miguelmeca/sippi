@@ -8,9 +8,12 @@ package util;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -24,35 +27,51 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 
 /**
- * Descripción:
+ * Descripción: Clase para simplificar la emisión de Reportes
  * @version 1.0
- * @author Administrador
+ * @author Iuga
  * @cambios
  * @todo
  */
 
 public class ReporteUtil {
 
-    public void mostrarReporte()
+    private Connection conn;
+
+    public ReporteUtil()
+    {
+       String cadena = HibernateUtil.getCadenaConexion();
+       cadena = cadena.replaceAll("//","");
+       cadena = cadena.replaceAll("/",":");
+       
+        try
+        {
+            conn = DriverManager.getConnection(cadena, HibernateUtil.getUsuarioConexion(), HibernateUtil.getPasswordConexion());
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("No se pudo conectar con la DB para hacer el reporte");
+        }
+    }
+
+
+
+    public void mostrarReporte(String urlReporte, Map parametros)
     {
 
-        try{
+        if(parametros==null)
+        {
+            parametros = new HashMap();
+        }
 
-            String cadena = HibernateUtil.getCadenaConexion();
-            cadena = cadena.replaceAll("//","");
-            cadena = cadena.replaceAll("/",":");
-            Connection conn = DriverManager.getConnection(cadena,HibernateUtil.getUsuarioConexion(), HibernateUtil.getPasswordConexion());
-
-           Map parameters = new HashMap();
-           parameters.put("TITULO", "PAISES");
-           parameters.put("FECHA", new java.util.Date());
-
-           URL url = this.getClass().getResource("/vista/reportes/ListaAsistencia.jrxml");
+        try
+        {
+           URL url = this.getClass().getResource(urlReporte);
            String jrxml = url.getPath();
 
            JasperReport jr = JasperCompileManager.compileReport(jrxml);
 
-           JasperPrint jp = JasperFillManager.fillReport(jr,parameters,conn);
+           JasperPrint jp = JasperFillManager.fillReport(jr,parametros,conn);
 
            JasperViewer jv = new JasperViewer(jp,false);
            jv.setVisible(true);

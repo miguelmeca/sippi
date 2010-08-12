@@ -751,10 +751,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Emitir Listado de Asistencia
         if(node.getTitulo().equals("Emitir Listado de Asistencia"))
         {
-            pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion pre = new pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
+//            pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion pre = new pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion();
+//            SwingPanel.getInstance().addWindow(pre);
+//            pre.setVisible(true);
+//            return;
         }
         // Nuevo Capacitador
         if(node.getTitulo().equals("Nuevo Capacitador"))
