@@ -12,12 +12,18 @@
 package vista.rrhh;
 
 import controlador.rrhh.GestorRegistrarAsistenciaTallerCapacitacion;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 import util.NTupla;
+import util.ReporteUtil;
 import util.TablaUtil;
 import util.Tupla;
 
@@ -130,7 +136,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
         tblAsistencia = new javax.swing.JTable();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         btnMarcarTodos = new javax.swing.JButton();
 
         setClosable(true);
@@ -235,7 +241,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -255,8 +261,13 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        jButton4.setText("Imprimir");
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         btnMarcarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/favorite.png"))); // NOI18N
         btnMarcarTodos.setText("Marcar Todos");
@@ -278,7 +289,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnMarcarTodos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(btnImprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -296,7 +307,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar)
-                    .addComponent(jButton4)
+                    .addComponent(btnImprimir)
                     .addComponent(btnMarcarTodos))
                 .addContainerGap())
         );
@@ -405,6 +416,15 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+
+
+        ReporteUtil ru = new ReporteUtil();
+        ru.mostrarReporte();
+
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
 
     /**
      * EL-0002 : No se pudo cargar el combo de talleres de capacitacion
@@ -447,11 +467,11 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCargarLista;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnMarcarTodos;
     private javax.swing.JComboBox cmbFecha;
     private javax.swing.JComboBox cmbHora;
     private javax.swing.JComboBox cmbTaller;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
