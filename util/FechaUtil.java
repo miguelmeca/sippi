@@ -79,5 +79,40 @@ public class FechaUtil {
         return DATE_FORMAT.parse(fecha);
     }
 
+    public static int diasDiferencia(Date inicio, Date fin)
+    {
+        long segInicio = inicio.getTime();
+        long segFin    = fin.getTime();
+        long diferencia = segFin - segInicio;
+        double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        return ( (int) dias);
+    }
+
+    public static int diasDiferencia(String sInicio, String sFin) throws ParseException
+    {
+        Date inicio = FechaUtil.getDate(sInicio);
+        Date fin    = FechaUtil.getDate(sFin);
+
+        long segInicio = inicio.getTime();
+        long segFin    = fin.getTime();
+        long diferencia = segFin - segInicio;
+        double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        return ( (int) dias);
+    }
+
+    public static boolean fechaEnRango(Date fecha, Date rangoInicio, Date rangoFin)
+    {
+        System.out.println("Chequeo Rango de Fechas -> Fecha:"+FechaUtil.getFecha(fecha)+" en rango["+FechaUtil.getFecha(rangoInicio)+"/"+FechaUtil.getFecha(rangoFin)+"]");
+
+        long f = fecha.getTime();
+        long ri = rangoInicio.getTime();
+        long rf = rangoFin.getTime();
+
+        if(f-ri>=0 && rf-f>=0)
+        {
+            return true;
+        }
+        return false;
+    }
 
 }

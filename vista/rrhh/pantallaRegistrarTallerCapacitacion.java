@@ -153,15 +153,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
             Tupla tu = it.next();
             valores.addElement(tu);
         }
-        
-        // Si la lista no tiene elementos cargo una por defecto
-        if(lista.size()==0)
-        {
-            Tupla tpn = new Tupla();
-            tpn.setId(0);
-            tpn.setNombre("Seleccione un Tipo de Capacitación...");
-            valores.addElement(tpn);
-        }
 
         cmbTipoCapacitacion.setModel(valores);
     }
