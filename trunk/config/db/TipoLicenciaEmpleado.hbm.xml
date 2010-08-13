@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.TipoLicenciaEmpleado">
+      
+    <id column="ID_TIPO_LICENCIA" name="oid" type="integer" unsaved-value="0">
+      <generator class="increment"/>
+    </id>
+
+    <property column="NOMBRE" name="nombre" type="string"/>
+      
+  </class>
+
+</hibernate-mapping>

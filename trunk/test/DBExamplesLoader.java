@@ -25,6 +25,7 @@ import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
 import java.util.HashSet;
+import modelo.TipoLicenciaEmpleado;
 //import java.util.Set;
 
 /**
@@ -49,7 +50,22 @@ public class DBExamplesLoader {
           this.cargarPaises();
           this.cargarTipoDocumento();
           this.cargarTipoTelefono();
-        this.cargarEmpresasYPlantas();
+          this.cargarEmpresasYPlantas();
+          this.cargarTipoLicencias();
+    }
+
+    private void cargarTipoLicencias()
+    {
+        TipoLicenciaEmpleado tle = new TipoLicenciaEmpleado();
+        tle.setNombre("Vacaciones");
+
+        TipoLicenciaEmpleado tle2 = new TipoLicenciaEmpleado();
+        tle2.setNombre("Enfermedad");
+
+        sesion.beginTransaction();
+        sesion.save(tle);
+        sesion.save(tle2);
+        sesion.getTransaction().commit();
     }
 
     private void cargarPaises()
@@ -249,3 +265,4 @@ public class DBExamplesLoader {
 
     }
 }
+

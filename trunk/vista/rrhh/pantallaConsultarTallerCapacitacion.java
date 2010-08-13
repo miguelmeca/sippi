@@ -49,7 +49,7 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         {
             NTupla nt = (NTupla) it.next();
 
-            Object[] fila = new Object[3];
+            Object[] fila = new Object[4];
             fila[0] = nt;
                 String[] aux = (String[])nt.getData();
                 fila[1] = aux[0];
