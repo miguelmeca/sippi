@@ -7,6 +7,7 @@ package controlador.rrhh;
 
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
+import java.util.List;
 import modelo.Barrio;
 import modelo.Domicilio;
 import modelo.LugardeCapacitacion;
@@ -50,7 +51,33 @@ public class GestorRegistrarLugarCapacitacion {
 
 	}
 
-	public ArrayList<Tupla> mostrarProvincias(int idPais)
+        public boolean existeLugarCapacitacion(String nombreLugar)
+        {
+            Session sesion;
+            try 
+            {
+                    sesion = HibernateUtil.getSession();
+                    List lista = sesion.createQuery("from LugarCapacitacion lc WHERE lc.nombre LIKE ':nombre'").setParameter(":nombre",nombreLugar).list();
+                    if(lista.size()>0)
+                    {
+                        return false;
+                    }
+                    else   
+                    {
+                        return true;
+                    }
+                    
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("No se pudo conectar con la BD");
+                pantalla.MostrarMensaje("EG-0014");
+                return false;
+            }
+        }
+
+
+        public ArrayList<Tupla> mostrarProvincias(int idPais)
         {
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
 
