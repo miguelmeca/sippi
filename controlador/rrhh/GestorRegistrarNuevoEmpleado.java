@@ -39,7 +39,7 @@ import java.util.Iterator;
 
 
 
-public class GestorRegistrarNuevoEmpleado {
+public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
 
         private pantallaRegistrarEmpleado pantalla;
         private TipoDocumento tipoDocumentoEmpleado;
@@ -49,6 +49,7 @@ public class GestorRegistrarNuevoEmpleado {
         private String emailEmpleado;
         private String cuilEmpleado;
         private Date fechaNacimientoEmpleado;
+        private Date fechaIngresoEmpleado;
 	private Domicilio domicilioEmpleado;
 	private Object listaPaises;
 	private Object listaProvincias;
@@ -114,7 +115,7 @@ public class GestorRegistrarNuevoEmpleado {
 	public void verificarExistenciaEmpleado() {
 	
 	}
-        public boolean ValidarDocumento(String nroDoc)
+        public boolean ValidarDocumento(String nroDoc, Tupla td)
         {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
@@ -122,13 +123,30 @@ public class GestorRegistrarNuevoEmpleado {
             boolean aprobado=true;
             listNroDoc =sesion.createQuery("Select nroDoc from modelo.Empleado").list();//
             String n;
+            //int docRepetido;
             for(int i=0; i<listNroDoc.size();i++)
             {
                 n=(String)listNroDoc.get(i);
                 if(n.equals(nroDoc))
-                {aprobado=false;}
+                {aprobado=false;
+                 break;
+                 //indicedocRepetido=i;
+                }
             }
-            return aprobado;
+            boolean aprobado2=true;
+            if(aprobado==false)
+            {
+                List tipoDoc=sesion.createQuery("Select emp.tipoDoc from modelo.Empleado as emp where emp.nroDoc ="+nroDoc).list();
+                for (int i= 0; i < tipoDoc.size(); i++)
+                {
+                    if(((TipoDocumento)tipoDoc.get(i)).getId()==td.getId())
+                    {aprobado2=false;
+                    break;}
+                }
+            }
+
+            boolean aprobadoFinal=(aprobado || aprobado2);
+            return aprobadoFinal;
         }
 	public boolean ValidarLegajo(String leg)
         {
@@ -144,7 +162,8 @@ public class GestorRegistrarNuevoEmpleado {
             {
                 n=(Integer)listNroDoc.get(i);
                 if(n==(nleg))
-                {aprobado=false;}
+                {aprobado=false;
+                break;}
             }
             return aprobado;
         }
@@ -160,11 +179,12 @@ public class GestorRegistrarNuevoEmpleado {
             {
                 n=(String)listNroDoc.get(i);
                 if(n.equals(cuil))
-                {aprobado=false;}
+                {aprobado=false;
+                break;}
             }
             return aprobado;
         }
-	public void datosPersonalesEmpleado(int leg,String cuil, String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac, String email)
+	public void datosPersonalesEmpleado(int leg,String cuil, String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac,Date fechaIng, String email)
         {
             legajoEmpleado=leg;
             nroDocumento=nmroDoc;
@@ -175,6 +195,7 @@ public class GestorRegistrarNuevoEmpleado {
             emailEmpleado=email;
             fechaNacimientoEmpleado=fechaNac;
             cuilEmpleado=cuil;
+            fechaIngresoEmpleado=fechaIng;
 	
 	}
 	
@@ -390,14 +411,31 @@ public class GestorRegistrarNuevoEmpleado {
 	public void buscarUltimoLegajoEmpleado() {
 	
 	}
-	
+	public void vaciarDatos()
+        {
+        tipoDocumentoEmpleado=null;
+	nroDocumento=null;
+        nombreEmpleado=null;
+        apellidoEmpleado=null;
+        emailEmpleado=null;
+        cuilEmpleado=null;
+        fechaNacimientoEmpleado=null;
+        fechaIngresoEmpleado=null;
+        legajoEmpleado=0;
+        calleD=null;
+        nmroD=0;
+        pisoD=0;
+        departamentoD=null;
+        codigoPostalD=null;
+        barrioD=null;
+        }
 	public Empleado crearEmpleado()
         {
 
             Date fechaAltaActual=new Date();
            // fecha_Alta=System
             
-            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
+            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
             return emp;
