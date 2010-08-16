@@ -46,9 +46,9 @@ public class gestorBDvarios
 
      public ArrayList<Tupla> getTiposDeDocumento()
     {
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             List lista = sesion.createQuery("from TipoDocumento").list();
-            sesion.getTransaction().commit();
+            //sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -76,9 +76,9 @@ public class gestorBDvarios
 
      public ArrayList<Tupla> getTiposDeTelefono()
     {
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             List lista = sesion.createQuery("from TipoTelefono").list();
-            sesion.getTransaction().commit();
+           // sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -101,9 +101,9 @@ public class gestorBDvarios
 
      public ArrayList<Tupla> getTipoEspecialidades()
     {
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             List lista = sesion.createQuery("from TipoEspecialidad").list();
-            sesion.getTransaction().commit();
+           // sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -125,9 +125,9 @@ public class gestorBDvarios
 
      public ArrayList<Tupla> getRangosEspecialidad()
     {
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             List lista = sesion.createQuery("from RangoEspecialidad").list();
-            sesion.getTransaction().commit();
+          //  sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -149,9 +149,9 @@ public class gestorBDvarios
 
      public ArrayList<Tupla> getTipoCapacitacion()
     {
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             List lista = sesion.createQuery("from TipoCapacitacion").list();
-            sesion.getTransaction().commit();
+          //  sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -171,9 +171,9 @@ public class gestorBDvarios
      /////////////////////////////////////////////////////////
      public ArrayList<Tupla> getEmpresas()
     {
-         sesion.beginTransaction();
+        // sesion.beginTransaction();
             List lista = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").list();
-            sesion.getTransaction().commit();
+          //  sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
