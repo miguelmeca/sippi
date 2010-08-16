@@ -57,14 +57,15 @@ public class GestorRegistrarLugarCapacitacion {
             try 
             {
                     sesion = HibernateUtil.getSession();
-                    List lista = sesion.createQuery("from LugarCapacitacion lc WHERE lc.nombre LIKE ':nombre'").setParameter(":nombre",nombreLugar).list();
+                    //List lista = sesion.createQuery("from LugardeCapacitacion lc WHERE lc.nombre = :nom").setParameter("nom","'"+nombreLugar+"'").list();
+                    List lista = sesion.createQuery("from LugardeCapacitacion lc WHERE lc.nombre LIKE :nam").setParameter("nam",nombreLugar).list();
                     if(lista.size()>0)
                     {
-                        return false;
+                        return true;
                     }
                     else   
                     {
-                        return true;
+                        return false;
                     }
                     
             }catch(Exception e)

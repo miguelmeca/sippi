@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.LicenciaEmpleado" >
-
+  <class name="modelo.LicenciaEmpleado">
     <id column="ID_LICENCIA" name="oid" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
-
     <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
     <property column="FECHA_FIN" name="fechaFin" type="date"/>
-
     <property column="MOTIVO" name="motivo" type="string"/>
     <property column="ESTADO" name="estado" type="string"/>
-
     <many-to-one class="modelo.Empleado" column="ID_EMPLEADO" name="empleado"/>
-
     <many-to-one class="modelo.TipoLicenciaEmpleado" column="ID_TIPO_LICENCIA" name="tipoLicencia"/>
-
   </class>
 </hibernate-mapping>
