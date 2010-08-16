@@ -16,6 +16,7 @@ package modelo;
 public class EstadoEmpleado 
 {
         private String nombre;
+        private int id;
         public EstadoEmpleado()
         {}
         public EstadoEmpleado(String nom)
@@ -28,6 +29,14 @@ public class EstadoEmpleado
         public void setNombre(String nom)
         {
             nombre=nom;
+        }
+        public int getId()
+        {
+            return id;
+        }
+        public void setId(int i)
+        {
+            id=i;
         }
 	public boolean esActivo()
         {
