@@ -9,17 +9,28 @@
  * Created on 06-ago-2010, 15:44:11
  */
 
-package vista;
+package vista.rrhh;
+
+import controlador.rrhh.GestorConsultarLugarCapacitacion;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultar extends javax.swing.JInternalFrame {
+public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFrame {
+
+    private GestorConsultarLugarCapacitacion gestor;
 
     /** Creates new form pantallaConsultar */
-    public pantallaConsultar() {
+    public pantallaConsultarLugarCapacitacion() {
         initComponents();
+
+        gestor = new GestorConsultarLugarCapacitacion(this);
 
         habilitarVentana();
 
@@ -33,6 +44,20 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
     private void cargarDatosIniciales()
     {
         // Cargo los datos iniciales de la tabla
+        ArrayList<NTupla> lista = gestor.mostrarLugaresCapacitacion();
+        DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+
+        Iterator<NTupla> it = lista.iterator();
+        while (it.hasNext())
+        {
+            NTupla  nt = it.next();
+            Object[] fila = new Object[2];
+            fila[0] = nt;
+            fila[1] = nt.getData();
+
+            modelo.addRow(fila);
+        }
+        
     }
 
     /** This method is called from within the constructor to
@@ -50,17 +75,13 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
         tblLista = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Consultar ...");
+        setTitle("Consultar Lugares de Capacitación");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -76,7 +97,7 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Legajo", "Nombre", "Apellido"
+                "Nombre", "Dirección"
             }
         ));
         jScrollPane1.setViewportView(tblLista);
@@ -87,16 +108,6 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         jButton2.setText("Modificar");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
-        jButton3.setText("Nuevo");
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        jButton4.setText("Ver Detalles");
-
-        jRadioButton1.setText("Filtro Opcional");
-
-        jRadioButton2.setText("Filtro Opcional 2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,18 +117,10 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -127,21 +130,15 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -157,15 +154,23 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtBuscarMouseClicked
 
+   /**
+     * EL-0015 : No se pudo cargar el listado de Lugares de Capacitación
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        System.out.println("Se detecto el mensaje: "+cod);
+        if(cod.equals("EG-0015"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Lugares","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
