@@ -334,7 +334,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Nombre del Establecimiento :");
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -375,7 +375,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
