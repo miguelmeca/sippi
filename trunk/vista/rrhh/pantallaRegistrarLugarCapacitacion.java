@@ -334,8 +334,14 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Nombre del Establecimiento:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Nombre del Establecimiento :");
+
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         jButton2.setText("Registrar Lugar");
@@ -369,7 +375,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -429,6 +435,19 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
+        // VALIDO LOS DATOS
+        boolean valido = true;
+        if(txtNombre.getText().isEmpty())
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this,"Debe ingresar un nombre","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        if(gestor.existeLugarCapacitacion(txtNombre.getText()))
+        {
+            valido = false;
+            JOptionPane.showMessageDialog(this,"El nombre ingresado ya está en uso","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
         // PASO EL NOMBRE
         gestor.nombreLugarCapacitacion(txtNombre.getText());
 
@@ -440,19 +459,47 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         aux = (Tupla)cmbBarrio.getSelectedItem();
         gestor.barrioPlanta(aux.getId());
 
-        boolean ok = gestor.confirmarLugarCapacitacion();
-        if(ok)
+        if(valido == true)
         {
-            JOptionPane.showMessageDialog(this,"Operación Exitosa","Se realizó con éxito la carga del Lugar de Capacitacion",JOptionPane.INFORMATION_MESSAGE);
-            win.actualizar(1,true);
-            this.dispose();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this,"Error","Se produjo un error en carga del Lugar de Capacitacion",JOptionPane.ERROR_MESSAGE);
+            boolean ok = gestor.confirmarLugarCapacitacion();
+            if(ok)
+            {
+                JOptionPane.showMessageDialog(this,"Operación Exitosa","Se realizó con éxito la carga del Lugar de Capacitacion",JOptionPane.INFORMATION_MESSAGE);
+                win.actualizar(1,true);
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"Error","Se produjo un error en carga del Lugar de Capacitacion",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+
+        if(!txtNombre.getText().isEmpty())
+        {
+            if(gestor.existeLugarCapacitacion(txtNombre.getText()))
+            {
+                JOptionPane.showMessageDialog(this.getParent(),"El nombre del lugar ingresado ya se encuentra en la Base de Datos","Atención",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_txtNombreFocusLost
+
+
+  /**
+   * EG-0014 : No se pudo conectar con la DB
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        System.out.println("Se detecto el mensaje: "+cod);
+        if(cod.equals("EG-0014"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo conectar con la BD para verificar que no exista el lugar ingresado","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevaProvincia;

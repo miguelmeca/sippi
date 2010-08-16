@@ -452,6 +452,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
      */
     public void MostrarMensaje(String cod)
     {
+        System.out.println("Se detecto el mensaje: "+cod);
         if(cod.equals("EL-0002"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Talleres de Capacitación","Error en la Carga",JOptionPane.ERROR_MESSAGE);
