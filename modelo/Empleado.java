@@ -34,12 +34,13 @@ public class Empleado extends Persona {
 	private Set<Especialidad> especialidades;
         private Set<Capacitacion> capacitaciones;
         private EstadoEmpleado estado;
+        private Date fechaIngreso;
 
 
 
 
    
-public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
+public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -58,9 +59,10 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         super.setTelefonos(listaNroTel, listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
         estado=new EstadoEmpleadoActivo();
+        fechaIngreso =fechaIng;
 
     }
-     public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
+     public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -80,6 +82,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
         super.setTelefonos(listaNroTel,  listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
         estado=new EstadoEmpleadoActivo();
+        fechaIngreso =fechaIng;
     }
      public Empleado()
      {
@@ -95,6 +98,14 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,TipoDocumento ti
      public void setEstado(EstadoEmpleado ee)
      {
          estado=ee;
+     }
+     public Date getFechaIngreso()
+     {
+         return fechaIngreso;
+     }
+     public void setFechaIngreso(Date fi)
+     {
+         fechaIngreso=fi;
      }
     public Set getCapacitaciones() {
         return capacitaciones;
