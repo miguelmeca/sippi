@@ -2,7 +2,9 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 //
@@ -121,9 +123,27 @@ public class TallerCapacitacion {
 	public void getTaller() {
 	
 	}
-	
-	public void getEmpleados() {
-	
+
+        /**
+         * HECHO A OJO, REVISAR Y REFACTORIZAR
+         * @return
+         */
+	public ArrayList<Empleado> getEmpleados() {
+
+            ArrayList<Empleado> lista = new ArrayList<Empleado>();
+            Iterator ir = detalle.iterator();
+            if (ir.hasNext())
+            {
+                DetalleHorarioTaller dht = (DetalleHorarioTaller)ir.next();
+
+                    Iterator it = dht.getAsistencias().iterator();
+                    while(it.hasNext())
+                    {
+                        AsistenciaTallerCapacitacion atc = (AsistenciaTallerCapacitacion)it.next();
+                        lista.add(atc.getEmpleado());
+                    }
+            }
+            return lista;
 	}
 	
 	public void buscarApellidoYNombre() {

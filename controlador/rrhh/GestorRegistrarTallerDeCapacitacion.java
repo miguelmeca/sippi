@@ -127,7 +127,6 @@ public class GestorRegistrarTallerDeCapacitacion {
         {
             String dire = "x";
 
-                  SessionFactory sf = HibernateUtil.getSessionFactory();
                    Session sesion;
                    try
                    {
