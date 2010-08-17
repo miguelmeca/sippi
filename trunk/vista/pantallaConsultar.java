@@ -11,6 +11,8 @@
 
 package vista;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Administrador
@@ -35,6 +37,11 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
         // Cargo los datos iniciales de la tabla
     }
 
+    private void setCantidadResultados(int cant)
+    {
+        lblCantResultados.setText("Cantidad de Resultados: "+cant);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -54,18 +61,24 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        lblCantResultados = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar ...");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
             }
         });
 
@@ -97,6 +110,9 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
 
         jRadioButton2.setText("Filtro Opcional 2");
 
+        lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        lblCantResultados.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,6 +130,8 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,14 +153,15 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
                         .addComponent(jRadioButton1)
                         .addComponent(jRadioButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap())
+                    .addComponent(jButton4)
+                    .addComponent(lblCantResultados))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,6 +176,13 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtBuscarMouseClicked
 
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            // LANZO EL BUSCAR
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -167,6 +193,7 @@ public class pantallaConsultar extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCantResultados;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables

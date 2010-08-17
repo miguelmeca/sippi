@@ -12,11 +12,13 @@
 package vista.rrhh;
 
 import controlador.rrhh.GestorConsultarLugarCapacitacion;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.TablaUtil;
 
 /**
  *
@@ -47,6 +49,8 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         ArrayList<NTupla> lista = gestor.mostrarLugaresCapacitacion();
         DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
 
+        setCantidadResultados(lista.size());
+
         Iterator<NTupla> it = lista.iterator();
         while (it.hasNext())
         {
@@ -75,18 +79,27 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         tblLista = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblCantResultados = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Lugares de Capacitación");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -108,19 +121,24 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         jButton2.setText("Modificar");
 
+        lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        lblCantResultados.setText("Resultados Encontrados");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -133,12 +151,13 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(lblCantResultados))
                 .addContainerGap())
         );
 
@@ -153,6 +172,38 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         }
 
     }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void setCantidadResultados(int cant)
+    {
+        lblCantResultados.setText("Cantidad de Resultados: "+cant);
+    }
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            System.out.println("ACTION KEY + "+txtBuscar.getText());
+            ArrayList<NTupla> lista = gestor.buscarLugaresCapacitacionPorNombre(txtBuscar.getText());
+            DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+            modelo = TablaUtil.vaciarDefaultTableModel(modelo);
+
+            setCantidadResultados(lista.size());
+
+            Iterator<NTupla> it = lista.iterator();
+            while (it.hasNext())
+            {
+                NTupla  nt = it.next();
+                Object[] fila = new Object[2];
+                fila[0] = nt;
+                fila[1] = nt.getData();
+
+                modelo.addRow(fila);
+            }
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
    /**
      * EL-0015 : No se pudo cargar el listado de Lugares de Capacitación
@@ -172,6 +223,7 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCantResultados;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
