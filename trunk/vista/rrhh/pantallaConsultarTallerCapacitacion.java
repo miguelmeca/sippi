@@ -12,10 +12,13 @@
 package vista.rrhh;
 
 import controlador.rrhh.GestorConsultarTallerCapacitacion;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.SwingPanel;
 import util.TablaUtil;
 import vista.*;
 
@@ -37,6 +40,11 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
 
     }
 
+    private void setCantidadResultados(int cant)
+    {
+        lblCantResultados.setText("Cantidad de Resultados: "+cant);
+    }
+
     public void initTabla()
     {
         DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
@@ -44,6 +52,9 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         modelo = TablaUtil.vaciarDefaultTableModel(modelo);
 
         ArrayList<NTupla> lista = gestor.consultarTalleres();
+
+        setCantidadResultados(lista.size());
+
         Iterator it = lista.iterator();
         while (it.hasNext()) 
         {
@@ -78,7 +89,8 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnDetalles = new javax.swing.JButton();
+        lblCantResultados = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
@@ -91,6 +103,16 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
             }
         });
 
@@ -115,8 +137,15 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
         jButton3.setText("Nuevo");
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        jButton4.setText("Ver Detalles");
+        btnDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        btnDetalles.setText("Ver Detalles");
+        btnDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetallesActionPerformed(evt);
+            }
+        });
+
+        lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 11));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,7 +160,9 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,15 +178,16 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap())
+                    .addComponent(btnDetalles)
+                    .addComponent(lblCantResultados))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,14 +202,75 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
 
     }//GEN-LAST:event_txtBuscarMouseClicked
 
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            ArrayList<NTupla> lista = gestor.buscarTallerCapacitacionPorNombre(txtBuscar.getText());
+            DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+            modelo = TablaUtil.vaciarDefaultTableModel(modelo);
+
+            setCantidadResultados(lista.size());
+
+            Iterator<NTupla> it = lista.iterator();
+            while (it.hasNext())
+            {
+                NTupla nt = (NTupla) it.next();
+
+                Object[] fila = new Object[4];
+                fila[0] = nt;
+                    String[] aux = (String[])nt.getData();
+                    fila[1] = aux[0];
+                    fila[2] = aux[1];
+                    fila[3] = aux[2];
+
+                modelo.addRow(fila);
+            }
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
+       if(tblLista.getSelectedRow()!=-1)
+        {
+            // Agrego la fila
+            DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
+            NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+
+            if(tp.getId()!=0)
+            {
+                pantallaVerTallerCapacitacion pvtc = new pantallaVerTallerCapacitacion(tp.getId());
+                SwingPanel.getInstance().addWindow(pvtc);
+                pvtc.setVisible(true);
+            }
+
+        }
+    }//GEN-LAST:event_btnDetallesActionPerformed
+
+
+   /**
+     * EL-0016 : No se pudo cargar el listado de Talleres de Capacitación
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        System.out.println("Se detecto el mensaje: "+cod);
+        if(cod.equals("EG-0016"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Talleres","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDetalles;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCantResultados;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
