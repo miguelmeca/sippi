@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
+import modelo.TipoTelefono;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentList;
@@ -407,5 +408,25 @@ public class GestorRegistrarPedido {
             return pedido.getPlanos();
         else
             return "";
+    }
+
+    public ArrayList<Tupla> mostrarTiposTelefono() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
+            while ( iter.hasNext() ) {
+                TipoTelefono tipo = (TipoTelefono) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+        return tuplas;
     }
 }

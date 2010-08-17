@@ -8,6 +8,7 @@ package controlador.utiles;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import modelo.ContactoResponsable;
 import modelo.TipoDocumento;
 import modelo.TipoTelefono;
 import modelo.EmpresaCliente;
@@ -220,5 +221,24 @@ public class gestorBDvarios
     {
         return (Planta) sesion.load(Planta.class,idPlanta);
     }
+
+    	public ArrayList<Tupla> mostrarContactos() {
+
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            //SessionFactory sf = HibernateUtil.getSessionFactory();
+            //Session sesion = sf.openSession();
+
+
+            //sesion.beginTransaction();
+            Iterator iter = sesion.createQuery("from ContactoResponsable ec order by ec.id DESC").iterate();
+            while ( iter.hasNext() )
+            {
+                ContactoResponsable cr = (ContactoResponsable)iter.next();
+                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
+                tuplas.add(tupla);
+            }
+            return tuplas;
+
+	}
 
 }
