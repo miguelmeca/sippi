@@ -68,6 +68,36 @@ public class GestorConsultarLugarCapacitacion {
         return lista;
     }
 
+    public ArrayList<NTupla> buscarLugaresCapacitacionPorNombre(String nombre)
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+            Session sesion;
+            try {
+                    sesion = HibernateUtil.getSession();
+                    List listaIt = sesion.createQuery("from LugardeCapacitacion lc WHERE lc.nombre LIKE :nom order by lc.nombre").setParameter("nom","%"+nombre+"%").list();
+                    Iterator<LugardeCapacitacion> iter = listaIt.iterator();
+                    while (iter.hasNext())
+                    {
+                        LugardeCapacitacion lc = iter.next();
+
+                        NTupla nt = new NTupla();
+                        nt.setId(lc.getId());
+                        nt.setNombre(lc.getNombre());
+                        nt.setData(lc.getDomicilio().toString());
+
+                        lista.add(nt);
+                    }
+                }
+                catch(Exception e)
+                {
+                    System.out.println("No se pudo abrir la sesion: "+e.getMessage());
+                    e.printStackTrace();
+                    pantalla.MostrarMensaje("EG-0015");
+                }
+
+        return lista;
+    }
 
     
 }
