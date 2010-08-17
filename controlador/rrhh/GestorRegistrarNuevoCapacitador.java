@@ -1,6 +1,6 @@
 package controlador.rrhh;
 
-//
+//comiteada forzada
  
 import java.util.ArrayList;
 import java.util.List;
