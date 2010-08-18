@@ -55,10 +55,11 @@ public class GestorConsultarTallerCapacitacion {
                                 nt.setId(tc.getId());
                                 nt.setNombre(tc.getTipoCapacitacion().getNombre());
 
-                                    String[] datos = new String[3];
+                                    String[] datos = new String[4];
                                     datos[0] = FechaUtil.getFecha(dht.getFecha());
                                     datos[1] = dht.getHoraInicio()+" - "+dht.getHoraFin();
                                     datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
+                                    datos[3] = tc.getEstado().getNombre();
                                     nt.setData(datos);
 
                                 lista.add(nt);
@@ -98,10 +99,11 @@ public class GestorConsultarTallerCapacitacion {
                                 nt.setId(tc.getId());
                                 nt.setNombre(tc.getTipoCapacitacion().getNombre());
 
-                                    String[] datos = new String[3];
+                                    String[] datos = new String[4];
                                     datos[0] = FechaUtil.getFecha(dht.getFecha());
                                     datos[1] = dht.getHoraInicio()+" - "+dht.getHoraFin();
                                     datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
+                                    datos[3] = tc.getEstado().getNombre();
                                     nt.setData(datos);
 
                                 lista.add(nt);

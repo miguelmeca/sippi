@@ -7,7 +7,7 @@
     </id>
     <property name="descripcion" type="string"/>
 
-    <property name="hib_flag_estado" type="string"/>
+    <property name="hib_flag_estado" type="string" not-null="true"/>
 
     <set cascade="all" name="detalle" table="Det_Horario_TallerXTaller">
       <key column="ID_TALLER"/>
