@@ -6,6 +6,9 @@
       <generator class="increment"/>
     </id>
     <property name="descripcion" type="string"/>
+
+    <property name="hib_flag_estado" type="string"/>
+
     <set cascade="all" name="detalle" table="Det_Horario_TallerXTaller">
       <key column="ID_TALLER"/>
       <many-to-many class="modelo.DetalleHorarioTaller" column="ID_DETALLE_HORARIO_TALLER"/>

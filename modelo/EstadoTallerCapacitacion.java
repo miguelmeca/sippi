@@ -11,16 +11,21 @@ package modelo;
 //
 //
 
-public class EstadoTallerDeCapacitacion extends EstadoAbstracto
+public abstract class EstadoTallerCapacitacion extends EstadoAbstracto
 {
 
-    public EstadoTallerDeCapacitacion()
+    public EstadoTallerCapacitacion()
     {
         super();
     }
 
-    public void esPendiente()
+    public boolean esAlta()
     {
+        return false;
+    }
 
+    public boolean esBaja()
+    {
+        return false;
     }
 }
