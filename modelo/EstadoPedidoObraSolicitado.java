@@ -16,12 +16,14 @@ package modelo;
 
 public class EstadoPedidoObraSolicitado extends EstadoPedidoObra {
 
-        public void crear() {
-            super.crear();
+        public EstadoPedidoObraSolicitado()
+        {
+            super();
             this.setNombre("Solicitado");
 	}
 	
-	public boolean esSolicitado() {
+	public boolean esSolicitado()
+        {
             return true;
 	}
 }

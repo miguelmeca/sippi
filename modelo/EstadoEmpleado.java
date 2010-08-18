@@ -6,38 +6,27 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : EstadoEmpleado.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
 
 
 
-public class EstadoEmpleado 
+public class EstadoEmpleado extends EstadoAbstracto
 {
-        private String nombre;
-        private int id;
-        public EstadoEmpleado()
-        {}
-        public EstadoEmpleado(String nom)
-        {nombre =nom;}
 
-        public String getNombre()
+        public EstadoEmpleado()
         {
-            return nombre;
+        
         }
-        public void setNombre(String nom)
-        {
-            nombre=nom;
+
+        public EstadoEmpleado(String nom)
+        {    
+            super();
+            super.setNombre(nom);
         }
-        public int getId()
-        {
-            return id;
-        }
-        public void setId(int i)
-        {
-            id=i;
-        }
+
 	public boolean esActivo()
         {
             return false;

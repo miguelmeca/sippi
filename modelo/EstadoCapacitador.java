@@ -6,28 +6,24 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : EstadoCapacitador.java
 //  @ Date : 14/06/2010
-//  @ Author : 
+//  @ Author : Iuga
 //
 //
 
 
 
 
-public class EstadoCapacitador
+public class EstadoCapacitador extends EstadoAbstracto
 {
-        private String nombre;
         public EstadoCapacitador()
-        {}
-        public EstadoCapacitador(String nom)
-        {nombre =nom;}
-
-        public String getNombre()
         {
-            return nombre;
+            
         }
-        public void setNombre(String nom)
+
+        public EstadoCapacitador(String nom)
         {
-            nombre=nom;
+            super();
+            super.setNombre(nom);
         }
 
 

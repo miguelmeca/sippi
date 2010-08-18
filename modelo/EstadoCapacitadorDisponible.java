@@ -6,8 +6,7 @@
 package modelo;
 
 /**
- *
- * @author Administrador
+ * @author Iuga
  */
 public class EstadoCapacitadorDisponible extends EstadoCapacitador
 {
@@ -15,7 +14,6 @@ public class EstadoCapacitadorDisponible extends EstadoCapacitador
     public boolean estaDisponible()
     {
 	return true;
-	
     }
 
 }

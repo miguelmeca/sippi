@@ -10,38 +10,14 @@ package modelo;
 //
 //
 
+public abstract class EstadoPedidoObra extends EstadoAbstracto {
 
-
-
-public abstract class EstadoPedidoObra {
-
-        private int id;
-        private String nombre;
-
-	public void crear() {
-	
-	}
-
-        public String getNombre() {
-            return nombre;
+        public EstadoPedidoObra()
+        {
+            super();
         }
 
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
-        }
-
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-
-
-	public boolean esActiva() {
+        public boolean esActiva() {
             return false;
 	}
 	
