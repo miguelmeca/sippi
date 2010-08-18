@@ -60,12 +60,13 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
         {
             NTupla nt = (NTupla) it.next();
 
-            Object[] fila = new Object[4];
+            Object[] fila = new Object[5];
             fila[0] = nt;
                 String[] aux = (String[])nt.getData();
                 fila[1] = aux[0];
                 fila[2] = aux[1];
                 fila[3] = aux[2];
+                fila[4] = aux[3];
 
             modelo.addRow(fila);
         }
@@ -123,9 +124,17 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
 
             },
             new String [] {
-                "Tipo Taller", "Fecha", "Horario", "Capacitador"
+                "Tipo Taller", "Fecha", "Horario", "Capacitador", "Estado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblLista);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
@@ -187,7 +196,7 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
                     .addComponent(jButton3)
                     .addComponent(btnDetalles)
                     .addComponent(lblCantResultados))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,12 +225,13 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
             {
                 NTupla nt = (NTupla) it.next();
 
-                Object[] fila = new Object[4];
+                Object[] fila = new Object[5];
                 fila[0] = nt;
                     String[] aux = (String[])nt.getData();
                     fila[1] = aux[0];
                     fila[2] = aux[1];
                     fila[3] = aux[2];
+                    fila[4] = aux[3];
 
                 modelo.addRow(fila);
             }
