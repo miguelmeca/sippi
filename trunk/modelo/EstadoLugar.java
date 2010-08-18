@@ -14,8 +14,10 @@ package modelo;
 
 
 
-public class EstadoLugar {
-	public void esDisponible() {
-	
+public class EstadoLugar extends EstadoAbstracto
+{
+	public void esDisponible()
+        {
+            
 	}
 }

@@ -6,17 +6,15 @@
 package modelo;
 
 /**
- *
- * @author Administrador
+ * @author Iuga
  */
 public class EstadoEmpleadoActivo extends EstadoEmpleado
 {
-
     @Override
     public boolean esActivo()
     {
 	return true;
-	}
+    }
 }
      
         

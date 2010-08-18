@@ -10,9 +10,6 @@ package modelo;
 //
 //
 
-
-
-
 public class EstadoPlantaAlta extends EstadoPlanta {
 
         public void EstadoPlantaAlta() {

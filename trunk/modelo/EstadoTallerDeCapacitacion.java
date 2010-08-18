@@ -11,8 +11,16 @@ package modelo;
 //
 //
 
-public class EstadoTallerDeCapacitacion {
-	public void esPendiente() {
-	
-	}
+public class EstadoTallerDeCapacitacion extends EstadoAbstracto
+{
+
+    public EstadoTallerDeCapacitacion()
+    {
+        super();
+    }
+
+    public void esPendiente()
+    {
+
+    }
 }

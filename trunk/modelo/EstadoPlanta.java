@@ -11,7 +11,7 @@ package modelo;
 //
 
 
-public abstract class EstadoPlanta {
+public abstract class EstadoPlanta extends EstadoAbstracto {
 
 	public void EstadoPlanta() {
 
