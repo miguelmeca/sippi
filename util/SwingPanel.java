@@ -67,7 +67,10 @@ public class SwingPanel {
         JOptionPane.showMessageDialog(panel,"Esta funcionalidad se encuentra bajo construcción\n Espere a versiones posteriores para su utilización","En Construcción",JOptionPane.INFORMATION_MESSAGE);
     }
 
-
+    public void setCargando(boolean flag)
+    {
+        ventanaPrincipal.mostrarCargando(flag);
+    }
 
 
 

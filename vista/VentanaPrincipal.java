@@ -17,6 +17,7 @@ import controlador.xml.XMLReader;
 import controlador.xml.XMLReaderMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.HibernateUtil;
 import util.SwingPanel;
@@ -53,6 +54,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
 
+        this.jpbCargando.setVisible(false);
+
         // Mando el Panel a un Singleton para poder accederlo de manera unica
         SwingPanel.getInstance().setPane(panel);
         SwingPanel.getInstance().setVentanaPrincipal(this);
@@ -62,6 +65,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarMenu();
 
 
+    }
+
+    public void mostrarCargando(boolean flag)
+    {
+        if(flag==true)
+        {
+                jpbCargando.setVisible(true);
+                setProgress(10);
+                jpbCargando.setString("Cargando...");
+                jpbCargando.setIndeterminate(true);
+                jPanelCargando.update(jPanelCargando.getGraphics());
+
+          setProgress(20);
+          jPanelCargando.update(jPanelCargando.getGraphics());
+          setProgress(30);
+          jPanelCargando.update(jPanelCargando.getGraphics());
+
+        }
+        else
+        {
+            jPanelCargando.setVisible(false);
+        }
+    }
+
+    public void setProgress(final int progress)
+    {
+        SwingUtilities.invokeLater(new Runnable() {
+          public void run() {
+            jpbCargando.setValue(progress);
+          }
+        });
     }
 
     private void cargarMenu()
@@ -118,6 +152,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnNuevoEmpleado = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnSalir = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jPanelCargando = new javax.swing.JPanel();
+        jpbCargando = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
@@ -277,8 +314,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnSalir);
+        jToolBar1.add(jSeparator2);
 
-        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, -1));
+        jpbCargando.setDoubleBuffered(true);
+        jpbCargando.setString("Cargando...");
+        jpbCargando.setStringPainted(true);
+
+        javax.swing.GroupLayout jPanelCargandoLayout = new javax.swing.GroupLayout(jPanelCargando);
+        jPanelCargando.setLayout(jPanelCargandoLayout);
+        jPanelCargandoLayout.setHorizontalGroup(
+            jPanelCargandoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCargandoLayout.createSequentialGroup()
+                .addContainerGap(232, Short.MAX_VALUE)
+                .addComponent(jpbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelCargandoLayout.setVerticalGroup(
+            jPanelCargandoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jToolBar1.add(jPanelCargando);
+
+        jPanel2.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1230, -1));
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -333,7 +390,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -353,7 +410,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1190, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -946,14 +1003,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelCargando;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JProgressBar jpbCargando;
     private javax.swing.JTextArea lblAyudaDesc;
     private javax.swing.JLabel lblAyudaTitulo;
     private javax.swing.JMenu mAyuda;

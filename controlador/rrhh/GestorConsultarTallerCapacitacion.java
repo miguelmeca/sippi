@@ -40,31 +40,35 @@ public class GestorConsultarTallerCapacitacion {
             Session sesion;
             try {
                     sesion = HibernateUtil.getSession();
-                    List listaIt = sesion.createQuery("from TallerCapacitacion tc WHERE tc.descripcion LIKE :nom order by tc.nombre").setParameter("nom","%"+nombre+"%").list();
+                    List listaIt = sesion.createQuery("from TallerCapacitacion tc WHERE tc.descripcion LIKE :nom").setParameter("nom","%"+nombre+"%").list();
                     Iterator<TallerCapacitacion> iter = listaIt.iterator();
                     while (iter.hasNext())
                     {
                         TallerCapacitacion tc = (TallerCapacitacion)iter.next();
+                        String[] datos = new String[4];
+                        NTupla nt = new NTupla();
+                        nt.setId(tc.getId());
+                        nt.setNombre(tc.getTipoCapacitacion().getNombre());
+
+                                    datos[0] = "";
+                                    datos[1] = tc.getDescripcion();
+                                    datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
+                                    datos[3] = tc.getEstado().getNombre();
 
                             Iterator iter2 = tc.getDetalle().iterator();
                             while (iter2.hasNext())
                             {
                                 DetalleHorarioTaller dht = (DetalleHorarioTaller)iter2.next();
 
-                                NTupla nt = new NTupla();
-                                nt.setId(tc.getId());
-                                nt.setNombre(tc.getTipoCapacitacion().getNombre());
+                                    if(datos[0].indexOf(FechaUtil.getFecha(dht.getFecha()))<0)
+                                    {
+                                        datos[0] = datos[0] + " " +FechaUtil.getFecha(dht.getFecha());
+                                    }
 
-                                    String[] datos = new String[4];
-                                    datos[0] = FechaUtil.getFecha(dht.getFecha());
-                                    datos[1] = dht.getHoraInicio()+" - "+dht.getHoraFin();
-                                    datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
-                                    datos[3] = tc.getEstado().getNombre();
-                                    nt.setData(datos);
-
-                                lista.add(nt);
-
+                                nt.setData(datos);
                             }
+
+                            lista.add(nt);
                     }
                 }
                 catch(Exception e)
@@ -89,33 +93,36 @@ public class GestorConsultarTallerCapacitacion {
                     while (iter.hasNext())
                     {
                         TallerCapacitacion tc = (TallerCapacitacion)iter.next();
+                        String[] datos = new String[4];
+                        NTupla nt = new NTupla();
+                        nt.setId(tc.getId());
+                        nt.setNombre(tc.getTipoCapacitacion().getNombre());
+                        datos[0] = "";
+                        datos[1] = tc.getDescripcion();
+                        datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
+                        datos[3] = tc.getEstado().getNombre();
 
                             Iterator iter2 = tc.getDetalle().iterator();
                             while (iter2.hasNext())
                             {
                                 DetalleHorarioTaller dht = (DetalleHorarioTaller)iter2.next();
 
-                                NTupla nt = new NTupla();
-                                nt.setId(tc.getId());
-                                nt.setNombre(tc.getTipoCapacitacion().getNombre());
+                                    if(datos[0].indexOf(FechaUtil.getFecha(dht.getFecha()))<0)
+                                    {
+                                        datos[0] = datos[0] + " " +FechaUtil.getFecha(dht.getFecha());
+                                    }
 
-                                    String[] datos = new String[4];
-                                    datos[0] = FechaUtil.getFecha(dht.getFecha());
-                                    datos[1] = dht.getHoraInicio()+" - "+dht.getHoraFin();
-                                    datos[2] = tc.getCapacitador().getApellido()+", "+tc.getCapacitador().getNombre();
-                                    datos[3] = tc.getEstado().getNombre();
-                                    nt.setData(datos);
-
-                                lista.add(nt);
-
+                                nt.setData(datos);
                             }
-                    }
 
+                            lista.add(nt);
+                    }
                 }
                 catch(Exception ex)
                 {
                     System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
                     ex.printStackTrace();
+                    pantalla.MostrarMensaje("EG-0016");
                 }
         
         return lista;

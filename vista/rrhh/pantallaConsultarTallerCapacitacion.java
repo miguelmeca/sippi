@@ -196,7 +196,7 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
                     .addComponent(jButton3)
                     .addComponent(btnDetalles)
                     .addComponent(lblCantResultados))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
