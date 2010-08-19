@@ -70,7 +70,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
     private void initHorario()
     {
-        txtFechaCurso.setText(FechaUtil.getFechaActual());
         txtFinH.setText("10");
         txtFinM.setText("00");
         txtIniH.setText("09");

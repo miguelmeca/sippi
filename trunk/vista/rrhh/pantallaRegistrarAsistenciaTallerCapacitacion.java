@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import util.NTupla;
 import util.ReporteUtil;
+import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
 
@@ -430,6 +431,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
       if(SELECTED_DetalleHorario!=0)
       {
+           SwingPanel.getInstance().setCargando(true);
            String urlReporte = "/vista/reportes/ListaAsistencia.jrxml";
 
            Map params = new HashMap();
@@ -437,6 +439,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
            ReporteUtil ru = new ReporteUtil();
            ru.mostrarReporte(urlReporte,params);
+           //SwingPanel.getInstance().setCargando(false);
       }
     }//GEN-LAST:event_btnImprimirActionPerformed
 

@@ -43,15 +43,37 @@ public class Loading extends javax.swing.JFrame {
 
     private void CargarEjemplos(int i, String txt)
     {
-        lblMsg.setText(txt);
-        this.update(this.getGraphics());
+       int seleccion = JOptionPane.showOptionDialog(
+                       this,
+                       "¿Desea cargar los datos de prueba / Inicialización?",
+                       "Seleccione una opción",
+                       JOptionPane.YES_NO_CANCEL_OPTION,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,    // null para icono por defecto.
+                       new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
+                       "Si");
 
-        test.DBExamplesLoader load = new DBExamplesLoader();
-        load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
-        jpb.setValue(20);
+        if (seleccion != -1)
+        {
+            if((seleccion + 1)==1)
+            {
+                lblMsg.setText(txt);
+                this.update(this.getGraphics());
 
-        setProgress(jpb.getValue()+i);
-        this.update(this.getGraphics());
+                test.DBExamplesLoader load = new DBExamplesLoader();
+                load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
+                jpb.setValue(20);
+
+                setProgress(jpb.getValue()+i);
+                this.update(this.getGraphics());
+            }
+            else
+            {
+                // PRESIONO NO
+            }
+        }
+
+
     }
 
     private void habilitarVentana()
@@ -66,13 +88,13 @@ public class Loading extends javax.swing.JFrame {
     }
 
     public void setProgress(final int progress)
-      {
+    {
         SwingUtilities.invokeLater(new Runnable() {
           public void run() {
             jpb.setValue(progress);
           }
         });
-      }
+    }
 
     private void LanzarSistema()
     {
