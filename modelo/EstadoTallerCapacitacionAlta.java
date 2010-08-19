@@ -28,4 +28,5 @@ public class EstadoTallerCapacitacionAlta extends EstadoTallerCapacitacion
     {
         return true;
     }
+
 }

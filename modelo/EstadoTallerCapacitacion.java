@@ -28,4 +28,17 @@ public abstract class EstadoTallerCapacitacion extends EstadoAbstracto
     {
         return false;
     }
+
+    public void darBaja(TallerCapacitacion tc)
+    {
+        tc.setHib_flag_estado("EstadoTallerCapacitacionBaja");
+        tc.setEstado(new EstadoTallerCapacitacionBaja());
+    }
+
+    public void darAlta(TallerCapacitacion tc)
+    {
+        tc.setHib_flag_estado("EstadoTallerCapacitacionAlta");
+        tc.setEstado(new EstadoTallerCapacitacionAlta());
+    }
+
 }
