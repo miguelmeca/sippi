@@ -44,11 +44,12 @@ public class HibernateUtil {
 		try {
 			configuration = new Configuration();
 			sessionFactory = configuration.configure("config/hibernate.cfg.xml").buildSessionFactory();
-		} catch (Throwable ex) {
+		} catch (Exception ex) {
 
+                        System.out.println("EXCEPTION EN GETSESION !!!!!!!!! ");
                         JOptionPane.showMessageDialog(new JFrame(),"No se puso iniciar:\n"+ex.getMessage(),"ERROR DE HIBERNATE",JOptionPane.ERROR_MESSAGE);
 			throw new ExceptionInInitializerError(ex);
-		}
+		} 
 	}
 
 	/**
@@ -84,14 +85,18 @@ public class HibernateUtil {
 				System.out.println("Abriendo una nueva Sesion para este Hilo");
 				if (getInterceptor() != null) {
 					System.out.println("Ussando el interceptor: " + getInterceptor().getClass());
-					s = getSessionFactory().openSession(getInterceptor());
+                                        s = getSessionFactory().openSession(getInterceptor());
 				} else {
 					s = getSessionFactory().openSession();
 				}
 				threadSession.set(s);
 			}
 		} catch (HibernateException ex) {
-			throw new HibernateException(ex);
+                    throw new HibernateException(ex);
+		}
+                catch (Exception ex) {
+                    System.out.println("EXCEPTION EN GETSESION !!!!!!!!! ");
+                    throw new HibernateException(ex);
 		}
 		return s;
 	}
