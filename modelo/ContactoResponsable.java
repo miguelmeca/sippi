@@ -27,10 +27,11 @@ public class ContactoResponsable {
 
     public ContactoResponsable() {
     }
-    public ContactoResponsable(String nom,String apell,String cUil, String eMail,  ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+    public ContactoResponsable(String nom,String apell,String cg, String cUil, String eMail,  ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
         {
             nombre=nom;
             apellido=apell;
+            cargo = cg;
             cuil=cUil;
             email=eMail;
             fechaAlta=fecha_Alta;

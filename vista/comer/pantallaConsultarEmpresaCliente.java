@@ -24,18 +24,26 @@ import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IAyuda;
+import vista.interfaces.IPantallaEmpresaClienteABM;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame implements IAyuda{
+public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame implements IAyuda, IPantallaEmpresaClienteABM{
     private GestorConsultarEmpresaCliente gestor;
     /** Creates new form frmConsultarEmpresaCliente */
     public pantallaConsultarEmpresaCliente() {
         initComponents();
         gestor = new GestorConsultarEmpresaCliente(this);
-        gestor.buscarEmpresasClientes();
+        //gestor.buscarEmpresasClientes();
+    }
+
+    pantallaConsultarEmpresaCliente(int idEmpresaClienteSeleccionado) {
+        initComponents();
+        gestor = new GestorConsultarEmpresaCliente(this);
+        //gestor.buscarEmpresasClientes();
+        gestor.seleccionEmpresaCliente(idEmpresaClienteSeleccionado);
     }
 
     /** This method is called from within the constructor to
@@ -48,13 +56,10 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        cmbEmpresas = new javax.swing.JComboBox();
         pnlDatosCliente = new javax.swing.JPanel();
-        lblRazonSocial = new javax.swing.JLabel();
         lblCUIT = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
         lblLocalidad = new javax.swing.JLabel();
-        txtRazonSocial = new javax.swing.JLabel();
         txtCUIT = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JLabel();
         txtLocalidad = new javax.swing.JLabel();
@@ -77,7 +82,10 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         lblPaginaWeb = new javax.swing.JLabel();
         txtBarrio = new javax.swing.JLabel();
         lblLocalidad1 = new javax.swing.JLabel();
+        lblCUIT1 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
+        txtEmpresaCliente = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -86,17 +94,7 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Empresa Cliente:");
 
-        cmbEmpresas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grupo Arcor" }));
-        cmbEmpresas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEmpresasActionPerformed(evt);
-            }
-        });
-
         pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cliente"));
-
-        lblRazonSocial.setFont(new java.awt.Font("Tahoma", 1, 11));
-        lblRazonSocial.setText("Razon Social:");
 
         lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblCUIT.setText("CUIT : ");
@@ -204,6 +202,9 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         lblLocalidad1.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblLocalidad1.setText("Barrio:");
 
+        lblCUIT1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblCUIT1.setText("Estado:");
+
         javax.swing.GroupLayout pnlDatosClienteLayout = new javax.swing.GroupLayout(pnlDatosCliente);
         pnlDatosCliente.setLayout(pnlDatosClienteLayout);
         pnlDatosClienteLayout.setHorizontalGroup(
@@ -211,64 +212,68 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                 .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(lblEmailEmp)
                                 .addGap(10, 10, 10)
-                                .addComponent(txtEmailEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                                .addComponent(txtEmailEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
-                                        .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblProvincia)
-                                            .addComponent(lblDireccion))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
-                                    .addComponent(lblRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
-                                        .addComponent(lblLocalidad1)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))))
+                                    .addComponent(lblProvincia)
+                                    .addComponent(lblDireccion))
+                                .addGap(6, 6, 6)
+                                .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDatosClienteLayout.createSequentialGroup()
+                                .addComponent(lblLocalidad1)
+                                .addGap(2, 2, 2)
+                                .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCUIT)
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblPais)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
+                                .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblPaginaWeb)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                                .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
                             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                                 .addComponent(lblLocalidad)
                                 .addGap(2, 2, 2)
-                                .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                                .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                            .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                                .addComponent(lblCUIT1)
+                                .addGap(30, 30, 30))
+                            .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30))
-                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
-                        .addGap(324, 324, 324)
-                        .addComponent(txtCUIT, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                     .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(pnlDatosPlanta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlTelefonosContacto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                        .addComponent(lblCUIT)
+                        .addGap(30, 30, 30))
+                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(txtCUIT, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
+                .addGap(282, 282, 282))
         );
         pnlDatosClienteLayout.setVerticalGroup(
             pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRazonSocial)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblCUIT)
+                            .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblDireccion)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -286,9 +291,9 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
                             .addComponent(txtEmailEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlDatosClienteLayout.createSequentialGroup()
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCUIT)
-                            .addComponent(txtCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                            .addComponent(lblCUIT1)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
                         .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblLocalidad)
                             .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -315,34 +320,41 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
+        txtEmpresaCliente.setEnabled(false);
+        txtEmpresaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmpresaClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cmbEmpresas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(pnlDatosCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmpresaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(418, 418, 418)
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(txtEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCerrar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCerrar))
         );
 
         pack();
@@ -375,9 +387,9 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void cmbEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasActionPerformed
-        gestor.seleccionEmpresaCliente((Tupla)this.cmbEmpresas.getSelectedItem());
-    }//GEN-LAST:event_cmbEmpresasActionPerformed
+    private void txtEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpresaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmpresaClienteActionPerformed
 
     /**
     * @param args the command line arguments
@@ -393,11 +405,11 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnConsultarPlanta;
-    private javax.swing.JComboBox cmbEmpresas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCUIT;
+    private javax.swing.JLabel lblCUIT1;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblEmailEmp;
     private javax.swing.JLabel lblLocalidad;
@@ -405,7 +417,6 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JLabel lblPaginaWeb;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblProvincia;
-    private javax.swing.JLabel lblRazonSocial;
     private javax.swing.JPanel pnlDatosCliente;
     private javax.swing.JPanel pnlDatosPlanta;
     private javax.swing.JPanel pnlTelefonosContacto;
@@ -417,13 +428,14 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JLabel txtCUIT;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtEmailEmp;
+    private javax.swing.JTextField txtEmpresaCliente;
+    private javax.swing.JLabel txtEstado;
     private javax.swing.JLabel txtLocalidad;
     private javax.swing.JLabel txtPaginaWeb;
     private javax.swing.JLabel txtPais;
     private javax.swing.JLabel txtProvincia;
-    private javax.swing.JLabel txtRazonSocial;
     // End of variables declaration//GEN-END:variables
-
+/**
     public void mostrarRazonSocial(ArrayList<Tupla> tuplas) {
 
         ArrayList<Tupla> lista = tuplas;
@@ -435,11 +447,15 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
             Tupla tu = it.next();
             valores.addElement(tu);
         }
-        cmbEmpresas.setModel(valores);
+        //cmbEmpresas.setModel(valores);
+    }
+**/
+    public void mostrarEstadoEmpresa(String estado) {
+        this.txtEstado.setText(estado);
     }
 
     public void mostrarRZEmpresa(String razonSocial) {
-        this.txtRazonSocial.setText(razonSocial);
+        this.txtEmpresaCliente.setText(razonSocial);
     }
 
     public void mostrarCUITEmpresa(String cuit) {

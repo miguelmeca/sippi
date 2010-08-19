@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.ContactoResponsable;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
@@ -56,6 +57,7 @@ public class GestorRegistrarPedido {
     private String planosObra;
 
     private PedidoObra pedido;
+    private ContactoResponsable contacto;
 /*
     public GestorRegistrarPedido(pantallaRegistrarPedido pantalla)
     {
@@ -210,6 +212,7 @@ public class GestorRegistrarPedido {
         nuevo.setMonto(montoMaximo);
         nuevo.setPlanos(planosObra);
         nuevo.setPliego(pliegoObra);
+        nuevo.setContacto(contacto);
 
         nuevo.setPlanta(planta);
 
@@ -428,5 +431,12 @@ public class GestorRegistrarPedido {
             e.printStackTrace();
         }
         return tuplas;
+    }
+
+    public void contactoResponsable(int id_cr)
+    {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+        this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
     }
 }
