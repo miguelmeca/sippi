@@ -26,6 +26,7 @@
          <item icono="/res/iconos/var/16x16/add.png" nombre="Nueva Planta"/>
          <item icono="/res/iconos/var/16x16/search.png" nombre="Consultar Empresas Cliente"/>
          <item icono="/res/iconos/var/16x16/add.png" nombre="Nuevo Contacto"/>
+         <item icono="/res/iconos/var/16x16/refresh.png" nombre="Modificar Empresa Cliente"/>
     </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">

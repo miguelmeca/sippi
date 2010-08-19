@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentList;
 import org.hibernate.collection.PersistentSet;
@@ -16,6 +17,7 @@ import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
 import vista.comer.pantallaConsultarEmpresaCliente;
+import vista.interfaces.IPantallaEmpresaClienteABM;
 
 //
 //
@@ -35,7 +37,7 @@ public class GestorConsultarEmpresaCliente {
     private List listaPaises;
     private List listaPronvincias;
     private List listaLocalidades;
-    private pantallaConsultarEmpresaCliente pantalla;
+    private IPantallaEmpresaClienteABM pantalla;
     private EmpresaCliente empresa;
     private String localidad;
     private String provincia;
@@ -43,7 +45,7 @@ public class GestorConsultarEmpresaCliente {
     private ArrayList<NTupla> listaTelefonos;
     private ArrayList<NTupla> listaPlantas;
 
-    public GestorConsultarEmpresaCliente(pantallaConsultarEmpresaCliente pantalla) {
+    public GestorConsultarEmpresaCliente(IPantallaEmpresaClienteABM pantalla) {
         this.pantalla = pantalla;
     }
 
@@ -51,8 +53,9 @@ public class GestorConsultarEmpresaCliente {
 
     }
 
-    public void seleccionEmpresaCliente(Tupla empresa) {
-        buscarDatosEmpresa(empresa.getId());
+    public void seleccionEmpresaCliente(int id) {
+        buscarDatosEmpresa(id);
+        this.pantalla.mostrarEstadoEmpresa(this.empresa.getEstado());
         this.pantalla.mostrarRZEmpresa(this.empresa.getRazonSocial());
         this.pantalla.mostrarCUITEmpresa(this.empresa.getCuit());
         this.pantalla.mostrarEmailEmpresa(this.empresa.getEmail());
@@ -68,7 +71,7 @@ public class GestorConsultarEmpresaCliente {
         this.buscarPlantas();
         this.pantalla.mostrarDatosPlantas(this.listaPlantas);
     }
-
+/**
     public void buscarEmpresasClientes() {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
         try {
@@ -85,7 +88,7 @@ public class GestorConsultarEmpresaCliente {
         }
         pantalla.mostrarRazonSocial(tuplas);
     }
-
+**/
     public void buscarDatosEmpresa(int id) {
         try{
             HibernateUtil.beginTransaction();
@@ -179,5 +182,30 @@ public class GestorConsultarEmpresaCliente {
 
     public void buscarProvinciaPlanta() {
 
+    }
+
+    public int darDeBajaEmpresaCliente(int idEmpresa) {
+        //SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion;
+        try {
+            sesion = HibernateUtil.getSession();
+            //sesion = sf.openSession();
+            try{
+                HibernateUtil.beginTransaction();
+                EmpresaCliente ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, idEmpresa);
+                ec.setEstado("borrada");
+
+                sesion.saveOrUpdate(ec);
+
+                HibernateUtil.commitTransaction();
+            }catch(Exception e) {
+                System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
+                HibernateUtil.rollbackTransaction();
+                return -1;
+
+        }
+            HibernateUtil.closeSession();
+        } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  return -1;}
+        return idEmpresa;
     }
 }

@@ -43,7 +43,7 @@ public class GestorBuscarPedido {
  *  - Fecha de Aceptación
  *  - Fecha de Inicio
  *  - Fecha de Fin
- * @return Lista de Pedidos HASHSET
+ * @return Lista de Pedidos ARRAYLIST
  */
     public ArrayList<NTupla> getPedidosObra(){
         ArrayList<NTupla> pedidos = new ArrayList<NTupla>();

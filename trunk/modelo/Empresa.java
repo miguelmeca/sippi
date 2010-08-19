@@ -23,8 +23,10 @@ public class Empresa {
     private String paginaWeb;
     private Domicilio domicilio;
     private Set telefonos;
+    private String estado;
 
     public Empresa() {
+        this.estado = "creada";
     }
 
     public int getId() {
@@ -93,5 +95,13 @@ public class Empresa {
 
     public void mostrarTelefono() {
 
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

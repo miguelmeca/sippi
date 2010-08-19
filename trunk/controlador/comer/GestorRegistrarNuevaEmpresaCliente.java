@@ -53,6 +53,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
     private String dpto;
     private String cp;
     private String paginaWeb;
+    private ArrayList<Planta> plantas;
 
     public GestorRegistrarNuevaEmpresaCliente(pantallaRegistrarEmpresaCliente pantalla) {
         this.pantalla = pantalla;
@@ -65,8 +66,9 @@ public class GestorRegistrarNuevaEmpresaCliente {
         np.setVisible(true);
     }
 
-    public void setNuevaPlanta(int id)
+    public void setNuevaPlanta(Planta p)
     {
+        this.plantas.add(p);
         // SI ESTE METODO SE ACTIVA SIGNIFICA QUE AGREGO UNA NUEVA PLANTA CON EXITO
         // Y EL ID es el id pasado por parametro
         pantalla.plantaAgregada();
@@ -74,12 +76,12 @@ public class GestorRegistrarNuevaEmpresaCliente {
         // Y  ACTUALIZARLE EL ID DE LA EMPRESA que va a estar en NULL... SI O SI !!!
         //(Usa el id este para encontrarla y actualizarla)
 
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
+        //SessionFactory sf = HibernateUtil.getSessionFactory();
+        //Session sesion = sf.openSession();
 
-        this.planta = (Planta)sesion.load(Planta.class, id);
+        //this.planta = (Planta)sesion.load(Planta.class, id);
 
-        sesion.close();
+        //sesion.close();
     }
 
     public void finCU() {
@@ -175,9 +177,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
         d.setBarrio(this.barrio);
         nueva.setDomicilio(d);
 
-        ArrayList<Planta> listaPlantas = new ArrayList<Planta>();
-        listaPlantas.add(this.planta);
-        nueva.setPlantas(listaPlantas);
+        nueva.setPlantas(plantas);
 
         nueva.setTelefonos(this.telefonos);
 

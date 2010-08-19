@@ -17,7 +17,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.JScrollBar;
 import javax.swing.JViewport;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import util.NTupla;
 import util.SwingPanel;
 import vista.*;
@@ -68,6 +71,8 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             dtm.addRow(item);
         }
         tablaPedido.setModel(dtm);
+        TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(dtm);
+        tablaPedido.setRowSorter(elQueOrdena);
     }
 
     private int getIdPedidoSeleccionado(){
@@ -113,6 +118,17 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -165,7 +181,6 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             }
         ));
         tablaPedido.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tablaPedido.setRowSelectionAllowed(false);
         jScrollPane1.setViewportView(tablaPedido);
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -217,7 +232,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
                         .addComponent(jRadioButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -266,6 +281,21 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        // TODO add your handling code here:
+        //System.out.println("TYPED");
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        //System.out.println("RELEASED");
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        // TODO add your handling code here:
+        System.out.println("PRESSED");
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

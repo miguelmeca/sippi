@@ -217,7 +217,7 @@ public class GestorRegistrarNuevoContactoResponsable {
             Date fechaAltaActual=fechaActual;
            // fecha_Alta=System
             
-            ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
+            ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable,cargoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
             return cr;

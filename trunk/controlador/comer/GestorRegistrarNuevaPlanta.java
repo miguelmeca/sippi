@@ -275,7 +275,25 @@ public class GestorRegistrarNuevaPlanta {
             return p.getId();
 
         }
-	
+
+        public Planta getPlanta(){
+            Planta p = new Planta();
+            p.setRazonSocial(this.nombrePlanta);
+            p.setTelefonos(this.listaTelefonos);
+
+            Domicilio d = new Domicilio();
+            d.setBarrio((Barrio)barrio);
+            d.setCalle(calle);
+            d.setCodigoPostal(codigoPostal);
+            d.setDepto(depto);
+            d.setNumero(altura);
+            d.setPiso(piso);
+            p.setDomicilio(d);
+            p.setContacto(contacto);
+
+            return p;
+        }
+
 	public void CrearPlanta() {
 	
 	}

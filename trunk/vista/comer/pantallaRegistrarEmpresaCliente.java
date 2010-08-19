@@ -35,6 +35,7 @@ import vista.interfaces.IAyuda;
 public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda{
     private GestorRegistrarNuevaEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
+    private pantallaBuscarEmpresaCliente pBuscar=null;
     private final GestorRegistrarPedido grp;
 
     /** Creates new form frmRegistrarEmpresaCliente */
@@ -48,6 +49,19 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         mostrarTiposTelefono();
         JFormattedTextField f = new JFormattedTextField();
     }
+
+    public pantallaRegistrarEmpresaCliente(pantallaBuscarEmpresaCliente p) {
+        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
+        this.pBuscar = p;
+        initComponents();
+        habilitarVentana();
+        mostrarPaises();
+        formatearTablaTelefonos();
+        grp = null;
+        mostrarTiposTelefono();
+        JFormattedTextField f = new JFormattedTextField();
+    }
+
 
     public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
         gestor = new GestorRegistrarNuevaEmpresaCliente(this);
@@ -712,6 +726,9 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             if(grp !=null){
                 grp.recargarComboBox();
+            }
+            if(pBuscar!=null){
+                pBuscar.actualizar(id, true);
             }
             this.dispose();
         }

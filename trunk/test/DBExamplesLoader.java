@@ -162,8 +162,8 @@ public class DBExamplesLoader {
         sesion.save(l9);
         sesion.save(te);
         sesion.save(te2);
-        sesion.save(tc);
-        sesion.save(tc2);
+        //sesion.save(tc);
+        //sesion.save(tc2);
         sesion.save(rng1);
         sesion.save(rng2);
         sesion.save(rng3);

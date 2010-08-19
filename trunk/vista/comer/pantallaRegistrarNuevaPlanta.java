@@ -816,9 +816,9 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
             {
                 if(gestorEmpresaCliente != null){
                     // MANDO A GUARDAR LA PLANTA
-                    int id = gestor.PlantaConfirmada();
-                    gestorEmpresaCliente.setNuevaPlanta(id);
-                    JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+                    //int id = gestor.PlantaConfirmada();
+                    gestorEmpresaCliente.setNuevaPlanta(gestor.getPlanta());
+                    //JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
                 else

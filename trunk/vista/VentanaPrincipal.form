@@ -220,36 +220,15 @@
                 <Property name="text" type="java.lang.String" value="Empresa"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="miNuevaEmpresa">
+                <MenuItem class="javax.swing.JMenuItem" name="administrarEmpresas">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
+                      <Image iconType="3" name="/res/iconos/var/16x16/promotion.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nueva"/>
+                    <Property name="text" type="java.lang.String" value="Administrar..."/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miNuevaEmpresaActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="miConsultarEmpresa">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/search_page.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Consultar"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miConsultarEmpresaActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="miModificarEmpresa">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add_page.png"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miModificarEmpresaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="administrarEmpresasActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

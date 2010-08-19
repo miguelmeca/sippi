@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import util.HibernateUtil;
 import util.SwingPanel;
+import vista.comer.pantallaBuscarEmpresaCliente;
 import vista.comer.pantallaBuscarPedido;
 import vista.comer.pantallaConsultarEmpresaCliente;
 import vista.comer.pantallaConsultarObra;
@@ -203,9 +204,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miLugaresDeCapacitacion = new javax.swing.JMenuItem();
         mSistema = new javax.swing.JMenu();
         mEmpresa = new javax.swing.JMenu();
-        miNuevaEmpresa = new javax.swing.JMenuItem();
-        miConsultarEmpresa = new javax.swing.JMenuItem();
-        miModificarEmpresa = new javax.swing.JMenuItem();
+        administrarEmpresas = new javax.swing.JMenuItem();
         mPlanta = new javax.swing.JMenu();
         miNuevaPlanta = new javax.swing.JMenuItem();
         miConsultarPlanta = new javax.swing.JMenuItem();
@@ -578,31 +577,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mEmpresa.setText("Empresa");
 
-        miNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        miNuevaEmpresa.setText("Nueva");
-        miNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        administrarEmpresas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/promotion.png"))); // NOI18N
+        administrarEmpresas.setText("Administrar...");
+        administrarEmpresas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miNuevaEmpresaActionPerformed(evt);
+                administrarEmpresasActionPerformed(evt);
             }
         });
-        mEmpresa.add(miNuevaEmpresa);
-
-        miConsultarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        miConsultarEmpresa.setText("Consultar");
-        miConsultarEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miConsultarEmpresaActionPerformed(evt);
-            }
-        });
-        mEmpresa.add(miConsultarEmpresa);
-
-        miModificarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
-        miModificarEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miModificarEmpresaActionPerformed(evt);
-            }
-        });
-        mEmpresa.add(miModificarEmpresa);
+        mEmpresa.add(administrarEmpresas);
 
         mSistema.add(mEmpresa);
 
@@ -735,8 +717,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
-
-
         TreeEntry node = (TreeEntry)evt.getPath().getLastPathComponent();
 
         if(node==null) return;
@@ -787,10 +767,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.setVisible(true);
             return;
         }
-        // Dar Inicio a una Obra
-        if(node.getTitulo().equals("Dar Inicio a una Obra"))
+                // Consultar Obras
+        if(node.getTitulo().equals("Ver Obras Activas"))
         {
-            pantallaRegistrarConfirmacionInicioObra pre = new pantallaRegistrarConfirmacionInicioObra();
+            pantallaConsultarObra pre = new pantallaConsultarObra();
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            return;
+        }
+        // Modificar una Empresa Cliente
+        if(node.getTitulo().equals("Modificar Empresa Cliente"))
+        {
+            pantallaBuscarEmpresaCliente pre = new pantallaBuscarEmpresaCliente();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
             return;
@@ -909,24 +897,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return;
 }//GEN-LAST:event_miCronogramaRHActionPerformed
 
-    private void miNuevaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevaEmpresaActionPerformed
-        // TODO add your handling code here:
-        pantallaRegistrarEmpresaCliente pre = new pantallaRegistrarEmpresaCliente();
-        SwingPanel.getInstance().addWindow(pre);
-        pre.setVisible(true);
-        return;
-}//GEN-LAST:event_miNuevaEmpresaActionPerformed
-
-    private void miConsultarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultarEmpresaActionPerformed
-
-        //new Agregar().setVisible(true);
-        // TODO add your handling code here:
-}//GEN-LAST:event_miConsultarEmpresaActionPerformed
-
-    private void miModificarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miModificarEmpresaActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_miModificarEmpresaActionPerformed
-
     private void miNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miNuevaPlantaActionPerformed
         // TODO add your handling code here:
         pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
@@ -979,6 +949,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void administrarEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administrarEmpresasActionPerformed
+        // TODO add your handling code here:
+        pantallaBuscarEmpresaCliente pre = new pantallaBuscarEmpresaCliente();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+        return;
+}//GEN-LAST:event_administrarEmpresasActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -991,6 +969,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem administrarEmpresas;
     private javax.swing.JButton btnConsultarClientes;
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JButton btnNuevoPedidoObra;
@@ -1044,7 +1023,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCerrarSesion;
     private javax.swing.JMenuItem miCompraMateriales;
     private javax.swing.JMenuItem miConsultar;
-    private javax.swing.JMenuItem miConsultarEmpresa;
     private javax.swing.JMenuItem miConsultarPlanta;
     private javax.swing.JMenuItem miConsultarRH;
     private javax.swing.JMenuItem miCronogramaRH;
@@ -1066,11 +1044,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miLicencia;
     private javax.swing.JMenuItem miLugaresDeCapacitacion;
     private javax.swing.JMenuItem miModificar;
-    private javax.swing.JMenuItem miModificarEmpresa;
     private javax.swing.JMenuItem miModificarPlanta;
     private javax.swing.JMenuItem miModificarRH;
     private javax.swing.JMenuItem miNueva;
-    private javax.swing.JMenuItem miNuevaEmpresa;
     private javax.swing.JMenuItem miNuevaPlanta;
     private javax.swing.JMenuItem miNuevo;
     private javax.swing.JMenuItem miNuevoRH;

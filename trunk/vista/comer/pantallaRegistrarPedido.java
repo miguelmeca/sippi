@@ -511,6 +511,16 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             gestor.fechaLVP(fechaLVP);
             Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
             gestor.fechaLEP(fechaLEP);
+
+            if(cmbContactos.getSelectedItem() instanceof Tupla)
+            {
+                Tupla tp = (Tupla) cmbContactos.getSelectedItem();
+                if(tp.getId()!=0)
+                {
+                    gestor.contactoResponsable(tp.getId());
+                }
+            }
+
             // LANZO EL CREAR
             gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
             int id = gestor.confirmacionRegistro();
