@@ -6,6 +6,7 @@
 package util;
 
 import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -72,6 +73,13 @@ public class SwingPanel {
         ventanaPrincipal.mostrarCargando(flag);
     }
 
+    public void anularGUI()
+    {
+        if(ventanaPrincipal!=null)
+        {
+            this.ventanaPrincipal.setExtendedState(JFrame.ICONIFIED);
+        }
+    }
 
 
 }

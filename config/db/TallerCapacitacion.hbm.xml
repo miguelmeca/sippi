@@ -16,5 +16,6 @@
     <many-to-one class="modelo.LugardeCapacitacion" column="ID_LUGAR_TALLER" name="lugar"/>
     <many-to-one class="modelo.TipoCapacitacion" column="ID_TIPO_CAPAC" name="tipoCapacitacion"/>
     <many-to-one class="modelo.Capacitador" column="ID_CAPAC" name="capacitador"/>
+
   </class>
 </hibernate-mapping>

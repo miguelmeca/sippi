@@ -1,6 +1,8 @@
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import modelo.EstadoTallerCapacitacion;
+import modelo.TallerCapacitacion;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,7 +23,8 @@ public class main
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run()
-            {
+            {                   
+                    // LANZO LA INTERFAZ
                     new Loading();
             }
         });

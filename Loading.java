@@ -35,10 +35,25 @@ public class Loading extends javax.swing.JFrame {
 
         
         CargarLibrerias(10,"Cargando Librerías...");
+        CargarNetDaemon(30,"Cargando tester de Red ...");
         CargarHibernate(50,"Cargando Hibernate...");
         CargarEjemplos(10,"Cargando Datos iniciales...");
 
         LanzarSistema();
+    }
+
+    private void CargarNetDaemon(int i, String txt)
+    {
+        lblMsg.setText(txt);
+
+        // LANZO UN HILO QUE VIGILA EL ESTADO DE LA CONEXION AL SERVER
+        daemonNet demon = new daemonNet();
+        Thread daemonNet = new Thread(demon,"net");
+        daemonNet.setPriority(10);
+        daemonNet.setDaemon(true);
+        daemonNet.start(); // INESTABLE E INFUNCIONAL
+
+        setProgress(jpb.getValue()+i);
     }
 
     private void CargarEjemplos(int i, String txt)
