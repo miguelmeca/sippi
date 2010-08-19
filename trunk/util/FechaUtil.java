@@ -115,4 +115,13 @@ public class FechaUtil {
         return false;
     }
 
+    public static String getFechaYHoraActual()
+    {
+        DATE_FORMAT = new SimpleDateFormat("H:m:s dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+        Date fecha = new Date();
+        return DATE_FORMAT.format(fecha);
+    }
+
+
 }

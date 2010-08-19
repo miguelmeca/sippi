@@ -490,7 +490,7 @@ public class pantallaConsultarTallerCapacitacion extends javax.swing.JInternalFr
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this.getParent(),"En Construcción","Atencion",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void optTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optTodoActionPerformed
