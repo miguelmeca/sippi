@@ -35,7 +35,7 @@ public class Loading extends javax.swing.JFrame {
 
         
         CargarLibrerias(10,"Cargando Librerías...");
-        CargarNetDaemon(30,"Cargando tester de Red ...");
+        //CargarNetDaemon(30,"Cargando tester de Red ...");
         CargarHibernate(50,"Cargando Hibernate...");
         CargarEjemplos(10,"Cargando Datos iniciales...");
 
