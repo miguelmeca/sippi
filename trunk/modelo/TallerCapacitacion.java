@@ -71,6 +71,33 @@ public class TallerCapacitacion {
             return null;
         }
 
+        public void darDeBaja()
+        {
+            if(this.id!=0) // Objeto no cargado
+            {
+                if(this.estado.esAlta())
+                {
+                    this.estado.darBaja(this);
+                }
+            }
+        }
+
+        public void darDeAlta()
+        {
+            if(this.id!=0) // Objeto no cargado
+            {
+                if(this.estado.esBaja())
+                {
+                    this.estado.darAlta(this);
+                }
+            }
+        }
+
+        public void setEstado(EstadoTallerCapacitacion estado)
+        {
+            this.estado = estado;
+        }
+
         public Capacitador getCapacitador() {
             return capacitador;
         }
