@@ -24,13 +24,17 @@ import javax.swing.table.TableRowSorter;
 import util.NTupla;
 import util.SwingPanel;
 import vista.*;
+import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
+public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements IAyuda, ICallBack{
     private GestorBuscarPedido gestor = null;
+    private DefaultTableModel dtm;
+    private TableRowSorter<TableModel> elQueOrdena;
     /** Creates new form pantallaConsultar */
     public pantallaBuscarPedido() {
         gestor = new GestorBuscarPedido(this);
@@ -41,7 +45,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
 
         private void llenarTabla() {
         ArrayList<NTupla> pedidos = gestor.getPedidosObra();
-        DefaultTableModel dtm = new DefaultTableModel();
+        dtm = new DefaultTableModel();
         dtm.addColumn("Nro.");
         dtm.addColumn("Nombre del Pedido");
         dtm.addColumn("Estado");
@@ -71,11 +75,11 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             dtm.addRow(item);
         }
         tablaPedido.setModel(dtm);
-        TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(dtm);
+        elQueOrdena = new TableRowSorter<TableModel>(dtm);
         tablaPedido.setRowSorter(elQueOrdena);
     }
 
-    private int getIdPedidoSeleccionado(){
+    public int getIdPedidoSeleccionado(){
         int tipo = -1;
          if((tablaPedido.getSelectedRowCount())==1)
         {
@@ -95,22 +99,28 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPedido = new javax.swing.JTable();
         btnCancelar = new javax.swing.JButton();
+        rbBajas = new javax.swing.JRadioButton();
+        rbAltas = new javax.swing.JRadioButton();
+        rbTodas = new javax.swing.JRadioButton();
+
+        buttonGroup1.add(rbTodas);
+        buttonGroup1.add(rbAltas);
+        buttonGroup1.add(rbBajas);
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Consultar ...");
+        setTitle("Consultar Pedidos de Obra");
 
         txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -118,6 +128,11 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -166,10 +181,6 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButton1.setText("Filtro Opcional");
-
-        jRadioButton2.setText("Filtro Opcional 2");
-
         tablaPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -191,6 +202,27 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             }
         });
 
+        rbBajas.setText("Bajas");
+        rbBajas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbBajasActionPerformed(evt);
+            }
+        });
+
+        rbAltas.setText("Altas");
+        rbAltas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbAltasActionPerformed(evt);
+            }
+        });
+
+        rbTodas.setText("Todas");
+        rbTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTodasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,10 +232,12 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbTodas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                        .addComponent(rbAltas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbBajas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -223,16 +257,20 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(6, 6, 6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbTodas)
+                            .addComponent(rbAltas)
+                            .addComponent(rbBajas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -259,27 +297,33 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        pantallaConsultarPedido p = new pantallaConsultarPedido(this.getIdPedidoSeleccionado());
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
+        if(this.tablaPedido.getSelectedRow() != -1){
+            pantallaConsultarPedido p = new pantallaConsultarPedido(this.getIdPedidoSeleccionado());
+            SwingPanel.getInstance().addWindow(p);
+            p.setVisible(true);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        pantallaRegistrarPedido p = new pantallaRegistrarPedido();
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
+        if(this.tablaPedido.getSelectedRow() != -1){
+            pantallaRegistrarPedido p = new pantallaRegistrarPedido(this);
+            SwingPanel.getInstance().addWindow(p);
+            p.setVisible(true);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pantallaModificarPedido p = new pantallaModificarPedido(this.getIdPedidoSeleccionado());
+        pantallaModificarPedido p = new pantallaModificarPedido(this);
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        pantallaDarBajaPedido p = new pantallaDarBajaPedido(this.getIdPedidoSeleccionado());
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
+        if(this.tablaPedido.getSelectedRow() != -1){
+            pantallaDarBajaPedido p = new pantallaDarBajaPedido(this);
+            SwingPanel.getInstance().addWindow(p);
+            p.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
@@ -294,22 +338,56 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame {
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         // TODO add your handling code here:
-        System.out.println("PRESSED");
+        elQueOrdena.setRowFilter(RowFilter.regexFilter(txtBuscar.getText()));
     }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void rbBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBajasActionPerformed
+        elQueOrdena.setRowFilter(RowFilter.regexFilter("borrada", 4));
+}//GEN-LAST:event_rbBajasActionPerformed
+
+    private void rbAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAltasActionPerformed
+        elQueOrdena.setRowFilter(RowFilter.regexFilter("creada", 4));
+}//GEN-LAST:event_rbAltasActionPerformed
+
+    private void rbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodasActionPerformed
+        elQueOrdena.setRowFilter(null);
+}//GEN-LAST:event_rbTodasActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbAltas;
+    private javax.swing.JRadioButton rbBajas;
+    private javax.swing.JRadioButton rbTodas;
     private javax.swing.JTable tablaPedido;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public String getTituloAyuda() {
+        return "Buscar Pedidos Obra";
+    }
+
+    public String getResumenAyuda() {
+        return "Por medio de esta ventana podrá buscar los pedidos de la empresa, filtrarlos según su estado o datos específicos";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
+
+    public void actualizar(int flag, boolean exito) {
+        this.llenarTabla();
+    }
 
 }

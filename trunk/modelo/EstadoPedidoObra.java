@@ -11,7 +11,7 @@ package modelo;
 //
 
 public abstract class EstadoPedidoObra extends EstadoAbstracto {
-
+/**
         public EstadoPedidoObra()
         {
             super();
@@ -28,4 +28,23 @@ public abstract class EstadoPedidoObra extends EstadoAbstracto {
         public boolean esPendiente() {
             return false;
 	}
+**/
+        public abstract boolean esSolicitado();
+
+        public abstract boolean esPresupuestado();
+
+        public abstract boolean esPendiente();
+
+        public abstract boolean esConfirmado();
+
+        public abstract boolean esCancelado();
+
+        public abstract boolean esPlanificado();
+
+        public abstract boolean esEnEjecucion();
+
+        public abstract boolean esSuspendido();
+
+        public abstract boolean esTerminado();
+       
 }

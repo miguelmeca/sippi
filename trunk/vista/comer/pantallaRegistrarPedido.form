@@ -212,9 +212,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreObra">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CONSTRUIR EL DELOREAN"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreObraActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNombreObraFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -236,10 +238,8 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="CONDENSADOR DE FLUJO&#xa;"/>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescripcionFocusLost"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -299,10 +299,10 @@
     <Component class="javax.swing.JTextField" name="txtMonto">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="6000"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMontoFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -365,9 +365,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPliego">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPliegoFocusLost"/>
-      </Events>
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ARMARIO 5"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
@@ -378,9 +378,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPlanos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ARMARIO 5"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlanosActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlanosFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">

@@ -25,6 +25,7 @@ import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
 import java.util.HashSet;
+import modelo.ContactoResponsable;
 import modelo.TipoLicenciaEmpleado;
 //import java.util.Set;
 
@@ -52,6 +53,7 @@ public class DBExamplesLoader {
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
           this.cargarTipoLicencias();
+          this.cargarContactoResponsable();
     }
 
     private void cargarTipoLicencias()
@@ -162,8 +164,8 @@ public class DBExamplesLoader {
         sesion.save(l9);
         sesion.save(te);
         sesion.save(te2);
-        sesion.save(tc);
-        sesion.save(tc2);
+        //sesion.save(tc);
+        //sesion.save(tc2);
         sesion.save(rng1);
         sesion.save(rng2);
         sesion.save(rng3);
@@ -263,6 +265,25 @@ public class DBExamplesLoader {
         sesion.save(ec1);
         sesion.getTransaction().commit();
 
+    }
+
+    public void cargarContactoResponsable(){
+        ContactoResponsable contacto = new ContactoResponsable();
+        contacto.setNombre("Andrés");
+        contacto.setApellido("Pedraza");
+        contacto.setCargo("Encargado de Compras");
+        contacto.setEmail("apedraza@gmail.com");
+        contacto.setCuil("20-15678445-8");
+        Telefono t = new Telefono();
+        t.setNumero("(0351) 4564478");
+        t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+        contacto.addTelefono(t);
+        contacto.setfechaAlta(new Date());
+
+        sesion.beginTransaction();
+        sesion.save(t);
+        sesion.save(contacto);
+        sesion.getTransaction().commit();
     }
 }
 

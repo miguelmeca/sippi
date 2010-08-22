@@ -57,6 +57,7 @@ public class GestorRegistrarNuevaEmpresaCliente {
 
     public GestorRegistrarNuevaEmpresaCliente(pantallaRegistrarEmpresaCliente pantalla) {
         this.pantalla = pantalla;
+        plantas = new ArrayList<Planta>();
     }
 
     public void registrarNuevaPlanta(String razonSocial)
@@ -82,6 +83,12 @@ public class GestorRegistrarNuevaEmpresaCliente {
         //this.planta = (Planta)sesion.load(Planta.class, id);
 
         //sesion.close();
+    }
+
+    public void setNuevaPlanta(GestorRegistrarNuevaPlanta gestorPlanta) {
+        this.plantas.add(gestorPlanta.getPlanta());
+        pantalla.plantaAgregada();
+        
     }
 
     public void finCU() {
@@ -177,31 +184,38 @@ public class GestorRegistrarNuevaEmpresaCliente {
         d.setBarrio(this.barrio);
         nueva.setDomicilio(d);
 
-        nueva.setPlantas(plantas);
+        nueva.setPlantas(this.plantas);
 
         nueva.setTelefonos(this.telefonos);
 
         nueva.setPaginaWeb(this.paginaWeb);
 
-        SessionFactory sf = HibernateUtil.getSessionFactory();
+        //SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion;
         try {
-            sesion = HibernateUtil.getSession();
+            //sesion = HibernateUtil.getSession();
             //sesion = sf.openSession();
+            sesion = HibernateUtil.getSessionFactory().getCurrentSession();
             try{
-                HibernateUtil.beginTransaction();
-                sesion.save(d);
+                sesion.getTransaction().begin();
+                //HibernateUtil.beginTransaction();
+                sesion.saveOrUpdate(d);
                 for (Telefono tell : this.telefonos)
                 {
-                    sesion.save(tell);
+                    sesion.saveOrUpdate(tell);
                 }
-                sesion.save(nueva);
-                HibernateUtil.commitTransaction();
+                for(Planta p : plantas){
+                    sesion.saveOrUpdate(p);
+                }
+                sesion.saveOrUpdate(nueva);
+                //HibernateUtil.commitTransaction();
+                sesion.getTransaction().commit();
             }catch(Exception e) {
                 System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
-                HibernateUtil.rollbackTransaction();
+                //HibernateUtil.rollbackTransaction();
+                sesion.getTransaction().rollback();
         }
-            HibernateUtil.closeSession();
+            //HibernateUtil.closeSession();
         } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
         return nueva.getId();
     }
@@ -274,4 +288,17 @@ public class GestorRegistrarNuevaEmpresaCliente {
     public void paginaWeb(String text) {
         this.paginaWeb = text;
     }
+
+    public ArrayList<Tupla> getPlantas() {
+        ArrayList<Tupla> pls = new ArrayList<Tupla>();
+        Tupla t = new Tupla();
+        for (Planta p : this.plantas){
+            //t.setId(p.getCUIL());
+            t.setNombre(p.getRazonSocial());
+            pls.add(t);
+        }
+        return pls;
+    }
+
+
 }

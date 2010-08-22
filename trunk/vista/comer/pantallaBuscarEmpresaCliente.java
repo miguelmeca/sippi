@@ -43,7 +43,6 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
     private void llenarTabla() {
         ArrayList<NTupla> empresas = gestor.getEmpresasCliente();
         dtm = new DefaultTableModel();
-        //DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Nro.");
         dtm.addColumn("Razón Social");
         dtm.addColumn("CUIT");
@@ -162,12 +161,17 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
             }
         });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -247,7 +251,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
                         .addComponent(rbBajas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDarBajaEmpresaCliente)
                     .addComponent(btnModificarEmpresaCliente)
@@ -311,6 +315,10 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
     private void rbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodasActionPerformed
         elQueOrdena.setRowFilter(null);
     }//GEN-LAST:event_rbTodasActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -21,7 +21,7 @@ import vista.comer.pantallaBuscarPedido;
  *
  * @author Emmanuel
  */
-public class GestorBuscarPedido {
+    public class GestorBuscarPedido {
     private pantallaBuscarPedido pantalla;
     private EmpresaCliente empresaCliente;
 
@@ -49,17 +49,15 @@ public class GestorBuscarPedido {
         ArrayList<NTupla> pedidos = new ArrayList<NTupla>();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Iterator it = sesion.createQuery("from PedidoObra p order by p.nombre").iterate();
-        PedidoObra po;
+        PedidoObra po=null;
         while(it.hasNext()){
             ArrayList<String> datos = new ArrayList<String>();
             po = (PedidoObra)it.next();
             NTupla p = new NTupla();
             p.setId(po.getId());
             p.setNombre(po.getNombre());
-            datos.add("ERROR CON EL ESTADO DEL PEDIDO");
-            datos.add("ERROR CON EL CONTACTO DEL PEDIDO");
-            //datos.add(new String (po.getEstado().getNombre()));
-            //datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
+            datos.add(po.getEstado().getNombre());
+            datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
             Iterator itEmpresa = sesion.createQuery("from EmpresaCliente").iterate();
             EmpresaCliente ec = null;
             while(itEmpresa.hasNext()){

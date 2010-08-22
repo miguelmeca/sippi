@@ -16,14 +16,64 @@ package modelo;
 
 public class EstadoPedidoObraSolicitado extends EstadoPedidoObra {
 
-        public EstadoPedidoObraSolicitado()
-        {
-            super();
-            this.setNombre("Solicitado");
-	}
-	
-	public boolean esSolicitado()
-        {
-            return true;
-	}
+    public EstadoPedidoObraSolicitado()
+    {
+        super();
+        this.setNombre("Solicitado");
+    }
+
+    public boolean esSolicitado()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean esPresupuestado() {
+        return false;
+    }
+
+    @Override
+    public boolean esPendiente() {
+        return false;
+    }
+
+    @Override
+    public boolean esConfirmado() {
+        return false;
+    }
+
+    @Override
+    public boolean esCancelado() {
+        return false;
+    }
+
+    @Override
+    public boolean esPlanificado() {
+        return false;
+    }
+
+    @Override
+    public boolean esEnEjecucion() {
+        return false;
+    }
+
+    @Override
+    public boolean esSuspendido() {
+        return false;
+    }
+
+    @Override
+    public boolean esTerminado() {
+        return false;
+    }
+
+    public void setPresupuestado(PedidoObra aThis) {
+        aThis.setHib_flag_estado("modelo.EstadoPedidoObraPresupuestado");
+        aThis.setEstado(new EstadoPedidoObraPresupuestado());
+    }
+
+    void setCancelado(PedidoObra aThis) {
+        aThis.setHib_flag_estado("modelo.EstadoPedidoObraCancelado");
+        aThis.setEstado(new EstadoPedidoObraCancelado());
+    }
 }
