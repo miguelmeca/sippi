@@ -37,8 +37,9 @@ public class PedidoObra {
 	private double monto;
 	private Date fechaLimiteEntregaPresupuesto;
         
-        private EstadoPedidoObra estadoObra;
+        //private EstadoPedidoObra estadoObra;
         private EstadoPedidoObra estado;
+        private String hib_flag_estado;
 
         public PedidoObra() {
             crear();
@@ -48,21 +49,12 @@ public class PedidoObra {
 
         // Crea el objeto, no me queda otra que asociarlo a hibernate
         public void crear() {
-
             crearPlanificacion(); // Xahora no hace nada ...
-            estadoObra = new EstadoPedidoObraSolicitado();
+            this.hib_flag_estado = "modelo.EstadoPedidoObraSolicitado";
+            this.getEstado();
 
 	}
 
-        public EstadoPedidoObra getEstado()
-        {
-            //if(estadoObra.getNombre().equals("Solicitado"))
-            //{
-            //    this.estado = new EstadoPedidoObraSolicitado();
-            //}
-            // return this.estado;
-            return new EstadoPedidoObraSolicitado();
-        }
 
         public ContactoResponsable getContacto() {
             return contacto;
@@ -147,22 +139,6 @@ public class PedidoObra {
         this.id = numero;
     }
 
-//    public PlanDeSeguridad getPlanSeg() {
-//        return planSeg;
-//    }
-//
-//    public void setPlanSeg(PlanDeSeguridad planSeg) {
-//        this.planSeg = planSeg;
-//    }
-
-//    public PlanificacionObra getPlanificacionObra() {
-//        return planificacionObra;
-//    }
-//
-//    public void setPlanificacionObra(PlanificacionObra planificacionObra) {
-//        this.planificacionObra = planificacionObra;
-//    }
-
     public String getPlanos() {
         return planos;
     }
@@ -211,78 +187,238 @@ public class PedidoObra {
 //        this.estado = estado;
 //    }
 
+    public void mostrarPlanDeSeguridad() {
 
+    }
 
+    public void mostrarPlanificacionObras() {
 
-	public void mostrarPlanDeSeguridad() {
-	
-	}
-	
-	public void mostrarPlanificacionObras() {
-	
-	}
-	
-	public void mostrarPlanta() {
-	
-	}
-	
-	public void mostrarNombresObrasPendientes() {
-	
-	}
-	
-	public void getObra(Object nombre) {
-	
-	}
-	
-	public void mostrarNombresObrasActivas() {
-	
-	}
-	
-	public void buscarTipoDeCapacitacion() {
-	
-	}
-	
-	public void buscarEmpleados() {
-	
-	}
-	
-	public void esTuTipo() {
-	
-	}
-	
-	public void getNombreConfirmada() {
-	
-	}
-	
-	public void mostrarContactoYTelefono() {
-	
-	}
-	
-	public void calcularPorcentajeCompletado() {
-	
-	}
-	
-	public void getNumeroPedidoObra() {
-	
-	}
-	
-	public void crearPlanificacion() {
-	
-	}
-	
-	public void getObrasActivas() {
-	
-	}
-	
-	public void getEtapasPrimerNivel() {
-	
-	}
+    }
 
-	
-//	public void tomarEstadoPedidoObra(EstadoPedidoObra estado)
-//        {
-//            this.estado = estado;
-//	}
+    public void mostrarPlanta() {
 
-        
+    }
+
+    public void mostrarNombresObrasPendientes() {
+
+    }
+
+    public void getObra(Object nombre) {
+
+    }
+
+    public void mostrarNombresObrasActivas() {
+
+    }
+
+    public void buscarTipoDeCapacitacion() {
+
+    }
+
+    public void buscarEmpleados() {
+
+    }
+
+    public void esTuTipo() {
+
+    }
+
+    public void getNombreConfirmada() {
+
+    }
+
+    public void mostrarContactoYTelefono() {
+
+    }
+
+    public void calcularPorcentajeCompletado() {
+
+    }
+
+    public void getNumeroPedidoObra() {
+
+    }
+
+    public void crearPlanificacion() {
+
+    }
+
+    public void getObrasActivas() {
+
+    }
+
+    public void getEtapasPrimerNivel() {
+
+    }
+
+/*************************************************************
+ *                    MANEJO DE ESTADOS                      *
+ * ***********************************************************
+ */
+    
+    public EstadoPedidoObra getEstado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado==null)
+            {
+                try {
+                        //Class estadoAux = Class.forName(this.hib_flag_estado);
+                        EstadoPedidoObra estadoAux = (EstadoPedidoObra) Class.forName(this.hib_flag_estado).newInstance();
+                        this.estado = estadoAux;
+                        return estado;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println("No se encontro la clase Estado Concreto");
+                    }
+            }
+            else
+            {
+                return this.estado;
+            }
+
+        }
+        else
+        {
+            System.out.println("Carga el objeto antes de usarlo");
+            return null;
+        }
+        return null;
+    }
+
+    public void setEstadoPresupuestado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esSolicitado())
+            {
+                ((EstadoPedidoObraSolicitado)this.estado).setPresupuestado(this);
+            }
+        }
+    }
+
+    public void setEstadoPendiente()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPresupuestado())
+            {
+                ((EstadoPedidoObraPresupuestado)this.estado).setPendiente(this);
+            }
+        }
+    }
+
+    public void setEstadoConfirmado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPendiente())
+            {
+                ((EstadoPedidoObraPendiente)this.estado).setConfirmado(this);
+            }
+        }
+    }
+
+    public void setEstadoPlanificado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esConfirmado())
+            {
+                ((EstadoPedidoObraConfirmado)this.estado).setPlanificado(this);
+            }
+        }
+    }
+
+    public void setEstadoEnEjecucion()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPlanificado())
+            {
+                ((EstadoPedidoObraPlanificado)this.estado).setEnEjecucion(this);
+            }
+            else
+            {
+                if(this.estado.esSuspendido()){
+                    ((EstadoPedidoObraSuspendido)this.estado).setEnEjecucion(this);
+                }
+            }
+        }
+    }
+
+    public void setEstadoSuspendido()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esEnEjecucion())
+            {
+                ((EstadoPedidoObraEnEjecucion)this.estado).setSuspendido(this);
+            }
+        }
+    }
+
+    public void setEstadoTerminado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esEnEjecucion())
+            {
+                ((EstadoPedidoObraEnEjecucion)this.estado).setTerminado(this);
+            }
+        }
+    }
+
+    public void setEstadoCancelado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esSolicitado()){
+                ((EstadoPedidoObraSolicitado)this.estado).setCancelado(this);
+            }
+            else{
+                if(this.estado.esPresupuestado()){
+                    ((EstadoPedidoObraPresupuestado)this.estado).setCancelado(this);
+                }
+                else{
+                    if(this.estado.esPendiente()){
+                        ((EstadoPedidoObraPendiente)this.estado).setCancelado(this);
+                    }
+                    else{
+                        if(this.estado.esConfirmado()){
+                            ((EstadoPedidoObraConfirmado)this.estado).setCancelado(this);
+                        }
+                         else{
+                            if(this.estado.esPlanificado()){
+                                ((EstadoPedidoObraPlanificado)this.estado).setCancelado(this);
+                            }
+                            else{
+                                if(this.estado.esEnEjecucion()){
+                                    ((EstadoPedidoObraEnEjecucion)this.estado).setCancelado(this);
+                                }
+                                else{
+                                    if(this.estado.esSuspendido()){
+                                        ((EstadoPedidoObraSuspendido)this.estado).setCancelado(this);
+                                    }
+                                }
+                            }
+                         }
+                    }
+                }
+            }
+        }
+    }
+
+    public void setEstado(EstadoPedidoObra estado){
+        this.estado = estado;
+    }
+
+    public String getHib_flag_estado() {
+        return hib_flag_estado;
+    }
+
+    public void setHib_flag_estado(String hib_flag_estado) {
+        this.hib_flag_estado = hib_flag_estado;
+    }
 }

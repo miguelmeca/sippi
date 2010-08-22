@@ -19,6 +19,7 @@
     <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
     <many-to-one class="modelo.ContactoResponsable" column="ID_CONTACTO" name="contacto"/>
 
+    <property name="hib_flag_estado" type="string" not-null="true"/>
     <!--many-to-one class="modelo.EstadoPedidoObra" column="ID_ESTADO" name="estadoObra"/-->
 
     <!-- Da error vaya uno a saber porque -->

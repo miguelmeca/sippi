@@ -37,14 +37,21 @@ import vista.interfaces.IPantallaPedidoABM;
 public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM, ICallBack{
 
     private GestorRegistrarPedido gestor;
-/*
-    private JComponent cmbfechaInicio;
-    private JComponent cmbfechaFin;
-    private JComponent cmbLEP;
-    private JComponent cmbLVP;
-*/
+    private pantallaBuscarPedido pBuscar;
+
     /** Creates new form frmRegistrarPedido */
+    public pantallaRegistrarPedido(pantallaBuscarPedido p) {
+        this.pBuscar = p;
+        gestor = new GestorRegistrarPedido(this);
+        initComponents();
+        habilitarVentana();
+        txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
+        mostrarEmpresasCliente();
+        mostrarContactos();
+    }
+
     public pantallaRegistrarPedido() {
+        this.pBuscar = null;
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
@@ -205,14 +212,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre de la Obra:");
 
+        txtNombreObra.setText("CONSTRUIR EL DELOREAN");
         txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreObraActionPerformed(evt);
-            }
-        });
-        txtNombreObra.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreObraFocusLost(evt);
             }
         });
 
@@ -221,11 +224,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
-        txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDescripcionFocusLost(evt);
-            }
-        });
+        txtDescripcion.setText("CONDENSADOR DE FLUJO\n");
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -257,14 +256,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel8.setText("Presupuesto Máximo ($):");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtMonto.setText("6000");
         txtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMontoActionPerformed(evt);
-            }
-        });
-        txtMonto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMontoFocusLost(evt);
             }
         });
 
@@ -305,23 +300,15 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Pliego:");
 
-        txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPliegoFocusLost(evt);
-            }
-        });
+        txtPliego.setText("ARMARIO 5");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Planos:");
 
+        txtPlanos.setText("ARMARIO 5");
         txtPlanos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlanosActionPerformed(evt);
-            }
-        });
-        txtPlanos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPlanosFocusLost(evt);
             }
         });
 
@@ -501,6 +488,14 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if(ValidarDatos()){
+            gestor.nombreObra(this.txtNombreObra.getText());
+            gestor.descripcionObra(this.txtDescripcion.getText());
+            gestor.montoMaximo(Long.valueOf(this.txtMonto.getText()));
+            gestor.planosObra(this.txtPlanos.getText());
+            gestor.pliegoObra(this.txtPliego.getText());
+            //gestor.contactoResponsable(((Tupla)this.cmbContactos.getSelectedItem()).getId());
+            
+
             //VALIDO LAS FECHAS
             // HACER
             //PASO LAS FECHAS AL GESTOR
@@ -526,6 +521,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             int id = gestor.confirmacionRegistro();
 
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(pBuscar != null){
+                pBuscar.actualizar(1, true);
+            }
             this.dispose();
         }
 
@@ -534,40 +532,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
         
     }//GEN-LAST:event_txtPlanosActionPerformed
-
-    private void txtNombreObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreObraFocusLost
-
-        gestor.nombreObra(txtNombreObra.getText()); // le paso el nombre al gestor
-
-    }//GEN-LAST:event_txtNombreObraFocusLost
-
-    private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
-
-        gestor.descripcionObra(txtDescripcion.getText());
-
-    }//GEN-LAST:event_txtDescripcionFocusLost
-
-//    private void cmbfechaInicioFocusLost(java.awt.event.FocusEvent evt) {
-//
-//        Date fecha = ((JDateChooser) cmbfechaInicio).getDate();
-//        gestor.fechaInicio(fecha);
-//
-//    }
-
-    private void txtMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoFocusLost
-
-
-        gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
-
-    }//GEN-LAST:event_txtMontoFocusLost
-
-    private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
-        gestor.pliegoObra(txtPliego.getText());
-    }//GEN-LAST:event_txtPliegoFocusLost
-
-    private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
-        gestor.planosObra(txtPlanos.getText());
-    }//GEN-LAST:event_txtPlanosFocusLost
 
     private void cmbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresaActionPerformed
         this.mostrarPlantasEmpresaCliente();
@@ -682,5 +646,61 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             valores.addElement(tu);
         }
         cmbContactos.setModel(valores);
+    }
+
+    public void setNumeroPedido(String nro) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setNombreObra(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDescripcionObra(String desc) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setEmpresaCliente(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPlanta(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaInicio(Date fInicio) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaFin(Date fFin) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setMontoPedido(String monto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaLEP(Date fLEP) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaLVP(Date fLVP) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setContactoResponsable(String contacto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setEstadoPedidoObra(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

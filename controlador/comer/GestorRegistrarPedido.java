@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.ContactoResponsable;
 import modelo.EmpresaCliente;
+import modelo.EstadoPedidoObraPendiente;
 import modelo.PedidoObra;
 import modelo.Planta;
 import modelo.TipoTelefono;
@@ -213,6 +214,7 @@ public class GestorRegistrarPedido {
         nuevo.setPlanos(planosObra);
         nuevo.setPliego(pliegoObra);
         nuevo.setContacto(contacto);
+        nuevo.setEstado(new EstadoPedidoObraPendiente());
 
         nuevo.setPlanta(planta);
 
@@ -438,5 +440,66 @@ public class GestorRegistrarPedido {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion = sf.openSession();
         this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
+    }
+
+    public void seleccionPedido(int idPedido) {
+        this.buscarDatosPedido(idPedido);
+        this.pantalla.setNumeroPedido(String.valueOf(this.pedido.getId()));
+        this.pantalla.setNombreObra(this.pedido.getNombre());
+        this.pantalla.setDescripcionObra(this.pedido.getDescripcion());
+        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado().getNombre());
+        int idPlanta = this.pedido.getPlanta().getId();
+        try {
+            Iterator itEmpresas = HibernateUtil.getSession().createQuery("from EmpresaCliente").iterate();
+            EmpresaCliente ec = null;
+            while(itEmpresas.hasNext()){
+                ec = (EmpresaCliente)itEmpresas.next();
+                if(ec.esMiPlanta(idPlanta)){
+                    this.pantalla.setEmpresaCliente(ec.getId());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("ERROR:"+ex.getMessage()+"|");
+            ex.printStackTrace();
+        }
+        this.pantalla.setPlanta(this.pedido.getPlanta().getId());
+        this.pantalla.setFechaInicio(this.pedido.getFechaInicio());
+        this.pantalla.setFechaFin(this.pedido.getFechaFin());
+        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
+        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
+        this.pantalla.setMontoPedido(String.valueOf(this.pedido.getMonto()));
+        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
+        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
+        this.pantalla.setPliegosPedido(this.pedido.getPliego());
+        this.pantalla.setPlanosPedido(this.pedido.getPlanos());
+        this.pantalla.setContactoResponsable(this.pedido.getContacto().getApellido()+", "+this.pedido.getContacto().getNombre());
+    }
+
+    private void buscarDatosPedido(int idPedido){
+        try{
+            HibernateUtil.beginTransaction();
+            this.pedido = (PedidoObra)HibernateUtil.getSession().load(PedidoObra.class, idPedido);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelarPedido(int id) {
+        try{
+            HibernateUtil.beginTransaction();
+            this.pedido = (PedidoObra)HibernateUtil.getSession().load(PedidoObra.class, id);
+            this.pedido.setEstadoCancelado();
+            HibernateUtil.getSessionFactory().openSession().update(this.pedido);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e){
+            HibernateUtil.rollbackTransaction();
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
     }
 }

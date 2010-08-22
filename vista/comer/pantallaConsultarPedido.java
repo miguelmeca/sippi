@@ -28,6 +28,7 @@ import vista.interfaces.IPantallaPedidoABM;
 public class pantallaConsultarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
     private int idPedido;
+    
     /** Creates new form pantallaConsultarPedido */
     public pantallaConsultarPedido(int id) {
         gestor = new GestorRegistrarPedido(this);
@@ -68,23 +69,8 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
 
     private void habilitarVentana()
     {
-        // Seteo los combos de la fecha, para que seleccione...
-        // FECHA DE INICIO
-        //cmbfechaInicio = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaInicio.setBounds(105,170,155,20); // x y ancho alto
-        //add(cmbfechaInicio);
-        // FECHA DE FIN
-        //cmbfechaFin = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaFin.setBounds(360,170,110,20); // x y ancho alto
-        //add(cmbfechaFin);
-        // FECHA LEP
-        //cmbLEP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLEP.setBounds(273,235,140,20); // x y ancho alto
-        //add(cmbLEP);
-        // FECHA LVP
-        //cmbLVP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLVP.setBounds(273,265,140,20); // x y ancho alto
-        //add(cmbLVP);
+        mostrarEmpresasCliente();
+        gestor.seleccionPedido(this.idPedido);
 
     }
 
@@ -168,6 +154,11 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         cmbfechaFin = new com.toedter.calendar.JDateChooser();
         cmbLEP = new com.toedter.calendar.JDateChooser();
         cmbLVP = new com.toedter.calendar.JDateChooser();
+        jPanel1 = new javax.swing.JPanel();
+        btnAgregarCR = new javax.swing.JButton();
+        cmbContactos = new javax.swing.JComboBox();
+        txtEstadoPedido = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -183,6 +174,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
 
+        txtPliego.setEnabled(false);
         txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPliegoFocusLost(evt);
@@ -203,6 +195,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Presupuesto Máximo ($):");
 
+        txtPlanos.setEnabled(false);
         txtPlanos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPlanosActionPerformed(evt);
@@ -215,16 +208,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         });
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMontoActionPerformed(evt);
-            }
-        });
-        txtMonto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMontoFocusLost(evt);
-            }
-        });
+        txtMonto.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
@@ -239,41 +223,24 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel5.setText("Planta:");
 
         cmbPlanta.setEnabled(false);
-        cmbPlanta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPlantaActionPerformed(evt);
-            }
-        });
 
         btnAgregarPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnAgregarPlanta.setEnabled(false);
-        btnAgregarPlanta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarPlantaActionPerformed(evt);
-            }
-        });
 
         txtNroPedido.setEditable(false);
         txtNroPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnAgregarEmpresaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAgregarEmpresaCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarEmpresaClienteActionPerformed(evt);
-            }
-        });
+        btnAgregarEmpresaCliente.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Número de Pedido:");
 
-        cmbEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbEmpresaActionPerformed(evt);
-            }
-        });
+        cmbEmpresa.setEnabled(false);
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.setEnabled(false);
         txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDescripcionFocusLost(evt);
@@ -284,22 +251,52 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripción:");
 
-        txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreObraActionPerformed(evt);
-            }
-        });
-        txtNombreObra.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreObraFocusLost(evt);
-            }
-        });
+        txtNombreObra.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre de la Obra:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Empresa Cliente:");
+
+        cmbfechaInicio.setEnabled(false);
+
+        cmbfechaFin.setEnabled(false);
+
+        cmbLEP.setEnabled(false);
+
+        cmbLVP.setEnabled(false);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto Responsable"));
+
+        btnAgregarCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarCR.setText("Agregar Contacto");
+        btnAgregarCR.setEnabled(false);
+
+        cmbContactos.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(cmbContactos, 0, 275, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgregarCR, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnAgregarCR)
+                .addComponent(cmbContactos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        txtEstadoPedido.setEditable(false);
+        txtEstadoPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setText("Estado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -308,10 +305,18 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEstadoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -325,62 +330,58 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbLVP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbLEP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPliego, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                            .addComponent(txtPlanos, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                            .addComponent(txtNombreObra, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPliego, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                                    .addComponent(txtPlanos, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btnConfirmar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnCancelar))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                                    .addComponent(txtNombreObra, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbfechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 43, Short.MAX_VALUE)
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbfechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbEmpresa, 0, 107, Short.MAX_VALUE))
+                                .addComponent(cmbPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 43, Short.MAX_VALUE)
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbfechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(21, 21, 21)))
+                                .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbfechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtEstadoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -428,6 +429,8 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -475,58 +478,19 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         gestor.planosObra(txtPlanos.getText());
 }//GEN-LAST:event_txtPlanosFocusLost
 
-    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtMontoActionPerformed
-
-    private void txtMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoFocusLost
-
-
-        gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
-    }//GEN-LAST:event_txtMontoFocusLost
-
-    private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_cmbPlantaActionPerformed
-
-    private void btnAgregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlantaActionPerformed
-        gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()));
-}//GEN-LAST:event_btnAgregarPlantaActionPerformed
-
-    private void btnAgregarEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpresaClienteActionPerformed
-        gestor.llamarCURegistrarNuevaEmpresaCliente();
-}//GEN-LAST:event_btnAgregarEmpresaClienteActionPerformed
-
-    private void cmbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresaActionPerformed
-        this.mostrarPlantasEmpresaCliente();
-        if(cmbEmpresa.getSelectedIndex() != -1){
-            btnAgregarPlanta.setEnabled(true);
-            cmbPlanta.setEnabled(true);} else{
-            btnAgregarPlanta.setEnabled(false);
-            cmbPlanta.setEnabled(false);}
-}//GEN-LAST:event_cmbEmpresaActionPerformed
-
     private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
 
         gestor.descripcionObra(txtDescripcion.getText());
     }//GEN-LAST:event_txtDescripcionFocusLost
 
-    private void txtNombreObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreObraActionPerformed
-
-
-    }//GEN-LAST:event_txtNombreObraActionPerformed
-
-    private void txtNombreObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreObraFocusLost
-
-        gestor.nombreObra(txtNombreObra.getText()); // le paso el nombre al gestor
-    }//GEN-LAST:event_txtNombreObraFocusLost
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCR;
     private javax.swing.JButton btnAgregarEmpresaCliente;
     private javax.swing.JButton btnAgregarPlanta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JComboBox cmbContactos;
     private javax.swing.JComboBox cmbEmpresa;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private com.toedter.calendar.JDateChooser cmbLVP;
@@ -537,6 +501,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -545,13 +510,90 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtEstadoPedido;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombreObra;
     private javax.swing.JTextField txtNroPedido;
     private javax.swing.JTextField txtPlanos;
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
+
+    public void setNumeroPedido(String nro) {
+        this.txtNroPedido.setText(nro);
+    }
+
+    public void setNombreObra(String nombre) {
+        this.txtNombreObra.setText(nombre);
+    }
+
+    public void setDescripcionObra(String desc) {
+        this.txtDescripcion.setText(desc);
+    }
+
+    public void setEmpresaCliente(int id) {
+        //for(cmbEmpresa.:)
+        Tupla t=null;
+        for(int i=0;i<cmbEmpresa.getModel().getSize();i++){
+            t = (Tupla)cmbEmpresa.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbEmpresa.setSelectedItem(t);
+                break;
+            }
+        }
+        mostrarPlantasEmpresaCliente();
+    }
+
+    public void setPlanta(int id) {
+        Tupla t=null;
+        for(int i=0;i<cmbPlanta.getModel().getSize();i++){
+            t = (Tupla)cmbPlanta.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbPlanta.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void setFechaInicio(Date fInicio) {
+        this.cmbfechaInicio.setDate(fInicio);
+    }
+
+    public void setFechaFin(Date fFin) {
+        this.cmbfechaFin.setDate(fFin);
+    }
+
+    public void setFechaLEP(Date fLEP) {
+        this.cmbLEP.setDate(fLEP);
+    }
+
+    public void setMontoPedido(String monto) {
+        this.txtMonto.setText(monto);
+    }
+
+    public void setFechaLVP(Date fLVP) {
+        this.cmbLVP.setDate(fLVP);
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        this.txtPliego.setText(pliegos);
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        this.txtPlanos.setText(pedidos);
+    }
+
+    public void setContactoResponsable(String contacto) {
+        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+        cbm.addElement(contacto);
+        this.cmbContactos.setModel(cbm);
+        this.cmbContactos.setSelectedItem(contacto);
+    }
+
+    public void setEstadoPedidoObra(String nombre) {
+        this.txtEstadoPedido.setText(nombre);
+    }
 
 }

@@ -91,9 +91,17 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     public void plantaAgregada()
     {
-        lblNuevaPlanta.setText("Se agregó con éxito la nueva Planta");
-        btnNuevaPlanta.setEnabled(false);
+        //lblNuevaPlanta.setText("Se agregó con éxito la nueva Planta");
+//        btnNuevaPlanta.setEnabled(false);
         btnNuevaEmpresa.setEnabled(true);
+        ArrayList<Tupla> pls = gestor.getPlantas();
+        for(Tupla t : pls){
+            DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+            Object[] item = new Object[2];
+            item[0] = t.getNombre();
+            item[1] = t.getId();
+            modelo.addRow(item);
+        }
     }
 
     private void formatearTablaTelefonos()
@@ -224,7 +232,9 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         btnQuitarTelefono = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnNuevaPlanta = new javax.swing.JButton();
-        lblNuevaPlanta = new javax.swing.JLabel();
+        btnBorrarPlanta = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaPlantas = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -563,7 +573,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar una Nueva Planta"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Plantas"));
 
         btnNuevaPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevaPlanta.setText("Agregar Planta");
@@ -573,30 +583,60 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        lblNuevaPlanta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNuevaPlanta.setText("Por favor ingrese una nueva Planta para finalizar la registración");
+        btnBorrarPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnBorrarPlanta.setText("Quitar Planta");
+        btnBorrarPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarPlantaActionPerformed(evt);
+            }
+        });
+
+        tablaPlantas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Razón Social", "CUIT"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaPlantas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(lblNuevaPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(btnNuevaPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnNuevaPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBorrarPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNuevaPlanta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNuevaPlanta))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnNuevaPlanta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBorrarPlanta))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -616,16 +656,16 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(btnNuevaEmpresa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -637,12 +677,12 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -687,7 +727,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void btnNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlantaActionPerformed
-
         gestor.registrarNuevaPlanta(txtRazonSocial.getText());
 
     }//GEN-LAST:event_btnNuevaPlantaActionPerformed
@@ -746,6 +785,17 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         this.quitarTelefono();
     }//GEN-LAST:event_btnQuitarTelefonoActionPerformed
 
+    private void btnBorrarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPlantaActionPerformed
+        // TODO add your handling code here:
+        if((tablaPlantas.getSelectedRowCount())==1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+            modelo.removeRow(tablaPlantas.getSelectedRow());
+            //gestor.removePlanta(tablaPlantas.getCe tablaPlantas.getSelectedRow())
+            //tablaPlantas.
+        }
+    }//GEN-LAST:event_btnBorrarPlantaActionPerformed
+
     private HashSet<NTupla> cargarTelefonos()
     {
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
@@ -756,7 +806,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         {
             Vector fila = (Vector)it.next();
 
-            System.out.println("HOLA");
             Tupla tipo = (Tupla)fila.get(0);
 
             NTupla nt = new NTupla();
@@ -856,6 +905,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarPlanta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevaEmpresa;
     private javax.swing.JButton btnNuevaPlanta;
@@ -888,7 +938,8 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblNuevaPlanta;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable tablaPlantas;
     private javax.swing.JTable tablaTelefonos;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtCP;

@@ -26,6 +26,7 @@ public class ContactoResponsable {
         private Date fechaAlta;
 
     public ContactoResponsable() {
+        telefonos = new HashSet<Telefono>();
     }
     public ContactoResponsable(String nom,String apell,String cg, String cUil, String eMail,  ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
         {
@@ -121,6 +122,10 @@ public class ContactoResponsable {
 
     public void getContacto() {
 
+    }
+
+    public void addTelefono(Telefono t) {
+        this.telefonos.add(t);
     }
 
 
