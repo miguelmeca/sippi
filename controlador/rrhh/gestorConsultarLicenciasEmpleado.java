@@ -41,7 +41,7 @@ public class gestorConsultarLicenciasEmpleado {
         this.pantalla = pantalla;
     }
 
-    public ArrayList<NTupla> mostrarLicenciasActivas()
+    public ArrayList<NTupla> mostrarLicenciasActivas(int id)
     {
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
 
@@ -49,6 +49,10 @@ public class gestorConsultarLicenciasEmpleado {
            try {
                 sesion = HibernateUtil.getSession();
 
+                if(id!=0)
+                {
+                    sesion.enableFilter("filtroLicenciaEmpleado").setParameter("idEmpleado",id);
+                }
                 Iterator iter = sesion.createQuery("from LicenciaEmpleado le order by le.fechaInicio DESC").iterate();
                 while (iter.hasNext())
                 {

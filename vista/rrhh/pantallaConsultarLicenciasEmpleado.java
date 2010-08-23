@@ -13,6 +13,7 @@ package vista.rrhh;
 
 import controlador.rrhh.gestorConsultarLicenciasEmpleado;
 import controlador.rrhh.gestorGestionarLicenciasEmpleado;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -21,14 +22,16 @@ import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
 import vista.*;
+import vista.interfaces.ICallBack;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFrame {
+public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFrame implements ICallBack {
 
     private gestorConsultarLicenciasEmpleado gestor;
+    private int ID_EMPLEADO = 0;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarLicenciasEmpleado() {
@@ -47,13 +50,18 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
 
     }
 
+    private void refrescarTabla()
+    {
+        mostrarLicencias();
+    }
+
     private void mostrarLicencias()
     {
         DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
 
         modelo = TablaUtil.vaciarDefaultTableModel(modelo);
 
-        ArrayList<NTupla> lista = gestor.mostrarLicenciasActivas();
+        ArrayList<NTupla> lista = gestor.mostrarLicenciasActivas(this.ID_EMPLEADO);
         Iterator it = lista.iterator();
         while (it.hasNext())
         {
@@ -71,6 +79,13 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
             modelo.addRow(fila);
         }
 
+    }
+
+    public void filtrarPorEmpleado(int id)
+    {
+        this.ID_EMPLEADO = id;
+        mostrarLicencias();
+        // TODOS LAS LICENCIAS MOSTRADAS SON PARA UN EMPLEADO
     }
 
     /**
@@ -116,6 +131,16 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
             }
         });
 
@@ -188,7 +213,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
@@ -214,6 +239,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
 
         pantallaGestionLicenciasEmpleado pgle = new pantallaGestionLicenciasEmpleado();
         SwingPanel.getInstance().addWindow(pgle);
+        pgle.setCallBack(this);
         pgle.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -231,15 +257,32 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        if(tblLista.getSelectedRow()>0)
+        if(tblLista.getSelectedRow()>-1)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
             NTupla nt = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
 
-            System.out.println("Se va a modificar la Licencia: "+nt.getId());
+            // TENGO LA LICENCIA, LA MANDO A MODIFICAR
+            pantallaGestionLicenciasEmpleado pgle = new pantallaGestionLicenciasEmpleado();
+            SwingPanel.getInstance().addWindow(pgle);
+            pgle.setCallBack(this);
+            pgle.modificarLicencia(nt.getId());
+            pgle.setVisible(true);
 
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"En Construcción","ATENCION",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,5 +295,18 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public void actualizar(int flag, boolean exito) {
+
+        if(flag==1 && exito==true)
+        {
+            refrescarTabla();
+        }
+        if(flag==2 && exito==true)
+        {
+            refrescarTabla();
+        }
+        
+    }
 
 }

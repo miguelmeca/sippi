@@ -15,6 +15,12 @@ package modelo;
 
 public class EstadoLugarCapacitacionBaja extends EstadoLugarCapacitacion {
 
+    public EstadoLugarCapacitacionBaja()
+    {
+        super();
+        super.setNombre("Baja");
+    }
+
     @Override
     public boolean esBaja()
     {

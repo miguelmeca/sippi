@@ -945,6 +945,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         pantallaConsultarLicenciasEmpleado pcle = new pantallaConsultarLicenciasEmpleado();
         SwingPanel.getInstance().addWindow(pcle);
+        pcle.filtrarPorEmpleado(1); 
         pcle.setVisible(true);
 
     }//GEN-LAST:event_jButton3ActionPerformed

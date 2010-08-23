@@ -208,6 +208,104 @@ public class gestorGestionarLicenciasEmpleado {
         return false;
     }
 
+    private boolean existeLicenciaEnFechaIgnorarActual(Empleado e, Date inicio, Date fin,int id)
+    {
+           Session sesion;
+           try {
+                sesion = HibernateUtil.getSession();
+
+                Iterator iter = sesion.createQuery("from LicenciaEmpleado le WHERE le.empleado.legajo = :legEmp").setParameter("legEmp",e.getLegajo()).iterate();
+                while (iter.hasNext())
+                {
+                  LicenciaEmpleado le = (LicenciaEmpleado) iter.next();
+
+                  if(le.getOid() != id)
+                  {
+                      if(FechaUtil.fechaEnRango(inicio,le.getFechaInicio(),le.getFechaFin()) || FechaUtil.fechaEnRango(fin,le.getFechaInicio(),le.getFechaFin()))
+                      {
+                        return true;
+                      }
+                  }
+
+                }
+
+               }catch(Exception ex)
+           {
+                System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                pantalla.MostrarMensaje("EG-0008");
+           }
+        return false;
+    }
+
+    public void mostrarLicencia(int oid)
+    {
+           Session sesion;
+           try {
+                sesion = HibernateUtil.getSession();
+
+                LicenciaEmpleado tl = (LicenciaEmpleado)sesion.load(LicenciaEmpleado.class,oid);
+
+                pantalla.mostrarFechas(tl.getFechaInicio(),tl.getFechaFin());
+                pantalla.mostrarMotivo(tl.getMotivo());
+                pantalla.seleccionarEmpleadoLicencia(tl.getEmpleado().getoId());
+                pantalla.seleccionarTipoLicencia(tl.getTipoLicencia().getOid());
+
+
+               }catch(Exception ex)
+           {
+                System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                pantalla.MostrarMensaje("EG-0010");
+           }
+
+    }
+
+    public void modificarLicencia(int id) {
+
+        if(this.n_empleado!=null && this.n_tipoLicencia!= null)
+        {
+            if(!existeLicenciaEnFechaIgnorarActual(n_empleado, n_fechaInicio, n_fechaFin,id))
+            {
+                Session sesion;
+                try {
+                       sesion = HibernateUtil.getSession();
+
+                       LicenciaEmpleado le = (LicenciaEmpleado)sesion.load(LicenciaEmpleado.class,id);
+
+                        le.setEmpleado(n_empleado);
+                        le.setEstado("Programada");
+                        le.setFechaFin(n_fechaFin);
+                        le.setFechaInicio(n_fechaInicio);
+                        le.setMotivo(n_motivo);
+                        le.setTipoLicencia(n_tipoLicencia);
+
+                        HibernateUtil.beginTransaction();
+                        sesion.update(le);
+                        HibernateUtil.commitTransaction();
+
+                }catch(Exception ex)
+                {
+                    HibernateUtil.rollbackTransaction();
+                    System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                    pantalla.MostrarMensaje("EG-0012");
+                }
+
+                pantalla.MostrarMensaje("MI-0013");
+
+            }
+            else
+            {
+                pantalla.MostrarMensaje("MI-0005");
+            }
+        }
+        else
+        {
+                System.out.println("Faltan Datos");
+                pantalla.MostrarMensaje("EG-0011");
+        }
+
+
+    }
+
 
     
 }

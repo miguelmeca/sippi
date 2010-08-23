@@ -12,12 +12,18 @@
 package vista.rrhh;
 
 import controlador.rrhh.gestorGestionarLicenciasEmpleado;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import util.FechaUtil;
+import util.NTupla;
 import util.Tupla;
+import vista.interfaces.ICallBack;
 
 /**
  *
@@ -27,6 +33,7 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
 
     private gestorGestionarLicenciasEmpleado gestor;
     private int SELECCION_oid = 0;
+    private ICallBack winLlamada;
 
     /** Creates new form pantallaGestionLicenciasEmpleado */
     public pantallaGestionLicenciasEmpleado() {
@@ -48,6 +55,29 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
     {
         this.SELECCION_oid = oid;
         btnGuardarMofidificar.setText("Guardar Modificaciones");
+
+        mostrarEmpleados();
+        mostrarTiposLicencia();
+        // CARGO LA LICENCIA Y MUESTRO LOS DATOS
+        mostrarLicencia();
+
+
+    }
+
+    private void mostrarLicencia()
+    {
+        gestor.mostrarLicencia(this.SELECCION_oid);
+    }
+
+    public void mostrarFechas(Date inicio, Date fin)
+    {
+            txtFechaInicio.setDate(inicio);
+            txtFechaFin.setDate(fin);
+    }
+
+    public void mostrarMotivo(String motivo)
+    {
+        txtMotivo.setText(motivo);
     }
 
     private void mostrarEmpleados()
@@ -100,6 +130,7 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
      * EG-0012 : Error en la conexion a la BD
      * MI-0004 : Se registro correctamente la licencia
      * MI-0005 : Ya tiene licencia en esa fecha
+     * MI-0012 : Error en la carga de datos
      * @param cod
      */
     public void MostrarMensaje(String cod)
@@ -136,11 +167,28 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         if(cod.equals("MI-0004"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"Se registro correctamente la licencia","Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(this.winLlamada!=null)
+            {
+                winLlamada.actualizar(1,true);
+            }
+            this.dispose();
+        }
+        if(cod.equals("MI-0013"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se modificó correctamente la licencia","Modificación Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(this.winLlamada!=null)
+            {
+                winLlamada.actualizar(1,true);
+            }
             this.dispose();
         }
         if(cod.equals("MI-0005"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"El empleado seleccionado ya tiene una licencia en esa fecha","Atención",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cod.equals("MI-0012"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Error en la carga de datos","Atención",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -305,6 +353,13 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
             else
             {
                 // MODIFICO
+                gestor.setEmpleado((Tupla)cmbEmpleado.getSelectedItem());
+                gestor.setFechaInicio(txtFechaInicio.getDate());
+                gestor.setFechaFin(txtFechaFin.getDate());
+                gestor.setTipoLicencia((Tupla)cmbTipoLicencia.getSelectedItem());
+                gestor.setMotivo(txtMotivo.getText());
+
+                gestor.modificarLicencia(SELECCION_oid);
             }
         }
         else
@@ -313,6 +368,11 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         }
 
     }//GEN-LAST:event_btnGuardarMofidificarActionPerformed
+
+    public void setCallBack(ICallBack win)
+    {
+        this.winLlamada = win;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -330,5 +390,33 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtMotivo;
     // End of variables declaration//GEN-END:variables
+
+    public void seleccionarEmpleadoLicencia(int oId)
+    {
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel)cmbEmpleado.getModel();
+        for (int i = 0; i < modelo.getSize(); i++)
+        {
+            Tupla tup = (Tupla)modelo.getElementAt(i);
+            if(tup.getId()==oId)
+            {
+                cmbEmpleado.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
+    public void seleccionarTipoLicencia(int oid) {
+
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel)cmbTipoLicencia.getModel();
+        for (int i = 0; i < modelo.getSize(); i++)
+        {
+            Tupla tup = (Tupla)modelo.getElementAt(i);
+            if(tup.getId()==oid)
+            {
+                cmbTipoLicencia.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
 
 }

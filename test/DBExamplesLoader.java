@@ -60,13 +60,23 @@ public class DBExamplesLoader {
     {
         TipoLicenciaEmpleado tle = new TipoLicenciaEmpleado();
         tle.setNombre("Vacaciones");
-
         TipoLicenciaEmpleado tle2 = new TipoLicenciaEmpleado();
         tle2.setNombre("Enfermedad");
+        TipoLicenciaEmpleado tle3 = new TipoLicenciaEmpleado();
+        tle3.setNombre("Enfermedad de Familiar");
+        TipoLicenciaEmpleado tle4 = new TipoLicenciaEmpleado();
+        tle4.setNombre("Paternidad / Maternidad");
+        TipoLicenciaEmpleado tle5 = new TipoLicenciaEmpleado();
+        tle5.setNombre("Matrimonio");        
+        TipoLicenciaEmpleado tle6 = new TipoLicenciaEmpleado();
+        tle6.setNombre("Licencias Especiales");
 
         sesion.beginTransaction();
         sesion.save(tle);
         sesion.save(tle2);
+        sesion.save(tle3);
+        sesion.save(tle4);
+        sesion.save(tle5);
         sesion.getTransaction().commit();
     }
 
