@@ -80,13 +80,13 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
     }
 
     public int getIdPedidoSeleccionado(){
-        int tipo = -1;
+        int id = -1;
          if((tablaPedido.getSelectedRowCount())==1)
         {
             DefaultTableModel modelo = (DefaultTableModel) tablaPedido.getModel();
-            tipo = (Integer) modelo.getValueAt(tablaPedido.getSelectedRow(), 0);
+            id = (Integer) modelo.getValueAt(tablaPedido.getSelectedRow(), 0);
         }
-        return tipo;
+        return id;
     }
 
 
@@ -102,10 +102,10 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         buttonGroup1 = new javax.swing.ButtonGroup();
         txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnDarBajaPedido = new javax.swing.JButton();
+        btnModificarPedido = new javax.swing.JButton();
+        btnNuevoPedido = new javax.swing.JButton();
+        btnVerDetallesPedido = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPedido = new javax.swing.JTable();
         btnCancelar = new javax.swing.JButton();
@@ -149,35 +149,35 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
-        jButton1.setText("Dar de Baja");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDarBajaPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
+        btnDarBajaPedido.setText("Dar de Baja");
+        btnDarBajaPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDarBajaPedidoActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnModificarPedido.setText("Modificar");
+        btnModificarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarPedidoActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
-        jButton3.setText("Nuevo");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
+        btnNuevoPedido.setText("Nuevo");
+        btnNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnNuevoPedidoActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        jButton4.setText("Ver Detalles");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnVerDetallesPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        btnVerDetallesPedido.setText("Ver Detalles");
+        btnVerDetallesPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnVerDetallesPedidoActionPerformed(evt);
             }
         });
 
@@ -242,13 +242,13 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVerDetallesPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnModificarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnDarBajaPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
                 .addContainerGap())
@@ -270,12 +270,12 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
                             .addComponent(rbBajas))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(btnDarBajaPedido)
+                    .addComponent(btnModificarPedido)
+                    .addComponent(btnNuevoPedido)
+                    .addComponent(btnVerDetallesPedido)
                     .addComponent(btnCancelar))
                 .addContainerGap())
         );
@@ -296,35 +296,35 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnVerDetallesPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesPedidoActionPerformed
         if(this.tablaPedido.getSelectedRow() != -1){
             pantallaConsultarPedido p = new pantallaConsultarPedido(this.getIdPedidoSeleccionado());
             SwingPanel.getInstance().addWindow(p);
             p.setVisible(true);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnVerDetallesPedidoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(this.tablaPedido.getSelectedRow() != -1){
+    private void btnNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPedidoActionPerformed
             pantallaRegistrarPedido p = new pantallaRegistrarPedido(this);
             SwingPanel.getInstance().addWindow(p);
             p.setVisible(true);
+    }//GEN-LAST:event_btnNuevoPedidoActionPerformed
+
+    private void btnModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPedidoActionPerformed
+        if(this.tablaPedido.getSelectedRow() != -1){
+            pantallaModificarPedido p = new pantallaModificarPedido(this);
+            SwingPanel.getInstance().addWindow(p);
+            p.setVisible(true);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnModificarPedidoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pantallaModificarPedido p = new pantallaModificarPedido(this);
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDarBajaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaPedidoActionPerformed
         if(this.tablaPedido.getSelectedRow() != -1){
             pantallaDarBajaPedido p = new pantallaDarBajaPedido(this);
             SwingPanel.getInstance().addWindow(p);
             p.setVisible(true);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDarBajaPedidoActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         // TODO add your handling code here:
@@ -360,11 +360,11 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnDarBajaPedido;
+    private javax.swing.JButton btnModificarPedido;
+    private javax.swing.JButton btnNuevoPedido;
+    private javax.swing.JButton btnVerDetallesPedido;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbAltas;
