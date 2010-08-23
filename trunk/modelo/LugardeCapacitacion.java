@@ -59,7 +59,7 @@ public class LugardeCapacitacion {
                         }
                         catch (Exception ex)
                         {
-                            System.out.println("No se encontro la clase Estado Concreto");
+                            System.out.println("No se encontro la clase Estado Concreto: "+this.hib_flag_estado);
                             ex.getStackTrace();
                         }
                 }

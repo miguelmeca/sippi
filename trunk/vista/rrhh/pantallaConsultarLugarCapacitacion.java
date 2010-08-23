@@ -47,6 +47,11 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
 
     }
 
+    private void refrescarTabla()
+    {
+        cargarDatosIniciales();
+    }
+
     private void cargarDatosIniciales()
     {
         // Cargo los datos iniciales de la tabla
@@ -102,12 +107,17 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         setResizable(true);
         setTitle("Consultar Lugares de Capacitación");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -272,7 +282,37 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
-        // TODO add your handling code here:
+
+                int seleccion = JOptionPane.showOptionDialog(
+                        this, // Componente padre
+                        "¿Está seguro que desea dar de ALTA el Lugar de Capacitación?", //Mensaje
+                        "Confirme su acción", // Título
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,    // null para icono por defecto.
+                        new Object[] { "Si", "No" },
+                        "Si");
+
+        if (seleccion != -1)
+        {
+           if((seleccion + 1)==1)
+           {
+                if(tblLista.getSelectedRow()!=-1)
+                {
+                    // Agrego la fila
+                    DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
+                    NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+
+                    if(tp.getId()!=0)
+                    {
+                        gestor.darAltaLugarCapacitacion(tp.getId());
+                    }
+
+                }
+           }
+        }
+
+
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void tblListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseClicked
@@ -282,7 +322,7 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
            DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
            NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
            String[] fila = (String[])tp.getData();
-           if(fila[2].equals("Alta"))
+           if(fila[1].equals("Alta"))
            {
                 btnBaja.setEnabled(true);
                 btnAlta.setEnabled(false);
@@ -295,6 +335,10 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         }
 
     }//GEN-LAST:event_tblListaMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
    /**
      * EL-0015 : No se pudo cargar el listado de Lugares de Capacitación
@@ -312,11 +356,13 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         if(cod.equals("MI-0008"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"Se dio de BAJA el Lugar de Capacitación","Atención",JOptionPane.INFORMATION_MESSAGE);
+            refrescarTabla();
         }
 
         if(cod.equals("MI-0009"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"Se dio de ALTA el Lugar de Capacitación","Atención",JOptionPane.INFORMATION_MESSAGE);
+            refrescarTabla();
         }
 
         if(cod.equals("EG-0019"))
