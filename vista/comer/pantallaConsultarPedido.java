@@ -31,15 +31,15 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     
     /** Creates new form pantallaConsultarPedido */
     public pantallaConsultarPedido(int id) {
+        this.idPedido = id;
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
         txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
         mostrarEmpresasCliente();
-        this.idPedido = id;
     }
 
-            public void mostrarEmpresasCliente()
+    public void mostrarEmpresasCliente()
     {
         ArrayList<Tupla> lista = gestor.mostrarEmpresasCliente();
 
@@ -125,11 +125,10 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCancelar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtPliego = new javax.swing.JTextField();
-        btnConfirmar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtPlanos = new javax.swing.JTextField();
@@ -160,11 +159,11 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         txtEstadoPedido = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -178,14 +177,6 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPliegoFocusLost(evt);
-            }
-        });
-
-        btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnConfirmar.setText("Aceptar");
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
             }
         });
 
@@ -305,10 +296,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -429,46 +417,23 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnConfirmar))
+                .addComponent(btnSalir)
                 .addGap(5, 5, 5))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
-}//GEN-LAST:event_btnCancelarActionPerformed
+}//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
         gestor.pliegoObra(txtPliego.getText());
 }//GEN-LAST:event_txtPliegoFocusLost
-
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        if(ValidarDatos()){
-            //VALIDO LAS FECHAS
-            // HACER
-            //PASO LAS FECHAS AL GESTOR
-            Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
-            Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
-            gestor.fechaInicioYFin(fechaI, fechaF);
-            Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
-            gestor.fechaLVP(fechaLVP);
-            Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
-            gestor.fechaLEP(fechaLEP);
-            // LANZO EL CREAR
-            gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
-            int id = gestor.confirmacionRegistro();
-
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
 
@@ -488,8 +453,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JButton btnAgregarCR;
     private javax.swing.JButton btnAgregarEmpresaCliente;
     private javax.swing.JButton btnAgregarPlanta;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cmbContactos;
     private javax.swing.JComboBox cmbEmpresa;
     private com.toedter.calendar.JDateChooser cmbLEP;

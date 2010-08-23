@@ -445,9 +445,9 @@ public class GestorRegistrarPedido {
     public void seleccionPedido(int idPedido) {
         this.buscarDatosPedido(idPedido);
         this.pantalla.setNumeroPedido(String.valueOf(this.pedido.getId()));
+        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado().getNombre());
         this.pantalla.setNombreObra(this.pedido.getNombre());
         this.pantalla.setDescripcionObra(this.pedido.getDescripcion());
-        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado().getNombre());
         int idPlanta = this.pedido.getPlanta().getId();
         try {
             Iterator itEmpresas = HibernateUtil.getSession().createQuery("from EmpresaCliente").iterate();
@@ -473,7 +473,10 @@ public class GestorRegistrarPedido {
         this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
         this.pantalla.setPliegosPedido(this.pedido.getPliego());
         this.pantalla.setPlanosPedido(this.pedido.getPlanos());
-        this.pantalla.setContactoResponsable(this.pedido.getContacto().getApellido()+", "+this.pedido.getContacto().getNombre());
+        if(this.pedido.getContacto() != null)
+            this.pantalla.setContactoResponsable(this.pedido.getContacto().getApellido()+", "+this.pedido.getContacto().getNombre());
+        else
+            this.pantalla.setContactoResponsable("sin contacto");
     }
 
     private void buscarDatosPedido(int idPedido){
