@@ -41,6 +41,10 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     private void habilitarVentana()
     {
         cargarDatosIniciales();
+
+        btnBaja.setEnabled(false);
+        btnAlta.setEnabled(false);
+
     }
 
     private void cargarDatosIniciales()
@@ -49,19 +53,30 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         ArrayList<NTupla> lista = gestor.mostrarLugaresCapacitacion();
         DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
 
+       llenarTabla(lista);
+        
+    }
+
+    private void llenarTabla(ArrayList<NTupla> lista)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+        modelo = TablaUtil.vaciarDefaultTableModel(modelo);
+
         setCantidadResultados(lista.size());
 
         Iterator<NTupla> it = lista.iterator();
         while (it.hasNext())
         {
             NTupla  nt = it.next();
-            Object[] fila = new Object[2];
+            Object[] fila = new Object[3];
             fila[0] = nt;
-            fila[1] = nt.getData();
+            String[] data = (String[]) nt.getData();
+
+                fila[1] = data[0];
+                fila[2] = data[1];
 
             modelo.addRow(fila);
         }
-        
     }
 
     /** This method is called from within the constructor to
@@ -77,16 +92,17 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnBaja = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         lblCantResultados = new javax.swing.JLabel();
+        btnAlta = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Lugares de Capacitación");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,19 +126,42 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
 
             },
             new String [] {
-                "Nombre", "Dirección"
+                "Nombre", "Dirección", "Estado"
             }
         ));
+        tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLista);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
-        jButton1.setText("Dar de Baja");
+        btnBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
+        btnBaja.setText("Dar de Baja");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 12));
         lblCantResultados.setText("Resultados Encontrados");
+
+        btnAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
+        btnAlta.setText("Dar de Alta");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,10 +177,12 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCantResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBaja)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,9 +196,10 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(lblCantResultados))
+                    .addComponent(btnBaja)
+                    .addComponent(lblCantResultados)
+                    .addComponent(btnAlta)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -187,26 +229,76 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         {
             System.out.println("ACTION KEY + "+txtBuscar.getText());
             ArrayList<NTupla> lista = gestor.buscarLugaresCapacitacionPorNombre(txtBuscar.getText());
-            DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
-            modelo = TablaUtil.vaciarDefaultTableModel(modelo);
 
-            setCantidadResultados(lista.size());
-
-            Iterator<NTupla> it = lista.iterator();
-            while (it.hasNext())
-            {
-                NTupla  nt = it.next();
-                Object[] fila = new Object[2];
-                fila[0] = nt;
-                fila[1] = nt.getData();
-
-                modelo.addRow(fila);
-            }
+            llenarTabla(lista);
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+
+        int seleccion = JOptionPane.showOptionDialog(
+                        this, // Componente padre
+                        "¿Está seguro que desea dar de BAJA el Lugar de Capacitación?", //Mensaje
+                        "Confirme su acción", // Título
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,    // null para icono por defecto.
+                        new Object[] { "Si", "No" },
+                        "Si");
+
+        if (seleccion != -1)
+        {
+           if((seleccion + 1)==1)
+           {
+                if(tblLista.getSelectedRow()!=-1)
+                {
+                    // Agrego la fila
+                    DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
+                    NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+
+                    if(tp.getId()!=0)
+                    {
+                        gestor.darBajaLugarCapacitacion(tp.getId());
+                    }
+
+                }
+           }
+        }
+
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void tblListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseClicked
+
+        if(tblLista.getSelectedRow()!=-1)
+        {
+           DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
+           NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+           String[] fila = (String[])tp.getData();
+           if(fila[2].equals("Alta"))
+           {
+                btnBaja.setEnabled(true);
+                btnAlta.setEnabled(false);
+           }
+           else
+           {
+               btnAlta.setEnabled(true);
+               btnBaja.setEnabled(false);
+           }
+        }
+
+    }//GEN-LAST:event_tblListaMouseClicked
+
    /**
      * EL-0015 : No se pudo cargar el listado de Lugares de Capacitación
+    *  ME-0008 : Se dio de baja el Lugar de Capacitación
      * @param cod
      */
     public void MostrarMensaje(String cod)
@@ -216,10 +308,27 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Lugares","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
+
+        if(cod.equals("MI-0008"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se dio de BAJA el Lugar de Capacitación","Atención",JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        if(cod.equals("MI-0009"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se dio de ALTA el Lugar de Capacitación","Atención",JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        if(cod.equals("EG-0019"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo conectar con la Base de datos para cambiar el estado","Error",JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAlta;
+    private javax.swing.JButton btnBaja;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

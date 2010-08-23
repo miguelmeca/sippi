@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Barrio;
 import modelo.Domicilio;
+import modelo.EstadoLugarCapacitacionAlta;
 import modelo.LugardeCapacitacion;
 import modelo.Pais;
 import modelo.Provincia;
@@ -140,6 +141,7 @@ public class GestorRegistrarLugarCapacitacion {
             d.setNumero(altura);
             d.setPiso(piso);
             lugar.setDomicilio(d);
+            lugar.setEstado(new EstadoLugarCapacitacionAlta());
             
                     SessionFactory sf = HibernateUtil.getSessionFactory();
                     Session sesion;

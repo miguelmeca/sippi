@@ -53,7 +53,11 @@ public class GestorConsultarLugarCapacitacion {
                         NTupla nt = new NTupla();
                         nt.setId(lc.getId());
                         nt.setNombre(lc.getNombre());
-                        nt.setData(lc.getDomicilio().toString());
+                        String[] aux = new String[2];
+                            aux[0] = lc.getDomicilio().toString();
+                            aux[1] = lc.getEstado().getNombre();
+
+                        nt.setData(aux);
 
                         lista.add(nt);
                     }
@@ -84,7 +88,12 @@ public class GestorConsultarLugarCapacitacion {
                         NTupla nt = new NTupla();
                         nt.setId(lc.getId());
                         nt.setNombre(lc.getNombre());
-                        nt.setData(lc.getDomicilio().toString());
+
+                        String[] aux = new String[2];
+                            aux[0] = lc.getDomicilio().toString();
+                            aux[1] = lc.getEstado().getNombre();
+
+                        nt.setData(aux);
 
                         lista.add(nt);
                     }
@@ -97,6 +106,48 @@ public class GestorConsultarLugarCapacitacion {
                 }
 
         return lista;
+    }
+
+    public void darBajaLugarCapacitacion(int id)
+    {
+        Session sesion;
+            try {
+                    sesion = HibernateUtil.getSession();
+                    LugardeCapacitacion tc = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,id);
+
+                        tc.darDeBaja(); // Ya di de baja , ahora actualizo
+
+                        sesion.update(tc);
+                        pantalla.MostrarMensaje("MI-0008");
+
+                }
+                catch(Exception ex)
+                {
+                    System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                    ex.printStackTrace();
+                    pantalla.MostrarMensaje("EG-0019");
+                }
+    }
+
+    public void darAltaLugarCapacitacion(int id)
+    {
+        Session sesion;
+            try {
+                    sesion = HibernateUtil.getSession();
+                    LugardeCapacitacion tc = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,id);
+
+                        tc.darDeAlta(); // Ya di de baja , ahora actualizo
+
+                        sesion.update(tc);
+                        pantalla.MostrarMensaje("MI-0009");
+
+                }
+                catch(Exception ex)
+                {
+                    System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                    ex.printStackTrace();
+                    pantalla.MostrarMensaje("EG-0019");
+                }
     }
 
     
