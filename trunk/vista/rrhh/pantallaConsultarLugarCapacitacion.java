@@ -18,15 +18,18 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.SwingPanel;
 import util.TablaUtil;
+import vista.interfaces.ICallBack;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFrame {
+public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFrame implements ICallBack {
 
     private GestorConsultarLugarCapacitacion gestor;
+    private ICallBack win;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarLugarCapacitacion() {
@@ -36,6 +39,11 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
 
         habilitarVentana();
 
+    }
+
+    public void setCallBack(ICallBack win)
+    {
+        this.win = win;
     }
 
     private void habilitarVentana()
@@ -101,13 +109,31 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         jButton2 = new javax.swing.JButton();
         lblCantResultados = new javax.swing.JLabel();
         btnAlta = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Lugares de Capacitación");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,6 +199,14 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -187,7 +221,9 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCantResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(btnNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,7 +245,8 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                     .addComponent(btnBaja)
                     .addComponent(lblCantResultados)
                     .addComponent(btnAlta)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(btnNuevo))
                 .addContainerGap())
         );
 
@@ -278,7 +315,22 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+     if(tblLista.getSelectedRow()!=-1)
+            {
+                // Agrego la fila
+                DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
+                NTupla tp = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+
+                if(tp.getId()!=0)
+                {
+                    // LLAMO A LA PANTALLA QUE MODIFICA !!
+                    pantallaModificarLugarCapacitacion pmlc = new pantallaModificarLugarCapacitacion(tp.getId());
+                    SwingPanel.getInstance().addWindow(pmlc);
+                    pmlc.setPantalla(this);
+                    pmlc.setVisible(true);
+                }
+
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
@@ -340,6 +392,18 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        pantallaRegistrarLugarCapacitacion win = new pantallaRegistrarLugarCapacitacion();
+        SwingPanel.getInstance().addWindow(win);
+        win.setPantalla(this);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        int FLAG_LUGAR_CAPACITACION = 1;
+        win.actualizar(FLAG_LUGAR_CAPACITACION,true);
+    }//GEN-LAST:event_formInternalFrameClosing
+
    /**
      * EL-0015 : No se pudo cargar el listado de Lugares de Capacitación
     *  ME-0008 : Se dio de baja el Lugar de Capacitación
@@ -375,6 +439,7 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -382,5 +447,9 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    public void actualizar(int flag, boolean exito) {
+        refrescarTabla();
+    }
 
 }

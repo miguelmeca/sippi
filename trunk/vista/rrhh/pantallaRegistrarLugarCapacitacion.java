@@ -156,7 +156,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        btnGestionarLugares = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -374,14 +373,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        btnGestionarLugares.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/full_page.png"))); // NOI18N
-        btnGestionarLugares.setText("Consultar Lugares");
-        btnGestionarLugares.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGestionarLugaresActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -392,10 +383,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnGestionarLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -408,10 +396,8 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnGestionarLugares))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jButton2)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -538,14 +524,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
         }
     }//GEN-LAST:event_txtNombreFocusLost
 
-    private void btnGestionarLugaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarLugaresActionPerformed
-
-        pantallaConsultarLugarCapacitacion pclc = new pantallaConsultarLugarCapacitacion();
-        SwingPanel.getInstance().addWindow(pclc);
-        pclc.setVisible(true);
-
-    }//GEN-LAST:event_btnGestionarLugaresActionPerformed
-
 
   /**
    * EG-0014 : No se pudo conectar con la DB
@@ -562,7 +540,6 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGestionarLugares;
     private javax.swing.JButton btnNuevaProvincia;
     private javax.swing.JComboBox cmbBarrio;
     private javax.swing.JComboBox cmbLocalidades;
