@@ -16,11 +16,14 @@ import controlador.rrhh.GestorRegistrarTallerDeCapacitacion;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -63,7 +66,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         mostrarTiposCapacitacion();
         mostrarLugaresCapacitacion();
 
-        txtFechaCurso.setText(FechaUtil.getFechaActual());
+        txtFechaCurso.setDate(new Date());
 
         initHorario();
     }
@@ -228,10 +231,10 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         jLabel2 = new javax.swing.JLabel();
         txtIniH = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtFechaCurso = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtIniM = new javax.swing.JTextField();
+        txtFechaCurso = new com.toedter.calendar.JDateChooser();
         lblDescripcion = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
@@ -342,14 +345,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
 
         jLabel1.setText("Fecha de dictado:");
 
-        txtFechaCurso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFechaCurso.setText("__ / __  / ____");
-        txtFechaCurso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaCursoActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText(":");
 
         jLabel4.setText("Hora de Fin:");
@@ -357,18 +352,19 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         txtIniM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtIniM.setText("00");
 
+        txtFechaCurso.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregarHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAgregarHorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFechaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(txtIniH, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -384,7 +380,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
                                     .addComponent(jLabel5)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtFinM, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(txtFechaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -784,30 +781,64 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     }//GEN-LAST:event_btnAceptarActionPerformed
 
 
+/**
+ *  VEO QUE LA FECHA Y ESE RANGO HORARIO, NO ESTEN YA CARGADOS EN LA TABLA
+ */
+private boolean verificarHorario(String fecha, String horaInicio, String horaFin)
+{
+            DefaultTableModel modelo = (DefaultTableModel)tblHorarios.getModel();
+            for (int i = 0; i < tblHorarios.getRowCount(); i++)
+            {
+                String[] fila = new String[3];
+                fila[0] = (String) modelo.getValueAt(i, 0);
+                fila[1] = (String) modelo.getValueAt(i, 1);
+                fila[2] = (String) modelo.getValueAt(i, 2);
+
+                // Si esta en la misma fecha hay posibilidad de colision
+                if(fecha.equals(fila[0]))
+                {
+                    try {
+                            if (FechaUtil.horaEnRango(horaInicio, fila[1], fila[2])) {
+                                // Esta en el rango, COLISION !!
+                                return false;
+                            }
+                            if(FechaUtil.horaEnRango(horaFin,fila[1],fila[2]))
+                            {
+                                // Esta en el rango, COLISION !!
+                                return false;
+                            }
+                        }
+                        catch (ParseException ex)
+                        {
+                            MostrarMensaje("EL-0010");
+                            System.out.println("EL-0010: No se pudo parsear una hora de la tabla");
+                        }
+                }
+            }
+            return true;
+}
 
 
 
     private void btnAgregarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHorarioActionPerformed
 
         DefaultTableModel modelo = (DefaultTableModel) tblHorarios.getModel();
-        Object[] fila = new Object[3];
-        fila[0] = txtFechaCurso.getText();
+        String[] fila = new String[3];
+        fila[0] = FechaUtil.getFecha(txtFechaCurso.getDate());
         fila[1] = txtIniH.getText()+":"+txtIniM.getText();
         fila[2] = txtFinH.getText()+":"+txtFinM.getText();
-        modelo.addRow(fila);
 
+        if(verificarHorario(fila[0],fila[1],fila[2]))
+        {
+            modelo.addRow(fila);
+        }
+        else
+        {
+            MostrarMensaje("ME-0011");
+        }
+
+      
         initHorario();
-
-//        DefaultTableModel modelo = (DefaultTableModel) tblHorarios.getModel();
-//        Object[] fila = new Object[3];
-//        fila[0] = "00/00/"+FechaUtil.getYear();
-//        fila[1] = "00:00";
-//        fila[2] = "00:00";
-//        modelo.addRow(fila);
-
-//        pantallaRegistrarTallerCapacitacion_horarios horario = new pantallaRegistrarTallerCapacitacion_horarios();
-//        SwingPanel.getInstance().addWindow(horario);
-//        horario.setVisible(true);
 
     }//GEN-LAST:event_btnAgregarHorarioActionPerformed
 
@@ -882,10 +913,6 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameClosed
 
-    private void txtFechaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaCursoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaCursoActionPerformed
-
     /**
     * @param args the command line arguments
     */
@@ -935,7 +962,7 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     private javax.swing.JTable tblHorarios;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtDireccionLugar;
-    private javax.swing.JFormattedTextField txtFechaCurso;
+    private com.toedter.calendar.JDateChooser txtFechaCurso;
     private javax.swing.JTextField txtFinH;
     private javax.swing.JTextField txtFinM;
     private javax.swing.JTextField txtIniH;
@@ -999,6 +1026,8 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
     /**
      * MI-0001 : Se registro correctamente el taller
      * EG-0001 : Error al hacer commit en la BD
+     * ME-0011 : El horario ingresado colisiona
+     * EL-0010 : No se pudo parsear la hora
      * @param cod
      */
     public void MostrarMensaje(String cod)
@@ -1013,6 +1042,15 @@ public class pantallaRegistrarTallerCapacitacion extends javax.swing.JInternalFr
         {
             // Error al guardar
             JOptionPane.showMessageDialog(this.getParent(),"Se detecto un error al cargar el Taller de Capacitación\nCompruebe todos los datos e intentelo nuevamente","Error en la Carga",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cod.equals("ME-0011"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"El horario ingresado se superpone con otro ingresado previamente","Atención",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(cod.equals("EL-0010"))
+        {
+
+            JOptionPane.showMessageDialog(this.getParent(),"Verifique que las horas estén correctamente ingresadas","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 

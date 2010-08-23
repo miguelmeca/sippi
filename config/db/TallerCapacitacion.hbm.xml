@@ -6,9 +6,7 @@
       <generator class="increment"/>
     </id>
     <property name="descripcion" type="string"/>
-
-    <property name="hib_flag_estado" type="string" not-null="true"/>
-
+    <property name="hib_flag_estado" not-null="true" type="string"/>
     <set cascade="all" name="detalle" table="Det_Horario_TallerXTaller">
       <key column="ID_TALLER"/>
       <many-to-many class="modelo.DetalleHorarioTaller" column="ID_DETALLE_HORARIO_TALLER"/>
@@ -16,6 +14,5 @@
     <many-to-one class="modelo.LugardeCapacitacion" column="ID_LUGAR_TALLER" name="lugar"/>
     <many-to-one class="modelo.TipoCapacitacion" column="ID_TIPO_CAPAC" name="tipoCapacitacion"/>
     <many-to-one class="modelo.Capacitador" column="ID_CAPAC" name="capacitador"/>
-
   </class>
 </hibernate-mapping>

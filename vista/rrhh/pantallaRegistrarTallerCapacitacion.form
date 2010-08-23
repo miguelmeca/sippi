@@ -262,14 +262,13 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAgregarHorario" alignment="1" pref="91" max="32767" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel2" alignment="0" max="32767" attributes="1"/>
                                   <Component id="jLabel1" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="txtFechaCurso" alignment="0" pref="87" max="32767" attributes="1"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="txtIniH" min="-2" pref="35" max="-2" attributes="1"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -291,6 +290,7 @@
                                       </Group>
                                   </Group>
                               </Group>
+                              <Component id="txtFechaCurso" alignment="0" pref="91" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -371,15 +371,6 @@
                     <Property name="text" type="java.lang.String" value="Fecha de dictado:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="txtFechaCurso">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="__ / __  / ____"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaCursoActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
                     <Property name="text" type="java.lang.String" value=":"/>
@@ -394,6 +385,11 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="00"/>
+                  </Properties>
+                </Component>
+                <Component class="com.toedter.calendar.JDateChooser" name="txtFechaCurso">
+                  <Properties>
+                    <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
                   </Properties>
                 </Component>
               </SubComponents>

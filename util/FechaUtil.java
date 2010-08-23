@@ -115,6 +115,22 @@ public class FechaUtil {
         return false;
     }
 
+    public static boolean horaEnRango(String hora, String horaInicio, String horaFin) throws ParseException
+    {
+        DATE_FORMAT = new SimpleDateFormat("H:m", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+        
+        Long horaAux = DATE_FORMAT.parse(hora).getTime();
+        Long horaInicioAux = DATE_FORMAT.parse(horaInicio).getTime();
+        Long horaFinAux = DATE_FORMAT.parse(horaFin).getTime();
+
+        if(horaAux>=horaInicioAux && horaAux<=horaFinAux)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public static String getFechaYHoraActual()
     {
         DATE_FORMAT = new SimpleDateFormat("H:m:s dd/MM/yyyy", new Locale("es_ES"));

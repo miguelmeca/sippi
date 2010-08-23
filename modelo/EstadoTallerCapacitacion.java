@@ -31,13 +31,13 @@ public abstract class EstadoTallerCapacitacion extends EstadoAbstracto
 
     public void darBaja(TallerCapacitacion tc)
     {
-        tc.setHib_flag_estado("EstadoTallerCapacitacionBaja");
+        tc.setHib_flag_estado("modelo.EstadoTallerCapacitacionBaja");
         tc.setEstado(new EstadoTallerCapacitacionBaja());
     }
 
     public void darAlta(TallerCapacitacion tc)
     {
-        tc.setHib_flag_estado("EstadoTallerCapacitacionAlta");
+        tc.setHib_flag_estado("modelo.EstadoTallerCapacitacionAlta");
         tc.setEstado(new EstadoTallerCapacitacionAlta());
     }
 
