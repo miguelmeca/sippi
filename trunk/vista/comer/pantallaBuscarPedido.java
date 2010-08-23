@@ -13,17 +13,13 @@ package vista.comer;
 
 import controlador.comer.GestorBuscarPedido;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
-import javax.swing.JScrollBar;
-import javax.swing.JViewport;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import util.NTupla;
 import util.SwingPanel;
-import vista.*;
 import vista.interfaces.IAyuda;
 import vista.interfaces.ICallBack;
 
@@ -43,7 +39,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         llenarTabla();
     }
 
-        private void llenarTabla() {
+    private void llenarTabla() {
         ArrayList<NTupla> pedidos = gestor.getPedidosObra();
         dtm = new DefaultTableModel();
         dtm.addColumn("Nro.");
@@ -89,7 +85,6 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         return id;
     }
 
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -122,7 +117,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         setResizable(true);
         setTitle("Consultar Pedidos de Obra");
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,20 +125,9 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
                 txtBuscarMouseClicked(evt);
             }
         });
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
-            }
-        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -270,7 +254,7 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
                             .addComponent(rbBajas))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDarBajaPedido)
                     .addComponent(btnModificarPedido)
@@ -284,11 +268,8 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
-
         if(txtBuscar.getText().equals("Buscar..."))
-        {
             txtBuscar.setText("");
-        }
 
     }//GEN-LAST:event_txtBuscarMouseClicked
 
@@ -326,16 +307,6 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
         }
     }//GEN-LAST:event_btnDarBajaPedidoActionPerformed
 
-    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-        // TODO add your handling code here:
-        //System.out.println("TYPED");
-    }//GEN-LAST:event_txtBuscarKeyTyped
-
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        // TODO add your handling code here:
-        //System.out.println("RELEASED");
-    }//GEN-LAST:event_txtBuscarKeyReleased
-
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         // TODO add your handling code here:
         elQueOrdena.setRowFilter(RowFilter.regexFilter(txtBuscar.getText()));
@@ -352,11 +323,6 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
     private void rbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodasActionPerformed
         elQueOrdena.setRowFilter(null);
 }//GEN-LAST:event_rbTodasActionPerformed
-
-    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -389,5 +355,4 @@ public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements 
     public void actualizar(int flag, boolean exito) {
         this.llenarTabla();
     }
-
 }

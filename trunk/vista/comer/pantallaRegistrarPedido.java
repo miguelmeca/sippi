@@ -46,8 +46,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         initComponents();
         habilitarVentana();
         txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
-        mostrarEmpresasCliente();
-        mostrarContactos();
     }
 
     public pantallaRegistrarPedido() {
@@ -56,6 +54,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         initComponents();
         habilitarVentana();
         txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
+    }
+
+    private void habilitarVentana(){
         mostrarEmpresasCliente();
         mostrarContactos();
     }
@@ -88,32 +89,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         cmbPlanta.setModel(valores);
     }
 
-    private void habilitarVentana()
-    {
-        // Seteo los combos de la fecha, para que seleccione...
-        // FECHA DE INICIO
-        //cmbfechaInicio = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaInicio.setBounds(105,170,155,20); // x y ancho alto
-        //add(cmbfechaInicio);
-        // FECHA DE FIN
-        //cmbfechaFin = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaFin.setBounds(360,170,110,20); // x y ancho alto
-        //add(cmbfechaFin);
-        // FECHA LEP
-        //cmbLEP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLEP.setBounds(273,235,140,20); // x y ancho alto
-        //add(cmbLEP);
-        // FECHA LVP
-        //cmbLVP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLVP.setBounds(273,265,140,20); // x y ancho alto
-        //add(cmbLVP);
-
-    }
-
-    private void registrarPedido()
-    {
-        
-    }
+    private void registrarPedido(){}
 
     private boolean ValidarDatos()
     {
@@ -155,6 +131,80 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         }
         return ban;
+    }
+
+        private void mostrarContactos()
+    {
+        Tupla noAsigna = new Tupla(0,"Ninguno");
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        valores.addElement(noAsigna);
+
+        gestorBDvarios gBD = new gestorBDvarios();
+
+        ArrayList<Tupla> lista = gBD.mostrarContactos();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbContactos.setModel(valores);
+    }
+
+    public void setNumeroPedido(String nro) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setNombreObra(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDescripcionObra(String desc) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setEmpresaCliente(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPlanta(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaInicio(Date fInicio) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaFin(Date fFin) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setMontoPedido(String monto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaLEP(Date fLEP) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setFechaLVP(Date fLVP) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setContactoResponsable(int idContacto) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setEstadoPedidoObra(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /** This method is called from within the constructor to
@@ -213,11 +263,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel2.setText("Nombre de la Obra:");
 
         txtNombreObra.setText("CONSTRUIR EL DELOREAN");
-        txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreObraActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripción:");
@@ -240,11 +285,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel5.setText("Planta:");
 
         cmbPlanta.setEnabled(false);
-        cmbPlanta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPlantaActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Fecha de Inicio:");
@@ -257,11 +297,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMonto.setText("6000");
-        txtMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMontoActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
@@ -306,11 +341,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel11.setText("Planos:");
 
         txtPlanos.setText("ARMARIO 5");
-        txtPlanos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlanosActionPerformed(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
@@ -476,16 +506,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreObraActionPerformed
-
-        
-
-    }//GEN-LAST:event_txtNombreObraActionPerformed
-
-    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMontoActionPerformed
-
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if(ValidarDatos()){
             gestor.nombreObra(this.txtNombreObra.getText());
@@ -493,9 +513,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             gestor.montoMaximo(Long.valueOf(this.txtMonto.getText()));
             gestor.planosObra(this.txtPlanos.getText());
             gestor.pliegoObra(this.txtPliego.getText());
-            //gestor.contactoResponsable(((Tupla)this.cmbContactos.getSelectedItem()).getId());
             
-
             //VALIDO LAS FECHAS
             // HACER
             //PASO LAS FECHAS AL GESTOR
@@ -515,10 +533,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                     gestor.contactoResponsable(tp.getId());
                 }
             }
-
             // LANZO EL CREAR
             gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
-            int id = gestor.confirmacionRegistro();
+            int id = gestor.confirmacionRegistro(0);
 
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             if(pBuscar != null){
@@ -528,10 +545,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         }
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
-    private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
-        
-    }//GEN-LAST:event_txtPlanosActionPerformed
 
     private void cmbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresaActionPerformed
         this.mostrarPlantasEmpresaCliente();
@@ -550,10 +563,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPlantaActionPerformed
 
     private void btnAgregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlantaActionPerformed
         gestor.llamarCURegistrarNuevaPlanta(((Tupla)cmbEmpresa.getSelectedItem()));
@@ -628,79 +637,5 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 }
                 break;
         }
-    }
-
-    private void mostrarContactos()
-    {
-        Tupla noAsigna = new Tupla(0,"Ninguno");
-
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-        valores.addElement(noAsigna);
-
-        gestorBDvarios gBD = new gestorBDvarios();
-
-        ArrayList<Tupla> lista = gBD.mostrarContactos();
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-        cmbContactos.setModel(valores);
-    }
-
-    public void setNumeroPedido(String nro) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setNombreObra(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setDescripcionObra(String desc) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setEmpresaCliente(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setPlanta(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setFechaInicio(Date fInicio) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setFechaFin(Date fFin) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setMontoPedido(String monto) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setFechaLEP(Date fLEP) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setFechaLVP(Date fLVP) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setPliegosPedido(String pliegos) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setPlanosPedido(String pedidos) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setContactoResponsable(String contacto) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setEstadoPedidoObra(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

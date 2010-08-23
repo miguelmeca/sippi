@@ -11,13 +11,12 @@
 
 package vista.comer;
 
-import com.toedter.calendar.JDateChooser;
 import controlador.comer.GestorRegistrarPedido;
+import controlador.utiles.gestorBDvarios;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import util.Tupla;
 import vista.interfaces.IPantallaPedidoABM;
 
@@ -35,8 +34,13 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
-        txtNroPedido.setText(String.valueOf(gestor.generarNumeroPedido()));
+    }
+
+    private void habilitarVentana()
+    {
         mostrarEmpresasCliente();
+        mostrarContactos();
+        gestor.seleccionPedido(this.idPedido);
     }
 
     public void mostrarEmpresasCliente()
@@ -67,53 +71,101 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         cmbPlanta.setModel(valores);
     }
 
-    private void habilitarVentana()
+    private void mostrarContactos()
     {
-        mostrarEmpresasCliente();
-        gestor.seleccionPedido(this.idPedido);
+        Tupla noAsigna = new Tupla(0,"Ninguno");
 
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        valores.addElement(noAsigna);
+
+        gestorBDvarios gBD = new gestorBDvarios();
+
+        ArrayList<Tupla> lista = gBD.mostrarContactos();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbContactos.setModel(valores);
     }
 
-       private boolean ValidarDatos()
-    {
-        boolean ban=true;
-        String mensaje="Faltan ingresar/seleccionar los siguientes campos:\n";
-        if(txtNombreObra.getText().equals("")){
-            mensaje+="- Nombre de la Obra\n";
-            ban=false;
+    public void setNumeroPedido(String nro) {
+        this.txtNroPedido.setText(nro);
+    }
+
+    public void setNombreObra(String nombre) {
+        this.txtNombreObra.setText(nombre);
+    }
+
+    public void setDescripcionObra(String desc) {
+        this.txtDescripcion.setText(desc);
+    }
+
+    public void setEmpresaCliente(int id) {
+        //for(cmbEmpresa.:)
+        Tupla t=null;
+        for(int i=0;i<cmbEmpresa.getModel().getSize();i++){
+            t = (Tupla)cmbEmpresa.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbEmpresa.setSelectedItem(t);
+                break;
+            }
         }
-        if(cmbEmpresa.getSelectedIndex() == -1){
-            mensaje+="- Empresa\n";
-            ban=false;
+        mostrarPlantasEmpresaCliente();
+    }
+
+    public void setPlanta(int id) {
+        Tupla t=null;
+        for(int i=0;i<cmbPlanta.getModel().getSize();i++){
+            t = (Tupla)cmbPlanta.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbPlanta.setSelectedItem(t);
+                break;
+            }
         }
-        if(cmbPlanta.getSelectedIndex() == -1){
-            mensaje+="- Planta\n";
-            ban=false;
+    }
+
+    public void setFechaInicio(Date fInicio) {
+        this.cmbfechaInicio.setDate(fInicio);
+    }
+
+    public void setFechaFin(Date fFin) {
+        this.cmbfechaFin.setDate(fFin);
+    }
+
+    public void setFechaLEP(Date fLEP) {
+        this.cmbLEP.setDate(fLEP);
+    }
+
+    public void setMontoPedido(String monto) {
+        this.txtMonto.setText(monto);
+    }
+
+    public void setFechaLVP(Date fLVP) {
+        this.cmbLVP.setDate(fLVP);
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        this.txtPliego.setText(pliegos);
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        this.txtPlanos.setText(pedidos);
+    }
+
+    public void setContactoResponsable(int idContacto) {
+        Tupla t=null;
+        for(int i=0;i<cmbContactos.getModel().getSize();i++){
+            t = (Tupla)cmbContactos.getModel().getElementAt(i);
+            if(idContacto==t.getId()){
+                cmbContactos.setSelectedItem(t);
+                break;
+            }
         }
-        if(((JDateChooser)cmbfechaInicio).getDate() == null){
-            mensaje+="- Fecha de Inicio\n";
-            ban=false;
-        }
-        if(((JDateChooser)cmbfechaFin).getDate() == null){
-            mensaje+="- Fecha de Fin\n";
-            ban=false;
-        }
-        if(txtMonto.getText().equals("")){
-            mensaje+="- Monto de la Obra\n";
-            ban=false;
-        }
-        if(((JDateChooser)cmbLEP).getDate() == null){
-            mensaje+="- Fecha Límite de Entrega de Presupuesto\n";
-            ban=false;
-        }
-        if(((JDateChooser)cmbLVP).getDate() == null){
-            mensaje+="- Fecha Límite de Validez del Presupuesto\n";
-            ban=false;
-        }
-        if(!ban){
-            JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-        }
-        return ban;
+    }
+
+    public void setEstadoPedidoObra(String nombre) {
+        this.txtEstadoPedido.setText(nombre);
     }
 
     /** This method is called from within the constructor to
@@ -174,11 +226,6 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
 
         txtPliego.setEnabled(false);
-        txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPliegoFocusLost(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Planos:");
@@ -187,16 +234,6 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         jLabel8.setText("Presupuesto Máximo ($):");
 
         txtPlanos.setEnabled(false);
-        txtPlanos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlanosActionPerformed(evt);
-            }
-        });
-        txtPlanos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPlanosFocusLost(evt);
-            }
-        });
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMonto.setEnabled(false);
@@ -232,11 +269,6 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         txtDescripcion.setEnabled(false);
-        txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDescripcionFocusLost(evt);
-            }
-        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -417,7 +449,7 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir)
@@ -430,24 +462,6 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
-        gestor.pliegoObra(txtPliego.getText());
-}//GEN-LAST:event_txtPliegoFocusLost
-
-    private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
-
-}//GEN-LAST:event_txtPlanosActionPerformed
-
-    private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
-        gestor.planosObra(txtPlanos.getText());
-}//GEN-LAST:event_txtPlanosFocusLost
-
-    private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
-
-        gestor.descripcionObra(txtDescripcion.getText());
-    }//GEN-LAST:event_txtDescripcionFocusLost
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCR;
@@ -484,80 +498,4 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JTextField txtPlanos;
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
-
-    public void setNumeroPedido(String nro) {
-        this.txtNroPedido.setText(nro);
-    }
-
-    public void setNombreObra(String nombre) {
-        this.txtNombreObra.setText(nombre);
-    }
-
-    public void setDescripcionObra(String desc) {
-        this.txtDescripcion.setText(desc);
-    }
-
-    public void setEmpresaCliente(int id) {
-        //for(cmbEmpresa.:)
-        Tupla t=null;
-        for(int i=0;i<cmbEmpresa.getModel().getSize();i++){
-            t = (Tupla)cmbEmpresa.getModel().getElementAt(i);
-            if(id==t.getId()){
-                cmbEmpresa.setSelectedItem(t);
-                break;
-            }
-        }
-        mostrarPlantasEmpresaCliente();
-    }
-
-    public void setPlanta(int id) {
-        Tupla t=null;
-        for(int i=0;i<cmbPlanta.getModel().getSize();i++){
-            t = (Tupla)cmbPlanta.getModel().getElementAt(i);
-            if(id==t.getId()){
-                cmbPlanta.setSelectedItem(t);
-                break;
-            }
-        }
-    }
-
-    public void setFechaInicio(Date fInicio) {
-        this.cmbfechaInicio.setDate(fInicio);
-    }
-
-    public void setFechaFin(Date fFin) {
-        this.cmbfechaFin.setDate(fFin);
-    }
-
-    public void setFechaLEP(Date fLEP) {
-        this.cmbLEP.setDate(fLEP);
-    }
-
-    public void setMontoPedido(String monto) {
-        this.txtMonto.setText(monto);
-    }
-
-    public void setFechaLVP(Date fLVP) {
-        this.cmbLVP.setDate(fLVP);
-    }
-
-    public void setPliegosPedido(String pliegos) {
-        this.txtPliego.setText(pliegos);
-    }
-
-    public void setPlanosPedido(String pedidos) {
-        this.txtPlanos.setText(pedidos);
-    }
-
-    public void setContactoResponsable(String contacto) {
-        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
-        cbm.addElement(contacto);
-        this.cmbContactos.setModel(cbm);
-        this.cmbContactos.setSelectedItem(contacto);
-    }
-
-    public void setEstadoPedidoObra(String nombre) {
-        this.txtEstadoPedido.setText(nombre);
-    }
-
 }
