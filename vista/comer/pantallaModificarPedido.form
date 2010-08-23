@@ -180,7 +180,7 @@
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPlanos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -221,9 +221,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPliego">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPliegoFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmar">
       <Properties>
@@ -253,19 +250,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPlanos">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlanosActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlanosFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMonto">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMontoFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
@@ -359,9 +348,6 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescripcionFocusLost"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -374,10 +360,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreObra">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreObraActionPerformed"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNombreObraFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -418,7 +400,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="cmbContactos" pref="275" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnAgregarCR2" min="-2" pref="149" max="-2" attributes="0"/>
+                  <Component id="btnAgregarCR" min="-2" pref="149" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -426,23 +408,22 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                  <Component id="btnAgregarCR2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAgregarCR" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbContactos" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnAgregarCR2">
+        <Component class="javax.swing.JButton" name="btnAgregarCR">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar Contacto"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarCR2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarCRActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbContactos">
@@ -450,7 +431,6 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

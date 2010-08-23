@@ -37,7 +37,7 @@ public interface IPantallaPedidoABM {
 
     public void setPlanosPedido(String pedidos);
 
-    public void setContactoResponsable(String contacto);
+    public void setContactoResponsable(int idContacto);
 
     public void mostrarEmpresasCliente();
 

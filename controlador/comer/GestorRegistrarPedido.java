@@ -72,16 +72,9 @@ public class GestorRegistrarPedido {
     }
 
     public GestorRegistrarPedido(IPantallaPedidoABM aThis, int id) {
-        this.pantalla = pantalla;
+        this.pantalla = aThis;
         this.pedido = (PedidoObra) HibernateUtil.getSessionFactory().openSession().load(PedidoObra.class, id);
     }
-
-
-    public void registrarPedido()
-    {
-
-    }
-
     /**
      * Tomo el nombre  de la obra
      * @param nombre
@@ -192,16 +185,22 @@ public class GestorRegistrarPedido {
      * Toma la confirmacion del registro y empieza con el kilombo para
      * agregar un nuevo pedido
      */
-    public int confirmacionRegistro() {
+    public int confirmacionRegistro(int id) {
 
-        return crearPedidoObra();
+        return crearPedidoObra(id);
 
     }
 
-    private int crearPedidoObra() {
-
-        PedidoObra nuevo = new PedidoObra();
-
+    private int crearPedidoObra(int id) {
+        PedidoObra nuevo=null;
+        if(id>0){
+            Session sesion = HibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
+            nuevo = (PedidoObra)sesion.load(PedidoObra.class, id);
+        }
+        else{
+            nuevo = new PedidoObra();
+        }
         nuevo.setNombre(nombre);
         nuevo.setDescripcion(descripcion);
         nuevo.setFechaAceptacion(new Date());
@@ -474,9 +473,9 @@ public class GestorRegistrarPedido {
         this.pantalla.setPliegosPedido(this.pedido.getPliego());
         this.pantalla.setPlanosPedido(this.pedido.getPlanos());
         if(this.pedido.getContacto() != null)
-            this.pantalla.setContactoResponsable(this.pedido.getContacto().getApellido()+", "+this.pedido.getContacto().getNombre());
+            this.pantalla.setContactoResponsable(this.pedido.getContacto().getId());
         else
-            this.pantalla.setContactoResponsable("sin contacto");
+            this.pantalla.setContactoResponsable(0);
     }
 
     private void buscarDatosPedido(int idPedido){

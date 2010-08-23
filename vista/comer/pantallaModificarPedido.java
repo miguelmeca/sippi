@@ -13,62 +13,61 @@ package vista.comer;
 
 import com.toedter.calendar.JDateChooser;
 import controlador.comer.GestorRegistrarPedido;
+import controlador.utiles.gestorBDvarios;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.PedidoObra;
+import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
 import vista.interfaces.IPantallaPedidoABM;
 
 /**
  *
  * @author Emmanuel
  */
-public class pantallaModificarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
+public final class pantallaModificarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM, IAyuda, ICallBack {
     private GestorRegistrarPedido gestor;
+    private int idPedido;
     private pantallaBuscarPedido pBuscar;
 
     /** Creates new form pantallaModificarPedido */
     public pantallaModificarPedido(pantallaBuscarPedido p) {
         this.pBuscar = p;
-        gestor = new GestorRegistrarPedido(this,pBuscar.getIdPedidoSeleccionado());
+        this.idPedido = p.getIdPedidoSeleccionado();
+        gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
-        txtNroPedido.setText(String.valueOf(gestor.getIdPedido()));
-
-        this.txtNombreObra.setText(gestor.getNombrePedido());
-        this.txtDescripcion.setText(gestor.getDescripcionPedido());
-        mostrarEmpresasCliente();
-        mostrarPlantasEmpresaCliente();
-        cmbfechaInicio.setDate(gestor.getFechaInicioPedido());
-        cmbfechaFin.setDate(gestor.getFechaFinPedido());
-        txtMonto.setText(gestor.getMontoPedido());
-        cmbLEP.setDate(gestor.getFechaLEPPedido());
-        cmbLVP.setDate(gestor.getFechaLVPPedido());
-        txtPliego.setText(gestor.getPliegoPedido());
-        txtPlanos.setText(gestor.getPlanosPedido());
     }
 
-        public void mostrarEmpresasCliente()
+    private void habilitarVentana()
+    {
+        mostrarEmpresasCliente();
+        mostrarContactos();
+        gestor.seleccionPedido(this.idPedido);
+    }
+
+    public void mostrarEmpresasCliente()
     {
         ArrayList<Tupla> lista = gestor.mostrarEmpresasCliente();
 
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        int idEmpresaCliente = gestor.buscarEmpresaCliente();
+        //int idEmpresaCliente = gestor.buscarEmpresaCliente();
 
         Iterator<Tupla> it = lista.iterator();
         while(it.hasNext()){
             Tupla tu = it.next();
             valores.addElement(tu);
-            if (tu.getId() == idEmpresaCliente)
-                valores.setSelectedItem(tu);
+            //if (tu.getId() == idEmpresaCliente)
+            //    valores.setSelectedItem(tu);
         }
         cmbEmpresa.setModel(valores);
     }
-
 
     public void mostrarPlantasEmpresaCliente()
     {
@@ -86,31 +85,7 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         cmbPlanta.setModel(valores);
     }
 
-    private void habilitarVentana()
-    {
-        cmbPlanta.setEnabled(true);
-
-        // Seteo los combos de la fecha, para que seleccione...
-        // FECHA DE INICIO
-        //cmbfechaInicio = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaInicio.setBounds(105,170,155,20); // x y ancho alto
-        //add(cmbfechaInicio);
-        // FECHA DE FIN
-        //cmbfechaFin = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbfechaFin.setBounds(360,170,110,20); // x y ancho alto
-        //add(cmbfechaFin);
-        // FECHA LEP
-        //cmbLEP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLEP.setBounds(273,235,140,20); // x y ancho alto
-        //add(cmbLEP);
-        // FECHA LVP
-        //cmbLVP = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
-        //cmbLVP.setBounds(273,265,140,20); // x y ancho alto
-        //add(cmbLVP);
-
-    }
-
-       private boolean ValidarDatos()
+   private boolean ValidarDatos()
     {
         boolean ban=true;
         String mensaje="Faltan ingresar/seleccionar los siguientes campos:\n";
@@ -152,7 +127,102 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         return ban;
     }
 
+    private void mostrarContactos()
+    {
+        Tupla noAsigna = new Tupla(0,"Ninguno");
 
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        valores.addElement(noAsigna);
+
+        gestorBDvarios gBD = new gestorBDvarios();
+
+        ArrayList<Tupla> lista = gBD.mostrarContactos();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbContactos.setModel(valores);
+    }
+
+    public void setNumeroPedido(String nro) {
+        this.txtNroPedido.setText(nro);
+    }
+
+    public void setNombreObra(String nombre) {
+        this.txtNombreObra.setText(nombre);
+    }
+
+    public void setDescripcionObra(String desc) {
+        this.txtDescripcion.setText(desc);
+    }
+
+    public void setEmpresaCliente(int id) {
+        //for(cmbEmpresa.:)
+        Tupla t=null;
+        for(int i=0;i<cmbEmpresa.getModel().getSize();i++){
+            t = (Tupla)cmbEmpresa.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbEmpresa.setSelectedItem(t);
+                break;
+            }
+        }
+        mostrarPlantasEmpresaCliente();
+    }
+
+    public void setPlanta(int id) {
+        Tupla t=null;
+        for(int i=0;i<cmbPlanta.getModel().getSize();i++){
+            t = (Tupla)cmbPlanta.getModel().getElementAt(i);
+            if(id==t.getId()){
+                cmbPlanta.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void setFechaInicio(Date fInicio) {
+        this.cmbfechaInicio.setDate(fInicio);
+    }
+
+    public void setFechaFin(Date fFin) {
+        this.cmbfechaFin.setDate(fFin);
+    }
+
+    public void setFechaLEP(Date fLEP) {
+        this.cmbLEP.setDate(fLEP);
+    }
+
+    public void setMontoPedido(String monto) {
+        this.txtMonto.setText(monto);
+    }
+
+    public void setFechaLVP(Date fLVP) {
+        this.cmbLVP.setDate(fLVP);
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        this.txtPliego.setText(pliegos);
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        this.txtPlanos.setText(pedidos);
+    }
+
+    public void setContactoResponsable(int idContacto) {
+        Tupla t=null;
+        for(int i=0;i<cmbContactos.getModel().getSize();i++){
+            t = (Tupla)cmbContactos.getModel().getElementAt(i);
+            if(idContacto==t.getId()){
+                cmbContactos.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void setEstadoPedidoObra(String nombre) {
+        this.txtEstadoPedido.setText(nombre);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -193,7 +263,7 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         cmbLEP = new com.toedter.calendar.JDateChooser();
         cmbLVP = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
-        btnAgregarCR2 = new javax.swing.JButton();
+        btnAgregarCR = new javax.swing.JButton();
         cmbContactos = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
         txtEstadoPedido = new javax.swing.JTextField();
@@ -214,12 +284,6 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
 
-        txtPliego.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPliegoFocusLost(evt);
-            }
-        });
-
         btnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
         btnConfirmar.setText("Aceptar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -234,28 +298,7 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Presupuesto Máximo ($):");
 
-        txtPlanos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlanosActionPerformed(evt);
-            }
-        });
-        txtPlanos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPlanosFocusLost(evt);
-            }
-        });
-
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtMonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMontoActionPerformed(evt);
-            }
-        });
-        txtMonto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMontoFocusLost(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha Límite de Validez del Presupuesto:");
@@ -305,26 +348,10 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
-        txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDescripcionFocusLost(evt);
-            }
-        });
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripción:");
-
-        txtNombreObra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreObraActionPerformed(evt);
-            }
-        });
-        txtNombreObra.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreObraFocusLost(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre de la Obra:");
@@ -334,16 +361,13 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto Responsable"));
 
-        btnAgregarCR2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAgregarCR2.setText("Agregar Contacto");
-        btnAgregarCR2.setEnabled(false);
-        btnAgregarCR2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarCR.setText("Agregar Contacto");
+        btnAgregarCR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCR2ActionPerformed(evt);
+                btnAgregarCRActionPerformed(evt);
             }
         });
-
-        cmbContactos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -352,13 +376,13 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(cmbContactos, 0, 275, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarCR2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregarCR, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnAgregarCR2)
+                .addComponent(btnAgregarCR)
                 .addComponent(cmbContactos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -496,7 +520,7 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txtPlanos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -511,10 +535,6 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
-        gestor.pliegoObra(txtPliego.getText());
-}//GEN-LAST:event_txtPliegoFocusLost
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         if(ValidarDatos()){
@@ -535,31 +555,26 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
             Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
             gestor.fechaLEP(fechaLEP);
             // LANZO EL CREAR
-            gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
-            int id = gestor.confirmacionRegistro();
 
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(cmbContactos.getSelectedItem() instanceof Tupla)
+            {
+                Tupla tp = (Tupla) cmbContactos.getSelectedItem();
+                if(tp.getId()!=0)
+                {
+                    gestor.contactoResponsable(tp.getId());
+                }
+            }
+
+            gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
+            int id = gestor.confirmacionRegistro(Integer.parseInt(this.txtNroPedido.getText()));
+
+            JOptionPane.showMessageDialog(this.getParent(),"Se modificó con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if(pBuscar != null){
+                pBuscar.actualizar(1, true);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
-    private void txtPlanosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlanosActionPerformed
-
-}//GEN-LAST:event_txtPlanosActionPerformed
-
-    private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
-        gestor.planosObra(txtPlanos.getText());
-}//GEN-LAST:event_txtPlanosFocusLost
-
-    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtMontoActionPerformed
-
-    private void txtMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoFocusLost
-
-
-        gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
-    }//GEN-LAST:event_txtMontoFocusLost
 
     private void cmbPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantaActionPerformed
         // TODO add your handling code here:
@@ -582,26 +597,11 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
             cmbPlanta.setEnabled(false);}
 }//GEN-LAST:event_cmbEmpresaActionPerformed
 
-    private void txtDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusLost
-
-        gestor.descripcionObra(txtDescripcion.getText());
-    }//GEN-LAST:event_txtDescripcionFocusLost
-
-    private void txtNombreObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreObraActionPerformed
-
-
-    }//GEN-LAST:event_txtNombreObraActionPerformed
-
-    private void txtNombreObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreObraFocusLost
-
-        gestor.nombreObra(txtNombreObra.getText()); // le paso el nombre al gestor
-    }//GEN-LAST:event_txtNombreObraFocusLost
-
-    private void btnAgregarCR2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCR2ActionPerformed
-        //        pantallaRegistrarContactoResponsable p = new pantallaRegistrarContactoResponsable(this);
-        //        SwingPanel.getInstance().addWindow(p);
-        //        p.setVisible(true);
-}//GEN-LAST:event_btnAgregarCR2ActionPerformed
+    private void btnAgregarCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCRActionPerformed
+        pantallaRegistrarContactoResponsable p = new pantallaRegistrarContactoResponsable(this);
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+}//GEN-LAST:event_btnAgregarCRActionPerformed
 
     /**
     * @param args the command line arguments
@@ -615,7 +615,7 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarCR2;
+    private javax.swing.JButton btnAgregarCR;
     private javax.swing.JButton btnAgregarEmpresaCliente;
     private javax.swing.JButton btnAgregarPlanta;
     private javax.swing.JButton btnCancelar;
@@ -651,78 +651,32 @@ public class pantallaModificarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
 
-     public void setNumeroPedido(String nro) {
-        this.txtNroPedido.setText(nro);
+    public String getTituloAyuda() {
+        return "Modificar Pedido Existente";
     }
 
-    public void setNombreObra(String nombre) {
-        this.txtNombreObra.setText(nombre);
+    public String getResumenAyuda() {
+        return "Usted podrá modificar los datos de la empresa seleccionada";
     }
 
-    public void setDescripcionObra(String desc) {
-        this.txtDescripcion.setText(desc);
+    public int getIdAyuda() {
+        return 1;
     }
 
-    public void setEmpresaCliente(int id) {
-        //for(cmbEmpresa.:)
-        Tupla t=null;
-        for(int i=0;i<cmbEmpresa.getModel().getSize();i++){
-            t = (Tupla)cmbEmpresa.getModel().getElementAt(i);
-            if(id==t.getId()){
-                cmbEmpresa.setSelectedItem(t);
+    public void actualizar(int flag,boolean exito) {
+        // 1: VIENE DEL UC Registrar Contacto Responsable
+        switch(flag)
+        {
+            case 1:
+                if(exito==true)
+                {
+                    mostrarContactos();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this.getParent(),"No se registro correctamente el Contacto Responsable\nIntentelo Nuevamente","Error",JOptionPane.INFORMATION_MESSAGE);
+                }
                 break;
-            }
-        }
-        mostrarPlantasEmpresaCliente();
-    }
-
-    public void setPlanta(int id) {
-        Tupla t=null;
-        for(int i=0;i<cmbPlanta.getModel().getSize();i++){
-            t = (Tupla)cmbPlanta.getModel().getElementAt(i);
-            if(id==t.getId()){
-                cmbPlanta.setSelectedItem(t);
-                break;
-            }
         }
     }
-
-    public void setFechaInicio(Date fInicio) {
-        this.cmbfechaInicio.setDate(fInicio);
-    }
-
-    public void setFechaFin(Date fFin) {
-        this.cmbfechaFin.setDate(fFin);
-    }
-
-    public void setFechaLEP(Date fLEP) {
-        this.cmbLEP.setDate(fLEP);
-    }
-
-    public void setMontoPedido(String monto) {
-        this.txtMonto.setText(monto);
-    }
-
-    public void setFechaLVP(Date fLVP) {
-        this.cmbLVP.setDate(fLVP);
-    }
-
-    public void setPliegosPedido(String pliegos) {
-        this.txtPliego.setText(pliegos);
-    }
-
-    public void setPlanosPedido(String pedidos) {
-        this.txtPlanos.setText(pedidos);
-    }
-
-    public void setContactoResponsable(String contacto) {
-        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
-        cbm.addElement(contacto);
-        this.cmbContactos.setModel(cbm);
-        this.cmbContactos.setSelectedItem(contacto);
-    }
-
-    public void setEstadoPedidoObra(String nombre) {
-        this.txtEstadoPedido.setText(nombre);
-    }
-}
+ }
