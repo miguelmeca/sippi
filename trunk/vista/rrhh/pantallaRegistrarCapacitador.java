@@ -12,6 +12,8 @@
 package vista.rrhh;
 
 import controlador.rrhh.GestorRegistrarNuevoCapacitador;
+import controlador.rrhh.GestorModificarCapacitador;
+import controlador.rrhh.IGestorCapacitador;
 import java.util.ArrayList;
 //import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -32,13 +34,18 @@ import java.util.Vector;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
+import vista.interfaces.ICallBack;
+
 /**
  *
  * @author Fran
  */
 public class pantallaRegistrarCapacitador extends javax.swing.JInternalFrame implements IAyuda {
 
-    GestorRegistrarNuevoCapacitador gestor;
+    private IGestorCapacitador gestor;
+    private GestorRegistrarNuevoCapacitador gestorRegistrar;
+    private GestorModificarCapacitador gestorModificar;
+    //GestorRegistrarNuevoCapacitador gestor;
     private JComponent cmbfechaNacimiento;
     
     private ArrayList<String> listaNroTel;
@@ -46,18 +53,67 @@ public class pantallaRegistrarCapacitador extends javax.swing.JInternalFrame imp
     private ArrayList<Tupla> listaTipoCapacitacion;
     //private Date fechaVencimientoCapActual;
     /** Creates new form frmRegistrarEmpleado */
+    private boolean modificar;
+    private ICallBack pantallaConsultar;
+    private boolean instanciadaDesdeCU;
+    private String nombre;
+    private String apellido;
+    private int idCap;
+
+
     public pantallaRegistrarCapacitador() {
         initComponents();
-        gestor = new GestorRegistrarNuevoCapacitador(this);
+        modificar=false;
+        gestorRegistrar = new GestorRegistrarNuevoCapacitador(this);
+        setGestor(gestorRegistrar);
         this.habilitarVentana();
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
-
-      
-
-
+        instanciadaDesdeCU=false;
+        this.setTitle("Registrar nuevo capacitador");
         
     }
+
+    public pantallaRegistrarCapacitador(ICallBack pantallaConsu)
+    {
+        initComponents();
+        modificar=false;
+        gestorRegistrar = new GestorRegistrarNuevoCapacitador(this);
+        //gestor = gestorReg;
+        setGestor(gestorRegistrar);
+        this.habilitarVentana();
+        listaNroTel= new ArrayList<String>();
+        listaTipoTel= new ArrayList<Tupla>();
+        instanciadaDesdeCU=true;
+        pantallaConsultar=pantallaConsu;
+        this.setTitle("Registrar nuevo capacitador");
+    }
+
+   public pantallaRegistrarCapacitador(int id, ICallBack pantallaConsu)
+    {
+        initComponents();
+        modificar=true;
+        //legajoEmpModificar=legajo;
+        pantallaConsultar=pantallaConsu;
+        gestorModificar = new GestorModificarCapacitador(this);
+        //gestorModificar = new GestorModificarEmpleado(this);
+        //gestor = new GestorModificarEmpleado(this);
+        setGestor(gestorModificar);
+        this.habilitarVentana();
+        listaNroTel= new ArrayList<String>();
+        listaTipoTel= new ArrayList<Tupla>();
+        idCap=id;
+        //boolean r= gestorModificar.levantarEmpleado(legajo);
+        boolean r= gestorModificar.levantarCapacitador(id);
+        if (!r)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Error levantando el capacitador de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        this.setTitle("Modificar datos de capacitador - "+ nombre+" "+apellido);
+
+    }
+   private void setGestor(IGestorCapacitador gest)
+   {gestor=gest;}
 
    
 
@@ -68,12 +124,14 @@ public class pantallaRegistrarCapacitador extends javax.swing.JInternalFrame imp
     }
    private void habilitarVentana()
     {
-
+        cmbProvincias.setEnabled(false);
+       cmbLocalidades.setEnabled(false);
+        cmbBarrios.setEnabled(false);
         mostrarTiposDeDocumento();
         mostrarPaises();
-        mostrarProvincias();
-        mostrarLocalidades();
-        mostrarBarrios();
+        //mostrarProvincias();
+        //mostrarLocalidades();
+        //mostrarBarrios();
         mostrarTiposDeTelefono();
         mostrarTiposCapacitacion();
         // Fecha de Nacimiento
@@ -172,8 +230,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         }
 
         cmbPaises.setModel(valores);
-        cmbBarrios.setSelectedIndex(-1);
-        cmbLocalidades.setSelectedIndex(-1);
+        cmbPaises.setSelectedIndex(-1);
+        cmbProvincias.setModel(new DefaultComboBoxModel());
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbLocalidades.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(false);
+       cmbLocalidades.setEnabled(false);
+        cmbBarrios.setEnabled(false);
 
     }
 
@@ -191,7 +254,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             valores.addElement(tu);
         }
         cmbProvincias.setModel(valores);
-        cmbBarrios.setSelectedIndex(-1);
+        cmbProvincias.setSelectedIndex(-1);
+        cmbLocalidades.setModel(new DefaultComboBoxModel());
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(true);
+        cmbLocalidades.setEnabled(false);
+        cmbBarrios.setEnabled(false);
        }
     }
 
@@ -209,6 +277,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             valores.addElement(tu);
         }
         cmbLocalidades.setModel(valores);
+        cmbLocalidades.setSelectedIndex(-1);
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(true);
+       cmbLocalidades.setEnabled(true);
+        cmbBarrios.setEnabled(false);
         }
     }
 
@@ -226,6 +299,10 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             valores.addElement(tu);
         }
         cmbBarrios.setModel(valores);
+        cmbBarrios.setSelectedIndex(-1);
+        cmbProvincias.setEnabled(true);
+       cmbLocalidades.setEnabled(true);
+        cmbBarrios.setEnabled(true);
       }
     }
     private void cargarTelefonos()
@@ -295,6 +372,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         cmbTipoDocumento = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         txtNroDocumento = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtCalleDomicilio = new javax.swing.JTextField();
@@ -336,6 +419,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         btnQuitarTelefono = new javax.swing.JButton();
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         emAgregarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         emAgregarTelefono.setText("Agregar");
@@ -417,6 +501,18 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
+        jLabel25.setText("*");
+
+        jLabel30.setText("*");
+
+        jLabel27.setText("*");
+
+        jLabel33.setText("*");
+
+        jLabel34.setText("*");
+
+        jLabel35.setText("*");
+
         javax.swing.GroupLayout jpDatosPersonalesLayout = new javax.swing.GroupLayout(jpDatosPersonales);
         jpDatosPersonales.setLayout(jpDatosPersonalesLayout);
         jpDatosPersonalesLayout.setHorizontalGroup(
@@ -429,7 +525,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -438,7 +536,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCUIL)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,21 +549,31 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel7))
+                                    .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7)))
                                 .addGap(21, 21, 21)
                                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtEmail)
                                     .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)))))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34))
                 .addContainerGap())
         );
         jpDatosPersonalesLayout.setVerticalGroup(
             jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel33))
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel25))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -470,16 +582,21 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jLabel3)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCUIL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23)))
                     .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel27)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel35))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -751,7 +868,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             },
             new String [] {
-                "Número", "Tipo"
+                "Tipo", "Número"
             }
         ) {
             Class[] types = new Class [] {
@@ -828,6 +945,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
+        jLabel2.setText("* Campos requeridos");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -836,17 +955,22 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jpDatosPersonales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jpDatosPersonales, 0, 425, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
                         .addComponent(btnConfirmar)
                         .addGap(37, 37, 37)
                         .addComponent(btnCancelar)
-                        .addGap(35, 35, 35))
+                        .addGap(37, 37, 37))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(14, Short.MAX_VALUE))))
@@ -859,14 +983,15 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addComponent(jpDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnConfirmar)
+                        .addComponent(btnCancelar))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -877,7 +1002,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -900,7 +1027,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {       this.dispose();}
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -936,23 +1063,65 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             cargarTiposCapacitacion();
             Date fechaNac = ((JDateChooser) cmbfechaNacimiento).getDate();
             Tupla td=new Tupla();
+            int cuil=Integer.parseInt(txtCUIL.getText());
             td=(Tupla)cmbTipoDocumento.getItemAt(cmbTipoDocumento.getSelectedIndex());
             gestor.datosPersonalesCapacitador(txtCUIL.getText() ,txtNroDocumento.getText(),td, txtNombre.getText(),txtApellido.getText(), fechaNac,txtEmail.getText());
             gestor.telefonosCapacitador(listaNroTel, listaTipoTel);
-            Tupla barrio=new Tupla();
-            barrio=(Tupla)cmbBarrios.getItemAt(cmbBarrios.getSelectedIndex());
-            gestor.datosDomicilioCapacitador(txtCalleDomicilio.getText(), txtNroDomicilio.getText(),txtDeptoDomicilio.getText(),txtPisoDomicilio.getText(), txtCPDomicilio.getText(), barrio );
-           
-           gestor.tiposCapacitacion(listaTipoCapacitacion );
-            if(gestor.capacitadorConfirmado())
+            /*if(cmbBarrios.getSelectedIndex()!=-1)
             {
-                JOptionPane.showMessageDialog(this.getParent(),"Capacitador Registrado correctamente","Capacitador Registrado",JOptionPane.INFORMATION_MESSAGE);
-                vaciarCampos();
+               Tupla tupBarrio=new Tupla();
+               tupBarrio=(Tupla)cmbBarrios.getItemAt(cmbBarrios.getSelectedIndex());
+               gestor.datosDomicilioEmpleado(txtCalleDomicilio.getText(), txtNroDomicilio.getText(),txtDeptoDomicilio.getText(),txtPisoDomicilio.getText(), txtCPDomicilio.getText(), tupBarrio );
+            }*/
+            Tupla tupBarrio=new Tupla();
+            if(cmbBarrios.getSelectedIndex()!=-1)
+            {
+               tupBarrio=(Tupla)cmbBarrios.getItemAt(cmbBarrios.getSelectedIndex());
             }
             else
+            {tupBarrio.setId(-1);}
+            gestor.datosDomicilioCapacitador(txtCalleDomicilio.getText(), txtNroDomicilio.getText(),txtDeptoDomicilio.getText(),txtPisoDomicilio.getText(), txtCPDomicilio.getText(), tupBarrio );
+           gestor.tiposCapacitacion(listaTipoCapacitacion );
+            if(!modificar)//Â¿Se esta creando un empleado?
             {
-               JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo capacitador","ERROR",JOptionPane.ERROR_MESSAGE);
+
+                 if(gestorRegistrar.capacitadorConfirmado())
+                 {
+                        JOptionPane.showMessageDialog(this.getParent(),"Capacitador Registrado correctamente","Capacitador Registrado",JOptionPane.INFORMATION_MESSAGE);
+                        if(pantallaConsultar!=null)
+                        {pantallaConsultar.actualizar(3, true);}
+                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Desea registrar otro capacitador?","Cancelar",JOptionPane.YES_NO_OPTION);
+                        if(resp==JOptionPane.NO_OPTION)
+                        {
+                            this.dispose();
+                        }
+                        else
+                        {vaciarCampos();}
+                 }
+                 else
+                 {
+                        JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo capacitador","ERROR",JOptionPane.ERROR_MESSAGE);
+                        if(pantallaConsultar!=null)
+                        {pantallaConsultar.actualizar(2, false);}
+                 }
             }
+            else//...O se esta modificando un empleado existente?
+            {
+
+                    if(gestorModificar.capacitadorModificado())
+                    {
+                        JOptionPane.showMessageDialog(this.getParent(),"Capacitador modificado correctamente","Capacitador Registrado",JOptionPane.INFORMATION_MESSAGE);
+                        //Uso el metodo actualizar para mandar el legajo en vez del error, necesito algo que comunique las ventanas
+                        pantallaConsultar.actualizar(idCap, true);
+                        this.dispose();
+                    }
+                    else
+                    {
+                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante la modificación del capacitador","ERROR",JOptionPane.ERROR_MESSAGE);
+                       pantallaConsultar.actualizar(3, false);
+                       this.dispose();
+                    }
+             }
     }//GEN-LAST:event_btnConfirmarActionPerformed
     }
     private void vaciarCampos()
@@ -964,7 +1133,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtCalleDomicilio.setText("");
         txtDeptoDomicilio.setText("");
         txtEmail.setText("");
-        
+        ((JDateChooser) cmbfechaNacimiento).setDate(null);
+        //((JDateChooser) cmbfechaVencimiento).setDate(null);
+        //((JDateChooser) cmbfechaIngreso).setDate(null);
         txtNombre.setText("");
         txtNroDocumento.setText("");
         txtNroDomicilio.setText("");
@@ -975,7 +1146,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         
         ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
         ((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
-        
+        cmbPaises.setSelectedIndex(-1);
+        cmbProvincias.setModel(new DefaultComboBoxModel());
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbLocalidades.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(false);
+        cmbLocalidades.setEnabled(false);
+        cmbBarrios.setEnabled(false);
         
         mostrarTiposCapacitacion();
         listaNroTel=new ArrayList<String>();
@@ -993,7 +1170,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             Date fechaAct=new Date();
             if(  (((JDateChooser) cmbfechaNacimiento).getDate()== null ) )
            {
-                JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de nacimiento valida","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de nacimiento válida","ERROR",JOptionPane.ERROR_MESSAGE);
               return false;
            }
             else
@@ -1014,7 +1191,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         }
         else
         {
-            if(!gestor.ValidarDocumento(txtNroDocumento.getText()))
+             Tupla td=new Tupla();
+            td=(Tupla)cmbTipoDocumento.getItemAt(cmbTipoDocumento.getSelectedIndex());
+            if(!gestor.ValidarDocumento(txtNroDocumento.getText(),td))
             {ban=false;
              JOptionPane.showMessageDialog(this.getParent(),"El numero de documento ingresado ya existe para un empleado registrado","ERROR",JOptionPane.ERROR_MESSAGE);
          return ban;}
@@ -1032,7 +1211,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         {
             if(!gestor.ValidarCuil(txtCUIL.getText()))
             {ban=false;
-             JOptionPane.showMessageDialog(this.getParent(),"El numero de cuil ingresado ya existe para un empleado registrado","ERROR",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(this.getParent(),"El numero de cuil ingresado ya existe para un capacitador registrado","ERROR",JOptionPane.ERROR_MESSAGE);
          return ban;}
 
         }
@@ -1057,7 +1236,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
          }
         if(txtNroDomicilio.getText().equals(""))
         {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'NÂº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                  ban=false;
                  return ban;
          } */
@@ -1065,6 +1244,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         return ban;
         
     }
+
     private void cmbPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisesActionPerformed
         mostrarProvincias();
     }//GEN-LAST:event_cmbPaisesActionPerformed
@@ -1154,6 +1334,138 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         });
     }
 
+     //Modificar Capacitador
+
+
+        public void capacitacionesCapacitador(ArrayList<Tupla> lstTipoCapacitaciones)
+        {
+
+            DefaultTableModel tabCap= (DefaultTableModel)tablaCapacitaciones.getModel();
+               DefaultComboBoxModel cboCap =(DefaultComboBoxModel)lstTiposCapacitacion.getModel();
+            for(int i=0; i<lstTipoCapacitaciones.size();i++)
+            {
+                for (int j= 0; j < cboCap.getSize(); j++)
+                {
+
+                    if(lstTipoCapacitaciones.get(i).getId()==((Tupla)cboCap.getElementAt(j)).getId())
+                    {cboCap.removeElementAt(j);}
+                }
+               Object[] obj=new Object[1];
+               obj[0]=lstTipoCapacitaciones.get(i);
+               //obj[1]=FechaUtil.getFecha(lstVencimientosCapacitaciones.get(i));
+              tabCap.addRow(obj);
+            }
+            tablaCapacitaciones.setModel(tabCap);
+            lstTiposCapacitacion.setModel(cboCap);
+            //TODO: Darle color a las filas si estan vencidas o cerca de la fecha d vencimiento (no se cmo choto hacer esto, creo q no se puede)
+            /*Date fechaAct=new Date();
+            for (int i= 0; i < tabCap.getRowCount(); i++)
+            {if(lstVencimientosCapacitaciones.get(i)<=fechaAct)
+             {tablaCapacitaciones.}
+            }*/
+	}
+        public void telefonosCapacitador(ArrayList<String> numero,ArrayList<Tupla> tipo)
+        {
+
+            DefaultTableModel tabTel= (DefaultTableModel)tablaTelefonos.getModel();
+
+            for(int i=0; i<numero.size();i++)
+            {
+
+               Object[] obj=new Object[2];
+               obj[1]=numero.get(i);
+               obj[0]=(tipo.get(i));
+              tabTel.addRow(obj);
+            }
+            tablaTelefonos.setModel(tabTel);
+
+	}
+
+        public void datosPersonalesCapacitador(String cuil, String nmroDoc, int idTipoDocumento, String nombre, String apellido, Date fechaNac, String email)
+        {
+           // txtLegajo.setText(leg);
+            this.nombre=nombre;
+            this.apellido=apellido;
+            txtCUIL.setText(cuil);
+            txtNroDocumento.setText(nmroDoc);
+            txtNombre.setText(nombre);
+            txtApellido.setText(apellido);
+            txtEmail.setText(email);
+            ((JDateChooser) cmbfechaNacimiento).setDate(fechaNac);
+           // ((JDateChooser) cmbfechaIngreso).setDate(fechaIng);
+            DefaultComboBoxModel modeloTipoDoc=(DefaultComboBoxModel) cmbTipoDocumento.getModel();
+            for (int i= 0; i < modeloTipoDoc.getSize(); i++)
+            {
+                if(((Tupla)modeloTipoDoc.getElementAt(i)).getId()==idTipoDocumento)
+                {
+                    cmbTipoDocumento.setSelectedIndex(i);
+                    break;
+                }
+            }
+	}
+
+        public void datosDomicilioCapacitador(String calle, String nro, String depto, String piso, String cp, int pais, int provincia, int localidad, int barrio)
+        {
+            txtCalleDomicilio.setText(calle);
+            if(!nro.equals("0"))
+            {txtNroDomicilio.setText(nro);}
+            txtDeptoDomicilio.setText(depto);
+            if(!piso.equals("0"))
+            {txtPisoDomicilio.setText(piso);}
+            txtCPDomicilio.setText(cp);
+            DefaultComboBoxModel modeloPaises=(DefaultComboBoxModel) cmbPaises.getModel();
+            for (int i= 0; i < modeloPaises.getSize(); i++)
+            {
+                if(((Tupla)modeloPaises.getElementAt(i)).getId()==pais)
+                {
+                    cmbPaises.setSelectedIndex(i);
+                    break;
+                }
+            }
+            mostrarProvincias();
+            DefaultComboBoxModel modeloProvincias=(DefaultComboBoxModel) cmbProvincias.getModel();
+            for (int i= 0; i < modeloProvincias.getSize(); i++)
+            {
+                if(((Tupla)modeloProvincias.getElementAt(i)).getId()==provincia)
+                {
+                    cmbProvincias.setSelectedIndex(i);
+                    break;
+                }
+            }
+            mostrarLocalidades();
+            DefaultComboBoxModel modeloLocalidades=(DefaultComboBoxModel) cmbLocalidades.getModel();
+            for (int i= 0; i < modeloLocalidades.getSize(); i++)
+            {
+                if(((Tupla)modeloLocalidades.getElementAt(i)).getId()==localidad)
+                {
+                    cmbLocalidades.setSelectedIndex(i);
+                    break;
+                }
+            }
+            mostrarBarrios();
+            DefaultComboBoxModel modeloBarrios=(DefaultComboBoxModel) cmbBarrios.getModel();
+            for (int i= 0; i < modeloBarrios.getSize(); i++)
+            {
+                if(((Tupla)modeloBarrios.getElementAt(i)).getId()==barrio)
+                {
+                    cmbBarrios.setSelectedIndex(i);
+                    break;
+                }
+            }
+	}
+        public void datosDomicilioCapacitador(String calle, String nro, String depto, String piso, String cp)
+        {
+            txtCalleDomicilio.setText(calle);
+            if(!nro.equals("0"))
+            {txtNroDomicilio.setText(nro);}
+            txtDeptoDomicilio.setText(depto);
+            if(!piso.equals("0"))
+            {txtPisoDomicilio.setText(piso);}
+            txtCPDomicilio.setText(cp);
+
+	}
+        //Fin Metodos Modificar Capacitador
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCapacitacion;
     private javax.swing.JButton btnAgregarTelefono;
@@ -1183,10 +1495,17 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

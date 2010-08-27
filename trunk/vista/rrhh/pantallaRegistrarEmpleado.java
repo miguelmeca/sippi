@@ -70,6 +70,10 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     private boolean modificar;
     private ICallBack pantallaConsultar;
     private boolean instanciadaDesdeCU;
+    private int legajo;
+    private String nombre;
+    private String apellido;
+    private int idEmp;
     
     public pantallaRegistrarEmpleado()
     {
@@ -95,12 +99,14 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaTipoTel= new ArrayList<Tupla>();
         instanciadaDesdeCU=true;
         pantallaConsultar=pantallaConsu;
+        this.setTitle("Registrar nuevo empleado");
     }
 
-   public pantallaRegistrarEmpleado(int legajo, ICallBack pantallaConsu)
+   public pantallaRegistrarEmpleado(int id, ICallBack pantallaConsu)
     {
         initComponents();
         modificar=true;
+        idEmp=id;
         //legajoEmpModificar=legajo;
         pantallaConsultar=pantallaConsu;
         gestorModificar = new GestorModificarEmpleado(this);
@@ -111,12 +117,12 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
         //boolean r= gestorModificar.levantarEmpleado(legajo);
-        boolean r= gestorModificar.levantarEmpleado(legajo);
+        boolean r= gestorModificar.levantarEmpleado(id);
         if (!r)
         {
             JOptionPane.showMessageDialog(this.getParent(),"Error levantando el empleado de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
-
+        this.setTitle("Modificar datos de empleado - Legajo Nº"+legajo+" - "+ nombre+" "+apellido);
     }
    private void setGestor(IGestorEmpleado gest)
    {gestor=gest;}
@@ -357,8 +363,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
            // 
             
             //System.out.println("HOLA");
-            listaTipoTel.add((Tupla)fila.get(1));
-            listaNroTel.add((String)fila.get(0));
+            listaTipoTel.add((Tupla)fila.get(0));
+            listaNroTel.add((String)fila.get(1));
             
         }
        
@@ -442,6 +448,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txtTelefono = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -545,7 +552,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Legajo"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel18.setText("Legajo:");
 
         txtLegajo.addActionListener(new java.awt.event.ActionListener() {
@@ -556,7 +563,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel25.setText("*");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel32.setText("Fecha de Ingreso:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -571,7 +578,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,7 +609,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Fecha de Nacimiento:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -642,33 +649,42 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel31.setText("*");
 
+        jLabel33.setText("*");
+
         javax.swing.GroupLayout jpDatosPersonalesLayout = new javax.swing.GroupLayout(jpDatosPersonales);
         jpDatosPersonales.setLayout(jpDatosPersonalesLayout);
         jpDatosPersonalesLayout.setHorizontalGroup(
             jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
-                        .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
-                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(txtCUIL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
+                                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                            .addComponent(txtCUIL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)))
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
                 .addGap(1, 1, 1)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -677,9 +693,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel30))
-                .addGap(1, 1, 1))
-            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30)))
         );
         jpDatosPersonalesLayout.setVerticalGroup(
             jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,7 +717,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jLabel23)))
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5))
+                .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel33)))
             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
@@ -758,7 +774,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             },
             new String [] {
-                "Número", "Tipo"
+                "Tipo", "Número"
             }
         ) {
             Class[] types = new Class [] {
@@ -797,7 +813,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -980,9 +996,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1254,7 +1270,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6)
                     .addComponent(jLabel2))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -1299,8 +1315,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
      {
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Object[] item = new Object[2];
-        item[1] = tipo;
-        item[0] = numero;
+        item[0] = tipo;
+        item[1] = numero;
         modelo.addRow(item);
         txtTelefono.setText(""); 
         }
@@ -1320,12 +1336,21 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             int legajo=Integer.parseInt(txtLegajo.getText());
             gestor.datosPersonalesEmpleado(legajo, txtCUIL.getText() ,txtNroDocumento.getText(),td, txtNombre.getText(),txtApellido.getText(), fechaNac,fechaIng,txtEmail.getText());
             gestor.telefonosEmpleado(listaNroTel, listaTipoTel);
-            if(cmbBarrios.getSelectedIndex()!=-1)
+            /*if(cmbBarrios.getSelectedIndex()!=-1)
             { 
                Tupla tupBarrio=new Tupla();
                tupBarrio=(Tupla)cmbBarrios.getItemAt(cmbBarrios.getSelectedIndex());
                gestor.datosDomicilioEmpleado(txtCalleDomicilio.getText(), txtNroDomicilio.getText(),txtDeptoDomicilio.getText(),txtPisoDomicilio.getText(), txtCPDomicilio.getText(), tupBarrio );
+            }*/
+            Tupla tupBarrio=new Tupla();
+            if(cmbBarrios.getSelectedIndex()!=-1)
+            {                
+               tupBarrio=(Tupla)cmbBarrios.getItemAt(cmbBarrios.getSelectedIndex());               
             }
+            else
+            {tupBarrio.setId(-1);}
+            gestor.datosDomicilioEmpleado(txtCalleDomicilio.getText(), txtNroDomicilio.getText(),txtDeptoDomicilio.getText(),txtPisoDomicilio.getText(), txtCPDomicilio.getText(), tupBarrio );
+            //////////////
             gestor.tipoEspecialidadYRango(listaTipoEspecialidad ,listaRangoEspecialidad);
             gestor.capacitaciones(listaTipoCapacitacion ,listaVencimientoCapacitacion);
             if(!modificar)//¿Se esta creando un empleado?
@@ -1358,7 +1383,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     {
                         JOptionPane.showMessageDialog(this.getParent(),"Empleado modificado correctamente","Empleado Registrado",JOptionPane.INFORMATION_MESSAGE);
                         //Uso el metodo actualizar para mandar el legajo en vez del error, necesito algo que comunique las ventanas
-                        pantallaConsultar.actualizar(legajo, true);
+                        pantallaConsultar.actualizar(idEmp, true);
                         this.dispose();
                     }
                     else
@@ -1747,8 +1772,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             {
 
                Object[] obj=new Object[2];
-               obj[0]=numero.get(i);
-               obj[1]=(tipo.get(i));
+               obj[1]=numero.get(i);
+               obj[0]=(tipo.get(i));
               tabTel.addRow(obj);
             }
             tablaTelefonos.setModel(tabTel);
@@ -1759,6 +1784,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         {
             txtLegajo.setText(leg);
             txtCUIL.setText(cuil);
+            this.nombre=nombre;
+            this.apellido=apellido;
+            this.legajo=Integer.parseInt(leg);
             txtNroDocumento.setText(nmroDoc);
             txtNombre.setText(nombre);
             txtApellido.setText(apellido);
@@ -1886,6 +1914,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

@@ -64,7 +64,10 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
     //private int legajoEmpModificar;
     private ICallBack pantallaConsultar;
     //private boolean instanciadaDesdeCU;
-
+    private String nombre;
+    private String apellido;
+    private int id;
+    //private String legajo;
 
     
     
@@ -78,7 +81,7 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
         gestor = new GestorConsultarDatosEmpleado(this);
         //gestorModificar = new GestorModificarEmpleado(this);
         //gestor = new GestorModificarEmpleado(this);
-        
+        this.id=id;
         this.habilitarVentana();
         //listaNroTel= new ArrayList<String>();
         //listaTipoTel= new ArrayList<Tupla>();
@@ -88,7 +91,7 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
         {
             JOptionPane.showMessageDialog(this.getParent(),"Error levantando el empleado de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
-
+        this.setTitle("Consultar datos de empleado - Legajo Nº"+legajo+" - "+ nombre+" "+apellido);
     }
    
    public void opcionRegistrarEmpleado()
@@ -121,7 +124,7 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
 
         
 
-KeyAdapter kaNuemros=(new KeyAdapter()
+/*KeyAdapter kaNuemros=(new KeyAdapter()
 {
 
             @Override
@@ -137,213 +140,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
          e.consume();  // ignorar el evento de teclado
       }
    }
-});
+});*/
       
 
 
    }
 
-   /*public void mostrarRangosEspecialidad()
-    {
-        ArrayList<Tupla> listaNombreRangosEspecialidad = gestor.mostrarRangoEspecialidad();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla nombre : listaNombreRangosEspecialidad)
-        {
-            model.addElement(nombre);
-        }
-        lstRangosEspecialidad.setModel(model);
-    }*/
-  /* public void mostrarTiposEspecialidad()
-    {
-        ArrayList<Tupla> listaNombreTiposEspecialidad = gestor.mostrarTipoEspecialidad();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla nombre : listaNombreTiposEspecialidad)
-        {
-            model.addElement(nombre);
-        }
-        lstTiposEspecialidad.setModel(model);
-    }*/
-    /*public void mostrarTiposCapacitacion()
-    {
-        ArrayList<Tupla> listaNombreTiposCapacitacion = gestor.mostrarTipoCapacitacion();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla nombre : listaNombreTiposCapacitacion)
-        {
-            model.addElement(nombre);
-        }
-        lstTiposCapacitacion.setModel(model);
-    }*/
-    /*public void mostrarTiposDeTelefono()
-    {
-        ArrayList<Tupla> listaNombresTipoDeTelefono = gestor.mostrarTiposDeTelefono();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla nombre : listaNombresTipoDeTelefono)
-        {
-            model.addElement(nombre);
-        }
-        cmbTiposTelefono.setModel(model);
-    }
-*/
-    /*public void mostrarTiposDeDocumento()
-    {
-        ArrayList<Tupla> listaNombresTipoDocumento = gestor.mostrarTiposDeDocumento();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla td : listaNombresTipoDocumento)
-        {
-            model.addElement(td);
-        }
-        cmbTipoDocumento.setModel(model);
-    }*/
-      /*  private void mostrarPaises()
-    {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        ArrayList<Tupla> lista = gestor.mostrarPaises();
-
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-
-        cmbPaises.setModel(valores);
-        cmbPaises.setSelectedIndex(-1);
-        cmbProvincias.setModel(new DefaultComboBoxModel());
-        cmbBarrios.setModel(new DefaultComboBoxModel());
-        cmbLocalidades.setModel(new DefaultComboBoxModel());
-        cmbProvincias.setEnabled(false);
-       cmbLocalidades.setEnabled(false);
-        cmbBarrios.setEnabled(false);
-        //cmbLocalidades.setSelectedIndex(-1);
-
-    }*/
-
-   /* private void mostrarProvincias()
-    {
-       if(cmbPaises.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbPaises.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarProvincias(t.getId());
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-        cmbProvincias.setModel(valores);
-        cmbProvincias.setSelectedIndex(-1);
-        cmbLocalidades.setModel(new DefaultComboBoxModel());
-        cmbBarrios.setModel(new DefaultComboBoxModel());
-        cmbProvincias.setEnabled(true);
-        cmbLocalidades.setEnabled(false);
-        cmbBarrios.setEnabled(false);
-        //cmbLocalidades.setModel(new DefaultComboBoxModel());
-       }
-    }*/
-
-    /*private void mostrarLocalidades()
-    {
-        if(cmbProvincias.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbProvincias.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarLocalidades(t.getId());
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-        cmbLocalidades.setModel(valores);
-        cmbLocalidades.setSelectedIndex(-1);
-        cmbBarrios.setModel(new DefaultComboBoxModel());
-        cmbProvincias.setEnabled(true);
-       cmbLocalidades.setEnabled(true);
-        cmbBarrios.setEnabled(false);
-        }
-    }*/
-
-   /* private void mostrarBarrios()
-    {
-        if(cmbLocalidades.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbLocalidades.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarBarrios(t.getId());
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
-        }
-        cmbBarrios.setModel(valores);
-        cmbBarrios.setSelectedIndex(-1);
-        cmbProvincias.setEnabled(true);
-       cmbLocalidades.setEnabled(true);
-        cmbBarrios.setEnabled(true);
-      }
-    }*/
-   /* private void cargarTelefonos()
-    {
-        
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        Iterator it = modelo.getDataVector().iterator();
-        listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();
-        while (it.hasNext())
-        {
-            Vector fila = (Vector)it.next();
-           // 
-            
-            //System.out.println("HOLA");
-            listaTipoTel.add((Tupla)fila.get(1));
-            listaNroTel.add((String)fila.get(0));
-            
-        }
-       
-    }
-    private void cargarEspecialidades()
-    {
-        DefaultTableModel modelo = (DefaultTableModel) tablaEspecialidades.getModel();
-        Iterator it = modelo.getDataVector().iterator();
-        listaTipoEspecialidad= new ArrayList<Tupla>();
-        listaRangoEspecialidad= new ArrayList<Tupla>();
-        while (it.hasNext())
-        {
-            Vector fila = (Vector)it.next();
-           // listaNroTel= new ArrayList<String>();
-
-            //System.out.println("HOLA");
-            listaTipoEspecialidad.add((Tupla)fila.get(0));
-            listaRangoEspecialidad.add((Tupla)fila.get(1));
-        }
-    }
-
-    private void cargarCapacitaciones()
-    {
-        DefaultTableModel modelo = (DefaultTableModel) tablaCapacitaciones.getModel();
-        Iterator it = modelo.getDataVector().iterator();
-        listaTipoCapacitacion= new ArrayList<Tupla>();
-        listaVencimientoCapacitacion= new ArrayList<Date>();
-        while (it.hasNext())
-        {
-            Vector fila = (Vector)it.next();
-           // listaNroTel= new ArrayList<String>();
-
-            //System.out.println("HOLA");
-            listaTipoCapacitacion.add((Tupla)fila.get(0));
-            listaVencimientoCapacitacion.add((Date)((NTupla)fila.get(1)).getData());
-
-        }
-
-    }
-*/
+   
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -475,11 +278,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
         );
 
         jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Capacitaciones"));
@@ -512,7 +315,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         );
         jpCapacitacionesLayout.setVerticalGroup(
             jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
         );
 
         jpDatosPersonales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
@@ -653,7 +456,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(lblFechaRegistro))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jLabel23.getAccessibleContext().setAccessibleName("");
@@ -825,14 +628,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnModificarEmpleado)
@@ -849,10 +650,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jpCapacitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jpCapacitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -921,11 +723,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
     private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
 
-            int leg;
-            String sleg;
-            sleg=lblLegajo.getText();
-            leg=Integer.parseInt(sleg);
-            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(leg, this);
+           
+            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
             //pre.opcionRegistrarEmpleado();
@@ -1012,6 +811,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         public void datosPersonalesEmpleado(String leg,String cuil, String nmroDoc, String tipoDocumento, String nombre, String apellido, Date fechaNac, Date fechaIng,Date fechaReg,String email)
         {
+            this.nombre=nombre;
+            this.apellido=apellido;
             lblLegajo.setText(leg);
             lblCuil.setText(cuil);
             lblNroDocumento.setText(nmroDoc);
@@ -1021,7 +822,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             lblTipoDocumento.setText(tipoDocumento);
             lblFechaNacimiento.setText(FechaUtil.getFecha(fechaNac));            
             lblFechaRegistro.setText(FechaUtil.getFecha(fechaReg));
-            lblFechaRegistro.setText(fechaReg.toString());
+            //lblFechaRegistro.setText(fechaReg.toString());
             if(fechaIng!=null)
             {lblFechaIngreso.setText(FechaUtil.getFecha(fechaIng));}
             else

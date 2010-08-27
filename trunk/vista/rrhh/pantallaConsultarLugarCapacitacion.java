@@ -315,7 +315,7 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     if(tblLista.getSelectedRow()!=-1)
+    /* if(tblLista.getSelectedRow()!=-1)
             {
                 // Agrego la fila
                 DefaultTableModel modelo = (DefaultTableModel) tblLista.getModel();
@@ -330,7 +330,7 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
                     pmlc.setVisible(true);
                 }
 
-            }
+            }*/
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
