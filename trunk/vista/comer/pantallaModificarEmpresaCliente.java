@@ -11,7 +11,7 @@
 
 package vista.comer;
 
-import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import controlador.comer.GestorABMEmpresaCliente;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,22 +22,29 @@ import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
+import vista.interfaces.IPantallaEmpresaClienteABM;
 
 /**
  *
  * @author Emmanuel
  */
-public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame {
-    private GestorRegistrarNuevaEmpresaCliente gestor;
+public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame implements IAyuda, IPantallaEmpresaClienteABM, ICallBack{
+    private GestorABMEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
     private pantallaBuscarEmpresaCliente pBuscar=null;
     private int idEmpresa;
+    private ArrayList<Integer> telsBorrados;
+    private ArrayList<Integer> plantasBorradas;
     /** Creates new form pantallaModificarEmpresaCliente */
 
     pantallaModificarEmpresaCliente(pantallaBuscarEmpresaCliente p) {
         initComponents();
         this.pBuscar = p;
         this.idEmpresa = p.getIdEmpresaClienteSeleccionado();
+        this.gestor = new GestorABMEmpresaCliente(this);
+        mostrarTiposTelefono();
         cargarDatosEmpresaClienteAModificar();
     }
 
@@ -106,22 +113,21 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     private void quitarTelefono()
     {   if((tablaTelefonos.getSelectedRowCount())==1)
         {
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        modelo.removeRow(tablaTelefonos.getSelectedRow());
+            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+            modelo.removeRow(tablaTelefonos.getSelectedRow());
+            Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+            this.gestor.borrarTelefono(t.getId());
         }
     }
 
-        private HashSet<NTupla> cargarTelefonos()
-    {
+    private ArrayList<NTupla> cargarTelefonos(){
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Iterator it = modelo.getDataVector().iterator();
 
-        HashSet<NTupla> listaTelefonos = new HashSet<NTupla>();
+        ArrayList<NTupla> listaTelefonos = new ArrayList<NTupla>();
         while (it.hasNext())
         {
             Vector fila = (Vector)it.next();
-
-            System.out.println("HOLA");
             Tupla tipo = (Tupla)fila.get(0);
 
             NTupla nt = new NTupla();
@@ -137,7 +143,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         }
         return listaTelefonos;
     }
-            private void mostrarTiposTelefono(){
+
+    private void mostrarTiposTelefono(){
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         ArrayList<Tupla> lista = gestor.mostrarTiposTelefono();
         Iterator<Tupla> it = lista.iterator();
@@ -148,11 +155,27 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbTipoTelefono.setModel(valores);
     }
 
-    public void plantaAgregada()
-    {
-        lblNuevaPlanta.setText("Se agregó con éxito la nueva Planta");
-        btnNuevaPlanta.setEnabled(false);
+//    public void telefonoAgregado(){
+//        ArrayList<NTupla> tels = gestor.getTelefonos();
+//        for(NTupla nt : tels){
+//            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+//            Object[] item = new Object[2];
+//            item[0] = new Tupla(nt.getId(),nt.getNombre());// GUARDO EL INDICE DEL ARRAYLIST DEL GESTOR DE LAS PLANTAS
+//            item[1] = (String)nt.getData();
+//            modelo.addRow(item);
+//        }
+//    }
+
+    public void plantaAgregada(){
         btnNuevaEmpresa.setEnabled(true);
+        ArrayList<NTupla> pls = gestor.getPlantas();
+        for(NTupla nt : pls){
+            DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+            Object[] item = new Object[2];
+            item[0] = new Tupla(nt.getId(),nt.getNombre());// GUARDO EL INDICE DEL ARRAYLIST DEL GESTOR DE LAS PLANTAS
+            item[1] = (String)nt.getData();
+            modelo.addRow(item);
+        }
     }
 
     private void formatearTablaTelefonos()
@@ -222,14 +245,119 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbBarrio.setModel(valores);
     }
 
-    private void agregarTelefonoTabla(Tupla tipo, String numero)
-    {
+    private void agregarTelefonoTabla(Tupla tipo, String numero){
+        int indice = gestor.agregarTelefono(tipo,numero);
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Object[] item = new Object[2];
-        item[0] = tipo;
+        item[0] = new Tupla(indice,tipo.getNombre());
         item[1] = numero;
         modelo.addRow(item);
     }
+    
+    public void mostrarEstadoEmpresa(String estado) {
+        this.txtEstado.setText(estado);
+    }
+
+    public void mostrarRZEmpresa(String razonSocial) {
+        this.txtRazonSocial.setText(razonSocial);
+    }
+
+    public void mostrarCUITEmpresa(String cuit) {
+        this.txtCuit.setText(cuit);
+    }
+
+    public void mostrarEmailEmpresa(String email) {
+        this.txtEmail.setText(email);
+    }
+
+    public void mostrarPaginaWebEmpresa(String paginaWeb) {
+        this.txtPaginaWeb.setText(paginaWeb);
+    }
+
+    public void mostrarDomicilioEmpresa(String calle, String nro, String piso, String dpto, String cp) {
+       this.txtCalle.setText(calle);
+       this.txtAltura.setText(nro);
+       this.txtPiso.setText(piso);
+       this.txtDpto.setText(dpto);
+       this.txtCP.setText(cp);
+    }
+
+    public void mostrarBarrioEmpresa(Tupla barrio) {
+        mostrarBarrios();
+        Tupla t=null;
+        for(int i=0;i<cmbBarrio.getModel().getSize();i++){
+            t = (Tupla)cmbBarrio.getModel().getElementAt(i);
+            if(barrio.getId()==t.getId()){
+                cmbBarrio.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void mostrarLocalidadEmpresa(Tupla localidad) {
+        mostrarLocalidades();
+        Tupla t=null;
+        for(int i=0;i<cmbLocalidades.getModel().getSize();i++){
+            t = (Tupla)cmbLocalidades.getModel().getElementAt(i);
+            if(localidad.getId()==t.getId()){
+                cmbLocalidades.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void mostrarProvinciaEmpresa(Tupla provincia) {
+        mostrarProvincias();
+        Tupla t=null;
+        for(int i=0;i<cmbProvincias.getModel().getSize();i++){
+            t = (Tupla)cmbProvincias.getModel().getElementAt(i);
+            if(provincia.getId()==t.getId()){
+                cmbProvincias.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void mostrarPaisEmpresa(Tupla pais) {
+        mostrarPaises();
+        Tupla t=null;
+        for(int i=0;i<cmbPais.getModel().getSize();i++){
+            t = (Tupla)cmbPais.getModel().getElementAt(i);
+            if(pais.getId()==t.getId()){
+                cmbPais.setSelectedItem(t);
+                break;
+            }
+        }
+    }
+
+    public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos) {
+        formatearTablaTelefonos();
+        DefaultTableModel dtm = (DefaultTableModel)this.tablaTelefonos.getModel();
+        Iterator it = listaTelefonos.iterator();
+        NTupla nt = null;
+        Tupla t = null;
+        while(it.hasNext()){
+            nt = (NTupla)it.next();
+            Tupla tu = new Tupla(nt.getId(),nt.getNombre());
+            this.agregarTelefonoTabla(tu, (String)nt.getData());
+        }
+    }
+
+    public void mostrarDatosPlantas(ArrayList<NTupla> listaPlantas) {
+        DefaultTableModel tm = (DefaultTableModel)this.tablaPlantas.getModel();
+        for (NTupla planta : listaPlantas) {
+            Object[] item = new Object[2];
+            item[0] = planta;
+            item[1] = (String)planta.getData();
+            tm.addRow(item);
+        }
+        //tablaPlantas.setModel(tm);
+    }
+
+    public void actualizar(int flag, boolean exito) {
+        plantaAgregada();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -248,6 +376,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel2 = new javax.swing.JLabel();
         txtPaginaWeb = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
         btnNuevaEmpresa = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -271,18 +401,20 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel13 = new javax.swing.JLabel();
         cmbPais = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarProvincia = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         cmbLocalidades = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
+        btnAgregarLocalidad = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         cmbBarrio = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
+        btnAgregarBarrio = new javax.swing.JButton();
         cmbProvincias = new javax.swing.JComboBox();
+        btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnNuevaPlanta = new javax.swing.JButton();
-        lblNuevaPlanta = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
+        btnBorrarPlanta = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaPlantas = new javax.swing.JTable();
 
         setTitle("Modificar Empresa Cliente");
 
@@ -294,23 +426,16 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Email:");
 
-        txtCuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCuitActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("CUIT");
 
-        txtPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPaginaWebActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Página Web:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setText("Estado:");
+
+        txtEstado.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -322,15 +447,19 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -342,7 +471,9 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,12 +507,6 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         ));
         jScrollPane3.setViewportView(tablaTelefonos);
-
-        txtNumeroTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroTelefonoActionPerformed(evt);
-            }
-        });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Tipo y Número de Teléfono :");
@@ -441,20 +566,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Calle: ");
 
-        txtCalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalleActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Nº:");
-
-        txtAltura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAlturaActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Piso:");
@@ -477,10 +590,10 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("Provincia:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarProvincia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarProvinciaActionPerformed(evt);
             }
         });
 
@@ -493,20 +606,20 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarLocalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarLocalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgregarLocalidadActionPerformed(evt);
             }
         });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Barrio:");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarBarrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarBarrio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAgregarBarrioActionPerformed(evt);
             }
         });
 
@@ -542,7 +655,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCP, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCP, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -552,25 +665,24 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbProvincias, 0, 131, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnAgregarProvincia))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnAgregarLocalidad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbBarrio, 0, 107, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(btnAgregarBarrio)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -587,7 +699,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13))
-                    .addComponent(jButton1)
+                    .addComponent(btnAgregarProvincia)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(cmbProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -595,46 +707,11 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel15)
                     .addComponent(cmbLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                    .addComponent(btnAgregarLocalidad)
                     .addComponent(jLabel16)
                     .addComponent(cmbBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)))
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Agregar una Nueva Planta"));
-
-        btnNuevaPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnNuevaPlanta.setText("Agregar Planta");
-        btnNuevaPlanta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaPlantaActionPerformed(evt);
-            }
-        });
-
-        lblNuevaPlanta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNuevaPlanta.setText("Por favor ingrese una nueva Planta para finalizar la registración");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(lblNuevaPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(btnNuevaPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNuevaPlanta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNuevaPlanta))
+                    .addComponent(btnAgregarBarrio))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -645,60 +722,116 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Plantas"));
+
+        btnNuevaPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevaPlanta.setText("Agregar Planta");
+        btnNuevaPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaPlantaActionPerformed(evt);
+            }
+        });
+
+        btnBorrarPlanta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnBorrarPlanta.setText("Quitar Planta");
+        btnBorrarPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarPlantaActionPerformed(evt);
+            }
+        });
+
+        tablaPlantas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Razón Social", "Dirección"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaPlantas);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnNuevaPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBorrarPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnNuevaPlanta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarPlanta))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
-                .addComponent(btnNuevaEmpresa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNuevaEmpresa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtCuitActionPerformed
 
     private void btnNuevaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaEmpresaActionPerformed
         if(ValidarDatos()){
@@ -710,9 +843,9 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             gestor.seleccionLocalidad(((Tupla)cmbLocalidades.getSelectedItem()).getId());
             gestor.seleccionProvincia(((Tupla)cmbProvincias.getSelectedItem()).getId());
             gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
-            gestor.telefono(this.cargarTelefonos());
+            //gestor.telefono(this.cargarTelefonos());
             gestor.paginaWeb(this.txtPaginaWeb.getText());
-            int id = gestor.confirmacionRegistro();
+            int id = gestor.confirmacionModificacionRegistro(this.idEmpresa);
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             if(pBuscar!=null){
                 pBuscar.actualizar(id, true);
@@ -721,12 +854,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         }
 }//GEN-LAST:event_btnNuevaEmpresaActionPerformed
 
-    private void txtNumeroTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroTelefonoActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtNumeroTelefonoActionPerformed
-
     private void btnNuevoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoTelefonoActionPerformed
-
         if(!txtNumeroTelefono.getText().isEmpty()) {
             agregarTelefonoTabla((Tupla)cmbTipoTelefono.getSelectedItem(), txtNumeroTelefono.getText());
         }
@@ -737,14 +865,6 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         this.quitarTelefono();
 }//GEN-LAST:event_btnQuitarTelefonoActionPerformed
 
-    private void txtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtCalleActionPerformed
-
-    private void txtAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtAlturaActionPerformed
-
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
         cmbProvincias.setModel(new DefaultComboBoxModel());
         cmbLocalidades.setModel(new DefaultComboBoxModel());
@@ -752,22 +872,22 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         mostrarProvincias();
 }//GEN-LAST:event_cmbPaisActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProvinciaActionPerformed
         SwingPanel.getInstance().mensajeEnConstruccion();
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_btnAgregarProvinciaActionPerformed
 
     private void cmbLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadesActionPerformed
         cmbBarrio.setModel(new DefaultComboBoxModel());
         mostrarBarrios();
 }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAgregarLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLocalidadActionPerformed
         SwingPanel.getInstance().mensajeEnConstruccion();
-}//GEN-LAST:event_jButton2ActionPerformed
+}//GEN-LAST:event_btnAgregarLocalidadActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAgregarBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBarrioActionPerformed
         SwingPanel.getInstance().mensajeEnConstruccion();
-}//GEN-LAST:event_jButton3ActionPerformed
+}//GEN-LAST:event_btnAgregarBarrioActionPerformed
 
     private void cmbProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciasActionPerformed
         cmbBarrio.setModel(new DefaultComboBoxModel());
@@ -775,21 +895,30 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         mostrarLocalidades();
 }//GEN-LAST:event_cmbProvinciasActionPerformed
 
-    private void btnNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlantaActionPerformed
-
-        gestor.registrarNuevaPlanta(txtRazonSocial.getText());
-    }//GEN-LAST:event_btnNuevaPlantaActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaginaWebActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPaginaWebActionPerformed
+    private void btnNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlantaActionPerformed
+        gestor.registrarNuevaPlanta(txtRazonSocial.getText());
+    }//GEN-LAST:event_btnNuevaPlantaActionPerformed
 
+    private void btnBorrarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPlantaActionPerformed
+        // TODO add your handling code here:
+        Tupla fila = null;
+        if((tablaPlantas.getSelectedRowCount())==1) {
+            DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+            modelo.removeRow(tablaPlantas.getSelectedRow());
+            fila = (Tupla)modelo.getValueAt(tablaPlantas.getSelectedRow(),0);
+            gestor.borrarPlanta(fila.getId());
+        }
+}//GEN-LAST:event_btnBorrarPlantaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarBarrio;
+    private javax.swing.JButton btnAgregarLocalidad;
+    private javax.swing.JButton btnAgregarProvincia;
+    private javax.swing.JButton btnBorrarPlanta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevaEmpresa;
     private javax.swing.JButton btnNuevaPlanta;
@@ -800,9 +929,6 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JComboBox cmbPais;
     private javax.swing.JComboBox cmbProvincias;
     private javax.swing.JComboBox cmbTipoTelefono;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -815,6 +941,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -822,7 +949,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblNuevaPlanta;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable tablaPlantas;
     private javax.swing.JTable tablaTelefonos;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtCP;
@@ -830,6 +958,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtDpto;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNumeroTelefono;
     private javax.swing.JTextField txtPaginaWeb;
     private javax.swing.JTextField txtPiso;
@@ -837,7 +966,18 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatosEmpresaClienteAModificar() {
-        //gestor.cargar
+        gestor.seleccionEmpresaCliente(this.idEmpresa);
     }
 
+    public String getTituloAyuda() {
+        return "Modificar Datos Empresa Cliente";
+    }
+
+    public String getResumenAyuda() {
+        return  "Esta ventana le permitirá modificar los datos de la empresa cliente y sus plantas asociadas";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
 }

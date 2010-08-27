@@ -11,7 +11,7 @@
 
 package vista.comer;
 
-import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import controlador.comer.GestorABMEmpresaCliente;
 import controlador.comer.GestorRegistrarPedido;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,20 +27,22 @@ import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
+import vista.interfaces.IPantallaEmpresaClienteABM;
 
 /**
  *
  * @author iuga
  */
-public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda{
-    private GestorRegistrarNuevaEmpresaCliente gestor;
+public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda, IPantallaEmpresaClienteABM, ICallBack{
+    private GestorABMEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
     private pantallaBuscarEmpresaCliente pBuscar=null;
     private final GestorRegistrarPedido grp;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
-        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
+        gestor = new GestorABMEmpresaCliente(this);
         initComponents();
         habilitarVentana();
         mostrarPaises();
@@ -51,7 +53,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }
 
     public pantallaRegistrarEmpresaCliente(pantallaBuscarEmpresaCliente p) {
-        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
+        gestor = new GestorABMEmpresaCliente(this);
         this.pBuscar = p;
         initComponents();
         habilitarVentana();
@@ -64,7 +66,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
 
     public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
-        gestor = new GestorRegistrarNuevaEmpresaCliente(this);
+        gestor = new GestorABMEmpresaCliente(this);
         initComponents();
         habilitarVentana();
         mostrarPaises();
@@ -75,7 +77,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     public void habilitarVentana()
     {
-
     }
 
     private void mostrarTiposTelefono(){
@@ -89,17 +90,14 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbTipoTelefono.setModel(valores);
     }
 
-    public void plantaAgregada()
-    {
-        //lblNuevaPlanta.setText("Se agregó con éxito la nueva Planta");
-//        btnNuevaPlanta.setEnabled(false);
+    public void plantaAgregada(){
         btnNuevaEmpresa.setEnabled(true);
-        ArrayList<Tupla> pls = gestor.getPlantas();
-        for(Tupla t : pls){
+        ArrayList<NTupla> pls = gestor.getPlantas();
+        for(NTupla nt : pls){
             DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
             Object[] item = new Object[2];
-            item[0] = t.getNombre();
-            item[1] = t.getId();
+            item[0] = new Tupla(nt.getId(),nt.getNombre());// GUARDO EL INDICE DEL ARRAYLIST DEL GESTOR DE LAS PLANTAS
+            item[1] = (String)nt.getData();
             modelo.addRow(item);
         }
     }
@@ -171,13 +169,13 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbBarrio.setModel(valores);
     }
 
-    private void agregarTelefonoTabla(Tupla tipo, String numero)
-    {
+    private void agregarTelefonoTabla(Tupla tipo, String numero){
+        int indice = gestor.agregarTelefono(tipo,numero);
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Object[] item = new Object[2];
-        item[0] = tipo;
+        item[0] = new Tupla(indice,tipo.getNombre());
         item[1] = numero;
-        modelo.addRow(item); 
+        modelo.addRow(item);
     }
 
     /** This method is called from within the constructor to
@@ -203,13 +201,13 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel13 = new javax.swing.JLabel();
         cmbPais = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarProvincia = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         cmbLocalidades = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
+        btnAgregarLocalidad = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         cmbBarrio = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
+        btnAgregarBarrio = new javax.swing.JButton();
         cmbProvincias = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -246,21 +244,11 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel8.setText("Calle: ");
 
         txtCalle.setText("Av. Julio A. Roca");
-        txtCalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalleActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Nº:");
 
         txtAltura.setText("1234");
-        txtAltura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAlturaActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Piso:");
@@ -289,10 +277,10 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("Provincia:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarProvincia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarProvinciaActionPerformed(evt);
             }
         });
 
@@ -305,20 +293,20 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarLocalidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarLocalidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAgregarLocalidadActionPerformed(evt);
             }
         });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Barrio:");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarBarrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarBarrio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAgregarBarrioActionPerformed(evt);
             }
         });
 
@@ -364,19 +352,19 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbProvincias, 0, 131, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnAgregarProvincia))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnAgregarLocalidad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbBarrio, 0, 107, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(btnAgregarBarrio)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -399,7 +387,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13))
-                    .addComponent(jButton1)
+                    .addComponent(btnAgregarProvincia)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
                         .addComponent(cmbProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -407,10 +395,10 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel15)
                     .addComponent(cmbLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                    .addComponent(btnAgregarLocalidad)
                     .addComponent(jLabel16)
                     .addComponent(cmbBarrio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)))
+                    .addComponent(btnAgregarBarrio)))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Empresa"));
@@ -514,11 +502,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jScrollPane3.setViewportView(tablaTelefonos);
 
         txtNumeroTelefono.setText("5455");
-        txtNumeroTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroTelefonoActionPerformed(evt);
-            }
-        });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Tipo y Número de Teléfono :");
@@ -682,32 +665,18 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtCalleActionPerformed
-
-    private void txtNumeroTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroTelefonoActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtNumeroTelefonoActionPerformed
-
-    /**
-     * IUGA
-     * @param evt
-     */
     private void btnNuevoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoTelefonoActionPerformed
-
     if(!txtNumeroTelefono.getText().isEmpty())
     {
         agregarTelefonoTabla((Tupla)cmbTipoTelefono.getSelectedItem(), txtNumeroTelefono.getText());
     }
     txtNumeroTelefono.setText(""); // lo vacio para q cargue otro
-
 }//GEN-LAST:event_btnNuevoTelefonoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -728,20 +697,19 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     private void btnNuevaPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlantaActionPerformed
         gestor.registrarNuevaPlanta(txtRazonSocial.getText());
-
     }//GEN-LAST:event_btnNuevaPlantaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               SwingPanel.getInstance().mensajeEnConstruccion();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAgregarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProvinciaActionPerformed
+           SwingPanel.getInstance().mensajeEnConstruccion();
+    }//GEN-LAST:event_btnAgregarProvinciaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-               SwingPanel.getInstance().mensajeEnConstruccion();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnAgregarLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLocalidadActionPerformed
+           SwingPanel.getInstance().mensajeEnConstruccion();
+    }//GEN-LAST:event_btnAgregarLocalidadActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-               SwingPanel.getInstance().mensajeEnConstruccion();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnAgregarBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBarrioActionPerformed
+           SwingPanel.getInstance().mensajeEnConstruccion();
+    }//GEN-LAST:event_btnAgregarBarrioActionPerformed
 
     private void cmbProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciasActionPerformed
         cmbBarrio.setModel(new DefaultComboBoxModel());
@@ -759,7 +727,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             gestor.seleccionLocalidad(((Tupla)cmbLocalidades.getSelectedItem()).getId());
             gestor.seleccionProvincia(((Tupla)cmbProvincias.getSelectedItem()).getId());
             gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
-            gestor.telefono(this.cargarTelefonos());
+//            gestor.telefono(this.cargarTelefonos());
             gestor.paginaWeb(this.txtPaginaWeb.getText());
             int id = gestor.confirmacionRegistro();
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Empresa.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
@@ -777,22 +745,18 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCuitActionPerformed
 
-    private void txtAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAlturaActionPerformed
-
     private void btnQuitarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarTelefonoActionPerformed
         this.quitarTelefono();
     }//GEN-LAST:event_btnQuitarTelefonoActionPerformed
 
     private void btnBorrarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPlantaActionPerformed
         // TODO add your handling code here:
-        if((tablaPlantas.getSelectedRowCount())==1)
-        {
+        Tupla fila = null;
+        if((tablaPlantas.getSelectedRowCount())==1){
             DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
             modelo.removeRow(tablaPlantas.getSelectedRow());
-            //gestor.removePlanta(tablaPlantas.getCe tablaPlantas.getSelectedRow())
-            //tablaPlantas.
+            fila = (Tupla)modelo.getValueAt(tablaPlantas.getSelectedRow(),0);
+            gestor.borrarPlanta(fila.getId());
         }
     }//GEN-LAST:event_btnBorrarPlantaActionPerformed
 
@@ -899,12 +863,17 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private void quitarTelefono()
     {   if((tablaTelefonos.getSelectedRowCount())==1)
         {
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        modelo.removeRow(tablaTelefonos.getSelectedRow());
+            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+            modelo.removeRow(tablaTelefonos.getSelectedRow());
+            Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+            this.gestor.borrarTelefono(t.getId());
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarBarrio;
+    private javax.swing.JButton btnAgregarLocalidad;
+    private javax.swing.JButton btnAgregarProvincia;
     private javax.swing.JButton btnBorrarPlanta;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevaEmpresa;
@@ -916,9 +885,6 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JComboBox cmbPais;
     private javax.swing.JComboBox cmbProvincias;
     private javax.swing.JComboBox cmbTipoTelefono;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -963,6 +929,58 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     public int getIdAyuda() {
         return 0;
+    }
+
+    public void mostrarEstadoEmpresa(String estado) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarRZEmpresa(String razonSocial) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarCUITEmpresa(String cuit) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarEmailEmpresa(String email) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarPaginaWebEmpresa(String paginaWeb) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarDomicilioEmpresa(String calle, String nro, String piso, String dpto, String cp) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarBarrioEmpresa(Tupla barrio) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarLocalidadEmpresa(Tupla localidad) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarProvinciaEmpresa(Tupla provincia) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarPaisEmpresa(Tupla pais) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarDatosPlantas(ArrayList<NTupla> listaPlantas) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void actualizar(int flag, boolean exito) {
+        plantaAgregada();
     }
 
 }

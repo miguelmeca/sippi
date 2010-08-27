@@ -24,17 +24,19 @@ public interface IPantallaEmpresaClienteABM {
 
     public void mostrarPaginaWebEmpresa(String paginaWeb);
 
-    public void mostrarDomicilioEmpresa(String direccion);
+    public void mostrarDomicilioEmpresa(String calle,String nro,String piso,String dpto,String cp);
 
-    public void mostrarBarrioEmpresa(String barrio);
+    public void mostrarBarrioEmpresa(Tupla barrio);
 
-    public void mostrarLocalidadEmpresa(String localidad);
+    public void mostrarLocalidadEmpresa(Tupla localidad);
 
-    public void mostrarProvinciaEmpresa(String provincia);
+    public void mostrarProvinciaEmpresa(Tupla provincia);
 
-    public void mostrarPaisEmpresa(String pais);
+    public void mostrarPaisEmpresa(Tupla pais);
 
     public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos);
 
     public void mostrarDatosPlantas(ArrayList<NTupla> listaPlantas);
+
+    public void plantaAgregada();
 }

@@ -11,24 +11,6 @@ package modelo;
 //
 
 public abstract class EstadoPedidoObra extends EstadoAbstracto {
-/**
-        public EstadoPedidoObra()
-        {
-            super();
-        }
-
-        public boolean esActiva() {
-            return false;
-	}
-	
-	public boolean esConfirmada() {
-            return false;
-	}
-
-        public boolean esPendiente() {
-            return false;
-	}
-**/
         public abstract boolean esSolicitado();
 
         public abstract boolean esPresupuestado();

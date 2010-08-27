@@ -323,11 +323,11 @@ public class pantallaConsultarLugarCapacitacion extends javax.swing.JInternalFra
 
                 if(tp.getId()!=0)
                 {
-                    // LLAMO A LA PANTALLA QUE MODIFICA !!
-                    pantallaModificarLugarCapacitacion pmlc = new pantallaModificarLugarCapacitacion(tp.getId());
-                    SwingPanel.getInstance().addWindow(pmlc);
-                    pmlc.setPantalla(this);
-                    pmlc.setVisible(true);
+//                    // LLAMO A LA PANTALLA QUE MODIFICA !!
+//                    pantallaModificarLugarCapacitacion pmlc = new pantallaModificarLugarCapacitacion(tp.getId());
+//                    SwingPanel.getInstance().addWindow(pmlc);
+//                    pmlc.setPantalla(this);
+//                    pmlc.setVisible(true);
                 }
 
             }*/

@@ -31,7 +31,7 @@
       <property column="LEGAJO" name="legajo" not-null="true" type="integer"/>
       <!--property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/-->
       <!--property column="FECH_BAJA" name="fechaBaja" type="date"/-->
-      <property column="FECHA_INGRESO" name="fechaIngreso"  type="date"/>
+      <property column="FECHA_INGRESO" name="fechaIngreso" type="date"/>
       <property column="RANGO" name="rango" type="string"/>
       <set name="especialidades">
         <key column="ID_Empleado"/>

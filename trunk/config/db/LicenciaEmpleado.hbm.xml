@@ -11,19 +11,10 @@
     <property column="ESTADO" name="estado" type="string"/>
     <many-to-one class="modelo.Empleado" column="ID_EMPLEADO" name="empleado"/>
     <many-to-one class="modelo.TipoLicenciaEmpleado" column="ID_TIPO_LICENCIA" name="tipoLicencia"/>
-
-
-    <filter name="filtroLicenciaEmpleado" condition="ID_EMPLEADO = :idEmpleado"/>
-
-
-
+    <filter condition="ID_EMPLEADO = :idEmpleado" name="filtroLicenciaEmpleado"/>
   </class>
-
   <!-- VA AFUERA DEL CLASS -->
   <filter-def name="filtroLicenciaEmpleado">
     <filter-param name="idEmpleado" type="integer"/>
   </filter-def>
-
 </hibernate-mapping>
-
-

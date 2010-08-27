@@ -51,7 +51,7 @@ public class GestorBuscarEmpresaCliente {
             e.setNombre(ec.getRazonSocial());
             datos.add(ec.getCuit());
             datos.add(ec.getEmail());
-            datos.add(ec.getEstado());
+            datos.add(ec.getEstado().getNombre());
             datos.add(ec.getPaginaWeb());
             Iterator itPlantas = ec.getPlantas().iterator();
             Planta p = null;

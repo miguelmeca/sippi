@@ -15,7 +15,7 @@
       <key column="ID_EMPRESA"/>
       <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
     </set>
-    <property column="ESTADO" name="estado" type="string"/>
+    <property name="hib_flag_estado" not-null="true" type="string"/>
     <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO
     <set name="telefonos" table="EMPRESAXTELEFONO">
        La columna clave de la tabla EMPRESAXTELEFONO que se relaciona
