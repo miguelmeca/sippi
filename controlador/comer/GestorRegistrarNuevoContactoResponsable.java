@@ -4,7 +4,7 @@ package controlador.comer;
 
 import java.util.ArrayList;
 import java.util.List;
-import modelo.TipoDocumento;
+//import modelo.TipoDocumento;
 import modelo.TipoTelefono;
 import modelo.Telefono;
 import modelo.EmpresaCliente;
@@ -14,11 +14,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import vista.comer.pantallaRegistrarContactoResponsable;
-import controlador.utiles.gestorGeoLocalicacion;
+//import controlador.utiles.gestorGeoLocalicacion;
 import controlador.utiles.gestorBDvarios;
 import util.Tupla;
 import java.util.Date;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.Iterator;
 
 //import java.util.Set;
@@ -35,7 +35,7 @@ import java.util.Iterator;
 
 
 
-public class GestorRegistrarNuevoContactoResponsable {
+public class GestorRegistrarNuevoContactoResponsable  implements IGestorContactoResponsable{
 
         private pantallaRegistrarContactoResponsable pantalla;
         
@@ -62,12 +62,12 @@ public class GestorRegistrarNuevoContactoResponsable {
     }
         
 
-        public ArrayList<Tupla> mostrarTiposDeDocumento() {
+       /* public ArrayList<Tupla> mostrarTiposDeDocumento() {
 
            gestorBDvarios bdv = new gestorBDvarios();
            return bdv.getTiposDeDocumento();
 
-	}
+	}*/
         public ArrayList<Tupla> mostrarEmpresas() {
 
            gestorBDvarios bdv = new gestorBDvarios();
@@ -217,7 +217,9 @@ public class GestorRegistrarNuevoContactoResponsable {
             Date fechaAltaActual=fechaActual;
            // fecha_Alta=System
             
+
             ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable,cargoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
+
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
             return cr;
