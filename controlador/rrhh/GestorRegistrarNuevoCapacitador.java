@@ -18,6 +18,7 @@ import util.HibernateUtil;
 import vista.rrhh.pantallaRegistrarCapacitador;
 import controlador.utiles.gestorGeoLocalicacion;
 import controlador.utiles.gestorBDvarios;
+import controlador.rrhh.IGestorCapacitador;
 import util.Tupla;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ import java.util.Iterator;
 
 
 
-public class GestorRegistrarNuevoCapacitador {
+public class GestorRegistrarNuevoCapacitador implements IGestorCapacitador{
 
         private pantallaRegistrarCapacitador pantalla;
         private TipoDocumento tipoDocumentoCapacitador;
@@ -84,7 +85,7 @@ public class GestorRegistrarNuevoCapacitador {
 
 	}
 	
-        public boolean ValidarDocumento(String nroDoc)
+        public boolean ValidarDocumento(String nroDoc, Tupla td)
         {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
@@ -92,14 +93,32 @@ public class GestorRegistrarNuevoCapacitador {
             boolean aprobado=true;
             listNroDoc =sesion.createQuery("Select nroDoc from modelo.Capacitador").list();//
             String n;
+            //int docRepetido;
             for(int i=0; i<listNroDoc.size();i++)
             {
                 n=(String)listNroDoc.get(i);
                 if(n.equals(nroDoc))
-                {aprobado=false;}
+                {aprobado=false;
+                 break;
+                 //indicedocRepetido=i;
+                }
             }
-            return aprobado;
+            boolean aprobado2=true;
+            if(aprobado==false)
+            {
+                List tipoDoc=sesion.createQuery("Select cap.tipoDoc from modelo.Capacitador as cap where cap.nroDoc ="+nroDoc).list();
+                for (int i= 0; i < tipoDoc.size(); i++)
+                {
+                    if(((TipoDocumento)tipoDoc.get(i)).getId()==td.getId())
+                    {aprobado2=false;
+                    break;}
+                }
+            }
+
+            boolean aprobadoFinal=(aprobado || aprobado2);
+            return aprobadoFinal;
         }
+
 	
         public boolean ValidarCuil(String cuil)
         {
@@ -133,7 +152,10 @@ public class GestorRegistrarNuevoCapacitador {
 	public void datosDomicilioCapacitador(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio)
         {
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();                        
-            barrioD =ggl.getBarrio(tBarrio.getId());
+            if(tBarrio.getId()>=0)
+            {barrioD =ggl.getBarrio(tBarrio.getId());}
+            else
+            {barrioD=null;}
             if(nro.equals(""))
             {nmroD=0;}
             else{
@@ -218,14 +240,13 @@ public class GestorRegistrarNuevoCapacitador {
             Session sesion;
             ///////////////////////////////////
              try {
-                    //sesion = HibernateUtil.getSession();
-                     SessionFactory sf = HibernateUtil.getSessionFactory();
+                    sesion = HibernateUtil.getSession();
+                    // SessionFactory sf = HibernateUtil.getSessionFactory();
+                    //sesion = sf.openSession();
 
-
-                    sesion = sf.openSession();
                     try{
-                    //HibernateUtil.beginTransaction();
-                    sesion.beginTransaction();
+                    HibernateUtil.beginTransaction();
+                    //sesion.beginTransaction();
 
                     Iterator itt=capacitador.getTelefonos().iterator();
                     while(itt.hasNext())
@@ -246,8 +267,8 @@ public class GestorRegistrarNuevoCapacitador {
                     sesion.save(capacitador);
 
 
-                    sesion.getTransaction().commit();
-                    //HibernateUtil.commitTransaction();
+                   /// sesion.getTransaction().commit();
+                    HibernateUtil.commitTransaction();
                     
                     return true;
                     }catch(Exception e) {
@@ -263,7 +284,22 @@ public class GestorRegistrarNuevoCapacitador {
             }
             
 	}
-		
+	public void vaciarDatos()
+        {
+        tipoDocumentoCapacitador=null;
+	nroDocumento=null;
+        nombreCapacitador=null;
+        apellidoCapacitador=null;
+        emailCapacitador=null;
+        cuilCapacitador=null;
+        fechaNacimientoCapacitador=null;
+        calleD=null;
+        nmroD=0;
+        pisoD=0;
+        departamentoD=null;
+        codigoPostalD=null;
+        barrioD=null;
+        }
 	public Capacitador crearCapacitador()
         {
 

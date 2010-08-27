@@ -222,14 +222,14 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
            return bdv.getTipoCapacitacion();
 
 	}
-        public boolean levantarEmpleado(int leg)
+        public boolean levantarEmpleado(int id)
         {
             Session sesion;
             ///////////////////////////////////
              try {
                     sesion = HibernateUtil.getSession();
             //sesion.beginTransaction();
-            empleadoModif = (Empleado) sesion.createQuery("from Empleado where legajo ="+leg).uniqueResult();
+            empleadoModif = (Empleado) sesion.createQuery("from Empleado where id ="+id).uniqueResult();
               } catch (Exception ex)
             {
                 System.out.println("Error levantando el empleado");
@@ -239,7 +239,7 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
             nroDocumentoOriginal=empleadoModif.getNroDoc();
             cuilEmpleadoOriginal=empleadoModif.getCuil();
             //Envio a la pantalla los datos personales del empleado levantado
-            pantalla.datosPersonalesEmpleado(String.valueOf(leg), empleadoModif.getCuil(), empleadoModif.getNroDoc(), empleadoModif.getTipoDoc().getId(),empleadoModif.getNombre(), empleadoModif.getApellido(), empleadoModif.getFechadeNac(),empleadoModif.getFechaIngreso(), empleadoModif.getEmail());
+            pantalla.datosPersonalesEmpleado(String.valueOf(empleadoModif.getLegajo()), empleadoModif.getCuil(), empleadoModif.getNroDoc(), empleadoModif.getTipoDoc().getId(),empleadoModif.getNombre(), empleadoModif.getApellido(), empleadoModif.getFechadeNac(),empleadoModif.getFechaIngreso(), empleadoModif.getEmail());
             //Envio a la pantalla los telefonos del empleado levantado
             Telefono[] tel=empleadoModif.getTelefonos().toArray(new Telefono[0]);
             ArrayList listaNro=new ArrayList<String>();
@@ -329,7 +329,10 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
 	public void datosDomicilioEmpleado(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio)
         {
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-            barrioD =ggl.getBarrio(tBarrio.getId());
+            if(tBarrio.getId()<=0)
+            {barrioD=null;}
+            else
+            {barrioD =ggl.getBarrio(tBarrio.getId());}
             if(nro.equals(""))
             {nmroD=0;}
             else{
@@ -385,14 +388,13 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
 
 	public boolean empleadoModificado()
         {
-            Empleado empleado;
+           // Empleado empleado;
             
             Session sesion;
             ///////////////////////////////////
              try {
                     sesion = HibernateUtil.getSession();
-                     //SessionFactory sf = HibernateUtil.getSessionFactory();
-                    //sesion = sf.openSession();
+                    
                     try{
                     HibernateUtil.beginTransaction();
                     //sesion.beginTransaction();
@@ -418,41 +420,43 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
                     }
                     if(empleadoModif.getDomicilio()!=null)
                     {sesion.delete(empleadoModif.getDomicilio());}
-                    sesion.delete(empleadoModif);
+                    //sesion.delete(empleadoModif);
                     ////////////////////////////
                     ////////////////////////////////
                    try{
-                    empleado=modificarEmpleado();}
+                    //empleado=modificarEmpleado();
+                       modificarEmpleado();
+                   }
                     catch (Exception ex)
                     {
                     System.out.println("No se pudo modificar el empleado");
                     return false;
                     }
-                    Iterator itt=empleado.getTelefonos().iterator();
+                    Iterator itt=empleadoModif.getTelefonos().iterator();
                     while(itt.hasNext())
                     {
                         Telefono tel=(Telefono)itt.next();
                         sesion.save(tel);
                     }
-                    Iterator itEsp=empleado.getEspecialidades().iterator();
+                    Iterator itEsp=empleadoModif.getEspecialidades().iterator();
                     while(itEsp.hasNext())
                     {
                         Especialidad esp=(Especialidad)itEsp.next();
                         sesion.save(esp);
                     }
 
-                   Iterator itCap=empleado.getCapacitaciones().iterator();
+                   Iterator itCap=empleadoModif.getCapacitaciones().iterator();
                     while(itCap.hasNext())
                     {
                         Capacitacion cap=(Capacitacion)itCap.next();
                         sesion.save(cap);
                     }
-                    if(empleado.getDomicilio()!=null)
+                    if(empleadoModif.getDomicilio()!=null)
                     {
-                        sesion.save(empleado.getDomicilio());
+                        sesion.save(empleadoModif.getDomicilio());
                         //sesion.update(empleado.getDomicilio());
                     }
-                    sesion.save(empleado);                   
+                    sesion.saveOrUpdate(empleadoModif);
                     //sesion.update(empleado);
                     ////////////////////////////
 
@@ -497,28 +501,32 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
         codigoPostalD=null;
         barrioD=null;
         }
-	public Empleado modificarEmpleado()
+	public void modificarEmpleado()
         {
 
             //Date fechaAltaActual=new Date();
            // fecha_Alta=System
-           /*empleadoModif.setLegajo(legajoEmpleado);
+           empleadoModif.setLegajo(legajoEmpleado);
            empleadoModif.setNombre(nombreEmpleado);
            empleadoModif.setApellido(apellidoEmpleado);
            empleadoModif.setFechadeNac(fechaNacimientoEmpleado);
+           empleadoModif.setFechaIngreso(fechaIngresoEmpleado);
            empleadoModif.setTipoDoc(tipoDocumentoEmpleado);
            empleadoModif.setNroDoc(nroDocumento);
            empleadoModif.setCuil(cuilEmpleado);
            empleadoModif.setEmail(emailEmpleado);
-           empleadoModif.setNombre(nombreEmpleado);
-           empleadoModif.setNombre(nombreEmpleado);
-           empleadoModif.setNombre(nombreEmpleado);
-           empleadoModif.setNombre(nombreEmpleado);*/           
+           // dom=new Domicilio( calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD);
+           empleadoModif.setDomicilio(calleD, nmroD, pisoD, calleD, codigoPostalD, barrioD);
+           //empleadoModif.setEspecialidades(listaTipoEspecialidades);
+           empleadoModif.setEspecialidades(listaTipoEspecialidades, listaRangoEspecialidades);
+           empleadoModif.setTelefonos(listaNroTel, listaTipoTel);
+           empleadoModif.setCapacitaciones(listaTipoCapacitaciones, listaVencimientoCapacitaciones);
+           
           
-            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, empleadoModif.getFechaAlta());
+            //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, empleadoModif.getFechaAlta());
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
-            return emp;
+           // return emp;
 
 	}
 

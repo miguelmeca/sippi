@@ -201,8 +201,11 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
 	
 	public void datosDomicilioEmpleado(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio)
         {
-            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();                        
-            barrioD =ggl.getBarrio(tBarrio.getId());
+            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+            if(tBarrio.getId()>=0)
+            {barrioD =ggl.getBarrio(tBarrio.getId());}
+            else
+            {barrioD=null;}
             if(nro.equals(""))
             {nmroD=0;}
             else{

@@ -65,12 +65,12 @@ public class GestorConsultarEmpleado
                // listaNombres.add(td.getNombre());
                 NTupla tupla = new NTupla(emp.getOID());
                 tupla.setNombre(String.valueOf(emp.getLegajo()));
-                String[] datos=new String[4];
-                datos[0]=String.valueOf(emp.getLegajo());
-                datos[1]=emp.getNombre();
-                datos[2]=emp.getApellido();
+                String[] datos=new String[3];
+                //datos[0]=String.valueOf(emp.getLegajo());
+                datos[0]=emp.getNombre();
+                datos[1]=emp.getApellido();
                 if(emp.getEstado()!=null)
-                {datos[3]=emp.getEstado().getNombre();}
+                {datos[2]=emp.getEstado().getNombre();}
                 tupla.setData(datos);
                     listaEmpleados.add(tupla);
             }
