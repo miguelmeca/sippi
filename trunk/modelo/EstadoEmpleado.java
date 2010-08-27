@@ -31,4 +31,22 @@ public class EstadoEmpleado extends EstadoAbstracto
         {
             return false;
 	}
+
+        public boolean esBaja()
+        {
+            return false;
+	}
+        public boolean darBaja(Empleado tc)
+        {
+            tc.setHib_flag_estado("modelo.EstadoEmpleadoBaja");
+            tc.setEstado(new EstadoEmpleadoBaja());
+            return true;
+        }
+
+        public boolean darAlta(Empleado tc)
+        {
+            tc.setHib_flag_estado("modelo.EstadoEmpleadoActivo");
+            tc.setEstado(new EstadoEmpleadoActivo());
+            return true;
+        }
 }
