@@ -222,14 +222,14 @@ public class GestorConsultarDatosEmpleado    {
            return bdv.getTipoCapacitacion();
 
 	}
-        public boolean levantarEmpleado(int leg)
+        public boolean levantarEmpleado(int id)//public boolean levantarEmpleado(int leg)
         {
             Session sesion;
             ///////////////////////////////////
              try {
                     sesion = HibernateUtil.getSession();
             //sesion.beginTransaction();
-            empleadoModif = (Empleado) sesion.createQuery("from Empleado where legajo ="+leg).uniqueResult();
+            empleadoModif = (Empleado) sesion.createQuery("from Empleado where id ="+id).uniqueResult();
             /*  } catch (Exception ex)
             {
                 System.out.println("Error levantando el empleado");
@@ -240,7 +240,7 @@ public class GestorConsultarDatosEmpleado    {
             cuilEmpleadoOriginal=empleadoModif.getCuil();*/
             //Envio a la pantalla los datos personales del empleado levantado
 
-            pantalla.datosPersonalesEmpleado(String.valueOf(leg), empleadoModif.getCuil(), empleadoModif.getNroDoc(), empleadoModif.getTipoDoc().getNombre(),empleadoModif.getNombre(), empleadoModif.getApellido(), empleadoModif.getFechadeNac(),empleadoModif.getFechaIngreso(), empleadoModif.getFechaAlta(), empleadoModif.getEmail());
+            pantalla.datosPersonalesEmpleado(String.valueOf(empleadoModif.getLegajo()), empleadoModif.getCuil(), empleadoModif.getNroDoc(), empleadoModif.getTipoDoc().getNombre(),empleadoModif.getNombre(), empleadoModif.getApellido(), empleadoModif.getFechadeNac(),empleadoModif.getFechaIngreso(), empleadoModif.getFechaAlta(), empleadoModif.getEmail());
             //Envio a la pantalla los telefonos del empleado levantado
             Telefono[] tel=empleadoModif.getTelefonos().toArray(new Telefono[0]);
             ArrayList listaNro=new ArrayList<String>();
