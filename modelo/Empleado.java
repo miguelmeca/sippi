@@ -35,6 +35,7 @@ public class Empleado extends Persona {
         private Set<Capacitacion> capacitaciones;
         private EstadoEmpleado estado;
         private Date fechaIngreso;
+        private String hib_flag_estado;
 
 
 
@@ -59,6 +60,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         super.setTelefonos(listaNroTel, listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
         estado=new EstadoEmpleadoActivo();
+        hib_flag_estado = "modelo.EstadoEmpleadoActivo";
         fechaIngreso =fechaIng;
 
     }
@@ -82,6 +84,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         super.setTelefonos(listaNroTel,  listaTipoTel);
         setCapacitaciones(listaTipoCapacitaciones,listaVencimientoCapacitaciones);
         estado=new EstadoEmpleadoActivo();
+        hib_flag_estado = "modelo.EstadoEmpleadoActivo";
         fechaIngreso =fechaIng;
     }
      public Empleado()
@@ -93,12 +96,38 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
 
      public EstadoEmpleado getEstado()
      {
-         return estado;
+         if(this.estado==null)
+                {
+                    try {
+                            //Class estadoAux = Class.forName(this.hib_flag_estado);
+                            EstadoEmpleado estadoAux = (EstadoEmpleado) Class.forName(this.hib_flag_estado).newInstance();
+                            this.estado = estadoAux;
+                            return estado;
+                        }
+                        catch (Exception ex)
+                        {
+                            System.out.println("No se encontro la clase Estado Concreto: "+this.hib_flag_estado);
+                            ex.getStackTrace();
+                            return null;
+                        }
+                }
+                else
+                {
+                    return this.estado;
+                }
      }
      public void setEstado(EstadoEmpleado ee)
      {
          estado=ee;
+         hib_flag_estado = ee.getClass().getName();
      }
+    public String getHib_flag_estado() {
+        return hib_flag_estado;
+    }
+
+    public void setHib_flag_estado(String hib_flag_estado) {
+        this.hib_flag_estado = hib_flag_estado;
+    }
      public Date getFechaIngreso()
      {
          return fechaIngreso;
@@ -200,6 +229,23 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         this.rango = rango;
     }
 
+    public boolean darDeBaja()
+        {
+
+                return    estado.darBaja(this);
+                
+        }
+
+        public boolean darDeAlta()
+        {
+             if(this.estado.esBaja())
+                {
+                    estado.darAlta(this);
+                    return true;
+                }
+             else{return false;}
+           
+        }
 
 
         public void crear() {
