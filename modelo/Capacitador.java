@@ -40,7 +40,7 @@ public class Capacitador extends Persona
             super.setFechaAlta(fecha_Alta);
             super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
             super.setTelefonos(listaNroTel,  listaTipoTel);
-            setCapacitaciones(listaTipoCapacitaciones);
+            setTiposCapacitacion(listaTipoCapacitaciones);
             estado=new EstadoCapacitadorDisponible();
         }
         public Capacitador()
@@ -50,7 +50,7 @@ public class Capacitador extends Persona
 	public void crear() {
 	
 	}
-	public void setCapacitaciones(ArrayList<TipoCapacitacion> tiposCap)
+	public void setTiposCapacitacion(ArrayList<TipoCapacitacion> tiposCap)
         {
             tiposCapacitacion= new HashSet();
             for(int i=0; i< tiposCap.size();i++)
@@ -88,4 +88,9 @@ public class Capacitador extends Persona
             }
             return false;
         }
+
+        public void setEstado(EstadoCapacitador ec)
+        {estado=ec;}
+        public EstadoCapacitador getEstado()
+        {return estado;}
 }

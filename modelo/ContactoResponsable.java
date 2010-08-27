@@ -28,13 +28,15 @@ public class ContactoResponsable {
     public ContactoResponsable() {
         telefonos = new HashSet<Telefono>();
     }
+
     public ContactoResponsable(String nom,String apell,String cg, String cUil, String eMail,  ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
+
         {
             nombre=nom;
             apellido=apell;
             cargo = cg;
             cuil=cUil;
-            email=eMail;
+            email=eMail;            
             fechaAlta=fecha_Alta;
             telefonos = new HashSet();
             setTelefonos(listaNroTel,  listaTipoTel);
@@ -105,6 +107,7 @@ public class ContactoResponsable {
 
     public void setTelefonos(ArrayList<String> nroTelefono, ArrayList<TipoTelefono> tipoTelefono)
     {
+        this.telefonos.clear();
        for(int i=0; i<nroTelefono.size();i++)
        {
            Telefono tel=new Telefono(nroTelefono.get(i) , tipoTelefono.get(i));
