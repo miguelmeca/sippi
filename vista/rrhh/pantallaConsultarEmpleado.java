@@ -13,7 +13,8 @@ package vista.rrhh;
 import vista.interfaces.ICallBack;
 import controlador.rrhh.GestorConsultarEmpleado;
 import util.NTupla;
-import java.util.ArrayList;
+import util.Tupla;
+//import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import util.SwingPanel;
@@ -27,6 +28,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private GestorConsultarEmpleado gestor;
     private List<NTupla> listaEmpleados;
     private DefaultTableModel modeloTablaCompleto;
+    private boolean primeraVez;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarEmpleado()
@@ -36,7 +38,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         this.habilitarVentana();
         //listaNroTel= new ArrayList<String>();
         //listaTipoTel= new ArrayList<Tupla>();
-
+        primeraVez=true;
     }
 
     private void habilitarVentana()
@@ -59,13 +61,33 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         for (int i = 0; i < fil; i++) {
             model.removeRow(0);
         }
-        for (NTupla nTuplaEmpleado : listaEmpleados)
+        /*for (NTupla nTuplaEmpleado : listaEmpleados)
         {
             model.addRow( (Object[]) nTuplaEmpleado.getData() );
         
         }
         modeloTablaCompleto=model;
+        tablaEmpleados.setModel(model);*/
+        for (NTupla nTuplaEmpleado : listaEmpleados)
+        {
+            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+            Object[] obj=new Object[((Object[])nTuplaEmpleado.getData()).length+1];
+            //obj[0]=nTuplaEmpleado.getId();
+            Tupla tup=new Tupla();
+            tup.setId(nTuplaEmpleado.getId());
+            tup.setNombre(nTuplaEmpleado.getNombre());
+            obj[0]=tup;
+
+            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+            System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
+            model.addRow( obj );
+        }
+        modeloTablaCompleto=model;
         tablaEmpleados.setModel(model);
+        
+         //TODO: Esconder primera fila  // tablaEmpleados.getColumnModel().removeColumn(tablaEmpleados.getColumnModel().getColumn(0));
+         
+
     }
 
 
@@ -94,7 +116,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Consultar ...");
+        setTitle("Consultar Empleados");
 
         txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -215,7 +237,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                     .addComponent(btnBajaEmpleado)
                     .addComponent(btnModificarEmpleado)
                     .addComponent(btnNuevoEmpleado))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,11 +264,11 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
         if(tablaEmpleados.getSelectedRow()!=-1)
         {
-        int leg;
-        String sleg;
-        sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
-        leg=Integer.parseInt(sleg);
-        pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(leg, this);
+        int id;
+        //String sleg;
+        id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+        //leg=Integer.parseInt(sleg);
+        pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(id, this);
         SwingPanel.getInstance().addWindow(pre);
         pre.setVisible(true);
             //pre.opcionRegistrarEmpleado();
@@ -263,11 +285,12 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private void btnConsultarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarEmpleadoActionPerformed
         if(tablaEmpleados.getSelectedRow()!=-1)
         {
-        int leg;
-        String sleg;
-        sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
-        leg=Integer.parseInt(sleg);
-        pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(leg, this);
+        int id;
+        //String sleg;
+        //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+        id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+        //id=Integer.parseInt(sleg);
+        pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
         SwingPanel.getInstance().addWindow(pre);
         pre.setVisible(true);
             //pre.opcionRegistrarEmpleado();
@@ -282,11 +305,13 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
            btnBajaEmpleado.setEnabled(true);
            if (evt.getClickCount() == 2)
             {
-            int leg;
-            String sleg;
-            sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
-            leg=Integer.parseInt(sleg);
-            pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(leg, this);
+            int id;
+            //String sleg;
+            //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+            //leg=Integer.parseInt(sleg);
+            
+            pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
                 //pre.opcionRegistrarEmpleado();
