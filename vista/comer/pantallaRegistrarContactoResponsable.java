@@ -12,6 +12,7 @@
 package vista.comer;
 
 import controlador.comer.GestorRegistrarNuevoContactoResponsable;
+import controlador.comer.GestorModificarContactoResponsable;
 import java.util.ArrayList;
 //import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -33,26 +34,35 @@ import java.util.Vector;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
+import controlador.comer.IGestorContactoResponsable;
 /**
  *
  * @author Fran
  */
 public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda
 {
-
-    GestorRegistrarNuevoContactoResponsable gestor;
-    
+    private IGestorContactoResponsable gestor;
+    private GestorRegistrarNuevoContactoResponsable gestorCrear;
+    private GestorModificarContactoResponsable gestorModificar;
     private ArrayList<String> listaNroTel;
     private ArrayList<Tupla> listaTipoTel;
     private ICallBack pantallaCUSolicitante;
+    private boolean modificar;
+    private String nombre;
+    private String apellido;
+    private String empresa;
+    private String planta;
+    private int idCon;
     //private Date fechaVencimientoCapActual;
    
     public pantallaRegistrarContactoResponsable() {
         initComponents();
         gestor = new GestorRegistrarNuevoContactoResponsable(this);
+        gestorCrear=(GestorRegistrarNuevoContactoResponsable)gestor;
         this.habilitarVentana();
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
+        modificar=false;
             
     }
    
@@ -60,14 +70,31 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
         initComponents();
         pantallaCUSolicitante=cuSoli;
         gestor = new GestorRegistrarNuevoContactoResponsable(this);
+        gestorCrear=(GestorRegistrarNuevoContactoResponsable)gestor;
         this.habilitarVentana();
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();        
         if (pantallaCUSolicitante!= null)
         {cmbEmpresas.setEnabled(false);
         cmbPlantas.setEnabled(false);}
+        modificar=false;
     }
-   
+   public pantallaRegistrarContactoResponsable(int id,ICallBack cuSoli)
+   {
+        initComponents();
+        pantallaCUSolicitante=cuSoli;
+        idCon=id;
+        gestor = new GestorModificarContactoResponsable(this, id);
+        gestorModificar=(GestorModificarContactoResponsable)gestor;
+        this.habilitarVentana();
+        listaNroTel= new ArrayList<String>();
+        listaTipoTel= new ArrayList<Tupla>();
+        if (pantallaCUSolicitante!= null)
+        {cmbEmpresas.setEnabled(false);
+        cmbPlantas.setEnabled(false);}
+        modificar=true;
+        gestorModificar.levantarContacto(id);
+    }
 
    public void opcionRegistrarEmpleado()
     {
@@ -81,7 +108,8 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
         if (pantallaCUSolicitante== null)
         {
         mostrarEmpresas();
-        mostrarPlantas();}
+        //mostrarPlantas();
+        }
        
 KeyAdapter kaNuemros=(new KeyAdapter()
 {
@@ -132,6 +160,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         }
 
         cmbEmpresas.setModel(valores);
+        cmbEmpresas.setSelectedIndex(-1);
 
     }
 
@@ -149,6 +178,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             valores.addElement(tu);
         }
         cmbPlantas.setModel(valores);
+        cmbPlantas.setSelectedIndex(-1);
        }
     }
     
@@ -202,6 +232,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         txtApellido = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         txtTelefono = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -221,6 +253,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel23 = new javax.swing.JLabel();
         cmbEmpresas = new javax.swing.JComboBox();
         cmbPlantas = new javax.swing.JComboBox();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         emAgregarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         emAgregarTelefono.setText("Agregar");
@@ -267,6 +301,10 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel7.setText("Email: ");
 
+        jLabel25.setText("*");
+
+        jLabel26.setText("*");
+
         javax.swing.GroupLayout jpDatosPersonalesLayout = new javax.swing.GroupLayout(jpDatosPersonales);
         jpDatosPersonales.setLayout(jpDatosPersonalesLayout);
         jpDatosPersonalesLayout.setHorizontalGroup(
@@ -276,16 +314,19 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(21, 21, 21)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
-                .addGap(47, 47, 47)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26))
         );
         jpDatosPersonalesLayout.setVerticalGroup(
             jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +335,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(jLabel3)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,7 +376,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             },
             new String [] {
-                "Número", "Tipo"
+                "Tipo", "Número"
             }
         ) {
             Class[] types = new Class [] {
@@ -363,7 +406,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,6 +488,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
+        jLabel27.setText("*");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -461,12 +506,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel23)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtCUIL)
                     .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,27 +533,31 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCUIL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23))))
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel27))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jLabel23.getAccessibleContext().setAccessibleName("");
+
+        jLabel2.setText("* Campos requeridos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpDatosPersonales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(183, 183, 183)
                         .addComponent(btnConfirmar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -519,9 +569,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirmar)
-                    .addComponent(btnCancelar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnConfirmar)
+                        .addComponent(btnCancelar))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -533,7 +585,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -552,7 +606,7 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
         if(resp==JOptionPane.YES_OPTION)
         { if(pantallaCUSolicitante !=null)
                 {
-                   pantallaCUSolicitante.actualizar(1, true);
+                   pantallaCUSolicitante.actualizar(-1, false);
                     
                 }
        this.dispose();      }       
@@ -605,20 +659,55 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
             }
             else
             {
-                if(gestor.capacitadorConfirmado())
+                if(!modificar)
                 {
-                    JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
-                    vaciarCampos();
-                    if(pantallaCUSolicitante !=null)
+                    if(gestorCrear.capacitadorConfirmado())
                     {
-                       pantallaCUSolicitante.actualizar(1, true);
-                        this.dispose();
+                        JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
+                        vaciarCampos();
+                        if(pantallaCUSolicitante!=null)
+                        {pantallaCUSolicitante.actualizar(3, true);}
+                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Desea registrar otro contacto?","Cancelar",JOptionPane.YES_NO_OPTION);
+                        if(resp==JOptionPane.NO_OPTION)
+                        {
+                            this.dispose();
+                        }
+                        else
+                        {vaciarCampos();}
                     }
-                }
+                    else
+                    {
+                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
+                       if(pantallaCUSolicitante !=null)
+                        {
+                           pantallaCUSolicitante.actualizar(-1, false);
+                            this.dispose();
+                        }
+                    }
+                 }
                 else
                 {
-                   JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
+                    if(gestorModificar.contactoModificado())
+                    {
+                        JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
+                        vaciarCampos();
+                        if(pantallaCUSolicitante !=null)
+                        {
+                           pantallaCUSolicitante.actualizar(idCon, true);
+                            this.dispose();
+                        }
+                    }
+                    else
+                    {
+                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
+                       if(pantallaCUSolicitante !=null)
+                        {
+                           pantallaCUSolicitante.actualizar(-1, false);
+                            this.dispose();
+                        }
+                    }
                 }
+
             }
     }//GEN-LAST:event_btnConfirmarActionPerformed
     }
@@ -677,7 +766,7 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
                  ban=false;
                  return ban;
          }
-        if (pantallaCUSolicitante== null)
+       /* if (pantallaCUSolicitante== null)
         {
         if(cmbPlantas.getSelectedIndex()==-1)
         {
@@ -693,10 +782,49 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
          }
 
         }
-
+*/
         return ban;
         
     }
+
+    //////////Modificar
+     public void telefonosContacto(ArrayList<String> numero,ArrayList<Tupla> tipo)
+        {
+
+            DefaultTableModel tabTel= (DefaultTableModel)tablaTelefonos.getModel();
+
+            for(int i=0; i<numero.size();i++)
+            {
+
+               Object[] obj=new Object[2];
+               obj[1]=numero.get(i);
+               obj[0]=(tipo.get(i));
+              tabTel.addRow(obj);
+            }
+            tablaTelefonos.setModel(tabTel);
+
+	}
+
+        public void datosPersonalesContacto(String cuil, String nombre, String apellido, String email, String cargo )
+        {
+           // txtLegajo.setText(leg);
+            this.nombre=nombre;
+            this.apellido=apellido;
+            txtCUIL.setText(cuil);
+            txtNombre.setText(nombre);
+            txtApellido.setText(apellido);
+            txtEmail.setText(email);
+            txtCargo.setText(cargo);
+            cmbEmpresas.setSelectedIndex(-1);
+            cmbPlantas.setSelectedIndex(-1);
+            cmbEmpresas.setEnabled(false);
+            cmbPlantas.setEnabled(false);
+            /*cmbEmpresas.setSelectedIndex(empresa.getId());
+            mostrarPlantas();
+            cmbPlantas.setSelectedIndex(planta.getId());*/
+
+	}
+ ////////Fin modificar
     private void cmbTiposTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTiposTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTiposTelefonoActionPerformed
@@ -753,8 +881,12 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
