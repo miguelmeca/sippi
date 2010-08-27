@@ -161,7 +161,8 @@ public class Persona {
     }*/
     public void setTelefonos(ArrayList<String> nroTelefono, ArrayList<TipoTelefono> tipoTelefono)
     {
-       for(int i=0; i<nroTelefono.size();i++)
+       telefonos.clear();
+        for(int i=0; i<nroTelefono.size();i++)
        {
            Telefono tel=new Telefono(nroTelefono.get(i) , tipoTelefono.get(i));
            this.telefonos.add(tel);
