@@ -345,7 +345,7 @@ public class GestorABMEmpresaCliente {
         this.telefonos = new ArrayList<Telefono>(this.empresa.getTelefonos());
         ArrayList<NTupla> tels = buscarTelefonos();
         this.pantalla.mostrarDatosTelefono(tels);
-        this.plantas = (ArrayList)this.empresa.getPlantas();
+        this.plantas = new ArrayList(this.empresa.getPlantas());
         ArrayList<NTupla> plantas = this.buscarPlantas();
         this.pantalla.mostrarDatosPlantas(plantas);
     }
