@@ -17,63 +17,55 @@ import java.util.Date;
 
 
 
-public class PedidoObra {
+public class PedidoObra{
+    private int id; // Tb guarda el numero del pedido
 
-        private int id; // Tb guarda el numero del pedido
+    private ContactoResponsable contacto;
+    //private PlanDeSeguridad planSeg;
+    private String descripcion;
+    private Date fechaLimiteValidezPresupuesto;
+    private String nombre;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private Date fechaDeRegistro;
+    private Date fechaAceptacion;
+    private Planta planta;
+    // private PlanificacionObra planificacionObra;
+    private String pliego;
+    private String planos;
+    private double monto;
+    private Date fechaLimiteEntregaPresupuesto;
 
-        private ContactoResponsable contacto;
-	//private PlanDeSeguridad planSeg;
-	private String descripcion;
-	private Date fechaLimiteValidezPresupuesto;
-	private String nombre;
-	private Date fechaInicio;
-	private Date fechaFin;
-	private Date fechaDeRegistro;
-	private Date fechaAceptacion;
-	private Planta planta;
-	// private PlanificacionObra planificacionObra;
-	private String pliego;
-	private String planos;
-	private double monto;
-	private Date fechaLimiteEntregaPresupuesto;
-        
-        //private EstadoPedidoObra estadoObra;
-        private EstadoPedidoObra estado;
-        private String hib_flag_estado;
+    //private EstadoPedidoObra estadoObra;
+    private EstadoPedidoObra estado;
+    private String hib_flag_estado;
 
-        public PedidoObra() {
-            crear();
-        }
+    public PedidoObra() {
+        crear();
+    }
 
+    // Crea el objeto, no me queda otra que asociarlo a hibernate
+    public void crear() {
+        crearPlanificacion(); // Xahora no hace nada ...
+        this.hib_flag_estado = "modelo.EstadoPedidoObraSolicitado";
+        this.getEstado();
+    }
 
+    public ContactoResponsable getContacto() {
+        return contacto;
+    }
 
-        // Crea el objeto, no me queda otra que asociarlo a hibernate
-        public void crear() {
-            crearPlanificacion(); // Xahora no hace nada ...
-            this.hib_flag_estado = "modelo.EstadoPedidoObraSolicitado";
-            this.getEstado();
+    public void setContacto(ContactoResponsable contacto) {
+        this.contacto = contacto;
+    }
 
-	}
+    public int getId() {
+        return id;
+    }
 
-
-        public ContactoResponsable getContacto() {
-            return contacto;
-        }
-
-        public void setContacto(ContactoResponsable contacto) {
-            this.contacto = contacto;
-        }
-
-        
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-      
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -178,14 +170,6 @@ public class PedidoObra {
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-
-//    public EstadoPedidoObra getEstado() {
-//        return estado;
-//    }
-//
-//    public void setEstado(EstadoPedidoObra estado) {
-//        this.estado = estado;
-//    }
 
     public void mostrarPlanDeSeguridad() {
 
@@ -421,4 +405,5 @@ public class PedidoObra {
     public void setHib_flag_estado(String hib_flag_estado) {
         this.hib_flag_estado = hib_flag_estado;
     }
+
 }

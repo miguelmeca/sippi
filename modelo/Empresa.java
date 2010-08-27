@@ -23,10 +23,12 @@ public class Empresa {
     private String paginaWeb;
     private Domicilio domicilio;
     private Set telefonos;
-    private String estado;
+    private EstadoEmpresa estado;
+    private String hib_flag_estado;
 
     public Empresa() {
-        this.estado = "creada";
+        this.hib_flag_estado = "modelo.EstadoEmpresaAlta";
+        this.getEstado();
     }
 
     public int getId() {
@@ -97,11 +99,72 @@ public class Empresa {
 
     }
 
-    public String getEstado() {
-        return estado;
+/*************************************************************
+ *                    MANEJO DE ESTADOS                      *
+ * ***********************************************************
+ */
+
+    public EstadoEmpresa getEstado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado==null)
+            {
+                try {
+                        EstadoEmpresa estadoAux = (EstadoEmpresa) Class.forName(this.hib_flag_estado).newInstance();
+                        this.estado = estadoAux;
+                        return estado;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println("No se encontro la clase Estado Concreto");
+                    }
+            }
+            else
+            {
+                return this.estado;
+            }
+
+        }
+        else
+        {
+            System.out.println("Carga el objeto antes de usarlo");
+            return null;
+        }
+        return null;
     }
 
-    public void setEstado(String estado) {
+    public String getHib_flag_estado() {
+        return hib_flag_estado;
+    }
+
+    public void setHib_flag_estado(String hib_flag_estado) {
+        this.hib_flag_estado = hib_flag_estado;
+    }
+
+    public void setEstadoAlta()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esBaja())
+            {
+                ((EstadoEmpresaBaja)this.estado).setAlta(this);
+            }
+        }
+    }
+
+    public void setEstadoBaja()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esAlta())
+            {
+                ((EstadoEmpresaAlta)this.estado).setBaja(this);
+            }
+        }
+    }
+
+    public void setEstado(EstadoEmpresa estado){
         this.estado = estado;
     }
 }

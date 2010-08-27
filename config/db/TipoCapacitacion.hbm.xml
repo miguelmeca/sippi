@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.TipoCapacitacion" table="TIPO_CAPACITACION">
+  <class name="modelo.TipoCapacitacion">
     <id column="ID" name="id" type="integer">
-      <generator class="native"/>
+      <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>

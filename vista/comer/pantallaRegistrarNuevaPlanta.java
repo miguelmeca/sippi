@@ -11,7 +11,7 @@
 
 package vista.comer;
 
-import controlador.comer.GestorRegistrarNuevaEmpresaCliente;
+import controlador.comer.GestorABMEmpresaCliente;
 import controlador.comer.GestorRegistrarNuevaPlanta;
 import controlador.comer.GestorRegistrarPedido;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import vista.interfaces.ICallBack;
 public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame implements IAyuda, ICallBack {
 
     GestorRegistrarNuevaPlanta gestor;
-    GestorRegistrarNuevaEmpresaCliente gestorEmpresaCliente;
+    GestorABMEmpresaCliente gestorEmpresaCliente;
     private GestorRegistrarPedido gestorRegistrarPedido;
 
     /** Creates new form frmRegistrarNuevaPlanta */
@@ -50,7 +50,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
     /**
      * VIENE DEL INCLUDE DE REGISTRAR EMPRESA CLIENTE
      */
-    public pantallaRegistrarNuevaPlanta(GestorRegistrarNuevaEmpresaCliente gestor,String Empresa)
+    public pantallaRegistrarNuevaPlanta(GestorABMEmpresaCliente gestor,String Empresa)
     {
         initComponents();
         this.gestor = new GestorRegistrarNuevaPlanta(this);
@@ -817,8 +817,8 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
                 if(gestorEmpresaCliente != null){
                     // MANDO A GUARDAR LA PLANTA
                     //int id = gestor.PlantaConfirmada();
-                    gestorEmpresaCliente.setNuevaPlanta(gestor);
-                    //gestorEmpresaCliente.setNuevaPlanta(gestor.getPlanta());
+                    gestorEmpresaCliente.agregarPlanta(gestor);
+                    //gestorEmpresaCliente.agregarPlanta(gestor.getPlanta());
                     //JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la nueva Planta\n Número de Planta: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }

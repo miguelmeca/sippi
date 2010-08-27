@@ -74,9 +74,12 @@ public class EmpresaCliente extends Empresa{
 
     }
 
-    public void addPlanta(Planta p)
-    {
+    public void addPlanta(Planta p){
         this.plantas.add(p);
+    }
+
+    public boolean delPlanta(Planta p){
+        return this.plantas.remove(p);
     }
 
     public boolean esMiPlanta(int id){

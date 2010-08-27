@@ -96,7 +96,6 @@ public class GestorRegistrarNuevaPlanta {
 
 	public void empresaCliente(Tupla ec)
         {
-                    SessionFactory sf = HibernateUtil.getSessionFactory();
                     Session sesion;
                     try {
                     sesion = HibernateUtil.getSession();
@@ -212,9 +211,15 @@ public class GestorRegistrarNuevaPlanta {
 
         public void contactoResponsable(int id_cr)
         {
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
+        try {
+            
+            Session sesion = HibernateUtil.getSession();
+            this.contacto = (ContactoResponsable) sesion.get(ContactoResponsable.class,id_cr);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }
 
         public int PlantaConfirmada()
