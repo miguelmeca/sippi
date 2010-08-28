@@ -8,12 +8,12 @@ package modelo;
  * @todo
  */
 
-public class Talle {
+public class Recurso {
 
     private int id;
     private String nombre;
 
-    public Talle() {
+    public Recurso() {
     }
 
     public int getId() {
@@ -32,6 +32,6 @@ public class Talle {
         this.nombre = nombre;
     }
 
-    
+
 
 }

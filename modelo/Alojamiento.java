@@ -8,8 +8,6 @@ package modelo;
  * @todo
  */
 
-public class Material extends RecursoEspecifico {
-
-    
+public class Alojamiento extends RecursoEspecifico{
 
 }

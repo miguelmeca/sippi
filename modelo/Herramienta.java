@@ -8,25 +8,16 @@ package modelo;
  * @todo
  */
 
-public class Indumentaria extends RecursoEspecifico{
+public class Herramienta extends RecursoEspecifico {
 
-    private Talle talle;
-    private EstadoIndumentaria estado;
+    private EstadoHerramienta estado;
     private String hib_flag_estado;
 
-    public Talle getTalle() {
-        return talle;
-    }
-
-    public void setTalle(Talle talle) {
-        this.talle = talle;
-    }
-
-    public EstadoIndumentaria getEstado() {
+    public EstadoHerramienta getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoIndumentaria estado) {
+    public void setEstado(EstadoHerramienta estado) {
         this.estado = estado;
     }
 
@@ -39,5 +30,5 @@ public class Indumentaria extends RecursoEspecifico{
     }
 
 
-
+  
 }
