@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.OrdenDeCompra">
+
+    <id column="ID_ORDEN_COMPRA" name="id" type="integer" unsaved-value="0">
+      <generator class="increment"/>
+    </id>
+
+    <property name="numero" type="integer"/>
+    <property name="fechaDePedido" type="date"/>
+    <property name="fechaDeRecepcion" type="date"/>
+
+    <many-to-one class="modelo.Proveedor" column="ID_PrOVEEDOR" name="proveedor"/>
+
+    <property name="hib_flag_estado" not-null="true" type="string"/>
+
+
+  </class>
+</hibernate-mapping>

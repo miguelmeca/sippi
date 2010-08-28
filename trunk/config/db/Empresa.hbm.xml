@@ -37,9 +37,9 @@
       </list>
     </joined-subclass>
 
-    <!--joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
-      <key column="ID"/>
-    </joined-subclass-->
+    <joined-subclass name="modelo.Proveedor" table="PROVEEDORES">
+      <key column="ID_PROVEEDOR"/>
+    </joined-subclass>
 
   </class>
 </hibernate-mapping>
