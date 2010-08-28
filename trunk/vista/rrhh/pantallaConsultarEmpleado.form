@@ -28,24 +28,29 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="1" pref="648" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="662" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="245" max="32767" attributes="0"/>
+                      <EmptySpace pref="259" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtBuscar" min="-2" pref="187" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Component id="btnConsultarEmpleado" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnNuevoEmpleado" min="-2" pref="96" max="-2" attributes="1"/>
+                      <Component id="btnNuevoEmpleado" min="-2" pref="94" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnModificarEmpleado" min="-2" pref="109" max="-2" attributes="1"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnBajaEmpleado" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnBajaEmpleado" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAltaEmpleado" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnLicencias" min="-2" pref="94" max="-2" attributes="1"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -70,12 +75,14 @@
               <Component id="jScrollPane1" min="-2" pref="342" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnConsultarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBajaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnModificarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnNuevoEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultarEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLicencias" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAltaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBajaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -138,6 +145,9 @@
         <Property name="text" type="java.lang.String" value="Dar de Baja"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBajaEmpleadoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnModificarEmpleado">
       <Properties>
@@ -183,6 +193,30 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Filtro Opcional 2"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAltaEmpleado">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/res/iconos/var/16x16/accept_page.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Dar de Alta"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAltaEmpleadoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLicencias">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/res/iconos/var/16x16/text_page.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Licencias"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLicenciasActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
