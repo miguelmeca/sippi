@@ -17,6 +17,7 @@ public class OrdenDeCompra {
     private Date fechaDePedido;
     private Date fechaDeRecepcion;
     private Proveedor proveedor;
+    private List<DetalleOrdenDeCompra> detalle;
     private EstadoOrdenDeCompra estado;
     private String hib_flag_estado;
 
