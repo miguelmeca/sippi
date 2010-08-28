@@ -36,8 +36,10 @@
         <one-to-many class="modelo.Planta"/>
       </list>
     </joined-subclass>
-    <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
+
+    <!--joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID"/>
-    </joined-subclass>
+    </joined-subclass-->
+
   </class>
 </hibernate-mapping>

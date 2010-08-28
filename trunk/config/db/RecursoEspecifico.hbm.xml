@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.RecursoEspecifico" >
+
+    <id column="ID_RECURSO_ESPECIFICO" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="NOMBRE" name="nombre" type="string"/>
+    <property column="DESC" name="descipcion" type="string"/>
+
+    <many-to-one column="ID_RECURSO" name="recurso"/>
+
+        <joined-subclass name="modelo.Material" table="Materiales">
+            <key column="ID_MATERIAL"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Herramienta" table="Herramientas">
+            <key column="ID_HERRAMIENTA"/>
+            <property column="ESTADO" name="hib_flag_estado" type="string"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Consumible" table="Consumibles">
+            <key column="ID_CONSUMIBLE"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Transporte" table="Transportes">
+            <key column="ID_TRANSPORTE"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Viatico" table="Viaticos">
+            <key column="ID_VIATICO"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Alojamiento" table="Alojamientos">
+            <key column="ID_ALOJAMIENTO"/>
+        </joined-subclass>
+
+        <joined-subclass name="modelo.Indumentaria" table="Indumentarias">
+            <key column="ID_INDUMENTARIA"/>
+            <many-to-one column="ID_TALLE" name="talle"/>
+            <property column="ESTADO" name="hib_flag_estado" type="string"/>
+        </joined-subclass>
+
+  </class>
+</hibernate-mapping>
