@@ -44,6 +44,32 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private void habilitarVentana()
     {
         cargarEmpleados();
+         if(tablaEmpleados.getSelectedRow()!=-1)
+       {
+           int id;
+            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+           btnModificarEmpleado.setEnabled(true);
+           btnConsultarEmpleado.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
+
+        }
+        else
+        {
+            btnModificarEmpleado.setEnabled(false);
+           btnConsultarEmpleado.setEnabled(false);
+
+           btnBajaEmpleado.setEnabled(false);
+
+            btnAltaEmpleado.setEnabled(false);
+        }
 
     }
 
@@ -112,6 +138,8 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         btnConsultarEmpleado = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        btnAltaEmpleado = new javax.swing.JButton();
+        btnLicencias = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -161,6 +189,11 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         btnBajaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
         btnBajaEmpleado.setText("Dar de Baja");
         btnBajaEmpleado.setEnabled(false);
+        btnBajaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnModificarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnModificarEmpleado.setText("Modificar");
@@ -192,6 +225,24 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
 
         jRadioButton2.setText("Filtro Opcional 2");
 
+        btnAltaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
+        btnAltaEmpleado.setText("Dar de Alta");
+        btnAltaEmpleado.setEnabled(false);
+        btnAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaEmpleadoActionPerformed(evt);
+            }
+        });
+
+        btnLicencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnLicencias.setText("Licencias");
+        btnLicencias.setEnabled(false);
+        btnLicencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLicenciasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,23 +250,28 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(btnConsultarEmpleado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBajaEmpleado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBajaEmpleado)))
+                        .addComponent(btnAltaEmpleado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLicencias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,11 +289,13 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConsultarEmpleado)
-                    .addComponent(btnBajaEmpleado)
                     .addComponent(btnModificarEmpleado)
-                    .addComponent(btnNuevoEmpleado))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(btnNuevoEmpleado)
+                    .addComponent(btnConsultarEmpleado)
+                    .addComponent(btnLicencias)
+                    .addComponent(btnAltaEmpleado)
+                    .addComponent(btnBajaEmpleado))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,15 +358,25 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private void tablaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEmpleadosMouseClicked
        if(tablaEmpleados.getSelectedRow()!=-1)
        {
-           btnModificarEmpleado.setEnabled(true);
-           btnConsultarEmpleado.setEnabled(true);
-           btnBajaEmpleado.setEnabled(true);
-           if (evt.getClickCount() == 2)
-            {
-            int id;
+           int id;
             //String sleg;
             //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
             id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+           btnModificarEmpleado.setEnabled(true);
+           btnConsultarEmpleado.setEnabled(true);
+           btnLicencias.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
+           if (evt.getClickCount() == 2)
+            {
+            
             //leg=Integer.parseInt(sleg);
             
             pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
@@ -317,12 +385,65 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                 //pre.opcionRegistrarEmpleado();
             }
         }
+       else
+       {
+           btnModificarEmpleado.setEnabled(false);
+           btnConsultarEmpleado.setEnabled(false);
+           btnLicencias.setEnabled(false);
+           btnBajaEmpleado.setEnabled(false);
+           btnAltaEmpleado.setEnabled(false);
+       }
     }//GEN-LAST:event_tablaEmpleadosMouseClicked
+
+    private void btnBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaEmpleadoActionPerformed
+        if(tablaEmpleados.getSelectedRow()!=-1)
+        {
+        int id;
+        //String sleg;
+        //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+        id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+        //id=Integer.parseInt(sleg);
+        pantallaRegistrarBajaEmpleado pre = new pantallaRegistrarBajaEmpleado(id, this);
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+            //pre.opcionRegistrarEmpleado();
+        }
+    }//GEN-LAST:event_btnBajaEmpleadoActionPerformed
+
+    private void btnAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaEmpleadoActionPerformed
+        if(tablaEmpleados.getSelectedRow()!=-1)
+        {
+        int id;
+        //String sleg;
+        //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+        id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+        //id=Integer.parseInt(sleg);
+        pantallaRegistrarAltaEmpleado pre = new pantallaRegistrarAltaEmpleado(id, this);
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+            //pre.opcionRegistrarEmpleado();
+        }
+    }//GEN-LAST:event_btnAltaEmpleadoActionPerformed
+
+    private void btnLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciasActionPerformed
+    if(tablaEmpleados.getSelectedRow()!=-1)
+    {
+        int id;
+        id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+
+    pantallaConsultarLicenciasEmpleado pcle = new pantallaConsultarLicenciasEmpleado();
+    SwingPanel.getInstance().addWindow(pcle);
+    pcle.filtrarPorEmpleado(id);
+    pcle.setVisible(true);
+    }
+    }//GEN-LAST:event_btnLicenciasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAltaEmpleado;
     private javax.swing.JButton btnBajaEmpleado;
     private javax.swing.JButton btnConsultarEmpleado;
+    private javax.swing.JButton btnLicencias;
     private javax.swing.JButton btnModificarEmpleado;
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JLabel jLabel1;
@@ -333,11 +454,8 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 public void actualizar(int flag,boolean exito) {
-        //Flag:
-        // 1: Viene del CU ConsultarDetallesEmpleado
-        // 2: Viene del CU RegistrarNuevoEmpleado
-         // 3: Viene del CU modificarEmpleado
-        cargarEmpleados();
+        
+        habilitarVentana();
     }
 public int getIdAyuda()
     {

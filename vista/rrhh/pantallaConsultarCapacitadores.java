@@ -43,6 +43,32 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     private void habilitarVentana()
     {
         cargarCapacitadores();
+        if(tablaCapacitadores.getSelectedRow()!=-1)
+       {
+           int id;
+            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
+           btnModificarEmpleado.setEnabled(true);
+           btnConsultarEmpleado.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
+
+        }
+        else
+        {
+            btnModificarEmpleado.setEnabled(false);
+           btnConsultarEmpleado.setEnabled(false);
+
+           btnBajaEmpleado.setEnabled(false);
+
+            btnAltaEmpleado.setEnabled(false);
+        }
 
     }
 
@@ -108,6 +134,7 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         btnConsultarEmpleado = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        btnAltaEmpleado = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -157,6 +184,11 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         btnBajaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
         btnBajaEmpleado.setText("Dar de Baja");
         btnBajaEmpleado.setEnabled(false);
+        btnBajaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnModificarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnModificarEmpleado.setText("Modificar");
@@ -188,6 +220,15 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
 
         jRadioButton2.setText("Filtro Opcional 2");
 
+        btnAltaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
+        btnAltaEmpleado.setText("Dar de Alta");
+        btnAltaEmpleado.setEnabled(false);
+        btnAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaEmpleadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,7 +252,9 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBajaEmpleado)))
+                        .addComponent(btnBajaEmpleado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAltaEmpleado)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,8 +275,9 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                     .addComponent(btnConsultarEmpleado)
                     .addComponent(btnBajaEmpleado)
                     .addComponent(btnModificarEmpleado)
-                    .addComponent(btnNuevoEmpleado))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(btnNuevoEmpleado)
+                    .addComponent(btnAltaEmpleado))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -296,16 +340,26 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     private void tablaCapacitadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCapacitadoresMouseClicked
        if(tablaCapacitadores.getSelectedRow()!=-1)
        {
+           int id;           
+            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
            btnModificarEmpleado.setEnabled(true);
            btnConsultarEmpleado.setEnabled(true);
-           btnBajaEmpleado.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
            if (evt.getClickCount() == 2)
             {
-            int id;
+            
             //String sleg;
             //sleg=(String)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
             //id=(Integer)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
-            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
+            
             //leg=Integer.parseInt(sleg);
             pantallaConsultarDatosCapacitador pre = new pantallaConsultarDatosCapacitador(id, this);
             SwingPanel.getInstance().addWindow(pre);
@@ -315,8 +369,38 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         }
     }//GEN-LAST:event_tablaCapacitadoresMouseClicked
 
+    private void btnAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaEmpleadoActionPerformed
+        if(tablaCapacitadores.getSelectedRow()!=-1) {
+            int id;
+            //String sleg;
+            //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
+            //id=Integer.parseInt(sleg);
+            pantallaRegistrarAltaCapacitador pre = new pantallaRegistrarAltaCapacitador(id, this);
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+            //pre.opcionRegistrarEmpleado();
+        }
+}//GEN-LAST:event_btnAltaEmpleadoActionPerformed
+
+    private void btnBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaEmpleadoActionPerformed
+        if(tablaCapacitadores.getSelectedRow()!=-1)
+        {
+        int id;
+        //String sleg;
+        //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+        id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
+        //id=Integer.parseInt(sleg);
+        pantallaRegistrarBajaCapacitador pre = new pantallaRegistrarBajaCapacitador(id, this);
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+            //pre.opcionRegistrarEmpleado();
+        }
+    }//GEN-LAST:event_btnBajaEmpleadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAltaEmpleado;
     private javax.swing.JButton btnBajaEmpleado;
     private javax.swing.JButton btnConsultarEmpleado;
     private javax.swing.JButton btnModificarEmpleado;
@@ -329,11 +413,8 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 public void actualizar(int flag,boolean exito) {
-        //Flag:
-        // 1: Viene del CU ConsultarDetallesEmpleado
-        // 2: Viene del CU RegistrarNuevoEmpleado
-         // 3: Viene del CU modificarEmpleado
-        cargarCapacitadores();
+        
+        habilitarVentana();
     }
 public int getIdAyuda()
     {
