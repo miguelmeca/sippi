@@ -9,10 +9,19 @@
     <property name="hibernate.connection.username">administradornn</property>
     <property name="hibernate.connection.password">administradornn</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.hbm2ddl.auto">create-drop</property>
-    <!--property name="hibernate.hbm2ddl.auto">create</property-->
+    <!--property name="hibernate.hbm2ddl.auto">create-drop</property-->
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+
+
+    <!--property name="connection.pool_size">1</property>
+    <property name="c3p0.idle_test_period">100</property>
+    <property name="c3p0.max_size">1</property>
+    <property name="c3p0.min_size">0</property-->
+
+
+
     <!--.. CLASES DE MAPEO ....................................................-->
     <property name="hibernate.show_sql">true</property>
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
@@ -30,18 +39,26 @@
     <mapping package="modelo" resource="config/db/TipoTelefono.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Telefono.hbm.xml"/>
     <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/Indumentaria.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/TipoIndumentaria.hbm.xml"/>
     <mapping package="modelo" resource="config/db/ItemIndumentaria.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TallerCapacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
     <mapping package="modelo" resource="config/db/LugarCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
     <mapping package="modelo" resource="config/db/AsistenciaTallerCapacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/DetalleHorarioTaller.hbm.xml"/>
     <mapping package="modelo" resource="config/db/LicenciaEmpleado.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoLicenciaEmpleado.hbm.xml"/>
+
+
+
+    <!-- SEGUNDA ITERACION                                                  -->
+    <mapping package="modelo" resource="config/db/Recurso.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/RecursoEspecifico.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/>
+
+
+
   </session-factory>
 </hibernate-configuration>
