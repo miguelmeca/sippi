@@ -33,6 +33,7 @@
       <!--property column="FECH_BAJA" name="fechaBaja" type="date"/-->
       <property column="FECHA_INGRESO" name="fechaIngreso" type="date"/>
       <property column="RANGO" name="rango" type="string"/>
+      <property column="ESTADO" name="hib_flag_estado" type="string"/>
       <set name="especialidades">
         <key column="ID_Empleado"/>
         <one-to-many class="modelo.Especialidad"/>
@@ -64,6 +65,7 @@
              emparejar con la de Persona -->
       <key column="ID_CAPACITADOR"/>
       <!-- Defino las propiedades del DISCAPACITADOR -->
+      <property column="ESTADO" name="hib_flag_estado" type="string"/>
       <set name="tiposCapacitacion" table="TIPOSCAPACITACIONxCAPACITADOR">
         <key column="ID_CAPACITADOR"/>
         <many-to-many class="modelo.TipoCapacitacion" column="ID_TIPOCAPACITACION"/>
