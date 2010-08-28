@@ -8,17 +8,14 @@ package modelo;
 /**
  * @author Iuga
  */
-public class EstadoEmpleadoBaja extends EstadoEmpleado
+public class EstadoCapacitadorBaja extends EstadoCapacitador
 {
     @Override
     public boolean esBaja()
     {
 	return true;
     }
-    
-    public EstadoEmpleadoBaja()
-    {super.setNombre("Dado de baja");}
+    public EstadoCapacitadorBaja()
+    {super.setNombre("Baja");}
+
 }
-     
-        
-        

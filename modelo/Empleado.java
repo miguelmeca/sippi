@@ -36,6 +36,8 @@ public class Empleado extends Persona {
         private EstadoEmpleado estado;
         private Date fechaIngreso;
         private String hib_flag_estado;
+        private String motivoBaja;
+       // private Date fechaBaja;
 
 
 
@@ -93,7 +95,14 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
          indumentaria= new ArrayList();
          capacitacion= new ArrayList();*/
     }
-
+    /*public void setFechaBaja(Date fb)
+    {
+        fechaBaja=fb;
+    }
+    public Date getFechaBaja()
+    {
+      return  fechaBaja;
+    }*/
      public EstadoEmpleado getEstado()
      {
          if(this.estado==null)
@@ -229,10 +238,15 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         this.rango = rango;
     }
 
-    public boolean darDeBaja()
+    public boolean darDeBaja(Date fechaB, String motiv)
         {
-
-                return    estado.darBaja(this);
+                boolean exito=estado.darBaja(this);
+                if(exito)
+                {
+                    super.setFechaBaja(fechaB);
+                    motivoBaja=motiv;
+                }
+                return    exito;
                 
         }
 
@@ -243,8 +257,21 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
                     estado.darAlta(this);
                     return true;
                 }
-             else{return false;}
-           
+             else{return false;}           
+        }
+
+        public boolean estaActivo()
+        {return estado.esActivo();}
+
+        public boolean estaBaja()
+        {return estado.esBaja();}
+
+        public void setMotivoBaja(String mb)
+        {motivoBaja=mb;
+        }
+
+        public String getMotivoBaja()
+        { return motivoBaja;
         }
 
 

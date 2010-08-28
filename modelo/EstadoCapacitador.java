@@ -27,8 +27,26 @@ public class EstadoCapacitador extends EstadoAbstracto
         }
 
 
-	public boolean estaDisponible()
+	public boolean esActivo()
         {
             return false;
 	}
+        public boolean esBaja()
+        {
+            return false;
+	}
+
+        public boolean darBaja(Capacitador tc)
+        {
+            tc.setHib_flag_estado("modelo.EstadoCapacitadorBaja");
+            tc.setEstado(new EstadoCapacitadorBaja());
+            return true;
+        }
+
+        public boolean darAlta(Capacitador tc)
+        {
+            tc.setHib_flag_estado("modelo.EstadoCapacitadorActivo");
+            tc.setEstado(new EstadoCapacitadorActivo());
+            return true;
+        }
 }

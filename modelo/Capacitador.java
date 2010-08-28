@@ -19,6 +19,9 @@ public class Capacitador extends Persona
 {
         private Set<TipoCapacitacion> tiposCapacitacion;
         private EstadoCapacitador estado;
+        private String hib_flag_estado;
+        private String motivoBaja;
+        // private Date fechaBaja;
 
         public void setTiposCapacitacion(Set tc)
         {
@@ -41,7 +44,8 @@ public class Capacitador extends Persona
             super.setDomicilio(calleD,  numeroD,  pisoD,  deptoD, codigoPostalD,  barrioD);
             super.setTelefonos(listaNroTel,  listaTipoTel);
             setTiposCapacitacion(listaTipoCapacitaciones);
-            estado=new EstadoCapacitadorDisponible();
+            estado=new EstadoCapacitadorActivo();
+            hib_flag_estado = "modelo.EstadoCapacitadorDisponible";
         }
         public Capacitador()
         {
@@ -89,8 +93,75 @@ public class Capacitador extends Persona
             return false;
         }
 
-        public void setEstado(EstadoCapacitador ec)
-        {estado=ec;}
         public EstadoCapacitador getEstado()
-        {return estado;}
+     {
+         if(this.estado==null)
+                {
+                    try {
+                            //Class estadoAux = Class.forName(this.hib_flag_estado);
+                            EstadoCapacitador estadoAux = (EstadoCapacitador) Class.forName(this.hib_flag_estado).newInstance();
+                            this.estado = estadoAux;
+                            return estado;
+                        }
+                        catch (Exception ex)
+                        {
+                            System.out.println("No se encontro la clase Estado Concreto: "+this.hib_flag_estado);
+                            ex.getStackTrace();
+                            return null;
+                        }
+                }
+                else
+                {
+                    return this.estado;
+                }
+     }
+     public void setEstado(EstadoCapacitador ee)
+     {
+         estado=ee;
+         hib_flag_estado = ee.getClass().getName();
+     }
+    public String getHib_flag_estado() {
+        return hib_flag_estado;
+    }
+
+    public void setHib_flag_estado(String hib_flag_estado) {
+        this.hib_flag_estado = hib_flag_estado;
+    }
+
+     public boolean darDeBaja(Date fechaB, String motiv)
+        {
+
+            boolean exito=estado.darBaja(this);
+                if(exito)
+                {
+                    super.setFechaBaja(fechaB);
+                    motivoBaja=motiv;
+                }
+                return    exito;
+
+        }
+
+        public boolean darDeAlta()
+        {
+             if(this.estado.esBaja())
+                {
+                    estado.darAlta(this);
+                    return true;
+                }
+             else{return false;}
+        }
+
+        public boolean estaActivo()
+        {return estado.esActivo();}
+
+        public boolean estaBaja()
+        {return estado.esBaja();}
+
+        public void setMotivoBaja(String mb)
+        {motivoBaja=mb;
+        }
+
+        public String getMotivoBaja()
+        { return motivoBaja;
+        }
 }
