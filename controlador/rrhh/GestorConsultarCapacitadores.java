@@ -21,6 +21,7 @@ public class GestorConsultarCapacitadores
 
     private pantallaConsultarCapacitadores pantalla;
     private Session sesion;
+    private List lista;
 
 
 
@@ -36,7 +37,28 @@ public class GestorConsultarCapacitadores
        // listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
        //  listaVencimientoCapacitaciones=new ArrayList<Date>();
     }
+    public boolean esActivo(int id)
+    {
+        for (int i = 0; i < lista.size(); i++) {
+                Capacitador cap = (Capacitador)lista.get(i);
+                if(cap.getOID()==id)
+               // listaNombres.add(td.getNombre());
+               return cap.estaActivo();
 
+            }
+         return false;
+    }
+    public boolean esBaja(int id)
+    {
+        for (int i = 0; i < lista.size(); i++) {
+                Capacitador cap = (Capacitador)lista.get(i);
+                if(cap.getOID()==id)
+               // listaNombres.add(td.getNombre());
+               return cap.estaBaja();
+
+            }
+         return false;
+    }
     public List listaCapacitadores()
     {
 
@@ -55,7 +77,7 @@ public class GestorConsultarCapacitadores
 
 
         // sesion.beginTransaction();
-            List lista = sesion.createQuery("from Capacitador order by apellido").list();
+            lista = sesion.createQuery("from Capacitador order by apellido").list();
             //sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();

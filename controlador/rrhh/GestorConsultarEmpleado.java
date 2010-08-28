@@ -21,6 +21,7 @@ public class GestorConsultarEmpleado
 
     private pantallaConsultarEmpleado pantalla;
     private Session sesion;
+    private List lista;
 
 
 
@@ -35,6 +36,29 @@ public class GestorConsultarEmpleado
        // listaTipoTel= new ArrayList<TipoTelefono>();
        // listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
        //  listaVencimientoCapacitaciones=new ArrayList<Date>();
+    }
+
+    public boolean esActivo(int id)
+    {
+        for (int i = 0; i < lista.size(); i++) {
+                Empleado emp = (Empleado)lista.get(i);
+                if(emp.getOID()==id)
+               // listaNombres.add(td.getNombre());
+               return emp.estaActivo();
+                
+            }
+         return false;
+    }
+    public boolean esBaja(int id)
+    {
+        for (int i = 0; i < lista.size(); i++) {
+                Empleado emp = (Empleado)lista.get(i);
+                if(emp.getOID()==id)
+               // listaNombres.add(td.getNombre());
+               return emp.estaBaja();
+                
+            }
+         return false;
     }
 
     public List listaEmpleados()
@@ -55,7 +79,7 @@ public class GestorConsultarEmpleado
 
 
          sesion.beginTransaction();
-            List lista = sesion.createQuery("from Empleado order by legajo").list();
+            lista = sesion.createQuery("from Empleado order by legajo").list();
             //sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
@@ -69,7 +93,7 @@ public class GestorConsultarEmpleado
                 //datos[0]=String.valueOf(emp.getLegajo());
                 datos[0]=emp.getNombre();
                 datos[1]=emp.getApellido();
-                if(emp.getEstado()!=null)
+                //if(emp.getEstado()!=null)
                 {datos[2]=emp.getEstado().getNombre();}
                 tupla.setData(datos);
                     listaEmpleados.add(tupla);
