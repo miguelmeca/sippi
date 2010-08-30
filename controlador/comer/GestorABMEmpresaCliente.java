@@ -4,20 +4,15 @@ import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import javax.transaction.Transaction;
 import modelo.*;
 import modelo.Pais;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentList;
 import org.hibernate.collection.PersistentSet;
 import util.Tupla;
 import util.HibernateUtil;
 import util.NTupla;
 import util.SwingPanel;
-import vista.comer.pantallaDarBajaEmpresaCliente;
-import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.interfaces.IPantallaEmpresaClienteABM;
 
@@ -31,9 +26,6 @@ import vista.interfaces.IPantallaEmpresaClienteABM;
 //  @ Author : 
 //
 //
-
-
-
 
 public class GestorABMEmpresaCliente {
     private ArrayList<Pais> paises;
@@ -212,7 +204,7 @@ public class GestorABMEmpresaCliente {
         Session sesion;
         try {
             sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             try{
                 sesion.saveOrUpdate(nueva.getDomicilio());
                 for (Telefono tell : (HashSet<Telefono>)nueva.getTelefonos())
@@ -230,10 +222,10 @@ public class GestorABMEmpresaCliente {
                     sesion.saveOrUpdate(p);
                 }
                 sesion.saveOrUpdate(nueva);
-                sesion.getTransaction().commit();
+                HibernateUtil.commitTransaction();
             }catch(Exception e) {
                 System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
-                sesion.getTransaction().rollback();
+                HibernateUtil.rollbackTransaction();
         }
         } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
         return nueva.getId();
@@ -243,8 +235,7 @@ public class GestorABMEmpresaCliente {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
         Tupla tupla = null;
         try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
+            Session sesion = HibernateUtil.getSession();
             Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
             while ( iter.hasNext() ) {
                 TipoTelefono tipo = (TipoTelefono) iter.next();
@@ -257,25 +248,22 @@ public class GestorABMEmpresaCliente {
             e.printStackTrace();
         }
         return tuplas;
-        }
+    }
 
     public void registrarNuevaEmpresa() {
     }
     
     public ArrayList<Tupla> mostrarNombrePaises() {
-
             gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getPaises();
     }
 
     public ArrayList<Tupla> mostrarLocalidades(Tupla prov) {
-
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getLocalidades(prov.getId());
     }
 
     public ArrayList<Tupla> mostrarProvincias(Tupla pais) {
-
            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
            return ggl.getProvincias(pais.getId());
     }

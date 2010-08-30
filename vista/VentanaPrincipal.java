@@ -30,6 +30,7 @@ import vista.comer.pantallaRegistrarContactoResponsable;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
+import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
@@ -196,6 +197,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miDarDeBajaRH = new javax.swing.JMenuItem();
         miCronogramaRH = new javax.swing.JMenuItem();
         miLicencia = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mnuRecepcionOrdenCompra = new javax.swing.JMenuItem();
+        mnuRegistrarProveedor = new javax.swing.JMenuItem();
         mTalleres = new javax.swing.JMenu();
         mNuevoTaller = new javax.swing.JMenu();
         miParaEmpleado = new javax.swing.JMenuItem();
@@ -234,8 +238,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miCerrarSesion = new javax.swing.JMenuItem();
         miCambiarUsuario = new javax.swing.JMenuItem();
         mAyuda = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Industrial de Planificación y Presupuestación");
@@ -399,7 +401,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -426,7 +428,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -559,6 +561,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mRRHH.add(miLicencia);
 
         jMenuBar1.add(mRRHH);
+
+        jMenu1.setText("Compras");
+
+        mnuRecepcionOrdenCompra.setText("Recepción Orden de Compra");
+        mnuRecepcionOrdenCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRecepcionOrdenCompraActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuRecepcionOrdenCompra);
+
+        mnuRegistrarProveedor.setText("Registrar Proveedor");
+        mnuRegistrarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRegistrarProveedorActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuRegistrarProveedor);
+
+        jMenuBar1.add(jMenu1);
 
         mTalleres.setText("Talleres de Capacitación");
 
@@ -713,18 +735,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         mAyuda.setText("Ayuda");
         jMenuBar1.add(mAyuda);
-
-        jMenu1.setText("Compras");
-
-        jMenuItem1.setText("Recepción Orden de Compra");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -980,13 +990,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return;
 }//GEN-LAST:event_administrarEmpresasActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnuRecepcionOrdenCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRecepcionOrdenCompraActionPerformed
         // TODO add your handling code here:
         pantallaRegistrarRecepcionOrdenCompra p = new pantallaRegistrarRecepcionOrdenCompra();
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
         return;
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuRecepcionOrdenCompraActionPerformed
+
+    private void mnuRegistrarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRegistrarProveedorActionPerformed
+        pantallaRegistrarProveedor p = new pantallaRegistrarProveedor();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+        return;
+    }//GEN-LAST:event_mnuRegistrarProveedorActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1010,7 +1027,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1091,6 +1107,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miPlanSeguridad;
     private javax.swing.JMenuItem miReLanz;
     private javax.swing.JMenuItem miRegistroDeAsistencia;
+    private javax.swing.JMenuItem mnuRecepcionOrdenCompra;
+    private javax.swing.JMenuItem mnuRegistrarProveedor;
     private javax.swing.JDesktopPane panel;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables
