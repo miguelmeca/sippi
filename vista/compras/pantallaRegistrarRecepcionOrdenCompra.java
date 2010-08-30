@@ -24,7 +24,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
-        this.setAnchoColumnas();
+        //this.setAnchoColumnas();
     }
 
     private void setAnchoColumnas(){
@@ -89,8 +89,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtFechaEmision = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btnMostrarDetalle = new javax.swing.JButton();
 
         setTitle("Registrar Recepción de Orden de Compra");
@@ -107,7 +106,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         ));
         jScrollPane1.setViewportView(tablaDetalle);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Total:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -177,7 +176,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por"));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Proveedor:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -188,7 +187,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbProveedor, 0, 213, Short.MAX_VALUE)
+                .addComponent(cmbProveedor, 0, 190, Short.MAX_VALUE)
                 .addGap(248, 248, 248))
         );
         jPanel3Layout.setVerticalGroup(
@@ -203,7 +202,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         jTabbedPane1.addTab("Proveedor", jPanel3);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Número:");
 
         txtNumeroOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -241,10 +240,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         jTabbedPane1.addTab(" Número de Orden", jPanel4);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Emisión:");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -254,20 +251,16 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(233, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(txtFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -311,7 +304,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -342,12 +335,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private javax.swing.JButton btnRecepcionTotal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbProveedor;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -358,7 +351,6 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tablaDetalle;
     private javax.swing.JTable tablaOrdenesCompra;
-    private javax.swing.JTextField txtFechaEmision;
     private javax.swing.JTextField txtNumeroOrden;
     private javax.swing.JTextField txtTotalDetalle;
     // End of variables declaration//GEN-END:variables

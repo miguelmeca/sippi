@@ -396,11 +396,6 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
         });
 
         txtEmpresaCliente.setEnabled(false);
-        txtEmpresaCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmpresaClienteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -433,7 +428,7 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(jButton1))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -470,10 +465,6 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
         pBuscar.actualizar(id, true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtEmpresaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpresaClienteActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_txtEmpresaClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -63,6 +63,7 @@ public class GestorABMEmpresaCliente {
     public GestorABMEmpresaCliente(IPantallaEmpresaClienteABM pantalla) {
         this.pantalla = pantalla;
         plantas = new ArrayList<Planta>();
+
     }
 
     public void registrarNuevaPlanta(String razonSocial){
@@ -94,6 +95,9 @@ public class GestorABMEmpresaCliente {
     }
 
     public int agregarTelefono(Tupla tipo, String numero) {
+        if(this.telefonos == null){
+            this.telefonos = new ArrayList<Telefono>();
+        }
         Telefono tel = new Telefono();
         tel.setNumero(numero);
         TipoTelefono ttel = new TipoTelefono();
