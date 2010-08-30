@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import modelo.Capacitador;
+import modelo.EstadoCapacitadorActivo;
 
 /**
  *
@@ -47,6 +48,11 @@ public class GestorConsultarCapacitadores
 
             }
          return false;
+    }
+    public String nombreEstadoCapacitadorActivo()
+    {
+        EstadoCapacitadorActivo eca=new EstadoCapacitadorActivo();
+        return eca.getNombre();
     }
     public boolean esBaja(int id)
     {
@@ -91,8 +97,10 @@ public class GestorConsultarCapacitadores
                 //datos[0]=String.valueOf(cap.getCuil());
                 datos[0]=cap.getNombre();
                 datos[1]=cap.getApellido();
-                if(cap.getEstado()!=null)
-                {datos[2]=cap.getEstado().getNombre();}
+                //if(cap.getEstado()!=null)
+                //{
+                    datos[2]=cap.getEstado().getNombre();
+                //}
                 tupla.setData(datos);
                     listaCapacitadores.add(tupla);
             }
