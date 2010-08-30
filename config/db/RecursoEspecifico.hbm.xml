@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.RecursoEspecifico" >
+  <class name="modelo.RecursoEspecifico" table="RECURSOS_ESPECIFICOS" >
 
     <id column="ID_RECURSO_ESPECIFICO" name="id" type="integer">
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <property column="DESC" name="descipcion" type="string"/>
+    <property column="DESCRIPCION" name="descipcion" type="string"/>
 
     <many-to-one column="ID_RECURSO" name="recurso"/>
 

@@ -13,6 +13,8 @@
 
     <many-to-one class="modelo.Proveedor" column="ID_PrOVEEDOR" name="proveedor"/>
 
+    <many-to-one class="modelo.FormaDePago" column="ID_FORMA_PAGO" name="formaDePago"/>
+
     <property name="hib_flag_estado" not-null="true" type="string"/>
 
 
