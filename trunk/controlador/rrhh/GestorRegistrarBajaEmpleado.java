@@ -79,13 +79,14 @@ public class GestorRegistrarBajaEmpleado    {
             Session sesion;
             Date fechaAltaActual=new Date();
            try {
-                    sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+               sesion = HibernateUtil.getSession();
+             HibernateUtil.beginTransaction();
+            //sesion.beginTransaction();
 
             empleadoModif.darDeBaja(fechaAltaActual, motivo );
             //empleadoModif.setMotivoBaja(motivo);
 
-            sesion.update(empleadoModif);
+            sesion.saveOrUpdate(empleadoModif);
 
             HibernateUtil.commitTransaction();
 

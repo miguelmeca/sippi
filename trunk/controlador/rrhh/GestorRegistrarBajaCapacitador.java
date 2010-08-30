@@ -81,7 +81,8 @@ public class GestorRegistrarBajaCapacitador    {
             Date fechaAltaActual=new Date();
            try {
                     sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+                    HibernateUtil.beginTransaction();
+            
 
             empleadoModif.darDeBaja(fechaAltaActual, motivo );
             //empleadoModif.setMotivoBaja(motivo);

@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import modelo.Empleado;
+import modelo.EstadoEmpleadoActivo;
 
 /**
  *
@@ -60,7 +61,11 @@ public class GestorConsultarEmpleado
             }
          return false;
     }
-
+    public String nombreEstadoEmpleadoActivo()
+    {
+        EstadoEmpleadoActivo eca=new EstadoEmpleadoActivo();
+        return eca.getNombre();
+    }
     public List listaEmpleados()
     {
 
@@ -78,7 +83,7 @@ public class GestorConsultarEmpleado
 
 
 
-         sesion.beginTransaction();
+         //sesion.beginTransaction();
             lista = sesion.createQuery("from Empleado order by legajo").list();
             //sesion.getTransaction().commit();
 

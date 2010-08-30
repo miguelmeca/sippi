@@ -78,7 +78,7 @@ public class GestorRegistrarAltaCapacitador    {
             Session sesion;
            try {
                     sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+                    HibernateUtil.beginTransaction();
 
             empleadoModif.darDeAlta();
             empleadoModif.setMotivoBaja("");
