@@ -15,11 +15,15 @@ import vista.interfaces.ICallBack;
 import controlador.comer.GestorConsultarContactosResponsables;
 import util.NTupla;
 import util.Tupla;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import util.SwingPanel;
 import vista.interfaces.IAyuda;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.Color;
 /**
  *
  * @author Administrador
@@ -28,7 +32,8 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
 
     private GestorConsultarContactosResponsables gestor;
     private List<NTupla> listaContactos;
-    private DefaultTableModel modeloTablaCompleto;
+    private DefaultTableModel model;
+    private boolean filtroBuscarActivado;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarContactosResponsables()
@@ -43,7 +48,16 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
 
     private void habilitarVentana()
     {
+        filtroBuscarActivado=false;
         cargarContactos();
+        activarFiltrosTabla();
+        if(tablaContactos.getSelectedRow()!=-1)
+       {
+           btnModificarContacto.setEnabled(true);
+           btnConsultarContacto.setEnabled(true);
+           //btnBajaContacto.setEnabled(true);
+
+        }
 
     }
 
@@ -57,7 +71,7 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
            tablaEmpleados.getModel().. listaEmpleados.get(0)
         }
         */
-        DefaultTableModel model = (DefaultTableModel) tablaContactos.getModel();
+        model = (DefaultTableModel) tablaContactos.getModel();
         int fil=model.getRowCount();
         for (int i = 0; i < fil; i++) {
             model.removeRow(0);
@@ -75,13 +89,35 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
             System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
             model.addRow( obj );
         }
-        modeloTablaCompleto=model;
+        //modeloTablaCompleto=model;
         tablaContactos.setModel(model);
         //TODO: Esconder primera fila  //tablaContactos.getColumnModel().removeColumn(tablaContactos.getColumnModel().getColumn(0));
         
     }
 
+   public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+           // model.setRowFilter(RowFilter.regexFilter("2", 1));
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tablaContactos.setRowSorter(modeloOrdenado);
 
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+           modeloOrdenado.setRowFilter(cadenaFilter);
+        }
+
+
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -92,33 +128,21 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaContactos = new javax.swing.JTable();
-        btnBajaContacto = new javax.swing.JButton();
         btnModificarContacto = new javax.swing.JButton();
         btnNuevoContacto = new javax.swing.JButton();
         btnConsultarContacto = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        txtBuscar = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Contactos Asignados");
-
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
-        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        txtBuscar.setText("Buscar...");
-        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBuscarMouseClicked(evt);
-            }
-        });
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
             }
         });
 
@@ -129,11 +153,11 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
 
             },
             new String [] {
-                "CUIL", "Nombre", "Apellido", "Estado"
+                "CUIL", "Nombre", "Apellido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -145,12 +169,11 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaContactosMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaContactosMouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(tablaContactos);
-
-        btnBajaContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
-        btnBajaContacto.setText("Dar de Baja");
-        btnBajaContacto.setEnabled(false);
 
         btnModificarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnModificarContacto.setText("Modificar");
@@ -178,9 +201,30 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
             }
         });
 
-        jRadioButton1.setText("Filtro Opcional");
-
-        jRadioButton2.setText("Filtro Opcional 2");
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,75 +232,46 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConsultarContacto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificarContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificarContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBajaContacto)))
-                .addContainerGap())
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultarContacto)
-                    .addComponent(btnBajaContacto)
                     .addComponent(btnModificarContacto)
                     .addComponent(btnNuevoContacto))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
-
-        if(txtBuscar.getText().equals("Buscar..."))
-        {
-            txtBuscar.setText("");
-        }
-
-    }//GEN-LAST:event_txtBuscarMouseClicked
-
-    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-
-        /*txtBuscar.getText();
-        DefaultTableModel tmaux;
-        tmaux..setColumnIdentifiers(); (modeloTablaCompleto.)
-        tablaEmpleados.;
-        modeloTablaCompleto.*/
-    }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void btnModificarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarContactoActionPerformed
         if(tablaContactos.getSelectedRow()!=-1)
         {
         int id;
         //String sid;
-        id=(Integer)(tablaContactos.getModel().getValueAt(tablaContactos.getSelectedRow(), 0) );
+        id=((Tupla)(tablaContactos.getModel().getValueAt(tablaContactos.getSelectedRow(), 0) )).getId();
         //id=Integer.parseInt(sid);
         pantallaRegistrarContactoResponsable pre = new pantallaRegistrarContactoResponsable(id, this);
         SwingPanel.getInstance().addWindow(pre);
@@ -285,14 +300,55 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
     }//GEN-LAST:event_btnConsultarContactoActionPerformed
 
     private void tablaContactosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseClicked
-       if(tablaContactos.getSelectedRow()!=-1)
+       
+    }//GEN-LAST:event_tablaContactosMouseClicked
+
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+}//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+}//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        
+    }//GEN-LAST:event_formMouseReleased
+
+    private void tablaContactosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseReleased
+        if(tablaContactos.getSelectedRow()!=-1)
        {
            btnModificarContacto.setEnabled(true);
            btnConsultarContacto.setEnabled(true);
-           btnBajaContacto.setEnabled(true);
+           //btnBajaContacto.setEnabled(true);
            if (evt.getClickCount() == 2)
             {
-           
+
             Tupla tId;
             tId=(Tupla)(tablaContactos.getModel().getValueAt(tablaContactos.getSelectedRow(), 0) );
 
@@ -302,17 +358,19 @@ public class pantallaConsultarContactosResponsables extends javax.swing.JInterna
                 //pre.opcionRegistrarEmpleado();
             }
         }
-    }//GEN-LAST:event_tablaContactosMouseClicked
+        else
+        {
+           btnModificarContacto.setEnabled(false);
+           btnConsultarContacto.setEnabled(false);
+        }
+    }//GEN-LAST:event_tablaContactosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBajaContacto;
     private javax.swing.JButton btnConsultarContacto;
     private javax.swing.JButton btnModificarContacto;
     private javax.swing.JButton btnNuevoContacto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaContactos;
     private javax.swing.JTextField txtBuscar;
@@ -322,23 +380,7 @@ public void actualizar(int flag,boolean exito) {
         // 1: Viene del CU ConsultarDetallesEmpleado
         // 2: Viene del CU RegistrarNuevoEmpleado
          // 3: Viene del CU modificarEmpleado
-        cargarContactos();
-          if(flag>=0&&exito)
-          {     int selec=0;
-            for (int i = 0; i < tablaContactos.getRowCount(); i++)
-            {
-
-                if (((Tupla)tablaContactos.getModel().getValueAt(i, 0)).getId()==flag)
-                {
-                   selec =i;
-                   break;
-                }
-            }
-            tablaContactos.setColumnSelectionInterval(selec,selec);
-          }
-        else
-        {
-        tablaContactos.clearSelection();}
+       habilitarVentana();
     }
 public int getIdAyuda()
     {

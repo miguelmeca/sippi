@@ -12,13 +12,20 @@
 package vista.rrhh;
 import vista.interfaces.ICallBack;
 import controlador.rrhh.GestorConsultarCapacitadores;
+import java.awt.Color;
 import util.NTupla;
 import util.Tupla;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+
 import util.SwingPanel;
 import vista.interfaces.IAyuda;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+
 /**
  *
  * @author Administrador
@@ -27,7 +34,8 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
 
     private GestorConsultarCapacitadores gestor;
     private List<NTupla> listaCapacitadores;
-    private DefaultTableModel modeloTablaCompleto;
+    private DefaultTableModel model;
+    private boolean filtroBuscarActivado;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarCapacitadores()
@@ -35,6 +43,7 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         initComponents();
         gestor = new GestorConsultarCapacitadores(this);
         this.habilitarVentana();
+
         //listaNroTel= new ArrayList<String>();
         //listaTipoTel= new ArrayList<Tupla>();
 
@@ -42,7 +51,11 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
 
     private void habilitarVentana()
     {
+        filtroBuscarActivado=false;
+        rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
         cargarCapacitadores();
+        activarFiltrosTabla();
         if(tablaCapacitadores.getSelectedRow()!=-1)
        {
            int id;
@@ -81,7 +94,7 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
            tablaEmpleados.getModel().. listaEmpleados.get(0)
         }
         */
-        DefaultTableModel model = (DefaultTableModel) tablaCapacitadores.getModel();
+        model = (DefaultTableModel) tablaCapacitadores.getModel();
         int fil=model.getRowCount();
         for (int i = 0; i < fil; i++) {
             model.removeRow(0);
@@ -106,9 +119,45 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
             System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
             model.addRow( obj );
         }
-        modeloTablaCompleto=model;
+        //model=model;
         tablaCapacitadores.setModel(model);
-        //TODO: Esconder primera fila  //tablaCapacitadores.getColumnModel().removeColumn(tablaCapacitadores.getColumnModel().getColumn(0));
+        /////////////////////////////////////////////////////       
+        
+
+    }
+
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+           // model.setRowFilter(RowFilter.regexFilter("2", 1));
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tablaCapacitadores.setRowSorter(modeloOrdenado);
+
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            if(rbFiltroActivos.isSelected())
+           {
+              filters.add(RowFilter.regexFilter(gestor.nombreEstadoCapacitadorActivo(), 3));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+            else
+        {
+             if(rbFiltroActivos.isSelected())
+           {
+              modeloOrdenado.setRowFilter(RowFilter.regexFilter(gestor.nombreEstadoCapacitadorActivo(), 3));
+           }
+        }
+
 
     }
 
@@ -132,8 +181,8 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         btnModificarEmpleado = new javax.swing.JButton();
         btnNuevoEmpleado = new javax.swing.JButton();
         btnConsultarEmpleado = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbFiltroTodos = new javax.swing.JRadioButton();
+        rbFiltroActivos = new javax.swing.JRadioButton();
         btnAltaEmpleado = new javax.swing.JButton();
 
         setClosable(true);
@@ -149,7 +198,18 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                 txtBuscarMouseClicked(evt);
             }
         });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
@@ -177,6 +237,9 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         tablaCapacitadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaCapacitadoresMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaCapacitadoresMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablaCapacitadores);
@@ -216,9 +279,19 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
             }
         });
 
-        jRadioButton1.setText("Filtro Opcional");
+        rbFiltroTodos.setText("Mostrar Todos");
+        rbFiltroTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroTodosActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("Filtro Opcional 2");
+        rbFiltroActivos.setText("Mostrar sólo capacitadores en estado \"Activo\"");
+        rbFiltroActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroActivosActionPerformed(evt);
+            }
+        });
 
         btnAltaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
         btnAltaEmpleado.setText("Dar de Alta");
@@ -238,10 +311,10 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbFiltroTodos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                        .addComponent(rbFiltroActivos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -266,8 +339,8 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
+                        .addComponent(rbFiltroTodos)
+                        .addComponent(rbFiltroActivos)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -277,7 +350,7 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
                     .addComponent(btnModificarEmpleado)
                     .addComponent(btnNuevoEmpleado)
                     .addComponent(btnAltaEmpleado))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,12 +366,8 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     }//GEN-LAST:event_txtBuscarMouseClicked
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-
-        /*txtBuscar.getText();
-        DefaultTableModel tmaux;
-        tmaux..setColumnIdentifiers(); (modeloTablaCompleto.)
-        tablaEmpleados.;
-        modeloTablaCompleto.*/
+       
+        
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
@@ -338,35 +407,7 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     }//GEN-LAST:event_btnConsultarEmpleadoActionPerformed
 
     private void tablaCapacitadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCapacitadoresMouseClicked
-       if(tablaCapacitadores.getSelectedRow()!=-1)
-       {
-           int id;           
-            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
-           btnModificarEmpleado.setEnabled(true);
-           btnConsultarEmpleado.setEnabled(true);
-           if(!gestor.esBaja(id))
-           {btnBajaEmpleado.setEnabled(true);}
-           else
-           {btnBajaEmpleado.setEnabled(false);}
-
-           if(gestor.esBaja(id))
-           {btnAltaEmpleado.setEnabled(true);}
-           else
-           {btnAltaEmpleado.setEnabled(false);}
-           if (evt.getClickCount() == 2)
-            {
-            
-            //String sleg;
-            //sleg=(String)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
-            //id=(Integer)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
-            
-            //leg=Integer.parseInt(sleg);
-            pantallaConsultarDatosCapacitador pre = new pantallaConsultarDatosCapacitador(id, this);
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-                //pre.opcionRegistrarEmpleado();
-            }
-        }
+       
     }//GEN-LAST:event_tablaCapacitadoresMouseClicked
 
     private void btnAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaEmpleadoActionPerformed
@@ -398,6 +439,84 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
         }
     }//GEN-LAST:event_btnBajaEmpleadoActionPerformed
 
+    private void rbFiltroTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroTodosActionPerformed
+        rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
+        activarFiltrosTabla();
+
+    }//GEN-LAST:event_rbFiltroTodosActionPerformed
+
+    private void rbFiltroActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroActivosActionPerformed
+       rbFiltroTodos.setSelected(false);
+        rbFiltroActivos.setSelected(true);
+        activarFiltrosTabla();
+    }//GEN-LAST:event_rbFiltroActivosActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar..."))
+        {
+        txtBuscar.setText("");
+        txtBuscar.setForeground(Color.BLACK);
+        filtroBuscarActivado=true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals(""))
+        {
+        txtBuscar.setText("Buscar...");
+        txtBuscar.setForeground(Color.GRAY);
+        filtroBuscarActivado=false;
+        }
+        else
+        {filtroBuscarActivado=true;}
+
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+       activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void tablaCapacitadoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCapacitadoresMouseReleased
+       if(tablaCapacitadores.getSelectedRow()!=-1)
+       {
+           int id;
+            id=((Tupla)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0))).getId();
+           btnModificarEmpleado.setEnabled(true);
+           btnConsultarEmpleado.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
+           if (evt.getClickCount() == 2)
+            {
+
+            //String sleg;
+            //sleg=(String)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
+            //id=(Integer)(tablaCapacitadores.getModel().getValueAt(tablaCapacitadores.getSelectedRow(), 0) );
+
+            //leg=Integer.parseInt(sleg);
+            pantallaConsultarDatosCapacitador pre = new pantallaConsultarDatosCapacitador(id, this);
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+                //pre.opcionRegistrarEmpleado();
+            }
+        }
+       else
+       {
+           btnModificarEmpleado.setEnabled(false);
+           btnConsultarEmpleado.setEnabled(false);
+           btnBajaEmpleado.setEnabled(false);
+           btnAltaEmpleado.setEnabled(false);
+       }
+    }//GEN-LAST:event_tablaCapacitadoresMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaEmpleado;
@@ -406,9 +525,9 @@ public class pantallaConsultarCapacitadores extends javax.swing.JInternalFrame i
     private javax.swing.JButton btnModificarEmpleado;
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbFiltroActivos;
+    private javax.swing.JRadioButton rbFiltroTodos;
     private javax.swing.JTable tablaCapacitadores;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
