@@ -45,7 +45,7 @@ public class Capacitador extends Persona
             super.setTelefonos(listaNroTel,  listaTipoTel);
             setTiposCapacitacion(listaTipoCapacitaciones);
             estado=new EstadoCapacitadorActivo();
-            hib_flag_estado = "modelo.EstadoCapacitadorDisponible";
+            hib_flag_estado = "modelo.EstadoCapacitadorActivo";
         }
         public Capacitador()
         {
@@ -105,7 +105,7 @@ public class Capacitador extends Persona
                         }
                         catch (Exception ex)
                         {
-                            System.out.println("No se encontro la clase Estado Concreto: "+this.hib_flag_estado);
+                            System.out.println("ERROR: No se encontro la clase Estado Concreto: "+this.hib_flag_estado);
                             ex.getStackTrace();
                             return null;
                         }
@@ -131,7 +131,7 @@ public class Capacitador extends Persona
      public boolean darDeBaja(Date fechaB, String motiv)
         {
 
-            boolean exito=estado.darBaja(this);
+            boolean exito=getEstado().darBaja(this);
                 if(exito)
                 {
                     super.setFechaBaja(fechaB);
@@ -143,19 +143,19 @@ public class Capacitador extends Persona
 
         public boolean darDeAlta()
         {
-             if(this.estado.esBaja())
+             if(getEstado().esBaja())
                 {
-                    estado.darAlta(this);
+                    getEstado().darAlta(this);
                     return true;
                 }
              else{return false;}
         }
 
         public boolean estaActivo()
-        {return estado.esActivo();}
+        {return getEstado().esActivo();}
 
         public boolean estaBaja()
-        {return estado.esBaja();}
+        {return getEstado().esBaja();}
 
         public void setMotivoBaja(String mb)
         {motivoBaja=mb;
