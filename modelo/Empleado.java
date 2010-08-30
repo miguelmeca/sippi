@@ -240,11 +240,12 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
 
     public boolean darDeBaja(Date fechaB, String motiv)
         {
-                boolean exito=estado.darBaja(this);
+                boolean exito=getEstado().darBaja(this);
                 if(exito)
                 {
                     super.setFechaBaja(fechaB);
                     motivoBaja=motiv;
+
                 }
                 return    exito;
                 
@@ -252,7 +253,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
 
         public boolean darDeAlta()
         {
-             if(this.estado.esBaja())
+             if(this.getEstado().esBaja())
                 {
                     estado.darAlta(this);
                     return true;
@@ -261,10 +262,10 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         }
 
         public boolean estaActivo()
-        {return estado.esActivo();}
+        {return getEstado().esActivo();}
 
         public boolean estaBaja()
-        {return estado.esBaja();}
+        {return getEstado().esBaja();}
 
         public void setMotivoBaja(String mb)
         {motivoBaja=mb;
