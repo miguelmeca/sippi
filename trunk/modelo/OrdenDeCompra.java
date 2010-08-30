@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Descripción:
@@ -17,7 +18,8 @@ public class OrdenDeCompra {
     private Date fechaDePedido;
     private Date fechaDeRecepcion;
     private Proveedor proveedor;
-    private List<DetalleOrdenDeCompra> detalle;
+    private List detalle;
+    private FormaDePago formaDePago;
     private EstadoOrdenDeCompra estado;
     private String hib_flag_estado;
 
@@ -78,6 +80,22 @@ public class OrdenDeCompra {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public List<DetalleOrdenDeCompra> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(List<DetalleOrdenDeCompra> detalle) {
+        this.detalle = detalle;
+    }
+
+    public FormaDePago getFormaDePago() {
+        return formaDePago;
+    }
+
+    public void setFormaDePago(FormaDePago formaDePago) {
+        this.formaDePago = formaDePago;
     }
 
 

@@ -6,6 +6,8 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Barrio;
 import modelo.Empleado;
 import modelo.Domicilio;
@@ -25,8 +27,18 @@ import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
 import java.util.HashSet;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.Alojamiento;
+import modelo.Consumible;
 import modelo.ContactoResponsable;
+import modelo.FormaDePago;
+import modelo.Herramienta;
+import modelo.Material;
+import modelo.Recurso;
 import modelo.TipoLicenciaEmpleado;
+import modelo.UnidadDeMedida;
+import util.LogUtil;
 //import java.util.Set;
 
 /**
@@ -48,12 +60,208 @@ public class DBExamplesLoader {
      */
     public void cargarEjemplos()
     {
+          this.cargarUnidadesMedida();
+          this.cargarFormasDePago();
+
           this.cargarPaises();
           this.cargarTipoDocumento();
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
           this.cargarTipoLicencias();
           this.cargarContactoResponsable();
+
+          this.cargarCompras();
+    }
+
+
+    private void cargarFormasDePago()
+    {
+        FormaDePago fp1 = new FormaDePago();
+        fp1.setNombre("Cheque");
+        FormaDePago fp2 = new FormaDePago();
+        fp2.setNombre("Efectivo");
+        FormaDePago fp3 = new FormaDePago();
+        fp3.setNombre("Transferencia Bancaria");
+        FormaDePago fp4 = new FormaDePago();
+        fp4.setNombre("Deposito Bancario");
+        try
+        {
+
+            sesion.beginTransaction();
+            sesion.save(fp1);
+            sesion.save(fp2);
+            sesion.save(fp3);
+            sesion.save(fp4);
+            sesion.getTransaction().commit();
+
+        } catch (Exception ex)
+        {
+            LogUtil.addError("ERROR CARGANDO LOS DATOS INICIALES DE UNIDAD DE MEDIDA");
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void cargarUnidadesMedida()
+    {
+        UnidadDeMedida um1 = new UnidadDeMedida();
+        um1.setNombre("Unidad");
+        um1.setAbreviatura("UM.");
+        UnidadDeMedida um2 = new UnidadDeMedida();
+        um2.setNombre("Kilogramo");
+        um2.setAbreviatura("Kg.");
+        try
+        {
+
+            sesion.beginTransaction();
+            sesion.save(um1);
+            sesion.save(um2);
+            sesion.getTransaction().commit();
+
+        } catch (Exception ex)
+        {
+            LogUtil.addError("ERROR CARGANDO LOS DATOS INICIALES DE UNIDAD DE MEDIDA");
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void cargarCompras()
+    {
+               int seleccion = JOptionPane.showOptionDialog(
+                       new JFrame(),
+                       "¿Desea cargar los datos de COMPRAS?",
+                       "Seleccione una opción",
+                       JOptionPane.YES_NO_CANCEL_OPTION,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,    // null para icono por defecto.
+                       new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
+                       "Si");
+
+        if (seleccion != -1)
+        {
+            if((seleccion + 1)==1)
+            {
+                this.cargarHerramientas();
+                this.cargarMateriales();
+                this.cargarConsumibles();
+                this.cargarAlojamientos();
+            }
+        }
+
+    }
+
+    private void cargarAlojamientos()
+    {
+        Recurso r1 = new Recurso();
+        r1.setNombre("Casa");
+        Recurso r2 = new Recurso();
+        r2.setNombre("Hotel");
+
+
+        Alojamiento h1 = new Alojamiento();
+        h1.setNombre("3 hambientes");
+        h1.setDescipcion("Córdoba capital");
+        h1.setRecurso(r1);
+        Alojamiento h2 = new Alojamiento();
+        h2.setNombre("Habitación doble");
+        h2.setDescipcion("3 estrellas");
+        h2.setRecurso(r2);
+
+
+        sesion.beginTransaction();
+        sesion.save(r1);
+        sesion.save(r2);
+        sesion.save(h1);
+        sesion.save(h2);
+        sesion.getTransaction().commit();
+    }
+
+    private void cargarConsumibles()
+    {
+        Recurso r1 = new Recurso();
+        r1.setNombre("Gas");
+        Recurso r2 = new Recurso();
+        r2.setNombre("Electrodo");
+
+
+        Consumible h1 = new Consumible();
+        h1.setNombre("Acetileno");
+        h1.setDescipcion("3500 cal p/Soldadura y corte");
+        h1.setRecurso(r1);
+        Consumible h2 = new Consumible();
+        h2.setNombre("Propano");
+        h2.setDescipcion("1500 cal p/Soldadura en general");
+        h2.setRecurso(r1);
+        Consumible h3 = new Consumible();
+        h3.setNombre("Cobre 30cm");
+        h3.setDescipcion("-");
+        h3.setRecurso(r2);
+
+        sesion.beginTransaction();
+        sesion.save(r1);
+        sesion.save(r2);
+        sesion.save(h1);
+        sesion.save(h2);
+        sesion.save(h3);
+        sesion.getTransaction().commit();
+    }
+
+    private void cargarMateriales()
+    {
+        Recurso r1 = new Recurso();
+        r1.setNombre("Galvanizado");
+        Recurso r2 = new Recurso();
+        r2.setNombre("Chapa");
+
+
+        Material h1 = new Material();
+        h1.setNombre("Perfil IPN 200");
+        h1.setDescipcion("Largo 3 metros espesor 7,5");
+        h1.setRecurso(r1);
+        Material h2 = new Material();
+        h2.setNombre("Perfil IPN 450");
+        h2.setDescipcion("Largo 2.5 metros espesor 10");
+        h2.setRecurso(r1);
+        Material h3 = new Material();
+        h3.setNombre("2B frío (A-240)");
+        h3.setDescipcion("1,5 x 1500 x 1829 304");
+        h3.setRecurso(r2);
+
+        sesion.beginTransaction();
+        sesion.save(r1);
+        sesion.save(r2);
+        sesion.save(h1);
+        sesion.save(h2);
+        sesion.save(h3);
+        sesion.getTransaction().commit();
+    }
+
+    private void cargarHerramientas()
+    {
+        Recurso r1 = new Recurso();
+        r1.setNombre("Fresadora");
+        Recurso r2 = new Recurso();
+        r2.setNombre("Torno");
+
+
+        Herramienta h1 = new Herramienta();
+        h1.setNombre("Automática BOSCH");
+        h1.setDescipcion("70000 rpm con control numérico");
+        h1.setRecurso(r1);
+        Herramienta h2 = new Herramienta();
+        h2.setNombre("Pinacho S90/260");
+        h2.setDescipcion("Para metal");
+        h2.setRecurso(r2);
+
+
+        sesion.beginTransaction();
+        sesion.save(r1);
+        sesion.save(r2);
+        sesion.save(h1);
+        sesion.save(h2);
+        sesion.getTransaction().commit();
+
     }
 
     private void cargarTipoLicencias()
