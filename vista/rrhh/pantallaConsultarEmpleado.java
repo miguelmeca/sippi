@@ -14,11 +14,15 @@ import vista.interfaces.ICallBack;
 import controlador.rrhh.GestorConsultarEmpleado;
 import util.NTupla;
 import util.Tupla;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import util.SwingPanel;
 import vista.interfaces.IAyuda;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.Color;
 /**
  *
  * @author Administrador
@@ -27,8 +31,9 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
 
     private GestorConsultarEmpleado gestor;
     private List<NTupla> listaEmpleados;
-    private DefaultTableModel modeloTablaCompleto;
+    private DefaultTableModel model;
     private boolean primeraVez;
+    private boolean filtroBuscarActivado;
 
     /** Creates new form pantallaConsultar */
     public pantallaConsultarEmpleado()
@@ -43,7 +48,11 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
 
     private void habilitarVentana()
     {
+        filtroBuscarActivado=false;
+        rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
         cargarEmpleados();
+        activarFiltrosTabla();
          if(tablaEmpleados.getSelectedRow()!=-1)
        {
            int id;
@@ -82,7 +91,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
            tablaEmpleados.getModel().. listaEmpleados.get(0)
         }
         */
-        DefaultTableModel model = (DefaultTableModel) tablaEmpleados.getModel();
+        model = (DefaultTableModel) tablaEmpleados.getModel();
         int fil=model.getRowCount();
         for (int i = 0; i < fil; i++) {
             model.removeRow(0);
@@ -108,7 +117,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
             model.addRow( obj );
         }
-        modeloTablaCompleto=model;
+        //modeloTablaCompleto=model;
         tablaEmpleados.setModel(model);
         
          //TODO: Esconder primera fila  // tablaEmpleados.getColumnModel().removeColumn(tablaEmpleados.getColumnModel().getColumn(0));
@@ -116,6 +125,41 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
 
     }
 
+
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+           // model.setRowFilter(RowFilter.regexFilter("2", 1));
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tablaEmpleados.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            if(rbFiltroActivos.isSelected())
+           {
+              filters.add(RowFilter.regexFilter(gestor.nombreEstadoEmpleadoActivo(), 3));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+        else
+        {
+             if(rbFiltroActivos.isSelected())
+           {
+              modeloOrdenado.setRowFilter(RowFilter.regexFilter(gestor.nombreEstadoEmpleadoActivo(), 3));
+           }
+        }
+
+
+    }
 
 
 
@@ -128,7 +172,6 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEmpleados = new javax.swing.JTable();
@@ -136,29 +179,16 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         btnModificarEmpleado = new javax.swing.JButton();
         btnNuevoEmpleado = new javax.swing.JButton();
         btnConsultarEmpleado = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         btnAltaEmpleado = new javax.swing.JButton();
         btnLicencias = new javax.swing.JButton();
+        rbFiltroActivos = new javax.swing.JRadioButton();
+        rbFiltroTodos = new javax.swing.JRadioButton();
+        txtBuscar = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Empleados");
-
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
-        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        txtBuscar.setText("Buscar...");
-        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBuscarMouseClicked(evt);
-            }
-        });
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
-            }
-        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
@@ -182,6 +212,9 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         tablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaEmpleadosMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaEmpleadosMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablaEmpleados);
@@ -221,10 +254,6 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             }
         });
 
-        jRadioButton1.setText("Filtro Opcional");
-
-        jRadioButton2.setText("Filtro Opcional 2");
-
         btnAltaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
         btnAltaEmpleado.setText("Dar de Alta");
         btnAltaEmpleado.setEnabled(false);
@@ -243,6 +272,45 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             }
         });
 
+        rbFiltroActivos.setText("Mostrar sólo empleados en estado \"Activo\"");
+        rbFiltroActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroActivosActionPerformed(evt);
+            }
+        });
+
+        rbFiltroTodos.setText("Mostrar Todos");
+        rbFiltroTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroTodosActionPerformed(evt);
+            }
+        });
+
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -252,10 +320,10 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbFiltroTodos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
+                        .addComponent(rbFiltroActivos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,13 +346,13 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbFiltroTodos)
+                        .addComponent(rbFiltroActivos))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jRadioButton2)))
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -295,29 +363,11 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                     .addComponent(btnLicencias)
                     .addComponent(btnAltaEmpleado)
                     .addComponent(btnBajaEmpleado))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
-
-        if(txtBuscar.getText().equals("Buscar..."))
-        {
-            txtBuscar.setText("");
-        }
-
-    }//GEN-LAST:event_txtBuscarMouseClicked
-
-    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-
-        /*txtBuscar.getText();
-        DefaultTableModel tmaux;
-        tmaux..setColumnIdentifiers(); (modeloTablaCompleto.)
-        tablaEmpleados.;
-        modeloTablaCompleto.*/
-    }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
         if(tablaEmpleados.getSelectedRow()!=-1)
@@ -356,43 +406,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     }//GEN-LAST:event_btnConsultarEmpleadoActionPerformed
 
     private void tablaEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEmpleadosMouseClicked
-       if(tablaEmpleados.getSelectedRow()!=-1)
-       {
-           int id;
-            //String sleg;
-            //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
-            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
-           btnModificarEmpleado.setEnabled(true);
-           btnConsultarEmpleado.setEnabled(true);
-           btnLicencias.setEnabled(true);
-           if(!gestor.esBaja(id))
-           {btnBajaEmpleado.setEnabled(true);}
-           else
-           {btnBajaEmpleado.setEnabled(false);}
-
-           if(gestor.esBaja(id))
-           {btnAltaEmpleado.setEnabled(true);}
-           else
-           {btnAltaEmpleado.setEnabled(false);}
-           if (evt.getClickCount() == 2)
-            {
-            
-            //leg=Integer.parseInt(sleg);
-            
-            pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-                //pre.opcionRegistrarEmpleado();
-            }
-        }
-       else
-       {
-           btnModificarEmpleado.setEnabled(false);
-           btnConsultarEmpleado.setEnabled(false);
-           btnLicencias.setEnabled(false);
-           btnBajaEmpleado.setEnabled(false);
-           btnAltaEmpleado.setEnabled(false);
-       }
+       
     }//GEN-LAST:event_tablaEmpleadosMouseClicked
 
     private void btnBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaEmpleadoActionPerformed
@@ -438,6 +452,91 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     }
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
+    private void rbFiltroActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroActivosActionPerformed
+        rbFiltroTodos.setSelected(false);
+        rbFiltroActivos.setSelected(true);
+        activarFiltrosTabla();
+}//GEN-LAST:event_rbFiltroActivosActionPerformed
+
+    private void rbFiltroTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroTodosActionPerformed
+        rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
+        activarFiltrosTabla();
+    }//GEN-LAST:event_rbFiltroTodosActionPerformed
+
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+}//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+}//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void tablaEmpleadosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEmpleadosMouseReleased
+      if(tablaEmpleados.getSelectedRow()!=-1)
+       {
+           int id;
+            //String sleg;
+            //sleg=(String)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0) );
+            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+           btnModificarEmpleado.setEnabled(true);
+           btnConsultarEmpleado.setEnabled(true);
+           btnLicencias.setEnabled(true);
+           if(!gestor.esBaja(id))
+           {btnBajaEmpleado.setEnabled(true);}
+           else
+           {btnBajaEmpleado.setEnabled(false);}
+
+           if(gestor.esBaja(id))
+           {btnAltaEmpleado.setEnabled(true);}
+           else
+           {btnAltaEmpleado.setEnabled(false);}
+           if (evt.getClickCount() == 2)
+            {
+
+            //leg=Integer.parseInt(sleg);
+
+            pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+                //pre.opcionRegistrarEmpleado();
+            }
+        }
+       else
+       {
+           btnModificarEmpleado.setEnabled(false);
+           btnConsultarEmpleado.setEnabled(false);
+           btnLicencias.setEnabled(false);
+           btnBajaEmpleado.setEnabled(false);
+           btnAltaEmpleado.setEnabled(false);
+       }
+    }//GEN-LAST:event_tablaEmpleadosMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaEmpleado;
@@ -447,9 +546,9 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     private javax.swing.JButton btnModificarEmpleado;
     private javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbFiltroActivos;
+    private javax.swing.JRadioButton rbFiltroTodos;
     private javax.swing.JTable tablaEmpleados;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
