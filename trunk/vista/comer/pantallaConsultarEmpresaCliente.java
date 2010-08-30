@@ -111,7 +111,6 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
         tblPlantas.setModel(tm);
     }
 
-
     public void plantaAgregada() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -441,9 +440,6 @@ public class pantallaConsultarEmpresaCliente extends javax.swing.JInternalFrame 
                 JOptionPane.showMessageDialog(this.getParent(),"El identificador de la planta no es valido","Error",JOptionPane.INFORMATION_MESSAGE);
             }
         }
-
-
-
     }//GEN-LAST:event_btnConsultarPlantaActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed

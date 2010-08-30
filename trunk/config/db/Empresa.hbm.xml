@@ -37,7 +37,7 @@
       </list>
     </joined-subclass>
 
-    <joined-subclass name="modelo.Proveedor" table="PROVEEDORES">
+    <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID_PROVEEDOR"/>
     </joined-subclass>
 
