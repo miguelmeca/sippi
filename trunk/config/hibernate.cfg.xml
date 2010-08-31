@@ -27,7 +27,7 @@
     <mapping package="modelo" resource="config/db/PedidoObra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RangoEspecialidad.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Especialidad.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/Domicilio.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Domicilio.hbm.xml"/>    
     <mapping package="modelo" resource="config/db/Empresa.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Planta.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoTelefono.hbm.xml"/>
@@ -43,7 +43,6 @@
     <mapping package="modelo" resource="config/db/DetalleHorarioTaller.hbm.xml"/>
     <mapping package="modelo" resource="config/db/LicenciaEmpleado.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoLicenciaEmpleado.hbm.xml"/>
-    
     <!-- SEGUNDA ITERACION                                                  -->
     <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Recurso.hbm.xml"/>
@@ -51,6 +50,9 @@
     <mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/FormaDePago.hbm.xml"/>
     <mapping package="modelo" resource="config/db/UnidadDeMedida.hbm.xml"/>
-    
+    <mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/PrecioXRecurso.hbm.xml"/>
+
+
   </session-factory>
 </hibernate-configuration>

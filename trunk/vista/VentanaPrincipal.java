@@ -30,6 +30,7 @@ import vista.comer.pantallaRegistrarContactoResponsable;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
+import vista.compras.pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 import vista.gui.sidebar.IconTreeModel;
@@ -149,6 +150,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         btnConsultarClientes = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnNuevoPedidoObra = new javax.swing.JButton();
@@ -256,6 +258,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnConsultarClientes);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/activity_monitor.png"))); // NOI18N
+        jButton4.setText("Actualizar Precios");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton4);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/full_page.png"))); // NOI18N
         jButton2.setText("Consultar Talleres de Capacitación");
@@ -401,7 +415,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -421,7 +435,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1190, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1301, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1005,6 +1019,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return;
     }//GEN-LAST:event_mnuRegistrarProveedorActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        pantallaRegistrarPrecioRecurso p = new pantallaRegistrarPrecioRecurso();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1025,6 +1045,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
