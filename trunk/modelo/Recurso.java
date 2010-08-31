@@ -31,7 +31,4 @@ public class Recurso {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-
-
 }

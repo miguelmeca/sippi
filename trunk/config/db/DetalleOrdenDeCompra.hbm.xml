@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.DetalleOrdenDeCompra">
-
-    <id column="ID_DETALLE_ORDEN_COMPRA" name="id" type="integer" unsaved-value="0">
-      <generator class="increment"/>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleOrdenDeCompra" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id name="id" column="ID_DETALLEOC" type="integer">
+        <generator class="increment"/>
     </id>
-
     <property name="cantidad" type="integer"/>
     <property name="precio" type="double"/>
-    <many-to-one class="modelo.RecursoEspecifico" column="ID_RECURSO" name="recurso"/>
-
+    <many-to-one class="modelo.RecursoEspecifico" column="idRecursoEsp" name="recurso"/>
   </class>
 </hibernate-mapping>

@@ -24,14 +24,7 @@ public class OrdenDeCompra {
     private String hib_flag_estado;
 
     public OrdenDeCompra() {
-    }
-
-    public EstadoOrdenDeCompra getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoOrdenDeCompra estado) {
-        this.estado = estado;
+        this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
     }
 
     public Date getFechaDePedido() {
@@ -98,6 +91,87 @@ public class OrdenDeCompra {
         this.formaDePago = formaDePago;
     }
 
+/*************************************************************
+ *                    MANEJO DE ESTADOS                      *
+ * ***********************************************************
+ */
+    
+    public EstadoOrdenDeCompra getEstado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado==null)
+            {
+                try {
+                        //Class estadoAux = Class.forName(this.hib_flag_estado);
+                        EstadoOrdenDeCompra estadoAux = (EstadoOrdenDeCompra) Class.forName(this.hib_flag_estado).newInstance();
+                        this.estado = estadoAux;
+                        return estado;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println("No se encontro la clase Estado Concreto");
+                    }
+            }
+            else
+            {
+                return this.estado;
+            }
 
+        }
+        else
+        {
+            System.out.println("Carga el objeto antes de usarlo");
+            return null;
+        }
+        return null;
+    }
+
+    public void setEstadoPendienteDeRecepcion()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esGenerada())
+            {
+                ((EstadoOrdenDeCompraGenerada)this.estado).setPendiente(this);
+            }
+        }
+    }
+
+    public void setEstadoRecibida()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPendiente())
+            {
+                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibida(this);
+            }
+        }
+    }
+
+
+    public void setEstadoCancelado()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esGenerada()){
+                ((EstadoOrdenDeCompraGenerada)this.estado).setCancelado(this);
+            }
+            else{
+                if(this.estado.esPendiente()){
+                    ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setCancelado(this);
+                }
+                else{
+                    if(this.estado.esRecibida()){
+                        ((EstadoOrdenDeCompraRecibida)this.estado).setCancelado(this);
+                    }
+                }
+            }
+        }
+    }
+
+    public void setEstado(EstadoOrdenDeCompra estado) {
+        this.estado = estado;
+    }
 
 }

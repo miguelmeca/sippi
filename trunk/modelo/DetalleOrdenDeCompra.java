@@ -13,7 +13,7 @@ public class DetalleOrdenDeCompra {
     private int id;
     private int cantidad;
     private double precio;
-    private Recurso recurso;
+    private RecursoEspecifico recurso;
 
     public DetalleOrdenDeCompra() {
     }
@@ -42,14 +42,11 @@ public class DetalleOrdenDeCompra {
         this.precio = precio;
     }
 
-    public Recurso getRecurso() {
+    public RecursoEspecifico getRecurso() {
         return recurso;
     }
 
-    public void setRecurso(Recurso recurso) {
+    public void setRecurso(RecursoEspecifico recurso) {
         this.recurso = recurso;
     }
-
-
-
 }

@@ -27,14 +27,19 @@ import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.Alojamiento;
 import modelo.Consumible;
 import modelo.ContactoResponsable;
+import modelo.DetalleOrdenDeCompra;
+import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
 import modelo.FormaDePago;
 import modelo.Herramienta;
 import modelo.Material;
+import modelo.OrdenDeCompra;
+import modelo.Proveedor;
 import modelo.Recurso;
 import modelo.TipoLicenciaEmpleado;
 import modelo.UnidadDeMedida;
@@ -71,6 +76,8 @@ public class DBExamplesLoader {
           this.cargarContactoResponsable();
 
           this.cargarCompras();
+
+//          this.cargarOrdenDeCompra();
     }
 
 
@@ -501,6 +508,78 @@ public class DBExamplesLoader {
         sesion.beginTransaction();
         sesion.save(t);
         sesion.save(contacto);
+        sesion.getTransaction().commit();
+    }
+
+    private Proveedor cargarProveedor(){
+        Proveedor p = new Proveedor();
+        p.setRazonSocial("SIDERUGIA SAN LUIS S.R.L.");
+        p.setCuit("34345555-5");
+        p.setEmail("atclientes@ssl.com.ar");
+        p.setPaginaWeb("http://www.ssl.com.ar");
+
+            Domicilio d = new Domicilio();
+            d.setCalle("Av. Los Plátanos");
+            d.setNumero(204);
+            d.setPiso(0);
+            d.setDepto("X");
+            d.setCodigoPostal("X3000UOO");
+
+            sesion.beginTransaction();
+            Barrio b = (Barrio)sesion.get(Barrio.class, 1);
+            sesion.getTransaction().commit();
+            d.setBarrio(b);
+            p.setDomicilio(d);
+
+            Telefono tel = new Telefono();
+            tel.setNumero("4456834");
+            tel.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 2)));
+            HashSet<Telefono> tels = new HashSet<Telefono>();
+            tels.add(tel);
+            p.setTelefonos(tels);
+
+        sesion.beginTransaction();
+        sesion.save(tel);
+        sesion.save(d);
+        sesion.save(p);
+        sesion.getTransaction().commit();
+        return p;
+    }
+
+    public void cargarOrdenDeCompra(){
+        OrdenDeCompra oc = new OrdenDeCompra();
+        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
+        oc.setProveedor(cargarProveedor());
+
+        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
+        Material m = new Material();
+        m.setNombre("PLACA DE METAL 2X2MTS");
+        Recurso r = new Recurso();
+        r.setNombre("PLACA DE METAL");
+        m.setRecurso(r);
+        m.setDescipcion("GALVANIZADA");
+        doc.setRecurso(m);
+        doc.setCantidad(12);
+        doc.setPrecio(150);
+
+        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
+        docs.add(doc);
+        oc.setDetalle(docs);
+
+        oc.setFechaDePedido(new Date());
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
+        oc.setFechaDeRecepcion(new Date(02122010));
+
+        FormaDePago fp = new FormaDePago();
+        fp.setNombre("Efectivo");
+        oc.setFormaDePago(fp);
+
+        sesion.beginTransaction();
+        sesion.save(m);
+        sesion.save(r);
+        sesion.save(doc);
+        sesion.save(fp);
+        sesion.save(oc);
         sesion.getTransaction().commit();
     }
 }
