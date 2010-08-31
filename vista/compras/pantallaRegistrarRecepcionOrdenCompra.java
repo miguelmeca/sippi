@@ -24,7 +24,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
-        //this.setAnchoColumnas();
+        habilitarVentana();
+    }
+
+    public void habilitarVentana(){
+        this.setAnchoColumnas();
     }
 
     private void setAnchoColumnas(){
@@ -39,15 +43,17 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             switch(i){
                 case 0: anchoColumna = (10*ancho)/100;
                         break;
-                case 1: anchoColumna = (20*ancho)/100;
+                case 1: anchoColumna = (10*ancho)/100;
                         break;
-                case 2: anchoColumna = (30*ancho)/100;
+                case 2: anchoColumna = (20*ancho)/100;
                         break;
                 case 3: anchoColumna = (20*ancho)/100;
                         break;
-                case 4: anchoColumna = (10*ancho)/100;
+                case 4: anchoColumna = (20*ancho)/100;
                         break;
                 case 5: anchoColumna = (10*ancho)/100;
+                        break;
+                case 6: anchoColumna = (10*ancho)/100;
                         break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -98,12 +104,22 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cant.", "Nombre", "Descripción", "Proveedor", "P. U.", "Subtotal"
+                "", "Cant.", "Nombre", "Descripción", "Proveedor", "P. U.", "Subtotal"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaDetalle);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -118,7 +134,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +174,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
             },
             new String [] {
-                "Nro. Pedido", "Proveedor", "Fecha de Emisión"
+                "Nro. Orden", "Proveedor", "Fecha de Emisión"
             }
         ));
         jScrollPane2.setViewportView(tablaOrdenesCompra);
@@ -167,7 +183,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +204,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbProveedor, 0, 190, Short.MAX_VALUE)
-                .addGap(248, 248, 248))
+                .addGap(271, 271, 271))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +240,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(txtNumeroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +268,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,13 +291,13 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(398, Short.MAX_VALUE)
+                        .addContainerGap(421, Short.MAX_VALUE)
                         .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(175, Short.MAX_VALUE)
+                        .addContainerGap(198, Short.MAX_VALUE)
                         .addComponent(btnRecepcionParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRecepcionTotal)
@@ -304,7 +320,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();

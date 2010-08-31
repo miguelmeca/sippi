@@ -8,26 +8,14 @@ package modelo;
  * @todo
  */
 
-class EstadoOrdenDeCompra extends EstadoAbstracto {
-	public boolean esAlta()
-        {
-            return false;
-	}
+public abstract class EstadoOrdenDeCompra extends EstadoAbstracto {
+    public abstract boolean esAnulada();
 
-	public boolean esBaja()
-        {
-            return false;
-	}
+    public abstract boolean esCancelada();
 
-        public void darBaja(OrdenDeCompra oc)
-        {
-//            tc.setHib_flag_estado("modelo.EstadoLugarCapacitacionBaja");
-//            tc.setEstado(new EstadoLugarCapacitacionBaja());
-        }
+    public abstract boolean esGenerada();
 
-        public void darAlta(OrdenDeCompra oc)
-        {
-//            tc.setHib_flag_estado("modelo.EstadoLugarCapacitacionAlta");
-//            tc.setEstado(new EstadoLugarCapacitacionAlta());
-        }
+    public abstract boolean esPendiente();
+
+    public abstract boolean esRecibida();
 }

@@ -16,11 +16,11 @@ package modelo;
 
 public class EstadoPedidoObraCancelado extends EstadoPedidoObra {
 
-        public EstadoPedidoObraCancelado()
-        {
-            super();
-            this.setNombre("Cancelado");
-	}
+    public EstadoPedidoObraCancelado()
+    {
+        super();
+        this.setNombre("Cancelado");
+    }
 	
     @Override
     public boolean esPresupuestado() {
