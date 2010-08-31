@@ -10,6 +10,9 @@ package modelo;
 
 public class Material extends RecursoEspecifico {
 
-    
+   public String toString()
+   {
+       return "Material";
+   }
 
 }

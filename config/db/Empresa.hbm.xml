@@ -39,6 +39,13 @@
 
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID_PROVEEDOR"/>
+
+        <list name="precios" cascade="all" table="PROVEEDOR_X_PRECIO">
+            <key column="ID_PROVEEDOR"/>
+            <index column="idx"/>
+            <one-to-many class="modelo.PrecioXRecurso"/>
+        </list>
+
     </joined-subclass>
 
   </class>
