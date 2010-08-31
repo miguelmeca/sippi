@@ -38,6 +38,13 @@ public class Indumentaria extends RecursoEspecifico{
         this.hib_flag_estado = hib_flag_estado;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Indumentaria";
+    }
+
+
 
 
 }

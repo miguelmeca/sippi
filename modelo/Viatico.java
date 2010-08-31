@@ -10,4 +10,10 @@ package modelo;
 
 public class Viatico extends RecursoEspecifico {
 
+    @Override
+    public String toString()
+    {
+        return "Viático";
+    }
+
 }

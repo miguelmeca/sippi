@@ -172,6 +172,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     /**
      * ME-0020 : No se pudo cargar la lista de Proveedores
+     * ME-0021 : No se pudo cargar el proveedor
      * @param cod
      */
     public void MostrarMensaje(String cod)
@@ -182,7 +183,12 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores","Error en la Carga",JOptionPane.ERROR_MESSAGE);
             this.dispose();
         }
-
+        if(cod.equals("ME-0021"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo el listado de Tipos de Recurso","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
     }
 
 }

@@ -67,23 +67,13 @@ public class gestorRegistrarPrecioRecurso {
 
                 Proveedor prov = (Proveedor)sesion.load(Proveedor.class,idProv);
 
-//                while (iter.hasNext())
-//                {
-//                   Proveedor pro = iter.next();
-//                   if(pro.getEstado().esAlta())
-//                   {
-//                       Tupla t = new Tupla();
-//                       t.setId(pro.getId());
-//                       t.setNombre(pro.getRazonSocial());
-//                       lista.add(t);
-//                   }
-//                }
+                return prov.buscarTipoDeRecursosDisponibles();
 
                }catch(Exception ex)
            {
-                System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
                 ex.printStackTrace();
-                pantalla.MostrarMensaje("ME-0020");
+                pantalla.MostrarMensaje("ME-0021");
            }
 
            return lista;

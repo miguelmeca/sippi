@@ -10,4 +10,12 @@ package modelo;
 
 public class Consumible extends RecursoEspecifico{
 
+    @Override
+    public String toString()
+    {
+        return "Consumible";
+    }
+
+
+
 }

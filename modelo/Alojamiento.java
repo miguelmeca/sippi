@@ -10,4 +10,10 @@ package modelo;
 
 public class Alojamiento extends RecursoEspecifico{
 
+    @Override
+    public String toString()
+    {
+        return "Alojamiento";
+    }
+
 }
