@@ -6,6 +6,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import modelo.Alojamiento;
 import modelo.Consumible;
 import modelo.Herramienta;
@@ -32,7 +33,7 @@ public class TipoRecursoUtil {
             Tupla mat = new Tupla(1,m.toString());
 
             Herramienta h = new Herramienta();
-            Tupla her = new Tupla(2,h.getNombre());
+            Tupla her = new Tupla(2,h.toString());
 
             Indumentaria i = new Indumentaria();
             Tupla ind = new Tupla(3,i.toString());
@@ -60,4 +61,19 @@ public class TipoRecursoUtil {
         return lista;
     }
 
+    public static Tupla TipoRecurso(int id)
+    {
+        ArrayList<Tupla> lista = TipoRecursoUtil.getTiposDeRecurso();
+        Iterator<Tupla> it = lista.iterator();
+        while (it.hasNext())
+        {
+            Tupla tp = it.next();
+            if(tp.getId() == id)
+            {
+                return tp;
+            }
+
+        }
+        return new Tupla(0,"Tipo No válido");
+    }
 }

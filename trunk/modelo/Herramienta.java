@@ -29,6 +29,12 @@ public class Herramienta extends RecursoEspecifico {
         this.hib_flag_estado = hib_flag_estado;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Herramienta";
+    }
+
 
   
 }
