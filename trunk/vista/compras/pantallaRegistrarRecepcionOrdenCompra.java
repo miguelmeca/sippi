@@ -11,7 +11,10 @@
 
 package vista.compras;
 
+import controlador.Compras.GestorRegistrarRecepcionOC;
 import javax.swing.JViewport;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -20,24 +23,54 @@ import javax.swing.table.TableColumnModel;
  * @author Emmanuel
  */
 public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternalFrame {
+    private GestorRegistrarRecepcionOC gestor;
+
 
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
         habilitarVentana();
+        gestor = new GestorRegistrarRecepcionOC(this);
+
     }
 
     public void habilitarVentana(){
         this.setAnchoColumnas();
     }
 
-    private void setAnchoColumnas(){
+    protected void ocultarBotonesRecepcion(){
+        this.btnRecepcionParcial.setVisible(false);
+        this.btnRecepcionTotal.setVisible(false);
+    }
+
+    protected void borrarColumnaSeleccion(){
+        TableColumnModel tcm = tablaDetalle.getColumnModel();
+        TableColumn columna = tcm.getColumn( 0 );
+
+        /** La columna que deseo eliminar se elimina de la vista pero no del mo-
+         *  delo y se puede recuperar por medio de:
+         *
+         *   tablaDetalle.getColumnModel().addColumn(tablaDetalle.getColumnModel().getColumn(0));
+         *
+         *  Cabe aclarar que es de vital importancia que cuando nosotros invoca-
+         *  mos los métodos:
+         *       tablaDetalle.getColumnCount() o
+         *       tableDetalle.getColumnModel().getColumnCount()
+         *
+         *  estos nos devuelven la cantidad de COLUMNAS VISIBLES.
+         */
+        tcm.removeColumn( columna );
+
+    }
+
+    protected void setAnchoColumnas(){
         JViewport scroll =  (JViewport) tablaDetalle.getParent();
         //int ancho = tablaDetalle.get
         int ancho = scroll.getWidth();
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
         TableColumn columnaTabla;
+        System.out.println("COLUMNAS: "+tablaDetalle.getColumnCount());
         for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch(i){
@@ -57,7 +90,6 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                         break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
-            columnaTabla.setMaxWidth(anchoColumna);
         }
     }
 
@@ -320,7 +352,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

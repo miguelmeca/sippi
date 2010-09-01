@@ -13,6 +13,7 @@ import modelo.OrdenDeCompra;
 import modelo.Proveedor;
 import util.HibernateUtil;
 import util.NTupla;
+import vista.compras.pantallaConsultarOC;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 
 /**
