@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Consumible extends RecursoEspecifico{
+public class Consumible extends Recurso{
 
     @Override
     public String toString()

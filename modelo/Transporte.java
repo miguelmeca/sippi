@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Transporte extends RecursoEspecifico {
+public class Transporte extends Recurso {
 
     @Override
     public String toString()

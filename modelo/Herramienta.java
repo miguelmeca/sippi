@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Herramienta extends RecursoEspecifico {
+public class Herramienta extends Recurso{
 
     private EstadoHerramienta estado;
     private String hib_flag_estado;

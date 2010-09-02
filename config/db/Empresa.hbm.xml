@@ -36,17 +36,19 @@
         <one-to-many class="modelo.Planta"/>
       </list>
     </joined-subclass>
-
+    <!--    ::: PROVEEDOR :::     -->
     <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
       <key column="ID_PROVEEDOR"/>
-
-        <list name="precios" cascade="all" table="PROVEEDOR_X_PRECIO">
-            <key column="ID_PROVEEDOR"/>
-            <index column="idx"/>
-            <one-to-many class="modelo.PrecioXRecurso"/>
-        </list>
-
+      <list cascade="all" name="rubros" table="PROVEEDOR_X_RUBRO">
+        <key column="ID_PROVEEDOR"/>
+        <index column="idx"/>
+        <one-to-many class="modelo.Recurso"/>
+      </list>
+      <list cascade="all" name="listaArticulos" table="PROVEEDOR_X_RECURSOESPECIFICO">
+        <key column="ID_PROVEEDOR"/>
+        <index column="idx"/>
+        <one-to-many class="modelo.RecursoEspecifico"/>
+      </list>
     </joined-subclass>
-
   </class>
 </hibernate-mapping>

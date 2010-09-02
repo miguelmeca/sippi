@@ -153,121 +153,128 @@ public class DBExamplesLoader {
                 this.cargarMateriales();
                 this.cargarConsumibles();
                 this.cargarAlojamientos();
+
+                this.cargarProveedores();
             }
         }
 
     }
 
+    private void cargarProveedores()
+    {
+        // NO TENGO GANAS
+    }
+
     private void cargarAlojamientos()
     {
-        Recurso r1 = new Recurso();
-        r1.setNombre("Casa");
-        Recurso r2 = new Recurso();
-        r2.setNombre("Hotel");
-
-
-        Alojamiento h1 = new Alojamiento();
-        h1.setNombre("3 hambientes");
-        h1.setDescipcion("Córdoba capital");
-        h1.setRecurso(r1);
-        Alojamiento h2 = new Alojamiento();
-        h2.setNombre("Habitación doble");
-        h2.setDescipcion("3 estrellas");
-        h2.setRecurso(r2);
-
-
-        sesion.beginTransaction();
-        sesion.save(r1);
-        sesion.save(r2);
-        sesion.save(h1);
-        sesion.save(h2);
-        sesion.getTransaction().commit();
+//        Recurso2 r1 = new Recurso2();
+//        r1.setNombre("Casa");
+//        Recurso2 r2 = new Recurso2();
+//        r2.setNombre("Hotel");
+//
+//
+//        Alojamiento h1 = new Alojamiento();
+//        h1.setNombre("3 hambientes");
+//        h1.setDescipcion("Córdoba capital");
+//        h1.setRecurso(r1);
+//        Alojamiento h2 = new Alojamiento();
+//        h2.setNombre("Habitación doble");
+//        h2.setDescipcion("3 estrellas");
+//        h2.setRecurso(r2);
+//
+//
+//        sesion.beginTransaction();
+//        sesion.save(r1);
+//        sesion.save(r2);
+//        sesion.save(h1);
+//        sesion.save(h2);
+//        sesion.getTransaction().commit();
     }
 
     private void cargarConsumibles()
     {
-        Recurso r1 = new Recurso();
-        r1.setNombre("Gas");
-        Recurso r2 = new Recurso();
-        r2.setNombre("Electrodo");
-
-
-        Consumible h1 = new Consumible();
-        h1.setNombre("Acetileno");
-        h1.setDescipcion("3500 cal p/Soldadura y corte");
-        h1.setRecurso(r1);
-        Consumible h2 = new Consumible();
-        h2.setNombre("Propano");
-        h2.setDescipcion("1500 cal p/Soldadura en general");
-        h2.setRecurso(r1);
-        Consumible h3 = new Consumible();
-        h3.setNombre("Cobre 30cm");
-        h3.setDescipcion("-");
-        h3.setRecurso(r2);
-
-        sesion.beginTransaction();
-        sesion.save(r1);
-        sesion.save(r2);
-        sesion.save(h1);
-        sesion.save(h2);
-        sesion.save(h3);
-        sesion.getTransaction().commit();
+//        Recurso2 r1 = new Recurso2();
+//        r1.setNombre("Gas");
+//        Recurso2 r2 = new Recurso2();
+//        r2.setNombre("Electrodo");
+//
+//
+//        Consumible h1 = new Consumible();
+//        h1.setNombre("Acetileno");
+//        h1.setDescipcion("3500 cal p/Soldadura y corte");
+//        h1.setRecurso(r1);
+//        Consumible h2 = new Consumible();
+//        h2.setNombre("Propano");
+//        h2.setDescipcion("1500 cal p/Soldadura en general");
+//        h2.setRecurso(r1);
+//        Consumible h3 = new Consumible();
+//        h3.setNombre("Cobre 30cm");
+//        h3.setDescipcion("-");
+//        h3.setRecurso(r2);
+//
+//        sesion.beginTransaction();
+//        sesion.save(r1);
+//        sesion.save(r2);
+//        sesion.save(h1);
+//        sesion.save(h2);
+//        sesion.save(h3);
+//        sesion.getTransaction().commit();
     }
 
     private void cargarMateriales()
     {
-        Recurso r1 = new Recurso();
-        r1.setNombre("Galvanizado");
-        Recurso r2 = new Recurso();
-        r2.setNombre("Chapa");
-
-
-        Material h1 = new Material();
-        h1.setNombre("Perfil IPN 200");
-        h1.setDescipcion("Largo 3 metros espesor 7,5");
-        h1.setRecurso(r1);
-        Material h2 = new Material();
-        h2.setNombre("Perfil IPN 450");
-        h2.setDescipcion("Largo 2.5 metros espesor 10");
-        h2.setRecurso(r1);
-        Material h3 = new Material();
-        h3.setNombre("2B frío (A-240)");
-        h3.setDescipcion("1,5 x 1500 x 1829 304");
-        h3.setRecurso(r2);
-
-        sesion.beginTransaction();
-        sesion.save(r1);
-        sesion.save(r2);
-        sesion.save(h1);
-        sesion.save(h2);
-        sesion.save(h3);
-        sesion.getTransaction().commit();
+//        Recurso2 r1 = new Recurso2();
+//        r1.setNombre("Galvanizado");
+//        Recurso2 r2 = new Recurso2();
+//        r2.setNombre("Chapa");
+//
+//
+//        Material h1 = new Material();
+//        h1.setNombre("Perfil IPN 200");
+//        h1.setDescipcion("Largo 3 metros espesor 7,5");
+//        h1.setRecurso(r1);
+//        Material h2 = new Material();
+//        h2.setNombre("Perfil IPN 450");
+//        h2.setDescipcion("Largo 2.5 metros espesor 10");
+//        h2.setRecurso(r1);
+//        Material h3 = new Material();
+//        h3.setNombre("2B frío (A-240)");
+//        h3.setDescipcion("1,5 x 1500 x 1829 304");
+//        h3.setRecurso(r2);
+//
+//        sesion.beginTransaction();
+//        sesion.save(r1);
+//        sesion.save(r2);
+//        sesion.save(h1);
+//        sesion.save(h2);
+//        sesion.save(h3);
+//        sesion.getTransaction().commit();
     }
 
     private void cargarHerramientas()
     {
-        Recurso r1 = new Recurso();
-        r1.setNombre("Fresadora");
-        Recurso r2 = new Recurso();
-        r2.setNombre("Torno");
-
-
-        Herramienta h1 = new Herramienta();
-        h1.setNombre("Automática BOSCH");
-        h1.setDescipcion("70000 rpm con control numérico");
-        h1.setRecurso(r1);
-        Herramienta h2 = new Herramienta();
-        h2.setNombre("Pinacho S90/260");
-        h2.setDescipcion("Para metal");
-        h2.setRecurso(r2);
-
-
-        sesion.beginTransaction();
-        sesion.save(r1);
-        sesion.save(r2);
-        sesion.save(h1);
-        sesion.save(h2);
-        sesion.getTransaction().commit();
+//        Recurso2 r1 = new Recurso2();
+//        r1.setNombre("Fresadora");
+//        Recurso2 r2 = new Recurso2();
+//        r2.setNombre("Torno");
+//
+//
+//        Herramienta h1 = new Herramienta();
+//        h1.setNombre("Automática BOSCH");
+//        h1.setDescipcion("70000 rpm con control numérico");
+//        h1.setRecurso(r1);
+//        Herramienta h2 = new Herramienta();
+//        h2.setNombre("Pinacho S90/260");
+//        h2.setDescipcion("Para metal");
+//        h2.setRecurso(r2);
+//
+//
+//        sesion.beginTransaction();
+//        sesion.save(r1);
+//        sesion.save(r2);
+//        sesion.save(h1);
+//        sesion.save(h2);
+//        sesion.getTransaction().commit();
 
     }
 
@@ -547,40 +554,40 @@ public class DBExamplesLoader {
     }
 
     public void cargarOrdenDeCompra(){
-        OrdenDeCompra oc = new OrdenDeCompra();
-        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
-        oc.setProveedor(cargarProveedor());
-
-        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
-        Material m = new Material();
-        m.setNombre("PLACA DE METAL 2X2MTS");
-        Recurso r = new Recurso();
-        r.setNombre("PLACA DE METAL");
-        m.setRecurso(r);
-        m.setDescipcion("GALVANIZADA");
-        doc.setRecurso(m);
-        doc.setCantidad(12);
-        doc.setPrecio(150);
-
-        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
-        docs.add(doc);
-        oc.setDetalle(docs);
-
-        oc.setFechaDePedido(new Date());
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
-        oc.setFechaDeRecepcion(new Date(02122010));
-
-        FormaDePago fp = new FormaDePago();
-        fp.setNombre("Efectivo");
-        oc.setFormaDePago(fp);
-
-        sesion.beginTransaction();
-        sesion.save(m);
-        sesion.save(r);
-        sesion.save(doc);
-        sesion.save(fp);
-        sesion.save(oc);
-        sesion.getTransaction().commit();
+//        OrdenDeCompra oc = new OrdenDeCompra();
+//        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
+//        oc.setProveedor(cargarProveedor());
+//
+//        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
+//        Material m = new Material();
+//        m.setNombre("PLACA DE METAL 2X2MTS");
+//        Recurso r = new Recurso();
+//        r.setNombre("PLACA DE METAL");
+//        m.setRecurso(r);
+//        m.setDescipcion("GALVANIZADA");
+//        doc.setRecurso(m);
+//        doc.setCantidad(12);
+//        doc.setPrecio(150);
+//
+//        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
+//        docs.add(doc);
+//        oc.setDetalle(docs);
+//
+//        oc.setFechaDePedido(new Date());
+//        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
+//        oc.setFechaDeRecepcion(new Date(02122010));
+//
+//        FormaDePago fp = new FormaDePago();
+//        fp.setNombre("Efectivo");
+//        oc.setFormaDePago(fp);
+//
+//        sesion.beginTransaction();
+//        sesion.save(m);
+//        sesion.save(r);
+//        sesion.save(doc);
+//        sesion.save(fp);
+//        sesion.save(oc);
+//        sesion.getTransaction().commit();
     }
 }
 

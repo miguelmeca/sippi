@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Viatico extends RecursoEspecifico {
+public class Viatico extends Recurso {
 
     @Override
     public String toString()
