@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Indumentaria extends RecursoEspecifico{
+public class Indumentaria extends Recurso{
 
     private Talle talle;
     private EstadoIndumentaria estado;

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 /**
  * Descripción:
  * @version 1.0
@@ -8,22 +10,13 @@ package modelo;
  * @todo
  */
 
-public abstract class RecursoEspecifico {
+public class RecursoEspecifico {
 
     private int id;
     private String nombre;
-    private String descipcion;
-    private Recurso recurso;
+    private List<RecursoXProveedor> proveedores;
 
     public RecursoEspecifico() {
-    }
-
-    public String getDescipcion() {
-        return descipcion;
-    }
-
-    public void setDescipcion(String descipcion) {
-        this.descipcion = descipcion;
     }
 
     public int getId() {
@@ -42,14 +35,13 @@ public abstract class RecursoEspecifico {
         this.nombre = nombre;
     }
 
-    public Recurso getRecurso() {
-        return recurso;
+    public List<RecursoXProveedor> getProveedores() {
+        return proveedores;
     }
 
-    public void setRecurso(Recurso recurso) {
-        this.recurso = recurso;
+    public void setProveedores(List<RecursoXProveedor> proveedores) {
+        this.proveedores = proveedores;
     }
-
 
 
 }

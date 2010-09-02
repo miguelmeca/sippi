@@ -8,7 +8,7 @@ package modelo;
  * @todo
  */
 
-public class Material extends RecursoEspecifico {
+public class Material extends Recurso{
 
    public String toString()
    {

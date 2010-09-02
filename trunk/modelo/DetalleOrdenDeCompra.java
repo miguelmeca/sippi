@@ -49,4 +49,6 @@ public class DetalleOrdenDeCompra {
     public void setRecurso(RecursoEspecifico recurso) {
         this.recurso = recurso;
     }
+
+
 }

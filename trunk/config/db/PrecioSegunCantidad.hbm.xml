@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.PrecioXRecurso">
-
-    <id column="ID_PRECIO_RECURSO" name="id" type="integer">
+  <class name="modelo.PrecioSegunCantidad">
+    <id column="ID_PSC" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property column="PRECIO" name="precio" not-null="true" type="double"/>
-
-    <many-to-one column="ID_RECURSO" name="recurso"/>
-
+    <property name="fecha" not-null="true" type="date"/>
+    <property name="cantidad" not-null="true" type="integer"/>
+    <property name="precio" not-null="true" type="double"/>
   </class>
 </hibernate-mapping>

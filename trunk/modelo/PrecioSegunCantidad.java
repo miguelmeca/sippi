@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Date;
+
 /**
  * Descripción:
  * @version 1.0
@@ -8,13 +10,27 @@ package modelo;
  * @todo
  */
 
-public class PrecioXRecurso {
-
+public class PrecioSegunCantidad
+{
     private int id;
+    private Date fecha;
+    private int cantidad;
     private double precio;
-    private RecursoEspecifico recurso;
 
-    public PrecioXRecurso() {
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public int getId() {
@@ -32,16 +48,6 @@ public class PrecioXRecurso {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-    public RecursoEspecifico getRecurso() {
-        return recurso;
-    }
-
-    public void setRecurso(RecursoEspecifico recurso) {
-        this.recurso = recurso;
-    }
-
-    
 
 
 }

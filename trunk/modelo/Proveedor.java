@@ -16,50 +16,61 @@ import util.Tupla;
 
 public class Proveedor extends Empresa {
 
-    private List precios;
+    private List<Recurso> rubros;
+    private List<RecursoEspecifico> listaArticulos;
 
-    public List getPrecios() {
-        return precios;
+    public List<Recurso> getRubros() {
+        return rubros;
     }
 
-    public void setPrecios(List precios) {
-        this.precios = precios;
+    public void setRubros(List<Recurso> rubro) {
+        this.rubros = rubro;
     }
+
+    public List<RecursoEspecifico> getListaArticulos() {
+        return listaArticulos;
+    }
+
+    public void setListaArticulos(List<RecursoEspecifico> listaArticulos) {
+        this.listaArticulos = listaArticulos;
+    }
+
+
 
     /**
      * Devuelve las NTuplas de los TIPOS DE RECURSO QUE DISPONE
      * SEGUN LOS RECURSOS ESPECIFICOS QUE TENGA CARGADOS !!!!!
      * @return
      */
-    public ArrayList<Tupla> buscarTipoDeRecursosDisponibles()
-    {
-        ArrayList<Tupla> listaBase = TipoRecursoUtil.getTiposDeRecurso();
-        ArrayList<Tupla> listaRet  = new ArrayList<Tupla>();
-
-        Iterator it = this.precios.iterator();
-        while (it.hasNext())
-        {
-            // TENGO EL PRECIO, BUSCO EL RECURSO
-            PrecioXRecurso precio = (PrecioXRecurso)it.next();
-            // BUSCO LOS TIDOS DE RECURSO
-            RecursoEspecifico re = precio.getRecurso();
-            Iterator<Tupla> itLi = listaBase.iterator();
-            while (itLi.hasNext())
-            {
-                Tupla tp = itLi.next();
-                if(tp.getNombre().equals(re.toString()))
-                {
-                    // Veo q no haya duplicados
-                    if(!listaRet.contains(tp))
-                    {
-                        listaRet.add(tp);
-                    }
-                }
-            }
-        }
-
-        return listaRet;
-    }
+//    public ArrayList<Tupla> buscarTipoDeRecursosDisponibles()
+//    {
+//        ArrayList<Tupla> listaBase = TipoRecursoUtil.getTiposDeRecurso();
+//        ArrayList<Tupla> listaRet  = new ArrayList<Tupla>();
+//
+//        Iterator it = this.precios.iterator();
+//        while (it.hasNext())
+//        {
+//            // TENGO EL PRECIO, BUSCO EL RECURSO
+//            PrecioXRecurso precio = (PrecioXRecurso)it.next();
+//            // BUSCO LOS TIDOS DE RECURSO
+//            RecursoEspecifico re = precio.getRecurso();
+//            Iterator<Tupla> itLi = listaBase.iterator();
+//            while (itLi.hasNext())
+//            {
+//                Tupla tp = itLi.next();
+//                if(tp.getNombre().equals(re.toString()))
+//                {
+//                    // Veo q no haya duplicados
+//                    if(!listaRet.contains(tp))
+//                    {
+//                        listaRet.add(tp);
+//                    }
+//                }
+//            }
+//        }
+//
+//        return listaRet;
+//    }
 
 
 }
