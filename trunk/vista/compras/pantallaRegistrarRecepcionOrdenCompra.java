@@ -12,11 +12,16 @@
 package vista.compras;
 
 import controlador.Compras.GestorRegistrarRecepcionOC;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JViewport;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import util.NTupla;
+import util.Tupla;
 
 /**
  *
@@ -29,13 +34,29 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
-        habilitarVentana();
         gestor = new GestorRegistrarRecepcionOC(this);
+        habilitarVentana();
+        
 
     }
 
     public void habilitarVentana(){
         this.setAnchoColumnas();
+        llenarComboProveedores();
+    }
+
+    public void llenarComboProveedores(){
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        ArrayList<NTupla> lista = null;
+        lista = gestor.mostrarProveedoresConOrdenesPendientes();
+        if(lista != null){
+            Iterator it = lista.iterator();
+            while(it.hasNext()){
+                NTupla tu = (NTupla)it.next();
+                valores.addElement(tu);
+            }
+            cmbProveedor.setModel(valores);
+        }
     }
 
     protected void ocultarBotonesRecepcion(){
@@ -58,6 +79,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
          *       tableDetalle.getColumnModel().getColumnCount()
          *
          *  estos nos devuelven la cantidad de COLUMNAS VISIBLES.
+         *
+         *  FUENTE: http://200.80.28.188/jforum/posts/list/24.page
          */
         tcm.removeColumn( columna );
 
@@ -65,36 +88,68 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
     protected void setAnchoColumnas(){
         JViewport scroll =  (JViewport) tablaDetalle.getParent();
-        //int ancho = tablaDetalle.get
-        int ancho = scroll.getWidth();
+        //HARDCORE!!!
+        int ancho = 535;
+        // NO FUNCIONA:
+        //int ancho = (int)tablaDetalle.getSize().getWidth();
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
         TableColumn columnaTabla;
-        System.out.println("COLUMNAS: "+tablaDetalle.getColumnCount());
-        for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
-            columnaTabla = modeloColumna.getColumn(i);
-            switch(i){
-                case 0: anchoColumna = (10*ancho)/100;
-                        break;
-                case 1: anchoColumna = (10*ancho)/100;
-                        break;
-                case 2: anchoColumna = (20*ancho)/100;
-                        break;
-                case 3: anchoColumna = (20*ancho)/100;
-                        break;
-                case 4: anchoColumna = (20*ancho)/100;
-                        break;
-                case 5: anchoColumna = (10*ancho)/100;
-                        break;
-                case 6: anchoColumna = (10*ancho)/100;
-                        break;
+        if(tablaDetalle.getColumnCount()>6){
+            for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
+                columnaTabla = modeloColumna.getColumn(i);
+                switch(i){
+                    case 0: anchoColumna = (3*ancho)/100;
+                            break;
+                    case 1: anchoColumna = (10*ancho)/100;
+                            break;
+                    case 2: anchoColumna = (25*ancho)/100;
+                            break;
+                    case 3: anchoColumna = (22*ancho)/100;
+                            break;
+                    case 4: anchoColumna = (20*ancho)/100;
+                            break;
+                    case 5: anchoColumna = (10*ancho)/100;
+                            break;
+                    case 6: anchoColumna = (10*ancho)/100;
+                            break;
+                }
+                columnaTabla.setPreferredWidth(anchoColumna);
             }
-            columnaTabla.setPreferredWidth(anchoColumna);
+        }
+        else{
+                for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
+                columnaTabla = modeloColumna.getColumn(i);
+                switch(i){
+                    case 0: anchoColumna = (10*ancho)/100;
+                            break;
+                    case 1: anchoColumna = (20*ancho)/100;
+                            break;
+                    case 2: anchoColumna = (20*ancho)/100;
+                            break;
+                    case 3: anchoColumna = (20*ancho)/100;
+                            break;
+                    case 4: anchoColumna = (15*ancho)/100;
+                            break;
+                    case 5: anchoColumna = (15*ancho)/100;
+                            break;
+                }
+                columnaTabla.setPreferredWidth(anchoColumna);
+            }
         }
     }
 
-
-
+    public void llenarTablaOC(ArrayList<NTupla> ordenes){
+        ArrayList<NTupla> pls = ordenes;
+        DefaultTableModel modelo = (DefaultTableModel) tablaOrdenesCompra.getModel();
+        for(NTupla nt : pls){
+            Object[] item = new Object[3];
+            item[0] = nt.getId();
+            item[1] = nt.getNombre();
+            item[2] = nt.getData();
+            modelo.addRow(item);
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -117,15 +172,15 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaOrdenesCompra = new javax.swing.JTable();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        pestanias = new javax.swing.JTabbedPane();
+        panelProveedor = new javax.swing.JPanel();
         cmbProveedor = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        panelNumeroOrden = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtNumeroOrden = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        panelFechaEmision = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btnMostrarDetalle = new javax.swing.JButton();
@@ -152,6 +207,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 return types [columnIndex];
             }
         });
+        tablaDetalle.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tablaDetalle);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -222,33 +278,39 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por"));
+        pestanias.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por"));
+
+        cmbProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProveedorActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Proveedor:");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelProveedorLayout = new javax.swing.GroupLayout(panelProveedor);
+        panelProveedor.setLayout(panelProveedorLayout);
+        panelProveedorLayout.setHorizontalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProveedorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbProveedor, 0, 190, Short.MAX_VALUE)
                 .addGap(271, 271, 271))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panelProveedorLayout.setVerticalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProveedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Proveedor", jPanel3);
+        pestanias.addTab("Proveedor", panelProveedor);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Número:");
@@ -261,11 +323,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelNumeroOrdenLayout = new javax.swing.GroupLayout(panelNumeroOrden);
+        panelNumeroOrden.setLayout(panelNumeroOrdenLayout);
+        panelNumeroOrdenLayout.setHorizontalGroup(
+            panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNumeroOrdenLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -274,45 +336,51 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel5)
                 .addContainerGap(250, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        panelNumeroOrdenLayout.setVerticalGroup(
+            panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNumeroOrdenLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(txtNumeroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(" Número de Orden", jPanel4);
+        pestanias.addTab(" Número de Orden", panelNumeroOrden);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Emisión:");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser1PropertyChange(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFechaEmisionLayout = new javax.swing.GroupLayout(panelFechaEmision);
+        panelFechaEmision.setLayout(panelFechaEmisionLayout);
+        panelFechaEmisionLayout.setHorizontalGroup(
+            panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFechaEmisionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(256, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        panelFechaEmisionLayout.setVerticalGroup(
+            panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFechaEmisionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Fecha de Emisión", jPanel5);
+        pestanias.addTab("Fecha de Emisión", panelFechaEmision);
 
         btnMostrarDetalle.setText("Mostrar Detalle");
 
@@ -323,7 +391,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                    .addComponent(pestanias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(421, Short.MAX_VALUE)
                         .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -340,7 +408,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pestanias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
@@ -367,13 +435,24 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
-        // TODO add your handling code here:
+        System.out.println("Pulsado enter");
+        System.out.println(txtNumeroOrden.getText());
+
 }//GEN-LAST:event_txtNumeroOrdenActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+        llenarTablaOC(gestor.buscarOCPendientesProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
+    }//GEN-LAST:event_cmbProveedorActionPerformed
+
+    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+        if(pestanias.getSelectedComponent() == panelFechaEmision)
+                System.out.println("Elijiendo Fecha: "+jDateChooser1.getDate());
+    }//GEN-LAST:event_jDateChooser1PropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -391,12 +470,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panelFechaEmision;
+    private javax.swing.JPanel panelNumeroOrden;
+    private javax.swing.JPanel panelProveedor;
+    private javax.swing.JTabbedPane pestanias;
     private javax.swing.JTable tablaDetalle;
     private javax.swing.JTable tablaOrdenesCompra;
     private javax.swing.JTextField txtNumeroOrden;
