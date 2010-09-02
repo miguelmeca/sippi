@@ -38,7 +38,7 @@
 
         <joined-subclass name="modelo.Indumentaria" table="Indumentarias">
             <key column="ID_INDUMENTARIA"/>
-            <many-to-one column="ID_TALLE" name="talle"/>
+            <many-to-one column="ID_TALLE" name="talle" class="modelo.Talle"/>
             <property column="ESTADO" name="hib_flag_estado" type="string"/>
         </joined-subclass>
 

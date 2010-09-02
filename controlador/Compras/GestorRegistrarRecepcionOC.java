@@ -35,28 +35,29 @@ public class GestorRegistrarRecepcionOC {
         NTupla nt = new NTupla();
         Proveedor pr = null;
         Iterator it = null;
-        String consulta = "SELECT p FROM modelo.Proveedor p WHERE EXIST(SELECT oc FROM OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendiente' AND oc.proveedor = p)";
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' AND oc.proveedor = p)";
         try {
             it = HibernateUtil.getSession().createQuery(consulta).iterate();
             while(it.hasNext()){
                 pr = (Proveedor)it.next();
                 nt = new NTupla();
                 nt.setId(pr.getId());
-                nt.setNombre(consulta);
+                nt.setNombre(pr.getRazonSocial());
+                provs.add(nt);
             }
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return provs;
     }
 
-    public ArrayList<NTupla> buscarOCPendientes(){
+    public ArrayList<NTupla> buscarOCPendientesProveedor(int idProv){
         OrdenDeCompra oc=null;
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompras").iterate();
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor").setParameter("idProveedor",idProv).iterate();
             while(it.hasNext()){
                 oc = (OrdenDeCompra)it.next();
                 nt = new NTupla();

@@ -77,7 +77,7 @@ public class DBExamplesLoader {
 
           this.cargarCompras();
 
-//          this.cargarOrdenDeCompra();
+          this.cargarOrdenDeCompra();
     }
 
 
