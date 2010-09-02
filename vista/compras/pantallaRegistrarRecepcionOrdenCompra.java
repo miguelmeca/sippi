@@ -30,14 +30,11 @@ import util.Tupla;
 public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternalFrame {
     private GestorRegistrarRecepcionOC gestor;
 
-
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
         gestor = new GestorRegistrarRecepcionOC(this);
         habilitarVentana();
-        
-
     }
 
     public void habilitarVentana(){
@@ -48,7 +45,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     public void llenarComboProveedores(){
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         ArrayList<NTupla> lista = null;
-        lista = gestor.mostrarProveedoresConOrdenesPendientes();
+        lista = gestor.mostrarProveedoresConOCPendientes();
         if(lista != null){
             Iterator it = lista.iterator();
             while(it.hasNext()){
@@ -107,11 +104,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                             break;
                     case 3: anchoColumna = (22*ancho)/100;
                             break;
-                    case 4: anchoColumna = (20*ancho)/100;
+                    case 4: anchoColumna = (10*ancho)/100;
                             break;
                     case 5: anchoColumna = (10*ancho)/100;
-                            break;
-                    case 6: anchoColumna = (10*ancho)/100;
                             break;
                 }
                 columnaTabla.setPreferredWidth(anchoColumna);
@@ -127,11 +122,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                             break;
                     case 2: anchoColumna = (20*ancho)/100;
                             break;
-                    case 3: anchoColumna = (20*ancho)/100;
+                    case 3: anchoColumna = (15*ancho)/100;
                             break;
                     case 4: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 5: anchoColumna = (15*ancho)/100;
                             break;
                 }
                 columnaTabla.setPreferredWidth(anchoColumna);
@@ -140,14 +133,47 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }
 
     public void llenarTablaOC(ArrayList<NTupla> ordenes){
-        ArrayList<NTupla> pls = ordenes;
-        DefaultTableModel modelo = (DefaultTableModel) tablaOrdenesCompra.getModel();
-        for(NTupla nt : pls){
-            Object[] item = new Object[3];
-            item[0] = nt.getId();
-            item[1] = nt.getNombre();
-            item[2] = nt.getData();
-            modelo.addRow(item);
+        DefaultTableModel modelo = null;
+        if(ordenes != null  && ordenes.size() > 0){
+            ArrayList<NTupla> pls = ordenes;
+            modelo = (DefaultTableModel) tablaOrdenesCompra.getModel();
+            for(NTupla nt : pls){
+                Object[] item = new Object[3];
+                item[0] = nt.getId();
+                item[1] = nt.getNombre();
+                item[2] = nt.getData();
+                modelo.addRow(item);
+            }
+        }
+        else{
+            int filas = tablaOrdenesCompra.getModel().getRowCount();
+            for(int i=0; i<filas;i++){
+                ((DefaultTableModel)tablaOrdenesCompra.getModel()).removeRow(i);
+            }
+        }
+    }
+
+    public void llenarTablaDOC(ArrayList<NTupla> docs){
+        DefaultTableModel modelo = null;
+        if(docs != null  && docs.size() > 0){
+            ArrayList<NTupla> pls = docs;
+            modelo = (DefaultTableModel) tablaDetalle.getModel();
+            for(NTupla nt : pls){
+                Object[] item = new Object[6];
+                item[0] = false;
+                item[1] = ((String[])nt.getData())[0]; // CANTIDAD
+                item[2] = nt;                          // NOMBRE
+                item[3] = ((String[])nt.getData())[1]; // DESCRIPCION
+                item[4] = ((String[])nt.getData())[2]; // P.U.
+                item[5] = Integer.valueOf((String)item[1])*Integer.valueOf((String)item[4]); // SUBTOTAL
+                modelo.addRow(item);
+            }
+        }
+        else{
+            int filas = tablaDetalle.getModel().getRowCount();
+            for(int i=0; i<filas;i++){
+                ((DefaultTableModel)tablaDetalle.getModel()).removeRow(i);
+            }
         }
     }
 
@@ -182,7 +208,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jLabel5 = new javax.swing.JLabel();
         panelFechaEmision = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dchFechaEmision = new com.toedter.calendar.JDateChooser();
         btnMostrarDetalle = new javax.swing.JButton();
 
         setTitle("Registrar Recepción de Orden de Compra");
@@ -191,16 +217,16 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "", "Cant.", "Nombre", "Descripción", "Proveedor", "P. U.", "Subtotal"
+                "", "Cant.", "Nombre", "Descripción", "P. U.", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -234,6 +260,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(jLabel4)))
         );
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,7 +361,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(txtNumeroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         panelNumeroOrdenLayout.setVerticalGroup(
             panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,9 +380,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Emisión:");
 
-        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        dchFechaEmision.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooser1PropertyChange(evt);
+                dchFechaEmisionPropertyChange(evt);
             }
         });
 
@@ -367,15 +394,15 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addComponent(dchFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         panelFechaEmisionLayout.setVerticalGroup(
             panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFechaEmisionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dchFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -383,6 +410,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         pestanias.addTab("Fecha de Emisión", panelFechaEmision);
 
         btnMostrarDetalle.setText("Mostrar Detalle");
+        btnMostrarDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarDetalleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -391,18 +423,20 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pestanias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(421, Short.MAX_VALUE)
                         .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(198, Short.MAX_VALUE)
+                        .addContainerGap(178, Short.MAX_VALUE)
                         .addComponent(btnRecepcionParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRecepcionTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pestanias, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -420,7 +454,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -435,9 +469,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
-        System.out.println("Pulsado enter");
-        System.out.println(txtNumeroOrden.getText());
-
+        llenarTablaOC(gestor.buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
 }//GEN-LAST:event_txtNumeroOrdenActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -449,10 +481,19 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         llenarTablaOC(gestor.buscarOCPendientesProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
     }//GEN-LAST:event_cmbProveedorActionPerformed
 
-    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+    private void dchFechaEmisionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dchFechaEmisionPropertyChange
         if(pestanias.getSelectedComponent() == panelFechaEmision)
-                System.out.println("Elijiendo Fecha: "+jDateChooser1.getDate());
-    }//GEN-LAST:event_jDateChooser1PropertyChange
+                llenarTablaOC(gestor.buscarOCPorFechaEmision(dchFechaEmision.getDate()));
+    }//GEN-LAST:event_dchFechaEmisionPropertyChange
+
+    private void btnMostrarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDetalleActionPerformed
+        // TODO add your handling code here:
+        if(tablaOrdenesCompra.getSelectedRow() > 0){
+            String id = (String) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
+            int idOC = Integer.parseInt(id);
+            llenarTablaDOC(gestor.mostrarDetalleOC(idOC));
+        }
+    }//GEN-LAST:event_btnMostrarDetalleActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,7 +503,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private javax.swing.JButton btnRecepcionTotal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbProveedor;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dchFechaEmision;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
