@@ -8,6 +8,8 @@
     </id>
 
     <property column="NOMBRE" name="nombre" type="string"/>
+
+    <many-to-one column="ID_UNIDAD_MEDIDA" name="unidadDeMedida"/>
     
       <list cascade="all" name="recursos" table="RECURSO_X_RECURSOESPECIFICO">
         <key column="ID_REC"/>
