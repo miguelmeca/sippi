@@ -1,5 +1,8 @@
 package modelo;
 
+import util.TipoRecursoUtil;
+import util.Tupla;
+
 /**
  * Descripción:
  * @version 1.0
@@ -14,5 +17,6 @@ public class Material extends Recurso{
    {
        return "Material";
    }
+
 
 }

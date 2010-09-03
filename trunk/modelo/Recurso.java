@@ -1,5 +1,9 @@
 package modelo;
 
+import java.util.List;
+import util.TipoRecursoUtil;
+import util.Tupla;
+
 /**
  * Descripción:
  * @version 1.0
@@ -12,11 +16,20 @@ public abstract class Recurso {
 
     private int id;
     private String nombre;
-    private String descipcion;
-    private RecursoEspecifico recursos;
+    private List<RecursoEspecifico> recursos;
     private UnidadDeMedida unidadDeMedida;
 
     public Recurso() {
+    }
+
+    public boolean esTipoRecurso(int idTipoRecurso)
+    {
+         Tupla tipo = TipoRecursoUtil.TipoRecurso(idTipoRecurso);
+         if(tipo.getNombre().equals(this.toString()))
+         {
+             return true;
+         }
+         return false;
     }
 
     public int getId() {
@@ -27,14 +40,6 @@ public abstract class Recurso {
         this.id = id;
     }
 
-    public String getDescipcion() {
-        return descipcion;
-    }
-
-    public void setDescipcion(String descipcion) {
-        this.descipcion = descipcion;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -43,12 +48,12 @@ public abstract class Recurso {
         this.nombre = nombre;
     }
 
-    public RecursoEspecifico getRecursos() {
+    public List getRecursos() {
         return recursos;
     }
 
-    public void setRecursos(RecursoEspecifico recurso) {
-        this.recursos = recurso;
+    public void setRecursos(List recursos) {
+        this.recursos = recursos;
     }
 
     public UnidadDeMedida getUnidadDeMedida() {

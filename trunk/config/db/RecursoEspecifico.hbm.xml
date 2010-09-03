@@ -6,6 +6,7 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
+    <property column="DESCRIPCION" name="descipcion" type="string"/>
     <list cascade="all" name="proveedores" table="RE_X_RXP">
       <key column="ID_RECURSO_ESPECIFICO"/>
       <index column="idx"/>

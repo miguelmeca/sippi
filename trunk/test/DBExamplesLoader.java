@@ -41,6 +41,7 @@ import modelo.Material;
 import modelo.OrdenDeCompra;
 import modelo.Proveedor;
 import modelo.Recurso;
+import modelo.RecursoEspecifico;
 import modelo.TipoLicenciaEmpleado;
 import modelo.UnidadDeMedida;
 import util.LogUtil;
@@ -223,32 +224,30 @@ public class DBExamplesLoader {
 
     private void cargarMateriales()
     {
-//        Recurso2 r1 = new Recurso2();
-//        r1.setNombre("Galvanizado");
-//        Recurso2 r2 = new Recurso2();
-//        r2.setNombre("Chapa");
-//
-//
-//        Material h1 = new Material();
-//        h1.setNombre("Perfil IPN 200");
-//        h1.setDescipcion("Largo 3 metros espesor 7,5");
-//        h1.setRecurso(r1);
-//        Material h2 = new Material();
-//        h2.setNombre("Perfil IPN 450");
-//        h2.setDescipcion("Largo 2.5 metros espesor 10");
-//        h2.setRecurso(r1);
-//        Material h3 = new Material();
-//        h3.setNombre("2B frío (A-240)");
-//        h3.setDescipcion("1,5 x 1500 x 1829 304");
-//        h3.setRecurso(r2);
-//
-//        sesion.beginTransaction();
-//        sesion.save(r1);
-//        sesion.save(r2);
-//        sesion.save(h1);
-//        sesion.save(h2);
-//        sesion.save(h3);
-//        sesion.getTransaction().commit();
+        Material h1 = new Material();
+        h1.setNombre("Chapa");
+
+        ArrayList<RecursoEspecifico> items = new ArrayList<RecursoEspecifico>();
+            RecursoEspecifico re1 = new RecursoEspecifico();
+            re1.setNombre("Perfil IPN 200");
+            re1.setDescipcion("IPN 200 de 2x7m.");
+            items.add(re1);
+            RecursoEspecifico re2 = new RecursoEspecifico();
+            re2.setNombre("Perfil IPN 450");
+            re2.setDescipcion("IPN 450 de 3x4m.");
+            items.add(re2);
+            RecursoEspecifico re3 = new RecursoEspecifico();
+            re3.setNombre("Perfil IPN 750");
+            re3.setDescipcion("IPN 750 de 2x3m.");
+            items.add(re3);
+        h1.setRecursos(items);
+
+        sesion.beginTransaction();
+        sesion.save(re1);
+        sesion.save(re2);
+        sesion.save(re3);
+        sesion.save(h1);
+        sesion.getTransaction().commit();
     }
 
     private void cargarHerramientas()

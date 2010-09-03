@@ -8,9 +8,12 @@
     </id>
 
     <property column="NOMBRE" name="nombre" type="string"/>
-    <property column="DESCRIPCION" name="descipcion" type="string"/>
     
-    <many-to-one column="ID_RECURSO" name="recursos"/>
+      <list cascade="all" name="recursos" table="RECURSO_X_RECURSOESPECIFICO">
+        <key column="ID_REC"/>
+        <index column="idx"/>
+        <one-to-many class="modelo.RecursoEspecifico"/>
+      </list>
 
     <joined-subclass name="modelo.Material" table="Materiales">
       <key column="ID_MATERIAL"/>
