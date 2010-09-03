@@ -154,8 +154,7 @@ public class DBExamplesLoader {
                 this.cargarMateriales();
                 this.cargarConsumibles();
                 this.cargarAlojamientos();
-
-                this.cargarProveedores();
+                this.cargarProveedor();
             }
         }
 
@@ -226,6 +225,10 @@ public class DBExamplesLoader {
     {
         Material h1 = new Material();
         h1.setNombre("Chapa");
+        UnidadDeMedida um = new UnidadDeMedida();
+        um.setAbreviatura("Kg.");
+        um.setNombre("Kilogramo");
+        h1.setUnidadDeMedida(um);
 
         ArrayList<RecursoEspecifico> items = new ArrayList<RecursoEspecifico>();
             RecursoEspecifico re1 = new RecursoEspecifico();
@@ -243,6 +246,7 @@ public class DBExamplesLoader {
         h1.setRecursos(items);
 
         sesion.beginTransaction();
+        sesion.save(um);
         sesion.save(re1);
         sesion.save(re2);
         sesion.save(re3);
@@ -543,6 +547,13 @@ public class DBExamplesLoader {
             HashSet<Telefono> tels = new HashSet<Telefono>();
             tels.add(tel);
             p.setTelefonos(tels);
+
+            // WORKARROUND, DESPUES MODIFIQUENLO SI QUIEREN (IUGA)
+            Recurso rec = (Recurso) sesion.load(Recurso.class,1);
+            ArrayList<Recurso> listaRec = new ArrayList<Recurso>();
+            listaRec.add(rec);
+            p.setRubros(listaRec);
+            // FIN WORKARROUND
 
         sesion.beginTransaction();
         sesion.save(tel);

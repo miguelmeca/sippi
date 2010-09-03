@@ -3,11 +3,13 @@ package controlador.Compras;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import modelo.PrecioSegunCantidad;
 import modelo.RecursoXProveedor;
 import modelo.Proveedor;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import org.hibernate.Session;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.TipoRecursoUtil;
@@ -200,6 +202,9 @@ public class gestorRegistrarPrecioRecurso {
 
                 Recurso r = (Recurso) sesion.load(Recurso.class,idRec);
 
+                    // MUESTRO LA UNIDAD DE MEDIDA
+                    pantalla.setUnidadDeMedida(r.getUnidadDeMedida().getAbreviatura());
+
                 Iterator<RecursoEspecifico> it = r.getRecursos().iterator();
                 while (it.hasNext())
                 {
@@ -235,6 +240,94 @@ public class gestorRegistrarPrecioRecurso {
                 ex.printStackTrace();
                 pantalla.MostrarMensaje("ME-0021");
            }
+    }
+
+    public ArrayList<Tupla> cargarProveedoresXTipoRecurso(int idTipoRec)
+    {
+        ArrayList<Tupla> lista = new ArrayList<Tupla>();
+
+           Session sesion;
+           try {
+                sesion = HibernateUtil.getSession();
+
+                List<Proveedor> listaProv = sesion.createQuery("FROM Proveedor AS pv").list();
+
+                Iterator<Proveedor> it = listaProv.iterator();
+                while (it.hasNext())
+                {
+                   Proveedor rxp = it.next();
+                   // TENGO EL PROVEEDOR, VEO QUE VENDA EL TIPO DE RECURSO
+                   Iterator<Recurso> itr = rxp.getRubros().iterator();
+                    while (itr.hasNext())
+                    {
+                        Recurso recu = itr.next();
+                        if(recu.esTipoRecurso(idTipoRec))
+                        {
+                            Tupla tp = new Tupla(rxp.getId(),rxp.getRazonSocial());
+
+                            // VEO SI YA NO ESTA AGREGADO !!!
+                            Iterator<Tupla> itp = lista.iterator();
+                            boolean esta = false;
+                            while (itp.hasNext())
+                            {
+                                Tupla tpp = itp.next();
+                                if(tpp.getId()==tp.getId())
+                                {
+                                    esta = true;
+                                }
+                            }
+                            if(!esta)
+                            {
+                                lista.add(tp);
+                            }
+                        }
+                    }
+                }
+
+               }catch(Exception ex)
+           {
+                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+                ex.printStackTrace();
+                pantalla.MostrarMensaje("ME-0022");
+           }
+
+        return lista;
+    }
+
+    public ArrayList<Tupla> mostrarUltimoPrecioXProveedor(int idProv, int idRecEsp)
+    {
+        ArrayList<Tupla> lista = new ArrayList<Tupla>();
+
+           Session sesion;
+           try {
+                sesion = HibernateUtil.getSession();
+
+                RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
+
+                Iterator<RecursoXProveedor> itx = re.getProveedores().iterator();
+                while (itx.hasNext())
+                {
+                   RecursoXProveedor rxp = itx.next();
+                   if(rxp.getProveedor().getId()==idProv)
+                   {
+                       Iterator<PrecioSegunCantidad> itp = rxp.getListaPrecios().iterator();
+                       while (itp.hasNext())
+                       {
+                           PrecioSegunCantidad psc = itp.next();
+                           Tupla tp = new Tupla(psc.getId(),"["+FechaUtil.getFecha(psc.getFecha())+"] $"+psc.getPrecio()+" x "+psc.getCantidad());
+                           lista.add(tp);
+                       }
+                   }
+                }
+               }catch(Exception ex)
+           {
+                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+                ex.printStackTrace();
+                pantalla.MostrarMensaje("ME-0023");
+           }
+
+
+        return lista;
     }
 
 }
