@@ -42,10 +42,10 @@
       <list cascade="all" name="rubros" table="PROVEEDOR_X_RUBRO">
         <key column="ID_PROVEEDOR"/>
         <index column="idx"/>
-        <one-to-many class="modelo.Recurso"/>
+        <one-to-many class="modelo.Rubro"/>
       </list>
       <list cascade="all" name="listaArticulos" table="PROVEEDOR_X_RECURSOESPECIFICO">
-        <key column="ID_PROVEEDOR"/>
+        <key column="ID_RUBRO"/>
         <index column="idx"/>
         <one-to-many class="modelo.RecursoEspecifico"/>
       </list>

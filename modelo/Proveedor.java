@@ -3,7 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import util.TipoRecursoUtil;
+import util.RubroUtil;
 import util.Tupla;
 
 /**
@@ -16,15 +16,15 @@ import util.Tupla;
 
 public class Proveedor extends Empresa {
 
-    private List<Recurso> rubros;
+    private List<Rubro> rubros;
     private List<RecursoEspecifico> listaArticulos;
 
-    public List<Recurso> getRubros() {
+    public List<Rubro> getRubros() {
         return rubros;
     }
 
-    public void setRubros(List<Recurso> rubro) {
-        this.rubros = rubro;
+    public void setRubros(List<Rubro> rubros) {
+        this.rubros = rubros;
     }
 
     public List<RecursoEspecifico> getListaArticulos() {

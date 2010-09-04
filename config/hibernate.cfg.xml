@@ -53,5 +53,6 @@
     <mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RecursoXProveedor.hbm.xml"/>
     <mapping package="modelo" resource="config/db/PrecioSegunCantidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Rubro.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

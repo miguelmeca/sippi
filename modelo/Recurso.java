@@ -1,7 +1,7 @@
 package modelo;
 
 import java.util.List;
-import util.TipoRecursoUtil;
+import util.RubroUtil;
 import util.Tupla;
 
 /**
@@ -22,10 +22,10 @@ public abstract class Recurso {
     public Recurso() {
     }
 
-    public boolean esTipoRecurso(int idTipoRecurso)
+    public boolean esRubro(int idRubro)
     {
-         Tupla tipo = TipoRecursoUtil.TipoRecurso(idTipoRecurso);
-         if(tipo.getNombre().equals(this.toString()))
+         Rubro r = RubroUtil.getRubro(idRubro);
+         if(r.getNombre().equals(this.toString()))
          {
              return true;
          }
