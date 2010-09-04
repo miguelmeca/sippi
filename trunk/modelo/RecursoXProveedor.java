@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,18 @@ public class RecursoXProveedor {
         this.proveedor = proveedor;
     }
 
+    public void addPrecioSegunCantidad(PrecioSegunCantidad psc)
+    {
+        if(listaPrecios==null)
+        {
+            listaPrecios = new ArrayList<PrecioSegunCantidad>();
+            listaPrecios.add(psc);
+        }
+        else
+        {
+            listaPrecios.add(psc);
+        }
+    }
 
 
 }

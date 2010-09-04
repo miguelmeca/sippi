@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -50,6 +52,49 @@ public class RecursoEspecifico {
 
     public void setProveedores(List<RecursoXProveedor> proveedores) {
         this.proveedores = proveedores;
+    }
+
+    public RecursoXProveedor getUltimoRecursoXProveedor()
+    {
+        // MANTENGO EL ULTIMO
+        RecursoXProveedor ultimo = null;
+        Date ultimaFecha = null;
+
+        if(this.id!=0 && proveedores!=null)
+        {
+            // EL OBJETO ESTA CARGADO
+            Iterator<RecursoXProveedor> it = getProveedores().iterator();
+
+            if(getProveedores().size()==0)
+            {
+                return null;
+            }
+
+            while (it.hasNext())
+            {
+                RecursoXProveedor rxp = it.next();
+                if(ultimo==null)
+                {
+                    ultimo = rxp;
+                }
+                Iterator<PrecioSegunCantidad> itx = rxp.getListaPrecios().iterator();
+                while (itx.hasNext())
+                {
+                    PrecioSegunCantidad psc = itx.next();
+                    if(ultimaFecha==null)
+                    {
+                        ultimaFecha = psc.getFecha();
+                    }
+                    if(psc.getFecha().after(ultimaFecha))
+                    {
+                        ultimaFecha = psc.getFecha();
+                        ultimo = rxp;
+                    }
+                }
+            }
+        }
+
+        return ultimo;
     }
 
 

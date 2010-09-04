@@ -9,6 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.UnidadDeMedida;
 import util.Tupla;
 
 /**
@@ -17,6 +18,8 @@ import util.Tupla;
 public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private gestorRegistrarPrecioRecurso gestor;
+    private DefaultTableModel modeloFinal;
+    private String unidadMedida;
 
     /** Creates new form pantallaRegistrarPrecioRecurso */
     public pantallaRegistrarPrecioRecurso() {
@@ -30,10 +33,18 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private void habilitarVentana()
     {
+        txtDescripcion.setText("");
         initListaRecurso();
         initListaTipoRecurso();
         initListaRecursosEspecificos();
         initListaProveedores();
+        initListaPrecios();
+    }
+
+    private void initListaPrecios()
+    {
+        DefaultListModel modelo = new DefaultListModel();
+        lstUltimosPrecios.setModel(modelo);
     }
 
     private void initListaRecursosEspecificos()
@@ -46,7 +57,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
     {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        valores.addElement(new Tupla(0,"Seleccione un Tipo..."));
+        valores.addElement(new Tupla(0,"Seleccione un Rubro..."));
 
         cmbProveedores.setModel(valores);
     }
@@ -165,6 +176,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         tblActualizaciones = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,9 +199,9 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Recursos Disponibles"));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el Recurso"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el Recurso al que le registrará el Precio"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Tipo:");
 
         cmbRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Torno" }));
@@ -213,7 +225,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Rubro:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -316,7 +328,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         cmbLEP.setDateFormatString("dd/MM/yyyy");
 
         btnActualizarPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        btnActualizarPrecio.setText("Actualizar Precio");
+        btnActualizarPrecio.setText("Agregar a la lista de Actualizaciones");
         btnActualizarPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarPrecioActionPerformed(evt);
@@ -433,7 +445,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(tblActualizaciones);
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnQuitar.setText("Quitar");
+        btnQuitar.setText("Quitar de la lista");
         btnQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarActionPerformed(evt);
@@ -465,12 +477,20 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitar)
                     .addComponent(jButton3)))
         );
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,6 +502,10 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(617, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,6 +514,8 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalir)
                 .addContainerGap())
         );
 
@@ -577,6 +603,10 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         {
             initListaRecursosEspecificos(); // VACIO LA LISTA DE RECURSOS ESPECIFICOS
             cargarRecursos(tp.getId());
+
+            Tupla tpp = (Tupla) cmbTipoRecurso.getSelectedItem();
+            cargarProveedoresXTipoRecurso(tpp.getId());
+
         }
 
 
@@ -588,16 +618,13 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         if(tpR.getId()!=0)
         {
             cargarListaDeRecursosEspecificos(tpR.getId());
-
-            Tupla tpp = (Tupla) cmbRecurso.getSelectedItem();
-            cargarProveedoresXTipoRecurso(tpp.getId());
-
         }
 
     }//GEN-LAST:event_cmbRecursoActionPerformed
 
     public void setUnidadDeMedida(String unidad)
     {
+        this.unidadMedida = unidad;
         lblUnidadMedida.setText(unidad);
     }
 
@@ -666,20 +693,104 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+
+        if(tblActualizaciones.getRowCount()!=0)
+        {
+            int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            "¿ La lista de Precios tiene cambios no Registrados, si sale se perderán\nEstá seguro que desea salir ?\nPara hacer permanente los cambios presione el botón: "+jButton3.getText(), //Mensaje
+            "Atención", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+            "Si");
+
+            if (seleccion != -1)
+            {
+               if((seleccion + 1)==1)
+               {
+                  // PRESIONO SI
+                  this.dispose();
+               }
+            }
+        }
+
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     private void confirmarActualizarPrecios()
     {
         // ME CONFIRMO LA ACTUALIZACION, POR CADA PRECIO
-        // PASO TODAS LAS ACTUALIZACIONES
+        boolean exito = true;
         DefaultTableModel modelo = (DefaultTableModel) tblActualizaciones.getModel();
-        for (int i = 0; i < modelo.getRowCount(); i++)
+        modeloFinal = new DefaultTableModel();
+        for (int i = 0; i < modelo.getColumnCount(); i++) 
+        {
+            modeloFinal.addColumn(modelo.getColumnName(i));
+        }
+
+        int cantidadFilas = modelo.getRowCount();
+        for (int i = 0; i < cantidadFilas; i++)
         {
             Tupla tp_re = (Tupla)modelo.getValueAt(i,0);
             Tupla tp_pr = (Tupla)modelo.getValueAt(i,1);
             Date vigencia = (Date)modelo.getValueAt(i,2);
             int cantidad = (Integer)modelo.getValueAt(i,3);
             double precio = (Double)modelo.getValueAt(i,4);
-            gestor.actualizarPrecio(tp_re,tp_pr,vigencia,cantidad,precio);
+            boolean ex = gestor.actualizarPrecio(tp_re,tp_pr,vigencia,cantidad,precio);
+            if(ex)
+            {
+                // NO AGREGO LA FILA
+            }
+            else
+            {
+                // WORKARROUNd, NO SE ME OCURRE OTRA FORMA
+                Object[] fila = new Object[5];
+                fila[0] = modelo.getValueAt(i,1);
+                fila[0] = modelo.getValueAt(i,2);
+                fila[0] = modelo.getValueAt(i,3);
+                fila[0] = modelo.getValueAt(i,4);
+                fila[0] = modelo.getValueAt(i,5);
 
+                modeloFinal.addRow(fila);
+                exito = false;
+            }
+        }
+        // BARCH EXITOSO?
+        if(exito)
+        {
+            tblActualizaciones.setModel(modeloFinal);
+            MostrarMensaje("MI-0001");
+
+            int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            "¿ Desea seguir cargando precios ?", //Mensaje
+            "Seleccione una opción", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+            "Si");
+
+            if (seleccion != -1)
+            {
+               if((seleccion + 1)==1)
+               {
+                  // PRESIONO SI
+                  habilitarVentana();
+               }
+               else
+               {
+                    this.dispose();
+               }
+            }
+            
+        }
+        else
+        {
+            tblActualizaciones.setModel(modeloFinal);
+            MostrarMensaje("ME-0024");
         }
     }
 
@@ -698,6 +809,11 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         while(it.hasNext())
         {
             Tupla tu = it.next();
+            // PEDAZO DE WORKARROUND, PERO NO ME IMPORTA, COME TORTA
+            if(!this.unidadMedida.isEmpty())
+            {
+                tu.setNombre(tu.getNombre()+" "+unidadMedida);
+            }
             valores.addElement(tu);
         }
         lstUltimosPrecios.setModel(valores);
@@ -731,6 +847,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarPrecio;
     private javax.swing.JButton btnQuitar;
+    private javax.swing.JButton btnSalir;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private javax.swing.JComboBox cmbProveedores;
     private javax.swing.JComboBox cmbRecurso;
@@ -780,26 +897,43 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         {
             // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Recursos","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-            this.dispose();
         }
         if(cod.equals("ME-0021"))
         {
             // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo el listado de Recursos","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-            this.dispose();
+
         }
         if(cod.equals("ME-0022"))
         {
             // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-            this.dispose();
+
         }
         if(cod.equals("ME-0023"))
         {
             // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Ultimos Precios","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-            this.dispose();
+
         }
+        // MI-0001
+        if(cod.equals("MI-0001"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro correctamente toda la lista de actualizaciones de precios","Exito",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        if(cod.equals("ME-0024"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"Se detecto un error en la registración de alguno de los items\n Inténtelo nuevamente en un instante","Error",JOptionPane.ERROR_MESSAGE);
+
+        }
+        if(cod.equals("ME-0025"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"Se produjo un error al registrar el precio","Error",JOptionPane.ERROR_MESSAGE);
+}
     }
 
 }
