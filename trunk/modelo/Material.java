@@ -1,6 +1,6 @@
 package modelo;
 
-import util.TipoRecursoUtil;
+import util.RubroUtil;
 import util.Tupla;
 
 /**

@@ -42,9 +42,11 @@ import modelo.OrdenDeCompra;
 import modelo.Proveedor;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
+import modelo.Rubro;
 import modelo.TipoLicenciaEmpleado;
 import modelo.UnidadDeMedida;
 import util.LogUtil;
+import util.RubroUtil;
 //import java.util.Set;
 
 /**
@@ -69,6 +71,8 @@ public class DBExamplesLoader {
           this.cargarUnidadesMedida();
           this.cargarFormasDePago();
 
+          this.cargarRubros();
+
           this.cargarPaises();
           this.cargarTipoDocumento();
           this.cargarTipoTelefono();
@@ -81,6 +85,25 @@ public class DBExamplesLoader {
           this.cargarOrdenDeCompra();
     }
 
+    private void cargarRubros()
+    {
+        Rubro r1 = new Rubro(1,"Material");
+        Rubro r2 = new Rubro(2,"Herramientas");
+        Rubro r3 = new Rubro(3,"Consumibles");
+        Rubro r4 = new Rubro(4,"Indumentaria");
+        Rubro r5 = new Rubro(5,"Transporte");
+        Rubro r6 = new Rubro(6,"Alojamiento");
+
+        sesion.beginTransaction();
+        sesion.save(r1);
+        sesion.save(r2);
+        sesion.save(r3);
+        sesion.save(r4);
+        sesion.save(r5);
+        sesion.save(r6);
+        sesion.getTransaction().commit();
+        
+    }
 
     private void cargarFormasDePago()
     {
@@ -549,10 +572,12 @@ public class DBExamplesLoader {
             p.setTelefonos(tels);
 
             // WORKARROUND, DESPUES MODIFIQUENLO SI QUIEREN (IUGA)
-            Recurso rec = (Recurso) sesion.load(Recurso.class,1);
-            ArrayList<Recurso> listaRec = new ArrayList<Recurso>();
-            listaRec.add(rec);
-            p.setRubros(listaRec);
+            Rubro r1 = RubroUtil.getRubro(1);
+            Rubro r2 = RubroUtil.getRubro(2);
+            ArrayList<Rubro> listaRubro = new ArrayList<Rubro>();
+            listaRubro.add(r1);
+            listaRubro.add(r2);
+            p.setRubros(listaRubro); // ESTE PROVEEDOR VENDE TODO !!
             // FIN WORKARROUND
 
         sesion.beginTransaction();

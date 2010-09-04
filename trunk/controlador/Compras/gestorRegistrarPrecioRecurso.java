@@ -1,18 +1,23 @@
 package controlador.Compras;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.PrecioSegunCantidad;
 import modelo.RecursoXProveedor;
 import modelo.Proveedor;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
+import modelo.Rubro;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
-import util.TipoRecursoUtil;
+import util.RubroUtil;
 import util.Tupla;
 import vista.compras.pantallaRegistrarPrecioRecurso;
 
@@ -33,14 +38,75 @@ public class gestorRegistrarPrecioRecurso {
         this.pantalla = pantalla;
     }
 
-    public ArrayList<Tupla> mostrarTipoRecursos()
+    public ArrayList<Tupla> mostrarRubros()
     {
-        return TipoRecursoUtil.getTiposDeRecurso();
+        ArrayList<Tupla> lista = new ArrayList<Tupla>();
+
+            ArrayList<Rubro> listaRubros = RubroUtil.getRubros();
+            Iterator<Rubro> itr = listaRubros.iterator();
+            while (itr.hasNext())
+            {
+                Rubro rubro = itr.next();
+                Tupla tp = new Tupla(rubro.getId(),rubro.getNombre());
+                lista.add(tp);
+            }
+        return lista;
     }
 
-    public ArrayList<Tupla> mostrarRecursosPorTipoRecurso(int idTipoRec)
+    // tp_re,tp_pr,vigencia,cantidad,precio
+    public void actualizarPrecio(Tupla recurso, Tupla proveedor,Date vigencia, int cantidad,double precio)
     {
-        Tupla tipo = TipoRecursoUtil.TipoRecurso(idTipoRec); // Tipo de Recurso
+        Session sesion;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+
+            RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,recurso.getId());
+            Proveedor pr         = (Proveedor)sesion.load(Proveedor.class,proveedor.getId());
+
+                // CARGO LOS PRECIOS QUE YA TENGO, SI ES QUE TENGO ALGUNO
+                if(re.getProveedores().size()==0)
+                {
+                    //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTA DUPLA
+                }
+                else
+                {
+                    // TENGO CARGADO UN RXP, ES DE HOY y DEL PROVEEDOR??
+                    Iterator<RecursoXProveedor> itp = re.getProveedores().iterator();
+                    while (itp.hasNext())
+                    {
+                        RecursoXProveedor rxp = itp.next();
+                        if(rxp.getProveedor().getId() == pr.getId())
+                        {
+                            // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY
+                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
+                            while (itf.hasNext())
+                            {
+                                PrecioSegunCantidad psc = itf.next();
+                                Date hoy = new Date();
+                                if(psc.getFecha().equals(hoy))
+                                {
+                                       // ES DE HOY !!
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            RecursoXProveedor rxp = new RecursoXProveedor();
+            rxp.setProveedor(pr);
+
+        }
+        catch (Exception ex)
+        {
+            LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
+        }
+    }
+
+    public ArrayList<Tupla> mostrarRecursosPorTipoRecurso(int idRubro)
+    {
+        Rubro rubro = RubroUtil.getRubro(idRubro); // Tipo de Recurso
         ArrayList<Tupla> lista = new ArrayList<Tupla>();
 
            Session sesion;
@@ -63,8 +129,8 @@ public class gestorRegistrarPrecioRecurso {
                 while (iter.hasNext())
                 {
                    Recurso rec = iter.next();
-                   String tipoClase = tipo.getNombre();
-                   if(rec.esTipoRecurso(tipo.getId()))
+                   String tipoClase = rubro.getNombre();
+                   if(rec.esRubro(rubro.getId()))
                    {
                        Tupla t = new Tupla();
                        t.setId(rec.getId());
@@ -84,114 +150,6 @@ public class gestorRegistrarPrecioRecurso {
         return lista;
     }
 
-//    public ArrayList<Tupla> mostrarProveedores()
-//    {
-//           ArrayList<Tupla> lista = new ArrayList<Tupla>();
-//
-//           Session sesion;
-//           try {
-//                sesion = HibernateUtil.getSession();
-//
-//                List<Proveedor> listaProv = sesion.createQuery("from Proveedor").list();
-//                Iterator<Proveedor> iter = listaProv.iterator();
-//                while (iter.hasNext())
-//                {
-//                   Proveedor pro = iter.next();
-//                   if(pro.getEstado().esAlta())
-//                   {
-//                       Tupla t = new Tupla();
-//                       t.setId(pro.getId());
-//                       t.setNombre(pro.getRazonSocial());
-//                       lista.add(t);
-//                   }
-//                }
-//
-//               }catch(Exception ex)
-//           {
-//                System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
-//                ex.printStackTrace();
-//                pantalla.MostrarMensaje("ME-0020");
-//           }
-//
-//           return lista;
-//    }
-//
-//    public ArrayList<Tupla> buscarRecursoPorProveedor(int idProv)
-//    {
-//           ArrayList<Tupla> lista = new ArrayList<Tupla>();
-//
-//           Session sesion;
-//           try {
-//                sesion = HibernateUtil.getSession();
-//
-//                Proveedor prov = (Proveedor)sesion.load(Proveedor.class,idProv);
-//
-//                return prov.buscarTipoDeRecursosDisponibles();
-//
-//               }catch(Exception ex)
-//           {
-//                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
-//                ex.printStackTrace();
-//                pantalla.MostrarMensaje("ME-0021");
-//           }
-//
-//           return lista;
-//    }
-//
-//    public ArrayList<Tupla> mostrarTipoDeRecursos()
-//    {
-//        return TipoRecursoUtil.getTiposDeRecurso();
-//    }
-//
-//    public ArrayList<Tupla> mostrarRecursos(int idTipoRec)
-//    {
-//        ArrayList<Tupla> lista = new ArrayList<Tupla>();
-//        Tupla tipo = TipoRecursoUtil.TipoRecurso(idTipoRec);
-//
-//           Session sesion;
-//           try {
-//                sesion = HibernateUtil.getSession();
-//
-//                List<RecursoEspecifico> listaProv = sesion.createQuery("from RecursoEspecifico").list();
-//                Iterator<RecursoEspecifico> it = listaProv.iterator();
-//                while (it.hasNext())
-//                {
-//                    RecursoEspecifico r = it.next();
-//                    if(r.toString().equals(tipo.getNombre()))
-//                    {
-//                        Tupla tpla = new Tupla(r.getRecurso().getId(),r.getRecurso().getNombre());
-//                        // ES UN RECURSO DEL TIPO
-//
-//                        // SI NO LO TENGO EN LA LISTA LO AGREGO
-//                        boolean esta = false;
-//                        Iterator<Tupla> ite = lista.iterator();
-//                        while (ite.hasNext())
-//                        {
-//                            Tupla aux = ite.next();
-//                            if(aux.getId() == tpla.getId())
-//                            {
-//                                esta = true;
-//                            }
-//                        }
-//                        if(!esta)
-//                        {
-//                            lista.add(tpla);
-//                        }
-//                    }
-//               }
-//
-//               }catch(Exception ex)
-//           {
-//                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
-//                ex.printStackTrace();
-//                pantalla.MostrarMensaje("ME-0021");
-//           }
-//
-//        return lista;
-//    }
-//
-//
-//
     public ArrayList<Tupla> mostrarRecursosEspecificos(int idRec)
     {
            ArrayList<Tupla> lista = new ArrayList<Tupla>();
@@ -242,7 +200,7 @@ public class gestorRegistrarPrecioRecurso {
            }
     }
 
-    public ArrayList<Tupla> cargarProveedoresXTipoRecurso(int idTipoRec)
+    public ArrayList<Tupla> cargarProveedoresXTipoRecurso(int idRubro)
     {
         ArrayList<Tupla> lista = new ArrayList<Tupla>();
 
@@ -257,11 +215,11 @@ public class gestorRegistrarPrecioRecurso {
                 {
                    Proveedor rxp = it.next();
                    // TENGO EL PROVEEDOR, VEO QUE VENDA EL TIPO DE RECURSO
-                   Iterator<Recurso> itr = rxp.getRubros().iterator();
+                   Iterator<Rubro> itr = rxp.getRubros().iterator();
                     while (itr.hasNext())
                     {
-                        Recurso recu = itr.next();
-                        if(recu.esTipoRecurso(idTipoRec))
+                        Rubro recu = itr.next();
+                        if(recu.getId()==idRubro)
                         {
                             Tupla tp = new Tupla(rxp.getId(),rxp.getRazonSocial());
 

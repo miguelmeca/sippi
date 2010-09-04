@@ -3,6 +3,7 @@ package vista.compras;
 import controlador.Compras.gestorRegistrarPrecioRecurso;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -61,7 +62,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private void initListaTipoRecurso()
     {
-        ArrayList<Tupla> lista = gestor.mostrarTipoRecursos();
+        ArrayList<Tupla> lista = gestor.mostrarRubros();
 
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         Iterator<Tupla> it = lista.iterator();
@@ -213,7 +214,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Recurso:");
+        jLabel2.setText("Rubro:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -254,7 +255,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Últimos precios conocidos:");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Proveedor:");
 
         cmbProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -280,14 +281,11 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProveedores, 0, 252, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbProveedores, 0, 252, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -309,10 +307,10 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("3. Actualizar los Precios para el Proveedor elegido"));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Nuevo Precio");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Fecha de Vigencia");
 
         cmbLEP.setDateFormatString("dd/MM/yyyy");
@@ -325,7 +323,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Cantidad");
 
         lblUnidadMedida.setText("UN.");
@@ -337,7 +335,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 2, 11));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("(Si no tiene vigencia, dejar en blanco)");
 
@@ -348,7 +346,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbLEP, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                    .addComponent(cmbLEP, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -358,21 +356,19 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(17, 17, 17))
-                                            .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
-                    .addComponent(btnActualizarPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+                                            .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)))
+                    .addComponent(btnActualizarPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -433,13 +429,24 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                 "Recurso", "Proveedor", "Vigencia", "Cantidad", "Precio"
             }
         ));
+        tblActualizaciones.setShowHorizontalLines(false);
         jScrollPane3.setViewportView(tblActualizaciones);
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
         jButton3.setText("Guardar Lista de Actualizaciones");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -448,17 +455,17 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitar)
@@ -606,6 +613,75 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_lstRecursosEspecificosMouseReleased
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        if((tblActualizaciones.getSelectedRowCount())==1)
+        {
+            int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            "¿Esta seguro que desea eliminar la fila de la actualización de precios?", //Mensaje
+            "Seleccione una opción", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+            "Si");
+
+            if (seleccion != -1)
+            {
+               if((seleccion + 1)==1)
+               {
+
+                        DefaultTableModel modelo = (DefaultTableModel) tblActualizaciones.getModel();
+                        modelo.removeRow(tblActualizaciones.getSelectedRow());
+
+               }
+            }
+        }
+
+
+
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+            int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            "Guardar las actualizaciones registrará los cambios de precios de la lista\n¿Esta seguro que desea Actualizar?", //Mensaje
+            "Seleccione una opción", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+            "Si");
+
+            if (seleccion != -1)
+            {
+               if((seleccion + 1)==1)
+               {
+                  // PRESIONO SI
+                  confirmarActualizarPrecios();
+               }
+            }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void confirmarActualizarPrecios()
+    {
+        // ME CONFIRMO LA ACTUALIZACION, POR CADA PRECIO
+        // PASO TODAS LAS ACTUALIZACIONES
+        DefaultTableModel modelo = (DefaultTableModel) tblActualizaciones.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++)
+        {
+            Tupla tp_re = (Tupla)modelo.getValueAt(i,0);
+            Tupla tp_pr = (Tupla)modelo.getValueAt(i,1);
+            Date vigencia = (Date)modelo.getValueAt(i,2);
+            int cantidad = (Integer)modelo.getValueAt(i,3);
+            double precio = (Double)modelo.getValueAt(i,4);
+            gestor.actualizarPrecio(tp_re,tp_pr,vigencia,cantidad,precio);
+
+        }
+    }
 
     private void mostrarUltimoPrecioXProveedor(int idProv,int idRecEsc)
     {

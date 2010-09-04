@@ -220,7 +220,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Recurso:"/>
+                <Property name="text" type="java.lang.String" value="Rubro:"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -243,16 +243,11 @@
                           <Component id="jScrollPane5" alignment="0" pref="341" max="32767" attributes="1"/>
                           <Component id="jScrollPane4" alignment="0" pref="341" max="32767" attributes="1"/>
                           <Component id="jLabel4" alignment="0" pref="341" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel5" alignment="0" pref="341" max="32767" attributes="1"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel1" min="-2" pref="85" max="-2" attributes="1"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cmbProveedores" pref="252" max="32767" attributes="1"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" pref="341" max="32767" attributes="1"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="85" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmbProveedores" pref="252" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -357,7 +352,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbLEP" alignment="0" pref="331" max="32767" attributes="1"/>
+                          <Component id="cmbLEP" alignment="0" pref="341" max="32767" attributes="1"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel8" alignment="0" max="32767" attributes="1"/>
@@ -368,13 +363,10 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="lblUnidadMedida" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace pref="137" max="32767" attributes="0"/>
-                                              <Component id="jLabel7" min="-2" pref="57" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel7" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -382,15 +374,15 @@
                                                       <Component id="jLabel6" min="-2" pref="92" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="txtPrecio" pref="172" max="32767" attributes="0"/>
+                                                  <Component id="txtPrecio" pref="182" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel9" pref="225" max="32767" attributes="0"/>
+                                  <Component id="jLabel9" pref="235" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="btnActualizarPrecio" alignment="0" pref="331" max="32767" attributes="0"/>
+                          <Component id="btnActualizarPrecio" alignment="0" pref="341" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -521,10 +513,10 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane3" alignment="0" pref="680" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="0" pref="690" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnQuitar" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace pref="288" max="32767" attributes="0"/>
+                          <EmptySpace pref="298" max="32767" attributes="0"/>
                           <Component id="jButton3" min="-2" pref="242" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -535,7 +527,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane3" pref="146" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="150" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnQuitar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -564,6 +556,7 @@
                     <Column editable="true" title="Precio" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="showHorizontalLines" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -575,6 +568,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Quitar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
@@ -583,6 +579,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar Lista de Actualizaciones"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
