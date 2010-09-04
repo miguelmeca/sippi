@@ -54,54 +54,147 @@ public class gestorRegistrarPrecioRecurso {
     }
 
     // tp_re,tp_pr,vigencia,cantidad,precio
-    public void actualizarPrecio(Tupla recurso, Tupla proveedor,Date vigencia, int cantidad,double precio)
+    public boolean actualizarPrecio(Tupla recurso, Tupla proveedor,Date vigencia, int cantidad,double precio)
     {
         Session sesion;
         try
         {
             sesion = HibernateUtil.getSession();
 
+            // CARGO LOS DATOS
             RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,recurso.getId());
             Proveedor pr         = (Proveedor)sesion.load(Proveedor.class,proveedor.getId());
 
                 // CARGO LOS PRECIOS QUE YA TENGO, SI ES QUE TENGO ALGUNO
-                if(re.getProveedores().size()==0)
+                if(re.getProveedores().isEmpty())
                 {
                     //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTA DUPLA
+                    // LA CREO Y GUARDO DE UNA
+                    PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                    psc.setCantidad(cantidad);
+                    psc.setFecha(new Date());
+                    psc.setPrecio(precio);
+                    psc.setFechaVigencia(vigencia);
+                    RecursoXProveedor rxp = new RecursoXProveedor();
+                    rxp.setProveedor(pr);
+                    rxp.addPrecioSegunCantidad(psc);
+
+                    // AHORA AGREGO EL RE AL PROVEEDOR
+                    pr.getListaArticulos().add(re);
+                    // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                    re.getProveedores().add(rxp);
+
+                    HibernateUtil.beginTransaction();
+                    sesion.save(psc);
+                    sesion.save(rxp);
+                    sesion.update(pr);
+                    sesion.update(re);
+                    HibernateUtil.commitTransaction();
+
+
+
+                    return true;
+
                 }
                 else
                 {
-                    // TENGO CARGADO UN RXP, ES DE HOY y DEL PROVEEDOR??
+                    // TENGO CARGADO UN RXP, LOS ANALIZO
                     Iterator<RecursoXProveedor> itp = re.getProveedores().iterator();
                     while (itp.hasNext())
                     {
                         RecursoXProveedor rxp = itp.next();
+                        // ES DEL PROVEEDOR AL QUE LE ESTOY CARGANDO ?
                         if(rxp.getProveedor().getId() == pr.getId())
                         {
-                            // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY
+                            // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY Y CON ESA CANTIDAD
                             Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
                             while (itf.hasNext())
                             {
                                 PrecioSegunCantidad psc = itf.next();
                                 Date hoy = new Date();
-                                if(psc.getFecha().equals(hoy))
+                                if(FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha())))
                                 {
-                                       // ES DE HOY !!
+                                    // ES DE HOY !! ENTONCES ACTUALIZO EL PRECIO
+                                    // SE DA SI CARGA EN UN MISMO DÍA DOS VECES UN
+                                    // PRECIO PARA UN REC y PROV
+                                    if(psc.getCantidad()==cantidad)
+                                    {
+                                        // TIENE LA MISMA CANTIDAD, ACTUALIZO
+                                        psc.setPrecio(precio);
+                                        psc.setFechaVigencia(vigencia);
+
+                                        HibernateUtil.beginTransaction();
+                                        sesion.update(psc);
+                                        HibernateUtil.commitTransaction();
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        // NO ES LA MISMA CANTIDAD, CREO OTRO PSC
+                                        // TENGO QUE BUSCAR SI ESA CANTIDAD NO ESTA YA CARGADA
+                                         Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
+                                         boolean esta = false;
+                                         while (itf2.hasNext())
+                                         {
+                                            PrecioSegunCantidad pscAux = itf2.next();
+                                            if(pscAux.getCantidad()==cantidad)
+                                            {
+                                                // ES LA MISMA CANTIDAD !!!
+                                                // ENTONCES ESTA MAS ADELANTE
+                                                esta = true;
+                                                // SE LA DEJO A LA ITER DE ARRIBA
+                                            }
+                                        }
+
+                                         // NO ESTA ESA CANTIDAD CARGADA, LA CREO
+                                        if(!esta)
+                                        {
+                                            PrecioSegunCantidad pscNuevo = new PrecioSegunCantidad();
+                                            pscNuevo.setCantidad(cantidad);
+                                            pscNuevo.setFecha(hoy);
+                                            pscNuevo.setFechaVigencia(vigencia);
+                                            pscNuevo.setPrecio(precio);
+                                            rxp.addPrecioSegunCantidad(pscNuevo);
+                                            // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                                            re.getProveedores().add(rxp);
+
+                                            HibernateUtil.beginTransaction();
+                                            sesion.save(pscNuevo);
+                                            sesion.update(rxp);
+                                            sesion.update(re);
+                                            HibernateUtil.commitTransaction();
+                                            return true;
+                                        }
+                                         else
+                                        {
+                                             // SE USARA??
+                                             LogUtil.addDebug("LA CANTIDAD YA ESTA CARGADA !!");
+                                        }
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    // NO ES DE HOY , ES UNO VIEJO, NO HAGO NADA
                                 }
                             }
                         }
-
+                        else
+                        {
+                            // NO ES DE ESTE PROVEEDOR
+                        }
                     }
                 }
-
-            RecursoXProveedor rxp = new RecursoXProveedor();
-            rxp.setProveedor(pr);
-
         }
         catch (Exception ex)
         {
             LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
+            HibernateUtil.rollbackTransaction();
+            pantalla.MostrarMensaje("ME-0025");
+            return false;
         }
+        return false;
     }
 
     public ArrayList<Tupla> mostrarRecursosPorTipoRecurso(int idRubro)
@@ -262,21 +355,21 @@ public class gestorRegistrarPrecioRecurso {
 
                 RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
 
-                Iterator<RecursoXProveedor> itx = re.getProveedores().iterator();
-                while (itx.hasNext())
+                RecursoXProveedor rxp = re.getUltimoRecursoXProveedor();
+                if(rxp!=null)
                 {
-                   RecursoXProveedor rxp = itx.next();
-                   if(rxp.getProveedor().getId()==idProv)
-                   {
                        Iterator<PrecioSegunCantidad> itp = rxp.getListaPrecios().iterator();
                        while (itp.hasNext())
                        {
                            PrecioSegunCantidad psc = itp.next();
-                           Tupla tp = new Tupla(psc.getId(),"["+FechaUtil.getFecha(psc.getFecha())+"] $"+psc.getPrecio()+" x "+psc.getCantidad());
+                           Tupla tp = new Tupla(psc.getId(),"["+FechaUtil.getFecha(psc.getFecha())+"] "+" $"+psc.getPrecio()+" x "+psc.getCantidad());
                            lista.add(tp);
                        }
-                   }
-                }
+               }
+               else
+               {
+                    return lista;
+               }
                }catch(Exception ex)
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
