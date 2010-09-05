@@ -15,6 +15,10 @@ import controlador.Compras.GestorConsultarPrecioXProveedor;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.TablaUtil;
 import util.Tupla;
 
 /**
@@ -38,24 +42,34 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
     public void habilitarVentana()
     {
         initRubros();
+        initProveedores();
     }
 
-    private void initRubros()
+    private void initProveedores()
     {
-        ArrayList<Tupla> lista = gestor.mostrarRubros();
+        ArrayList<Tupla> lista = gestor.mostrarProveedores();
 
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         Iterator<Tupla> it = lista.iterator();
 
         if(lista.size()==0)
         {
-            valores.addElement(new Tupla(0,"No hay Tipos de Recursos Cargados"));
+            valores.addElement(new Tupla(0,"No Proveedores Cargados"));
         }
 
         while(it.hasNext()){
             Tupla tu = it.next();
             valores.addElement(tu);
         }
+
+        cmbProveedores.setModel(valores);
+    }
+
+    private void initRubros()
+    {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        valores.addElement(new Tupla(0,"Seleccione un Proveedor..."));
 
         cmbRubro.setModel(valores);
     }
@@ -74,7 +88,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         cmbRubro = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cmbProveedor = new javax.swing.JComboBox();
+        cmbProveedores = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListado = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -87,12 +101,17 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         setResizable(true);
         setTitle("Consultar Precios por Proveedor");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el Rubro"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("2. Seleccione el Rubro"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Rubro");
 
         cmbRubro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbRubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRubroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,12 +133,17 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("2. Seleccione el proveedor"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el proveedor"));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Proveedor");
 
-        cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProveedoresActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,7 +152,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbProveedor, javax.swing.GroupLayout.Alignment.LEADING, 0, 265, Short.MAX_VALUE)
+                    .addComponent(cmbProveedores, javax.swing.GroupLayout.Alignment.LEADING, 0, 265, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -137,7 +161,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -154,11 +178,11 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         ));
         jScrollPane1.setViewportView(tablaListado);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
         jLabel3.setText("Filtrar");
 
-        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11));
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
@@ -177,29 +201,29 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap())
@@ -212,10 +236,83 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void cmbRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRubroActionPerformed
+
+        Tupla tpr = (Tupla)cmbRubro.getSelectedItem();
+        Tupla tpp = (Tupla)cmbProveedores.getSelectedItem();
+        if(tpr.getId()!=0 && tpp.getId()!=0)
+        {
+            mostrarPreciosPorProveedor(tpp.getId(),tpr.getId());
+        }
+
+    }//GEN-LAST:event_cmbRubroActionPerformed
+
+    private void mostrarPreciosPorProveedor(int idProv, int idRubro)
+    {
+        ArrayList<NTupla> lista = gestor.mostrarPreciosPorProveedor(idProv, idRubro);
+        DefaultTableModel modelo = (DefaultTableModel)tablaListado.getModel();
+
+        // LIMPIO LA TABLA
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        int numFila = 0;
+
+        Iterator<NTupla> it = lista.iterator();
+        while (it.hasNext())
+        {
+            NTupla ntp = it.next();
+            Object[] fila = new Object[3];
+            fila[0] = ntp;
+            String[] datos = (String[])ntp.getData();
+            fila[1] = datos[0];
+            fila[2] = datos[1];
+
+                // REDIMENSIONO LA FILA !!!
+                tablaListado.setRowHeight(numFila,200);
+
+            tablaListado.setRowHeight(idProv, HEIGHT);
+            modelo.addRow(fila);
+            numFila++;
+        }
+        tablaListado.setModel(modelo);
+    }
+
+
+    private void cmbProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedoresActionPerformed
+
+        Tupla tp = (Tupla)cmbProveedores.getSelectedItem();
+        if(tp.getId()!=0)
+        {
+            mostrarRubrosPorProveedor(tp.getId());
+        }
+
+    }//GEN-LAST:event_cmbProveedoresActionPerformed
+
+    private void mostrarRubrosPorProveedor(int id)
+    {
+        ArrayList<Tupla> lista = gestor.mostrarRubrosPorProveedor(id);
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        Iterator<Tupla> it = lista.iterator();
+
+        if(lista.size()==0)
+        {
+            valores.addElement(new Tupla(0,"No Rubros Cargados para este proveedor"));
+        }
+
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+
+        cmbRubro.setModel(valores);
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JComboBox cmbProveedor;
+    private javax.swing.JComboBox cmbProveedores;
     private javax.swing.JComboBox cmbRubro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -226,5 +323,29 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
     private javax.swing.JTable tablaListado;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * MUESTRA LOS MENSAJES EN LA GUI
+     * @param cod
+     */
+    public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("ME-0001"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("ME-0002"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Rubros","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        // ME-0003
+        if(cod.equals("ME-0003"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Precios","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 }

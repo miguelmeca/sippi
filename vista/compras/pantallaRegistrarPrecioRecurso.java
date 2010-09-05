@@ -177,7 +177,6 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         tblActualizaciones = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,7 +201,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el Recurso al que le registrará el Precio"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Nombre:");
 
         cmbRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Torno" }));
@@ -229,7 +228,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Rubro:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("Lista de Recursos:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -484,20 +483,12 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitar)
                     .addComponent(jButton3)))
         );
-
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -509,10 +500,6 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(617, Short.MAX_VALUE)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,8 +508,6 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalir)
                 .addContainerGap())
         );
 
@@ -707,36 +692,6 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
-        if(tblActualizaciones.getRowCount()!=0)
-        {
-            int seleccion = JOptionPane.showOptionDialog(
-            this, // Componente padre
-            "¿ La lista de Precios tiene cambios no Registrados, si sale se perderán\nEstá seguro que desea salir ?\nPara hacer permanente los cambios presione el botón: "+jButton3.getText(), //Mensaje
-            "Atención", // Título
-            JOptionPane.YES_NO_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,    // null para icono por defecto.
-            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
-            "Si");
-
-            if (seleccion != -1)
-            {
-               if((seleccion + 1)==1)
-               {
-                  // PRESIONO SI
-                  this.dispose();
-               }
-            }
-        }
-        else
-        {
-            this.dispose();
-        }
-
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void confirmarActualizarPrecios()
     {
         // ME CONFIRMO LA ACTUALIZACION, POR CADA PRECIO
@@ -765,11 +720,11 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             {
                 // WORKARROUNd, NO SE ME OCURRE OTRA FORMA
                 Object[] fila = new Object[5];
-                fila[0] = modelo.getValueAt(i,1);
-                fila[0] = modelo.getValueAt(i,2);
-                fila[0] = modelo.getValueAt(i,3);
-                fila[0] = modelo.getValueAt(i,4);
-                fila[0] = modelo.getValueAt(i,5);
+                fila[0] = modelo.getValueAt(i,0);
+                fila[1] = modelo.getValueAt(i,1);
+                fila[2] = modelo.getValueAt(i,2);
+                fila[3] = modelo.getValueAt(i,3);
+                fila[4] = modelo.getValueAt(i,4);
 
                 modeloFinal.addRow(fila);
                 exito = false;
@@ -865,7 +820,6 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarPrecio;
     private javax.swing.JButton btnQuitar;
-    private javax.swing.JButton btnSalir;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private javax.swing.JComboBox cmbProveedores;
     private javax.swing.JComboBox cmbRecurso;
