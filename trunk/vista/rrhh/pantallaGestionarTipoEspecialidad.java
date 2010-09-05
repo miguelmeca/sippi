@@ -11,7 +11,7 @@
 
 package vista.rrhh;
 
-import controlador.rrhh.GestorABMTipoEspecialidad;
+//import controlador.rrhh.GestorABMTipoEspecialidad;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 //import modelo.TipoCapacitacion;
 import util.NTupla;
 import util.Tupla;
-import vista.interfaces.ICallBack_v2;
+//import vista.interfaces.ICallBack_v2;
 
 /**
  *
@@ -27,8 +27,8 @@ import vista.interfaces.ICallBack_v2;
  */
 public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFrame {
 
-    private GestorABMTipoEspecialidad gestor;
-    private ICallBack_v2 pantalla;
+//    private GestorABMTipoEspecialidad gestor;
+//    private ICallBack_v2 pantalla;
     private int oidEdit; // 0: No estoy en el modo EDICION
 
     /** Creates new form pantallaRegistrarNuevoTipoCapacitacion */
@@ -37,7 +37,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
         btnCancelEdit.setVisible(false);
         oidEdit = 0;
 
-        gestor = new GestorABMTipoEspecialidad();
+  //      gestor = new GestorABMTipoEspecialidad();
 
         llenarTabla();
 
@@ -45,9 +45,9 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
     }
     public static String getFlagPantalla()
     {return "FLAG_TIPO_ESPECIALIDAD";}
-    public void setPantalla(ICallBack_v2 win)
+  //  public void setPantalla(ICallBack_v2 win)
     {
-        this.pantalla = win;
+ //       this.pantalla = win;
     }
 
     /** This method is called from within the constructor to
@@ -239,9 +239,9 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
      {
          if(this.oidEdit == 0)
          {
-                boolean exito=gestor.crear(txtNombre.getText(),txtDesc.getText());
+  //              boolean exito=gestor.crear(txtNombre.getText(),txtDesc.getText());
 
-                if(exito)
+  //              if(exito)
                 {
                     // CARGA CORRECTA
                     txtNombre.setText("");
@@ -249,7 +249,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
                     JOptionPane.showMessageDialog(this,"Carga Exitosa","Se completo correctamente la carga del tipo de especialidad ",JOptionPane.INFORMATION_MESSAGE);
                     llenarTabla();
                 }
-                else
+   //             else
                 {
                     // CARGA INCORRECTA
                     JOptionPane.showMessageDialog(this,"Error","Se produjo un error al intentar crear el Tipo de Especialidad",JOptionPane.INFORMATION_MESSAGE);
@@ -257,7 +257,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
          }
          else
          {
-                if(gestor.modificar(oidEdit,txtNombre.getText(),txtDesc.getText()))
+   //             if(gestor.modificar(oidEdit,txtNombre.getText(),txtDesc.getText()))
                 {
                     // CARGA CORRECTA
                     txtNombre.setText("");
@@ -269,7 +269,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
                     JOptionPane.showMessageDialog(this,"Modificación Exitosa","Se completo correctamente la modificación",JOptionPane.INFORMATION_MESSAGE);
                     llenarTabla();
                 }
-                else
+   //             else
                 {
                     // CARGA INCORRECTA
                     JOptionPane.showMessageDialog(this,"Error","Se produjo un error al modificar el Tipo de Especialidad",JOptionPane.INFORMATION_MESSAGE);
@@ -282,7 +282,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
         // LLAMO AL METODO DE CALLBACK DE LA PANTALLA DE LA QUE EXTENDIO
-        this.pantalla.actualizar(0,"FLAG_TIPO_ESPECIALIDAD",true);
+   //     this.pantalla.actualizar(0,"FLAG_TIPO_ESPECIALIDAD",true);
 
     }//GEN-LAST:event_formInternalFrameClosed
 
@@ -311,21 +311,21 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         NTupla dato = (NTupla) tablaTipos.getModel().getValueAt(tablaTipos.getSelectedRow(),0);
-        int ret = gestor.eliminar(dato.getId());
+    //    int ret = gestor.eliminar(dato.getId());
 
-        switch(ret)
+//        switch(ret)
         {
-            case 1:
-            JOptionPane.showMessageDialog(this,"Eliminación Exitosa","Se eliminó correctamente el Tipo de Especialidad",JOptionPane.INFORMATION_MESSAGE);
-            break;
-
-            case 0:
-            JOptionPane.showMessageDialog(this,"Eliminación Fallida","Se produjo un error desconocido al eliminar el Tipo de Especialidad",JOptionPane.ERROR_MESSAGE);
-            break;
-
-            case 2:
-            JOptionPane.showMessageDialog(this,"Eliminación Fallida","El Tipo de Especialidad seleccionado está en uso, por lo que no puede eliminarse",JOptionPane.ERROR_MESSAGE);
-            
+  //          case 1:
+//            JOptionPane.showMessageDialog(this,"Eliminación Exitosa","Se eliminó correctamente el Tipo de Especialidad",JOptionPane.INFORMATION_MESSAGE);
+//            break;
+//
+//            case 0:
+//            JOptionPane.showMessageDialog(this,"Eliminación Fallida","Se produjo un error desconocido al eliminar el Tipo de Especialidad",JOptionPane.ERROR_MESSAGE);
+//            break;
+//
+//            case 2:
+//            JOptionPane.showMessageDialog(this,"Eliminación Fallida","El Tipo de Especialidad seleccionado está en uso, por lo que no puede eliminarse",JOptionPane.ERROR_MESSAGE);
+//
         }
 
         llenarTabla();
@@ -335,7 +335,7 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
 
-        if(gestor.existeTipo(txtNombre.getText()))
+  //      if(gestor.existeTipo(txtNombre.getText()))
         {
             JOptionPane.showMessageDialog(this,"Ya existe un Tipo de Especialidad con ese nombre","Ingrese otro nombre",JOptionPane.ERROR_MESSAGE);
             txtNombre.setText("");
@@ -356,18 +356,18 @@ public class pantallaGestionarTipoEspecialidad extends javax.swing.JInternalFram
 
         modelo = (DefaultTableModel) tablaTipos.getModel();
 
-        ArrayList<NTupla> lista = gestor.mostrarNombreTiposEspecialidad();
-        Iterator it = lista.iterator();
+//        ArrayList<NTupla> lista = gestor.mostrarNombreTiposEspecialidad();
+//       Iterator it = lista.iterator();
 
         Object[] fila = new Object[2];
 
-        while (it.hasNext())
-        {
-            NTupla t = (NTupla)it.next();
-            fila[0] = t;
-            fila[1] = t.getData();
-            modelo.addRow(fila);
-        }
+//        while (it.hasNext())
+//        {
+//            NTupla t = (NTupla)it.next();
+//            fila[0] = t;
+//            fila[1] = t.getData();
+//            modelo.addRow(fila);
+//        }
 
     }
 

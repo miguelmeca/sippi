@@ -96,8 +96,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         int ancho = 535;
         // NO FUNCIONA:
         //int ancho = (int)tablaDetalle.getSize().getWidth();
-        FormatoTabla ft = new FormatoTabla();
-        tablaDetalle.setDefaultRenderer(Double.class, ft);
+        
+//        FormatoTabla ft = new FormatoTabla();
+//        tablaDetalle.setDefaultRenderer(Double.class, ft);
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
         TableColumn columnaTabla;

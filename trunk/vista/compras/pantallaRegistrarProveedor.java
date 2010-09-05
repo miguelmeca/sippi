@@ -17,9 +17,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.RubroUtil;
 import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IAyuda;
@@ -46,6 +48,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         formatearTablaTelefonos();
 //        grp = null;
         mostrarTiposTelefono();
+        mostrarRubros();
     }
 
     private void mostrarTiposTelefono(){
@@ -217,6 +220,10 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             mensaje+="- Pais\n";
             ban=false;
         }
+        if(listaRubrosAgregados.getModel().getSize() <= 0){
+            mensaje+="- Al menos un rubro\n";
+            ban=false;
+        }
         if(!ban){
             JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         }
@@ -233,6 +240,46 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         }
     }
 
+    public void mostrarRubros()
+    {
+        ArrayList<Tupla> listaNombreTiposCapacitacion = RubroUtil.getTuplasRubros();
+        //DefaultComboBoxModel model = new DefaultComboBoxModel();
+        DefaultListModel model = new DefaultListModel();
+        for (Tupla nombre : listaNombreTiposCapacitacion)
+        {
+            model.addElement(nombre);
+        }
+        listaRubrosDisponibles.setModel(model);
+    }
+
+     private void agregarRubro()
+    {
+
+        if(!listaRubrosDisponibles.isSelectionEmpty())
+        {
+            Tupla t = (Tupla)listaRubrosDisponibles.getModel().getElementAt(listaRubrosDisponibles.getSelectedIndex());
+            DefaultListModel dlmA = (DefaultListModel)(listaRubrosAgregados.getModel());
+            dlmA.addElement(t);
+//            ((DefaultListModel)( listaRubrosAgregados.getModel())).addElement(t);
+            DefaultListModel dlmD = (DefaultListModel)(listaRubrosDisponibles.getModel());
+            dlmD.removeElement(t);
+//            ((DefaultListModel)(listaRubrosDisponibles.getModel())).removeElement(t);
+            gestor.agregarRubro(t);
+        }
+    }
+
+    private void quitarRubro()
+    {
+        if(!listaRubrosAgregados.isSelectionEmpty())
+        {
+            Tupla t = (Tupla)listaRubrosAgregados.getModel().getElementAt(listaRubrosAgregados.getSelectedIndex());
+            ((DefaultListModel)(listaRubrosDisponibles.getModel())).addElement(t);
+            ((DefaultListModel)(listaRubrosAgregados.getModel())).removeElement(t);
+            gestor.quitarRubro(t);
+        }
+    }
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -242,6 +289,10 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnNuevaEmpresa = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtCalle = new javax.swing.JTextField();
@@ -272,8 +323,6 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         cmbTipoTelefono = new javax.swing.JComboBox();
         btnNuevoTelefono = new javax.swing.JButton();
         btnQuitarTelefono = new javax.swing.JButton();
-        btnNuevaEmpresa = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtRazonSocial = new javax.swing.JTextField();
@@ -283,6 +332,32 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         jLabel2 = new javax.swing.JLabel();
         txtPaginaWeb = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jpCapacitaciones = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaRubrosDisponibles = new javax.swing.JList();
+        btnAgregarRubro = new javax.swing.JButton();
+        btnQuitarRubro = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaRubrosAgregados = new javax.swing.JList();
+
+        btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnNuevaEmpresa.setText("Aceptar");
+        btnNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaEmpresaActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
@@ -514,22 +589,6 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnNuevaEmpresa.setText("Aceptar");
-        btnNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaEmpresaActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Proveedor"));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -596,23 +655,128 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                 .addContainerGap())
         );
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Datos Generales", jPanel2);
+
+        jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Capacitaciones"));
+
+        listaRubrosDisponibles.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(listaRubrosDisponibles);
+
+        btnAgregarRubro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
+        btnAgregarRubro.setText("Agregar");
+        btnAgregarRubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRubroActionPerformed(evt);
+            }
+        });
+
+        btnQuitarRubro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
+        btnQuitarRubro.setText("Quitar");
+        btnQuitarRubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarRubroActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel24.setText("Disponibles: ");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel26.setText("Agregadas: ");
+
+        listaRubrosAgregados.setModel(new DefaultListModel());
+        jScrollPane5.setViewportView(listaRubrosAgregados);
+
+        javax.swing.GroupLayout jpCapacitacionesLayout = new javax.swing.GroupLayout(jpCapacitaciones);
+        jpCapacitaciones.setLayout(jpCapacitacionesLayout);
+        jpCapacitacionesLayout.setHorizontalGroup(
+            jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24))
+                    .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQuitarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                    .addComponent(btnAgregarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jpCapacitacionesLayout.setVerticalGroup(
+            jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                        .addComponent(btnAgregarRubro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarRubro))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, 0, 0, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpCapacitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(248, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Rubros", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(302, Short.MAX_VALUE)
                         .addComponent(btnNuevaEmpresa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar)))
@@ -620,18 +784,14 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -705,14 +865,24 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnAgregarRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRubroActionPerformed
+        agregarRubro();
+}//GEN-LAST:event_btnAgregarRubroActionPerformed
+
+    private void btnQuitarRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarRubroActionPerformed
+        quitarRubro();
+}//GEN-LAST:event_btnQuitarRubroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarBarrio;
     private javax.swing.JButton btnAgregarLocalidad;
     private javax.swing.JButton btnAgregarProvincia;
+    private javax.swing.JButton btnAgregarRubro;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevaEmpresa;
     private javax.swing.JButton btnNuevoTelefono;
+    private javax.swing.JButton btnQuitarRubro;
     private javax.swing.JButton btnQuitarTelefono;
     private javax.swing.JComboBox cmbBarrio;
     private javax.swing.JComboBox cmbLocalidades;
@@ -729,14 +899,24 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jpCapacitaciones;
+    private javax.swing.JList listaRubrosAgregados;
+    private javax.swing.JList listaRubrosDisponibles;
     private javax.swing.JTable tablaTelefonos;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtCP;
