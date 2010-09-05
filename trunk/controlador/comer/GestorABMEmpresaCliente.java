@@ -4,6 +4,9 @@ import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.*;
 import modelo.Pais;
 import org.hibernate.Session;
@@ -524,5 +527,17 @@ public class GestorABMEmpresaCliente {
             HibernateUtil.closeSession();
         } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  return -1;}
         return this.empresa.getId();
+    }
+
+    public boolean validarExistenciaCUIT(String cuit) {
+        boolean respuesta = true;
+        try {
+            List pr = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente WHERE cuit LIKE :cuitP").setParameter("%cuit%", cuit).list();
+            if(pr.isEmpty())
+                respuesta = false;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorABMEmpresaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
     }
 }

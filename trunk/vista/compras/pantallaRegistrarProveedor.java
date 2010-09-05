@@ -224,6 +224,10 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             mensaje+="- Al menos un rubro\n";
             ban=false;
         }
+        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+            mensaje+="- CUIT duplicado\n";
+            ban = false;
+        }
         if(!ban){
             JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         }
@@ -243,7 +247,6 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     public void mostrarRubros()
     {
         ArrayList<Tupla> listaNombreTiposCapacitacion = RubroUtil.getTuplasRubros();
-        //DefaultComboBoxModel model = new DefaultComboBoxModel();
         DefaultListModel model = new DefaultListModel();
         for (Tupla nombre : listaNombreTiposCapacitacion)
         {
@@ -260,10 +263,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             Tupla t = (Tupla)listaRubrosDisponibles.getModel().getElementAt(listaRubrosDisponibles.getSelectedIndex());
             DefaultListModel dlmA = (DefaultListModel)(listaRubrosAgregados.getModel());
             dlmA.addElement(t);
-//            ((DefaultListModel)( listaRubrosAgregados.getModel())).addElement(t);
             DefaultListModel dlmD = (DefaultListModel)(listaRubrosDisponibles.getModel());
             dlmD.removeElement(t);
-//            ((DefaultListModel)(listaRubrosDisponibles.getModel())).removeElement(t);
             gestor.agregarRubro(t);
         }
     }
@@ -332,6 +333,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         jLabel2 = new javax.swing.JLabel();
         txtPaginaWeb = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnValidarCUIT = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jpCapacitaciones = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -471,7 +473,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbProvincias, 0, 134, Short.MAX_VALUE)
+                        .addComponent(cmbProvincias, 0, 151, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarProvincia))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -483,7 +485,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbBarrio, 0, 110, Short.MAX_VALUE)
+                        .addComponent(cmbBarrio, 0, 127, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarBarrio)))
                 .addContainerGap())
@@ -562,13 +564,13 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNumeroTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(cmbTipoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, 0, 158, Short.MAX_VALUE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                    .addComponent(txtNumeroTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(cmbTipoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, 0, 175, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(btnQuitarTelefono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
+                        .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -611,6 +613,14 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Página Web:");
 
+        btnValidarCUIT.setText("Validar");
+        btnValidarCUIT.setToolTipText("<html><br>Validar CUIT</br></html>");
+        btnValidarCUIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidarCUITActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -621,19 +631,21 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
+                        .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                        .addComponent(txtPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnValidarCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -647,7 +659,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                     .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(btnValidarCUIT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -676,7 +689,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -725,8 +738,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnQuitarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(btnAgregarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                    .addComponent(btnQuitarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(btnAgregarRubro, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel26)
@@ -763,7 +776,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Rubros", jPanel4);
@@ -775,7 +788,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnNuevaEmpresa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -786,7 +799,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -873,6 +886,12 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         quitarRubro();
 }//GEN-LAST:event_btnQuitarRubroActionPerformed
 
+    private void btnValidarCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarCUITActionPerformed
+        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+            JOptionPane.showMessageDialog(this.getParent(),"CUIT duplicado: "+txtCuit.getText(),"CUIT no válido",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnValidarCUITActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarBarrio;
@@ -884,6 +903,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     private javax.swing.JButton btnNuevoTelefono;
     private javax.swing.JButton btnQuitarRubro;
     private javax.swing.JButton btnQuitarTelefono;
+    private javax.swing.JButton btnValidarCUIT;
     private javax.swing.JComboBox cmbBarrio;
     private javax.swing.JComboBox cmbLocalidades;
     private javax.swing.JComboBox cmbPais;

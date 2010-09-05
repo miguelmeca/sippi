@@ -22,7 +22,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane1" pref="509" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnNuevaEmpresa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -156,7 +156,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbProvincias" pref="134" max="32767" attributes="0"/>
+                                  <Component id="cmbProvincias" pref="151" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAgregarProvincia" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -169,7 +169,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbBarrio" pref="110" max="32767" attributes="0"/>
+                                  <Component id="cmbBarrio" pref="127" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAgregarBarrio" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -397,13 +397,13 @@
                           <Component id="jScrollPane3" min="-2" pref="298" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtNumeroTelefono" alignment="1" pref="158" max="32767" attributes="0"/>
-                              <Component id="cmbTipoTelefono" alignment="1" pref="158" max="32767" attributes="0"/>
-                              <Component id="jLabel17" alignment="0" pref="158" max="32767" attributes="0"/>
+                              <Component id="txtNumeroTelefono" alignment="1" pref="175" max="32767" attributes="0"/>
+                              <Component id="cmbTipoTelefono" alignment="1" pref="175" max="32767" attributes="0"/>
+                              <Component id="jLabel17" alignment="0" pref="175" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnQuitarTelefono" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnNuevoTelefono" pref="99" max="32767" attributes="0"/>
+                                  <Component id="btnNuevoTelefono" pref="116" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -514,21 +514,23 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtRazonSocial" pref="371" max="32767" attributes="1"/>
+                                  <Component id="txtRazonSocial" pref="388" max="32767" attributes="1"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtPaginaWeb" pref="379" max="32767" attributes="0"/>
+                                  <Component id="txtPaginaWeb" pref="396" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtCuit" pref="109" max="32767" attributes="1"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnValidarCUIT" min="-2" pref="67" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtEmail" min="-2" pref="265" max="-2" attributes="1"/>
+                                  <Component id="txtEmail" min="-2" pref="209" max="-2" attributes="1"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -548,6 +550,7 @@
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnValidarCUIT" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -612,6 +615,15 @@
                     <Property name="text" type="java.lang.String" value="P&#xe1;gina Web:"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JButton" name="btnValidarCUIT">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Validar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;br&gt;Validar CUIT&lt;/br&gt;&lt;/html&gt;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnValidarCUITActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -671,8 +683,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnQuitarRubro" pref="142" max="32767" attributes="1"/>
-                              <Component id="btnAgregarRubro" alignment="0" pref="142" max="32767" attributes="1"/>
+                              <Component id="btnQuitarRubro" pref="159" max="32767" attributes="1"/>
+                              <Component id="btnAgregarRubro" alignment="0" pref="159" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
