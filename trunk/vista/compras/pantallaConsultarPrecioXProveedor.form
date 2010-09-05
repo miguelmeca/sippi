@@ -31,16 +31,16 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jScrollPane1" alignment="0" pref="551" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtFiltro" min="-2" pref="154" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btnCerrar" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jPanel2" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -50,8 +50,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jPanel2" max="32767" attributes="1"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
                   <Component id="txtFiltro" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="256" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="260" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -73,7 +73,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="1. Seleccione el Rubro"/>
+            <TitledBorder title="2. Seleccione el Rubro"/>
           </Border>
         </Property>
       </Properties>
@@ -122,6 +122,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbRubroActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -129,7 +132,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="2. Seleccione el proveedor"/>
+            <TitledBorder title="1. Seleccione el proveedor"/>
           </Border>
         </Property>
       </Properties>
@@ -140,7 +143,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="cmbProveedor" alignment="0" pref="265" max="32767" attributes="0"/>
+                      <Component id="cmbProveedores" alignment="0" pref="265" max="32767" attributes="0"/>
                       <Component id="jLabel2" alignment="0" pref="265" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -152,7 +155,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cmbProveedor" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbProveedores" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -167,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Proveedor"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbProveedor">
+        <Component class="javax.swing.JComboBox" name="cmbProveedores">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -178,6 +181,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbProveedoresActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

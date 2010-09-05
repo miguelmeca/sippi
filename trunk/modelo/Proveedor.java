@@ -50,39 +50,25 @@ public class Proveedor extends Empresa {
     }
 
     /**
-     * Devuelve las NTuplas de los TIPOS DE RECURSO QUE DISPONE
-     * SEGUN LOS RECURSOS ESPECIFICOS QUE TENGA CARGADOS !!!!!
+     * Ve si el proveedor vende articulos de este rubro
+     * El objeto Rubro debe tener cargado el ID
+     * Chequea solo en su lista de rubros, no en los RecursosEspecificos
+     * @param r
      * @return
      */
-//    public ArrayList<Tupla> buscarTipoDeRecursosDisponibles()
-//    {
-//        ArrayList<Tupla> listaBase = TipoRecursoUtil.getTiposDeRecurso();
-//        ArrayList<Tupla> listaRet  = new ArrayList<Tupla>();
-//
-//        Iterator it = this.precios.iterator();
-//        while (it.hasNext())
-//        {
-//            // TENGO EL PRECIO, BUSCO EL RECURSO
-//            PrecioXRecurso precio = (PrecioXRecurso)it.next();
-//            // BUSCO LOS TIDOS DE RECURSO
-//            RecursoEspecifico re = precio.getRecurso();
-//            Iterator<Tupla> itLi = listaBase.iterator();
-//            while (itLi.hasNext())
-//            {
-//                Tupla tp = itLi.next();
-//                if(tp.getNombre().equals(re.toString()))
-//                {
-//                    // Veo q no haya duplicados
-//                    if(!listaRet.contains(tp))
-//                    {
-//                        listaRet.add(tp);
-//                    }
-//                }
-//            }
-//        }
-//
-//        return listaRet;
-//    }
+    public boolean tieneRubro(Rubro r)
+    {
+        Iterator<Rubro> itr = rubros.iterator();
+        while (itr.hasNext())
+        {
+            Rubro rubro = itr.next();
+            if(rubro.getId()==r.getId())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-
+   
 }
