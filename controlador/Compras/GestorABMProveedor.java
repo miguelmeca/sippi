@@ -15,6 +15,7 @@ import modelo.Localidad;
 import modelo.Pais;
 import modelo.Proveedor;
 import modelo.Provincia;
+import modelo.Rubro;
 import modelo.Telefono;
 import modelo.TipoTelefono;
 import org.hibernate.Session;
@@ -44,9 +45,11 @@ public class GestorABMProveedor {
     private Provincia provincia;
     private Pais pais;
     private String paginaWeb;
+    private ArrayList<Tupla> rubros;
 
     public GestorABMProveedor(pantallaRegistrarProveedor p) {
         this.pantalla = p;
+        rubros = new ArrayList<Tupla>();
     }
 
     public ArrayList<Tupla> mostrarNombrePaises() {
@@ -151,6 +154,12 @@ public class GestorABMProveedor {
             sesion = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             try{
+                ArrayList<Rubro> listaRubros = new ArrayList<Rubro>();
+                for(Tupla t : rubros){
+                    Rubro r = (Rubro)sesion.load(Rubro.class, t.getId());
+                    listaRubros.add(r);
+                }
+                nuevo.setRubros(listaRubros);
                 sesion.saveOrUpdate(nuevo.getDomicilio());
                 for (Telefono tell : (HashSet<Telefono>)nuevo.getTelefonos())
                 {
@@ -187,6 +196,14 @@ public class GestorABMProveedor {
             e.printStackTrace();
         }
         return tuplas;
+    }
+
+    public void agregarRubro(Tupla t) {
+        this.rubros.add(t);
+    }
+
+    public void quitarRubro(Tupla t) {
+        this.rubros.remove(t);
     }
 
 }
