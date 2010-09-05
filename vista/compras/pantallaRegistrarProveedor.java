@@ -681,7 +681,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
 
-        jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Capacitaciones"));
+        jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Rubros"));
 
         listaRubrosDisponibles.setModel(new DefaultListModel());
         jScrollPane4.setViewportView(listaRubrosDisponibles);
@@ -850,7 +850,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
             gestor.paginaWeb(this.txtPaginaWeb.getText());
             int id = gestor.confirmacionRegistro();
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el nuevo proveedor.\n Número de Empresa: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el nuevo proveedor.\n Número de Proveedor: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
 //            if(grp !=null){
 //                grp.recargarComboBox();
 //            }
