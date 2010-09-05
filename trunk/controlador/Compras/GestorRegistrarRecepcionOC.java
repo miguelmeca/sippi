@@ -10,11 +10,16 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import modelo.DetalleOrdenDeCompra;
+import modelo.DetalleRemito;
 import modelo.OrdenDeCompra;
 import modelo.Proveedor;
+import modelo.Remito;
 import util.HibernateUtil;
 import util.NTupla;
+import util.Tupla;
 import vista.compras.pantallaConsultarOC;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 
@@ -111,22 +116,19 @@ public class GestorRegistrarRecepcionOC {
     }
 
         public ArrayList<NTupla> mostrarDetalleOC(int idOC){
-//        DetalleOrdenDeCompra doc=null;
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
         NTupla nt = null;
         String[] datos = new String[3];
         try {
-//            Iterator it = HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle=doc)").setParameter("idOC",idOC).iterate();
+//            HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle.id = doc.id) AND EXISTS(FROM DetalleRemito WHERE detalleOC.id=doc.id)");
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
-//            while(it.hasNext()){
             for(DetalleOrdenDeCompra doc : orden.getDetalle()){
-//                doc = (DetalleOrdenDeCompra)it.next();
                 nt = new NTupla();
                 nt.setId(doc.getId());
                 nt.setNombre(doc.getRecurso().getNombre());
-                datos[0] = new String(String.valueOf(doc.getCantidad()));
-                datos[1] = new String(String.valueOf(doc.getRecurso().getDescipcion()));
-                datos[2] = new String(String.valueOf(doc.getPrecio()));
+                datos[0] = String.valueOf(doc.getCantidad());
+                datos[1] = String.valueOf(doc.getRecurso().getDescipcion());
+                datos[2] = String.valueOf(doc.getPrecio());
                 nt.setData(datos);
                 detalles.add(nt);
             }
@@ -139,17 +141,82 @@ public class GestorRegistrarRecepcionOC {
     public int registrarRecepcionTotal(int idOC) {
         int idRemito = 0;
         try {
+            HibernateUtil.beginTransaction();
             OrdenDeCompra orden = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
             Iterator it = orden.getDetalle().iterator();
             DetalleOrdenDeCompra doc = null;
+            Remito re = new Remito();
+            ArrayList<DetalleRemito> listaDetalles = new ArrayList<DetalleRemito>();
             while(it.hasNext()){
                 doc = (DetalleOrdenDeCompra)it.next();
-//                Remito re = new Rem
+                DetalleRemito dre = new DetalleRemito();
+                dre.setCantidad(doc.getCantidad());// ACA ESTA MAL XQ EL USUARIO DEBERIA INGRESAR LO QUE REALMENTE RECIBIO... MOCO...
+//                re.setDescripcion(doc.get); TAMBIEN NOS ESTA FALTANDO LA DESCRICION... TODO MAL..
+                dre.setDetalleOC(doc);
+                HibernateUtil.getSession().save(dre);
+                listaDetalles.add(dre);
+            }
+            re.setDetalle(listaDetalles);
+            re.setFechaEntrega(new Date());
+            re.setOrden(orden);
+            HibernateUtil.getSession().save(re);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+        }
+        return idRemito;
+    }
+
+    public int registrarRecepcionParcial(Integer idOC, TableModel model) {
+        DefaultTableModel dtm = (DefaultTableModel)model;
+        int idRemito = 0;
+        try {
+            HibernateUtil.beginTransaction();
+            OrdenDeCompra orden = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
+            Iterator it = orden.getDetalle().iterator();
+            for (int i = 0;i<dtm.getRowCount();i++){
+                boolean selec = (Boolean)dtm.getValueAt(i, 0);
+                if(selec){
+                    Tupla t = (Tupla)dtm.getValueAt(i, 2);
+
+                }
+            }
+            DetalleOrdenDeCompra doc = null;
+            Remito re = new Remito();
+            ArrayList<DetalleRemito> listaDetalles = new ArrayList<DetalleRemito>();
+            while(it.hasNext()){
+                doc = (DetalleOrdenDeCompra)it.next();
+                DetalleRemito dre = new DetalleRemito();
+                dre.setCantidad(doc.getCantidad());// ACA ESTA MAL XQ EL USUARIO DEBERIA INGRESAR LO QUE REALMENTE RECIBIO... MOCO...
+//                re.setDescripcion(doc.get); TAMBIEN NOS ESTA FALTANDO LA DESCRICION... TODO MAL..
+                dre.setDetalleOC(doc);
+                HibernateUtil.getSession().save(dre);
+                listaDetalles.add(dre);
+            }
+            re.setDetalle(listaDetalles);
+            re.setFechaEntrega(new Date());
+            re.setOrden(orden);
+            HibernateUtil.getSession().save(re);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+        }
+        return idRemito;
+    }
+
+    public boolean verificarRecepcionParcial(int id) {
+        boolean respuesta = false;
+        try {
+            ArrayList<Remito> remitos = (ArrayList<Remito>) HibernateUtil.getSession().createQuery("from Remito where orden.id=:idOC").setParameter("idOC", id).list();
+            if(!remitos.isEmpty()){
+                respuesta=true;
             }
 
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return idRemito;
+        return respuesta;
     }
 }

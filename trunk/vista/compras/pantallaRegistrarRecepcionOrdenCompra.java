@@ -18,6 +18,7 @@ import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
@@ -27,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.TableView.TableRow;
 import util.NTupla;
 import util.Tupla;
 
@@ -191,7 +193,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 Object[] item = new Object[6];
                 item[0] = false;
                 item[1] = ((String[])nt.getData())[0]; // CANTIDAD
-                item[2] = nt;                          // NOMBRE
+                item[2] = nt;                          // NOMBRE - IMPORTANTE PARA OBTENER EL ID
                 item[3] = ((String[])nt.getData())[1]; // DESCRIPCION
                 item[4] = ((String[])nt.getData())[2]; // P.U.
                 subtotal = Double.valueOf((String)item[1])*Double.valueOf((String)item[4]); // SUBTOTAL
@@ -201,7 +203,22 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         }
         txtTotalDetalle.setText(String.valueOf(total));
+        tablaDetalle.getGraphicsConfiguration();
+//                tablaDetalle.getModel().
     }
+
+    public class MiModelo extends DefaultTableModel
+    {
+       public boolean isCellEditable (int row, int column)
+       {
+           // Aquí devolvemos true o false según queramos que una celda
+           // identificada por fila,columna (row,column), sea o no editable
+           if (column == 2)
+              return true;
+           return false;
+       }
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -237,7 +254,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         dchFechaEmision = new com.toedter.calendar.JDateChooser();
         btnMostrarDetalle = new javax.swing.JButton();
 
-        setTitle("Registrar RecepciÃ³n de Orden de Compra");
+        setClosable(true);
+        setTitle("Registrar Recepción de Orden de Compra");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Detalle"));
 
@@ -246,7 +264,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
             },
             new String [] {
-                "", "Cant.", "Nombre", "DescripciÃ³n", "P. U.", "Subtotal"
+                "", "Cant.", "Nombre", "Descripción", "P. U.", "Subtotal"
             }
         ) {
             Class[] types = new Class [] {
@@ -294,14 +312,14 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         });
 
-        btnRecepcionTotal.setText("RecepciÃ³n Total");
+        btnRecepcionTotal.setText("Recepción Total");
         btnRecepcionTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionTotalActionPerformed(evt);
             }
         });
 
-        btnRecepcionParcial.setText("RecepciÃ³n Parcial");
+        btnRecepcionParcial.setText("Recepción Parcial");
         btnRecepcionParcial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionParcialActionPerformed(evt);
@@ -315,7 +333,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
             },
             new String [] {
-                "Nro. Orden", "Proveedor", "Fecha de EmisiÃ³n"
+                "Nro. Orden", "Proveedor", "Fecha de Emisión"
             }
         ));
         jScrollPane2.setViewportView(tablaOrdenesCompra);
@@ -366,7 +384,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         pestanias.addTab("Proveedor", panelProveedor);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel6.setText("NÃºmero:");
+        jLabel6.setText("Número:");
 
         txtNumeroOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,10 +419,10 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pestanias.addTab(" NÃºmero de Orden", panelNumeroOrden);
+        pestanias.addTab(" Número de Orden", panelNumeroOrden);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel3.setText("Fecha de EmisiÃ³n:");
+        jLabel3.setText("Fecha de Emisión:");
 
         dchFechaEmision.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -433,7 +451,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pestanias.addTab("Fecha de EmisiÃ³n", panelFechaEmision);
+        pestanias.addTab("Fecha de Emisión", panelFechaEmision);
 
         btnMostrarDetalle.setText("Mostrar Detalle");
         btnMostrarDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -480,7 +498,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -488,10 +506,23 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
     private void btnRecepcionTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionTotalActionPerformed
         int idRemito = gestor.registrarRecepcionTotal((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0));
+        if(idRemito > 0){
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la totalidad de la orden de Compra.\n Número de Remito: "+idRemito,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuniquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnRecepcionTotalActionPerformed
 
     private void btnRecepcionParcialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionParcialActionPerformed
         // TODO add your handling code here:
+        int idRemito = gestor.registrarRecepcionParcial((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0),tablaDetalle.getModel());
+        if(idRemito > 0){
+            JOptionPane.showMessageDialog(this.getParent(),"Se registraron con éxito los items seleccionados.\n Número de Remito: "+idRemito,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuníquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
@@ -516,7 +547,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         // TODO add your handling code here:
 //        if(tablaOrdenesCompra.getSelectedRow() > 0){
             int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-            //int idOC = Integer.parseInt(id);
+            if (gestor.verificarRecepcionParcial(id)){
+                btnRecepcionTotal.setEnabled(false);
+            }
+             else{
+                btnRecepcionTotal.setEnabled(true);
+             }
             llenarTablaDOC(gestor.mostrarDetalleOC(id));
 //        }
     }//GEN-LAST:event_btnMostrarDetalleActionPerformed
