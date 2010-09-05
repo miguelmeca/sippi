@@ -18,6 +18,13 @@ public class Proveedor extends Empresa {
 
     private List<Rubro> rubros;
     private List<RecursoEspecifico> listaArticulos;
+    private double confiabilidad;
+
+    public Proveedor()
+    {
+        rubros=new ArrayList<Rubro>();;
+        listaArticulos  = new ArrayList<RecursoEspecifico>();
+    }
 
     public List<Rubro> getRubros() {
         return rubros;
@@ -35,7 +42,12 @@ public class Proveedor extends Empresa {
         this.listaArticulos = listaArticulos;
     }
 
-
+    public void setConfiabilidad(double c) {
+        this.confiabilidad=c;
+    }
+    public double getConfiabilidad() {
+        return this.confiabilidad;
+    }
 
     /**
      * Devuelve las NTuplas de los TIPOS DE RECURSO QUE DISPONE
