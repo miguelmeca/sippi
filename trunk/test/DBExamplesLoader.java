@@ -41,6 +41,8 @@ import modelo.Material;
 import modelo.OrdenDeCompra;
 import modelo.Proveedor;
 import modelo.Recurso;
+import modelo.RecursoXProveedor;
+import modelo.PrecioSegunCantidad;
 import modelo.RecursoEspecifico;
 import modelo.Rubro;
 import modelo.TipoLicenciaEmpleado;
@@ -88,8 +90,8 @@ public class DBExamplesLoader {
     private void cargarRubros()
     {
         Rubro r1 = new Rubro(1,"Material");
-        Rubro r2 = new Rubro(2,"Herramientas");
-        Rubro r3 = new Rubro(3,"Consumibles");
+        Rubro r2 = new Rubro(2,"Herramienta");
+        Rubro r3 = new Rubro(3,"Consumible");
         Rubro r4 = new Rubro(4,"Indumentaria");
         Rubro r5 = new Rubro(5,"Transporte");
         Rubro r6 = new Rubro(6,"Alojamiento");
@@ -173,11 +175,13 @@ public class DBExamplesLoader {
         {
             if((seleccion + 1)==1)
             {
+                
+                this.cargarMateriales(this.cargarProveedor());
                 this.cargarHerramientas();
-                this.cargarMateriales();
+                
                 this.cargarConsumibles();
                 this.cargarAlojamientos();
-                this.cargarProveedor();
+                
             }
         }
 
@@ -244,7 +248,7 @@ public class DBExamplesLoader {
 //        sesion.getTransaction().commit();
     }
 
-    private void cargarMateriales()
+    private void cargarMateriales(Proveedor Prov)
     {
         Material h1 = new Material();
         h1.setNombre("Chapa");
@@ -267,13 +271,66 @@ public class DBExamplesLoader {
             re3.setDescipcion("IPN 750 de 2x3m.");
             items.add(re3);
         h1.setRecursos(items);
+        
+        Prov.getListaArticulos().add(re1);
+        Prov.getListaArticulos().add(re2);
+        Prov.getListaArticulos().add(re3);
+
+        RecursoXProveedor rxp1 =new RecursoXProveedor();
+        ArrayList<PrecioSegunCantidad> lstPSC1 = new ArrayList<PrecioSegunCantidad>();
+        PrecioSegunCantidad psc1 =new PrecioSegunCantidad();
+        psc1.setCantidad(1);
+        psc1.setPrecio(0.5);
+        psc1.setFechaVigencia(new Date());
+        psc1.setFecha(new Date());
+        PrecioSegunCantidad psc2 =new PrecioSegunCantidad();
+        psc2.setCantidad(10);
+        psc2.setPrecio(0.4);
+        psc2.setFechaVigencia(new Date());
+        psc2.setFecha(new Date());
+        lstPSC1.add(psc1);
+        lstPSC1.add(psc2);
+        rxp1.setListaPrecios(lstPSC1);
+        rxp1.setProveedor(Prov);
+        ArrayList<RecursoXProveedor> lstRxP1 = new ArrayList<RecursoXProveedor>();
+        lstRxP1.add(rxp1);
+        re1.setProveedores(lstRxP1);
+
+
+        RecursoXProveedor rxp2 =new RecursoXProveedor();
+        ArrayList<PrecioSegunCantidad> lstPSC2 = new ArrayList<PrecioSegunCantidad>();
+        PrecioSegunCantidad psc1a =new PrecioSegunCantidad();
+        psc1a.setCantidad(1);
+        psc1a.setPrecio(0.3);
+        psc1a.setFechaVigencia(new Date());
+        psc1a.setFecha(new Date());
+        PrecioSegunCantidad psc2a =new PrecioSegunCantidad();
+        psc2a.setCantidad(10);
+        psc2a.setPrecio(0.2);
+        psc2a.setFechaVigencia(new Date());
+        psc2a.setFecha(new Date());
+        lstPSC1.add(psc1a);
+        lstPSC1.add(psc2a);
+        rxp2.setListaPrecios(lstPSC2);
+        rxp2.setProveedor(Prov);
+        ArrayList<RecursoXProveedor> lstRxP2 = new ArrayList<RecursoXProveedor>();
+        lstRxP2.add(rxp2);
+        re2.setProveedores(lstRxP2);
 
         sesion.beginTransaction();
         sesion.save(um);
-        sesion.save(re1);
-        sesion.save(re2);
-        sesion.save(re3);
+        
         sesion.save(h1);
+        sesion.saveOrUpdate(Prov);
+        sesion.save(psc1);
+        sesion.save(psc2);
+        sesion.save(psc1a);
+        sesion.save(psc2a);
+        sesion.save(rxp1);
+        sesion.save(rxp2);
+        sesion.saveOrUpdate(re1);
+        sesion.saveOrUpdate(re2);
+        sesion.saveOrUpdate(re3);
         sesion.getTransaction().commit();
     }
 
@@ -574,10 +631,14 @@ public class DBExamplesLoader {
             // WORKARROUND, DESPUES MODIFIQUENLO SI QUIEREN (IUGA)
             Rubro r1 = RubroUtil.getRubro(1);
             Rubro r2 = RubroUtil.getRubro(2);
+            Rubro r3 = RubroUtil.getRubro(3);
             ArrayList<Rubro> listaRubro = new ArrayList<Rubro>();
             listaRubro.add(r1);
             listaRubro.add(r2);
+            listaRubro.add(r3);
+            p.setConfiabilidad(0.5);
             p.setRubros(listaRubro); // ESTE PROVEEDOR VENDE TODO !!
+            
             // FIN WORKARROUND
 
         sesion.beginTransaction();
