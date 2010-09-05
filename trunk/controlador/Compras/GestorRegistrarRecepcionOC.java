@@ -110,15 +110,17 @@ public class GestorRegistrarRecepcionOC {
         return ordenes;
     }
 
-    public ArrayList<NTupla> mostrarDetalleOC(int idOC){
-        DetalleOrdenDeCompra doc=null;
+        public ArrayList<NTupla> mostrarDetalleOC(int idOC){
+//        DetalleOrdenDeCompra doc=null;
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
         NTupla nt = null;
         String[] datos = new String[3];
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE (FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle=doc.id)").setParameter("idOC",idOC).iterate();
-            while(it.hasNext()){
-                doc = (DetalleOrdenDeCompra)it.next();
+//            Iterator it = HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle=doc)").setParameter("idOC",idOC).iterate();
+            OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
+//            while(it.hasNext()){
+            for(DetalleOrdenDeCompra doc : orden.getDetalle()){
+//                doc = (DetalleOrdenDeCompra)it.next();
                 nt = new NTupla();
                 nt.setId(doc.getId());
                 nt.setNombre(doc.getRecurso().getNombre());
@@ -132,5 +134,22 @@ public class GestorRegistrarRecepcionOC {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return detalles;
+    }
+
+    public int registrarRecepcionTotal(int idOC) {
+        int idRemito = 0;
+        try {
+            OrdenDeCompra orden = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
+            Iterator it = orden.getDetalle().iterator();
+            DetalleOrdenDeCompra doc = null;
+            while(it.hasNext()){
+                doc = (DetalleOrdenDeCompra)it.next();
+//                Remito re = new Rem
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idRemito;
     }
 }

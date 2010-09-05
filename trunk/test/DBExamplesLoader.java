@@ -650,40 +650,43 @@ public class DBExamplesLoader {
     }
 
     public void cargarOrdenDeCompra(){
-//        OrdenDeCompra oc = new OrdenDeCompra();
-//        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
-//        oc.setProveedor(cargarProveedor());
-//
-//        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
-//        Material m = new Material();
-//        m.setNombre("PLACA DE METAL 2X2MTS");
-//        Recurso r = new Recurso();
-//        r.setNombre("PLACA DE METAL");
-//        m.setRecurso(r);
-//        m.setDescipcion("GALVANIZADA");
-//        doc.setRecurso(m);
-//        doc.setCantidad(12);
-//        doc.setPrecio(150);
-//
-//        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
-//        docs.add(doc);
-//        oc.setDetalle(docs);
-//
-//        oc.setFechaDePedido(new Date());
-//        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
-//        oc.setFechaDeRecepcion(new Date(02122010));
-//
-//        FormaDePago fp = new FormaDePago();
-//        fp.setNombre("Efectivo");
-//        oc.setFormaDePago(fp);
-//
-//        sesion.beginTransaction();
-//        sesion.save(m);
-//        sesion.save(r);
-//        sesion.save(doc);
-//        sesion.save(fp);
-//        sesion.save(oc);
-//        sesion.getTransaction().commit();
+        OrdenDeCompra oc = new OrdenDeCompra();
+        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
+        oc.setProveedor(cargarProveedor());
+
+        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
+        Material m = new Material();
+        m.setNombre("PLACA DE METAL 2X2MTS");
+        RecursoEspecifico re = new RecursoEspecifico();
+        re.setNombre("PLACA DE METAL");
+        re.setDescipcion("Galvanizada");
+
+        ArrayList<RecursoEspecifico> res = new ArrayList<RecursoEspecifico>();
+        res.add(re);
+        m.setRecursos(res);
+        doc.setRecurso(re);
+        doc.setCantidad(12);
+        doc.setPrecio(150);
+
+        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
+        docs.add(doc);
+        oc.setDetalle(docs);
+
+        oc.setFechaDePedido(new Date());
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
+        oc.setFechaDeRecepcion(new Date(02122010));
+
+        FormaDePago fp = new FormaDePago();
+        fp.setNombre("Efectivo");
+        oc.setFormaDePago(fp);
+
+        sesion.beginTransaction();
+        sesion.save(m);
+        sesion.save(re);
+        sesion.save(doc);
+        sesion.save(fp);
+        sesion.save(oc);
+        sesion.getTransaction().commit();
     }
 }
 
