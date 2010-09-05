@@ -26,7 +26,7 @@ import vista.comer.pantallaBuscarPedido;
 import vista.comer.pantallaConsultarEmpresaCliente;
 import vista.comer.pantallaConsultarObra;
 import vista.comer.pantallaRegistrarConfirmacionInicioObra;
-import vista.comer.pantallaRegistrarContactoResponsable;
+import vista.comer.pantallaConsultarContactosResponsables;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
@@ -42,8 +42,9 @@ import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaConsultarTallerCapacitacion;
 import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
 import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
-import vista.rrhh.pantallaRegistrarCapacitador;
+import vista.rrhh.pantallaConsultarCapacitadores;
 import vista.rrhh.pantallaRegistrarEmpleado;
+import vista.rrhh.pantallaConsultarEmpleado;
 import vista.rrhh.pantallaRegistrarPlanSeguridad;
 import vista.rrhh.pantallaRegistrarTaller;
 import vista.rrhh.pantallaRegistrarTallerCapacitacion;
@@ -310,7 +311,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(btnNuevoPedidoObra);
 
         btnNuevoEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/user.png"))); // NOI18N
-        btnNuevoEmpleado.setText("Registrar Nuevo Empleado");
+        btnNuevoEmpleado.setText("Consultar Empleados");
         btnNuevoEmpleado.setFocusable(false);
         btnNuevoEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnNuevoEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -766,10 +767,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
-            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
+             pantallaConsultarEmpleado pre = new pantallaConsultarEmpleado();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
-            pre.opcionRegistrarEmpleado();
     }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
@@ -779,10 +779,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //
         if(node.getTitulo().equals("Nuevo Empleado"))
         {
-            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
+            pantallaConsultarEmpleado pre = new pantallaConsultarEmpleado();
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
-            pre.opcionRegistrarEmpleado();
+           // pre.opcionRegistrarEmpleado();
             return;
         }
         // Nuevo Pedido de Obra
@@ -890,7 +890,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Nuevo Capacitador
         if(node.getTitulo().equals("Nuevo Capacitador"))
         {
-            pantallaRegistrarCapacitador prc = new pantallaRegistrarCapacitador();
+            pantallaConsultarCapacitadores prc = new pantallaConsultarCapacitadores();
             SwingPanel.getInstance().addWindow(prc);
             prc.setVisible(true);
             return;
@@ -898,7 +898,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // Nuevo Contacto
         if(node.getTitulo().equals("Nuevo Contacto"))
         {
-            pantallaRegistrarContactoResponsable prc = new pantallaRegistrarContactoResponsable();
+            pantallaConsultarContactosResponsables prc = new pantallaConsultarContactosResponsables();
             SwingPanel.getInstance().addWindow(prc);
             prc.setVisible(true);
             return;
