@@ -50,6 +50,31 @@ public class RubroUtil {
         return lista;
     }
 
+    public static ArrayList<Tupla> getTuplasRubros()
+    {
+        ArrayList<Tupla> lista = new ArrayList<Tupla>();
+          Session sesion;
+          try
+          {
+                sesion = HibernateUtil.getSession();
+                List<Rubro> listaRubro = sesion.createQuery("from Rubro").list();
+                Iterator<Rubro> itr = listaRubro.iterator();
+                while (itr.hasNext())
+                {
+                  Tupla tu= new Tupla();
+                  Rubro rubro = itr.next();
+                  tu.setId(rubro.getId());
+                  tu.setNombre(rubro.getNombre());
+                  lista.add(tu);
+                }
+
+          }catch(Exception e)
+          {
+              LogUtil.addError("Error al cargar los rubros");
+          }
+        return lista;
+    }
+
     public static Rubro getRubro(int id)
     {
           Rubro rb = new Rubro();
