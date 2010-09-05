@@ -254,6 +254,10 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             mensaje+="- Pais\n";
             ban=false;
         }
+        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+            mensaje+="- CUIT duplicado\n";
+            ban = false;
+        }
         if(!ban){
             JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         }
@@ -310,6 +314,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel2 = new javax.swing.JLabel();
         txtPaginaWeb = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnValidarCUIT = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnNuevaEmpresa = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -515,6 +520,14 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Página Web:");
 
+        btnValidarCUIT.setText("Validar");
+        btnValidarCUIT.setToolTipText("<html><br>Validar CUIT</br></html>");
+        btnValidarCUIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidarCUITActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -533,11 +546,13 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCuit, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnValidarCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -551,7 +566,8 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                     .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(btnValidarCUIT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -752,7 +768,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevaEmpresa))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -843,6 +859,12 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_btnBorrarPlantaActionPerformed
 
+    private void btnValidarCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarCUITActionPerformed
+        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+            JOptionPane.showMessageDialog(this.getParent(),"CUIT duplicado: "+txtCuit.getText(),"CUIT no válido",JOptionPane.WARNING_MESSAGE);
+        }
+}//GEN-LAST:event_btnValidarCUITActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -864,6 +886,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private javax.swing.JButton btnNuevaPlanta;
     private javax.swing.JButton btnNuevoTelefono;
     private javax.swing.JButton btnQuitarTelefono;
+    private javax.swing.JButton btnValidarCUIT;
     private javax.swing.JComboBox cmbBarrio;
     private javax.swing.JComboBox cmbLocalidades;
     private javax.swing.JComboBox cmbPais;

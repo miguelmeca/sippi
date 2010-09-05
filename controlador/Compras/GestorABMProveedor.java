@@ -9,6 +9,9 @@ import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Barrio;
 import modelo.Domicilio;
 import modelo.Localidad;
@@ -204,6 +207,18 @@ public class GestorABMProveedor {
 
     public void quitarRubro(Tupla t) {
         this.rubros.remove(t);
+    }
+
+    public boolean validarExistenciaCUIT(String cuit) {
+        boolean respuesta = true;
+        try {
+            List pr = (List) HibernateUtil.getSession().createQuery("FROM Proveedor WHERE cuit LIKE :cuitP").setParameter("%cuit%", cuit).list();
+            if(pr.isEmpty())
+                respuesta = false;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorABMProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
     }
 
 }
