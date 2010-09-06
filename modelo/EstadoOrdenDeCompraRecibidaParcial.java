@@ -56,6 +56,11 @@ public class EstadoOrdenDeCompraRecibidaParcial extends EstadoOrdenDeCompra {
         oc.setEstado(new EstadoOrdenDeCompraRecibidaTotal());
     }
 
+    public void setRecibidaParcial(OrdenDeCompra oc){
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraRecibidaParcial");
+        oc.setEstado(new EstadoOrdenDeCompraRecibidaParcial());
+    }
+
 //	public boolean registrarRecepcion() {
 //
 //	}

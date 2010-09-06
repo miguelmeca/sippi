@@ -672,6 +672,23 @@ public class DBExamplesLoader {
         docs.add(doc);
         oc.setDetalle(docs);
 
+        DetalleOrdenDeCompra doc1 = new DetalleOrdenDeCompra();
+        Material m1 = new Material();
+        m1.setNombre("TUERCAS 2 PULGADAS");
+        RecursoEspecifico re1 = new RecursoEspecifico();
+        re1.setNombre("TUERCA");
+        re1.setDescipcion("REFORZADA");
+
+        ArrayList<RecursoEspecifico> res1 = new ArrayList<RecursoEspecifico>();
+        res1.add(re1);
+        m.setRecursos(res1);
+        doc1.setRecurso(re1);
+        doc1.setCantidad(12);
+        doc1.setPrecio(150);
+
+        docs.add(doc1);
+        oc.setDetalle(docs);
+
         oc.setFechaDePedido(new Date());
         oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
         oc.setFechaDeRecepcion(new Date(02122010));

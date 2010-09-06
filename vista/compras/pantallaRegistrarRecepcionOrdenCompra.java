@@ -104,7 +104,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             modelo = (DefaultTableModel) tablaDetalle.getModel();
             for(NTupla nt : pls){
                 Object[] item = new Object[6];
-                item[0] = false;
+                item[0] = Boolean.parseBoolean(((String[])nt.getData())[3]); // SI ESTA RECIBIDO O NO
                 item[1] = ((String[])nt.getData())[0]; // CANTIDAD
                 item[2] = nt;                          // NOMBRE - IMPORTANTE PARA OBTENER EL ID
                 item[3] = ((String[])nt.getData())[1]; // DESCRIPCION
@@ -502,6 +502,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -564,6 +569,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         else{
             JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuniquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
         }
+        this.dispose();
     }//GEN-LAST:event_btnRecepcionTotalActionPerformed
 
     private void btnRecepcionParcialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionParcialActionPerformed
@@ -575,6 +581,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         else{
             JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuníquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
         }
+        this.dispose();
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
@@ -613,6 +620,13 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         }
     }//GEN-LAST:event_btnMostrarDetalleActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
+        gestor.emitirOrdenDeCompra(id);
+        this.dispose();
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -45,7 +45,7 @@ public class GestorRegistrarRecepcionOC {
         NTupla nt = new NTupla();
         Proveedor pr = null;
         Iterator it = null;
-        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial' AND oc.proveedor = p)";
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial' AND oc.proveedor = p)";
         try {
             it = HibernateUtil.getSession().createQuery(consulta).iterate();
             while(it.hasNext()){
@@ -113,7 +113,7 @@ public class GestorRegistrarRecepcionOC {
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("idProveedor",idProv).iterate();
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial'").setParameter("idProveedor",idProv).iterate();
             while(it.hasNext()){
                 oc = (OrdenDeCompra)it.next();
                 nt = new NTupla();
@@ -178,7 +178,7 @@ public class GestorRegistrarRecepcionOC {
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.id=:idOC AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("idOC",nro).iterate();
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.id=:idOC AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial'").setParameter("idOC",nro).iterate();
             while(it.hasNext()){
                 oc = (OrdenDeCompra)it.next();
                 nt = new NTupla();
@@ -243,7 +243,7 @@ public class GestorRegistrarRecepcionOC {
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.fechaDePedido=:fecha AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("fecha",fecha).iterate();
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.fechaDePedido=:fecha AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial'").setParameter("fecha",fecha).iterate();
             while(it.hasNext()){
                 oc = (OrdenDeCompra)it.next();
                 nt = new NTupla();
@@ -303,12 +303,11 @@ public class GestorRegistrarRecepcionOC {
      ***************************************************************************
      */
 
-    public ArrayList<NTupla> mostrarDetalleOC(int idOC){
+    public ArrayList<NTupla> mostrarDetalleOC1(int idOC){
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
         NTupla nt = null;
         String[] datos = new String[3];
         try {
-//            HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle.id = doc.id) AND EXISTS(FROM DetalleRemito WHERE detalleOC.id=doc.id)");
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
             for(DetalleOrdenDeCompra doc : orden.getDetalle()){
                 nt = new NTupla();
@@ -317,6 +316,38 @@ public class GestorRegistrarRecepcionOC {
                 datos[0] = String.valueOf(doc.getCantidad());
                 datos[1] = String.valueOf(doc.getRecurso().getDescipcion());
                 datos[2] = String.valueOf(doc.getPrecio());
+                nt.setData(datos);
+                detalles.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return detalles;
+    }
+
+    public ArrayList<NTupla> mostrarDetalleOC(int idOC){
+        ArrayList<NTupla> detalles = new ArrayList<NTupla>();
+        NTupla nt = null;
+        String[] datos = new String[4];
+        try {
+//            HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle.id = doc.id) AND EXISTS(FROM DetalleRemito WHERE detalleOC.id=doc.id)");
+            OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
+            for(DetalleOrdenDeCompra doc : orden.getDetalle()){
+
+                nt = new NTupla();
+                nt.setId(doc.getId());
+                nt.setNombre(doc.getRecurso().getNombre());
+                datos[0] = String.valueOf(doc.getCantidad());
+                datos[1] = String.valueOf(doc.getRecurso().getDescipcion());
+                datos[2] = String.valueOf(doc.getPrecio());
+
+                String query="SELECT COUNT(doc) FROM DetalleOrdenDeCompra doc WHERE doc.id=:idDOC AND doc.id IN(SELECT dre.detalleOC.id FROM DetalleRemito dre)";
+                long cantidad = (Long)HibernateUtil.getSession().createQuery(query).setParameter("idDOC", doc.getId()).uniqueResult();
+                if(cantidad>0)
+                    datos[3] = "true";
+                else
+                    datos[3] = "false";
+
                 nt.setData(datos);
                 detalles.add(nt);
             }
@@ -353,6 +384,7 @@ public class GestorRegistrarRecepcionOC {
             re.setFechaEntrega(new Date());
             re.setOrden(orden);
             HibernateUtil.getSession().save(re);
+            idRemito = re.getId();
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
@@ -366,67 +398,49 @@ public class GestorRegistrarRecepcionOC {
         int idRemito = 0;
         try {
             HibernateUtil.beginTransaction();
+            ArrayList<DetalleRemito> listaDRE = new ArrayList<DetalleRemito>();
             String query="FROM Remito WHERE orden.id=:idOC";
+            
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
-            Iterator<Remito> it = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
 
             for(int i = 0;i<model.getRowCount();i++){
                 boolean esta = false;
                 if((Boolean)model.getValueAt(i, 0)){
                     NTupla nt = (NTupla)model.getValueAt(i,2);
-                    while(it.hasNext()){
-                        Remito re = (Remito)it.next();
-                        Iterator itRE = (Iterator)re.getDetalle().iterator();
-                        while(itRE.hasNext()){
-                            DetalleRemito dr = (DetalleRemito)itRE.next();
+                    Iterator<Remito> itRE = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
+                    while(itRE.hasNext()){
+                        Remito re = (Remito)itRE.next();
+                        Iterator itDRE = (Iterator)re.getDetalle().iterator();
+                        while(itDRE.hasNext()){
+                            DetalleRemito dr = (DetalleRemito)itDRE.next();
                             if(nt.getId() == dr.getDetalleOC().getId()){
                                 esta = true;
                             }
                         }
                     }
                     if(!esta){
-
+                        DetalleRemito dre = new DetalleRemito();
+                        dre.setCantidad(Integer.parseInt(((String[])nt.getData())[0]));
+                        dre.setDescripcion(((String[])nt.getData())[1]);
+                        DetalleOrdenDeCompra doc = (DetalleOrdenDeCompra)HibernateUtil.getSession().load(DetalleOrdenDeCompra.class, nt.getId());
+                        dre.setDetalleOC(doc);
+                        HibernateUtil.getSession().save(dre);
+                        listaDRE.add(dre);
                     }
                 }
             }
-
-            while(it.hasNext()){
-                Remito re = (Remito)it.next();
-                Iterator itRE = (Iterator)re.getDetalle().iterator();
-                while(itRE.hasNext()){
-                    DetalleRemito dr = (DetalleRemito)itRE.next();
-                    boolean esta = false;
-                    for(int i = 0;i<model.getRowCount();i++){
-                        if((Boolean)model.getValueAt(i, 0)){
-                            NTupla nt = (NTupla)model.getValueAt(i,2);
-                            if(nt.getId() == dr.getDetalleOC().getId()){
-                                esta = true;
-                            }
-                        }
-                    }
-                }
-
-
+            if(listaDRE.size() == model.getRowCount()){
+                orden.setEstadoRecibidaTotal();
+            }else{
+                orden.setEstadoRecibidaParcial();
             }
-
-
-
-            DetalleOrdenDeCompra doc = null;
+            HibernateUtil.getSession().update(orden);
             Remito re = new Remito();
-            ArrayList<DetalleRemito> listaDetalles = new ArrayList<DetalleRemito>();
-            while(it.hasNext()){
-//                doc = (DetalleOrdenDeCompra)it.next();
-                DetalleRemito dre = new DetalleRemito();
-                dre.setCantidad(doc.getCantidad());// ACA ESTA MAL XQ EL USUARIO DEBERIA INGRESAR LO QUE REALMENTE RECIBIO... MOCO...
-//                re.setDescripcion(doc.get); TAMBIEN NOS ESTA FALTANDO LA DESCRICION... TODO MAL..
-                dre.setDetalleOC(doc);
-                HibernateUtil.getSession().save(dre);
-                listaDetalles.add(dre);
-            }
-            re.setDetalle(listaDetalles);
+            re.setDetalle(listaDRE);
             re.setFechaEntrega(new Date());
             re.setOrden(orden);
             HibernateUtil.getSession().save(re);
+            idRemito = re.getId();
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
@@ -434,20 +448,6 @@ public class GestorRegistrarRecepcionOC {
         }
         return idRemito;
     }
-
-//    public boolean verificarRecepcionParcial(int id) {
-//        boolean respuesta = false;
-//        try {
-//            ArrayList<Remito> remitos = (ArrayList<Remito>) HibernateUtil.getSession().createQuery("from Remito where orden.id=:idOC").setParameter("idOC", id).list();
-//            if(!remitos.isEmpty()){
-//                respuesta=true;
-//            }
-//
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return respuesta;
-//    }
 
     public Tupla getEstadoOCSeleccionada(int id) {
         Tupla estado = new Tupla();
@@ -470,5 +470,9 @@ public class GestorRegistrarRecepcionOC {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return estado;
+    }
+
+    public void emitirOrdenDeCompra(int id) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
