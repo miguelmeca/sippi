@@ -14,10 +14,16 @@ package vista.compras;
 import controlador.Compras.GestorConsultarPrecioXProveedor;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import util.LogUtil;
 import util.NTupla;
+import util.StringUtil;
 import util.TablaUtil;
 import util.Tupla;
 
@@ -36,6 +42,8 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         gestor = new GestorConsultarPrecioXProveedor(this);
 
         habilitarVentana();
+
+        tablaListado.setRowHeight(30);
 
     }
 
@@ -182,7 +190,17 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
         jLabel3.setText("Filtrar");
 
-        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltroActionPerformed(evt);
+            }
+        });
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyReleased(evt);
+            }
+        });
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
@@ -223,7 +241,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                     .addComponent(jLabel3)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap())
@@ -267,14 +285,19 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             fila[1] = datos[0];
             fila[2] = datos[1];
 
-                // REDIMENSIONO LA FILA !!!
-                tablaListado.setRowHeight(numFila,200);
-
-            tablaListado.setRowHeight(idProv, HEIGHT);
             modelo.addRow(fila);
+
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+                String item = datos[1];
+                int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                tablaListado.setRowHeight(numFila,16*cantItems);
+                LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+
             numFila++;
         }
         tablaListado.setModel(modelo);
+        tablaListado.repaint();
     }
 
 
@@ -287,6 +310,34 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         }
 
     }//GEN-LAST:event_cmbProveedoresActionPerformed
+
+    private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
+
+
+
+    }//GEN-LAST:event_txtFiltroActionPerformed
+
+    private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
+
+        FiltrarTabla();
+
+    }//GEN-LAST:event_txtFiltroKeyReleased
+
+    private void FiltrarTabla()
+    {
+       TableRowSorter<TableModel> modeloOrdenado;
+       modeloOrdenado = new TableRowSorter<TableModel>(tablaListado.getModel());
+       tablaListado.setRowSorter(modeloOrdenado);
+
+           String[] cadena=txtFiltro.getText().trim().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+           modeloOrdenado.setRowFilter(cadenaFilter);
+    }
 
     private void mostrarRubrosPorProveedor(int id)
     {
