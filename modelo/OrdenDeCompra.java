@@ -138,13 +138,29 @@ public class OrdenDeCompra {
         }
     }
 
-    public void setEstadoRecibida()
+    public void setEstadoRecibidaParcial()
     {
         if(this.id!=0) // Objeto no cargado
         {
             if(this.estado.esPendiente())
             {
-                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibida(this);
+                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibidaParcial(this);
+            }
+
+        }
+    }
+
+    public void setEstadoRecibidaTotal()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPendiente())
+            {
+                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibidaTotal(this);
+            }else{
+                if(this.estado.esRecibidaParcial()){
+                    ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setRecibidaTotal(this);
+                }
             }
         }
     }
@@ -157,15 +173,15 @@ public class OrdenDeCompra {
             if(this.estado.esGenerada()){
                 ((EstadoOrdenDeCompraGenerada)this.estado).setCancelado(this);
             }
-            else{
-                if(this.estado.esPendiente()){
-                    ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setCancelado(this);
-                }
-                else{
-                    if(this.estado.esRecibida()){
-                        ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setCancelado(this);
-                    }
-                }
+        }
+    }
+
+    public void setEstadoAnulada()
+    {
+        if(this.id!=0) // Objeto no cargado
+        {
+            if(this.estado.esPendiente()){
+                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setAnulada(this);
             }
         }
     }
