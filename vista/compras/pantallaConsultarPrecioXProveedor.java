@@ -175,10 +175,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
 
         tablaListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Descripción", "Último Precio"
@@ -190,7 +187,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
         jLabel3.setText("Filtrar");
 
-        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtFiltro.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFiltroActionPerformed(evt);
@@ -241,7 +238,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                     .addComponent(jLabel3)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap())
@@ -337,6 +334,22 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
            }
            RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
            modeloOrdenado.setRowFilter(cadenaFilter);
+
+           // CAMBIO LOS TAMAÑOS DE LAS FILAS
+           DefaultTableModel modelo = (DefaultTableModel) tablaListado.getModel();
+           for (int i = 0; i < modeloOrdenado.getViewRowCount(); i++)
+           {
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+                String item = (String) modelo.getValueAt(i,2);
+                int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                tablaListado.setRowHeight(i,16*cantItems);
+                LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+           }
+
+
+
+
     }
 
     private void mostrarRubrosPorProveedor(int id)
