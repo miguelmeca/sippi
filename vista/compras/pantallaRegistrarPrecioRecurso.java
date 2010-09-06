@@ -449,6 +449,12 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         ));
         tblActualizaciones.setShowHorizontalLines(false);
         jScrollPane3.setViewportView(tblActualizaciones);
+        tblActualizaciones.getColumnModel().getColumn(3).setMinWidth(130);
+        tblActualizaciones.getColumnModel().getColumn(3).setPreferredWidth(130);
+        tblActualizaciones.getColumnModel().getColumn(3).setMaxWidth(130);
+        tblActualizaciones.getColumnModel().getColumn(4).setMinWidth(130);
+        tblActualizaciones.getColumnModel().getColumn(4).setPreferredWidth(130);
+        tblActualizaciones.getColumnModel().getColumn(4).setMaxWidth(130);
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitar.setText("Quitar de la lista");
@@ -483,7 +489,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitar)

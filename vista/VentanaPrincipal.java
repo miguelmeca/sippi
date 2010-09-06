@@ -39,6 +39,7 @@ import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
+import vista.planificacion.pantallaRegistrarEtapa;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaConsultarTallerCapacitacion;
@@ -200,6 +201,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         mRRHH = new javax.swing.JMenu();
         miNuevoRH = new javax.swing.JMenuItem();
         miConsultarRH = new javax.swing.JMenuItem();
@@ -207,6 +210,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miDarDeBajaRH = new javax.swing.JMenuItem();
         miCronogramaRH = new javax.swing.JMenuItem();
         miLicencia = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         mnuRecepcionOrdenCompra = new javax.swing.JMenuItem();
         mnuRegistrarProveedor = new javax.swing.JMenuItem();
@@ -578,6 +582,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Presupuestación");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/chart.png"))); // NOI18N
+        jMenuItem5.setText("Nueva Etapa (NF)");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu4);
+
         mRRHH.setText("Recursos Humanos");
 
         miNuevoRH.setText("Nuevo");
@@ -605,6 +622,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         mRRHH.add(miCronogramaRH);
         mRRHH.add(miLicencia);
+
+        jMenu3.setText("jMenu3");
+        mRRHH.add(jMenu3);
 
         jMenuBar1.add(mRRHH);
 
@@ -1096,6 +1116,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        pantallaRegistrarEtapa p = new pantallaRegistrarEtapa();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1119,11 +1145,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
