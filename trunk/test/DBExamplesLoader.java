@@ -654,8 +654,16 @@ public class DBExamplesLoader {
         oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
         oc.setProveedor(cargarProveedor());
 
+        UnidadDeMedida um = null;
+        try {
+            um = (UnidadDeMedida) HibernateUtil.getSession().get(UnidadDeMedida.class, 1);
+        } catch (Exception ex) {
+            Logger.getLogger(DBExamplesLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
         Material m = new Material();
+        m.setUnidadDeMedida(um);
         m.setNombre("PLACA DE METAL 2X2MTS");
         RecursoEspecifico re = new RecursoEspecifico();
         re.setNombre("PLACA DE METAL");
@@ -674,6 +682,7 @@ public class DBExamplesLoader {
 
         DetalleOrdenDeCompra doc1 = new DetalleOrdenDeCompra();
         Material m1 = new Material();
+        m1.setUnidadDeMedida(um);
         m1.setNombre("TUERCAS 2 PULGADAS");
         RecursoEspecifico re1 = new RecursoEspecifico();
         re1.setNombre("TUERCA");
@@ -681,7 +690,7 @@ public class DBExamplesLoader {
 
         ArrayList<RecursoEspecifico> res1 = new ArrayList<RecursoEspecifico>();
         res1.add(re1);
-        m.setRecursos(res1);
+        m1.setRecursos(res1);
         doc1.setRecurso(re1);
         doc1.setCantidad(12);
         doc1.setPrecio(150);
@@ -690,7 +699,7 @@ public class DBExamplesLoader {
         oc.setDetalle(docs);
 
         oc.setFechaDePedido(new Date());
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraPendienteDeRecepcion");
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraGenerada");
         oc.setFechaDeRecepcion(new Date(02122010));
 
         FormaDePago fp = new FormaDePago();
@@ -699,8 +708,11 @@ public class DBExamplesLoader {
 
         sesion.beginTransaction();
         sesion.save(m);
+        sesion.save(m1);
         sesion.save(re);
+        sesion.save(re1);
         sesion.save(doc);
+        sesion.save(doc1);
         sesion.save(fp);
         sesion.save(oc);
         sesion.getTransaction().commit();
