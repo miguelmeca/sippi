@@ -16,7 +16,9 @@ import controlador.Compras.GestorRegistrarRecepcionOC;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
@@ -32,6 +34,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.TableView.TableRow;
 import util.NTupla;
+import util.ReporteUtil;
+import util.SwingPanel;
 import util.Tupla;
 
 /**
@@ -624,7 +628,22 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
         int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-        gestor.emitirOrdenDeCompra(id);
+//        gestor.emitirOrdenDeCompra(id);
+      if(id>0)
+      {
+           SwingPanel.getInstance().setCargando(true);
+           String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
+
+           Map params = new HashMap();
+           params.put("idOC",id);
+           params.put("PROVEEDOR", "EXPRESO BRIOS");
+           params.put("CUIT", "12233");
+           params.put("DIRECCION", "Algun LADO");
+
+           ReporteUtil ru = new ReporteUtil();
+           ru.mostrarReporte(urlReporte,params);
+           //SwingPanel.getInstance().setCargando(false);
+      }
         this.dispose();
     }//GEN-LAST:event_btnImprimirActionPerformed
 
