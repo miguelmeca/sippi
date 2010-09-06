@@ -11,9 +11,11 @@
 
 package vista.compras;
 
+import controlador.Compras.GestorABMProveedor;
 import controlador.Compras.GestorRegistrarRecepcionOC;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -55,7 +57,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     public void llenarComboProveedores(){
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         ArrayList<NTupla> lista = null;
-        lista = gestor.mostrarProveedoresConOCPendientes();
+        lista = this.mostrarProveedores();
         if(lista != null){
             Iterator it = lista.iterator();
             while(it.hasNext()){
@@ -76,6 +78,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         for(int i=0; i<filas;i++){
             ((DefaultTableModel)tablaDetalle.getModel()).removeRow(i);
         }
+        txtEstadoOC.setText("");
         if(ordenes != null  && ordenes.size() > 0){
             ArrayList<NTupla> pls = ordenes;
             modelo = (DefaultTableModel) tablaOrdenesCompra.getModel();
@@ -193,6 +196,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
          *  FUENTE: http://200.80.28.188/jforum/posts/list/24.page
          */
         tcm.removeColumn( columna );
+        setAnchoColumnas();
 
     }
 
@@ -221,6 +225,26 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
             return campoTexto;
         }
+    }
+
+    protected ArrayList<NTupla> buscarOCPorProveedor(int id){
+        return gestor.buscarOCPendientesProveedor(id);
+    }
+
+    protected ArrayList<NTupla> buscarOCPorFechaEmision(Date fecha){
+        return gestor.buscarOCPendientesPorFechaEmision(fecha);
+    }
+
+    protected ArrayList<NTupla> buscarOCPorNro(int nro){
+        return gestor.buscarOCPendientesPorNro(nro);
+    }
+
+    protected ArrayList<NTupla> mostrarProveedores(){
+        return gestor.mostrarProveedoresConOCPendientes();
+    }
+
+    protected GestorRegistrarRecepcionOC getGestor(){
+        return this.gestor;
     }
 
     /** This method is called from within the constructor to
@@ -374,8 +398,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbProveedor, 0, 180, Short.MAX_VALUE)
-                .addGap(271, 271, 271))
+                .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         panelProveedorLayout.setVerticalGroup(
             panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,10 +490,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Estado:");
 
         txtEstadoOC.setEditable(false);
+        txtEstadoOC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
@@ -481,13 +506,13 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                        .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -521,8 +546,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial)
-                    .addComponent(btnImprimir))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(btnImprimir)))
         );
 
         pack();
@@ -550,7 +574,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
-        llenarTablaOC(gestor.buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
+        llenarTablaOC(buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
 }//GEN-LAST:event_txtNumeroOrdenActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -559,26 +583,27 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
-        llenarTablaOC(gestor.buscarOCPendientesProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
+        llenarTablaOC(buscarOCPorProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
     }//GEN-LAST:event_cmbProveedorActionPerformed
 
     private void dchFechaEmisionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dchFechaEmisionPropertyChange
         if(pestanias.getSelectedComponent() == panelFechaEmision)
-                llenarTablaOC(gestor.buscarOCPorFechaEmision(dchFechaEmision.getDate()));
+                llenarTablaOC(buscarOCPorFechaEmision(dchFechaEmision.getDate()));
     }//GEN-LAST:event_dchFechaEmisionPropertyChange
 
     private void btnMostrarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDetalleActionPerformed
         // TODO add your handling code here:
-//        if(tablaOrdenesCompra.getSelectedRow() > 0){
+        if(tablaOrdenesCompra.getSelectedRow() >= 0){
             int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-            if (gestor.verificarRecepcionParcial(id)){
-                btnRecepcionTotal.setEnabled(false);
-            }
-             else{
-                btnRecepcionTotal.setEnabled(true);
-             }
+//            if (gestor.verificarRecepcionParcial(id)){
+//                btnRecepcionTotal.setEnabled(false);
+//            }
+//             else{
+//                btnRecepcionTotal.setEnabled(true);
+//             }
             llenarTablaDOC(gestor.mostrarDetalleOC(id));
-//        }
+            txtEstadoOC.setText(gestor.getEstadoOCSeleccionada(id));
+        }
     }//GEN-LAST:event_btnMostrarDetalleActionPerformed
 
 

@@ -32,6 +32,7 @@ import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
 import vista.compras.pantallaConsultarOC;
 import vista.compras.pantallaConsultarPrecioXProveedor;
+import vista.compras.pantallaImprimirOrdenDeCompra;
 import vista.compras.pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
@@ -210,6 +211,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mnuRecepcionOrdenCompra = new javax.swing.JMenuItem();
         mnuRegistrarProveedor = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mTalleres = new javax.swing.JMenu();
         mNuevoTaller = new javax.swing.JMenu();
         miParaEmpleado = new javax.swing.JMenuItem();
@@ -631,6 +633,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem4.setText("Imprimir Orden de Compra");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -1080,6 +1090,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        pantallaImprimirOrdenDeCompra p = new pantallaImprimirOrdenDeCompra();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1107,6 +1123,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
