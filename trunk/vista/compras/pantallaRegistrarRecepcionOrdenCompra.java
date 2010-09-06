@@ -206,14 +206,18 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
     public class MiModelo extends DefaultTableModel
     {
-       public boolean isCellEditable (int row, int column)
-       {
-           // Aquí devolvemos true o false según queramos que una celda
-           // identificada por fila,columna (row,column), sea o no editable
-           if (column == 2)
-              return true;
-           return false;
-       }
+        public boolean isCellEditable (int row, int column)
+        {
+            // Aquí devolvemos true o false según queramos que una celda
+            // identificada por fila,columna (row,column), sea o no editable
+            boolean respuesta=false;
+            if(column == 0){
+                if(!(Boolean)this.getValueAt(row, column)){
+                    respuesta = true;
+                }
+            }
+            return respuesta;
+        }
     }
     public class FormatoTabla extends JFormattedTextField implements TableCellRenderer{
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column) {
@@ -602,7 +606,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 //                btnRecepcionTotal.setEnabled(true);
 //             }
             llenarTablaDOC(gestor.mostrarDetalleOC(id));
-            txtEstadoOC.setText(gestor.getEstadoOCSeleccionada(id));
+            Tupla t = gestor.getEstadoOCSeleccionada(id);
+            txtEstadoOC.setText(t.getNombre());
+            if(gestor.verificarRecibidaParcial(t.getId())){
+                btnRecepcionTotal.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_btnMostrarDetalleActionPerformed
 

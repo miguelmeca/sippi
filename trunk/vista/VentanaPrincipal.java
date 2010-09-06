@@ -32,7 +32,7 @@ import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
 import vista.compras.pantallaConsultarOC;
 import vista.compras.pantallaConsultarPrecioXProveedor;
-import vista.compras.pantallaImprimirOrdenDeCompra;
+import vista.compras.pantallaEmitirOrdenDeCompra;
 import vista.compras.pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
@@ -1091,7 +1091,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        pantallaImprimirOrdenDeCompra p = new pantallaImprimirOrdenDeCompra();
+        pantallaEmitirOrdenDeCompra p = new pantallaEmitirOrdenDeCompra();
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed

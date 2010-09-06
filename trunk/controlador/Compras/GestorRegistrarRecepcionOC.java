@@ -8,6 +8,7 @@ package controlador.Compras;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -365,20 +366,56 @@ public class GestorRegistrarRecepcionOC {
         int idRemito = 0;
         try {
             HibernateUtil.beginTransaction();
-            OrdenDeCompra orden = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
-            Iterator it = orden.getDetalle().iterator();
-            for (int i = 0;i<dtm.getRowCount();i++){
-                boolean selec = (Boolean)dtm.getValueAt(i, 0);
-                if(selec){
-                    Tupla t = (Tupla)dtm.getValueAt(i, 2);
+            String query="FROM Remito WHERE orden.id=:idOC";
+            OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
+            Iterator<Remito> it = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
 
+            for(int i = 0;i<model.getRowCount();i++){
+                boolean esta = false;
+                if((Boolean)model.getValueAt(i, 0)){
+                    NTupla nt = (NTupla)model.getValueAt(i,2);
+                    while(it.hasNext()){
+                        Remito re = (Remito)it.next();
+                        Iterator itRE = (Iterator)re.getDetalle().iterator();
+                        while(itRE.hasNext()){
+                            DetalleRemito dr = (DetalleRemito)itRE.next();
+                            if(nt.getId() == dr.getDetalleOC().getId()){
+                                esta = true;
+                            }
+                        }
+                    }
+                    if(!esta){
+
+                    }
                 }
             }
+
+            while(it.hasNext()){
+                Remito re = (Remito)it.next();
+                Iterator itRE = (Iterator)re.getDetalle().iterator();
+                while(itRE.hasNext()){
+                    DetalleRemito dr = (DetalleRemito)itRE.next();
+                    boolean esta = false;
+                    for(int i = 0;i<model.getRowCount();i++){
+                        if((Boolean)model.getValueAt(i, 0)){
+                            NTupla nt = (NTupla)model.getValueAt(i,2);
+                            if(nt.getId() == dr.getDetalleOC().getId()){
+                                esta = true;
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+
+
             DetalleOrdenDeCompra doc = null;
             Remito re = new Remito();
             ArrayList<DetalleRemito> listaDetalles = new ArrayList<DetalleRemito>();
             while(it.hasNext()){
-                doc = (DetalleOrdenDeCompra)it.next();
+//                doc = (DetalleOrdenDeCompra)it.next();
                 DetalleRemito dre = new DetalleRemito();
                 dre.setCantidad(doc.getCantidad());// ACA ESTA MAL XQ EL USUARIO DEBERIA INGRESAR LO QUE REALMENTE RECIBIO... MOCO...
 //                re.setDescripcion(doc.get); TAMBIEN NOS ESTA FALTANDO LA DESCRICION... TODO MAL..
@@ -412,11 +449,23 @@ public class GestorRegistrarRecepcionOC {
 //        return respuesta;
 //    }
 
-    public String getEstadoOCSeleccionada(int id) {
-        String estado = "";
+    public Tupla getEstadoOCSeleccionada(int id) {
+        Tupla estado = new Tupla();
         try {
             OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
-            estado = oc.getEstado().getNombre();
+            estado.setId(oc.getId());
+            estado.setNombre(oc.getEstado().getNombre());
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return estado;
+    }
+
+    public boolean verificarRecibidaParcial(int id){
+        Boolean estado = false;
+        try {
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            estado = oc.getEstado().esRecibidaParcial();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }

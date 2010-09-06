@@ -13,8 +13,8 @@ import util.NTupla;
  *
  * @author Emmanuel
  */
-public class pantallaImprimirOrdenDeCompra extends pantallaConsultarOC{
-    public pantallaImprimirOrdenDeCompra() {
+public class pantallaEmitirOrdenDeCompra extends pantallaConsultarOC{
+    public pantallaEmitirOrdenDeCompra() {
         super();
         super.ocultarBotonesRecepcion();
         super.borrarColumnaSeleccion();
