@@ -182,6 +182,9 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             }
         ));
         jScrollPane1.setViewportView(tablaListado);
+        tablaListado.getColumnModel().getColumn(2).setMinWidth(150);
+        tablaListado.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tablaListado.getColumnModel().getColumn(2).setMaxWidth(150);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
@@ -238,7 +241,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                     .addComponent(jLabel3)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap())
