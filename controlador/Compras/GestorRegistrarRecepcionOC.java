@@ -34,12 +34,17 @@ public class GestorRegistrarRecepcionOC {
         this.pantalla = p;
     }
 
+    /***************************************************************************
+     *                LOAD CON PROVEEDORES CON ORDENES DE COMPRA 
+     ***************************************************************************
+     */
+
     public ArrayList<NTupla> mostrarProveedoresConOCPendientes(){
         ArrayList<NTupla> provs = new ArrayList<NTupla>();
         NTupla nt = new NTupla();
         Proveedor pr = null;
         Iterator it = null;
-        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' AND oc.proveedor = p)";
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial' AND oc.proveedor = p)";
         try {
             it = HibernateUtil.getSession().createQuery(consulta).iterate();
             while(it.hasNext()){
@@ -55,12 +60,144 @@ public class GestorRegistrarRecepcionOC {
         return provs;
     }
 
+    public ArrayList<NTupla> mostrarProveedoresConOCGeneradas(){
+        ArrayList<NTupla> provs = new ArrayList<NTupla>();
+        NTupla nt = new NTupla();
+        Proveedor pr = null;
+        Iterator it = null;
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraGenerada' AND oc.proveedor = p)";
+        try {
+            it = HibernateUtil.getSession().createQuery(consulta).iterate();
+            while(it.hasNext()){
+                pr = (Proveedor)it.next();
+                nt = new NTupla();
+                nt.setId(pr.getId());
+                nt.setNombre(pr.getRazonSocial());
+                provs.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return provs;
+    }
+
+    public ArrayList<NTupla> mostrarProveedoresConOC(){
+        ArrayList<NTupla> provs = new ArrayList<NTupla>();
+        NTupla nt = new NTupla();
+        Proveedor pr = null;
+        Iterator it = null;
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.proveedor = p)";
+        try {
+            it = HibernateUtil.getSession().createQuery(consulta).iterate();
+            while(it.hasNext()){
+                pr = (Proveedor)it.next();
+                nt = new NTupla();
+                nt.setId(pr.getId());
+                nt.setNombre(pr.getRazonSocial());
+                provs.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return provs;
+    }
+
+    /***************************************************************************
+     *                       BUSQUEDA POR PROVEEDOR
+     ***************************************************************************
+     */
+
     public ArrayList<NTupla> buscarOCPendientesProveedor(int idProv){
         OrdenDeCompra oc=null;
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
         try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("idProveedor",idProv).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    public ArrayList<NTupla> buscarOCGeneradasProveedor(int idProv){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraGenerada'").setParameter("idProveedor",idProv).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    public ArrayList<NTupla> buscarOCProveedor(int idProv){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
             Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.proveedor.id=:idProveedor").setParameter("idProveedor",idProv).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    /***************************************************************************
+     *                   BUSQUEDA POR NUMERO DE ORDEN DE COMPRA
+     ***************************************************************************
+     */
+
+    public ArrayList<NTupla> buscarOCPendientesPorNro(int nro){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.id=:idOC AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("idOC",nro).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    public ArrayList<NTupla> buscarOCGeneradasPorNro(int nro){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.id=:idOC AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraGenerada'").setParameter("idOC",nro).iterate();
             while(it.hasNext()){
                 oc = (OrdenDeCompra)it.next();
                 nt = new NTupla();
@@ -95,7 +232,52 @@ public class GestorRegistrarRecepcionOC {
         return ordenes;
     }
 
-        public ArrayList<NTupla> buscarOCPorFechaEmision(Date fecha){
+    /***************************************************************************
+     *                    BUSQUEDA POR FECHA DE EMISION
+     ***************************************************************************
+     */
+
+    public ArrayList<NTupla> buscarOCPendientesPorFechaEmision(Date fecha){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.fechaDePedido=:fecha AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecepcionParcial'").setParameter("fecha",fecha).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    public ArrayList<NTupla> buscarOCGeneradasPorFechaEmision(Date fecha){
+        OrdenDeCompra oc=null;
+        ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
+        NTupla nt = null;
+        try {
+            Iterator it = HibernateUtil.getSession().createQuery("from OrdenDeCompra oc where oc.fechaDePedido=:fecha AND oc.hib_flag_estado='modelo.EstadoOrdenDeCompraGenerada'").setParameter("fecha",fecha).iterate();
+            while(it.hasNext()){
+                oc = (OrdenDeCompra)it.next();
+                nt = new NTupla();
+                nt.setId(oc.getId());
+                nt.setNombre(oc.getProveedor().getRazonSocial());
+                nt.setData(oc.getFechaDePedido());
+                ordenes.add(nt);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ordenes;
+    }
+
+    public ArrayList<NTupla> buscarOCPorFechaEmision(Date fecha){
         OrdenDeCompra oc=null;
         ArrayList<NTupla> ordenes = new ArrayList<NTupla>();
         NTupla nt = null;
@@ -115,7 +297,12 @@ public class GestorRegistrarRecepcionOC {
         return ordenes;
     }
 
-        public ArrayList<NTupla> mostrarDetalleOC(int idOC){
+    /***************************************************************************
+     *                       MOSTRAR DETALLE <GENERICO>
+     ***************************************************************************
+     */
+
+    public ArrayList<NTupla> mostrarDetalleOC(int idOC){
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
         NTupla nt = null;
         String[] datos = new String[3];
@@ -137,6 +324,11 @@ public class GestorRegistrarRecepcionOC {
         }
         return detalles;
     }
+
+    /***************************************************************************
+     *                       METODOS DE RECEPCION
+     ***************************************************************************
+     */
 
     public int registrarRecepcionTotal(int idOC) {
         int idRemito = 0;
@@ -206,17 +398,28 @@ public class GestorRegistrarRecepcionOC {
         return idRemito;
     }
 
-    public boolean verificarRecepcionParcial(int id) {
-        boolean respuesta = false;
-        try {
-            ArrayList<Remito> remitos = (ArrayList<Remito>) HibernateUtil.getSession().createQuery("from Remito where orden.id=:idOC").setParameter("idOC", id).list();
-            if(!remitos.isEmpty()){
-                respuesta=true;
-            }
+//    public boolean verificarRecepcionParcial(int id) {
+//        boolean respuesta = false;
+//        try {
+//            ArrayList<Remito> remitos = (ArrayList<Remito>) HibernateUtil.getSession().createQuery("from Remito where orden.id=:idOC").setParameter("idOC", id).list();
+//            if(!remitos.isEmpty()){
+//                respuesta=true;
+//            }
+//
+//        } catch (Exception ex) {
+//            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return respuesta;
+//    }
 
+    public String getEstadoOCSeleccionada(int id) {
+        String estado = "";
+        try {
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            estado = oc.getEstado().getNombre();
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return respuesta;
+        return estado;
     }
 }
