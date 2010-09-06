@@ -55,9 +55,9 @@ public class EstadoOrdenDeCompraPendienteDeRecepcion extends EstadoOrdenDeCompra
 //
 //	}
 
-    public void setCancelado(OrdenDeCompra oc){
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraCancelada");
-        oc.setEstado(new EstadoOrdenDeCompraCancelada());
+    public void setAnulada(OrdenDeCompra oc){
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraAnulada");
+        oc.setEstado(new EstadoOrdenDeCompraAnulada());
     }
 
     public void setRecibidaParcial(OrdenDeCompra oc){
