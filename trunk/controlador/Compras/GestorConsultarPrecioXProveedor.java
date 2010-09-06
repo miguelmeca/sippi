@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import modelo.PrecioSegunCantidad;
 import modelo.Proveedor;
+import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
 import modelo.Rubro;
@@ -113,9 +114,11 @@ public class GestorConsultarPrecioXProveedor {
                 {
                    RecursoEspecifico re = itre.next();
 
+                   Recurso rec = getRecurso(re);
+
                    NTupla ntp = new NTupla();
                    ntp.setId(ntp.getId());
-                   ntp.setNombre(re.getNombre());
+                   ntp.setNombre(rec.getNombre()+" "+re.getNombre());
 
                    String[] data = new String[3];
                    data[0] = re.getDescipcion();
@@ -127,7 +130,7 @@ public class GestorConsultarPrecioXProveedor {
                    while (itpsc.hasNext())
                     {
                         PrecioSegunCantidad psc = itpsc.next();
-                        data[1] = data[1]+psc.getCantidad()+" <b>x</b> $"+psc.getPrecio()+"<br>";
+                        data[1] = data[1]+psc.getCantidad()+" "+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> $"+psc.getPrecio()+"<br>";
                     }
 
                    ntp.setData(data);
@@ -147,5 +150,41 @@ public class GestorConsultarPrecioXProveedor {
         return lista;
      }
 
+
+     private Recurso getRecurso(RecursoEspecifico re)
+     {
+           Recurso r = null;
+           Session sesion;
+           try
+           {
+                sesion = HibernateUtil.getSession();
+
+                List<Recurso> listaRec = sesion.createQuery("FROM Recurso rec").list();
+                Iterator<Recurso> it = listaRec.iterator();
+                while (it.hasNext())
+                {
+                   Recurso rec = it.next();
+                   Iterator<RecursoEspecifico> itre = rec.getRecursos().iterator();
+                    while (itre.hasNext())
+                    {
+                        RecursoEspecifico reAux = itre.next();
+                        if(reAux.getId()==re.getId())
+                        {
+                           return rec;
+                        }
+                    }
+
+               }
+
+
+           }catch(Exception e)
+           {
+               LogUtil.addError("ConsultarPrecioXProveedor: No se pudo cargar la tabla de precios");
+               e.printStackTrace();
+               pantalla.MostrarMensaje("ME-0003");
+           }
+
+           return r;
+     }
 
 }
