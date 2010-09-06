@@ -16,6 +16,7 @@ public class pantallaConsultarOC extends pantallaRegistrarRecepcionOrdenCompra{
         super.ocultarBotonesRecepcion();
         super.borrarColumnaSeleccion();
         super.setTitle("Consultar Orden de Compra");
+        super.visualizarBotonImprimir();
     }
 
 }

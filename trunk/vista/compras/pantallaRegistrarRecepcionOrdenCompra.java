@@ -49,6 +49,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     public void habilitarVentana(){
         this.setAnchoColumnas();
         llenarComboProveedores();
+        this.btnImprimir.setVisible(false);
     }
 
     public void llenarComboProveedores(){
@@ -62,97 +63,6 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 valores.addElement(tu);
             }
             cmbProveedor.setModel(valores);
-        }
-    }
-
-    protected void ocultarBotonesRecepcion(){
-        this.btnRecepcionParcial.setVisible(false);
-        this.btnRecepcionTotal.setVisible(false);
-    }
-
-    protected void borrarColumnaSeleccion(){
-        TableColumnModel tcm = tablaDetalle.getColumnModel();
-        TableColumn columna = tcm.getColumn( 0 );
-
-        /** La columna que deseo eliminar se elimina de la vista pero no del mo-
-         *  delo y se puede recuperar por medio de:
-         *
-         *   tablaDetalle.getColumnModel().addColumn(tablaDetalle.getColumnModel().getColumn(0));
-         *
-         *  Cabe aclarar que es de vital importancia que cuando nosotros invoca-
-         *  mos los mÃ©todos:
-         *       tablaDetalle.getColumnCount() o
-         *       tableDetalle.getColumnModel().getColumnCount()
-         *
-         *  estos nos devuelven la cantidad de COLUMNAS VISIBLES.
-         *
-         *  FUENTE: http://200.80.28.188/jforum/posts/list/24.page
-         */
-        tcm.removeColumn( columna );
-
-    }
-
-    protected void setAnchoColumnas(){
-//        JViewport scroll =  (JViewport) tablaDetalle.getParent();
-        //HARDCORE!!!
-        int ancho = 535;
-        // NO FUNCIONA:
-        //int ancho = (int)tablaDetalle.getSize().getWidth();
-        
-//        FormatoTabla ft = new FormatoTabla();
-//        tablaDetalle.setDefaultRenderer(Double.class, ft);
-        int anchoColumna = 0;
-        TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
-        TableColumn columnaTabla;
-        if(tablaDetalle.getColumnCount()>5){
-            for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
-                columnaTabla = modeloColumna.getColumn(i);
-                switch(i){
-                    case 0: anchoColumna = (3*ancho)/100;
-                            break;
-                    case 1: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 2: anchoColumna = (30*ancho)/100;
-                            break;
-                    case 3: anchoColumna = (22*ancho)/100;
-                            break;
-                    case 4: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 5: anchoColumna = (15*ancho)/100;
-                            break;
-                }
-                columnaTabla.setPreferredWidth(anchoColumna);
-            }
-        }
-        else{
-                for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
-                columnaTabla = modeloColumna.getColumn(i);
-                switch(i){
-                    case 0: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 1: anchoColumna = (30*ancho)/100;
-                            break;
-                    case 2: anchoColumna = (25*ancho)/100;
-                            break;
-                    case 3: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 4: anchoColumna = (15*ancho)/100;
-                            break;
-                }
-                columnaTabla.setPreferredWidth(anchoColumna);
-            }
-        }
-    }
-
-    public class FormatoTabla extends JFormattedTextField implements TableCellRenderer{
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column) {
-            JFormattedTextField campoTexto = new JFormattedTextField();
-            campoTexto.setBorder(BorderFactory.createEmptyBorder());
-            if(value instanceof Double){
-                campoTexto.setText("$ "+(Double)value);
-                campoTexto.setHorizontalAlignment(SwingConstants.RIGHT);
-            }
-            return campoTexto;
         }
     }
 
@@ -207,6 +117,89 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 //                tablaDetalle.getModel().
     }
 
+    protected void setAnchoColumnas(){
+//        JViewport scroll =  (JViewport) tablaDetalle.getParent();
+        //HARDCORE!!!
+        int ancho = 535;
+        // NO FUNCIONA:
+        //int ancho = (int)tablaDetalle.getSize().getWidth();
+
+//        FormatoTabla ft = new FormatoTabla();
+//        tablaDetalle.setDefaultRenderer(Double.class, ft);
+        int anchoColumna = 0;
+        TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
+        TableColumn columnaTabla;
+        if(tablaDetalle.getColumnCount()>5){
+            for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
+                columnaTabla = modeloColumna.getColumn(i);
+                switch(i){
+                    case 0: anchoColumna = (3*ancho)/100;
+                            break;
+                    case 1: anchoColumna = (15*ancho)/100;
+                            break;
+                    case 2: anchoColumna = (30*ancho)/100;
+                            break;
+                    case 3: anchoColumna = (22*ancho)/100;
+                            break;
+                    case 4: anchoColumna = (15*ancho)/100;
+                            break;
+                    case 5: anchoColumna = (15*ancho)/100;
+                            break;
+                }
+                columnaTabla.setPreferredWidth(anchoColumna);
+            }
+        }
+        else{
+                for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
+                columnaTabla = modeloColumna.getColumn(i);
+                switch(i){
+                    case 0: anchoColumna = (15*ancho)/100;
+                            break;
+                    case 1: anchoColumna = (30*ancho)/100;
+                            break;
+                    case 2: anchoColumna = (25*ancho)/100;
+                            break;
+                    case 3: anchoColumna = (15*ancho)/100;
+                            break;
+                    case 4: anchoColumna = (15*ancho)/100;
+                            break;
+                }
+                columnaTabla.setPreferredWidth(anchoColumna);
+            }
+        }
+    }
+
+    protected void ocultarBotonesRecepcion(){
+        this.btnRecepcionParcial.setVisible(false);
+        this.btnRecepcionTotal.setVisible(false);
+    }
+
+    protected void borrarColumnaSeleccion(){
+        TableColumnModel tcm = tablaDetalle.getColumnModel();
+        TableColumn columna = tcm.getColumn( 0 );
+
+        /** La columna que deseo eliminar se elimina de la vista pero no del mo-
+         *  delo y se puede recuperar por medio de:
+         *
+         *   tablaDetalle.getColumnModel().addColumn(tablaDetalle.getColumnModel().getColumn(0));
+         *
+         *  Cabe aclarar que es de vital importancia que cuando nosotros invoca-
+         *  mos los mÃ©todos:
+         *       tablaDetalle.getColumnCount() o
+         *       tableDetalle.getColumnModel().getColumnCount()
+         *
+         *  estos nos devuelven la cantidad de COLUMNAS VISIBLES.
+         *
+         *  FUENTE: http://200.80.28.188/jforum/posts/list/24.page
+         */
+        tcm.removeColumn( columna );
+
+    }
+
+    protected void visualizarBotonImprimir() {
+        this.btnImprimir.setVisible(true);
+    }
+
     public class MiModelo extends DefaultTableModel
     {
        public boolean isCellEditable (int row, int column)
@@ -218,7 +211,17 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
            return false;
        }
     }
-
+    public class FormatoTabla extends JFormattedTextField implements TableCellRenderer{
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column) {
+            JFormattedTextField campoTexto = new JFormattedTextField();
+            campoTexto.setBorder(BorderFactory.createEmptyBorder());
+            if(value instanceof Double){
+                campoTexto.setText("$ "+(Double)value);
+                campoTexto.setHorizontalAlignment(SwingConstants.RIGHT);
+            }
+            return campoTexto;
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -253,6 +256,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jLabel3 = new javax.swing.JLabel();
         dchFechaEmision = new com.toedter.calendar.JDateChooser();
         btnMostrarDetalle = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtEstadoOC = new javax.swing.JTextField();
+        btnImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Registrar Recepción de Orden de Compra");
@@ -292,7 +298,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,7 +348,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,7 +411,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(txtNumeroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         panelNumeroOrdenLayout.setVerticalGroup(
             panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,7 +445,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dchFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         panelFechaEmisionLayout.setVerticalGroup(
             panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,6 +466,14 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Estado:");
+
+        txtEstadoOC.setEditable(false);
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -468,19 +482,25 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(421, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                         .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(178, Short.MAX_VALUE)
-                        .addComponent(btnRecepcionParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(btnImprimir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(btnRecepcionParcial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRecepcionTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pestanias, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)))
+                        .addComponent(pestanias, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -490,15 +510,19 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(btnMostrarDetalle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMostrarDetalle)
+                    .addComponent(jLabel1)
+                    .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
-                    .addComponent(btnRecepcionParcial))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRecepcionParcial)
+                    .addComponent(btnImprimir))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -560,12 +584,14 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnMostrarDetalle;
     private javax.swing.JButton btnRecepcionParcial;
     private javax.swing.JButton btnRecepcionTotal;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbProveedor;
     private com.toedter.calendar.JDateChooser dchFechaEmision;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -581,6 +607,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private javax.swing.JTabbedPane pestanias;
     private javax.swing.JTable tablaDetalle;
     private javax.swing.JTable tablaOrdenesCompra;
+    private javax.swing.JTextField txtEstadoOC;
     private javax.swing.JTextField txtNumeroOrden;
     private javax.swing.JTextField txtTotalDetalle;
     // End of variables declaration//GEN-END:variables

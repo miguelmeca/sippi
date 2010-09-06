@@ -49,7 +49,7 @@
         <index column="idx"/>
         <many-to-many class="modelo.RecursoEspecifico"/>
       </list>
-      <property name="confiabilidad" column="CONFIABILIDAD" type="double"/>
+      <property column="CONFIABILIDAD" name="confiabilidad" type="double"/>
     </joined-subclass>
   </class>
 </hibernate-mapping>

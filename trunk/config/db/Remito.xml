@@ -5,7 +5,7 @@
     <id column="ID_REMITO" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
-    <property name="fechaEntrega" type="date" column="FECHAENTREGA"/>
+    <property column="FECHAENTREGA" name="fechaEntrega" type="date"/>
     <many-to-one class="modelo.OrdenDeCompra" column="ORDEN" name="orden"/>
     <list cascade="all" name="detalle" table="REMITO_X_DETALLEREMITO">
       <key column="ID_REMITO"/>

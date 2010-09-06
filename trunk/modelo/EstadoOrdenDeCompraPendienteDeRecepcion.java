@@ -42,9 +42,15 @@ public class EstadoOrdenDeCompraPendienteDeRecepcion extends EstadoOrdenDeCompra
     }
 
     @Override
-    public boolean esRecibida() {
+    public boolean esRecibidaParcial() {
         return false;
     }
+
+    @Override
+    public boolean esRecibidaTotal() {
+        return false;
+    }
+
 //	public boolean imprimir() {
 //
 //	}
@@ -54,8 +60,13 @@ public class EstadoOrdenDeCompraPendienteDeRecepcion extends EstadoOrdenDeCompra
         oc.setEstado(new EstadoOrdenDeCompraCancelada());
     }
 
-    public void setRecibida(OrdenDeCompra oc){
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraRecibida");
-        oc.setEstado(new EstadoOrdenDeCompraRecibida());
+    public void setRecibidaParcial(OrdenDeCompra oc){
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraRecibidaParcial");
+        oc.setEstado(new EstadoOrdenDeCompraRecibidaParcial());
+    }
+    
+    public void setRecibidaTotal(OrdenDeCompra oc){
+        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraRecibidaTotal");
+        oc.setEstado(new EstadoOrdenDeCompraRecibidaTotal());
     }
 }

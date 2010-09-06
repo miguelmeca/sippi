@@ -42,17 +42,17 @@ public class EstadoOrdenDeCompraGenerada extends EstadoOrdenDeCompra {
     }
 
     @Override
-    public boolean esRecibida() {
+    public boolean esRecibidaParcial() {
+        return false;
+    }
+
+    @Override
+    public boolean esRecibidaTotal() {
         return false;
     }
 //	public void crear() {
 //
 //	}
-
-    public void setAnulado(OrdenDeCompra oc){
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraAnulada");
-        oc.setEstado(new EstadoOrdenDeCompraAnulada());
-    }
 
     public void setCancelado(OrdenDeCompra oc){
         oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraCancelada");
