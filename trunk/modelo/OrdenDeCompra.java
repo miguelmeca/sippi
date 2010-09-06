@@ -145,8 +145,11 @@ public class OrdenDeCompra {
             if(this.estado.esPendiente())
             {
                 ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibidaParcial(this);
+            }else{
+                if(this.estado.esRecibidaParcial()){
+                    ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setRecibidaParcial(this);
+                }
             }
-
         }
     }
 

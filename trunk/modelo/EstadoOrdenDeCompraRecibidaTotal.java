@@ -11,6 +11,11 @@ package modelo;
  */
 public class EstadoOrdenDeCompraRecibidaTotal extends EstadoOrdenDeCompra{
 
+    public EstadoOrdenDeCompraRecibidaTotal() {
+        super();
+        this.setNombre("Recibida Total");
+    }
+
     @Override
     public boolean esAnulada() {
         return false;
