@@ -5,8 +5,8 @@
     <id column="ID_DETALLEREMITO" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
-    <property name="cantidad" type="long" column="CANTIDAD"/>
-    <property name="descripcion" type="string" column="DESCRIPCION"/>
+    <property column="CANTIDAD" name="cantidad" type="long"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
     <many-to-one class="modelo.DetalleOrdenDeCompra" column="DETALLEOC" name="detalleOC"/>
   </class>
 </hibernate-mapping>

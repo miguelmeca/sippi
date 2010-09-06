@@ -163,7 +163,7 @@ public class OrdenDeCompra {
                 }
                 else{
                     if(this.estado.esRecibida()){
-                        ((EstadoOrdenDeCompraRecibida)this.estado).setCancelado(this);
+                        ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setCancelado(this);
                     }
                 }
             }

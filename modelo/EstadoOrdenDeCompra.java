@@ -17,5 +17,7 @@ public abstract class EstadoOrdenDeCompra extends EstadoAbstracto {
 
     public abstract boolean esPendiente();
 
-    public abstract boolean esRecibida();
+    public abstract boolean esRecibidaParcial();
+
+    public abstract boolean esRecibidaTotal();
 }

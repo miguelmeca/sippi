@@ -42,7 +42,12 @@ public class EstadoOrdenDeCompraCancelada extends EstadoOrdenDeCompra {
     }
 
     @Override
-    public boolean esRecibida() {
+    public boolean esRecibidaParcial() {
+        return false;
+    }
+
+    @Override
+    public boolean esRecibidaTotal() {
         return false;
     }
 //	public boolean cancelarOrdenDeCompra() {

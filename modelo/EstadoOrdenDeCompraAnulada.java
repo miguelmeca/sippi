@@ -51,7 +51,12 @@ public class EstadoOrdenDeCompraAnulada extends EstadoOrdenDeCompra {
     }
 
     @Override
-    public boolean esRecibida() {
+    public boolean esRecibidaParcial() {
+        return false;
+    }
+
+    @Override
+    public boolean esRecibidaTotal() {
         return false;
     }
 }
