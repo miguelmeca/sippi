@@ -44,10 +44,12 @@ import util.Tupla;
  */
 public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternalFrame {
     private GestorRegistrarRecepcionOC gestor;
+    private boolean banCerrando;
 
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
     public pantallaRegistrarRecepcionOrdenCompra() {
         initComponents();
+        banCerrando = false;
         gestor = new GestorRegistrarRecepcionOC(this);
         habilitarVentana();
     }
@@ -74,13 +76,15 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
     public void llenarTablaOC(ArrayList<NTupla> ordenes){
         DefaultTableModel modelo = null;
-        int filas = tablaOrdenesCompra.getModel().getRowCount();
-        for(int i=0; i<filas;i++){
-            ((DefaultTableModel)tablaOrdenesCompra.getModel()).removeRow(i);
-        }
-        filas = tablaDetalle.getModel().getRowCount();
-        for(int i=0; i<filas;i++){
-            ((DefaultTableModel)tablaDetalle.getModel()).removeRow(i);
+        if(!banCerrando){
+            int filas = tablaOrdenesCompra.getModel().getRowCount();
+            for(int i=0; i<filas;i++){
+                ((DefaultTableModel)tablaOrdenesCompra.getModel()).removeRow(i);
+            }
+            filas = tablaDetalle.getModel().getRowCount();
+            for(int i=0; i<filas;i++){
+                ((DefaultTableModel)tablaDetalle.getModel()).removeRow(i);
+            }
         }
         txtEstadoOC.setText("");
         if(ordenes != null  && ordenes.size() > 0){
@@ -191,7 +195,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
          *   tablaDetalle.getColumnModel().addColumn(tablaDetalle.getColumnModel().getColumn(0));
          *
          *  Cabe aclarar que es de vital importancia que cuando nosotros invoca-
-         *  mos los mÃ©todos:
+         *  mos los mÃƒÂ©todos:
          *       tablaDetalle.getColumnCount() o
          *       tableDetalle.getColumnModel().getColumnCount()
          *
@@ -212,7 +216,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     {
         public boolean isCellEditable (int row, int column)
         {
-            // Aquí devolvemos true o false según queramos que una celda
+            // AquÃ­ devolvemos true o false segÃºn queramos que una celda
             // identificada por fila,columna (row,column), sea o no editable
             boolean respuesta=false;
             if(column == 0){
@@ -308,9 +312,16 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaDetalle.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -563,7 +574,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial)
                     .addComponent(btnImprimir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -572,10 +583,10 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private void btnRecepcionTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionTotalActionPerformed
         int idRemito = gestor.registrarRecepcionTotal((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0));
         if(idRemito > 0){
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito la totalidad de la orden de Compra.\n Número de Remito: "+idRemito,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con Ã©xito la totalidad de la orden de Compra.\n NÃºmero de Remito: "+idRemito,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuniquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registraciÃ³n del remito. Comuniquese con el administrador del sistema","RegistraciÃ³n Erronea",JOptionPane.WARNING_MESSAGE);
         }
         this.dispose();
     }//GEN-LAST:event_btnRecepcionTotalActionPerformed
@@ -584,10 +595,10 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         // TODO add your handling code here:
         int idRemito = gestor.registrarRecepcionParcial((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0),tablaDetalle.getModel());
         if(idRemito > 0){
-            JOptionPane.showMessageDialog(this.getParent(),"Se registraron con éxito los items seleccionados.\n Número de Remito: "+idRemito,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"Se registraron con Ã©xito los items seleccionados.\n NÃºmero de Remito: "+idRemito,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registración del remito. Comuníquese con el administrador del sistema","Registración Erronea",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registraciÃ³n del remito. ComunÃ­quese con el administrador del sistema","RegistraciÃ³n Erronea",JOptionPane.WARNING_MESSAGE);
         }
         this.dispose();
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
@@ -657,7 +668,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
            //SwingPanel.getInstance().setCargando(false);
            gestor.emitirOrdenDeCompra(id);
       }
-        this.dispose();
+      banCerrando = true;
+      this.dispose();
     }//GEN-LAST:event_btnImprimirActionPerformed
 
 
