@@ -334,7 +334,7 @@ public int[] registrar(ArrayList<Object[]> daktos)
                }
 
                descrip[i]= ((ArrayList<String>)daktos.get(i)[2]).get(j);
-               cants[i]=( (ArrayList<Double>)daktos.get(i)[0]).get(j);
+               cants[i]=(Double)( (ArrayList<NTupla>)daktos.get(i)[0]).get(j).getData();
                preciosU[i]=( (ArrayList<Double>) daktos.get(i)[4]).get(j);
 
            }
