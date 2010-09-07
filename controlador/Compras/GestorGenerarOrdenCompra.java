@@ -8,7 +8,8 @@ package controlador.Compras;
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
 import modelo.Recurso;
@@ -28,6 +29,8 @@ import util.FechaUtil;
 import vista.compras.pantallaGenerarOrdenCompra;
 import org.hibernate.Session;
 import util.HibernateUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -406,5 +409,35 @@ catch(Exception e)
                }
 
 }
+
+
+public void emitirOrdenDeCompra(int id) {
+        try {
+            HibernateUtil.beginTransaction();
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            oc.setEstadoPendienteDeRecepcion();
+            oc.setFechaDePedido(new Date());
+            HibernateUtil.getSession().update(oc);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+
+public Map parametrosAImprimir(int id) {
+        Map params = new HashMap();
+        try {
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            params.put("idOC",id);
+            params.put("PROVEEDOR", oc.getProveedor().getRazonSocial());
+            params.put("CUIT", oc.getProveedor().getCuit());
+            params.put("DIRECCION", oc.getProveedor().getDomicilio().toString());
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return params;
+    }
 
 }

@@ -32,7 +32,7 @@ import util.HibernateUtil;
 
 /**
  *
- * @author Emmanuel
+ * @author Fran
  */
 public class GestorConsultarPrecioXRecurso
 {
