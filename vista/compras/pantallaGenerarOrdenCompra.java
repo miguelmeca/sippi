@@ -878,6 +878,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                 pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(true, gestor, daktos);
                  SwingPanel.getInstance().addWindow(pcle);
                 pcle.setVisible(true);
+                this.dispose();
             }
          }
          else // vista previa
