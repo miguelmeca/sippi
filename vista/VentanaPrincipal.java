@@ -39,6 +39,7 @@ import vista.compras.pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
 import vista.compras.pantallaGenerarOrdenCompra;
+import vista.compras.pantallaConsultarPrecioXRecurso;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
@@ -215,6 +216,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miLicencia = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         mnuRecepcionOrdenCompra = new javax.swing.JMenuItem();
         mnuRegistrarProveedor = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -628,6 +630,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(mRRHH);
 
         jMenu1.setText("Compras");
+
+        jMenuItem6.setText("Consultar precios por recurso");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
 
         mnuRecepcionOrdenCompra.setText("Recepción Orden de Compra");
         mnuRecepcionOrdenCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -1135,6 +1145,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItemGenerarOCActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        pantallaConsultarPrecioXRecurso p = new pantallaConsultarPrecioXRecurso();
+        SwingPanel.getInstance().addWindow(p);
+        p.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1166,6 +1182,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemGenerarOC;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
