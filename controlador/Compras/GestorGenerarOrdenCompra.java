@@ -10,17 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Date;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.Proveedor;
 import modelo.RecursoXProveedor;
 import modelo.PrecioSegunCantidad;
 import modelo.Rubro;
+import modelo.OrdenDeCompra;
+import modelo.DetalleOrdenDeCompra;
 import util.RubroUtil;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import util.Tupla;
 import util.NTupla;
+import util.FechaUtil;
 import vista.compras.pantallaGenerarOrdenCompra;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -144,7 +148,8 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
     mostroPrecios=false;
      Session sesion;
     ArrayList<NTupla> listaProveedores=new ArrayList<NTupla>();
-  try {
+  try
+  {
       sesion = HibernateUtil.getSession();
       RecursoEspecifico recE= (RecursoEspecifico)sesion.createQuery("from RecursoEspecifico where id = "+idRE).uniqueResult();
       for (int i= 0; i < recE.getProveedores().size(); i++) 
@@ -176,7 +181,8 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
     listaPrecios=new ArrayList<PrecioSegunCantidad>();
     List<RecursoXProveedor> listaRxP;
     RecursoXProveedor rxP=new RecursoXProveedor();
-    try {
+    try
+    {
       sesion = HibernateUtil.getSession();
       RecursoEspecifico recE= (RecursoEspecifico)sesion.createQuery("from RecursoEspecifico where id = "+idRE).uniqueResult();
       Proveedor prov=(Proveedor)sesion.createQuery("from Proveedor where id = "+idProv).uniqueResult();
@@ -211,7 +217,7 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
       else
       {return null;}
 
-        }
+   }
 
    catch(Exception ex)
    {
@@ -255,5 +261,65 @@ public double[] precioParcial(double cant)
     return precios;
 }
 
+public NTupla fechaActual()
+{
+     NTupla ntFG=new NTupla();
+            ntFG.setData(new Date());
+            ntFG.setNombre( FechaUtil.getFechaYHoraActual());
+         return ntFG;
+}
+public int generarNuevoNmroOC()
+{
+    int mayorNmro;
+            Session sesion;
+            try{
+             
+            sesion = HibernateUtil.getSession();
+
+            Object ob =sesion.createQuery("Select MAX(id) from OrdenDeCompra").uniqueResult();
+            if(ob!=null)
+            {mayorNmro=(Integer)ob;}
+            else{mayorNmro=0;}
+            //sesion.getTransaction().commit();
+            //}
+            }
+            catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion");
+                return 0;
+            }
+
+            return (mayorNmro+1);
+}
+
+public int[] registrar(ArrayList<Object[]> daktos)
+{
+   /* try {
+                    sesion = HibernateUtil.getSession();
+            //sesion.beginTransaction();
+            empleadoModif = (Empleado) sesion.createQuery("from Empleado where id ="+id).uniqueResult();
+    */
+
+    for (int i= 0; i < daktos.size(); i++)
+       {
+           for (int j= 0; j <((ArrayList<NTupla>) daktos.get(i)[0]).size(); j++) // Detalles OC
+           {
+               
+
+           }
+        //OrdenDeCompra OC=new OrdenDeCompra()
+          Object[] fila=new Object[4];
+           fila[0]=daktos.get(i)[5];
+           fila[1]=daktos.get(i)[3];
+           fila[2]=daktos.get(i)[6];
+         //  modelo.addRow(fila);
+
+
+
+
+       }
+
+return int[]=new int[1];
+}
 
 }
