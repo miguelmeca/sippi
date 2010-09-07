@@ -13,18 +13,18 @@ package modelo;
 
 public class DetalleRemito {
     private int id;
-    private long cantidad;
+    private double cantidad;
     private String descripcion;
     private DetalleOrdenDeCompra detalleOC;
 
     public DetalleRemito() {
     }
 
-    public long getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(long cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
