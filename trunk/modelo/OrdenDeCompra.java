@@ -16,6 +16,7 @@ public class OrdenDeCompra {
 
     private int id;
     private int numero;
+    private Date fechaDeGeneracion;
     private Date fechaDePedido;
     private Date fechaDeRecepcion;
     private Proveedor proveedor;
@@ -29,11 +30,12 @@ public class OrdenDeCompra {
         this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
     }
 
-    public OrdenDeCompra(List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p)
+    public OrdenDeCompra(List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p, Date fechaGeneracion)
     {
         this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
         estado=this.getEstado();
         proveedor=p;
+        fechaDeGeneracion=fechaGeneracion;
         detalle=new ArrayList<DetalleOrdenDeCompra>();
         try
         {
@@ -52,7 +54,13 @@ public class OrdenDeCompra {
 
 
     }
+    public Date getFechaDeGeneracion() {
+        return fechaDeGeneracion;
+    }
 
+    public void setFechaDeGeneracion(Date fechaDeGeneracion) {
+        this.fechaDeGeneracion = fechaDeGeneracion;
+    }
     public Date getFechaDePedido() {
         return fechaDePedido;
     }
