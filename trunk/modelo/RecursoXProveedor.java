@@ -57,6 +57,37 @@ public class RecursoXProveedor {
             listaPrecios.add(psc);
         }
     }
+    
+    public ArrayList<PrecioSegunCantidad> getListaUltimosPrecios() {
+        ArrayList<PrecioSegunCantidad> ultimosPrecios=new ArrayList<PrecioSegunCantidad>();
+        if(listaPrecios.size()>0)
+        {
+            ultimosPrecios.add(listaPrecios.get(0));
+        }
+        boolean cant=false;
+        for (int i = 1; i < listaPrecios.size(); i++) 
+        {
+            for (int j= 0; j < ultimosPrecios.size(); j++)
+            {
+               if(cant==false && listaPrecios.get(i).getCantidad()==ultimosPrecios.get(j).getCantidad())
+               {cant=true;
+                if(listaPrecios.get(i).getFecha().after(ultimosPrecios.get(j).getFecha()))
+                {
+                    ultimosPrecios.remove(j);
+                    ultimosPrecios.add(listaPrecios.get(i));
+                }
+               }
+                   
+            }
+            if(cant==false)
+            {ultimosPrecios.add(listaPrecios.get(i));}
+            
+        }
+        
+        
+        
+        return ultimosPrecios;
+    }
 
 
 }
