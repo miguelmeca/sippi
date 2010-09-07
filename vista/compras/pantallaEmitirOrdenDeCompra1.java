@@ -579,7 +579,6 @@ public class pantallaEmitirOrdenDeCompra1 extends javax.swing.JInternalFrame imp
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
         int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-
         if(id>0) {
             //           SwingPanel.getInstance().setCargando(true);
             String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
