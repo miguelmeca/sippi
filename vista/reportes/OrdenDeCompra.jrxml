@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePruebaEMMA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="528"/>
 	<parameter name="idOC" class="java.lang.Integer"/>
 	<parameter name="PROVEEDOR" class="java.lang.String"/>
 	<parameter name="CUIT" class="java.lang.String"/>
 	<parameter name="DIRECCION" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     CONCAT(DETALLEORDENDECOMPRA."CANTIDAD",UNIDADDEMEDIDA."ABREVIATURA")AS CANTIDAD,
+     DETALLEORDENDECOMPRA."CANTIDAD" AS CANTIDAD,
      DETALLEORDENDECOMPRA."PRECIO" AS PRECIO,
      CONCAT(CONCAT(RECURSOESPECIFICO."NOMBRE",RECURSOESPECIFICO."DESCRIPCION"),RECURSOS."NOMBRE")AS RECURSO,
-     (TO_CHAR(DETALLEORDENDECOMPRA."CANTIDAD"*DETALLEORDENDECOMPRA."PRECIO")) AS SUBTOTAL
+     (DETALLEORDENDECOMPRA."CANTIDAD"*DETALLEORDENDECOMPRA."PRECIO") AS SUBTOTAL
 FROM
      "ADMINISTRADORNN"."ORDENDECOMPRA" ORDENDECOMPRA INNER JOIN "ADMINISTRADORNN"."DETALLEORDENDECOMPRA" DETALLEORDENDECOMPRA ON ORDENDECOMPRA."ID_ORDEN_COMPRA" = DETALLEORDENDECOMPRA."ID_ORDEN_COMPRA"
      INNER JOIN "ADMINISTRADORNN"."RECURSOESPECIFICO" RECURSOESPECIFICO ON DETALLEORDENDECOMPRA."IDRECURSOESP" = RECURSOESPECIFICO."ID_RECURSO_ESPECIFICO"
@@ -21,10 +21,13 @@ FROM
 WHERE
      ORDENDECOMPRA."ID_ORDEN_COMPRA" = $P{idOC}]]>
 	</queryString>
-	<field name="CANTIDAD" class="java.lang.String"/>
+	<field name="CANTIDAD" class="java.lang.Integer"/>
 	<field name="PRECIO" class="java.lang.Double"/>
 	<field name="RECURSO" class="java.lang.String"/>
-	<field name="SUBTOTAL" class="java.lang.String"/>
+	<field name="SUBTOTAL" class="java.lang.Double"/>
+	<variable name="TOTAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUBTOTAL}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -69,15 +72,12 @@ WHERE
 				</textElement>
 				<text><![CDATA[METAR SRL]]></text>
 			</staticText>
-			<line>
-				<reportElement x="4" y="96" width="551" height="1"/>
-			</line>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="81" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="554" height="35"/>
+				<reportElement x="4" y="0" width="554" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -119,74 +119,108 @@ WHERE
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{DIRECCION}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="-2" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="76" width="552" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="0" width="54" height="20"/>
-				<textElement textAlignment="Center">
+				<reportElement x="0" y="0" width="55" height="20"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[CANTIDAD]]></text>
+				<text><![CDATA[CANT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="55" y="0" width="352" height="20"/>
-				<textElement textAlignment="Center">
+				<reportElement x="55" y="0" width="345" height="20"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[DETALLE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="407" y="0" width="73" height="20"/>
-				<textElement textAlignment="Center">
+				<reportElement x="400" y="0" width="70" height="20"/>
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[P. U.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="480" y="0" width="76" height="20"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[SUBTOTAL]]></text>
 			</staticText>
+			<line>
+				<reportElement x="1" y="19" width="552" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="55" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+				<reportElement x="5" y="0" width="50" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="55" y="0" width="352" height="20"/>
-				<textElement/>
+				<reportElement x="55" y="0" width="345" height="20"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{RECURSO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="407" y="1" width="73" height="20"/>
-				<textElement/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{PRECIO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="1" width="74" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
+				<reportElement x="487" y="1" width="67" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="400" y="1" width="7" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="1" width="7" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="26" splitType="Stretch">
-			<textField>
-				<reportElement x="480" y="0" width="76" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="1" y="-1" width="552" height="1"/>
 			</line>
+			<staticText>
+				<reportElement x="404" y="0" width="76" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL: $]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="0" width="74" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
