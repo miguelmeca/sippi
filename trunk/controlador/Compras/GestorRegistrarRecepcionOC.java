@@ -335,14 +335,14 @@ public class GestorRegistrarRecepcionOC {
 
     public ArrayList<NTupla> mostrarDetalleOC(int idOC){
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
-        NTupla nt = null;
+        //NTupla nt = null;
         String[] datos = new String[4];
         try {
 //            HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle.id = doc.id) AND EXISTS(FROM DetalleRemito WHERE detalleOC.id=doc.id)");
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
             for(DetalleOrdenDeCompra doc : orden.getDetalle()){
 
-                nt = new NTupla();
+                NTupla nt = new NTupla();
                 nt.setId(doc.getId());
                 nt.setNombre(doc.getRecurso().getNombre());
                 datos[0] = String.valueOf(doc.getCantidad());
@@ -416,7 +416,7 @@ public class GestorRegistrarRecepcionOC {
             int contadorRegistrados=0;
             for(int i = 0;i<model.getRowCount();i++){
                 boolean esta = false;
-//                if((Boolean)model.getValueAt(i, 0)){
+                if((Boolean)model.getValueAt(i, 0)){
                     NTupla nt = (NTupla)model.getValueAt(i,2);
                     Iterator<Remito> itRE = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
                     while(itRE.hasNext()){
@@ -439,10 +439,21 @@ public class GestorRegistrarRecepcionOC {
                         HibernateUtil.getSession().save(dre);
                         listaDRE.add(dre);
                     }
-//                }
-//                 else{
-//
-//                 }
+                }
+                 else{
+                    NTupla nt = (NTupla)model.getValueAt(i,2);
+                    Iterator<Remito> itRE = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
+                    while(itRE.hasNext()){
+                        Remito re = (Remito)itRE.next();
+                        Iterator itDRE = (Iterator)re.getDetalle().iterator();
+                        while(itDRE.hasNext()){
+                            DetalleRemito dr = (DetalleRemito)itDRE.next();
+                            if(nt.getId() == dr.getDetalleOC().getId()){
+                                contadorRegistrados++;
+                            }
+                        }
+                    }
+                 }
             }
             int total = listaDRE.size() + contadorRegistrados;
             if(total == model.getRowCount()){
@@ -489,7 +500,7 @@ public class GestorRegistrarRecepcionOC {
     }
 
     /***************************************************************************
-     *                       METODOS DE RECEPCION
+     *                 METODOS DE EMITIR ORDEN DE COMPRA
      ***************************************************************************
      */
 
