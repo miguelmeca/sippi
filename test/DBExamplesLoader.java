@@ -58,6 +58,7 @@ import util.RubroUtil;
 public class DBExamplesLoader {
 
     Session sesion;
+    boolean band=false;
 
     public DBExamplesLoader() 
     {
@@ -331,7 +332,7 @@ public class DBExamplesLoader {
         sesion.save(um);
         
         sesion.save(h1);
-        sesion.saveOrUpdate(Prov);
+        //sesion.saveOrUpdate(Prov);
         sesion.save(psc1);
         sesion.save(psc2);
         sesion.save(psc1a);
@@ -612,8 +613,16 @@ public class DBExamplesLoader {
     }
 
     private Proveedor cargarProveedor(){
+
         Proveedor p = new Proveedor();
-        p.setRazonSocial("SIDERUGIA SAN LUIS S.R.L.");
+        
+        if(band==false)
+        {
+            p.setRazonSocial("SIDERUGIA SAN LUIS S.R.L.");
+            band=true;
+        }
+ else
+        {p.setRazonSocial("Metalcitos SAN LUIS S.R.L.");}
         p.setCuit("34345555-5");
         p.setEmail("atclientes@ssl.com.ar");
         p.setPaginaWeb("http://www.ssl.com.ar");
@@ -654,7 +663,7 @@ public class DBExamplesLoader {
         sesion.beginTransaction();
         sesion.save(tel);
         sesion.save(d);
-        sesion.save(p);
+        sesion.saveOrUpdate(p);
         sesion.getTransaction().commit();
         return p;
     }

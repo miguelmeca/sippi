@@ -123,7 +123,7 @@ public class pantallaEmitirOrdenDeCompra1 extends javax.swing.JInternalFrame imp
   protected void setAnchoColumnas(){
 //        JViewport scroll =  (JViewport) tablaDetalle.getParent();
         //HARDCORE!!!
-        int ancho = 535;
+        int ancho = 460;
         // NO FUNCIONA:
         //int ancho = (int)tablaDetalle.getSize().getWidth();
 
