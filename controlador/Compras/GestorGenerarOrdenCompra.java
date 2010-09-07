@@ -294,34 +294,117 @@ public int generarNuevoNmroOC()
 
 public int[] registrar(ArrayList<Object[]> daktos)
 {
-   /* try {
+    Session sesion;
+    try {
                     sesion = HibernateUtil.getSession();
-            //sesion.beginTransaction();
-            empleadoModif = (Empleado) sesion.createQuery("from Empleado where id ="+id).uniqueResult();
-    */
+    }
+    catch(Exception e)
+               {
+                System.err.println("ERROR No se pudo abrir la sesion");
+                return null;
+               }
 
+
+   int[] nmrosOResultado=new int[daktos.size()];
+   try
+   {
+       HibernateUtil.beginTransaction();
     for (int i= 0; i < daktos.size(); i++)
        {
-           for (int j= 0; j <((ArrayList<NTupla>) daktos.get(i)[0]).size(); j++) // Detalles OC
+            int cantDet=((ArrayList<NTupla>) daktos.get(i)[0]).size();
+        ArrayList<RecursoEspecifico> lstRecE=new ArrayList<RecursoEspecifico>();
+        String[] descrip=new String[cantDet];
+        double[] cants=new double[cantDet];
+        double[] preciosU=new double[cantDet];
+           for (int j= 0; j <cantDet; j++) // Detalles OC
            {
                
+               try {
+                    sesion = HibernateUtil.getSession();
+                    int idRec=((ArrayList<Tupla>)daktos.get(i)[1]).get(j).getId();
+                RecursoEspecifico recE=  (RecursoEspecifico) sesion.createQuery("from RecursoEspecifico where id ="+idRec).uniqueResult();
+               
+               lstRecE.add(recE);
+               
+               }
+               catch(Exception e)
+               {
+                System.err.println("ERROR cargando RecursoEspecifico");
+                return null;
+               }
+
+               descrip[i]= ((ArrayList<String>)daktos.get(i)[2]).get(j);
+               cants[i]=( (ArrayList<Double>)daktos.get(i)[0]).get(j);
+               preciosU[i]=( (ArrayList<Double>) daktos.get(i)[4]).get(j);
 
            }
-        //OrdenDeCompra OC=new OrdenDeCompra()
-          Object[] fila=new Object[4];
-           fila[0]=daktos.get(i)[5];
-           fila[1]=daktos.get(i)[3];
-           fila[2]=daktos.get(i)[6];
-         //  modelo.addRow(fila);
+        
+        int idProv=((Tupla) daktos.get(i)[3]).getId();
+        Proveedor prov;
+                try {
+                           // sesion = HibernateUtil.getSession();                            
+                        prov=  (Proveedor) sesion.createQuery("from Proveedor where id ="+idProv).uniqueResult();
+                    }
+                       catch(Exception e)
+                       {
+                        System.err.println("ERROR cargando Proveedor");
+                        return null;
+                       }
+           int idOC= ((Integer)daktos.get(i)[5]);
+           Date ahora=new Date();
+           OrdenDeCompra OC;
+           try {
+           OC=new OrdenDeCompra(idOC , lstRecE,descrip,cants,preciosU, prov, ahora);
+           }
+         catch(Exception e)
+          {
+             System.err.println("ERROR creando la OC");
+             return null;
+          }
 
 
 
 
+
+
+
+
+
+
+
+                    Iterator itt=OC.getDetalle().iterator();
+                    while(itt.hasNext())
+                    {
+                        DetalleOrdenDeCompra doc=(DetalleOrdenDeCompra)itt.next();
+                        sesion.save(doc);
+                    }
+
+                    sesion.save(OC);
+
+
+                     //sesion.getTransaction().commit();
+
+
+
+
+
+
+
+            nmrosOResultado[i]=OC.getId();
        }
 
-    
-int[] n=new int[1];
-return n;
+    HibernateUtil.commitTransaction();
+
+return nmrosOResultado;
+}
+
+catch(Exception e)
+               {
+                 System.err.println("No se pudo realizar la transaccion\n"+e.getMessage());
+                HibernateUtil.rollbackTransaction();
+                return null;
+               }
+
 }
 
 }
