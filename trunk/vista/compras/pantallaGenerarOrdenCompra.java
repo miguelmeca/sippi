@@ -25,19 +25,24 @@ import controlador.Compras.GestorGenerarOrdenCompra;
 public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
     private GestorGenerarOrdenCompra gestor;
+    private boolean mostroPrecios=false;
     /** Creates new form pantallaGenerarOrdenCompra */
     public pantallaGenerarOrdenCompra() {
         gestor = new GestorGenerarOrdenCompra(this);
         initComponents();
         habilitarVentana();
 
+
     }
     public void habilitarVentana()
     {
         mostrarTipoRecurso();
+
+
     }
     private void mostrarTipoRecurso()
     {
+        mostroPrecios=false;
         ArrayList<Tupla> listaNombresTipoDeRecurso = gestor.mostrarRubros();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
@@ -57,10 +62,12 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         cmbRecursosEspecificos.setEnabled(false);
         tablaProveedores.setEnabled(false);
 
+
     }
 
     private void mostrarRecursos()
     {
+        mostroPrecios=false;
         if(cmbTiposRecurso.getSelectedIndex()!=-1)
        {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
@@ -82,11 +89,13 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         cmbRecursos.setEnabled(true);
         cmbRecursosEspecificos.setEnabled(false);
         tablaProveedores.setEnabled(false);
+
         }
     }
 
     private void mostrarRecursosEspecificos()
     {
+        mostroPrecios=false;
         if(cmbRecursos.getSelectedIndex()!=-1)
        {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
@@ -107,6 +116,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         cmbRecursos.setEnabled(true);
         cmbRecursosEspecificos.setEnabled(true);
         tablaProveedores.setEnabled(false);
+        
         }
         
     }
@@ -123,6 +133,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     }
     private void mostrarProveedores()
     {
+       mostroPrecios=false;
         if(cmbRecursosEspecificos.getSelectedIndex()!=-1)
        {
 
@@ -155,6 +166,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         modeloTablaPre.setRowCount(0);
         tablaProveedores.setEnabled(true);
         }
+         
 
     }
 
@@ -175,6 +187,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
         for (NTupla nTuplaP : lista)
         {
+            mostroPrecios=true;//Pasa por aquí si es que se muestra por lo menos un precio
             //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
             Object[] obj=new Object[((Object[])nTuplaP.getData()).length+1];
             //obj[0]=nTuplaEmpleado.getId();
@@ -187,7 +200,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
             valores.addRow( obj );
         }
-
+        setearPrecioXCantidad();
         }
 
     }
@@ -221,22 +234,24 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaProveedores = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         lblUnidadMedida = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        ftxtCantidad = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaPrecios = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblPrecioParcial = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        lblPrecioUnitario = new javax.swing.JLabel();
+        btnAgregarDetalle = new javax.swing.JButton();
+        btnQuitarDetalle = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaDetallesOC = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -357,13 +372,22 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             new String [] {
                 "Proveedor", "Confianza"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tablaProveedoresMouseReleased(evt);
             }
         });
         jScrollPane3.setViewportView(tablaProveedores);
+        tablaProveedores.getColumnModel().getColumn(1).setPreferredWidth(30);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -381,16 +405,23 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Precio Parcial:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel6.setText("SubTotal:");
-
-        jTextField2.setEditable(false);
-
         jLabel9.setText("Descripción:");
 
         lblUnidadMedida.setText("Unidades.");
 
         jLabel7.setText("Cantidad:");
+
+        ftxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.###"))));
+        ftxtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftxtCantidadActionPerformed(evt);
+            }
+        });
+        ftxtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxtCantidadFocusLost(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Precios"));
 
@@ -401,18 +432,26 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             new String [] {
                 "Cantidad", "Precio", "Vigencia hasta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaPrecios.setEnabled(false);
         tablaPrecios.setRowSelectionAllowed(false);
         jScrollPane4.setViewportView(tablaPrecios);
+        tablaPrecios.getColumnModel().getColumn(0).setPreferredWidth(40);
+        tablaPrecios.getColumnModel().getColumn(1).setPreferredWidth(40);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(5, Short.MAX_VALUE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,6 +460,19 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblPrecioParcial.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPrecioParcial.setText("$0.00");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setText("SubTotal:");
+
+        jTextField2.setEditable(false);
+
+        jLabel8.setText("Precio Unitariol:");
+
+        lblPrecioUnitario.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPrecioUnitario.setText("$0.00");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -428,6 +480,38 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPrecioUnitario)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPrecioParcial))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ftxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblUnidadMedida)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(4, 4, 4)
+                                    .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(78, 78, 78))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(92, 92, 92)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel4, 0, 257, Short.MAX_VALUE)
@@ -440,38 +524,8 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(4, 4, 4)
-                                .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, 0, 279, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(14, 14, 14))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblUnidadMedida)
-                                .addGap(39, 39, 39)))
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(576, 576, 576))))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,47 +546,60 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(lblUnidadMedida))
+                            .addComponent(lblUnidadMedida)
+                            .addComponent(jLabel9)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(lblPrecioUnitario)
                             .addComponent(jLabel5)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17))
+                            .addComponent(lblPrecioParcial))))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Recursos Generales", jPanel3);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarDetalle.setText("Agregar");
+        btnAgregarDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarDetalleActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton2.setText("Quitar");
+        btnQuitarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnQuitarDetalle.setText("Quitar");
+        btnQuitarDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarDetalleActionPerformed(evt);
+            }
+        });
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de Orden de Compra"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaDetallesOC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cantidad", "U.M", "Nombre", "Descripción", "Proveedor", "P.U", "P.P"
+                "Cantidad", "Nombre", "Descripción", "Proveedor", "P.U", "P.P"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaDetallesOC.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane1.setViewportView(tablaDetallesOC);
+        tablaDetallesOC.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tablaDetallesOC.getColumnModel().getColumn(4).setPreferredWidth(20);
+        tablaDetallesOC.getColumnModel().getColumn(5).setPreferredWidth(20);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -553,6 +620,11 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         jButton4.setText("Generar");
@@ -569,9 +641,9 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(21, 21, 21))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -589,8 +661,8 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAgregarDetalle)
+                    .addComponent(btnQuitarDetalle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -603,9 +675,67 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
+        if(validarDatos())
+        {
+            
+          DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
+          Object[] det = new Object[6];
+          
+          double canti=Double.parseDouble(ftxtCantidad.getText());
+          
+          NTupla ntCant=new NTupla();
+          //nt.setId(1);
+          ntCant.setNombre(canti+" "+lblUnidadMedida.getText());
+          ntCant.setData(canti);
+          det[0]=ntCant;
+          Tupla tRE=new Tupla();
+          //tRE=((Tupla)cmbRecursosEspecificos.getSelectedItem());
+          tRE.setId(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getId());
+          tRE.setNombre(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getNombre());
+          //ntRE.setId(cmbRecursosEspecificos.getSelectedItem());
+          String nomR=((Tupla)cmbRecursos.getSelectedItem()).getNombre();
+          tRE.setNombre(nomR+" "+tRE.getNombre());
+          //ntRE.setData(canti);
+          det[1]=tRE;
+          det[2]=txtDescripcion.getText();
+          Tupla tProv=(Tupla)tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0);
+          det[3]=tProv;
+          //double canti=Double.parseDouble(ftxtCantidad.getText());
+
+          double[] precios =gestor.precioParcial(canti);
+          det[4]=precios[0];
+          det[5]=precios[1];
+          boolean repetido=false;
+          for (int i= 0; i < tablaDetallesOC.getRowCount(); i++)
+          {
+           if( (((Tupla)modelo.getValueAt(i, 1)).getId()==tRE.getId()) &&   (((Tupla)modelo.getValueAt(i, 3)).getId()==tProv.getId())  &&  (((String)modelo.getValueAt(i, 2)).equalsIgnoreCase((String)det[2]))  )
+           {
+              double d1=(Double)((NTupla)modelo.getValueAt(i, 0)).getData();
+               double d2=(Double)(((NTupla)det[0]).getData());
+               double can=d1+d2;
+               //can=can+(Double)(((NTupla)det[0]).getData());
+               //ntCant.setData(can);
+
+               ((NTupla)modelo.getValueAt(i, 0)).setData(can);
+               ((NTupla)modelo.getValueAt(i, 0)).setNombre(can+" "+lblUnidadMedida.getText());
+               det[0]=(NTupla)modelo.getValueAt(i, 0);
+               precios =gestor.precioParcial(can);
+               det[4]=precios[0];
+               det[5]=precios[1];
+               repetido=true;
+               modelo.removeRow(i);
+               modelo.insertRow(i, det);
+
+
+           }
+          }
+          if(!repetido)
+          {modelo.addRow(det);}
+
+
+        }
+    }//GEN-LAST:event_btnAgregarDetalleActionPerformed
 
     private void cmbTiposRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTiposRecursoActionPerformed
        mostrarRecursos();
@@ -624,18 +754,96 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         mostrarPrecios();
     }//GEN-LAST:event_tablaProveedoresMouseReleased
 
+    private void ftxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxtCantidadFocusLost
+            double canti=Double.parseDouble(ftxtCantidad.getText());
+            if (canti<0)
+            {
+                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
+                ftxtCantidad.setText(Double.toString(canti));
+            }
+        setearPrecioXCantidad();
+}//GEN-LAST:event_ftxtCantidadFocusLost
+
+    private void ftxtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtCantidadActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_ftxtCantidadActionPerformed
+
+    private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
+       if((tablaDetallesOC.getSelectedRowCount())==1)
+        {
+        DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
+        //Tupla tipo=(Tupla)modelo.getValueAt(tablaDetallesOC.getSelectedRow(), 0) ;
+        //((DefaultComboBoxModel)lstTiposEspecialidad.getModel()).addElement(tipo);
+
+        modelo.removeRow(tablaDetallesOC.getSelectedRow());
+        }
+    }//GEN-LAST:event_btnQuitarDetalleActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        if(resp==JOptionPane.YES_OPTION)
+        {       this.dispose();}
+    }//GEN-LAST:event_jButton3ActionPerformed
+private boolean validarCantidad()
+{
+    try{
+            Double.parseDouble(ftxtCantidad.getText());
+                    return true;
+    }
+    catch(Exception ex)
+   {
+      return false;
+
+   }
+}
+private boolean validarDatos()
+{
+    if(!validarCantidad())
+    {
+        JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad a comprar","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if(!(tablaProveedores.getSelectedRow()!=-1))
+    {
+        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if(!mostroPrecios)// Nunca deberia pasar por aca... pero nunca se sabe...
+    {
+        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor que tenga precios registrados","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    return true;
+}
+private void setearPrecioXCantidad()
+{
+   
+    if(validarCantidad() && tablaProveedores.getSelectedRow()!=-1 )
+        {
+           // int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
+            double canti=Double.parseDouble(ftxtCantidad.getText());
+            /*if (canti<0)
+            {
+                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
+                ftxtCantidad.setText(Double.toString(canti));
+            }*/
+            double[] precios =gestor.precioParcial(canti);
+            lblPrecioUnitario.setText("$ "+precios[0]);
+            lblPrecioParcial.setText("$ "+precios[1]);
+        }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarDetalle;
+    private javax.swing.JButton btnQuitarDetalle;
     private javax.swing.JComboBox cmbRecursos;
     private javax.swing.JComboBox cmbRecursosEspecificos;
     private javax.swing.JComboBox cmbTiposRecurso;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JFormattedTextField ftxtCantidad;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -643,6 +851,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -656,10 +865,12 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblPrecioParcial;
+    private javax.swing.JLabel lblPrecioUnitario;
     private javax.swing.JLabel lblUnidadMedida;
+    private javax.swing.JTable tablaDetallesOC;
     private javax.swing.JTable tablaPrecios;
     private javax.swing.JTable tablaProveedores;
     private javax.swing.JTextField txtDescripcion;
