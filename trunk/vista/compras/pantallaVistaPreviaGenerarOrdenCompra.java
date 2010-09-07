@@ -87,7 +87,7 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
            fila[1]=daktos.get(i)[3];
            fila[2]=daktos.get(i)[6];
            modelo.addRow(fila);
-       }
+       }  //
         
         
    }
