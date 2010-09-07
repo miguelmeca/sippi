@@ -707,7 +707,7 @@ public class DBExamplesLoader {
 
         docs.add(doc1);
         oc.setDetalle(docs);
-
+        oc.setFechaDeGeneracion(new Date());
         oc.setFechaDePedido(new Date());
         oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraGenerada");
         oc.setFechaDeRecepcion(new Date(02122010));
