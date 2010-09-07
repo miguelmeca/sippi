@@ -25,15 +25,21 @@ import util.NTupla;
 import util.Tupla;
 import vista.compras.pantallaConsultarOC;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
+import vista.interfaces.IPantallaOrdenDeCompra;
 
 /**
  *
  * @author Emmanuel
  */
 public class GestorRegistrarRecepcionOC {
-    private pantallaRegistrarRecepcionOrdenCompra pantalla;
+//    private pantallaRegistrarRecepcionOrdenCompra pantalla;
+    private IPantallaOrdenDeCompra pantalla;
 
-    public GestorRegistrarRecepcionOC(pantallaRegistrarRecepcionOrdenCompra p) {
+//    public GestorRegistrarRecepcionOC(pantallaRegistrarRecepcionOrdenCompra p) {
+//        this.pantalla = p;
+//    }
+
+    public GestorRegistrarRecepcionOC(IPantallaOrdenDeCompra p) {
         this.pantalla = p;
     }
 
@@ -47,7 +53,7 @@ public class GestorRegistrarRecepcionOC {
         NTupla nt = new NTupla();
         Proveedor pr = null;
         Iterator it = null;
-        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial' AND oc.proveedor = p) GROUP BY modelo.proveedor";
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial' AND oc.proveedor = p)";
         try {
             it = HibernateUtil.getSession().createQuery(consulta).iterate();
             while(it.hasNext()){
@@ -386,6 +392,8 @@ public class GestorRegistrarRecepcionOC {
             re.setFechaEntrega(new Date());
             re.setOrden(orden);
             HibernateUtil.getSession().save(re);
+            orden.setEstadoRecibidaTotal();
+            HibernateUtil.getSession().update(orden);
             idRemito = re.getId();
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
@@ -405,9 +413,10 @@ public class GestorRegistrarRecepcionOC {
             
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
 
+            int contadorRegistrados=0;
             for(int i = 0;i<model.getRowCount();i++){
                 boolean esta = false;
-                if((Boolean)model.getValueAt(i, 0)){
+//                if((Boolean)model.getValueAt(i, 0)){
                     NTupla nt = (NTupla)model.getValueAt(i,2);
                     Iterator<Remito> itRE = (Iterator<Remito>)HibernateUtil.getSession().createQuery(query).setParameter("idOC", idOC).iterate();
                     while(itRE.hasNext()){
@@ -417,6 +426,7 @@ public class GestorRegistrarRecepcionOC {
                             DetalleRemito dr = (DetalleRemito)itDRE.next();
                             if(nt.getId() == dr.getDetalleOC().getId()){
                                 esta = true;
+                                contadorRegistrados++;
                             }
                         }
                     }
@@ -429,9 +439,13 @@ public class GestorRegistrarRecepcionOC {
                         HibernateUtil.getSession().save(dre);
                         listaDRE.add(dre);
                     }
-                }
+//                }
+//                 else{
+//
+//                 }
             }
-            if(listaDRE.size() == model.getRowCount()){
+            int total = listaDRE.size() + contadorRegistrados;
+            if(total == model.getRowCount()){
                 orden.setEstadoRecibidaTotal();
             }else{
                 orden.setEstadoRecibidaParcial();
@@ -484,6 +498,7 @@ public class GestorRegistrarRecepcionOC {
             HibernateUtil.beginTransaction();
             OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
             oc.setEstadoPendienteDeRecepcion();
+            oc.setFechaDePedido(new Date());
             HibernateUtil.getSession().update(oc);
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {

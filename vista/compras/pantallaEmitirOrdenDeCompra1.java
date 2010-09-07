@@ -4,38 +4,30 @@
  */
 
 /*
- * pantallaRegistrarRecepcionOrdenCompra.java
+ * pantallaEmitirOrdenDeCompra1.java
  *
- * Created on 27/08/2010, 10:02:21
+ * Created on 07/09/2010, 05:18:35
  */
 
 package vista.compras;
 
-import controlador.Compras.GestorABMProveedor;
 import controlador.Compras.GestorRegistrarRecepcionOC;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JViewport;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.TableView.TableRow;
 import util.NTupla;
 import util.ReporteUtil;
-import util.SwingPanel;
 import util.Tupla;
 import vista.interfaces.IPantallaOrdenDeCompra;
 
@@ -43,12 +35,12 @@ import vista.interfaces.IPantallaOrdenDeCompra;
  *
  * @author Emmanuel
  */
-public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternalFrame implements IPantallaOrdenDeCompra {
+public class pantallaEmitirOrdenDeCompra1 extends javax.swing.JInternalFrame implements IPantallaOrdenDeCompra {
     private GestorRegistrarRecepcionOC gestor;
     private boolean banCerrando;
 
-    /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
-    public pantallaRegistrarRecepcionOrdenCompra() {
+    /** Creates new form pantallaEmitirOrdenDeCompra1 */
+    public pantallaEmitirOrdenDeCompra1() {
         initComponents();
         banCerrando = false;
         gestor = new GestorRegistrarRecepcionOC(this);
@@ -58,21 +50,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     public void habilitarVentana(){
         this.setAnchoColumnas();
         llenarComboProveedores();
-        this.btnImprimir.setVisible(false);
-        DefaultTableModel modelo = null;
-        if(!banCerrando){
-            int filas = tablaOrdenesCompra.getModel().getRowCount();
-            for(int i=0; i<filas;i++){
-                ((DefaultTableModel)tablaOrdenesCompra.getModel()).removeRow(i);
-            }
-            filas = tablaDetalle.getModel().getRowCount();
-            for(int i=0; i<filas;i++){
-                ((DefaultTableModel)tablaDetalle.getModel()).removeRow(i);
-            }
-        }
     }
 
-    public void llenarComboProveedores(){
+   public void llenarComboProveedores(){
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
         ArrayList<NTupla> lista = null;
         lista = this.mostrarProveedores();
@@ -140,7 +120,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 //                tablaDetalle.getModel().
     }
 
-    protected void setAnchoColumnas(){
+  protected void setAnchoColumnas(){
 //        JViewport scroll =  (JViewport) tablaDetalle.getParent();
         //HARDCORE!!!
         int ancho = 535;
@@ -152,49 +132,27 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tablaDetalle.getColumnModel();
         TableColumn columnaTabla;
-        if(tablaDetalle.getColumnCount()>5){
-            for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
-                columnaTabla = modeloColumna.getColumn(i);
-                switch(i){
-                    case 0: anchoColumna = (3*ancho)/100;
-                            break;
-                    case 1: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 2: anchoColumna = (30*ancho)/100;
-                            break;
-                    case 3: anchoColumna = (22*ancho)/100;
-                            break;
-                    case 4: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 5: anchoColumna = (15*ancho)/100;
-                            break;
-                }
-                columnaTabla.setPreferredWidth(anchoColumna);
+        for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
+            columnaTabla = modeloColumna.getColumn(i);
+            switch(i){
+                case 0: anchoColumna = (15*ancho)/100;
+                        break;
+                case 1: anchoColumna = (30*ancho)/100;
+                        break;
+                case 2: anchoColumna = (25*ancho)/100;
+                        break;
+                case 3: anchoColumna = (15*ancho)/100;
+                        break;
+                case 4: anchoColumna = (15*ancho)/100;
+                        break;
             }
-        }
-        else{
-                for (int i = 0; i < tablaDetalle.getColumnCount(); i++) {
-                columnaTabla = modeloColumna.getColumn(i);
-                switch(i){
-                    case 0: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 1: anchoColumna = (30*ancho)/100;
-                            break;
-                    case 2: anchoColumna = (25*ancho)/100;
-                            break;
-                    case 3: anchoColumna = (15*ancho)/100;
-                            break;
-                    case 4: anchoColumna = (15*ancho)/100;
-                            break;
-                }
-                columnaTabla.setPreferredWidth(anchoColumna);
-            }
+            columnaTabla.setPreferredWidth(anchoColumna);
         }
     }
 
     protected void ocultarBotonesRecepcion(){
-        this.btnRecepcionParcial.setVisible(false);
-        this.btnRecepcionTotal.setVisible(false);
+//        this.btnRecepcionParcial.setVisible(false);
+//        this.btnRecepcionTotal.setVisible(false);
     }
 
     protected void borrarColumnaSeleccion(){
@@ -252,24 +210,25 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }
 
     protected ArrayList<NTupla> buscarOCPorProveedor(int id){
-        return gestor.buscarOCPendientesProveedor(id);
+        return gestor.buscarOCGeneradasProveedor(id);
     }
 
     protected ArrayList<NTupla> buscarOCPorFechaEmision(Date fecha){
-        return gestor.buscarOCPendientesPorFechaEmision(fecha);
+        return gestor.buscarOCGeneradasPorFechaEmision(fecha);
     }
 
     protected ArrayList<NTupla> buscarOCPorNro(int nro){
-        return gestor.buscarOCPendientesPorNro(nro);
+        return gestor.buscarOCGeneradasPorNro(nro);
     }
 
     protected ArrayList<NTupla> mostrarProveedores(){
-        return gestor.mostrarProveedoresConOCPendientes();
+        return gestor.mostrarProveedoresConOCGeneradas();
     }
 
     protected GestorRegistrarRecepcionOC getGestor(){
         return this.gestor;
     }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -280,18 +239,15 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDetalle = new javax.swing.JTable();
         txtTotalDetalle = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnMostrarDetalle = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnRecepcionTotal = new javax.swing.JButton();
-        btnRecepcionParcial = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaOrdenesCompra = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtEstadoOC = new javax.swing.JTextField();
         pestanias = new javax.swing.JTabbedPane();
         panelProveedor = new javax.swing.JPanel();
         cmbProveedor = new javax.swing.JComboBox();
@@ -303,13 +259,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         panelFechaEmision = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         dchFechaEmision = new com.toedter.calendar.JDateChooser();
-        btnMostrarDetalle = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtEstadoOC = new javax.swing.JTextField();
         btnImprimir = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaOrdenesCompra = new javax.swing.JTable();
 
-        setClosable(true);
-        setTitle("Registrar Recepción de Orden de Compra");
+        setTitle("Emitir Orden De Compra");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Detalle"));
 
@@ -353,7 +308,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,6 +320,13 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(jLabel4)))
         );
 
+        btnMostrarDetalle.setText("Mostrar Detalle");
+        btnMostrarDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarDetalleActionPerformed(evt);
+            }
+        });
+
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -373,44 +335,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             }
         });
 
-        btnRecepcionTotal.setText("Recepción Total");
-        btnRecepcionTotal.setEnabled(false);
-        btnRecepcionTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecepcionTotalActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setText("Estado:");
 
-        btnRecepcionParcial.setText("Recepción Parcial");
-        btnRecepcionParcial.setEnabled(false);
-        btnRecepcionParcial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecepcionParcialActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenes de Compra"));
-
-        tablaOrdenesCompra.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nro. Orden", "Proveedor", "Fecha de Emisión"
-            }
-        ));
-        jScrollPane2.setViewportView(tablaOrdenesCompra);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        txtEstadoOC.setEditable(false);
+        txtEstadoOC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         pestanias.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por"));
 
@@ -432,7 +361,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         panelProveedorLayout.setVerticalGroup(
             panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +397,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(txtNumeroOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         panelNumeroOrdenLayout.setVerticalGroup(
             panelNumeroOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,7 +431,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dchFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         panelFechaEmisionLayout.setVerticalGroup(
             panelFechaEmisionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,19 +445,6 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         pestanias.addTab("Fecha de Emisión", panelFechaEmision);
 
-        btnMostrarDetalle.setText("Mostrar Detalle");
-        btnMostrarDetalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarDetalleActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Estado:");
-
-        txtEstadoOC.setEditable(false);
-        txtEstadoOC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
         btnImprimir.setEnabled(false);
@@ -537,6 +453,29 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 btnImprimirActionPerformed(evt);
             }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenes de Compra"));
+
+        tablaOrdenesCompra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nro. Orden", "Proveedor", "Fecha de Emisión"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaOrdenesCompra);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -556,15 +495,11 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnImprimir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(btnRecepcionParcial)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRecepcionTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                         .addComponent(btnCancelar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pestanias, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)))
+                        .addComponent(pestanias, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -583,66 +518,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnRecepcionTotal)
-                    .addComponent(btnRecepcionParcial)
                     .addComponent(btnImprimir))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRecepcionTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionTotalActionPerformed
-        int idRemito = gestor.registrarRecepcionTotal((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0));
-        if(idRemito > 0){
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con Ã©xito la totalidad de la orden de Compra.\n NÃºmero de Remito: "+idRemito,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registraciÃ³n del remito. Comuniquese con el administrador del sistema","RegistraciÃ³n Erronea",JOptionPane.WARNING_MESSAGE);
-        }
-        banCerrando = true;
-        this.dispose();
-    }//GEN-LAST:event_btnRecepcionTotalActionPerformed
-
-    private void btnRecepcionParcialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionParcialActionPerformed
-        // TODO add your handling code here:
-        int idRemito = gestor.registrarRecepcionParcial((Integer)tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0),tablaDetalle.getModel());
-        if(idRemito > 0){
-            JOptionPane.showMessageDialog(this.getParent(),"Se registraron con Ã©xito los items seleccionados.\n NÃºmero de Remito: "+idRemito,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            JOptionPane.showMessageDialog(this.getParent(),"Ha ocurrido un error con la registraciÃ³n del remito. ComunÃ­quese con el administrador del sistema","RegistraciÃ³n Erronea",JOptionPane.WARNING_MESSAGE);
-        }
-        banCerrando = true;
-        this.dispose();
-    }//GEN-LAST:event_btnRecepcionParcialActionPerformed
-
-    private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
-        btnImprimir.setEnabled(false);
-        btnRecepcionParcial.setEnabled(false);
-        btnRecepcionTotal.setEnabled(false);
-        llenarTablaOC(buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
-}//GEN-LAST:event_txtNumeroOrdenActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
-        btnImprimir.setEnabled(false);
-        btnRecepcionParcial.setEnabled(false);
-        btnRecepcionTotal.setEnabled(false);
-        llenarTablaOC(buscarOCPorProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
-    }//GEN-LAST:event_cmbProveedorActionPerformed
-
-    private void dchFechaEmisionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dchFechaEmisionPropertyChange
-        if(pestanias.getSelectedComponent() == panelFechaEmision)
-                btnImprimir.setEnabled(false);
-                btnRecepcionParcial.setEnabled(false);
-                btnRecepcionTotal.setEnabled(false);
-                llenarTablaOC(buscarOCPorFechaEmision(dchFechaEmision.getDate()));
-    }//GEN-LAST:event_dchFechaEmisionPropertyChange
 
     private void btnMostrarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDetalleActionPerformed
         // TODO add your handling code here:
@@ -652,48 +533,71 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
             Tupla t = gestor.getEstadoOCSeleccionada(id);
             txtEstadoOC.setText(t.getNombre());
             btnImprimir.setEnabled(true);
-            btnRecepcionParcial.setEnabled(true);
-            btnRecepcionTotal.setEnabled(true);
-            if(gestor.verificarRecibidaParcial(t.getId())){
-                btnRecepcionTotal.setEnabled(false);
-            }
+//            btnRecepcionParcial.setEnabled(true);
+//            btnRecepcionTotal.setEnabled(true);
+//            if(gestor.verificarRecibidaParcial(t.getId())){
+//                btnRecepcionTotal.setEnabled(false);
+//            }
         }
-    }//GEN-LAST:event_btnMostrarDetalleActionPerformed
+}//GEN-LAST:event_btnMostrarDetalleActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+}//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+        btnImprimir.setEnabled(false);
+//        btnRecepcionParcial.setEnabled(false);
+//        btnRecepcionTotal.setEnabled(false);
+        llenarTablaOC(buscarOCPorProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
+}//GEN-LAST:event_cmbProveedorActionPerformed
+
+    private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
+        btnImprimir.setEnabled(false);
+//        btnRecepcionParcial.setEnabled(false);
+//        btnRecepcionTotal.setEnabled(false);
+        llenarTablaOC(buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
+}//GEN-LAST:event_txtNumeroOrdenActionPerformed
+
+    private void dchFechaEmisionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dchFechaEmisionPropertyChange
+        if(pestanias.getSelectedComponent() == panelFechaEmision)
+            btnImprimir.setEnabled(false);
+//        btnRecepcionParcial.setEnabled(false);
+//        btnRecepcionTotal.setEnabled(false);
+        llenarTablaOC(buscarOCPorFechaEmision(dchFechaEmision.getDate()));
+}//GEN-LAST:event_dchFechaEmisionPropertyChange
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
         int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
 
-      if(id>0)
-      {
-//           SwingPanel.getInstance().setCargando(true);
-           String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
+        if(id>0) {
+            //           SwingPanel.getInstance().setCargando(true);
+            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
 
-//           Map params = new HashMap();
+            //           Map params = new HashMap();
 
-           //Map params = gestor.parametrosAImprimir(id);
-//           params.put("idOC",id);
-//           params.put("PROVEEDOR", "EXPRESO BRIOS");
-//           params.put("CUIT", "12233");
-//           params.put("DIRECCION", "Algun LADO");
+            Map params = gestor.parametrosAImprimir(id);
+            //           params.put("idOC",id);
+            //           params.put("PROVEEDOR", "EXPRESO BRIOS");
+            //           params.put("CUIT", "12233");
+            //           params.put("DIRECCION", "Algun LADO");
 
-           //ReporteUtil ru = new ReporteUtil();
-           //ru.mostrarReporte(urlReporte,params);
-           //SwingPanel.getInstance().setCargando(false);
-           gestor.emitirOrdenDeCompra(id);
-      }
-      banCerrando = true;
-      this.dispose();
-    }//GEN-LAST:event_btnImprimirActionPerformed
+            ReporteUtil ru = new ReporteUtil();
+            ru.mostrarReporte(urlReporte,params);
+            //SwingPanel.getInstance().setCargando(false);
+            gestor.emitirOrdenDeCompra(id);
+        }
+        banCerrando = true;
+        this.dispose();
+}//GEN-LAST:event_btnImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnMostrarDetalle;
-    private javax.swing.JButton btnRecepcionParcial;
-    private javax.swing.JButton btnRecepcionTotal;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmbProveedor;
     private com.toedter.calendar.JDateChooser dchFechaEmision;
     private javax.swing.JLabel jLabel1;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.7" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -260,7 +260,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Imprimir Orden de Compra"/>
+                <Property name="text" type="java.lang.String" value="Emitir Orden de Compra"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
@@ -838,7 +838,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblAyudaTitulo" min="-2" pref="14" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="40" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="6" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
