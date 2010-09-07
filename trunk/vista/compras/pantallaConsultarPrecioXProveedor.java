@@ -309,6 +309,14 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             mostrarRubrosPorProveedor(tp.getId());
         }
 
+        Tupla tpr = (Tupla)cmbRubro.getSelectedItem();
+        Tupla tpp = (Tupla)cmbProveedores.getSelectedItem();
+        if(tpr.getId()!=0 && tpp.getId()!=0)
+        {
+            mostrarPreciosPorProveedor(tpp.getId(),tpr.getId());
+        }
+
+
     }//GEN-LAST:event_cmbProveedoresActionPerformed
 
     private void txtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroActionPerformed
