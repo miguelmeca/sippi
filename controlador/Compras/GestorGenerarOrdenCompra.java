@@ -14,6 +14,7 @@ import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.Proveedor;
 import modelo.RecursoXProveedor;
+import modelo.PrecioSegunCantidad;
 import modelo.Rubro;
 import util.RubroUtil;
 import org.hibernate.Session;
@@ -32,11 +33,14 @@ import util.HibernateUtil;
 public class GestorGenerarOrdenCompra
 {
   private pantallaGenerarOrdenCompra pantalla;
+  ArrayList<PrecioSegunCantidad> listaPrecios;
+  private boolean mostroPrecios=false;
 
 public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
     {
         this.pantalla = pantalla;
-        
+        listaPrecios= new ArrayList<PrecioSegunCantidad>();
+
     }
 
 
@@ -44,6 +48,7 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
  {
         ArrayList<Tupla> lista = new ArrayList<Tupla>();
         lista = RubroUtil.getTuplasRubros();
+        mostroPrecios=false;
         return lista;
 
  }
@@ -52,6 +57,7 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
 
  public ArrayList<Tupla> mostrarRecursos(int idTipoRec)
  {
+  mostroPrecios=false;
   ArrayList<Tupla> lista = new ArrayList<Tupla>();
   Rubro rub= RubroUtil.getRubro(idTipoRec);
 
@@ -85,7 +91,8 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
 
  public ArrayList<Tupla> mostrarRecursosEspecificos(int idRec)
  {
-  ArrayList<Tupla> lista = new ArrayList<Tupla>();
+  mostroPrecios=false;
+     ArrayList<Tupla> lista = new ArrayList<Tupla>();
   Session sesion;
   try {
       sesion = HibernateUtil.getSession();
@@ -112,6 +119,7 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
 
  public String mostrarUnidadMedida(int idR)
  {
+
      Session sesion;
      String um;
      um=null;
@@ -133,7 +141,8 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
 
  public ArrayList<NTupla> mostrarProveedores(int idRE)
  {
-    Session sesion;
+    mostroPrecios=false;
+     Session sesion;
     ArrayList<NTupla> listaProveedores=new ArrayList<NTupla>();
   try {
       sesion = HibernateUtil.getSession();
@@ -161,10 +170,90 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
 
  public ArrayList<NTupla> mostrarPrecios(int idProv,int idRE)
  {
-    return new ArrayList<NTupla>();
+    mostroPrecios=true;
+     Session sesion;
+    ArrayList<NTupla> listaTuplaPrecios=new ArrayList<NTupla>();
+    listaPrecios=new ArrayList<PrecioSegunCantidad>();
+    List<RecursoXProveedor> listaRxP;
+    RecursoXProveedor rxP=new RecursoXProveedor();
+    try {
+      sesion = HibernateUtil.getSession();
+      RecursoEspecifico recE= (RecursoEspecifico)sesion.createQuery("from RecursoEspecifico where id = "+idRE).uniqueResult();
+      Proveedor prov=(Proveedor)sesion.createQuery("from Proveedor where id = "+idProv).uniqueResult();
+      //listaPrecios=(ArrayList<PrecioSegunCantidad>)sesion.createQuery("select max(fechaVigencia) from PrecioSegunCantidad where id = "+idProv+" and group by cantidad").list();
+      listaRxP=recE.getProveedores();
+      boolean seguro=false;
+        for (int i= 0; i < listaRxP.size(); i++)
+        {
+            if(listaRxP.get(i).getProveedor()==prov)
+            {rxP=listaRxP.get(i);
+             seguro=true;
+             break;
+            }
+        }
+      if(seguro)
+      {
+          listaPrecios=rxP.getListaUltimosPrecios();
+          //TODO: Ordenar listaPrecios segun la cantidad
+          for (int i= 0; i < listaPrecios.size(); i++)
+          {
+              NTupla nt=new NTupla();
+              nt.setId(listaPrecios.get(i).getId());
+              nt.setNombre(Integer.toString(listaPrecios.get(i).getCantidad()));
+              String[] datos=new String[3];
+
+              datos[0]=Double.toString(listaPrecios.get(i).getPrecio());
+              datos[1]=listaPrecios.get(i).getFechaVigencia().toString();
+              nt.setData(datos);
+             listaTuplaPrecios.add(nt);
+          }
+      }
+      else
+      {return null;}
+
+        }
+
+   catch(Exception ex)
+   {
+      System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+      ex.printStackTrace();
+
+   }
+     return listaTuplaPrecios;
  }
 
+public double[] precioParcial(double cant)
+{
+    double precioUnit;
+    double cantidad;
+    double[] precios=new double[2];
+    precios[0]=0.0;
+    precios[1]=0.0;
+    if(!mostroPrecios)
+    {return precios;}
+    if(listaPrecios.isEmpty())
+    {return precios;}
+    else
+    {cantidad=listaPrecios.get(0).getCantidad();
+    precioUnit=listaPrecios.get(0).getPrecio();}
+    for (int i= 0; i < listaPrecios.size(); i++)
+    {
+        if(cant>=listaPrecios.get(i).getCantidad() && listaPrecios.get(i).getCantidad()>=cantidad)
+        { cantidad=listaPrecios.get(i).getCantidad();
+          precioUnit=listaPrecios.get(i).getPrecio();
+        }
 
+    }
+    
+    
+    precioUnit=Math.rint(precioUnit*100)/100;
+    double precioParcial=Math.rint((precioUnit*cant)*100)/100;
+
+    precios[0]=precioUnit;
+    precios[1]=precioParcial;
+
+    return precios;
+}
 
 
 }
