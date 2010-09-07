@@ -212,7 +212,7 @@ public class GestorABMProveedor {
     public boolean validarExistenciaCUIT(String cuit) {
         boolean respuesta = true;
         try {
-            List pr = (List) HibernateUtil.getSession().createQuery("FROM Proveedor WHERE cuit LIKE :cuitP").setParameter("%cuit%", cuit).list();
+            List pr = (List) HibernateUtil.getSession().createQuery("FROM Proveedor WHERE cuit =:cuitP").setParameter("cuitP", cuit).list();
             if(pr.isEmpty())
                 respuesta = false;
         } catch (Exception ex) {

@@ -889,6 +889,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     private void btnValidarCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarCUITActionPerformed
         if(gestor.validarExistenciaCUIT(txtCuit.getText())){
             JOptionPane.showMessageDialog(this.getParent(),"CUIT duplicado: "+txtCuit.getText(),"CUIT no válido",JOptionPane.WARNING_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this.getParent(),"CUIT Válido: "+txtCuit.getText(),"CUIT no válido",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnValidarCUITActionPerformed
 
