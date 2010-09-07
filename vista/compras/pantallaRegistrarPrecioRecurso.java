@@ -522,7 +522,14 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private void cmbProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedoresActionPerformed
 
-        
+        Tupla tp  = (Tupla) lstRecursosEspecificos.getSelectedValue();
+        gestor.mostrarInfoDeRecursoEspecifico(tp.getId());
+
+        Tupla tpp = (Tupla)cmbProveedores.getSelectedItem();
+        if(tpp.getId()!=0)
+        {
+            mostrarUltimoPrecioXProveedor(tpp.getId(),tp.getId());
+        }
 
     }//GEN-LAST:event_cmbProveedoresActionPerformed
 
