@@ -351,6 +351,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         });
 
         btnRecepcionTotal.setText("Recepción Total");
+        btnRecepcionTotal.setEnabled(false);
         btnRecepcionTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionTotalActionPerformed(evt);
@@ -358,6 +359,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         });
 
         btnRecepcionParcial.setText("Recepción Parcial");
+        btnRecepcionParcial.setEnabled(false);
         btnRecepcionParcial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecepcionParcialActionPerformed(evt);
@@ -506,6 +508,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
+        btnImprimir.setEnabled(false);
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -559,7 +562,8 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
                     .addComponent(btnCancelar)
                     .addComponent(btnRecepcionTotal)
                     .addComponent(btnRecepcionParcial)
-                    .addComponent(btnImprimir)))
+                    .addComponent(btnImprimir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -589,6 +593,9 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnRecepcionParcialActionPerformed
 
     private void txtNumeroOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroOrdenActionPerformed
+        btnImprimir.setEnabled(false);
+        btnRecepcionParcial.setEnabled(false);
+        btnRecepcionTotal.setEnabled(false);
         llenarTablaOC(buscarOCPorNro(Integer.parseInt(txtNumeroOrden.getText())));
 }//GEN-LAST:event_txtNumeroOrdenActionPerformed
 
@@ -598,11 +605,17 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cmbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProveedorActionPerformed
+        btnImprimir.setEnabled(false);
+        btnRecepcionParcial.setEnabled(false);
+        btnRecepcionTotal.setEnabled(false);
         llenarTablaOC(buscarOCPorProveedor(((NTupla)cmbProveedor.getSelectedItem()).getId()));
     }//GEN-LAST:event_cmbProveedorActionPerformed
 
     private void dchFechaEmisionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dchFechaEmisionPropertyChange
         if(pestanias.getSelectedComponent() == panelFechaEmision)
+                btnImprimir.setEnabled(false);
+                btnRecepcionParcial.setEnabled(false);
+                btnRecepcionTotal.setEnabled(false);
                 llenarTablaOC(buscarOCPorFechaEmision(dchFechaEmision.getDate()));
     }//GEN-LAST:event_dchFechaEmisionPropertyChange
 
@@ -610,15 +623,12 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
         // TODO add your handling code here:
         if(tablaOrdenesCompra.getSelectedRow() >= 0){
             int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-//            if (gestor.verificarRecepcionParcial(id)){
-//                btnRecepcionTotal.setEnabled(false);
-//            }
-//             else{
-//                btnRecepcionTotal.setEnabled(true);
-//             }
             llenarTablaDOC(gestor.mostrarDetalleOC(id));
             Tupla t = gestor.getEstadoOCSeleccionada(id);
             txtEstadoOC.setText(t.getNombre());
+            btnImprimir.setEnabled(true);
+            btnRecepcionParcial.setEnabled(true);
+            btnRecepcionTotal.setEnabled(true);
             if(gestor.verificarRecibidaParcial(t.getId())){
                 btnRecepcionTotal.setEnabled(false);
             }
@@ -628,7 +638,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
         int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-//        gestor.emitirOrdenDeCompra(id);
+
       if(id>0)
       {
            SwingPanel.getInstance().setCargando(true);

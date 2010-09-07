@@ -79,6 +79,7 @@
                   <Component id="btnRecepcionParcial" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -209,6 +210,7 @@
     <Component class="javax.swing.JButton" name="btnRecepcionTotal">
       <Properties>
         <Property name="text" type="java.lang.String" value="Recepci&#xf3;n Total"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecepcionTotalActionPerformed"/>
@@ -217,6 +219,7 @@
     <Component class="javax.swing.JButton" name="btnRecepcionParcial">
       <Properties>
         <Property name="text" type="java.lang.String" value="Recepci&#xf3;n Parcial"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecepcionParcialActionPerformed"/>
@@ -474,6 +477,7 @@
           <Image iconType="3" name="/res/iconos/var/16x16/text_page.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Imprimir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImprimirActionPerformed"/>
