@@ -319,7 +319,9 @@ public int[] registrar(ArrayList<Object[]> daktos)
 
        }
 
-return int[]=new int[1];
+    
+int[] n=new int[1];
+return n;
 }
 
 }
