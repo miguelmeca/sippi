@@ -30,8 +30,9 @@ public class OrdenDeCompra {
         this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
     }
 
-    public OrdenDeCompra(List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p, Date fechaGeneracion)
+    public OrdenDeCompra(int id,List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p, Date fechaGeneracion)
     {
+        this.id=id;
         this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
         estado=this.getEstado();
         proveedor=p;
