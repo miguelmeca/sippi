@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Descripción:
@@ -18,13 +19,38 @@ public class OrdenDeCompra {
     private Date fechaDePedido;
     private Date fechaDeRecepcion;
     private Proveedor proveedor;
-    private List detalle;
+    private List<DetalleOrdenDeCompra> detalle;
     private FormaDePago formaDePago;
     private EstadoOrdenDeCompra estado;
     private String hib_flag_estado;
 
-    public OrdenDeCompra() {
+    public OrdenDeCompra()
+    {
         this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
+    }
+
+    public OrdenDeCompra(List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p)
+    {
+        this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
+        estado=this.getEstado();
+        proveedor=p;
+        detalle=new ArrayList<DetalleOrdenDeCompra>();
+        try
+        {
+            for (int i = 0; i < lstRec.size(); i++)
+            {
+               DetalleOrdenDeCompra doc=new DetalleOrdenDeCompra(lstCantidades[i], lstPrecios[i],lstDescrip[i], lstRec.get(i));
+
+                detalle.add(doc);
+
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println("ERORRRRRR:  Lista para detalles pasadas a OrdenDeCompra mal cargadas");
+        }
+
+
     }
 
     public Date getFechaDePedido() {
