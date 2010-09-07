@@ -793,7 +793,13 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             {
             if(!generar(true))
             {JOptionPane.showMessageDialog(this.getParent(), "Ocurrio un error durante la generacion de las ordenes de compras","Error",JOptionPane.ERROR_MESSAGE);}
+
+            else
+            {
+                this.dispose();
             }
+            }
+        
         }
         else
         {
@@ -816,7 +822,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         {
             for (int j= 0; j < listaTuplaProveedores.size(); j++)
             {
-                if(listaTuplaProveedores.get(j)==tablaDetallesOC.getValueAt(i,3))
+                if(listaTuplaProveedores.get(j).getId()==((Tupla)tablaDetallesOC.getValueAt(i,3)).getId())
                 {
                     repetido=true;
                     break;
@@ -878,7 +884,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                 pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(true, gestor, daktos);
                  SwingPanel.getInstance().addWindow(pcle);
                 pcle.setVisible(true);
-                this.dispose();
+                return true;
             }
          }
          else // vista previa
@@ -886,13 +892,13 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
              pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(false, gestor, daktos);
              SwingPanel.getInstance().addWindow(pcle);
              pcle.setVisible(true);
-             
+             return false;
          }    
         
 
 
 //List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p)
- return false;
+ 
 
 
  }
