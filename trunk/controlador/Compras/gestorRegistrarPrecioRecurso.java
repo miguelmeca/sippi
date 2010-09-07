@@ -91,8 +91,6 @@ public class gestorRegistrarPrecioRecurso {
                     sesion.update(re);
                     HibernateUtil.commitTransaction();
 
-
-
                     return true;
 
                 }
@@ -182,7 +180,44 @@ public class gestorRegistrarPrecioRecurso {
                         }
                         else
                         {
-                            // NO ES DE ESTE PROVEEDOR
+                            // NO ES DE ESTE PROVEEDOR - VEO SI NO ES MAS ADELANTE
+                            Iterator<RecursoXProveedor> itp2 = re.getProveedores().iterator();
+                            boolean esta = false;
+                            while (itp2.hasNext())
+                            {
+                                RecursoXProveedor rxp2 = itp2.next();
+                                if(pr.getId()==rxp2.getProveedor().getId())
+                                {
+                                    esta = true;
+                                }
+                            }
+                            if(!esta) // Si no esta mas adelante creo
+                            {
+                                //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTE PROVEEDOR
+                                // LA CREO Y GUARDO DE UNA
+                                PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                                psc.setCantidad(cantidad);
+                                psc.setFecha(new Date());
+                                psc.setPrecio(precio);
+                                psc.setFechaVigencia(vigencia);
+                                RecursoXProveedor rxpn = new RecursoXProveedor();
+                                rxpn.setProveedor(pr);
+                                rxpn.addPrecioSegunCantidad(psc);
+
+                                // SI AGREGO EL RE AL PROVEEDOR (CREO)
+                                 pr.getListaArticulos().add(re);
+                                // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                                re.getProveedores().add(rxpn);
+
+                                HibernateUtil.beginTransaction();
+                                sesion.save(psc);
+                                sesion.save(rxpn);
+                                sesion.update(pr);
+                                sesion.update(re);
+                                HibernateUtil.commitTransaction();
+
+                                return true;
+                            }
                         }
                     }
                 }
@@ -355,7 +390,7 @@ public class gestorRegistrarPrecioRecurso {
 
                 RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
 
-                RecursoXProveedor rxp = re.getUltimoRecursoXProveedor();
+                RecursoXProveedor rxp = re.getUltimoRecursoXProveedor(idProv);
                 if(rxp!=null)
                 {
                        Iterator<PrecioSegunCantidad> itp = rxp.getListaPrecios().iterator();

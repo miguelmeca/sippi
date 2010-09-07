@@ -113,29 +113,32 @@ public class GestorConsultarPrecioXProveedor {
                 while (itre.hasNext())
                 {
                    RecursoEspecifico re = itre.next();
-
                    Recurso rec = getRecurso(re);
 
-                   NTupla ntp = new NTupla();
-                   ntp.setId(ntp.getId());
-                   ntp.setNombre(rec.getNombre()+" "+re.getNombre());
+                   // AGREGO SOLO SI ES DEL RUBRO
+                   if(rec.toString().equals(r.getNombre()))
+                   {
 
-                   String[] data = new String[3];
-                   data[0] = re.getDescipcion();
-                   data[1] = "<HTML><BODY> ";
-                   // Tengo los datso del recurso, ahora a los bifes, a los precios
-                   RecursoXProveedor urxp = re.getUltimoRecursoXProveedor();
-                   Iterator<PrecioSegunCantidad> itpsc = urxp.getListaPrecios().iterator();
+                       NTupla ntp = new NTupla();
+                       ntp.setId(ntp.getId());
+                       ntp.setNombre(rec.getNombre()+" "+re.getNombre());
 
-                   while (itpsc.hasNext())
-                    {
-                        PrecioSegunCantidad psc = itpsc.next();
-                        data[1] = data[1]+psc.getCantidad()+" "+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> $"+psc.getPrecio()+"<br>";
+                       String[] data = new String[3];
+                       data[0] = re.getDescipcion();
+                       data[1] = "<HTML><BODY> ";
+                       // Tengo los datso del recurso, ahora a los bifes, a los precios
+                       RecursoXProveedor urxp = re.getUltimoRecursoXProveedor(idProv);
+                       Iterator<PrecioSegunCantidad> itpsc = urxp.getListaPrecios().iterator();
+
+                       while (itpsc.hasNext())
+                        {
+                            PrecioSegunCantidad psc = itpsc.next();
+                            data[1] = data[1]+psc.getCantidad()+" "+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> $"+psc.getPrecio()+"<br>";
+                        }
+
+                       ntp.setData(data);
+                       lista.add(ntp);
                     }
-
-                   ntp.setData(data);
-                   lista.add(ntp);
-
                 }
 
 

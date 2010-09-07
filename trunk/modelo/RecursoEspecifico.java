@@ -54,7 +54,7 @@ public class RecursoEspecifico {
         this.proveedores = proveedores;
     }
 
-    public RecursoXProveedor getUltimoRecursoXProveedor()
+    public RecursoXProveedor getUltimoRecursoXProveedor(int idProv)
     {
         // MANTENGO EL ULTIMO
         RecursoXProveedor ultimo = null;
@@ -73,22 +73,30 @@ public class RecursoEspecifico {
             while (it.hasNext())
             {
                 RecursoXProveedor rxp = it.next();
-                if(ultimo==null)
+
+                if(rxp.getProveedor().getId()==idProv)
                 {
-                    ultimo = rxp;
-                }
-                Iterator<PrecioSegunCantidad> itx = rxp.getListaPrecios().iterator();
-                while (itx.hasNext())
-                {
-                    PrecioSegunCantidad psc = itx.next();
-                    if(ultimaFecha==null)
+                    if(ultimo==null)
                     {
-                        ultimaFecha = psc.getFecha();
+                        if(rxp.getProveedor().getId()==idProv)
+                        {
+                            ultimo = rxp;
+                        }
                     }
-                    if(psc.getFecha().after(ultimaFecha))
+
+                    Iterator<PrecioSegunCantidad> itx = rxp.getListaPrecios().iterator();
+                    while (itx.hasNext())
                     {
-                        ultimaFecha = psc.getFecha();
-                        ultimo = rxp;
+                        PrecioSegunCantidad psc = itx.next();
+                        if(ultimaFecha==null)
+                        {
+                            ultimaFecha = psc.getFecha();
+                        }
+                        if(psc.getFecha().after(ultimaFecha))
+                        {
+                            ultimaFecha = psc.getFecha();
+                            ultimo = rxp;
+                        }
                     }
                 }
             }
