@@ -634,11 +634,13 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
            SwingPanel.getInstance().setCargando(true);
            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
 
-           Map params = new HashMap();
-           params.put("idOC",id);
-           params.put("PROVEEDOR", "EXPRESO BRIOS");
-           params.put("CUIT", "12233");
-           params.put("DIRECCION", "Algun LADO");
+//           Map params = new HashMap();
+
+           Map params = gestor.parametrosAImprimir(id);
+//           params.put("idOC",id);
+//           params.put("PROVEEDOR", "EXPRESO BRIOS");
+//           params.put("CUIT", "12233");
+//           params.put("DIRECCION", "Algun LADO");
 
            ReporteUtil ru = new ReporteUtil();
            ru.mostrarReporte(urlReporte,params);

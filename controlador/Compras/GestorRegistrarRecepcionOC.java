@@ -7,7 +7,9 @@ package controlador.Compras;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -474,5 +476,21 @@ public class GestorRegistrarRecepcionOC {
 
     public void emitirOrdenDeCompra(int id) {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public Map parametrosAImprimir(int id) {
+        Map params = new HashMap();
+        try {
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            params.put("idOC",id);
+            params.put("PROVEEDOR", oc.getProveedor().getRazonSocial());
+            params.put("CUIT", oc.getProveedor().getCuit());
+            params.put("DIRECCION", oc.getProveedor().getDomicilio().toString());
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return params;
+
+
     }
 }
