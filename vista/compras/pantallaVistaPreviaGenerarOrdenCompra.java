@@ -255,9 +255,6 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaOrdenesCompra = new javax.swing.JTable();
-        btnMostrarDetalle = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtEstadoOC = new javax.swing.JTextField();
         btnImprimir = new javax.swing.JButton();
 
         setClosable(true);
@@ -343,19 +340,6 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        btnMostrarDetalle.setText("Mostrar Detalle");
-        btnMostrarDetalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarDetalleActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel1.setText("Estado:");
-
-        txtEstadoOC.setEditable(false);
-        txtEstadoOC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
         btnImprimir.setEnabled(false);
@@ -375,12 +359,6 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnMostrarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnImprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
@@ -391,18 +369,13 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMostrarDetalle)
-                    .addComponent(jLabel1)
-                    .addComponent(txtEstadoOC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnImprimir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -412,18 +385,6 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnMostrarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDetalleActionPerformed
-        /*
-        if(tablaOrdenesCompra.getSelectedRow() >= 0){
-            int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-            llenarTablaDOC(gestor.mostrarDetalleOC(id));
-            Tupla t = gestor.getEstadoOCSeleccionada(id);
-            txtEstadoOC.setText(t.getNombre());
-            btnImprimir.setEnabled(true);
-           
-        }*/
-    }//GEN-LAST:event_btnMostrarDetalleActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
        /*
@@ -488,16 +449,13 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnImprimir;
-    private javax.swing.JButton btnMostrarDetalle;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaDetallesOC;
     private javax.swing.JTable tablaOrdenesCompra;
-    private javax.swing.JTextField txtEstadoOC;
     // End of variables declaration//GEN-END:variables
 
 }
