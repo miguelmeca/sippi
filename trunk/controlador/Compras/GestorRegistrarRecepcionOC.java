@@ -422,7 +422,7 @@ public class GestorRegistrarRecepcionOC {
                     }
                     if(!esta){
                         DetalleRemito dre = new DetalleRemito();
-                        dre.setCantidad(Integer.parseInt(((String[])nt.getData())[0]));
+                        dre.setCantidad(Double.parseDouble(((String[])nt.getData())[0]));
                         dre.setDescripcion(((String[])nt.getData())[1]);
                         DetalleOrdenDeCompra doc = (DetalleOrdenDeCompra)HibernateUtil.getSession().load(DetalleOrdenDeCompra.class, nt.getId());
                         dre.setDetalleOC(doc);
