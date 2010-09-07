@@ -64,7 +64,7 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
     private void habilitarVentana(){
         //this.setAnchoColumnas();
         //llenarComboProveedores();
-        this.btnImprimir.setVisible(definitivo);
+        this.btnImprimir.setEnabled(definitivo);
         levatarDatos();
     }
 
@@ -387,22 +387,30 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-       /*
-        int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
+    if(tablaOrdenesCompra.getSelectedRow()!=-1)
+       {
+          int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
+        if(id>0) {
+            //           SwingPanel.getInstance().setCargando(true);
+            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
 
-      if(id>0)
-      {
-           SwingPanel.getInstance().setCargando(true);
-           String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
+            //           Map params = new HashMap();
 
-           Map params = gestor.parametrosAImprimir(id);
+            Map params = gestor.parametrosAImprimir(id);
+            //           params.put("idOC",id);
+            //           params.put("PROVEEDOR", "EXPRESO BRIOS");
+            //           params.put("CUIT", "12233");
+            //           params.put("DIRECCION", "Algun LADO");
 
+            ReporteUtil ru = new ReporteUtil();
+            ru.mostrarReporte(urlReporte,params);
+            //SwingPanel.getInstance().setCargando(false);
+            gestor.emitirOrdenDeCompra(id);
+        }
 
-           ReporteUtil ru = new ReporteUtil();
-           ru.mostrarReporte(urlReporte,params);
-           gestor.emitirOrdenDeCompra(id);
-      }
-        this.dispose();*/
+        this.dispose();
+
+    }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void tablaOrdenesCompraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesCompraMousePressed

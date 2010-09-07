@@ -17,7 +17,9 @@ import util.SwingPanel;
 import util.Tupla;
 import util.NTupla;
 import javax.swing.JOptionPane;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import util.LimitadorCaracteres;
 
 import controlador.Compras.GestorGenerarOrdenCompra;
 
@@ -41,6 +43,33 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     {
         mostrarTipoRecurso();
 
+        KeyAdapter kaNuemros=(new KeyAdapter()
+{
+
+            @Override
+   public  void keyTyped(KeyEvent e)
+   {
+      char caracter = e.getKeyChar();
+
+      // Verificar si la tecla pulsada no es un digito
+      if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != KeyEvent.VK_BACK_SPACE)&&(caracter != '.')&&(caracter != ','))
+      {
+          if((caracter == '.'))
+          {
+              e.setKeyChar(',');
+          }
+          else
+          { e.consume(); // ignorar el evento de teclado}
+          } 
+      }
+   }
+});
+   // ftxtCantidad.addKeyListener(kaNuemros);
+    txtCantidad.addKeyListener(kaNuemros);
+        //ftxtCantidad.setDocument(new LimitadorCaracteres(txtApellido,50));
+    txtCantidad.setDocument(new LimitadorCaracteres(txtCantidad,9));
 
     }
     private void mostrarTipoRecurso()
@@ -222,10 +251,10 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jComboBox2 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cmbTiposRecurso = new javax.swing.JComboBox();
@@ -241,13 +270,13 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextField();
         lblUnidadMedida = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        ftxtCantidad = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaPrecios = new javax.swing.JTable();
         lblPrecioParcial = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblPrecioUnitario = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
         btnAgregarDetalle = new javax.swing.JButton();
         btnQuitarDetalle = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
@@ -272,8 +301,6 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Obra:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Recursos"));
 
@@ -320,7 +347,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -328,8 +355,8 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -396,7 +423,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,18 +437,6 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         lblUnidadMedida.setText("Unidades.");
 
         jLabel7.setText("Cantidad:");
-
-        ftxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.###"))));
-        ftxtCantidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ftxtCantidadActionPerformed(evt);
-            }
-        });
-        ftxtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ftxtCantidadFocusLost(evt);
-            }
-        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Precios"));
 
@@ -455,9 +470,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         lblPrecioParcial.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -468,6 +481,23 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         lblPrecioUnitario.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPrecioUnitario.setText("$0.00");
 
+        txtCantidad.setText("jTextField1");
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
+        txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCantidadFocusLost(evt);
+            }
+        });
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -475,6 +505,28 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbTiposRecurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addGap(4, 4, 4)
+                                .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -485,41 +537,22 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblPrecioParcial))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ftxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblUnidadMedida)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9)))
+                                .addGap(76, 76, 76)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(4, 4, 4)
-                                .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cmbTiposRecurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cmbRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -531,14 +564,14 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ftxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(lblUnidadMedida)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -547,7 +580,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                     .addComponent(lblPrecioUnitario)
                     .addComponent(jLabel5)
                     .addComponent(lblPrecioParcial))
-                .addContainerGap())
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Recursos Generales", jPanel3);
@@ -593,7 +626,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -652,7 +685,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,7 +716,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
           DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
           Object[] det = new Object[6];
           
-          double canti=Double.parseDouble(ftxtCantidad.getText());
+          double canti=Double.parseDouble(txtCantidad.getText());
           
           NTupla ntCant=new NTupla();
           //nt.setId(1);
@@ -755,20 +788,6 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         mostrarPrecios();
     }//GEN-LAST:event_tablaProveedoresMouseReleased
 
-    private void ftxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxtCantidadFocusLost
-            double canti=Double.parseDouble(ftxtCantidad.getText());
-            if (canti<0)
-            {
-                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
-                ftxtCantidad.setText(Double.toString(canti));
-            }
-        setearPrecioXCantidad();
-}//GEN-LAST:event_ftxtCantidadFocusLost
-
-    private void ftxtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtCantidadActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_ftxtCantidadActionPerformed
-
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
        if((tablaDetallesOC.getSelectedRowCount())==1)
         {
@@ -811,6 +830,47 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     private void btnVistaPreviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaPreviaActionPerformed
        generar(false);
     }//GEN-LAST:event_btnVistaPreviaActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
+        /*String texto=txtCantidad.getText();
+        char[] cadena= texto.toCharArray();
+        boolean primera=false;
+        for (int i= 0; i < cadena.length; i++)
+        {
+           if(cadena[i]==',')
+           {
+               if(!primera)
+               {primera =true;}
+               else
+               {
+
+               }
+           }
+
+        }*/
+        if(validarCantidad())
+        {double canti=Double.parseDouble(txtCantidad.getText());
+            if (canti<0)
+            {
+                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
+                txtCantidad.setText(Double.toString(canti));
+            }
+        setearPrecioXCantidad();}
+        else
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+            txtCantidad.requestFocus();
+        }
+
+    }//GEN-LAST:event_txtCantidadFocusLost
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadKeyPressed
 
     private boolean generar(boolean definitivo)
     {
@@ -906,7 +966,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 private boolean validarCantidad()
 {
     try{
-            Double.parseDouble(ftxtCantidad.getText());
+            Double.parseDouble(txtCantidad.getText());
                     return true;
     }
     catch(Exception ex)
@@ -919,7 +979,7 @@ private boolean validarDatos()
 {
     if(!validarCantidad())
     {
-        JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad a comprar","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         return false;
     }
     if(!(tablaProveedores.getSelectedRow()!=-1))
@@ -940,7 +1000,7 @@ private void setearPrecioXCantidad()
     if(validarCantidad() && tablaProveedores.getSelectedRow()!=-1 )
         {
            // int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
-            double canti=Double.parseDouble(ftxtCantidad.getText());
+            double canti=Double.parseDouble(txtCantidad.getText());
             /*if (canti<0)
             {
                 canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
@@ -961,9 +1021,8 @@ private void setearPrecioXCantidad()
     private javax.swing.JComboBox cmbRecursos;
     private javax.swing.JComboBox cmbRecursosEspecificos;
     private javax.swing.JComboBox cmbTiposRecurso;
-    private javax.swing.JFormattedTextField ftxtCantidad;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -991,6 +1050,7 @@ private void setearPrecioXCantidad()
     private javax.swing.JTable tablaDetallesOC;
     private javax.swing.JTable tablaPrecios;
     private javax.swing.JTable tablaProveedores;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
 
