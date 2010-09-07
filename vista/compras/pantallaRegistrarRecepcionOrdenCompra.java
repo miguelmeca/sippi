@@ -655,6 +655,7 @@ public class pantallaRegistrarRecepcionOrdenCompra extends javax.swing.JInternal
            ReporteUtil ru = new ReporteUtil();
            ru.mostrarReporte(urlReporte,params);
            //SwingPanel.getInstance().setCargando(false);
+           gestor.emitirOrdenDeCompra(id);
       }
         this.dispose();
     }//GEN-LAST:event_btnImprimirActionPerformed

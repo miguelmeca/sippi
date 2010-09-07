@@ -474,8 +474,22 @@ public class GestorRegistrarRecepcionOC {
         return estado;
     }
 
+    /***************************************************************************
+     *                       METODOS DE RECEPCION
+     ***************************************************************************
+     */
+
     public void emitirOrdenDeCompra(int id) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            HibernateUtil.beginTransaction();
+            OrdenDeCompra oc = (OrdenDeCompra) HibernateUtil.getSession().get(OrdenDeCompra.class, id);
+            oc.setEstadoPendienteDeRecepcion();
+            HibernateUtil.getSession().update(oc);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+        }
     }
 
     public Map parametrosAImprimir(int id) {
@@ -490,7 +504,5 @@ public class GestorRegistrarRecepcionOC {
             Logger.getLogger(GestorRegistrarRecepcionOC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return params;
-
-
     }
 }
