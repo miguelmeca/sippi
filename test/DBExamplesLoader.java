@@ -274,7 +274,7 @@ public class DBExamplesLoader {
         
         Prov.getListaArticulos().add(re1);
         Prov.getListaArticulos().add(re2);
-        Prov.getListaArticulos().add(re3);
+        //Prov.getListaArticulos().add(re3);
 
         RecursoXProveedor rxp1 =new RecursoXProveedor();
         ArrayList<PrecioSegunCantidad> lstPSC1 = new ArrayList<PrecioSegunCantidad>();
@@ -307,10 +307,20 @@ public class DBExamplesLoader {
         PrecioSegunCantidad psc2a =new PrecioSegunCantidad();
         psc2a.setCantidad(10);
         psc2a.setPrecio(0.2);
+        Date d=new Date();
+        d.setDate(50000);
         psc2a.setFechaVigencia(new Date());
-        psc2a.setFecha(new Date());
-        lstPSC1.add(psc1a);
-        lstPSC1.add(psc2a);
+        double n=23123;
+        psc2a.setFecha(d);
+
+        PrecioSegunCantidad psc2a_ =new PrecioSegunCantidad();
+        psc2a_.setCantidad(10);
+        psc2a_.setPrecio(0.1);
+        psc2a_.setFechaVigencia(new Date());
+        psc2a_.setFecha(new Date());
+        lstPSC2.add(psc2a_);
+        lstPSC2.add(psc1a);
+        lstPSC2.add(psc2a);
         rxp2.setListaPrecios(lstPSC2);
         rxp2.setProveedor(Prov);
         ArrayList<RecursoXProveedor> lstRxP2 = new ArrayList<RecursoXProveedor>();
