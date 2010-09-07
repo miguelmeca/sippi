@@ -5,8 +5,9 @@
     <id column="ID_DETALLEOC" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property name="cantidad" type="integer"/>
+    <property name="cantidad" type="double"/>
     <property name="precio" type="double"/>
+    <property name="descripcion" type="string"/>
     <many-to-one class="modelo.RecursoEspecifico" column="idRecursoEsp" name="recurso"/>
   </class>
 </hibernate-mapping>
