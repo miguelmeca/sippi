@@ -18,13 +18,22 @@ public class StringUtil {
      */
     public static int cantidadOcurrencias(String cadena, String patron)
     {
-        int cant = 0;
-        while (cadena.indexOf(patron) > -1)
+        int count = 0; int start = 0; int len = patron.length();
+        while((start = cadena.indexOf(patron, start)) > -1)
         {
-              cadena = cadena.substring(cadena.indexOf(patron)+patron.length(),cadena.length());
-              cant++;
+            count++;
+            start += len;
         }
-        return cant;
+        return count;
+
+//        int cant = 0;
+//        while (cadena.indexOf(patron) > -1)
+//        {
+//              cadena = cadena.substring(cadena.indexOf(patron)+patron.length(),cadena.length());
+//              cant++;
+//        }
+        // return cant;
+
     }
 
 }

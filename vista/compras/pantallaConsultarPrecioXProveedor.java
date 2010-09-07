@@ -340,13 +340,19 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
 
            // CAMBIO LOS TAMAÑOS DE LAS FILAS
            DefaultTableModel modelo = (DefaultTableModel) tablaListado.getModel();
-           for (int i = 0; i < modeloOrdenado.getViewRowCount(); i++)
+           for (int i = 0; i < modelo.getRowCount(); i++)
            {
-                // REDIMENSIONO LA FILA !!! -----------------------------------
-                String item = (String) modelo.getValueAt(i,2);
-                int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
-                tablaListado.setRowHeight(i,16*cantItems);
-                LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+            // REDIMENSIONO LA FILA !!! -----------------------------------
+                int index = modeloOrdenado.convertRowIndexToView(i);
+                if(index>-1)
+                {
+                    // ESTA
+                    String item = (String) modelo.getValueAt(i,2);
+                    int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                    tablaListado.setRowHeight(index,16*cantItems);
+                    LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                }
+
                 // REDIMENSIONO LA FILA !!! -----------------------------------
            }
 
