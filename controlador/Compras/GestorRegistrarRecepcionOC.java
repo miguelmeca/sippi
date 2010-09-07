@@ -53,7 +53,7 @@ public class GestorRegistrarRecepcionOC {
         NTupla nt = new NTupla();
         Proveedor pr = null;
         Iterator it = null;
-        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial' AND oc.proveedor = p)";
+        String consulta = "FROM modelo.Proveedor p WHERE EXISTS(FROM modelo.OrdenDeCompra oc WHERE oc.hib_flag_estado='modelo.EstadoOrdenDeCompraPendienteDeRecepcion' OR oc.hib_flag_estado='modelo.EstadoOrdenDeCompraRecibidaParcial' AND oc.proveedor = p GROUP BY oc.proveedor)";
         try {
             it = HibernateUtil.getSession().createQuery(consulta).iterate();
             while(it.hasNext()){
@@ -336,12 +336,12 @@ public class GestorRegistrarRecepcionOC {
     public ArrayList<NTupla> mostrarDetalleOC(int idOC){
         ArrayList<NTupla> detalles = new ArrayList<NTupla>();
         //NTupla nt = null;
-        String[] datos = new String[4];
+//        String[] datos = new String[4];
         try {
 //            HibernateUtil.getSession().createQuery("from DetalleOrdenDeCompra doc WHERE EXISTS(FROM OrdenDeCompra oc WHERE oc=:idOC AND oc.detalle.id = doc.id) AND EXISTS(FROM DetalleRemito WHERE detalleOC.id=doc.id)");
             OrdenDeCompra orden = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, idOC);
             for(DetalleOrdenDeCompra doc : orden.getDetalle()){
-
+                String[] datos = new String[4];
                 NTupla nt = new NTupla();
                 nt.setId(doc.getId());
                 nt.setNombre(doc.getRecurso().getNombre());
