@@ -31,8 +31,10 @@ import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
 import vista.compras.pantallaConsultarOC;
+import vista.compras.pantallaConsultarOrdenDeCompra;
 import vista.compras.pantallaConsultarPrecioXProveedor;
 import vista.compras.pantallaEmitirOrdenDeCompra;
+import vista.compras.pantallaEmitirOrdenDeCompra1;
 import vista.compras.pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarProveedor;
 import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
@@ -426,7 +428,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -651,7 +653,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem4.setText("Imprimir Orden de Compra");
+        jMenuItem4.setText("Emitir Orden de Compra");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -1098,7 +1100,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        pantallaConsultarOC p = new pantallaConsultarOC();
+        pantallaConsultarOrdenDeCompra p = new pantallaConsultarOrdenDeCompra();
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -1116,7 +1118,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        pantallaEmitirOrdenDeCompra p = new pantallaEmitirOrdenDeCompra();
+        pantallaEmitirOrdenDeCompra1 p = new pantallaEmitirOrdenDeCompra1();
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
