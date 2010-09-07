@@ -587,6 +587,8 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo = (DefaultTableModel) tblActualizaciones.getModel();
             modelo.addRow(fila);
+
+            txtPrecio.setText("");
         }
 
         
