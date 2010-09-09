@@ -25,7 +25,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
     public pantallaRegistrarPrecioRecurso() {
         initComponents();
 
-        gestor = new gestorRegistrarPrecioRecurso(this);
+        //gestor = new gestorRegistrarPrecioRecurso(this);
 
         habilitarVentana();
 
@@ -113,7 +113,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private void cargarListaDeRecursosEspecificos(int idRecurso)
     {
-        ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos(idRecurso);
+        ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos2(idRecurso);
 
         DefaultListModel valores = new DefaultListModel();
         Iterator<Tupla> it = lista.iterator();

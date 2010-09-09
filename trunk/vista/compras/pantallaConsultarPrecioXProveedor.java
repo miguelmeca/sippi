@@ -180,7 +180,15 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
             new String [] {
                 "Nombre", "Descripción", "Último Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaListado);
         tablaListado.getColumnModel().getColumn(2).setMinWidth(150);
         tablaListado.getColumnModel().getColumn(2).setPreferredWidth(150);
@@ -241,7 +249,7 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                     .addComponent(jLabel3)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
                 .addContainerGap())
@@ -290,7 +298,10 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                 // REDIMENSIONO LA FILA !!! -----------------------------------
                 String item = datos[1];
                 int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
-                tablaListado.setRowHeight(numFila,16*cantItems);
+                if(cantItems!=0)
+                {
+                    tablaListado.setRowHeight(numFila,16*cantItems);
+                }
                 LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
                 // REDIMENSIONO LA FILA !!! -----------------------------------
 
@@ -357,7 +368,10 @@ public class pantallaConsultarPrecioXProveedor extends javax.swing.JInternalFram
                     // ESTA
                     String item = (String) modelo.getValueAt(i,2);
                     int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
-                    tablaListado.setRowHeight(index,16*cantItems);
+                    if(cantItems!=0)
+                    {
+                        tablaListado.setRowHeight(index,16*cantItems);
+                    }
                     LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
                 }
 
