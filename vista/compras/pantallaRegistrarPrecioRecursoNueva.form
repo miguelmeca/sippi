@@ -61,7 +61,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -273,15 +273,13 @@
                               <EmptySpace pref="64" max="32767" attributes="0"/>
                               <Component id="jButton3" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtCantidad" min="-2" pref="76" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblUnidadMedida" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtCantidad" min="-2" pref="76" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblUnidadMedida" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace pref="546" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

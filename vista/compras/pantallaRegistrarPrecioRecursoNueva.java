@@ -436,9 +436,25 @@ public class pantallaRegistrarPrecioRecursoNueva extends javax.swing.JInternalFr
         if(valido)
         {
             // DATOS VALIDOS, GUARDO
+            RegistrarPrecio();
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void RegistrarPrecio()
+    {
+        // CARGO LOS DATOS Y SE LO PASO AL GESTOR
+        double precio = Double.valueOf(txtPrecio.getText());
+        double cant = Double.valueOf(txtCantidad.getText());
+            Tupla tp_pr = (Tupla) cmbProveedores.getSelectedItem();
+        int idProv = tp_pr.getId();
+            NTupla ntprec = (NTupla)tablaRecursos.getValueAt(tablaRecursos.getSelectedRow(),0);
+        int idRecEsp = ntprec.getId();
+
+        gestor.registrarPrecio(cant, precio, idProv, idRecEsp,cmbLEP.getDate());
+
+    }
+
 
     private void txtFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyReleased
          FiltrarTabla();
@@ -536,47 +552,40 @@ public class pantallaRegistrarPrecioRecursoNueva extends javax.swing.JInternalFr
      */
     public void MostrarMensaje(String cod)
     {
-        if(cod.equals("ME-0020"))
-        {
-            // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Recursos","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-        }
-        if(cod.equals("ME-0021"))
-        {
-            // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo el listado de Recursos","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-
-        }
-        if(cod.equals("ME-0022"))
-        {
-            // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-
-        }
-        if(cod.equals("ME-0023"))
-        {
-            // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Ultimos Precios","Error en la Carga",JOptionPane.ERROR_MESSAGE);
-
-        }
-        // MI-0001
         if(cod.equals("MI-0001"))
         {
             // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro correctamente toda la lista de actualizaciones de precios","Exito",JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro correctamente el precio","Exito",JOptionPane.INFORMATION_MESSAGE);
+                Tupla tp = (Tupla) cmbProveedores.getSelectedItem();
+                if(tp.getId()!=0)
+                {
+                    txtFiltro.setText("");
+                    txtPrecio.setText("");
+                    cmbLEP.cleanup();
+                    mostrarRecursosEspecificos(tp.getId());
+                }
         }
-        if(cod.equals("ME-0024"))
+        if(cod.equals("EG-0001"))
         {
             // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"Se detecto un error en la registración de alguno de los items\n Inténtelo nuevamente en un instante","Error",JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo registrar la actualización del Precio","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
-        if(cod.equals("ME-0025"))
+        if(cod.equals("ME-0001"))
         {
             // Se guardó en orden
-            JOptionPane.showMessageDialog(this.getParent(),"Se produjo un error al registrar el precio","Error",JOptionPane.ERROR_MESSAGE);
-}
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la Unidad de Medida","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("EG-0002"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Recursos","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+
+        }
+        if(cod.equals("EG-0003"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
