@@ -1,6 +1,9 @@
 package modelo;
 
+import java.util.Iterator;
 import java.util.List;
+import org.hibernate.Session;
+import util.HibernateUtil;
 import util.RubroUtil;
 import util.Tupla;
 
@@ -52,6 +55,10 @@ public abstract class Recurso {
         return recursos;
     }
 
+    public List getRecursosEspecificos() {
+        return recursos;
+    }
+
     public void setRecursos(List recursos) {
         this.recursos = recursos;
     }
@@ -65,5 +72,4 @@ public abstract class Recurso {
     }
 
 
- 
 }
