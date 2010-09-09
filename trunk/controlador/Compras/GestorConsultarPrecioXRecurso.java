@@ -185,7 +185,7 @@ public GestorConsultarPrecioXRecurso(pantallaConsultarPrecioXRecurso pantalla)
           {
               NTupla nt=new NTupla();
               nt.setId(listaPrecios.get(i).getId());
-              nt.setNombre(Integer.toString(listaPrecios.get(i).getCantidad()));
+              nt.setNombre(Double.toString(listaPrecios.get(i).getCantidad()));
               String[] datos=new String[3];
 
               datos[0]=Double.toString(listaPrecios.get(i).getPrecio());

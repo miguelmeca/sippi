@@ -6,7 +6,7 @@
       <generator class="increment"/>
     </id>
     <property name="fecha" not-null="true" type="date"/>
-    <property name="cantidad" not-null="true" type="integer"/>
+    <property name="cantidad" not-null="true" type="double"/>
     <property name="precio" not-null="true" type="double"/>
     <property name="fechaVigencia" type="date"/>
   </class>

@@ -62,7 +62,7 @@ public class gestorRegistrarPrecioRecurso {
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
                 ex.printStackTrace();
-                pantalla.MostrarMensaje("ME-0022");
+                pantalla.MostrarMensaje("EG-0003");
            }
 
         return lista;
@@ -150,7 +150,7 @@ public class gestorRegistrarPrecioRecurso {
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
                 ex.printStackTrace();
-                pantalla.MostrarMensaje("ME-0022");
+                pantalla.MostrarMensaje("EG-0002");
            }
 
 
@@ -176,7 +176,7 @@ public class gestorRegistrarPrecioRecurso {
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
                 ex.printStackTrace();
-                pantalla.MostrarMensaje("ME-0022");
+                pantalla.MostrarMensaje("ME-0001");
            }
            return "";
     }
@@ -564,6 +564,194 @@ public class gestorRegistrarPrecioRecurso {
 //
 //
         return lista;
+    }
+
+    public void registrarPrecio(double cantidad, double precio, int idProv, int idRecEsp, Date vigencia)
+    {
+
+        // TENGO QUE:
+        // VERIFICAR SI NO EXISTE LA CARGA DE ESTE PRECIO (HOY), CON ESTA CANTIDAD, CON ESTE PRECIO
+        // SI NO EXISTE
+        //      CREO UNO NUEVO
+        // SINO
+        //      MODIFICO EL ACTUAL
+        // Y AGREGO EL RECURSO AL PROVEEDOR
+
+        //1) VEO SI NO CARGO EL PRECIO
+        Session sesion;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+
+            // CARGO LOS DATOS
+            RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
+            Proveedor pr         = (Proveedor)sesion.load(Proveedor.class,idProv);
+
+                // CARGO LOS PRECIOS QUE YA TENGO, SI ES QUE TENGO ALGUNO
+                if(re.getProveedores().isEmpty())
+                {
+                    //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTA DUPLA
+                    // LA CREO Y GUARDO DE UNA
+                    PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                    psc.setCantidad(cantidad);
+                    psc.setFecha(new Date());
+                    psc.setPrecio(precio);
+                    psc.setFechaVigencia(vigencia);
+                    RecursoXProveedor rxp = new RecursoXProveedor();
+                    rxp.setProveedor(pr);
+                    rxp.addPrecioSegunCantidad(psc);
+
+                    // AHORA AGREGO EL RE AL PROVEEDOR
+                    pr.getListaArticulos().add(re);
+                    // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                    re.getProveedores().add(rxp);
+
+                    HibernateUtil.beginTransaction();
+                    sesion.save(psc);
+                    sesion.save(rxp);
+                    sesion.update(pr);
+                    sesion.update(re);
+                    HibernateUtil.commitTransaction();
+
+                    pantalla.MostrarMensaje("MI-0001");return;
+
+                }
+                else
+                {
+                    // TENGO CARGADO UN RXP, LOS ANALIZO
+                    Iterator<RecursoXProveedor> itp = re.getProveedores().iterator();
+                    while (itp.hasNext())
+                    {
+                        RecursoXProveedor rxp = itp.next();
+                        // ES DEL PROVEEDOR AL QUE LE ESTOY CARGANDO ?
+                        if(rxp.getProveedor().getId() == pr.getId())
+                        {
+                            // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY Y CON ESA CANTIDAD
+                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
+                            while (itf.hasNext())
+                            {
+                                PrecioSegunCantidad psc = itf.next();
+                                Date hoy = new Date();
+                                if(FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha())))
+                                {
+                                    // ES DE HOY !! ENTONCES ACTUALIZO EL PRECIO
+                                    // SE DA SI CARGA EN UN MISMO DÍA DOS VECES UN
+                                    // PRECIO PARA UN REC y PROV
+                                    if(psc.getCantidad()==cantidad)
+                                    {
+                                        // TIENE LA MISMA CANTIDAD, ACTUALIZO
+                                        psc.setPrecio(precio);
+                                        psc.setFechaVigencia(vigencia);
+
+                                        HibernateUtil.beginTransaction();
+                                        sesion.update(psc);
+                                        HibernateUtil.commitTransaction();
+
+                                        pantalla.MostrarMensaje("MI-0001");return;
+
+                                    }
+                                    else
+                                    {
+                                        // NO ES LA MISMA CANTIDAD, CREO OTRO PSC
+                                        // TENGO QUE BUSCAR SI ESA CANTIDAD NO ESTA YA CARGADA
+                                         Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
+                                         boolean esta = false;
+                                         while (itf2.hasNext())
+                                         {
+                                            PrecioSegunCantidad pscAux = itf2.next();
+                                            if(pscAux.getCantidad()==cantidad)
+                                            {
+                                                // ES LA MISMA CANTIDAD !!!
+                                                // ENTONCES ESTA MAS ADELANTE
+                                                esta = true;
+                                                // SE LA DEJO A LA ITER DE ARRIBA
+                                            }
+                                         }
+                                         // NO ESTA ESA CANTIDAD CARGADA, LA CREO
+                                        if(!esta)
+                                        {
+                                            PrecioSegunCantidad pscNuevo = new PrecioSegunCantidad();
+                                            pscNuevo.setCantidad(cantidad);
+                                            pscNuevo.setFecha(hoy);
+                                            pscNuevo.setFechaVigencia(vigencia);
+                                            pscNuevo.setPrecio(precio);
+                                            // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                                            rxp.addPrecioSegunCantidad(pscNuevo);
+                                            //re.getProveedores().add(rxp);
+
+                                            HibernateUtil.beginTransaction();
+                                            sesion.save(pscNuevo);
+                                            sesion.update(rxp);
+                                            sesion.update(re);
+                                            HibernateUtil.commitTransaction();
+
+                                            pantalla.MostrarMensaje("MI-0001");return;
+                                        }
+                                         else
+                                        {
+                                             // SE USARA, NO, LA AGARRA EL IF DE ARRIBA
+                                             LogUtil.addDebug("ATENCION ATENCION: LA CANTIDAD YA ESTA CARGADA !! (ESTO NO DEBERIA VERSE)");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // NO ES DE HOY , ES UNO VIEJO, NO HAGO NADA
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // NO ES DE ESTE PROVEEDOR - VEO SI NO ES MAS ADELANTE
+                            Iterator<RecursoXProveedor> itp2 = re.getProveedores().iterator();
+                            boolean esta = false;
+                            while (itp2.hasNext())
+                            {
+                                RecursoXProveedor rxp2 = itp2.next();
+                                if(pr.getId()==rxp2.getProveedor().getId())
+                                {
+                                    esta = true;
+                                }
+                            }
+                            // Si no esta mas adelante creo
+                            if(!esta) 
+                            {
+                                //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTE PROVEEDOR
+                                // LA CREO Y GUARDO DE UNA
+                                PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                                psc.setCantidad(cantidad);
+                                psc.setFecha(new Date());
+                                psc.setPrecio(precio);
+                                psc.setFechaVigencia(vigencia);
+                                RecursoXProveedor rxpn = new RecursoXProveedor();
+                                rxpn.setProveedor(pr);
+                                rxpn.addPrecioSegunCantidad(psc);
+
+                                // SI AGREGO EL RE AL PROVEEDOR (CREO)
+                                 pr.getListaArticulos().add(re);
+                                // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                                re.getProveedores().add(rxpn);
+
+                                HibernateUtil.beginTransaction();
+                                sesion.save(psc);
+                                sesion.save(rxpn);
+                                sesion.update(pr);
+                                sesion.update(re);
+                                HibernateUtil.commitTransaction();
+
+                                pantalla.MostrarMensaje("MI-0001");return;
+                            }
+                        }
+                    }
+                }
+        }
+        catch (Exception ex)
+        {
+            LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
+            HibernateUtil.rollbackTransaction();
+            pantalla.MostrarMensaje("EG-0001");return;
+        }
+
     }
 
 }

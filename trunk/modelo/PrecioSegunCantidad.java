@@ -14,15 +14,15 @@ public class PrecioSegunCantidad
 {
     private int id;
     private Date fecha;
-    private int cantidad;
+    private double cantidad;
     private double precio;
     private Date fechaVigencia;
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
