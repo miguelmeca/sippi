@@ -44,7 +44,7 @@ import vista.compras.pantallaRegistrarPrecioRecursoNueva;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
-import vista.planificacion.pantallaRegistrarEtapa;
+import vista.planificacion.pantallaRegistrarTarea;
 import vista.planificacion.pantallaRegistrarPresupuesto;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
@@ -1145,7 +1145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        pantallaRegistrarEtapa p = new pantallaRegistrarEtapa();
+        pantallaRegistrarTarea p = new pantallaRegistrarTarea();
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
