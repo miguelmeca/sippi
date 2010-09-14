@@ -114,8 +114,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     {   if((tablaTelefonos.getSelectedRowCount())==1)
         {
             DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-            modelo.removeRow(tablaTelefonos.getSelectedRow());
             Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+            modelo.removeRow(tablaTelefonos.getSelectedRow());
             this.gestor.borrarTelefono(t.getId());
         }
     }
