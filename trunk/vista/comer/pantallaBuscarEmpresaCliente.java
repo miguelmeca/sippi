@@ -14,12 +14,14 @@ package vista.comer;
 import controlador.comer.GestorBuscarEmpresaCliente;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import util.NTupla;
+import util.StringUtil;
 import util.SwingPanel;
 import vista.interfaces.IAyuda;
 import vista.interfaces.ICallBack;
@@ -84,6 +86,40 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
         return tipo;
     }
 
+    private void FiltrarTabla(){
+       TableRowSorter<TableModel> modeloOrdenado;
+       modeloOrdenado = new TableRowSorter<TableModel>(tablaEmpresaCliente.getModel());
+       tablaEmpresaCliente.setRowSorter(modeloOrdenado);
+
+           String[] cadena=txtBuscar.getText().trim().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+           // CAMBIO LOS TAMAÑOS DE LAS FILAS
+           DefaultTableModel modelo = (DefaultTableModel) tablaEmpresaCliente.getModel();
+           for (int i = 0; i < modelo.getRowCount(); i++)
+           {
+            // REDIMENSIONO LA FILA !!! -----------------------------------
+                int index = modeloOrdenado.convertRowIndexToView(i);
+                if(index>-1)
+                {
+                    // ESTA
+                    String item = (String) modelo.getValueAt(i,2);
+                    int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                    if(cantItems!=0)
+                    {
+                        tablaEmpresaCliente.setRowHeight(index,16*cantItems);
+                    }
+                    //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                }
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+           }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -178,6 +214,9 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
         });
 
         rbAltas.setText("Altas");
@@ -251,7 +290,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
                         .addComponent(rbBajas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDarBajaEmpresaCliente)
                     .addComponent(btnModificarEmpresaCliente)
@@ -301,7 +340,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         // TODO add your handling code here:
-        elQueOrdena.setRowFilter(RowFilter.regexFilter(txtBuscar.getText()));
+        //elQueOrdena.setRowFilter(RowFilter.regexFilter(txtBuscar.getText()));
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void rbAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAltasActionPerformed
@@ -319,6 +358,11 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        FiltrarTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

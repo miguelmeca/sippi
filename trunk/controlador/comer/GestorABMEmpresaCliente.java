@@ -414,27 +414,27 @@ public class GestorABMEmpresaCliente {
 
     public int confirmacionModificacionRegistro(int idEmpresa) {
         Session sesion;
-        EmpresaCliente ec = null;
+        //EmpresaCliente ec = null;
         try{
             sesion = HibernateUtil.getSession();
             try{
                 HibernateUtil.beginTransaction();
-                ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, idEmpresa);
+                //ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, idEmpresa);
 
                 /***************************************************************
                  *                       GENERALES
                  * *************************************************************
                  */
-                ec.setRazonSocial(this.nombreEmpresaCliente);
-                ec.setCuit(this.cuit);
-                ec.setEmail(this.email);
-                ec.setPaginaWeb(this.paginaWeb);
+                this.empresa.setRazonSocial(this.nombreEmpresaCliente);
+                this.empresa.setCuit(this.cuit);
+                this.empresa.setEmail(this.email);
+                this.empresa.setPaginaWeb(this.paginaWeb);
 
                 /***************************************************************
                  *                         DOMICILIO
                  * *************************************************************
                  */
-                Domicilio d = ec.getDomicilio();
+                Domicilio d = this.empresa.getDomicilio();
                 d.setCalle(this.calle);
                 d.setCodigoPostal(this.cp);
                 d.setNumero(Integer.parseInt(this.altura));
@@ -458,12 +458,12 @@ public class GestorABMEmpresaCliente {
                         sesion.save(pAux.getDomicilio());
                         sesion.save(pAux.getContacto());
 
-                        ec.getPlantas().add(pAux);
+                        this.empresa.getPlantas().add(pAux);
                         sesion.save(pAux);
                         this.plantas.remove(pAux);
                     }
                 }
-                itPlantas = ec.getPlantas().iterator();
+                itPlantas = this.empresa.getPlantas().iterator();
                 Iterator it = null;
                 Planta pAux2 = null;
                 boolean ban = false;
@@ -479,7 +479,7 @@ public class GestorABMEmpresaCliente {
                         }
                     }
                     if(ban == false){
-                        ec.getPlantas().remove(pAux);
+                        this.empresa.getPlantas().remove(pAux);
                         sesion.delete(pAux);
                     }
                 }
@@ -489,21 +489,30 @@ public class GestorABMEmpresaCliente {
                  * *************************************************************
                  */
                 Iterator itTelefonos = this.telefonos.iterator();
+                ArrayList<Telefono> borrados1 = new ArrayList<Telefono>();
                 Telefono tAux = null;
                 while (itTelefonos.hasNext()){
                     tAux = (Telefono)itTelefonos.next();
                     if(tAux.getId() == 0){ // CON ESTO AGREGAMOS TODAS LAS NUEVAS... NOS QUEDA BORRAR LAS Q ESTAN EN LA BD
-                        ec.getTelefonos().add(tAux);
+                        this.empresa.getTelefonos().add(tAux);
                         sesion.save(tAux);
-                        this.telefonos.remove(tAux);
+//                        this.telefonos.remove(tAux);
+                        borrados1.add(tAux);
                     }
                 }
-                itTelefonos = ec.getTelefonos().iterator();
+                Iterator itBorrados1 = borrados1.iterator();
+                Telefono tAux1 = null;
+                while(itBorrados1.hasNext()){
+                    tAux1 = (Telefono)itBorrados1.next();
+                    this.telefonos.remove(tAux1);
+                }
+                itTelefonos = this.empresa.getTelefonos().iterator();
                 Telefono tAux2 = null;
+                ArrayList<Telefono> borrados = new ArrayList<Telefono>();
                 ban = false;
                 while(itTelefonos.hasNext()){
                     tAux = (Telefono)itTelefonos.next();
-                    it = this.empresa.getTelefonos().iterator();
+                    it = this.telefonos.iterator();
                     ban = false;
                     while(it.hasNext()){
                         tAux2 = (Telefono)it.next();
@@ -513,9 +522,16 @@ public class GestorABMEmpresaCliente {
                         }
                     }
                     if(ban == false){
-                        ec.getTelefonos().remove(tAux);
-                        sesion.delete(tAux);
+//                        ec.getTelefonos().remove(tAux);
+//                        sesion.delete(tAux);
+                        borrados.add(tAux);
                     }
+                }
+                Iterator itBorrados = borrados.iterator();
+                while(itBorrados.hasNext()){
+                    tAux = (Telefono)itBorrados.next();
+                    this.empresa.getTelefonos().remove(tAux);
+                    sesion.delete(tAux);
                 }
                 sesion.update(this.empresa);
                 HibernateUtil.commitTransaction();
