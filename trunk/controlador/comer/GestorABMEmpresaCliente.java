@@ -61,18 +61,50 @@ public class GestorABMEmpresaCliente {
 
     }
 
+    public ArrayList<Tupla> mostrarTiposTelefono() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        Tupla tupla = null;
+        try{
+            Session sesion = HibernateUtil.getSession();
+            Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
+            while ( iter.hasNext() ) {
+                TipoTelefono tipo = (TipoTelefono) iter.next();
+                tupla = new Tupla(tipo.getId(),tipo.getNombre());
+                tuplas.add(tupla);
+            }
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
+        return tuplas;
+    }
+
+    public ArrayList<Tupla> mostrarNombrePaises() {
+            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getPaises();
+    }
+
+    public ArrayList<Tupla> mostrarLocalidades(Tupla prov) {
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getLocalidades(prov.getId());
+    }
+
+    public ArrayList<Tupla> mostrarProvincias(Tupla pais) {
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getProvincias(pais.getId());
+    }
+
+    public ArrayList<Tupla> mostrarBarrios(Tupla loc) {
+           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
+           return ggl.getBarrios(loc.getId());
+    }
+
     public void registrarNuevaPlanta(String razonSocial){
         pantallaRegistrarNuevaPlanta np = new pantallaRegistrarNuevaPlanta(this,razonSocial);
         SwingPanel.getInstance().addWindow(np);
         np.setVisible(true);
     }
-
-//    public void setNuevaPlanta(Planta p)
-//    {
-//        this.plantas.add(p);
-//        // SI ESTE METODO SE ACTIVA SIGNIFICA QUE AGREGO UNA NUEVA PLANTA CON EXITO
-//        pantalla.plantaAgregada();
-//    }
 
     /**
      * METODO POR DEMAS IMPORTANTE: EL GESTOR DE PLANTAS LE ENVIA EL OBJETO PLANTA CREADO PARA SER
@@ -82,7 +114,6 @@ public class GestorABMEmpresaCliente {
     public void agregarPlanta(GestorRegistrarNuevaPlanta gestorPlanta) {
         this.plantas.add(gestorPlanta.getPlanta());
         pantalla.plantaAgregada();
-        
     }
 
     public void borrarPlanta(int id) {
@@ -107,12 +138,16 @@ public class GestorABMEmpresaCliente {
         this.telefonos.remove(id);
     }
 
-    public void finCU() {
-
-    }
-
-    public void llamarCURegistrarNuevaPlanta() {
-        // DEPRECATED - DIRECTAMENTE SE LLAMA A REGISTRARNUEVAPLANTA()
+    public boolean validarExistenciaCUIT(String cuit) {
+        boolean respuesta = true;
+        try {
+            List pr = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente WHERE cuit LIKE :cuitP").setParameter("%cuit%", cuit).list();
+            if(pr.isEmpty())
+                respuesta = false;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorABMEmpresaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
     }
 
     public void seleccionPais(int id) {
@@ -155,33 +190,10 @@ public class GestorABMEmpresaCliente {
         this.email = email;
     }
 
-    public void telefono(ArrayList<NTupla> listaTel) {
-            ArrayList<Telefono> lista = new ArrayList<Telefono>();
-            // Convierto el NTupla en Telefono
-            Iterator it = listaTel.iterator();
-            while (it.hasNext()){
-                NTupla nt = (NTupla)it.next();
-                Telefono tel = new Telefono();
-                tel.setNumero(nt.getNombre());
-
-                TipoTelefono ttel = new TipoTelefono();
-                Tupla aux = (Tupla)nt.getData();
-                ttel.setId(aux.getId());
-                ttel.setNombre(aux.getNombre());
-                tel.setTipo(ttel);
-                lista.add(tel);
-            }
-
-            this.telefonos = lista;
-    }
-
-    public void seleccionTipoTelefono() {
-        // DEPRECATED - NO SIRVE DE NADA... ESTA INFO VA EN TELEFONO()
-    }
-
-    public void agregarNuevaPlanta() {
-        // DEPRECATED - AHORA SE LLAMA REGISTRARNUEVAPLANTA()
-    }
+    /***************************************************************************
+     *                              ALTA
+     ***************************************************************************
+     */
 
     public int confirmacionRegistro() {
         EmpresaCliente nueva = new EmpresaCliente();
@@ -233,49 +245,7 @@ public class GestorABMEmpresaCliente {
         } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
         return nueva.getId();
     }
-
-    public ArrayList<Tupla> mostrarTiposTelefono() {
-        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-        Tupla tupla = null;
-        try{
-            Session sesion = HibernateUtil.getSession();
-            Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
-            while ( iter.hasNext() ) {
-                TipoTelefono tipo = (TipoTelefono) iter.next();
-                tupla = new Tupla(tipo.getId(),tipo.getNombre());
-                tuplas.add(tupla);
-            }
-        }catch(Exception e)
-        {
-            System.out.println("ERROR:"+e.getMessage()+"|");
-            e.printStackTrace();
-        }
-        return tuplas;
-    }
-
-    public void registrarNuevaEmpresa() {
-    }
-    
-    public ArrayList<Tupla> mostrarNombrePaises() {
-            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-           return ggl.getPaises();
-    }
-
-    public ArrayList<Tupla> mostrarLocalidades(Tupla prov) {
-           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-           return ggl.getLocalidades(prov.getId());
-    }
-
-    public ArrayList<Tupla> mostrarProvincias(Tupla pais) {
-           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-           return ggl.getProvincias(pais.getId());
-    }
-
-    public ArrayList<Tupla> mostrarBarrios(Tupla loc) {
-           gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-           return ggl.getBarrios(loc.getId());
-    }
-
+   
     public void paginaWeb(String text) {
         this.paginaWeb = text;
     }
@@ -293,20 +263,6 @@ public class GestorABMEmpresaCliente {
         }
         return pls;
     }
-
-//    public ArrayList<NTupla> getTelefonos(){
-//        Iterator it = this.telefonos.iterator();
-//        ArrayList<NTupla> aux;
-//        NTupla nt = null;
-//        Telefono tAux=null;
-//        while(it.hasNext()){
-//            tAux = (Telefono)it.next();
-//            nt = new NTupla();
-//            nt.setId(id);// ACA ME CAGUE XD
-//            nt.setNombre(tAux.getTipo().getNombre());
-//            nt.setData(tAux.getNumero());
-//        }
-//    }
 
     /***************************************************************************
      *               MODIFICAR, CONSULTAR y DAR DE BAJA
@@ -341,8 +297,8 @@ public class GestorABMEmpresaCliente {
         ArrayList<NTupla> tels = buscarTelefonos();
         this.pantalla.mostrarDatosTelefono(tels);
         this.plantas = new ArrayList(this.empresa.getPlantas());
-        ArrayList<NTupla> plantas = this.buscarPlantas();
-        this.pantalla.mostrarDatosPlantas(plantas);
+        ArrayList<NTupla> plts = this.buscarPlantas();
+        this.pantalla.mostrarDatosPlantas(plts);
     }
 
     public void buscarDatosEmpresa(int id) {
@@ -360,11 +316,10 @@ public class GestorABMEmpresaCliente {
     public ArrayList<NTupla> buscarTelefonos() {
         ArrayList<NTupla> listaTelefonos = new ArrayList<NTupla>();
         PersistentSet tels = (PersistentSet) this.empresa.getTelefonos();
-        Iterator<Telefono> i =tels.iterator();
+        Iterator<Telefono> i = tels.iterator();
         while(i.hasNext()) {
             Telefono t = i.next();
             NTupla nt = new NTupla();
-            this.telefonos.add(t);
             nt.setId(telefonos.indexOf(t));
             nt.setNombre(t.mostrarTipoTelefono().getNombre());
             nt.setData((String)t.getNumero());
@@ -380,11 +335,10 @@ public class GestorABMEmpresaCliente {
         while(iPlantas.hasNext()){
             p = iPlantas.next();
             NTupla nt = new NTupla();
-            nt.setId(p.getId());
+            nt.setId(plantas.indexOf(p));
             nt.setNombre(p.getRazonSocial());
             nt.setData(p.getDomicilio().toString());
             listaPlantas.add(nt);
-            this.plantas.add(p);
         }
         return listaPlantas;
     }
@@ -414,12 +368,10 @@ public class GestorABMEmpresaCliente {
 
     public int confirmacionModificacionRegistro(int idEmpresa) {
         Session sesion;
-        //EmpresaCliente ec = null;
         try{
             sesion = HibernateUtil.getSession();
             try{
                 HibernateUtil.beginTransaction();
-                //ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, idEmpresa);
 
                 /***************************************************************
                  *                       GENERALES
@@ -460,16 +412,16 @@ public class GestorABMEmpresaCliente {
 
                         this.empresa.getPlantas().add(pAux);
                         sesion.save(pAux);
-                        this.plantas.remove(pAux);
                     }
                 }
                 itPlantas = this.empresa.getPlantas().iterator();
                 Iterator it = null;
                 Planta pAux2 = null;
                 boolean ban = false;
+                ArrayList<Planta> plantasBorradas = new ArrayList<Planta>();
                 while(itPlantas.hasNext()){
                     pAux = (Planta)itPlantas.next();
-                    it = this.empresa.getPlantas().iterator();
+                    it = this.plantas.iterator();
                     ban = false;
                     while(it.hasNext()){
                         pAux2 = (Planta)it.next();
@@ -479,33 +431,30 @@ public class GestorABMEmpresaCliente {
                         }
                     }
                     if(ban == false){
-                        this.empresa.getPlantas().remove(pAux);
-                        sesion.delete(pAux);
+                        plantasBorradas.add(pAux);
                     }
                 }
-
+                Iterator itPlantasBorradas = plantasBorradas.iterator();
+                while(itPlantasBorradas.hasNext()){
+                    pAux = (Planta)itPlantasBorradas.next();
+                    this.empresa.getPlantas().remove(pAux);
+                    sesion.delete(pAux);
+                }
                 /***************************************************************
                  *                         TELEFONOS
                  * *************************************************************
                  */
                 Iterator itTelefonos = this.telefonos.iterator();
-                ArrayList<Telefono> borrados1 = new ArrayList<Telefono>();
                 Telefono tAux = null;
                 while (itTelefonos.hasNext()){
                     tAux = (Telefono)itTelefonos.next();
                     if(tAux.getId() == 0){ // CON ESTO AGREGAMOS TODAS LAS NUEVAS... NOS QUEDA BORRAR LAS Q ESTAN EN LA BD
                         this.empresa.getTelefonos().add(tAux);
                         sesion.save(tAux);
-//                        this.telefonos.remove(tAux);
-                        borrados1.add(tAux);
+
                     }
                 }
-                Iterator itBorrados1 = borrados1.iterator();
-                Telefono tAux1 = null;
-                while(itBorrados1.hasNext()){
-                    tAux1 = (Telefono)itBorrados1.next();
-                    this.telefonos.remove(tAux1);
-                }
+
                 itTelefonos = this.empresa.getTelefonos().iterator();
                 Telefono tAux2 = null;
                 ArrayList<Telefono> borrados = new ArrayList<Telefono>();
@@ -522,8 +471,6 @@ public class GestorABMEmpresaCliente {
                         }
                     }
                     if(ban == false){
-//                        ec.getTelefonos().remove(tAux);
-//                        sesion.delete(tAux);
                         borrados.add(tAux);
                     }
                 }
@@ -545,15 +492,28 @@ public class GestorABMEmpresaCliente {
         return this.empresa.getId();
     }
 
-    public boolean validarExistenciaCUIT(String cuit) {
-        boolean respuesta = true;
-        try {
-            List pr = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente WHERE cuit LIKE :cuitP").setParameter("%cuit%", cuit).list();
-            if(pr.isEmpty())
-                respuesta = false;
-        } catch (Exception ex) {
-            Logger.getLogger(GestorABMEmpresaCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return respuesta;
+    /***************************************************************************
+     *                          DEPRECATED
+     * *************************************************************************
+     */
+
+    public void llamarCURegistrarNuevaPlanta() {
+        // DEPRECATED - DIRECTAMENTE SE LLAMA A REGISTRARNUEVAPLANTA()
+    }
+
+    public void seleccionTipoTelefono() {
+        // DEPRECATED - NO SIRVE DE NADA... ESTA INFO VA EN TELEFONO()
+    }
+
+    public void agregarNuevaPlanta() {
+        // DEPRECATED - AHORA SE LLAMA REGISTRARNUEVAPLANTA()
+    }
+
+    public void registrarNuevaEmpresa() {
+        // DEPRECATED - AHORA SE LLAMA CONFIRMARREGISTRO()
+    }
+
+    public void finCU() {
+        // DEPRECATED - NO SE LO USA
     }
 }
