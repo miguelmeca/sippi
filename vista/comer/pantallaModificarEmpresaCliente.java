@@ -44,6 +44,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         this.pBuscar = p;
         this.idEmpresa = p.getIdEmpresaClienteSeleccionado();
         this.gestor = new GestorABMEmpresaCliente(this);
+
         mostrarTiposTelefono();
         cargarDatosEmpresaClienteAModificar();
     }
@@ -110,14 +111,43 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         return ban;
     }
 
-    private void quitarTelefono()
-    {   if((tablaTelefonos.getSelectedRowCount())==1)
-        {
-            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-            Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
-            modelo.removeRow(tablaTelefonos.getSelectedRow());
-            this.gestor.borrarTelefono(t.getId());
+    public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos) {
+        formatearTablaTelefonos();
+        Iterator it = listaTelefonos.iterator();
+        NTupla nt = null;
+        while(it.hasNext()){
+            nt = (NTupla)it.next();
+            Tupla tu = new Tupla(nt.getId(),nt.getNombre());
+            this.agregarTelefonoExistenteTabla(tu, (String)nt.getData());
         }
+    }
+
+//    private void quitarTelefono()
+//    {   if((tablaTelefonos.getSelectedRowCount())==1)
+//        {
+//            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+//            Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+//            modelo.removeRow(tablaTelefonos.getSelectedRow());
+//            this.gestor.borrarTelefono(t.getId());
+//        }
+//    }
+
+    private void agregarTelefonoTabla(Tupla tipo, String numero){
+        int indice = gestor.agregarTelefono(tipo,numero);
+        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+        Object[] item = new Object[2];
+        item[0] = new Tupla(indice,tipo.getNombre());
+        item[1] = numero;
+        modelo.addRow(item);
+    }
+
+    private void agregarTelefonoExistenteTabla(Tupla tipo, String numero){
+        int indice = tipo.getId();
+        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+        Object[] item = new Object[2];
+        item[0] = new Tupla(indice,tipo.getNombre());
+        item[1] = numero;
+        modelo.addRow(item);
     }
 
     private ArrayList<NTupla> cargarTelefonos(){
@@ -245,15 +275,6 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbBarrio.setModel(valores);
     }
 
-    private void agregarTelefonoTabla(Tupla tipo, String numero){
-        int indice = gestor.agregarTelefono(tipo,numero);
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        Object[] item = new Object[2];
-        item[0] = new Tupla(indice,tipo.getNombre());
-        item[1] = numero;
-        modelo.addRow(item);
-    }
-    
     public void mostrarEstadoEmpresa(String estado) {
         this.txtEstado.setText(estado);
     }
@@ -327,19 +348,6 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                 cmbPais.setSelectedItem(t);
                 break;
             }
-        }
-    }
-
-    public void mostrarDatosTelefono(ArrayList<NTupla> listaTelefonos) {
-        formatearTablaTelefonos();
-        DefaultTableModel dtm = (DefaultTableModel)this.tablaTelefonos.getModel();
-        Iterator it = listaTelefonos.iterator();
-        NTupla nt = null;
-        Tupla t = null;
-        while(it.hasNext()){
-            nt = (NTupla)it.next();
-            Tupla tu = new Tupla(nt.getId(),nt.getNombre());
-            this.agregarTelefonoTabla(tu, (String)nt.getData());
         }
     }
 
@@ -859,7 +867,13 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_btnNuevoTelefonoActionPerformed
 
     private void btnQuitarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarTelefonoActionPerformed
-        this.quitarTelefono();
+    if((tablaTelefonos.getSelectedRowCount())==1)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+        Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+        modelo.removeRow(tablaTelefonos.getSelectedRow());
+        this.gestor.borrarTelefono(t.getId());
+    }
 }//GEN-LAST:event_btnQuitarTelefonoActionPerformed
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
@@ -902,12 +916,11 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
 
     private void btnBorrarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarPlantaActionPerformed
         // TODO add your handling code here:
-        Tupla fila = null;
         if((tablaPlantas.getSelectedRowCount())==1) {
             DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+            NTupla fila = (NTupla)modelo.getValueAt(tablaPlantas.getSelectedRow(),0);
             modelo.removeRow(tablaPlantas.getSelectedRow());
-            fila = (Tupla)modelo.getValueAt(tablaPlantas.getSelectedRow(),0);
-            gestor.borrarPlanta(fila.getId());
+            this.gestor.borrarPlanta(fila.getId());
         }
 }//GEN-LAST:event_btnBorrarPlantaActionPerformed
 
