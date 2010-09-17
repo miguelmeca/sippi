@@ -11,8 +11,26 @@
 
 package vista.planificacion;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Date;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import util.LogUtil;
 import util.SwingPanel;
+import vista.gui.graph.TaskGraphComponent;
+import vista.gui.graph.TaskModel;
+import vista.gui.graphModel.ColorLabel;
+import vista.gui.graphModel.ManImpl;
+import vista.gui.graphModel.TaskImpl;
+import vista.gui.graphModel.TaskModelImpl;
+import vista.gui.graphModel.TaskPainterImpl;
 
 /**
  *
@@ -20,10 +38,98 @@ import util.SwingPanel;
  */
 public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
 
+
+    /**
+     * GRAFICO !!!
+     */
+    	private TaskModelImpl _taskModel;
+	private TaskGraphComponent _graph;
+
     /** Creates new form pantallaRegistrarPresupuesto */
     public pantallaRegistrarPresupuesto() {
         initComponents();
+
+        habilitarVentana();
+
     }
+
+    private void habilitarVentana()
+    {
+        panelGantt.setLayout(new BorderLayout());
+        initGraph();
+        initGraphAction();
+    }
+
+    private void initGraphAction()
+    {
+//            MouseListener ml = new MouseListener() {
+//
+//            public void mouseClicked(MouseEvent e) {
+//
+//                if(e.getButton()==InputEvent.BUTTON3_MASK)
+//                {
+//                    jPopupMenu1.setVisible(true);
+//
+//                    Point p = e.getPoint();
+//                    System.out.println("CLICK EN EL GRAFICO PANTALLA: x: "+p.x+" | y: "+p.y);
+//
+//                    Object o = _graph.findObjectOnPo(p.x, p.y);
+//                    LogUtil.addDebug("Object TASK: "+o);
+//
+//                    jPopupMenu1.getAlignmentX();
+//                }
+//            }
+//
+//            public void mousePressed(MouseEvent e) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            public void mouseReleased(MouseEvent e) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            public void mouseEntered(MouseEvent e) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//
+//            public void mouseExited(MouseEvent e) {
+//                //throw new UnsupportedOperationException("Not supported yet.");
+//            }
+//        };
+//
+//        _graph.addMouseListener(ml);
+    }
+
+   private void initGraph()
+   {
+       _taskModel = TaskModelImpl.createEmptyModel();
+
+            // DAOTS DE PRUEBA ---------------------
+            ManImpl etapa = new ManImpl();
+            etapa.setName("Compra de Materiales");
+            _taskModel.addMan(etapa);
+
+            TaskImpl task = new TaskImpl();
+            task.setMan(etapa);
+            task.setName("Compra de Materiales");
+            task.setDuration(5);
+            Date hoy = new Date();
+            task.setStartTime(hoy.getTime());
+            _taskModel.addTask(task);
+            // DAOTS DE PRUEBA ---------------------
+
+       buildGraph(_taskModel);
+   }
+
+   private void buildGraph(TaskModel model)
+   {
+       _graph = new TaskGraphComponent(model, new TaskPainterImpl());
+       _graph.setComponentPopupMenu(jPopupMenu1);
+       panelGantt.add(_graph,BorderLayout.CENTER);
+       pack();
+       _graph.setVisible(true);
+       setVisible(true);
+   }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -34,19 +140,24 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jSplitPane1 = new javax.swing.JSplitPane();
         panelGantt = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         PanelInfo = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -68,20 +179,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         Herramientas = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jToolBar2 = new javax.swing.JToolBar();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton4 = new javax.swing.JButton();
@@ -92,6 +191,32 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jButton6 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/process.png"))); // NOI18N
+        jMenuItem4.setText("IugaTest");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem4);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/page_process.png"))); // NOI18N
+        jMenuItem1.setText("Editar Etapa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jMenuItem2.setText("Nueva Etapa");
+        jPopupMenu1.add(jMenuItem2);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        jMenuItem3.setText("Eliminar Etapa");
+        jPopupMenu1.add(jMenuItem3);
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -99,35 +224,31 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         setTitle("Registrar Presupuesto");
 
         jSplitPane1.setBorder(null);
-        jSplitPane1.setDividerLocation(308);
+        jSplitPane1.setDividerLocation(295);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOneTouchExpandable(true);
 
         panelGantt.setBorder(javax.swing.BorderFactory.createTitledBorder("Control del Presupuesto"));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/Gantt-2.png"))); // NOI18N
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIconTextGap(0);
+        panelGantt.setComponentPopupMenu(jPopupMenu1);
 
         javax.swing.GroupLayout panelGanttLayout = new javax.swing.GroupLayout(panelGantt);
         panelGantt.setLayout(panelGanttLayout);
         panelGanttLayout.setHorizontalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1082, Short.MAX_VALUE)
+            .addGap(0, 1082, Short.MAX_VALUE)
         );
         panelGanttLayout.setVerticalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 263, Short.MAX_VALUE)
         );
 
         jSplitPane1.setTopComponent(panelGantt);
 
-        PanelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("Información de la Etapa"));
+        PanelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder("Información"));
         PanelInfo.setMaximumSize(new java.awt.Dimension(32767, 160));
         PanelInfo.setPreferredSize(new java.awt.Dimension(974, 160));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Calendario"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Proyecto"));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Inicio:");
@@ -139,15 +260,19 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
 
         jLabel6.setText("10/09/2010");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel7.setText("Duración:");
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel28.setText("Cliente: ");
 
-        jLabel8.setText("8 horas");
+        jLabel29.setText("ARCOR");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel9.setText("Criticidad: ");
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel30.setText("Obra:");
 
-        jLabel10.setText("Alta");
+        jLabel33.setText(" Linea Dist 1 en ARCOR");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel2.setText("... Más Información ...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,17 +280,24 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -180,13 +312,15 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo de la Etapa"));
@@ -299,7 +433,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -312,7 +446,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 93, Short.MAX_VALUE)
+            .addGap(0, 95, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -325,10 +459,23 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 93, Short.MAX_VALUE)
+            .addGap(0, 95, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Consumibles", jPanel6);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 545, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 95, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Lista de Tareas", jPanel7);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -341,7 +488,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PanelInfoLayout = new javax.swing.GroupLayout(PanelInfo);
@@ -362,7 +509,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoLayout.createSequentialGroup()
                 .addGroup(PanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -370,52 +517,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jSplitPane1.setRightComponent(PanelInfo);
 
         jPanel1.setBackground(new java.awt.Color(231, 231, 231));
-        jPanel1.setMinimumSize(new java.awt.Dimension(100, 55));
-        jPanel1.setPreferredSize(new java.awt.Dimension(676, 100));
-
-        jToolBar2.setBackground(new java.awt.Color(231, 231, 231));
-        jToolBar2.setFloatable(false);
-        jToolBar2.setRollover(true);
-        jToolBar2.setMinimumSize(new java.awt.Dimension(632, 25));
-
-        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/info.png"))); // NOI18N
-        jLabel32.setMaximumSize(new java.awt.Dimension(20, 16));
-        jLabel32.setPreferredSize(new java.awt.Dimension(16, 24));
-        jToolBar2.add(jLabel32);
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel26.setText("Cliente: ");
-        jToolBar2.add(jLabel26);
-
-        jLabel27.setText("ARCOR");
-        jToolBar2.add(jLabel27);
-        jToolBar2.add(jSeparator2);
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel24.setText("Obra:");
-        jToolBar2.add(jLabel24);
-
-        jLabel25.setText(" Linea Dist 1 en ARCOR");
-        jToolBar2.add(jLabel25);
-        jToolBar2.add(jSeparator3);
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel28.setText("Fecha de Inicio de la Obra:");
-        jToolBar2.add(jLabel28);
-
-        jLabel29.setText("11/06/2011");
-        jToolBar2.add(jLabel29);
-        jToolBar2.add(jSeparator4);
-
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel30.setText("Fecha de Fin de la Obra:");
-        jToolBar2.add(jLabel30);
-
-        jLabel31.setText("20/10/2011");
-        jToolBar2.add(jLabel31);
+        jPanel1.setMinimumSize(new java.awt.Dimension(100, 25));
+        jPanel1.setPreferredSize(new java.awt.Dimension(676, 24));
 
         jLabel1.setBackground(new java.awt.Color(231, 231, 231));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/24x24/money.png"))); // NOI18N
         jLabel1.setText("Costo Total: $5000");
@@ -470,7 +576,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/clock.png"))); // NOI18N
         jButton6.setText("Represupuestar");
         jButton6.setFocusable(false);
@@ -492,22 +598,14 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 916, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jLabel1, 0, 0, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -523,7 +621,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -559,6 +657,23 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     "Si");
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+        // MouseInfo mantiene los datos del mouse, es estática así
+        // que puede llamarse desde cualquier clase.
+        //        Point p = jPopupMenu1.getBounds().getLocation();
+        //        System.out.println("x: "+p.x+" | y: "+p.y);
+        //
+        //        Object o = _graph.findObjectOnPo(p.x, p.y);
+        //        LogUtil.addDebug("Object: "+o);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Herramientas;
@@ -570,7 +685,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -585,38 +699,32 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPanel panelGantt;
     // End of variables declaration//GEN-END:variables
 
