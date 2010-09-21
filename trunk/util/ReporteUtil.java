@@ -5,6 +5,9 @@
 
 package util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,12 +18,14 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.SimpleFileResolver;
 import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -64,6 +69,9 @@ public class ReporteUtil {
             parametros = new HashMap();
         }
 
+        InputStream logo = getClass().getResourceAsStream("/vista/reportes/logoMetar.png");
+        parametros.put("imagenLogo",logo);
+
         try
         {
            URL url = this.getClass().getResource(urlReporte);
@@ -74,6 +82,7 @@ public class ReporteUtil {
            JasperPrint jp = JasperFillManager.fillReport(jr,parametros,conn);
 
            JasperViewer jv = new JasperViewer(jp,false);
+           jv.setTitle("MetAr");
            jv.setVisible(true);
 
         }catch(Exception e){
