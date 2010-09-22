@@ -37,13 +37,18 @@ public class ColorLabel {
 		new ColorLabel("Yellow", new Color(255,255,100), 3),
 		new ColorLabel("Green", new Color(140,255,110), 4),
 		new ColorLabel("Gray", new Color(200,200,200), 5),
+                new ColorLabel("RojoPastel", new Color(255,120,100), 6),
+                new ColorLabel("AmarilloPastel", new Color(255,255,100), 7),
+                new ColorLabel("VerdePastel", new Color(140,255,110), 8),
 	};
 	
 	public Color _color;
 	public String _name;
 	public Icon  _icon;
 	public int _index;
-	public ColorLabel(String name, Color color, int index) {
+
+	public ColorLabel(String name, Color color, int index)
+        {
 		_name = name;
 		_color = color;
 		_index = index;
@@ -53,7 +58,9 @@ public class ColorLabel {
 		g2.fillRect(0,0,img.getWidth(), img.getHeight());
 		_icon = new ImageIcon(img);
 	}
-	public String toString() {
+
+	public String toString()
+        {
 		return _name;
 	}
 }

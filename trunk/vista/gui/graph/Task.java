@@ -26,7 +26,7 @@ import vista.gui.graphUtils.*;
 /**
  * Representation of task displayed in TaskGraphComponent. Used internally by TaskGraphComponent.
  */
-class Task extends GraphObject {
+public class Task extends GraphObject {
 	
 	/** User object (from the model) */
 	Object _userObject;
