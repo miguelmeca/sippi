@@ -1,14 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * pantallaRegistrarPresupuesto.java
- *
- * Created on 09-sep-2010, 16:28:04
- */
-
 package vista.planificacion;
 
 import java.awt.BorderLayout;
@@ -19,6 +8,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -31,12 +21,15 @@ import vista.gui.graphModel.ManImpl;
 import vista.gui.graphModel.TaskImpl;
 import vista.gui.graphModel.TaskModelImpl;
 import vista.gui.graphModel.TaskPainterImpl;
+import vista.gui.graphProxy.EtapaProxy;
+import vista.gui.graphProxy.ModelProxy;
+import vista.interfaces.IGraph;
 
 /**
  *
- * @author Administrador
+ * @author Iuga
  */
-public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
+public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame implements IGraph {
 
 
     /**
@@ -104,21 +97,18 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
    {
        _taskModel = TaskModelImpl.createEmptyModel();
 
-            // DAOTS DE PRUEBA ---------------------
-            ManImpl etapa = new ManImpl();
-            etapa.setName("Compra de Materiales");
-            _taskModel.addMan(etapa);
+       Date hoy = new Date();
+       Date hoy2 = new Date(hoy.getTime()+3);
+       Date tom = new Date(hoy.getTime()+5);
+       Date tom2 = new Date(hoy.getTime()+7);
 
-            TaskImpl task = new TaskImpl();
-            task.setMan(etapa);
-            task.setName("Compra de Materiales");
-            task.setDuration(5);
-            Date hoy = new Date();
-            task.setStartTime(hoy.getTime());
-            _taskModel.addTask(task);
-            // DAOTS DE PRUEBA ---------------------
+       this.addEtapa(1,"Compra de Materiales",hoy,hoy2);
+       this.addEtapa(2,"Armado de la Estructura",tom,tom2);
 
-       buildGraph(_taskModel);
+       this.setEtapaPredecesora(1,2);
+
+       refescarGrafico();
+
    }
 
    private void buildGraph(TaskModel model)
@@ -184,7 +174,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -235,11 +224,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         panelGantt.setLayout(panelGanttLayout);
         panelGanttLayout.setHorizontalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1082, Short.MAX_VALUE)
+            .addGap(0, 1090, Short.MAX_VALUE)
         );
         panelGanttLayout.setVerticalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
+            .addGap(0, 270, Short.MAX_VALUE)
         );
 
         jSplitPane1.setTopComponent(panelGantt);
@@ -296,7 +285,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -318,7 +307,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(jLabel33))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
@@ -363,7 +352,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -429,11 +418,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -442,11 +431,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         Herramientas.setLayout(HerramientasLayout);
         HerramientasLayout.setHorizontalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 558, Short.MAX_VALUE)
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
+            .addGap(0, 104, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -455,11 +444,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 558, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
+            .addGap(0, 104, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Consumibles", jPanel6);
@@ -468,11 +457,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 558, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
+            .addGap(0, 104, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -483,12 +472,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PanelInfoLayout = new javax.swing.GroupLayout(PanelInfo);
@@ -509,7 +498,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoLayout.createSequentialGroup()
                 .addGroup(PanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -542,18 +531,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             }
         });
         jToolBar1.add(jButton4);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
-        jButton1.setText("Nueva Tarea");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delivery.png"))); // NOI18N
         jButton3.setText("Nuevo Viaje / Transporte");
@@ -614,29 +591,21 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jSplitPane1)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-            pantallaRegistrarTarea pre = new pantallaRegistrarTarea();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
             pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa();
@@ -678,7 +647,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Herramientas;
     private javax.swing.JPanel PanelInfo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -727,5 +695,33 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel panelGantt;
     // End of variables declaration//GEN-END:variables
+
+    public void addEtapa(int id, String nombre, Date fechaInicio, Date FechaFin)
+    {
+
+            EtapaProxy ep = new EtapaProxy(nombre);
+            ep.setFechas(fechaInicio, FechaFin);
+            ep.setId(id);
+
+            ep.addToModel(_taskModel);
+
+    }
+
+    public void refescarGrafico()
+    {
+        buildGraph(_taskModel);
+    }
+
+    public void setEtapaPredecesora(int idEtapaAntes, int idEtapaDespues)
+    {
+        ModelProxy mp = new ModelProxy(_taskModel);
+
+        EtapaProxy eta = mp.getEtapa(idEtapaAntes);
+        EtapaProxy etd = mp.getEtapa(idEtapaDespues);
+
+        etd.addPredecesor(eta);
+
+    }
+
 
 }

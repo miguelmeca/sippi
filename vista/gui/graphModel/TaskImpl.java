@@ -28,7 +28,7 @@ public class TaskImpl {
 	private String _name;
 	private long _startTime;
 	private long _duration;
-    private long _actualDuration;
+        private long _actualDuration;
 	private TaskImpl[] _predecessors;
 	private ManImpl _man;
 	private String _comment;

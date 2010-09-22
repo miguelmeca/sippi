@@ -454,7 +454,7 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 				}
 			}
 
-                        System.out.println("BOUNDS x:"+t._bounds.x+" y:"+t._bounds.y+" h:"+t._bounds.height+" w:"+t._bounds.width);
+                        //System.out.println("BOUNDS x:"+t._bounds.x+" y:"+t._bounds.y+" h:"+t._bounds.height+" w:"+t._bounds.width);
 
 			if(t._bounds.contains(x, y)) {
 				return t;
