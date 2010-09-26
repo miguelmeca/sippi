@@ -124,7 +124,11 @@ public class EtapaProxy
         }
 
         tarea.setPredecessors(listado);
+    }
 
+    public TaskImpl getTask()
+    {
+        return tarea;
     }
 
 

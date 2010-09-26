@@ -17,6 +17,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class IconCellRenderer extends DefaultTableCellRenderer {
 
+    /**
+     * Acá redefinimos como se muestra, vemos q ahora lo forzamos a
+     * trabajar con JLabel, pero si no lo es, por ejemplo un String
+     * igual lo muestro llamando a Super
+     */
     public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column)
     {
         if(value instanceof JLabel)
@@ -32,7 +37,11 @@ public class IconCellRenderer extends DefaultTableCellRenderer {
         }
      }
 
-
+    /**
+     * Este método es para que pinte el fondo del JLabel cuando
+     * lo seleccionamos para que no quede en blanco, desentonando
+     * con el resto de las celdas que no son JLabel
+     */
     public void fillColor(JTable t,JLabel l,boolean isSelected ){
         //setting the background and foreground when JLabel is selected
         if(isSelected){
@@ -44,6 +53,5 @@ public class IconCellRenderer extends DefaultTableCellRenderer {
             l.setForeground(t.getForeground());
         }
     }
-
 
 }

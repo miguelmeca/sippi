@@ -188,23 +188,30 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 		_dragX = p.x;
 		_dragY = p.y;
 		switch(_dragMode) {
-			case DM_WHOLE_TASK: // dragging whole pressed task
-				if(_pressedTask != null) {
-					
+
+                       // IUGA: Muevo toda la tarea
+			case DM_WHOLE_TASK:
+				if(_pressedTask != null)
+                                {
 					// find the destination position.
 					// 1. find row
 					TaskRow myRow = _graph.findNearestRow(p.y);
-					if(myRow != null) {
+                                        // SI no es la misma fila, no puedo moverla
+					if(myRow != null && myRow._index == this._pressedTask._row._index)
+                                        {
 						// 2. find time
 						int x = p.x - (_pressX - _pressedTask._bounds.x);
 						_cursorTime = _graph.xToTime(x);
 						_cursorTaskRow = myRow;
 						_graph.repaint();
-					} else {
+					} 
+                                        else
+                                        {
 						// nothing found, let the cursor be the last one.
 					}
 				}
 				break;
+                        // IUGA: Amplio la tarea a la derecha
 			case DM_TASK_LEFT_BOUNDARY: // dragging left task boundary
 				if(_pressedTask != null) {
 					long wantedTaskStart = _graph.xToTime(p.x);
@@ -250,6 +257,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					}
 				}
 				break;
+                        // IUGA: Amplio la tarea a la izquierda
 			case DM_TASK_RIGHT_BOUNDARY: // dragging right task boundary
 				if(_pressedTask != null) {
 					long wantedTaskFinish = _graph.xToTime(p.x);
@@ -275,6 +283,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					}
 				}
 				break;
+                        //IUGA: VINCULO DOS TAREAS CON PREDECESION
 			case DM_NEW_CONNECTION: // new connection
 				if(_pressedTask != null) {
 					Object o = _graph.findObjectOnPo(p.x, p.y);
@@ -327,17 +336,15 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 				t = ((Pair<Task, Integer>)o).fst;
 			}
 			String taskName = _graph._model.getTaskName(t._userObject);
-			DateFormat df = new SimpleDateFormat("d.M.");
+			DateFormat df = new SimpleDateFormat("d/MM/y");
 			String start = df.format(new Date(t.getStartTime() * Utils.MILLISECONDS_PER_DAY));
 			String end = df.format(new Date(t.getFinishTimeForTooltip() * Utils.MILLISECONDS_PER_DAY));
 			String effort = String.valueOf(t.getEffort());
 			String duration = String.valueOf((long)((double)t.getEffort() / t.getWorkload()));
 			String comment = t.getComment();
 			_graph.setToolTipText("<html><p style=\"padding:2 5 2 5;\"><b>" + taskName + "</b>"
-					+ "<br>Start: " + start + "&nbsp;&nbsp;&nbsp;End: " + end
-					+ "<br>Effort: " + effort + " days"
-					+ "<br>Duration: " + duration + " days"
-					+ "<br>Comment: "+comment);
+					+ "<br>Fecha Inicio: " + start + "&nbsp;&nbsp;&nbsp;Fecha de Fin: " + end
+					+ "<br>Comentarios: "+comment);
 		} else {
 			_graph.setToolTipText(null);
 		}
