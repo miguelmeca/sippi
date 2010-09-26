@@ -377,7 +377,7 @@ public class TaskGraphRepresentation {
 	 * 
 	 * @throws Exception if connection cannot be created because of cycle.
 	 */
-	void createConnection(Task t1, Task t2) throws Exception {
+	public void createConnection(Task t1, Task t2) throws Exception {
 		if(t1 == t2 || t1 == null || t2 == null) {
 			throw new IllegalArgumentException("Wrong connection");
 		}

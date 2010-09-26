@@ -681,4 +681,10 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		_mouseHandler.deleteSelection();
 	}
 
+    public TaskGraphRepresentation getBuilder() {
+        return _builder;
+    }
+
+        
+
 }

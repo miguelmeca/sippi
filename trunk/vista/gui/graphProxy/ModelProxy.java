@@ -60,6 +60,9 @@ public class ModelProxy {
         return null;
     }
 
-
+    public void addPredecesor(EtapaProxy etapaInicio, EtapaProxy etapaFin)
+    {
+       etapaFin.addPredecesor(etapaInicio);
+    }
 
 }
