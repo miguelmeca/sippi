@@ -685,6 +685,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
         pantallaSeleccionarProveedorPresupuesto psp = new pantallaSeleccionarProveedorPresupuesto();
         SwingPanel.getInstance().addWindow(psp);
         psp.setVisible(true);
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
