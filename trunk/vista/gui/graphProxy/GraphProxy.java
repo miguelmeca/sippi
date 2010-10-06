@@ -1,6 +1,7 @@
 package vista.gui.graphProxy;
 
 import java.util.Date;
+import javax.swing.JPopupMenu;
 import vista.gui.graph.TaskGraphComponent;
 import vista.gui.graphModel.TaskModelImpl;
 import vista.gui.graphModel.TaskPainterImpl;
@@ -52,5 +53,52 @@ public class GraphProxy {
 
         mp.addPredecesor(eta, etd);
     }
+
+    public void setComponentPopupMenu(JPopupMenu jpm)
+    {
+        _graph.setComponentPopupMenu(jpm);
+    }
+
+    public void setFocoFechaActual()
+    {
+        _graph.focusOnToday();
+    }
+
+    public void setZoomIn()
+    {
+        _graph.scaleUp();
+    }
+
+    public void setZoomOut()
+    {
+        _graph.scaleDown();
+    }
+
+    public void moverDerecha()
+    {
+        _graph.moveRight();
+    }
+
+    public void moverIzquierda()
+    {
+        _graph.moveLeft();
+    }
+
+    public void setVistaAnual()
+    {
+        for (int i = 0; i < 60; i++)
+        {
+            _graph.scaleDown();
+        }
+    }
+
+    public void setVistaSemanal()
+    {
+         for (int i = 0; i < 60; i++)
+        {
+            _graph.scaleUp();
+        }
+    }
+
 
 }
