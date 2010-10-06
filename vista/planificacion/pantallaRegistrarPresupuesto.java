@@ -2,6 +2,7 @@ package vista.planificacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.InputEvent;
@@ -61,9 +62,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
    private void paintGraph()
    {
-        panelGantt.add(_gantt.buildGraph(),BorderLayout.CENTER);
+        Component grafico = _gantt.buildGraph();
+        panelGantt.add(grafico,BorderLayout.CENTER);
         pack();
         setVisible(true);
+        _gantt.setComponentPopupMenu(jpm);
+        
    }
 
 
@@ -77,11 +81,15 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jpm = new javax.swing.JPopupMenu();
+        menuNuevaEtapa = new javax.swing.JMenuItem();
+        menuZoomMas = new javax.swing.JMenuItem();
+        menuZoomMenos = new javax.swing.JMenuItem();
+        menuDerecha = new javax.swing.JMenuItem();
+        menuIzquierda = new javax.swing.JMenuItem();
+        menuFechaActual = new javax.swing.JMenuItem();
+        menuVistaAnual = new javax.swing.JMenuItem();
+        menuVistaSemanal = new javax.swing.JMenuItem();
         jSplitPane1 = new javax.swing.JSplitPane();
         panelGantt = new javax.swing.JPanel();
         PanelInfo = new javax.swing.JPanel();
@@ -132,31 +140,72 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/process.png"))); // NOI18N
-        jMenuItem4.setText("IugaTest");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuNuevaEtapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        menuNuevaEtapa.setText("Nueva Etapa");
+        jpm.add(menuNuevaEtapa);
+
+        menuZoomMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        menuZoomMas.setText("Zoom +");
+        menuZoomMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuZoomMasActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem4);
+        jpm.add(menuZoomMas);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/page_process.png"))); // NOI18N
-        jMenuItem1.setText("Editar Etapa");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuZoomMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        menuZoomMenos.setText("Zoom -");
+        menuZoomMenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuZoomMenosActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem1);
+        jpm.add(menuZoomMenos);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jMenuItem2.setText("Nueva Etapa");
-        jPopupMenu1.add(jMenuItem2);
+        menuDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
+        menuDerecha.setText("Mover a la Derecha");
+        menuDerecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDerechaActionPerformed(evt);
+            }
+        });
+        jpm.add(menuDerecha);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jMenuItem3.setText("Eliminar Etapa");
-        jPopupMenu1.add(jMenuItem3);
+        menuIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
+        menuIzquierda.setText("Mover a la Izquierda");
+        menuIzquierda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuIzquierdaActionPerformed(evt);
+            }
+        });
+        jpm.add(menuIzquierda);
+
+        menuFechaActual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuFechaActual.setText("Ir a Fecha Actual");
+        menuFechaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFechaActualActionPerformed(evt);
+            }
+        });
+        jpm.add(menuFechaActual);
+
+        menuVistaAnual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuVistaAnual.setText("Vista Anual");
+        menuVistaAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVistaAnualActionPerformed(evt);
+            }
+        });
+        jpm.add(menuVistaAnual);
+
+        menuVistaSemanal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuVistaSemanal.setText("Vista Semanal");
+        menuVistaSemanal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVistaSemanalActionPerformed(evt);
+            }
+        });
+        jpm.add(menuVistaSemanal);
 
         setClosable(true);
         setIconifiable(true);
@@ -172,7 +221,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         panelGantt.setBorder(javax.swing.BorderFactory.createTitledBorder("Control de la Obra"));
         panelGantt.setAlignmentX(0.0F);
         panelGantt.setAlignmentY(0.0F);
-        panelGantt.setComponentPopupMenu(jPopupMenu1);
+        panelGantt.setComponentPopupMenu(jpm);
 
         javax.swing.GroupLayout panelGanttLayout = new javax.swing.GroupLayout(panelGantt);
         panelGantt.setLayout(panelGanttLayout);
@@ -182,7 +231,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         panelGanttLayout.setVerticalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 248, Short.MAX_VALUE)
         );
 
         jSplitPane1.setTopComponent(panelGantt);
@@ -275,7 +324,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(jLabel33))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
@@ -389,7 +438,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -402,7 +451,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -415,7 +464,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -431,7 +480,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Consumibles"));
@@ -470,7 +519,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jLabel1)
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Ganancia por la Obra"));
@@ -516,7 +565,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoLayout.createSequentialGroup()
                 .addGroup(PanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInfoLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -618,7 +667,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -631,15 +680,13 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             pre.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuZoomMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMenosActionPerformed
+        _gantt.setZoomOut();
+    }//GEN-LAST:event_menuZoomMenosActionPerformed
 
-
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    private void menuZoomMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMasActionPerformed
+        _gantt.setZoomIn();
+    }//GEN-LAST:event_menuZoomMasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -668,6 +715,26 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
        this.refescarGrafico();
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void menuDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDerechaActionPerformed
+        _gantt.moverDerecha();
+    }//GEN-LAST:event_menuDerechaActionPerformed
+
+    private void menuIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuIzquierdaActionPerformed
+        _gantt.moverIzquierda();
+    }//GEN-LAST:event_menuIzquierdaActionPerformed
+
+    private void menuFechaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFechaActualActionPerformed
+        _gantt.setFocoFechaActual();
+    }//GEN-LAST:event_menuFechaActualActionPerformed
+
+    private void menuVistaAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVistaAnualActionPerformed
+        _gantt.setVistaAnual();
+    }//GEN-LAST:event_menuVistaAnualActionPerformed
+
+    private void menuVistaSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVistaSemanalActionPerformed
+        _gantt.setVistaSemanal();
+    }//GEN-LAST:event_menuVistaSemanalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -704,10 +771,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -717,13 +780,21 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JPopupMenu jpm;
+    private javax.swing.JMenuItem menuDerecha;
+    private javax.swing.JMenuItem menuFechaActual;
+    private javax.swing.JMenuItem menuIzquierda;
+    private javax.swing.JMenuItem menuNuevaEtapa;
+    private javax.swing.JMenuItem menuVistaAnual;
+    private javax.swing.JMenuItem menuVistaSemanal;
+    private javax.swing.JMenuItem menuZoomMas;
+    private javax.swing.JMenuItem menuZoomMenos;
     private javax.swing.JPanel panelGantt;
     // End of variables declaration//GEN-END:variables
 
