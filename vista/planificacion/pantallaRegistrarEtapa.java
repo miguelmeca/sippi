@@ -482,9 +482,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                             .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPaises1, 0, 180, Short.MAX_VALUE)
-                            .addComponent(cmbProvincias1, 0, 180, Short.MAX_VALUE)
-                            .addComponent(cmbLocalidades1, 0, 180, Short.MAX_VALUE))
+                            .addComponent(cmbPaises1, 0, 179, Short.MAX_VALUE)
+                            .addComponent(cmbProvincias1, 0, 179, Short.MAX_VALUE)
+                            .addComponent(cmbLocalidades1, 0, 179, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton8, 0, 0, Short.MAX_VALUE)
@@ -589,9 +589,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                             .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPaises2, 0, 214, Short.MAX_VALUE)
-                            .addComponent(cmbProvincias2, 0, 214, Short.MAX_VALUE)
-                            .addComponent(cmbLocalidades2, 0, 214, Short.MAX_VALUE))
+                            .addComponent(cmbPaises2, 0, 279, Short.MAX_VALUE)
+                            .addComponent(cmbProvincias2, 0, 279, Short.MAX_VALUE)
+                            .addComponent(cmbLocalidades2, 0, 279, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton10, 0, 0, Short.MAX_VALUE)
@@ -832,15 +832,13 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton12, 0, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbProvincias4)
-                        .addComponent(jLabel47)))
+                    .addComponent(cmbProvincias4)
+                    .addComponent(jLabel47))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton13, 0, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel48)
-                        .addComponent(cmbLocalidades4)))
+                    .addComponent(cmbLocalidades4)
+                    .addComponent(jLabel48))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1064,15 +1062,13 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton15, 0, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbProvincias5)
-                        .addComponent(jLabel59)))
+                    .addComponent(cmbProvincias5)
+                    .addComponent(jLabel59))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton16, 0, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel60)
-                        .addComponent(cmbLocalidades5)))
+                    .addComponent(cmbLocalidades5)
+                    .addComponent(jLabel60))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1178,10 +1174,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(jList2);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("Disponibles:");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("A transportar:");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1230,14 +1226,14 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jTextArea2.setRows(5);
         jScrollPane6.setViewportView(jTextArea2);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("Materiales:");
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane7.setViewportView(jTextArea3);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel26.setText("Observaciones:");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -1323,7 +1319,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1396,72 +1392,11 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbLocalidades5ActionPerformed
 
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
-        if(validarDatos()) {
 
-            DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
-            Object[] det = new Object[6];
-
-            double canti=Double.parseDouble(txtCantidad.getText());
-
-            NTupla ntCant=new NTupla();
-            //nt.setId(1);
-            ntCant.setNombre(canti+" "+lblUnidadMedida.getText());
-            ntCant.setData(canti);
-            det[0]=ntCant;
-            Tupla tRE=new Tupla();
-            //tRE=((Tupla)cmbRecursosEspecificos.getSelectedItem());
-            tRE.setId(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getId());
-            tRE.setNombre(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getNombre());
-            //ntRE.setId(cmbRecursosEspecificos.getSelectedItem());
-            String nomR=((Tupla)cmbRecursos.getSelectedItem()).getNombre();
-            tRE.setNombre(nomR+" "+tRE.getNombre());
-            //ntRE.setData(canti);
-            det[1]=tRE;
-            det[2]=txtDescripcion.getText();
-            Tupla tProv=(Tupla)tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0);
-            det[3]=tProv;
-            //double canti=Double.parseDouble(ftxtCantidad.getText());
-
-            double[] precios =gestor.precioParcial(canti);
-            det[4]=precios[0];
-            det[5]=precios[1];
-            boolean repetido=false;
-            for (int i= 0; i < tablaDetallesOC.getRowCount(); i++) {
-                if( (((Tupla)modelo.getValueAt(i, 1)).getId()==tRE.getId()) &&   (((Tupla)modelo.getValueAt(i, 3)).getId()==tProv.getId())  &&  (((String)modelo.getValueAt(i, 2)).equalsIgnoreCase((String)det[2]))  ) {
-                    double d1=(Double)((NTupla)modelo.getValueAt(i, 0)).getData();
-                    double d2=(Double)(((NTupla)det[0]).getData());
-                    double can=d1+d2;
-                    //can=can+(Double)(((NTupla)det[0]).getData());
-                    //ntCant.setData(can);
-
-                    ((NTupla)modelo.getValueAt(i, 0)).setData(can);
-                    ((NTupla)modelo.getValueAt(i, 0)).setNombre(can+" "+lblUnidadMedida.getText());
-                    det[0]=(NTupla)modelo.getValueAt(i, 0);
-                    precios =gestor.precioParcial(can);
-                    det[4]=precios[0];
-                    det[5]=precios[1];
-                    repetido=true;
-                    modelo.removeRow(i);
-                    modelo.insertRow(i, det);
-
-
-                }
-            }
-            if(!repetido) {
-                modelo.addRow(det);}
-
-
-        }
 }//GEN-LAST:event_btnAgregarDetalleActionPerformed
 
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
-        if((tablaDetallesOC.getSelectedRowCount())==1) {
-            DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
-            //Tupla tipo=(Tupla)modelo.getValueAt(tablaDetallesOC.getSelectedRow(), 0) ;
-            //((DefaultComboBoxModel)lstTiposEspecialidad.getModel()).addElement(tipo);
 
-            modelo.removeRow(tablaDetallesOC.getSelectedRow());
-        }
 }//GEN-LAST:event_btnQuitarDetalleActionPerformed
 
 

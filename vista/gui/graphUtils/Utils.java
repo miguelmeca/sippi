@@ -45,7 +45,7 @@ public class Utils {
 	 * @return
 	 */
 	public static long countFinishTime(long startTime, long effort, double workload) {
-		
+
 		long duration = (long)((double)effort / workload);
 		
 		long startDayInWeek = getDayInWeek(startTime);
@@ -56,13 +56,14 @@ public class Utils {
 		long daysAdd = durationWeeks*2; // every week of work means 2 days of weekend
 		
 		if(startDayInWeek + durationRest > 5) {
-			daysAdd += 2;
+			// daysAdd += 2; // IUGA MOD
 		}
 		
 		if(duration > 0 && startDayInWeek == 0 && duration % 5 == 0) {
-			daysAdd-=2;
+			// daysAdd-=2; // IUGA MOD
 		}
-		return startTime + duration + daysAdd;
+		// return startTime + duration + daysAdd;
+                return startTime + duration;
 	}
 	
 	/** Returns day in week for given time. Time is the count of days, not milliseconds
@@ -80,12 +81,13 @@ public class Utils {
 	 * @return
 	 */
 	public static long repairStartTime(long startTime) {
-		long startDayInWeek = Utils.getDayInWeek(startTime);
-		if(startDayInWeek == 5) {
-			return startTime+2;
-		} else if(startDayInWeek == 6) {
-			return startTime+1;
-		}
+//      TRABAJO SABADOS Y DOMINGOS, METODO INUTIL
+//		long startDayInWeek = Utils.getDayInWeek(startTime);
+//		if(startDayInWeek == 5) {
+//			return startTime+2;
+//		} else if(startDayInWeek == 6) {
+//			return startTime+1;
+//		}
 		return startTime;
 	}
 	
@@ -98,9 +100,13 @@ public class Utils {
 		int startInWeek = getDayInWeek(start);
 		for(int i = 1; i <= rest; i++) {
 			long stepInWeek = (startInWeek + i) % 7;
-			if(stepInWeek != 0 && stepInWeek != 6) {
-				result ++;
-			}
+
+                        result ++;
+//                      DESCOMENTAR SI NO SE TRABAJA SABADOS Y DOMINGOS
+//			if(stepInWeek != 0 && stepInWeek != 6) {
+//				result ++;
+//			}
+
 		}
 		return result;
 	}
