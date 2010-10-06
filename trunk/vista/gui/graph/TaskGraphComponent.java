@@ -154,12 +154,14 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		Insets insets = getInsets();
 		_graphTop = HEADER_HEIGHT;
 		_graphTop += insets.top;
+                //_graphHeight = getHeight();
 		_graphHeight = getHeight() - HEADER_HEIGHT;
 		_graphLeft = _headerWidth;
 		_graphWidth = getWidth() - _headerWidth;
 	
 		_graphLeft += insets.left;
-		_graphHeight -= insets.top + insets.bottom;
+		//_graphHeight -= insets.top + insets.bottom;
+                _graphHeight -= insets.top + insets.bottom;
 		_graphWidth -= insets.left + insets.right;
 
 	}
@@ -174,7 +176,7 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		
 		//_headerWidth = 100;
 		g2.setColor(Color.white);
-		g2.fillRect(0,0,getWidth(), getHeight());
+		g2.fillRect(0,0,getWidth()+20, getHeight());
 		
 		synchronized(_builder) {
 			Insets insets = getInsets();
@@ -558,8 +560,10 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 
 			// draw the date string
 			if((time/7) % skip == 0) {
-				DateFormat df = new SimpleDateFormat("dd/MM/y");
-				String timeFormatted = df.format(new Date(time*Utils.MILLISECONDS_PER_DAY));
+				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                                Date fecha = new Date(time*Utils.MILLISECONDS_PER_DAY);
+				String timeFormatted = df.format(fecha.getTime());
+                                    //System.out.println("CHART DATE: "+fecha.getTime()+" | "+timeFormatted);
 				g2.setColor(Colors.TEXTO_COLOR);
 				g2.drawString(timeFormatted, x+4, _graphTop-HEADER_HEIGHT + (fm.getHeight() + HEADER_HEIGHT)/2 - fm.getDescent() -1 );
 				g2.setColor(darkHeaderCol);

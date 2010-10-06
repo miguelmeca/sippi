@@ -22,6 +22,7 @@ import vista.gui.graphModel.TaskImpl;
 import vista.gui.graphModel.TaskModelImpl;
 import vista.gui.graphModel.TaskPainterImpl;
 import vista.gui.graphProxy.EtapaProxy;
+import vista.gui.graphProxy.GraphProxy;
 import vista.gui.graphProxy.ModelProxy;
 import vista.interfaces.IGraph;
 
@@ -35,8 +36,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     /**
      * GRAFICO !!!
      */
-    	private TaskModelImpl _taskModel;
-	private TaskGraphComponent _graph;
+    private GraphProxy _gantt;
 
     /** Creates new form pantallaRegistrarPresupuesto */
     public pantallaRegistrarPresupuesto() {
@@ -50,76 +50,23 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     {
         panelGantt.setLayout(new BorderLayout());
         initGraph();
-        initGraphAction();
-    }
-
-    private void initGraphAction()
-    {
-//            MouseListener ml = new MouseListener() {
-//
-//            public void mouseClicked(MouseEvent e) {
-//
-//                if(e.getButton()==InputEvent.BUTTON3_MASK)
-//                {
-//                    jPopupMenu1.setVisible(true);
-//
-//                    Point p = e.getPoint();
-//                    System.out.println("CLICK EN EL GRAFICO PANTALLA: x: "+p.x+" | y: "+p.y);
-//
-//                    Object o = _graph.findObjectOnPo(p.x, p.y);
-//                    LogUtil.addDebug("Object TASK: "+o);
-//
-//                    jPopupMenu1.getAlignmentX();
-//                }
-//            }
-//
-//            public void mousePressed(MouseEvent e) {
-//                //throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            public void mouseReleased(MouseEvent e) {
-//                //throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            public void mouseEntered(MouseEvent e) {
-//                //throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            public void mouseExited(MouseEvent e) {
-//                //throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//        };
-//
-//        _graph.addMouseListener(ml);
+        paintGraph();
     }
 
    private void initGraph()
    {
-       _taskModel = TaskModelImpl.createEmptyModel();
-
-       Date hoy = new Date();
-       Date hoy2 = new Date(hoy.getTime()+3);
-       Date tom = new Date(hoy.getTime()+5);
-       Date tom2 = new Date(hoy.getTime()+7);
-
-       this.addEtapa(1,"Compra de Materiales",hoy,hoy2);
-       this.addEtapa(2,"Armado de la Estructura",tom,tom2);
-
-       this.setEtapaPredecesora(1,2);
-
-       refescarGrafico();
+       _gantt = new GraphProxy();
 
    }
 
-   private void buildGraph(TaskModel model)
+   private void paintGraph()
    {
-       _graph = new TaskGraphComponent(model, new TaskPainterImpl());
-       _graph.setComponentPopupMenu(jPopupMenu1);
-       panelGantt.add(_graph,BorderLayout.CENTER);
-       pack();
-       _graph.setVisible(true);
-       setVisible(true);
+        panelGantt.add(_gantt.buildGraph(),BorderLayout.CENTER);
+        pack();
+        setVisible(true);
    }
+
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -183,6 +130,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/process.png"))); // NOI18N
         jMenuItem4.setText("IugaTest");
@@ -221,7 +169,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOneTouchExpandable(true);
 
-        panelGantt.setBorder(javax.swing.BorderFactory.createTitledBorder("Control del Presupuesto"));
+        panelGantt.setBorder(javax.swing.BorderFactory.createTitledBorder("Control de la Obra"));
+        panelGantt.setAlignmentX(0.0F);
+        panelGantt.setAlignmentY(0.0F);
         panelGantt.setComponentPopupMenu(jPopupMenu1);
 
         javax.swing.GroupLayout panelGanttLayout = new javax.swing.GroupLayout(panelGantt);
@@ -325,7 +275,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(jLabel33))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
@@ -439,7 +389,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -452,7 +402,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -465,7 +415,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -481,7 +431,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Consumibles"));
@@ -520,7 +470,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Ganancia por la Obra"));
@@ -566,7 +516,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoLayout.createSequentialGroup()
                 .addGroup(PanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelInfoLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -629,6 +579,17 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton3);
 
+        jButton5.setText("Prueba");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton5);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -657,7 +618,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -690,6 +651,24 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         prv.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       Date hoy = new Date();
+
+       System.out.println("FECHA HOY:"+hoy.getTime());
+
+       Date prueba = new Date();
+
+       Date hoy2 = new Date(hoy.getTime()+3);
+       Date tom = new Date(hoy.getTime()+5);
+       Date tom2 = new Date(hoy.getTime()+7);
+
+       this.addEtapa(1,"Compra de Materiales",hoy,hoy2);
+       this.addEtapa(2,"Armado de la Estructura",tom,tom2);
+
+       this.refescarGrafico();
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Herramientas;
@@ -698,6 +677,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
@@ -749,31 +729,19 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     public void addEtapa(int id, String nombre, Date fechaInicio, Date FechaFin)
     {
-
-            EtapaProxy ep = new EtapaProxy(nombre);
-            ep.setFechas(fechaInicio, FechaFin);
-            ep.setId(id);
-
-            ep.addToModel(_taskModel);
-
+        _gantt.addEtapa(id, nombre, fechaInicio, FechaFin);
     }
 
     public void refescarGrafico()
     {
-        buildGraph(_taskModel);
+        panelGantt.removeAll();
+        this.paintGraph();
+        panelGantt.repaint();
     }
 
     public void setEtapaPredecesora(int idEtapaAntes, int idEtapaDespues)
     {
-        ModelProxy mp = new ModelProxy(_taskModel);
-
-        EtapaProxy eta = mp.getEtapa(idEtapaAntes);
-        EtapaProxy etd = mp.getEtapa(idEtapaDespues);
-
-        mp.addPredecesor(eta, etd);
-        //_graph.getBuilder().createConnection(eta.getTask(),etd.getTask());
-
-
+        _gantt.setEtapaPredecesora(idEtapaAntes, idEtapaDespues);
     }
 
 

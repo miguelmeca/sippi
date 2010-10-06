@@ -211,7 +211,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					}
 				}
 				break;
-                        // IUGA: Amplio la tarea a la derecha
+                        // IUGA: Amplio la tarea a la izquierda
 			case DM_TASK_LEFT_BOUNDARY: // dragging left task boundary
 				if(_pressedTask != null) {
 					long wantedTaskStart = _graph.xToTime(p.x);
@@ -244,7 +244,11 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 							
 							// start with wanted start time. increase it until the finish is over old finish.
 							for(long newStart = wantedTaskStart+1; true; newStart++) {
-								_pressedTask.setStartTime(newStart);
+
+                                                            Date aux = new Date(newStart);
+                                                            Date aux2 = new Date(wantedTaskStart);
+
+                                                            _pressedTask.setStartTime(newStart);
 								if(_pressedTask.getFinishTime() > oldTaskFinish) {
 									// we are over, step back
 									_pressedTask.setStartTime(newStart-1);
@@ -257,7 +261,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					}
 				}
 				break;
-                        // IUGA: Amplio la tarea a la izquierda
+                        // IUGA: Amplio la tarea a la derecha
 			case DM_TASK_RIGHT_BOUNDARY: // dragging right task boundary
 				if(_pressedTask != null) {
 					long wantedTaskFinish = _graph.xToTime(p.x);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
@@ -52,7 +52,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="451" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -592,9 +592,9 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cmbPaises1" alignment="0" pref="180" max="32767" attributes="1"/>
-                                      <Component id="cmbProvincias1" alignment="0" pref="180" max="32767" attributes="1"/>
-                                      <Component id="cmbLocalidades1" alignment="0" pref="180" max="32767" attributes="1"/>
+                                      <Component id="cmbPaises1" alignment="0" pref="179" max="32767" attributes="1"/>
+                                      <Component id="cmbProvincias1" alignment="0" pref="179" max="32767" attributes="1"/>
+                                      <Component id="cmbLocalidades1" alignment="0" pref="179" max="32767" attributes="1"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -780,9 +780,9 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cmbPaises2" alignment="0" pref="214" max="32767" attributes="1"/>
-                                      <Component id="cmbProvincias2" alignment="0" pref="214" max="32767" attributes="1"/>
-                                      <Component id="cmbLocalidades2" alignment="0" pref="214" max="32767" attributes="1"/>
+                                      <Component id="cmbPaises2" alignment="0" pref="279" max="32767" attributes="1"/>
+                                      <Component id="cmbProvincias2" alignment="0" pref="279" max="32767" attributes="1"/>
+                                      <Component id="cmbLocalidades2" alignment="0" pref="279" max="32767" attributes="1"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1166,18 +1166,14 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton12" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="cmbProvincias4" alignment="1" max="32767" attributes="1"/>
-                                          <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="cmbProvincias4" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton13" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cmbLocalidades4" alignment="1" max="32767" attributes="1"/>
-                                      </Group>
+                                      <Component id="cmbLocalidades4" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -1569,18 +1565,14 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton15" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="cmbProvincias5" alignment="1" max="32767" attributes="1"/>
-                                          <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="cmbProvincias5" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton16" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel60" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cmbLocalidades5" alignment="1" max="32767" attributes="1"/>
-                                      </Group>
+                                      <Component id="cmbLocalidades5" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="jLabel60" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">

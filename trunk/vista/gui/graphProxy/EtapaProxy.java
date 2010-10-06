@@ -10,6 +10,7 @@ import vista.gui.graphModel.ColorLabel;
 import vista.gui.graphModel.ManImpl;
 import vista.gui.graphModel.TaskImpl;
 import vista.gui.graphModel.TaskModelImpl;
+import vista.gui.graphUtils.Utils;
 
 /**
  * Hago un proxy para que sirva de Gantt
@@ -43,7 +44,7 @@ public class EtapaProxy
 
     public void setFechas(Date fechaInicio, Date fechaFin)
     {
-        tarea.setStartTime(fechaInicio.getTime());
+        tarea.setStartTime(fechaInicio.getTime()/Utils.MILLISECONDS_PER_DAY);
         tarea.setDuration(fechaFin.getTime()-fechaInicio.getTime());
     }
    
