@@ -1,0 +1,18 @@
+********************************************************************************
+*                                                                              *
+*                          TODO - LISTA DE TAREAS                              *
+*                                                                              *
+********************************************************************************
+
+CIRCUITO DE PRESUPUESTACION
+---------------------------
+- Nuevo Pedido
+- Crear Presupuesto
+    - Armar Presupuesto
+- Nueva Etapa
+    - Etapa Varios
+- Nueva Tarea
+    - Tarea Varios
+
+- XML de MODP
+- SConfig
