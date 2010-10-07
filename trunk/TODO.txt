@@ -6,13 +6,26 @@
 
 CIRCUITO DE PRESUPUESTACION
 ---------------------------
-- Nuevo Pedido
-- Crear Presupuesto
-    - Armar Presupuesto
-- Nueva Etapa
-    - Etapa Varios
-- Nueva Tarea
-    - Tarea Varios
+- XML de MODP (E)
+- Hacer los UC (IFE)
+- SConfig (I)
+- Pantalla para elegir los presupuestos y abrirlos (I)
 
-- XML de MODP
-- SConfig
+
+LISTADO DE UC PARA ESTA ITERACION
+---------------------------------
+5. Registrar Presupuesto (I)
+7. Registrar Nueva Etapa (I)
+X. Registrar Asignación de Alojamiento
+X. Registrar Asignacion de Transporte de Materiales y Herramientas
+X. Registrar Asignacion de Transporte de Personas
+X. Registrar Nueva Tarea
+X. Registrar Asignación de Grupos de Trabajo
+X. Registrar Asignación de Materiales
+X. Registrar Asignación de Herramientas
+17. Emitir Resumen del Presupuesto
+10. Emitir Presupuesto para el Cliente
+XX. Registrar orden de compra
+
+
+
