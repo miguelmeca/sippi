@@ -1,4 +1,4 @@
-********************************************************************************
+﻿********************************************************************************
 *                                                                              *
 *                          TODO - LISTA DE TAREAS                              *
 *                                                                              *
@@ -16,16 +16,16 @@ LISTADO DE UC PARA ESTA ITERACION
 ---------------------------------
 5. Registrar Presupuesto (I)
 7. Registrar Nueva Etapa (I)
-X. Registrar Asignación de Alojamiento
-X. Registrar Asignacion de Transporte de Materiales y Herramientas
-X. Registrar Asignacion de Transporte de Personas
-X. Registrar Nueva Tarea
-X. Registrar Asignación de Grupos de Trabajo
-X. Registrar Asignación de Materiales
-X. Registrar Asignación de Herramientas
-17. Emitir Resumen del Presupuesto
-10. Emitir Presupuesto para el Cliente
-XX. Registrar orden de compra
+X. Registrar Asignación de Alojamiento (F)
+X. Registrar Asignacion de Transporte de Materiales y Herramientas (F)
+X. Registrar Asignacion de Transporte de Personas (F)
+X. Registrar Nueva Tarea (F)
+X. Registrar Asignación de Grupos de Trabajo (F)
+X. Registrar Asignación de Materiales (E)
+X. Registrar Asignación de Herramientas (E)
+17. Emitir Resumen del Presupuesto (E)
+10. Emitir Presupuesto para el Cliente (E)
+XX. Registrar orden de compra (!!!!!!!!!!!!! Imposible d hacer... depende de planificacion)
 
 
 
