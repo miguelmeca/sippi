@@ -100,6 +100,9 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 	/** Handler of mouse events */
 	GraphMouseHandler _mouseHandler;
 	JScrollBar _verticalScroll;
+
+        /** FACTOR DE AJUSTE - WORKARROUND IUGA PARA EL ALTO DEL GRAFICO */
+        int wa_iuga_adjuste_y = 15;
 	
 	/**
 	 * Contains the bounds of the whole content displayed in the component.
@@ -161,7 +164,11 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 	
 		_graphLeft += insets.left;
 		//_graphHeight -= insets.top + insets.bottom;
-                _graphHeight -= insets.top + insets.bottom;
+                _graphHeight -= insets.top + insets.bottom ;
+
+                    // IUGA WORKARROUND
+                    _graphHeight += wa_iuga_adjuste_y;
+                    
 		_graphWidth -= insets.left + insets.right;
 
 	}
@@ -176,7 +183,8 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		
 		//_headerWidth = 100;
 		g2.setColor(Color.white);
-		g2.fillRect(0,0,getWidth()+20, getHeight());
+                //g2.fillRect(0,0,getWidth()+20, getHeight());
+		g2.fillRect(0,0,getWidth()+20, getHeight()+29);
 		
 		synchronized(_builder) {
 			Insets insets = getInsets();
@@ -203,8 +211,9 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 			if(_builder.isPaintDirty()) {
 				TaskLayouter.recountBounds(_graphTop, ROW_HEIGHT, _builder, this, g2);
 			}
-			
-			g2.clipRect(insets.left, insets.top, getWidth()-insets.left-insets.right, getHeight()-insets.top-insets.bottom);
+
+                        // G2 CON WORKARROUND
+			g2.clipRect(insets.left, insets.top, getWidth()-insets.left-insets.right, getHeight()-insets.top-insets.bottom+wa_iuga_adjuste_y);
 			
 			// reset content bounds
 			_contentBounds.y = Integer.MAX_VALUE;
