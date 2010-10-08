@@ -15,28 +15,49 @@ package modelo;
 
 
 public class GrupoDeTrabajo {
-	public RolEmpleado roles;
-	public void mostrarGrupoTrabajo() {
-	
-	}
-	
-	public void mostrarLider() {
-	
-	}
-	
-	public void mostrarEmpleados() {
-	
-	}
-	
-	public void mostrarEmpleadosDeEseTipoYMaximaFechaDeVencimiento() {
-	
-	}
-	
-	public void esTuTipo() {
-	
-	}
-	
-	public void estaAsignado() {
-	
-	}
+    private int id;
+    private RolEmpleado roles;
+
+    public void mostrarGrupoTrabajo() {
+
+    }
+
+    public void mostrarLider() {
+
+    }
+
+    public void mostrarEmpleados() {
+
+    }
+
+    public void mostrarEmpleadosDeEseTipoYMaximaFechaDeVencimiento() {
+
+    }
+
+    public void esTuTipo() {
+
+    }
+
+    public void estaAsignado() {
+
+    }
+
+    public GrupoDeTrabajo() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public RolEmpleado getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RolEmpleado roles) {
+        this.roles = roles;
+    }
 }
