@@ -5,6 +5,7 @@
 
 package test;
 
+import config.PropiedadBean;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,11 +67,14 @@ public class DBExamplesLoader {
         sesion = sf.openSession();
     }
 
+
     /**
      * Cargo datos de prueba, como algunos paises, provincias, etc
      */
     public void cargarEjemplos()
     {
+          this.cargarConfiguraciones();
+
           this.cargarUnidadesMedida();
           this.cargarFormasDePago();
 
@@ -87,6 +91,30 @@ public class DBExamplesLoader {
 
           this.cargarOrdenDeCompra();
     }
+
+    public void cargarConfiguraciones()
+    {
+        PropiedadBean pb = new PropiedadBean("SISTEMA_IVA","21");
+        PropiedadBean pb7 = new PropiedadBean("SISTEMA_NOMBRE","ACERO");
+
+        PropiedadBean pb2 = new PropiedadBean("EMPRESA_NOMBRE","MetAr S.R.L.");
+        PropiedadBean pb3 = new PropiedadBean("EMPRESA_DIRECCION","Dr. Dominguez 283");
+        PropiedadBean pb4 = new PropiedadBean("EMPRESA_TELFAX","(02657)431599");
+        PropiedadBean pb5 = new PropiedadBean("EMPRESA_CUIT","30-70936605-6");
+        PropiedadBean pb6 = new PropiedadBean("EMPRESA_IIBB","01-30709366056");
+
+
+        sesion.beginTransaction();
+        sesion.save(pb);
+        sesion.save(pb2);
+        sesion.save(pb3);
+        sesion.save(pb4);
+        sesion.save(pb5);
+        sesion.save(pb6);
+        sesion.save(pb7);
+        sesion.getTransaction().commit();
+    }
+
 
     private void cargarRubros()
     {

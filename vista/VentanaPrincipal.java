@@ -13,6 +13,7 @@ package vista;
 
 //import org.jfree.ui.RefineryUtilities;
 
+import config.SConfig;
 import controlador.xml.XMLReader;
 import controlador.xml.XMLReaderMenu;
 import javax.swing.JOptionPane;
@@ -78,9 +79,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
 
+        this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
+
         cargarMenu();
-
-
     }
 
     public void mostrarCargando(boolean flag)
@@ -267,7 +268,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         mAyuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema Industrial de Planificación y Presupuestación");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
