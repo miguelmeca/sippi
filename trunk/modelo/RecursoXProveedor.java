@@ -12,7 +12,6 @@ import java.util.List;
  */
 
 public class RecursoXProveedor {
-
     private int id;
     private List<PrecioSegunCantidad> listaPrecios;
     private Proveedor proveedor;
@@ -25,7 +24,7 @@ public class RecursoXProveedor {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
