@@ -31,6 +31,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     {
         cmbFechaFin.setDate(new Date());
         cmbFechaInicio.setDate(new Date());
+        
     }
 
     /** This method is called from within the constructor to
@@ -62,39 +63,45 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
+        tablaTareas = new javax.swing.JTable();
+        txtCostoTareas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnTareasNueva = new javax.swing.JButton();
+        btnTareasEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        cboAlojamientoCantPersonas = new javax.swing.JTextField();
+        cboAlojamientoCantDias = new javax.swing.JTextField();
+        cmbAlojamientoEmpresa = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbTransportePasajerosEmpresa = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        cmbPaises1 = new javax.swing.JComboBox();
+        cmbTransportePasajerosOrigenPaises = new javax.swing.JComboBox();
         jLabel17 = new javax.swing.JLabel();
-        cmbProvincias1 = new javax.swing.JComboBox();
+        cmbTransportePasajerosOrigenProvincias = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
-        cmbLocalidades1 = new javax.swing.JComboBox();
+        cmbTransportePasajerosOrigenLocalidades = new javax.swing.JComboBox();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        cmbPaises2 = new javax.swing.JComboBox();
+        cmbTransportePasajerosDestinoPaises = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
-        cmbProvincias2 = new javax.swing.JComboBox();
+        cmbTransportePasajerosDestinoProvincias = new javax.swing.JComboBox();
         jLabel23 = new javax.swing.JLabel();
-        cmbLocalidades2 = new javax.swing.JComboBox();
+        cmbTransportePasajerosDestinoLocalidades = new javax.swing.JComboBox();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        txtTransportePasajerosCantidad = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbTransporteMHEmpresa = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel12 = new javax.swing.JPanel();
@@ -108,15 +115,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        txtCalleDomicilio2 = new javax.swing.JTextField();
-        txtNroDomicilio2 = new javax.swing.JTextField();
-        txtPisoDomicilio2 = new javax.swing.JTextField();
-        txtDeptoDomicilio2 = new javax.swing.JTextField();
-        txtCPDomicilio2 = new javax.swing.JTextField();
-        cmbPaises4 = new javax.swing.JComboBox();
-        cmbProvincias4 = new javax.swing.JComboBox();
-        cmbLocalidades4 = new javax.swing.JComboBox();
-        cmbBarrios2 = new javax.swing.JComboBox();
+        txtTransporteMHEOrigenCalle = new javax.swing.JTextField();
+        txtTransporteMHEOrigenNro = new javax.swing.JTextField();
+        txtTransporteMHEOrigenPiso = new javax.swing.JTextField();
+        txtTransporteMHEOrigenDepto = new javax.swing.JTextField();
+        txtTransporteMHEOrigenCP = new javax.swing.JTextField();
+        cmbTransporteMHEOrigenPaises = new javax.swing.JComboBox();
+        cmbTransportesMHEOrigenProvincias = new javax.swing.JComboBox();
+        cmbTransporteMHEOrigenLocalidades = new javax.swing.JComboBox();
+        cmbTransporteMHEOrigenBarrios = new javax.swing.JComboBox();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
@@ -131,33 +138,33 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
-        txtCalleDomicilio3 = new javax.swing.JTextField();
-        txtNroDomicilio3 = new javax.swing.JTextField();
-        txtPisoDomicilio3 = new javax.swing.JTextField();
-        txtDeptoDomicilio3 = new javax.swing.JTextField();
-        txtCPDomicilio3 = new javax.swing.JTextField();
-        cmbPaises5 = new javax.swing.JComboBox();
-        cmbProvincias5 = new javax.swing.JComboBox();
-        cmbLocalidades5 = new javax.swing.JComboBox();
-        cmbBarrios3 = new javax.swing.JComboBox();
+        txtTransporteMHEDestinoCalle = new javax.swing.JTextField();
+        txtTransporteMHEDestinoNro = new javax.swing.JTextField();
+        txtTransporteMHEDestinoPiso = new javax.swing.JTextField();
+        txtTransporteMHEDestinoDepto = new javax.swing.JTextField();
+        txtTransporteMHEDestinoCP = new javax.swing.JTextField();
+        cmbTransporteMHEDestinoPaises = new javax.swing.JComboBox();
+        cmbTransporteMHEDestinoProvincias = new javax.swing.JComboBox();
+        cmbTransporteMHEDestinoLocalidades = new javax.swing.JComboBox();
+        cmbTransporteMHEDestinoBarrios = new javax.swing.JComboBox();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
-        btnAgregarDetalle = new javax.swing.JButton();
-        btnQuitarDetalle = new javax.swing.JButton();
+        btnAgregarHerramienta = new javax.swing.JButton();
+        btnQuitarHerramienta = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        lstTransporteMHHerramientasTrasnportar = new javax.swing.JList();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        lstTransporteMHHerramientasDisponibles = new javax.swing.JList();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txaTransporteMHMateriales = new javax.swing.JTextArea();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        txaTransporteMHMaterialesObs = new javax.swing.JTextArea();
         jLabel26 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -191,19 +198,19 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(cmbFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cmbFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                        .addComponent(cmbFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                         .addGap(172, 172, 172)))
                 .addContainerGap())
         );
@@ -260,7 +267,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +295,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Tareas a realizar en la Etapa"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Cortar planchas de Metal para la Base", "500"},
                 {"Soldar Base", "20"}
@@ -297,17 +304,17 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 "Nombre de la Tarea", "Costo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(220);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(220);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(220);
+        jScrollPane1.setViewportView(tablaTareas);
+        tablaTareas.getColumnModel().getColumn(0).setMinWidth(220);
+        tablaTareas.getColumnModel().getColumn(0).setPreferredWidth(220);
+        tablaTareas.getColumnModel().getColumn(0).setMaxWidth(220);
 
-        jTextField2.setEditable(false);
-        jTextField2.setText("$520");
+        txtCostoTareas.setEditable(false);
+        txtCostoTareas.setText("$520");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setLabelFor(jTextField2);
+        jLabel3.setLabelFor(txtCostoTareas);
         jLabel3.setText("Costo Total de las Tareas:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -320,8 +327,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
+                        .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -330,15 +337,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)))
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton2.setText("Nueva Tarea");
+        btnTareasNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnTareasNueva.setText("Nueva Tarea");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton1.setText("Eliminar Tarea");
+        btnTareasEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnTareasEliminar.setText("Eliminar Tarea");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -348,9 +355,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnTareasEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnTareasNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -361,27 +368,68 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnTareasNueva)
+                    .addComponent(btnTareasEliminar))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Tareas", jPanel3);
 
+        cmbAlojamientoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbAlojamientoEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAlojamientoEmpresaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Empresa:");
+
+        jLabel10.setText("Cantidad de personas:");
+
+        jLabel19.setText("Cantidad de dias:");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbAlojamientoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cboAlojamientoCantDias)
+                            .addComponent(cboAlojamientoCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 407, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cmbAlojamientoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(cboAlojamientoCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(cboAlojamientoCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Alojamiento", jPanel5);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTransportePasajerosEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel8.setText("Empresa de Transporte:");
 
@@ -389,32 +437,32 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen"));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel16.setText("Pais: ");
 
-        cmbPaises1.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosOrigenPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPaises1ActionPerformed(evt);
+                cmbTransportePasajerosOrigenPaisesActionPerformed(evt);
             }
         });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Provincia:");
 
-        cmbProvincias1.setEnabled(false);
-        cmbProvincias1.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosOrigenProvincias.setEnabled(false);
+        cmbTransportePasajerosOrigenProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvincias1ActionPerformed(evt);
+                cmbTransportePasajerosOrigenProvinciasActionPerformed(evt);
             }
         });
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel18.setText("Localidad: ");
 
-        cmbLocalidades1.setEnabled(false);
-        cmbLocalidades1.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosOrigenLocalidades.setEnabled(false);
+        cmbTransportePasajerosOrigenLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLocalidades1ActionPerformed(evt);
+                cmbTransportePasajerosOrigenLocalidadesActionPerformed(evt);
             }
         });
 
@@ -435,12 +483,12 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                             .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPaises1, 0, 215, Short.MAX_VALUE)
-                            .addComponent(cmbProvincias1, 0, 215, Short.MAX_VALUE)))
+                            .addComponent(cmbTransportePasajerosOrigenPaises, 0, 213, Short.MAX_VALUE)
+                            .addComponent(cmbTransportePasajerosOrigenProvincias, 0, 213, Short.MAX_VALUE)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbLocalidades1, 0, 216, Short.MAX_VALUE)))
+                        .addComponent(cmbTransportePasajerosOrigenLocalidades, 0, 214, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
@@ -451,50 +499,50 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPaises1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransportePasajerosOrigenPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbProvincias1)
+                    .addComponent(cmbTransportePasajerosOrigenProvincias)
                     .addComponent(jLabel17)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton8, 0, 0, Short.MAX_VALUE)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbLocalidades1)
+                        .addComponent(cmbTransportePasajerosOrigenLocalidades)
                         .addComponent(jLabel18)))
                 .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Destino"));
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel21.setText("Pais: ");
 
-        cmbPaises2.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosDestinoPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPaises2ActionPerformed(evt);
+                cmbTransportePasajerosDestinoPaisesActionPerformed(evt);
             }
         });
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel22.setText("Provincia:");
 
-        cmbProvincias2.setEnabled(false);
-        cmbProvincias2.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosDestinoProvincias.setEnabled(false);
+        cmbTransportePasajerosDestinoProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvincias2ActionPerformed(evt);
+                cmbTransportePasajerosDestinoProvinciasActionPerformed(evt);
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel23.setText("Localidad: ");
 
-        cmbLocalidades2.setEnabled(false);
-        cmbLocalidades2.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportePasajerosDestinoLocalidades.setEnabled(false);
+        cmbTransportePasajerosDestinoLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLocalidades2ActionPerformed(evt);
+                cmbTransportePasajerosDestinoLocalidadesActionPerformed(evt);
             }
         });
 
@@ -512,18 +560,18 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addGap(35, 35, 35)
-                        .addComponent(cmbPaises2, 0, 215, Short.MAX_VALUE)
+                        .addComponent(cmbTransportePasajerosDestinoPaises, 0, 213, Short.MAX_VALUE)
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProvincias2, 0, 215, Short.MAX_VALUE))
+                                .addComponent(cmbTransportePasajerosDestinoProvincias, 0, 213, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbLocalidades2, 0, 216, Short.MAX_VALUE)))
+                                .addComponent(cmbTransportePasajerosDestinoLocalidades, 0, 214, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton10, 0, 0, Short.MAX_VALUE)
@@ -534,25 +582,25 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPaises2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransportePasajerosDestinoPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbProvincias2)
+                    .addComponent(cmbTransportePasajerosDestinoProvincias)
                     .addComponent(jLabel22)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton10, 0, 0, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbLocalidades2)
+                        .addComponent(cmbTransportePasajerosDestinoLocalidades)
                         .addComponent(jLabel23)))
                 .addContainerGap())
         );
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTransportePasajerosCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTransportePasajerosCantidadActionPerformed(evt);
             }
         });
 
@@ -568,14 +616,14 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTransportePasajerosCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransportePasajerosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jButton5)))
-                .addContainerGap())
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -588,16 +636,16 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5, 0, 0, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbTransportePasajerosEmpresa)))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransportePasajerosCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -609,7 +657,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Empresa de Transporte:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTransporteMHEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -642,33 +690,33 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel49.setText("Barrio:");
 
-        txtCalleDomicilio2.addActionListener(new java.awt.event.ActionListener() {
+        txtTransporteMHEOrigenCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalleDomicilio2ActionPerformed(evt);
+                txtTransporteMHEOrigenCalleActionPerformed(evt);
             }
         });
 
-        cmbPaises4.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHEOrigenPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPaises4ActionPerformed(evt);
+                cmbTransporteMHEOrigenPaisesActionPerformed(evt);
             }
         });
 
-        cmbProvincias4.setEnabled(false);
-        cmbProvincias4.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransportesMHEOrigenProvincias.setEnabled(false);
+        cmbTransportesMHEOrigenProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvincias4ActionPerformed(evt);
+                cmbTransportesMHEOrigenProvinciasActionPerformed(evt);
             }
         });
 
-        cmbLocalidades4.setEnabled(false);
-        cmbLocalidades4.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHEOrigenLocalidades.setEnabled(false);
+        cmbTransporteMHEOrigenLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLocalidades4ActionPerformed(evt);
+                cmbTransporteMHEOrigenLocalidadesActionPerformed(evt);
             }
         });
 
-        cmbBarrios2.setEnabled(false);
+        cmbTransporteMHEOrigenBarrios.setEnabled(false);
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -686,41 +734,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCalleDomicilio2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEOrigenCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel42)
                         .addGap(20, 20, 20)
-                        .addComponent(txtNroDomicilio2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEOrigenNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel43)
                         .addGap(10, 10, 10)
-                        .addComponent(txtPisoDomicilio2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEOrigenPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel44)
                         .addGap(10, 10, 10)
-                        .addComponent(txtDeptoDomicilio2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEOrigenDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel45)
                         .addGap(17, 17, 17)
-                        .addComponent(txtCPDomicilio2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEOrigenCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel46)
                                 .addGap(41, 41, 41)
-                                .addComponent(cmbPaises4, 0, 185, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHEOrigenPaises, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProvincias4, 0, 185, Short.MAX_VALUE))
+                                .addComponent(cmbTransportesMHEOrigenProvincias, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel48)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbLocalidades4, 0, 186, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHEOrigenLocalidades, 0, 185, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel49)
                                 .addGap(33, 33, 33)
-                                .addComponent(cmbBarrios2, 0, 0, Short.MAX_VALUE)))
+                                .addComponent(cmbTransporteMHEOrigenBarrios, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -733,41 +781,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(txtCalleDomicilio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEOrigenCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
-                    .addComponent(txtNroDomicilio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEOrigenNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
-                    .addComponent(txtPisoDomicilio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEOrigenPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel44)
-                    .addComponent(txtDeptoDomicilio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEOrigenDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCPDomicilio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTransporteMHEOrigenCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPaises4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransporteMHEOrigenPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton12, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbProvincias4)
+                    .addComponent(cmbTransportesMHEOrigenProvincias)
                     .addComponent(jLabel47))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton13, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbLocalidades4)
+                    .addComponent(cmbTransporteMHEOrigenLocalidades)
                     .addComponent(jLabel48))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbBarrios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransporteMHEOrigenBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel49))
                     .addComponent(jButton14, 0, 0, Short.MAX_VALUE)))
         );
@@ -819,33 +867,33 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel61.setText("Barrio:");
 
-        txtCalleDomicilio3.addActionListener(new java.awt.event.ActionListener() {
+        txtTransporteMHEDestinoCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalleDomicilio3ActionPerformed(evt);
+                txtTransporteMHEDestinoCalleActionPerformed(evt);
             }
         });
 
-        cmbPaises5.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHEDestinoPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPaises5ActionPerformed(evt);
+                cmbTransporteMHEDestinoPaisesActionPerformed(evt);
             }
         });
 
-        cmbProvincias5.setEnabled(false);
-        cmbProvincias5.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHEDestinoProvincias.setEnabled(false);
+        cmbTransporteMHEDestinoProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbProvincias5ActionPerformed(evt);
+                cmbTransporteMHEDestinoProvinciasActionPerformed(evt);
             }
         });
 
-        cmbLocalidades5.setEnabled(false);
-        cmbLocalidades5.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHEDestinoLocalidades.setEnabled(false);
+        cmbTransporteMHEDestinoLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLocalidades5ActionPerformed(evt);
+                cmbTransporteMHEDestinoLocalidadesActionPerformed(evt);
             }
         });
 
-        cmbBarrios3.setEnabled(false);
+        cmbTransporteMHEDestinoBarrios.setEnabled(false);
 
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -863,41 +911,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel53)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCalleDomicilio3, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEDestinoCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel54)
                         .addGap(20, 20, 20)
-                        .addComponent(txtNroDomicilio3, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEDestinoNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel55)
                         .addGap(10, 10, 10)
-                        .addComponent(txtPisoDomicilio3, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEDestinoPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel56)
                         .addGap(10, 10, 10)
-                        .addComponent(txtDeptoDomicilio3, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEDestinoDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel57)
                         .addGap(17, 17, 17)
-                        .addComponent(txtCPDomicilio3, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHEDestinoCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel58)
                                 .addGap(41, 41, 41)
-                                .addComponent(cmbPaises5, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHEDestinoPaises, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProvincias5, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHEDestinoProvincias, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel60)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbLocalidades5, 0, 185, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHEDestinoLocalidades, 0, 185, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel61)
                                 .addGap(33, 33, 33)
-                                .addComponent(cmbBarrios3, 0, 0, Short.MAX_VALUE)))
+                                .addComponent(cmbTransporteMHEDestinoBarrios, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -910,41 +958,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53)
-                    .addComponent(txtCalleDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEDestinoCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel54)
-                    .addComponent(txtNroDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEDestinoNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel55)
-                    .addComponent(txtPisoDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEDestinoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel56)
-                    .addComponent(txtDeptoDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHEDestinoDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCPDomicilio3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTransporteMHEDestinoCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel57))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPaises5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransporteMHEDestinoPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel58))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton15, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbProvincias5)
+                    .addComponent(cmbTransporteMHEDestinoProvincias)
                     .addComponent(jLabel59))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton16, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbLocalidades5)
+                    .addComponent(cmbTransporteMHEDestinoLocalidades)
                     .addComponent(jLabel60))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbBarrios3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransporteMHEDestinoBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel61))
                     .addComponent(jButton17, 0, 0, Short.MAX_VALUE)))
         );
@@ -967,35 +1015,35 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Destino", jPanel15);
 
-        btnAgregarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        btnAgregarDetalle.setText("Agregar");
-        btnAgregarDetalle.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarHerramienta.setText("Agregar");
+        btnAgregarHerramienta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarDetalleActionPerformed(evt);
+                btnAgregarHerramientaActionPerformed(evt);
             }
         });
 
-        btnQuitarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnQuitarDetalle.setText("Quitar");
-        btnQuitarDetalle.addActionListener(new java.awt.event.ActionListener() {
+        btnQuitarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnQuitarHerramienta.setText("Quitar");
+        btnQuitarHerramienta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarDetalleActionPerformed(evt);
+                btnQuitarHerramientaActionPerformed(evt);
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        lstTransporteMHHerramientasTrasnportar.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(lstTransporteMHHerramientasTrasnportar);
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
+        lstTransporteMHHerramientasDisponibles.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList2);
+        jScrollPane4.setViewportView(lstTransporteMHHerramientasDisponibles);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("Disponibles:");
@@ -1014,9 +1062,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(btnAgregarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel14)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -1034,8 +1082,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregarDetalle)
-                    .addComponent(btnQuitarDetalle))
+                    .addComponent(btnAgregarHerramienta)
+                    .addComponent(btnQuitarHerramienta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1045,16 +1093,16 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Herramientas", jPanel11);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane6.setViewportView(jTextArea2);
+        txaTransporteMHMateriales.setColumns(20);
+        txaTransporteMHMateriales.setRows(5);
+        jScrollPane6.setViewportView(txaTransporteMHMateriales);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("Materiales:");
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane7.setViewportView(jTextArea3);
+        txaTransporteMHMaterialesObs.setColumns(20);
+        txaTransporteMHMaterialesObs.setRows(5);
+        jScrollPane7.setViewportView(txaTransporteMHMaterialesObs);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel26.setText("Observaciones:");
@@ -1098,18 +1146,18 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransporteMHEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2)
+                    .addComponent(cmbTransporteMHEmpresa)
                     .addComponent(jButton6, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1130,119 +1178,130 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(149, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addGap(58, 58, 58))
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbPaises1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaises1ActionPerformed
+    private void cmbTransportePasajerosOrigenPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosOrigenPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPaises1ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosOrigenPaisesActionPerformed
 
-    private void cmbProvincias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvincias1ActionPerformed
+    private void cmbTransportePasajerosOrigenProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosOrigenProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbProvincias1ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosOrigenProvinciasActionPerformed
 
-    private void cmbLocalidades1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidades1ActionPerformed
+    private void cmbTransportePasajerosOrigenLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosOrigenLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLocalidades1ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosOrigenLocalidadesActionPerformed
 
-    private void cmbPaises2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaises2ActionPerformed
+    private void cmbTransportePasajerosDestinoPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosDestinoPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPaises2ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosDestinoPaisesActionPerformed
 
-    private void cmbProvincias2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvincias2ActionPerformed
+    private void cmbTransportePasajerosDestinoProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosDestinoProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbProvincias2ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosDestinoProvinciasActionPerformed
 
-    private void cmbLocalidades2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidades2ActionPerformed
+    private void cmbTransportePasajerosDestinoLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportePasajerosDestinoLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLocalidades2ActionPerformed
+    }//GEN-LAST:event_cmbTransportePasajerosDestinoLocalidadesActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtTransportePasajerosCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransportePasajerosCantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtTransportePasajerosCantidadActionPerformed
 
-    private void txtCalleDomicilio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleDomicilio2ActionPerformed
+    private void txtTransporteMHEOrigenCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHEOrigenCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCalleDomicilio2ActionPerformed
+    }//GEN-LAST:event_txtTransporteMHEOrigenCalleActionPerformed
 
-    private void cmbPaises4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaises4ActionPerformed
+    private void cmbTransporteMHEOrigenPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEOrigenPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPaises4ActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHEOrigenPaisesActionPerformed
 
-    private void cmbProvincias4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvincias4ActionPerformed
+    private void cmbTransportesMHEOrigenProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportesMHEOrigenProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbProvincias4ActionPerformed
+    }//GEN-LAST:event_cmbTransportesMHEOrigenProvinciasActionPerformed
 
-    private void cmbLocalidades4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidades4ActionPerformed
+    private void cmbTransporteMHEOrigenLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEOrigenLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLocalidades4ActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHEOrigenLocalidadesActionPerformed
 
-    private void txtCalleDomicilio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleDomicilio3ActionPerformed
+    private void txtTransporteMHEDestinoCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHEDestinoCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCalleDomicilio3ActionPerformed
+    }//GEN-LAST:event_txtTransporteMHEDestinoCalleActionPerformed
 
-    private void cmbPaises5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaises5ActionPerformed
+    private void cmbTransporteMHEDestinoPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPaises5ActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHEDestinoPaisesActionPerformed
 
-    private void cmbProvincias5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvincias5ActionPerformed
+    private void cmbTransporteMHEDestinoProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbProvincias5ActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHEDestinoProvinciasActionPerformed
 
-    private void cmbLocalidades5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidades5ActionPerformed
+    private void cmbTransporteMHEDestinoLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLocalidades5ActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHEDestinoLocalidadesActionPerformed
 
-    private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
+    private void btnAgregarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHerramientaActionPerformed
 
-}//GEN-LAST:event_btnAgregarDetalleActionPerformed
+}//GEN-LAST:event_btnAgregarHerramientaActionPerformed
 
-    private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
+    private void btnQuitarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarHerramientaActionPerformed
 
-}//GEN-LAST:event_btnQuitarDetalleActionPerformed
+}//GEN-LAST:event_btnQuitarHerramientaActionPerformed
+
+    private void cmbAlojamientoEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlojamientoEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbAlojamientoEmpresaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarDetalle;
-    private javax.swing.JButton btnQuitarDetalle;
-    private javax.swing.JComboBox cmbBarrios2;
-    private javax.swing.JComboBox cmbBarrios3;
+    private javax.swing.JButton btnAgregarHerramienta;
+    private javax.swing.JButton btnQuitarHerramienta;
+    private javax.swing.JButton btnTareasEliminar;
+    private javax.swing.JButton btnTareasNueva;
+    private javax.swing.JTextField cboAlojamientoCantDias;
+    private javax.swing.JTextField cboAlojamientoCantPersonas;
+    private javax.swing.JComboBox cmbAlojamientoEmpresa;
     private com.toedter.calendar.JDateChooser cmbFechaFin;
     private com.toedter.calendar.JDateChooser cmbFechaInicio;
-    private javax.swing.JComboBox cmbLocalidades1;
-    private javax.swing.JComboBox cmbLocalidades2;
-    private javax.swing.JComboBox cmbLocalidades4;
-    private javax.swing.JComboBox cmbLocalidades5;
-    private javax.swing.JComboBox cmbPaises1;
-    private javax.swing.JComboBox cmbPaises2;
-    private javax.swing.JComboBox cmbPaises4;
-    private javax.swing.JComboBox cmbPaises5;
-    private javax.swing.JComboBox cmbProvincias1;
-    private javax.swing.JComboBox cmbProvincias2;
-    private javax.swing.JComboBox cmbProvincias4;
-    private javax.swing.JComboBox cmbProvincias5;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox cmbTransporteMHEDestinoBarrios;
+    private javax.swing.JComboBox cmbTransporteMHEDestinoLocalidades;
+    private javax.swing.JComboBox cmbTransporteMHEDestinoPaises;
+    private javax.swing.JComboBox cmbTransporteMHEDestinoProvincias;
+    private javax.swing.JComboBox cmbTransporteMHEOrigenBarrios;
+    private javax.swing.JComboBox cmbTransporteMHEOrigenLocalidades;
+    private javax.swing.JComboBox cmbTransporteMHEOrigenPaises;
+    private javax.swing.JComboBox cmbTransporteMHEmpresa;
+    private javax.swing.JComboBox cmbTransportePasajerosDestinoLocalidades;
+    private javax.swing.JComboBox cmbTransportePasajerosDestinoPaises;
+    private javax.swing.JComboBox cmbTransportePasajerosDestinoProvincias;
+    private javax.swing.JComboBox cmbTransportePasajerosEmpresa;
+    private javax.swing.JComboBox cmbTransportePasajerosOrigenLocalidades;
+    private javax.swing.JComboBox cmbTransportePasajerosOrigenPaises;
+    private javax.swing.JComboBox cmbTransportePasajerosOrigenProvincias;
+    private javax.swing.JComboBox cmbTransportesMHEOrigenProvincias;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -1251,16 +1310,14 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1269,6 +1326,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1298,8 +1356,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1325,24 +1382,26 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField txtCPDomicilio2;
-    private javax.swing.JTextField txtCPDomicilio3;
-    private javax.swing.JTextField txtCalleDomicilio2;
-    private javax.swing.JTextField txtCalleDomicilio3;
-    private javax.swing.JTextField txtDeptoDomicilio2;
-    private javax.swing.JTextField txtDeptoDomicilio3;
-    private javax.swing.JTextField txtNroDomicilio2;
-    private javax.swing.JTextField txtNroDomicilio3;
-    private javax.swing.JTextField txtPisoDomicilio2;
-    private javax.swing.JTextField txtPisoDomicilio3;
+    private javax.swing.JList lstTransporteMHHerramientasDisponibles;
+    private javax.swing.JList lstTransporteMHHerramientasTrasnportar;
+    private javax.swing.JTable tablaTareas;
+    private javax.swing.JTextArea txaTransporteMHMateriales;
+    private javax.swing.JTextArea txaTransporteMHMaterialesObs;
+    private javax.swing.JTextField txtCostoTareas;
+    private javax.swing.JTextField txtTransporteMHEDestinoCP;
+    private javax.swing.JTextField txtTransporteMHEDestinoCalle;
+    private javax.swing.JTextField txtTransporteMHEDestinoDepto;
+    private javax.swing.JTextField txtTransporteMHEDestinoNro;
+    private javax.swing.JTextField txtTransporteMHEDestinoPiso;
+    private javax.swing.JTextField txtTransporteMHEOrigenCP;
+    private javax.swing.JTextField txtTransporteMHEOrigenCalle;
+    private javax.swing.JTextField txtTransporteMHEOrigenDepto;
+    private javax.swing.JTextField txtTransporteMHEOrigenNro;
+    private javax.swing.JTextField txtTransporteMHEOrigenPiso;
+    private javax.swing.JTextField txtTransportePasajerosCantidad;
     // End of variables declaration//GEN-END:variables
 
 }
