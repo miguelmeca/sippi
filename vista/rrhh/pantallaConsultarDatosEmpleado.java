@@ -67,12 +67,13 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
     private String nombre;
     private String apellido;
     private int id;
+    private String legajo;
     //private String legajo;
 
     
     
 
-   public pantallaConsultarDatosEmpleado(int legajo, ICallBack pantallaConsu)
+   public pantallaConsultarDatosEmpleado(int id, ICallBack pantallaConsu)
     {
         initComponents();
         //modificar=true;
@@ -86,7 +87,7 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
         //listaNroTel= new ArrayList<String>();
         //listaTipoTel= new ArrayList<Tupla>();
         //boolean r= gestorModificar.levantarEmpleado(legajo);
-        boolean r= gestor.levantarEmpleado(legajo);
+        boolean r= gestor.levantarEmpleado(id);
         if (!r)
         {
             JOptionPane.showMessageDialog(this.getParent(),"Error levantando el empleado de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -813,6 +814,7 @@ public class pantallaConsultarDatosEmpleado extends javax.swing.JInternalFrame i
         {
             this.nombre=nombre;
             this.apellido=apellido;
+            legajo=leg;
             lblLegajo.setText(leg);
             lblCuil.setText(cuil);
             lblNroDocumento.setText(nmroDoc);
