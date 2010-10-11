@@ -19,10 +19,10 @@
       <key column="ID_HERRAMIENTA"/>
       <property column="ESTADO" name="hib_flag_estado" type="string"/>
     </joined-subclass>
-    <joined-subclass name="modelo.Consumible" table="Consumibles">
+<!--    <joined-subclass name="modelo.TransporteDeHerramientasYMateriales" table="TRANSHERRAMIENTASYMATERIALES">
       <key column="ID_CONSUMIBLE"/>
     </joined-subclass>
-    <joined-subclass name="modelo.Transporte" table="Transportes">
+    <joined-subclass name="modelo.TransporteDePasajeros" table="TRANSPORTEDEPASAJEROS">
       <key column="ID_TRANSPORTE"/>
     </joined-subclass>
     <joined-subclass name="modelo.Viatico" table="Viaticos">
@@ -30,7 +30,7 @@
     </joined-subclass>
     <joined-subclass name="modelo.Alojamiento" table="Alojamientos">
       <key column="ID_ALOJAMIENTO"/>
-    </joined-subclass>
+    </joined-subclass>-->
     <joined-subclass name="modelo.Indumentaria" table="Indumentarias">
       <key column="ID_INDUMENTARIA"/>
       <many-to-one column="ID_TALLE" name="talle"/>

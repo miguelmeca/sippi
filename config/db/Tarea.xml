@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Tarea" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="IDTAREA" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <many-to-one name="grupo" column="GRUPO"/>
+    <property name="ubicacion" column="UBICACION" type="string"/>
+    <property name="descripcion" column="DESCRIPCION" type="string"/>
+
+    <list cascade="all" name="detallesMaterial" table="TAREA_X_DETALLEMATERIAL">
+      <key column="ID_TAREA"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.DetalleMaterial"/>
+    </list>
+
+    <list cascade="all" name="detallesConsumible" table="TAREA_X_DETALLECONSUMIBLE">
+      <key column="ID_TAREA"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.DetalleConsumible"/>
+    </list>
+
+    <list cascade="all" name="herramientas" table="TAREA_X_HERRAMIENTA">
+      <key column="ID_TAREA"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.HerramientaDeEmpresa"/>
+    </list>
+
+  </class>
+</hibernate-mapping>

@@ -12,7 +12,6 @@ package modelo;
 //
 
 public class PlantillaPresupuesto extends PresupuestoBase {
-    private int id;
     private String nombre;
     private String descripcion;
     // private Usuario esDeUsuario; // NO SE QUE TIPO DE DATOS ES ESTE
@@ -26,14 +25,6 @@ public class PlantillaPresupuesto extends PresupuestoBase {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    private void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {

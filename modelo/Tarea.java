@@ -19,8 +19,8 @@ public class Tarea {
     private GrupoDeTrabajo grupo;
     private String ubicacion;
     private String descripcion;
-    private DetalleMaterial detallesMaterial;
-    private DetalleConsumible detallesConsumible;
+    private List<DetalleMaterial> detallesMaterial;
+    private List<DetalleConsumible> detallesConsumible;
     private List<HerramientaDeEmpresa> herramientas;
 
     public void CalcularMontoTotal() {
@@ -38,19 +38,19 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public DetalleConsumible getDetallesConsumible() {
+    public List<DetalleConsumible> getDetallesConsumible() {
         return detallesConsumible;
     }
 
-    public void setDetallesConsumible(DetalleConsumible detallesConsumible) {
+    public void setDetallesConsumible(List<DetalleConsumible> detallesConsumible) {
         this.detallesConsumible = detallesConsumible;
     }
 
-    public DetalleMaterial getDetallesMaterial() {
+    public List<DetalleMaterial> getDetallesMaterial() {
         return detallesMaterial;
     }
 
-    public void setDetallesMaterial(DetalleMaterial detallesMaterial) {
+    public void setDetallesMaterial(List<DetalleMaterial> detallesMaterial) {
         this.detallesMaterial = detallesMaterial;
     }
 

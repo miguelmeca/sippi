@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleConsumible" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="IDDETALLECONSUMIBLE" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property name="descripcion" column="DESCRIPCION" type="string"/>
+    <property name="cantidad" column="CANTIDAD" type="integer"/>
+    <many-to-one name="consumible" column="IDCONSUMIBLE"/>
+  </class>
+</hibernate-mapping>

@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.Date;
+import java.util.List;
 
 //
 //
@@ -25,7 +26,7 @@ public class Cotizacion {
     private int cantDiasVigencia;
     private float costoTotal;
     private float porcentajeIVA;
-    private DetalleMaterial detalle;
+    private List<DetalleMaterial> detalle;
     public void crear() {
 
     }
@@ -57,11 +58,11 @@ public class Cotizacion {
         this.costoTotal = costoTotal;
     }
 
-    public DetalleMaterial getDetalle() {
+    public List<DetalleMaterial> getDetalle() {
         return detalle;
     }
 
-    public void setDetalle(DetalleMaterial detalle) {
+    public void setDetalle(List<DetalleMaterial> detalle) {
         this.detalle = detalle;
     }
 
