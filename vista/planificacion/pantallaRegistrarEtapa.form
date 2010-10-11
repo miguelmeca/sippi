@@ -462,7 +462,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbAlojamientoEmpresa" min="-2" pref="256" max="-2" attributes="0"/>
+                              <Component id="cmbEmpresasAlojamiento" min="-2" pref="256" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -486,7 +486,7 @@
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbAlojamientoEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbEmpresasAlojamiento" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -508,7 +508,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="cboAlojamientoCantDias">
             </Component>
-            <Component class="javax.swing.JComboBox" name="cmbAlojamientoEmpresa">
+            <Component class="javax.swing.JComboBox" name="cmbEmpresasAlojamiento">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -520,7 +520,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbAlojamientoEmpresaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbEmpresasAlojamientoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
@@ -563,7 +563,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cmbTransportePasajerosEmpresa" min="-2" pref="159" max="-2" attributes="0"/>
+                              <Component id="cmbEmpresasTransportePasajeros" min="-2" pref="159" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Component id="jButton5" min="-2" pref="25" max="-2" attributes="1"/>
                           </Group>
@@ -590,7 +590,7 @@
                           <Component id="jButton5" min="0" pref="0" max="32767" attributes="1"/>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbTransportePasajerosEmpresa" alignment="1" max="32767" attributes="1"/>
+                              <Component id="cmbEmpresasTransportePasajeros" alignment="1" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -608,7 +608,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="cmbTransportePasajerosEmpresa">
+            <Component class="javax.swing.JComboBox" name="cmbEmpresasTransportePasajeros">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -946,7 +946,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbTransporteMHEmpresa" min="-2" pref="179" max="-2" attributes="0"/>
+                              <Component id="cmbEmpresasTransporteMH" min="-2" pref="179" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton6" min="-2" pref="29" max="-2" attributes="1"/>
                           </Group>
@@ -961,7 +961,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbTransporteMHEmpresa" max="32767" attributes="1"/>
+                          <Component id="cmbEmpresasTransporteMH" max="32767" attributes="1"/>
                           <Component id="jButton6" min="0" pref="0" max="32767" attributes="1"/>
                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -978,7 +978,7 @@
                 <Property name="text" type="java.lang.String" value="Empresa de Transporte:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cmbTransporteMHEmpresa">
+            <Component class="javax.swing.JComboBox" name="cmbEmpresasTransporteMH">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -1048,49 +1048,49 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEOrigenCalle" pref="248" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenCalle" pref="248" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEOrigenNro" pref="249" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenNro" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEOrigenPiso" pref="249" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenPiso" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEOrigenDepto" pref="189" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenDepto" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEOrigenCP" pref="189" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenCP" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEOrigenPaises" pref="184" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenPaises" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel47" min="-2" pref="66" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmbTransportesMHEOrigenProvincias" pref="184" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenProvincias" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEOrigenLocalidades" pref="185" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenLocalidades" pref="185" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEOrigenBarrios" pref="0" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenBarrios" pref="0" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1110,49 +1110,49 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEOrigenCalle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHOrigenCalle" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEOrigenNro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHOrigenNro" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel43" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEOrigenPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHOrigenPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEOrigenDepto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHOrigenDepto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtTransporteMHEOrigenCP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHOrigenCP" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel45" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="8" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cmbTransporteMHEOrigenPaises" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbTransporteMHOrigenPaises" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton12" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="cmbTransportesMHEOrigenProvincias" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="cmbTransporteMHOrigenProvincias" alignment="1" max="32767" attributes="1"/>
                                       <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton13" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="cmbTransporteMHEOrigenLocalidades" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="cmbTransporteMHOrigenLocalidades" alignment="1" max="32767" attributes="1"/>
                                       <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="cmbTransporteMHEOrigenBarrios" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cmbTransporteMHOrigenBarrios" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel49" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jButton14" min="0" pref="0" max="32767" attributes="1"/>
@@ -1234,41 +1234,30 @@
                             <Property name="text" type="java.lang.String" value="Barrio:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEOrigenCalle">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHOrigenCalle">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTransporteMHEOrigenCalleActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTransporteMHOrigenCalleActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEOrigenNro">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHOrigenNro">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEOrigenPiso">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHOrigenPiso">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEOrigenDepto">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHOrigenDepto">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEOrigenCP">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHOrigenCP">
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEOrigenPaises">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHOrigenPaises">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHEOrigenPaisesActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHOrigenPaisesActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransportesMHEOrigenProvincias">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransportesMHEOrigenProvinciasActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEOrigenLocalidades">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHOrigenProvincias">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
@@ -1276,10 +1265,21 @@
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHEOrigenLocalidadesActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHOrigenProvinciasActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEOrigenBarrios">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHOrigenLocalidades">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHOrigenLocalidadesActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHOrigenBarrios">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
@@ -1359,49 +1359,49 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEDestinoCalle" pref="248" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoCalle" pref="248" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEDestinoNro" pref="249" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoNro" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEDestinoPiso" pref="249" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoPiso" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEDestinoDepto" pref="189" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoDepto" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHEDestinoCP" pref="189" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoCP" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEDestinoPaises" pref="184" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoPaises" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel59" min="-2" pref="66" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEDestinoProvincias" pref="184" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoProvincias" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEDestinoLocalidades" pref="185" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoLocalidades" pref="185" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel61" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHEDestinoBarrios" pref="0" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoBarrios" pref="0" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1421,49 +1421,49 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEDestinoCalle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHDestinoCalle" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEDestinoNro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHDestinoNro" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEDestinoPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHDestinoPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTransporteMHEDestinoDepto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHDestinoDepto" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtTransporteMHEDestinoCP" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTransporteMHDestinoCP" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="8" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cmbTransporteMHEDestinoPaises" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbTransporteMHDestinoPaises" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton15" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="cmbTransporteMHEDestinoProvincias" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="cmbTransporteMHDestinoProvincias" alignment="1" max="32767" attributes="1"/>
                                       <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jButton16" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
-                                      <Component id="cmbTransporteMHEDestinoLocalidades" alignment="1" max="32767" attributes="1"/>
+                                      <Component id="cmbTransporteMHDestinoLocalidades" alignment="1" max="32767" attributes="1"/>
                                       <Component id="jLabel60" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                          <Component id="cmbTransporteMHEDestinoBarrios" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cmbTransporteMHDestinoBarrios" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel61" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jButton17" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
@@ -1545,41 +1545,30 @@
                             <Property name="text" type="java.lang.String" value="Barrio:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEDestinoCalle">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHDestinoCalle">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTransporteMHEDestinoCalleActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTransporteMHDestinoCalleActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEDestinoNro">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHDestinoNro">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEDestinoPiso">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHDestinoPiso">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEDestinoDepto">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHDestinoDepto">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTransporteMHEDestinoCP">
+                        <Component class="javax.swing.JTextField" name="txtTransporteMHDestinoCP">
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEDestinoPaises">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHDestinoPaises">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHEDestinoPaisesActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHDestinoPaisesActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEDestinoProvincias">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="0"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHEDestinoProvinciasActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEDestinoLocalidades">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHDestinoProvincias">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
@@ -1587,10 +1576,21 @@
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHEDestinoLocalidadesActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHDestinoProvinciasActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHEDestinoBarrios">
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHDestinoLocalidades">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTransporteMHDestinoLocalidadesActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="cmbTransporteMHDestinoBarrios">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="0"/>
