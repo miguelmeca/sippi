@@ -5,15 +5,16 @@
 
 package controlador.planificacion;
 
-
+import java.util.List;
 import java.util.ArrayList;
 import modelo.Domicilio;
-
+import modelo.Rubro;
 import modelo.Barrio;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
+import modelo.Proveedor;
 import vista.planificacion.pantallaRegistrarEtapa;
 import controlador.utiles.gestorGeoLocalicacion;
 import controlador.utiles.gestorBDvarios;
@@ -128,17 +129,40 @@ public class GestorOtrosDatosEtapa   {
 
 	}
 
-        public ArrayList<Tupla> mostrarHerramientasDisponibles()
-        {}
+        public ArrayList<Tupla> mostrarHerramientasDisponibles() //TODO:
+        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            return tuplas;}
 
-        public ArrayList<Tupla> mostrarEmpresasTransporteMH()
-        {}
+        public ArrayList<Tupla> mostrarEmpresasTransporteMH() //TODO:
+        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            return tuplas; }
 
-        public ArrayList<Tupla> mostrarEmpresasTransportePasajeros()
-        {}
+        public ArrayList<Tupla> mostrarEmpresasTransportePasajeros() //TODO:
+        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            return tuplas;
+        }
 
-        public ArrayList<Tupla> mostrarEmpresasAlojamiento()
-        {}
+        public ArrayList<Tupla> mostrarEmpresasAlojamiento() //TODO:
+        {   Session sesion;
+            try{
+            sesion= HibernateUtil.getSession();
+
+            //Rubro rubro=(Rubro)sesion.createQuery("from Rubro r where nombre = 'Alojamiento'").uniqueResult();
+            //List lista = sesion.createQuery("from Proveedor pr where select(pr.rubros=) order by pr.razonSocial").list();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+           /* for (int i = 0; i < lista.size(); i++)
+            {
+                Proveedor emp = (Proveedor)lista.get(i);
+                Tupla tupla = new Tupla(emp.getId(),emp.getRazonSocial());
+                    tuplas.add(tupla);
+            }*/
+
+            return tuplas;
+            }
+         catch (Exception ex)////////////
+         {System.out.println("No se pudo abrir la sesion en MostrarEmpresaAlojamiento");
+         return null;}
+        }
 
 	/*public boolean empleadoConfirmado()
         {
