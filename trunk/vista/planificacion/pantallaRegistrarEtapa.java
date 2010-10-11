@@ -12,6 +12,12 @@
 package vista.planificacion;
 
 import java.util.Date;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import util.Tupla;
+import java.util.Iterator;
+import java.util.ArrayList;
+import controlador.planificacion.GestorOtrosDatosEtapa;
 
 /**
  *
@@ -19,10 +25,11 @@ import java.util.Date;
  */
 public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
+    GestorOtrosDatosEtapa gestorOtrosDatosEtapa;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarEtapa() {
         initComponents();
-
+        gestorOtrosDatosEtapa = new GestorOtrosDatosEtapa(this);
         habilitarVentana();
 
     }
@@ -31,7 +38,182 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     {
         cmbFechaFin.setDate(new Date());
         cmbFechaInicio.setDate(new Date());
+        cargarCombosTransportYAlojamiento();
+        cargarCombosEmpresas();
+    }
+
+    private void cargarCombosTransportYAlojamiento()
+    {
+        cmbTransporteMHOrigenProvincias.setEnabled(false);
+        cmbTransporteMHOrigenLocalidades.setEnabled(false);
+        cmbTransporteMHOrigenBarrios.setEnabled(false);
+        cmbTransporteMHDestinoProvincias.setEnabled(false);
+        cmbTransporteMHDestinoLocalidades.setEnabled(false);
+        cmbTransporteMHDestinoBarrios.setEnabled(false);
+        cmbTransportePasajerosOrigenProvincias.setEnabled(false);
+        cmbTransportePasajerosOrigenLocalidades.setEnabled(false);
+        cmbTransportePasajerosDestinoProvincias.setEnabled(false);
+        cmbTransportePasajerosDestinoLocalidades.setEnabled(false);
+        mostrarPaises(cmbTransporteMHOrigenPaises, cmbTransporteMHOrigenProvincias,cmbTransporteMHOrigenLocalidades, cmbTransporteMHOrigenBarrios);
+        mostrarProvincias(cmbTransporteMHOrigenPaises, cmbTransporteMHOrigenProvincias,cmbTransporteMHOrigenLocalidades, cmbTransporteMHOrigenBarrios);
+        mostrarLocalidades( cmbTransporteMHOrigenProvincias,cmbTransporteMHOrigenLocalidades, cmbTransporteMHOrigenBarrios);
+        mostrarBarrios( cmbTransporteMHOrigenProvincias,cmbTransporteMHOrigenLocalidades, cmbTransporteMHOrigenBarrios);
+
+        mostrarPaises(cmbTransporteMHDestinoPaises, cmbTransporteMHDestinoProvincias,cmbTransporteMHDestinoLocalidades, cmbTransporteMHDestinoBarrios);
+        mostrarProvincias(cmbTransporteMHDestinoPaises, cmbTransporteMHDestinoProvincias,cmbTransporteMHDestinoLocalidades, cmbTransporteMHDestinoBarrios);
+        mostrarLocalidades( cmbTransporteMHDestinoProvincias,cmbTransporteMHDestinoLocalidades, cmbTransporteMHDestinoBarrios);
+        mostrarBarrios( cmbTransporteMHDestinoProvincias,cmbTransporteMHDestinoLocalidades, cmbTransporteMHDestinoBarrios);
+
+        mostrarPaises(cmbTransportePasajerosOrigenPaises, cmbTransportePasajerosOrigenProvincias,cmbTransportePasajerosOrigenLocalidades, null);
+        mostrarProvincias(cmbTransportePasajerosOrigenPaises, cmbTransportePasajerosOrigenProvincias,cmbTransportePasajerosOrigenLocalidades, null);
+        mostrarLocalidades( cmbTransportePasajerosOrigenProvincias,cmbTransportePasajerosOrigenLocalidades, null);
+
+
+        mostrarPaises(cmbTransportePasajerosDestinoPaises, cmbTransportePasajerosDestinoProvincias,cmbTransportePasajerosDestinoLocalidades, null);
+        mostrarProvincias(cmbTransportePasajerosDestinoPaises, cmbTransportePasajerosDestinoProvincias,cmbTransportePasajerosDestinoLocalidades, null);
+        mostrarLocalidades( cmbTransportePasajerosDestinoProvincias,cmbTransportePasajerosDestinoLocalidades, null);
+
         
+    }
+
+    private void mostrarPaises(JComboBox cmbPaises, JComboBox cmbProvincias, JComboBox cmbLocalidades, JComboBox cmbBarrios)
+    {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarPaises();
+
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+
+        cmbPaises.setModel(valores);
+        cmbPaises.setSelectedIndex(-1);
+        cmbProvincias.setModel(new DefaultComboBoxModel());
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbLocalidades.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(false);
+       cmbLocalidades.setEnabled(false);
+       if(cmbBarrios!=null)
+       {cmbBarrios.setEnabled(false);}
+        //cmbLocalidades.setSelectedIndex(-1);
+
+    }
+
+    private void mostrarProvincias(JComboBox cmbPaises, JComboBox cmbProvincias, JComboBox cmbLocalidades, JComboBox cmbBarrios)
+    {
+       if(cmbPaises.getSelectedIndex()!=-1)
+       {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Tupla t = (Tupla) cmbPaises.getSelectedItem() ;
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarProvincias(t.getId());
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbProvincias.setModel(valores);
+        cmbProvincias.setSelectedIndex(-1);
+        cmbLocalidades.setModel(new DefaultComboBoxModel());
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(true);
+        cmbLocalidades.setEnabled(false);
+        cmbBarrios.setEnabled(false);
+        //cmbLocalidades.setModel(new DefaultComboBoxModel());
+       }
+    }
+
+    private void mostrarLocalidades(JComboBox cmbProvincias, JComboBox cmbLocalidades, JComboBox cmbBarrios)
+    {
+        if(cmbProvincias.getSelectedIndex()!=-1)
+       {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Tupla t = (Tupla) cmbProvincias.getSelectedItem() ;
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarLocalidades(t.getId());
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbLocalidades.setModel(valores);
+        cmbLocalidades.setSelectedIndex(-1);
+        cmbBarrios.setModel(new DefaultComboBoxModel());
+        cmbProvincias.setEnabled(true);
+       cmbLocalidades.setEnabled(true);
+        cmbBarrios.setEnabled(false);
+        }
+    }
+
+    private void mostrarBarrios(JComboBox cmbProvincias,JComboBox cmbLocalidades, JComboBox cmbBarrios)
+    {
+        if(cmbLocalidades.getSelectedIndex()!=-1)
+       {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        Tupla t = (Tupla) cmbLocalidades.getSelectedItem() ;
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarBarrios(t.getId());
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbBarrios.setModel(valores);
+        cmbBarrios.setSelectedIndex(-1);
+        cmbProvincias.setEnabled(true);
+       cmbLocalidades.setEnabled(true);
+        cmbBarrios.setEnabled(true);
+      }
+    }
+    private void mostrarHerramientasDisponibles()
+    {
+
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarHerramientasDisponibles();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+        lstTransporteMHHerramientasDisponibles.setModel(valores);
+
+
+    }
+
+    private void cargarCombosEmpresas()
+    {
+        DefaultComboBoxModel valoresEmpresasTransporteMH = new DefaultComboBoxModel();
+        ArrayList<Tupla> lista = gestorOtrosDatosEtapa.mostrarEmpresasTransporteMH();
+        Iterator<Tupla> it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valoresEmpresasTransporteMH.addElement(tu);
+        }
+        cmbEmpresasTransporteMH.setModel(valoresEmpresasTransporteMH);
+        cmbEmpresasTransporteMH.setSelectedIndex(-1);
+
+        DefaultComboBoxModel valoresEmpresasTransportePasajeros = new DefaultComboBoxModel();
+        lista = gestorOtrosDatosEtapa.mostrarEmpresasTransportePasajeros();
+        it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valoresEmpresasTransportePasajeros.addElement(tu);
+        }
+        cmbEmpresasTransportePasajeros.setModel(valoresEmpresasTransportePasajeros);
+        cmbEmpresasTransportePasajeros.setSelectedIndex(-1);
+
+        DefaultComboBoxModel valoresEmpresasAlojamiento = new DefaultComboBoxModel();
+        lista = gestorOtrosDatosEtapa.mostrarEmpresasAlojamiento();
+        it = lista.iterator();
+        while(it.hasNext()){
+            Tupla tu = it.next();
+            valoresEmpresasAlojamiento.addElement(tu);
+        }
+        cmbEmpresasAlojamiento.setModel(valoresEmpresasAlojamiento);
+        cmbEmpresasAlojamiento.setSelectedIndex(-1);
+
     }
 
     /** This method is called from within the constructor to
@@ -71,12 +253,12 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         cboAlojamientoCantPersonas = new javax.swing.JTextField();
         cboAlojamientoCantDias = new javax.swing.JTextField();
-        cmbAlojamientoEmpresa = new javax.swing.JComboBox();
+        cmbEmpresasAlojamiento = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        cmbTransportePasajerosEmpresa = new javax.swing.JComboBox();
+        cmbEmpresasTransportePasajeros = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
@@ -101,7 +283,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        cmbTransporteMHEmpresa = new javax.swing.JComboBox();
+        cmbEmpresasTransporteMH = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel12 = new javax.swing.JPanel();
@@ -115,15 +297,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
-        txtTransporteMHEOrigenCalle = new javax.swing.JTextField();
-        txtTransporteMHEOrigenNro = new javax.swing.JTextField();
-        txtTransporteMHEOrigenPiso = new javax.swing.JTextField();
-        txtTransporteMHEOrigenDepto = new javax.swing.JTextField();
-        txtTransporteMHEOrigenCP = new javax.swing.JTextField();
-        cmbTransporteMHEOrigenPaises = new javax.swing.JComboBox();
-        cmbTransportesMHEOrigenProvincias = new javax.swing.JComboBox();
-        cmbTransporteMHEOrigenLocalidades = new javax.swing.JComboBox();
-        cmbTransporteMHEOrigenBarrios = new javax.swing.JComboBox();
+        txtTransporteMHOrigenCalle = new javax.swing.JTextField();
+        txtTransporteMHOrigenNro = new javax.swing.JTextField();
+        txtTransporteMHOrigenPiso = new javax.swing.JTextField();
+        txtTransporteMHOrigenDepto = new javax.swing.JTextField();
+        txtTransporteMHOrigenCP = new javax.swing.JTextField();
+        cmbTransporteMHOrigenPaises = new javax.swing.JComboBox();
+        cmbTransporteMHOrigenProvincias = new javax.swing.JComboBox();
+        cmbTransporteMHOrigenLocalidades = new javax.swing.JComboBox();
+        cmbTransporteMHOrigenBarrios = new javax.swing.JComboBox();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
@@ -138,15 +320,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
-        txtTransporteMHEDestinoCalle = new javax.swing.JTextField();
-        txtTransporteMHEDestinoNro = new javax.swing.JTextField();
-        txtTransporteMHEDestinoPiso = new javax.swing.JTextField();
-        txtTransporteMHEDestinoDepto = new javax.swing.JTextField();
-        txtTransporteMHEDestinoCP = new javax.swing.JTextField();
-        cmbTransporteMHEDestinoPaises = new javax.swing.JComboBox();
-        cmbTransporteMHEDestinoProvincias = new javax.swing.JComboBox();
-        cmbTransporteMHEDestinoLocalidades = new javax.swing.JComboBox();
-        cmbTransporteMHEDestinoBarrios = new javax.swing.JComboBox();
+        txtTransporteMHDestinoCalle = new javax.swing.JTextField();
+        txtTransporteMHDestinoNro = new javax.swing.JTextField();
+        txtTransporteMHDestinoPiso = new javax.swing.JTextField();
+        txtTransporteMHDestinoDepto = new javax.swing.JTextField();
+        txtTransporteMHDestinoCP = new javax.swing.JTextField();
+        cmbTransporteMHDestinoPaises = new javax.swing.JComboBox();
+        cmbTransporteMHDestinoProvincias = new javax.swing.JComboBox();
+        cmbTransporteMHDestinoLocalidades = new javax.swing.JComboBox();
+        cmbTransporteMHDestinoBarrios = new javax.swing.JComboBox();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
@@ -375,10 +557,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Tareas", jPanel3);
 
-        cmbAlojamientoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbAlojamientoEmpresa.addActionListener(new java.awt.event.ActionListener() {
+        cmbEmpresasAlojamiento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEmpresasAlojamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbAlojamientoEmpresaActionPerformed(evt);
+                cmbEmpresasAlojamientoActionPerformed(evt);
             }
         });
 
@@ -398,7 +580,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbAlojamientoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbEmpresasAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel19)
@@ -415,7 +597,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(cmbAlojamientoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEmpresasAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -429,7 +611,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Alojamiento", jPanel5);
 
-        cmbTransportePasajerosEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEmpresasTransportePasajeros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel8.setText("Empresa de Transporte:");
 
@@ -620,7 +802,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbTransportePasajerosEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbEmpresasTransportePasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
@@ -641,7 +823,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addComponent(jButton5, 0, 0, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(cmbTransportePasajerosEmpresa)))
+                        .addComponent(cmbEmpresasTransportePasajeros)))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -657,7 +839,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Empresa de Transporte:");
 
-        cmbTransporteMHEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEmpresasTransporteMH.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -690,33 +872,33 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel49.setText("Barrio:");
 
-        txtTransporteMHEOrigenCalle.addActionListener(new java.awt.event.ActionListener() {
+        txtTransporteMHOrigenCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTransporteMHEOrigenCalleActionPerformed(evt);
+                txtTransporteMHOrigenCalleActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEOrigenPaises.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHOrigenPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransporteMHEOrigenPaisesActionPerformed(evt);
+                cmbTransporteMHOrigenPaisesActionPerformed(evt);
             }
         });
 
-        cmbTransportesMHEOrigenProvincias.setEnabled(false);
-        cmbTransportesMHEOrigenProvincias.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHOrigenProvincias.setEnabled(false);
+        cmbTransporteMHOrigenProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransportesMHEOrigenProvinciasActionPerformed(evt);
+                cmbTransporteMHOrigenProvinciasActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEOrigenLocalidades.setEnabled(false);
-        cmbTransporteMHEOrigenLocalidades.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHOrigenLocalidades.setEnabled(false);
+        cmbTransporteMHOrigenLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransporteMHEOrigenLocalidadesActionPerformed(evt);
+                cmbTransporteMHOrigenLocalidadesActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEOrigenBarrios.setEnabled(false);
+        cmbTransporteMHOrigenBarrios.setEnabled(false);
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -734,41 +916,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTransporteMHEOrigenCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHOrigenCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel42)
                         .addGap(20, 20, 20)
-                        .addComponent(txtTransporteMHEOrigenNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHOrigenNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel43)
                         .addGap(10, 10, 10)
-                        .addComponent(txtTransporteMHEOrigenPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHOrigenPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel44)
                         .addGap(10, 10, 10)
-                        .addComponent(txtTransporteMHEOrigenDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHOrigenDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                         .addComponent(jLabel45)
                         .addGap(17, 17, 17)
-                        .addComponent(txtTransporteMHEOrigenCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHOrigenCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel46)
                                 .addGap(41, 41, 41)
-                                .addComponent(cmbTransporteMHEOrigenPaises, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHOrigenPaises, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbTransportesMHEOrigenProvincias, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHOrigenProvincias, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel48)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbTransporteMHEOrigenLocalidades, 0, 185, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHOrigenLocalidades, 0, 185, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel49)
                                 .addGap(33, 33, 33)
-                                .addComponent(cmbTransporteMHEOrigenBarrios, 0, 0, Short.MAX_VALUE)))
+                                .addComponent(cmbTransporteMHOrigenBarrios, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -781,41 +963,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(txtTransporteMHEOrigenCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHOrigenCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
-                    .addComponent(txtTransporteMHEOrigenNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHOrigenNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
-                    .addComponent(txtTransporteMHEOrigenPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHOrigenPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel44)
-                    .addComponent(txtTransporteMHEOrigenDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHOrigenDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTransporteMHEOrigenCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTransporteMHOrigenCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbTransporteMHEOrigenPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransporteMHOrigenPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton12, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbTransportesMHEOrigenProvincias)
+                    .addComponent(cmbTransporteMHOrigenProvincias)
                     .addComponent(jLabel47))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton13, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbTransporteMHEOrigenLocalidades)
+                    .addComponent(cmbTransporteMHOrigenLocalidades)
                     .addComponent(jLabel48))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbTransporteMHEOrigenBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransporteMHOrigenBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel49))
                     .addComponent(jButton14, 0, 0, Short.MAX_VALUE)))
         );
@@ -867,33 +1049,33 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel61.setText("Barrio:");
 
-        txtTransporteMHEDestinoCalle.addActionListener(new java.awt.event.ActionListener() {
+        txtTransporteMHDestinoCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTransporteMHEDestinoCalleActionPerformed(evt);
+                txtTransporteMHDestinoCalleActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEDestinoPaises.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHDestinoPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransporteMHEDestinoPaisesActionPerformed(evt);
+                cmbTransporteMHDestinoPaisesActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEDestinoProvincias.setEnabled(false);
-        cmbTransporteMHEDestinoProvincias.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHDestinoProvincias.setEnabled(false);
+        cmbTransporteMHDestinoProvincias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransporteMHEDestinoProvinciasActionPerformed(evt);
+                cmbTransporteMHDestinoProvinciasActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEDestinoLocalidades.setEnabled(false);
-        cmbTransporteMHEDestinoLocalidades.addActionListener(new java.awt.event.ActionListener() {
+        cmbTransporteMHDestinoLocalidades.setEnabled(false);
+        cmbTransporteMHDestinoLocalidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTransporteMHEDestinoLocalidadesActionPerformed(evt);
+                cmbTransporteMHDestinoLocalidadesActionPerformed(evt);
             }
         });
 
-        cmbTransporteMHEDestinoBarrios.setEnabled(false);
+        cmbTransporteMHDestinoBarrios.setEnabled(false);
 
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -911,41 +1093,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel53)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTransporteMHEDestinoCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHDestinoCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel54)
                         .addGap(20, 20, 20)
-                        .addComponent(txtTransporteMHEDestinoNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHDestinoNro, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel55)
                         .addGap(10, 10, 10)
-                        .addComponent(txtTransporteMHEDestinoPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHDestinoPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel56)
                         .addGap(10, 10, 10)
-                        .addComponent(txtTransporteMHEDestinoDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHDestinoDepto, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel57)
                         .addGap(17, 17, 17)
-                        .addComponent(txtTransporteMHEDestinoCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                        .addComponent(txtTransporteMHDestinoCP, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel58)
                                 .addGap(41, 41, 41)
-                                .addComponent(cmbTransporteMHEDestinoPaises, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHDestinoPaises, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbTransporteMHEDestinoProvincias, 0, 184, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHDestinoProvincias, 0, 184, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel60)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbTransporteMHEDestinoLocalidades, 0, 185, Short.MAX_VALUE))
+                                .addComponent(cmbTransporteMHDestinoLocalidades, 0, 185, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
                                 .addComponent(jLabel61)
                                 .addGap(33, 33, 33)
-                                .addComponent(cmbTransporteMHEDestinoBarrios, 0, 0, Short.MAX_VALUE)))
+                                .addComponent(cmbTransporteMHDestinoBarrios, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -958,41 +1140,41 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53)
-                    .addComponent(txtTransporteMHEDestinoCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHDestinoCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel54)
-                    .addComponent(txtTransporteMHEDestinoNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHDestinoNro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel55)
-                    .addComponent(txtTransporteMHEDestinoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHDestinoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel56)
-                    .addComponent(txtTransporteMHEDestinoDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTransporteMHDestinoDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTransporteMHEDestinoCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTransporteMHDestinoCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel57))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbTransporteMHEDestinoPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTransporteMHDestinoPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel58))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton15, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbTransporteMHEDestinoProvincias)
+                    .addComponent(cmbTransporteMHDestinoProvincias)
                     .addComponent(jLabel59))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton16, 0, 0, Short.MAX_VALUE)
-                    .addComponent(cmbTransporteMHEDestinoLocalidades)
+                    .addComponent(cmbTransporteMHDestinoLocalidades)
                     .addComponent(jLabel60))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbTransporteMHEDestinoBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTransporteMHDestinoBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel61))
                     .addComponent(jButton17, 0, 0, Short.MAX_VALUE)))
         );
@@ -1146,7 +1328,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbTransporteMHEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbEmpresasTransporteMH, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1157,7 +1339,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbTransporteMHEmpresa)
+                    .addComponent(cmbEmpresasTransporteMH)
                     .addComponent(jButton6, 0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1231,37 +1413,37 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTransportePasajerosCantidadActionPerformed
 
-    private void txtTransporteMHEOrigenCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHEOrigenCalleActionPerformed
+    private void txtTransporteMHOrigenCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHOrigenCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTransporteMHEOrigenCalleActionPerformed
+    }//GEN-LAST:event_txtTransporteMHOrigenCalleActionPerformed
 
-    private void cmbTransporteMHEOrigenPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEOrigenPaisesActionPerformed
+    private void cmbTransporteMHOrigenPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHOrigenPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransporteMHEOrigenPaisesActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHOrigenPaisesActionPerformed
 
-    private void cmbTransportesMHEOrigenProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransportesMHEOrigenProvinciasActionPerformed
+    private void cmbTransporteMHOrigenProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHOrigenProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransportesMHEOrigenProvinciasActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHOrigenProvinciasActionPerformed
 
-    private void cmbTransporteMHEOrigenLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEOrigenLocalidadesActionPerformed
+    private void cmbTransporteMHOrigenLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHOrigenLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransporteMHEOrigenLocalidadesActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHOrigenLocalidadesActionPerformed
 
-    private void txtTransporteMHEDestinoCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHEDestinoCalleActionPerformed
+    private void txtTransporteMHDestinoCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransporteMHDestinoCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTransporteMHEDestinoCalleActionPerformed
+    }//GEN-LAST:event_txtTransporteMHDestinoCalleActionPerformed
 
-    private void cmbTransporteMHEDestinoPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoPaisesActionPerformed
+    private void cmbTransporteMHDestinoPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHDestinoPaisesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransporteMHEDestinoPaisesActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHDestinoPaisesActionPerformed
 
-    private void cmbTransporteMHEDestinoProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoProvinciasActionPerformed
+    private void cmbTransporteMHDestinoProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHDestinoProvinciasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransporteMHEDestinoProvinciasActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHDestinoProvinciasActionPerformed
 
-    private void cmbTransporteMHEDestinoLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHEDestinoLocalidadesActionPerformed
+    private void cmbTransporteMHDestinoLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTransporteMHDestinoLocalidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTransporteMHEDestinoLocalidadesActionPerformed
+    }//GEN-LAST:event_cmbTransporteMHDestinoLocalidadesActionPerformed
 
     private void btnAgregarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHerramientaActionPerformed
 
@@ -1271,9 +1453,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
 }//GEN-LAST:event_btnQuitarHerramientaActionPerformed
 
-    private void cmbAlojamientoEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlojamientoEmpresaActionPerformed
+    private void cmbEmpresasAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasAlojamientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbAlojamientoEmpresaActionPerformed
+    }//GEN-LAST:event_cmbEmpresasAlojamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1283,25 +1465,25 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTareasNueva;
     private javax.swing.JTextField cboAlojamientoCantDias;
     private javax.swing.JTextField cboAlojamientoCantPersonas;
-    private javax.swing.JComboBox cmbAlojamientoEmpresa;
+    private javax.swing.JComboBox cmbEmpresasAlojamiento;
+    private javax.swing.JComboBox cmbEmpresasTransporteMH;
+    private javax.swing.JComboBox cmbEmpresasTransportePasajeros;
     private com.toedter.calendar.JDateChooser cmbFechaFin;
     private com.toedter.calendar.JDateChooser cmbFechaInicio;
-    private javax.swing.JComboBox cmbTransporteMHEDestinoBarrios;
-    private javax.swing.JComboBox cmbTransporteMHEDestinoLocalidades;
-    private javax.swing.JComboBox cmbTransporteMHEDestinoPaises;
-    private javax.swing.JComboBox cmbTransporteMHEDestinoProvincias;
-    private javax.swing.JComboBox cmbTransporteMHEOrigenBarrios;
-    private javax.swing.JComboBox cmbTransporteMHEOrigenLocalidades;
-    private javax.swing.JComboBox cmbTransporteMHEOrigenPaises;
-    private javax.swing.JComboBox cmbTransporteMHEmpresa;
+    private javax.swing.JComboBox cmbTransporteMHDestinoBarrios;
+    private javax.swing.JComboBox cmbTransporteMHDestinoLocalidades;
+    private javax.swing.JComboBox cmbTransporteMHDestinoPaises;
+    private javax.swing.JComboBox cmbTransporteMHDestinoProvincias;
+    private javax.swing.JComboBox cmbTransporteMHOrigenBarrios;
+    private javax.swing.JComboBox cmbTransporteMHOrigenLocalidades;
+    private javax.swing.JComboBox cmbTransporteMHOrigenPaises;
+    private javax.swing.JComboBox cmbTransporteMHOrigenProvincias;
     private javax.swing.JComboBox cmbTransportePasajerosDestinoLocalidades;
     private javax.swing.JComboBox cmbTransportePasajerosDestinoPaises;
     private javax.swing.JComboBox cmbTransportePasajerosDestinoProvincias;
-    private javax.swing.JComboBox cmbTransportePasajerosEmpresa;
     private javax.swing.JComboBox cmbTransportePasajerosOrigenLocalidades;
     private javax.swing.JComboBox cmbTransportePasajerosOrigenPaises;
     private javax.swing.JComboBox cmbTransportePasajerosOrigenProvincias;
-    private javax.swing.JComboBox cmbTransportesMHEOrigenProvincias;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -1391,16 +1573,16 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txaTransporteMHMateriales;
     private javax.swing.JTextArea txaTransporteMHMaterialesObs;
     private javax.swing.JTextField txtCostoTareas;
-    private javax.swing.JTextField txtTransporteMHEDestinoCP;
-    private javax.swing.JTextField txtTransporteMHEDestinoCalle;
-    private javax.swing.JTextField txtTransporteMHEDestinoDepto;
-    private javax.swing.JTextField txtTransporteMHEDestinoNro;
-    private javax.swing.JTextField txtTransporteMHEDestinoPiso;
-    private javax.swing.JTextField txtTransporteMHEOrigenCP;
-    private javax.swing.JTextField txtTransporteMHEOrigenCalle;
-    private javax.swing.JTextField txtTransporteMHEOrigenDepto;
-    private javax.swing.JTextField txtTransporteMHEOrigenNro;
-    private javax.swing.JTextField txtTransporteMHEOrigenPiso;
+    private javax.swing.JTextField txtTransporteMHDestinoCP;
+    private javax.swing.JTextField txtTransporteMHDestinoCalle;
+    private javax.swing.JTextField txtTransporteMHDestinoDepto;
+    private javax.swing.JTextField txtTransporteMHDestinoNro;
+    private javax.swing.JTextField txtTransporteMHDestinoPiso;
+    private javax.swing.JTextField txtTransporteMHOrigenCP;
+    private javax.swing.JTextField txtTransporteMHOrigenCalle;
+    private javax.swing.JTextField txtTransporteMHOrigenDepto;
+    private javax.swing.JTextField txtTransporteMHOrigenNro;
+    private javax.swing.JTextField txtTransporteMHOrigenPiso;
     private javax.swing.JTextField txtTransportePasajerosCantidad;
     // End of variables declaration//GEN-END:variables
 
