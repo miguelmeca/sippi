@@ -12,9 +12,12 @@
 package vista.planificacion;
 
 import java.lang.Object;
+import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import vista.gui.ComboCellRenderer;
 import vista.gui.IconCellRenderer;
 
 /**
@@ -32,8 +35,28 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
     
     private void habilitarVentana()
     {
+        comboObras.setRenderer(new ComboCellRenderer());
         tablaPlantillas.setDefaultRenderer(Object.class,new IconCellRenderer());
         llenarTabla();
+        llenarComboObras();
+    }
+
+    private void llenarComboObras()
+    {
+        pantallaNuevoPresupuesto_combo item = new pantallaNuevoPresupuesto_combo();
+        item.setNombreObra("Linea de Montaje DK1");
+        item.setNombrePlanta("BAGLEY SRL San Luis");
+        item.setFechas(new Date(),new Date());
+
+        pantallaNuevoPresupuesto_combo item2 = new pantallaNuevoPresupuesto_combo();
+        item2.setNombreObra("Linea de Montaje DF33N");
+        item2.setNombrePlanta("ARCOR CBA");
+        item2.setFechas(new Date(),new Date());
+
+
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboObras.getModel();
+        modelo.addElement(item);
+        modelo.addElement(item2);
     }
 
     private void llenarTabla()
@@ -65,9 +88,6 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         modelo.addRow(fila2);
         modelo.addRow(fila3);
         modelo.addRow(fila4);
-
-
-
     }
 
     /** This method is called from within the constructor to
@@ -83,12 +103,12 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaPlantillas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblIcono = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboObras = new javax.swing.JComboBox();
 
         setClosable(true);
         setTitle("Nuevo Presupuesto");
@@ -112,6 +132,11 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
             }
         });
         tablaPlantillas.setTableHeader(null);
+        tablaPlantillas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaPlantillasMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaPlantillas);
         tablaPlantillas.getColumnModel().getColumn(0).setMinWidth(50);
         tablaPlantillas.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -135,28 +160,28 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
+        lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
 
-        jLabel3.setText("<HTML><b>En Blanco:</b><br>Crea un nuevo Presupuesto sin ninguna etapa o tarea");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel3.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        lblDesc.setText("<HTML><b>En Blanco:</b><br>Crea un nuevo Presupuesto sin ninguna etapa o tarea");
+        lblDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblDesc.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(lblIcono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addComponent(lblDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+                    .addComponent(lblIcono)
+                    .addComponent(lblDesc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -166,21 +191,19 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione la Obra a Presupuestar"));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sapito pinto" }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, 0, 335, Short.MAX_VALUE)
+                .addComponent(comboObras, 0, 335, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboObras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -213,23 +236,31 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tablaPlantillasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPlantillasMousePressed
+        DefaultTableModel modelo = (DefaultTableModel) tablaPlantillas.getModel();
+        JLabel jl = (JLabel)modelo.getValueAt(tablaPlantillas.getSelectedRow(),0);
+        String nombre = (String)modelo.getValueAt(tablaPlantillas.getSelectedRow(),1);
+        lblIcono.setIcon(jl.getIcon());
+        lblDesc.setText("<HTML><b>"+nombre+"</b><br>Descripcion...");
+    }//GEN-LAST:event_tablaPlantillasMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox comboObras;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDesc;
+    private javax.swing.JLabel lblIcono;
     private javax.swing.JTable tablaPlantillas;
     // End of variables declaration//GEN-END:variables
 

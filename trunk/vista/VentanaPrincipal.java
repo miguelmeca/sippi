@@ -79,7 +79,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
 
-        this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
+        //this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
 
         cargarMenu();
     }
