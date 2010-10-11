@@ -14,28 +14,77 @@ import java.util.Date;
 //
 //
 
-
-
-
 public class EjecucionEtapa {
-	private Date inicioReal;
-	private String descripcion;
-	private Date finReal;
-	public int porcCompletado;
-	private String estado; // REVISAR!!!!
-	public void crear() {
-	
-	}
-	
-	public void mostrarEjecucionEtapa() {
-	
-	}
-	
-	public void mostrarEmpleados() {
-	
-	}
-	
-	public void getPorcentajeCompletado() {
-	
-	}
+    private int id;
+    private Date inicioReal;
+    private String descripcion;
+    private Date finReal;
+    public int porcCompletado;
+    private String estado; // REVISAR!!!!
+    public void crear() {
+
+    }
+
+    public void mostrarEjecucionEtapa() {
+
+    }
+
+    public void mostrarEmpleados() {
+
+    }
+
+    public void getPorcentajeCompletado() {
+
+    }
+
+    public EjecucionEtapa() {
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Date getFinReal() {
+        return finReal;
+    }
+
+    public void setFinReal(Date finReal) {
+        this.finReal = finReal;
+    }
+
+    public Date getInicioReal() {
+        return inicioReal;
+    }
+
+    public void setInicioReal(Date inicioReal) {
+        this.inicioReal = inicioReal;
+    }
+
+    public int getPorcCompletado() {
+        return porcCompletado;
+    }
+
+    public void setPorcCompletado(int porcCompletado) {
+        this.porcCompletado = porcCompletado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
 }

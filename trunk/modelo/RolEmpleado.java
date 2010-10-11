@@ -15,30 +15,67 @@ package modelo;
 
 
 public class RolEmpleado {
-	public Empleado empleado;
-	public Especialidad especialidad;
-	public Boolean esLider;
-	public void crear() {
-	
-	}
-	
-	public void mostrarEmpleado() {
-	
-	}
-	
-	public void mostrarEspecialidad() {
-	
-	}
-	
-	public void esLider() {
-	
-	}
-	
-	public void mostrarEmpleadosDeEseTipoYMaximaFechaDeVencimiento() {
-	
-	}
-	
-	public void estaAsignado() {
-	
-	}
+    private int id;
+    private Empleado empleado;
+    private Especialidad especialidad;
+    private Boolean esLider;
+
+    public void crear() {
+
+    }
+
+    public void mostrarEmpleado() {
+
+    }
+
+    public void mostrarEspecialidad() {
+
+    }
+
+    public void esLider() {
+
+    }
+
+    public void mostrarEmpleadosDeEseTipoYMaximaFechaDeVencimiento() {
+
+    }
+
+    public void estaAsignado() {
+
+    }
+
+    public RolEmpleado() {
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public Boolean getEsLider() {
+        return esLider;
+    }
+
+    public void setEsLider(Boolean esLider) {
+        this.esLider = esLider;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
 }
