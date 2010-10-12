@@ -136,8 +136,8 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     }
    private void habilitarVentana()
     {
-       cmbProvincias.setEnabled(false);
-       cmbLocalidades.setEnabled(false);
+        cmbProvincias.setEnabled(false);
+        cmbLocalidades.setEnabled(false);
         cmbBarrios.setEnabled(false);
         mostrarTiposDeDocumento();
         mostrarPaises();
