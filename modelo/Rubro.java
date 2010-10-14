@@ -12,13 +12,15 @@ public class Rubro {
 
     private int id;
     private String nombre;
+    private String nombreClase;
 
     public Rubro() {
     }
 
-    public Rubro(int id, String nombre) {
+    public Rubro(int id, String nombre, String nombreClase) {
         this.id = id;
         this.nombre = nombre;
+        this.nombreClase = nombreClase;
     }
 
     public int getId() {
@@ -37,6 +39,12 @@ public class Rubro {
         this.nombre = nombre;
     }
 
-    
+    public String getNombreClase() {
+        return nombreClase;
+    }
+
+    public void setNombreClase(String nombreC) {
+        this.nombreClase = nombreC;
+    }
 
 }

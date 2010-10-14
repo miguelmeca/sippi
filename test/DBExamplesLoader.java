@@ -118,12 +118,13 @@ public class DBExamplesLoader {
 
     private void cargarRubros()
     {
-        Rubro r1 = new Rubro(1,"Material");
-        Rubro r2 = new Rubro(2,"Herramienta");
-        Rubro r3 = new Rubro(3,"Consumible");
-        Rubro r4 = new Rubro(4,"Indumentaria");
-        Rubro r5 = new Rubro(5,"Transporte");
-        Rubro r6 = new Rubro(6,"Alojamiento");
+        Rubro r1 = new Rubro(1,"Material", "Material");
+        Rubro r2 = new Rubro(2,"Herramienta","Herramienta");
+        Rubro r3 = new Rubro(3,"Consumible","Consumible");
+        Rubro r4 = new Rubro(4,"Indumentaria","Indumentaria");
+        Rubro r5 = new Rubro(5,"Transporte De Materiales y Herramientas","TransporteDeMaterialesYHerramientas");
+        Rubro r6 = new Rubro(6,"Transporte De Pasajeros","TransporteDePasajeros");
+        Rubro r7 = new Rubro(7,"Alojamiento","Alojamiento");
 
         sesion.beginTransaction();
         sesion.save(r1);
@@ -132,6 +133,7 @@ public class DBExamplesLoader {
         sesion.save(r4);
         sesion.save(r5);
         sesion.save(r6);
+        sesion.save(r7);
         sesion.getTransaction().commit();
         
     }

@@ -88,7 +88,7 @@ public class gestorRegistrarPrecioRecurso {
                    Rubro rub = itrub.next();
                    // CARGO SOLO LOS RECURSOS DE ESE RUBRO
                    // PODRE?
-                   List<Recurso> listaRec = sesion.createQuery("FROM "+rub.getNombre()+" AS re").list();
+                   List<Recurso> listaRec = sesion.createQuery("FROM "+rub.getNombreClase()+" AS re").list();
                    Iterator<Recurso> itrec = listaRec.iterator();
                    while (itrec.hasNext())
                    {

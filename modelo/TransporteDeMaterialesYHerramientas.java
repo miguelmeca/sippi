@@ -12,4 +12,8 @@ package modelo;
 //
 
 public class TransporteDeMaterialesYHerramientas extends Recurso {
+    public String toString()
+    {
+        return "TransporteDeMaterialesYHerramientas";
+    }
 }

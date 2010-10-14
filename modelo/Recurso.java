@@ -28,7 +28,7 @@ public abstract class Recurso {
     public boolean esRubro(int idRubro)
     {
          Rubro r = RubroUtil.getRubro(idRubro);
-         if(r.getNombre().equals(this.toString()))
+         if(r.getNombreClase().equals(this.toString()))
          {
              return true;
          }
