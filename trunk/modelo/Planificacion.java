@@ -12,7 +12,17 @@ package modelo;
 //
 
 public class Planificacion extends PresupuestoBase {
-	public void mostrarPlanificacionObra() {
+    private EjecucionObra ejecucion;
+
+    public void mostrarPlanificacionObra() {
 	
-	}
+    }
+
+    public EjecucionObra getEjecucion() {
+        return ejecucion;
+    }
+
+    public void setEjecucion(EjecucionObra ejecucion) {
+        this.ejecucion = ejecucion;
+    }
 }
