@@ -23,6 +23,7 @@
     </joined-subclass>
 
     <joined-subclass name="modelo.Presupuesto" table="PRESUPUESTO">
+        <key column="IDPRESUPUESTO"/>
         <list cascade="all" name="planificaciones" table="PRESUPUESTO_X_PLANIFICACION">
           <key column="ID_PRESUPUESTO"/>
           <index column="idx"/>
@@ -32,7 +33,7 @@
 
     <joined-subclass name="modelo.Planificacion" table="PLANIFICACION">
         <key column="IDPLANIFICACION"/>
-        <many-to-one name="ejecucion" class="modelo.EjecucionObra" column="ID_EJECUCION"/>
+        <many-to-one name="ejecucion" column="ID_EJECUCION"/>
     </joined-subclass>
 
     <joined-subclass name="modelo.EjecucionObra" table="EJECUCIONOBRA">
