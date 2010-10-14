@@ -61,7 +61,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -331,7 +331,6 @@
             <Component class="com.toedter.calendar.JDateChooser" name="cmbLEP">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Dejar en Blanco si no se tiene"/>
-                <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">

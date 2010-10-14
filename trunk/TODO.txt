@@ -6,7 +6,7 @@
 
 CIRCUITO DE PRESUPUESTACION
 ---------------------------
-- XML de MODP (E)
+- XML de MODP (E) // DONE
 - Hacer los UC (IFE)
 - SConfig (I)
 - Pantalla para elegir los presupuestos y abrirlos (I)

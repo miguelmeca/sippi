@@ -70,6 +70,4 @@ public abstract class Recurso {
     public void setUnidadDeMedida(UnidadDeMedida unidadDeMedida) {
         this.unidadDeMedida = unidadDeMedida;
     }
-
-
 }
