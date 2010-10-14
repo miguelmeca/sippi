@@ -13,9 +13,9 @@ package modelo;
  * @todo
  */
 
-public class EstadoHerramienta extends EstadoAbstracto {
+public class EstadoHerramientaDeEmpresa extends EstadoAbstracto {
     
-    	public boolean esAlta()
+    	public boolean esDisponible()
         {
             return false;
 	}
@@ -25,13 +25,13 @@ public class EstadoHerramienta extends EstadoAbstracto {
             return false;
 	}
 
-        public void darBaja(Herramienta he)
+        public void darBaja(HerramientaDeEmpresa he)
         {
 //            tc.setHib_flag_estado("modelo.EstadoLugarCapacitacionBaja");
 //            tc.setEstado(new EstadoLugarCapacitacionBaja());
         }
 
-        public void darAlta(Herramienta he)
+        public void darAlta(HerramientaDeEmpresa he)
         {
 //            tc.setHib_flag_estado("modelo.EstadoLugarCapacitacionAlta");
 //            tc.setEstado(new EstadoLugarCapacitacionAlta());

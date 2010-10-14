@@ -14,7 +14,7 @@ package modelo;
 public class HerramientaDeEmpresa {
     private int id;
     private String nroSerie;
-    private EstadoHerramienta estado;
+    private EstadoHerramientaDeEmpresa estado;
     private String hib_flag_estado; // FALTARIA DETERMINAR LOS ESTADOS DEL DTE
 
     public HerramientaDeEmpresa() {
@@ -50,13 +50,13 @@ public class HerramientaDeEmpresa {
     * ***********************************************************
     */
 
-    public EstadoHerramienta getEstado(){
+    public EstadoHerramientaDeEmpresa getEstado(){
         if(this.id!=0) // Objeto no cargado
         {
             if(this.estado==null)
             {
                 try {
-                        EstadoHerramienta estadoAux = (EstadoHerramienta) Class.forName(this.hib_flag_estado).newInstance();
+                        EstadoHerramientaDeEmpresa estadoAux = (EstadoHerramientaDeEmpresa) Class.forName(this.hib_flag_estado).newInstance();
                         this.estado = estadoAux;
                         return estado;
                     }
@@ -76,7 +76,7 @@ public class HerramientaDeEmpresa {
         return null;
     }
 
-    public void setEstado(EstadoHerramienta estado) {
+    public void setEstado(EstadoHerramientaDeEmpresa estado) {
         this.estado = estado;
     }
 }

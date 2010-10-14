@@ -10,14 +10,14 @@ package modelo;
 
 public class Herramienta extends Recurso{
 
-    private EstadoHerramienta estado;
+    private EstadoHerramientaDeEmpresa estado;
     private String hib_flag_estado;
 
-    public EstadoHerramienta getEstado() {
+    public EstadoHerramientaDeEmpresa getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoHerramienta estado) {
+    public void setEstado(EstadoHerramientaDeEmpresa estado) {
         this.estado = estado;
     }
 
