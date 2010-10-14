@@ -9,12 +9,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.DetalleConsumible;
+import modelo.DetalleMaterial;
+import modelo.GrupoDeTrabajo;
+import modelo.HerramientaDeEmpresa;
 import modelo.Material;
 import modelo.PrecioSegunCantidad;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
+import modelo.Tarea;
 import util.HibernateUtil;
 import util.NTupla;
+import util.RecursosUtil;
 import util.Tupla;
 import vista.planificacion.pantallaRegistrarTarea;
 
@@ -24,9 +31,20 @@ import vista.planificacion.pantallaRegistrarTarea;
  */
 public class GestorRegistrarAsignacionMateriales {
     private pantallaRegistrarTarea pantalla;
+    private int idTarea;
 
     public GestorRegistrarAsignacionMateriales(pantallaRegistrarTarea pantalla) {
         this.pantalla = pantalla;
+        this.idTarea = 0;
+    }
+
+    public void setIdTarea(int idTarea) {
+        this.idTarea = idTarea;
+    }
+
+    public GestorRegistrarAsignacionMateriales(pantallaRegistrarTarea pantalla, int idTarea) {
+        this.pantalla = pantalla;
+        this.idTarea = idTarea;
     }
 
     public ArrayList<Tupla> getMaterialesDisponibles(){
@@ -127,6 +145,60 @@ public class GestorRegistrarAsignacionMateriales {
     }
 
     public ArrayList<NTupla> getMaterialesAUtilizar() {
-        return null;
+        ArrayList<NTupla> mau = new ArrayList<NTupla>();
+        try {
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
+            DetalleMaterial dm = null;
+            NTupla nt = new NTupla();
+            while(it.hasNext()){
+                dm = it.next();
+                nt.setId(dm.getCantidad());
+                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(dm.getMaterial());
+                Material m = (Material)RecursosUtil.getRecurso(re);
+                nt.setNombre(m.getNombre());
+                nt.setData(re.getNombre());
+                mau.add(nt);
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AM-0007");
+        }
+        return mau;
+    }
+
+    public void agregarMaterial(int idRXP, int cantidad, String desc) {
+        try {
+            DetalleMaterial dm = new DetalleMaterial();
+            RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+            dm.setMaterial(rxp);
+            dm.setCantidad(cantidad);
+            dm.setDescripcion(desc);
+            Tarea t = (Tarea)HibernateUtil.getSession().load(Tarea.class, this.idTarea);
+            t.getDetallesMaterial().add(dm);
+            HibernateUtil.getSession().save(dm);
+            HibernateUtil.getSession().saveOrUpdate(t);
+            pantalla.actualizar(dm.getId(), "...", true);
+            
+        } catch (Exception ex) {
+            this.pantalla.MostrarMensaje("AM-0006");
+            this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
+        }
+        
+        
+    }
+
+    public void crearTareaPrueba() {
+        Tarea t = new Tarea();
+        t.setDescripcion("MUY DIFICIL");
+        t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+        t.setDetallesMaterial(new ArrayList<DetalleMaterial>());
+        t.setGrupo(new GrupoDeTrabajo());
+        t.setHerramientas(new ArrayList<HerramientaDeEmpresa>());
+        t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
+        try {
+            HibernateUtil.getSession().save(t);
+        } catch (Exception ex) {
+            this.pantalla.MostrarMensaje("AM-0008");
+        }
     }
 }

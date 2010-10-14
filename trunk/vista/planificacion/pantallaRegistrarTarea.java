@@ -32,7 +32,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
+        //gestorRAM = new GestorRegistrarAsignacionMateriales(this,0); COMO JORACA MANEJAMOS LAS TAREAS??
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
+        gestorRAM.crearTareaPrueba();
     }
 
     private void cargarTabMateriales() {
@@ -77,6 +79,28 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             Tupla ntp = (Tupla)it.next();
             Object[] fila = new Object[1];
             fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+    }
+
+    private void mostrarMaterialesAUtilizar() {
+        ArrayList<NTupla> mats = gestorRAM.getMaterialesAUtilizar();
+
+        DefaultTableModel modelo = (DefaultTableModel) tbMaterialesAUsar.getModel();
+        
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = mats.iterator();
+
+        int i = 0;
+        while (it.hasNext())
+        {
+            NTupla ntp = (NTupla)it.next();
+            Object[] fila = new Object[3];
+            fila[0] = ntp.getNombre();
+            fila[1] = (String)ntp.getData();
+            fila[2] = ntp.getId(); // LA CANTIDAD LA MANDE POR EL ID.... POCO ORTODOXO...
 
             modelo.addRow(fila);
         }
@@ -852,33 +876,41 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     {
         if(cod.equals("AM-0001"))
         {
-            // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Materiales","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0002"))
         {
-            // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Especificación del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0003"))
         {
-            // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0004"))
         {
-            // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0005"))
         {
-            // Se guardó en orden
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de Cálculo",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0006"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar el material a la lista de materiales a utilizar","Error en el Añadir",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0007"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar los materiales a utilizar","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0008"))
+        {
+            // HAY Q BORRARLA CUANDO DEFINAMOS DE DONDE SACO EL ID DE TAREA
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo crear la tarea de prueba","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void actualizar(int id, String flag, boolean exito) {
-        ArrayList<NTupla> nt = gestorRAM.getMaterialesAUtilizar();
+        this.mostrarMaterialesAUtilizar();
     }
 
 }
