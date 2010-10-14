@@ -11,15 +11,74 @@
 
 package vista.planificacion;
 
+import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import util.LogUtil;
+import util.NTupla;
+import util.StringUtil;
+import util.TablaUtil;
+
 /**
  *
  * @author Administrador
  */
 public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JInternalFrame {
-
+    private GestorRegistrarAsignacionMateriales gestorRAM;
     /** Creates new form pantallaSeleccionarProveedorPresupuesto */
     public pantallaSeleccionarProveedorPresupuesto() {
         initComponents();
+    }
+
+    pantallaSeleccionarProveedorPresupuesto(GestorRegistrarAsignacionMateriales gestorRAM,int idR, int idRE) {
+        initComponents();
+        this.gestorRAM = gestorRAM;
+        mostrarRecursosEspecificosXProveedor(idR,idRE);
+    }
+
+    private void mostrarRecursosEspecificosXProveedor(int idR, int idRE)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tbProveedores.getModel();
+
+        // VACIO LA TABLA
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        ArrayList<NTupla> listaRecEsp = gestorRAM.mostrarRecursosEspecificosXProveedor(idR,idRE);
+        ((TitledBorder)this.panelProveedor.getBorder()).setTitle("Seleccione un Proveedor para ( "+gestorRAM.getNombreRecurso(idR,idRE)+" )");
+        Iterator<NTupla> itp = listaRecEsp.iterator();
+
+        if(listaRecEsp.size()>0){
+            int i = 0;
+            while (itp.hasNext())
+            {
+                NTupla ntp = itp.next();
+                Object[] fila = new Object[3];
+                fila[0] = ntp;
+                    String[] datos = (String[])ntp.getData();
+                    fila[0] = ntp;
+                    fila[1] = datos[0];
+                    fila[2] = datos[1];
+
+                modelo.addRow(fila);
+
+                // REDIMENSIONO LAS FILAS !!! -----------------------------------
+                String item = datos[0];
+                int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                if(cantItems!=0)
+                {
+                    tbProveedores.setRowHeight(i,16*cantItems);
+                }
+                LogUtil.addDebug("Registrar Asignacion de Materiales: Cantidad de Repeticiones: "+cantItems);
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+                i++;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
     }
 
     /** This method is called from within the constructor to
@@ -31,63 +90,86 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelProveedor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbProveedores = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        fxtCantidad = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSubtotal = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Seleccione un Proveedor para el Material");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione un Proveedor para ( Chapa 4NT 3x4m. )"));
+        panelProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione un Proveedor para ( Chapa 4NT 3x4m. )"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"SIDERMETAL SRL", "<HTML><BODY>1Kg. <b>x</b> $300", "20/08/2010"}
+
             },
             new String [] {
                 "Proveedor", "Precios Por Cantidad", "Fecha de Vigencia"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbProveedores.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tbProveedoresFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbProveedores);
+
+        javax.swing.GroupLayout panelProveedorLayout = new javax.swing.GroupLayout(panelProveedor);
+        panelProveedor.setLayout(panelProveedorLayout);
+        panelProveedorLayout.setHorizontalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProveedorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelProveedorLayout.setVerticalGroup(
+            panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProveedorLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione la Cantidad a Utilizar"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Cantidad:");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField1.setText("2");
+        fxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        fxtCantidad.setText("2");
+        fxtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fxtCantidadFocusLost(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("SubTotal:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("$600");
+        txtSubtotal.setEditable(false);
+        txtSubtotal.setText("$600");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         jButton1.setText("Añadir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -97,11 +179,11 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addContainerGap())
@@ -111,9 +193,9 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -126,33 +208,49 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelProveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tbProveedoresFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbProveedoresFocusLost
+        NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
+        double cantidad = Double.parseDouble(fxtCantidad.getText());
+        txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+    }//GEN-LAST:event_tbProveedoresFocusLost
+
+    private void fxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fxtCantidadFocusLost
+        NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
+        double cantidad = Double.parseDouble(fxtCantidad.getText());
+        txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+    }//GEN-LAST:event_fxtCantidadFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField fxtCantidad;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel panelProveedor;
+    private javax.swing.JTable tbProveedores;
+    private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 
 }

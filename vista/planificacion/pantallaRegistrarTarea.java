@@ -11,19 +11,78 @@
 
 package vista.planificacion;
 
+import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
 import util.SwingPanel;
+import util.TablaUtil;
+import util.Tupla;
 import vista.comer.pantallaBuscarEmpresaCliente;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
-
+public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implements ICallBack_v2 {
+    private GestorRegistrarAsignacionMateriales gestorRAM;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
+        gestorRAM = new GestorRegistrarAsignacionMateriales(this);
     }
+
+    private void cargarTabMateriales() {
+        ArrayList<Tupla> materiales = gestorRAM.getMaterialesDisponibles();
+
+        DefaultTableModel modelo = (DefaultTableModel)tbMateriales.getModel();
+
+        // VACIO LA TABLA MATERIALES
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = materiales.iterator();
+
+        int i = 0;
+        while (it.hasNext())
+        {
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+        DefaultTableModel modelo2 = (DefaultTableModel)tbMaterialEspecifico.getModel();
+
+        // VACIO LA TABLA MATERIAL ESPECIFICO
+        TablaUtil.vaciarDefaultTableModel(modelo2);
+    }
+
+
+    private void mostrarEspecificacionMaterial(int id) {
+        ArrayList<Tupla> esps = gestorRAM.getEspecificacionMaterial(id);
+
+        DefaultTableModel modelo = (DefaultTableModel)tbMaterialEspecifico.getModel();
+
+        // VACIO LA TABLA
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = esps.iterator();
+
+        int i = 0;
+        while (it.hasNext())
+        {
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+    }
+
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -64,14 +123,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        tbMaterialesAUsar = new javax.swing.JTable();
+        btnAgregarMaterial = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbMateriales = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tbMaterialEspecifico = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtBuscarMaterial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -117,6 +176,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
             }
         });
 
@@ -264,7 +329,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -272,63 +337,66 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Materiales a Utilizar"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbMaterialesAUsar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chapa", "750NN 3x2", "4"}
+
             },
             new String [] {
                 "Tipo", "Nombre", "Cantidad"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(2).setMinWidth(70);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(80);
+        jScrollPane1.setViewportView(tbMaterialesAUsar);
+        tbMaterialesAUsar.getColumnModel().getColumn(2).setMinWidth(70);
+        tbMaterialesAUsar.getColumnModel().getColumn(2).setPreferredWidth(70);
+        tbMaterialesAUsar.getColumnModel().getColumn(2).setMaxWidth(80);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton5.setText("Agregar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarMaterial.setText("Agregar");
+        btnAgregarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnAgregarMaterialActionPerformed(evt);
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Chapa"},
-                {"Acero Templado"}
+
             },
             new String [] {
                 "Nombre"
             }
         ));
-        jScrollPane6.setViewportView(jTable3);
+        tbMateriales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbMaterialesMouseReleased(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tbMateriales);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tbMaterialEspecifico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"4TN 2x3m."},
-                {"4TN 3x3m."}
+
             },
             new String [] {
                 "Especificación"
             }
         ));
-        jScrollPane7.setViewportView(jTable4);
+        jScrollPane7.setViewportView(tbMaterialEspecifico);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jTextField4.setText("Buscar...");
+        txtBuscarMaterial.setText("Buscar...");
 
         jLabel8.setText("Seleccione un Material:");
 
@@ -340,7 +408,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                    .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,7 +418,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                                .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -362,24 +430,24 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addComponent(jLabel8))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane6, 0, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnAgregarMaterial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Utilización de Materiales", jPanel2);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Crear un Grupo de Trabajo"));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Nombre:");
 
         jTextField5.setText("Grupo de Soldadores");
@@ -401,7 +469,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11)
@@ -466,19 +534,19 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                                 .addGap(124, 124, 124))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                                 .addGap(124, 124, 124))
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -487,10 +555,10 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                         .addGap(225, 225, 225))))
         );
         jPanel9Layout.setVerticalGroup(
@@ -510,7 +578,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -563,12 +631,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -601,13 +669,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -680,21 +748,39 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        pantallaSeleccionarProveedorPresupuesto psp = new pantallaSeleccionarProveedorPresupuesto();
-        SwingPanel.getInstance().addWindow(psp);
-        psp.setVisible(true);
+    private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
+        if(tbMaterialEspecifico.getSelectedRow()>=0){
+            Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
+            Tupla r = (Tupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
+            pantallaSeleccionarProveedorPresupuesto psp = new pantallaSeleccionarProveedorPresupuesto(this.gestorRAM,r.getId(),re.getId());
+            SwingPanel.getInstance().addWindow(psp);
+            psp.setVisible(true);
+        }
         
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnAgregarMaterialActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+//        System.out.print("INDICE: "+jTabbedPane1.getSelectedIndex());
+        if(jTabbedPane1.getSelectedIndex() == 1){
+            cargarTabMateriales();
+        }
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void tbMaterialesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMaterialesMouseReleased
+        if(tbMateriales.getSelectedRow()!=-1 && tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0) instanceof Tupla)
+        {
+            Tupla t = (Tupla)tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0);
+            mostrarEspecificacionMaterial(t.getId());
+        }
+    }//GEN-LAST:event_tbMaterialesMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarMaterial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox jComboBox1;
@@ -742,9 +828,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
@@ -753,12 +836,49 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tbMaterialEspecifico;
+    private javax.swing.JTable tbMateriales;
+    private javax.swing.JTable tbMaterialesAUsar;
+    private javax.swing.JTextField txtBuscarMaterial;
     // End of variables declaration//GEN-END:variables
+
+
+        public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("AM-0001"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Materiales","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0002"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Especificación del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0003"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0004"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AM-0005"))
+        {
+            // Se guardó en orden
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de Cálculo",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void actualizar(int id, String flag, boolean exito) {
+        ArrayList<NTupla> nt = gestorRAM.getMaterialesAUtilizar();
+    }
 
 }
