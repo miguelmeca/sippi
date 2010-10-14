@@ -116,7 +116,7 @@ public class GestorConsultarPrecioXProveedor {
                    Recurso rec = getRecurso(re);
 
                    // AGREGO SOLO SI ES DEL RUBRO
-                   if(rec.toString().equals(r.getNombre()))
+                   if(rec.toString().equals(r.getNombreClase()))
                    {
 
                        NTupla ntp = new NTupla();

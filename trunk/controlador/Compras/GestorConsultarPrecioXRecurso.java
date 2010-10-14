@@ -69,7 +69,7 @@ public GestorConsultarPrecioXRecurso(pantallaConsultarPrecioXRecurso pantalla)
   try {
       sesion = HibernateUtil.getSession();
 
-      List<Recurso> listaRecursos = sesion.createQuery("from "+rub.getNombre()).list();
+      List<Recurso> listaRecursos = sesion.createQuery("from "+rub.getNombreClase()).list();
       Iterator<Recurso> it = listaRecursos.iterator();
       while (it.hasNext())
       {

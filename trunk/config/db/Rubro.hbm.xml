@@ -6,5 +6,6 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
+    <property column="NOMBRECLASE" name="nombreClase" type="string"/>
   </class>
 </hibernate-mapping>
