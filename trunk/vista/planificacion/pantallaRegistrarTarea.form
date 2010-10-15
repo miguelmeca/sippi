@@ -69,6 +69,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
@@ -372,21 +375,25 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnAgregarMaterial" alignment="0" pref="393" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane6" min="-2" pref="184" max="-2" attributes="1"/>
                                   <Component id="jLabel8" alignment="0" pref="186" max="32767" attributes="1"/>
+                                  <Component id="jScrollPane6" alignment="0" min="-2" pref="184" max="-2" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtBuscarMaterial" pref="181" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane7" pref="201" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane7" alignment="1" pref="201" max="32767" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="btnAgregarMaterial" pref="294" max="32767" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnQuitarMaterial" min="-2" pref="93" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -412,7 +419,10 @@
                           <Component id="jScrollPane7" alignment="1" pref="258" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAgregarMaterial" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAgregarMaterial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnQuitarMaterial" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="13" max="32767" attributes="0"/>
@@ -490,7 +500,7 @@
             <Component class="javax.swing.JButton" name="btnAgregarMaterial">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
+                  <Image iconType="3" name="/res/iconos/var/16x16/down2.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
@@ -577,6 +587,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seleccione un Material:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnQuitarMaterial">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/iconos/var/16x16/up.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Quitar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarMaterialActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -925,7 +946,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jTextField3" pref="335" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jButton6" alignment="0" pref="361" max="32767" attributes="1"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnAgregarHerramienta" min="-2" pref="174" max="-2" attributes="1"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnQuitarHerramienta" pref="181" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -941,7 +966,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="150" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnAgregarHerramienta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnQuitarHerramienta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -966,7 +994,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable6">
+                    <Component class="javax.swing.JTable" name="tbHerramientasDisponibles">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="1" rowCount="2">
@@ -980,12 +1008,23 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton6">
+                <Component class="javax.swing.JButton" name="btnAgregarHerramienta">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
+                      <Image iconType="3" name="/res/iconos/var/16x16/down2.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarHerramientaActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnQuitarHerramienta">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/up.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Quitar"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1026,7 +1065,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable7">
+                    <Component class="javax.swing.JTable" name="tbHerramientasSeleccionadas">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="1" rowCount="1">

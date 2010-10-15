@@ -38,6 +38,7 @@ import modelo.DetalleOrdenDeCompra;
 import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
 import modelo.FormaDePago;
 import modelo.Herramienta;
+import modelo.HerramientaDeEmpresa;
 import modelo.Material;
 import modelo.OrdenDeCompra;
 import modelo.Proveedor;
@@ -90,6 +91,8 @@ public class DBExamplesLoader {
           this.cargarCompras();
 
           this.cargarOrdenDeCompra();
+
+          this.cargarHerramientasDeEmpresa();
     }
 
     public void cargarConfiguraciones()
@@ -764,6 +767,23 @@ public class DBExamplesLoader {
         sesion.save(doc1);
         sesion.save(fp);
         sesion.save(oc);
+        sesion.getTransaction().commit();
+    }
+
+    private void cargarHerramientasDeEmpresa() {
+        HerramientaDeEmpresa he = new HerramientaDeEmpresa();
+        he.setNroSerie("000-KR4113654560/3A");
+        RecursoEspecifico re = new RecursoEspecifico();
+        re.setNombre("15 Mm.");
+        Herramienta h = new Herramienta();
+        h.setNombre("TORNO");
+        h.getRecursos().add(re);
+        he.setRecursoEsp(re);
+
+        sesion.beginTransaction();
+        sesion.save(re);
+        sesion.save(h);
+        sesion.save(he);
         sesion.getTransaction().commit();
     }
 }

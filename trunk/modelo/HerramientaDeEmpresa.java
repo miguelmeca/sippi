@@ -16,6 +16,7 @@ public class HerramientaDeEmpresa {
     private String nroSerie;
     private EstadoHerramientaDeEmpresa estado;
     private String hib_flag_estado; // FALTARIA DETERMINAR LOS ESTADOS DEL DTE
+    private RecursoEspecifico recursoEsp;
 
     public HerramientaDeEmpresa() {
         this.hib_flag_estado = "modelo.EstadoHerramientaDeEmpresaDisponible";
@@ -43,6 +44,14 @@ public class HerramientaDeEmpresa {
 
     public void setHib_flag_estado(String hib_flag_estado) {
         this.hib_flag_estado = hib_flag_estado;
+    }
+
+    public RecursoEspecifico getRecursoEsp() {
+        return recursoEsp;
+    }
+
+    public void setRecursoEsp(RecursoEspecifico recursoEsp) {
+        this.recursoEsp = recursoEsp;
     }
 
     /************************************************************

@@ -12,9 +12,12 @@
 package vista.planificacion;
 
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import controlador.planificacion.GestorRegistrarAsignacionHerramientas;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.SwingPanel;
@@ -29,11 +32,13 @@ import vista.interfaces.ICallBack_v2;
  */
 public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implements ICallBack_v2 {
     private GestorRegistrarAsignacionMateriales gestorRAM;
+    private GestorRegistrarAsignacionHerramientas gestorRAH;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
         //gestorRAM = new GestorRegistrarAsignacionMateriales(this,0); COMO JORACA MANEJAMOS LAS TAREAS??
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
+        gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
         gestorRAM.crearTareaPrueba();
     }
 
@@ -98,14 +103,36 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         {
             NTupla ntp = (NTupla)it.next();
             Object[] fila = new Object[3];
-            fila[0] = ntp.getNombre();
-            fila[1] = (String)ntp.getData();
-            fila[2] = ntp.getId(); // LA CANTIDAD LA MANDE POR EL ID.... POCO ORTODOXO...
+            fila[0] = ntp;
+            Object o[] = (Object[]) ntp.getData();
+            fila[1] = (String)(o[0]);
+            fila[2] = (Integer)o[1];
 
             modelo.addRow(fila);
         }
     }
 
+    private void cargarHerramientas() {
+        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
+
+        DefaultTableModel modelo = (DefaultTableModel)tbHerramientasDisponibles.getModel();
+
+        // VACIO LA TABLA HERRAMIENTAS
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = herramientas.iterator();
+
+        int i = 0;
+        while (it.hasNext())
+        {
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+        // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
+    }
 
 
     /** This method is called from within the constructor to
@@ -156,6 +183,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jLabel9 = new javax.swing.JLabel();
         txtBuscarMaterial = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        btnQuitarMaterial = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -180,11 +208,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jLabel10 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        tbHerramientasDisponibles = new javax.swing.JTable();
+        btnAgregarHerramienta = new javax.swing.JButton();
+        btnQuitarHerramienta = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tbHerramientasSeleccionadas = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
 
         jLabel3.setText("jLabel3");
@@ -194,6 +223,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
         jButton2.setText("Crear la Etapa");
@@ -385,7 +419,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
         btnAgregarMaterial.setText("Agregar");
         btnAgregarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,6 +458,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jLabel8.setText("Seleccione un Material:");
 
+        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarMaterial.setText("Quitar");
+        btnQuitarMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarMaterialActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -432,18 +474,21 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -461,7 +506,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                     .addComponent(jScrollPane6, 0, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregarMaterial)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarMaterial)
+                    .addComponent(btnQuitarMaterial))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -634,7 +681,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jTextField3.setText("Buscar...");
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tbHerramientasDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Torno"},
                 {"Fresadora"}
@@ -643,10 +690,18 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 "Nombre de la Herramienta"
             }
         ));
-        jScrollPane8.setViewportView(jTable6);
+        jScrollPane8.setViewportView(tbHerramientasDisponibles);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton6.setText("Añadir");
+        btnAgregarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
+        btnAgregarHerramienta.setText("Añadir");
+        btnAgregarHerramienta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarHerramientaActionPerformed(evt);
+            }
+        });
+
+        btnQuitarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarHerramienta.setText("Quitar");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -660,7 +715,10 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -672,12 +730,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarHerramienta)
+                    .addComponent(btnQuitarHerramienta)))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Herramientas a utilizar en la Tarea"));
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tbHerramientasSeleccionadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Sierra Electrica para Metal"}
             },
@@ -685,7 +745,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 "Nombre de la Herramienta"
             }
         ));
-        jScrollPane9.setViewportView(jTable7);
+        jScrollPane9.setViewportView(tbHerramientasSeleccionadas);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -784,9 +844,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-//        System.out.print("INDICE: "+jTabbedPane1.getSelectedIndex());
+        //System.out.print("INDICE: "+jTabbedPane1.getSelectedIndex());
         if(jTabbedPane1.getSelectedIndex() == 1){
             cargarTabMateriales();
+        }
+        if(jTabbedPane1.getSelectedIndex() == 3){
+            cargarHerramientas();
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -798,14 +861,33 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
     }//GEN-LAST:event_tbMaterialesMouseReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAgregarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHerramientaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarHerramientaActionPerformed
+
+    private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
+        NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 0);
+        if(gestorRAM.quitarMaterial(nt.getId())){
+            DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
+            dtm.removeRow(tbMaterialesAUsar.getSelectedRow());
+            this.mostrarMaterialesAUtilizar();
+        }
+    }//GEN-LAST:event_btnQuitarMaterialActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarHerramienta;
     private javax.swing.JButton btnAgregarMaterial;
+    private javax.swing.JButton btnQuitarHerramienta;
+    private javax.swing.JButton btnQuitarMaterial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox5;
@@ -853,8 +935,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
@@ -865,6 +945,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tbHerramientasDisponibles;
+    private javax.swing.JTable tbHerramientasSeleccionadas;
     private javax.swing.JTable tbMaterialEspecifico;
     private javax.swing.JTable tbMateriales;
     private javax.swing.JTable tbMaterialesAUsar;
@@ -907,10 +989,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             // HAY Q BORRARLA CUANDO DEFINAMOS DE DONDE SACO EL ID DE TAREA
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo crear la tarea de prueba","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
+        if(cod.equals("AH-0001"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Herramientas","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void actualizar(int id, String flag, boolean exito) {
+        if(jTabbedPane1.getSelectedIndex()==1){
         this.mostrarMaterialesAUtilizar();
+        }
     }
-
 }
