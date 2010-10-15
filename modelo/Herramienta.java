@@ -34,7 +34,4 @@ public class Herramienta extends Recurso{
     {
         return "Herramienta";
     }
-
-
-  
 }

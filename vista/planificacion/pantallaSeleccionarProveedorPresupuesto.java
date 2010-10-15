@@ -154,8 +154,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Cantidad:");
 
-        fxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        fxtCantidad.setText("2");
+        fxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         fxtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fxtCantidadFocusLost(evt);
@@ -236,15 +235,19 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbProveedoresFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbProveedoresFocusLost
-        NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-        double cantidad = Double.parseDouble(fxtCantidad.getText());
-        txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("")){
+            NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
+            int cantidad = Integer.parseInt(fxtCantidad.getText());
+            txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+        }
     }//GEN-LAST:event_tbProveedoresFocusLost
 
     private void fxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fxtCantidadFocusLost
-        NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-        double cantidad = Double.parseDouble(fxtCantidad.getText());
-        txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("")){
+            NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
+            int cantidad = Integer.parseInt(fxtCantidad.getText());
+            txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+        }
     }//GEN-LAST:event_fxtCantidadFocusLost
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed

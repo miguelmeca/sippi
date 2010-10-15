@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Session;
@@ -23,6 +24,7 @@ public abstract class Recurso {
     private UnidadDeMedida unidadDeMedida;
 
     public Recurso() {
+        recursos = new ArrayList<RecursoEspecifico>();
     }
 
     public boolean esRubro(int idRubro)

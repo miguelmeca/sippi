@@ -7,6 +7,7 @@ package controlador.planificacion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -125,7 +126,7 @@ public class GestorRegistrarAsignacionMateriales {
         return nombre;
     }
 
-    public String getSubtotal(int idRXP, Double cantidad) {
+    public String getSubtotal(int idRXP, int cantidad) {
         String subtotal="";
         try {
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
@@ -144,28 +145,6 @@ public class GestorRegistrarAsignacionMateriales {
         return subtotal;
     }
 
-    public ArrayList<NTupla> getMaterialesAUtilizar() {
-        ArrayList<NTupla> mau = new ArrayList<NTupla>();
-        try {
-            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
-            Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
-            DetalleMaterial dm = null;
-            NTupla nt = new NTupla();
-            while(it.hasNext()){
-                dm = it.next();
-                nt.setId(dm.getCantidad());
-                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(dm.getMaterial());
-                Material m = (Material)RecursosUtil.getRecurso(re);
-                nt.setNombre(m.getNombre());
-                nt.setData(re.getNombre());
-                mau.add(nt);
-            }
-        } catch (Exception ex) {
-            pantalla.MostrarMensaje("AM-0007");
-        }
-        return mau;
-    }
-
     public void agregarMaterial(int idRXP, int cantidad, String desc) {
         try {
             DetalleMaterial dm = new DetalleMaterial();
@@ -178,27 +157,84 @@ public class GestorRegistrarAsignacionMateriales {
             HibernateUtil.getSession().save(dm);
             HibernateUtil.getSession().saveOrUpdate(t);
             pantalla.actualizar(dm.getId(), "...", true);
-            
+
         } catch (Exception ex) {
             this.pantalla.MostrarMensaje("AM-0006");
             this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
         }
-        
-        
+    }
+
+    public ArrayList<NTupla> getMaterialesAUtilizar() {
+        ArrayList<NTupla> mau = new ArrayList<NTupla>();
+        try {
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
+            DetalleMaterial dm = null;
+            NTupla nt = new NTupla();
+            while(it.hasNext()){
+                dm = it.next();
+                nt.setId(dm.getId());
+                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(dm.getMaterial());
+                Material m = (Material)RecursosUtil.getRecurso(re);
+                nt.setNombre(m.getNombre());
+                Object[] o = new Object[2];
+                o[0]= re.getNombre();
+                o[1]= dm.getCantidad();
+                nt.setData(o);
+                mau.add(nt);
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AM-0007");
+        }
+        return mau;
     }
 
     public void crearTareaPrueba() {
-        Tarea t = new Tarea();
-        t.setDescripcion("MUY DIFICIL");
-        t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
-        t.setDetallesMaterial(new ArrayList<DetalleMaterial>());
-        t.setGrupo(new GrupoDeTrabajo());
-        t.setHerramientas(new ArrayList<HerramientaDeEmpresa>());
-        t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
         try {
-            HibernateUtil.getSession().save(t);
+            Tarea t = new Tarea();
+            t.setDescripcion("MUY DIFICIL");
+            t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+
+            List<DetalleMaterial> materiales = new ArrayList<DetalleMaterial>();
+            RecursoXProveedor rxp = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
+            DetalleMaterial dm = new DetalleMaterial();
+            dm.setCantidad(12);
+            dm.setDescripcion("PROBANDO");
+            dm.setMaterial(rxp);
+            materiales.add(dm);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(dm);
+
+            t.setDetallesMaterial(materiales);
+            GrupoDeTrabajo gt = new GrupoDeTrabajo();
+            HibernateUtil.getSession().save(gt);
+            t.setGrupo(gt);
+            t.setHerramientas(new ArrayList<HerramientaDeEmpresa>());
+            t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
+            HibernateUtil.getSession().saveOrUpdate(t);
+            HibernateUtil.commitTransaction();
+            this.idTarea=t.getId();
         } catch (Exception ex) {
             this.pantalla.MostrarMensaje("AM-0008");
+            HibernateUtil.rollbackTransaction();
         }
+    }
+
+    public boolean quitarMaterial(int idDM) {
+        boolean respuesta=true;
+        ArrayList<NTupla> mau = new ArrayList<NTupla>();
+        try {
+            HibernateUtil.beginTransaction();
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            DetalleMaterial dm = (DetalleMaterial) HibernateUtil.getSession().load(DetalleMaterial.class, idDM);
+            t.getDetallesMaterial().remove(dm);
+            HibernateUtil.getSession().delete(dm);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+            respuesta=false;
+            pantalla.MostrarMensaje("AM-0007");
+        }
+        return respuesta;
     }
 }
