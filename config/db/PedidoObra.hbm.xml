@@ -22,14 +22,11 @@
     <!--many-to-one class="modelo.EstadoPedidoObra" column="ID_ESTADO" name="estadoObra"/-->
     <!-- Da error vaya uno a saber porque -->
     <!--many-to-one name="contacto" class="modelo.ContactoResponsable" column="ID_CONTACTO"/-->
-
     <!-- IUGA MOD : Faltaba esto -->
     <list cascade="all-delete-orphan" name="presupuestos" table="PEDIDOOBRA_X_PRESUPUESTO">
-     <key column="ID_PEDIDO_OBRA"/>
-     <index column="idx"/>
-     <many-to-many class="modelo.Presupuesto"/>
+      <key column="ID_PEDIDO_OBRA"/>
+      <index column="idx"/>
+      <many-to-many class="modelo.Presupuesto"/>
     </list>
-
-
   </class>
 </hibernate-mapping>

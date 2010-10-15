@@ -5,12 +5,18 @@
 
 package controlador.planificacion;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import modelo.Etapa;
 import modelo.PedidoObra;
 import modelo.Presupuesto;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
+import util.NTupla;
 import vista.planificacion.pantallaRegistrarPresupuesto;
 
 /**
@@ -64,6 +70,89 @@ public class GestorRegistrarPresupuesto {
                e.printStackTrace();
                pantalla.MostrarMensaje("ME-0004");
            }
+    }
+
+    public void buscarObraPorPresupuesto(int idPresupuesto) {
+
+        ArrayList<PedidoObra> lista = new ArrayList<PedidoObra>();
+
+        try
+        {
+            Iterator<PedidoObra> it = HibernateUtil.getSession().createQuery("FROM PedidoObra").iterate();
+            while (it.hasNext())
+            {
+                PedidoObra po = it.next();
+                Iterator<Presupuesto> itp = po.getPresupuestos().iterator();
+                while (itp.hasNext())
+                {
+                    Presupuesto pres = itp.next();
+                    if(pres.getId()==idPresupuesto)
+                    {
+                        this.obra = po;
+                        pantalla.mostrarDatosObra(obra.getId(),obra.getNombre(),obra.getPlanta().getRazonSocial());
+                        pantalla.mostrarFechaInicioYFin(FechaUtil.getFecha(obra.getFechaInicio()),FechaUtil.getFecha(obra.getFechaFin()));
+                        return;
+                    }
+                }
+            }
+        }catch (Exception ex)
+        {
+            pantalla.MostrarMensaje("ME-0002");
+        }
+
+    }
+
+    public ArrayList<NTupla> cargarEtapas()
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+        // POR SI NO TENGO ETAPAS
+        if(presupuesto.getEtapas()!=null)
+        {
+            Iterator<Etapa> it = presupuesto.getEtapas().iterator();
+            while (it.hasNext())
+            {
+                Etapa et= it.next();
+                NTupla nt = new NTupla(et.getId());
+                nt.setNombre(et.getNombre());
+
+                    Object[] data = new Object[2];
+                    data[0] = et.getFechaInicio();
+                    data[1] = et.getFechaFin();
+
+                 nt.setData(data);
+                 lista.add(nt);
+            }
+        }
+
+        return lista;
+
+
+    }
+
+
+    public int crearEtapa(String nombre, Date fechaInicio, Date FechaFin)
+    {
+        Etapa e = new Etapa();
+        e.setNombre(nombre);
+        e.setFechaInicio(fechaInicio);
+        e.setFechaFin(FechaFin);
+        this.presupuesto.addEtapa(e);
+        try
+        {
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().save(e);
+            HibernateUtil.getSession().saveOrUpdate(this.presupuesto);
+            HibernateUtil.commitTransaction();
+            return e.getId();
+
+        }catch (Exception ex)
+        {
+            pantalla.MostrarMensaje("ME-0003");
+        }
+
+        return 0;
+
     }
 
     

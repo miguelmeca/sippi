@@ -5,6 +5,10 @@
     <id column="IDETAPA" name="id" type="integer">
       <generator class="increment"/>
     </id>
+
+    <!-- IUGA MOD -->
+    <property name="duracion" type="string"/>
+    
     <property name="duracion" type="string"/>
     <property name="fechaInicio" type="date"/>
     <property name="fechaFin" type="date"/>
@@ -16,7 +20,7 @@
       <one-to-many class="modelo.Etapa"/>
     </list>
     <property name="ubicacion" type="string"/>
-    <many-to-one name="transportePasajeros" column="IDTRANSPPASAJEROS"/>
-    <many-to-one name="tranportMyH" column="IDTRANSPMYH"/>
+    <many-to-one column="IDTRANSPPASAJEROS" name="transportePasajeros"/>
+    <many-to-one column="IDTRANSPMYH" name="tranportMyH"/>
   </class>
 </hibernate-mapping>

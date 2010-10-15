@@ -5,8 +5,8 @@
     <id column="IDDETALLECONSUMIBLE" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property name="descripcion" column="DESCRIPCION" type="string"/>
-    <property name="cantidad" column="CANTIDAD" type="integer"/>
-    <many-to-one name="consumible" column="IDCONSUMIBLE"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <property column="CANTIDAD" name="cantidad" type="integer"/>
+    <many-to-one column="IDCONSUMIBLE" name="consumible"/>
   </class>
 </hibernate-mapping>
