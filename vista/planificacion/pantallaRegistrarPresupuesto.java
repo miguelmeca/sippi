@@ -1,5 +1,6 @@
 package vista.planificacion;
 
+import controlador.planificacion.GestorRegistrarPresupuesto;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import modelo.Presupuesto;
 import util.LogUtil;
 import util.SwingPanel;
 import vista.gui.graph.TaskGraphComponent;
@@ -33,15 +35,22 @@ import vista.interfaces.IGraph;
  */
 public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame implements IGraph {
 
-
+    private GestorRegistrarPresupuesto gestor;
+    private int idPedidoObra;
     /**
      * GRAFICO !!!
      */
     private GraphProxy _gantt;
 
     /** Creates new form pantallaRegistrarPresupuesto */
-    public pantallaRegistrarPresupuesto() {
+    public pantallaRegistrarPresupuesto(int idPresu, int idObra)
+    {
         initComponents();
+
+        gestor = new GestorRegistrarPresupuesto(this);
+
+        gestor.cargarPresupuesto(idPresu);
+        gestor.cargarObra(idObra);
 
         habilitarVentana();
 
@@ -59,6 +68,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
        _gantt = new GraphProxy();
 
    }
+
+
 
    private void paintGraph()
    {
@@ -140,9 +151,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jToolBar2 = new javax.swing.JToolBar();
         jButton6 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblFechaInicio = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        lblFechaFin = new javax.swing.JLabel();
 
         menuNuevaEtapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         menuNuevaEtapa.setText("Nueva Etapa");
@@ -236,7 +247,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         panelGanttLayout.setVerticalGroup(
             panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 268, Short.MAX_VALUE)
         );
 
         jSplitPane1.setTopComponent(panelGantt);
@@ -248,22 +259,22 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Etapa"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Fecha de Inicio:");
 
         jLabel4.setText("05/09/2010");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Fecha de Fin:");
 
         jLabel6.setText("10/09/2010");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel28.setText("Duración:");
 
         jLabel29.setText("3 días");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel7.setText("Nombre:");
 
         jLabel8.setText("03/09/2010");
@@ -305,7 +316,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(jLabel29))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo de la Etapa"));
@@ -315,7 +326,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         jLabel12.setText("$5000");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("Herramientas Compradas: ");
 
         jLabel14.setText("$200");
@@ -396,7 +407,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addComponent(jLabel21))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Recursos Involucrados"));
@@ -419,7 +430,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -432,7 +443,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addGap(0, 175, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -445,7 +456,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 133, Short.MAX_VALUE)
+            .addGap(0, 175, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -461,7 +472,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Extras"));
@@ -519,7 +530,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PanelInfoLayout = new javax.swing.GroupLayout(PanelInfo);
@@ -624,19 +635,19 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton6);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("  Fecha Inicio: ");
         jToolBar2.add(jLabel9);
 
-        jLabel10.setText("05/11/10");
-        jToolBar2.add(jLabel10);
+        lblFechaInicio.setText("05/11/10");
+        jToolBar2.add(lblFechaInicio);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel23.setText(" Fecha de Fin: ");
         jToolBar2.add(jLabel23);
 
-        jLabel24.setText("20/11/10");
-        jToolBar2.add(jLabel24);
+        lblFechaFin.setText("20/11/10");
+        jToolBar2.add(lblFechaFin);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -671,7 +682,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -753,7 +764,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -768,7 +778,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -795,6 +804,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPopupMenu jpm;
+    private javax.swing.JLabel lblFechaFin;
+    private javax.swing.JLabel lblFechaInicio;
     private javax.swing.JMenuItem menuDerecha;
     private javax.swing.JMenuItem menuFechaActual;
     private javax.swing.JMenuItem menuIzquierda;
@@ -822,6 +833,33 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     {
         _gantt.setEtapaPredecesora(idEtapaAntes, idEtapaDespues);
     }
+
+    public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("ME-0001"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar el presupuesto","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("ME-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar los datos de la Obra","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+
+    public void mostrarDatosObra(int idObra,String nombre,String planta)
+    {
+        this.idPedidoObra = idObra;
+        this.setTitle("Registrar Presupuesto | Obra: "+nombre+" | Planta: "+planta);
+    }
+
+    public void mostrarFechaInicioYFin(String inicio, String fin)
+    {
+        lblFechaInicio.setText(inicio);
+        lblFechaFin.setText(fin);
+    }
+
 
 
 }
