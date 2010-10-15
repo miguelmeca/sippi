@@ -19,8 +19,8 @@
       <key column="ID_HERRAMIENTA"/>
       <property column="ESTADO" name="hib_flag_estado" type="string"/>
     </joined-subclass>
-    <joined-subclass name="modelo.TransporteDeMaterialesYHerramientas" table="TransporteDeMaterialesYHerramientas">
-      <key column="ID_TRANSMATERIALESYHERRAMIENTAS"/>
+    <joined-subclass name="modelo.TransporteDeMaterialesYHerramientas" table="TransporteMYH">
+      <key column="ID_TMYH"/>
     </joined-subclass>
     <joined-subclass name="modelo.Consumible" table="CONSUMIBLE">
       <key column="ID_CONSUMIBLE"/>
