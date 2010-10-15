@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import modelo.Domicilio;
 import modelo.Rubro;
 import modelo.Barrio;
-
+import modelo.Alojamiento;
+import modelo.TransporteDeMaterialesYHerramientas;
+import modelo.TransporteDePasajeros;
+import modelo.HerramientaDeEmpresa;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -129,38 +132,93 @@ public class GestorOtrosDatosEtapa   {
 
 	}
 
-        public ArrayList<Tupla> mostrarHerramientasDisponibles() //TODO:
-        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            return tuplas;}
-
-        public ArrayList<Tupla> mostrarEmpresasTransporteMH() //TODO:
-        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            return tuplas; }
-
-        public ArrayList<Tupla> mostrarEmpresasTransportePasajeros() //TODO:
-        { ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-            return tuplas;
-        }
-
-        public ArrayList<Tupla> mostrarEmpresasAlojamiento() //TODO:
+        public ArrayList<Tupla> mostrarHerramientasDisponibles() 
         {   Session sesion;
             try{
             sesion= HibernateUtil.getSession();
-
-            //Rubro rubro=(Rubro)sesion.createQuery("from Rubro r where nombre = 'Alojamiento'").uniqueResult();
-            //List lista = sesion.createQuery("from Proveedor pr where select(pr.rubros=) order by pr.razonSocial").list();
+            //Rubro rubro=(Rubro)sesion.createQuery("from Rubro r where nombre ="+ Alojamiento.class.toString()).uniqueResult();
+            List lista = sesion.createQuery("from HerramientaDeEmpresa HE ").list();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-           /* for (int i = 0; i < lista.size(); i++)
+            for (int i = 0; i < lista.size(); i++)
             {
-                Proveedor emp = (Proveedor)lista.get(i);
-                Tupla tupla = new Tupla(emp.getId(),emp.getRazonSocial());
+                HerramientaDeEmpresa he = (HerramientaDeEmpresa)lista.get(i);
+                if(he.getEstado().esDisponible()) //TODO: Analizar bien esto, podria querer asignar una herramienta que todavia no esta disponible pero q se esta arreglando en este momento
+                {
+                Tupla tupla = new Tupla(he.getId(),he.getNroSerie());
                     tuplas.add(tupla);
-            }*/
+                }
+            }
 
             return tuplas;
             }
          catch (Exception ex)////////////
-         {System.out.println("No se pudo abrir la sesion en MostrarEmpresaAlojamiento");
+         {System.out.println("No se pudo abrir la sesion en MostrarEmpresa");
+         return null;}
+        }
+
+        public ArrayList<Tupla> mostrarEmpresasTransporteMH() 
+        { Session sesion;
+            Rubro rubro=null;
+            try{
+            sesion= HibernateUtil.getSession();
+            rubro=(Rubro)sesion.createQuery("from Rubro r where nombreClase = 'TransporteDeMaterialesYHerramientas'").uniqueResult();
+            }
+            catch (Exception ex)
+            {System.out.println("No se pudo abrir la sesion en MostrarEmpresaTransporteDeMaterialesYHerramientas");
+            return null;}
+            return mostrarEmpresas(rubro);
+        }
+
+        public ArrayList<Tupla> mostrarEmpresasTransportePasajeros()
+        {    Session sesion;
+            Rubro rubro=null;
+            try{
+            sesion= HibernateUtil.getSession();
+            rubro=(Rubro)sesion.createQuery("from Rubro r where nombreClase ='TransporteDePasajeros'").uniqueResult();
+            }
+            catch (Exception ex)////////////
+            {System.out.println("No se pudo abrir la sesion en MostrarEmpresaTransporteDePasajeros");
+            return null;}
+            return mostrarEmpresas(rubro);
+        }
+        public ArrayList<Tupla> mostrarEmpresasAlojamiento()
+        {
+            Session sesion;
+            Rubro rubro=null;
+            try{
+            sesion= HibernateUtil.getSession();
+            rubro=(Rubro)sesion.createQuery("from Rubro r where nombreClase = 'Alojamiento' ").uniqueResult();
+            }
+            catch (Exception ex)////////////
+            {System.out.println("No se pudo abrir la sesion en MostrarEmpresaAlojamiento");
+            return null;}
+            return mostrarEmpresas(rubro);
+
+        }
+
+        public ArrayList<Tupla> mostrarEmpresas(Rubro rubro)
+        {   Session sesion;
+            if(rubro==null)
+            {return null;}
+            try{
+            sesion= HibernateUtil.getSession();
+            //Rubro rubro=(Rubro)sesion.createQuery("from Rubro r where nombre ="+ Alojamiento.class.toString()).uniqueResult();
+            List lista = sesion.createQuery("from Proveedor pr order by pr.razonSocial").list();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++)
+            {
+                Proveedor emp = (Proveedor)lista.get(i);
+                if(emp.tieneRubro(rubro))
+                {
+                Tupla tupla = new Tupla(emp.getId(),emp.getRazonSocial());
+                    tuplas.add(tupla);
+                }
+            }
+
+            return tuplas;
+            }
+         catch (Exception ex)////////////
+         {System.out.println("No se pudo abrir la sesion en MostrarEmpresa");
          return null;}
         }
 
