@@ -5,8 +5,8 @@
     <id column="IDETAPA" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <many-to-one name="empleado" column="IDEMPLEADO"/>
-    <many-to-one name="especialidad" column="IDESPECIALIDAD"/>
+    <many-to-one column="IDEMPLEADO" name="empleado"/>
+    <many-to-one column="IDESPECIALIDAD" name="especialidad"/>
     <property name="esLider" type="boolean"/>
   </class>
 </hibernate-mapping>

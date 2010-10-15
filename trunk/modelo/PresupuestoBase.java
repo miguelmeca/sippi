@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -98,5 +99,14 @@ public class PresupuestoBase {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public void addEtapa(Etapa e)
+    {
+        if(this.etapas==null)
+        {
+            this.etapas = new ArrayList<Etapa>();
+        }
+        this.etapas.add(e);
     }
 }

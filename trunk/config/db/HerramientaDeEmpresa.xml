@@ -5,7 +5,7 @@
     <id column="IDHERRAMIENTADEEMPRESA" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property name="nroSerie" column="NROSERIE" type="string"/>
+    <property column="NROSERIE" name="nroSerie" type="string"/>
     <property name="hib_flag_estado" not-null="true" type="string"/>
   </class>
 </hibernate-mapping>

@@ -20,7 +20,10 @@ import java.util.List;
 
 public class Etapa {
     private int id;
-//    private Etapa subetapa;
+
+    // IUGA MOD
+    private String nombre;
+
     private String duracion;
     private Date fechaInicio;
     private Date fechaFin;
@@ -30,15 +33,20 @@ public class Etapa {
     private String ubicacion;
     private RecursoEspecifico transportePasajeros;
     private RecursoEspecifico tranportMyH;
-//    private GrupoDeTrabajo grupo;
-    //private Herramienta herramienta;
-    //private Material material;
-//    private Boolean esPrimerNivel;
-//    private EjecucionEtapa ejecucion;
+
     
     public void crear() {
 
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 
     public void mostrarEtapa() {
 

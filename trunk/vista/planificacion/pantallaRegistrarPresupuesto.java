@@ -9,13 +9,16 @@ import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import modelo.Presupuesto;
+import util.FechaUtil;
 import util.LogUtil;
+import util.NTupla;
 import util.SwingPanel;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.graph.TaskGraphComponent;
@@ -39,6 +42,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     private GestorRegistrarPresupuesto gestor;
     private int idPedidoObra;
+    private int idEtapa;
+
     /**
      * GRAFICO !!!
      */
@@ -58,12 +63,43 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     }
 
+    pantallaRegistrarPresupuesto(int idPresupuesto)
+    {
+        initComponents();
+
+        gestor = new GestorRegistrarPresupuesto(this);
+
+        gestor.cargarPresupuesto(idPresupuesto);
+        gestor.buscarObraPorPresupuesto(idPresupuesto);
+
+        habilitarVentana();
+
+    }
+
     private void habilitarVentana()
     {
         panelGantt.setLayout(new BorderLayout());
         initGraph();
         paintGraph();
+        cargarGraph();
     }
+
+    private void cargarGraph()
+    {
+        // CARGO TODAS LAS ETAPAS DEL PRESUPUESTO
+        ArrayList<NTupla> listaEtapas = gestor.cargarEtapas();
+        Iterator<NTupla> it = listaEtapas.iterator();
+
+        while (it.hasNext()) 
+        {
+            NTupla nt = it.next();
+            Object[] data = (Object[])nt.getData();
+            
+            addEtapa(nt.getId() ,nt.getNombre(),(Date)data[0],(Date)data[1]);
+        }
+
+    }
+
 
    private void initGraph()
    {
@@ -151,7 +187,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         btnDatosObra = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -273,7 +308,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         jLabel6.setText("10/09/2010");
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel28.setText("Duración:");
 
         jLabel29.setText("3 días");
@@ -283,7 +318,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         jLabel8.setText("03/09/2010");
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel30.setText("Prioridad:");
 
         jLabel31.setText("Alta");
@@ -335,7 +370,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(jLabel31))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo de la Etapa"));
@@ -459,7 +494,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -472,7 +507,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 141, Short.MAX_VALUE)
+            .addGap(0, 161, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -485,7 +520,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 141, Short.MAX_VALUE)
+            .addGap(0, 161, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -501,7 +536,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Extras"));
@@ -587,7 +622,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(PanelInfo);
@@ -640,18 +675,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
-        jButton5.setText("Prueba");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton5);
+        jToolBar1.add(jButton3);
 
         jToolBar2.setBackground(new java.awt.Color(231, 231, 231));
         jToolBar2.setFloatable(false);
@@ -716,7 +745,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -724,7 +753,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa();
+            pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -746,24 +775,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         SwingPanel.getInstance().addWindow(prv);
         prv.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       Date hoy = new Date();
-
-       System.out.println("FECHA HOY:"+hoy.getTime());
-
-       Date prueba = new Date();
-
-       Date hoy2 = new Date(hoy.getTime()+3);
-       Date tom = new Date(hoy.getTime()+5);
-       Date tom2 = new Date(hoy.getTime()+7);
-
-       this.addEtapa(1,"Compra de Materiales",hoy,hoy2);
-       this.addEtapa(2,"Armado de la Estructura",tom,tom2);
-
-       this.refescarGrafico();
-
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void menuDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDerechaActionPerformed
         _gantt.moverDerecha();
@@ -791,6 +802,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         pco.setVisible(true);
     }//GEN-LAST:event_btnDatosObraActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Herramientas;
@@ -800,7 +815,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
@@ -862,6 +876,18 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     public void addEtapa(int id, String nombre, Date fechaInicio, Date FechaFin)
     {
         _gantt.addEtapa(id, nombre, fechaInicio, FechaFin);
+        this.refescarGrafico();
+    }
+
+    public void addEtapa(String nombre, Date fechaInicio, Date FechaFin)
+    {
+        // COMO NO TENGO EL ID DE LA ETAPA, TENGO Q GUARDARLA
+        if(gestor.crearEtapa(nombre, fechaInicio, FechaFin)!=0)
+        {
+            _gantt.addEtapa(0, nombre, fechaInicio, FechaFin);
+            this.refescarGrafico();
+        }
+        
     }
 
     public void refescarGrafico()
@@ -886,6 +912,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         if(cod.equals("ME-0002"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar los datos de la Obra","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("ME-0003"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo crear la nueva Etapa","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         
     }
