@@ -36,7 +36,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="149" max="32767" attributes="0"/>
+              <EmptySpace pref="153" max="32767" attributes="0"/>
               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton3" min="-2" max="-2" attributes="0"/>
@@ -126,7 +126,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="277" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="273" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -206,7 +206,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="32" max="32767" attributes="0"/>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -224,7 +224,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="338" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" pref="332" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -313,7 +313,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                      <EmptySpace pref="17" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnTareasNueva" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnTareasEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -344,7 +344,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtCostoTareas" min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane1" alignment="0" pref="318" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" pref="312" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -498,7 +498,7 @@
                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cboAlojamientoCantDias" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="295" max="32767" attributes="0"/>
+                      <EmptySpace pref="293" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -588,7 +588,7 @@
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jButton5" min="0" pref="0" max="32767" attributes="1"/>
-                          <Component id="cmbEmpresasTransportePasajeros" alignment="1" pref="24" max="32767" attributes="1"/>
+                          <Component id="cmbEmpresasTransportePasajeros" alignment="1" pref="18" max="32767" attributes="1"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -652,14 +652,14 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cmbTransportePasajerosOrigenPaises" alignment="0" pref="211" max="32767" attributes="1"/>
-                                      <Component id="cmbTransportePasajerosOrigenProvincias" alignment="0" pref="211" max="32767" attributes="1"/>
+                                      <Component id="cmbTransportePasajerosOrigenPaises" alignment="0" pref="205" max="32767" attributes="1"/>
+                                      <Component id="cmbTransportePasajerosOrigenProvincias" alignment="0" pref="205" max="32767" attributes="1"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbTransportePasajerosOrigenLocalidades" pref="212" max="32767" attributes="1"/>
+                                  <Component id="cmbTransportePasajerosOrigenLocalidades" pref="206" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -680,7 +680,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cmbTransportePasajerosOrigenProvincias" max="32767" attributes="1"/>
+                              <Component id="cmbTransportePasajerosOrigenProvincias" pref="22" max="32767" attributes="1"/>
                               <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton9" alignment="1" pref="22" max="32767" attributes="1"/>
                           </Group>
@@ -788,7 +788,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="cmbTransportePasajerosDestinoPaises" pref="211" max="32767" attributes="1"/>
+                                  <Component id="cmbTransportePasajerosDestinoPaises" pref="205" max="32767" attributes="1"/>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -796,12 +796,12 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel22" min="-2" pref="60" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cmbTransportePasajerosDestinoProvincias" pref="211" max="32767" attributes="1"/>
+                                          <Component id="cmbTransportePasajerosDestinoProvincias" pref="205" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cmbTransportePasajerosDestinoLocalidades" pref="212" max="32767" attributes="1"/>
+                                          <Component id="cmbTransportePasajerosDestinoLocalidades" pref="206" max="32767" attributes="1"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -824,7 +824,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cmbTransportePasajerosDestinoProvincias" alignment="1" max="32767" attributes="1"/>
+                              <Component id="cmbTransportePasajerosDestinoProvincias" alignment="1" pref="22" max="32767" attributes="1"/>
                               <Component id="jLabel22" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton11" alignment="1" pref="22" max="32767" attributes="1"/>
                           </Group>
@@ -959,7 +959,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbEmpresasTransporteMH" pref="24" max="32767" attributes="1"/>
+                          <Component id="cmbEmpresasTransporteMH" max="32767" attributes="1"/>
                           <Component id="jButton6" min="0" pref="0" max="32767" attributes="1"/>
                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -1022,7 +1022,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <EmptySpace pref="56" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1046,44 +1046,44 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHOrigenCalle" pref="254" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenCalle" pref="248" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHOrigenNro" pref="255" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenNro" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHOrigenPiso" pref="255" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenPiso" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHOrigenDepto" pref="195" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenDepto" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHOrigenCP" pref="195" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHOrigenCP" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHOrigenPaises" pref="187" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenPaises" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel47" min="-2" pref="66" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHOrigenProvincias" pref="187" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenProvincias" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHOrigenLocalidades" pref="188" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHOrigenLocalidades" pref="185" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
@@ -1333,7 +1333,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <EmptySpace pref="56" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1357,44 +1357,44 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHDestinoCalle" pref="254" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoCalle" pref="248" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHDestinoNro" pref="255" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoNro" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHDestinoPiso" pref="255" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoPiso" pref="249" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHDestinoDepto" pref="195" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoDepto" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="txtTransporteMHDestinoCP" pref="195" max="32767" attributes="1"/>
+                                          <Component id="txtTransporteMHDestinoCP" pref="189" max="32767" attributes="1"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHDestinoPaises" pref="187" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoPaises" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel59" min="-2" pref="66" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHDestinoProvincias" pref="187" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoProvincias" pref="184" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="cmbTransporteMHDestinoLocalidades" pref="188" max="32767" attributes="1"/>
+                                                  <Component id="cmbTransporteMHDestinoLocalidades" pref="185" max="32767" attributes="1"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel61" min="-2" max="-2" attributes="0"/>
@@ -1675,7 +1675,7 @@
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="113" max="-2" attributes="0"/>
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
+                              <EmptySpace pref="15" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1800,7 +1800,7 @@
                               <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="82" max="-2" attributes="0"/>
-                              <EmptySpace pref="52" max="32767" attributes="0"/>
+                              <EmptySpace pref="49" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
