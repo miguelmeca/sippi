@@ -211,7 +211,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         mRRHH = new javax.swing.JMenu();
         miNuevoRH = new javax.swing.JMenuItem();
@@ -597,14 +596,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem8);
-
-        jMenuItem7.setText("Presupuesto");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem7);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/chart.png"))); // NOI18N
         jMenuItem5.setText("Nueva Etapa (NF)");
@@ -1172,17 +1163,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        pantallaRegistrarPresupuesto p = new pantallaRegistrarPresupuesto();
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         pantallaNuevoPresupuesto p = new pantallaNuevoPresupuesto();
         SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
@@ -1217,7 +1200,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItemGenerarOC;
     private javax.swing.JPanel jPanel1;

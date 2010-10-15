@@ -11,12 +11,19 @@
 
 package vista.planificacion;
 
+import controlador.planificacion.GestorNuevoPresupuesto;
 import java.lang.Object;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.SwingPanel;
 import vista.gui.ComboCellRenderer;
 import vista.gui.IconCellRenderer;
 
@@ -26,10 +33,17 @@ import vista.gui.IconCellRenderer;
  */
 public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
 
+    private GestorNuevoPresupuesto gestor;
+
     /** Creates new form pantallaNuevoPresupuesto */
     public pantallaNuevoPresupuesto()
     {
         initComponents();
+
+        gestor = new GestorNuevoPresupuesto(this);
+
+        this.setVisible(true);
+
         habilitarVentana();
     }
     
@@ -43,20 +57,32 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
 
     private void llenarComboObras()
     {
-        pantallaNuevoPresupuesto_combo item = new pantallaNuevoPresupuesto_combo();
-        item.setNombreObra("Linea de Montaje DK1");
-        item.setNombrePlanta("BAGLEY SRL San Luis");
-        item.setFechas(new Date(),new Date());
-
-        pantallaNuevoPresupuesto_combo item2 = new pantallaNuevoPresupuesto_combo();
-        item2.setNombreObra("Linea de Montaje DF33N");
-        item2.setNombrePlanta("ARCOR CBA");
-        item2.setFechas(new Date(),new Date());
-
-
         DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboObras.getModel();
-        modelo.addElement(item);
-        modelo.addElement(item2);
+
+        ArrayList<NTupla> lista = gestor.getObrasPorPresupuestar();
+
+        if(lista.size()==0)
+        {
+            MostrarMensaje("ME-0002");
+            return;
+        }
+
+        Iterator<NTupla> it = lista.iterator();
+
+
+        while (it.hasNext())
+        {
+            NTupla nt = it.next();
+            pantallaNuevoPresupuesto_combo item = new pantallaNuevoPresupuesto_combo();
+            item.setId(nt.getId());
+            item.setNombreObra(nt.getNombre());
+
+                String[] data = (String[])nt.getData();
+                item.setNombrePlanta(data[0]);
+                item.setFechas(data[1],data[2]);
+
+            modelo.addElement(item);
+        }
     }
 
     private void llenarTabla()
@@ -66,28 +92,28 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         fila[0] = new JLabel(icon);
         fila[1] = "Presupuesto en Blanco";
 
-        Object[] fila2 = new Object[2];
-        ImageIcon icon2 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"));
-        fila2[0] = new JLabel(icon2);
-        fila2[1] = "Presupuesto de Montaje";
-
-        Object[] fila3 = new Object[2];
-        ImageIcon icon3 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"));
-        fila3[0] = new JLabel(icon3);
-        fila3[1] = "Presupuesto de Mantenimiento";
-
-        Object[] fila4 = new Object[2];
-        ImageIcon icon4 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/personal.png"));
-        fila4[0] = new JLabel(icon4);
-        fila4[1] = "Presupuesto Obra: ARCOR Linea Montaje";
+//        Object[] fila2 = new Object[2];
+//        ImageIcon icon2 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"));
+//        fila2[0] = new JLabel(icon2);
+//        fila2[1] = "Presupuesto de Montaje";
+//
+//        Object[] fila3 = new Object[2];
+//        ImageIcon icon3 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"));
+//        fila3[0] = new JLabel(icon3);
+//        fila3[1] = "Presupuesto de Mantenimiento";
+//
+//        Object[] fila4 = new Object[2];
+//        ImageIcon icon4 = new ImageIcon(getClass().getResource("/res/iconos/plantillas/personal.png"));
+//        fila4[0] = new JLabel(icon4);
+//        fila4[1] = "Presupuesto Obra: ARCOR Linea Montaje";
 
         tablaPlantillas.setRowHeight(50);
 
         DefaultTableModel modelo = (DefaultTableModel)tablaPlantillas.getModel();
         modelo.addRow(fila);
-        modelo.addRow(fila2);
-        modelo.addRow(fila3);
-        modelo.addRow(fila4);
+//        modelo.addRow(fila2);
+//        modelo.addRow(fila3);
+//        modelo.addRow(fila4);
     }
 
     /** This method is called from within the constructor to
@@ -186,10 +212,26 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         );
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Utilizar Plantilla");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione la Obra a Presupuestar"));
+
+        comboObras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboObrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,9 +244,7 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(comboObras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(comboObras, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,12 +255,12 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,10 +273,10 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,8 +287,48 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         JLabel jl = (JLabel)modelo.getValueAt(tablaPlantillas.getSelectedRow(),0);
         String nombre = (String)modelo.getValueAt(tablaPlantillas.getSelectedRow(),1);
         lblIcono.setIcon(jl.getIcon());
-        lblDesc.setText("<HTML><b>"+nombre+"</b><br>Descripcion...");
+        lblDesc.setText("<HTML><b>"+nombre+"</b><br>"+gestor.getDescripcionPlantilla(0));
     }//GEN-LAST:event_tablaPlantillasMousePressed
+
+    private void comboObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboObrasActionPerformed
+
+    }//GEN-LAST:event_comboObrasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        // VEO LA OBRA
+        pantallaNuevoPresupuesto_combo item = (pantallaNuevoPresupuesto_combo)comboObras.getSelectedItem();
+        int idObra = item.getId();
+        // VEO LA PLANTILLA
+
+        //TODO: POR AHORA ES SOLO EN BLANCO
+        DefaultTableModel modelo = (DefaultTableModel) tablaPlantillas.getModel();
+        String plantilla =  (String)modelo.getValueAt(tablaPlantillas.getSelectedRow(),1);
+
+        int seleccion = JOptionPane.showOptionDialog(
+                this, // Componente padre
+                "¿Está seguro que desea crear un presupuesto con la plantilla seleccionada?", //Mensaje
+                "Seleccione una opción", // Título
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,    // null para icono por defecto.
+                new Object[] { "Si","No"},
+                "Si");
+
+        if (seleccion != -1)
+        {
+           if((seleccion + 1)==1)
+           {
+              gestor.crearPresupuesto(idObra,plantilla);
+           }
+        }
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,5 +343,41 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblIcono;
     private javax.swing.JTable tablaPlantillas;
     // End of variables declaration//GEN-END:variables
+
+    public void MostrarMensaje(String cod) {
+
+        if(cod.equals("ME-0001"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Pedidos de Obra\nIntentelo más tarde","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("ME-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No hay Obras que deban ser Presupuestadas","Atención!",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("ME-0003"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se produjo un error al intentar crear el presupuesto\n Intentelo nuevamente más tarde","Atención!",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("ME-0004"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Se produjo un error al intentar cargar los datos de la Obra\n Intentelo nuevamente más tarde","Atención!",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("ME-0005"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo asignar el presupuesto al Pedido de Obra\n Intentelo nuevamente más tarde","Atención!",JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }
+
+    public void abrirEditorPresupuesto(int idPresu,int idObra)
+    {
+        pantallaRegistrarPresupuesto prp = new pantallaRegistrarPresupuesto(idPresu,idObra);
+        SwingPanel.getInstance().addWindow(prp);
+        prp.setVisible(true);
+    }
 
 }

@@ -21,6 +21,8 @@ import util.FechaUtil;
  */
 public class pantallaNuevoPresupuesto_combo extends javax.swing.JPanel {
 
+    private int id;
+
     /** Creates new form pantallaNuevoPresupuesto_combo */
     public pantallaNuevoPresupuesto_combo() {
         initComponents();
@@ -148,5 +150,20 @@ public class pantallaNuevoPresupuesto_combo extends javax.swing.JPanel {
         String fin = FechaUtil.getFecha(fechaFin);
         txtFechas.setText("Inicio: "+ini+" - Fin: "+fin);
     }
+
+    public void setFechas(String ini, String fin)
+    {
+        txtFechas.setText("Inicio: "+ini+" - Fin: "+fin);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
 
 }
