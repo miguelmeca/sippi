@@ -45,7 +45,7 @@ public class EtapaProxy
     public void setFechas(Date fechaInicio, Date fechaFin)
     {
         tarea.setStartTime(fechaInicio.getTime()/Utils.MILLISECONDS_PER_DAY);
-        tarea.setDuration(fechaFin.getTime()-fechaInicio.getTime());
+        tarea.setDuration((fechaFin.getTime()/Utils.MILLISECONDS_PER_DAY)-(fechaInicio.getTime()/Utils.MILLISECONDS_PER_DAY));
     }
    
     public String getNombre()
