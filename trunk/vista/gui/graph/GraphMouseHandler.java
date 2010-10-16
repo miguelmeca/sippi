@@ -164,10 +164,24 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					_selection.add(go);
 					go._selected = true;
 					selectionChanged = true;
+
+                                        // IUGA WORKARROUND -------------------------------------------
+                                        // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
+                                        // SI ES EL BOTON IZZQ DEL MOUSE y PRESIONE SOBRE UNA TAREA
+                                        // MUESTRO SUS DATOS
+                                        if(t!=null)
+                                        {
+                                           TaskImpl ti = (TaskImpl) t._userObject;
+                                           SystemEventProxy.getInstance().getPantalla().mostrarDatosEtapa(Integer.parseInt(ti._id));
+                                        }
+
 				}
 			}
 		}
-		
+
+
+
+
 		if(selectionChanged) {
 			_graph.repaint();
 		}

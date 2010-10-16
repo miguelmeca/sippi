@@ -952,5 +952,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         gestor.cambiarFechaFinEtapa(idEtapa, fechaFinNueva);
     }
 
+    public void mostrarDatosEtapa(int idEtapa)
+    {
+        JOptionPane.showMessageDialog(this.getParent(),"Muestro los datos de la etapa: "+idEtapa+" noños !!","=)",JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
 }
