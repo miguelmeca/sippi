@@ -155,6 +155,19 @@ public class GestorRegistrarPresupuesto {
 
     }
 
-    
+    public void cambiarFechaInicioEtapa(int idEtapa, Date fechaInicio)
+    {
+        System.out.println("SE CAMBIO LA FECHA DE INICIO DE LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaInicio));
+    }
+
+    public void muevoTarea(int idEtapa, Date fechaInicio)
+    {
+        System.out.println("SE MOVIO LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaInicio));
+    }
+   
+    public void cambiarFechaFinEtapa(int idEtapa, Date fechaFinNueva)
+    {
+        System.out.println("SE CAMBIO LA FECHA DE FIN DE LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaFinNueva));
+    }
 
 }

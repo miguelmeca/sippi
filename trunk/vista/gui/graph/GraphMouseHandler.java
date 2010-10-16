@@ -37,6 +37,8 @@ import java.util.Set;
 
 import javax.swing.Action;
 import javax.swing.JOptionPane;
+import vista.gui.graphModel.TaskImpl;
+import vista.gui.graphProxy.SystemEventProxy;
 
 import vista.gui.graphUtils.*;
 
@@ -193,6 +195,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 			case DM_WHOLE_TASK:
 				if(_pressedTask != null)
                                 {
+                                        //SystemEventProxy.getInstance().getPantalla().muevoTarea();
 					// find the destination position.
 					// 1. find row
 					TaskRow myRow = _graph.findNearestRow(p.y);
@@ -204,6 +207,13 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 						_cursorTime = _graph.xToTime(x);
 						_cursorTaskRow = myRow;
 						_graph.repaint();
+                                                // IUGA WORKARROUND -------------------------------------------
+                                                // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
+                                                 TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                                 Date ini = new Date(_cursorTime*Utils.MILLISECONDS_PER_DAY);
+                                                 SystemEventProxy.getInstance().getPantalla().muevoTarea(Integer.parseInt(ti._id),ini);
+
+
 					} 
                                         else
                                         {
@@ -211,9 +221,11 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 					}
 				}
 				break;
+
                         // IUGA: Amplio la tarea a la izquierda
 			case DM_TASK_LEFT_BOUNDARY: // dragging left task boundary
 				if(_pressedTask != null) {
+
 					long wantedTaskStart = _graph.xToTime(p.x);
 					long oldTaskStart = _pressedTask.getStartTime();
 					long oldTaskFinish = _pressedTask.getFinishTime();
@@ -231,7 +243,14 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 							// Then move the start to such place so that old finish = new finish
 							
 							_pressedTask.setStartTime(wantedTaskStart);
-							
+
+                                                        // IUGA WORKARROUND -------------------------------------------
+                                                        // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
+                                                         TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                                         Date ini = new Date(wantedTaskStart*Utils.MILLISECONDS_PER_DAY);
+                                                         SystemEventProxy.getInstance().getPantalla().amplioTareaIzquierda(Integer.parseInt(ti._id),ini);
+
+
 							// start with effort=1. Increase it until the real duration is over
 							for(long newEffort = 2; true; newEffort++) {
 								_pressedTask.setEffort(newEffort);
@@ -271,7 +290,15 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 						long t2 = Math.max(wantedTaskFinish, oldTaskFinish);
 						long workingDaysDiff = Utils.countWorkDuration(t1, t2);
 						if(workingDaysDiff > 0) {
-							
+
+
+                                                        // IUGA WORKARROUND -------------------------------------------
+                                                        // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
+                                                         TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                                         Date ini = new Date(wantedTaskFinish*Utils.MILLISECONDS_PER_DAY);
+                                                         SystemEventProxy.getInstance().getPantalla().amplioTareaDerecha(Integer.parseInt(ti._id),ini);
+
+
 							// find biggest effort for which finish is not over wanted.
 							for(long newEffort = 2; true; newEffort++) {								_pressedTask.setEffort(_pressedTask.getEffort()+1);
 								_pressedTask.setEffort(newEffort);

@@ -29,7 +29,7 @@ public class EtapaProxy
             tarea = new TaskImpl();
             tarea.setMan(worker);
             tarea.setName(nombre);
-            tarea.setDuration(1);
+            tarea.setDuration(5);
             Date hoy = new Date();
             tarea.setStartTime(hoy.getTime());
 

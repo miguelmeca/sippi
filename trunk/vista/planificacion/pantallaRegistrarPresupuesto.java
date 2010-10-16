@@ -31,6 +31,7 @@ import vista.gui.graphModel.TaskPainterImpl;
 import vista.gui.graphProxy.EtapaProxy;
 import vista.gui.graphProxy.GraphProxy;
 import vista.gui.graphProxy.ModelProxy;
+import vista.gui.graphProxy.SystemEventProxy;
 import vista.interfaces.IGraph;
 import vista.pantallaConsultar;
 
@@ -58,6 +59,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         gestor.cargarPresupuesto(idPresu);
         gestor.cargarObra(idObra);
+
+        // LINKEO LOS EVENTOS DEL GRAFICO DE GANTT
+        SystemEventProxy.getInstance().setPantalla(this);
 
         habilitarVentana();
 
@@ -882,9 +886,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     public void addEtapa(String nombre, Date fechaInicio, Date FechaFin)
     {
         // COMO NO TENGO EL ID DE LA ETAPA, TENGO Q GUARDARLA
-        if(gestor.crearEtapa(nombre, fechaInicio, FechaFin)!=0)
+        int idNuevo = gestor.crearEtapa(nombre, fechaInicio, FechaFin);
+        if(idNuevo!=0)
         {
-            _gantt.addEtapa(0, nombre, fechaInicio, FechaFin);
+            _gantt.addEtapa(idNuevo, nombre, fechaInicio, FechaFin);
             this.refescarGrafico();
         }
         
@@ -932,6 +937,20 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         lblFechaFin.setText(fin);
     }
 
+    public void amplioTareaIzquierda(int idEtapa, Date fechaInicioNueva)
+    {
+        gestor.cambiarFechaInicioEtapa(idEtapa, fechaInicioNueva);
+    }
+
+    public void muevoTarea(int idEtapa, Date fechaInicio)
+    {
+        gestor.muevoTarea(idEtapa, fechaInicio);
+    }
+
+    public void amplioTareaDerecha(int idEtapa, Date fechaFinNueva)
+    {
+        gestor.cambiarFechaFinEtapa(idEtapa, fechaFinNueva);
+    }
 
 
 }
