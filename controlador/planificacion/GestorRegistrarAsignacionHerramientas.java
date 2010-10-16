@@ -50,15 +50,53 @@ public class GestorRegistrarAsignacionHerramientas {
 
     public void agregarHerramienta(int idH) {
         try {
-            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, idH);
+            HibernateUtil.beginTransaction();
+            //HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, idH);
+            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa where id=:idH").setParameter("idH", idH).uniqueResult();
             Tarea t = (Tarea)HibernateUtil.getSession().load(Tarea.class, this.idTarea);
-            t.getHerramientas().add(he);
+            t.agregarHerramienta(he);
             HibernateUtil.getSession().saveOrUpdate(t);
-            //pantalla.actualizar(dm.getId(), "...", true);
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
-            this.pantalla.MostrarMensaje("AM-0006");
-            this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
+            this.pantalla.MostrarMensaje("AH-0002");
+            HibernateUtil.rollbackTransaction();
         }
+    }
+
+    public ArrayList<Tupla> getHerramientasAUtilizar() {
+        ArrayList<Tupla> mau = new ArrayList<Tupla>();
+        try {
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            Iterator<HerramientaDeEmpresa> it = t.getHerramientas().iterator();
+            HerramientaDeEmpresa he = null;
+            Tupla nt = new Tupla();
+            while(it.hasNext()){
+                he = it.next();
+                nt.setId(he.getId());
+                nt.setNombre(he.getRecursoEsp().getNombre()+" - NS: "+he.getNroSerie());
+                mau.add(nt);
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AM-0007");
+        }
+        return mau;
+    }
+
+    public boolean quitarHerramienta(int idH) {
+        boolean respuesta=true;
+        try {
+            HibernateUtil.beginTransaction();
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            HerramientaDeEmpresa he = (HerramientaDeEmpresa) HibernateUtil.getSession().load(HerramientaDeEmpresa.class, idH);
+            t.getHerramientas().remove(he);
+            HibernateUtil.getSession().delete(he);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+            respuesta=false;
+            pantalla.MostrarMensaje("AH-0003");
+        }
+        return respuesta;
     }
 }

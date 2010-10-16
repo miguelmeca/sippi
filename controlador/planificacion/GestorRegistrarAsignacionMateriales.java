@@ -43,6 +43,10 @@ public class GestorRegistrarAsignacionMateriales {
         this.idTarea = idTarea;
     }
 
+    public int getIdTarea() {
+        return idTarea;
+    }
+
     public GestorRegistrarAsignacionMateriales(pantallaRegistrarTarea pantalla, int idTarea) {
         this.pantalla = pantalla;
         this.idTarea = idTarea;
@@ -147,6 +151,7 @@ public class GestorRegistrarAsignacionMateriales {
 
     public void agregarMaterial(int idRXP, int cantidad, String desc) {
         try {
+            HibernateUtil.beginTransaction();
             DetalleMaterial dm = new DetalleMaterial();
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             dm.setMaterial(rxp);
@@ -156,9 +161,11 @@ public class GestorRegistrarAsignacionMateriales {
             t.getDetallesMaterial().add(dm);
             HibernateUtil.getSession().save(dm);
             HibernateUtil.getSession().saveOrUpdate(t);
+            HibernateUtil.commitTransaction();
             pantalla.actualizar(dm.getId(), "...", true);
 
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             this.pantalla.MostrarMensaje("AM-0006");
             this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
         }
@@ -175,7 +182,7 @@ public class GestorRegistrarAsignacionMateriales {
                 dm = it.next();
                 nt.setId(dm.getId());
                 RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(dm.getMaterial());
-                Material m = (Material)RecursosUtil.getRecurso(re);
+                Material m = (Material)RecursosUtil.getMaterial(re);
                 nt.setNombre(m.getNombre());
                 Object[] o = new Object[2];
                 o[0]= re.getNombre();
@@ -209,7 +216,8 @@ public class GestorRegistrarAsignacionMateriales {
             GrupoDeTrabajo gt = new GrupoDeTrabajo();
             HibernateUtil.getSession().save(gt);
             t.setGrupo(gt);
-            t.setHerramientas(new ArrayList<HerramientaDeEmpresa>());
+            ArrayList<HerramientaDeEmpresa> herramientras = new ArrayList<HerramientaDeEmpresa>();
+            t.setHerramientas(herramientras);
             t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
             HibernateUtil.getSession().saveOrUpdate(t);
             HibernateUtil.commitTransaction();
@@ -222,7 +230,6 @@ public class GestorRegistrarAsignacionMateriales {
 
     public boolean quitarMaterial(int idDM) {
         boolean respuesta=true;
-        ArrayList<NTupla> mau = new ArrayList<NTupla>();
         try {
             HibernateUtil.beginTransaction();
             Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);

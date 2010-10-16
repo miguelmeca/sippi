@@ -1026,6 +1026,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Quitar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarHerramientaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
