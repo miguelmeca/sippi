@@ -40,6 +40,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
         gestorRAM.crearTareaPrueba();
+        gestorRAH.setIdTarea(gestorRAM.getIdTarea());
     }
 
     private void cargarTabMateriales() {
@@ -90,28 +91,48 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
 
     private void mostrarMaterialesAUtilizar() {
-        ArrayList<NTupla> mats = gestorRAM.getMaterialesAUtilizar();
+        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasAUtilizar();
 
-        DefaultTableModel modelo = (DefaultTableModel) tbMaterialesAUsar.getModel();
-        
+        DefaultTableModel modelo = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
+
+        // VACIO LA TABLA HERRAMIENTAS
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        Iterator it = mats.iterator();
+        Iterator it = herramientas.iterator();
 
         int i = 0;
         while (it.hasNext())
         {
-            NTupla ntp = (NTupla)it.next();
-            Object[] fila = new Object[3];
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
             fila[0] = ntp;
-            Object o[] = (Object[]) ntp.getData();
-            fila[1] = (String)(o[0]);
-            fila[2] = (Integer)o[1];
 
             modelo.addRow(fila);
         }
+        // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
 
+    private void mostrarHerramientasAUtilizar() {
+        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasAUtilizar();
+
+        DefaultTableModel modelo = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
+
+        // VACIO LA TABLA HERRAMIENTAS
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = herramientas.iterator();
+
+        int i = 0;
+        while (it.hasNext())
+        {
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+        // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
+    }
     private void cargarHerramientas() {
         ArrayList<Tupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
 
@@ -702,6 +723,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         btnQuitarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
         btnQuitarHerramienta.setText("Quitar");
+        btnQuitarHerramienta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarHerramientaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -866,7 +892,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHerramientaActionPerformed
-        // TODO add your handling code here:
+        if(tbHerramientasDisponibles.getSelectedRow()>=0){
+            Tupla hd = (Tupla)(tbHerramientasDisponibles.getModel()).getValueAt(tbHerramientasDisponibles.getSelectedRow(), 0);
+            gestorRAH.agregarHerramienta(hd.getId());
+            this.mostrarHerramientasAUtilizar();
+        }
     }//GEN-LAST:event_btnAgregarHerramientaActionPerformed
 
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
@@ -877,6 +907,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             this.mostrarMaterialesAUtilizar();
         }
     }//GEN-LAST:event_btnQuitarMaterialActionPerformed
+
+    private void btnQuitarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarHerramientaActionPerformed
+        Tupla t = (Tupla)tbHerramientasSeleccionadas.getModel().getValueAt(tbHerramientasSeleccionadas.getSelectedRow(), 0);
+        if(gestorRAH.quitarHerramienta(t.getId())){
+            DefaultTableModel dtm = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
+            dtm.removeRow(tbHerramientasSeleccionadas.getSelectedRow());
+            this.mostrarHerramientasAUtilizar();
+        }
+    }//GEN-LAST:event_btnQuitarHerramientaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -992,6 +1031,10 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         if(cod.equals("AH-0001"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Herramientas","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("AH-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar la Herramienta a la lista de Herramientas a utilizar","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
     }
 

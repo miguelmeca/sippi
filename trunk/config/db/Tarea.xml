@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+    <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Tarea" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
@@ -8,17 +8,17 @@
     <many-to-one column="GRUPO" name="grupo"/>
     <property column="UBICACION" name="ubicacion" type="string"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
-    <list cascade="all" name="detallesMaterial" table="TAREA_X_DETALLEMATERIAL">
+    <list cascade="all" name="detallesMaterial" table="TAREA_X_DM">
       <key column="ID_TAREA"/>
       <index column="idx"/>
       <one-to-many class="modelo.DetalleMaterial"/>
     </list>
-    <list cascade="all" name="detallesConsumible" table="TAREA_X_DETALLECONSUMIBLE">
+    <list cascade="all" name="detallesConsumible" table="TAREA_X_DC">
       <key column="ID_TAREA"/>
       <index column="idx"/>
       <one-to-many class="modelo.DetalleConsumible"/>
     </list>
-    <list cascade="all" name="herramientas" table="TAREA_X_HERRAMIENTA">
+    <list cascade="all" name="herramientas" table="TAREA_X_H">
       <key column="ID_TAREA"/>
       <index column="idx"/>
       <one-to-many class="modelo.HerramientaDeEmpresa"/>

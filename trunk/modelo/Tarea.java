@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.List;
 
 //
@@ -28,6 +29,9 @@ public class Tarea {
     }
 
     public Tarea() {
+        detallesMaterial = new ArrayList<DetalleMaterial>();
+        detallesConsumible = new ArrayList<DetalleConsumible>();
+        herramientas = new ArrayList<HerramientaDeEmpresa>();
     }
 
     public String getDescripcion() {
@@ -84,5 +88,13 @@ public class Tarea {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public void agregarHerramienta(HerramientaDeEmpresa he) {
+        this.herramientas.add(he);
+    }
+
+    public void quitarHerramienta(HerramientaDeEmpresa he) {
+        this.herramientas.remove(he);
     }
 }
