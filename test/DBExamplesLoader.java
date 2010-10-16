@@ -647,8 +647,40 @@ public class DBExamplesLoader {
 
     private Proveedor cargarProveedor(){
 
+        Proveedor tM = new Proveedor();
+        tM.setRazonSocial("Transportes GORDON");
+        tM.setCuit("34368455-5");
+        tM.setEmail("tgorodn@tg.com.ar");
+        tM.setPaginaWeb("http://www.tg.com.ar");
+        Rubro rt5 = RubroUtil.getRubro(5);
+        ArrayList<Rubro> listaTRubro = new ArrayList<Rubro>();
+            listaTRubro.add(rt5);
+            tM.setConfiabilidad(0.5);
+            tM.setRubros(listaTRubro);
+
+       Proveedor tP = new Proveedor();
+        tP.setRazonSocial("La veloz del norte");
+        tP.setCuit("34378455-5");
+        tP.setEmail("laveloz@lvdn.com.ar");
+        tP.setPaginaWeb("http://www.laveloz.com.ar");
+        Rubro rt6 = RubroUtil.getRubro(6);
+        listaTRubro = new ArrayList<Rubro>();
+            listaTRubro.add(rt6);
+            tP.setConfiabilidad(0.5);
+            tP.setRubros(listaTRubro);
+
+         Proveedor tA = new Proveedor();
+        tA.setRazonSocial("Hotel Hilton");
+        tA.setCuit("31378455-5");
+        tA.setEmail("hilton@lvdn.com.ar");
+        tA.setPaginaWeb("http://www.hilton.com");
+        Rubro rt7 = RubroUtil.getRubro(7);
+        listaTRubro = new ArrayList<Rubro>();
+            listaTRubro.add(rt7);
+        tA.setConfiabilidad(0.5);
+        tA.setRubros(listaTRubro); 
+
         Proveedor p = new Proveedor();
-        
         if(band==false)
         {
             p.setRazonSocial("SIDERUGIA SAN LUIS S.R.L.");
