@@ -201,7 +201,7 @@ public class GestorRegistrarAsignacionMateriales {
         try {
             Tarea t = new Tarea();
             t.setDescripcion("MUY DIFICIL");
-            t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
 
             List<DetalleMaterial> materiales = new ArrayList<DetalleMaterial>();
             RecursoXProveedor rxp = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
@@ -216,7 +216,8 @@ public class GestorRegistrarAsignacionMateriales {
             t.setDetallesMaterial(materiales);
             GrupoDeTrabajo gt = new GrupoDeTrabajo();
             HibernateUtil.getSession().save(gt);
-            t.setGrupo(gt);
+            ArrayList<GrupoDeTrabajo> gts = new ArrayList<GrupoDeTrabajo>();
+            t.setGrupos(gts);
             ArrayList<HerramientaDeEmpresa> herramientras = new ArrayList<HerramientaDeEmpresa>();
             t.setHerramientas(herramientras);
             t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
