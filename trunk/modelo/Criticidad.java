@@ -30,7 +30,7 @@ public class Criticidad {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,7 +38,7 @@ public class Criticidad {
         return nivel;
     }
 
-    private void setNivel(int nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
