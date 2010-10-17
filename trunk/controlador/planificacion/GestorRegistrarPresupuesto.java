@@ -46,6 +46,7 @@ public class GestorRegistrarPresupuesto {
                 sesion = HibernateUtil.getSession();
                 this.presupuesto = (Presupuesto)sesion.load(Presupuesto.class,id);
                 pantalla.mostrarGananciaEmpresa(String.valueOf(this.presupuesto.getGanancia()));
+                pantalla.mostrarPorcentajeConsumible(String.valueOf(this.presupuesto.getConsumibles()));
            }
            catch(Exception e)
            {
