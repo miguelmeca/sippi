@@ -61,7 +61,7 @@
     <mapping resource="config/db/DetalleMaterial.hbm.xml"/>
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
     <mapping resource="config/db/PresupuestoBase.hbm.xml"/>
-    <mapping resource="config/db/Tarea.xml"/>
+    <mapping resource="config/db/Tarea.hbm.xml"/>
     <mapping resource="config/db/TipoHerramienta.hbm.xml"/>
     <mapping resource="config/db/TipoIndumentaria.hbm.xml"/>
     <!--<mapping resource="config/db/TransporteDeMaterialesYHerramientas.xml"/>-->

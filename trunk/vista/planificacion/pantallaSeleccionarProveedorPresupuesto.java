@@ -243,20 +243,38 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
     }//GEN-LAST:event_tbProveedoresFocusLost
 
     private void fxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fxtCantidadFocusLost
-        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("")){
+        int cantidad = 0;
+        boolean banCantidad=true;
+        try{
+            cantidad=Integer.parseInt(this.fxtCantidad.getText());
+        }catch(NumberFormatException ex)
+        {
+            banCantidad=false;
+        }
+        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("") && banCantidad){
             NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-            int cantidad = Integer.parseInt(fxtCantidad.getText());
             txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
         }
     }//GEN-LAST:event_fxtCantidadFocusLost
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-        if(tbProveedores.getSelectedRow()>=0){
-            NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
-            gestorRAM.agregarMaterial(nt.getId(),Integer.parseInt(this.fxtCantidad.getText()),this.taDescripcion.getText());
-            this.dispose();
-        }else{
+        int cantidad = 0;
+        boolean banCantidad=true, banProveedor=true;
+        try{
+            cantidad=Integer.parseInt(this.fxtCantidad.getText());
+        }catch(NumberFormatException ex)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Debe ingresar una cantidad válida","Cantidad",JOptionPane.WARNING_MESSAGE);
+            banCantidad=false;
+        }
+        if(tbProveedores.getSelectedRow()<0){
             JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un proveedor para este material","Proveedor",JOptionPane.WARNING_MESSAGE);
+            banProveedor=false;
+        }
+        if(banCantidad && banProveedor){
+            NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
+            gestorRAM.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText());
+            this.dispose();
         }
     }//GEN-LAST:event_btnAniadirActionPerformed
 

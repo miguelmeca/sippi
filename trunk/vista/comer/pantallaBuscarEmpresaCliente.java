@@ -197,7 +197,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
             }
         });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -290,7 +290,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
                         .addComponent(rbBajas)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDarBajaEmpresaCliente)
                     .addComponent(btnModificarEmpresaCliente)
@@ -356,7 +356,7 @@ public class pantallaBuscarEmpresaCliente extends javax.swing.JInternalFrame  im
     }//GEN-LAST:event_rbTodasActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
+        txtBuscar.setText("");
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased

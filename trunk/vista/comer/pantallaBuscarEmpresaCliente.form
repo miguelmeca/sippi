@@ -74,7 +74,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="119" max="-2" attributes="0"/>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnDarBajaEmpresaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnModificarEmpresaCliente" alignment="3" min="-2" max="-2" attributes="0"/>

@@ -181,7 +181,8 @@ public class GestorRegistrarAsignacionMateriales {
             while(it.hasNext()){
                 dm = it.next();
                 nt.setId(dm.getId());
-                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(dm.getMaterial());
+                RecursoXProveedor rxp = dm.getMaterial();
+                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
                 Material m = (Material)RecursosUtil.getMaterial(re);
                 nt.setNombre(m.getNombre());
                 Object[] o = new Object[2];

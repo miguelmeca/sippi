@@ -15,11 +15,18 @@ import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import controlador.planificacion.GestorRegistrarAsignacionHerramientas;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import util.NTupla;
+import util.StringUtil;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
@@ -79,7 +86,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         Iterator it = esps.iterator();
 
-        int i = 0;
         while (it.hasNext())
         {
             Tupla ntp = (Tupla)it.next();
@@ -91,21 +97,23 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
 
     private void mostrarMaterialesAUtilizar() {
-        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasAUtilizar();
+        ArrayList<NTupla> materiales = gestorRAM.getMaterialesAUtilizar();
 
-        DefaultTableModel modelo = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)tbMaterialesAUsar.getModel();
 
         // VACIO LA TABLA HERRAMIENTAS
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        Iterator it = herramientas.iterator();
+        Iterator it = materiales.iterator();
 
-        int i = 0;
         while (it.hasNext())
         {
-            Tupla ntp = (Tupla)it.next();
-            Object[] fila = new Object[1];
+            NTupla ntp = (NTupla)it.next();
+            Object[] fila = new Object[3];
             fila[0] = ntp;
+            Object[] o = (Object[]) ntp.getData();
+            fila[1] = o[0];
+            fila[2] = o[1];
 
             modelo.addRow(fila);
         }
@@ -155,6 +163,40 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
 
+    private void FiltrarTabla(JTable table,JTextField field){
+       TableRowSorter<TableModel> modeloOrdenado;
+       modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
+       table.setRowSorter(modeloOrdenado);
+
+           String[] cadena=field.getText().trim().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+           // CAMBIO LOS TAMAÑOS DE LAS FILAS
+           DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+           for (int i = 0; i < modelo.getRowCount(); i++)
+           {
+            // REDIMENSIONO LA FILA !!! -----------------------------------
+                int index = modeloOrdenado.convertRowIndexToView(i);
+                if(index>-1)
+                {
+                    // ESTA
+                    String item = (String) modelo.getValueAt(i,2);
+                    int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                    if(cantItems!=0)
+                    {
+                        table.setRowHeight(index,16*cantItems);
+                    }
+                    //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                }
+                // REDIMENSIONO LA FILA !!! -----------------------------------
+           }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -476,6 +518,16 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
         txtBuscarMaterial.setText("Buscar...");
+        txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarMaterialFocusGained(evt);
+            }
+        });
+        txtBuscarMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarMaterialKeyReleased(evt);
+            }
+        });
 
         jLabel8.setText("Seleccione un Material:");
 
@@ -704,8 +756,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         tbHerramientasDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Torno"},
-                {"Fresadora"}
+
             },
             new String [] {
                 "Nombre de la Herramienta"
@@ -765,7 +816,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         tbHerramientasSeleccionadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Sierra Electrica para Metal"}
+
             },
             new String [] {
                 "Nombre de la Herramienta"
@@ -842,9 +893,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -905,6 +956,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
             dtm.removeRow(tbMaterialesAUsar.getSelectedRow());
             this.mostrarMaterialesAUtilizar();
+            this.cargarTabMateriales();
         }
     }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
@@ -916,6 +968,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_btnQuitarHerramientaActionPerformed
+
+    private void txtBuscarMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMaterialKeyReleased
+        this.FiltrarTabla(this.tbMateriales, txtBuscarMaterial);
+    }//GEN-LAST:event_txtBuscarMaterialKeyReleased
+
+    private void txtBuscarMaterialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarMaterialFocusGained
+        txtBuscarMaterial.setText("");
+    }//GEN-LAST:event_txtBuscarMaterialFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1041,6 +1101,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     public void actualizar(int id, String flag, boolean exito) {
         if(jTabbedPane1.getSelectedIndex()==1){
         this.mostrarMaterialesAUtilizar();
+        this.cargarTabMateriales();
         }
     }
 }
