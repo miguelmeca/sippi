@@ -33,6 +33,7 @@ public class Etapa {
     private String ubicacion;
     private RecursoEspecifico transportePasajeros;
     private RecursoEspecifico tranportMyH;
+    private List<Tarea> tareas;
 
     
     public void crear() {
@@ -157,5 +158,13 @@ public class Etapa {
 
     public void setTransportePasajeros(RecursoEspecifico transportePasajeros) {
         this.transportePasajeros = transportePasajeros;
+    }
+
+    public List<Tarea> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(List<Tarea> tareas) {
+        this.tareas = tareas;
     }
 }

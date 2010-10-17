@@ -7,10 +7,15 @@ package controlador.planificacion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import modelo.Etapa;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
+import modelo.PedidoObra;
+import modelo.Presupuesto;
 import modelo.Tarea;
 import util.HibernateUtil;
+import util.NTupla;
+import util.RecursosUtil;
 import util.Tupla;
 import vista.planificacion.pantallaRegistrarTarea;
 
@@ -31,16 +36,45 @@ public class GestorRegistrarAsignacionHerramientas {
         this.idTarea = idTarea;
     }
 
-    public ArrayList<Tupla> getHerramientasDeEmpresaDisponibles() {
-        ArrayList<Tupla> herramientas = new ArrayList<Tupla>();
+    public ArrayList<NTupla> getHerramientasDeEmpresaDisponibles() {
+        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
         try {
             Iterator it = HibernateUtil.getSession().createQuery("from HerramientaDeEmpresa").iterate();
             while(it.hasNext()){
-                Tupla t = new Tupla();
+                NTupla nt = new NTupla();
                 HerramientaDeEmpresa hde = (HerramientaDeEmpresa)it.next();
-                t.setId(hde.getId());
-                t.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie());
-                herramientas.add(t);
+                nt.setId(hde.getId());
+                Herramienta h = RecursosUtil.getHerramienta(hde.getRecursoEsp());
+                nt.setNombre(h.getNombre()+" "+hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie());
+                nt.setData(0);
+                herramientas.add(nt);
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AH-0001");
+        }
+        return herramientas;
+    }
+
+    public ArrayList<NTupla> getHerramientasPresupuesto(int idP){
+        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
+        try {
+            Presupuesto p = (Presupuesto)HibernateUtil.getSession().load(Presupuesto.class, idP);
+            Iterator<Etapa> itP = p.getEtapas().iterator();
+            while(itP.hasNext()){
+                Etapa e = itP.next();
+                Iterator<Tarea> itE = e.getTareas().iterator();
+                while(itE.hasNext()){
+                    Tarea t = itE.next();
+                    Iterator itHP = t.getHerramientas().iterator();
+                    while(itHP.hasNext()){
+                        NTupla nt = new NTupla();
+                        HerramientaDeEmpresa hde = (HerramientaDeEmpresa)itHP.next();
+                        nt.setId(hde.getId());
+                        nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie());
+                        nt.setData(0);
+                        herramientas.add(nt);
+                    }
+                }
             }
         } catch (Exception ex) {
             pantalla.MostrarMensaje("AH-0001");
@@ -64,17 +98,18 @@ public class GestorRegistrarAsignacionHerramientas {
         }
     }
 
-    public ArrayList<Tupla> getHerramientasAUtilizar() {
-        ArrayList<Tupla> mau = new ArrayList<Tupla>();
+    public ArrayList<NTupla> getHerramientasAUtilizar() {
+        ArrayList<NTupla> mau = new ArrayList<NTupla>();
         try {
             Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
             Iterator<HerramientaDeEmpresa> it = t.getHerramientas().iterator();
             HerramientaDeEmpresa he = null;
-            Tupla nt = new Tupla();
+            NTupla nt = new NTupla();
             while(it.hasNext()){
                 he = it.next();
                 nt.setId(he.getId());
-                nt.setNombre(he.getRecursoEsp().getNombre()+" - NS: "+he.getNroSerie());
+                Herramienta h = RecursosUtil.getHerramienta(he.getRecursoEsp());
+                nt.setNombre(h.getNombre()+" "+he.getRecursoEsp().getNombre()+" - NS: "+he.getNroSerie());
                 mau.add(nt);
             }
         } catch (Exception ex) {
