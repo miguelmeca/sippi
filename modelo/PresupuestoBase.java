@@ -22,6 +22,10 @@ public class PresupuestoBase {
     private List<Etapa> etapas;
     private float porcConsumibles;
     private float IVA;
+
+    private double ganancia;
+    private double consumibles;
+
     public void crear() {
 
     }
@@ -109,4 +113,22 @@ public class PresupuestoBase {
         }
         this.etapas.add(e);
     }
+
+    public double getConsumibles() {
+        return consumibles;
+    }
+
+    public void setConsumibles(double consumibles) {
+        this.consumibles = consumibles;
+    }
+
+    public double getGanancia() {
+        return ganancia;
+    }
+
+    public void setGanancia(double ganancia) {
+        this.ganancia = ganancia;
+    }
+
+    
 }
