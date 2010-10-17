@@ -8,6 +8,7 @@ package util;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Herramienta;
 import modelo.Material;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
@@ -65,7 +66,7 @@ public class RecursosUtil {
 //        return rEncontrado;
 //    }
 
-        public static Material getMaterial(RecursoEspecifico re){
+    public static Material getMaterial(RecursoEspecifico re){
         Material rEncontrado = null;
         Material r=null;
         try {
@@ -73,6 +74,30 @@ public class RecursosUtil {
             Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
             while(it.hasNext()){
                 r=(Material)it.next();
+                Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
+                RecursoEspecifico resp = null;
+                while(itr.hasNext()){
+                    resp = itr.next();
+                    if(resp.getId()==re.getId()){
+                        rEncontrado=r;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rEncontrado;
+    }
+
+    public static Herramienta getHerramienta(RecursoEspecifico re){
+        Herramienta rEncontrado = null;
+        Herramienta r=null;
+        try {
+            //r = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso r WHERE re.recursos IN(:re)").setParameter("%re%", re);
+            Iterator it = HibernateUtil.getSession().createQuery("FROM Herramienta").iterate();
+            while(it.hasNext()){
+                r=(Herramienta)it.next();
                 Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
                 RecursoEspecifico resp = null;
                 while(itr.hasNext()){

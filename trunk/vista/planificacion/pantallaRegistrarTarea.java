@@ -13,6 +13,8 @@ package vista.planificacion;
 
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import controlador.planificacion.GestorRegistrarAsignacionHerramientas;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import util.NTupla;
@@ -121,7 +124,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
 
     private void mostrarHerramientasAUtilizar() {
-        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasAUtilizar();
+        ArrayList<NTupla> herramientas = gestorRAH.getHerramientasAUtilizar();
 
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
 
@@ -133,7 +136,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         int i = 0;
         while (it.hasNext())
         {
-            Tupla ntp = (Tupla)it.next();
+            NTupla ntp = (NTupla)it.next();
             Object[] fila = new Object[1];
             fila[0] = ntp;
 
@@ -142,7 +145,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
     private void cargarHerramientas() {
-        ArrayList<Tupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
+        ArrayList<NTupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
 
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasDisponibles.getModel();
 
@@ -154,7 +157,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         int i = 0;
         while (it.hasNext())
         {
-            Tupla ntp = (Tupla)it.next();
+            NTupla ntp = (NTupla)it.next();
             Object[] fila = new Object[1];
             fila[0] = ntp;
 
@@ -177,7 +180,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
            RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
            modeloOrdenado.setRowFilter(cadenaFilter);
 
-           // CAMBIO LOS TAMAÑOS DE LAS FILAS
+           // CAMBIO LOS TAMAÃ‘OS DE LAS FILAS
            DefaultTableModel modelo = (DefaultTableModel) table.getModel();
            for (int i = 0; i < modelo.getRowCount(); i++)
            {
@@ -186,7 +189,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 if(index>-1)
                 {
                     // ESTA
-                    String item = (String) modelo.getValueAt(i,2);
+                    String item = (String) modelo.getValueAt(i,0);
                     int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
                     if(cantItems!=0)
                     {
@@ -275,7 +278,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtBuscarHerramientas = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
         tbHerramientasDisponibles = new javax.swing.JTable();
         btnAgregarHerramienta = new javax.swing.JButton();
@@ -375,7 +378,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Ubicacion:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -402,7 +405,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,7 +437,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel1);
@@ -458,11 +461,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
         );
 
         btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -500,6 +503,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
+        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscarMaterial.setForeground(java.awt.Color.gray);
         txtBuscarMaterial.setText("Buscar...");
         txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -552,11 +557,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -619,21 +622,21 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Crear un Grupo de Trabajo"));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Nombre:");
 
         jTextField5.setText("Grupo de Soldadores");
 
         jTextField10.setText("5");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Cantidad de Personas:");
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
@@ -649,7 +652,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
         jButton8.setText("Asignar");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel22.setText("Asignar Rol a un Grupo");
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soldador", "Tornero" }));
@@ -726,7 +729,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupos de Trabajo Asignados a Esta Tarea"));
@@ -754,7 +757,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,7 +780,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                        .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton10))
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -841,7 +844,19 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jTextField3.setText("Buscar...");
+        txtBuscarHerramientas.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscarHerramientas.setForeground(java.awt.Color.gray);
+        txtBuscarHerramientas.setText("Buscar...");
+        txtBuscarHerramientas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarHerramientasFocusGained(evt);
+            }
+        });
+        txtBuscarHerramientas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarHerramientasKeyReleased(evt);
+            }
+        });
 
         tbHerramientasDisponibles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -854,7 +869,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jScrollPane8.setViewportView(tbHerramientasDisponibles);
 
         btnAgregarHerramienta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
-        btnAgregarHerramienta.setText("Añadir");
+        btnAgregarHerramienta.setText("Agregar");
         btnAgregarHerramienta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarHerramientaActionPerformed(evt);
@@ -876,15 +891,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
-                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -892,7 +907,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -919,12 +934,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -960,11 +975,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
+                .addContainerGap(505, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(87, 87, 87))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -994,9 +1009,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         //System.out.print("INDICE: "+jTabbedPane1.getSelectedIndex());
         if(jTabbedPane1.getSelectedIndex() == 1){
             cargarTabMateriales();
+            this.mostrarMaterialesAUtilizar();
         }
         if(jTabbedPane1.getSelectedIndex() == 3){
             cargarHerramientas();
+            this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -1010,28 +1027,32 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
     private void btnAgregarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHerramientaActionPerformed
         if(tbHerramientasDisponibles.getSelectedRow()>=0){
-            Tupla hd = (Tupla)(tbHerramientasDisponibles.getModel()).getValueAt(tbHerramientasDisponibles.getSelectedRow(), 0);
+            NTupla hd = (NTupla)(tbHerramientasDisponibles.getModel()).getValueAt(tbHerramientasDisponibles.getSelectedRow(), 0);
             gestorRAH.agregarHerramienta(hd.getId());
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_btnAgregarHerramientaActionPerformed
 
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
-        NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 0);
-        if(gestorRAM.quitarMaterial(nt.getId())){
-            DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
-            dtm.removeRow(tbMaterialesAUsar.getSelectedRow());
-            this.mostrarMaterialesAUtilizar();
-            this.cargarTabMateriales();
+        if(tbMaterialesAUsar.getSelectedRow()>=0){
+            NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 0);
+            if(gestorRAM.quitarMaterial(nt.getId())){
+                DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
+                dtm.removeRow(tbMaterialesAUsar.getSelectedRow());
+                this.mostrarMaterialesAUtilizar();
+                this.cargarTabMateriales();
+            }
         }
     }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
     private void btnQuitarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarHerramientaActionPerformed
-        Tupla t = (Tupla)tbHerramientasSeleccionadas.getModel().getValueAt(tbHerramientasSeleccionadas.getSelectedRow(), 0);
-        if(gestorRAH.quitarHerramienta(t.getId())){
-            DefaultTableModel dtm = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
-            dtm.removeRow(tbHerramientasSeleccionadas.getSelectedRow());
-            this.mostrarHerramientasAUtilizar();
+        if(tbHerramientasSeleccionadas.getSelectedRow()>=0){
+            NTupla nt = (NTupla)tbHerramientasSeleccionadas.getModel().getValueAt(tbHerramientasSeleccionadas.getSelectedRow(), 0);
+            if(gestorRAH.quitarHerramienta(nt.getId())){
+                DefaultTableModel dtm = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
+                dtm.removeRow(tbHerramientasSeleccionadas.getSelectedRow());
+                this.mostrarHerramientasAUtilizar();
+            }
         }
     }//GEN-LAST:event_btnQuitarHerramientaActionPerformed
 
@@ -1050,6 +1071,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void txtBuscarHerramientasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarHerramientasKeyReleased
+        this.FiltrarTabla(this.tbHerramientasDisponibles, this.txtBuscarHerramientas);
+    }//GEN-LAST:event_txtBuscarHerramientasKeyReleased
+
+    private void txtBuscarHerramientasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarHerramientasFocusGained
+        this.txtBuscarHerramientas.setText("");
+    }//GEN-LAST:event_txtBuscarHerramientasFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1118,7 +1147,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
@@ -1129,6 +1157,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JTable tbMaterialEspecifico;
     private javax.swing.JTable tbMateriales;
     private javax.swing.JTable tbMaterialesAUsar;
+    private javax.swing.JTextField txtBuscarHerramientas;
     private javax.swing.JTextField txtBuscarMaterial;
     // End of variables declaration//GEN-END:variables
 
@@ -1141,7 +1170,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
         if(cod.equals("AM-0002"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Especificación del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de EspecificaciÃ³n del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0003"))
         {
@@ -1153,11 +1182,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
         if(cod.equals("AM-0005"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de Cálculo",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de CÃ¡lculo",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0006"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar el material a la lista de materiales a utilizar","Error en el Añadir",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar el material a la lista de materiales a utilizar","Error en el AÃ±adir",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0007"))
         {
@@ -1182,6 +1211,18 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         if(jTabbedPane1.getSelectedIndex()==1){
         this.mostrarMaterialesAUtilizar();
         this.cargarTabMateriales();
+        }
+    }
+
+    public class TablaColoreada extends JTable{
+        public Component prepareRenderer(TableCellRenderer renderer, int rowIndex, int colIndex) {
+            Component component = super.prepareRenderer(renderer, rowIndex, colIndex);
+            if((rowIndex%2) == 0){
+                ; component.setBackground(Color.GREEN);
+            } else {
+                ; component.setBackground(Color.YELLOW);
+            }
+            return component;
         }
     }
 }

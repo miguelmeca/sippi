@@ -20,8 +20,8 @@ X. Registrar Asignacion de Transporte de Materiales y Herramientas (F)
 X. Registrar Asignacion de Transporte de Personas (F)
 X. Registrar Nueva Tarea (F)
 X. Registrar Asignación de Grupos de Trabajo (F)
-X. Registrar Asignación de Materiales (E)
-X. Registrar Asignación de Herramientas (E)
+X. Registrar Asignación de Materiales (E) // HALF DONE
+X. Registrar Asignación de Herramientas (E) // DONE
 17. Emitir Resumen del Presupuesto (E)
 10. Emitir Presupuesto para el Cliente (E)
 XX. Registrar orden de compra (!!!!!!!!!!!!! Imposible d hacer... depende de planificacion)
