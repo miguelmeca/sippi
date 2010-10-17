@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
 
@@ -138,6 +139,22 @@ public class FechaUtil {
         Date fecha = new Date();
         return DATE_FORMAT.format(fecha);
     }
+
+    public static Date fechaMas(Date fch, int dias)
+    { 
+     Calendar cal = new GregorianCalendar(); 
+     cal.setTimeInMillis(fch.getTime()); 
+     cal.add(Calendar.DATE, dias); 
+     return new Date(cal.getTimeInMillis()); 
+    } 
+
+   public static Date fechaMenos(Date fch, int dias)
+   { 
+     Calendar cal = new GregorianCalendar(); 
+     cal.setTimeInMillis(fch.getTime()); 
+     cal.add(Calendar.DATE, -dias); 
+     return new Date(cal.getTimeInMillis()); 
+   }
 
 
 }

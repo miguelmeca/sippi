@@ -8,6 +8,10 @@
     <property column="FECHAESTINCIOOBRA" name="fechaEstimadaInicioObra" type="date"/>
     <property column="FECHAESTFINOBRA" name="fechaEstimadaFinObra" type="date"/>
     <property column="version" name="version" type="string"/>
+
+    <property column="ganancia" name="ganancia" type="double"/>
+    <property column="consumibles" name="consumibles" type="double"/>
+
     <list cascade="all" name="etapas" table="PRESUPUESTOBASE_X_ETAPA">
       <key column="ID_PRESUPUESTO_BASE"/>
       <index column="idx"/>
