@@ -182,10 +182,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         Herramientas = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        txtConsumible = new javax.swing.JFormattedTextField();
-        txtGanancia = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        txtGanancia = new javax.swing.JTextField();
+        txtConsumible = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -268,10 +268,6 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         });
         jpm.add(menuVistaSemanal);
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Registrar Presupuesto | Obra: Linea de Montaje en Bagley | Versión: 1");
 
         jSplitPane1.setBorder(null);
@@ -366,7 +362,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(lblDuracionEtapa))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo de la Etapa"));
@@ -491,7 +487,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Materiales", jPanel5);
@@ -504,7 +500,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         HerramientasLayout.setVerticalGroup(
             HerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 189, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Herramientas", Herramientas);
@@ -517,7 +513,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 189, Short.MAX_VALUE)
+            .addGap(0, 193, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Lista de Tareas", jPanel7);
@@ -533,18 +529,20 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Extras"));
 
-        txtConsumible.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0%"))));
-        txtConsumible.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtConsumible.setText("3%");
+        jLabel2.setText("Ganancia de la Empresa ($):");
 
-        txtGanancia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtGanancia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtGanancia.setText("2000");
+        jLabel25.setText("Consumibles (%):");
+
+        txtGanancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGananciaActionPerformed(evt);
+            }
+        });
         txtGanancia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtGananciaFocusLost(evt);
@@ -556,9 +554,16 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             }
         });
 
-        jLabel2.setText("Ganancia de la Empresa ($):");
-
-        jLabel25.setText("Consumibles (%):");
+        txtConsumible.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConsumibleFocusLost(evt);
+            }
+        });
+        txtConsumible.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConsumibleKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -567,9 +572,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtGanancia, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel25)
+                    .addComponent(txtGanancia, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addComponent(txtConsumible, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -581,7 +586,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addComponent(txtGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtConsumible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -629,7 +634,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(PanelInfo);
@@ -752,7 +757,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -813,19 +818,60 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void txtGananciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGananciaActionPerformed
+    }//GEN-LAST:event_txtGananciaActionPerformed
+
     private void txtGananciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGananciaFocusLost
 
-        gestor.cambiarGananciaEmpresa(Double.parseDouble(txtGanancia.getText()));
-
+        cambiarGanancia(txtGanancia.getText());
     }//GEN-LAST:event_txtGananciaFocusLost
 
     private void txtGananciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGananciaKeyReleased
 
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-            gestor.cambiarGananciaEmpresa(Double.parseDouble(txtGanancia.getText()));
+            cambiarGanancia(txtGanancia.getText());
         }
+
     }//GEN-LAST:event_txtGananciaKeyReleased
+
+    private void txtConsumibleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsumibleKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            cambiarConsumible(txtConsumible.getText());
+        } 
+    }//GEN-LAST:event_txtConsumibleKeyReleased
+
+    private void txtConsumibleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConsumibleFocusLost
+       cambiarConsumible(txtConsumible.getText());
+    }//GEN-LAST:event_txtConsumibleFocusLost
+
+
+    private void cambiarGanancia(String ganancia)
+    {
+        try
+        {
+            double g = Double.parseDouble(ganancia);
+            gestor.cambiarGananciaEmpresa(g);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"El formato de la ganancia es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cambiarConsumible(String cadena)
+    {
+        try
+        {
+            float g = Float.parseFloat(cadena);
+            gestor.cambiarPorcentajeConsumible(g);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"El formato del % Consumible es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -888,8 +934,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JMenuItem menuZoomMas;
     private javax.swing.JMenuItem menuZoomMenos;
     private javax.swing.JPanel panelGantt;
-    private javax.swing.JFormattedTextField txtConsumible;
-    private javax.swing.JFormattedTextField txtGanancia;
+    private javax.swing.JTextField txtConsumible;
+    private javax.swing.JTextField txtGanancia;
     // End of variables declaration//GEN-END:variables
 
     public void addEtapa(int id, String nombre, Date fechaInicio, Date FechaFin)
@@ -904,6 +950,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         int idNuevo = gestor.crearEtapa(nombre, fechaInicio, FechaFin);
         if(idNuevo!=0)
         {
+            if(nombre==null)
+            {
+                nombre = "Nueva Etapa";
+            }
             _gantt.addEtapa(idNuevo, nombre, fechaInicio, FechaFin);
             this.refescarGrafico();
         }
@@ -948,6 +998,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         if(cod.equals("ME-0006"))
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo modificar la ganancia de la empresa para esta obra","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        if(cod.equals("ME-0007"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo modificar el porcentaje de consumibles para la obra","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1011,7 +1065,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         }
         public void mostrarPorcentajeConsumible(String porcentaje)
         {
-            txtConsumible.setText("%"+porcentaje);
+            txtConsumible.setText(porcentaje);
         }
 
         
