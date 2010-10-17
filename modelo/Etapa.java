@@ -167,4 +167,39 @@ public class Etapa {
     public void setTareas(List<Tarea> tareas) {
         this.tareas = tareas;
     }
+
+
+    public double calcularSubTotalMateriales()
+    {
+        return 10;
+    }
+
+    public double calcularSubTotalTranporteMateriales()
+    {
+        return 10;
+    }
+
+    public double calcularSubTotalTrasladoPersonas()
+    {
+        return 10;
+    }
+
+    public double calcularSubTotalHsHombre()
+    {
+        return 10;
+    }
+
+    public double calcularSubTotalAlojamiento()
+    {
+        return 10;
+    }
+
+    public double calcularSubTotal()
+    {
+        return calcularSubTotalAlojamiento()+
+               calcularSubTotalHsHombre()+
+               calcularSubTotalMateriales()+
+               calcularSubTotalTranporteMateriales()+
+               calcularSubTotalTrasladoPersonas();
+    }
 }
