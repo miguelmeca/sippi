@@ -45,6 +45,7 @@ public class GestorRegistrarPresupuesto {
            {
                 sesion = HibernateUtil.getSession();
                 this.presupuesto = (Presupuesto)sesion.load(Presupuesto.class,id);
+                pantalla.mostrarGananciaEmpresa(String.valueOf(this.presupuesto.getGanancia()));
            }
            catch(Exception e)
            {
@@ -157,17 +158,107 @@ public class GestorRegistrarPresupuesto {
 
     public void cambiarFechaInicioEtapa(int idEtapa, Date fechaInicio)
     {
-        System.out.println("SE CAMBIO LA FECHA DE INICIO DE LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaInicio));
+        // CAMBIO LA FECHA DE INICIO DE LA ETAPA
+        // CARGO LA ETAPA
+        Etapa e = cargarEtapa(idEtapa);
+        if(e!=null)
+        {
+            e.setFechaInicio(fechaInicio);
+            try
+            {
+                HibernateUtil.getSession().saveOrUpdate(e);
+            }
+            catch(Exception ex)
+            {
+                pantalla.MostrarMensaje("ME-0005");
+            }
+        }
+
+
     }
 
     public void muevoTarea(int idEtapa, Date fechaInicio)
     {
-        System.out.println("SE MOVIO LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaInicio));
+        // CAMBIO DE LUGAR LA ETAPA
+        // CARGO LA ETAPA
+        Etapa e = cargarEtapa(idEtapa);
+
+        if(e!=null)
+        {
+            // VEO ACTUALMENTE CUANTOS DIAS DURA
+            int dias = FechaUtil.diasDiferencia(e.getFechaInicio(),e.getFechaFin());
+            e.setFechaInicio(fechaInicio);
+
+            Date finNueva = FechaUtil.fechaMas(fechaInicio,dias);
+            e.setFechaFin(finNueva);
+
+            try
+            {
+                HibernateUtil.getSession().saveOrUpdate(e);
+            }
+            catch(Exception ex)
+            {
+                pantalla.MostrarMensaje("ME-0005");
+            }
+        }
     }
    
     public void cambiarFechaFinEtapa(int idEtapa, Date fechaFinNueva)
     {
-        System.out.println("SE CAMBIO LA FECHA DE FIN DE LA ETAPA: "+idEtapa+" A "+FechaUtil.getFecha(fechaFinNueva));
+        // CAMBIO LA FECHA DE FIN DE LA ETAPA
+        // CARGO LA ETAPA
+        Etapa e = cargarEtapa(idEtapa);
+        if(e!=null)
+        {
+            e.setFechaFin(fechaFinNueva);
+            try
+            {
+                HibernateUtil.getSession().saveOrUpdate(e);
+            }
+            catch(Exception ex)
+            {
+                pantalla.MostrarMensaje("ME-0005");
+            }
+        }
     }
 
+    private Etapa cargarEtapa(int idEtapa)
+    {
+        try
+        {
+            return (Etapa) HibernateUtil.getSession().load(Etapa.class,idEtapa);
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0004");
+        }
+        return null;
+    }
+
+    public void mostrarDatosEtapa(int idEtapa)
+    {
+        Etapa e = cargarEtapa(idEtapa);
+        if(e!=null)
+        {
+            pantalla.mostrarDatosEtapa(e.getNombre(),e.getFechaInicio(),e.getFechaFin());
+            pantalla.mostrarSubTotales(e.calcularSubTotalMateriales(),
+                                       e.calcularSubTotalTranporteMateriales(),
+                                       e.calcularSubTotalTrasladoPersonas(),
+                                       e.calcularSubTotalHsHombre(),
+                                       e.calcularSubTotalAlojamiento());
+        }
+    }
+
+    public void cambiarGananciaEmpresa(double ganancia)
+    {
+        presupuesto.setGanancia(ganancia);
+        try
+        {
+            HibernateUtil.getSession().saveOrUpdate(presupuesto);
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0006");
+        }
+    }
 }

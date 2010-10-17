@@ -198,6 +198,7 @@ public class pantallaConsultarPresupuestos extends javax.swing.JInternalFrame {
             pantallaRegistrarPresupuesto prp = new pantallaRegistrarPresupuesto(nt.getId());
             SwingPanel.getInstance().addWindow(prp);
             prp.setVisible(true);
+            this.dispose();
         }
 
     }//GEN-LAST:event_btnAbrirActionPerformed
