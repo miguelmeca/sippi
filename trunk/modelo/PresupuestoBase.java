@@ -24,12 +24,9 @@ public class PresupuestoBase {
     private float IVA;
 
     private double ganancia;
-    private double consumibles;
+    private float consumibles;
 
     public void crear() {
-
-        this.ganancia = 1000;
-        this.consumibles = 5;
 
     }
 
@@ -117,11 +114,11 @@ public class PresupuestoBase {
         this.etapas.add(e);
     }
 
-    public double getConsumibles() {
+    public float getConsumibles() {
         return consumibles;
     }
 
-    public void setConsumibles(double consumibles) {
+    public void setConsumibles(float consumibles) {
         this.consumibles = consumibles;
     }
 

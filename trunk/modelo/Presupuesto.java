@@ -28,4 +28,16 @@ public class Presupuesto extends PresupuestoBase {
     public void setPlanificaciones(List<Planificacion> planificaciones) {
         this.planificaciones = planificaciones;
     }
+
+    @Override
+    public void setConsumibles(float consumibles) {
+        super.setConsumibles(consumibles);
+    }
+
+    @Override
+    public void setGanancia(double ganancia) {
+        super.setGanancia(ganancia);
+    }
+
+
 }

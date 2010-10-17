@@ -262,4 +262,17 @@ public class GestorRegistrarPresupuesto {
             pantalla.MostrarMensaje("ME-0006");
         }
     }
+
+    public void cambiarPorcentajeConsumible(float porce)
+    {
+        presupuesto.setConsumibles(porce);
+        try
+        {
+            HibernateUtil.getSession().saveOrUpdate(presupuesto);
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0007");
+        }
+    }
 }
