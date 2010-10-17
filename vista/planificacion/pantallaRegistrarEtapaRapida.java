@@ -54,7 +54,7 @@ public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Crear una Etapa");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Nombre:");
 
         txtNombre.setText("Preparar lugar de trabajo");

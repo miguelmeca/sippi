@@ -28,6 +28,9 @@ public class PresupuestoBase {
 
     public void crear() {
 
+        this.ganancia = 1000;
+        this.consumibles = 5;
+
     }
 
     public void mostrarPlanificacionObra() {
