@@ -78,7 +78,7 @@ public class GestorRegistrarAsignacionHerramientas {
                 mau.add(nt);
             }
         } catch (Exception ex) {
-            pantalla.MostrarMensaje("AM-0007");
+            pantalla.MostrarMensaje("AH-0002");
         }
         return mau;
     }
@@ -90,7 +90,7 @@ public class GestorRegistrarAsignacionHerramientas {
             Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
             HerramientaDeEmpresa he = (HerramientaDeEmpresa) HibernateUtil.getSession().load(HerramientaDeEmpresa.class, idH);
             t.getHerramientas().remove(he);
-            HibernateUtil.getSession().delete(he);
+            HibernateUtil.getSession().saveOrUpdate(t);
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
