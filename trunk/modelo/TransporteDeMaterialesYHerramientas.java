@@ -6,14 +6,82 @@ package modelo;
 //
 //  @ Project : Proyecto2010_Requerimientos-iuga
 //  @ File Name : TransporteDeMaterialesYHerramientas.java
-//  @ Date : 08/10/2010
-//  @ Author : 
+//  @ Date : 16/10/2010
+//  @ Author : Dedos de Fran...
 //
 //
+import java.util.List;
 
-public class TransporteDeMaterialesYHerramientas extends Recurso {
-    public String toString()
+public class TransporteDeMaterialesYHerramientas
+{
+   private int id;
+   private Proveedor empresa;
+   private double precio;
+   private Domicilio origen;
+   private Domicilio destino;
+   private List<DetalleMaterial> detallesMaterial;
+    private List<HerramientaDeEmpresa> herramientas;
+
+   public TransporteDeMaterialesYHerramientas()
     {
-        return "TransporteDeMaterialesYHerramientas";
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+     public Proveedor getEmpresa() {
+        return this.empresa;
+    }
+
+    public void setEmpresa(Proveedor empresa) {
+        this.empresa = empresa;
+    }
+
+    public double getPrecio() {
+        return this.precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    public Domicilio getOrigen() {
+        return this.origen;
+    }
+
+    public void setOrigen(Domicilio origen) {
+        this.origen = origen;
+    }
+
+    public Domicilio getDestino() {
+        return this.destino;
+    }
+
+    public void setDestino(Domicilio destino) {
+        this.destino = destino;
+    }
+
+     public List<DetalleMaterial> getDetallesMaterial() {
+        return detallesMaterial;
+    }
+
+    public void setDetallesMaterial(List<DetalleMaterial> detallesMaterial) {
+        this.detallesMaterial = detallesMaterial;
+    }
+
+
+    public List<HerramientaDeEmpresa> getHerramientas() {
+        return herramientas;
+    }
+
+    public void setHerramientas(List<HerramientaDeEmpresa> herramientas) {
+        this.herramientas = herramientas;
+    }
+
+
+
 }

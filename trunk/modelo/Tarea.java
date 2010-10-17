@@ -17,11 +17,16 @@ import java.util.List;
 
 public class Tarea {
     private int id;
-    private GrupoDeTrabajo grupo;
+    //private GrupoDeTrabajo grupo;
     private String ubicacion;
     private String descripcion;
+    private String observaciones;
+    private Criticidad criticidad;
+    private int duracionHsNormal;
+    private int duracionHs50;
+    private int duracionHs100;
     private List<DetalleMaterial> detallesMaterial;
-    private List<DetalleConsumible> detallesConsumible;
+    private List<GrupoDeTrabajo> grupos;
     private List<HerramientaDeEmpresa> herramientas;
 
     public void CalcularMontoTotal() {
@@ -30,7 +35,7 @@ public class Tarea {
 
     public Tarea() {
         detallesMaterial = new ArrayList<DetalleMaterial>();
-        detallesConsumible = new ArrayList<DetalleConsumible>();
+        grupos= new ArrayList<GrupoDeTrabajo>();
         herramientas = new ArrayList<HerramientaDeEmpresa>();
     }
 
@@ -42,14 +47,7 @@ public class Tarea {
         this.descripcion = descripcion;
     }
 
-    public List<DetalleConsumible> getDetallesConsumible() {
-        return detallesConsumible;
-    }
-
-    public void setDetallesConsumible(List<DetalleConsumible> detallesConsumible) {
-        this.detallesConsumible = detallesConsumible;
-    }
-
+    
     public List<DetalleMaterial> getDetallesMaterial() {
         return detallesMaterial;
     }
@@ -58,12 +56,12 @@ public class Tarea {
         this.detallesMaterial = detallesMaterial;
     }
 
-    public GrupoDeTrabajo getGrupo() {
-        return grupo;
+    public List<GrupoDeTrabajo> getGrupos() {
+        return grupos;
     }
 
-    public void setGrupo(GrupoDeTrabajo grupo) {
-        this.grupo = grupo;
+    public void setGrupos(List<GrupoDeTrabajo> grupos) {
+        this.grupos = grupos;
     }
 
     public List<HerramientaDeEmpresa> getHerramientas() {
@@ -78,7 +76,7 @@ public class Tarea {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -90,11 +88,47 @@ public class Tarea {
         this.ubicacion = ubicacion;
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
     public void agregarHerramienta(HerramientaDeEmpresa he) {
         this.herramientas.add(he);
     }
 
     public void quitarHerramienta(HerramientaDeEmpresa he) {
         this.herramientas.remove(he);
+    }
+    public int getDuracionHsNormal() {
+        return duracionHsNormal;
+    }
+
+    public void setDuracionHsNormal(int duracionHsNormal) {
+        this.duracionHsNormal = duracionHsNormal;
+    }
+    public int getDuracionHs50() {
+        return duracionHs50;
+    }
+
+    public void setDuracionHs50(int duracionHs50) {
+        this.duracionHs50 = duracionHs50;
+    }
+    public int getDuracionHs100() {
+        return duracionHs100;
+    }
+
+    public void setDuracionHs100(int duracionHs100) {
+        this.duracionHs100 = duracionHs100;
+    }
+
+    public Criticidad getCriticidad() {
+        return criticidad;
+    }
+
+    public void setCriticidad(Criticidad criticidad) {
+        this.criticidad = criticidad;
     }
 }
