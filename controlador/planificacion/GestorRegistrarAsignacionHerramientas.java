@@ -36,6 +36,24 @@ public class GestorRegistrarAsignacionHerramientas {
         this.idTarea = idTarea;
     }
 
+    public ArrayList<NTupla> getHerramientasDeEmpresa(int idP){
+        ArrayList<NTupla> hDisponibles = this.getHerramientasDeEmpresaDisponibles();
+        ArrayList<NTupla> hPresupuesto = this.getHerramientasPresupuesto(idP);
+
+        Iterator<NTupla> itHD = hDisponibles.iterator();
+        while(itHD.hasNext()){
+            NTupla ntHD = itHD.next();
+            Iterator<NTupla> itHP = hPresupuesto.iterator();
+            while(itHP.hasNext()){
+                NTupla ntHP = itHP.next();
+                if(ntHD.getId()==ntHP.getId()){
+                   hDisponibles.remove(ntHP);
+                }
+            }
+        }
+        return hDisponibles;
+    }
+
     public ArrayList<NTupla> getHerramientasDeEmpresaDisponibles() {
         ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
         try {

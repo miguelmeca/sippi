@@ -1023,8 +1023,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
         if(jTabbedPane1.getSelectedIndex() == 3){
             TablaUtil.vaciarDefaultTableModel((DefaultTableModel) tbHerramientasDisponibles.getModel());
-            cargarHerramientas(gestorRAH.getHerramientasPresupuesto(idP));
-            cargarHerramientas(gestorRAH.getHerramientasDeEmpresaDisponibles());
+//            cargarHerramientas(gestorRAH.getHerramientasPresupuesto(idP));
+//            cargarHerramientas(gestorRAH.getHerramientasDeEmpresaDisponibles());
+            cargarHerramientas(gestorRAH.getHerramientasDeEmpresa(idP));
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
