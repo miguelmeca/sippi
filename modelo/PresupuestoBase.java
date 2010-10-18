@@ -47,6 +47,7 @@ public class PresupuestoBase {
     }
 
     public PresupuestoBase() {
+        this.etapas = new ArrayList<Etapa>();
     }
 
     public float getIVA() {

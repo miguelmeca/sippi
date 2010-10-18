@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.TableCellRenderer;
@@ -56,14 +57,17 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private ArrayList<Double> listaRolHs50;
     private ArrayList<Double> listaRolHs100;
     private int idTarea;
+    private int idP;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
+        this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
+        idP=1;
         idTarea=-1;        
         gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
-        gestorRAM.crearTareaPrueba();
+//        gestorRAM.crearTareaPrueba();
         gestorRAH.setIdTarea(gestorRAM.getIdTarea());
         habilitarVentana();
         
@@ -74,7 +78,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
-        gestorRAM.crearTareaPrueba();
+//        gestorRAM.crearTareaPrueba();
         gestorRAH.setIdTarea(gestorRAM.getIdTarea());
         habilitarVentana();
 
@@ -245,13 +249,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
         // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
-    private void cargarHerramientas() {
-        ArrayList<NTupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
+    private void cargarHerramientas(ArrayList<NTupla> herramientas) {
+        //ArrayList<NTupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
 
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasDisponibles.getModel();
-
-        // VACIO LA TABLA HERRAMIENTAS
-        TablaUtil.vaciarDefaultTableModel(modelo);
+//
+//        // VACIO LA TABLA HERRAMIENTAS
+//        TablaUtil.vaciarDefaultTableModel(modelo);
 
         Iterator it = herramientas.iterator();
 
@@ -1018,7 +1022,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             this.mostrarMaterialesAUtilizar();
         }
         if(jTabbedPane1.getSelectedIndex() == 3){
-            cargarHerramientas();
+            TablaUtil.vaciarDefaultTableModel((DefaultTableModel) tbHerramientasDisponibles.getModel());
+            cargarHerramientas(gestorRAH.getHerramientasPresupuesto(idP));
+            cargarHerramientas(gestorRAH.getHerramientasDeEmpresaDisponibles());
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
@@ -1356,5 +1362,33 @@ private void crearRol()
             }
             return component;
         }
+    }
+
+    public class MiRender extends DefaultTableCellRenderer
+    {
+       public Component getTableCellRendererComponent(JTable table,
+          Object value,
+          boolean isSelected,
+          boolean hasFocus,
+          int row,
+          int column)
+       {
+          super.getTableCellRendererComponent (table, value, isSelected, hasFocus, row, column);
+          DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+          NTupla nt = (NTupla)dtm.getValueAt(row, 0);
+          int idT = (Integer)nt.getData();
+          if (idT!=0)
+          {
+             this.setOpaque(true);
+             this.setBackground(Color.BLUE);
+             this.setForeground(Color.LIGHT_GRAY);
+          }
+          else{
+             this.setOpaque(true);
+             this.setBackground(Color.WHITE);
+             this.setForeground(Color.BLACK);
+          }
+          return this;
+       }
     }
 }
