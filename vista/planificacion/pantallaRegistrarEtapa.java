@@ -18,6 +18,8 @@ import util.Tupla;
 import java.util.Iterator;
 import java.util.ArrayList;
 import controlador.planificacion.GestorOtrosDatosEtapa;
+import controlador.planificacion.GestorRegistrarEtapa;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,12 +30,18 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
     private int idEtapa;
     private GestorOtrosDatosEtapa gestorOtrosDatosEtapa;
+    private GestorRegistrarEtapa gestorRegistrarEtapa;
+
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarEtapa(int idEtapa)
     {
         this.idEtapa = idEtapa;
         initComponents();
         gestorOtrosDatosEtapa = new GestorOtrosDatosEtapa(this);
+        
+        gestorRegistrarEtapa = new GestorRegistrarEtapa(this);
+        gestorRegistrarEtapa.cargarEtapa(idEtapa);
+
         habilitarVentana();
 
     }
@@ -44,6 +52,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         cmbFechaInicio.setDate(new Date());
         cargarCombosTransportYAlojamiento();
         cargarCombosEmpresas();
+        gestorRegistrarEtapa.mostrarDatosEtapa();
+    }
+
+    public void mostrarDatosEtapa(String nombre, Date fechaInicio, Date fechaFin, String obs)
+    {
+      txtNombre.setText(nombre);
+      cmbFechaInicio.setDate(fechaInicio);
+      cmbFechaFin.setDate(fechaFin);
+      txtObservaciones.setText(obs);
     }
 
     private void cargarCombosTransportYAlojamiento()
@@ -239,12 +256,12 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         cmbFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtObservaciones = new javax.swing.JTextArea();
         cmbFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -373,9 +390,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha de Inicio:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane5.setViewportView(jTextArea1);
+        txtObservaciones.setColumns(20);
+        txtObservaciones.setRows(5);
+        jScrollPane5.setViewportView(txtObservaciones);
 
         jLabel7.setText("Fecha de Fin:");
 
@@ -384,7 +401,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Observaciones:");
 
-        jTextField1.setText("Preparar lugar de trabajo");
+        txtNombre.setText("Preparar lugar de trabajo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -394,7 +411,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -415,7 +432,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -1641,14 +1658,14 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList lstTransporteMHHerramientasDisponibles;
     private javax.swing.JList lstTransporteMHHerramientasTrasnportar;
     private javax.swing.JTable tablaTareas;
     private javax.swing.JTextArea txaTransporteMHMateriales;
     private javax.swing.JTextArea txaTransporteMHMaterialesObs;
     private javax.swing.JTextField txtCostoTareas;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtPrecioAlojamiento;
     private javax.swing.JTextField txtPrecioTransporteDePasajeros;
     private javax.swing.JTextField txtPrecioTransporteMyH;
@@ -1664,5 +1681,14 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtTransporteMHOrigenPiso;
     private javax.swing.JTextField txtTransportePasajerosCantidad;
     // End of variables declaration//GEN-END:variables
+
+    public void MostrarMensaje(String cod)
+    {
+        if(cod.equals("ME-0001"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la Etapa","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+    }
 
 }

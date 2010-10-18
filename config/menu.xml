@@ -16,6 +16,7 @@
 
     <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Obras">
         <item icono="/res/iconos/var/16x16/add.png" nombre="Registrar Nuevo Pedido de Obra"/>
+        <item icono="/res/iconos/var/16x16/clock.png" nombre="Nuevo Presupuesto de Obra"/>
         <item icono="/res/iconos/var/16x16/accept.png" nombre="Dar Inicio a una Obra"/>
         <item icono="/res/iconos/var/16x16/info.png" nombre="Avance de las Obras"/>
         <item icono="/res/iconos/var/16x16/search.png" nombre="Ver Obras Activas"/>
