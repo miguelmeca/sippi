@@ -29,13 +29,16 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
 
     private int idEtapa;
+    private int idPresupuesto;
     private GestorOtrosDatosEtapa gestorOtrosDatosEtapa;
     private GestorRegistrarEtapa gestorRegistrarEtapa;
 
     /** Creates new form pantallaRegistrarEtapa */
-    public pantallaRegistrarEtapa(int idEtapa)
+    public pantallaRegistrarEtapa(int idEtapa,int idPresupuesto)
     {
         this.idEtapa = idEtapa;
+        this.idPresupuesto = idPresupuesto;
+
         initComponents();
         gestorOtrosDatosEtapa = new GestorOtrosDatosEtapa(this);
         
@@ -1437,6 +1440,11 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1561,7 +1569,13 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         gestorRegistrarEtapa.guardarCambiosBaseEtapa(nombre,fechaInicio,fechaFin,obs);
 
+        this.dispose();
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
