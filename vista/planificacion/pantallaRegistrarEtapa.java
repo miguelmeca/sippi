@@ -62,6 +62,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         cargarCombosTransportYAlojamiento();
         cargarCombosEmpresas();
         gestorRegistrarEtapa.mostrarDatosEtapa();
+        cargarTareas();
     }
 
     public void mostrarDatosEtapa(String nombre, Date fechaInicio, Date fechaFin, String obs)
@@ -1771,7 +1772,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     }
     public void actualizar(int id, String flag, boolean exito)
     {
-        //TODO:Actualizar tareas registradas
+       if(flag.equals("RegistrarTarea"))
+        {cargarTareas();}
     }
 
 }
