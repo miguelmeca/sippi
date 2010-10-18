@@ -226,7 +226,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
                                                  TaskImpl ti = (TaskImpl) _pressedTask._userObject;
                                                  Date ini = new Date(_cursorTime*Utils.MILLISECONDS_PER_DAY);
                                                  SystemEventProxy.getInstance().getPantalla().muevoTarea(Integer.parseInt(ti._id),ini);
-
+                                                 System.out.println("HOA");
 
 					} 
                                         else
