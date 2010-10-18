@@ -20,12 +20,14 @@ import java.util.ArrayList;
 import controlador.planificacion.GestorOtrosDatosEtapa;
 import controlador.planificacion.GestorRegistrarEtapa;
 import javax.swing.JOptionPane;
+import vista.interfaces.ICallBack_v2;
+import util.SwingPanel;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
+public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implements ICallBack_v2{
 
 
     private int idEtapa;
@@ -558,6 +560,11 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         btnTareasNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnTareasNueva.setText("Nueva Tarea");
+        btnTareasNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTareasNuevaActionPerformed(evt);
+            }
+        });
 
         btnTareasEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnTareasEliminar.setText("Eliminar Tarea");
@@ -1577,6 +1584,12 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btnTareasNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareasNuevaActionPerformed
+        pantallaRegistrarTarea pre = new pantallaRegistrarTarea(this);
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+    }//GEN-LAST:event_btnTareasNuevaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarHerramienta;
@@ -1724,6 +1737,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo guardar los cambios en la Etapa","Error",JOptionPane.ERROR_MESSAGE);
             this.dispose();
         }
+    }
+    public void actualizar(int id, String flag, boolean exito)
+    {
+        //TODO:Actualizar tareas registradas
     }
 
 }

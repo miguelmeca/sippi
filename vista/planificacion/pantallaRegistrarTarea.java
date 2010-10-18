@@ -56,6 +56,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private ArrayList<Double> listaRolHsNormales;
     private ArrayList<Double> listaRolHs50;
     private ArrayList<Double> listaRolHs100;
+    private ICallBack_v2 pantallaEtapa;
     private int idTarea;
     private int idP;
     /** Creates new form pantallaRegistrarEtapa */
@@ -72,10 +73,26 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         habilitarVentana();
         
     }
-    public pantallaRegistrarTarea(int idTare) {
+    public pantallaRegistrarTarea(ICallBack_v2 pantallaEt) {
+        initComponents();
+        pantallaEtapa=pantallaEt;
+        this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
+        idP=1;
+        idTarea=-1;
+        gestorTarea=new GestorRegistrarTarea(this);
+        gestorRAM = new GestorRegistrarAsignacionMateriales(this);
+        gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
+//        gestorRAM.crearTareaPrueba();
+        gestorRAH.setIdTarea(gestorRAM.getIdTarea());
+        habilitarVentana();
+
+
+    }
+    public pantallaRegistrarTarea(ICallBack_v2 pantallaEt, int idTare) {
         idTarea=idTare;
         idP=1;
         initComponents();
+        pantallaEtapa=pantallaEt;
         this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
         gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);

@@ -433,6 +433,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nueva Tarea"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTareasNuevaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnTareasEliminar">
               <Properties>
