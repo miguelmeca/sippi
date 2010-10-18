@@ -68,6 +68,7 @@
     <mapping resource="config/db/TransporteDePasajeros.hbm.xml"/>
     <mapping resource="config/db/Alojamiento.hbm.xml"/>
     <mapping resource="config/db/Criticidad.hbm.xml"/>
+    <mapping resource="config/db/InstanciaDeRolPorTarea.hbm.xml"/>
     <mapping resource="config/db/GrupoDeTrabajo.hbm.xml"/>
     <mapping resource="config/db/Etapa.hbm.xml"/>
     <mapping resource="config/db/EjecucionEtapa.hbm.xml"/>

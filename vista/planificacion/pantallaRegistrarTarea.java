@@ -13,11 +13,13 @@ package vista.planificacion;
 
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import controlador.planificacion.GestorRegistrarAsignacionHerramientas;
+import controlador.planificacion.GestorRegistrarTarea;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -25,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -33,7 +36,9 @@ import util.StringUtil;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
-import vista.comer.pantallaBuscarEmpresaCliente;
+import java.util.Vector;
+import com.toedter.calendar.JDateChooser;
+//import vista.comer.pantallaBuscarEmpresaCliente;
 import vista.interfaces.ICallBack_v2;
 
 /**
@@ -43,16 +48,112 @@ import vista.interfaces.ICallBack_v2;
 public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implements ICallBack_v2 {
     private GestorRegistrarAsignacionMateriales gestorRAM;
     private GestorRegistrarAsignacionHerramientas gestorRAH;
+    private GestorRegistrarTarea gestorTarea;
+    private ArrayList<Tupla> listaRolNombre;
+    private ArrayList<Tupla> listaRolTipoEspecialidadRol;
+    private ArrayList<Tupla> listaRolRangoEspecialidad;
+    private ArrayList<Double> listaRolHsNormales;
+    private ArrayList<Double> listaRolHs50;
+    private ArrayList<Double> listaRolHs100;
+    private int idTarea;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
-        //gestorRAM = new GestorRegistrarAsignacionMateriales(this,0); COMO JORACA MANEJAMOS LAS TAREAS??
+        idTarea=-1;        
+        gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
         gestorRAM.crearTareaPrueba();
         gestorRAH.setIdTarea(gestorRAM.getIdTarea());
+        habilitarVentana();
+        
+    }
+    public pantallaRegistrarTarea(int idTare) {
+        idTarea=idTare;
+        initComponents();
+        gestorTarea=new GestorRegistrarTarea(this);
+        gestorRAM = new GestorRegistrarAsignacionMateriales(this);
+        gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
+        gestorRAM.crearTareaPrueba();
+        gestorRAH.setIdTarea(gestorRAM.getIdTarea());
+        habilitarVentana();
+
     }
 
+    private void habilitarVentana()
+    {
+        listaRolNombre= new ArrayList<Tupla>();
+        listaRolTipoEspecialidadRol= new  ArrayList<Tupla>();
+        listaRolRangoEspecialidad = new ArrayList<Tupla>();
+        listaRolHsNormales = new ArrayList<Double>();
+        listaRolHs50 = new ArrayList<Double>();
+        listaRolHs100 = new ArrayList<Double>();
+        mostrarTiposEspecialidad();
+        mostrarRangosEspecialidad();
+        mostrarCriticidad();
+        vaciarCampos();
+        if(idTarea==-1)
+        { crearTarea();}
+        cargarDatosTarea();
+        
+        cargarRolesCreadosAnteriormente();
+    }
+    private void cargarRolesCreadosAnteriormente()
+    {//TODO:
+
+    }
+    private void vaciarCampos()
+    {//TODO:
+
+    }
+    
+    private void crearTarea()
+    {
+        idTarea=gestorTarea.crearTarea();
+     if(idTarea<0)
+     {JOptionPane.showInternalMessageDialog(this.getParent(),"Ocurrio un error creando al Tarea","ERROR",JOptionPane.ERROR_MESSAGE);
+       this.dispose();}
+    }
+
+    private void cargarDatosTarea()
+    {//TODO:
+
+    }
+
+    public void mostrarRangosEspecialidad()
+    {
+        ArrayList<Tupla> listaNombreRangosEspecialidad = gestorTarea.mostrarRangosEspecialidad();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (Tupla nombre : listaNombreRangosEspecialidad)
+        {
+            model.addElement(nombre);
+        }
+        cmbRangos.setModel(model);
+    }
+    public void mostrarTiposEspecialidad()
+    {
+        ArrayList<Tupla> listaNombreTiposEspecialidad = gestorTarea.mostrarTiposEspecialidad();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (Tupla nombre : listaNombreTiposEspecialidad)
+        {
+            model.addElement(nombre);
+        }
+        cmbEspecialidades.setModel(model);
+    }
+    public void mostrarCriticidad()
+    {
+        ArrayList<Tupla> listaNombreCriticidad = gestorTarea.mostrarCriticidad();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (Tupla criticidad : listaNombreCriticidad)
+        {
+            model.addElement(criticidad);
+        }
+
+        cmbCriticidad.setModel(model);
+    }
     private void cargarTabMateriales() {
         ArrayList<Tupla> materiales = gestorRAM.getMaterialesDisponibles();
 
@@ -215,14 +316,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombreTarea = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbCriticidad = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txaObservaciones = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtUbicacionTarea = new javax.swing.JTextField();
         cmbFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -243,28 +344,28 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtNombreRol = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox();
-        jComboBox8 = new javax.swing.JComboBox();
+        cmbEspecialidades = new javax.swing.JComboBox();
+        cmbRangos = new javax.swing.JComboBox();
         jLabel24 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        lstRolesCreados = new javax.swing.JList();
+        btnCrearRol = new javax.swing.JButton();
+        btnAgregarRol = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtHs100 = new javax.swing.JTextField();
+        txtHs50 = new javax.swing.JTextField();
+        txtHsNormales = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jButton10 = new javax.swing.JButton();
+        tablaRolesAsignados = new javax.swing.JTable();
+        btnQuitarRol = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -276,7 +377,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel12 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         tbHerramientasSeleccionadas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -289,20 +390,18 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Nombre:");
 
         jLabel2.setText("Nivel de Criticidad:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crítico", "Importante", "Media", "Baja", "Muy Baja" }));
+        cmbCriticidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Crítico", "Importante", "Media", "Baja", "Muy Baja" }));
 
         jLabel5.setText("Observaciones:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane5.setViewportView(jTextArea1);
+        txaObservaciones.setColumns(20);
+        txaObservaciones.setRows(5);
+        jScrollPane5.setViewportView(txaObservaciones);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Ubicacion:");
 
         jLabel11.setText("Fecha de Inicio:");
@@ -321,13 +420,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                            .addComponent(txtNombreTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                            .addComponent(txtUbicacionTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbCriticidad, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
                                 .addGap(40, 40, 40)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -348,17 +447,17 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombreTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUbicacionTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbCriticidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel13)
@@ -516,14 +615,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Nombre:");
 
-        jTextField5.setText("Soldador 1");
+        txtNombreRol.setText("Soldador 1");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Especialidad");
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soldador", "Tornero" }));
+        cmbEspecialidades.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soldador", "Tornero" }));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Experto", "Medio" }));
+        cmbRangos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Experto", "Medio" }));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel24.setText("Rango");
@@ -535,12 +634,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(txtNombreRol, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jLabel22)
-                            .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -548,7 +647,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                                 .addComponent(jLabel24))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
-                                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cmbRangos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(40, 40, 40))
         );
         jPanel8Layout.setVerticalGroup(
@@ -556,26 +655,26 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombreRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbRangos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Roles creados en otras tareas:"));
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
+        lstRolesCreados.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Fresero 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane10.setViewportView(jList2);
+        jScrollPane10.setViewportView(lstRolesCreados);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -593,22 +692,26 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addGap(11, 11, 11))
         );
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        jButton3.setText("Crear Rol");
+        btnCrearRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnCrearRol.setText("Crear Rol");
+        btnCrearRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearRolActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        jButton4.setText("Agregar Rol Existente");
+        btnAgregarRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarRol.setText("Agregar Rol Existente");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad de trabajo a realizar en esta tarea"));
 
-        jTextField10.setText("0");
+        txtHs100.setText("0");
 
-        jTextField11.setEditable(false);
-        jTextField11.setText("1");
+        txtHs50.setText("1");
 
-        jTextField3.setText("5");
+        txtHsNormales.setText("5");
 
-        jLabel7.setText("Duración Normal    Duración 50%     Duración 100%");
+        jLabel7.setText("Horas Normales      Horas 50%         Horas 100%");
 
         jLabel23.setText("Hs.");
 
@@ -624,15 +727,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtHsNormales, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtHs50, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtHs100, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -644,32 +747,32 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHsNormales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHs50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHs100, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Grupo de Trabajo Asignado a Esta Tarea"));
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRolesAsignados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Tornero", null, null, null, null, "1"}
             },
             new String [] {
-                "Rol Asignado al Grupo", "Especialidad", "Rango", "Hs Normales", "Hs 50", "Hs 100"
+                "Nombre del Rol", "Especialidad", "Rango", "Hs Normales", "Hs 50", "Hs 100"
             }
         ));
-        jScrollPane13.setViewportView(jTable6);
+        jScrollPane13.setViewportView(tablaRolesAsignados);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton10.setText("Quitar seleccionado");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnQuitarRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnQuitarRol.setText("Quitar seleccionado");
+        btnQuitarRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnQuitarRolActionPerformed(evt);
             }
         });
 
@@ -682,7 +785,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addContainerGap(395, Short.MAX_VALUE)
-                        .addComponent(jButton10)))
+                        .addComponent(btnQuitarRol)))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -690,7 +793,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnQuitarRol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -702,9 +805,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCrearRol, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(116, 116, 116)
-                        .addComponent(jButton4))
+                        .addComponent(btnAgregarRol))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -727,8 +830,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnCrearRol)
+                    .addComponent(btnAgregarRol))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -863,8 +966,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jTabbedPane1.addTab("Herramientas Necesarias", jPanel10);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        jButton1.setText("Guardar");
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnAceptar.setText("Guardar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -876,7 +984,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(505, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAceptar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -885,7 +993,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAceptar)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -970,26 +1078,166 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         this.txtBuscarHerramientas.setText("");
     }//GEN-LAST:event_txtBuscarHerramientasFocusGained
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jButton10ActionPerformed
+    private void btnQuitarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarRolActionPerformed
+        quitarRol();
+}//GEN-LAST:event_btnQuitarRolActionPerformed
+    private void quitarRol()
+    {
+         if((tablaRolesAsignados.getSelectedRowCount())==1)
+        {
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        modelo.removeRow(tablaRolesAsignados.getSelectedRow());
+        }
+    }
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if(validarDatos())
+        {
+            gestorTarea.vaciarDatos();
+            cargarGrupoDeTrabajo();
+            
+            Date fechaInicio = ((JDateChooser) cmbFechaInicio).getDate();
+            Date fechaFin = ((JDateChooser) cmbFechaFin).getDate();
+            Tupla tCriticidad=new Tupla();
+            tCriticidad=(Tupla)cmbCriticidad.getItemAt(cmbCriticidad.getSelectedIndex());
+            
+            gestorTarea.datosGenerales(txtNombreTarea.getText(), txtUbicacionTarea.getText() ,txaObservaciones.getText(),tCriticidad, fechaInicio,fechaFin );
+            gestorTarea.datosGrupoRoles(listaRolNombre,listaRolTipoEspecialidadRol,listaRolRangoEspecialidad,listaRolHsNormales,listaRolHs50,listaRolHs100);
+            
+            if(gestorTarea.tareaModificada())
+            {
+                        JOptionPane.showMessageDialog(this.getParent(),"Tarea registrada correctamente","Tarea Registrada",JOptionPane.INFORMATION_MESSAGE);
+                        //Uso el metodo actualizar para mandar el legajo en vez del error, necesito algo que comunique las ventanas
+                        //pantallaConsultar.actualizar(idEmp, true);
+                        this.dispose();
+            }
+            else
+            {
+             JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro de la tarea","ERROR",JOptionPane.ERROR_MESSAGE);
+             //pantallaConsultar.actualizar(3, false);
+             this.dispose();
+            }
+             
+            
+            }
 
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCrearRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRolActionPerformed
+        crearRol();
+    }//GEN-LAST:event_btnCrearRolActionPerformed
+private void crearRol()
+    {
+        if(txtNombreRol.getText().equals(""))
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe ingresar el nombre del rol a crear","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}
+        if(cmbEspecialidades.getSelectedIndex()==-1)
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe seleccionar una especialidad","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}
+        if(cmbRangos.getSelectedIndex()==-1)
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe seleccionar un rengo de la especialidad","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}
+
+        //TODO:Comparar con nombres de roles creados en otras tareas)
+        //if(txtNombreRol.getText(){}
+        //TODO: Agregar boton  en la ventana para poder modificar nombres de roles creados en otras tareas
+        
+        double hn=0;
+        double h50=0;
+        double h100=0;
+        try{
+        if(txtHsNormales.getText().equals(""))
+        {hn=0;}
+        else
+        {hn= Double.parseDouble(txtHsNormales.getText()) ;}
+
+        if(txtHs50.getText().equals(""))
+        {h50=0;}
+        else
+        {h50= Double.parseDouble(txtHs50.getText()) ;}
+
+        if(txtHs100.getText().equals(""))
+        {h100=0;}
+        else
+        {h100= Double.parseDouble(txtHs100.getText()) ;}
+
+        if(hn<0.0 || h50<0.0 || h100<0.0)
+        {
+        JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+
+        }catch(Exception e)
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        Tupla tNombre=new Tupla();
+        tNombre.setId(-1);
+        tNombre.setNombre(txtNombreRol.getText());
+        Tupla rango=(Tupla)cmbRangos.getSelectedItem();
+        Tupla tipo=(Tupla)cmbEspecialidades.getSelectedItem();
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        Object[] item = new Object[6];
+        item[0] = tNombre;
+        item[1] = tipo;
+        item[2] = rango;
+        item[3] = hn;
+        item[4] = h50;
+        item[5] = h100;
+        modelo.addRow(item);
+    }
+
+    private boolean validarDatos()
+    {//TODO: Si usamos fechas, validar las fechas y las cantidades de horas d 
+        //cada tipo, segun el rango d dias y dependiendo de q dias d la semana sean
+        if(txtNombreTarea.getText().equals(""))
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Se debe ingresar un nombre para la etapa","ERROR",JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        return true;
+    }
+    private void cargarGrupoDeTrabajo()
+    {
+        
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        Iterator it = modelo.getDataVector().iterator();
+        listaRolNombre= new ArrayList<Tupla>();
+        listaRolTipoEspecialidadRol= new  ArrayList<Tupla>();
+        listaRolRangoEspecialidad = new ArrayList<Tupla>();
+        listaRolHsNormales = new ArrayList<Double>();
+        listaRolHs50 = new ArrayList<Double>();
+        listaRolHs100 = new ArrayList<Double>();
+        
+        while (it.hasNext())
+        {
+            Vector fila = (Vector)it.next();
+           // 
+            
+            listaRolNombre.add((Tupla)fila.get(0));
+            listaRolTipoEspecialidadRol.add((Tupla)fila.get(1));
+            listaRolRangoEspecialidad.add((Tupla)fila.get(2));
+            listaRolHsNormales.add((Double)fila.get(1));
+            listaRolHs50.add((Double)fila.get(1));
+            listaRolHs100.add((Double)fila.get(1));
+            
+        }
+       
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregarHerramienta;
     private javax.swing.JButton btnAgregarMaterial;
+    private javax.swing.JButton btnAgregarRol;
+    private javax.swing.JButton btnCrearRol;
     private javax.swing.JButton btnQuitarHerramienta;
     private javax.swing.JButton btnQuitarMaterial;
+    private javax.swing.JButton btnQuitarRol;
+    private javax.swing.JComboBox cmbCriticidad;
+    private javax.swing.JComboBox cmbEspecialidades;
     private com.toedter.calendar.JDateChooser cmbFechaFin;
     private com.toedter.calendar.JDateChooser cmbFechaInicio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox cmbRangos;
     private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox7;
-    private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1007,7 +1255,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1028,21 +1275,22 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JList lstRolesCreados;
+    private javax.swing.JTable tablaRolesAsignados;
     private javax.swing.JTable tbHerramientasDisponibles;
     private javax.swing.JTable tbHerramientasSeleccionadas;
     private javax.swing.JTable tbMaterialEspecifico;
     private javax.swing.JTable tbMateriales;
     private javax.swing.JTable tbMaterialesAUsar;
+    private javax.swing.JTextArea txaObservaciones;
     private javax.swing.JTextField txtBuscarHerramientas;
     private javax.swing.JTextField txtBuscarMaterial;
+    private javax.swing.JTextField txtHs100;
+    private javax.swing.JTextField txtHs50;
+    private javax.swing.JTextField txtHsNormales;
+    private javax.swing.JTextField txtNombreRol;
+    private javax.swing.JTextField txtNombreTarea;
+    private javax.swing.JTextField txtUbicacionTarea;
     // End of variables declaration//GEN-END:variables
 
 

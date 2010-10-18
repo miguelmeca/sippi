@@ -16,6 +16,7 @@ import modelo.Planta;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
 import modelo.TipoCapacitacion;
+import modelo.Criticidad;
 import org.hibernate.EntityMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -166,7 +167,20 @@ public class gestorBDvarios
             return tuplas;
     }
 
+    public ArrayList<Tupla> getCriticidad()
+    {
 
+            List lista = sesion.createQuery("from Criticidad c order by c.nivel").list();
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < lista.size(); i++)
+            {
+                Criticidad tc = (Criticidad)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                Tupla tupla = new Tupla(tc.getId(),tc.getNombre());
+                    tuplas.add(tupla);
+            }
+            return tuplas;
+    }
 
 
      /////////////////////////////////////////////////////////
