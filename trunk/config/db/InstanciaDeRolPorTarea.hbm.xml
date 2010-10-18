@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.InstanciaDeRolPorTarea">
+    <id column="ID_InstanciaRolT" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="HSNORMALES" name="hsNormales" type="double"/>
+    <property column="HS50" name="hs50" type="double"/>
+    <property column="HS100" name="hs100" type="double"/>
+
+    <many-to-one column="ID_ROLEMP" name="rol"/>
+
+  </class>
+</hibernate-mapping>

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GrupoDeTrabajo {
     private int id;
-    private List<RolEmpleado> roles;
+    private List<InstanciaDeRolPorTarea> instanciasRoles;
 
     public void mostrarGrupoTrabajo() {
 
@@ -56,11 +56,16 @@ public class GrupoDeTrabajo {
         this.id = id;
     }
 
-    public List<RolEmpleado> getRoles() {
-        return roles;
+    public List<InstanciaDeRolPorTarea> getInstanciasRoles() {
+        return instanciasRoles;
     }
 
-    public void setRoles(List<RolEmpleado> roles) {
-        this.roles = roles;
+    public void setInstanciasRoles(List<InstanciaDeRolPorTarea> roles) {
+        this.instanciasRoles = roles;
     }
+
+    public void agregarInstanciasRoles(InstanciaDeRolPorTarea rol) {
+        this.instanciasRoles.add(rol);
+    }
+
 }

@@ -214,10 +214,9 @@ public class GestorRegistrarAsignacionMateriales {
             HibernateUtil.getSession().saveOrUpdate(dm);
 
             t.setDetallesMaterial(materiales);
-            GrupoDeTrabajo gt = new GrupoDeTrabajo();
-            HibernateUtil.getSession().save(gt);
-            ArrayList<GrupoDeTrabajo> gts = new ArrayList<GrupoDeTrabajo>();
-            t.setGrupos(gts);
+            //GrupoDeTrabajo gt = new GrupoDeTrabajo();
+            //HibernateUtil.getSession().save(gt);
+            //t.setGrupo(gt);
             ArrayList<HerramientaDeEmpresa> herramientras = new ArrayList<HerramientaDeEmpresa>();
             t.setHerramientas(herramientras);
             t.setUbicacion("ALGUN LUGAR DE PENSILVANIA");

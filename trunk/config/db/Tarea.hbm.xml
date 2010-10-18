@@ -10,9 +10,9 @@
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="OBSERVACIONES" name="observaciones" type="string"/>
     <many-to-one column="IDCRITICIDAD" name="criticidad"/>
-    <property column="IDduracionHsNormal" name="duracionHsNormal" type="integer"/>
-    <property column="IDduracionHs50" name="duracionHs50" type="integer"/>
-    <property column="IDduracionHs100" name="duracionHs100" type="integer"/>
+    <property column="FECHAINICIO" name="fechaInicio" type="date"/>
+    <property column="FECHAFIN" name="FechaFin" type="date"/>
+    
 
     <list cascade="all" name="detallesMaterial" table="TAREA_X_DM">
       <key column="ID_TAREA_X_DM"/>
@@ -20,12 +20,17 @@
       <many-to-many class="modelo.DetalleMaterial" column="ID_DM"/>
     </list>
 
-
-    <list cascade="all" name="grupos" table="TAREA_X_G">
+    <!--many-to-one column="ID_GT" class="modelo.GrupoDeTrabajo"  name="grupo"/-->
+    <list cascade="all" name="listaInstRolXTarea" table="TAREA_X_IRT">
+      <key column="ID_TAREA_X_IRT"/>
+      <index column="idx"/>
+      <many-to-many class="modelo.InstanciaDeRolPorTarea" column="ID_IRT"/>
+    </list>
+    <!--list cascade="all" name="grupos" table="TAREA_X_G">
       <key column="ID_TAREA_X_G"/>
       <index column="idx"/>
       <many-to-many class="modelo.GrupoDeTrabajo" column="ID_GT"/>
-    </list>
+    </list-->
     <list cascade="all" name="herramientas" table="TMYH_X_HDE">
       <key column="ID_TMYH_X_HDE"/>
       <index column="idx"/>
