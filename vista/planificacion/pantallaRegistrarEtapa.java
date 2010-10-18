@@ -15,7 +15,10 @@ import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import util.Tupla;
+import util.NTupla;
+import java.util.List;
 import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import controlador.planificacion.GestorOtrosDatosEtapa;
 import controlador.planificacion.GestorRegistrarEtapa;
@@ -34,6 +37,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     private int idPresupuesto;
     private GestorOtrosDatosEtapa gestorOtrosDatosEtapa;
     private GestorRegistrarEtapa gestorRegistrarEtapa;
+    private List<NTupla> listaTareas;
 
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarEtapa(int idEtapa,int idPresupuesto)
@@ -67,7 +71,34 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
       cmbFechaFin.setDate(fechaFin);
       txtObservaciones.setText(obs);
     }
+    private void cargarTareas()
+    {
+        listaTareas=gestorOtrosDatosEtapa.listaTareas(idEtapa);
 
+        DefaultTableModel model = (DefaultTableModel) tablaTareas.getModel();
+        int fil=model.getRowCount();
+        for (int i = 0; i < fil; i++) {
+            model.removeRow(0);
+        }
+        for (NTupla nTuplaTarea : listaTareas)
+        {
+            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+            Object[] obj=new Object[((Object[])nTuplaTarea.getData()).length+1];
+            Tupla tup=new Tupla();
+            tup.setId(nTuplaTarea.getId());
+            tup.setNombre(nTuplaTarea.getNombre());
+            obj[0]=tup;
+
+            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+            System.arraycopy((Object[]) nTuplaTarea.getData(), 0, obj, 1, ((Object[]) nTuplaTarea.getData()).length);
+            model.addRow( obj );
+        }
+        tablaTareas.setModel(model);
+
+
+
+
+    }
     private void cargarCombosTransportYAlojamiento()
     {
         cmbTransporteMHOrigenProvincias.setEnabled(false);

@@ -60,12 +60,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private int idTarea;
     private int idEtapa;
     private int idPresupuesto;
-    private int idP;
+    //private int idP;
     /** Creates new form pantallaRegistrarEtapa */
     public pantallaRegistrarTarea() {
         initComponents();
         this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
-        idP=1;
+        idPresupuesto=-1;
         idTarea=-1;
         this.idEtapa= -1;
         this.idPresupuesto=-1;
@@ -84,7 +84,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         this.idEtapa= idEtapa;
         this.idPresupuesto=idPresupuesto;
         this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
-        idP=1;
+        //idP=1;
         idTarea=-1;
         gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
@@ -98,7 +98,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
     public pantallaRegistrarTarea(ICallBack_v2 pantallaEt,int idPresupuesto, int idEtapa, int idTare) {
         idTarea=idTare;
-        idP=1;
+        this.idEtapa= idEtapa;
+        this.idPresupuesto=idPresupuesto;
+        //idP=1;
         initComponents();
         pantallaEtapa=pantallaEt;
         this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
@@ -1052,7 +1054,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             TablaUtil.vaciarDefaultTableModel((DefaultTableModel) tbHerramientasDisponibles.getModel());
 //            cargarHerramientas(gestorRAH.getHerramientasPresupuesto(idP));
 //            cargarHerramientas(gestorRAH.getHerramientasDeEmpresaDisponibles());
-            cargarHerramientas(gestorRAH.getHerramientasDeEmpresa(idP));
+            cargarHerramientas(gestorRAH.getHerramientasDeEmpresa(idPresupuesto));
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked

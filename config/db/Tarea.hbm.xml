@@ -12,6 +12,7 @@
     <many-to-one column="IDCRITICIDAD" name="criticidad"/>
     <property column="FECHAINICIO" name="fechaInicio" type="date"/>
     <property column="FECHAFIN" name="FechaFin" type="date"/>
+    <property column="orden" name="orden" type="integer"/>
     
 
     <list cascade="all" name="detallesMaterial" table="TAREA_X_DM">

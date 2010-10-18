@@ -20,6 +20,7 @@ import java.util.Date;
 public class Tarea {
     private int id;
     //private GrupoDeTrabajo grupo;
+    private int orden;
     private String ubicacion;
     private String descripcion;
     private String observaciones;
@@ -34,8 +35,9 @@ public class Tarea {
     private List<InstanciaDeRolPorTarea> listaInstRolXTarea;
     private List<HerramientaDeEmpresa> herramientas;
 
-    public void CalcularMontoTotal() {
-
+    public double CalcularMontoTotal()
+    {
+        return 0.0;
     }
 
     public Tarea() {
@@ -98,6 +100,14 @@ public class Tarea {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 
     public String getUbicacion() {
