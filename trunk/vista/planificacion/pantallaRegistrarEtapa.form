@@ -313,7 +313,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnTareasNueva" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnTareasEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -339,12 +339,21 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" alignment="0" pref="312" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtCostoTareas" min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane1" alignment="0" pref="312" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jButton1" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton2" min="-2" pref="69" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButton7" pref="65" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jButton18" min="-2" pref="73" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -353,8 +362,15 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="285" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="239" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButton18" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtCostoTareas" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -422,6 +438,29 @@
                       <ComponentRef name="txtCostoTareas"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Costo Total de las Tareas:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton1">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/arrow_large_up.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Al Principio"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Subir"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton7">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Bajar"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButton18">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Al final"/>
                   </Properties>
                 </Component>
               </SubComponents>
