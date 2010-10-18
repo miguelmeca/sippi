@@ -167,7 +167,9 @@ public class GestorRegistrarPresupuesto {
             e.setFechaInicio(fechaInicio);
             try
             {
+                HibernateUtil.beginTransaction();
                 HibernateUtil.getSession().saveOrUpdate(e);
+                HibernateUtil.commitTransaction();
             }
             catch(Exception ex)
             {
@@ -195,7 +197,9 @@ public class GestorRegistrarPresupuesto {
 
             try
             {
+                HibernateUtil.beginTransaction();
                 HibernateUtil.getSession().saveOrUpdate(e);
+                HibernateUtil.commitTransaction();
             }
             catch(Exception ex)
             {
@@ -214,7 +218,9 @@ public class GestorRegistrarPresupuesto {
             e.setFechaFin(fechaFinNueva);
             try
             {
+                HibernateUtil.beginTransaction();
                 HibernateUtil.getSession().saveOrUpdate(e);
+                HibernateUtil.commitTransaction();
             }
             catch(Exception ex)
             {
@@ -255,7 +261,9 @@ public class GestorRegistrarPresupuesto {
         presupuesto.setGanancia(ganancia);
         try
         {
+            HibernateUtil.beginTransaction();
             HibernateUtil.getSession().saveOrUpdate(presupuesto);
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
@@ -268,11 +276,49 @@ public class GestorRegistrarPresupuesto {
         presupuesto.setConsumibles(porce);
         try
         {
+            HibernateUtil.beginTransaction();
             HibernateUtil.getSession().saveOrUpdate(presupuesto);
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             pantalla.MostrarMensaje("ME-0007");
         }
     }
+
+    public void modificarViaticos(int cantEmp, int cantDias, double monto) throws Exception
+    {
+
+        presupuesto.setCantDiasViaticos(cantDias);
+        presupuesto.setCantEmpleadosViaticos(cantEmp);
+        presupuesto.setMontoViaticos(monto);
+
+        try
+        {
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(presupuesto);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0007");
+        }
+        
+    }
+
+    public int getViaticosDias()
+    {
+        return presupuesto.getCantDiasViaticos();
+    }
+
+    public int getViaticosEmpleados()
+    {
+        return presupuesto.getCantEmpleadosViaticos();
+    }
+
+    public double getViaticosMonto()
+    {
+        return presupuesto.getMontoViaticos();
+    }
+
 }
