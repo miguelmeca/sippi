@@ -11,6 +11,8 @@ import modelo.Domicilio;
 import modelo.Rubro;
 import modelo.Barrio;
 import modelo.Alojamiento;
+import modelo.Tarea;
+import modelo.Etapa;
 import modelo.TransporteDeMaterialesYHerramientas;
 import modelo.TransporteDePasajeros;
 import modelo.HerramientaDeEmpresa;
@@ -22,6 +24,7 @@ import vista.planificacion.pantallaRegistrarEtapa;
 import controlador.utiles.gestorGeoLocalicacion;
 import controlador.utiles.gestorBDvarios;
 import util.Tupla;
+import util.NTupla;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,6 +53,7 @@ public class GestorOtrosDatosEtapa   {
         private String departamentoD;
         private String codigoPostalD;
         private Barrio barrioD;
+        private List listaTareas;
         //private HashSet<String> HlistaNroTel;
         //private HashSet<TipoTelefono> HlistaTipoTel;
 
@@ -57,51 +61,8 @@ public class GestorOtrosDatosEtapa   {
     public GestorOtrosDatosEtapa(pantallaRegistrarEtapa pantalla)
     {
         this.pantalla = pantalla;
-        /*listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
-        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
-        listaNroTel= new  ArrayList<String>();
-        listaTipoTel= new ArrayList<TipoTelefono>();
-        listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
-         listaVencimientoCapacitaciones=new ArrayList<Date>();*/
+       
     }
-
-
-
-	/*public void datosPersonalesEmpleado(int leg,String cuil, String nmroDoc, Tupla tipoDocumento, String nombre, String apellido, Date fechaNac,Date fechaIng, String email)
-        {
-            legajoEmpleado=leg;
-            nroDocumento=nmroDoc;
-            gestorBDvarios bdv = new gestorBDvarios();
-            tipoDocumentoEmpleado=bdv.getTipoDeDocumento(tipoDocumento.getId());
-            nombreEmpleado=nombre;
-            apellidoEmpleado=apellido;
-            emailEmpleado=email;
-            fechaNacimientoEmpleado=fechaNac;
-            cuilEmpleado=cuil;
-            fechaIngresoEmpleado=fechaIng;
-
-	}*/
-
-	/*public void datosDomicilioEmpleado(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio)
-        {
-            gestorGeoLocalicacion ggl = new gestorGeoLocalicacion();
-            if(tBarrio.getId()>=0)
-            {barrioD =ggl.getBarrio(tBarrio.getId());}
-            else
-            {barrioD=null;}
-            if(nro.equals(""))
-            {nmroD=0;}
-            else{
-            nmroD=Integer.parseInt(nro);}
-            if(nro.equals(""))
-            {pisoD=0;}
-            else{
-            pisoD =Integer.parseInt(piso);}
-            calleD=calle;
-            departamentoD=depto;
-            codigoPostalD=cp;
-
-	}*/
 
 
 	public ArrayList<Tupla> mostrarPaises() {
@@ -221,124 +182,39 @@ public class GestorOtrosDatosEtapa   {
          {System.out.println("No se pudo abrir la sesion en MostrarEmpresa");
          return null;}
         }
-
-	/*public boolean empleadoConfirmado()
+        public List listaTareas( int idEtapa)
         {
-            Empleado empleado;
-            try{
-            empleado=crearEmpleado();}
-            catch (Exception ex)
-            {
-                System.out.println("No se pudo crear el empleado");
-                return false;
-            }
             Session sesion;
-            ///////////////////////////////////
-             try {
-                    sesion = HibernateUtil.getSession();
-                     //SessionFactory sf = HibernateUtil.getSessionFactory();
-                    //sesion = sf.openSession();
-                    try{
-                    HibernateUtil.beginTransaction();
-                    //sesion.beginTransaction();
+            ArrayList<NTupla> listaNTuplaTareas;
+            try{
 
-                    Iterator itt=empleado.getTelefonos().iterator();
-                    while(itt.hasNext())
-                    {
-                        Telefono tel=(Telefono)itt.next();
-                        sesion.save(tel);
-                    }
-                    Iterator itEsp=empleado.getEspecialidades().iterator();
-                    while(itEsp.hasNext())
-                    {
-                        Especialidad esp=(Especialidad)itEsp.next();
-                        sesion.save(esp);
-                    }
-                   // Set CaPP=empleado.getCapacitaciones();
+            sesion= HibernateUtil.getSession();
 
-                   // Iterator itCap=CaPP.iterator();
-                   Iterator itCap=empleado.getCapacitaciones().iterator();
-                    while(itCap.hasNext())
-                    {
-                        Capacitacion cap=(Capacitacion)itCap.next();
-                        sesion.save(cap);
-                    }
-                    if(empleado.getDomicilio()!=null)
-                    {sesion.save(empleado.getDomicilio());}
-                    sesion.save(empleado);
+             Etapa etapa= (Etapa)sesion.createQuery("from Etapa e where e.id="+idEtapa+" order by e.orden").uniqueResult();
 
-
-                     //sesion.getTransaction().commit();
-                   HibernateUtil.commitTransaction();
-
-                    return true;
-                    }catch(Exception e) {
-                        System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
-                        HibernateUtil.rollbackTransaction();
-
-                        return false;
+             listaTareas=etapa.getTareas();
+            listaNTuplaTareas = new ArrayList<NTupla>();
+            for (int i = 0; i < listaTareas.size(); i++)
+                {
+                    Tarea tar = (Tarea)listaTareas.get(i);
+                    NTupla tupla = new NTupla(tar.getId());
+                    tupla.setNombre(String.valueOf(tar.getDescripcion()));
+                    String[] datos=new String[1];
+                    datos[0]=String.valueOf(tar.CalcularMontoTotal());
+                    tupla.setData(datos);
+                    listaNTuplaTareas.add(tupla);
                 }
+
             } catch (Exception ex)
             {
                 System.out.println("No se pudo abrir la sesion");
-                return false;
+                return null;
             }
 
-	}
+            return listaNTuplaTareas;
+        }
 
-	public int generarLegajoEmpleado()
-        {
-            int mayorLegajo;
-            Session sesion;
-            try{
-             //SessionFactory sf = HibernateUtil.getSessionFactory();
-            //Session sesion = sf.openSession();
-            sesion = HibernateUtil.getSession();
-
-
-            //sesion.beginTransaction();
-
-            //try{
-
-            Object ob =sesion.createQuery("Select MAX(legajo) from Empleado").uniqueResult();
-            if(ob!=null)
-            {mayorLegajo=(Integer)ob;}
-            else{mayorLegajo=0;}
-            //sesion.getTransaction().commit();
-            //}
-            }
-            catch (Exception ex)
-            {
-                System.out.println("No se pudo abrir la sesion");
-                mayorLegajo=0;
-            }
-
-            return (mayorLegajo+1);
-
-	}*/
-
-
-	/*public void vaciarDatos()
-        {
-        calleD=null;
-        nmroD=0;
-        pisoD=0;
-        departamentoD=null;
-        codigoPostalD=null;
-        barrioD=null;
-        }*/
-	/*public Empleado crearEmpleado()
-        {
-
-            Date fechaAltaActual=new Date();
-           // fecha_Alta=System
-
-            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
-            //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
-
-            return emp;
-
-	}*/
+	
 
 	public void finCU() {
 
