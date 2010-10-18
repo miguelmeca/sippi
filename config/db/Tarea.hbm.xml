@@ -31,8 +31,8 @@
       <index column="idx"/>
       <many-to-many class="modelo.GrupoDeTrabajo" column="ID_GT"/>
     </list-->
-    <list cascade="all" name="herramientas" table="TMYH_X_HDE">
-      <key column="ID_TMYH_X_HDE"/>
+    <list cascade="all" name="herramientas" table="TAREA_X_HDE">
+      <key column="ID_TAREA_X_HDE"/>
       <index column="idx"/>
       <many-to-many class="modelo.HerramientaDeEmpresa" column="ID_HdE"/>
     </list>
