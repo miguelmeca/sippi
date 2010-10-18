@@ -212,7 +212,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         mRRHH = new javax.swing.JMenu();
         miNuevoRH = new javax.swing.JMenuItem();
@@ -591,6 +590,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Presupuestación");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/clock.png"))); // NOI18N
         jMenuItem8.setText("Nuevo Presupuesto");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -598,15 +598,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem8);
-
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/chart.png"))); // NOI18N
-        jMenuItem5.setText("Nueva Etapa (NF)");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem5);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
         jMenuItem7.setText("Consultar Presupuestos");
@@ -890,12 +881,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pre.setVisible(true);
             return;
         }
+        // Nuevo Presupuesto
+        if(node.getTitulo().equals("Nuevo Presupuesto de Obra"))
+        {
+            pantallaNuevoPresupuesto p = new pantallaNuevoPresupuesto();
+            SwingPanel.getInstance().addWindow(p);
+            return;
+        }
         //Nueva Empresa Cliente
         if(node.getTitulo().equals("Nueva Empresa Cliente"))
         {
-            pantallaRegistrarEmpresaCliente pre = new pantallaRegistrarEmpresaCliente();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
+            pantallaRegistrarEmpresaCliente p = new pantallaRegistrarEmpresaCliente();
+            SwingPanel.getInstance().addWindow(p);
             return;
         }
         //Consultar Empresas Cliente
@@ -1156,12 +1153,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        pantallaRegistrarTarea p = new pantallaRegistrarTarea();
-        SwingPanel.getInstance().addWindow(p);
-        p.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void jMenuItemGenerarOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarOCActionPerformed
         pantallaGenerarOrdenCompra p = new pantallaGenerarOrdenCompra();
         SwingPanel.getInstance().addWindow(p);
@@ -1216,7 +1207,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

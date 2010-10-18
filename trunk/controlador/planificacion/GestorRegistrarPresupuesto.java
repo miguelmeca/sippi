@@ -8,15 +8,21 @@ package controlador.planificacion;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import modelo.DetalleMaterial;
 import modelo.Etapa;
+import modelo.Material;
 import modelo.PedidoObra;
 import modelo.Presupuesto;
+import modelo.RecursoEspecifico;
+import modelo.RecursoXProveedor;
+import modelo.Tarea;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
+import util.RecursosUtil;
 import vista.planificacion.pantallaRegistrarPresupuesto;
 
 /**
@@ -325,6 +331,68 @@ public class GestorRegistrarPresupuesto {
 
         pantalla.mostrarMontosTotales(presupuesto.CalcularCostoBase(),presupuesto.CalcularTotal());
 
+    }
+
+    public ArrayList<NTupla> getListadoTareas(int idEtapa)
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+        try
+        {
+            Etapa e = cargarEtapa(idEtapa);
+            Iterator<Tarea> it = e.getTareas().iterator();
+            while (it.hasNext())
+            {
+                Tarea tar = it.next();
+                NTupla nt = new NTupla(tar.getId());
+                nt.setNombre(tar.getDescripcion());
+                lista.add(nt);
+            }
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0009");
+        }
+        return lista;
+    }
+
+    public ArrayList<NTupla> getListadoMateriales(int idEtapa)
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+        try
+        {
+            Etapa e = cargarEtapa(idEtapa);
+            Iterator<Tarea> it = e.getTareas().iterator();
+            while (it.hasNext())
+            {
+                Tarea tar = it.next();
+                Iterator<DetalleMaterial> itdm = tar.getDetallesMaterial().iterator();
+                while (itdm.hasNext())
+                {
+                    DetalleMaterial dm = itdm.next();
+                    
+                        RecursoXProveedor rxp = dm.getMaterial();
+                        RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                        Material m = (Material)RecursosUtil.getMaterial(re);
+
+                    NTupla nt = new NTupla(dm.getId());
+                    nt.setNombre(m.getNombre());
+                    String cant = String.valueOf(dm.getCantidad());
+                    nt.setData(cant);
+
+                   lista.add(nt);
+
+                }
+
+                
+            }
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-0009");
+        }
+        return lista;
     }
 
 }
