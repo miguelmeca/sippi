@@ -70,8 +70,8 @@ public class GestorRegistrarAsignacionHerramientas {
                         NTupla nt = new NTupla();
                         HerramientaDeEmpresa hde = (HerramientaDeEmpresa)itHP.next();
                         nt.setId(hde.getId());
-                        nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie());
-                        nt.setData(0);
+                        nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie()+" ("+t.getDescripcion()+")");
+                        nt.setData(t.getId());
                         herramientas.add(nt);
                     }
                 }

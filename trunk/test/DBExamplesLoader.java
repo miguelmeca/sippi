@@ -34,9 +34,12 @@ import javax.swing.JOptionPane;
 import modelo.Alojamiento;
 import modelo.Consumible;
 import modelo.ContactoResponsable;
+import modelo.DetalleMaterial;
 import modelo.DetalleOrdenDeCompra;
 import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
+import modelo.Etapa;
 import modelo.FormaDePago;
+import modelo.GrupoDeTrabajo;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
@@ -45,8 +48,10 @@ import modelo.Proveedor;
 import modelo.Recurso;
 import modelo.RecursoXProveedor;
 import modelo.PrecioSegunCantidad;
+import modelo.Presupuesto;
 import modelo.RecursoEspecifico;
 import modelo.Rubro;
+import modelo.Tarea;
 import modelo.TipoLicenciaEmpleado;
 import modelo.UnidadDeMedida;
 import util.LogUtil;
@@ -93,6 +98,8 @@ public class DBExamplesLoader {
           this.cargarOrdenDeCompra();
 
           this.cargarHerramientasDeEmpresa();
+
+          this.cargarPresupuestoDeEjemplo();
     }
 
     public void cargarConfiguraciones()
@@ -817,11 +824,156 @@ public class DBExamplesLoader {
         h.getRecursos().add(re);
         he.setRecursoEsp(re);
 
+        HerramientaDeEmpresa he1 = new HerramientaDeEmpresa();
+        he1.setNroSerie("AK900094343");
+        RecursoEspecifico re1 = new RecursoEspecifico();
+        re1.setNombre("CNC");
+        Herramienta h1 = new Herramienta();
+        h1.setNombre("FRESADORA");
+        h1.getRecursos().add(re1);
+        he1.setRecursoEsp(re1);
+
         sesion.beginTransaction();
+
         sesion.save(re);
         sesion.save(h);
         sesion.save(he);
+
+        sesion.save(re1);
+        sesion.save(h1);
+        sesion.save(he1);
+
         sesion.getTransaction().commit();
     }
-}
 
+    public void cargarPresupuestoDeEjemplo(){
+        try{
+            Presupuesto p = new Presupuesto();
+            p.setFechaEstimadaFinObra(new Date());
+            p.setFechaEstimadaInicioObra(new Date());
+            p.setIVA((float)0.21);
+            p.setPorcConsumibles((float)0.05);
+            p.setVersion("0.1");
+
+            /*******************************************************************
+             *                          ETAPA 1
+             * *****************************************************************
+             */
+
+            Etapa e1 = new Etapa();
+            e1.setNombre("PREPARAR LA PIEZA");
+            e1.setDescripcion("Se realizan las compras y se acondiciona el lugar de construcción");
+            e1.setFechaInicio(new Date());
+            e1.setFechaInicio(new Date());
+            e1.setDuracion("MUCHO TIEMPO");
+            e1.setNivelDeCriticidad(5);
+            e1.setUbicacion("Córdoba");
+
+            Tarea t1 = new Tarea();
+            t1.setDescripcion("MUY DIFICIL");
+            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+
+            List<DetalleMaterial> materiales1 = new ArrayList<DetalleMaterial>();
+            RecursoXProveedor rxp1 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
+            DetalleMaterial dm1 = new DetalleMaterial();
+            dm1.setCantidad(44);
+            dm1.setDescripcion("PROBANDO");
+            dm1.setMaterial(rxp1);
+            materiales1.add(dm1);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(dm1);
+
+            t1.setDetallesMaterial(materiales1);
+            GrupoDeTrabajo gt1 = new GrupoDeTrabajo();
+            HibernateUtil.getSession().save(gt1);
+            ArrayList<GrupoDeTrabajo> gts1 = new ArrayList<GrupoDeTrabajo>();
+//            t1.setGrupos(gts1);
+            ArrayList<HerramientaDeEmpresa> herramientras1 = new ArrayList<HerramientaDeEmpresa>();
+            t1.setHerramientas(herramientras1);
+            t1.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
+
+            HibernateUtil.getSession().save(t1);
+            e1.getTareas().add(t1);
+            HibernateUtil.getSession().saveOrUpdate(e1);
+
+            Tarea t2 = new Tarea();
+            t2.setDescripcion("TAREA 2");
+            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+
+            List<DetalleMaterial> materiales2 = new ArrayList<DetalleMaterial>();
+            RecursoXProveedor rxp2 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
+            DetalleMaterial dm2 = new DetalleMaterial();
+            dm2.setCantidad(100);
+            dm2.setDescripcion("DETALLE AMTERIAL 2");
+            dm2.setMaterial(rxp2);
+            materiales2.add(dm2);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(dm2);
+
+            t2.setDetallesMaterial(materiales2);
+            GrupoDeTrabajo gt2 = new GrupoDeTrabajo();
+            HibernateUtil.getSession().save(gt2);
+            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
+//            t2.setGrupos(gts2);
+            ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
+            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
+            herramientras2.add(he);
+            t2.setHerramientas(herramientras2);
+            t2.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
+
+            HibernateUtil.getSession().save(t2);
+            e1.getTareas().add(t2);
+            HibernateUtil.getSession().saveOrUpdate(e1);
+            p.getEtapas().add(e1);
+            HibernateUtil.getSession().saveOrUpdate(p);
+
+            /*******************************************************************
+             *                          ETAPA 2
+             * *****************************************************************
+             */
+
+            Etapa e2 = new Etapa();
+            e2.setNombre("CONSTRUIR");
+            e2.setDescripcion("Se sueldan y arman las piezas");
+            e2.setFechaInicio(new Date());
+            e2.setFechaInicio(new Date());
+            e2.setDuracion("BASTANTE TIEMPO");
+            e2.setNivelDeCriticidad(10);
+            e2.setUbicacion("Córdoba");
+
+            Tarea t3 = new Tarea();
+            t3.setDescripcion("SOLDANDO");
+            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
+
+            List<DetalleMaterial> materiales3 = new ArrayList<DetalleMaterial>();
+            RecursoXProveedor rxp3 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 2);
+            DetalleMaterial dm3 = new DetalleMaterial();
+            dm3.setCantidad(21);
+            dm3.setDescripcion("MATERIAL EXTRAÑO");
+            dm3.setMaterial(rxp3);
+            materiales3.add(dm3);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(dm3);
+
+            t3.setDetallesMaterial(materiales3);
+            GrupoDeTrabajo gt3 = new GrupoDeTrabajo();
+            HibernateUtil.getSession().save(gt3);
+            ArrayList<GrupoDeTrabajo> gts3 = new ArrayList<GrupoDeTrabajo>();
+//            t3.setGrupos(gts3);
+            ArrayList<HerramientaDeEmpresa> herramientras3 = new ArrayList<HerramientaDeEmpresa>();
+            t3.setHerramientas(herramientras3);
+            t3.setUbicacion("TALLERES DE LA EMPRESA");
+
+            HibernateUtil.getSession().save(t3);
+            e2.getTareas().add(t3);
+            HibernateUtil.getSession().saveOrUpdate(e2);
+
+            p.getEtapas().add(e2);
+            HibernateUtil.getSession().saveOrUpdate(p);
+
+        }
+        catch(Exception ex){
+            System.out.println(ex.getCause().toString());
+        }
+    }
+}

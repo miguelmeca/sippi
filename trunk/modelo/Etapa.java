@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,8 @@ public class Etapa {
     }
 
     public Etapa() {
+        this.tareas = new ArrayList<Tarea>();
+        this.cpm = new ArrayList<Etapa>();
     }
 
     public List<Etapa> getCpm() {
