@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 //
@@ -158,6 +159,33 @@ public class PresupuestoBase {
         this.montoViaticos = montoViaticos;
     }
 
+    public double CalcularCostoViaticos()
+    {
+        return this.cantDiasViaticos*cantEmpleadosViaticos*montoViaticos;
+    }
 
+    public double CalcularTotal()
+    {
+        return this.CalcularCostoBase()+this.ganancia;
+    }
+
+    public double CalcularCostoBase()
+    {
+        double subtotal = CalcularCostoViaticos()+CalcularSubTotalEtapas();
+        double porc = ((subtotal * consumibles )/100);
+        return subtotal+porc;
+    }
+
+    private double CalcularSubTotalEtapas()
+    {
+        double monto=0;
+        Iterator<Etapa> ite = this.etapas.iterator();
+        while (ite.hasNext())
+        {
+            Etapa e = ite.next();
+            monto+=e.calcularSubTotal();
+        }
+        return monto;
+    }
     
 }
