@@ -1429,6 +1429,11 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
         jButton3.setText("Guardar Cambios");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton4.setText("Cancelar");
@@ -1546,6 +1551,17 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
     private void txtPrecioAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioAlojamientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioAlojamientoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // PRIMERO GUARDO LOS DATOS BASE DE LA ETAPA
+        String nombre = txtNombre.getText();
+        Date fechaInicio = cmbFechaInicio.getDate();
+        Date fechaFin    = cmbFechaFin.getDate();
+        String obs = txtObservaciones.getText();
+
+        gestorRegistrarEtapa.guardarCambiosBaseEtapa(nombre,fechaInicio,fechaFin,obs);
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

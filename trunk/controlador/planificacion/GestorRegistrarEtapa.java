@@ -5,6 +5,7 @@
 
 package controlador.planificacion;
 
+import java.util.Date;
 import modelo.Etapa;
 import util.HibernateUtil;
 import vista.planificacion.pantallaRegistrarEtapa;
@@ -49,6 +50,11 @@ public class GestorRegistrarEtapa {
     public void mostrarDatosEtapa()
     {
         pantalla.mostrarDatosEtapa(etapa.getNombre(),etapa.getFechaInicio(),etapa.getFechaFin(),etapa.getDescripcion());
+    }
+
+    public void guardarCambiosBaseEtapa(String nombre, Date fechaInicio, Date fechaFin, String obs)
+    {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 }
