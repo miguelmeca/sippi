@@ -151,7 +151,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione la Cantidad a Utilizar"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Cantidad:");
 
         fxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
@@ -161,14 +161,14 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("SubTotal:");
 
         txtSubtotal.setEditable(false);
         txtSubtotal.setText("$600");
 
         btnAniadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAniadir.setText("Añadir");
+        btnAniadir.setText("Agregar");
         btnAniadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAniadirActionPerformed(evt);

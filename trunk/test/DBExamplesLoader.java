@@ -911,9 +911,9 @@ public class DBExamplesLoader {
             HibernateUtil.getSession().saveOrUpdate(dm2);
 
             t2.setDetallesMaterial(materiales2);
-            GrupoDeTrabajo gt2 = new GrupoDeTrabajo();
-            HibernateUtil.getSession().save(gt2);
-            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
+//            GrupoDeTrabajo gt2 = new GrupoDeTrabajo();
+//            HibernateUtil.getSession().save(gt2);
+//            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
 //            t2.setGrupos(gts2);
             ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
             HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
@@ -956,9 +956,9 @@ public class DBExamplesLoader {
             HibernateUtil.getSession().saveOrUpdate(dm3);
 
             t3.setDetallesMaterial(materiales3);
-            GrupoDeTrabajo gt3 = new GrupoDeTrabajo();
-            HibernateUtil.getSession().save(gt3);
-            ArrayList<GrupoDeTrabajo> gts3 = new ArrayList<GrupoDeTrabajo>();
+//            GrupoDeTrabajo gt3 = new GrupoDeTrabajo();
+//            HibernateUtil.getSession().save(gt3);
+//            ArrayList<GrupoDeTrabajo> gts3 = new ArrayList<GrupoDeTrabajo>();
 //            t3.setGrupos(gts3);
             ArrayList<HerramientaDeEmpresa> herramientras3 = new ArrayList<HerramientaDeEmpresa>();
             t3.setHerramientas(herramientras3);
