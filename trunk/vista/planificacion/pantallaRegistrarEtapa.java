@@ -1585,7 +1585,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnTareasNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareasNuevaActionPerformed
-        pantallaRegistrarTarea pre = new pantallaRegistrarTarea(this);
+        pantallaRegistrarTarea pre = new pantallaRegistrarTarea(this, idPresupuesto, idEtapa);
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
     }//GEN-LAST:event_btnTareasNuevaActionPerformed
