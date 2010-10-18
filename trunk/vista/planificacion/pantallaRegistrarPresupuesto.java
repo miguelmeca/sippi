@@ -1231,7 +1231,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     {
         gestor.mostrarDatosEtapa(idEtapa);
 
-        pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa(idEtapa);
+        pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa(idEtapa,idPresupuesto);
         SwingPanel.getInstance().addWindow(pre);
         pre.setVisible(true);
 
