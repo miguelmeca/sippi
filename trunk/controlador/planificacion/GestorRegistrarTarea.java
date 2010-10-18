@@ -7,6 +7,7 @@ package controlador.planificacion;
 import java.util.List;
 import java.util.ArrayList;
 import modelo.Tarea;
+import modelo.Etapa;
 import modelo.GrupoDeTrabajo;
 import modelo.RolEmpleado;
 import modelo.Criticidad;
@@ -60,7 +61,7 @@ public class GestorRegistrarTarea
         listaRolHs50 = new ArrayList<Double>();
         listaRolHs100 = new ArrayList<Double>();
     }
-    public int crearTarea()
+    public int crearTarea(int idEtapa)
     {
             tarea= new Tarea();
             int mayorIdTarea;
@@ -77,9 +78,9 @@ public class GestorRegistrarTarea
                     try{
                     HibernateUtil.beginTransaction();
                     sesion.save(tarea);
-                    //TODO: Cargar la etapa a partir del id pasado
-                    //TODO: Asignar tarea a la etapa si es q no esta asignada
-                    //TODO: sesion.saveOrUpdate(etapa);
+                    Etapa etapa = (Etapa) sesion.createQuery("from Etapa where id ="+idEtapa).uniqueResult();
+                    etapa.getTareas().add(tarea);
+                    sesion.saveOrUpdate(etapa);
                    HibernateUtil.commitTransaction();
 
                     return tarea.getId();
@@ -190,7 +191,7 @@ public class GestorRegistrarTarea
                         InstanciaDeRolPorTarea reg=(InstanciaDeRolPorTarea)irgtg.next();
                         sesion.save(reg);
                     }
-                   // sesion.saveOrUpdate(tarea.getGrupo()); //TODO: la clase grupo es obsoleta
+                   // sesion.saveOrUpdate(tarea.getGrupo()); //
                     sesion.saveOrUpdate(tarea);
                     
                    HibernateUtil.commitTransaction();

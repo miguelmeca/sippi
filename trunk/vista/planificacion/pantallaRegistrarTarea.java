@@ -140,7 +140,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
     }
     
-    private void crearTarea()
+    private void crearTarea(idEtapa)
     {
         idTarea=gestorTarea.crearTarea();
      if(idTarea<0)
@@ -1143,7 +1143,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             {
                         JOptionPane.showMessageDialog(this.getParent(),"Tarea registrada correctamente","Tarea Registrada",JOptionPane.INFORMATION_MESSAGE);
                         //Uso el metodo actualizar para mandar el legajo en vez del error, necesito algo que comunique las ventanas
-                        //pantallaConsultar.actualizar(idEmp, true);
+                        pantallaEtapa.actualizar(idTarea,"RegistrarTarea", true);
                         this.dispose();
             }
             else
