@@ -321,4 +321,10 @@ public class GestorRegistrarPresupuesto {
         return presupuesto.getMontoViaticos();
     }
 
+    public void mostrarTotales() {
+
+        pantalla.mostrarMontosTotales(presupuesto.CalcularCostoBase(),presupuesto.CalcularTotal());
+
+    }
+
 }

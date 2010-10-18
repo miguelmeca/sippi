@@ -19,7 +19,7 @@ import vista.planificacion.pantallaNuevoPresupuesto;
 /**
  * Descripción:
  * @version 1.0
- * @author Administrador
+ * @author Iuga
  * @cambios
  * @todo
  */
@@ -44,14 +44,17 @@ public class GestorNuevoPresupuesto {
                 while (iter.hasNext())
                 {
                    PedidoObra po = iter.next();
-                   NTupla nt = new NTupla(po.getId());
-                   nt.setNombre(po.getNombre());
-                   String[] data = new String[3];
-                    data[0] = po.getPlanta().getRazonSocial();
-                    data[1] = FechaUtil.getFecha(po.getFechaInicio());
-                    data[2] = FechaUtil.getFecha(po.getFechaFin());
-                   nt.setData(data);
-                   lista.add(nt);
+                   if(po.getPresupuestos().size()==0)
+                   {
+                       NTupla nt = new NTupla(po.getId());
+                       nt.setNombre(po.getNombre());
+                       String[] data = new String[3];
+                        data[0] = po.getPlanta().getRazonSocial();
+                        data[1] = FechaUtil.getFecha(po.getFechaInicio());
+                        data[2] = FechaUtil.getFecha(po.getFechaFin());
+                       nt.setData(data);
+                       lista.add(nt);
+                    }
                }
 
            }
