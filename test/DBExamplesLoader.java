@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import modelo.Barrio;
 import modelo.Empleado;
 import modelo.Domicilio;
+import modelo.Criticidad;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
 import modelo.TipoCapacitacion;
@@ -135,8 +136,21 @@ public class DBExamplesLoader {
         Rubro r5 = new Rubro(5,"Transporte De Materiales y Herramientas","TransporteDeMaterialesYHerramientas");
         Rubro r6 = new Rubro(6,"Transporte De Pasajeros","TransporteDePasajeros");
         Rubro r7 = new Rubro(7,"Alojamiento","Alojamiento");
+        Criticidad c1= new Criticidad();
+        c1.setNivel(1);
+        c1.setNombre("Poco importante");
+        Criticidad c2= new Criticidad();
+        c2.setNivel(2);
+        c2.setNombre("Importancia Media");
+        Criticidad c3= new Criticidad();
+        c3.setNivel(3);
+        c3.setNombre("Importante");
+
 
         sesion.beginTransaction();
+        sesion.save(c1);
+        sesion.save(c2);
+        sesion.save(c3);
         sesion.save(r1);
         sesion.save(r2);
         sesion.save(r3);
