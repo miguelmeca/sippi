@@ -884,17 +884,18 @@ public class DBExamplesLoader {
             HibernateUtil.getSession().saveOrUpdate(dm1);
 
             t1.setDetallesMaterial(materiales1);
-            GrupoDeTrabajo gt1 = new GrupoDeTrabajo();
-            HibernateUtil.getSession().save(gt1);
-            ArrayList<GrupoDeTrabajo> gts1 = new ArrayList<GrupoDeTrabajo>();
+//            GrupoDeTrabajo gt1 = new GrupoDeTrabajo();
+//            HibernateUtil.getSession().save(gt1);
+//            ArrayList<GrupoDeTrabajo> gts1 = new ArrayList<GrupoDeTrabajo>();
 //            t1.setGrupos(gts1);
-            ArrayList<HerramientaDeEmpresa> herramientras1 = new ArrayList<HerramientaDeEmpresa>();
-            t1.setHerramientas(herramientras1);
+//            ArrayList<HerramientaDeEmpresa> herramientras1 = new ArrayList<HerramientaDeEmpresa>();
+//            t1.setHerramientas(herramientras1);
             t1.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
 
             HibernateUtil.getSession().save(t1);
             e1.getTareas().add(t1);
             HibernateUtil.getSession().saveOrUpdate(e1);
+            HibernateUtil.commitTransaction();
 
             Tarea t2 = new Tarea();
             t2.setDescripcion("TAREA 2");
@@ -916,7 +917,8 @@ public class DBExamplesLoader {
 //            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
 //            t2.setGrupos(gts2);
             ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
-            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
+//            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
+            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa WHERE id=:idH").setParameter("idH", 2).uniqueResult();
             herramientras2.add(he);
             t2.setHerramientas(herramientras2);
             t2.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
@@ -926,6 +928,7 @@ public class DBExamplesLoader {
             HibernateUtil.getSession().saveOrUpdate(e1);
             p.getEtapas().add(e1);
             HibernateUtil.getSession().saveOrUpdate(p);
+            HibernateUtil.commitTransaction();
 
             /*******************************************************************
              *                          ETAPA 2
@@ -960,8 +963,8 @@ public class DBExamplesLoader {
 //            HibernateUtil.getSession().save(gt3);
 //            ArrayList<GrupoDeTrabajo> gts3 = new ArrayList<GrupoDeTrabajo>();
 //            t3.setGrupos(gts3);
-            ArrayList<HerramientaDeEmpresa> herramientras3 = new ArrayList<HerramientaDeEmpresa>();
-            t3.setHerramientas(herramientras3);
+//            ArrayList<HerramientaDeEmpresa> herramientras3 = new ArrayList<HerramientaDeEmpresa>();
+//            t3.setHerramientas(herramientras3);
             t3.setUbicacion("TALLERES DE LA EMPRESA");
 
             HibernateUtil.getSession().save(t3);
@@ -970,10 +973,12 @@ public class DBExamplesLoader {
 
             p.getEtapas().add(e2);
             HibernateUtil.getSession().saveOrUpdate(p);
+            HibernateUtil.commitTransaction();
 
         }
         catch(Exception ex){
             System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
         }
     }
 }

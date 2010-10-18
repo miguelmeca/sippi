@@ -74,7 +74,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
     public pantallaRegistrarTarea(int idTare) {
         idTarea=idTare;
+        idP=1;
         initComponents();
+        this.tbHerramientasDisponibles.setDefaultRenderer(Object.class, new MiRender());
         gestorTarea=new GestorRegistrarTarea(this);
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
