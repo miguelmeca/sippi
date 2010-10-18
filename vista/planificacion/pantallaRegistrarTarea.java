@@ -126,7 +126,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         mostrarCriticidad();
         vaciarCampos();
         if(idTarea==-1)
-        { crearTarea();}
+        { crearTarea(idEtapa);}
         cargarDatosTarea();
         
         cargarRolesCreadosAnteriormente();
@@ -140,9 +140,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
     }
     
-    private void crearTarea(idEtapa)
+    private void crearTarea(int idEtapa)
     {
-        idTarea=gestorTarea.crearTarea();
+        idTarea=gestorTarea.crearTarea(idEtapa);
      if(idTarea<0)
      {JOptionPane.showInternalMessageDialog(this.getParent(),"Ocurrio un error creando al Tarea","ERROR",JOptionPane.ERROR_MESSAGE);
        this.dispose();}
