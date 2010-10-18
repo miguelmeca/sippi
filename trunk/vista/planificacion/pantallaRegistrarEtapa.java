@@ -1705,6 +1705,11 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la Etapa","Error en la Carga",JOptionPane.ERROR_MESSAGE);
             this.dispose();
         }
+        if(cod.equals("ME-0002"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo guardar los cambios en la Etapa","Error",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
     }
 
 }
