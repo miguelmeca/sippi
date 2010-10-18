@@ -26,6 +26,10 @@ public class PresupuestoBase {
     private double ganancia;
     private float consumibles;
 
+    private double montoViaticos;
+    private int cantEmpleadosViaticos;
+    private int cantDiasViaticos;
+
     public void crear() {
 
     }
@@ -47,7 +51,6 @@ public class PresupuestoBase {
     }
 
     public PresupuestoBase() {
-        this.etapas = new ArrayList<Etapa>();
     }
 
     public float getIVA() {
@@ -130,6 +133,31 @@ public class PresupuestoBase {
     public void setGanancia(double ganancia) {
         this.ganancia = ganancia;
     }
+
+    public int getCantDiasViaticos() {
+        return cantDiasViaticos;
+    }
+
+    public void setCantDiasViaticos(int cantDiasViaticos) {
+        this.cantDiasViaticos = cantDiasViaticos;
+    }
+
+    public int getCantEmpleadosViaticos() {
+        return cantEmpleadosViaticos;
+    }
+
+    public void setCantEmpleadosViaticos(int cantEmpleadosViaticos) {
+        this.cantEmpleadosViaticos = cantEmpleadosViaticos;
+    }
+
+    public double getMontoViaticos() {
+        return montoViaticos;
+    }
+
+    public void setMontoViaticos(double montoViaticos) {
+        this.montoViaticos = montoViaticos;
+    }
+
 
     
 }
