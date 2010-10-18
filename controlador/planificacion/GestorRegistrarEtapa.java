@@ -54,7 +54,22 @@ public class GestorRegistrarEtapa {
 
     public void guardarCambiosBaseEtapa(String nombre, Date fechaInicio, Date fechaFin, String obs)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        etapa.setNombre(nombre);
+        etapa.setFechaInicio(fechaInicio);
+        etapa.setFechaFin(fechaFin);
+        etapa.setDescripcion(obs);
+
+            try
+            {
+                HibernateUtil.beginTransaction();
+                HibernateUtil.getSession().saveOrUpdate(etapa);
+                HibernateUtil.commitTransaction();
+            }
+            catch(Exception ex)
+            {
+                pantalla.MostrarMensaje("ME-0002");
+            }
+
     }
 
 }
