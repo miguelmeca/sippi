@@ -648,16 +648,10 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Nombre:");
 
-        txtNombreRol.setText("Soldador 1");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel22.setText("Especialidad");
 
-        cmbEspecialidades.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Soldador", "Tornero" }));
-
-        cmbRangos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Experto", "Medio" }));
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel24.setText("Rango");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -675,12 +669,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                             .addComponent(cmbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel24))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
-                                .addComponent(cmbRangos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel24)
+                            .addComponent(cmbRangos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(40, 40, 40))
         );
         jPanel8Layout.setVerticalGroup(
@@ -702,11 +692,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Roles creados en otras tareas:"));
 
-        lstRolesCreados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Fresero 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane10.setViewportView(lstRolesCreados);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -716,7 +701,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,7 +778,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         tablaRolesAsignados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Tornero", null, null, null, null, "1"}
+
             },
             new String [] {
                 "Nombre del Rol", "Especialidad", "Rango", "Hs Normales", "Hs 50", "Hs 100"
@@ -815,9 +800,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addContainerGap(395, Short.MAX_VALUE)
+                        .addContainerGap(401, Short.MAX_VALUE)
                         .addComponent(btnQuitarRol)))
                 .addContainerGap())
         );
@@ -833,7 +818,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -848,7 +832,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -856,7 +840,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -872,7 +855,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addGap(242, 242, 242))
         );
 
-        jTabbedPane1.addTab("Grupos de Trabajo", jPanel4);
+        jTabbedPane1.addTab("Grupo de Trabajo", jPanel4);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione una Herramienta a utilizar en la Tarea"));
 
@@ -1027,7 +1010,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAceptar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();

@@ -194,6 +194,8 @@ public class GestorOtrosDatosEtapa   {
 
              listaTareas=etapa.getTareas();
             listaNTuplaTareas = new ArrayList<NTupla>();
+            if(listaTareas!=null)
+            {
             for (int i = 0; i < listaTareas.size(); i++)
                 {
                     Tarea tar = (Tarea)listaTareas.get(i);
@@ -204,10 +206,10 @@ public class GestorOtrosDatosEtapa   {
                     tupla.setData(datos);
                     listaNTuplaTareas.add(tupla);
                 }
-
+            }
             } catch (Exception ex)
             {
-                System.out.println("No se pudo abrir la sesion");
+                System.out.println("No se pudo abrir la sesion en GestorOtrosDatosEtapa.listaTareas(int)");
                 return null;
             }
 
