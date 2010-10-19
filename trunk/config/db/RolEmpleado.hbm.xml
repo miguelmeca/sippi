@@ -8,5 +8,6 @@
     <many-to-one column="IDEMPLEADO" name="empleado"/>
     <many-to-one column="IDESPECIALIDAD" name="especialidad"/>
     <property name="esLider" type="boolean"/>
+    <property name="nombre" type="string"/>
   </class>
 </hibernate-mapping>
