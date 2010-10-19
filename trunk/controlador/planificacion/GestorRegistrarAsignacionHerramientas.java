@@ -39,6 +39,7 @@ public class GestorRegistrarAsignacionHerramientas {
     public ArrayList<NTupla> getHerramientasDeEmpresa(int idP){
         ArrayList<NTupla> hDisponibles = this.getHerramientasDeEmpresaDisponibles();
         ArrayList<NTupla> hPresupuesto = this.getHerramientasPresupuesto(idP);
+        ArrayList<NTupla> hAUtilizar = this.getHerramientasAUtilizar();
 
         Iterator<NTupla> itHD = hDisponibles.iterator();
         while(itHD.hasNext()){
@@ -48,6 +49,17 @@ public class GestorRegistrarAsignacionHerramientas {
                 NTupla ntHP = itHP.next();
                 if(ntHD.getId()==ntHP.getId()){
                    hDisponibles.remove(ntHP);
+                }
+            }
+        }
+        itHD = hDisponibles.iterator();
+        while(itHD.hasNext()){
+            NTupla ntHD = itHD.next();
+            Iterator<NTupla> itHAU = hAUtilizar.iterator();
+            while(itHAU.hasNext()){
+                NTupla ntHAU = itHAU.next();
+                if(ntHD.getId()==ntHAU.getId()){
+                   hDisponibles.remove(ntHAU);
                 }
             }
         }
@@ -122,8 +134,8 @@ public class GestorRegistrarAsignacionHerramientas {
             Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
             Iterator<HerramientaDeEmpresa> it = t.getHerramientas().iterator();
             HerramientaDeEmpresa he = null;
-            NTupla nt = new NTupla();
             while(it.hasNext()){
+                NTupla nt = new NTupla();
                 he = it.next();
                 nt.setId(he.getId());
                 Herramienta h = RecursosUtil.getHerramienta(he.getRecursoEsp());
