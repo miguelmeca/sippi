@@ -131,7 +131,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         cargarRolesCreadosAnteriormente();
     }
     private void cargarRolesCreadosAnteriormente()
-    {//TODO:
+    {
+        ArrayList<Tupla> listaNombreRangosEspecialidad = gestorTarea.mostrarRolesCreados(idPresupuesto);
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for (Tupla nombre : listaNombreRangosEspecialidad)
+        {
+            model.addElement(nombre);
+        }
+        lstRolesCreados.setModel(model);
 
     }
     private void vaciarCampos()
