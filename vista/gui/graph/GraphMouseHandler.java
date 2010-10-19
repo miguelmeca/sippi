@@ -110,7 +110,6 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 		Task t = null;
 		TaskRow r = null;
 		
-		
 		GraphObject go = null;
 		if(o instanceof GraphObject) {
 			go = (GraphObject)o;

@@ -22,6 +22,7 @@ import util.FechaUtil;
 import util.LogUtil;
 import util.NTupla;
 import util.SwingPanel;
+import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.graph.TaskGraphComponent;
 import vista.gui.graph.TaskModel;
@@ -116,6 +117,16 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             addEtapa(nt.getId() ,nt.getNombre(),(Date)data[0],(Date)data[1]);
         }
 
+        // CARGO TODAS LAS RELACIONES ENTRE ETAPAS
+        ArrayList<Tupla> listaRelaciones = gestor.getRelacionesEntreEtapas();
+        Iterator<Tupla> itt = listaRelaciones.iterator();
+        while (itt.hasNext())
+        {
+            Tupla tp = itt.next();
+            int idEtapa = tp.getId();
+            int idEtapaPredecesora = Integer.parseInt(tp.getNombre());
+            this.setEtapaPredecesora(idEtapa, idEtapaPredecesora);
+        }
     }
 
 
@@ -1192,7 +1203,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         panelGantt.repaint();
     }
 
-    public void setEtapaPredecesora(int idEtapaAntes, int idEtapaDespues)
+    public void setEtapaPredecesora(int idEtapaDespues,int idEtapaAntes)
     {
         _gantt.setEtapaPredecesora(idEtapaAntes, idEtapaDespues);
     }

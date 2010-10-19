@@ -18,11 +18,13 @@ import modelo.RecursoXProveedor;
 import modelo.Tarea;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import sun.jkernel.Bundle;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
 import util.RecursosUtil;
+import util.Tupla;
 import vista.planificacion.pantallaRegistrarPresupuesto;
 
 /**
@@ -394,5 +396,28 @@ public class GestorRegistrarPresupuesto {
         }
         return lista;
     }
+
+    public ArrayList<Tupla> getRelacionesEntreEtapas()
+    {
+        ArrayList<Tupla> lista = new ArrayList<Tupla>();
+        
+            // RECORRO TODAS LAS ETAPAS DEL PRESUPUESTO
+            Iterator<Etapa> it = presupuesto.getEtapas().iterator();
+            while (it.hasNext())
+            {
+                Etapa et = it.next();
+                // POR CADA UNA VOY CARGANDO SUS RELACIONES
+                Iterator<Etapa> itRe = et.getCpm().iterator();
+                while (itRe.hasNext())
+                {
+                    Etapa etRel = itRe.next();
+                    // ACA HAY UNA RELACION
+                    Tupla tp = new Tupla(et.getId(),String.valueOf(etRel.getId()));
+                    lista.add(tp);
+                }
+            }
+        return lista;
+    }
+
 
 }

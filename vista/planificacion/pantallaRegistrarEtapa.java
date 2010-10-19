@@ -25,6 +25,7 @@ import controlador.planificacion.GestorRegistrarEtapa;
 import javax.swing.JOptionPane;
 import vista.interfaces.ICallBack_v2;
 import util.SwingPanel;
+import vista.gui.graphProxy.SystemEventProxy;
 
 /**
  *
@@ -1661,7 +1662,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             gestorRegistrarEtapa.modificarRelacionEtapa(this.idEtapa,idEtapaCheck,relacion);
 
         }
-
+        SystemEventProxy.getInstance().getPantalla().refescarGrafico();
         this.dispose();
 
     }//GEN-LAST:event_jButton3ActionPerformed
