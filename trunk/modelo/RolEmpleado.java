@@ -16,6 +16,7 @@ package modelo;
 
 public class RolEmpleado {
     private int id;
+    private String nombre;
     private Empleado empleado;
     private Especialidad especialidad;
     private Boolean esLider;
@@ -75,7 +76,15 @@ public class RolEmpleado {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
