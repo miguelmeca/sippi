@@ -244,7 +244,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         while (it.hasNext())
         {
             NTupla ntp = (NTupla)it.next();
-            Object[] fila = new Object[3];
+            Object[] fila = new Object[4];
             fila[0] = ntp;
             Object[] o = (Object[]) ntp.getData();
             fila[1] = o[0];
@@ -1327,19 +1327,19 @@ private void crearRol()
         }
         if(cod.equals("AM-0003"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso Específico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0004"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso Especifico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso Específico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0005"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de CÃ¡lculo",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de Cálculo",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0006"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar el material a la lista de materiales a utilizar","Error en el AÃ±adir",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo agregar el material a la lista de materiales a utilizar","Error al Agregar",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0007"))
         {

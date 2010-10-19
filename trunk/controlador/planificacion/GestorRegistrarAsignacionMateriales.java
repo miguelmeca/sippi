@@ -162,13 +162,14 @@ public class GestorRegistrarAsignacionMateriales {
             HibernateUtil.getSession().save(dm);
             HibernateUtil.getSession().saveOrUpdate(t);
             HibernateUtil.commitTransaction();
-            pantalla.actualizar(dm.getId(), "...", true);
+            //pantalla.actualizar(dm.getId(), "...", true);
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
             this.pantalla.MostrarMensaje("AM-0006");
-            this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
+            //this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
         }
+        pantalla.actualizar(1, "...", true);
     }
 
     public ArrayList<NTupla> getMaterialesAUtilizar() {
