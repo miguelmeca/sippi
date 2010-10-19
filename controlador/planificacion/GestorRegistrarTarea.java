@@ -6,8 +6,11 @@
 package controlador.planificacion;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import modelo.Tarea;
 import modelo.Etapa;
+import modelo.Presupuesto;
 import modelo.GrupoDeTrabajo;
 import modelo.RolEmpleado;
 import modelo.Criticidad;
@@ -45,6 +48,8 @@ public class GestorRegistrarTarea
     private ArrayList<Double> listaRolHsNormales;
     private ArrayList<Double> listaRolHs50;
     private ArrayList<Double> listaRolHs100;
+    private HashMap mapaRolesCreados;
+    private ArrayList<Tupla> listaRolesCreados;
     private Tarea tarea;
         
         //private HashSet<String> HlistaNroTel;
@@ -153,6 +158,48 @@ public class GestorRegistrarTarea
            return bdv.getRangosEspecialidad();
     }
 
+    public ArrayList<Tupla> mostrarRolesCreados(int idPresupuesto)
+    {
+         Session sesion;
+         mapaRolesCreados = new HashMap();
+         listaRolesCreados=new ArrayList<Tupla>();
+
+            ///////////////////////////////////
+             try {
+                    sesion = HibernateUtil.getSession();
+                    Presupuesto presupuesto = (Presupuesto) sesion.createQuery("from Presupuesto where id ="+idPresupuesto).uniqueResult();
+                    for (Etapa et : presupuesto.getEtapas())
+                    {
+                        for (Tarea t : et.getTareas())
+                        {
+                            for(InstanciaDeRolPorTarea ins : t.getListaInstRolXTarea())
+                            {
+                                mapaRolesCreados.put(ins.getRol().getId(), ins.getRol()) ;
+                            }
+                        }
+                    }
+                    Iterator it = mapaRolesCreados.entrySet().iterator();
+
+                    while (it.hasNext()) {
+                    Map.Entry e = (Map.Entry)it.next();
+                    RolEmpleado r = (RolEmpleado)e.getValue();
+                    Tupla t=new Tupla();
+                    t.setId(r.getId());
+                    t.setNombre(r.getNombre());
+                    listaRolesCreados.add(t);
+                    }
+
+
+                    return listaRolesCreados;
+
+            } catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion creando la tarea");
+                return new ArrayList<Tupla>();
+            }
+    }
+
+
    public boolean tareaModificada()
    {
        Session sesion;
@@ -170,10 +217,14 @@ public class GestorRegistrarTarea
                     while(irgt.hasNext())
                     {
                        InstanciaDeRolPorTarea irpt=(InstanciaDeRolPorTarea)irgt.next();
-                       RolEmpleado re=irpt.getRol();
+                       
                        sesion.delete(irpt);
-                       /*if(re no esta siendo usado en otra tarea) //TODO:
-                       {sesion.delete(re);}*/
+                       RolEmpleado re=(RolEmpleado)mapaRolesCreados.get(irpt.getRol().getId());
+                       if( re==null) //Si el Rol no esta siendo usado por ninguna otra tarea, lo borro (por si el usaurio lo borro)
+                       {sesion.delete(irpt.getRol());
+                        sesion.delete(irpt.getRol().getEspecialidad());
+                        }
+                        
                     }
                    criticicidad = (Criticidad) sesion.createQuery("from Criticidad where id ="+tCriticidad.getId()).uniqueResult();
                    try{
@@ -228,7 +279,7 @@ public class GestorRegistrarTarea
                 {
                    TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
                    RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
-                    rE= crearRolEmpleado( te, re);
+                    rE= crearRolEmpleado(listaRolNombre.get(i).getNombre(), te, re);
                     sesion.saveOrUpdate(rE.getEspecialidad());
                     sesion.saveOrUpdate(rE);
                 }
@@ -244,13 +295,14 @@ public class GestorRegistrarTarea
 
             }
          }
-   private RolEmpleado crearRolEmpleado(TipoEspecialidad te, RangoEspecialidad re)
+   private RolEmpleado crearRolEmpleado(String nomR, TipoEspecialidad te, RangoEspecialidad re)
     {
        Especialidad esp=new Especialidad();
        esp.setRango(re);
        esp.setTipo(te);
        RolEmpleado r=new RolEmpleado();
        r.setEspecialidad(esp);
+       r.setNombre(nomR);
        return r;
        
     }
