@@ -205,7 +205,7 @@ public class GestorRegistrarTarea
                 }
             } catch (Exception ex)
             {
-                System.out.println("No se pudo abrir la sesion");
+                System.out.println("No se pudo abrir la sesion modificando la tarea");
                 return false;
             }
 

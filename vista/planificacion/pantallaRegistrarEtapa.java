@@ -75,8 +75,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     private void cargarTareas()
     {
         listaTareas=gestorOtrosDatosEtapa.listaTareas(idEtapa);
-
-        DefaultTableModel model = (DefaultTableModel) tablaTareas.getModel();
+        if(listaTareas!=null)
+        {
+            DefaultTableModel model = (DefaultTableModel) tablaTareas.getModel();
         int fil=model.getRowCount();
         for (int i = 0; i < fil; i++) {
             model.removeRow(0);
@@ -95,7 +96,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             model.addRow( obj );
         }
         tablaTareas.setModel(model);
-
+        }
 
 
 
