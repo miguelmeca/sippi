@@ -270,10 +270,11 @@ public class GestorRegistrarPedido {
 
         sesion.beginTransaction();
         Iterator iter = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").iterate();
+        Tupla tupla=null;
         while ( iter.hasNext() )
         {
             EmpresaCliente ec = (EmpresaCliente)iter.next();
-            Tupla tupla = new Tupla(ec.getId(),ec.getRazonSocial());
+            tupla = new Tupla(ec.getId(),ec.getRazonSocial());
             tuplas.add(tupla);
         }
         return tuplas;

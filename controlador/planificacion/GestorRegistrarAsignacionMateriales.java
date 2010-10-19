@@ -185,9 +185,18 @@ public class GestorRegistrarAsignacionMateriales {
                 RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
                 Material m = (Material)RecursosUtil.getMaterial(re);
                 nt.setNombre(m.getNombre());
-                Object[] o = new Object[2];
+                Object[] o = new Object[3];
                 o[0]= re.getNombre();
                 o[1]= dm.getCantidad();
+                Iterator<PrecioSegunCantidad> itPrecio = dm.getMaterial().getListaPrecios().iterator();
+                double precio = 0;
+                while(itPrecio.hasNext()){
+                    PrecioSegunCantidad psc = itPrecio.next();
+                    if(dm.getCantidad() >= psc.getCantidad()){
+                        precio=psc.getPrecio();
+                    }
+                }
+                o[2]= precio;
                 nt.setData(o);
                 mau.add(nt);
             }

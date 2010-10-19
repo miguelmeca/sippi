@@ -100,7 +100,7 @@ public class DBExamplesLoader {
 
           this.cargarHerramientasDeEmpresa();
 
-          this.cargarPresupuestoDeEjemplo();
+//          this.cargarPresupuestoDeEjemplo();
     }
 
     public void cargarConfiguraciones()
@@ -930,14 +930,15 @@ public class DBExamplesLoader {
 //            HibernateUtil.getSession().save(gt2);
 //            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
 //            t2.setGrupos(gts2);
-            ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
+//            ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
 //            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
-            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa WHERE id=:idH").setParameter("idH", 2).uniqueResult();
-            herramientras2.add(he);
-            t2.setHerramientas(herramientras2);
+//            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa WHERE id=:idH").setParameter("idH", 2).uniqueResult();
+//            herramientras2.add(he);
+//            t2.setHerramientas(herramientras2);
+//            t2.getHerramientas().add(he);
             t2.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
 
-            HibernateUtil.getSession().save(t2);
+            HibernateUtil.getSession().saveOrUpdate(t2);
             e1.getTareas().add(t2);
             HibernateUtil.getSession().saveOrUpdate(e1);
             p.getEtapas().add(e1);
