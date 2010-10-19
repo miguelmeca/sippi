@@ -388,8 +388,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 			String duration = String.valueOf((long)((double)t.getEffort() / t.getWorkload()));
 			String comment = t.getComment();
 			_graph.setToolTipText("<html><p style=\"padding:2 5 2 5;\"><b>" + taskName + "</b>"
-					+ "<br>Fecha Inicio: " + start + "&nbsp;&nbsp;&nbsp;Fecha de Fin: " + end
-					+ "<br>Comentarios: "+comment);
+					+ "<br>Fecha Inicio: " + start + "&nbsp;&nbsp;&nbsp;Fecha de Fin: " + end);
 		} else {
 			_graph.setToolTipText(null);
 		}

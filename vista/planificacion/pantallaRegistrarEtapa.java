@@ -63,6 +63,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         cargarCombosEmpresas();
         gestorRegistrarEtapa.mostrarDatosEtapa();
         cargarTareas();
+        cargarEtapas();
     }
 
     public void mostrarDatosEtapa(String nombre, Date fechaInicio, Date fechaFin, String obs)
@@ -72,6 +73,21 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
       cmbFechaFin.setDate(fechaFin);
       txtObservaciones.setText(obs);
     }
+
+    private void cargarEtapas()
+    {
+        DefaultTableModel model = (DefaultTableModel) tablaEtapas.getModel();
+        Iterator<NTupla> it = gestorRegistrarEtapa.getListaEtapasRelacionadas(idPresupuesto,idEtapa).iterator();
+        while (it.hasNext())
+        {
+            NTupla nt = it.next();
+            Object[] fila = new Object[2];
+            fila[1] = nt;
+            fila[0] = (Boolean)nt.getData();
+            model.addRow(fila);
+        }
+    }
+
     private void cargarTareas()
     {
         listaTareas=gestorOtrosDatosEtapa.listaTareas(idEtapa);
@@ -303,7 +319,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaEtapas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -494,11 +510,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Marque las etapas precedentes:"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEtapas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {new Boolean(true), "Etapa 1 - Compras"},
-                {new Boolean(true), "Etapa 2 - Transporte al lugar"},
-                {null, "Etapa 3 - Capacitaciones faltantes"}
+
             },
             new String [] {
                 "", "Nombre de la Etapa"
@@ -512,10 +526,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getColumn(0).setMinWidth(50);
-        jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
+        jScrollPane2.setViewportView(tablaEtapas);
+        tablaEtapas.getColumnModel().getColumn(0).setMinWidth(50);
+        tablaEtapas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tablaEtapas.getColumnModel().getColumn(0).setMaxWidth(50);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1636,6 +1650,18 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
 
         gestorRegistrarEtapa.guardarCambiosBaseEtapa(nombre,fechaInicio,fechaFin,obs);
 
+        // AHORA GUARDO LOS DATOS DE LAS ETPAAS PREDECESORAS
+        DefaultTableModel model = (DefaultTableModel) tablaEtapas.getModel();
+        for (int i = 0; i < model.getRowCount(); i++)
+        {
+            NTupla nt =(NTupla) model.getValueAt(i, 1);
+            int idEtapaCheck = nt.getId();
+            Boolean relacion = (Boolean) model.getValueAt(i, 0);
+
+            gestorRegistrarEtapa.modificarRelacionEtapa(this.idEtapa,idEtapaCheck,relacion);
+
+        }
+
         this.dispose();
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1764,9 +1790,9 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JList lstTransporteMHHerramientasDisponibles;
     private javax.swing.JList lstTransporteMHHerramientasTrasnportar;
+    private javax.swing.JTable tablaEtapas;
     private javax.swing.JTable tablaTareas;
     private javax.swing.JTextArea txaTransporteMHMateriales;
     private javax.swing.JTextArea txaTransporteMHMaterialesObs;
@@ -1800,6 +1826,15 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo guardar los cambios en la Etapa","Error",JOptionPane.ERROR_MESSAGE);
             this.dispose();
+        }
+        if(cod.equals("ME-0003"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar el Presupuesto","Error",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        if(cod.equals("ME-0004"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo guardar las relaciones entre Etapas","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
     public void actualizar(int id, String flag, boolean exito)
