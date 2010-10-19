@@ -190,7 +190,7 @@ public class GestorOtrosDatosEtapa   {
 
             sesion= HibernateUtil.getSession();
 
-             Etapa etapa= (Etapa)sesion.createQuery("from Etapa e where e.id="+idEtapa+" order by e.orden").uniqueResult();
+             Etapa etapa= (Etapa)sesion.createQuery("from Etapa e where e.id="+idEtapa).uniqueResult();
 
              listaTareas=etapa.getTareas();
             listaNTuplaTareas = new ArrayList<NTupla>();

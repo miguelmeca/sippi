@@ -165,6 +165,7 @@ public class GestorRegistrarTarea
                    /* if(tarea.getGrupo()==null)
                     {tarea.setGrupo(new GrupoDeTrabajo());}
                     Iterator irgt =tarea.getGrupo().getInstanciasRoles().iterator();*/
+
                     Iterator irgt =tarea.getListaInstRolXTarea().iterator();
                     while(irgt.hasNext())
                     {

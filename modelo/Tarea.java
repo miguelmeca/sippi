@@ -44,6 +44,7 @@ public class Tarea {
         detallesMaterial = new ArrayList<DetalleMaterial>();
         //grupo= new GrupoDeTrabajo();
         herramientas = new ArrayList<HerramientaDeEmpresa>();
+        listaInstRolXTarea=new ArrayList<InstanciaDeRolPorTarea>() ;
     }
 
     public String getDescripcion() {

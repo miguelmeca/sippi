@@ -1234,9 +1234,9 @@ private void crearRol()
             listaRolNombre.add((Tupla)fila.get(0));
             listaRolTipoEspecialidadRol.add((Tupla)fila.get(1));
             listaRolRangoEspecialidad.add((Tupla)fila.get(2));
-            listaRolHsNormales.add((Double)fila.get(1));
-            listaRolHs50.add((Double)fila.get(1));
-            listaRolHs100.add((Double)fila.get(1));
+            listaRolHsNormales.add((Double)fila.get(3));
+            listaRolHs50.add((Double)fila.get(4));
+            listaRolHs100.add((Double)fila.get(5));
             
         }
        
