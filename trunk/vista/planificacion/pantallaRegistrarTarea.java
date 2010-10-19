@@ -73,10 +73,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
 //        gestorRAM.crearTareaPrueba();
-        gestorRAH.setIdTarea(gestorRAM.getIdTarea());
         habilitarVentana();
-
-        
+        gestorRAH.setIdTarea(this.idTarea);
+        gestorRAM.setIdTarea(this.idTarea);
     }
     public pantallaRegistrarTarea(ICallBack_v2 pantallaEt, int idPresupuesto, int idEtapa ) {
         initComponents();
@@ -90,11 +89,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         gestorRAM = new GestorRegistrarAsignacionMateriales(this);
         gestorRAH = new GestorRegistrarAsignacionHerramientas(this);
 //        gestorRAM.crearTareaPrueba();
-        gestorRAH.setIdTarea(gestorRAM.getIdTarea());
         habilitarVentana();
-
-
-
+        gestorRAH.setIdTarea(this.idTarea);
+        gestorRAM.setIdTarea(this.idTarea);
     }
     public pantallaRegistrarTarea(ICallBack_v2 pantallaEt,int idPresupuesto, int idEtapa, int idTare) {
         idTarea=idTare;
@@ -238,11 +235,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         DefaultTableModel modelo = (DefaultTableModel)tbMaterialesAUsar.getModel();
 
-        // VACIO LA TABLA HERRAMIENTAS
         TablaUtil.vaciarDefaultTableModel(modelo);
 
         Iterator it = materiales.iterator();
 
+        int cantidad = 0;
+        double precio = 0;
         while (it.hasNext())
         {
             NTupla ntp = (NTupla)it.next();
@@ -251,10 +249,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             Object[] o = (Object[]) ntp.getData();
             fila[1] = o[0];
             fila[2] = o[1];
-
+            cantidad = (Integer)o[1];
+            precio = (Double)o[2];
+            double subtotal = cantidad*precio;
+            fila[3] = subtotal;
             modelo.addRow(fila);
         }
-        // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
 
     private void mostrarHerramientasAUtilizar() {
@@ -516,23 +516,26 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
             },
             new String [] {
-                "Tipo", "Nombre", "Cantidad"
+                "Tipo", "Nombre", "Cantidad", "Subtotal"
             }
         ));
         jScrollPane1.setViewportView(tbMaterialesAUsar);
         tbMaterialesAUsar.getColumnModel().getColumn(2).setMinWidth(70);
         tbMaterialesAUsar.getColumnModel().getColumn(2).setPreferredWidth(70);
         tbMaterialesAUsar.getColumnModel().getColumn(2).setMaxWidth(80);
+        tbMaterialesAUsar.getColumnModel().getColumn(3).setMinWidth(70);
+        tbMaterialesAUsar.getColumnModel().getColumn(3).setPreferredWidth(70);
+        tbMaterialesAUsar.getColumnModel().getColumn(3).setMaxWidth(80);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
         );
 
         btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -908,15 +911,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -951,12 +954,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1006,11 +1009,10 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAceptar)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(btnAceptar))
         );
 
         pack();

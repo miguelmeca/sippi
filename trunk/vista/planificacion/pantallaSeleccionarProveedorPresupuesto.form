@@ -145,7 +145,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtSubtotal" min="-2" pref="79" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnAniadir" pref="112" max="32767" attributes="0"/>
+                  <Component id="btnAgregar" pref="112" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -157,7 +157,7 @@
                   <Component id="fxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSubtotal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAniadir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -195,7 +195,7 @@
             <Property name="text" type="java.lang.String" value="$600"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAniadir">
+        <Component class="javax.swing.JButton" name="btnAgregar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
@@ -203,7 +203,7 @@
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAniadirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

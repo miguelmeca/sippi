@@ -102,7 +102,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
         fxtCantidad = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
-        btnAniadir = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         taDescripcion = new javax.swing.JTextArea();
 
@@ -167,11 +167,11 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
         txtSubtotal.setEditable(false);
         txtSubtotal.setText("$600");
 
-        btnAniadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAniadir.setText("Agregar");
-        btnAniadir.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAniadirActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -189,7 +189,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAniadir, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,7 +199,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
                 .addComponent(fxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel2)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnAniadir))
+                .addComponent(btnAgregar))
         );
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
@@ -257,7 +257,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
         }
     }//GEN-LAST:event_fxtCantidadFocusLost
 
-    private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int cantidad = 0;
         boolean banCantidad=true, banProveedor=true;
         try{
@@ -276,11 +276,11 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
             gestorRAM.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText());
             this.dispose();
         }
-    }//GEN-LAST:event_btnAniadirActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAniadir;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JFormattedTextField fxtCantidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
