@@ -80,6 +80,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         // LINKEO LOS EVENTOS DEL GRAFICO DE GANTT
         SystemEventProxy.getInstance().setPantalla(this);
 
+        this.idPresupuesto = idPresupuesto;
+
         initComponents();
 
         gestor = new GestorRegistrarPresupuesto(this);
@@ -182,7 +184,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         lblSTTransPer = new javax.swing.JLabel();
         lblSubTotal = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabDetalleEtapa = new javax.swing.JTabbedPane();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaListaTareas = new javax.swing.JTable();
@@ -192,6 +194,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jPanel11 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaListaMateriales = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaListaMateriales1 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -284,6 +289,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         });
         jpm.add(menuVistaSemanal);
 
+        setClosable(true);
         setTitle("Registrar Presupuesto | Obra: Linea de Montaje en Bagley | Versión: 1");
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -398,7 +404,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(lblDuracionEtapa))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Costo de la Etapa"));
@@ -417,7 +423,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel17.setText("Traslado de Personas:");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("Transporte de Materiales:");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -487,7 +493,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        lblSubTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSubTotal.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblSubTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSubTotal.setText("$0");
         lblSubTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 239, 161)));
@@ -515,7 +521,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSubTotal)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Recursos Involucrados"));
@@ -525,9 +531,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             }
         });
 
-        jTabbedPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jTabDetalleEtapa.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseMoved(evt);
+                jTabDetalleEtapaMouseMoved(evt);
             }
         });
 
@@ -562,11 +568,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Lista de Tareas", jPanel7);
+        jTabDetalleEtapa.addTab("Lista de Tareas", jPanel7);
 
         tablaListaHerramientas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -599,11 +605,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Herramientas", jPanel5);
+        jTabDetalleEtapa.addTab("Herramientas", jPanel5);
 
         tablaListaMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -636,11 +642,48 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Materiales", jPanel11);
+        jTabDetalleEtapa.addTab("Materiales", jPanel11);
+
+        tablaListaMateriales1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Transporte"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tablaListaMateriales1);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabDetalleEtapa.addTab("Transporte", jPanel12);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -648,12 +691,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jTabDetalleEtapa, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(jTabDetalleEtapa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Extras de la OBRA"));
@@ -763,7 +806,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -889,7 +932,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1017,9 +1060,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
        mostrarTotales();
     }//GEN-LAST:event_panelGanttMouseMoved
 
-    private void jTabbedPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseMoved
+    private void jTabDetalleEtapaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabDetalleEtapaMouseMoved
         mostrarTotales();
-}//GEN-LAST:event_jTabbedPane1MouseMoved
+}//GEN-LAST:event_jTabDetalleEtapaMouseMoved
 
 
     private void cambiarGanancia(String ganancia)
@@ -1072,6 +1115,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1083,8 +1127,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabDetalleEtapa;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JPopupMenu jpm;
@@ -1112,6 +1157,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     private javax.swing.JPanel panelGantt;
     private javax.swing.JTable tablaListaHerramientas;
     private javax.swing.JTable tablaListaMateriales;
+    private javax.swing.JTable tablaListaMateriales1;
     private javax.swing.JTable tablaListaTareas;
     private javax.swing.JTextField txtConsumible;
     private javax.swing.JTextField txtGanancia;
