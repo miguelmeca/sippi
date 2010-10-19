@@ -110,7 +110,7 @@ public class GestorRegistrarTarea
     public void datosGrupoRoles(ArrayList<Tupla> listaRolNombre, ArrayList<Tupla> listaRolTipoEspecialidadR, ArrayList<Tupla> listaRolRangoEspecialidad, ArrayList<Double> listaRolHsNormales, ArrayList<Double> listaRolHs50, ArrayList<Double> listaRolHs100)
     {
        this.listaRolNombre = listaRolNombre;
-        this.listaRolTipoEspecialidad=listaRolTipoEspecialidad;
+        this.listaRolTipoEspecialidad=listaRolTipoEspecialidadR;
         this.listaRolRangoEspecialidad = listaRolRangoEspecialidad;
         this.listaRolHsNormales = listaRolHsNormales;
         this.listaRolHs50 = listaRolHs50;
@@ -229,6 +229,8 @@ public class GestorRegistrarTarea
                    TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
                    RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
                     rE= crearRolEmpleado( te, re);
+                    sesion.saveOrUpdate(rE.getEspecialidad());
+                    sesion.saveOrUpdate(rE);
                 }
                 else // el rol es d los q ya existen para otra tarea, entonces levanto el rol
                 {
