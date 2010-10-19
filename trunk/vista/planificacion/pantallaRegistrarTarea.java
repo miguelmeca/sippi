@@ -40,6 +40,8 @@ import util.Tupla;
 import java.util.Vector;
 import com.toedter.calendar.JDateChooser;
 //import vista.comer.pantallaBuscarEmpresaCliente;
+import java.util.HashMap;
+import java.util.Map;
 import vista.interfaces.ICallBack_v2;
 
 /**
@@ -258,19 +260,20 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
 
     private void mostrarHerramientasAUtilizar() {
-        ArrayList<NTupla> herramientas = gestorRAH.getHerramientasAUtilizar();
+//        ArrayList<NTupla> herramientas = gestorRAH.getHerramientasAUtilizar();
+        HashMap<Integer,NTupla> herramientas = gestorRAH.getHerramientasAUtilizar();
 
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
 
         // VACIO LA TABLA HERRAMIENTAS
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        Iterator it = herramientas.iterator();
+        Iterator it = herramientas.entrySet().iterator();
 
         int i = 0;
         while (it.hasNext())
         {
-            NTupla ntp = (NTupla)it.next();
+            NTupla ntp = (NTupla)((Map.Entry)it.next()).getValue();
             Object[] fila = new Object[1];
             fila[0] = ntp;
 
@@ -278,20 +281,21 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         }
         // ACA FALTA PONER LAS HERRAMIENTAS YA SELECCIONADAS
     }
-    private void cargarHerramientas(ArrayList<NTupla> herramientas) {
-        //ArrayList<NTupla> herramientas = gestorRAH.getHerramientasDeEmpresaDisponibles();
+
+//    private void cargarHerramientas(ArrayList<NTupla> herramientas) {
+    private void cargarHerramientas(HashMap<Integer,NTupla> herramientas) {
 
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasDisponibles.getModel();
 //
 //        // VACIO LA TABLA HERRAMIENTAS
 //        TablaUtil.vaciarDefaultTableModel(modelo);
 
-        Iterator it = herramientas.iterator();
+        Iterator it = herramientas.entrySet().iterator();
 
         int i = 0;
         while (it.hasNext())
         {
-            NTupla ntp = (NTupla)it.next();
+            NTupla ntp = (NTupla)((Map.Entry)it.next()).getValue();
             Object[] fila = new Object[1];
             fila[0] = ntp;
 

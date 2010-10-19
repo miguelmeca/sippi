@@ -6,7 +6,9 @@
 package controlador.planificacion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import modelo.Etapa;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
@@ -36,38 +38,34 @@ public class GestorRegistrarAsignacionHerramientas {
         this.idTarea = idTarea;
     }
 
-    public ArrayList<NTupla> getHerramientasDeEmpresa(int idP){
-        ArrayList<NTupla> hDisponibles = this.getHerramientasDeEmpresaDisponibles();
-        ArrayList<NTupla> hPresupuesto = this.getHerramientasPresupuesto(idP);
-        ArrayList<NTupla> hAUtilizar = this.getHerramientasAUtilizar();
+    public HashMap<Integer,NTupla> getHerramientasDeEmpresa(int idP){
+        HashMap<Integer,NTupla> hDisponibles = this.getHerramientasDeEmpresaDisponibles();
+        HashMap<Integer,NTupla> hPresupuesto = this.getHerramientasPresupuesto(idP);
+        HashMap<Integer,NTupla> hAUtilizar = this.getHerramientasAUtilizar();
 
-        Iterator<NTupla> itHD = hDisponibles.iterator();
+        ArrayList<NTupla> hs = new ArrayList<NTupla>();
+
+        Iterator itHD = hDisponibles.entrySet().iterator();
         while(itHD.hasNext()){
-            NTupla ntHD = itHD.next();
-            Iterator<NTupla> itHP = hPresupuesto.iterator();
+            NTupla ntHD = (NTupla)((Map.Entry)itHD.next()).getValue();
+            Iterator itHP = hPresupuesto.entrySet().iterator();
             while(itHP.hasNext()){
-                NTupla ntHP = itHP.next();
-                if(ntHD.getId()==ntHP.getId()){
-                   hDisponibles.remove(ntHP);
-                }
+                NTupla ntHP = (NTupla)((Map.Entry)itHP.next()).getValue();
+                hDisponibles.put(ntHP.getId(), ntHP);
             }
         }
-        itHD = hDisponibles.iterator();
-        while(itHD.hasNext()){
-            NTupla ntHD = itHD.next();
-            Iterator<NTupla> itHAU = hAUtilizar.iterator();
-            while(itHAU.hasNext()){
-                NTupla ntHAU = itHAU.next();
-                if(ntHD.getId()==ntHAU.getId()){
-                   hDisponibles.remove(ntHAU);
-                }
-            }
+        Iterator itHAU = hAUtilizar.entrySet().iterator();
+        while(itHAU.hasNext()){
+            NTupla ntHAU = (NTupla)((Map.Entry)itHAU.next()).getValue();
+            hDisponibles.remove(ntHAU.getId());
         }
         return hDisponibles;
     }
 
-    public ArrayList<NTupla> getHerramientasDeEmpresaDisponibles() {
-        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
+//    public ArrayList<NTupla> getHerramientasDeEmpresaDisponibles() {
+    public HashMap<Integer,NTupla> getHerramientasDeEmpresaDisponibles() {
+//        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
+        HashMap<Integer,NTupla> hMap = new HashMap<Integer, NTupla>();
         try {
             Iterator it = HibernateUtil.getSession().createQuery("from HerramientaDeEmpresa").iterate();
             while(it.hasNext()){
@@ -77,16 +75,20 @@ public class GestorRegistrarAsignacionHerramientas {
                 Herramienta h = RecursosUtil.getHerramienta(hde.getRecursoEsp());
                 nt.setNombre(h.getNombre()+" "+hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie());
                 nt.setData(0);
-                herramientas.add(nt);
+//                herramientas.add(nt);
+                hMap.put(hde.getId(), nt);
             }
         } catch (Exception ex) {
             pantalla.MostrarMensaje("AH-0001");
         }
-        return herramientas;
+//        return herramientas;
+        return hMap;
     }
 
-    public ArrayList<NTupla> getHerramientasPresupuesto(int idP){
-        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
+//    public ArrayList<NTupla> getHerramientasPresupuesto(int idP){
+    public HashMap<Integer,NTupla> getHerramientasPresupuesto(int idP){
+//        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
+        HashMap<Integer,NTupla> hMap = new HashMap<Integer, NTupla>();
         try {
             Presupuesto p = (Presupuesto)HibernateUtil.getSession().load(Presupuesto.class, idP);
             Iterator<Etapa> itP = p.getEtapas().iterator();
@@ -102,14 +104,41 @@ public class GestorRegistrarAsignacionHerramientas {
                         nt.setId(hde.getId());
                         nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie()+" ("+t.getDescripcion()+")");
                         nt.setData(t.getId());
-                        herramientas.add(nt);
+//                        herramientas.add(nt);
+                        hMap.put(hde.getId(), nt);
                     }
                 }
             }
         } catch (Exception ex) {
             pantalla.MostrarMensaje("AH-0001");
         }
-        return herramientas;
+//        return herramientas;
+        return hMap;
+    }
+
+//    public ArrayList<NTupla> getHerramientasAUtilizar() {
+    public HashMap<Integer,NTupla> getHerramientasAUtilizar() {
+//        ArrayList<NTupla> mau = new ArrayList<NTupla>();
+        HashMap<Integer,NTupla> hMap = new HashMap<Integer, NTupla>();
+        try {
+            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
+            Iterator<HerramientaDeEmpresa> it = t.getHerramientas().iterator();
+            HerramientaDeEmpresa he = null;
+            while(it.hasNext()){
+                NTupla nt = new NTupla();
+                he = it.next();
+                nt.setId(he.getId());
+                Herramienta h = RecursosUtil.getHerramienta(he.getRecursoEsp());
+                nt.setNombre(h.getNombre()+" "+he.getRecursoEsp().getNombre()+" - NS: "+he.getNroSerie());
+                nt.setData(0);
+//                mau.add(nt);
+                hMap.put(he.getId(), nt);
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AH-0002");
+        }
+//        return mau;
+        return hMap;
     }
 
     public void agregarHerramienta(int idH) {
@@ -126,26 +155,6 @@ public class GestorRegistrarAsignacionHerramientas {
             this.pantalla.MostrarMensaje("AH-0002");
             HibernateUtil.rollbackTransaction();
         }
-    }
-
-    public ArrayList<NTupla> getHerramientasAUtilizar() {
-        ArrayList<NTupla> mau = new ArrayList<NTupla>();
-        try {
-            Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
-            Iterator<HerramientaDeEmpresa> it = t.getHerramientas().iterator();
-            HerramientaDeEmpresa he = null;
-            while(it.hasNext()){
-                NTupla nt = new NTupla();
-                he = it.next();
-                nt.setId(he.getId());
-                Herramienta h = RecursosUtil.getHerramienta(he.getRecursoEsp());
-                nt.setNombre(h.getNombre()+" "+he.getRecursoEsp().getNombre()+" - NS: "+he.getNroSerie());
-                mau.add(nt);
-            }
-        } catch (Exception ex) {
-            pantalla.MostrarMensaje("AH-0002");
-        }
-        return mau;
     }
 
     public boolean quitarHerramienta(int idH) {
