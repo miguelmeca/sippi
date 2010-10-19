@@ -87,6 +87,7 @@ public class GestorRegistrarAsignacionHerramientas {
 
 //    public ArrayList<NTupla> getHerramientasPresupuesto(int idP){
     public HashMap<Integer,NTupla> getHerramientasPresupuesto(int idP){
+        //TODO: Arreglar para que busque sólo en la etapa en la que estamos trabajando!!!
 //        ArrayList<NTupla> herramientas = new ArrayList<NTupla>();
         HashMap<Integer,NTupla> hMap = new HashMap<Integer, NTupla>();
         try {
