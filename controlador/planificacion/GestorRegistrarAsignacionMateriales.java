@@ -178,8 +178,8 @@ public class GestorRegistrarAsignacionMateriales {
             Tarea t = (Tarea) HibernateUtil.getSession().load(Tarea.class, idTarea);
             Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
             DetalleMaterial dm = null;
-            NTupla nt = new NTupla();
             while(it.hasNext()){
+                NTupla nt = new NTupla();
                 dm = it.next();
                 nt.setId(dm.getId());
                 RecursoXProveedor rxp = dm.getMaterial();
