@@ -132,5 +132,20 @@ public class EtapaProxy
         return tarea;
     }
 
+    public void isEditable(boolean edit)
+    {
+        this.tarea.setEsEditable(edit);
+        if(edit==false)
+        {
+            this.tarea.setColorLabel(ColorLabel.COLOR_LABELS[5]);
+            cambiarNombreFila("Actividades Ya Programadas");
+        }
+    }
+
+    public void cambiarNombreFila(String nombre)
+    {
+        this.worker.setName(nombre);
+    }
+
 
 }

@@ -24,7 +24,10 @@ import java.awt.Color;
 import vista.gui.graphUtils.*;
 
 public class TaskImpl {
-	
+
+
+        private boolean esEditable;
+
 	private String _name;
 	private long _startTime;
 	private long _duration;
@@ -129,4 +132,14 @@ public class TaskImpl {
 	public String toString() {
 		return "<" + _name + ">";
 	}
+
+        public boolean isEsEditable() {
+            return esEditable;
+        }
+
+        public void setEsEditable(boolean esEditable) {
+            this.esEditable = esEditable;
+        }
+
+
 }

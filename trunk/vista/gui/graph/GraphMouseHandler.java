@@ -171,7 +171,10 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
                                         if(t!=null)
                                         {
                                            TaskImpl ti = (TaskImpl) t._userObject;
-                                           SystemEventProxy.getInstance().getPantalla().mostrarDatosEtapa(Integer.parseInt(ti._id));
+                                           if(ti.isEsEditable())
+                                           {
+                                             SystemEventProxy.getInstance().getPantalla().mostrarDatosEtapa(Integer.parseInt(ti._id));
+                                           }
                                         }
 
 				}
@@ -208,6 +211,10 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 			case DM_WHOLE_TASK:
 				if(_pressedTask != null)
                                 {
+                                    // IUGA WORKARROUND
+                                    TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                    if(ti.isEsEditable())
+                                    {
                                         //SystemEventProxy.getInstance().getPantalla().muevoTarea();
 					// find the destination position.
 					// 1. find row
@@ -222,7 +229,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 						_graph.repaint();
                                                 // IUGA WORKARROUND -------------------------------------------
                                                 // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
-                                                 TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                                 
                                                  Date ini = new Date(_cursorTime*Utils.MILLISECONDS_PER_DAY);
                                                  SystemEventProxy.getInstance().getPantalla().muevoTarea(Integer.parseInt(ti._id),ini);
                                                  System.out.println("HOA");
@@ -232,12 +239,18 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
                                         {
 						// nothing found, let the cursor be the last one.
 					}
+                                    }
 				}
 				break;
 
                         // IUGA: Amplio la tarea a la izquierda
 			case DM_TASK_LEFT_BOUNDARY: // dragging left task boundary
 				if(_pressedTask != null) {
+
+                                    // IUGA WORKARROUND
+                                    TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                    if(ti.isEsEditable())
+                                    {
 
 					long wantedTaskStart = _graph.xToTime(p.x);
 					long oldTaskStart = _pressedTask.getStartTime();
@@ -259,7 +272,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 
                                                         // IUGA WORKARROUND -------------------------------------------
                                                         // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
-                                                         TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                                         
                                                          Date ini = new Date(wantedTaskStart*Utils.MILLISECONDS_PER_DAY);
                                                          SystemEventProxy.getInstance().getPantalla().amplioTareaIzquierda(Integer.parseInt(ti._id),ini);
 
@@ -291,11 +304,19 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 							_graph.repaint();
 						}
 					}
+                                    }
 				}
 				break;
                         // IUGA: Amplio la tarea a la derecha
 			case DM_TASK_RIGHT_BOUNDARY: // dragging right task boundary
 				if(_pressedTask != null) {
+
+                                    // IUGA WORKARROUND
+                                    TaskImpl ti = (TaskImpl) _pressedTask._userObject;
+                                    if(ti.isEsEditable())
+                                    {
+
+
 					long wantedTaskFinish = _graph.xToTime(p.x);
 					long oldTaskFinish = _pressedTask.getFinishTime();
 					if(wantedTaskFinish != oldTaskFinish) {
@@ -307,7 +328,6 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 
                                                         // IUGA WORKARROUND -------------------------------------------
                                                         // TIRO EL EVENTO AL GESTOR PARA Q MODIFIQUE EN LA BD
-                                                         TaskImpl ti = (TaskImpl) _pressedTask._userObject;
                                                          Date ini = new Date(wantedTaskFinish*Utils.MILLISECONDS_PER_DAY);
                                                          SystemEventProxy.getInstance().getPantalla().amplioTareaDerecha(Integer.parseInt(ti._id),ini);
 
@@ -325,6 +345,7 @@ public class GraphMouseHandler implements MouseListener, MouseMotionListener, Mo
 							_graph.repaint();
 						}
 					}
+                                    }
 				}
 				break;
                         //IUGA: VINCULO DOS TAREAS CON PREDECESION

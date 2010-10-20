@@ -105,6 +105,13 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     private void cargarGraph()
     {
+        // SOLO PARA MOSTRAR -----
+        Date hoy = new Date();
+        Date fechaMas = FechaUtil.fechaMas(hoy,10);
+        Date fechaMasPrev = FechaUtil.fechaMas(hoy,20);
+        addEtapaNoEditable(5000,"OBRA: Horno para ARCOR",fechaMas,fechaMasPrev);
+
+
         // CARGO TODAS LAS ETAPAS DEL PRESUPUESTO
         ArrayList<NTupla> listaEtapas = gestor.cargarEtapas();
         Iterator<NTupla> it = listaEtapas.iterator();
@@ -1177,6 +1184,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     public void addEtapa(int id, String nombre, Date fechaInicio, Date FechaFin)
     {
         _gantt.addEtapa(id, nombre, fechaInicio, FechaFin);
+        this.refescarGrafico();
+    }
+
+    public void addEtapaNoEditable(int id, String nombre, Date fechaInicio, Date FechaFin)
+    {
+        _gantt.addEtapaNoEditable(id, nombre, fechaInicio, FechaFin);
         this.refescarGrafico();
     }
 

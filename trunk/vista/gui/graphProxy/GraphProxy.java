@@ -36,6 +36,16 @@ public class GraphProxy {
             EtapaProxy ep = new EtapaProxy(nombre);
             ep.setFechas(fechaInicio, FechaFin);
             ep.setId(id);
+            ep.isEditable(true);
+            ep.addToModel(_taskModel);
+    }
+
+    public void addEtapaNoEditable(int id, String nombre, Date fechaInicio, Date FechaFin)
+    {
+            EtapaProxy ep = new EtapaProxy(nombre);
+            ep.setFechas(fechaInicio, FechaFin);
+            ep.setId(id);
+            ep.isEditable(false);
             ep.addToModel(_taskModel);
     }
 
