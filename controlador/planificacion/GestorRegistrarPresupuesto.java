@@ -18,7 +18,7 @@ import modelo.RecursoXProveedor;
 import modelo.Tarea;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import sun.jkernel.Bundle;
+
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;

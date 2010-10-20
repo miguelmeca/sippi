@@ -114,7 +114,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         }
         tablaTareas.setModel(model);
         }
-
+        txtCostoTareas.setText(String.valueOf( gestorOtrosDatosEtapa.costoTareas(idEtapa)));
 
 
     }
@@ -331,6 +331,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         jButton2 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
+        lblMoneda = new javax.swing.JLabel();
         btnTareasNueva = new javax.swing.JButton();
         btnTareasEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -579,7 +580,6 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         tablaTareas.getColumnModel().getColumn(0).setMaxWidth(220);
 
         txtCostoTareas.setEditable(false);
-        txtCostoTareas.setText("$520");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -595,6 +595,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
 
         jButton18.setText("Al final");
 
+        lblMoneda.setText("$");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -605,6 +607,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMoneda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -630,7 +634,8 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)))
+                    .addComponent(jLabel3)
+                    .addComponent(lblMoneda)))
         );
 
         btnTareasNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -1791,6 +1796,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel lblMoneda;
     private javax.swing.JList lstTransporteMHHerramientasDisponibles;
     private javax.swing.JList lstTransporteMHHerramientasTrasnportar;
     private javax.swing.JTable tablaEtapas;

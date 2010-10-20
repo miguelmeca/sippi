@@ -55,8 +55,9 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
 	private Object listaProvincias;
 	private Object listaLocalidades;
 	private Object listaBarrios;
-        private ArrayList<TipoEspecialidad> listaTipoEspecialidades;
-        private ArrayList<RangoEspecialidad> listaRangoEspecialidades;
+        //private ArrayList<TipoEspecialidad> listaTipoEspecialidades;
+        //private ArrayList<RangoEspecialidad> listaRangoEspecialidades;
+        private ArrayList<Especialidad> listaEspecialidades;
         private ArrayList<TipoCapacitacion> listaTipoCapacitaciones;
         private ArrayList<Date> listaVencimientoCapacitaciones;
         private ArrayList<String> listaNroTel;
@@ -78,8 +79,9 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
     public GestorRegistrarNuevoEmpleado(pantallaRegistrarEmpleado pantalla)
     {
         this.pantalla = pantalla;
-        listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
-        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+        //listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
+        //listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+        listaEspecialidades= new ArrayList<Especialidad>();
         listaNroTel= new  ArrayList<String>();
         listaTipoTel= new ArrayList<TipoTelefono>();
         listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
@@ -290,15 +292,16 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
 	}
 	public void tipoEspecialidadYRango(ArrayList<Tupla> lstTipoEspecialidad, ArrayList<Tupla> lstRangoEspecialidad)
         {
-            listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
-        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+            listaEspecialidades= new ArrayList<Especialidad>();
+            //listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
             gestorBDvarios bdv = new gestorBDvarios();
             for(int i=0; i<lstTipoEspecialidad.size();i++)
             {
-                listaTipoEspecialidades.add(bdv.getTipoEspecialidad(lstTipoEspecialidad.get(i).getId()));                
-                listaRangoEspecialidades.add(bdv.getRangoEspecialidad(lstRangoEspecialidad.get(i).getId()));
+                listaEspecialidades.add(bdv.getEspecialidad(lstTipoEspecialidad.get(i).getId(), lstRangoEspecialidad.get(i).getId()));
+                //listaTipoEspecialidades.add(bdv.getTipoEspecialidad(lstTipoEspecialidad.get(i).getId()));
+                //listaRangoEspecialidades.add(bdv.getRangoEspecialidad(lstRangoEspecialidad.get(i).getId()));
             }
-	
+
 	}
 	
         public void capacitaciones(ArrayList<Tupla> lstTipoCapacitaciones, ArrayList<Date> lstVencimientosCapacitaciones)
@@ -342,12 +345,12 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
                         Telefono tel=(Telefono)itt.next();
                         sesion.save(tel);
                     }
-                    Iterator itEsp=empleado.getEspecialidades().iterator();
+                    /*Iterator itEsp=empleado.getEspecialidades().iterator();
                     while(itEsp.hasNext())
                     {
                         Especialidad esp=(Especialidad)itEsp.next();
                         sesion.save(esp);
-                    }
+                    }*/
                    // Set CaPP=empleado.getCapacitaciones();
 
                    // Iterator itCap=CaPP.iterator();
@@ -438,7 +441,7 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
             Date fechaAltaActual=new Date();
            // fecha_Alta=System
             
-            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
+            Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaEspecialidades, listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
             return emp;

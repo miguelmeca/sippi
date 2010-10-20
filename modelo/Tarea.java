@@ -35,9 +35,28 @@ public class Tarea {
     private List<InstanciaDeRolPorTarea> listaInstRolXTarea;
     private List<HerramientaDeEmpresa> herramientas;
 
-    public double CalcularMontoTotal()
+    public double CalcularMontoTotal(double  multiplicadorHora50,double multiplicadorHora100)
     {
+        return (CalcularSubTotalMateriales()+CalcularSubTotalManoDeObra(multiplicadorHora50, multiplicadorHora100));
+    }
+    public double CalcularSubTotalMateriales()
+    {
+       /* double subtotalMat=0.0;
+        for(DetalleMaterial detMat :detallesMaterial)
+       {subtotalMat+=detMat.getSubtotal();
+       }
+        return subtotalMat;*/
+        //TODO: !!!!!!!!!!!!!!!!!!
         return 0.0;
+    }
+
+    public double CalcularSubTotalManoDeObra(double  multiplicadorHora50,double multiplicadorHora100)
+    {
+        double subtotalMO=0.0;
+        for(InstanciaDeRolPorTarea idrpt :listaInstRolXTarea)
+       {subtotalMO+=idrpt.getSubtotal( multiplicadorHora50, multiplicadorHora100);
+       }
+        return subtotalMO;
     }
 
     public Tarea() {

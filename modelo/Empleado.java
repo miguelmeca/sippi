@@ -43,7 +43,7 @@ public class Empleado extends Persona {
 
 
    
-public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
+public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email,Domicilio domicilio , ArrayList<Especialidad> listaEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -54,7 +54,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         super.setCuil(cuil);
         super.setEmail(email);
         super.setDomicilio(domicilio);
-        setEspecialidades(tipoEspecialiades, rangoEspecialiades);
+        setEspecialidades(listaEspecialiades);
         //especialiades= new ArrayList();
         //indumentaria= new ArrayList();
         //capacitacion= new ArrayList();
@@ -66,7 +66,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         fechaIngreso =fechaIng;
 
     }
-     public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
+     public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,TipoDocumento tipoDoc,String nroDoc,String cuil, String email, String calleD, int numeroD, int pisoD, String deptoD, String codigoPostalD, Barrio barrioD , ArrayList<Especialidad> listaEspecialiades , ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel,ArrayList<TipoCapacitacion> listaTipoCapacitaciones, ArrayList<Date> listaVencimientoCapacitaciones, Date fecha_Alta)
     {
         legajo=leg;
         super.setNombre(nom);
@@ -77,7 +77,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         super.setCuil(cuil);
         super.setEmail(email);
         //super.setDomicilio(domicilio);
-        setEspecialidades(tipoEspecialiades, rangoEspecialiades);
+        setEspecialidades(listaEspecialiades);
         //especialiades= new ArrayList();
         //indumentaria= new ArrayList();
         //capacitacion= new ArrayList();
@@ -175,13 +175,21 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
     public void setEspecialidades(ArrayList<Especialidad> especialiades) {
         this.especialidades = especialiades;
     }*/
-    public void setEspecialidades(ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades)
+    /*public void setEspecialidades(ArrayList<TipoEspecialidad> tipoEspecialiades,ArrayList<RangoEspecialidad> rangoEspecialiades)
     {
         especialidades= new HashSet();
         for(int i=0; i< tipoEspecialiades.size();i++)
         {
            Especialidad especialidad = new Especialidad(tipoEspecialiades.get(i), rangoEspecialiades.get(i));
            especialidades.add(especialidad);
+        }
+    }*/
+    public void setEspecialidades(ArrayList<Especialidad> listaEspecialiades)
+    {
+        especialidades= new HashSet();
+        for(int i=0; i< listaEspecialiades.size();i++)
+        {
+           especialidades.add(listaEspecialiades.get(i));
         }
     }
 

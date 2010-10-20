@@ -326,7 +326,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
            RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
            modeloOrdenado.setRowFilter(cadenaFilter);
 
-           // CAMBIO LOS TAMAÃ‘OS DE LAS FILAS
+           // CAMBIO LOS TAMAÃƒâ€˜OS DE LAS FILAS
            DefaultTableModel modelo = (DefaultTableModel) table.getModel();
            for (int i = 0; i < modelo.getRowCount(); i++)
            {
@@ -543,11 +543,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
         );
 
         btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -740,10 +740,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         txtHs100.setText("0");
 
-        txtHs50.setText("1");
-
-        txtHsNormales.setText("5");
-
         jLabel7.setText("Horas Normales      Horas 50%         Horas 100%");
 
         jLabel23.setText("Hs.");
@@ -923,15 +919,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
+                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -966,12 +962,12 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1021,7 +1017,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAceptar))
@@ -1198,6 +1194,11 @@ private void crearRol()
         JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
         return;
         }
+        if(hn==0.0 && h50==0.0 && h100==0.0)
+        {
+        JOptionPane.showInternalMessageDialog(this.getParent(),"Debe ingresar la cantidad de horas de trabajo en esta tarea","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
 
         }catch(Exception e)
         {JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -1223,7 +1224,7 @@ private void crearRol()
     {//TODO: Si usamos fechas, validar las fechas y las cantidades de horas d 
         //cada tipo, segun el rango d dias y dependiendo de q dias d la semana sean
         if(txtNombreTarea.getText().equals(""))
-        {JOptionPane.showInternalMessageDialog(this.getParent(),"Se debe ingresar un nombre para la etapa","ERROR",JOptionPane.ERROR_MESSAGE);
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Se debe ingresar un nombre para la tarea","ERROR",JOptionPane.ERROR_MESSAGE);
         return false;
         }
         return true;
@@ -1335,19 +1336,19 @@ private void crearRol()
         }
         if(cod.equals("AM-0002"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de EspecificaciÃ³n del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de EspecificaciÃƒÂ³n del material seleccionado","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0003"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso Específico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar la lista de Proveedores del Recurso EspecÃ­fico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0004"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso Específico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo obtener el nombre del Recurso EspecÃ­fico","Error en la Carga",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0005"))
         {
-            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de Cálculo",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo calcular el subtotal","Error de CÃ¡lculo",JOptionPane.ERROR_MESSAGE);
         }
         if(cod.equals("AM-0006"))
         {
