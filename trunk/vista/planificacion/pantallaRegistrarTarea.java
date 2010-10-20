@@ -132,16 +132,34 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }
     private void cargarRolesCreadosAnteriormente()
     {
-        ArrayList<Tupla> listaNombreRangosEspecialidad = gestorTarea.mostrarRolesCreados(idPresupuesto);
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for (Tupla nombre : listaNombreRangosEspecialidad)
-        {
-            model.addElement(nombre);
+        ArrayList<NTupla> listaNombreRangosEspecialidad = gestorTarea.mostrarRolesCreados(idPresupuesto);
+        //DefaultComboBoxModel model = new DefaultComboBoxModel();
+        DefaultTableModel model = (DefaultTableModel) tablaRolesCreadosEnOtrasTareas.getModel();
+        int fil=model.getRowCount();
+        for (int i = 0; i < fil; i++) {
+            model.removeRow(0);
         }
-        lstRolesCreados.setModel(model);
+
+        for (NTupla nTuplaEmpleado : listaNombreRangosEspecialidad)
+        {
+            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+            Object[] obj=new Object[((Object[])nTuplaEmpleado.getData()).length+1];
+            //obj[0]=nTuplaEmpleado.getId();
+            Tupla tup=new Tupla();
+            tup.setId(nTuplaEmpleado.getId());
+            tup.setNombre(nTuplaEmpleado.getNombre());
+            obj[0]=tup;
+
+            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+            System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
+            model.addRow( obj );
+        }
+        tablaRolesCreadosEnOtrasTareas.setModel(model);
+        //lstRolesCreados.setModel(model);
 
     }
+
+
     private void vaciarCampos()
     {//TODO:
 
@@ -395,8 +413,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         cmbRangos = new javax.swing.JComboBox();
         jLabel24 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        lstRolesCreados = new javax.swing.JList();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        tablaRolesCreadosEnOtrasTareas = new javax.swing.JTable();
         btnCrearRol = new javax.swing.JButton();
         btnAgregarRol = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -461,13 +479,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombreTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                            .addComponent(txtNombreTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                             .addComponent(jLabel1)
-                            .addComponent(txtUbicacionTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                            .addComponent(txtUbicacionTarea, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,11 +497,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                                     .addComponent(cmbFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(29, 29, 29)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
+                                    .addComponent(cmbFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                         .addGap(308, 308, 308))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -543,7 +561,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,17 +637,17 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
+                                .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnQuitarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -702,27 +720,34 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbRangos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Roles creados en otras tareas:"));
 
-        jScrollPane10.setViewportView(lstRolesCreados);
+        tablaRolesCreadosEnOtrasTareas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre del Rol", "Especialidad", "Rango"
+            }
+        ));
+        jScrollPane14.setViewportView(tablaRolesCreadosEnOtrasTareas);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btnCrearRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
@@ -735,6 +760,11 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         btnAgregarRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
         btnAgregarRol.setText("Agregar Rol Existente");
+        btnAgregarRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRolActionPerformed(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad de trabajo a realizar en esta tarea"));
 
@@ -809,20 +839,19 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+            .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addContainerGap(401, Short.MAX_VALUE)
-                        .addComponent(btnQuitarRol)))
-                .addContainerGap())
+                    .addComponent(btnQuitarRol)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnQuitarRol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnQuitarRol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -919,15 +948,15 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                        .addComponent(txtBuscarHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(btnAgregarHerramienta, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                        .addComponent(btnQuitarHerramienta, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -962,7 +991,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -1005,18 +1034,18 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(505, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1115,6 +1144,19 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
          if((tablaRolesAsignados.getSelectedRowCount())==1)
         {
         DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        /////////////////////////
+        if(  ((Tupla)modelo.getValueAt(tablaRolesAsignados.getSelectedRow(), 0)).getId()!=-1)
+        {
+        DefaultTableModel modeloRCOT = (DefaultTableModel) tablaRolesCreadosEnOtrasTareas.getModel();
+        ;
+        Object[] item = new Object[3];
+        item[0] = ((Tupla)(tablaRolesAsignados.getModel().getValueAt(tablaRolesAsignados.getSelectedRow(), 0)));
+        item[1] = ((Tupla)(tablaRolesAsignados.getModel().getValueAt(tablaRolesAsignados.getSelectedRow(), 1)));
+        item[2] = ((Tupla)(tablaRolesAsignados.getModel().getValueAt(tablaRolesAsignados.getSelectedRow(), 2)));
+
+        modeloRCOT.addRow(item);
+        }
+        ///////////////////////////
         modelo.removeRow(tablaRolesAsignados.getSelectedRow());
         }
     }
@@ -1154,6 +1196,68 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private void btnCrearRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRolActionPerformed
         crearRol();
     }//GEN-LAST:event_btnCrearRolActionPerformed
+
+    private void btnAgregarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRolActionPerformed
+        if(tablaRolesCreadosEnOtrasTareas.getSelectedRow()!=-1)
+        {
+        /*int idRC;
+        idRC=((Tupla)(tablaRolesCreadosEnOtrasTareas.getModel().getValueAt(tablaRolesCreadosEnOtrasTareas.getSelectedRow(), 0))).getId();
+        if(!validarRolViejoNoAsignado(idRC))
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"No puede asignar el mismo rol dos veces a la misma tarea","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}*/
+        double hn=0;
+        double h50=0;
+        double h100=0;
+        try{
+        if(txtHsNormales.getText().equals(""))
+        {hn=0;}
+        else
+        {hn= Double.parseDouble(txtHsNormales.getText()) ;}
+
+        if(txtHs50.getText().equals(""))
+        {h50=0;}
+        else
+        {h50= Double.parseDouble(txtHs50.getText()) ;}
+
+        if(txtHs100.getText().equals(""))
+        {h100=0;}
+        else
+        {h100= Double.parseDouble(txtHs100.getText()) ;}
+
+        if(hn<0.0 || h50<0.0 || h100<0.0)
+        {
+        JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        if(hn==0.0 && h50==0.0 && h100==0.0)
+        {
+        JOptionPane.showInternalMessageDialog(this.getParent(),"Debe ingresar la cantidad de horas de trabajo en esta tarea","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+
+        }catch(Exception e)
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"La cantidad de horas de trabajo ingresadas es invalida","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        /////////////////
+        DefaultTableModel modeloTRA = (DefaultTableModel) tablaRolesAsignados.getModel();
+        ;
+        Object[] item = new Object[6];
+        item[0] = ((Tupla)(tablaRolesCreadosEnOtrasTareas.getModel().getValueAt(tablaRolesCreadosEnOtrasTareas.getSelectedRow(), 0)));
+        item[1] = ((Tupla)(tablaRolesCreadosEnOtrasTareas.getModel().getValueAt(tablaRolesCreadosEnOtrasTareas.getSelectedRow(), 1)));
+        item[2] = ((Tupla)(tablaRolesCreadosEnOtrasTareas.getModel().getValueAt(tablaRolesCreadosEnOtrasTareas.getSelectedRow(), 2)));
+        item[3] = hn;
+        item[4] = h50;
+        item[5] = h100;
+        modeloTRA.addRow(item);
+        txtHsNormales.setText("");
+        txtHs50.setText("");
+        txtHs100.setText("");
+        ((DefaultTableModel)tablaRolesCreadosEnOtrasTareas.getModel()).removeRow(tablaRolesCreadosEnOtrasTareas.getSelectedRow());
+       
+        }
+
+    }//GEN-LAST:event_btnAgregarRolActionPerformed
 private void crearRol()
     {
         if(txtNombreRol.getText().equals(""))
@@ -1163,9 +1267,14 @@ private void crearRol()
         {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe seleccionar una especialidad","ERROR",JOptionPane.ERROR_MESSAGE);
         return;}
         if(cmbRangos.getSelectedIndex()==-1)
-        {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe seleccionar un rengo de la especialidad","ERROR",JOptionPane.ERROR_MESSAGE);
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Debe seleccionar un rango de la especialidad","ERROR",JOptionPane.ERROR_MESSAGE);
         return;}
-
+        if(!validarNombreRolNuevoOtrasTareas(txtNombreRol.getText()))
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"Para crear un rol nuevo, debe ingresar un nombre diferente al de los roles creados anteriormente en otra tarea. O puede seleccionar un rol creado anteriormente","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}
+        if(!validarNombreRolNuevoEstaTarea(txtNombreRol.getText()))
+        {JOptionPane.showInternalMessageDialog(this.getParent(),"No puede crear dos roles con el mismo nombre","ERROR",JOptionPane.ERROR_MESSAGE);
+        return;}
         //TODO:Comparar con nombres de roles creados en otras tareas)
         //if(txtNombreRol.getText(){}
         //TODO: Agregar boton  en la ventana para poder modificar nombres de roles creados en otras tareas
@@ -1218,7 +1327,47 @@ private void crearRol()
         item[4] = h50;
         item[5] = h100;
         modelo.addRow(item);
+        txtHsNormales.setText("");
+        txtHs50.setText("");
+        txtHs100.setText("");
     }
+    private boolean validarNombreRolNuevoEstaTarea(String nom)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        Iterator it = modelo.getDataVector().iterator();
+        while (it.hasNext())
+        {
+            Vector fila = (Vector)it.next();
+            if(((Tupla)fila.get(0)).getNombre().equals(nom) )
+            {return false;}
+        }
+        return true;
+    }
+
+    private boolean validarNombreRolNuevoOtrasTareas(String nom)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesCreadosEnOtrasTareas.getModel();
+        Iterator it = modelo.getDataVector().iterator();
+        while (it.hasNext())
+        {
+            Vector fila = (Vector)it.next();
+            if(((Tupla)fila.get(0)).getNombre().equals(nom) )
+            {return false;}
+        }
+        return true;
+    }
+   /* private boolean validarRolViejoNoAsignado(int idRolViejo)
+    {   
+        DefaultTableModel modelo = (DefaultTableModel) tablaRolesAsignados.getModel();
+        Iterator it = modelo.getDataVector().iterator();
+        while (it.hasNext())
+        {
+            Vector fila = (Vector)it.next();
+            if(((Tupla)fila.get(0)).getId()==idRolViejo )
+            {return false;}
+        }
+        return true;
+    }*/
 
     private boolean validarDatos()
     {//TODO: Si usamos fechas, validar las fechas y las cantidades de horas d 
@@ -1301,16 +1450,16 @@ private void crearRol()
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JList lstRolesCreados;
     private javax.swing.JTable tablaRolesAsignados;
+    private javax.swing.JTable tablaRolesCreadosEnOtrasTareas;
     private javax.swing.JTable tbHerramientasDisponibles;
     private javax.swing.JTable tbHerramientasSeleccionadas;
     private javax.swing.JTable tbMaterialEspecifico;

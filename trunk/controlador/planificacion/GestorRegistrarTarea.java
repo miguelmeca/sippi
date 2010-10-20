@@ -24,6 +24,7 @@ import util.HibernateUtil;
 import vista.planificacion.pantallaRegistrarTarea;
 import controlador.utiles.gestorBDvarios;
 import util.Tupla;
+import util.NTupla;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -49,13 +50,14 @@ public class GestorRegistrarTarea
     private ArrayList<Double> listaRolHs50;
     private ArrayList<Double> listaRolHs100;
     private HashMap mapaRolesCreados;
-    private ArrayList<Tupla> listaRolesCreados;
+    private ArrayList<NTupla> listaRolesCreados;
     private Tarea tarea;
         
         //private HashSet<String> HlistaNroTel;
         //private HashSet<TipoTelefono> HlistaTipoTel;
 
-
+//TODO: BOTON CANCELAR
+    //TODO: CODIGO EN EL EVENTO DISPOSE (en este momento si se sale haciendo clic en la crucecita, la tarea se registra sin nombre)
     public GestorRegistrarTarea(pantallaRegistrarTarea pantalla)
     {
         this.pantalla = pantalla;
@@ -158,11 +160,11 @@ public class GestorRegistrarTarea
            return bdv.getRangosEspecialidad();
     }
 
-    public ArrayList<Tupla> mostrarRolesCreados(int idPresupuesto)
+    public ArrayList<NTupla> mostrarRolesCreados(int idPresupuesto)
     {
          Session sesion;
          mapaRolesCreados = new HashMap();
-         listaRolesCreados=new ArrayList<Tupla>();
+         listaRolesCreados=new ArrayList<NTupla>();
 
             ///////////////////////////////////
              try {
@@ -183,10 +185,18 @@ public class GestorRegistrarTarea
                     while (it.hasNext()) {
                     Map.Entry e = (Map.Entry)it.next();
                     RolEmpleado r = (RolEmpleado)e.getValue();
-                    Tupla t=new Tupla();
-                    t.setId(r.getId());
-                    t.setNombre(r.getNombre());
-                    listaRolesCreados.add(t);
+                    NTupla nomT=new NTupla();
+                    nomT.setId(r.getId());
+                    nomT.setNombre(r.getNombre());
+                    Tupla[] datos=new Tupla[2];
+                    datos[0]=new Tupla();
+                    datos[1]=new Tupla();
+                    datos[0].setId(r.getEspecialidad().getTipo().getId());
+                    datos[0].setNombre(r.getEspecialidad().getTipo().getNombre());
+                    datos[1].setId(r.getEspecialidad().getRango().getId());
+                    datos[1].setNombre(r.getEspecialidad().getRango().getNombre());
+                    nomT.setData(datos);
+                    listaRolesCreados.add(nomT);
                     }
 
 
@@ -195,7 +205,7 @@ public class GestorRegistrarTarea
             } catch (Exception ex)
             {
                 System.out.println("No se pudo abrir la sesion creando la tarea");
-                return new ArrayList<Tupla>();
+                return new ArrayList<NTupla>();
             }
     }
 
