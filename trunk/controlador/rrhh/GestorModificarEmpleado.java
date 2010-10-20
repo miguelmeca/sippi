@@ -55,8 +55,9 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
 	private Object listaProvincias;
 	private Object listaLocalidades;
 	private Object listaBarrios;
-        private ArrayList<TipoEspecialidad> listaTipoEspecialidades;
-        private ArrayList<RangoEspecialidad> listaRangoEspecialidades;
+        //private ArrayList<TipoEspecialidad> listaTipoEspecialidades;
+        //private ArrayList<RangoEspecialidad> listaRangoEspecialidades;
+        private ArrayList<Especialidad> listaEspecialidades;
         private ArrayList<TipoCapacitacion> listaTipoCapacitaciones;
         private ArrayList<Date> listaVencimientoCapacitaciones;
         private ArrayList<String> listaNroTel;
@@ -79,8 +80,9 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
     public GestorModificarEmpleado(pantallaRegistrarEmpleado pantalla)
     {
         this.pantalla = pantalla;
-        listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
-        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+        //listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
+        //listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+        listaEspecialidades= new ArrayList<Especialidad>();
         listaNroTel= new  ArrayList<String>();
         listaTipoTel= new ArrayList<TipoTelefono>();
         listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
@@ -361,13 +363,14 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
 	}
 	public void tipoEspecialidadYRango(ArrayList<Tupla> lstTipoEspecialidad, ArrayList<Tupla> lstRangoEspecialidad)
         {
-            listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
-        listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
+            listaEspecialidades= new ArrayList<Especialidad>();
+            //listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
             gestorBDvarios bdv = new gestorBDvarios();
             for(int i=0; i<lstTipoEspecialidad.size();i++)
             {
-                listaTipoEspecialidades.add(bdv.getTipoEspecialidad(lstTipoEspecialidad.get(i).getId()));
-                listaRangoEspecialidades.add(bdv.getRangoEspecialidad(lstRangoEspecialidad.get(i).getId()));
+                listaEspecialidades.add(bdv.getEspecialidad(lstTipoEspecialidad.get(i).getId(), lstRangoEspecialidad.get(i).getId()));
+                //listaTipoEspecialidades.add(bdv.getTipoEspecialidad(lstTipoEspecialidad.get(i).getId()));
+                //listaRangoEspecialidades.add(bdv.getRangoEspecialidad(lstRangoEspecialidad.get(i).getId()));
             }
 
 	}
@@ -405,12 +408,12 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
                         Telefono tel=(Telefono)ittv.next();
                         sesion.delete(tel);
                     }
-                    Iterator itEspv=empleadoModif.getEspecialidades().iterator();
+                    /*Iterator itEspv=empleadoModif.getEspecialidades().iterator();
                     while(itEspv.hasNext())
                     {
                         Especialidad esp=(Especialidad)itEspv.next();
                         sesion.delete(esp);
-                    }
+                    }*/
                    
                    Iterator itCapv=empleadoModif.getCapacitaciones().iterator();
                     while(itCapv.hasNext())
@@ -438,12 +441,12 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
                         Telefono tel=(Telefono)itt.next();
                         sesion.save(tel);
                     }
-                    Iterator itEsp=empleadoModif.getEspecialidades().iterator();
+                    /*Iterator itEsp=empleadoModif.getEspecialidades().iterator();
                     while(itEsp.hasNext())
                     {
                         Especialidad esp=(Especialidad)itEsp.next();
                         sesion.save(esp);
-                    }
+                    }*/
 
                    Iterator itCap=empleadoModif.getCapacitaciones().iterator();
                     while(itCap.hasNext())
@@ -518,7 +521,7 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
            // dom=new Domicilio( calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD);
            empleadoModif.setDomicilio(calleD, nmroD, pisoD, calleD, codigoPostalD, barrioD);
            //empleadoModif.setEspecialidades(listaTipoEspecialidades);
-           empleadoModif.setEspecialidades(listaTipoEspecialidades, listaRangoEspecialidades);
+           empleadoModif.setEspecialidades(listaEspecialidades);
            empleadoModif.setTelefonos(listaNroTel, listaTipoTel);
            empleadoModif.setCapacitaciones(listaTipoCapacitaciones, listaVencimientoCapacitaciones);
            

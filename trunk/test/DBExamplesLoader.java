@@ -15,6 +15,7 @@ import modelo.Domicilio;
 import modelo.Criticidad;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
+import modelo.Especialidad;
 import modelo.TipoCapacitacion;
 import modelo.EmpresaCliente;
 import modelo.Localidad;
@@ -113,6 +114,8 @@ public class DBExamplesLoader {
         PropiedadBean pb4 = new PropiedadBean("EMPRESA_TELFAX","(02657)431599");
         PropiedadBean pb5 = new PropiedadBean("EMPRESA_CUIT","30-70936605-6");
         PropiedadBean pb6 = new PropiedadBean("EMPRESA_IIBB","01-30709366056");
+        PropiedadBean pb8 = new PropiedadBean("MULTIPLICADOR_HORAS_50","1.5");
+        PropiedadBean pb9 = new PropiedadBean("MULTIPLICADOR_HORAS_100","2.0");
 
 
         sesion.beginTransaction();
@@ -123,6 +126,8 @@ public class DBExamplesLoader {
         sesion.save(pb5);
         sesion.save(pb6);
         sesion.save(pb7);
+        sesion.save(pb8);
+        sesion.save(pb9);
         sesion.getTransaction().commit();
     }
 
@@ -517,16 +522,21 @@ public class DBExamplesLoader {
         TipoEspecialidad te2= new TipoEspecialidad();
         te2.setNombre("Chapista");
         RangoEspecialidad rng1= new RangoEspecialidad();
-        rng1.setNombre("1");
+        rng1.setNombre("Principiante");
         RangoEspecialidad rng2= new RangoEspecialidad();
-        rng2.setNombre("2");
+        rng2.setNombre("Medio");
         RangoEspecialidad rng3= new RangoEspecialidad();
-        rng3.setNombre("3");
+        rng3.setNombre("Experto");
         TipoCapacitacion tc= new TipoCapacitacion();
         tc.setNombre("Seguridad 1");
         TipoCapacitacion tc2= new TipoCapacitacion();
         tc2.setNombre("Manejo de Herramienta");
-
+        Especialidad esp1a=new Especialidad(te, rng1,10.0);
+        Especialidad esp1b=new Especialidad(te, rng2,12.0);
+        Especialidad esp1c=new Especialidad(te, rng3,14.0);
+        Especialidad esp2a=new Especialidad(te2, rng1,11.0);
+        Especialidad esp2b=new Especialidad(te2, rng2,13.0);
+        Especialidad esp2c=new Especialidad(te2, rng3,15.0);
 
         sesion.beginTransaction();
         sesion.save(b1);
@@ -549,6 +559,12 @@ public class DBExamplesLoader {
         sesion.save(rng1);
         sesion.save(rng2);
         sesion.save(rng3);
+        sesion.save(esp1a);
+        sesion.save(esp1b);
+        sesion.save(esp1c);
+        sesion.save(esp2a);
+        sesion.save(esp2b);
+        sesion.save(esp2c);
         //sesion.save(emp); //
         sesion.getTransaction().commit();
     }

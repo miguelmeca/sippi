@@ -71,5 +71,13 @@ public class InstanciaDeRolPorTarea
     {
         return hs100;
     }
+    public double getSubtotal(double  multiplicadorHora50,double multiplicadorHora100)
+    {
+        double montoHsNormal=hsNormales*rol.getEspecialidad().getPrecioHoraNormal();
+        double montoHs50=hs50*rol.getEspecialidad().getPrecioHoraNormal()*multiplicadorHora50;
+        double montoHs100=hs100*rol.getEspecialidad().getPrecioHoraNormal()*multiplicadorHora100;
+
+        return (montoHsNormal+montoHs50+montoHs100);
+    }
 
 }

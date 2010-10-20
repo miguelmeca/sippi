@@ -36,4 +36,15 @@ public class SConfig extends Propiedad {
        return getString("EMPRESA_DIRECCION");
    }
 
+   public Double getMultiplicadorHoras50()
+   {
+       return getDouble("MULTIPLICADOR_HORAS_50");
+   }
+
+   public Double getMultiplicadorHoras100()
+   {
+       return getDouble("MULTIPLICADOR_HORAS_100");
+   }
+
+
 }

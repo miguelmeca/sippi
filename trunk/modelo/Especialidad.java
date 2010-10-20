@@ -16,9 +16,16 @@ public class Especialidad {
         private int id;
 	private TipoEspecialidad tipo;
 	private RangoEspecialidad rango;
+        private double precioHoraNormal;
 
     public Especialidad()
     {
+    }
+    public Especialidad(TipoEspecialidad tp, RangoEspecialidad rng, double precioHora)
+    {
+        tipo=tp;
+        rango=rng;
+        precioHoraNormal=precioHora;
     }
     public Especialidad(TipoEspecialidad tp, RangoEspecialidad rng)
     {
@@ -30,7 +37,7 @@ public class Especialidad {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,5 +55,12 @@ public class Especialidad {
 
     public void setTipo(TipoEspecialidad tipo) {
         this.tipo = tipo;
+    }
+    public double getPrecioHoraNormal() {
+        return precioHoraNormal;
+    }
+
+    public void setPrecioHoraNormal(double precioHoraNormal) {
+        this.precioHoraNormal = precioHoraNormal;
     }
 }

@@ -222,7 +222,7 @@ public class GestorRegistrarTarea
                        RolEmpleado re=(RolEmpleado)mapaRolesCreados.get(irpt.getRol().getId());
                        if( re==null) //Si el Rol no esta siendo usado por ninguna otra tarea, lo borro (por si el usaurio lo borro)
                        {sesion.delete(irpt.getRol());
-                        sesion.delete(irpt.getRol().getEspecialidad());
+                        
                         }
                         
                     }
@@ -277,10 +277,12 @@ public class GestorRegistrarTarea
             {
                 if(listaRolNombre.get(i).getId()<0) //si el rol es nuevo
                 {
-                   TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
+                   /*TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
                    RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
-                    rE= crearRolEmpleado(listaRolNombre.get(i).getNombre(), te, re);
-                    sesion.saveOrUpdate(rE.getEspecialidad());
+                   Especialidad esp=(Especialidad) sesion.createQuery("from Especialidad where tipo = (:tipoEsp) and rango = (:rangoEsp)").setParameter("tipoEsp", te).setParameter("rangoEsp", re).uniqueResult();*/
+                   gestorBDvarios bdv = new gestorBDvarios();
+                   Especialidad esp= bdv.getEspecialidad(listaRolTipoEspecialidad.get(i).getId(), listaRolRangoEspecialidad.get(i).getId());
+                   rE= crearRolEmpleado(listaRolNombre.get(i).getNombre(), esp);
                     sesion.saveOrUpdate(rE);
                 }
                 else // el rol es d los q ya existen para otra tarea, entonces levanto el rol
@@ -295,11 +297,8 @@ public class GestorRegistrarTarea
 
             }
          }
-   private RolEmpleado crearRolEmpleado(String nomR, TipoEspecialidad te, RangoEspecialidad re)
+   private RolEmpleado crearRolEmpleado(String nomR, Especialidad esp)
     {
-       Especialidad esp=new Especialidad();
-       esp.setRango(re);
-       esp.setTipo(te);
        RolEmpleado r=new RolEmpleado();
        r.setEspecialidad(esp);
        r.setNombre(nomR);

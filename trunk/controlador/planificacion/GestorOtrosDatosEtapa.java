@@ -5,6 +5,7 @@
 
 package controlador.planificacion;
 
+import config.SConfig;
 import java.util.List;
 import java.util.ArrayList;
 import modelo.Domicilio;
@@ -202,20 +203,48 @@ public class GestorOtrosDatosEtapa   {
                     NTupla tupla = new NTupla(tar.getId());
                     tupla.setNombre(String.valueOf(tar.getDescripcion()));
                     String[] datos=new String[1];
-                    datos[0]=String.valueOf(tar.CalcularMontoTotal());
+                    datos[0]=String.valueOf(tar.CalcularMontoTotal(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100()));
                     tupla.setData(datos);
                     listaNTuplaTareas.add(tupla);
                 }
             }
             } catch (Exception ex)
             {
-                System.out.println("No se pudo abrir la sesion en GestorOtrosDatosEtapa.listaTareas(int)");
+                System.out.println("No se pudo abrir la sesion en GestorOtrosDatosEtapa.listaTareas(int)"+ex.toString());
                 return null;
             }
 
             return listaNTuplaTareas;
         }
 
+        public double costoTareas(int idEtapa)
+        {
+            Session sesion;
+            double costo=0.0;
+            try{
+
+            sesion= HibernateUtil.getSession();
+             Etapa etapa= (Etapa)sesion.createQuery("from Etapa e where e.id="+idEtapa).uniqueResult();
+
+             listaTareas=etapa.getTareas();
+
+            if(listaTareas!=null)
+            {
+            for (int i = 0; i < listaTareas.size(); i++)
+                {
+                    costo+=((Tarea)listaTareas.get(i)).CalcularMontoTotal(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100());
+                }
+            }
+            else
+            {return 0.0;}
+            } catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion en GestorOtrosDatosEtapa.costoTareas(int)"+ex.toString());
+                return 0.0;
+            }
+
+            return costo;
+        }
 	
 
 	public void finCU() {

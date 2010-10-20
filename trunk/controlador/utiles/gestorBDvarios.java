@@ -15,6 +15,7 @@ import modelo.EmpresaCliente;
 import modelo.Planta;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
+import modelo.Especialidad;
 import modelo.TipoCapacitacion;
 import modelo.Criticidad;
 import org.hibernate.EntityMode;
@@ -94,6 +95,21 @@ public class gestorBDvarios
             return tuplas;
     }
 
+    public Especialidad getEspecialidad(TipoEspecialidad te,RangoEspecialidad re )
+    {
+         //TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
+         //RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
+         Especialidad esp=(Especialidad) sesion.createQuery("from Especialidad where tipo = (:tipoEsp) and rango = (:rangoEsp)").setParameter("tipoEsp", te).setParameter("rangoEsp", re).uniqueResult();
+         return esp;
+    }
+
+    public Especialidad getEspecialidad(int idTipoE ,int idRangoE )
+    {
+         TipoEspecialidad te=getTipoEspecialidad(idTipoE);
+         RangoEspecialidad re=getRangoEspecialidad(idRangoE);
+         Especialidad esp=getEspecialidad( te, re );
+         return esp;
+    }
 
        public  TipoEspecialidad getTipoEspecialidad(int idTipoEspecialidad)
     {
