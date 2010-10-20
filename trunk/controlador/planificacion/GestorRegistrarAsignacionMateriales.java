@@ -6,6 +6,7 @@
 package controlador.planificacion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.DetalleConsumible;
 import modelo.DetalleMaterial;
+import modelo.Etapa;
 import modelo.GrupoDeTrabajo;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
@@ -172,6 +174,25 @@ public class GestorRegistrarAsignacionMateriales {
         pantalla.actualizar(1, "...", true);
     }
 
+
+    public void agregarMaterial(int idDM) {
+        try {
+            HibernateUtil.beginTransaction();
+            DetalleMaterial dm = (DetalleMaterial) HibernateUtil.getSession().load(DetalleMaterial.class, idDM);
+            Tarea t = (Tarea)HibernateUtil.getSession().load(Tarea.class, this.idTarea);
+            t.getDetallesMaterial().add(dm);
+            HibernateUtil.getSession().saveOrUpdate(t);
+            HibernateUtil.commitTransaction();
+            //pantalla.actualizar(dm.getId(), "...", true);
+
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+            this.pantalla.MostrarMensaje("AM-0006");
+            //this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
+        }
+        pantalla.actualizar(1, "...", true);
+    }
+
     public ArrayList<NTupla> getMaterialesAUtilizar() {
         ArrayList<NTupla> mau = new ArrayList<NTupla>();
         try {
@@ -205,6 +226,45 @@ public class GestorRegistrarAsignacionMateriales {
             pantalla.MostrarMensaje("AM-0007");
         }
         return mau;
+    }
+
+    public HashMap<Integer,NTupla> mostrarDetallesMaterialesOtrasTareas(int idEtapa) {
+        HashMap<Integer,NTupla> mot = new HashMap<Integer,NTupla>();
+        try {
+            Etapa e = (Etapa) HibernateUtil.getSession().load(Etapa.class, idEtapa);
+            Iterator<Tarea> itTareas = e.getTareas().iterator();
+            while(itTareas.hasNext()){
+                Tarea t = itTareas.next();
+                Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
+                DetalleMaterial dm = null;
+                while(it.hasNext()){
+                    NTupla nt = new NTupla();
+                    dm = it.next();
+                    nt.setId(dm.getId());
+                    RecursoXProveedor rxp = dm.getMaterial();
+                    RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                    Material m = (Material)RecursosUtil.getMaterial(re);
+                    nt.setNombre(m.getNombre());
+                    Object[] o = new Object[3];
+                    o[0]= re.getNombre();
+                    o[1]= dm.getCantidad();
+                    Iterator<PrecioSegunCantidad> itPrecio = dm.getMaterial().getListaPrecios().iterator();
+                    double precio = 0;
+                    while(itPrecio.hasNext()){
+                        PrecioSegunCantidad psc = itPrecio.next();
+                        if(dm.getCantidad() >= psc.getCantidad()){
+                            precio=psc.getPrecio();
+                        }
+                    }
+                    o[2] = precio;
+                    nt.setData(o);
+                    mot.put(dm.getId(),nt);
+                }
+            }
+        } catch (Exception ex) {
+            pantalla.MostrarMensaje("AM-0009");
+        }
+        return mot;
     }
 
     public void crearTareaPrueba() {
