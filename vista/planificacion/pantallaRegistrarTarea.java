@@ -1295,7 +1295,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_btnAgregarRolActionPerformed
 
     private void btnAgregarMaterialesOtrasTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialesOtrasTareasActionPerformed
-        pantallaSeleccionarMaterialesEtapa psme = new pantallaSeleccionarMaterialesEtapa(gestorRAM, idEtapa);
+        pantallaSeleccionarMaterialesEtapa psme = new pantallaSeleccionarMaterialesEtapa(gestorRAM, idEtapa,this.idTarea);
         SwingPanel.getInstance().addWindow(psme);
         psme.setVisible(true);
     }//GEN-LAST:event_btnAgregarMaterialesOtrasTareasActionPerformed
