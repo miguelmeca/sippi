@@ -228,37 +228,39 @@ public class GestorRegistrarAsignacionMateriales {
         return mau;
     }
 
-    public HashMap<Integer,NTupla> mostrarDetallesMaterialesOtrasTareas(int idEtapa) {
+    public HashMap<Integer,NTupla> mostrarDetallesMaterialesOtrasTareas(int idEtapa, int idTarea) {
         HashMap<Integer,NTupla> mot = new HashMap<Integer,NTupla>();
         try {
             Etapa e = (Etapa) HibernateUtil.getSession().load(Etapa.class, idEtapa);
             Iterator<Tarea> itTareas = e.getTareas().iterator();
             while(itTareas.hasNext()){
                 Tarea t = itTareas.next();
-                Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
-                DetalleMaterial dm = null;
-                while(it.hasNext()){
-                    NTupla nt = new NTupla();
-                    dm = it.next();
-                    nt.setId(dm.getId());
-                    RecursoXProveedor rxp = dm.getMaterial();
-                    RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
-                    Material m = (Material)RecursosUtil.getMaterial(re);
-                    nt.setNombre(m.getNombre());
-                    Object[] o = new Object[3];
-                    o[0]= re.getNombre();
-                    o[1]= dm.getCantidad();
-                    Iterator<PrecioSegunCantidad> itPrecio = dm.getMaterial().getListaPrecios().iterator();
-                    double precio = 0;
-                    while(itPrecio.hasNext()){
-                        PrecioSegunCantidad psc = itPrecio.next();
-                        if(dm.getCantidad() >= psc.getCantidad()){
-                            precio=psc.getPrecio();
+                if(t.getId()!=idTarea){
+                    Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
+                    DetalleMaterial dm = null;
+                    while(it.hasNext()){
+                        NTupla nt = new NTupla();
+                        dm = it.next();
+                        nt.setId(dm.getId());
+                        RecursoXProveedor rxp = dm.getMaterial();
+                        RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                        Material m = (Material)RecursosUtil.getMaterial(re);
+                        nt.setNombre(m.getNombre());
+                        Object[] o = new Object[3];
+                        o[0]= re.getNombre();
+                        o[1]= dm.getCantidad();
+                        Iterator<PrecioSegunCantidad> itPrecio = dm.getMaterial().getListaPrecios().iterator();
+                        double precio = 0;
+                        while(itPrecio.hasNext()){
+                            PrecioSegunCantidad psc = itPrecio.next();
+                            if(dm.getCantidad() >= psc.getCantidad()){
+                                precio=psc.getPrecio();
+                            }
                         }
+                        o[2] = precio;
+                        nt.setData(o);
+                        mot.put(dm.getId(),nt);
                     }
-                    o[2] = precio;
-                    nt.setData(o);
-                    mot.put(dm.getId(),nt);
                 }
             }
         } catch (Exception ex) {
