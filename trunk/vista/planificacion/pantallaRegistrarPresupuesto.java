@@ -1378,4 +1378,11 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
             }
         }
 
+        public void recargarDatos()
+        {
+            paintGraph();
+            cargarGraph();
+            mostrarTotales();
+        }
+
 }
