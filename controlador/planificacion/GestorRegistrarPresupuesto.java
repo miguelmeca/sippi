@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import modelo.DetalleMaterial;
 import modelo.Etapa;
+import modelo.DetalleEtapa;
 import modelo.Material;
 import modelo.PedidoObra;
 import modelo.Presupuesto;
@@ -342,13 +343,19 @@ public class GestorRegistrarPresupuesto {
         try
         {
             Etapa e = cargarEtapa(idEtapa);
-            Iterator<Tarea> it = e.getTareas().iterator();
+            Iterator<DetalleEtapa> it = e.getTareas().iterator();
             while (it.hasNext())
             {
-                Tarea tar = it.next();
-                NTupla nt = new NTupla(tar.getId());
-                nt.setNombre(tar.getDescripcion());
-                lista.add(nt);
+                DetalleEtapa tar = it.next();
+                if(tar instanceof Tarea)
+                {
+                    if(tar.getDescripcion()!=null)
+                    {
+                        NTupla nt = new NTupla(tar.getId());
+                        nt.setNombre(tar.getDescripcion());
+                        lista.add(nt);
+                    }
+                }
             }
         }
         catch(Exception e)
@@ -365,26 +372,29 @@ public class GestorRegistrarPresupuesto {
         try
         {
             Etapa e = cargarEtapa(idEtapa);
-            Iterator<Tarea> it = e.getTareas().iterator();
+            Iterator<DetalleEtapa> it = e.getTareas().iterator();
             while (it.hasNext())
             {
-                Tarea tar = it.next();
-                Iterator<DetalleMaterial> itdm = tar.getDetallesMaterial().iterator();
-                while (itdm.hasNext())
+                DetalleEtapa tar = it.next();
+                if(tar instanceof Tarea)
                 {
-                    DetalleMaterial dm = itdm.next();
-                    
-                        RecursoXProveedor rxp = dm.getMaterial();
-                        RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
-                        Material m = (Material)RecursosUtil.getMaterial(re);
+                    Iterator<DetalleMaterial> itdm = tar.getDetallesMaterial().iterator();
+                    while (itdm.hasNext())
+                    {
+                        DetalleMaterial dm = itdm.next();
 
-                    NTupla nt = new NTupla(dm.getId());
-                    nt.setNombre(m.getNombre());
-                    String cant = String.valueOf(dm.getCantidad());
-                    nt.setData(cant);
+                            RecursoXProveedor rxp = dm.getMaterial();
+                            RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                            Material m = (Material)RecursosUtil.getMaterial(re);
 
-                   lista.add(nt);
+                        NTupla nt = new NTupla(dm.getId());
+                        nt.setNombre(m.getNombre());
+                        String cant = String.valueOf(dm.getCantidad());
+                        nt.setData(cant);
 
+                       lista.add(nt);
+
+                    }
                 }
 
                 

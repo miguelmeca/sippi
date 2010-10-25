@@ -38,7 +38,7 @@ public class Etapa {
     private String ubicacion;
     private RecursoEspecifico transportePasajeros;
     private RecursoEspecifico tranportMyH;
-    private List<Tarea> tareas;
+    private List<DetalleEtapa> tareas;
 
     
     public void crear() {
@@ -83,7 +83,7 @@ public class Etapa {
     }
 
     public Etapa() {
-        this.tareas = new ArrayList<Tarea>();
+        this.tareas = new ArrayList<DetalleEtapa>();
         this.cpm = new ArrayList<Etapa>();
     }
 
@@ -167,11 +167,11 @@ public class Etapa {
         this.transportePasajeros = transportePasajeros;
     }
 
-    public List<Tarea> getTareas() {
+    public List<DetalleEtapa> getTareas() {
         return tareas;
     }
 
-    public void setTareas(List<Tarea> tareas) {
+    public void setTareas(List<DetalleEtapa> tareas) {
         this.tareas = tareas;
     }
 
@@ -179,13 +179,17 @@ public class Etapa {
     public double calcularSubTotalMateriales()
     {
         HashMap<Integer,DetalleMaterial> subtotales = new HashMap<Integer, DetalleMaterial>();
-        Iterator<Tarea> itTarea = this.tareas.iterator();
+        Iterator<DetalleEtapa> itTarea = this.tareas.iterator();
         while(itTarea.hasNext()){
-            Tarea t = itTarea.next();
+            DetalleEtapa t = itTarea.next();
+            if(t instanceof Tarea)
+            {
             Iterator<DetalleMaterial> itDM = t.getDetallesMaterial().iterator();
-            while(itDM.hasNext()){
-                DetalleMaterial dm = itDM.next();
-                subtotales.put(dm.getId(), dm);
+                while(itDM.hasNext())
+                {
+                    DetalleMaterial dm = itDM.next();
+                    subtotales.put(dm.getId(), dm);
+                }
             }
         }
         double totalMateriales=0;

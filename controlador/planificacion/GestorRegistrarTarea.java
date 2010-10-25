@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import modelo.Tarea;
+import modelo.DetalleEtapa;
 import modelo.Etapa;
 import modelo.Presupuesto;
 import modelo.GrupoDeTrabajo;
@@ -172,11 +173,14 @@ public class GestorRegistrarTarea
                     Presupuesto presupuesto = (Presupuesto) sesion.createQuery("from Presupuesto where id ="+idPresupuesto).uniqueResult();
                     for (Etapa et : presupuesto.getEtapas())
                     {
-                        for (Tarea t : et.getTareas())
+                        for (DetalleEtapa t : et.getTareas())
                         {
-                            for(InstanciaDeRolPorTarea ins : t.getListaInstRolXTarea())
+                            if(t instanceof Tarea)
                             {
-                                mapaRolesCreados.put(ins.getRol().getId(), ins.getRol()) ;
+                                for(InstanciaDeRolPorTarea ins : t.getListaInstRolXTarea())
+                                {
+                                    mapaRolesCreados.put(ins.getRol().getId(), ins.getRol()) ;
+                                }
                             }
                         }
                     }

@@ -17,10 +17,10 @@ import java.util.Date;
 //
 //
 
-public class Tarea {
-    private int id;
+public class Tarea extends DetalleEtapa{
+    //private int id;
     //private GrupoDeTrabajo grupo;
-    private int orden;
+   // private int orden;
     private String ubicacion;
     private String descripcion;
     private String observaciones;
@@ -75,6 +75,7 @@ public class Tarea {
     }
 
     
+    @Override
     public List<DetalleMaterial> getDetallesMaterial() {
         return detallesMaterial;
     }
@@ -114,21 +115,21 @@ public class Tarea {
         this.herramientas = herramientas;
     }
 
-    public int getId() {
+   /* public int getId() {
         return id;
-    }
+    }*/
 
-    public void setId(int id) {
+   /* public void setId(int id) {
         this.id = id;
-    }
+    }*/
     
-    public int getOrden() {
+   /* public int getOrden() {
         return orden;
-    }
+    }*/
 
-    public void setOrden(int orden) {
+   /* public void setOrden(int orden) {
         this.orden = orden;
-    }
+    }*/
 
     public String getUbicacion() {
         return ubicacion;

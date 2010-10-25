@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import modelo.Etapa;
+import modelo.DetalleEtapa;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.PedidoObra;
@@ -95,18 +96,21 @@ public class GestorRegistrarAsignacionHerramientas {
             Iterator<Etapa> itP = p.getEtapas().iterator();
             while(itP.hasNext()){
                 Etapa e = itP.next();
-                Iterator<Tarea> itE = e.getTareas().iterator();
+                Iterator<DetalleEtapa> itE = e.getTareas().iterator();
                 while(itE.hasNext()){
-                    Tarea t = itE.next();
-                    Iterator itHP = t.getHerramientas().iterator();
-                    while(itHP.hasNext()){
-                        NTupla nt = new NTupla();
-                        HerramientaDeEmpresa hde = (HerramientaDeEmpresa)itHP.next();
-                        nt.setId(hde.getId());
-                        nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie()+" ("+t.getDescripcion()+")");
-                        nt.setData(t.getId());
-//                        herramientas.add(nt);
-                        hMap.put(hde.getId(), nt);
+                    DetalleEtapa t = itE.next();
+                    if(t instanceof Tarea)
+                    {
+                        Iterator itHP = t.getHerramientas().iterator();
+                        while(itHP.hasNext()){
+                            NTupla nt = new NTupla();
+                            HerramientaDeEmpresa hde = (HerramientaDeEmpresa)itHP.next();
+                            nt.setId(hde.getId());
+                            nt.setNombre(hde.getRecursoEsp().getNombre()+" - NS: "+hde.getNroSerie()+" ("+t.getDescripcion()+")");
+                            nt.setData(t.getId());
+    //                        herramientas.add(nt);
+                            hMap.put(hde.getId(), nt);
+                        }
                     }
                 }
             }
