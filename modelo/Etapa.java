@@ -206,6 +206,10 @@ public class Etapa {
             }
             totalMateriales+=(precio*dm.getCantidad());
         }
+        /**
+         *     FALTA ELIMINAR DEL HASHMAP LOS DETALLES DE MATERIALES REPETIDOS EN LA ETAPA Y LA OBRA!!!
+         */
+
         return totalMateriales;
     }
 

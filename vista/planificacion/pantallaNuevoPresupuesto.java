@@ -26,12 +26,13 @@ import util.NTupla;
 import util.SwingPanel;
 import vista.gui.ComboCellRenderer;
 import vista.gui.IconCellRenderer;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
+public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame implements IAyuda {
 
     private GestorNuevoPresupuesto gestor;
 
@@ -378,6 +379,18 @@ public class pantallaNuevoPresupuesto extends javax.swing.JInternalFrame {
         pantallaRegistrarPresupuesto prp = new pantallaRegistrarPresupuesto(idPresu,idObra);
         SwingPanel.getInstance().addWindow(prp);
         prp.setVisible(true);
+    }
+
+    public String getTituloAyuda() {
+        return "Nuevo Presupuesto";
+    }
+
+    public String getResumenAyuda() {
+        return "Cree un nuevo presupuesto para una obra partiendo desde cero o desde una plantilla";
+    }
+
+    public int getIdAyuda() {
+        return 0;
     }
 
 }
