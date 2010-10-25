@@ -361,12 +361,12 @@ public class DBExamplesLoader {
         ArrayList<PrecioSegunCantidad> lstPSC2 = new ArrayList<PrecioSegunCantidad>();
         PrecioSegunCantidad psc1a =new PrecioSegunCantidad();
         psc1a.setCantidad(1);
-        psc1a.setPrecio(0.3);
+        psc1a.setPrecio(10);
         psc1a.setFechaVigencia(new Date());
         psc1a.setFecha(new Date());
         PrecioSegunCantidad psc2a =new PrecioSegunCantidad();
         psc2a.setCantidad(10);
-        psc2a.setPrecio(0.2);
+        psc2a.setPrecio(70);
         Date d=new Date();
         d.setDate(50000);
         psc2a.setFechaVigencia(new Date());

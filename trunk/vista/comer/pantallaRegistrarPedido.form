@@ -212,9 +212,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombreObra">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CONSTRUIR EL DELOREAN"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -235,7 +232,6 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="CONDENSADOR DE FLUJO&#xa;"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -293,7 +289,6 @@
     <Component class="javax.swing.JTextField" name="txtMonto">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="6000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -359,6 +354,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ARMARIO 5"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPliegoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>

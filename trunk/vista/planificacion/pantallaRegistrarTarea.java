@@ -803,8 +803,6 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad de trabajo a realizar en esta tarea"));
 
-        txtHs100.setText("0");
-
         jLabel7.setText("Horas Normales      Horas 50%         Horas 100%");
 
         jLabel23.setText("Hs.");
@@ -1082,7 +1080,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAceptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();

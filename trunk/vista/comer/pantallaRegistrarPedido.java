@@ -262,14 +262,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Nombre de la Obra:");
 
-        txtNombreObra.setText("CONSTRUIR EL DELOREAN");
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Descripción:");
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
-        txtDescripcion.setText("CONDENSADOR DE FLUJO\n");
         jScrollPane1.setViewportView(txtDescripcion);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -296,7 +293,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel8.setText("Presupuesto Máximo ($):");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtMonto.setText("6000");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel9.setText("Fecha Límite de Entrega del Presupuesto:");
@@ -336,6 +332,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jLabel10.setText("Pliego:");
 
         txtPliego.setText("ARMARIO 5");
+        txtPliego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPliegoActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel11.setText("Planos:");
@@ -573,6 +574,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         SwingPanel.getInstance().addWindow(p);
         p.setVisible(true);
     }//GEN-LAST:event_btnAgregarCRActionPerformed
+
+    private void txtPliegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPliegoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPliegoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCR;

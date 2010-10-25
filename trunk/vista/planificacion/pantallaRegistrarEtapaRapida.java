@@ -12,12 +12,13 @@
 package vista.planificacion;
 
 import java.util.Date;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame {
+public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame implements IAyuda {
 
     private pantallaRegistrarPresupuesto pantalla;
 
@@ -56,8 +57,6 @@ public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Nombre:");
-
-        txtNombre.setText("Preparar lugar de trabajo");
 
         jLabel4.setText("Fecha de Inicio:");
 
@@ -116,7 +115,7 @@ public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,5 +138,17 @@ public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    public String getTituloAyuda() {
+        return "Registrar Etapa";
+    }
+
+    public String getResumenAyuda() {
+        return "Cree rápidamente una etapa, indicando su nombre, fecha de inicio y fin. Luego puede refinarlas presionando en la misma en el gráfico";
+    }
+
+    public int getIdAyuda() {
+        return 0;
+    }
 
 }
