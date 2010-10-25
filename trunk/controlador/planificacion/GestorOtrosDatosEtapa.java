@@ -200,12 +200,15 @@ public class GestorOtrosDatosEtapa   {
             for (int i = 0; i < listaTareas.size(); i++)
                 {
                     Tarea tar = (Tarea)listaTareas.get(i);
+                    if(tar.getDescripcion()!=null)//TODO:  ESTE IF SE TIENE Q IR, ES SOLO PARA ESTA EXPOSICION
+                    {
                     NTupla tupla = new NTupla(tar.getId());
                     tupla.setNombre(String.valueOf(tar.getDescripcion()));
                     String[] datos=new String[1];
                     datos[0]=String.valueOf(tar.CalcularMontoTotal(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100()));
                     tupla.setData(datos);
                     listaNTuplaTareas.add(tupla);
+                    }
                 }
             }
             } catch (Exception ex)

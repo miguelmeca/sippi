@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import modelo.DetalleConsumible;
 import modelo.DetalleMaterial;
 import modelo.Etapa;
+import modelo.DetalleEtapa;
 import modelo.GrupoDeTrabajo;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
@@ -232,10 +233,12 @@ public class GestorRegistrarAsignacionMateriales {
         HashMap<Integer,NTupla> mot = new HashMap<Integer,NTupla>();
         try {
             Etapa e = (Etapa) HibernateUtil.getSession().load(Etapa.class, idEtapa);
-            Iterator<Tarea> itTareas = e.getTareas().iterator();
+            Iterator<DetalleEtapa> itTareas = e.getTareas().iterator();
             while(itTareas.hasNext()){
-                Tarea t = itTareas.next();
-                if(t.getId()!=idTarea){
+                DetalleEtapa t = itTareas.next();
+                if(t instanceof Tarea)
+                {
+                   if(t.getId()!=idTarea){
                     Iterator<DetalleMaterial> it = t.getDetallesMaterial().iterator();
                     DetalleMaterial dm = null;
                     while(it.hasNext()){
@@ -261,6 +264,7 @@ public class GestorRegistrarAsignacionMateriales {
                         nt.setData(o);
                         mot.put(dm.getId(),nt);
                     }
+                 }
                 }
             }
         } catch (Exception ex) {

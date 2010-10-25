@@ -22,6 +22,7 @@ import util.FechaUtil;
 import util.LogUtil;
 import util.NTupla;
 import util.SwingPanel;
+import util.TablaUtil;
 import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.graph.TaskGraphComponent;
@@ -1352,6 +1353,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         private void mostrarListadoTareas(int idEtapa)
         {
             DefaultTableModel modelo =(DefaultTableModel)tablaListaTareas.getModel();
+            TablaUtil.vaciarDefaultTableModel(modelo);
             ArrayList<NTupla> lista = gestor.getListadoTareas(idEtapa);
             Iterator<NTupla> it = lista.iterator();
             while (it.hasNext())
