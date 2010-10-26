@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Tarea" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleEtapa" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
     <id column="IDTAREA" name="id" type="integer">
       <generator class="increment"/>
     </id>
+    <property column="orden" name="orden" type="integer"/>
+    <joined-subclass name="modelo.Tarea" table="Tarea">
+    <key column="ID_TAREA"/>
+    
 
     <property column="UBICACION" name="ubicacion" type="string"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
@@ -12,7 +16,7 @@
     <many-to-one column="IDCRITICIDAD" name="criticidad"/>
     <property column="FECHAINICIO" name="fechaInicio" type="date"/>
     <property column="FECHAFIN" name="FechaFin" type="date"/>
-    <property column="orden" name="orden" type="integer"/>
+    
     
 
     <list cascade="all" name="detallesMaterial" table="TAREA_X_DM">
@@ -38,6 +42,6 @@
       <many-to-many class="modelo.HerramientaDeEmpresa" column="ID_HdE"/>
     </list>
 
-
+  </joined-subclass>
   </class>
 </hibernate-mapping>
