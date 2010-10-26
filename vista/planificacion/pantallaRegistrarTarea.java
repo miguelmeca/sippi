@@ -127,7 +127,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         vaciarCampos();
         if(idTarea==-1)
         { crearTarea(idEtapa);}
-        cargarDatosTarea();
+        else
+        {cargarDatosTarea();}
         
         cargarRolesCreadosAnteriormente();
     }
@@ -178,6 +179,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     {//TODO:
 
     }
+
 
     public void mostrarRangosEspecialidad()
     {
