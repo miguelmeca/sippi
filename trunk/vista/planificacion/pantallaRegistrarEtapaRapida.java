@@ -12,6 +12,7 @@
 package vista.planificacion;
 
 import java.util.Date;
+import javax.swing.JOptionPane;
 import vista.interfaces.IAyuda;
 
 /**
@@ -123,8 +124,15 @@ public class pantallaRegistrarEtapaRapida extends javax.swing.JInternalFrame imp
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        pantalla.addEtapa(txtNombre.getText(),cmbFechaInicio.getDate(),cmbFechaFin.getDate());
-        this.dispose();
+        if(!txtNombre.getText().isEmpty())
+        {
+            pantalla.addEtapa(txtNombre.getText(),cmbFechaInicio.getDate(),cmbFechaFin.getDate());
+            this.dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"El nombre de la Etapa NO puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
