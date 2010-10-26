@@ -30,6 +30,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
     private GestorRegistrarAsignacionMateriales gestorRAM;
     private int idR;
     private int idRE;
+    private boolean banHayPreciosMaterial;
     /** Creates new form pantallaSeleccionarProveedorPresupuesto */
     public pantallaSeleccionarProveedorPresupuesto() {
         initComponents();
@@ -40,6 +41,7 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
         this.gestorRAM = gestorRAM;
         this.idR=idR;
         this.idRE=idRE;
+        this.banHayPreciosMaterial = true;
         mostrarRecursosEspecificosXProveedor();
     }
 
@@ -80,9 +82,16 @@ public class pantallaSeleccionarProveedorPresupuesto extends javax.swing.JIntern
                 i++;
             }
         }else{
-            JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            this.banHayPreciosMaterial=false;
         }
+    }
+
+    public boolean isBanHayPreciosMaterial() {
+        return banHayPreciosMaterial;
+    }
+
+    public void setBanHayPreciosMaterial(boolean banHayPreciosMaterial) {
+        this.banHayPreciosMaterial = banHayPreciosMaterial;
     }
 
     /** This method is called from within the constructor to

@@ -854,6 +854,14 @@ public class DBExamplesLoader {
         h.getRecursos().add(re);
         he.setRecursoEsp(re);
 
+        UnidadDeMedida um = null;
+        try {
+            um = (UnidadDeMedida) HibernateUtil.getSession().get(UnidadDeMedida.class, 1);
+        } catch (Exception ex) {
+            Logger.getLogger(DBExamplesLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        h.setUnidadDeMedida(um);
+
         HerramientaDeEmpresa he1 = new HerramientaDeEmpresa();
         he1.setNroSerie("AK900094343");
         RecursoEspecifico re1 = new RecursoEspecifico();
@@ -862,7 +870,7 @@ public class DBExamplesLoader {
         h1.setNombre("FRESADORA");
         h1.getRecursos().add(re1);
         he1.setRecursoEsp(re1);
-
+        h1.setUnidadDeMedida(um);
         sesion.beginTransaction();
 
         sesion.save(re);
