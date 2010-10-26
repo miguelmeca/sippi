@@ -327,10 +327,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         tablaTareas = new javax.swing.JTable();
         txtCostoTareas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        btnTareaArriba = new javax.swing.JButton();
+        btnTareaSubir = new javax.swing.JButton();
+        btnTareaBajar = new javax.swing.JButton();
+        btnTareaAlFinal = new javax.swing.JButton();
         lblMoneda = new javax.swing.JLabel();
         btnTareasNueva = new javax.swing.JButton();
         btnTareasEliminar = new javax.swing.JButton();
@@ -433,7 +433,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +454,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Relaciones entre Etapas", jPanel2);
@@ -482,14 +482,34 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         jLabel3.setLabelFor(txtCostoTareas);
         jLabel3.setText("Costo Total de las Tareas:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/arrow_large_up.png"))); // NOI18N
-        jButton1.setText("Al Principio");
+        btnTareaArriba.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/arrow_large_up.png"))); // NOI18N
+        btnTareaArriba.setText("Al Principio");
+        btnTareaArriba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTareaArribaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Subir");
+        btnTareaSubir.setText("Subir");
+        btnTareaSubir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTareaSubirActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Bajar");
+        btnTareaBajar.setText("Bajar");
+        btnTareaBajar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTareaBajarActionPerformed(evt);
+            }
+        });
 
-        jButton18.setText("Al final");
+        btnTareaAlFinal.setText("Al final");
+        btnTareaAlFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTareaAlFinalActionPerformed(evt);
+            }
+        });
 
         lblMoneda.setText("$");
 
@@ -500,7 +520,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -508,13 +528,13 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTareaArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTareaSubir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                        .addComponent(btnTareaBajar, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnTareaAlFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -523,10 +543,10 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton7)
-                    .addComponent(jButton18))
+                    .addComponent(btnTareaArriba)
+                    .addComponent(btnTareaSubir)
+                    .addComponent(btnTareaBajar)
+                    .addComponent(btnTareaAlFinal))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCostoTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -564,7 +584,7 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTareasNueva)
                     .addComponent(btnTareasEliminar))
@@ -625,7 +645,16 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
         Date fechaInicio = cmbFechaInicio.getDate();
         Date fechaFin    = cmbFechaFin.getDate();
         String obs = txtObservaciones.getText();
-
+        DefaultTableModel modelOT = (DefaultTableModel) tablaTareas.getModel();
+        ArrayList<NTupla> listaOrdenTareas=new ArrayList<NTupla>();
+        for (int i = 0; i < modelOT.getRowCount(); i++)
+        {
+            NTupla nt =new NTupla();
+            nt.setId(((Tupla) modelOT.getValueAt(i, 0)).getId());
+            nt.setData((Integer)(i+1));
+            listaOrdenTareas.add(nt);
+        }
+        gestorOtrosDatosEtapa.guardarTareas(listaOrdenTareas);
         gestorRegistrarEtapa.guardarCambiosBaseEtapa(nombre,fechaInicio,fechaFin,obs);
 
         // AHORA GUARDO LOS DATOS DE LAS ETPAAS PREDECESORAS
@@ -657,18 +686,55 @@ public class pantallaRegistrarEtapa extends javax.swing.JInternalFrame implement
             pre.setVisible(true);
     }//GEN-LAST:event_btnTareasNuevaActionPerformed
 
+    private void btnTareaSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareaSubirActionPerformed
+        if(tablaTareas.getSelectedRow()!=-1 &&tablaTareas.getSelectedRow()!=0)
+        {
+           
+           DefaultTableModel modeloT = (DefaultTableModel) tablaTareas.getModel();
+           modeloT.moveRow(tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow()-1);
+           tablaTareas.changeSelection( tablaTareas.getSelectedRow()-1,0, false, false);
+        }
+    }//GEN-LAST:event_btnTareaSubirActionPerformed
+
+    private void btnTareaBajarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareaBajarActionPerformed
+        if(tablaTareas.getSelectedRow()!=-1 &&tablaTareas.getSelectedRow()!=tablaTareas.getRowCount()-1)
+        {
+           DefaultTableModel modeloT = (DefaultTableModel) tablaTareas.getModel();
+           modeloT.moveRow(tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow()+1);
+           tablaTareas.changeSelection( tablaTareas.getSelectedRow()+1,0, false, false);
+        }
+    }//GEN-LAST:event_btnTareaBajarActionPerformed
+
+    private void btnTareaArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareaArribaActionPerformed
+      if(tablaTareas.getSelectedRow()!=-1 &&tablaTareas.getSelectedRow()!=0)
+        {
+          DefaultTableModel modeloT = (DefaultTableModel) tablaTareas.getModel();
+           modeloT.moveRow(tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow(), 0);
+           tablaTareas.changeSelection( 0,0, false, false);
+        }
+    }//GEN-LAST:event_btnTareaArribaActionPerformed
+
+    private void btnTareaAlFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTareaAlFinalActionPerformed
+      if(tablaTareas.getSelectedRow()!=-1 &&tablaTareas.getSelectedRow()!=tablaTareas.getRowCount()-1)
+        {
+           DefaultTableModel modeloT = (DefaultTableModel) tablaTareas.getModel();
+           modeloT.moveRow(tablaTareas.getSelectedRow(), tablaTareas.getSelectedRow(), tablaTareas.getRowCount()-1);
+           tablaTareas.changeSelection( tablaTareas.getRowCount()-1,0, false, false);
+        }
+    }//GEN-LAST:event_btnTareaAlFinalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTareaAlFinal;
+    private javax.swing.JButton btnTareaArriba;
+    private javax.swing.JButton btnTareaBajar;
+    private javax.swing.JButton btnTareaSubir;
     private javax.swing.JButton btnTareasEliminar;
     private javax.swing.JButton btnTareasNueva;
     private com.toedter.calendar.JDateChooser cmbFechaFin;
     private com.toedter.calendar.JDateChooser cmbFechaInicio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -170,8 +170,8 @@ public class GestorRegistrarTarea
             ///////////////////////////////////
              try {
                     sesion = HibernateUtil.getSession();
-                    Presupuesto presupuesto = (Presupuesto) sesion.createQuery("from Presupuesto where id ="+idPresupuesto).uniqueResult();
-                    for (Etapa et : presupuesto.getEtapas())
+                    DetalleEtapa dt = (DetalleEtapa) sesion.createQuery("from DetalleEtapa where id ="+idPresupuesto).uniqueResult();
+                    /*for (Etapa et : presupuesto.getEtapas())
                     {
                         for (DetalleEtapa t : et.getTareas())
                         {
@@ -183,8 +183,8 @@ public class GestorRegistrarTarea
                                 }
                             }
                         }
-                    }
-                    Iterator it = mapaRolesCreados.entrySet().iterator();
+                    }***/
+                    /*Iterator it = mapaRolesCreados.entrySet().iterator();
 
                     while (it.hasNext()) {
                     Map.Entry e = (Map.Entry)it.next();
@@ -202,7 +202,7 @@ public class GestorRegistrarTarea
                     nomT.setData(datos);
                     listaRolesCreados.add(nomT);
                     }
-
+*/
 
                     return listaRolesCreados;
 

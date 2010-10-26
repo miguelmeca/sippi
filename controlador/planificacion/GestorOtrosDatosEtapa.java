@@ -13,6 +13,7 @@ import modelo.Rubro;
 import modelo.Barrio;
 import modelo.Alojamiento;
 import modelo.Tarea;
+import modelo.DetalleEtapa;
 import modelo.Etapa;
 import modelo.TransporteDeMaterialesYHerramientas;
 import modelo.TransporteDePasajeros;
@@ -195,6 +196,28 @@ public class GestorOtrosDatosEtapa   {
 
              listaTareas=etapa.getTareas();
             listaNTuplaTareas = new ArrayList<NTupla>();
+            int ix, paso=listaTareas.size();
+            boolean cambio;
+            do
+            {
+                paso =(int)((float)paso/1.3);
+                paso=paso>1?paso:1;
+                cambio=false;
+                for (ix = 0; ix < listaTareas.size()-paso; ix++)
+                {
+                    if(((DetalleEtapa)listaTareas.get(ix)).getOrden() > ((DetalleEtapa)listaTareas.get(ix+paso)).getOrden())
+                    {
+                        DetalleEtapa DEaux;
+                        DEaux=(DetalleEtapa)listaTareas.get(ix+paso);
+                        listaTareas.set(ix+paso, (DetalleEtapa)listaTareas.get(ix));                        
+                        listaTareas.set(ix, DEaux);
+                        cambio=true;
+                    }
+                }
+
+            } while (cambio||paso>1);
+
+
             if(listaTareas!=null)
             {
             for (int i = 0; i < listaTareas.size(); i++)
@@ -248,7 +271,37 @@ public class GestorOtrosDatosEtapa   {
 
             return costo;
         }
-	
+
+    public boolean guardarTareas( List<NTupla> ordenTareas)
+    {
+        Session sesion;
+        try {
+                    sesion = HibernateUtil.getSession();
+                    try{
+                    HibernateUtil.beginTransaction();
+                    for (NTupla nt : ordenTareas)
+                    {
+                        DetalleEtapa DE = (DetalleEtapa) sesion.createQuery("from DetalleEtapa where id ="+nt.getId()).uniqueResult();
+                        DE.setOrden((Integer)nt.getData());
+                        sesion.saveOrUpdate(DE);
+                        HibernateUtil.commitTransaction();
+                    }
+                    }catch(Exception e) {
+                        System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
+                        HibernateUtil.rollbackTransaction();
+
+                        return false;
+                }
+
+            } catch (Exception ex)
+            {
+                System.out.println("No se pudo abrir la sesion guardando el orden de las tareas");
+                return false;
+            }
+        return true;
+
+    }
+
 
 	public void finCU() {
 
