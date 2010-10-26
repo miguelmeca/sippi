@@ -76,6 +76,7 @@ public class pantallaSeleccionTipoTarea extends javax.swing.JInternalFrame {
         });
 
         buttonGroup1.add(rbTarea);
+        rbTarea.setSelected(true);
         rbTarea.setLabel("Tarea operativa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,10 +116,8 @@ public class pantallaSeleccionTipoTarea extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
-
-        getAccessibleContext().setAccessibleName("Seleccione un tipo de tarea");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
