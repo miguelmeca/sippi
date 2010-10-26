@@ -5,6 +5,8 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Iterator;
+import modelo.PrecioSegunCantidad;
 
 
 //
@@ -41,13 +43,28 @@ public class Tarea extends DetalleEtapa{
     }
     public double CalcularSubTotalMateriales()
     {
-       /* double subtotalMat=0.0;
+        // TODO: Recordar discriminar los detalles de material repetidos para dar el valor real de los costos de material de cada tarea
+        double totalMateriales=0;
+        Iterator<DetalleMaterial> it = detallesMaterial.iterator();
+        while(it.hasNext()){
+           DetalleMaterial dm = it.next();
+           Iterator<PrecioSegunCantidad> itPrecios = dm.getMaterial().getListaUltimosPrecios().iterator();
+            double precio=0;
+            while(itPrecios.hasNext()){
+                PrecioSegunCantidad psc = itPrecios.next();
+                if(dm.getCantidad()>= psc.getCantidad()){
+                    precio=psc.getPrecio();
+                }
+            }
+            totalMateriales+=(precio*dm.getCantidad());
+        }
+        /* double subtotalMat=0.0;
         for(DetalleMaterial detMat :detallesMaterial)
        {subtotalMat+=detMat.getSubtotal();
        }
         return subtotalMat;*/
         //TODO: !!!!!!!!!!!!!!!!!!
-        return 0.0;
+        return totalMateriales;
     }
 
     public double CalcularSubTotalManoDeObra(double  multiplicadorHora50,double multiplicadorHora100)
