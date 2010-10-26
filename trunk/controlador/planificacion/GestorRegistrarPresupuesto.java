@@ -23,6 +23,7 @@ import modelo.RecursoXProveedor;
 import modelo.Tarea;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import config.SConfig;
 
 import util.FechaUtil;
 import util.HibernateUtil;
@@ -264,7 +265,7 @@ public class GestorRegistrarPresupuesto {
             pantalla.mostrarSubTotales(e.calcularSubTotalMateriales(),
                                        e.calcularSubTotalTranporteMateriales(),
                                        e.calcularSubTotalTrasladoPersonas(),
-                                       e.calcularSubTotalHsHombre(),
+                                       e.calcularSubTotalHsHombre(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100()),
                                        e.calcularSubTotalAlojamiento());
         }
     }
@@ -336,7 +337,7 @@ public class GestorRegistrarPresupuesto {
 
     public void mostrarTotales() {
 
-        pantalla.mostrarMontosTotales(presupuesto.CalcularCostoBase(),presupuesto.CalcularTotal());
+        pantalla.mostrarMontosTotales(presupuesto.CalcularCostoBase(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100()),presupuesto.CalcularTotal(SConfig.getInstance().getMultiplicadorHoras50() ,SConfig.getInstance().getMultiplicadorHoras100()));
 
     }
 

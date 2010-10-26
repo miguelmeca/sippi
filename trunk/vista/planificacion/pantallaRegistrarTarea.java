@@ -43,6 +43,7 @@ import com.toedter.calendar.JDateChooser;
 import java.util.HashMap;
 import java.util.Map;
 import vista.interfaces.ICallBack_v2;
+import vista.gui.graphProxy.SystemEventProxy;
 
 /**
  *
@@ -1219,12 +1220,16 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                         JOptionPane.showMessageDialog(this.getParent(),"Tarea registrada correctamente","Tarea Registrada",JOptionPane.INFORMATION_MESSAGE);
                         //Uso el metodo actualizar para mandar el legajo en vez del error, necesito algo que comunique las ventanas
                         pantallaEtapa.actualizar(idTarea,"RegistrarTarea", true);
+                        //SystemEventProxy.getInstance().getPantalla().recargarDatos();
+
+
                         this.dispose();
             }
             else
             {
              JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro de la tarea","ERROR",JOptionPane.ERROR_MESSAGE);
-             //pantallaConsultar.actualizar(3, false);
+             //pantallaEtapa.actualizar(idTarea,"RegistrarTarea", true);
+             //SystemEventProxy.getInstance().getPantalla().recargarDatos();
              this.dispose();
             }
              

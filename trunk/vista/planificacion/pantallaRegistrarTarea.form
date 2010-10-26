@@ -48,7 +48,7 @@
               <Component id="jTabbedPane1" min="-2" pref="499" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -240,21 +240,21 @@
                           <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane6" pref="260" max="32767" attributes="1"/>
-                                  <Component id="jLabel8" alignment="1" pref="260" max="32767" attributes="1"/>
+                                  <Component id="jScrollPane6" pref="262" max="32767" attributes="1"/>
+                                  <Component id="jLabel8" alignment="1" pref="262" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtBuscarMaterial" pref="258" max="32767" attributes="0"/>
+                                      <Component id="txtBuscarMaterial" pref="260" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane7" pref="278" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane7" pref="280" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnAgregarMaterial" pref="449" max="32767" attributes="1"/>
+                              <Component id="btnAgregarMaterial" pref="453" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnQuitarMaterial" min="-2" pref="93" max="-2" attributes="0"/>
                           </Group>
@@ -313,7 +313,7 @@
                                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                                   <Component id="txtSubtotalMateriales" min="-2" pref="62" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane1" alignment="0" pref="526" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" pref="524" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -322,7 +322,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane1" pref="120" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="115" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarMaterialesOtrasTareas" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1030,16 +1030,16 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane8" alignment="0" pref="516" max="32767" attributes="1"/>
+                              <Component id="jScrollPane8" alignment="0" pref="510" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtBuscarHerramientas" pref="490" max="32767" attributes="0"/>
+                                  <Component id="txtBuscarHerramientas" pref="484" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnAgregarHerramienta" min="-2" pref="261" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnQuitarHerramienta" pref="249" max="32767" attributes="0"/>
+                                  <Component id="btnQuitarHerramienta" pref="243" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1155,14 +1155,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane9" pref="516" max="32767" attributes="0"/>
+                          <Component id="jScrollPane9" pref="510" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane9" alignment="0" pref="182" max="32767" attributes="0"/>
+                      <Component id="jScrollPane9" alignment="0" pref="172" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

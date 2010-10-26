@@ -223,9 +223,13 @@ public class Etapa {
         return 10;
     }
 
-    public double calcularSubTotalHsHombre()
+    public double calcularSubTotalHsHombre(double  multiplicadorHora50,double multiplicadorHora100)
     {
-        return 10;
+        double sthh=0.0;
+        for(DetalleEtapa DE :tareas)
+        {sthh+=DE.CalcularSubTotalManoDeObra(multiplicadorHora50, multiplicadorHora100);
+        }
+        return sthh;
     }
 
     public double calcularSubTotalAlojamiento()
@@ -233,10 +237,10 @@ public class Etapa {
         return 10;
     }
 
-    public double calcularSubTotal()
+    public double calcularSubTotal(double  multiplicadorHora50,double multiplicadorHora100)
     {
         return calcularSubTotalAlojamiento()+
-               calcularSubTotalHsHombre()+
+               calcularSubTotalHsHombre(multiplicadorHora50, multiplicadorHora100)+
                calcularSubTotalMateriales()+
                calcularSubTotalTranporteMateriales()+
                calcularSubTotalTrasladoPersonas();
