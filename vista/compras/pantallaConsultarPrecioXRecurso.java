@@ -221,7 +221,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Consultar Empleados");
+        setTitle("Consultar Precios por Recurso");
 
         cmbTiposRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Indumentaria", "Material", "Herramienta" }));
         cmbTiposRecurso.addActionListener(new java.awt.event.ActionListener() {
@@ -286,7 +286,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedores"));

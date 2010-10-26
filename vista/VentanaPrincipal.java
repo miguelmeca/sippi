@@ -219,8 +219,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miModificarRH = new javax.swing.JMenuItem();
         miDarDeBajaRH = new javax.swing.JMenuItem();
         miCronogramaRH = new javax.swing.JMenuItem();
-        miLicencia = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         mnuRecepcionOrdenCompra = new javax.swing.JMenuItem();
@@ -636,10 +634,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         mRRHH.add(miCronogramaRH);
-        mRRHH.add(miLicencia);
-
-        jMenu3.setText("jMenu3");
-        mRRHH.add(jMenu3);
 
         jMenuBar1.add(mRRHH);
 
@@ -1200,7 +1194,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1275,7 +1268,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miGestionProveedor;
     private javax.swing.JMenuItem miGestionProvincia;
     private javax.swing.JMenuItem miLanzamientoyFin;
-    private javax.swing.JMenuItem miLicencia;
     private javax.swing.JMenuItem miLugaresDeCapacitacion;
     private javax.swing.JMenuItem miModificar;
     private javax.swing.JMenuItem miModificarPlanta;

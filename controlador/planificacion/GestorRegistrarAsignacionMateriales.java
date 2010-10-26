@@ -55,12 +55,12 @@ public class GestorRegistrarAsignacionMateriales {
         this.idTarea = idTarea;
     }
 
-    public ArrayList<Tupla> getMaterialesDisponibles(){
-        ArrayList<Tupla> materiales = new ArrayList<Tupla>();
+    public ArrayList<NTupla> getMaterialesDisponibles(){
+        ArrayList<NTupla> materiales = new ArrayList<NTupla>();
         try {
             Iterator it = HibernateUtil.getSession().createQuery("from Material").iterate();
             while(it.hasNext()){
-                Tupla t = new Tupla();
+                NTupla t = new NTupla();
                 Material m = (Material)it.next();
                 t.setId(m.getId());
                 t.setNombre(m.getNombre());

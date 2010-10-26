@@ -213,7 +213,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         cmbCriticidad.setModel(model);
     }
     private void cargarTabMateriales() {
-        ArrayList<Tupla> materiales = gestorRAM.getMaterialesDisponibles();
+        ArrayList<NTupla> materiales = gestorRAM.getMaterialesDisponibles();
 
         DefaultTableModel modelo = (DefaultTableModel)tbMateriales.getModel();
 
@@ -225,7 +225,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         int i = 0;
         while (it.hasNext())
         {
-            Tupla ntp = (Tupla)it.next();
+            NTupla ntp = (NTupla)it.next();
             Object[] fila = new Object[1];
             fila[0] = ntp;
 
@@ -356,7 +356,8 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
                 if(index>-1)
                 {
                     // ESTA
-                    String item = (String) modelo.getValueAt(i,0);
+//                    String item = (String) modelo.getValueAt(i,0);
+                    String item = ((NTupla) modelo.getValueAt(i,0)).getNombre() ;
                     int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
                     if(cantItems!=0)
                     {
@@ -1089,7 +1090,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
         if(tbMaterialEspecifico.getSelectedRow()>=0){
             Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
-            Tupla r = (Tupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
+            NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
             pantallaSeleccionarProveedorPresupuesto psp = new pantallaSeleccionarProveedorPresupuesto(this.gestorRAM,r.getId(),re.getId());
             SwingPanel.getInstance().addWindow(psp);
             psp.setVisible(true);
@@ -1113,9 +1114,9 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void tbMaterialesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMaterialesMouseReleased
-        if(tbMateriales.getSelectedRow()!=-1 && tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0) instanceof Tupla)
+        if(tbMateriales.getSelectedRow()!=-1 && tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0) instanceof NTupla)
         {
-            Tupla t = (Tupla)tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0);
+            NTupla t = (NTupla)tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0);
             mostrarEspecificacionMaterial(t.getId());
         }
     }//GEN-LAST:event_tbMaterialesMouseReleased
