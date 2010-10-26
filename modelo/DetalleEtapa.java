@@ -40,4 +40,9 @@ public class DetalleEtapa
         return null;
     }
 
+    public double CalcularSubTotalManoDeObra(double  multiplicadorHora50,double multiplicadorHora100)
+    {
+        return 0.0;
+    }
+
 }

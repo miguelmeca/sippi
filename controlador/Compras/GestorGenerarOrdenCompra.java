@@ -51,17 +51,43 @@ public GestorGenerarOrdenCompra(pantallaGenerarOrdenCompra pantalla)
     }
 
 
- public ArrayList<Tupla> mostrarRubros()
+ /*public ArrayList<Tupla> mostrarRubrosCompras()
  {
         ArrayList<Tupla> lista = new ArrayList<Tupla>();
         lista = RubroUtil.getTuplasRubros();
         mostroPrecios=false;
         return lista;
 
- }
+ }/////////////////////////////*/
+ public ArrayList<Tupla> mostrarRubrosCompras()
+        { Session sesion;
 
+            List<Rubro> rubros=null;
+            try{
+                sesion= HibernateUtil.getSession();
+            //rubro=(Rubro)sesion.createQuery("from Rubro r where r.nombreClase=('Material')").uniqueResult();
+            rubros=sesion.createQuery("from Rubro r where r.nombreClase is not null and (r.nombreClase='Material' or  r.nombreClase='Herramienta' or r.nombreClase='Consumible' or r.nombreClase='Indumentaria')").list();
+            }
+            catch (Exception ex)
+            {System.out.println("No se ejecutar la consulta en mostrarRubroCompras");
+            return null;}
+            if(rubros==null)
+            {return null;}
+            //para q traiga solo los proveedores con los rubros d la lista (idem en los combos de empresas de transporte y alojamiento)
+            ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+            for (int i = 0; i < rubros.size(); i++)
+            {
+                Rubro ru = (Rubro)rubros.get(i);
+                
+                Tupla tupla = new Tupla(ru.getId(),ru.getNombre());
+                    tuplas.add(tupla);
+             }
 
+            return tuplas;
+           
+        }
 
+////////////////////////////
  public ArrayList<Tupla> mostrarRecursos(int idTipoRec)
  {
   mostroPrecios=false;

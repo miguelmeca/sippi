@@ -75,9 +75,9 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     private void mostrarTipoRecurso()
     {
         mostroPrecios=false;
-        ArrayList<Tupla> listaNombresTipoDeRecurso = gestor.mostrarRubros();
+        ArrayList<Tupla> listaNombresTipoDeRecurso = gestor.mostrarRubrosCompras();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-
+        if(listaNombresTipoDeRecurso!=null && !listaNombresTipoDeRecurso.isEmpty())
         for (Tupla nombre : listaNombresTipoDeRecurso)
         {
             model.addElement(nombre);

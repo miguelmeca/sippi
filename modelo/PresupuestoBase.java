@@ -165,26 +165,26 @@ public class PresupuestoBase {
         return this.cantDiasViaticos*cantEmpleadosViaticos*montoViaticos;
     }
 
-    public double CalcularTotal()
+    public double CalcularTotal(double  multiplicadorHora50,double multiplicadorHora100)
     {
-        return this.CalcularCostoBase()+this.ganancia;
+        return this.CalcularCostoBase(multiplicadorHora50, multiplicadorHora100)+this.ganancia;
     }
 
-    public double CalcularCostoBase()
+    public double CalcularCostoBase(double  multiplicadorHora50,double multiplicadorHora100)
     {
-        double subtotal = CalcularCostoViaticos()+CalcularSubTotalEtapas();
+        double subtotal = CalcularCostoViaticos()+CalcularSubTotalEtapas(multiplicadorHora50, multiplicadorHora100);
         double porc = ((subtotal * consumibles )/100);
         return subtotal+porc;
     }
 
-    private double CalcularSubTotalEtapas()
+    private double CalcularSubTotalEtapas(double  multiplicadorHora50,double multiplicadorHora100)
     {
         double monto=0;
         Iterator<Etapa> ite = this.etapas.iterator();
         while (ite.hasNext())
         {
             Etapa e = ite.next();
-            monto+=e.calcularSubTotal();
+            monto+=e.calcularSubTotal(multiplicadorHora50,multiplicadorHora100);
         }
         return monto;
     }
