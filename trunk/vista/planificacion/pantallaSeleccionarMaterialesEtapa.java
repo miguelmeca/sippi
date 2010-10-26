@@ -32,6 +32,7 @@ public class pantallaSeleccionarMaterialesEtapa extends javax.swing.JInternalFra
     private GestorRegistrarAsignacionMateriales gestorRAM;
     private int idEtapa;
     private int idTarea;
+    private boolean banHayMaterialesProyecto;
     /** Creates new form pantallaSeleccionarProveedorPresupuesto */
     public pantallaSeleccionarMaterialesEtapa() {
         initComponents();
@@ -42,6 +43,7 @@ public class pantallaSeleccionarMaterialesEtapa extends javax.swing.JInternalFra
         this.gestorRAM = gestorRAM;
         this.idEtapa=idEtapa;
         this.idTarea = idTarea;
+        this.banHayMaterialesProyecto=true;
         mostrarDetallesMaterialesOtrasTareas();
     }
 
@@ -75,9 +77,12 @@ public class pantallaSeleccionarMaterialesEtapa extends javax.swing.JInternalFra
                 modelo.addRow(fila);
             }
         }else{
-            JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            this.banHayMaterialesProyecto = false;
         }
+    }
+
+    public boolean isBanHayMaterialesProyecto() {
+        return banHayMaterialesProyecto;
     }
 
     /** This method is called from within the constructor to

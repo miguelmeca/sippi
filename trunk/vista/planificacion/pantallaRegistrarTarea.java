@@ -317,7 +317,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         DefaultTableModel modelo = (DefaultTableModel)tbHerramientasDisponibles.getModel();
 //
 //        // VACIO LA TABLA HERRAMIENTAS
-//        TablaUtil.vaciarDefaultTableModel(modelo);
+        TablaUtil.vaciarDefaultTableModel(modelo);
 
         Iterator it = herramientas.entrySet().iterator();
 
@@ -1092,8 +1092,14 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
             NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
             pantallaSeleccionarProveedorPresupuesto psp = new pantallaSeleccionarProveedorPresupuesto(this.gestorRAM,r.getId(),re.getId());
-            SwingPanel.getInstance().addWindow(psp);
-            psp.setVisible(true);
+            if(psp.isBanHayPreciosMaterial()){
+                SwingPanel.getInstance().addWindow(psp);
+                psp.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
+                psp.dispose();
+            }
         }
         
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
@@ -1125,6 +1131,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
         if(tbHerramientasDisponibles.getSelectedRow()>=0){
             NTupla hd = (NTupla)(tbHerramientasDisponibles.getModel()).getValueAt(tbHerramientasDisponibles.getSelectedRow(), 0);
             gestorRAH.agregarHerramienta(hd.getId());
+            cargarHerramientas(gestorRAH.getHerramientasDeEmpresa(idPresupuesto));
             this.mostrarHerramientasAUtilizar();
         }
     }//GEN-LAST:event_btnAgregarHerramientaActionPerformed
@@ -1147,6 +1154,7 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
             if(gestorRAH.quitarHerramienta(nt.getId())){
                 DefaultTableModel dtm = (DefaultTableModel)tbHerramientasSeleccionadas.getModel();
                 dtm.removeRow(tbHerramientasSeleccionadas.getSelectedRow());
+                cargarHerramientas(gestorRAH.getHerramientasDeEmpresa(idPresupuesto));
                 this.mostrarHerramientasAUtilizar();
             }
         }
@@ -1293,8 +1301,13 @@ public class pantallaRegistrarTarea extends javax.swing.JInternalFrame implement
 
     private void btnAgregarMaterialesOtrasTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialesOtrasTareasActionPerformed
         pantallaSeleccionarMaterialesEtapa psme = new pantallaSeleccionarMaterialesEtapa(gestorRAM, idEtapa,this.idTarea);
-        SwingPanel.getInstance().addWindow(psme);
-        psme.setVisible(true);
+        if(psme.isBanHayMaterialesProyecto()){
+            SwingPanel.getInstance().addWindow(psme);
+            psme.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this.getParent(),"No se encontraron materiales de otras etapas/tareas","Materiales",JOptionPane.INFORMATION_MESSAGE);
+            psme.dispose();
+        }
     }//GEN-LAST:event_btnAgregarMaterialesOtrasTareasActionPerformed
 private void crearRol()
     {
