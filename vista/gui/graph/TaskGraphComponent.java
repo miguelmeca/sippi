@@ -43,6 +43,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.ToolTipManager;
 import javax.swing.event.ChangeListener;
+import vista.gui.graphProxy.SystemEventProxy;
 
 import vista.gui.graphUtils.*;
 
@@ -606,6 +607,18 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		long time = System.currentTimeMillis()/ Utils.MILLISECONDS_PER_DAY;
 		g2.setColor(new Color(255,0,0,100));
 		x = timeToX(time);
+		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
+
+		// paint fecha Inicio Line
+		long timeInicio = SystemEventProxy.getInstance().getPantalla().getFechaInicio().getTime()/ Utils.MILLISECONDS_PER_DAY;
+		g2.setColor(new Color(84,141,212));
+		x = timeToX(timeInicio);
+		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
+
+		// paint fecha Fin Line
+		long timeFin = SystemEventProxy.getInstance().getPantalla().getFechaFin().getTime()/ Utils.MILLISECONDS_PER_DAY;
+		g2.setColor(new Color(118,146,60));
+		x = timeToX(timeFin);
 		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
 		
 	}

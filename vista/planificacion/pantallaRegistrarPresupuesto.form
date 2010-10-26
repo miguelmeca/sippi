@@ -137,7 +137,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" pref="26" max="-2" attributes="1"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jSplitPane1" pref="596" max="32767" attributes="0"/>
+              <Component id="jSplitPane1" pref="600" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -182,12 +182,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1013" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1007" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="263" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="258" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -245,7 +245,7 @@
                           <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jPanel6" min="-2" max="-2" attributes="1"/>
-                              <EmptySpace pref="80" max="32767" attributes="0"/>
+                              <EmptySpace pref="69" max="32767" attributes="0"/>
                               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jPanel4" alignment="0" max="32767" attributes="1"/>
@@ -318,7 +318,7 @@
                               <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDuracionEtapa" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="135" max="32767" attributes="0"/>
+                          <EmptySpace pref="129" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -418,7 +418,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblSubTotal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="108" max="32767" attributes="0"/>
+                          <EmptySpace pref="102" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -601,7 +601,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabDetalleEtapa" alignment="1" pref="236" max="32767" attributes="0"/>
+                      <Component id="jTabDetalleEtapa" alignment="1" pref="230" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -636,7 +636,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="186" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="180" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -686,7 +686,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="186" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="180" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -736,7 +736,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane4" pref="186" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="180" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -786,10 +786,10 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" alignment="1" pref="198" max="32767" attributes="1"/>
+                              <Component id="jLabel2" alignment="1" pref="168" max="32767" attributes="1"/>
                               <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtGanancia" alignment="0" pref="198" max="32767" attributes="0"/>
-                              <Component id="txtConsumible" alignment="0" pref="198" max="32767" attributes="0"/>
+                              <Component id="txtGanancia" alignment="0" pref="168" max="32767" attributes="0"/>
+                              <Component id="txtConsumible" alignment="0" pref="168" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -847,7 +847,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblMontoTotal" alignment="0" pref="218" max="32767" attributes="0"/>
+                      <Component id="lblMontoTotal" alignment="0" pref="188" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1019,6 +1019,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaInicio">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d4" green="8d" red="54" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="05/1120/10"/>
               </Properties>
             </Component>
@@ -1032,6 +1035,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaFin">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="3c" green="92" red="76" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="20/11/2010"/>
               </Properties>
             </Component>
