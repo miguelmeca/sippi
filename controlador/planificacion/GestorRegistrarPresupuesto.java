@@ -11,9 +11,13 @@ import java.util.Iterator;
 import modelo.DetalleMaterial;
 import modelo.Etapa;
 import modelo.DetalleEtapa;
+import modelo.DetalleHorarioTaller;
+import modelo.Herramienta;
+import modelo.HerramientaDeEmpresa;
 import modelo.Material;
 import modelo.PedidoObra;
 import modelo.Presupuesto;
+import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
 import modelo.Tarea;
@@ -388,7 +392,7 @@ public class GestorRegistrarPresupuesto {
                             Material m = (Material)RecursosUtil.getMaterial(re);
 
                         NTupla nt = new NTupla(dm.getId());
-                        nt.setNombre(m.getNombre());
+                        nt.setNombre(m.getNombre()+"-"+re.getNombre());
                         String cant = String.valueOf(dm.getCantidad());
                         nt.setData(cant);
 
@@ -426,6 +430,44 @@ public class GestorRegistrarPresupuesto {
                     lista.add(tp);
                 }
             }
+        return lista;
+    }
+
+
+    public ArrayList<NTupla> getListadoHerramientas(int idEtapa)
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+        try
+        {
+            Etapa e = cargarEtapa(idEtapa);
+            Iterator<DetalleEtapa> it = e.getTareas().iterator();
+            while (it.hasNext())
+            {
+                DetalleEtapa tar = it.next();
+                if(tar instanceof Tarea)
+                {
+                    Iterator<HerramientaDeEmpresa> itdm = tar.getHerramientas().iterator();
+                    while (itdm.hasNext())
+                    {
+                        HerramientaDeEmpresa he = itdm.next();
+                        RecursoEspecifico re = he.getRecursoEsp();
+                        Recurso rec = re.getRecurso();
+
+                        NTupla nt = new NTupla(he.getId());
+                        nt.setNombre(rec.getNombre()+" "+he.getRecursoEsp().getNombre());
+                       lista.add(nt);
+
+                    }
+                }
+
+
+            }
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje("ME-00010");
+        }
         return lista;
     }
 

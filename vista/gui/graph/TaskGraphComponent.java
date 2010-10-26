@@ -609,18 +609,26 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		x = timeToX(time);
 		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
 
-		// paint fecha Inicio Line
-		long timeInicio = SystemEventProxy.getInstance().getPantalla().getFechaInicio().getTime()/ Utils.MILLISECONDS_PER_DAY;
-		g2.setColor(new Color(84,141,212));
-		x = timeToX(timeInicio);
-		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
+                try
+                {
+                    // IUGAWORKARROUND
+                    // paint fecha Inicio Line
+                    long timeInicio = SystemEventProxy.getInstance().getPantalla().getFechaInicio().getTime()/ Utils.MILLISECONDS_PER_DAY;
+                    g2.setColor(new Color(84,141,212));
+                    x = timeToX(timeInicio);
+                    g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
 
-		// paint fecha Fin Line
-		long timeFin = SystemEventProxy.getInstance().getPantalla().getFechaFin().getTime()/ Utils.MILLISECONDS_PER_DAY;
-		g2.setColor(new Color(118,146,60));
-		x = timeToX(timeFin);
-		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
-		
+                    // IUGAWORKARROUND
+                    // paint fecha Fin Line
+                    long timeFin = SystemEventProxy.getInstance().getPantalla().getFechaFin().getTime()/ Utils.MILLISECONDS_PER_DAY;
+                    g2.setColor(new Color(118,146,60));
+                    x = timeToX(timeFin);
+                    g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
+                }
+                catch(Exception e)
+                {
+                    // NO HAGO NADA, PERO LA CAGAMOS ...
+                }
 	}
 	
 	/** Converts time to the component x-coordinate in pixels */

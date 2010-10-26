@@ -1221,6 +1221,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         {
             JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar el listado de Tareas","Error",JOptionPane.ERROR_MESSAGE);
         }
+        if(cod.equals("ME-0010"))
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"No se pudo cargar el listado de Herramientas","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void modificarViaticos(int cantEmp, int cantDias, double monto) throws Exception
@@ -1267,6 +1271,8 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         pre.setVisible(true);
 
         mostrarListadoTareas(idEtapa);
+        mostrarListadoMateriales(idEtapa);
+        mostrarListadoHerramientas(idEtapa);
 
         mostrarTotales();
     }
@@ -1328,6 +1334,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
         private void mostrarListadoMateriales(int idEtapa)
         {
             DefaultTableModel modelo =(DefaultTableModel)tablaListaMateriales.getModel();
+            TablaUtil.vaciarDefaultTableModel(modelo);
             ArrayList<NTupla> lista = gestor.getListadoMateriales(idEtapa);
             Iterator<NTupla> it = lista.iterator();
             while (it.hasNext())
@@ -1339,6 +1346,22 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
                 modelo.addRow(fila);
             }
         }
+
+        private void mostrarListadoHerramientas(int idEtapa)
+        {
+            DefaultTableModel modelo =(DefaultTableModel)tablaListaHerramientas.getModel();
+            TablaUtil.vaciarDefaultTableModel(modelo);
+            ArrayList<NTupla> lista = gestor.getListadoHerramientas(idEtapa);
+            Iterator<NTupla> it = lista.iterator();
+            while (it.hasNext())
+            {
+                NTupla nTupla = it.next();
+                Object[] fila = new Object[2];
+                fila[0] = nTupla;
+                modelo.addRow(fila);
+            }
+        }
+
 
         public void recargarDatos()
         {
