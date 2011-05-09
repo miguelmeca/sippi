@@ -90,16 +90,17 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
 
         panel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        panel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Totales"));
@@ -205,14 +206,14 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -275,6 +276,24 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 editarCotizacion_Beneficios ecb = new editarCotizacion_Beneficios();
                 panel.setViewportView(ecb);
                 ecb.setVisible(true);
+                break;
+            case OPTN_MATERIALES:
+                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                CotizacionMateriales cm = new CotizacionMateriales();
+                panel.setViewportView(cm);
+                cm.setVisible(true);
+                break;
+            case OPTN_OTROSGASTOS:
+                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                CotizacionCompras cc = new CotizacionCompras();
+                panel.setViewportView(cc);
+                cc.setVisible(true);
+                break;
+            case OPTN_VARIOS:
+                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                CotizacionAdicionales ca = new CotizacionAdicionales();
+                panel.setViewportView(ca);
+                ca.setVisible(true);
                 break;
         }
 

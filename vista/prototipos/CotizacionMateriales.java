@@ -176,9 +176,9 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtSubtotalMateriales = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(440, 390));
+        setPreferredSize(new java.awt.Dimension(440, 380));
 
-        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscarMaterial.setForeground(java.awt.Color.gray);
         txtBuscarMaterial.setText("Buscar...");
         txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -258,7 +258,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tbMaterialesAUsar);
 
-        jLabel3.setText("Subtotal:");
+        jLabel3.setText("Subtotal Materiales:");
 
         txtSubtotalMateriales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,7 +327,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtPosicionPlano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubtotalMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
