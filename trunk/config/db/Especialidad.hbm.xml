@@ -5,7 +5,7 @@
     <id column="ID" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property column="precioHoraNormal" name="precioHoraNormal"  not-null="true" type="double"/>
+    <property column="precioHoraNormal" name="precioHoraNormal" not-null="true" type="double"/>
     <many-to-one class="modelo.TipoEspecialidad" column="IDTIPOESPECIALIDAD" name="tipo"/>
     <many-to-one class="modelo.RangoEspecialidad" column="IDRANGOESPECIALIDAD" name="rango"/>
   </class>

@@ -4,7 +4,7 @@
  */
 
 /*
- * CotizacionAdicionales.java
+ * editarCotizacion_Adicionales.java
  *
  * Created on 03/05/2011, 10:32:39
  */
@@ -15,10 +15,10 @@ package vista.prototipos;
  *
  * @author Emmanuel
  */
-public class CotizacionAdicionales extends javax.swing.JPanel {
+public class editarCotizacion_Adicionales extends javax.swing.JPanel {
 
-    /** Creates new form CotizacionAdicionales */
-    public CotizacionAdicionales() {
+    /** Creates new form editarCotizacion_Adicionales */
+    public editarCotizacion_Adicionales() {
         initComponents();
     }
 
@@ -75,7 +75,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jLabel1.setText("Catidad Operarios");
 
-        jLabel2.setText("Cantidad Hs.");
+        jLabel2.setText("Cantidad Días");
 
         jLabel3.setText("Monto");
 

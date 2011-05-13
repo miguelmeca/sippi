@@ -262,21 +262,27 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 break;
             case OPTN_MATERIALES:
                 setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
-                CotizacionMateriales cm = new CotizacionMateriales();
+                editarCotizacion_Materiales cm = new editarCotizacion_Materiales();
                 panel.setViewportView(cm);
                 cm.setVisible(true);
                 break;
             case OPTN_OTROSGASTOS:
                 setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
-                CotizacionCompras cc = new CotizacionCompras();
+                editarCotizacion_Compras cc = new editarCotizacion_Compras();
                 panel.setViewportView(cc);
                 cc.setVisible(true);
                 break;
             case OPTN_VARIOS:
                 setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
-                CotizacionAdicionales ca = new CotizacionAdicionales();
+                editarCotizacion_Adicionales ca = new editarCotizacion_Adicionales();
                 panel.setViewportView(ca);
                 ca.setVisible(true);
+                break;
+            case OPTN_RRHH:
+                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                editarCotizacion_ManoDeObra mo = new editarCotizacion_ManoDeObra();
+                panel.setViewportView(mo);
+                mo.setVisible(true);
                 break;
         }
 
