@@ -4,7 +4,7 @@
  */
 
 /*
- * CotizacionMateriales.java
+ * editarCotizacion_Materiales.java
  *
  * Created on 02/05/2011, 16:58:38
  */
@@ -31,10 +31,10 @@ import util.Tupla;
  *
  * @author Emmanuel
  */
-public class CotizacionMateriales extends javax.swing.JPanel {
+public class editarCotizacion_Materiales extends javax.swing.JPanel {
 
-    /** Creates new form CotizacionMateriales */
-    public CotizacionMateriales() {
+    /** Creates new form editarCotizacion_Materiales */
+    public editarCotizacion_Materiales() {
         initComponents();
     }
 

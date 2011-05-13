@@ -7,6 +7,6 @@
     </id>
     <property column="NROSERIE" name="nroSerie" type="string"/>
     <property name="hib_flag_estado" not-null="true" type="string"/>
-    <many-to-one name="recursoEsp" class="modelo.RecursoEspecifico"/>
+    <many-to-one class="modelo.RecursoEspecifico" name="recursoEsp"/>
   </class>
 </hibernate-mapping>

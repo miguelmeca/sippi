@@ -4,7 +4,7 @@
  */
 
 /*
- * pantallaHerramientas.java
+ * editarCotizacion_Herramientas.java
  *
  * Created on 06/05/2011, 22:58:50
  */
@@ -15,10 +15,10 @@ package vista.prototipos;
  *
  * @author Fran
  */
-public class pantallaHerramientas extends javax.swing.JPanel {
+public class editarCotizacion_Herramientas extends javax.swing.JPanel {
 
-    /** Creates new form pantallaHerramientas */
-    public pantallaHerramientas() {
+    /** Creates new form editarCotizacion_Herramientas */
+    public editarCotizacion_Herramientas() {
         initComponents();
     }
 
