@@ -9,16 +9,16 @@
  * Created on 06/05/2011, 21:56:48
  */
 
-package vista.presupuestacion;
+package vista.prototipos;
 
 /**
  *
  * @author Fran
  */
-public class pantallaManoDeObra extends javax.swing.JPanel {
+public class editarCotizacion_ManoDeObra extends javax.swing.JPanel {
 
     /** Creates new form pantallaManoDeObra */
-    public pantallaManoDeObra() {
+    public editarCotizacion_ManoDeObra() {
         initComponents();
     }
 

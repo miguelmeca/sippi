@@ -28,9 +28,9 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
     private static final int OPTN_ALOJAMIENTO    = 3;
     private static final int OPTN_HERRAMIENTAS   = 4;
     private static final int OPTN_MATERIALES     = 5;
-    private static final int OPTN_OTROSGASTOS    = 6;
+    private static final int OPTN_ALQUILERES_COMPRAS    = 6;
     private static final int OPTN_BENEFICIOS     = 7;
-    private static final int OPTN_VARIOS         = 8;
+    private static final int OPTN_ADICIONALES    = 8;
 
     /** Creates new form modificarPresupuesto */
     public editarCotizacion() {
@@ -83,7 +83,7 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -113,9 +113,9 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 {"Alojamiento"},
                 {"Herramientas"},
                 {"Materiales"},
-                {"Otros Gastos"},
+                {"Alquileres/Compras"},
                 {"Beneficios"},
-                {"Varios"}
+                {"Adicionales"}
             },
             new String [] {
                 "Title 1"
@@ -132,7 +132,6 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         tblMenu.setIntercellSpacing(new java.awt.Dimension(10, 5));
         tblMenu.setMaximumSize(new java.awt.Dimension(300, 300));
         tblMenu.setRowHeight(25);
-        tblMenu.setTableHeader(null);
         tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblMenuMousePressed(evt);
@@ -148,7 +147,7 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("SubTotal"));
@@ -261,29 +260,34 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 ecb.setVisible(true);
                 break;
             case OPTN_MATERIALES:
-                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
                 editarCotizacion_Materiales cm = new editarCotizacion_Materiales();
                 panel.setViewportView(cm);
                 cm.setVisible(true);
                 break;
-            case OPTN_OTROSGASTOS:
-                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+            case OPTN_ALQUILERES_COMPRAS:
+                setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
                 editarCotizacion_Compras cc = new editarCotizacion_Compras();
                 panel.setViewportView(cc);
                 cc.setVisible(true);
                 break;
-            case OPTN_VARIOS:
-                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+            case OPTN_ADICIONALES:
+                setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
                 editarCotizacion_Adicionales ca = new editarCotizacion_Adicionales();
                 panel.setViewportView(ca);
                 ca.setVisible(true);
                 break;
             case OPTN_RRHH:
-                setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
+                setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
                 editarCotizacion_ManoDeObra mo = new editarCotizacion_ManoDeObra();
                 panel.setViewportView(mo);
                 mo.setVisible(true);
                 break;
+            case OPTN_HERRAMIENTAS:
+                setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
+                editarCotizacion_Herramientas h = new editarCotizacion_Herramientas();
+                panel.setViewportView(h);
+                h.setVisible(true);
         }
 
 
