@@ -77,7 +77,7 @@ public class editarCotizacion_Adicionales extends javax.swing.JPanel {
 
         jLabel2.setText("Cantidad Días");
 
-        jLabel3.setText("Monto");
+        jLabel3.setText("Precio Unitario");
 
         jLabel4.setText("x");
 
