@@ -22,24 +22,22 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
 
     private boolean necesita_guardar = true;
 
-    private static final int OPTN_DATOSGENERALES = 0;
-    private static final int OPTN_RRHH           = 1;
-    private static final int OPTN_TRANSPORTE     = 2;
-    private static final int OPTN_ALOJAMIENTO    = 3;
-    private static final int OPTN_HERRAMIENTAS   = 4;
-    private static final int OPTN_MATERIALES     = 5;
-    private static final int OPTN_ALQUILERES_COMPRAS    = 6;
-    private static final int OPTN_BENEFICIOS     = 7;
-    private static final int OPTN_ADICIONALES    = 8;
+    private static final int OPTN_RRHH                  = 0;
+    private static final int OPTN_HERRAMIENTAS          = 1;
+    private static final int OPTN_MATERIALES            = 2;
+    private static final int OPTN_ALQUILERES_COMPRAS    = 3;
+    private static final int OPTN_BENEFICIOS            = 4;
+    private static final int OPTN_ADICIONALES           = 5;
 
     /** Creates new form modificarPresupuesto */
     public editarCotizacion() {
 
         initComponents();
 
-        editarCotizacion_DatosGenerales ecdg = new editarCotizacion_DatosGenerales();
-        panel.setViewportView(ecdg);
-        ecdg.setVisible(true);
+        // POR DEFAULT VA MANO DE OBRA ??
+        editarCotizacion_ManoDeObra mo = new editarCotizacion_ManoDeObra();
+        panel.setViewportView(mo);
+        mo.setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -55,14 +53,14 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         panel = new javax.swing.JScrollPane();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblMenu = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMenu = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -79,11 +77,11 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -101,54 +99,6 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Menú"));
-        jPanel3.setMaximumSize(new java.awt.Dimension(50, 50));
-
-        tblMenu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Datos Generales"},
-                {"Recursos Humanos"},
-                {"Transporte"},
-                {"Alojamiento"},
-                {"Herramientas"},
-                {"Materiales"},
-                {"Alquileres/Compras"},
-                {"Beneficios"},
-                {"Adicionales"}
-            },
-            new String [] {
-                "Title 1"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblMenu.setIntercellSpacing(new java.awt.Dimension(10, 5));
-        tblMenu.setMaximumSize(new java.awt.Dimension(300, 300));
-        tblMenu.setRowHeight(25);
-        tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblMenuMousePressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblMenu);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-        );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("SubTotal"));
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 300));
@@ -173,10 +123,10 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,24 +141,70 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Menú"));
+        jPanel3.setMaximumSize(new java.awt.Dimension(50, 50));
+
+        tblMenu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Recursos Humanos"},
+                {"Herramientas"},
+                {"Materiales"},
+                {"Alquileres/Compras"},
+                {"Beneficios"},
+                {"Adicionales"}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblMenu.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        tblMenu.setMaximumSize(new java.awt.Dimension(300, 300));
+        tblMenu.setRowHeight(25);
+        tblMenu.setTableHeader(null);
+        tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblMenuMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblMenu);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -224,8 +220,8 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                         .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnGuardar))))
+                            .addComponent(btnGuardar)
+                            .addComponent(btnCancelar))))
                 .addContainerGap())
         );
 
@@ -247,12 +243,6 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
         switch(tblMenu.getSelectedRow())
         {
-            case OPTN_DATOSGENERALES:
-                setNombrePanel(modelo.getValueAt(OPTN_DATOSGENERALES,0).toString());
-                editarCotizacion_DatosGenerales ecdg = new editarCotizacion_DatosGenerales();
-                panel.setViewportView(ecdg);
-                ecdg.setVisible(true);
-                break;
             case OPTN_BENEFICIOS:
                 setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
                 editarCotizacion_Beneficios ecb = new editarCotizacion_Beneficios();

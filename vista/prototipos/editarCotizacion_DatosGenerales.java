@@ -56,6 +56,8 @@ public class editarCotizacion_DatosGenerales extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Número de Cotización:");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -63,7 +65,7 @@ public class editarCotizacion_DatosGenerales extends javax.swing.JPanel {
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("0001");
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 13));
         jLabel2.setForeground(new java.awt.Color(123, 166, 189));
         jLabel2.setText("Datos de la Obra");
 
@@ -91,7 +93,7 @@ public class editarCotizacion_DatosGenerales extends javax.swing.JPanel {
 
         jLabel14.setText("25/07/2011");
 
-        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Ubuntu", 1, 13));
         jLabel15.setForeground(new java.awt.Color(123, 166, 189));
         jLabel15.setText("Fechas Importantes");
 
@@ -99,7 +101,7 @@ public class editarCotizacion_DatosGenerales extends javax.swing.JPanel {
 
         jLabel17.setText("$3000");
 
-        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 13));
         jLabel18.setForeground(new java.awt.Color(123, 166, 189));
         jLabel18.setText("Varios");
 
@@ -147,9 +149,9 @@ public class editarCotizacion_DatosGenerales extends javax.swing.JPanel {
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
