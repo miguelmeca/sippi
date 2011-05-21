@@ -35,6 +35,8 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         initComponents();
 
         // POR DEFAULT VA MANO DE OBRA ??
+        DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
+        setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
         editarCotizacion_ManoDeObra mo = new editarCotizacion_ManoDeObra();
         panel.setViewportView(mo);
         mo.setVisible(true);
