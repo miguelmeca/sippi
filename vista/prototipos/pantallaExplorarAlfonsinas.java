@@ -473,10 +473,18 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblMenuMousePressed
 
+    /***
+     * Este botón inicia las "editar Cotización" de cada Alfonsina. Si no está seleccionada ninguna
+     * coloca el título "Default"
+     * @param evt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
         editarCotizacion mod = new editarCotizacion();
-        mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+        if(tblMenu.getSelectedRow() >=0)
+            mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+        else
+            mod.setTitle("Editar Cotización: Default");
         SwingPanel.getInstance().addWindow(mod);
         mod.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
