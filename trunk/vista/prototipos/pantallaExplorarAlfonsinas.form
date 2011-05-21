@@ -26,7 +26,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jToolBar1" alignment="0" pref="658" max="32767" attributes="0"/>
+          <Component id="jToolBar1" alignment="0" pref="726" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -36,7 +36,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButton1" pref="159" max="32767" attributes="0"/>
+                      <Component id="jButton1" pref="164" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" pref="179" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -90,12 +90,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="171" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="229" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="81" max="32767" attributes="0"/>
+                  <EmptySpace pref="76" max="32767" attributes="0"/>
                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -193,10 +193,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel1" alignment="0" pref="171" max="32767" attributes="0"/>
-              <Component id="jLabel2" alignment="0" pref="171" max="32767" attributes="0"/>
-              <Component id="jLabel3" alignment="0" pref="171" max="32767" attributes="0"/>
-              <Component id="jLabel4" alignment="0" pref="171" max="32767" attributes="0"/>
+              <Component id="jLabel1" alignment="0" pref="229" max="32767" attributes="0"/>
+              <Component id="jLabel2" alignment="0" pref="229" max="32767" attributes="0"/>
+              <Component id="jLabel3" alignment="0" pref="229" max="32767" attributes="0"/>
+              <Component id="jLabel4" alignment="0" pref="229" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -301,12 +301,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabbedPane1" alignment="0" pref="433" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="0" pref="447" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabbedPane1" alignment="0" pref="403" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="1" pref="403" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -315,76 +315,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-              <Properties>
-                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Estadisticas">
-                    <Property name="tabTitle" type="java.lang.String" value="Estadisticas"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel4">
-                  <Properties>
-                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[418, 900]"/>
-                    </Property>
-                  </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel5" pref="399" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel5" pref="341" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="jPanel5">
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                        <Property name="axis" type="int" value="3"/>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel5">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Ubuntu" size="13" style="1"/>
-                            </Property>
-                            <Property name="text" type="java.lang.String" value="Relaci&#xf3;n del Monto usado con el Monto m&#xe1;ximo"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
-                          <Properties>
-                            <Property name="maximum" type="int" value="3000"/>
-                            <Property name="value" type="int" value="2500"/>
-                            <Property name="string" type="java.lang.String" value="$2500 / $3000"/>
-                            <Property name="stringPainted" type="boolean" value="true"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
             <Container class="javax.swing.JPanel" name="jPanel7">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -415,13 +345,13 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel15" alignment="0" pref="274" max="32767" attributes="0"/>
-                                      <Component id="jLabel12" alignment="0" pref="274" max="32767" attributes="0"/>
-                                      <Component id="jLabel8" alignment="0" pref="274" max="32767" attributes="0"/>
-                                      <Component id="jLabel17" alignment="0" pref="274" max="32767" attributes="0"/>
+                                      <Component id="jLabel15" alignment="0" pref="295" max="32767" attributes="0"/>
+                                      <Component id="jLabel12" alignment="0" pref="295" max="32767" attributes="0"/>
+                                      <Component id="jLabel8" alignment="0" pref="295" max="32767" attributes="0"/>
+                                      <Component id="jLabel17" alignment="0" pref="295" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLabel26" alignment="0" pref="401" max="32767" attributes="0"/>
+                              <Component id="jLabel26" alignment="0" pref="422" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jLabel9" alignment="1" max="32767" attributes="1"/>
@@ -430,12 +360,12 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel10" alignment="0" pref="244" max="32767" attributes="0"/>
-                                      <Component id="jLabel23" alignment="0" pref="244" max="32767" attributes="0"/>
-                                      <Component id="jLabel25" alignment="0" pref="244" max="32767" attributes="0"/>
+                                      <Component id="jLabel10" alignment="0" pref="297" max="32767" attributes="0"/>
+                                      <Component id="jLabel23" alignment="0" pref="297" max="32767" attributes="0"/>
+                                      <Component id="jLabel25" alignment="0" pref="297" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jButton2" alignment="1" pref="401" max="32767" attributes="0"/>
+                              <Component id="jButton2" alignment="1" pref="422" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -488,7 +418,7 @@
                               <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="85" max="32767" attributes="0"/>
+                          <EmptySpace pref="113" max="32767" attributes="0"/>
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -609,6 +539,76 @@
                     <Property name="text" type="java.lang.String" value="Fecha de Fin:"/>
                   </Properties>
                 </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <Properties>
+                <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Estadisticas">
+                    <Property name="tabTitle" type="java.lang.String" value="Estadisticas"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="jPanel4">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[418, 900]"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel5" pref="420" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel5" pref="351" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanel5">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                        <Property name="axis" type="int" value="3"/>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="javax.swing.JLabel" name="jLabel5">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Ubuntu" size="13" style="1"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Relaci&#xf3;n del Monto usado con el Monto m&#xe1;ximo"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+                          <Properties>
+                            <Property name="maximum" type="int" value="3000"/>
+                            <Property name="value" type="int" value="2500"/>
+                            <Property name="string" type="java.lang.String" value="$2500 / $3000"/>
+                            <Property name="stringPainted" type="boolean" value="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
           </SubComponents>
