@@ -101,10 +101,8 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Alfonsina 1"},
-                {"Alfonsina 2"},
-                {"Alfonsina 3"},
-                {"Alfonsina 4"}
+                {"Cinta Transportadora - Sec 1"},
+                {"Base - Sec 2"}
             },
             new String [] {
                 "Title 1"
@@ -426,7 +424,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -446,7 +444,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
                             .addComponent(btnCancelar)
                             .addComponent(jButton1)
                             .addComponent(btnGuardar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -539,7 +537,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     private void initGraphTortaAlfonsinas()
     {
         // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada Alfonsina al monto Total");
+        JLabel lblTitulo = new JLabel("Contribución de cada Item al monto Total");
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
        jPanel5.add(lblTitulo);
 
@@ -551,7 +549,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
     private void initGraphTortaItems() {
                 // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada XXXX al monto Total");
+        JLabel lblTitulo = new JLabel("Contribución de cada Item al monto Total");
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jPanel5.add(lblTitulo);
 
