@@ -549,7 +549,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
     private void initGraphTortaItems() {
                 // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada Item al monto Total");
+        JLabel lblTitulo = new JLabel("Contribución de cada Tipo al monto Total");
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jPanel5.add(lblTitulo);
 
