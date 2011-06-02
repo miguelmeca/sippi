@@ -29,11 +29,9 @@ public class editarCotizacion_Torta_Alfonsinas extends JPanel {
         setLayout(new java.awt.BorderLayout());
 
         final DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("Alfonsina 1", new Double(43.2));
-        data.setValue("Alfonsina 2", new Double(10.0));
-        data.setValue("Alfonsina 3", new Double(17.5));
-        data.setValue("Alfonsina 4", new Double(32.5));
-        data.setValue("Alfonsina 5", new Double(12.5));
+        data.setValue("Cinta Transportadora - Sec 1", new Double(75));
+        data.setValue("Base - Sec 2", new Double(25.0));
+
 
         final JFreeChart chart = ChartFactory.createPieChart3D(
             "",  // chart title
