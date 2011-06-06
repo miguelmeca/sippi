@@ -26,10 +26,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jRadioButton1" min="-2" pref="244" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jFormattedTextField2" pref="126" max="32767" attributes="1"/>
+                      <Component id="jFormattedTextField2" pref="130" max="32767" attributes="1"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jRadioButton3" pref="263" max="32767" attributes="0"/>
+                      <Component id="jRadioButton3" pref="267" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jFormattedTextField1" min="-2" pref="107" max="-2" attributes="1"/>
                   </Group>
@@ -83,7 +83,7 @@
           <Color blue="f1" green="fa" red="fb" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Ganancia por la Obra: $1350"/>
+        <Property name="text" type="java.lang.String" value="Ganancia por el Item de Obra: $1350"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder>
@@ -99,8 +99,11 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Monto de Ganancia por la Obra ($)"/>
+        <Property name="text" type="java.lang.String" value="Monto de Ganancia por el Item de Obra ($)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton2">
       <Properties>
@@ -113,7 +116,7 @@
           <ComponentRef name="buttonGroup1"/>
         </Property>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Porcentaje de Ganancia por la Obra (%)"/>
+        <Property name="text" type="java.lang.String" value="Porcentaje de Ganancia por el Item de Obra (%)"/>
       </Properties>
     </Component>
   </SubComponents>

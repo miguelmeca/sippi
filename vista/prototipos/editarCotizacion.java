@@ -28,18 +28,21 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
     private static final int OPTN_ALQUILERES_COMPRAS    = 3;
     private static final int OPTN_BENEFICIOS            = 4;
     private static final int OPTN_ADICIONALES           = 5;
+    private static final int OPTN_DESCRIPCION           = 6;
 
     /** Creates new form modificarPresupuesto */
     public editarCotizacion() {
 
         initComponents();
 
-        // POR DEFAULT VA MANO DE OBRA ??
+        // POR DEFAULT VA DESCRIPCION DEL ITEM
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-        setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
-        editarCotizacion_ManoDeObra mo = new editarCotizacion_ManoDeObra();
-        panel.setViewportView(mo);
-        mo.setVisible(true);
+
+        setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
+        editarCotizacion_Descripcion ecd = new editarCotizacion_Descripcion();
+        panel.setViewportView(ecd);
+        ecd.setVisible(true);
+
     }
 
     /** This method is called from within the constructor to
@@ -79,11 +82,11 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -153,7 +156,8 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Beneficios"},
-                {"Adicionales"}
+                {"Adicionales"},
+                {"Descripción"}
             },
             new String [] {
                 "Title 1"
@@ -186,7 +190,7 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,7 +208,7 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
                         .addComponent(btnCancelar))
                     .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -280,6 +284,18 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 editarCotizacion_Herramientas h = new editarCotizacion_Herramientas();
                 panel.setViewportView(h);
                 h.setVisible(true);
+                break;
+            case OPTN_DESCRIPCION:
+                setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
+                editarCotizacion_Descripcion ecd = new editarCotizacion_Descripcion();
+                panel.setViewportView(ecd);
+                ecd.setVisible(true);
+                break;
+            default:
+                setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
+                editarCotizacion_Descripcion ecd2 = new editarCotizacion_Descripcion();
+                panel.setViewportView(ecd2);
+                ecd2.setVisible(true);
         }
 
 
