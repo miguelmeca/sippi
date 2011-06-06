@@ -48,18 +48,23 @@ public class editarCotizacion_Beneficios extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(251, 250, 241));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ganancia por la Obra: $1350");
+        jLabel1.setText("Ganancia por el Item de Obra: $1350");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 239, 161)));
         jLabel1.setOpaque(true);
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Monto de Ganancia por la Obra ($)");
+        jRadioButton1.setText("Monto de Ganancia por el Item de Obra ($)");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         jRadioButton2.setText("jRadioButton2");
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Porcentaje de Ganancia por la Obra (%)");
+        jRadioButton3.setText("Porcentaje de Ganancia por el Item de Obra (%)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -71,9 +76,9 @@ public class editarCotizacion_Beneficios extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                        .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
@@ -95,6 +100,10 @@ public class editarCotizacion_Beneficios extends javax.swing.JPanel {
                 .addContainerGap(173, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
