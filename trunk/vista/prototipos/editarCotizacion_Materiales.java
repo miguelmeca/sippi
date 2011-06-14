@@ -328,7 +328,10 @@ public class editarCotizacion_Materiales extends javax.swing.JPanel {
 }//GEN-LAST:event_tbMaterialesMouseReleased
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
-//        if(tbMaterialEspecifico.getSelectedRow()>=0){
+        pantallaSeleccionarProveedorCotizacion pspc = new pantallaSeleccionarProveedorCotizacion();
+        SwingPanel.getInstance().addWindow(pspc);
+        pspc.setVisible(true);
+        //        if(tbMaterialEspecifico.getSelectedRow()>=0){
 //            Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
 //            NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
 //            pantallaSeleccionarProveedorCotizacion psp = new pantallaSeleccionarProveedorCotizacion(this.gestorRAM,r.getId(),re.getId());

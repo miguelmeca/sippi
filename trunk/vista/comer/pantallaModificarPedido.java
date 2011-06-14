@@ -201,14 +201,6 @@ public final class pantallaModificarPedido extends javax.swing.JInternalFrame im
         this.cmbLVP.setDate(fLVP);
     }
 
-    public void setPliegosPedido(String pliegos) {
-        this.txtPliego.setText(pliegos);
-    }
-
-    public void setPlanosPedido(String pedidos) {
-        this.txtPlanos.setText(pedidos);
-    }
-
     public void setContactoResponsable(int idContacto) {
         Tupla t=null;
         for(int i=0;i<cmbContactos.getModel().getSize();i++){
@@ -518,8 +510,6 @@ public final class pantallaModificarPedido extends javax.swing.JInternalFrame im
             gestor.nombreObra(txtNombreObra.getText());
             gestor.descripcionObra(txtDescripcion.getText());
             gestor.montoMaximo(Double.parseDouble(txtMonto.getText()));
-            gestor.pliegoObra(txtPliego.getText());
-            gestor.planosObra(txtPlanos.getText());
 
             Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
             Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
@@ -648,5 +638,13 @@ public final class pantallaModificarPedido extends javax.swing.JInternalFrame im
                 }
                 break;
         }
+    }
+
+    public void setPliegosPedido(String pliegos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setPlanosPedido(String pedidos) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
  }
