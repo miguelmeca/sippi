@@ -477,8 +477,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             gestor.nombreObra(this.txtNombreObra.getText());
             gestor.descripcionObra(this.txtDescripcion.getText());
             gestor.montoMaximo(Long.valueOf(this.txtMonto.getText()));
-            gestor.planosObra(this.txtPlanos.getText());
-            gestor.pliegoObra(this.txtPliego.getText());
+
             
             //VALIDO LAS FECHAS
             // HACER
