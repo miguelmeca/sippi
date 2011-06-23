@@ -50,7 +50,7 @@ import vista.planificacion.pantallaNuevoPresupuesto;
 import vista.planificacion.pantallaRegistrarTarea;
 import vista.planificacion.pantallaRegistrarPresupuesto;
 import vista.prototipos.editarCotizacion;
-import vista.prototipos.explorarCotizaciones;
+import vista.prototipos.verCotizacionesObra;
 import vista.prototipos.pantallaExplorarAlfonsinas;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
@@ -540,7 +540,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
 
-        explorarCotizaciones mod =  new explorarCotizaciones();
+        verCotizacionesObra mod =  new verCotizacionesObra();
         SwingPanel.getInstance().addWindow(mod);
         mod.setVisible(true);
 }//GEN-LAST:event_jMenuItem5ActionPerformed
