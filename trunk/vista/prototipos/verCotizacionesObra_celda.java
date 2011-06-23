@@ -19,10 +19,10 @@ import util.FechaUtil;
  *
  * @author Administrador
  */
-public class explorarCotizaciones_celda extends javax.swing.JPanel {
+public class verCotizacionesObra_celda extends javax.swing.JPanel {
 
     /** Creates new form explorarCotizaciones_celda */
-    public explorarCotizaciones_celda() {
+    public verCotizacionesObra_celda() {
         initComponents();
     }
 
@@ -44,20 +44,20 @@ public class explorarCotizaciones_celda extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblRevision = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Número Presupuesto: ");
 
         lblNumCot.setText("123");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setText("Creación:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Última Modificación:");
 
         lblCreacion.setText("1");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Revisión:");
 
         lblRevision.setText("2");

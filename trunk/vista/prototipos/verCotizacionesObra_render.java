@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @todo Hacer q cambie de color un JPane cuando le pasas el mouse por arriba
  */
 
-public class explorarCotizaciones_render extends DefaultTableCellRenderer
+public class verCotizacionesObra_render extends DefaultTableCellRenderer
 {
 
     @Override
     public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1)
     {
 
-        if(o instanceof explorarCotizaciones_celda)
+        if(o instanceof verCotizacionesObra_celda)
         {
             JPanel panel = (JPanel)o;
             fillColor(jtable, o, bln1);
@@ -39,7 +39,7 @@ public class explorarCotizaciones_render extends DefaultTableCellRenderer
     public void fillColor(JTable t,Object obj,boolean isSelected )
     {
         //setting the background and foreground when JLabel is selected
-        explorarCotizaciones_celda panel = (explorarCotizaciones_celda)obj;
+        verCotizacionesObra_celda panel = (verCotizacionesObra_celda)obj;
         panel.setSelected(isSelected);
     }
 
