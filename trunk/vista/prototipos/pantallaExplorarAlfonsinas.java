@@ -55,8 +55,6 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jButton6 = new javax.swing.JButton();
         btnEditarAlfonsina = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -106,13 +104,13 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Cotización Obra: Montagargas Arco");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Items de la Obra"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Sub-Obras"));
         jPanel3.setMaximumSize(new java.awt.Dimension(50, 50));
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Cinta Transportadora - Sec 1"},
-                {"Base - Sec 2"}
+                {"Construcción"},
+                {"Desmontaje"}
             },
             new String [] {
                 "Title 1"
@@ -131,6 +129,9 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         tblMenu.setRowHeight(25);
         tblMenu.setTableHeader(null);
         tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMenuMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblMenuMousePressed(evt);
             }
@@ -139,6 +140,11 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         jButton5.setToolTipText("Nueva");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton6.setToolTipText("Eliminar");
@@ -156,36 +162,27 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarAlfonsina))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton5)
-                    .addComponent(btnEditarAlfonsina)
-                    .addComponent(jButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton6)
+                    .addComponent(btnEditarAlfonsina)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Totales"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Totales de la Obra"));
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 300));
-
-        jLabel1.setText("Monto Base:");
-
-        jLabel2.setBackground(new java.awt.Color(251, 250, 241));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("$2000");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 239, 161)));
-        jLabel2.setOpaque(true);
 
         jLabel3.setText("Monto Total:");
 
@@ -199,21 +196,17 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addGap(112, 112, 112))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -234,7 +227,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Fecha Límite de Entrega del Presupuesto:");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Número de Cotización:");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -247,16 +240,16 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(251, 251, 251)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel19)
                     .addComponent(jLabel18)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cmbLVP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbLEP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbLVP, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(cmbLEP, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -293,7 +286,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
         jLabel21.setText("Nombre:");
 
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 13));
         jLabel22.setForeground(new java.awt.Color(123, 166, 189));
         jLabel22.setText("Datos de la Obra");
 
@@ -303,7 +296,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Fecha de Inicio:");
 
-        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 13));
         jLabel26.setForeground(new java.awt.Color(123, 166, 189));
         jLabel26.setText("Fechas Importantes");
 
@@ -333,13 +326,13 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
@@ -354,7 +347,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel25)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -402,8 +395,8 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -414,7 +407,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -443,7 +436,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -474,7 +467,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -482,7 +475,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -494,11 +487,11 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
@@ -531,19 +524,17 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -551,24 +542,24 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnGuardar)
-                                .addComponent(btnCancelar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnGuardar)
                             .addComponent(jButton1))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
+
 
 
     }//GEN-LAST:event_tblMenuMousePressed
@@ -583,14 +574,11 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEditarAlfonsinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlfonsinaActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-        editarCotizacion mod = new editarCotizacion();
-        if(tblMenu.getSelectedRow() >=0)
-            mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
-        else
-            mod.setTitle("Editar Cotización: Default");
-        SwingPanel.getInstance().addWindow(mod);
-        mod.setVisible(true);
+        
+        nuevaSubObra nso = new nuevaSubObra(nuevaSubObra.TIPO_MODIFICAR);
+        SwingPanel.getInstance().addWindow(nso);
+        nso.setVisible(true);
+
     }//GEN-LAST:event_btnEditarAlfonsinaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -600,6 +588,26 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
 }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        nuevaSubObra nso = new nuevaSubObra(nuevaSubObra.TIPO_CREAR);
+        SwingPanel.getInstance().addWindow(nso);
+        nso.setVisible(true);
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMouseClicked
+
+        DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
+        editarCotizacion mod = new editarCotizacion();
+        if(tblMenu.getSelectedRow() >=0)
+            mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+        else
+            mod.setTitle("Editar Cotización: Default");
+        SwingPanel.getInstance().addWindow(mod);
+        mod.setVisible(true);
+    }//GEN-LAST:event_tblMenuMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -613,7 +621,6 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -624,7 +631,6 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -665,7 +671,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     private void initGraphTortaAlfonsinas()
     {
         // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada Item al monto Total");
+        JLabel lblTitulo = new JLabel("Contribución de cada 'Sub-Obra' al monto Total");
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
        jPanel5.add(lblTitulo);
 
@@ -677,7 +683,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
 
     private void initGraphTortaItems() {
                 // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada Tipo al monto Total");
+        JLabel lblTitulo = new JLabel("Contribución de cada 'Tipo de Recurso' al monto Total");
         lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jPanel5.add(lblTitulo);
 

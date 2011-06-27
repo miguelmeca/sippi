@@ -29,11 +29,11 @@ public class editarCotizacion_Torta_Items extends JPanel {
         setLayout(new java.awt.BorderLayout());
 
         final DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("Mano de Obra", new Double(30));
-        data.setValue("Herramientas", new Double(5));
-        data.setValue("Materiales", new Double(50));
-        data.setValue("Adicionales", new Double(5));
-        data.setValue("Alquileres / Compras", new Double(10));
+        data.setValue("Mano de Obra [$750]", new Double(30));
+        data.setValue("Herramientas [$125]", new Double(5));
+        data.setValue("Materiales [$1250]", new Double(50));
+        data.setValue("Adicionales [$125]", new Double(5));
+        data.setValue("Alquileres / Compras [$250]", new Double(10));
 
         final JFreeChart chart = ChartFactory.createPieChart3D(
             "",  // chart title
