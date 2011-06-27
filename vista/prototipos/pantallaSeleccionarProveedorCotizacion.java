@@ -48,6 +48,7 @@ public class pantallaSeleccionarProveedorCotizacion extends javax.swing.JInterna
 
     private void mostrarRecursosEspecificosXProveedor()
     {
+
         DefaultTableModel modelo = (DefaultTableModel)tbProveedores.getModel();
 
         // VACIO LA TABLA
@@ -67,7 +68,7 @@ public class pantallaSeleccionarProveedorCotizacion extends javax.swing.JInterna
                     String[] datos = (String[])ntp.getData();
                     fila[0] = ntp;
                     fila[1] = datos[0];
-                    fila[2] = datos[1];
+                    fila[2] = "<HTML><BODY><b>Vigencia:</b> "+datos[1]+"<br><b>Registro:</b> 06/06/2011";
 
                 modelo.addRow(fila);
 
@@ -127,7 +128,7 @@ public class pantallaSeleccionarProveedorCotizacion extends javax.swing.JInterna
 
             },
             new String [] {
-                "Proveedor", "Precios Por Cantidad", "Fecha de Vigencia"
+                "Proveedor", "Precios Por Cantidad", "Fechas"
             }
         ) {
             boolean[] canEdit = new boolean [] {

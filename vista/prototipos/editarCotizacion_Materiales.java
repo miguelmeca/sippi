@@ -11,6 +11,7 @@
 
 package vista.prototipos;
 
+import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,9 +37,15 @@ public class editarCotizacion_Materiales extends javax.swing.JPanel {
     /** Creates new form editarCotizacion_Materiales */
     public editarCotizacion_Materiales() {
         initComponents();
+        String material[]= new String[4];
+        material[0] = "3 kg.";
+        material[1] = "CHAPA";
+        material[2] = "Perfil IPN 200";
+        material[3] = "12,5";
+        mostrarMaterialesAUtilizar(material);
     }
 
-        private void FiltrarTabla(JTable table,JTextField field){
+    private void FiltrarTabla(JTable table,JTextField field){
        TableRowSorter<TableModel> modeloOrdenado;
        modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
        table.setRowSorter(modeloOrdenado);
@@ -122,6 +129,24 @@ public class editarCotizacion_Materiales extends javax.swing.JPanel {
 //            modelo.addRow(fila);
 //        }
 //        txtSubtotalMateriales.setText("$ "+total);
+    }
+
+        private void mostrarMaterialesAUtilizar(String[] material) {
+
+        DefaultTableModel modelo = (DefaultTableModel)tbMaterialesAUsar.getModel();
+
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        double total = 0;
+        Object[] fila = new Object[4];
+        fila[0] = material[0];
+        fila[1] = material[1];
+        fila[2] = material[2];
+        fila[3] = material[3];
+        total+=12.5;
+        modelo.addRow(fila);
+
+        txtSubtotalMateriales.setText("$ "+total);
     }
 
     private void cargarTabMateriales() {
@@ -328,7 +353,7 @@ public class editarCotizacion_Materiales extends javax.swing.JPanel {
 }//GEN-LAST:event_tbMaterialesMouseReleased
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
-        pantallaSeleccionarProveedorCotizacion pspc = new pantallaSeleccionarProveedorCotizacion();
+        pantallaSeleccionarProveedorCotizacion pspc = new pantallaSeleccionarProveedorCotizacion(new GestorRegistrarAsignacionMateriales(null),1,1);
         SwingPanel.getInstance().addWindow(pspc);
         pspc.setVisible(true);
         //        if(tbMaterialEspecifico.getSelectedRow()>=0){
