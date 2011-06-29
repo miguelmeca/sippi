@@ -15,12 +15,14 @@ import vista.planificacion.*;
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import util.LogUtil;
 import util.NTupla;
 import util.StringUtil;
+import util.SwingPanel;
 import util.TablaUtil;
 
 /**
@@ -148,6 +150,11 @@ public class pantallaSeleccionarProveedorCotizacion extends javax.swing.JInterna
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
         jButton1.setText("Agregar Nuevo Precio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProveedorLayout = new javax.swing.GroupLayout(panelProveedor);
         panelProveedor.setLayout(panelProveedorLayout);
@@ -294,6 +301,13 @@ public class pantallaSeleccionarProveedorCotizacion extends javax.swing.JInterna
             this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AgregarNuevoPrecio anp = new AgregarNuevoPrecio();
+        SwingPanel.getInstance().addWindow(anp);
+        anp.setVisible(true);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
