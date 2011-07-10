@@ -265,7 +265,7 @@ public class editarCotizacion extends javax.swing.JInternalFrame {
                 break;
             case OPTN_RRHH:
                 setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
-                editarCotizacion_ManoDeObra_OpcionB_parte2 mo = new editarCotizacion_ManoDeObra_OpcionB_parte2();
+                editarCotizacion_ManoDeObra_OpcionB_parte1 mo = new editarCotizacion_ManoDeObra_OpcionB_parte1();
                 panel.setViewportView(mo);
                 mo.setVisible(true);
                 break;
