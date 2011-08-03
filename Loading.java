@@ -173,8 +173,8 @@ public class Loading extends javax.swing.JFrame {
                 try
                 {
                     UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
-                    //UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel");
-                }catch(Exception e)
+                }
+                catch(Exception e)
                 {}
     }
 
