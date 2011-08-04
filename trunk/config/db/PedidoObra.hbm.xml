@@ -5,28 +5,24 @@
     <id column="ID_PEDIDO_OBRA" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <property column="PLIEGO" name="pliego" type="string"/>
-    <property column="PLANOS" name="planos" type="string"/>
-    <property column="FECHALVP" name="fechaLimiteValidezPresupuesto" type="date"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
     <property column="FECHA_FIN" name="fechaFin" type="date"/>
-    <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
-    <property column="FECHA_ACEPTO" name="fechaAceptacion" type="date"/>
-    <property column="FECHA_LEP" name="fechaLimiteEntregaPresupuesto" type="date"/>
-    <property column="MONTO" name="monto" type="double"/>
-    <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
-    <many-to-one class="modelo.ContactoResponsable" column="ID_CONTACTO" name="contacto"/>
-    <property name="hib_flag_estado" not-null="true" type="string"/>
-    <!--many-to-one class="modelo.EstadoPedidoObra" column="ID_ESTADO" name="estadoObra"/-->
-    <!-- Da error vaya uno a saber porque -->
-    <!--many-to-one name="contacto" class="modelo.ContactoResponsable" column="ID_CONTACTO"/-->
-    <!-- IUGA MOD : Faltaba esto -->
-    <list cascade="all-delete-orphan" name="presupuestos" table="PEDIDOOBRA_X_PRESUPUESTO">
+    <property column="PRESUPUESTO_MAXIMO" name="presupuestoMaximo" type="double"/>
+    <many-to-one class="modelo.FormaDePago" column="ID_FORMA_DE_PAGO" name="formaPago"/>
+    <list cascade="all-delete-orphan" name="cotizaciones" table="PEDIDOOBRA_X_COTIZACION">
       <key column="ID_PEDIDO_OBRA"/>
       <index column="idx"/>
-      <many-to-many class="modelo.Presupuesto"/>
+      <many-to-many class="modelo.Cotizacion"/>
     </list>
+    <list cascade="all-delete-orphan" name="contactos" table="PEDIDOOBRA_X_CONTACTO_RESPONSABLE">
+      <key column="ID_PEDIDO_OBRA"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.ContactoResponsable"/>
+    </list>
+    <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
+    <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
+    <property name="hib_flag_estado" not-null="true" type="string"/>
   </class>
 </hibernate-mapping>

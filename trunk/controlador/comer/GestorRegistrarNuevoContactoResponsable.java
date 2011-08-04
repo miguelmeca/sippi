@@ -157,12 +157,12 @@ public class GestorRegistrarNuevoContactoResponsable  implements IGestorContacto
         {
             ContactoResponsable contacto;
             try{
-            contacto=crearContactoResponsable();
-            if(planta!=null)
-            {
-                planta.setContacto(contacto);
-
-            }
+//            contacto=crearContactoResponsable();
+//            if(planta!=null)
+//            {
+//                planta.setContacto(contacto);
+//
+//            }
 
             }
            catch (Exception ex)
@@ -187,14 +187,14 @@ public class GestorRegistrarNuevoContactoResponsable  implements IGestorContacto
                     HibernateUtil.beginTransaction();
                     //sesion.beginTransaction();
             
-                    Iterator itt=contacto.getTelefonos().iterator();
-                    while(itt.hasNext())
-                    {
-                        Telefono tel=(Telefono)itt.next();
-                        sesion.save(tel);
-                    }
+//                    Iterator itt=contacto.getTelefonos().iterator();
+//                    while(itt.hasNext())
+//                    {
+//                        Telefono tel=(Telefono)itt.next();
+//                        sesion.save(tel);
+//                    }
                    
-                    sesion.save(contacto);
+//                    sesion.save(contacto);
                     if(planta!=null)
                     {sesion.saveOrUpdate(planta);}
                     //sesion.getTransaction().commit();
@@ -211,20 +211,20 @@ public class GestorRegistrarNuevoContactoResponsable  implements IGestorContacto
             
 	}
 		
-	public ContactoResponsable crearContactoResponsable()
-        {
-
-            Date fechaAltaActual=fechaActual;
-           // fecha_Alta=System
-            
-
-            ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable,cargoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
-
-            //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
-            
-            return cr;
-
-	}
+//	public ContactoResponsable crearContactoResponsable()
+//        {
+//
+//            Date fechaAltaActual=fechaActual;
+//           // fecha_Alta=System
+//
+//
+////            ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable,cargoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
+//
+//            //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
+//
+//            return cr;
+//
+//	}
 	
 	public void finCU() {
 	

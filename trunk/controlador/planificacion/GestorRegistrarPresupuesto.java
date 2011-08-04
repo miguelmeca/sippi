@@ -98,18 +98,18 @@ public class GestorRegistrarPresupuesto {
             while (it.hasNext())
             {
                 PedidoObra po = it.next();
-                Iterator<Presupuesto> itp = po.getPresupuestos().iterator();
-                while (itp.hasNext())
-                {
-                    Presupuesto pres = itp.next();
-                    if(pres.getId()==idPresupuesto)
-                    {
-                        this.obra = po;
-                        pantalla.mostrarDatosObra(obra.getId(),obra.getNombre(),obra.getPlanta().getRazonSocial());
-                        pantalla.mostrarFechaInicioYFin(FechaUtil.getFecha(obra.getFechaInicio()),FechaUtil.getFecha(obra.getFechaFin()));
-                        return;
-                    }
-                }
+//                Iterator<Presupuesto> itp = po.getPresupuestos().iterator();
+//                while (itp.hasNext())
+//                {
+//                    Presupuesto pres = itp.next();
+//                    if(pres.getId()==idPresupuesto)
+//                    {
+//                        this.obra = po;
+//                        pantalla.mostrarDatosObra(obra.getId(),obra.getNombre(),obra.getPlanta().getRazonSocial());
+//                        pantalla.mostrarFechaInicioYFin(FechaUtil.getFecha(obra.getFechaInicio()),FechaUtil.getFecha(obra.getFechaFin()));
+//                        return;
+//                    }
+//                }
             }
         }catch (Exception ex)
         {

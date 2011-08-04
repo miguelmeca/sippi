@@ -839,12 +839,12 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         this.lblNombreObra.setText(gestor.mostrarNombreObra());
         this.lblDescripcionObra.setText(gestor.mostrarDescripcionObra());
         this.lblFechaRegistro.setText(gestor.mostrarFechaRegistro());
-        this.lblFechaLVP.setText(gestor.mostrarFechaLVP());
-        this.lblFechaAceptacion.setText(gestor.mostrarFechaAceptacion());
-        this.lblFechaLEP.setText(gestor.mostrarFechaLEP());
-        this.lblPliego.setText(gestor.mostrarPliego());
-        this.lblPlanos.setText(gestor.mostrarPlanos());
-        this.lblMonto.setText("Monto de la Obra: $"+gestor.mostrarMontoObra());
+//        this.lblFechaLVP.setText(gestor.mostrarFechaLVP());
+//        this.lblFechaAceptacion.setText(gestor.mostrarFechaAceptacion());
+//        this.lblFechaLEP.setText(gestor.mostrarFechaLEP());
+//        this.lblPliego.setText(gestor.mostrarPliego());
+//        this.lblPlanos.setText(gestor.mostrarPlanos());
+//        this.lblMonto.setText("Monto de la Obra: $"+gestor.mostrarMontoObra());
     }
 
     private void cargarDatosPlanta() {
@@ -867,7 +867,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         DefaultComboBoxModel modeloPais = new DefaultComboBoxModel();
         modeloPais.addElement(gestor.mostrarPaisPlanta());
         cmbPaisPlanta.setModel(modeloPais);
-        txtNombreContacto.setText(gestor.mostrarNombreCompletoContacto());
+//        txtNombreContacto.setText(gestor.mostrarNombreCompletoContacto());
         txtEmailContacto.setText(gestor.mostrarEmailContacto());
         HashSet<NTupla> tels = gestor.mostrarTelefonosContacto();
         if(tels != null)

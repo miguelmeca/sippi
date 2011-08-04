@@ -84,20 +84,20 @@ public class GestorConsultarDatosContactoResponsable    {
             cuilEmpleadoOriginal=empleadoModif.getCuil();*/
             //Envio a la pantalla los datos personales del empleado levantado
 
-            pantalla.datosPersonalesContactoResponsable( empleadoModif.getCuil(),empleadoModif.getNombre(), empleadoModif.getApellido(),  empleadoModif.getFechaAlta(), empleadoModif.getEmail());
+//            pantalla.datosPersonalesContactoResponsable( empleadoModif.getCuil(),empleadoModif.getNombre(), empleadoModif.getApellido(),  empleadoModif.getFechaAlta(), empleadoModif.getEmail());
             //Envio a la pantalla los telefonos del empleado levantado
-            Telefono[] tel=(Telefono[])empleadoModif.getTelefonos().toArray(new Telefono[0]);
+//            Telefono[] tel=(Telefono[])empleadoModif.getTelefonos().toArray(new Telefono[0]);
             ArrayList listaNro=new ArrayList<String>();
             ArrayList listaTipoT=new ArrayList<Tupla>();
-            for(int i=0; i<tel.length;i++)
-            {
-               TipoTelefono td= tel[i].getTipo();
-               Tupla tup=new Tupla();
-               tup.setId(td.getId());
-               tup.setNombre(td.getNombre());
-               listaTipoT.add(tup);
-               listaNro.add(tel[i].getNumero());
-            }
+//            for(int i=0; i<tel.length;i++)
+//            {
+//               TipoTelefono td= tel[i].getTipo();
+//               Tupla tup=new Tupla();
+//               tup.setId(td.getId());
+//               tup.setNombre(td.getNombre());
+//               listaTipoT.add(tup);
+//               listaNro.add(tel[i].getNumero());
+//            }
             pantalla.telefonosContactoResponsable( listaNro , listaTipoT);
             
             return true;

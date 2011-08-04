@@ -17,60 +17,12 @@ import java.util.Set;
 
 public class ContactoResponsable {
 	private int id;
-        private String cargo;
 	private String nombre;
-	private String apellido;
-	private String email;
-	private String cuil;
-	private Set<Telefono> telefonos;
-        private Date fechaAlta;
+	private Telefono telefono;
+        private String email;
+        private RolContactoResponsable rol;
 
     public ContactoResponsable() {
-        telefonos = new HashSet<Telefono>();
-    }
-
-    public ContactoResponsable(String nom,String apell,String cg, String cUil, String eMail,  ArrayList<String> listaNroTel, ArrayList<TipoTelefono> listaTipoTel, Date fecha_Alta)
-
-        {
-            nombre=nom;
-            apellido=apell;
-            cargo = cg;
-            cuil=cUil;
-            email=eMail;            
-            fechaAlta=fecha_Alta;
-            telefonos = new HashSet();
-            setTelefonos(listaNroTel,  listaTipoTel);
-        }
-
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
-
-    public void setfechaAlta(Date fa) {
-        this.fechaAlta = fa;
-    }
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getCuil() {
-        return cuil;
-    }
-
-    public void setCuil(String cuil) {
-        this.cuil = cuil;
     }
 
     public String getEmail() {
@@ -97,24 +49,22 @@ public class ContactoResponsable {
         this.nombre = nombre;
     }
 
-    public Set getTelefonos() {
-        return telefonos;
+    public RolContactoResponsable getRol() {
+        return rol;
     }
 
-    public void setTelefonos(Set telefonos) {
-        this.telefonos = telefonos;
+    public void setRol(RolContactoResponsable rol) {
+        this.rol = rol;
     }
 
-    public void setTelefonos(ArrayList<String> nroTelefono, ArrayList<TipoTelefono> tipoTelefono)
-    {
-        this.telefonos.clear();
-       for(int i=0; i<nroTelefono.size();i++)
-       {
-           Telefono tel=new Telefono(nroTelefono.get(i) , tipoTelefono.get(i));
-           this.telefonos.add(tel);
-       }
-
+    public Telefono getTelefono() {
+        return telefono;
     }
+
+    public void setTelefono(Telefono telefono) {
+        this.telefono = telefono;
+    }
+
     public void crear() {
 
     }
@@ -126,10 +76,4 @@ public class ContactoResponsable {
     public void getContacto() {
 
     }
-
-    public void addTelefono(Telefono t) {
-        this.telefonos.add(t);
-    }
-
-
 }

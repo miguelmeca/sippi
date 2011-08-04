@@ -57,10 +57,10 @@ import vista.comer.pantallaBuscarPedido;
             p.setId(po.getId());
             p.setNombre(po.getNombre());
             datos.add(po.getEstado().getNombre());
-            if(po.getContacto() != null)
-                datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
-            else
-                datos.add("sin contacto");
+//            if(po.getContacto() != null)
+//                datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
+//            else
+//                datos.add("sin contacto");
             Iterator itEmpresa = sesion.createQuery("from EmpresaCliente").iterate();
             EmpresaCliente ec = null;
             while(itEmpresa.hasNext()){

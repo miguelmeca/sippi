@@ -92,8 +92,8 @@ public class DBExamplesLoader {
           this.cargarTipoDocumento();
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
-          this.cargarTipoLicencias();
-          this.cargarContactoResponsable();
+          //this.cargarTipoLicencias();
+          //this.cargarContactoResponsable(); TODO: Debemos reveer este método para poder cargar contactos responsables
 
           this.cargarCompras();
 
@@ -666,15 +666,10 @@ public class DBExamplesLoader {
     public void cargarContactoResponsable(){
         ContactoResponsable contacto = new ContactoResponsable();
         contacto.setNombre("Andrés");
-        contacto.setApellido("Pedraza");
-        contacto.setCargo("Encargado de Compras");
         contacto.setEmail("apedraza@gmail.com");
-        contacto.setCuil("20-15678445-8");
         Telefono t = new Telefono();
         t.setNumero("(0351) 4564478");
         t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-        contacto.addTelefono(t);
-        contacto.setfechaAlta(new Date());
 
         sesion.beginTransaction();
         sesion.save(t);

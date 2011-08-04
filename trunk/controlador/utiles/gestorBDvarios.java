@@ -264,8 +264,8 @@ public class gestorBDvarios
             while ( iter.hasNext() )
             {
                 ContactoResponsable cr = (ContactoResponsable)iter.next();
-                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
-                tuplas.add(tupla);
+//                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
+//                tuplas.add(tupla);
             }
             return tuplas;
 

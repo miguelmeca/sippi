@@ -44,17 +44,17 @@ public class GestorNuevoPresupuesto {
                 while (iter.hasNext())
                 {
                    PedidoObra po = iter.next();
-                   if(po.getPresupuestos().size()==0)
-                   {
-                       NTupla nt = new NTupla(po.getId());
-                       nt.setNombre(po.getNombre());
-                       String[] data = new String[3];
-                        data[0] = po.getPlanta().getRazonSocial();
-                        data[1] = FechaUtil.getFecha(po.getFechaInicio());
-                        data[2] = FechaUtil.getFecha(po.getFechaFin());
-                       nt.setData(data);
-                       lista.add(nt);
-                    }
+//                   if(po.getPresupuestos().size()==0)
+//                   {
+//                       NTupla nt = new NTupla(po.getId());
+//                       nt.setNombre(po.getNombre());
+//                       String[] data = new String[3];
+//                        data[0] = po.getPlanta().getRazonSocial();
+//                        data[1] = FechaUtil.getFecha(po.getFechaInicio());
+//                        data[2] = FechaUtil.getFecha(po.getFechaFin());
+//                       nt.setData(data);
+//                       lista.add(nt);
+//                    }
                }
 
            }
@@ -103,7 +103,7 @@ public class GestorNuevoPresupuesto {
       PedidoObra obra = cargarObra(idObra);
       if(obra!=null)
       {
-          obra.addPresupuesto(pre);
+//          obra.addPresupuesto(pre);
 
            try
            {

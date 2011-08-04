@@ -25,6 +25,7 @@
         con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO
       <many-to-many class="modelo.Telefono" column="IDTELEFONO"/>
     </set>-->
+    <!--    ::: EMPRESACLIENTE :::     -->
     <joined-subclass name="modelo.EmpresaCliente" table="EMPRESACLIENTE">
       <!--La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
         La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA

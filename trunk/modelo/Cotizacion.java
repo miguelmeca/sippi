@@ -19,91 +19,21 @@ import java.util.List;
 
 public class Cotizacion {
     private int id;
-    private Date vencimiento;
-    private Date tiempoDeEntrega;
-    private Date fechaEmision;
-    private Proveedor proveedor;
-    private int cantDiasVigencia;
-    private float costoTotal;
-    private float porcentajeIVA;
-    private List<DetalleMaterial> detalle;
+    private int nroRevision;
+    private Date fechaCreacion;
+    private Date fechaModificacion;
+    private String plazoEntrega;
+    private String lugarEntrega;
+    private Date validezOferta;
+    private String descripcion;
+    private Date fechaLimiteEntrega;
+    private List<SubObra> subObras;
+
     public void crear() {
 
     }
 
-    public void mostrarDetalle() {
-
-    }
-
-    public void mostrarProveedor() {
-
-    }
-
     public Cotizacion() {
-    }
-
-    public int getCantDiasVigencia() {
-        return cantDiasVigencia;
-    }
-
-    public void setCantDiasVigencia(int cantDiasVigencia) {
-        this.cantDiasVigencia = cantDiasVigencia;
-    }
-
-    public float getCostoTotal() {
-        return costoTotal;
-    }
-
-    public void setCostoTotal(float costoTotal) {
-        this.costoTotal = costoTotal;
-    }
-
-    public List<DetalleMaterial> getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(List<DetalleMaterial> detalle) {
-        this.detalle = detalle;
-    }
-
-    public Date getFechaEmision() {
-        return fechaEmision;
-    }
-
-    public void setFechaEmision(Date fechaEmision) {
-        this.fechaEmision = fechaEmision;
-    }
-
-    public float getPorcentajeIVA() {
-        return porcentajeIVA;
-    }
-
-    public void setPorcentajeIVA(float porcentajeIVA) {
-        this.porcentajeIVA = porcentajeIVA;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
-    }
-
-    public Date getTiempoDeEntrega() {
-        return tiempoDeEntrega;
-    }
-
-    public void setTiempoDeEntrega(Date tiempoDeEntrega) {
-        this.tiempoDeEntrega = tiempoDeEntrega;
-    }
-
-    public Date getVencimiento() {
-        return vencimiento;
-    }
-
-    public void setVencimiento(Date vencimiento) {
-        this.vencimiento = vencimiento;
     }
 
     public int getId() {
@@ -112,5 +42,77 @@ public class Cotizacion {
 
     private void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaLimiteEntrega() {
+        return fechaLimiteEntrega;
+    }
+
+    public void setFechaLimiteEntrega(Date fechaLimiteEntrega) {
+        this.fechaLimiteEntrega = fechaLimiteEntrega;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public String getLugarEntrega() {
+        return lugarEntrega;
+    }
+
+    public void setLugarEntrega(String lugarEntrega) {
+        this.lugarEntrega = lugarEntrega;
+    }
+
+    public int getNroRevision() {
+        return nroRevision;
+    }
+
+    public void setNroRevision(int nroRevision) {
+        this.nroRevision = nroRevision;
+    }
+
+    public String getPlazoEntrega() {
+        return plazoEntrega;
+    }
+
+    public void setPlazoEntrega(String plazoEntrega) {
+        this.plazoEntrega = plazoEntrega;
+    }
+
+    public List<SubObra> getSubObras() {
+        return subObras;
+    }
+
+    public void setSubObras(List<SubObra> subObras) {
+        this.subObras = subObras;
+    }
+
+    public Date getValidezOferta() {
+        return validezOferta;
+    }
+
+    public void setValidezOferta(Date validezOferta) {
+        this.validezOferta = validezOferta;
     }
 }

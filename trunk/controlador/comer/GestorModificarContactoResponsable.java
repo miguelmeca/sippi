@@ -123,25 +123,25 @@ public class GestorModificarContactoResponsable   implements IGestorContactoResp
             }
             //legajoEmpleadoOriginal=empleadoModif.getLegajo();
             //nroDocumentoOriginal=empleadoModif.getNroDoc();
-            cuilContactoOriginal=contactoModif.getCuil();
+//            cuilContactoOriginal=contactoModif.getCuil();
             //Envio a la pantalla los datos personales del empleado levantado
             /*Tupla emp=new Tupla();
             Tupla plant=new Planta;
             emp.setId()*/
-            pantalla.datosPersonalesContacto(contactoModif.getCuil(),contactoModif.getNombre(), contactoModif.getApellido(),  contactoModif.getEmail(),contactoModif.getCargo());
+//            pantalla.datosPersonalesContacto(contactoModif.getCuil(),contactoModif.getNombre(), contactoModif.getApellido(),  contactoModif.getEmail(),contactoModif.getCargo());
             //Envio a la pantalla los telefonos del empleado levantado
-            Telefono[] tel=(Telefono[])contactoModif.getTelefonos().toArray(new Telefono[0]);
+//            Telefono[] tel=(Telefono[])contactoModif.getTelefonos().toArray(new Telefono[0]);
             ArrayList listaNro=new ArrayList<String>();
             ArrayList listaTipoT=new ArrayList<Tupla>();
-            for(int i=0; i<tel.length;i++)
-            {
-               TipoTelefono td= tel[i].getTipo();
-               Tupla tup=new Tupla();
-               tup.setId(td.getId());
-               tup.setNombre(td.getNombre());
-               listaTipoT.add(tup);
-               listaNro.add(tel[i].getNumero());
-            }
+//            for(int i=0; i<tel.length;i++)
+//            {
+//               TipoTelefono td= tel[i].getTipo();
+//               Tupla tup=new Tupla();
+//               tup.setId(td.getId());
+//               tup.setNombre(td.getNombre());
+//               listaTipoT.add(tup);
+//               listaNro.add(tel[i].getNumero());
+//            }
             pantalla.telefonosContacto( listaNro , listaTipoT);
             ////
             return true;
@@ -223,12 +223,12 @@ public class GestorModificarContactoResponsable   implements IGestorContactoResp
             try{
                     HibernateUtil.beginTransaction();
                     //sesion.beginTransaction();
-                     Iterator ittv=contactoModif.getTelefonos().iterator();
-                    while(ittv.hasNext())
-                    {
-                        Telefono tel=(Telefono)ittv.next();
-                        sesion.delete(tel);
-                    }
+//                     Iterator ittv=contactoModif.getTelefonos().iterator();
+//                    while(ittv.hasNext())
+//                    {
+//                        Telefono tel=(Telefono)ittv.next();
+//                        sesion.delete(tel);
+//                    }
                      try{
             //contacto=modificarContacto();
                     modificarContacto();
@@ -245,12 +245,12 @@ public class GestorModificarContactoResponsable   implements IGestorContactoResp
                         return false;
                     }
                    // sesion.delete(contactoModif);
-                    Iterator itt=contactoModif.getTelefonos().iterator();
-                    while(itt.hasNext())
-                    {
-                        Telefono tel=(Telefono)itt.next();
-                        sesion.save(tel);
-                    }
+//                    Iterator itt=contactoModif.getTelefonos().iterator();
+//                    while(itt.hasNext())
+//                    {
+//                        Telefono tel=(Telefono)itt.next();
+//                        sesion.save(tel);
+//                    }
 
                     sesion.saveOrUpdate(contactoModif);
                     if(planta!=null)
@@ -293,11 +293,11 @@ public class GestorModificarContactoResponsable   implements IGestorContactoResp
            // fecha_Alta=System
            
            contactoModif.setNombre(nombreContactoResponsable);
-           contactoModif.setApellido(apellidoContactoResponsable);
-           contactoModif.setCuil(cuilContactoResponsable);
-           contactoModif.setEmail(emailContactoResponsable);
-           contactoModif.setTelefonos(listaNroTel, listaTipoTel);
-           contactoModif.setCargo(cargoContactoResponsable);
+//           contactoModif.setApellido(apellidoContactoResponsable);
+//           contactoModif.setCuil(cuilContactoResponsable);
+//           contactoModif.setEmail(emailContactoResponsable);
+//           contactoModif.setTelefonos(listaNroTel, listaTipoTel);
+//           contactoModif.setCargo(cargoContactoResponsable);
             
            // ContactoResponsable contR=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel,  contactoModif.getFechaAlta());
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);

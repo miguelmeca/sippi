@@ -212,19 +212,19 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
 
     private void test_fill_table() {
 
-        ExplorarCotizacionObra_Celda c1 = new ExplorarCotizacionObra_Celda();
+        ExplorarCotizacionObra_celda c1 = new ExplorarCotizacionObra_celda();
         c1.setNumeroCotizacion(153);
         c1.setRevision(1);
         c1.setFechaCreacion(new Date());
         c1.setUltimaModificacion(new Date());
 
-        ExplorarCotizacionObra_Celda c2 = new ExplorarCotizacionObra_Celda();
+        ExplorarCotizacionObra_celda c2 = new ExplorarCotizacionObra_celda();
         c2.setNumeroCotizacion(153);
         c2.setRevision(2);
         c2.setFechaCreacion(new Date());
         c2.setUltimaModificacion(new Date());
 
-        ExplorarCotizacionObra_Celda c3 = new ExplorarCotizacionObra_Celda();
+        ExplorarCotizacionObra_celda c3 = new ExplorarCotizacionObra_celda();
         c3.setNumeroCotizacion(153);
         c3.setRevision(3);
         c3.setFechaCreacion(new Date());

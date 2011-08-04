@@ -55,20 +55,20 @@ public class GestorConsultarPresupuestos {
         while (it.hasNext()) 
         {
             PedidoObra po = it.next();
-            Iterator<Presupuesto> itp = po.getPresupuestos().iterator();
-            while (itp.hasNext()) 
-            {
-                Presupuesto pr = itp.next();
-                
-                    NTupla nt = new NTupla(pr.getId());
-                    nt.setNombre(po.getNombre());
-                    
-                        String data[] = new String[2];
-                        data[0] = po.getPlanta().getRazonSocial();
-                        data[1] = pr.getVersion();
-                        nt.setData(data);
-                    lista.add(nt);
-            }
+//            Iterator<Presupuesto> itp = po.getPresupuestos().iterator();
+//            while (itp.hasNext())
+//            {
+//                Presupuesto pr = itp.next();
+//
+//                    NTupla nt = new NTupla(pr.getId());
+//                    nt.setNombre(po.getNombre());
+//
+//                        String data[] = new String[2];
+//                        data[0] = po.getPlanta().getRazonSocial();
+//                        data[1] = pr.getVersion();
+//                        nt.setData(data);
+//                    lista.add(nt);
+//            }
         }
 
         return lista;

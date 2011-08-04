@@ -19,10 +19,10 @@ import util.FechaUtil;
  *
  * @author Administrador
  */
-public class ExplorarCotizacionObra_Celda extends javax.swing.JPanel {
+public class ExplorarCotizacionObra_celda extends javax.swing.JPanel {
 
     /** Creates new form explorarCotizaciones_celda */
-    public ExplorarCotizacionObra_Celda() {
+    public ExplorarCotizacionObra_celda() {
         initComponents();
     }
 
