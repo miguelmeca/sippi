@@ -22,7 +22,7 @@ public class ExplorarCotizacionObra_Render extends DefaultTableCellRenderer
     public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1)
     {
 
-        if(o instanceof ExplorarCotizacionObra_Celda)
+        if(o instanceof ExplorarCotizacionObra_celda)
         {
             JPanel panel = (JPanel)o;
             fillColor(jtable, o, bln1);
@@ -39,7 +39,7 @@ public class ExplorarCotizacionObra_Render extends DefaultTableCellRenderer
     public void fillColor(JTable t,Object obj,boolean isSelected )
     {
         //setting the background and foreground when JLabel is selected
-        ExplorarCotizacionObra_Celda panel = (ExplorarCotizacionObra_Celda)obj;
+        ExplorarCotizacionObra_celda panel = (ExplorarCotizacionObra_celda)obj;
         panel.setSelected(isSelected);
     }
 

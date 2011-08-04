@@ -152,29 +152,29 @@ public class GestorConsultarObra {
         return formato.format(this.pedidoObra.getFechaDeRegistro());
     }
 
-    public String mostrarFechaLVP(){
-        return formato.format(this.pedidoObra.getFechaAceptacion());
-    }
+//    public String mostrarFechaLVP(){
+//        return formato.format(this.pedidoObra.getFechaAceptacion());
+//    }
+//
+//    public String mostrarFechaAceptacion(){
+//        return formato.format(this.pedidoObra.getFechaAceptacion());
+//    }
+//
+//    public String mostrarFechaLEP(){
+//        return formato.format(this.pedidoObra.getFechaLimiteEntregaPresupuesto());
+//    }
 
-    public String mostrarFechaAceptacion(){
-        return formato.format(this.pedidoObra.getFechaAceptacion());
-    }
-
-    public String mostrarFechaLEP(){
-        return formato.format(this.pedidoObra.getFechaLimiteEntregaPresupuesto());
-    }
-
-    public String mostrarPliego(){
-        return this.pedidoObra.getPliego();
-    }
-
-    public String mostrarPlanos(){
-        return this.pedidoObra.getPlanos();
-    }
-
-    public String mostrarMontoObra(){
-        return ""+this.pedidoObra.getMonto();
-    }
+//    public String mostrarPliego(){
+//        return this.pedidoObra.getPliego();
+//    }
+//
+//    public String mostrarPlanos(){
+//        return this.pedidoObra.getPlanos();
+//    }
+//
+//    public String mostrarMontoObra(){
+//        return ""+this.pedidoObra.getMonto();
+//    }
 
     public String mostrarRazonSocialPlanta(){
         return this.planta.getRazonSocial();
@@ -348,12 +348,12 @@ public class GestorConsultarObra {
         return retorno;
     }
 
-    public String mostrarNombreCompletoContacto(){
-        if(this.planta.getContacto() != null)
-            return this.planta.getContacto().getApellido()+", "+this.planta.getContacto().getNombre();
-        else
-            return "";
-    }
+//    public String mostrarNombreCompletoContacto(){
+//        if(this.planta.getContacto() != null)
+//            return this.planta.getContacto().getApellido()+", "+this.planta.getContacto().getNombre();
+//        else
+//            return "";
+//    }
 
     public String mostrarEmailContacto(){
         if(this.planta.getContacto() != null)
@@ -365,15 +365,15 @@ public class GestorConsultarObra {
     public HashSet<NTupla> mostrarTelefonosContacto(){
         if(this.planta.getContacto() != null){
             HashSet<NTupla> retorno = new HashSet<NTupla>();
-            PersistentSet tels = (PersistentSet) this.planta.getContacto().getTelefonos();
-            for (Object telefono : tels) {
-                Telefono t = (Telefono)telefono;
-                NTupla nt = new NTupla();
-                nt.setId(t.getId());
-                nt.setNombre(t.getTipo().getNombre());
-                nt.setData(t.getNumero());
-                retorno.add(nt);
-            }
+//            PersistentSet tels = (PersistentSet) this.planta.getContacto().getTelefonos();
+//            for (Object telefono : tels) {
+//                Telefono t = (Telefono)telefono;
+//                NTupla nt = new NTupla();
+//                nt.setId(t.getId());
+//                nt.setNombre(t.getTipo().getNombre());
+//                nt.setData(t.getNumero());
+//                retorno.add(nt);
+//            }
             return retorno;
         }
         else{

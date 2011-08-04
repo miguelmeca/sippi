@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.SubObraXTarea" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_SUBOBRA_X_TAREA" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="OBSERVACIONES" name="observaciones" type="string"/>
+    <property column="CANT_OPERARIOS" name="cantOperarios" type="int"/>
+    <property column="CANT_HORAS" name="cantHoras" type="int"/>
+    <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
+    <property column="FECHA_FIN" name="fechaFin" type="date"/>
+    <many-to-one class="modelo.RangoEmpleado" column="ID_RANGO_EMPLEADO" name="rangoEmpleado"/>
+  </class>
+</hibernate-mapping>

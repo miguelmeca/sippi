@@ -120,14 +120,14 @@ public class GestorConsultarPlanta {
        return p.getNombre();
    }
 
-   public String mostrarNombreContacto()
-   {
-       if(planta.getContacto()==null)
-       {
-           return "-";
-       }
-       return planta.getContacto().getApellido()+", "+planta.getContacto().getNombre();
-   }
+//   public String mostrarNombreContacto()
+//   {
+//       if(planta.getContacto()==null)
+//       {
+//           return "-";
+//       }
+//       return planta.getContacto().getApellido()+", "+planta.getContacto().getNombre();
+//   }
 
    public String mostrarEmailContacto()
    {
@@ -138,50 +138,50 @@ public class GestorConsultarPlanta {
        return planta.getContacto().getEmail();
    }
 
-   public String mostrarCUILContacto()
-   {
-       if(planta.getContacto()==null)
-       {
-           return "-";
-       }
-       return planta.getContacto().getCuil();
-   }
+//   public String mostrarCUILContacto()
+//   {
+//       if(planta.getContacto()==null)
+//       {
+//           return "-";
+//       }
+//       return planta.getContacto().getCuil();
+//   }
 
-   public String mostrarCargoContacto()
-   {
-       if(planta.getContacto()==null)
-       {
-           return "-";
-       }
-        return planta.getContacto().getCargo();
-   }
+//   public String mostrarCargoContacto()
+//   {
+//       if(planta.getContacto()==null)
+//       {
+//           return "-";
+//       }
+//        return planta.getContacto().getCargo();
+//   }
 
-    public ArrayList<NTupla> mostrarTelefonosContacto() {
-
-       ArrayList<NTupla> listaTelefonos = new ArrayList<NTupla>();
-       if(planta.getContacto()==null)
-       {
-           return listaTelefonos;
-       }
-       
-
-        HashSet<Telefono> lista = new HashSet<Telefono>();
-        lista.addAll((Set)planta.getContacto().getTelefonos());
-
-        Iterator it = lista.iterator();
-        while (it.hasNext())
-        {
-            Telefono tel = (Telefono)it.next();
-            NTupla t = new NTupla();
-            t.setId(tel.getId());
-            t.setNombre(tel.getNumero());
-            t.setData(tel.getTipo().getNombre());
-            listaTelefonos.add(t);
-        }
-
-        return listaTelefonos;
-
-    }
+//    public ArrayList<NTupla> mostrarTelefonosContacto() {
+//
+//       ArrayList<NTupla> listaTelefonos = new ArrayList<NTupla>();
+//       if(planta.getContacto()==null)
+//       {
+//           return listaTelefonos;
+//       }
+//
+//
+//        HashSet<Telefono> lista = new HashSet<Telefono>();
+//        lista.addAll((Set)planta.getContacto().getTelefonos());
+//
+//        Iterator it = lista.iterator();
+//        while (it.hasNext())
+//        {
+//            Telefono tel = (Telefono)it.next();
+//            NTupla t = new NTupla();
+//            t.setId(tel.getId());
+//            t.setNombre(tel.getNumero());
+//            t.setData(tel.getTipo().getNombre());
+//            listaTelefonos.add(t);
+//        }
+//
+//        return listaTelefonos;
+//
+//    }
 
 
 

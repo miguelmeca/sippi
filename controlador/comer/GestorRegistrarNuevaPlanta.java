@@ -63,8 +63,9 @@ public class GestorRegistrarNuevaPlanta {
             while ( iter.hasNext() )
             {
                 ContactoResponsable cr = (ContactoResponsable)iter.next();
-                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
-                tuplas.add(tupla);
+//                Tupla tupla = new Tupla(cr.getId(),cr.getApellido()+", "+cr.getNombre());
+//                tuplas.add(tupla);
+                // TODO: Revisar lo de contacto responsable
             }
             return tuplas;
 

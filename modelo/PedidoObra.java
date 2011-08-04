@@ -21,68 +21,61 @@ import java.util.List;
 
 public class PedidoObra{
     private int id; // Tb guarda el numero del pedido
-
-    private ContactoResponsable contacto;
-    //private PlanDeSeguridad planSeg;
-    private String descripcion;
-    private Date fechaLimiteValidezPresupuesto;
     private String nombre;
+    private String descripcion;
     private Date fechaInicio;
     private Date fechaFin;
-    private Date fechaDeRegistro;
-    private Date fechaAceptacion;
+    private double presupuestoMaximo;
+    private FormaDePago formaPago;
+    private List<Cotizacion> cotizaciones;
+    private List<ContactoResponsable> contactos;
     private Planta planta;
-    // private PlanificacionObra planificacionObra;
-    private String pliego;
-    private String planos;
-    private double monto;
-    private Date fechaLimiteEntregaPresupuesto;
+    private Date fechaDeRegistro;
 
-    //private EstadoPedidoObra estadoObra;
-    private EstadoPedidoObra estado;
+    private EstadoPedidoObra estado; // TODO: ¿Qué hacemos con los estados?
     private String hib_flag_estado;
-
-    // IUGA MOD !!
-    private List<Presupuesto> presupuestos;
 
     public PedidoObra() {
         crear();
 
-        if(presupuestos==null)
+        if(cotizaciones==null)
         {
-            presupuestos = new ArrayList<Presupuesto>();
+            cotizaciones = new ArrayList<Cotizacion>();
         }
 
     }
 
-    public List<Presupuesto> getPresupuestos()
+    public List<Cotizacion> getCotizaciones()
     {
-        return presupuestos;
+        return cotizaciones;
     }
 
-    public void addPresupuesto(Presupuesto p)
+    public void addCotizaciones(Cotizacion c)
     {
-        presupuestos.add(p);
+        cotizaciones.add(c);
     }
 
     // ESTE LO PIDE HIBERNATE
-    public void setPresupuestos(List<Presupuesto> presupuestos) {
-        this.presupuestos = presupuestos;
+    public void setCotizaciones(List<Cotizacion> cotizaciones) {
+        this.cotizaciones = cotizaciones;
     }
 
     // Crea el objeto, no me queda otra que asociarlo a hibernate
     public void crear() {
-        crearPlanificacion(); // Xahora no hace nada ...
         this.hib_flag_estado = "modelo.EstadoPedidoObraSolicitado";
         this.getEstado();
     }
 
-    public ContactoResponsable getContacto() {
-        return contacto;
+    public void addContacto(ContactoResponsable c){
+        this.contactos.add(c);
     }
 
-    public void setContacto(ContactoResponsable contacto) {
-        this.contacto = contacto;
+    public List<ContactoResponsable> getContactos() {
+        return contactos;
+    }
+
+    public void setContactos(List<ContactoResponsable> contacto) {
+        this.contactos = contacto;
     }
 
     public int getId() {
@@ -101,44 +94,12 @@ public class PedidoObra{
         this.descripcion = descripcion;
     }
 
-    public Date getFechaAceptacion() {
-        return fechaAceptacion;
-    }
-
-    public void setFechaAceptacion(Date fechaAceptacion) {
-        this.fechaAceptacion = fechaAceptacion;
-    }
-
     public Date getFechaDeRegistro() {
         return fechaDeRegistro;
     }
 
     public void setFechaDeRegistro(Date fechaDeRegistro) {
         this.fechaDeRegistro = fechaDeRegistro;
-    }
-
-    public Date getFechaLimiteEntregaPresupuesto() {
-        return fechaLimiteEntregaPresupuesto;
-    }
-
-    public void setFechaLimiteEntregaPresupuesto(Date fechaLimiteEntregaPresupuesto) {
-        this.fechaLimiteEntregaPresupuesto = fechaLimiteEntregaPresupuesto;
-    }
-
-    public Date getFechaLimiteValidezPresupuesto() {
-        return fechaLimiteValidezPresupuesto;
-    }
-
-    public void setFechaLimiteValidezPresupuesto(Date fechaLimiteValidezPresupuesto) {
-        this.fechaLimiteValidezPresupuesto = fechaLimiteValidezPresupuesto;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
     }
 
     public String getNombre() {
@@ -157,28 +118,12 @@ public class PedidoObra{
         this.id = numero;
     }
 
-    public String getPlanos() {
-        return planos;
-    }
-
-    public void setPlanos(String planos) {
-        this.planos = planos;
-    }
-
     public Planta getPlanta() {
         return planta;
     }
 
     public void setPlanta(Planta planta) {
         this.planta = planta;
-    }
-
-    public String getPliego() {
-        return pliego;
-    }
-
-    public void setPliego(String pliego) {
-        this.pliego = pliego;
     }
 
     public Date getFechaFin() {
@@ -197,12 +142,20 @@ public class PedidoObra{
         this.fechaInicio = fechaInicio;
     }
 
-    public void mostrarPlanDeSeguridad() {
-
+    public FormaDePago getFormaPago() {
+        return formaPago;
     }
 
-    public void mostrarPlanificacionObras() {
+    public void setFormaPago(FormaDePago formaPago) {
+        this.formaPago = formaPago;
+    }
 
+    public double getPresupuestoMaximo() {
+        return presupuestoMaximo;
+    }
+
+    public void setPresupuestoMaximo(double presupuestoMaximo) {
+        this.presupuestoMaximo = presupuestoMaximo;
     }
 
     public void mostrarPlanta() {
@@ -431,5 +384,4 @@ public class PedidoObra{
     public void setHib_flag_estado(String hib_flag_estado) {
         this.hib_flag_estado = hib_flag_estado;
     }
-
 }

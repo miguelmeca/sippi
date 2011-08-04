@@ -61,30 +61,30 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         txtProvincia.setText(gestor.mostrarNombreProvincia());
         txtPais.setText(gestor.mostrarNombrePais());
 
-        txtNombreContacto.setText(gestor.mostrarNombreContacto());
+//        txtNombreContacto.setText(gestor.mostrarNombreContacto());
         txtEmailContacto.setText(gestor.mostrarEmailContacto());
-        txtCUILContacto.setText(gestor.mostrarCUILContacto());
-        txtCargoContacto.setText(gestor.mostrarCargoContacto());
-        mostrarTelefonosContacto();
+//        txtCUILContacto.setText(gestor.mostrarCUILContacto());
+//        txtCargoContacto.setText(gestor.mostrarCargoContacto());
+//        mostrarTelefonosContacto();
 
     }
 
-    private void mostrarTelefonosContacto()
-    {
-        ArrayList<NTupla> lista = gestor.mostrarTelefonosContacto();
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonosContacto.getModel();
-
-        Iterator it = lista.iterator();
-        while (it.hasNext())
-        {
-            NTupla nt = (NTupla)it.next();
-            String[] fila = new String[2];
-            fila[0] = nt.getNombre();
-            fila[1] = (String)nt.getData();
-            modelo.addRow(fila);
-        }
-
-    }
+//    private void mostrarTelefonosContacto()
+//    {
+//        ArrayList<NTupla> lista = gestor.mostrarTelefonosContacto();
+//        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonosContacto.getModel();
+//
+//        Iterator it = lista.iterator();
+//        while (it.hasNext())
+//        {
+//            NTupla nt = (NTupla)it.next();
+//            String[] fila = new String[2];
+//            fila[0] = nt.getNombre();
+//            fila[1] = (String)nt.getData();
+//            modelo.addRow(fila);
+//        }
+//
+//    }
 
     private void mostrarTelefonosPlanta()
     {

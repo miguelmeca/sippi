@@ -28,9 +28,9 @@ private HashSet<Telefono> telefonos;
     {
         ContactoResponsable nuevo = new ContactoResponsable();
         nuevo.setNombre(nombre);
-        nuevo.setApellido(apellido);
-        nuevo.setCargo(cargo);
-        nuevo.setCuil(cuil);
+//        nuevo.setApellido(apellido);
+//        nuevo.setCargo(cargo);
+//        nuevo.setCuil(cuil);
         nuevo.setEmail(email);
         //nuevo.setTelefonos(telefono);
 

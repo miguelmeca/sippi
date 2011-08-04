@@ -9,9 +9,7 @@
     <property name="hibernate.connection.username">administradornn</property>
     <property name="hibernate.connection.password">administradornn</property>
     <property name="hibernate.current_session_context_class">thread</property>
-
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
-    
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
     <!--property name="connection.pool_size">1</property>
@@ -43,8 +41,8 @@
     <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
     <mapping package="modelo" resource="config/db/AsistenciaTallerCapacitacion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/DetalleHorarioTaller.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/LicenciaEmpleado.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/TipoLicenciaEmpleado.hbm.xml"/>
+    <!--<mapping package="modelo" resource="config/db/LicenciaEmpleado.hbm.xml"/>-->
+    <!--<mapping package="modelo" resource="config/db/TipoLicenciaEmpleado.hbm.xml"/>-->
     <!-- SEGUNDA ITERACION                                                  -->
     <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Recurso.hbm.xml"/>
@@ -58,11 +56,9 @@
     <mapping package="modelo" resource="config/db/Rubro.hbm.xml"/>
     <mapping resource="config/db/Remito.xml"/>
     <mapping resource="config/db/DetalleRemito.hbm.xml"/>
-    <mapping resource="config/db/Cotizacion.hbm.xml"/>
     <mapping resource="config/db/DetalleConsumible.xml"/>
     <mapping resource="config/db/DetalleMaterial.hbm.xml"/>
-    <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
-    <mapping resource="config/db/PresupuestoBase.hbm.xml"/>
+    <!--<mapping resource="config/db/PresupuestoBase.hbm.xml"/>-->
     <mapping resource="config/db/DetalleEtapa.hbm.xml"/>
     <mapping resource="config/db/TipoHerramienta.hbm.xml"/>
     <mapping resource="config/db/TipoIndumentaria.hbm.xml"/>
@@ -73,8 +69,22 @@
     <mapping resource="config/db/InstanciaDeRolPorTarea.hbm.xml"/>
     <mapping resource="config/db/GrupoDeTrabajo.hbm.xml"/>
     <mapping resource="config/db/Etapa.hbm.xml"/>
-    <mapping resource="config/db/EjecucionEtapa.hbm.xml"/>
+    <!--<mapping resource="config/db/EjecucionEtapa.hbm.xml"/>-->
     <mapping resource="config/db/RolEmpleado.hbm.xml"/>
     <mapping resource="config/db/PropiedadBean.hbm.xml"/>
+    <!--             ::: FOURTH ITERATION :::               -->
+    <mapping resource="config/db/Cotizacion.hbm.xml"/>
+    <mapping resource="config/db/SubObra.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAdicional.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/TipoAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/SubObraXHerramienta.hbm.xml"/>
+    <mapping resource="config/db/SubObraXTarea.hbm.xml"/>
+    <mapping resource="config/db/RangoEmpleado.hbm.xml"/>
+    <mapping resource="config/db/TipoTarea.hbm.xml"/>
+    <mapping resource="modelo/SubObraXMaterial.hbm.xml"/>
+    <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
+    <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
+    <mapping resource="config/db/TipoAdicional.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

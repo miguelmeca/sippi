@@ -203,16 +203,16 @@ public class GestorRegistrarPedido {
         }
         nuevo.setNombre(nombre);
         nuevo.setDescripcion(descripcion);
-        nuevo.setFechaAceptacion(new Date());
+//        nuevo.setFechaAceptacion(new Date());
         nuevo.setFechaDeRegistro(new Date());
         nuevo.setFechaFin(fechaFin);
         nuevo.setFechaInicio(fechaInicio);
-        nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
-        nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
-        nuevo.setMonto(montoMaximo);
-        nuevo.setPlanos(planosObra);
-        nuevo.setPliego(pliegoObra);
-        nuevo.setContacto(contacto);
+//        nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
+//        nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
+//        nuevo.setMonto(montoMaximo);
+//        nuevo.setPlanos(planosObra);
+//        nuevo.setPliego(pliegoObra);
+//        nuevo.setContacto(contacto);
         nuevo.setEstado(new EstadoPedidoObraPendiente());
 
         nuevo.setPlanta(planta);
@@ -380,40 +380,40 @@ public class GestorRegistrarPedido {
             return null;
     }
 
-    public String getMontoPedido(){
-        if (pedido != null)
-            return String.valueOf(pedido.getMonto());
-        else
-            return "";
-    }
+//    public String getMontoPedido(){
+//        if (pedido != null)
+//            return String.valueOf(pedido.getMonto());
+//        else
+//            return "";
+//    }
+//
+//    public Date getFechaLEPPedido(){
+//        if (pedido != null)
+//            return pedido.getFechaLimiteEntregaPresupuesto();
+//        else
+//            return null;
+//    }
+//
+//    public Date getFechaLVPPedido(){
+//        if (pedido != null)
+//            return pedido.getFechaLimiteValidezPresupuesto();
+//        else
+//            return null;
+//    }
 
-    public Date getFechaLEPPedido(){
-        if (pedido != null)
-            return pedido.getFechaLimiteEntregaPresupuesto();
-        else
-            return null;
-    }
+//    public String getPliegoPedido(){
+//        if (pedido != null)
+//            return pedido.getPliego();
+//        else
+//            return "";
+//    }
 
-    public Date getFechaLVPPedido(){
-        if (pedido != null)
-            return pedido.getFechaLimiteValidezPresupuesto();
-        else
-            return null;
-    }
-
-    public String getPliegoPedido(){
-        if (pedido != null)
-            return pedido.getPliego();
-        else
-            return "";
-    }
-
-    public String getPlanosPedido(){
-        if (pedido != null)
-            return pedido.getPlanos();
-        else
-            return "";
-    }
+//    public String getPlanosPedido(){
+//        if (pedido != null)
+//            return pedido.getPlanos();
+//        else
+//            return "";
+//    }
 
     public ArrayList<Tupla> mostrarTiposTelefono() {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
@@ -466,17 +466,17 @@ public class GestorRegistrarPedido {
         this.pantalla.setPlanta(this.pedido.getPlanta().getId());
         this.pantalla.setFechaInicio(this.pedido.getFechaInicio());
         this.pantalla.setFechaFin(this.pedido.getFechaFin());
-        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
-        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
-        this.pantalla.setMontoPedido(String.valueOf(this.pedido.getMonto()));
-        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
-        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
-        this.pantalla.setPliegosPedido(this.pedido.getPliego());
-        this.pantalla.setPlanosPedido(this.pedido.getPlanos());
-        if(this.pedido.getContacto() != null)
-            this.pantalla.setContactoResponsable(this.pedido.getContacto().getId());
-        else
-            this.pantalla.setContactoResponsable(0);
+//        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
+//        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
+//        this.pantalla.setMontoPedido(String.valueOf(this.pedido.getMonto()));
+//        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
+//        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
+//        this.pantalla.setPliegosPedido(this.pedido.getPliego());
+//        this.pantalla.setPlanosPedido(this.pedido.getPlanos());
+//        if(this.pedido.getContacto() != null)
+//            this.pantalla.setContactoResponsable(this.pedido.getContacto().getId());
+//        else
+//            this.pantalla.setContactoResponsable(0);
     }
 
     private void buscarDatosPedido(int idPedido){

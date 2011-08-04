@@ -5,15 +5,9 @@
     <id column="ID_CONTACTO" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property column="CARGO" name="cargo" type="string"/>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <property column="APELLIDO" name="apellido" type="string"/>
+    <property column="TELEFONO" name="telefono" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
-    <property column="CUIL" name="cuil" type="string"/>
-    <property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/>
-    <set name="telefonos" table="ContactoResponsableXTelefono">
-      <key column="ID_CONTACTO"/>
-      <many-to-many class="modelo.Telefono" column="ID_TEL"/>
-    </set>
+    <many-to-one class="modelo.RolContactoResponsable" column="ID_ROL" name="rol"/>
   </class>
 </hibernate-mapping>

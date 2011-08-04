@@ -65,11 +65,11 @@ public class GestorConsultarContactosResponsables
                 ContactoResponsable cap = (ContactoResponsable)lista.get(i);
                // listaNombres.add(td.getNombre());
                 NTupla tupla = new NTupla(cap.getId());
-                tupla.setNombre(String.valueOf(cap.getCuil()));
+//                tupla.setNombre(String.valueOf(cap.getCuil()));
                 String[] datos=new String[2];
                 //datos[0]=String.valueOf(cap.getCuil());
                 datos[0]=cap.getNombre();
-                datos[1]=cap.getApellido();
+//                datos[1]=cap.getApellido();
                 /*if(cap..getEstado()!=null)
                 {datos[3]=cap.getEstado().getNombre();}*/
                 tupla.setData(datos);
