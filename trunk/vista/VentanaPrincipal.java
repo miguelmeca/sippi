@@ -16,6 +16,7 @@ package vista;
 import config.SConfig;
 import controlador.xml.XMLReader;
 import controlador.xml.XMLReaderMenu;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -52,6 +53,7 @@ import vista.planificacion.pantallaRegistrarPresupuesto;
 import vista.cotizacion.EditarCotizacion;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarSubObras;
+import vista.gui.FavoritoBean;
 import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaConsultarTallerCapacitacion;
@@ -138,6 +140,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }
 
+    public void updateMenu()
+    {
+        FavoritoBean[] listaFavs = SwingPanel.getInstance().getFavoritos();
+        TreeEntry favMenu = new TreeEntry("Favoritos","/res/iconos/dev/Smiley Star.png");
+        TreeEntry leafFavoritos = (TreeEntry)treeMenu.getModel().getChild(treeMenu.getModel().getRoot(),0);
+            // Limpio los viejos
+            leafFavoritos.getEntries().clear();
+            // Agrego los nuevos
+            for (int i = 0; i < listaFavs.length; i++) 
+            {
+                FavoritoBean fb = listaFavs[i];
+                if(fb!=null)
+                {
+                    TreeEntry nuevo = new TreeEntry(fb.getNombre(),fb.getIcono());
+                    leafFavoritos.add(nuevo);
+                }
+            }
+        treeMenu.updateUI();
+    }
+    
     private void Salir()
     {
         int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");

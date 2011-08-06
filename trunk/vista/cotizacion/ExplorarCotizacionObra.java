@@ -15,12 +15,13 @@ import de.javasoft.plaf.synthetica.simple2D.DefaultTableCellEditor;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import util.SwingPanel;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Administrador
  */
-public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
+public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implements IFavorito{
 
     /** Creates new form explorarCotizaciones */
     public ExplorarCotizacionObra() {
@@ -55,7 +56,8 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
-        setTitle("Explorar Cotizaciones");
+        setTitle("Explorar Cotizaciones de Obra");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Obras"));
 
@@ -83,7 +85,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -120,7 +122,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -249,6 +251,16 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame {
     {
              tableCotizaciones.setDefaultRenderer(Object.class,new ExplorarCotizacionObra_Render());
              tableCotizaciones.setRowHeight(56);
+    }
+
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/search_page.png";
     }
 
 }
