@@ -46,7 +46,9 @@ public class XMLReaderMenu extends XMLReader {
                             while (i.hasNext())
                             {
                                 Element ex = (Element)i.next();
-                                nuevo.add(new TreeEntry(ex.getAttributeValue("nombre"),ex.getAttributeValue("icono")));
+                                TreeEntry item = new TreeEntry(ex.getAttributeValue("nombre"),ex.getAttributeValue("icono"));
+                                item.setClassInstance(ex.getAttributeValue("instance"));
+                                nuevo.add(item);
                             }
                            }
 

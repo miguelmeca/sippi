@@ -15,22 +15,11 @@
 <menu>
 
     <itemcat icono="/res/iconos/var/16x16/promotion.png" nombre="Favoritos">
-
     </itemcat>
 
-    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Obras">
-    </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Clientes">
-    </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
-    </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/comments.png" nombre="Capacitación">
-    </itemcat>
-
-    <itemcat icono="/res/iconos/var/16x16/add_page.png" nombre="Ir a Cargas Básicas">
+    <itemcat icono="/res/iconos/var/16x16/chart_pie.png" nombre="Cotización">
+        <item nombre="Explorar Cotizaciones de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.cotizacion.ExplorarCotizacionObra"/>
+        <item nombre="Explorar Cotizaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.cotizacion.ExplorarCotizaciones"/>
     </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       

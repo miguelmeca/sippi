@@ -25,12 +25,18 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     private int TIPO;
 
     /** Creates new form explorarCotizaciones */
-    public ExplorarCotizaciones(int tipo)
+    public ExplorarCotizaciones()
     {
-        TIPO = tipo;
         initComponents();
     }
 
+    public void setTipo(int TIPO) 
+    {
+        this.TIPO = TIPO;
+    }
+
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -202,7 +202,8 @@ this.dispose();        // TODO add your handling code here:
 
     private void btnExplorarCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplorarCotizacionesActionPerformed
 
-        ExplorarCotizaciones ec = new ExplorarCotizaciones(ExplorarCotizaciones.TIPO_EXPLORAR_ONLY);
+        ExplorarCotizaciones ec = new ExplorarCotizaciones();
+        ec.setTipo(ExplorarCotizaciones.TIPO_EXPLORAR_ONLY);
         SwingPanel.getInstance().addWindow(ec);
         ec.setVisible(true);
 

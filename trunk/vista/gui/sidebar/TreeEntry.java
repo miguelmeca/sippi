@@ -7,6 +7,8 @@ package vista.gui.sidebar;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import util.SwingPanel;
 
 /**
  * @author iuga
@@ -17,6 +19,7 @@ public class TreeEntry
     private String titulo;
     private ImageIcon icono;
     private ArrayList<TreeEntry> hijos;
+    private String _instance;
 
 
     public TreeEntry(String titulo, String urlIcono) {
@@ -68,4 +71,32 @@ public class TreeEntry
         hijos.add(treeEntry);
     }
 
+    public String getClassInstance() {
+        return _instance;
+    }
+
+    public void setClassInstance(String _instance) {
+        this._instance = _instance;
+    }
+
+    public void clickEvent()
+    {
+        if(this._instance!=null && !this._instance.isEmpty())
+        {
+            try
+            {
+                Class win = Class.forName(_instance);
+                JInternalFrame frame = (JInternalFrame)win.newInstance();
+                SwingPanel.getInstance().addWindow(frame);
+                frame.setVisible(true);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            
+        }
+    }
+            
+    
 }
