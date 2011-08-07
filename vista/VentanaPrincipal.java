@@ -154,6 +154,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 if(fb!=null)
                 {
                     TreeEntry nuevo = new TreeEntry(fb.getNombre(),fb.getIcono());
+                    nuevo.setClassInstance(fb.getInstance());
                     leafFavoritos.add(nuevo);
                 }
             }
@@ -191,6 +192,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPopupMenu3 = new javax.swing.JPopupMenu();
         jPanel2 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        btnSiderbarAutoHide = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
@@ -218,6 +220,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
+
+        btnSiderbarAutoHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/fullscreen.png"))); // NOI18N
+        btnSiderbarAutoHide.setFocusable(false);
+        btnSiderbarAutoHide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSiderbarAutoHide.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSiderbarAutoHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiderbarAutoHideActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnSiderbarAutoHide);
         jToolBar1.add(jSeparator1);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -332,7 +345,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -364,7 +377,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -409,140 +422,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
         TreeEntry node = (TreeEntry)evt.getPath().getLastPathComponent();
 
-        if(node==null) return;
-        //
-        if(node.getTitulo().equals("Nuevo Empleado"))
+        if(node!=null)
         {
-            pantallaConsultarEmpleado pre = new pantallaConsultarEmpleado();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-           // pre.opcionRegistrarEmpleado();
-            return;
+            node.clickEvent();
         }
-        // Nuevo Pedido de Obra
-        if(node.getTitulo().equals("Registrar Nuevo Pedido de Obra"))
-        {
-            pantallaRegistrarPedido pre = new pantallaRegistrarPedido();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nuevo Presupuesto
-        if(node.getTitulo().equals("Nuevo Presupuesto de Obra"))
-        {
-            pantallaNuevoPresupuesto p = new pantallaNuevoPresupuesto();
-            SwingPanel.getInstance().addWindow(p);
-            return;
-        }
-        //Nueva Empresa Cliente
-        if(node.getTitulo().equals("Nueva Empresa Cliente"))
-        {
-            pantallaRegistrarEmpresaCliente p = new pantallaRegistrarEmpresaCliente();
-            SwingPanel.getInstance().addWindow(p);
-            return;
-        }
-        //Consultar Empresas Cliente
-         if(node.getTitulo().equals("Consultar Empresas Cliente"))
-        {
-            pantallaConsultarEmpresaCliente pre = new pantallaConsultarEmpresaCliente();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nueva Planta
-        if(node.getTitulo().equals("Nueva Planta"))
-        {
-            NuevaPlanta();
-            return;
-        }
-        // Consultar Obras
-        if(node.getTitulo().equals("Ver Obras Activas"))
-        {
-            pantallaConsultarObra pre = new pantallaConsultarObra();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-                // Consultar Obras
-        if(node.getTitulo().equals("Ver Obras Activas"))
-        {
-            pantallaConsultarObra pre = new pantallaConsultarObra();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Modificar una Empresa Cliente
-        if(node.getTitulo().equals("Modificar Empresa Cliente"))
-        {
-            pantallaBuscarEmpresaCliente pre = new pantallaBuscarEmpresaCliente();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Cronogramas de Trabajo
-        if(node.getTitulo().equals("Cronogramas de Trabajo"))
-        {
-            pantallaConsultarCronogramaEmpleado pre = new pantallaConsultarCronogramaEmpleado();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nuevo Listado de Compra de Indumentaria
-        if(node.getTitulo().equals("Nuevo Listado de Compra de Indumentaria"))
-        {
-            pantallaGenerarListadoCompraIndumentaria pre = new pantallaGenerarListadoCompraIndumentaria();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nuevo Plan de Seguridad
-        if(node.getTitulo().equals("Nuevo Plan de Seguridad"))
-        {
-            pantallaRegistrarPlanSeguridad pre = new pantallaRegistrarPlanSeguridad();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nuevo Taller de Capcitación
-        if(node.getTitulo().equals("Nuevo Taller de Capcitación"))
-        {
-            pantallaRegistrarTaller pre = new pantallaRegistrarTaller();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Nuevo Plan de Seguridad
-        if(node.getTitulo().equals("Registrar Asistencias"))
-        {
-            pantallaRegistrarAsistenciaTallerCapacitacion pre = new pantallaRegistrarAsistenciaTallerCapacitacion();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-            return;
-        }
-        // Emitir Listado de Asistencia
-        if(node.getTitulo().equals("Emitir Listado de Asistencia"))
-        {
-//            pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion pre = new pantallaEmitirListadoDeAsistenciaATallerDeCapacitacion();
-//            SwingPanel.getInstance().addWindow(pre);
-//            pre.setVisible(true);
-//            return;
-        }
-        // Nuevo Capacitador
-        if(node.getTitulo().equals("Nuevo Capacitador"))
-        {
-            pantallaConsultarCapacitadores prc = new pantallaConsultarCapacitadores();
-            SwingPanel.getInstance().addWindow(prc);
-            prc.setVisible(true);
-            return;
-        }
-        // Nuevo Contacto
-        if(node.getTitulo().equals("Nuevo Contacto"))
-        {
-            pantallaConsultarContactosResponsables prc = new pantallaConsultarContactosResponsables();
-            SwingPanel.getInstance().addWindow(prc);
-            prc.setVisible(true);
-            return;
-        }
+        return;
+        
     }//GEN-LAST:event_treeMenuValueChanged
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -569,7 +454,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void panelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseMoved
 
-        jSplitPane2.setDividerLocation(0);
+        if(btnSiderbarAutoHide.isSelected())
+        {
+            jSplitPane2.setDividerLocation(0);
+        }
         
     }//GEN-LAST:event_panelMouseMoved
 
@@ -583,7 +471,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jSplitPane2MouseMoved
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
-        jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
+        
+        if(btnSiderbarAutoHide.isSelected())
+        {
+            jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
+        }
     }//GEN-LAST:event_jPanel1MouseMoved
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -594,19 +486,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
+private void btnSiderbarAutoHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiderbarAutoHideActionPerformed
+
+    if(btnSiderbarAutoHide.isSelected())
+    {
+        jSplitPane2.setDividerLocation(0);
     }
+    else
+    {
+        jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
+    }
+    
+}//GEN-LAST:event_btnSiderbarAutoHideActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
+    private javax.swing.JToggleButton btnSiderbarAutoHide;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
