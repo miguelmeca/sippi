@@ -12,6 +12,14 @@
 package vista.cotizacion;
 
 import vista.gui.IFavorito;
+import java.awt.Color;
+import controlador.cotizacion.GestorExplorarCotizaciones;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.Tupla;
+
 
 /**
  *
@@ -20,22 +28,83 @@ import vista.gui.IFavorito;
 public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements IFavorito {
 
     public static final int TIPO_EXPLORAR_ONLY = 0;
-    public static final int TIPO_EXPLORAR_FULL = 1;
-
+    public static final int TIPO_EXPLORAR_FULL = 1;    
     private int TIPO;
+    
+    private GestorExplorarCotizaciones gestor;
+    private List<NTupla> listaCotizaciones;
+    private DefaultTableModel model;
 
     /** Creates new form explorarCotizaciones */
     public ExplorarCotizaciones()
     {
         initComponents();
+        gestor = new GestorExplorarCotizaciones(this);
+        this.habilitarVentana();
     }
 
     public void setTipo(int TIPO) 
     {
         this.TIPO = TIPO;
     }
-
     
+    private void habilitarVentana()
+    {
+        
+        cargarCotizaciones();
+         if(tablaCotizaciones.getSelectedRow()!=-1)
+        {
+           btnSeleccionar.setEnabled(true);
+        }
+        else
+        {
+          btnSeleccionar.setEnabled(false);
+        }
+
+    }
+
+     private void cargarCotizaciones()
+    {
+        listaCotizaciones=gestor.listaCotizaciones();
+        /*for (int i= 0; i < listaEmpleados.size(); i++)
+        {
+
+           tablaEmpleados.getModel().. listaEmpleados.get(0)
+        }
+        */
+        model = (DefaultTableModel) tablaCotizaciones.getModel();
+        int fil=model.getRowCount();
+        for (int i = 0; i < fil; i++) {
+            model.removeRow(0);
+        }
+        /*for (NTupla nTuplaEmpleado : listaEmpleados)
+        {
+            model.addRow( (Object[]) nTuplaEmpleado.getData() );
+        
+        }
+        modeloTablaCompleto=model;
+        tablaEmpleados.setModel(model);*/
+        for (NTupla nTuplaCotizacion : listaCotizaciones)
+        {
+            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+            Object[] obj=new Object[((Object[])nTuplaCotizacion.getData()).length+1];
+            //obj[0]=nTuplaEmpleado.getId();
+            Tupla tup=new Tupla();
+            tup.setId(nTuplaCotizacion.getId());
+            tup.setNombre(nTuplaCotizacion.getNombre());
+            obj[0]=tup;
+
+            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+            System.arraycopy((Object[]) nTuplaCotizacion.getData(), 0, obj, 1, ((Object[]) nTuplaCotizacion.getData()).length);
+            model.addRow( obj );
+        }
+        //modeloTablaCompleto=model;
+        tablaCotizaciones.setModel(model);
+        
+         //TODO: Esconder primera fila  // tablaEmpleados.getColumnModel().removeColumn(tablaEmpleados.getColumnModel().getColumn(0));
+         
+
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -51,7 +120,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         jLabel1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPedido = new javax.swing.JTable();
+        tablaCotizaciones = new javax.swing.JTable();
 
         setClosable(true);
         setTitle("Explorar Cotizaciones");
@@ -65,12 +134,20 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             }
         });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -89,25 +166,25 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             }
         });
 
-        tablaPedido.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCotizaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Transportadora ARCOR", "0001-0000720", "11/06/2011", "$4350"},
-                {"Chimeneas SIDERESA", "0001-0000500", "10/05/2009", "$9000"},
-                {"Personal para Bagley Argentina", "0001-0000620", "05/06/2009", "$3500"}
+                {"Transportadora ARCOR", "0001-0000720", null, "11/06/2011", null, "$4350"},
+                {"Chimeneas SIDERESA", "0001-0000500", null, "10/05/2009", null, "$9000"},
+                {"Personal para Bagley Argentina", "0001-0000620", null, "05/06/2009", null, "$3500"}
             },
             new String [] {
-                "Obra", "Presupuesto", "Fecha Presupuesto", "Monto Total"
+                "Pedido de Obra", "Cotización", "Revisión", "Fecha Creación", "Fecha Última Modoficación", "Monto Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaPedido);
+        jScrollPane1.setViewportView(tablaCotizaciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,7 +212,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -147,7 +224,11 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-    this.dispose();
+    /*if(tablaCotizaciones.getSelectedRow()!=-1)
+     {
+        int id;
+        id=((NTupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
+     }*/
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
@@ -162,13 +243,29 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+       if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+         if(txtBuscar.getText().equals("")) 
+         {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);            
+        } 
+    }//GEN-LAST:event_txtBuscarFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaPedido;
+    private javax.swing.JTable tablaCotizaciones;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

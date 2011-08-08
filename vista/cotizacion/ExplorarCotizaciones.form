@@ -54,7 +54,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="238" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="242" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,6 +89,8 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtBuscarMouseClicked"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarFocusLost"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyPressed"/>
       </Events>
     </Component>
@@ -117,25 +119,27 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tablaPedido">
+        <Component class="javax.swing.JTable" name="tablaCotizaciones">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="3">
-                <Column editable="false" title="Obra" type="java.lang.Object">
+              <Table columnCount="6" rowCount="3">
+                <Column editable="false" title="Pedido de Obra" type="java.lang.Object">
                   <Data value="Transportadora ARCOR"/>
                   <Data value="Chimeneas SIDERESA"/>
                   <Data value="Personal para Bagley Argentina"/>
                 </Column>
-                <Column editable="false" title="Presupuesto" type="java.lang.Object">
+                <Column editable="false" title="Cotizaci&#xf3;n" type="java.lang.Object">
                   <Data value="0001-0000720"/>
                   <Data value="0001-0000500"/>
                   <Data value="0001-0000620"/>
                 </Column>
-                <Column editable="false" title="Fecha Presupuesto" type="java.lang.Object">
+                <Column editable="false" title="Revisi&#xf3;n" type="java.lang.Object"/>
+                <Column editable="false" title="Fecha Creaci&#xf3;n" type="java.lang.Object">
                   <Data value="11/06/2011"/>
                   <Data value="10/05/2009"/>
                   <Data value="05/06/2009"/>
                 </Column>
+                <Column editable="true" title="Fecha &#xda;ltima Modoficaci&#xf3;n" type="java.lang.Object"/>
                 <Column editable="false" title="Monto Total" type="java.lang.Object">
                   <Data value="$4350"/>
                   <Data value="$9000"/>
