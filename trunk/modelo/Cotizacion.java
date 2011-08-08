@@ -19,6 +19,7 @@ import java.util.List;
 
 public class Cotizacion {
     private int id;
+    private int nroCotizacion;
     private int nroRevision;
     private Date fechaCreacion;
     private Date fechaModificacion;
@@ -91,6 +92,13 @@ public class Cotizacion {
     public void setNroRevision(int nroRevision) {
         this.nroRevision = nroRevision;
     }
+    public int getNroCotizacion() {
+        return nroCotizacion;
+    }
+
+    public void setNroCotizacion(int nroCotizacion) {
+        this.nroCotizacion = nroCotizacion;
+    }
 
     public String getPlazoEntrega() {
         return plazoEntrega;
@@ -115,4 +123,5 @@ public class Cotizacion {
     public void setValidezOferta(Date validezOferta) {
         this.validezOferta = validezOferta;
     }
+    
 }
