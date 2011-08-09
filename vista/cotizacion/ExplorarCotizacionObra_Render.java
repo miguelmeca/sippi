@@ -28,9 +28,18 @@ public class ExplorarCotizacionObra_Render extends DefaultTableCellRenderer
             fillColor(jtable, o, bln1);
             return panel;
         }
-        else
+        else 
         {
-            return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            if(o instanceof ExplorarCotizacionObra_celdaObras)
+            {
+                JPanel panel = (JPanel)o;
+                fillColor(jtable, o, bln1);
+                return panel;           
+            }
+            else
+            {   
+                return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            }
         }
 
     }
@@ -39,8 +48,17 @@ public class ExplorarCotizacionObra_Render extends DefaultTableCellRenderer
     public void fillColor(JTable t,Object obj,boolean isSelected )
     {
         //setting the background and foreground when JLabel is selected
-        ExplorarCotizacionObra_celda panel = (ExplorarCotizacionObra_celda)obj;
-        panel.setSelected(isSelected);
+        if(obj instanceof ExplorarCotizacionObra_celda)
+        {
+            ExplorarCotizacionObra_celda panel = (ExplorarCotizacionObra_celda)obj;
+            panel.setSelected(isSelected);
+        }
+        
+        if(obj instanceof ExplorarCotizacionObra_celdaObras)
+        {
+            ExplorarCotizacionObra_celdaObras panel = (ExplorarCotizacionObra_celdaObras)obj;
+            panel.setSelected(isSelected);            
+        }
     }
 
 }

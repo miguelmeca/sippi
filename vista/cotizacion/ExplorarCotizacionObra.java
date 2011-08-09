@@ -11,9 +11,11 @@
 
 package vista.cotizacion;
 
-import de.javasoft.plaf.synthetica.simple2D.DefaultTableCellEditor;
+import controlador.cotizacion.GestorExplorarCotizacionesObra;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import util.NTupla;
 import util.SwingPanel;
 import vista.gui.IFavorito;
 
@@ -23,15 +25,17 @@ import vista.gui.IFavorito;
  */
 public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implements IFavorito{
 
+    private GestorExplorarCotizacionesObra gestor;
+    
     /** Creates new form explorarCotizaciones */
     public ExplorarCotizacionObra() {
         initComponents();
 
-        initTableCotizacion();
+        gestor = new GestorExplorarCotizacionesObra(this);
+        
+        initTables();
 
-  
-
-        test_fill_table();
+        llenarTablaObras();
 
     }
 
@@ -46,13 +50,13 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaObras = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableCotizaciones = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tablaCotizaciones = new javax.swing.JTable();
+        btnCerrar = new javax.swing.JButton();
+        btnModificarCotizacion = new javax.swing.JButton();
+        btnNuevaCotizacion = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -61,17 +65,29 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Obras"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaObras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Linea de Montaje Arcor"},
-                {"Chimeneas ideresa"}
+
             },
             new String [] {
                 "Title 1"
             }
-        ));
-        jTable1.setTableHeader(null);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaObras.setTableHeader(null);
+        tablaObras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaObrasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaObras);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,7 +107,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cotizaciones"));
 
-        tableCotizaciones.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCotizaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -107,8 +123,8 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
                 return canEdit [columnIndex];
             }
         });
-        tableCotizaciones.setTableHeader(null);
-        jScrollPane2.setViewportView(tableCotizaciones);
+        tablaCotizaciones.setTableHeader(null);
+        jScrollPane2.setViewportView(tablaCotizaciones);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,22 +142,27 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
                 .addContainerGap())
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        jButton1.setText("Salir");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/folder.png"))); // NOI18N
-        jButton2.setText("Modificar Cotización");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton3.setText("Nueva Cotización");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/folder.png"))); // NOI18N
+        btnModificarCotizacion.setText("Modificar Cotización");
+        btnModificarCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnModificarCotizacionActionPerformed(evt);
+            }
+        });
+
+        btnNuevaCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevaCotizacion.setText("Nueva Cotización");
+        btnNuevaCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaCotizacionActionPerformed(evt);
             }
         });
 
@@ -158,11 +179,11 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton3)
+                        .addComponent(btnNuevaCotizacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnModificarCotizacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,83 +195,67 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnCerrar)
+                    .addComponent(btnModificarCotizacion)
+                    .addComponent(btnNuevaCotizacion))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnModificarCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCotizacionActionPerformed
 
         ExplorarSubObras mod =  new ExplorarSubObras();
         SwingPanel.getInstance().addWindow(mod);
         mod.setVisible(true);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnModificarCotizacionActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCotizacionActionPerformed
 
         RegistrarCotizacion regcot = new RegistrarCotizacion();
         SwingPanel.getInstance().addWindow(regcot);
         regcot.setVisible(true);
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnNuevaCotizacionActionPerformed
+
+private void tablaObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaObrasMouseClicked
+
+    if(tablaObras.getSelectedRow()!=-1 && tablaObras.getValueAt(tablaObras.getSelectedRow(),0) instanceof ExplorarCotizacionObra_celdaObras)
+    {
+        ExplorarCotizacionObra_celdaObras t = (ExplorarCotizacionObra_celdaObras)tablaObras.getValueAt(tablaObras.getSelectedRow(),0);
+        llenarTablaCotizaciones(gestor.getCotizaciones(t.getId()));
+    }
+    
+}//GEN-LAST:event_tablaObrasMouseClicked
+
+private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+    
+    this.dispose();
+    
+}//GEN-LAST:event_btnCerrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnModificarCotizacion;
+    private javax.swing.JButton btnNuevaCotizacion;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable tableCotizaciones;
+    private javax.swing.JTable tablaCotizaciones;
+    private javax.swing.JTable tablaObras;
     // End of variables declaration//GEN-END:variables
 
-    private void test_fill_table() {
-
-        ExplorarCotizacionObra_celda c1 = new ExplorarCotizacionObra_celda();
-        c1.setNumeroCotizacion(153);
-        c1.setRevision(1);
-        c1.setFechaCreacion(new Date());
-        c1.setUltimaModificacion(new Date());
-
-        ExplorarCotizacionObra_celda c2 = new ExplorarCotizacionObra_celda();
-        c2.setNumeroCotizacion(153);
-        c2.setRevision(2);
-        c2.setFechaCreacion(new Date());
-        c2.setUltimaModificacion(new Date());
-
-        ExplorarCotizacionObra_celda c3 = new ExplorarCotizacionObra_celda();
-        c3.setNumeroCotizacion(153);
-        c3.setRevision(3);
-        c3.setFechaCreacion(new Date());
-        c3.setUltimaModificacion(new Date());
-
-        Object fila [] = new Object[1];
-        fila[0] = c1;
-
-
-        DefaultTableModel modelo = (DefaultTableModel) tableCotizaciones.getModel();
-        modelo.addRow(fila);
-
-        fila[0] = c2;
-        modelo.addRow(fila);
-
-        fila[0] = c3;
-        modelo.addRow(fila);
-
-    }
-
-    private void initTableCotizacion()
+       private void initTables()
     {
-             tableCotizaciones.setDefaultRenderer(Object.class,new ExplorarCotizacionObra_Render());
-             tableCotizaciones.setRowHeight(56);
+         tablaCotizaciones.setDefaultRenderer(Object.class,new ExplorarCotizacionObra_Render());
+         tablaCotizaciones.setRowHeight(56);
+         
+         tablaObras.setDefaultRenderer(Object.class,new ExplorarCotizacionObra_Render());
+         tablaObras.setRowHeight(70);
     }
 
     @Override
@@ -261,6 +266,61 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
     @Override
     public String getIconoFavorito() {
         return "/res/iconos/var/16x16/search_page.png";
+    }
+
+    private void llenarTablaObras() {
+        
+        Object filaTabla[] = new Object[1];
+        
+        DefaultTableModel modelo = (DefaultTableModel) tablaObras.getModel();
+     
+        ArrayList<NTupla> obras = gestor.getObras();
+        
+        for (int i = 0; i < obras.size(); i++) 
+        {
+            NTupla nt = obras.get(i);
+            
+            ExplorarCotizacionObra_celdaObras fila = new ExplorarCotizacionObra_celdaObras();
+            
+            String[] data = (String[]) nt.getData();
+            
+            fila.setId(nt.getId());
+            fila.setDatosObra(nt.getId(),data[0]);
+            fila.setCliente(data[1]);
+            fila.setFechaInicioyFin(data[2],data[3]);
+            
+            
+            filaTabla[0] = fila;
+            modelo.addRow(filaTabla);
+        }
+        
+        
+    }
+
+    private void llenarTablaCotizaciones(ArrayList<NTupla> lista) 
+    {
+        Object filaTabla[] = new Object[1];
+        
+        DefaultTableModel modelo = (DefaultTableModel) tablaCotizaciones.getModel();
+     
+        for (int i = 0; i < lista.size(); i++) 
+        {
+            NTupla nt = lista.get(i);
+            
+            ExplorarCotizacionObra_celda fila = new ExplorarCotizacionObra_celda();
+            
+            String[] data = (String[]) nt.getData();
+            
+            fila.setId(nt.getId());
+            fila.setNumeroCotizacion(Integer.parseInt(data[0]));
+            fila.setRevision(Integer.parseInt(data[1]));
+            fila.setFechaCreacion(data[3]);
+            fila.setUltimaModificacion(data[2]);
+            
+            filaTabla[0] = fila;
+            modelo.addRow(filaTabla);
+        }
+                
     }
 
 }
