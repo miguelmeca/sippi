@@ -21,11 +21,21 @@ import util.FechaUtil;
  */
 public class ExplorarCotizacionObra_celda extends javax.swing.JPanel {
 
+    private int id;
+    
     /** Creates new form explorarCotizaciones_celda */
     public ExplorarCotizacionObra_celda() {
         initComponents();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -114,14 +124,14 @@ public class ExplorarCotizacionObra_celda extends javax.swing.JPanel {
     }
 
 
-    public void setFechaCreacion(Date fecha)
+    public void setFechaCreacion(String fecha)
     {
-        lblCreacion.setText(""+FechaUtil.getFecha(fecha));
+        lblCreacion.setText(fecha);
     }
 
-    public void setUltimaModificacion(Date fecha)
+    public void setUltimaModificacion(String fecha)
     {
-        lblUltimaModificacion.setText(""+FechaUtil.getFecha(fecha));
+        lblUltimaModificacion.setText(fecha);
     }
 
     public void setRevision(int revision)
