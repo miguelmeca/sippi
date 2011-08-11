@@ -82,7 +82,7 @@
     <mapping resource="config/db/SubObraXTarea.hbm.xml"/>
     <mapping resource="config/db/RangoEmpleado.hbm.xml"/>
     <mapping resource="config/db/TipoTarea.hbm.xml"/>
-    <mapping resource="modelo/SubObraXMaterial.hbm.xml"/>
+    <mapping resource="config/db/SubObraXMaterial.hbm.xml"/>
     <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
     <mapping resource="config/db/TipoAdicional.hbm.xml"/>

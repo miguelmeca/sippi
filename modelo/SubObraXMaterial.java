@@ -12,7 +12,9 @@ package modelo;
 public class SubObraXMaterial implements ISubtotal{
     private int id;
     private int cantidad;
-    private PrecioSegunCantidad precio;
+    private String descripcion;
+    //private PrecioSegunCantidad precio;
+    private RecursoXProveedor material;
 
     public SubObraXMaterial() {
     }
@@ -33,13 +35,29 @@ public class SubObraXMaterial implements ISubtotal{
         this.id = id;
     }
 
-    public PrecioSegunCantidad getPrecio() {
-        return precio;
+    public RecursoXProveedor getMaterial() {
+        return material;
     }
 
-    public void setPrecio(PrecioSegunCantidad precio) {
-        this.precio = precio;
+    public void setMaterial(RecursoXProveedor material) {
+        this.material = material;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+//    public PrecioSegunCantidad getPrecio() {
+//        return precio;
+//    }
+//
+//    public void setPrecio(PrecioSegunCantidad precio) {
+//        this.precio = precio;
+//    }
 
     public double calcularSubtotal() {
         throw new UnsupportedOperationException("Not supported yet.");

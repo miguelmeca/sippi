@@ -29,32 +29,41 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import modelo.Alojamiento;
-import modelo.Consumible;
 import modelo.ContactoResponsable;
+import modelo.Cotizacion;
 import modelo.DetalleMaterial;
 import modelo.DetalleOrdenDeCompra;
 import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
 import modelo.Etapa;
 import modelo.FormaDePago;
-import modelo.GrupoDeTrabajo;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
 import modelo.OrdenDeCompra;
+import modelo.PedidoObra;
 import modelo.Proveedor;
-import modelo.Recurso;
 import modelo.RecursoXProveedor;
 import modelo.PrecioSegunCantidad;
 import modelo.Presupuesto;
+import modelo.RangoEmpleado;
 import modelo.RecursoEspecifico;
 import modelo.Rubro;
+import modelo.SubObra;
+import modelo.SubObraXAdicional;
+import modelo.SubObraXAlquilerCompra;
+import modelo.SubObraXHerramienta;
+import modelo.SubObraXMaterial;
+import modelo.SubObraXTarea;
 import modelo.Tarea;
+import modelo.TipoAdicional;
+import modelo.TipoAlquilerCompra;
 import modelo.TipoLicenciaEmpleado;
+import modelo.TipoTarea;
 import modelo.UnidadDeMedida;
 import util.LogUtil;
 import util.RubroUtil;
@@ -93,7 +102,7 @@ public class DBExamplesLoader {
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
           //this.cargarTipoLicencias();
-          //this.cargarContactoResponsable(); TODO: Debemos reveer este método para poder cargar contactos responsables
+          //this.cargarContactoResponsable(); TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
 
           this.cargarCompras();
 
@@ -102,6 +111,11 @@ public class DBExamplesLoader {
           this.cargarHerramientasDeEmpresa();
 
 //          this.cargarPresupuestoDeEjemplo();
+          this.cargarTiposAdicional();
+          this.cargarTipoAlquilerCompra();
+          this.cargarRangosEmpleado();
+          this.cargarTipoTarea();
+          this.cargarCotizacionEjemplo();
     }
 
     public void cargarConfiguraciones()
@@ -223,8 +237,8 @@ public class DBExamplesLoader {
     {
                int seleccion = JOptionPane.showOptionDialog(
                        new JFrame(),
-                       "¿Desea cargar los datos de COMPRAS?",
-                       "Seleccione una opción",
+                       "Â¿Desea cargar los datos de COMPRAS?",
+                       "Seleccione una opciÃ³n",
                        JOptionPane.YES_NO_CANCEL_OPTION,
                        JOptionPane.QUESTION_MESSAGE,
                        null,    // null para icono por defecto.
@@ -262,10 +276,10 @@ public class DBExamplesLoader {
 //
 //        Alojamiento h1 = new Alojamiento();
 //        h1.setNombre("3 hambientes");
-//        h1.setDescipcion("Córdoba capital");
+//        h1.setDescipcion("CÃ³rdoba capital");
 //        h1.setRecurso(r1);
 //        Alojamiento h2 = new Alojamiento();
-//        h2.setNombre("Habitación doble");
+//        h2.setNombre("HabitaciÃ³n doble");
 //        h2.setDescipcion("3 estrellas");
 //        h2.setRecurso(r2);
 //
@@ -413,8 +427,8 @@ public class DBExamplesLoader {
 //
 //
 //        Herramienta h1 = new Herramienta();
-//        h1.setNombre("Automática BOSCH");
-//        h1.setDescipcion("70000 rpm con control numérico");
+//        h1.setNombre("AutomÃ¡tica BOSCH");
+//        h1.setDescipcion("70000 rpm con control numÃ©rico");
 //        h1.setRecurso(r1);
 //        Herramienta h2 = new Herramienta();
 //        h2.setNombre("Pinacho S90/260");
@@ -661,11 +675,67 @@ public class DBExamplesLoader {
         sesion.save(ec1);
         sesion.getTransaction().commit();
 
+        EmpresaCliente ec2 = new EmpresaCliente();
+        ec2.setRazonSocial("DANONE ARGENTINA S.A.");
+        ec2.setCuit("66555670-5");
+        ec2.setEmail("atcliente@danone.com.ar");
+        ec2.setPaginaWeb("http://www.danone.com.ar");
+
+            Domicilio d3 = new Domicilio();
+            d3.setCalle("CÃ¡rcanos");
+            d3.setNumero(388);
+            d3.setPiso(0);
+            d3.setDepto("");
+            d3.setCodigoPostal("X5115PDK");
+
+            sesion.beginTransaction();
+            Barrio b2 = (Barrio)sesion.get(Barrio.class, 1);
+            sesion.getTransaction().commit();
+            d3.setBarrio(b2);
+            ec2.setDomicilio(d3);
+
+            Telefono tel2 = new Telefono();
+            tel2.setNumero("424-5654");
+            tel2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+            HashSet<Telefono> tels2 = new HashSet<Telefono>();
+            tels2.add(tel2);
+            ec2.setTelefonos(tels2);
+
+            Planta planta2 = new Planta();
+            planta2.setRazonSocial("Planta Gral. RodrÃ­guez");
+
+                Domicilio d4 = new Domicilio();
+                d4.setCalle("Alte. Brown");
+                d4.setNumero(957);
+                d4.setPiso(0);
+                d4.setCodigoPostal("B1748KFS");
+                d4.setBarrio(b); // Se les olvido esto !!
+                planta2.setDomicilio(d4);
+
+                Telefono t10 = new Telefono();
+                t10.setNumero("(0237) 485-9000");
+                t10.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 2)));
+                planta2.addTelefono(t10);
+
+            ArrayList<Planta> aux2 = new ArrayList<Planta>();
+            aux2.add(planta2);
+            ec2.setPlantas(aux2);
+
+        sesion.beginTransaction();
+        sesion.save(tel2);
+        sesion.save(t10);
+        sesion.save(d4);
+        sesion.save(planta2);
+
+        sesion.save(d3);
+        sesion.save(ec2);
+        sesion.getTransaction().commit();
+
     }
 
     public void cargarContactoResponsable(){
         ContactoResponsable contacto = new ContactoResponsable();
-        contacto.setNombre("Andrés");
+        contacto.setNombre("AndrÃ©s");
         contacto.setEmail("apedraza@gmail.com");
         Telefono t = new Telefono();
         t.setNumero("(0351) 4564478");
@@ -730,7 +800,7 @@ public class DBExamplesLoader {
         p.setPaginaWeb("http://www.ssl.com.ar");
 
             Domicilio d = new Domicilio();
-            d.setCalle("Av. Los Plátanos");
+            d.setCalle("Av. Los PlÃ¡tanos");
             d.setNumero(204);
             d.setPiso(0);
             d.setDepto("X");
@@ -895,12 +965,12 @@ public class DBExamplesLoader {
 
             Etapa e1 = new Etapa();
             e1.setNombre("PREPARAR LA PIEZA");
-            e1.setDescripcion("Se realizan las compras y se acondiciona el lugar de construcción");
+            e1.setDescripcion("Se realizan las compras y se acondiciona el lugar de construcciÃ³n");
             e1.setFechaInicio(new Date());
             e1.setFechaInicio(new Date());
             e1.setDuracion("MUCHO TIEMPO");
             e1.setNivelDeCriticidad(5);
-            e1.setUbicacion("Córdoba");
+            e1.setUbicacion("CÃ³rdoba");
 
             Tarea t1 = new Tarea();
             t1.setDescripcion("MUY DIFICIL");
@@ -976,7 +1046,7 @@ public class DBExamplesLoader {
             e2.setFechaInicio(new Date());
             e2.setDuracion("BASTANTE TIEMPO");
             e2.setNivelDeCriticidad(10);
-            e2.setUbicacion("Córdoba");
+            e2.setUbicacion("CÃ³rdoba");
 
             Tarea t3 = new Tarea();
             t3.setDescripcion("SOLDANDO");
@@ -986,7 +1056,7 @@ public class DBExamplesLoader {
             RecursoXProveedor rxp3 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 2);
             DetalleMaterial dm3 = new DetalleMaterial();
             dm3.setCantidad(21);
-            dm3.setDescripcion("MATERIAL EXTRAÑO");
+            dm3.setDescripcion("MATERIAL EXTRAÃ‘O");
             dm3.setMaterial(rxp3);
             materiales3.add(dm3);
             HibernateUtil.beginTransaction();
@@ -1011,6 +1081,226 @@ public class DBExamplesLoader {
 
         }
         catch(Exception ex){
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void cargarCotizacionEjemplo() {
+        try {
+            PedidoObra po = new PedidoObra();
+            po.setNombre("ProvisiÃ³n de Mano de Obra y Materiales para adecuaciÃ³n elÃ©ctrica del sistema de enviÃ³ de salvado a amasadora horizontal 5. ");
+            po.setDescripcion("Todas las tareas a desarrollar se harÃ¡n de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveerÃ¡ de un cerramiento para aislar el Ã¡rea de trabajo.");
+            GregorianCalendar dummy = new GregorianCalendar(2011, 3, 15);
+            po.setFechaInicio(new Date(dummy.getTimeInMillis()));
+            dummy.set(2011, 9, 15);
+            po.setFechaFin(new Date(dummy.getTimeInMillis()));
+            po.setPresupuestoMaximo(3000);
+            po.setFormaPago((FormaDePago) sesion.load(FormaDePago.class,2));
+
+            // -------     COTIZACIONES     --------
+            Cotizacion cot = new Cotizacion();
+            cot.setNroRevision(1);
+            cot.setNroCotizacion(1);
+            cot.setDescripcion("Primer cotizaciÃ³n que se le entrega al cliente. No tiene en cuenta descuentos");
+            cot.setFechaCreacion(new Date());
+            dummy.set(2011, 2, 13);
+            cot.setFechaLimiteEntrega(dummy.getTime());
+            cot.setFechaModificacion(null);
+            cot.setLugarEntrega("Planta. SecciÃ³n Amazadoras");
+            cot.setPlazoEntrega("15 dÃ­as");
+            dummy.set(2011, 2, 20);
+            cot.setValidezOferta(dummy.getTime());
+
+            // ------- SUBOBRAS -------
+                // SUBOBRA 1
+                SubObra so1 = new SubObra();
+                so1.setNombre("Desconexionado elÃ©ctrico de tolva y sinfÃ­n en Almacenaje de Polvo de Galleta.");
+                so1.setDescripcion("");
+
+                SubObraXHerramienta soxh = new SubObraXHerramienta();
+                soxh.setHerramienta((HerramientaDeEmpresa)sesion.load(HerramientaDeEmpresa.class,1));
+                soxh.setCantDias(2);
+                soxh.setCantHoras(8);
+                soxh.setCostoXHora(30);
+                soxh.setObservaciones("Llevar repuestos");
+                so1.addHerramienta(soxh);
+
+                SubObraXTarea soxt = new SubObraXTarea();
+                soxt.setCantHoras(8);
+                soxt.setCantOperarios(1);
+                soxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
+                dummy.set(2011, 4, 4);
+                soxt.setFechaInicio(dummy.getTime());
+                dummy.set(2011,4,6);
+                soxt.setFechaFin(dummy.getTime());
+                so1.addTarea(soxt);
+
+//                SubObraXMaterial
+                //TODO: IMPEDIMENT WITH THE STRUCTURE OF SUBOBRAXMATERIAL
+                RecursoXProveedor rxp1 = (RecursoXProveedor)sesion.load(RecursoXProveedor.class, 1);
+                SubObraXMaterial soxm = new SubObraXMaterial();
+                soxm.setCantidad(44);
+                soxm.setDescripcion("PROBANDO");
+                soxm.setMaterial(rxp1);
+                so1.addMaterial(soxm);
+
+                cot.addSubObra(so1);
+
+                //SUBOBRA 2
+                SubObra so2 = new SubObra();
+                so2.setNombre("Desmontaje elÃ©ctrico de Molino â€œGRG2â€� y posterior montaje de cernidor con sus respectivas seguridades.");
+                so2.setDescripcion("");
+
+                SubObraXAdicional soxa = new SubObraXAdicional();
+                soxa.setCantDias(1);
+                soxa.setCantOperarios(1);
+                soxa.setDescripcion("Hospedaje en hotel 2 estrellas");
+                soxa.setPrecioUnitario(120);
+                soxa.setTipoAdicional((TipoAdicional)sesion.load(TipoAdicional.class,1));
+                so2.addAdicional(soxa);
+
+                SubObraXAlquilerCompra soxac = new SubObraXAlquilerCompra();
+                soxac.setCantidad(1);
+                soxac.setPrecioUnitario(300);
+                soxac.setTipoAlquilerCompra((TipoAlquilerCompra)sesion.load(TipoAlquilerCompra.class,3));
+                soxac.setDescripcion("Flete desde CÃ³rdoba");
+                so2.addAlquilerCompra(soxac);
+
+                cot.addSubObra(so2);
+
+
+            // -------     CONTACTOS RESPONSABLES     --------
+            ContactoResponsable contacto = new ContactoResponsable();
+            contacto.setNombre("AndrÃ©s");
+            contacto.setEmail("apedraza@gmail.com");
+            Telefono t = new Telefono();
+            t.setNumero("(0351) 4564478");
+            t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+            contacto.setTelefono(t);
+
+            ContactoResponsable contacto2 = new ContactoResponsable();
+            contacto2.setNombre("Julio");
+            contacto2.setEmail("eyjuliooscar@gmail.com");
+            Telefono t2 = new Telefono();
+            t2.setNumero("(011) 55544566");
+            t2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
+            contacto2.setTelefono(t2);
+
+            po.addContacto(contacto);
+            po.addContacto(contacto2);
+
+            // -------     PLANTA     --------
+            po.setPlanta(((Planta)sesion.load(Planta.class,2)));
+
+            // -------     FECHA CREACION     -------
+            po.setFechaDeRegistro(new Date());
+
+            // ------- ALTA EN BASE DE DATOS -------
+            HibernateUtil.getSession().beginTransaction();
+            sesion.saveOrUpdate(t);
+            sesion.saveOrUpdate(contacto);
+            sesion.saveOrUpdate(t2);
+            sesion.saveOrUpdate(contacto2);
+
+            sesion.saveOrUpdate(soxh);
+            sesion.saveOrUpdate(soxt);
+            sesion.saveOrUpdate(soxm); 
+            sesion.saveOrUpdate(so1);
+            sesion.saveOrUpdate(soxa);
+            sesion.saveOrUpdate(soxac);
+            sesion.saveOrUpdate(so2);
+            sesion.saveOrUpdate(cot);
+            
+            sesion.saveOrUpdate(po);
+            HibernateUtil.getSession().getTransaction().commit();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+
+    }
+
+    private void cargarRangosEmpleado() {
+        RangoEmpleado re1 = new RangoEmpleado();
+        re1.setNombre("Cadete");
+        RangoEmpleado re2 = new RangoEmpleado();
+        re2.setNombre("Especializado");
+        try{
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(re1);
+            sesion.saveOrUpdate(re2);
+            sesion.getTransaction().commit();
+        }catch(Exception ex) {
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void cargarTipoTarea() {
+        TipoTarea tt1 = new TipoTarea();
+        tt1.setNombre("Desarme");
+        tt1.setCantHorasPredeterminada(4);
+        tt1.setCantOperariosPredeterminada(1);
+        tt1.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
+
+        try{
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(tt1);
+            sesion.getTransaction().commit();
+        }catch(Exception ex) {
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void cargarTiposAdicional() {
+        TipoAdicional ta1 = new TipoAdicional();
+        ta1.setNombre("Hospedaje");
+        TipoAdicional ta2 = new TipoAdicional();
+        ta2.setNombre("Comida");
+        TipoAdicional ta3 = new TipoAdicional();
+        ta3.setNombre("ViÃ¡ticos");
+        TipoAdicional ta4 = new TipoAdicional();
+        ta4.setNombre("Viajes");
+
+        try{
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(ta1);
+            sesion.saveOrUpdate(ta2);
+            sesion.saveOrUpdate(ta3);
+            sesion.saveOrUpdate(ta4);
+            sesion.getTransaction().commit();
+        }catch(Exception ex) {
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void cargarTipoAlquilerCompra() {
+        // GalpÃ³n, GrÃºa, Fletes, Camiones - Trasporte
+        TipoAlquilerCompra tac1 = new TipoAlquilerCompra();
+        tac1.setNombre("GalpÃ³n");
+        TipoAlquilerCompra tac2 = new TipoAlquilerCompra();
+        tac2.setNombre("GrÃºa");
+        TipoAlquilerCompra tac3 = new TipoAlquilerCompra();
+        tac3.setNombre("Fletes");
+        TipoAlquilerCompra tac4 = new TipoAlquilerCompra();
+        tac4.setNombre("Camiones");
+        TipoAlquilerCompra tac5 = new TipoAlquilerCompra();
+        tac5.setNombre("Transporte");
+
+        try{
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(tac1);
+            sesion.saveOrUpdate(tac2);
+            sesion.saveOrUpdate(tac3);
+            sesion.saveOrUpdate(tac4);
+            sesion.saveOrUpdate(tac5);
+            sesion.getTransaction().commit();
+        }catch(Exception ex) {
             System.out.println(ex.getCause().toString());
             HibernateUtil.rollbackTransaction();
         }

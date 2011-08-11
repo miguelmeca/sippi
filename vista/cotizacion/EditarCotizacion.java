@@ -253,7 +253,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 break;
             case OPTN_ALQUILERES_COMPRAS:
                 setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
-                CotizacionCompras cc = new CotizacionCompras();
+                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras();
                 panel.setViewportView(cc);
                 cc.setVisible(true);
                 break;
