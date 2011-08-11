@@ -15,10 +15,10 @@ package vista.cotizacion;
  *
  * @author Emmanuel
  */
-public class CotizacionCompras extends javax.swing.JPanel {
+public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
     /** Creates new form editarCotizacion_Compras */
-    public CotizacionCompras() {
+    public CotizacionAlquileresCompras() {
         initComponents();
     }
 

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,10 +32,10 @@ public class Cotizacion {
     private List<SubObra> subObras;
 
     public void crear() {
-
     }
 
     public Cotizacion() {
+        subObras = new ArrayList<SubObra>();
     }
 
     public int getId() {
@@ -123,5 +124,8 @@ public class Cotizacion {
     public void setValidezOferta(Date validezOferta) {
         this.validezOferta = validezOferta;
     }
-    
+
+    public void addSubObra(SubObra so){
+        this.subObras.add(so);
+    }
 }

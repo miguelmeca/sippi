@@ -5,6 +5,8 @@
 
 package modelo;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +26,11 @@ public class SubObra {
     private List<SubObraXMaterial> materiales;
 
     public SubObra() {
+        adicionales = new ArrayList<SubObraXAdicional>();
+        alquileresCompras = new ArrayList<SubObraXAlquilerCompra>();
+        tareas = new ArrayList<SubObraXTarea>();
+        herramientas = new ArrayList<SubObraXHerramienta>();
+        materiales = new ArrayList<SubObraXMaterial>();
     }
 
     public int getId() {
@@ -104,5 +111,21 @@ public class SubObra {
 
     public void setTareas(List<SubObraXTarea> tareas) {
         this.tareas = tareas;
+    }
+
+    public void addAdicional(SubObraXAdicional soxa){
+        this.adicionales.add(soxa);
+    }
+    public void addAlquilerCompra(SubObraXAlquilerCompra soxac){
+        this.alquileresCompras.add(soxac);
+    }
+    public void addTarea(SubObraXTarea soxt){
+        this.tareas.add(soxt);
+    }
+    public void addHerramienta(SubObraXHerramienta soxh){
+        this.herramientas.add(soxh);
+    }
+    public void addMaterial(SubObraXMaterial soxm){
+        this.materiales.add(soxm);
     }
 }

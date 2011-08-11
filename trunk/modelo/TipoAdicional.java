@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Emmanuel
  */
-class TipoAdicional {
+public class TipoAdicional {
     private int id;
     private String nombre;
 

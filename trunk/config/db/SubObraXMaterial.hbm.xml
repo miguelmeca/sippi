@@ -6,6 +6,8 @@
       <generator class="increment"/>
     </id>
     <property column="CANTIDAD" name="cantidad" type="int"/>
-    <many-to-one class="modelo.PrecioSegunCantidad" column="ID_PRECIO_SEGUN_CANTIDAD" name="precio"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <!--<many-to-one class="modelo.PrecioSegunCantidad" column="ID_PRECIO_SEGUN_CANTIDAD" name="precio"/>-->
+    <many-to-one class="modelo.RecursoXProveedor" column="ID_MATERIAL" name="material"/>
   </class>
 </hibernate-mapping>

@@ -36,6 +36,7 @@ public class PedidoObra{
     private String hib_flag_estado;
 
     public PedidoObra() {
+        this.contactos = new ArrayList<ContactoResponsable>();
         crear();
 
         if(cotizaciones==null)
