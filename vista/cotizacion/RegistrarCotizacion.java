@@ -20,7 +20,7 @@ import util.SwingPanel;
 public class RegistrarCotizacion extends javax.swing.JInternalFrame {
 
     /** Creates new form registrarCotizacion */
-    public RegistrarCotizacion() {
+    public RegistrarCotizacion(int po_id) {
         initComponents();
     }
 
@@ -194,7 +194,7 @@ this.dispose();        // TODO add your handling code here:
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        ExplorarSubObras mod =  new ExplorarSubObras();
+        ExplorarSubObras mod =  new ExplorarSubObras(1);
         SwingPanel.getInstance().addWindow(mod);
         mod.setVisible(true);
 

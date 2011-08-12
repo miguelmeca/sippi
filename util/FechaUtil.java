@@ -60,9 +60,13 @@ public class FechaUtil {
     
     public static String getFecha(Date d)
     {
-        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
-        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
-        return DATE_FORMAT.format(d);
+        if(d!=null)
+        {
+            DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+            DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+            return DATE_FORMAT.format(d);
+        }
+        return "";
     }
 
     public static String getFechaActual()
