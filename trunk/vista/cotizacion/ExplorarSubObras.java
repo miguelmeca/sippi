@@ -34,7 +34,7 @@ import vista.gui.TortaRotator;
 public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     /** Creates new form pantallaExplorarAlfonsinas */
-    public ExplorarSubObras()
+    public ExplorarSubObras(int cot_id)
     {
         initComponents();
         initGraphs();

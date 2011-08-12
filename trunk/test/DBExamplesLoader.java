@@ -1196,6 +1196,9 @@ public class DBExamplesLoader {
 
             // -------     FECHA CREACION     -------
             po.setFechaDeRegistro(new Date());
+            
+            // ------- ASIGNO LA COTIZACION AL PEDIDO DE OBRA -----
+            po.addCotizaciones(cot);
 
             // ------- ALTA EN BASE DE DATOS -------
             

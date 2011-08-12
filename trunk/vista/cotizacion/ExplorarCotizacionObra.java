@@ -14,16 +14,19 @@ package vista.cotizacion;
 import controlador.cotizacion.GestorExplorarCotizacionesObra;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.SwingPanel;
 import vista.gui.IFavorito;
+import vista.interfaces.IAyuda;
 
 /**
  *
  * @author Administrador
  */
-public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implements IFavorito{
+public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implements IFavorito,IAyuda{
 
     private GestorExplorarCotizacionesObra gestor;
     
@@ -206,17 +209,36 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
     private void btnModificarCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCotizacionActionPerformed
 
-        ExplorarSubObras mod =  new ExplorarSubObras();
-        SwingPanel.getInstance().addWindow(mod);
-        mod.setVisible(true);
+        if(tablaCotizaciones.getSelectedRow()!=-1 && tablaCotizaciones.getValueAt(tablaCotizaciones.getSelectedRow(),0) instanceof ExplorarCotizacionObra_celda)
+        {
+            ExplorarCotizacionObra_celda fila = (ExplorarCotizacionObra_celda)tablaCotizaciones.getValueAt(tablaCotizaciones.getSelectedRow(),0);
+            int cot_id = fila.getId();
 
+            ExplorarSubObras mod =  new ExplorarSubObras(cot_id);
+            SwingPanel.getInstance().addWindow(mod);
+            mod.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Selecione una cotzación para modificarla","Atencion!",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnModificarCotizacionActionPerformed
 
     private void btnNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCotizacionActionPerformed
 
-        RegistrarCotizacion regcot = new RegistrarCotizacion();
-        SwingPanel.getInstance().addWindow(regcot);
-        regcot.setVisible(true);
+        if(tablaObras.getSelectedRow()!=-1 && tablaObras.getValueAt(tablaObras.getSelectedRow(),0) instanceof ExplorarCotizacionObra_celdaObras)
+        {
+            ExplorarCotizacionObra_celdaObras fila = (ExplorarCotizacionObra_celdaObras)tablaObras.getValueAt(tablaObras.getSelectedRow(),0);
+            int po_id = fila.getId();        
+         
+            RegistrarCotizacion regcot = new RegistrarCotizacion(po_id);
+            SwingPanel.getInstance().addWindow(regcot);
+            regcot.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Selecione un Pedido de Obra para crear una nueva Cotización","Atencion!",JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnNuevaCotizacionActionPerformed
 
@@ -300,9 +322,15 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private void llenarTablaCotizaciones(ArrayList<NTupla> lista) 
     {
         Object filaTabla[] = new Object[1];
-        
+
         DefaultTableModel modelo = (DefaultTableModel) tablaCotizaciones.getModel();
-     
+
+        // Vacio la tabla
+        for (int i = 0; i < modelo.getRowCount(); i++) 
+        {
+            modelo.removeRow(i);
+        }
+        
         for (int i = 0; i < lista.size(); i++) 
         {
             NTupla nt = lista.get(i);
@@ -321,6 +349,21 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             modelo.addRow(filaTabla);
         }
                 
+    }
+
+    @Override
+    public String getTituloAyuda() {
+        return this.getTitle();
+    }
+
+    @Override
+    public String getResumenAyuda() {
+        return "Permite explorar las Obras y ver o modificar las cotizaciónes que tiene o crear nuevas";
+    }
+
+    @Override
+    public int getIdAyuda() {
+        return 0;
     }
 
 }

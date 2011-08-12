@@ -14,57 +14,19 @@ package vista;
 //import org.jfree.ui.RefineryUtilities;
 
 import config.SConfig;
-import controlador.xml.XMLReader;
 import controlador.xml.XMLReaderMenu;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
-import javax.swing.tree.DefaultMutableTreeNode;
 import util.HibernateUtil;
 import util.SwingPanel;
-import vista.comer.pantallaBuscarEmpresaCliente;
-import vista.comer.pantallaBuscarPedido;
-import vista.comer.pantallaConsultarEmpresaCliente;
-import vista.comer.pantallaConsultarObra;
-import vista.comer.pantallaRegistrarConfirmacionInicioObra;
-import vista.comer.pantallaConsultarContactosResponsables;
-import vista.comer.pantallaRegistrarEmpresaCliente;
-import vista.comer.pantallaRegistrarNuevaPlanta;
 import vista.comer.pantallaRegistrarPedido;
-import vista.compras.pantallaConsultarOC;
-import vista.compras.pantallaConsultarOrdenDeCompra;
-import vista.compras.pantallaConsultarPrecioXProveedor;
-import vista.compras.pantallaEmitirOrdenDeCompra;
-import vista.compras.pantallaEmitirOrdenDeCompra1;
-import vista.compras.pantallaRegistrarPrecioRecurso;
-import vista.compras.pantallaRegistrarProveedor;
-import vista.compras.pantallaRegistrarRecepcionOrdenCompra;
-import vista.compras.pantallaGenerarOrdenCompra;
-import vista.compras.pantallaConsultarPrecioXRecurso;
-import vista.compras.pantallaRegistrarPrecioRecursoNueva;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
-import vista.planificacion.pantallaConsultarPresupuestos;
-import vista.planificacion.pantallaNuevoPresupuesto;
-import vista.planificacion.pantallaRegistrarTarea;
-import vista.planificacion.pantallaRegistrarPresupuesto;
-import vista.cotizacion.EditarCotizacion;
 import vista.cotizacion.ExplorarCotizacionObra;
-import vista.cotizacion.ExplorarSubObras;
 import vista.gui.FavoritoBean;
-import vista.rrhh.pantallaConsultarCronogramaEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
-import vista.rrhh.pantallaConsultarTallerCapacitacion;
-import vista.rrhh.pantallaGenerarListadoCompraIndumentaria;
-import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
-import vista.rrhh.pantallaConsultarCapacitadores;
-import vista.rrhh.pantallaRegistrarEmpleado;
-import vista.rrhh.pantallaConsultarEmpleado;
-import vista.rrhh.pantallaRegistrarPlanSeguridad;
-import vista.rrhh.pantallaRegistrarTaller;
-import vista.rrhh.pantallaRegistrarTallerCapacitacion;
+
 
 
 /**
@@ -73,7 +35,7 @@ import vista.rrhh.pantallaRegistrarTallerCapacitacion;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    private static final int PANEL_DERECHO_SIZE = 230;
+    private static final int PANEL_DERECHO_SIZE = 250;
 
     /** Creates new form VentanaPrincipal */
     public VentanaPrincipal() {
@@ -87,7 +49,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         this.setExtendedState(MAXIMIZED_BOTH);
 
-        //this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
+        jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
+        this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
 
         cargarMenu();
     }
@@ -169,13 +132,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             HibernateUtil.closeSession();
             System.exit(0);
         }
-    }
-
-    private void NuevaPlanta()
-    {
-            pantallaRegistrarNuevaPlanta pre = new pantallaRegistrarNuevaPlanta();
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
     }
 
     /** This method is called from within the constructor to
@@ -421,11 +377,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
         TreeEntry node = (TreeEntry)evt.getPath().getLastPathComponent();
-
+        
         if(node!=null)
         {
             node.clickEvent();
         }
+        
+        treeMenu.setSelectionRow(0);
+                
         return;
         
     }//GEN-LAST:event_treeMenuValueChanged
