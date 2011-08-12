@@ -1198,25 +1198,28 @@ public class DBExamplesLoader {
             po.setFechaDeRegistro(new Date());
 
             // ------- ALTA EN BASE DE DATOS -------
-            HibernateUtil.getSession().beginTransaction();
-            sesion.saveOrUpdate(t);
-            sesion.saveOrUpdate(contacto);
-            sesion.saveOrUpdate(t2);
-            sesion.saveOrUpdate(contacto2);
-
-            sesion.saveOrUpdate(soxh);
-            sesion.saveOrUpdate(soxt);
-            sesion.saveOrUpdate(soxm); 
-            sesion.saveOrUpdate(so1);
-            sesion.saveOrUpdate(soxa);
-            sesion.saveOrUpdate(soxac);
-            sesion.saveOrUpdate(so2);
-            sesion.saveOrUpdate(cot);
             
-            sesion.saveOrUpdate(po);
-            HibernateUtil.getSession().getTransaction().commit();
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(t);
+            HibernateUtil.getSession().saveOrUpdate(contacto);
+            HibernateUtil.getSession().saveOrUpdate(t2);
+            HibernateUtil.getSession().saveOrUpdate(contacto2);
+
+            HibernateUtil.getSession().saveOrUpdate(soxh);
+            HibernateUtil.getSession().saveOrUpdate(soxt);
+            HibernateUtil.getSession().saveOrUpdate(soxm); 
+            HibernateUtil.getSession().saveOrUpdate(so1);
+            HibernateUtil.getSession().saveOrUpdate(soxa);
+            HibernateUtil.getSession().saveOrUpdate(soxac);
+            HibernateUtil.getSession().saveOrUpdate(so2);
+            HibernateUtil.getSession().saveOrUpdate(cot);
+            
+            HibernateUtil.getSession().saveOrUpdate(po);
+            HibernateUtil.commitTransaction();
+            //HibernateUtil.getSession().getTransaction().commit();
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.out.println(ex.getCause().toString());
             HibernateUtil.rollbackTransaction();
         }
