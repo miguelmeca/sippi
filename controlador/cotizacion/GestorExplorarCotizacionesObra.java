@@ -67,11 +67,14 @@ public class GestorExplorarCotizacionesObra {
                 Cotizacion cot = (Cotizacion)it.next();
                 NTupla nt = new NTupla(cot.getId());
                     
-                    String[] data = new String[4];
+                    String[] data = new String[5];
                     data[0] = String.valueOf(cot.getNroCotizacion());
                     data[1] = String.valueOf(cot.getNroRevision());
                     data[2] = FechaUtil.getFecha(cot.getFechaModificacion());
                     data[3] = FechaUtil.getFecha(cot.getFechaCreacion());
+                    
+                        data[4] = String.valueOf(p.getId());
+                    
                     nt.setData(data);
                 listaCotizaciones.add(nt);
             }

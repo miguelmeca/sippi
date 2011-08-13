@@ -11,6 +11,7 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorEditarCotizacion;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EditarCotizacion extends javax.swing.JInternalFrame {
 
+    private GestorEditarCotizacion gestor;
+    
     private boolean necesita_guardar = true;
 
     private static final int OPTN_RRHH                  = 0;
@@ -34,6 +37,8 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     public EditarCotizacion() {
 
         initComponents();
+        
+        this.gestor = new GestorEditarCotizacion(this);
 
         // POR DEFAULT VA DESCRIPCION DEL ITEM
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();

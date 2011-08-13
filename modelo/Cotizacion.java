@@ -128,4 +128,15 @@ public class Cotizacion {
     public void addSubObra(SubObra so){
         this.subObras.add(so);
     }
+    
+    public double CalcularTotal()
+    {
+        return 0;
+    }
+    
+    public double CalcularMontoBase()
+    {
+        return 0;
+    }    
+    
 }

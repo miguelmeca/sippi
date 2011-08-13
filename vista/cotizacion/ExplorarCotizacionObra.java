@@ -213,8 +213,10 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
         {
             ExplorarCotizacionObra_celda fila = (ExplorarCotizacionObra_celda)tablaCotizaciones.getValueAt(tablaCotizaciones.getSelectedRow(),0);
             int cot_id = fila.getId();
+            
+            int obra_id = fila.getObraId();
 
-            ExplorarSubObras mod =  new ExplorarSubObras(cot_id);
+            ExplorarSubObras mod =  new ExplorarSubObras(obra_id,cot_id);
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }
@@ -344,6 +346,7 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             fila.setRevision(Integer.parseInt(data[1]));
             fila.setFechaCreacion(data[3]);
             fila.setUltimaModificacion(data[2]);
+            fila.setObraId(Integer.parseInt(data[4]));
             
             filaTabla[0] = fila;
             modelo.addRow(filaTabla);
