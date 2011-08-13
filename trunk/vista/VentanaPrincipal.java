@@ -100,6 +100,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         treeMenu.setModel(itm);
 
         treeMenu.setRootVisible(false);
+        
+        treeMenu.setSelectionRow(0);
 
     }
 
@@ -121,7 +123,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     leafFavoritos.add(nuevo);
                 }
             }
-        treeMenu.updateUI();
+        
+        treeMenu.setSelectionRow(0);
     }
     
     private void Salir()

@@ -23,6 +23,8 @@ public class ExplorarCotizacionObra_celda extends javax.swing.JPanel {
 
     private int id;
     
+    private int obra_id;
+    
     /** Creates new form explorarCotizaciones_celda */
     public ExplorarCotizacionObra_celda() {
         initComponents();
@@ -149,6 +151,14 @@ public class ExplorarCotizacionObra_celda extends javax.swing.JPanel {
         {
             this.setBackground(new Color(245,252,255));
         }
+    }
+
+    public int getObraId() {
+        return obra_id;
+    }
+
+    public void setObraId(int obra_id) {
+        this.obra_id = obra_id;
     }
 
 
