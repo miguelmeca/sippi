@@ -214,9 +214,9 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
             ExplorarCotizacionObra_celda fila = (ExplorarCotizacionObra_celda)tablaCotizaciones.getValueAt(tablaCotizaciones.getSelectedRow(),0);
             int cot_id = fila.getId();
             
-            int obra_id = fila.getObraId();
+            //int obra_id = fila.getObraId();
 
-            ExplorarSubObras mod =  new ExplorarSubObras(obra_id,cot_id);
+            ExplorarSubObras mod =  new ExplorarSubObras(cot_id);
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }

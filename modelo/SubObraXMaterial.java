@@ -51,13 +51,13 @@ public class SubObraXMaterial implements ISubtotal{
         this.descripcion = descripcion;
     }
 
-//    public PrecioSegunCantidad getPrecio() {
-//        return precio;
-//    }
-//
-//    public void setPrecio(PrecioSegunCantidad precio) {
-//        this.precio = precio;
-//    }
+    /*public PrecioSegunCantidad getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(PrecioSegunCantidad precio) {
+        this.precio = precio;
+    }*/
 
     public double calcularSubtotal() {
         throw new UnsupportedOperationException("Not supported yet.");

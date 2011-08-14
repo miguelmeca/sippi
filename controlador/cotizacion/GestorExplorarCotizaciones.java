@@ -11,7 +11,7 @@ import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import modelo.Cotizacion;
-
+import util.FechaUtil;
 /**
  *
  * @author Administrador
@@ -79,27 +79,24 @@ public class GestorExplorarCotizaciones
 
             }
 
-
-
-
-         //sesion.beginTransaction();
             lista = sesion.createQuery("from Cotizacion").list();
-            //sesion.getTransaction().commit();
+
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<NTupla> listaCotizaciones = new ArrayList<NTupla>();
             for (int i = 0; i < lista.size(); i++) {
                 Cotizacion cot = (Cotizacion)lista.get(i);
-                String nombrePedidoObra=buscarNombrePedidoObra(cot);
+                String nombrePedidoObra=cot.buscarPedidoObra().getNombre();
                // listaNombres.add(td.getNombre());
                 NTupla tupla = new NTupla(cot.getId());
                 tupla.setNombre(nombrePedidoObra);//No me gusta como queda esto... Pero es la 1er columna...
-                String[] datos=new String[3];
+                String[] datos=new String[5];
                 //datos[0]=String.valueOf(emp.getLegajo());
                 datos[0]=String.valueOf(cot.getNroCotizacion());
                 datos[1]=String.valueOf(cot.getNroRevision());
-                datos[2]=String.valueOf(cot.getFechaCreacion());
-                datos[3]=String.valueOf(cot.getFechaModificacion());
+                datos[2]=String.valueOf(FechaUtil.getFecha(cot.getFechaCreacion()));                
+                datos[3]=String.valueOf(FechaUtil.getFecha(cot.getFechaModificacion()));
+                datos[4]=String.valueOf(cot.CalcularTotal());
                 //if(emp.getEstado()!=null)
                // {datos[2]=cot.getEstado().getNombre();}
                 tupla.setData(datos);
@@ -110,19 +107,6 @@ public class GestorExplorarCotizaciones
 
     }
     
-     public String buscarNombrePedidoObra(Cotizacion cotX) {
-        String nombrePedidoObra="";
-        try{
-            //HibernateUtil.beginTransaction();
-            nombrePedidoObra = (String)HibernateUtil.getSession().createQuery("select nombre from PedidoObra where Cotizacion="+cotX).uniqueResult();
-           
-            //HibernateUtil.commitTransaction();
-        }
-        catch(Exception e){
-            System.out.println("ERROR:"+e.getMessage()+"|");
-            e.printStackTrace();
-       }
-        return nombrePedidoObra;
-    }
+     
 
 }

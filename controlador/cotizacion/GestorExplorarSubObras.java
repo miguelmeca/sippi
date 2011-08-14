@@ -40,10 +40,10 @@ public class GestorExplorarSubObras {
         }        
     }
     
-    public void cargarCotizacion(int id_obra,int id_cot)
+    public void cargarCotizacion(int id_cot)
     {
         this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
-        this.obra = (PedidoObra) sesion.load(PedidoObra.class,id_obra);       
+        this.obra = cot.buscarPedidoObra();       
         
         // Cargo en el menú las SubObras
         cargarSubObras();
