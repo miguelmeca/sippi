@@ -99,7 +99,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane1" pref="382" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="387" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
@@ -195,11 +195,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="10" pref="10" max="10" attributes="0"/>
-                          <Component id="jLabel3" pref="183" max="32767" attributes="0"/>
+                          <Component id="jLabel3" pref="187" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblMontoTotal" pref="183" max="32767" attributes="0"/>
+                          <Component id="lblMontoTotal" pref="187" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -306,7 +306,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" pref="251" max="32767" attributes="0"/>
+                          <Component id="jPanel9" pref="254" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -541,7 +541,7 @@
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_obra_fechafin" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="36" max="32767" attributes="0"/>
+                              <EmptySpace pref="39" max="32767" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -697,7 +697,7 @@
                         <Property name="axis" type="int" value="3"/>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel5">
+                        <Component class="javax.swing.JLabel" name="lbl_est_titulo_barra">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Ubuntu" size="13" style="1"/>
@@ -705,7 +705,7 @@
                             <Property name="text" type="java.lang.String" value="Relaci&#xf3;n del Monto usado con el Monto m&#xe1;ximo"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+                        <Component class="javax.swing.JProgressBar" name="prog_est_max">
                           <Properties>
                             <Property name="maximum" type="int" value="3000"/>
                             <Property name="value" type="int" value="2500"/>
@@ -745,7 +745,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="376" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="379" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -761,14 +761,14 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                    <Component class="javax.swing.JTextArea" name="txtDescripcionObra">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Verdana" size="10" style="0"/>
                         </Property>
                         <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="Por la presente cotizamos la provisi&#xf3;n de mano de obra, consumibles,  &#xa;herramientas y transporte para cambio de cable de ambos puentes de gr&#xfa;a &#xa;y destrabar portones traseros de nave de producci&#xf3;n de planta Ingalmet &#xa;ubicada en Villa Mercedes (San Luis)."/>
+                        <Property name="text" type="java.lang.String" value="Por la presente cotizamos ..."/>
                       </Properties>
                     </Component>
                   </SubComponents>

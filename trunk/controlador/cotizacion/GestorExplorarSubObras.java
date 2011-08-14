@@ -43,19 +43,28 @@ public class GestorExplorarSubObras {
     public void cargarCotizacion(int id_cot)
     {
         this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
-        this.obra = cot.buscarPedidoObra();       
+        this.obra = cot.buscarPedidoObra();   
         
+        cargarDescripcionObra();
+        
+        refrescarVentana();
+    }
+
+    private void refrescarVentana() 
+    {
         // Cargo en el menú las SubObras
         cargarSubObras();
         // Cargo los datos de la Obra
         cargarDatosGeneralesObra();
-        
         // Actualizo el monto Total
         cargarMontoTotal();
-    }
+        // Mostrar Barra de Monto Actual VS Maximo
+        cargarMontoActualVSMaximo();
+    }    
     
     private void cargarSubObras()
     {
+        this.pantalla.clearSubObrasList();
         Iterator<SubObra> it = this.cot.getSubObras().iterator();
         while(it.hasNext())
         {
@@ -69,7 +78,7 @@ public class GestorExplorarSubObras {
     {
         String lbl_obra_nombre = this.obra.getNombre();
         String lbl_obra_planta = this.obra.getPlanta().getRazonSocial();
-        String lbl_obra_lugar  = "";
+        String lbl_obra_lugar  = this.obra.getPlanta().getDomicilio().toString();
         String lbl_obra_montomax = "$"+String.valueOf(this.obra.getPresupuestoMaximo());
         String lbl_obra_fechaini = FechaUtil.getFecha(this.obra.getFechaInicio());
         String lbl_obra_fechafin = FechaUtil.getFecha(this.obra.getFechaFin());
@@ -95,6 +104,40 @@ public class GestorExplorarSubObras {
     {
         pantalla.setMontoTotal(getMontoTotal());
     }
+
+    private void cargarMontoActualVSMaximo() {
+        
+        //pantalla.setMontoActualVSMaximo(this.cot.CalcularTotal(),getMontoMaximo());
+        pantalla.setMontoActualVSMaximo(1000,getMontoMaximo());
+    }
+
+    private void cargarDescripcionObra() 
+    {
+        pantalla.setDescripcionObra(this.cot.getDescripcion());
+    }
+    
+    public void crearSubObra(String nombre)
+    {
+        // VEO QUE NO REPITA EL NOMBRE
+        boolean _used_name = false;
+        for (int i = 0; i < this.cot.getSubObras().size(); i++) 
+        {
+            SubObra so = this.cot.getSubObras().get(i);
+            if(so.getNombre().equals(nombre))
+            {
+                _used_name=true;
+            }
+        }
+        
+        if(_used_name==false)
+        {
+            SubObra nuevaso = new SubObra();
+            nuevaso.setNombre(nombre);
+            this.cot.getSubObras().add(nuevaso);
+            refrescarVentana();
+        }
+    }
+
             
     
     

@@ -37,6 +37,16 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         habilitarVentana();
     }
 
+    /** Creates new form pantallaConsultarObra with a selected PedidoObra */
+    public pantallaConsultarObra(int id_obra) 
+    {
+        initComponents();
+
+        gestor = new GestorConsultarObra(this);
+
+        habilitarVentana();
+    }    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
