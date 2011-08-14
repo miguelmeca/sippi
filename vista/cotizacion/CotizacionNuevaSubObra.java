@@ -19,10 +19,15 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
 
     public static final int TIPO_CREAR = 0;
     public static final int TIPO_MODIFICAR = 1;
+    private int TIPO;
+    
+    private ExplorarSubObras pantalla;
 
     /** Creates new form nuevaSubObra */
-    public CotizacionNuevaSubObra(int TIPO)
+    public CotizacionNuevaSubObra(ExplorarSubObras pantalla, int TIPO)
     {
+        this.pantalla = pantalla;
+        this.TIPO = TIPO;
         initComponents();
 
         switch(TIPO)
@@ -49,7 +54,7 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombra = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -58,13 +63,23 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre de la Sub-Obra:");
 
-        jTextField1.setText("Traslado");
+        txtNombra.setText("Traslado");
 
         btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnOK.setText("Crear");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,7 +88,7 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(txtNombra, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
@@ -87,7 +102,7 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
@@ -98,12 +113,32 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+
+        switch(this.TIPO)
+        {
+            case TIPO_CREAR:
+                pantalla.crearNuevaSubObra(txtNombra.getText());
+                this.dispose();
+                break;
+            case TIPO_MODIFICAR:
+                pantalla.modificarNombreSubObra(txtNombra.getText());
+                this.dispose();
+                break;
+        }    
+    
+}//GEN-LAST:event_btnOKActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    this.dispose();
+}//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtNombra;
     // End of variables declaration//GEN-END:variables
 
 }
