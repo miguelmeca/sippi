@@ -24,6 +24,8 @@ import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
 import vista.cotizacion.ExplorarCotizacionObra;
+import vista.cotizacion.ExplorarCotizaciones;
+import vista.cotizacion.ExplorarSubObras;
 import vista.gui.FavoritoBean;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 
@@ -172,6 +174,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+		jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -363,6 +366,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem5);
 
+ jMenuItem2.setText("Explorar Cotizaciones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
         jMenuItem1.setText("Registrar Pedido de Obra");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,6 +471,12 @@ private void btnSiderbarAutoHideActionPerformed(java.awt.event.ActionEvent evt) 
     
 }//GEN-LAST:event_btnSiderbarAutoHideActionPerformed
 
+private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    
+        ExplorarCotizaciones ec = new ExplorarCotizaciones();
+        SwingPanel.getInstance().addWindow(ec);
+        ec.setVisible(true);
+}//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
@@ -469,6 +485,7 @@ private void btnSiderbarAutoHideActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+	private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

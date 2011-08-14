@@ -12,6 +12,7 @@
 package vista.cotizacion;
 
 import vista.gui.IFavorito;
+import vista.interfaces.ICallBack_v2;
 import java.awt.Color;
 import controlador.cotizacion.GestorExplorarCotizaciones;
 import java.util.ArrayList;
@@ -19,13 +20,14 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.Tupla;
+import util.SwingPanel;
 
 
 /**
  *
  * @author Administrador
  */
-public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements IFavorito {
+public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements IFavorito, ICallBack_v2{
 
     public static final int TIPO_EXPLORAR_ONLY = 0;
     public static final int TIPO_EXPLORAR_FULL = 1;    
@@ -41,6 +43,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         initComponents();
         gestor = new GestorExplorarCotizaciones(this);
         this.habilitarVentana();
+       
     }
 
     public void setTipo(int TIPO) 
@@ -106,6 +109,19 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
 
     }
     
+     public void llamarEditarCotizacion()
+     {
+         int id;
+         if(tablaCotizaciones.getSelectedRow()!=-1)
+          {
+            id=((Tupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
+            ExplorarSubObras pre = new ExplorarSubObras(id);
+            SwingPanel.getInstance().addWindow(pre);
+            pre.setVisible(true);
+        }
+            
+     }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -134,7 +150,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             }
         });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
         txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,6 +200,11 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                 return canEdit [columnIndex];
             }
         });
+        tablaCotizaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaCotizacionesMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCotizaciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,7 +233,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -224,11 +245,9 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-    /*if(tablaCotizaciones.getSelectedRow()!=-1)
-     {
-        int id;
-        id=((NTupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
-     }*/
+    
+        llamarEditarCotizacion();
+     
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
@@ -259,6 +278,22 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         } 
     }//GEN-LAST:event_txtBuscarFocusLost
 
+    private void tablaCotizacionesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCotizacionesMouseReleased
+        if(tablaCotizaciones.getSelectedRow()!=-1)
+       {
+           //id=((Tupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
+           btnSeleccionar.setEnabled(true);
+           if (evt.getClickCount() == 2)
+            {
+             llamarEditarCotizacion();
+            }
+        }
+       else
+       {
+           btnSeleccionar.setEnabled(false);
+       }
+    }//GEN-LAST:event_tablaCotizacionesMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -277,6 +312,12 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     @Override
     public String getIconoFavorito() {
         return "/res/iconos/var/16x16/search.png";
+    }
+    
+    @Override
+    public void actualizar(int id, String flag, boolean exito)
+    {
+        habilitarVentana();
     }
 
 }

@@ -38,12 +38,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     private GestorExplorarSubObras gestor;
     
     /** Creates new form pantallaExplorarAlfonsinas */
-    public ExplorarSubObras(int obra_id,int cot_id)
+    public ExplorarSubObras(int cot_id)
     {
         initComponents();
         
         gestor = new GestorExplorarSubObras(this);
-        gestor.cargarCotizacion(obra_id,cot_id);
+        gestor.cargarCotizacion(cot_id);
         
         initGraphs();
         
