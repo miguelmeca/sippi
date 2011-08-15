@@ -17,6 +17,7 @@ import java.awt.Color;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -38,6 +39,10 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private GestorExplorarSubObras gestor;
     
+    private JPanel graficoTotaSubObras;
+    private JPanel graficoTotaRecursos;
+    
+    
     /** Creates new form pantallaExplorarAlfonsinas */
     public ExplorarSubObras(int cot_id)
     {
@@ -45,8 +50,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         
         gestor = new GestorExplorarSubObras(this);
         gestor.cargarCotizacion(cot_id);
-        
-        initGraphs();
         
     }
 
@@ -99,10 +102,19 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         lbl_obra_fechafin = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        panelContenedor = new javax.swing.JPanel();
+        panelGraficos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         lbl_est_titulo_barra = new javax.swing.JLabel();
         prog_est_max = new javax.swing.JProgressBar();
+        panelGraficoRecursos = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        _containerGraficoRecursos = new javax.swing.JPanel();
+        graficoTortaRecursos = new javax.swing.JPanel();
+        panelGraficoSubObras = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        _containerGraficoTortaSubObras = new javax.swing.JPanel();
+        graficoTortalSO = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionObra = new javax.swing.JTextArea();
@@ -452,38 +464,148 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel4.setMaximumSize(new java.awt.Dimension(418, 900));
+        panelContenedor.setMaximumSize(new java.awt.Dimension(418, 900));
 
-        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.PAGE_AXIS));
+        panelGraficos.setLayout(new javax.swing.BoxLayout(panelGraficos, javax.swing.BoxLayout.PAGE_AXIS));
 
         lbl_est_titulo_barra.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        lbl_est_titulo_barra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_est_titulo_barra.setText("Relación del Monto usado con el Monto máximo");
-        jPanel5.add(lbl_est_titulo_barra);
 
         prog_est_max.setMaximum(3000);
         prog_est_max.setValue(2500);
         prog_est_max.setString("$2500 / $3000");
         prog_est_max.setStringPainted(true);
-        jPanel5.add(prog_est_max);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_est_titulo_barra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(prog_est_max, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_est_titulo_barra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prog_est_max, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jScrollPane2.setViewportView(jPanel4);
+        panelGraficos.add(jPanel4);
+
+        panelGraficoRecursos.setMinimumSize(new java.awt.Dimension(510, 288));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Contribución de cada 'Tipo de Recurso' al monto Total");
+
+        _containerGraficoRecursos.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout graficoTortaRecursosLayout = new javax.swing.GroupLayout(graficoTortaRecursos);
+        graficoTortaRecursos.setLayout(graficoTortaRecursosLayout);
+        graficoTortaRecursosLayout.setHorizontalGroup(
+            graficoTortaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        graficoTortaRecursosLayout.setVerticalGroup(
+            graficoTortaRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 246, Short.MAX_VALUE)
+        );
+
+        _containerGraficoRecursos.add(graficoTortaRecursos, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout panelGraficoRecursosLayout = new javax.swing.GroupLayout(panelGraficoRecursos);
+        panelGraficoRecursos.setLayout(panelGraficoRecursosLayout);
+        panelGraficoRecursosLayout.setHorizontalGroup(
+            panelGraficoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficoRecursosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelGraficoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelGraficoRecursosLayout.setVerticalGroup(
+            panelGraficoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGraficoRecursosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelGraficos.add(panelGraficoRecursos);
+
+        panelGraficoSubObras.setMinimumSize(new java.awt.Dimension(510, 288));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Contribución de cada 'Sub-Obra' al monto Total");
+
+        _containerGraficoTortaSubObras.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout graficoTortalSOLayout = new javax.swing.GroupLayout(graficoTortalSO);
+        graficoTortalSO.setLayout(graficoTortalSOLayout);
+        graficoTortalSOLayout.setHorizontalGroup(
+            graficoTortalSOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        graficoTortalSOLayout.setVerticalGroup(
+            graficoTortalSOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 246, Short.MAX_VALUE)
+        );
+
+        _containerGraficoTortaSubObras.add(graficoTortalSO, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout panelGraficoSubObrasLayout = new javax.swing.GroupLayout(panelGraficoSubObras);
+        panelGraficoSubObras.setLayout(panelGraficoSubObrasLayout);
+        panelGraficoSubObrasLayout.setHorizontalGroup(
+            panelGraficoSubObrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGraficoSubObrasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelGraficoSubObrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelGraficoSubObrasLayout.setVerticalGroup(
+            panelGraficoSubObrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGraficoSubObrasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelGraficos.add(panelGraficoSubObras);
+
+        javax.swing.GroupLayout panelContenedorLayout = new javax.swing.GroupLayout(panelContenedor);
+        panelContenedor.setLayout(panelContenedorLayout);
+        panelContenedorLayout.setHorizontalGroup(
+            panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        panelContenedorLayout.setVerticalGroup(
+            panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 639, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jScrollPane2.setViewportView(panelContenedor);
 
         jTabbedPane1.addTab("Estadisticas", jScrollPane2);
 
@@ -600,13 +722,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblMenuMousePressed
 
-    /***
-     * Este botón inicia las "editar Cotización" de cada Alfonsina. Si no está seleccionada ninguna
-     * coloca el título "Default"
-     * @param evt
-     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEditarAlfonsinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlfonsinaActionPerformed
@@ -644,9 +761,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
             EditarCotizacion mod = new EditarCotizacion();
             if(tblMenu.getSelectedRow() >=0)
-                mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+                mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else
-                mod.setTitle("Editar Cotización: Default");
+                mod.setTitle("Editar CotizaciÃ³n: Default");
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }
@@ -660,11 +777,15 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel _containerGraficoRecursos;
+    private javax.swing.JPanel _containerGraficoTortaSubObras;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarAlfonsina;
     private javax.swing.JButton btnGuardar;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private com.toedter.calendar.JDateChooser cmbLVP;
+    private javax.swing.JPanel graficoTortaRecursos;
+    private javax.swing.JPanel graficoTortalSO;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -683,12 +804,13 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -708,38 +830,36 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_obra_montomax;
     private javax.swing.JLabel lbl_obra_nombre;
     private javax.swing.JLabel lbl_obra_planta;
+    private javax.swing.JPanel panelContenedor;
+    private javax.swing.JPanel panelGraficoRecursos;
+    private javax.swing.JPanel panelGraficoSubObras;
+    private javax.swing.JPanel panelGraficos;
     private javax.swing.JProgressBar prog_est_max;
     private javax.swing.JTable tblMenu;
     private javax.swing.JTextArea txtDescripcionObra;
     // End of variables declaration//GEN-END:variables
 
-    private void initGraphs()
+    public void updateGraphs()
     {
-        initGraphTortaAlfonsinas();
+        updateGraphTortaSubObras();
         initGraphTortaItems();
     }
 
-    private void initGraphTortaAlfonsinas()
+    private void updateGraphTortaSubObras()
     {
-        // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada 'Sub-Obra' al monto Total");
-        lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
-       jPanel5.add(lblTitulo);
-
-        CotizacionGraficoTortaSubObras torta1 = new CotizacionGraficoTortaSubObras();
-        jPanel5.add(torta1);
+        graficoTortalSO = new CotizacionGraficoTortaSubObras(gestor.getDataGraficoSubObras());
+        _containerGraficoTortaSubObras.add(graficoTortalSO,BorderLayout.CENTER);
+        _containerGraficoTortaSubObras.validate();
+        panelGraficos.repaint();
         pack();
-
     }
 
-    private void initGraphTortaItems() {
-                // TITULO
-        JLabel lblTitulo = new JLabel("Contribución de cada 'Tipo de Recurso' al monto Total");
-        lblTitulo.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
-        jPanel5.add(lblTitulo);
-
-        CotizacionGraficoTortaItems torta2 = new CotizacionGraficoTortaItems();
-        jPanel5.add(torta2);
+    private void initGraphTortaItems() 
+    {
+        graficoTortaRecursos = new CotizacionGraficoTortaSubObras(gestor.getDataGraficoRecursos());
+        _containerGraficoRecursos.add(graficoTortaRecursos,BorderLayout.CENTER);
+        _containerGraficoRecursos.validate();
+        panelGraficos.repaint();
         pack();
     }
     

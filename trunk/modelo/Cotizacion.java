@@ -148,7 +148,13 @@ public class Cotizacion {
     
     public double CalcularTotal()
     {
-        return 0;
+        double monto = 0;
+        for (int i = 0; i < subObras.size(); i++) 
+        {
+            SubObra so = subObras.get(i);
+            monto += so.calcularSubtotal();
+        }
+        return monto;
     }
     
     public double CalcularMontoBase()

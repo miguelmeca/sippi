@@ -68,7 +68,9 @@ public class SubObraXHerramienta implements ISubtotal{
         this.observaciones = observaciones;
     }
 
-    public double calcularSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public double calcularSubtotal() 
+    {
+        return costoXHora*cantDias*cantHoras;
     }
 }

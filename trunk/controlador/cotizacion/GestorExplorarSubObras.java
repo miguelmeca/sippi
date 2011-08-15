@@ -4,6 +4,7 @@
  */
 package controlador.cotizacion;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import modelo.Cotizacion;
 import modelo.PedidoObra;
@@ -13,6 +14,7 @@ import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
+import vista.cotizacion.CotizacionGraficoBean;
 import vista.cotizacion.ExplorarSubObras;
 
 /**
@@ -60,6 +62,8 @@ public class GestorExplorarSubObras {
         cargarMontoTotal();
         // Mostrar Barra de Monto Actual VS Maximo
         cargarMontoActualVSMaximo();
+        // Actualiza los graficos
+        cargarGraficos();
     }    
     
     private void cargarSubObras()
@@ -105,10 +109,9 @@ public class GestorExplorarSubObras {
         pantalla.setMontoTotal(getMontoTotal());
     }
 
-    private void cargarMontoActualVSMaximo() {
-        
-        //pantalla.setMontoActualVSMaximo(this.cot.CalcularTotal(),getMontoMaximo());
-        pantalla.setMontoActualVSMaximo(1000,getMontoMaximo());
+    private void cargarMontoActualVSMaximo() 
+    {    
+        pantalla.setMontoActualVSMaximo(this.cot.CalcularTotal(),getMontoMaximo());
     }
 
     private void cargarDescripcionObra() 
@@ -137,6 +140,81 @@ public class GestorExplorarSubObras {
             refrescarVentana();
         }
     }
+
+    private void cargarGraficos() 
+    {
+        pantalla.updateGraphs();
+    }
+
+    public ArrayList<CotizacionGraficoBean> getDataGraficoSubObras() 
+    {
+        ArrayList<CotizacionGraficoBean> lista = new ArrayList<CotizacionGraficoBean>();
+        for (int i = 0; i < this.cot.getSubObras().size(); i++) 
+        {
+            SubObra so = this.cot.getSubObras().get(i);
+            
+                double monto = so.calcularSubtotal();
+                CotizacionGraficoBean bean = new CotizacionGraficoBean("[$"+monto+"]"+so.getNombre(),monto);
+                lista.add(bean);
+        }
+        return lista;
+    }
+    
+    public ArrayList<CotizacionGraficoBean> getDataGraficoRecursos() 
+    {
+        // 1-Material 
+        // 2-Tareas
+        // 3-Herramientas
+        // 4-Adicionales
+        // 5-Compras
+        double[] subtotales = new double[5];
+        
+        ArrayList<CotizacionGraficoBean> lista = new ArrayList<CotizacionGraficoBean>();
+        for (int i = 0; i < this.cot.getSubObras().size(); i++) 
+        {
+            SubObra so = this.cot.getSubObras().get(i);
+            
+                // Materiales
+                for (int j = 0; j < so.getMateriales().size(); j++) 
+                {
+                    subtotales[0] += so.getMateriales().get(j).calcularSubtotal();
+                }
+                // Tareas
+                for (int j = 0; j < so.getTareas().size(); j++) 
+                {
+                    subtotales[1] += so.getTareas().get(j).calcularSubtotal();
+                }
+                // Herramientas
+                for (int j = 0; j < so.getHerramientas().size(); j++) 
+                {
+                    subtotales[2] += so.getHerramientas().get(j).calcularSubtotal();
+                }
+                // Adicionales
+                for (int j = 0; j < so.getAdicionales().size(); j++) 
+                {
+                    subtotales[3] += so.getAdicionales().get(j).calcularSubtotal();
+                } 
+                // Compras
+                for (int j = 0; j < so.getAlquileresCompras().size(); j++) 
+                {
+                    subtotales[4] += so.getAlquileresCompras().get(j).calcularSubtotal();
+                }                                
+            
+        }
+        
+        // Agrego al Set de datos
+        CotizacionGraficoBean bean1 = new CotizacionGraficoBean("[$"+subtotales[0]+"] Materiales",subtotales[0]);
+        lista.add(bean1); 
+        CotizacionGraficoBean bean2 = new CotizacionGraficoBean("[$"+subtotales[1]+"] Mano de Obra",subtotales[1]);
+        lista.add(bean2); 
+        CotizacionGraficoBean bean3 = new CotizacionGraficoBean("[$"+subtotales[2]+"] Herramientas",subtotales[2]);
+        lista.add(bean3); 
+        CotizacionGraficoBean bean4 = new CotizacionGraficoBean("[$"+subtotales[3]+"] Adicionales",subtotales[3]);
+        lista.add(bean4); 
+        CotizacionGraficoBean bean5 = new CotizacionGraficoBean("[$"+subtotales[4]+"] Compras",subtotales[4]);
+        lista.add(bean5);         
+        return lista;
+    }    
 
             
     

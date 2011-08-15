@@ -13,7 +13,9 @@ import java.util.List;
  *
  * @author Emmanuel
  */
-public class SubObra {
+public class SubObra implements ISubtotal
+{
+    
     private int id;
     private String nombre;
     private double gananciaMonto;
@@ -127,5 +129,42 @@ public class SubObra {
     }
     public void addMaterial(SubObraXMaterial soxm){
         this.materiales.add(soxm);
+    }
+
+    @Override
+    public double calcularSubtotal() 
+    {
+        double monto = 0;
+        // 1-Material 
+        // 2-Tareas
+        // 3-Herramientas
+        // 4-Adicionales
+        // 5-Compras
+                // Materiales
+                for (int j = 0; j < getMateriales().size(); j++) 
+                {
+                    monto += getMateriales().get(j).calcularSubtotal();
+                }
+                // Tareas
+                for (int j = 0; j < getTareas().size(); j++) 
+                {
+                    monto += getTareas().get(j).calcularSubtotal();
+                }
+                // Herramientas
+                for (int j = 0; j < getHerramientas().size(); j++) 
+                {
+                    monto += getHerramientas().get(j).calcularSubtotal();
+                }
+                // Adicionales
+                for (int j = 0; j < getAdicionales().size(); j++) 
+                {
+                    monto += getAdicionales().get(j).calcularSubtotal();
+                } 
+                // Compras
+                for (int j = 0; j < getAlquileresCompras().size(); j++) 
+                {
+                    monto += getAlquileresCompras().get(j).calcularSubtotal();
+                }    
+        return monto;
     }
 }

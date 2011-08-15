@@ -7,6 +7,7 @@ package vista.cotizacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -19,19 +20,23 @@ import org.jfree.util.UnitType;
 import vista.gui.TortaRotator;
 
 /**
- *
  * @author iuga
  */
-public class CotizacionGraficoTortaSubObras extends JPanel {
+public class CotizacionGraficoTortaSubObras extends JPanel 
+{
 
-    public CotizacionGraficoTortaSubObras()
+    public CotizacionGraficoTortaSubObras(ArrayList<CotizacionGraficoBean> items)
     {
         setLayout(new java.awt.BorderLayout());
 
         final DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("Construcción [$2000]", new Double(80));
-        data.setValue("Desmontaje [$500]", new Double(20));
-
+        
+        // Lleno los datos
+        for (int i = 0; i < items.size(); i++) 
+        {
+            CotizacionGraficoBean cgb = items.get(i);
+            data.setValue(cgb.getNombre(),cgb.getValue());
+        }
 
         final JFreeChart chart = ChartFactory.createPieChart3D(
             "",  // chart title
