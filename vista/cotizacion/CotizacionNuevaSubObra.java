@@ -11,6 +11,8 @@
 
 package vista.cotizacion;
 
+import util.Tupla;
+
 /**
  *
  * @author Administrador
@@ -20,6 +22,8 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
     public static final int TIPO_CREAR = 0;
     public static final int TIPO_MODIFICAR = 1;
     private int TIPO;
+    
+    private Tupla tp;
     
     private ExplorarSubObras pantalla;
 
@@ -88,12 +92,12 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombra, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                    .addComponent(txtNombra, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -122,7 +126,8 @@ private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
                 this.dispose();
                 break;
             case TIPO_MODIFICAR:
-                pantalla.modificarNombreSubObra(txtNombra.getText());
+                this.tp.setNombre(txtNombra.getText());
+                pantalla.cambiarNombreSubObra(tp);
                 this.dispose();
                 break;
         }    
@@ -140,5 +145,11 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtNombra;
     // End of variables declaration//GEN-END:variables
+
+    void setTuplaFila(Tupla t) 
+    {
+        this.tp=t;
+        this.txtNombra.setText(t.getNombre());
+    }
 
 }
