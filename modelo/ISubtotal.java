@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package modelo;
 
 /**
- *
+ * Se implementa a todos las clases del modelo que calculen un subtotal
  * @author Emmanuel
  */
 public interface ISubtotal {

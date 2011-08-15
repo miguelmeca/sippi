@@ -88,8 +88,9 @@ public class SubObraXTarea implements ISubtotal{
         this.tipoTarea = tipoTarea;
     }
 
+    @Override
     public double calcularSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return cantHoras*cantOperarios; // FAKE
     }
 
 }

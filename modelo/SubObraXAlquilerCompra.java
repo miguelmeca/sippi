@@ -59,8 +59,10 @@ public class SubObraXAlquilerCompra implements ISubtotal{
         this.precioUnitario = precioUnitario;
     }
 
-    public double calcularSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public double calcularSubtotal() 
+    {
+        return cantidad*precioUnitario;
     }
 
 }

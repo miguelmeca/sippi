@@ -68,7 +68,9 @@ public class SubObraXAdicional implements ISubtotal{
         this.id = id;
     }
 
-    public double calcularSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public double calcularSubtotal() 
+    {
+        return cantDias*cantOperarios*precioUnitario;
     }
 }

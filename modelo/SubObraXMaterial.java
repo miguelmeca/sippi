@@ -13,7 +13,6 @@ public class SubObraXMaterial implements ISubtotal{
     private int id;
     private int cantidad;
     private String descripcion;
-    //private PrecioSegunCantidad precio;
     private RecursoXProveedor material;
 
     public SubObraXMaterial() {
@@ -51,15 +50,7 @@ public class SubObraXMaterial implements ISubtotal{
         this.descripcion = descripcion;
     }
 
-    /*public PrecioSegunCantidad getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(PrecioSegunCantidad precio) {
-        this.precio = precio;
-    }*/
-
     public double calcularSubtotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return cantidad; // FAKE
     }
 }
