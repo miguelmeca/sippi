@@ -214,7 +214,37 @@ public class GestorExplorarSubObras {
         CotizacionGraficoBean bean5 = new CotizacionGraficoBean("[$"+subtotales[4]+"] Compras",subtotales[4]);
         lista.add(bean5);         
         return lista;
-    }    
+    }
+
+    public void eliminarSubObra(int id_subObra)
+    {
+        // Recorro, encuentro la subobra y la elimino
+        for (int i = 0; i < this.cot.getSubObras().size(); i++) 
+        {
+            SubObra so = this.cot.getSubObras().get(i);
+            if(so.getId()==id_subObra)
+            {
+                this.cot.getSubObras().remove(i);
+                this.refrescarVentana();
+                return;
+            }
+        }
+    }
+
+    public void cambiarNombreSubObra(int idSubObra, String nombre) 
+    {
+         // Recorro, encuentro la subobra y la modifico
+        for (int i = 0; i < this.cot.getSubObras().size(); i++) 
+        {
+            SubObra so = this.cot.getSubObras().get(i);
+            if(so.getId()==idSubObra)
+            {
+                so.setNombre(nombre);
+                this.refrescarVentana();
+                return;
+            }
+        }
+    }
 
             
     
