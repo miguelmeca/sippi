@@ -14,7 +14,7 @@
     <list cascade="all-delete-orphan" name="cotizaciones" table="PEDIDOOBRA_X_COTIZACION">
       <key column="ID_PEDIDO_OBRA"/>
       <index column="idx"/>
-      <many-to-many class="modelo.Cotizacion"/>
+      <one-to-many class="modelo.Cotizacion"/>
     </list>
     <list cascade="all-delete-orphan" name="contactos" table="PEDIDOOBRA_X_CONTACTO_RESPONSABLE">
       <key column="ID_PEDIDO_OBRA"/>

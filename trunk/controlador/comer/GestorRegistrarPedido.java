@@ -8,16 +8,22 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
 import modelo.ContactoResponsable;
 import modelo.EmpresaCliente;
 import modelo.EstadoPedidoObraPendiente;
+import modelo.FormaDePago;
 import modelo.PedidoObra;
 import modelo.Planta;
+import modelo.RolContactoResponsable;
+import modelo.Telefono;
+import modelo.TipoDocumento;
 import modelo.TipoTelefono;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentList;
 import util.HibernateUtil;
+import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
 import vista.comer.pantallaModificarPedido;
@@ -52,13 +58,16 @@ public class GestorRegistrarPedido {
     private Date fechaAceptacion;
     private Date fechaRegistro;
     private double montoMaximo;
-    private Date fechaLEP;
-    private Date fechaLVP;
-    private String pliegoObra;
-    private String planosObra;
+    private FormaDePago formaDePago;
+    private String plazoEntrega;
+    private String lugarEntrega;
+//    private Date fechaLEP;
+//    private Date fechaLVP;
+//    private String pliegoObra;
+//    private String planosObra;
 
     private PedidoObra pedido;
-    private ContactoResponsable contacto;
+    private ArrayList<ContactoResponsable> contactos;
 /*
     public GestorRegistrarPedido(pantallaRegistrarPedido pantalla)
     {
@@ -68,6 +77,7 @@ public class GestorRegistrarPedido {
     public GestorRegistrarPedido(IPantallaPedidoABM pantalla)
     {
         this.pantalla = pantalla;
+        contactos = new ArrayList<ContactoResponsable>();
 
     }
 
@@ -75,20 +85,12 @@ public class GestorRegistrarPedido {
         this.pantalla = aThis;
         this.pedido = (PedidoObra) HibernateUtil.getSessionFactory().openSession().load(PedidoObra.class, id);
     }
-    /**
-     * Tomo el nombre  de la obra
-     * @param nombre
-     * @param descripcion
-     */
+
     public void nombreObra(String nombre)
     {
         this.nombre = nombre;
     }
 
-    /**
-     * Tomo la descripcion de la obra
-     * @param descripcion
-     */
     public void descripcionObra(String descripcion)
     {
         this.descripcion = descripcion;
@@ -108,11 +110,11 @@ public class GestorRegistrarPedido {
 
     public void seleccionPlanta(Tupla p) {
         try{
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-        sesion.beginTransaction();
-        this.planta = (Planta)sesion.load(Planta.class, p.getId());
-        sesion.getTransaction().commit();
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            this.planta = (Planta)sesion.load(Planta.class, p.getId());
+            sesion.getTransaction().commit();
         }catch(Exception e)
         {
             System.out.println("ERROR:"+e.getMessage()+"|");
@@ -120,45 +122,54 @@ public class GestorRegistrarPedido {
         }
     }
 
-
     public void fechaInicioYFin(Date fechaInicio, Date fechaFin)
     {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
 
-    /**
-     * Seteo el monto maximo de la obra
-     * @param monto
-     */
     public void montoMaximo(double monto)
     {
         this.montoMaximo = monto;
     }
 
-    public void fechaLEP(Date fechaLEP) {
-
-        this.fechaLEP = fechaLEP;
-
+    public void formaDePago(Tupla f){
+        try{
+            SessionFactory sf = HibernateUtil.getSessionFactory();
+            Session sesion = sf.openSession();
+            sesion.beginTransaction();
+            this.formaDePago = (FormaDePago)sesion.load(FormaDePago.class, f.getId());
+            sesion.getTransaction().commit();
+        }catch(Exception e)
+        {
+            System.out.println("ERROR:"+e.getMessage()+"|");
+            e.printStackTrace();
+        }
     }
 
-    public void fechaLVP(Date fechaLVP) {
+//    public void fechaLEP(Date fechaLEP) {
+//
+//        this.fechaLEP = fechaLEP;
+//
+//    }
 
-        this.fechaLVP = fechaLVP;
+//    public void fechaLVP(Date fechaLVP) {
+//
+//        this.fechaLVP = fechaLVP;
+//
+//    }
 
-    }
-
-    public void pliegoObra(String pliego) {
-
-        this.pliegoObra = pliego;
-
-    }
-
-    public void planosObra(String planos) {
-
-        this.planosObra = planos;
-
-    }
+//    public void pliegoObra(String pliego) {
+//
+//        this.pliegoObra = pliego;
+//
+//    }
+//
+//    public void planosObra(String planos) {
+//
+//        this.planosObra = planos;
+//
+//    }
 
     public int generarNumeroPedido()
     {
@@ -212,7 +223,7 @@ public class GestorRegistrarPedido {
 //        nuevo.setMonto(montoMaximo);
 //        nuevo.setPlanos(planosObra);
 //        nuevo.setPliego(pliegoObra);
-//        nuevo.setContacto(contacto);
+        nuevo.setContactos(contactos);
         nuevo.setEstado(new EstadoPedidoObraPendiente());
 
         nuevo.setPlanta(planta);
@@ -294,6 +305,57 @@ public class GestorRegistrarPedido {
         {
             Planta pl = (Planta)iter.next();
             Tupla tupla = new Tupla(pl.getId(),pl.getRazonSocial());
+            tuplas.add(tupla);
+        }
+        return tuplas;
+    }
+
+    public ArrayList<Tupla> mostrarFormasDePago() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        Iterator iter = sesion.createQuery("from FormaDePago fp order by fp.nombre").iterate();
+        Tupla tupla=null;
+        while ( iter.hasNext() )
+        {
+            FormaDePago fp = (FormaDePago)iter.next();
+            tupla = new Tupla(fp.getId(),fp.getNombre());
+            tuplas.add(tupla);
+        }
+        return tuplas;
+    }
+
+    public ArrayList<Tupla> mostrarRoles() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        Iterator iter = sesion.createQuery("from RolContactoResponsable rcr order by rcr.nombre").iterate();
+        Tupla tupla=null;
+        while ( iter.hasNext() )
+        {
+            RolContactoResponsable rcr = (RolContactoResponsable)iter.next();
+            tupla = new Tupla(rcr.getId(),rcr.getNombre());
+            tuplas.add(tupla);
+        }
+        return tuplas;
+    }
+
+    public ArrayList<Tupla> mostrarTiposTelefono() {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session sesion = sf.openSession();
+
+        sesion.beginTransaction();
+        Iterator iter = sesion.createQuery("from TipoTelefono tt order by tt.nombre").iterate();
+        Tupla tupla=null;
+        while ( iter.hasNext() )
+        {
+            TipoTelefono tt = (TipoTelefono)iter.next();
+            tupla = new Tupla(tt.getId(),tt.getNombre());
             tuplas.add(tupla);
         }
         return tuplas;
@@ -415,32 +477,12 @@ public class GestorRegistrarPedido {
 //            return "";
 //    }
 
-    public ArrayList<Tupla> mostrarTiposTelefono() {
-        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-        Tupla tupla = null;
-        try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            Iterator iter = sesion.createQuery("from TipoTelefono q order by q.nombre").iterate();
-            while ( iter.hasNext() ) {
-                TipoTelefono tipo = (TipoTelefono) iter.next();
-                tupla = new Tupla(tipo.getId(),tipo.getNombre());
-                tuplas.add(tupla);
-            }
-        }catch(Exception e)
-        {
-            System.out.println("ERROR:"+e.getMessage()+"|");
-            e.printStackTrace();
-        }
-        return tuplas;
-    }
-
-    public void contactoResponsable(int id_cr)
-    {
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-        this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
-    }
+//    public void contactoResponsable(int id_cr)
+//    {
+//        SessionFactory sf = HibernateUtil.getSessionFactory();
+//        Session sesion = sf.openSession();
+//        this.contacto = (ContactoResponsable)sesion.get(ContactoResponsable.class,id_cr);
+//    }
 
     public void seleccionPedido(int idPedido) {
         this.buscarDatosPedido(idPedido);
@@ -504,5 +546,37 @@ public class GestorRegistrarPedido {
             System.out.println("ERROR:"+e.getMessage()+"|");
             e.printStackTrace();
         }
+    }
+
+    public void agregarContactoResponsable(String nombreCR, int idRol, int idTipo, String tel) {
+        ContactoResponsable cr = new ContactoResponsable();
+        cr.setNombre(nombreCR);
+        Telefono telCR = new Telefono();
+        telCR.setNumero(tel);
+        try {
+            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
+            telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
+            cr.setTelefono(telCR);
+            this.contactos.add(cr);
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<NTupla> mostrarContactosResponsables(){
+        ArrayList<NTupla> nTuplas = new ArrayList<NTupla>();
+
+        Iterator iter = this.contactos.iterator();
+        while ( iter.hasNext() )
+        {
+            ContactoResponsable cr = (ContactoResponsable)iter.next();
+            NTupla  nt = new NTupla();
+            nt.setNombre(cr.getNombre());
+            String datos[] = {cr.getRol().getNombre(),cr.getTelefono().getTipo().getNombre()+": "+cr.getTelefono().getNumero()};
+            nt.setData(datos);
+            nTuplas.add(nt);
+        }
+        return nTuplas;
     }
 }

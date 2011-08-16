@@ -514,10 +514,10 @@ public final class pantallaModificarPedido extends javax.swing.JInternalFrame im
             Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
             Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
             gestor.fechaInicioYFin(fechaI, fechaF);
-            Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
-            gestor.fechaLVP(fechaLVP);
-            Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
-            gestor.fechaLEP(fechaLEP);
+//            Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
+//            gestor.fechaLVP(fechaLVP);
+//            Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
+//            gestor.fechaLEP(fechaLEP);
             // LANZO EL CREAR
 
             if(cmbContactos.getSelectedItem() instanceof Tupla)
@@ -525,7 +525,7 @@ public final class pantallaModificarPedido extends javax.swing.JInternalFrame im
                 Tupla tp = (Tupla) cmbContactos.getSelectedItem();
                 if(tp.getId()!=0)
                 {
-                    gestor.contactoResponsable(tp.getId());
+//                    gestor.contactoResponsable(tp.getId());
                 }
             }
 

@@ -548,11 +548,11 @@ public final class pantallaDarBajaPedido extends javax.swing.JInternalFrame impl
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtPliegoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPliegoFocusLost
-        gestor.pliegoObra(txtPliego.getText());
+//        gestor.pliegoObra(txtPliego.getText());
 }//GEN-LAST:event_txtPliegoFocusLost
 
     private void txtPlanosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlanosFocusLost
-        gestor.planosObra(txtPlanos.getText());
+//        gestor.planosObra(txtPlanos.getText());
 }//GEN-LAST:event_txtPlanosFocusLost
 
     private void txtMontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoFocusLost
