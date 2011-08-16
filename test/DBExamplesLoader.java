@@ -52,6 +52,7 @@ import modelo.PrecioSegunCantidad;
 import modelo.Presupuesto;
 import modelo.RangoEmpleado;
 import modelo.RecursoEspecifico;
+import modelo.RolContactoResponsable;
 import modelo.Rubro;
 import modelo.SubObra;
 import modelo.SubObraXAdicional;
@@ -102,7 +103,7 @@ public class DBExamplesLoader {
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
           //this.cargarTipoLicencias();
-          //this.cargarContactoResponsable(); TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
+          this.cargarContactoResponsable(); //TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
 
           this.cargarCompras();
 
@@ -115,6 +116,7 @@ public class DBExamplesLoader {
           this.cargarTipoAlquilerCompra();
           this.cargarRangosEmpleado();
           this.cargarTipoTarea();
+          this.cargarRolesContactoResponsable();
           this.cargarCotizacionEjemplo();
     }
 
@@ -1089,8 +1091,8 @@ public class DBExamplesLoader {
     private void cargarCotizacionEjemplo() {
         try {
             PedidoObra po = new PedidoObra();
-            po.setNombre("ProvisiÃ³n de Mano de Obra y Materiales para adecuaciÃ³n elÃ©ctrica del sistema de enviÃ³ de salvado a amasadora horizontal 5. ");
-            po.setDescripcion("Todas las tareas a desarrollar se harÃ¡n de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveerÃ¡ de un cerramiento para aislar el Ã¡rea de trabajo.");
+            po.setNombre("Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ");
+            po.setDescripcion("Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.");
             GregorianCalendar dummy = new GregorianCalendar(2011, 3, 15);
             po.setFechaInicio(new Date(dummy.getTimeInMillis()));
             dummy.set(2011, 9, 15);
@@ -1102,12 +1104,12 @@ public class DBExamplesLoader {
             Cotizacion cot = new Cotizacion();
             cot.setNroRevision(1);
             cot.setNroCotizacion(1);
-            cot.setDescripcion("Primer cotizaciÃ³n que se le entrega al cliente. No tiene en cuenta descuentos");
+            cot.setDescripcion("Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos");
             cot.setFechaCreacion(new Date());
             dummy.set(2011, 2, 13);
             cot.setFechaLimiteEntrega(dummy.getTime());
             cot.setFechaModificacion(null);
-            cot.setLugarEntrega("Planta. SecciÃ³n Amazadoras");
+            cot.setLugarEntrega("Planta. Seccion Amazadoras");
             cot.setPlazoEntrega("15 dÃ­as");
             dummy.set(2011, 2, 20);
             cot.setValidezOferta(dummy.getTime());
@@ -1115,7 +1117,7 @@ public class DBExamplesLoader {
             // ------- SUBOBRAS -------
                 // SUBOBRA 1
                 SubObra so1 = new SubObra();
-                so1.setNombre("Desconexionado elÃ©ctrico de tolva y sinfÃ­n en Almacenaje de Polvo de Galleta.");
+                so1.setNombre("Desconexionado elÃ©ctrico de tolva y sinfin en Almacenaje de Polvo de Galleta.");
                 so1.setDescripcion("");
 
                 SubObraXHerramienta soxh = new SubObraXHerramienta();
@@ -1150,7 +1152,7 @@ public class DBExamplesLoader {
 
                 //SUBOBRA 2
                 SubObra so2 = new SubObra();
-                so2.setNombre("Desmontaje elÃ©ctrico de Molino â€œGRG2â€� y posterior montaje de cernidor con sus respectivas seguridades.");
+                so2.setNombre("Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.");
                 so2.setDescripcion("");
 
                 SubObraXAdicional soxa = new SubObraXAdicional();
@@ -1165,7 +1167,7 @@ public class DBExamplesLoader {
                 soxac.setCantidad(1);
                 soxac.setPrecioUnitario(300);
                 soxac.setTipoAlquilerCompra((TipoAlquilerCompra)sesion.load(TipoAlquilerCompra.class,3));
-                soxac.setDescripcion("Flete desde CÃ³rdoba");
+                soxac.setDescripcion("Flete desde Cordoba");
                 so2.addAlquilerCompra(soxac);
 
                 cot.addSubObra(so2);
@@ -1173,8 +1175,9 @@ public class DBExamplesLoader {
 
             // -------     CONTACTOS RESPONSABLES     --------
             ContactoResponsable contacto = new ContactoResponsable();
-            contacto.setNombre("AndrÃ©s");
+            contacto.setNombre("Andres");
             contacto.setEmail("apedraza@gmail.com");
+            contacto.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,1)));
             Telefono t = new Telefono();
             t.setNumero("(0351) 4564478");
             t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
@@ -1183,6 +1186,7 @@ public class DBExamplesLoader {
             ContactoResponsable contacto2 = new ContactoResponsable();
             contacto2.setNombre("Julio");
             contacto2.setEmail("eyjuliooscar@gmail.com");
+            contacto.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,2)));
             Telefono t2 = new Telefono();
             t2.setNumero("(011) 55544566");
             t2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
@@ -1268,7 +1272,7 @@ public class DBExamplesLoader {
         TipoAdicional ta2 = new TipoAdicional();
         ta2.setNombre("Comida");
         TipoAdicional ta3 = new TipoAdicional();
-        ta3.setNombre("ViÃ¡ticos");
+        ta3.setNombre("Viaticos");
         TipoAdicional ta4 = new TipoAdicional();
         ta4.setNombre("Viajes");
 
@@ -1286,11 +1290,10 @@ public class DBExamplesLoader {
     }
 
     private void cargarTipoAlquilerCompra() {
-        // GalpÃ³n, GrÃºa, Fletes, Camiones - Trasporte
         TipoAlquilerCompra tac1 = new TipoAlquilerCompra();
-        tac1.setNombre("GalpÃ³n");
+        tac1.setNombre("Galpon");
         TipoAlquilerCompra tac2 = new TipoAlquilerCompra();
-        tac2.setNombre("GrÃºa");
+        tac2.setNombre("Grua");
         TipoAlquilerCompra tac3 = new TipoAlquilerCompra();
         tac3.setNombre("Fletes");
         TipoAlquilerCompra tac4 = new TipoAlquilerCompra();
@@ -1305,6 +1308,33 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(tac3);
             sesion.saveOrUpdate(tac4);
             sesion.saveOrUpdate(tac5);
+            sesion.getTransaction().commit();
+        }catch(Exception ex) {
+            System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    //Administrador, Guardia, Gerente, Abogado, Contratista
+    private void cargarRolesContactoResponsable() {
+        RolContactoResponsable rcr1 = new RolContactoResponsable();
+        rcr1.setNombre("Administrador");
+        RolContactoResponsable rcr2 = new RolContactoResponsable();
+        rcr2.setNombre("Guardia");
+        RolContactoResponsable rcr3 = new RolContactoResponsable();
+        rcr3.setNombre("Gerente");
+        RolContactoResponsable rcr4 = new RolContactoResponsable();
+        rcr4.setNombre("Abogado");
+        RolContactoResponsable rcr5 = new RolContactoResponsable();
+        rcr5.setNombre("Contratista");
+
+        try{
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(rcr1);
+            sesion.saveOrUpdate(rcr2);
+            sesion.saveOrUpdate(rcr3);
+            sesion.saveOrUpdate(rcr4);
+            sesion.saveOrUpdate(rcr5);
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());

@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Emmanuel
  */
-class RolContactoResponsable {
+public class RolContactoResponsable {
     private int id;
     private String nombre;
 
