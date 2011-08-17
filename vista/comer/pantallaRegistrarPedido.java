@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.EmpresaCliente;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
 import util.SwingPanel;
@@ -168,14 +169,25 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             mensaje+="- Monto de la Obra\n";
             ban=false;
         }
-//        if(((JDateChooser)cmbLEP).getDate() == null){
-//            mensaje+="- Fecha Límite de Entrega de Presupuesto\n";
-//            ban=false;
-//        }
-//        if(((JDateChooser)cmbLVP).getDate() == null){
-//            mensaje+="- Fecha Límite de Validez del Presupuesto\n";
-//            ban=false;
-//        }
+        if(cmbFormaDePago.getSelectedIndex() == -1){
+            mensaje+="- Forma de Pago\n";
+            ban=false;
+        }
+        if(txtPlazoDeEntrega.getText().equals("")){
+            mensaje+="- Plazo de Entrega\n";
+            ban=false;
+        }
+        if(txtLugarEntrega.getText().equals("")){
+            mensaje+="- Lugar de Entrega\n";
+            ban=false;
+        }
+        try{
+            Double.parseDouble(txtMonto.getText());
+        }
+        catch(Exception e){
+            mensaje+="- Formato no válido Presupuesto Máximo\n";
+            ban=false;
+        }
         if(!ban){
             JOptionPane.showMessageDialog(this.getParent(),mensaje,"ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
         }
@@ -389,7 +401,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Empresa Cliente:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -438,7 +450,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
@@ -470,13 +482,12 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                         .addComponent(cmbPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbfechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbfechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,9 +552,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -554,7 +565,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("General", jPanel5);
@@ -582,17 +593,41 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         btnQuitarCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitarCR.setText("Quitar");
+        btnQuitarCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarCRActionPerformed(evt);
+            }
+        });
 
         tablaCR.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Raúl Pereyra", "Administrador", "4323554"},
-                {"Sandro Altamirano", "Guardia", "155-694434"}
+
             },
             new String [] {
-                "Nombre", "Rol", "Teléfono"
+                "Nombre", "Rol", "Teléfono", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaCR.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaCR);
+        tablaCR.getColumnModel().getColumn(0).setMinWidth(160);
+        tablaCR.getColumnModel().getColumn(0).setPreferredWidth(160);
+        tablaCR.getColumnModel().getColumn(0).setMaxWidth(160);
+        tablaCR.getColumnModel().getColumn(1).setMinWidth(160);
+        tablaCR.getColumnModel().getColumn(1).setPreferredWidth(160);
+        tablaCR.getColumnModel().getColumn(1).setMaxWidth(160);
+        tablaCR.getColumnModel().getColumn(2).setMinWidth(160);
+        tablaCR.getColumnModel().getColumn(2).setPreferredWidth(160);
+        tablaCR.getColumnModel().getColumn(2).setMaxWidth(160);
+        tablaCR.getColumnModel().getColumn(3).setResizable(false);
+        tablaCR.getColumnModel().getColumn(3).setPreferredWidth(0);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
@@ -605,7 +640,6 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAgregarCR, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -626,7 +660,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbTipoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelCR, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
+                        .addComponent(txtTelCR, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -648,9 +685,9 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarCR)
                     .addComponent(btnQuitarCR))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -667,7 +704,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(110, 110, 110))
+                .addGap(213, 213, 213))
         );
 
         jTabbedPane1.addTab("Contactos Responsables", jPanel6);
@@ -688,13 +725,13 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnConfirmar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Contactos Responsables");
@@ -707,29 +744,17 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             gestor.nombreObra(this.txtNombreObra.getText());
             gestor.descripcionObra(this.txtDescripcion.getText());
             gestor.montoMaximo(Long.valueOf(this.txtMonto.getText()));
-
-            
-            //VALIDO LAS FECHAS
-            // HACER
-            //PASO LAS FECHAS AL GESTOR
             Date fechaI = ((JDateChooser) cmbfechaInicio).getDate();
             Date fechaF = ((JDateChooser) cmbfechaFin).getDate();
             gestor.fechaInicioYFin(fechaI, fechaF);
-//            Date fechaLVP = ((JDateChooser) cmbLVP).getDate();
-//            gestor.fechaLVP(fechaLVP);
-//            Date fechaLEP = ((JDateChooser) cmbLEP).getDate();
-//            gestor.fechaLEP(fechaLEP);
-
-//            if(cmbContactos.getSelectedItem() instanceof Tupla)
-//            {
-//                Tupla tp = (Tupla) cmbContactos.getSelectedItem();
-//                if(tp.getId()!=0)
-//                {
-//                    gestor.contactoResponsable(tp.getId());
-//                }
-//            }
-            // LANZO EL CREAR
             gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
+            gestor.presupuestoMaximo(txtMonto.getText());
+            gestor.formaDePago((Tupla)cmbFormaDePago.getSelectedItem());
+            gestor.plazoEntrega(txtPlazoDeEntrega.getText());
+            gestor.lugarEntrega(txtLugarEntrega.getText());
+
+            // Los contactos responsables ya están en el gestor
+
             int id = gestor.confirmacionRegistro(0);
 
             JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
@@ -764,15 +789,51 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
     }//GEN-LAST:event_btnAgregarPlantaActionPerformed
 
     private void btnAgregarCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCRActionPerformed
-        Tupla tRol = (Tupla)this.cmbRolCR.getItemAt(this.cmbRolCR.getSelectedIndex());
-        Tupla tTipo = (Tupla)this.cmbTipoTelefono.getItemAt(this.cmbTipoTelefono.getSelectedIndex());
-        gestor.agregarContactoResponsable(this.txtNombreCR.getText(),tRol.getId(),tTipo.getId(),txtTelCR.getText());
-        this.txtNombreCR.setText("");
-        this.txtTelCR.setText("");
-        this.cmbRolCR.setSelectedIndex(0);
-        this.cmbTipoTelefono.setSelectedIndex(0);
-        this.actualizarListaContactosResponsables();
+        String msj="Han ocurrido los siguientes errores al momento de la carga:\n";
+        boolean b=true;
+        if(this.txtNombreCR.getText().equals("")){
+            msj += "- Nombre de Contacto vacío\n";
+            b = false;
+        }
+        if(this.cmbRolCR.getSelectedIndex()== 0){
+            msj += "- No ha seleccionado un Rol para el contacto\n";
+            b = false;
+        }
+        if(this.cmbTipoTelefono.getSelectedIndex()== 0){
+            msj += "- No ha seleccionado un Tipo de Teléfono\n";
+            b = false;
+        }
+        if(this.txtTelCR.getText().equals("")){
+            msj += "- Teléfono vacío\n";
+            b = false;
+        }
+        if(b){
+            Tupla tRol = (Tupla)this.cmbRolCR.getItemAt(this.cmbRolCR.getSelectedIndex());
+            Tupla tTipo = (Tupla)this.cmbTipoTelefono.getItemAt(this.cmbTipoTelefono.getSelectedIndex());
+            gestor.agregarContactoResponsable(this.txtNombreCR.getText(),tRol.getId(),tTipo.getId(),txtTelCR.getText());
+            this.txtNombreCR.setText("");
+            this.txtTelCR.setText("");
+            this.cmbRolCR.setSelectedIndex(0);
+            this.cmbTipoTelefono.setSelectedIndex(0);
+            this.actualizarListaContactosResponsables();
+        }else{
+            JOptionPane.showMessageDialog(this, msj,"Alerta",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarCRActionPerformed
+
+    private void btnQuitarCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarCRActionPerformed
+        if(tablaCR.getSelectedRow()!= -1){
+            DefaultTableModel dtm = (DefaultTableModel)tablaCR.getModel();
+            Object o = dtm.getValueAt(tablaCR.getSelectedRow(), 3);
+            if(gestor.quitarContactoResponsable(o))
+                actualizarListaContactosResponsables();
+            else
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al intentar\n quitar un contacto del pedido","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un contacto","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnQuitarCRActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCR;
@@ -860,7 +921,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
         Iterator it = cr.iterator();
         while(it.hasNext()){
             NTupla nt = (NTupla)it.next();
-            String datos[] = {nt.getNombre(),((String[])nt.getData())[0],((String[])nt.getData())[1]};
+            Object datos[] = { nt.getNombre() , ((Object[])nt.getData())[0] , ((Object[])nt.getData())[1] , ((Object[])nt.getData())[2]};
             dtm.addRow(datos);
         }
     }

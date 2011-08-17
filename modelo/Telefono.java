@@ -55,9 +55,11 @@ public Telefono()
         this.tipo = tipo;
     }
 	
-        
+    public TipoTelefono mostrarTipoTelefono() {
+        return tipo;
+    }
 
-	public TipoTelefono mostrarTipoTelefono() {
-            return tipo;
-	}
+    public String toString(){
+        return this.tipo.getNombre()+": "+this.numero;
+    }
 }
