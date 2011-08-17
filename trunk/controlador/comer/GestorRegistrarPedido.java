@@ -214,19 +214,18 @@ public class GestorRegistrarPedido {
         }
         nuevo.setNombre(nombre);
         nuevo.setDescripcion(descripcion);
-//        nuevo.setFechaAceptacion(new Date());
+        nuevo.setPlanta(planta);
         nuevo.setFechaDeRegistro(new Date());
         nuevo.setFechaFin(fechaFin);
         nuevo.setFechaInicio(fechaInicio);
-//        nuevo.setFechaLimiteEntregaPresupuesto(fechaLEP);
-//        nuevo.setFechaLimiteValidezPresupuesto(fechaLVP);
-//        nuevo.setMonto(montoMaximo);
-//        nuevo.setPlanos(planosObra);
-//        nuevo.setPliego(pliegoObra);
+        nuevo.setPresupuestoMaximo(montoMaximo);
+        nuevo.setFormaPago(formaDePago);
+        nuevo.setPlazoEntrega(plazoEntrega);
+        nuevo.setLugarEntrega(lugarEntrega);
         nuevo.setContactos(contactos);
         nuevo.setEstado(new EstadoPedidoObraPendiente());
 
-        nuevo.setPlanta(planta);
+
 
         generarNumeroPedido();           // AL PEDO
         buscarUltimoNumeroPedidoObra();  // AL PEDO
@@ -573,10 +572,27 @@ public class GestorRegistrarPedido {
             ContactoResponsable cr = (ContactoResponsable)iter.next();
             NTupla  nt = new NTupla();
             nt.setNombre(cr.getNombre());
-            String datos[] = {cr.getRol().getNombre(),cr.getTelefono().getTipo().getNombre()+": "+cr.getTelefono().getNumero()};
+            Object datos[] = {cr.getRol().getNombre(),cr.getTelefono(),cr};
             nt.setData(datos);
             nTuplas.add(nt);
         }
         return nTuplas;
+    }
+
+    public boolean quitarContactoResponsable(Object o) {
+        boolean remove = this.contactos.remove(o);
+        return remove;
+    }
+
+    public void presupuestoMaximo(String text) {
+        this.montoMaximo = Double.parseDouble(text);
+    }
+
+    public void plazoEntrega(String text) {
+        this.plazoEntrega = text;
+    }
+
+    public void lugarEntrega(String text) {
+        this.lugarEntrega = text;
     }
 }
