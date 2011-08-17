@@ -13,7 +13,8 @@ package vista.cotizacion;
 
 import java.util.Calendar;
 import java.util.Date;
-
+import vista.interfaces.ICallBack_v2;
+import controlador.cotizacion.GestorCotizacionManoDeObra;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -30,11 +31,13 @@ import util.SwingPanel;
  *
  * @author Fran
  */
-public class CotizacionManoDeObraGeneral extends javax.swing.JPanel {
+public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements ICallBack_v2 {
+    public GestorCotizacionManoDeObra gestor;
 
     public CotizacionManoDeObraGeneral()
     {
         initComponents();
+        gestor=new GestorCotizacionManoDeObra(this);
         initGraphs();
     }
     private void initGraphs()
@@ -121,8 +124,10 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel {
 //        chart.getCategoryPlot().getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
         return chart;    
     }
+    
 
-
+      public void actualizar(int id, String flag, boolean exito)
+      {}
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -283,9 +288,9 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//      CotizacionManoDeObraAgregarMO at = new CotizacionManoDeObraAgregarMO();
-//        SwingPanel.getInstance().addWindow(at);
-//        at.setVisible(true);
+      CotizacionManoDeObraAgregarMO at = new CotizacionManoDeObraAgregarMO(this, gestor);
+        SwingPanel.getInstance().addWindow(at);
+       at.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

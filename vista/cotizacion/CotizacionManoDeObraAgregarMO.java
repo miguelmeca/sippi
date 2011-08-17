@@ -9,16 +9,66 @@
  * Created on 11-jul-2011, 11:44:54
  */
 package vista.cotizacion;
+import controlador.cotizacion.GestorCotizacionManoDeObra;
+import vista.interfaces.ICallBack_v2;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import util.SwingPanel;
+import util.Tupla;
+import util.NTupla;
+import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import util.LimitadorCaracteres;
 
 /**
  *
  * @author Iuga
  */
 public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
+    public GestorCotizacionManoDeObra gestor;
+    public ICallBack_v2 pantallaPadre;
 
     /** Creates new form editarCotizacion_ManoDeObra_OpcionB_parte2Fix */
-    public CotizacionManoDeObraAgregarMO() {
+    public CotizacionManoDeObraAgregarMO(CotizacionManoDeObraGeneral pant, GestorCotizacionManoDeObra gestorX) 
+    {
+        pantallaPadre=pant;
+        gestor=gestorX;
         initComponents();
+        habiliarVentana();        
+    }
+     
+    
+    public void habiliarVentana()
+    {
+        cargarCboTareas();
+        cargarCboRangos();
+    }
+    
+    public void cargarCboTareas()
+    {
+        ArrayList<NTupla> listaNombresTareas = gestor.mostrarNombresTareas();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        if(listaNombresTareas!=null && !listaNombresTareas.isEmpty())
+        for (NTupla nombre : listaNombresTareas)
+        {
+            model.addElement(nombre);
+        }
+        cboTareas.setModel(model);
+        cboTareas.setSelectedIndex(-1);   
+    }
+    
+    public void cargarCboRangos()
+    {
+        ArrayList<NTupla> listaRangos = gestor.mostrarRangos();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        if(listaRangos!=null && !listaRangos.isEmpty())
+        for (NTupla rango : listaRangos)
+        {
+            model.addElement(rango);
+        }
+        cboRango.setModel(model);
+        cboRango.setSelectedIndex(-1);   
     }
 
     /** This method is called from within the constructor to
@@ -32,16 +82,16 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPersonas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtHoras = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtCosto = new javax.swing.JTextField();
+        jdcFInicio = new com.toedter.calendar.JDateChooser();
+        jdcFFin = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cboRango = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
@@ -49,9 +99,10 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cboTareas = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txaObservaciones = new javax.swing.JTextArea();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Agregar Mano de Obra");
@@ -60,25 +111,20 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Personas");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("3");
+        txtPersonas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setText("Hs/Día");
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("8");
+        txtHoras.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel7.setText("Costo/Hora");
 
-        jTextField4.setEditable(false);
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField4.setText("30");
+        txtCosto.setEditable(false);
+        txtCosto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel12.setText("Fecha Inicio");
 
         jLabel13.setText("Fecha Fin");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ayudante", "Medio Oficial", "Oficial", "Oficial Especializado" }));
 
         jLabel5.setText("Rango de empleados");
 
@@ -100,22 +146,22 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                         .addComponent(jLabel12)
                         .addGap(40, 40, 40))
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                    .addComponent(txtPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(jdcFInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(64, 64, 64))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                        .addComponent(jdcFFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboRango, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(txtHoras, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                    .addComponent(txtCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -127,7 +173,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
+                        .addComponent(txtPersonas))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -136,22 +182,22 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                                .addComponent(jTextField4)))))
+                                .addComponent(cboRango, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                                .addComponent(txtCosto)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdcFInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jdcFFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -179,23 +225,40 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tarea/ Observaciones"));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mecanizado", "Montaj", "Armado", "Pintado" }));
+        cboTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTareasActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txaObservaciones.setColumns(20);
+        txaObservaciones.setRows(5);
+        jScrollPane1.setViewportView(txaObservaciones);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jComboBox1, 0, 362, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
         );
@@ -232,7 +295,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,14 +321,41 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cboTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTareasActionPerformed
+       if(cboTareas.getSelectedIndex()!=-1)
+       { 
+        NTupla tarea=(NTupla)cboTareas.getModel().getSelectedItem();
+        txtHoras.setText((String)((Object[])tarea.getData())[0]);
+        txtPersonas.setText((String)((Object[])tarea.getData())[1]); 
+        DefaultComboBoxModel modeloRango=(DefaultComboBoxModel) cboRango.getModel();
+            for (int i= 0; i < modeloRango.getSize(); i++)
+            {
+                if(((NTupla)modeloRango.getElementAt(i)).getId()==((Integer)((Object[])tarea.getData())[2]))
+                {
+                    cboRango.setSelectedIndex(i);
+                    break;
+                }
+            }
+       // cboRango.setSelectedItem(((NTupla)((Object[])tarea.getData())[2]));
+        /*jdcFFin.set;
+        jdcFInicio;*/
+
+        
+        
+        }
+    }//GEN-LAST:event_cboTareasActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cboRango;
+    private javax.swing.JComboBox cboTareas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
@@ -276,10 +366,12 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private com.toedter.calendar.JDateChooser jdcFFin;
+    private com.toedter.calendar.JDateChooser jdcFInicio;
+    private javax.swing.JTextArea txaObservaciones;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtHoras;
+    private javax.swing.JTextField txtPersonas;
     // End of variables declaration//GEN-END:variables
 }

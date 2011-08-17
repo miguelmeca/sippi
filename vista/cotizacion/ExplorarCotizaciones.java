@@ -143,7 +143,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
         btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
-        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setText("Editar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarActionPerformed(evt);
@@ -184,16 +184,14 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
 
         tablaCotizaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Transportadora ARCOR", "0001-0000720", null, "11/06/2011", null, "$4350"},
-                {"Chimeneas SIDERESA", "0001-0000500", null, "10/05/2009", null, "$9000"},
-                {"Personal para Bagley Argentina", "0001-0000620", null, "05/06/2009", null, "$3500"}
+
             },
             new String [] {
                 "Pedido de Obra", "Cotización", "Revisión", "Fecha Creación", "Fecha Última Modoficación", "Monto Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -222,7 +220,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                         .addComponent(btnSeleccionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,7 +231,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
