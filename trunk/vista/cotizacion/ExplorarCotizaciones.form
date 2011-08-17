@@ -39,7 +39,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="1" pref="543" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="697" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -54,7 +54,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="246" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="254" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -71,7 +71,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/res/iconos/var/16x16/down2.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Seleccionar"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarActionPerformed"/>
@@ -122,29 +122,13 @@
         <Component class="javax.swing.JTable" name="tablaCotizaciones">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="3">
-                <Column editable="false" title="Pedido de Obra" type="java.lang.Object">
-                  <Data value="Transportadora ARCOR"/>
-                  <Data value="Chimeneas SIDERESA"/>
-                  <Data value="Personal para Bagley Argentina"/>
-                </Column>
-                <Column editable="false" title="Cotizaci&#xf3;n" type="java.lang.Object">
-                  <Data value="0001-0000720"/>
-                  <Data value="0001-0000500"/>
-                  <Data value="0001-0000620"/>
-                </Column>
+              <Table columnCount="6" rowCount="0">
+                <Column editable="false" title="Pedido de Obra" type="java.lang.Object"/>
+                <Column editable="false" title="Cotizaci&#xf3;n" type="java.lang.Object"/>
                 <Column editable="false" title="Revisi&#xf3;n" type="java.lang.Object"/>
-                <Column editable="false" title="Fecha Creaci&#xf3;n" type="java.lang.Object">
-                  <Data value="11/06/2011"/>
-                  <Data value="10/05/2009"/>
-                  <Data value="05/06/2009"/>
-                </Column>
-                <Column editable="true" title="Fecha &#xda;ltima Modoficaci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="false" title="Monto Total" type="java.lang.Object">
-                  <Data value="$4350"/>
-                  <Data value="$9000"/>
-                  <Data value="$3500"/>
-                </Column>
+                <Column editable="false" title="Fecha Creaci&#xf3;n" type="java.lang.Object"/>
+                <Column editable="false" title="Fecha &#xda;ltima Modoficaci&#xf3;n" type="java.lang.Object"/>
+                <Column editable="false" title="Monto Total" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
