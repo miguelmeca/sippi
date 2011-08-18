@@ -236,6 +236,12 @@ public class GestorRegistrarPedido {
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
             sesion.beginTransaction();
+            Iterator it = contactos.iterator();
+            while(it.hasNext()){
+                ContactoResponsable cr = (ContactoResponsable)it.next();
+                Telefono t = cr.getTelefono();
+                sesion.save(t);
+            }
             sesion.saveOrUpdate(nuevo);
             sesion.getTransaction().commit();
         }catch(Exception e)
@@ -547,7 +553,7 @@ public class GestorRegistrarPedido {
         }
     }
 
-    public void agregarContactoResponsable(String nombreCR, int idRol, int idTipo, String tel) {
+    public Object agregarContactoResponsable(String nombreCR, int idRol, int idTipo, String tel) {
         ContactoResponsable cr = new ContactoResponsable();
         cr.setNombre(nombreCR);
         Telefono telCR = new Telefono();
@@ -557,9 +563,11 @@ public class GestorRegistrarPedido {
             telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
             cr.setTelefono(telCR);
             this.contactos.add(cr);
+            return cr;
 
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
@@ -580,8 +588,8 @@ public class GestorRegistrarPedido {
     }
 
     public boolean quitarContactoResponsable(Object o) {
-        boolean remove = this.contactos.remove(o);
-        return remove;
+        boolean r = this.contactos.remove(o);
+        return r;
     }
 
     public void presupuestoMaximo(String text) {
@@ -594,5 +602,20 @@ public class GestorRegistrarPedido {
 
     public void lugarEntrega(String text) {
         this.lugarEntrega = text;
+    }
+
+    public boolean agregarRolCR(String n) {
+        RolContactoResponsable rcr = new RolContactoResponsable();
+        rcr.setNombre(n);
+        try {
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().save(rcr);
+            HibernateUtil.commitTransaction();
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
     }
 }
