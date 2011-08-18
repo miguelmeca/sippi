@@ -67,7 +67,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         btnEliminarSubObra = new javax.swing.JButton();
         btnEditarAlfonsina = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         lblMontoTotal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -120,6 +119,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -207,10 +207,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                     .addComponent(btnEditarAlfonsina)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Totales de la Obra"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Monto Total de la Obra"));
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 300));
-
-        jLabel3.setText("Monto Total:");
 
         lblMontoTotal.setBackground(new java.awt.Color(251, 250, 241));
         lblMontoTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -223,21 +221,15 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -470,7 +462,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         panelGraficos.setLayout(new javax.swing.BoxLayout(panelGraficos, javax.swing.BoxLayout.PAGE_AXIS));
 
-        lbl_est_titulo_barra.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
+        lbl_est_titulo_barra.setFont(new java.awt.Font("Ubuntu", 1, 13));
         lbl_est_titulo_barra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_est_titulo_barra.setText("Relación del Monto usado con el Monto máximo");
 
@@ -504,7 +496,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         panelGraficoRecursos.setMinimumSize(new java.awt.Dimension(510, 288));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Contribución de cada 'Tipo de Recurso' al monto Total");
 
@@ -548,7 +540,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         panelGraficoSubObras.setMinimumSize(new java.awt.Dimension(510, 288));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Contribución de cada 'Sub-Obra' al monto Total");
 
@@ -603,7 +595,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(panelGraficos, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -627,7 +619,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -647,7 +639,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -678,6 +670,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Save.png"))); // NOI18N
+        jButton4.setText("Guardar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -692,7 +687,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -710,8 +707,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCancelar)
+                            .addComponent(jButton1)
                             .addComponent(btnGuardar)
-                            .addComponent(jButton1))))
+                            .addComponent(jButton4))))
                 .addContainerGap())
         );
 
@@ -733,12 +731,13 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         if(tblMenu.getSelectedRow()!=-1)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-            Tupla t = (Tupla)modelo.getValueAt(tblMenu.getSelectedRow(),0);
-
-            CotizacionNuevaSubObra nso = new CotizacionNuevaSubObra(this,CotizacionNuevaSubObra.TIPO_MODIFICAR);
-            nso.setTuplaFila(t);
-            SwingPanel.getInstance().addWindow(nso);
-            nso.setVisible(true);
+            EditarCotizacion mod = new EditarCotizacion();
+            if(tblMenu.getSelectedRow() >=0)
+                mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+            else
+                mod.setTitle("Editar CotizaciÃ³n: Default");
+            SwingPanel.getInstance().addWindow(mod);
+            mod.setVisible(true);
         }
         else
         {
@@ -822,6 +821,7 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -835,7 +835,6 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;

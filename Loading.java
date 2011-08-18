@@ -9,6 +9,7 @@ import org.jfree.ui.RefineryUtilities;
 import test.DBExamplesLoader;
 import util.HibernateUtil;
 import vista.VentanaPrincipal;
+import vista.users.UserLogin;
 
 /*
  * To change this template, choose Tools | Templates
@@ -113,8 +114,10 @@ public class Loading extends javax.swing.JFrame {
 
     private void LanzarSistema()
     {
-       new VentanaPrincipal().setVisible(true);
-       this.dispose();
+        UserLogin ul = new UserLogin();
+        ul.setVisible(true);
+        RefineryUtilities.centerFrameOnScreen(ul);
+       
     }
 
     // Llama punto por punto cargando las librerias
