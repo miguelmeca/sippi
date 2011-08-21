@@ -10,11 +10,15 @@
  */
 package vista.users;
 
+import controlador.users.GestorLogin;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import util.NTupla;
 import vista.VentanaPrincipal;
 import vista.gui.IconCellRenderer;
 
@@ -24,10 +28,14 @@ import vista.gui.IconCellRenderer;
  */
 public class UserLogin extends javax.swing.JFrame {
 
+    private GestorLogin gestor;
+    
     /** Creates new form UserLogin */
     public UserLogin() {
         
         initComponents();
+        
+        gestor = new GestorLogin(this);
         
         initTable();
     }
@@ -46,10 +54,11 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsers = new javax.swing.JTable();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel3.setText("jLabel3");
 
@@ -74,7 +83,7 @@ public class UserLogin extends javax.swing.JFrame {
         tablaUsers.setTableHeader(null);
         jScrollPane1.setViewportView(tablaUsers);
 
-        jPasswordField1.setText("jPasswordField1");
+        txtPass.setText("test");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
         jButton1.setText("Iniciar Sesión");
@@ -86,8 +95,17 @@ public class UserLogin extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/64x64/lock.png"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Usuarios y Pass: Dev/Dev - Test/Test");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,20 +114,24 @@ public class UserLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,25 +140,41 @@ public class UserLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       new VentanaPrincipal().setVisible(true);
-       this.dispose();
+    
+        if(tablaUsers.getSelectedRow()!=-1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel)tablaUsers.getModel();
+            NTupla nt = (NTupla)modelo.getValueAt(tablaUsers.getSelectedRow(),1);
+            gestor.login(nt.getId(),txtPass.getText());
+        }
+        else
+        {
+            MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!","Debe seleccionar un Usuario para ingresar");
+        }
+    
 }//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    System.exit(1);
+}//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -145,9 +183,10 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaUsers;
+    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 
     private void initTable() 
@@ -168,17 +207,45 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     {
         DefaultTableModel modelo = (DefaultTableModel) tablaUsers.getModel();
         
-        Object[] fila = new Object[2];
-        ImageIcon icon = new ImageIcon(getClass().getResource("/res/retratos/avatar1.jpg"));
-        fila[0] = new JLabel(icon);
-        fila[1] = "Usuario de Prueba";
-        
-        Object[] fila2 = new Object[2];
-        ImageIcon icon2 = new ImageIcon(getClass().getResource("/res/retratos/avatar2.jpg"));
-        fila2[0] = new JLabel(icon2);
-        fila2[1] = "Iuga";        
-        
-        modelo.addRow(fila);
-        modelo.addRow(fila2);
+        Iterator<NTupla> it  = gestor.getActiveUsers().iterator();
+        while (it.hasNext()) 
+        {
+            NTupla nt = it.next();
+            
+            Object[] data = (Object[])nt.getData();
+            
+            Object[] fila = new Object[2];
+            ImageIcon icon = null;
+            if(data[1]!=null)
+            {
+                 icon = new ImageIcon(getClass().getResource("/res/imagenes/defaultAvatar.png"));
+            }
+            else
+            {
+                icon = new ImageIcon(getClass().getResource("/res/imagenes/defaultAvatar.png"));
+            }
+            fila[0] = new JLabel(icon);
+            fila[1] = nt;
+            modelo.addRow(fila);
+        }
     }
+    
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    public void usuarioLogeado() 
+    {
+       new VentanaPrincipal().setVisible(true);
+       this.dispose();    
+    }
+
 }

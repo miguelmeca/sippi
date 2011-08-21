@@ -66,6 +66,7 @@ import modelo.TipoAlquilerCompra;
 import modelo.TipoLicenciaEmpleado;
 import modelo.TipoTarea;
 import modelo.UnidadDeMedida;
+import modelo.User;
 import util.LogUtil;
 import util.RubroUtil;
 //import java.util.Set;
@@ -93,6 +94,8 @@ public class DBExamplesLoader {
     {
           this.cargarConfiguraciones();
 
+          this.cargarUsuarios();
+          
           this.cargarUnidadesMedida();
           this.cargarFormasDePago();
 
@@ -1342,5 +1345,32 @@ public class DBExamplesLoader {
             System.out.println(ex.getCause().toString());
             HibernateUtil.rollbackTransaction();
         }
+    }
+
+    private void cargarUsuarios() 
+    {
+        User u = new User();
+        u.setEstado("ALTA");
+        u.setUsuario("Iuga");
+        u.setPassword("ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e");
+        u.setIsAdmin(true);      
+        
+        User u2 = new User();
+        u2.setEstado("ALTA");
+        u2.setUsuario("Test");
+        u2.setPassword("532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25");
+        u2.setIsAdmin(true);      
+        
+        User u3 = new User();
+        u3.setEstado("ALTA");
+        u3.setUsuario("Dev");
+        u3.setPassword("9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587");
+        u3.setIsAdmin(true);          
+        
+        sesion.beginTransaction();
+        sesion.save(u);
+        sesion.save(u2);
+        sesion.save(u3);
+        sesion.getTransaction().commit(); 
     }
 }
