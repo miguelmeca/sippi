@@ -115,6 +115,7 @@ public GestorCotizacionManoDeObra( CotizacionManoDeObraGeneral pantalla)
              }
             return tuplas;           
         }
+
 ////////////////////////////
 
     /**

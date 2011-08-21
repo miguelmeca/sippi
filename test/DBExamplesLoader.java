@@ -1236,8 +1236,10 @@ public class DBExamplesLoader {
     private void cargarRangosEmpleado() {
         RangoEmpleado re1 = new RangoEmpleado();
         re1.setNombre("Cadete");
+        re1.setCostoXHora(15.0);
         RangoEmpleado re2 = new RangoEmpleado();
         re2.setNombre("Especializado");
+        re2.setCostoXHora(18.0);
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(re1);
