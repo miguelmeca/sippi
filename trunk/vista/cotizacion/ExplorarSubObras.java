@@ -39,7 +39,7 @@ import vista.gui.TortaRotator;
 public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private GestorExplorarSubObras gestor;
-   
+    private boolean necesita_guardar = true;
     
     /** Creates new form pantallaExplorarAlfonsinas */
     public ExplorarSubObras(int cot_id)
@@ -723,15 +723,43 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
+        cerrarVentana();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void cerrarVentana()
+    {
+        if(necesita_guardar)
+        {
+            int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea cerrar sin guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
+            switch(btn)
+            {
+                case JOptionPane.YES_OPTION:
+                    this.dispose();
+                    break;
+            }
+        }
+        else
+        {
+            this.dispose();
+        }
+    }
+
+    private void guardar()
+    {
+        int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
+        if(btn==JOptionPane.YES_OPTION)
+        {
+            // GUARDO
+            this.necesita_guardar=false;
+        }
+    }    
+    
     private void btnEditarAlfonsinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlfonsinaActionPerformed
 
         if(tblMenu.getSelectedRow()!=-1)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-            EditarCotizacion mod = new EditarCotizacion();
+            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion());
             if(tblMenu.getSelectedRow() >=0)
                 mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else
@@ -770,7 +798,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         if(evt.getClickCount()>=2)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-            EditarCotizacion mod = new EditarCotizacion();
+            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion());
             if(tblMenu.getSelectedRow() >=0)
                 mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else

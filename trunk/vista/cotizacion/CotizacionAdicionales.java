@@ -11,15 +11,21 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionAdicionales;
+
 /**
  *
  * @author Emmanuel
  */
 public class CotizacionAdicionales extends javax.swing.JPanel {
 
+    private GestorCotizacionAdicionales gestor;
+    
     /** Creates new form editarCotizacion_Adicionales */
-    public CotizacionAdicionales() {
+    public CotizacionAdicionales(GestorCotizacionAdicionales gestor) {
         initComponents();
+        this.gestor = gestor;
+        this.gestor.setPantalla(this);
     }
 
     /** This method is called from within the constructor to

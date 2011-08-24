@@ -22,8 +22,6 @@ import javax.swing.table.DefaultTableModel;
 public class EditarCotizacion extends javax.swing.JInternalFrame {
 
     private GestorEditarCotizacion gestor;
-    
-    private boolean necesita_guardar = true;
 
     private static final int OPTN_RRHH                  = 0;
     private static final int OPTN_HERRAMIENTAS          = 1;
@@ -33,23 +31,24 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     private static final int OPTN_ADICIONALES           = 5;
     private static final int OPTN_DESCRIPCION           = 6;
 
-    /** Creates new form modificarPresupuesto */
-    public EditarCotizacion() {
-
+    public EditarCotizacion(GestorEditarCotizacion gestor)
+    {
         initComponents();
         
-        this.gestor = new GestorEditarCotizacion(this);
+        this.gestor = gestor;
+        gestor.setPantalla(this);
 
         // POR DEFAULT VA DESCRIPCION DEL ITEM
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
 
         setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
-        CotizacionDescripcion ecd = new CotizacionDescripcion();
+        CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
         panel.setViewportView(ecd);
         ecd.setVisible(true);
 
     }
-
+  
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -91,7 +90,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Cerrar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -206,7 +205,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-        cerrarVentana();
+        this.dispose();
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -217,49 +216,49 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         {
             case OPTN_BENEFICIOS:
                 setNombrePanel(modelo.getValueAt(OPTN_BENEFICIOS,0).toString());
-                CotizacionBeneficios ecb = new CotizacionBeneficios();
+                CotizacionBeneficios ecb = new CotizacionBeneficios(gestor.getGestorBeneficios());
                 panel.setViewportView(ecb);
                 ecb.setVisible(true);
                 break;
             case OPTN_MATERIALES:
                 setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
-                CotizacionMateriales cm = new CotizacionMateriales();
+                CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
                 panel.setViewportView(cm);
                 cm.setVisible(true);
                 break;
             case OPTN_ALQUILERES_COMPRAS:
                 setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
-                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras();
+                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras());
                 panel.setViewportView(cc);
                 cc.setVisible(true);
                 break;
             case OPTN_ADICIONALES:
                 setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
-                CotizacionAdicionales ca = new CotizacionAdicionales();
+                CotizacionAdicionales ca = new CotizacionAdicionales(gestor.getGestorAdicionales());
                 panel.setViewportView(ca);
                 ca.setVisible(true);
                 break;
             case OPTN_RRHH:
                 setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
-                CotizacionManoDeObraGeneral mo = new CotizacionManoDeObraGeneral();
+                CotizacionManoDeObraGeneral mo = new CotizacionManoDeObraGeneral(gestor.getGestorManoObra());
                 panel.setViewportView(mo);
                 mo.setVisible(true);
                 break;
             case OPTN_HERRAMIENTAS:
                 setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
-                CotizacionHerramientas h = new CotizacionHerramientas();
+                CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas());
                 panel.setViewportView(h);
                 h.setVisible(true);
                 break;
             case OPTN_DESCRIPCION:
                 setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
-                CotizacionDescripcion ecd = new CotizacionDescripcion();
+                CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
                 panel.setViewportView(ecd);
                 ecd.setVisible(true);
                 break;
             default:
                 setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
-                CotizacionDescripcion ecd2 = new CotizacionDescripcion();
+                CotizacionDescripcion ecd2 = new CotizacionDescripcion(gestor.getGestorDescripcion());
                 panel.setViewportView(ecd2);
                 ecd2.setVisible(true);
         }
@@ -285,31 +284,6 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    private void cerrarVentana()
-    {
-        if(necesita_guardar)
-        {
-            int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea cerrar sin guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
-            switch(btn)
-            {
-                case JOptionPane.YES_OPTION:
-                    this.dispose();
-                    break;
-            }
-        }
-        else
-        {
-            this.dispose();
-        }
-    }
 
-    private void guardar()
-    {
-        int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
-        if(btn==JOptionPane.YES_OPTION)
-        {
-            // GUARDO
-        }
-    }
 
 }

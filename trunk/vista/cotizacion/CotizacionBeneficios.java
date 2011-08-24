@@ -11,15 +11,20 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionBeneficios;
+
 /**
  *
  * @author iuga
  */
 public class CotizacionBeneficios extends javax.swing.JPanel {
 
-    /** Creates new form editarCotizacion_Beneficios */
-    public CotizacionBeneficios() {
+    private GestorCotizacionBeneficios gestor;
+
+    public CotizacionBeneficios(GestorCotizacionBeneficios gestor) {
         initComponents();
+        this.gestor = gestor;
+        gestor.setPantalla(this);
     }
 
     /** This method is called from within the constructor to

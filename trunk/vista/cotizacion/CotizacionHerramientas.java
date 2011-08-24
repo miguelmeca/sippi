@@ -11,15 +11,21 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionHerramientas;
+
 /**
  *
  * @author Fran
  */
 public class CotizacionHerramientas extends javax.swing.JPanel {
 
+    private GestorCotizacionHerramientas gestor;
+    
     /** Creates new form pantallaHerramientas */
-    public CotizacionHerramientas() {
+    public CotizacionHerramientas(GestorCotizacionHerramientas gestor) {
         initComponents();
+        this.gestor = gestor;
+        this.gestor.setPantalla(this);
     }
 
     /** This method is called from within the constructor to

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
+import modelo.Cotizacion;
 import modelo.TipoTarea;
 import modelo.RangoEmpleado;
 import util.RubroUtil;
@@ -33,19 +34,17 @@ import util.HibernateUtil;
  *
  * @author Emmanuel
  */
-public class GestorCotizacionManoDeObra
+public class GestorCotizacionManoDeObra implements IGestorCotizacion
 {
-  private CotizacionManoDeObraGeneral pantallaGeneral;
-  private CotizacionManoDeObraAgregarMO pantallaAgregarMO;
-  //ArrayList<PrecioSegunCantidad> listaPrecios;
+    private GestorEditarCotizacion gestorPadre;
+    private CotizacionManoDeObraGeneral pantallaGeneral;
+    private CotizacionManoDeObraAgregarMO pantallaAgregarMO;
+    //ArrayList<PrecioSegunCantidad> listaPrecios;
 
-public GestorCotizacionManoDeObra( CotizacionManoDeObraGeneral pantalla)
-    {
-        this.pantallaGeneral = pantalla;
-       // listaPrecios= new ArrayList<PrecioSegunCantidad>();
-
+    public GestorCotizacionManoDeObra(GestorEditarCotizacion gestorPadre) {
+        this.gestorPadre = gestorPadre;
     }
-
+    
 
  /*public ArrayList<Tupla> mostrarRubrosCompras()
  {
@@ -128,7 +127,7 @@ public GestorCotizacionManoDeObra( CotizacionManoDeObraGeneral pantalla)
     /**
      * @param pantallaGeneral the pantallaGeneral to set
      */
-    public void setPantallaGeneral(CotizacionManoDeObraGeneral pantallaGeneral) {
+    public void setPantalla(CotizacionManoDeObraGeneral pantallaGeneral) {
         this.pantallaGeneral = pantallaGeneral;
     }
 
@@ -144,6 +143,12 @@ public GestorCotizacionManoDeObra( CotizacionManoDeObraGeneral pantalla)
      */
     public void setPantallaAgregarMO(CotizacionManoDeObraAgregarMO pantallaAgregarMO) {
         this.pantallaAgregarMO = pantallaAgregarMO;
+    }
+
+    @Override
+    public Cotizacion getCotizacion() 
+    {
+        return this.gestorPadre.getCotizacion();
     }
  
 }

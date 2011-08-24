@@ -12,7 +12,6 @@ import modelo.SubObra;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
-import util.NTupla;
 import util.Tupla;
 import vista.cotizacion.CotizacionGraficoBean;
 import vista.cotizacion.ExplorarSubObras;
@@ -21,13 +20,16 @@ import vista.cotizacion.ExplorarSubObras;
  *
  * @author Iuga
  */
-public class GestorExplorarSubObras {
+public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private ExplorarSubObras pantalla;
     private Session sesion;
     
     private PedidoObra obra;
     private Cotizacion cot;
+    
+    private GestorEditarCotizacion gestorEditarCotizacion;
+    
 
     public GestorExplorarSubObras(ExplorarSubObras pantalla) 
     {
@@ -245,6 +247,22 @@ public class GestorExplorarSubObras {
             }
         }
     }
+
+    public GestorEditarCotizacion getGestorEditarCotizacion() 
+    {
+        if(this.gestorEditarCotizacion==null)
+        {
+            this.gestorEditarCotizacion = new GestorEditarCotizacion(this);
+        }
+        return gestorEditarCotizacion;
+    }
+
+    @Override
+    public Cotizacion getCotizacion() {
+        return this.cot;
+    }
+
+   
 
             
     
