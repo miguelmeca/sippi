@@ -11,6 +11,7 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionMateriales;
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,9 +35,16 @@ import util.Tupla;
  */
 public class CotizacionMateriales extends javax.swing.JPanel {
 
+    private GestorCotizacionMateriales gestor;
+    
     /** Creates new form editarCotizacion_Materiales */
-    public CotizacionMateriales() {
+    public CotizacionMateriales(GestorCotizacionMateriales gestor) 
+    {
         initComponents();
+        
+        this.gestor = gestor;
+        this.gestor.setPantalla(this);
+        
         String material[]= new String[4];
         material[0] = "3 kg.";
         material[1] = "CHAPA";

@@ -11,15 +11,21 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionAlquileresCompras;
+
 /**
  *
  * @author Emmanuel
  */
 public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
+    private GestorCotizacionAlquileresCompras gestor;
+    
     /** Creates new form editarCotizacion_Compras */
-    public CotizacionAlquileresCompras() {
+    public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor) {
         initComponents();
+        this.gestor = gestor;
+        this.gestor.setPantalla(this);
     }
 
     /** This method is called from within the constructor to

@@ -32,12 +32,14 @@ import util.SwingPanel;
  * @author Fran
  */
 public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements ICallBack_v2 {
+    
     public GestorCotizacionManoDeObra gestor;
 
-    public CotizacionManoDeObraGeneral()
+    public CotizacionManoDeObraGeneral(GestorCotizacionManoDeObra gestor)
     {
         initComponents();
-        gestor=new GestorCotizacionManoDeObra(this);
+        this.gestor=gestor;
+        this.gestor.setPantalla(this);
         initGraphs();
     }
     private void initGraphs()
