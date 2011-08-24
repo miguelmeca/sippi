@@ -5,10 +5,12 @@
 
 package util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -17,7 +19,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import vista.VentanaPrincipal;
-import vista.gui.FavoritoBean;
+import modelo.FavoritoBean;
 import vista.gui.IFavorito;
 import vista.interfaces.IAyuda;
 
@@ -107,6 +109,15 @@ public class SwingPanel {
         }
     }
     
+    public void fillFavoritos(List<FavoritoBean> lista)
+    {
+        for (int i = 0; i < lista.size(); i++) 
+        {
+            FavoritoBean fb = (FavoritoBean)lista.get(i);
+            FAV_ALLOWED_WINS.put(fb.getInstance(), fb);
+        }  
+    }
+    
     private void updateFavoritos(JInternalFrame _win)
     {
         if(FAV_ALLOWED_WINS.containsKey(_win.getClass().getName()))
@@ -132,7 +143,6 @@ public class SwingPanel {
     
     public FavoritoBean[] getFavoritos()
     {
-        int flagLlenos = 0;
         FavoritoBean[] lista = new FavoritoBean[5];
         Iterator it = FAV_ALLOWED_WINS.entrySet().iterator();
         while (it.hasNext()) 
@@ -140,24 +150,8 @@ public class SwingPanel {
             Map.Entry e = (Map.Entry)it.next();
             FavoritoBean aux = (FavoritoBean)e.getValue();
             
-//            for (int i = 0; i < lista.length; i++) 
-//            {
-//                FavoritoBean fb = lista[i];
                 putFavoritosSort(lista, aux);
-//                if(flagLlenos<lista.length)
-//                {
-//                    if(fb==null)
-//                    {
-//                        putFavoritosSort(lista, fb);
-//                        flagLlenos++;
-//                        break;
-//                    }
-//                }
-//                else
-//                {
-//                    putFavoritosSort(lista,fb);
-//                }
-//            }
+
         }  
         return lista;
 
@@ -185,6 +179,20 @@ public class SwingPanel {
                 return;
             }
         }
+    }
+    
+    public ArrayList<FavoritoBean> getListaFavoritos()
+    {
+        ArrayList<FavoritoBean> lista = new ArrayList<FavoritoBean>();
+        
+        Iterator it = FAV_ALLOWED_WINS.entrySet().iterator();
+        while (it.hasNext()) 
+        {
+            Map.Entry e = (Map.Entry)it.next();
+            lista.add((FavoritoBean)e.getValue());
+        }
+        
+        return lista;
     }
     
 

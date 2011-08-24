@@ -77,6 +77,7 @@ public class GestorLogin {
         catch (Exception ex) 
         {
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","No se pudieron cargar los usuarios del Sistema");
+            ex.printStackTrace();
         }
 
         
