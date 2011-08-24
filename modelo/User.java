@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.util.List;
+
 /**
  *
  * @author Iuga
@@ -16,6 +18,8 @@ public class User {
     private boolean isAdmin;
     private String estado;
     private String urlFoto;
+    
+    private List<FavoritoBean> listaFavoritos;
 
     public User() {
     }
@@ -67,6 +71,15 @@ public class User {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
+
+    public List<FavoritoBean> getListaFavoritos() {
+        return listaFavoritos;
+    }
+
+    public void setListaFavoritos(List<FavoritoBean> listaFavoritos) {
+        this.listaFavoritos = listaFavoritos;
+    }
+    
     
     
 }

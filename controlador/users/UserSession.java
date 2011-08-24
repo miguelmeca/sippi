@@ -5,6 +5,9 @@
 package controlador.users;
 
 import modelo.User;
+import org.hibernate.Hibernate;
+import util.HibernateUtil;
+import util.SwingPanel;
 
 /**
  *
@@ -57,6 +60,21 @@ public class UserSession {
     public void setUsuarioLogeado(User usuarioLogeado) 
     {
         this.usuarioLogeado = usuarioLogeado;
+    }
+
+    public void updateUser() 
+    {
+        this.usuarioLogeado.setListaFavoritos(SwingPanel.getInstance().getListaFavoritos());
+        try
+        {
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(this.usuarioLogeado);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     

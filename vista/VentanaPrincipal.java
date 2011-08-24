@@ -14,6 +14,7 @@ package vista;
 //import org.jfree.ui.RefineryUtilities;
 
 import config.SConfig;
+import controlador.users.UserSession;
 import controlador.xml.XMLReaderMenu;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -26,7 +27,7 @@ import vista.gui.sidebar.TreeEntry;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ExplorarSubObras;
-import vista.gui.FavoritoBean;
+import modelo.FavoritoBean;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 
 
@@ -53,8 +54,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
         this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
-
+        
         cargarMenu();
+        
+        cargarFavoritosGuardados();
     }
 
     public void mostrarCargando(boolean flag)
@@ -110,7 +113,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void updateMenu()
     {
         FavoritoBean[] listaFavs = SwingPanel.getInstance().getFavoritos();
-        TreeEntry favMenu = new TreeEntry("Favoritos","/res/iconos/dev/Smiley Star.png");
+        TreeEntry favMenu = new TreeEntry("Favoritos","/res/iconos/var/16x16/Favourites.png");
         TreeEntry leafFavoritos = (TreeEntry)treeMenu.getModel().getChild(treeMenu.getModel().getRoot(),0);
             // Limpio los viejos
             leafFavoritos.getEntries().clear();
@@ -127,6 +130,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         
         treeMenu.setSelectionRow(0);
+        treeMenu.updateUI();
     }
     
     private void Salir()
@@ -134,6 +138,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");
         if(op == JOptionPane.YES_OPTION)
         {
+            // Guardo los datos del Usuario
+            UserSession.getInstance().updateUser();
             HibernateUtil.closeSession();
             System.exit(0);
         }
@@ -513,6 +519,15 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     {
         lblAyudaTitulo.setText(titulo);
         lblAyudaDesc.setText(desc);
+    }
+
+    private void cargarFavoritosGuardados() 
+    {
+        if(UserSession.getInstance().isLogeado())
+        {
+            SwingPanel.getInstance().fillFavoritos(UserSession.getInstance().getUsuarioLogeado().getListaFavoritos());
+            updateMenu();
+        }
     }
 
 }
