@@ -1189,7 +1189,7 @@ public class DBExamplesLoader {
             ContactoResponsable contacto2 = new ContactoResponsable();
             contacto2.setNombre("Julio");
             contacto2.setEmail("eyjuliooscar@gmail.com");
-            contacto.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,2)));
+            contacto2.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,2)));
             Telefono t2 = new Telefono();
             t2.setNumero("(011) 55544566");
             t2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));

@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentSet;
 import sun.util.calendar.CalendarDate;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
@@ -43,9 +44,12 @@ public class GestorConsultarObra {
     private Provincia provinciaPlanta;
 
 
-    public GestorConsultarObra(pantallaConsultarObra aThis) {
+    public GestorConsultarObra(pantallaConsultarObra aThis, int id) {
         this.pantalla = aThis;
         formato = new SimpleDateFormat("dd/MM/yyyy");
+        this.getPedidoObra(id);
+        this.buscarDatosPlanta();
+        this.buscarEmpresaCliente();
     }
 
 
@@ -53,35 +57,12 @@ public class GestorConsultarObra {
 
     }
 
-    public ArrayList<Tupla> buscarObrasConfirmadas() {
-        /**
-         *
-         * OJO! TODAVIA FALTA SABER COMO VAMOS A VER Q SEAN CONFIRMADAS!!! XD
-         * POR AHORA MUESTRO TODAS LAS OBRAS.
-         *
-        **/
-        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session sesion = sf.openSession();
-
-        sesion.beginTransaction();
-        Iterator iter = sesion.createQuery("from PedidoObra p order by p.nombre").iterate();
-        while ( iter.hasNext() )
-        {
-            PedidoObra p = (PedidoObra)iter.next();
-            Tupla tupla = new Tupla(p.getId(),p.getNombre());
-            tuplas.add(tupla);
-        }
-        //sesion.flush();
-        return tuplas;
-    }
-
-    public void seleccionObra(Tupla obra) {
+    private void getPedidoObra(int id) {
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
             sesion.beginTransaction();
-            this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
+            this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, id);
             sesion.getTransaction().commit();
         }
         catch(Exception e){
@@ -90,23 +71,9 @@ public class GestorConsultarObra {
         }
     }
 
-    public void buscarDatosObra() {
-
-    }
-
     public void buscarDatosPlanta() {
-//        try{
-//            SessionFactory sf = HibernateUtil.getSessionFactory();
-//            Session sesion = sf.openSession();
-//            sesion.beginTransaction();
             this.planta = pedidoObra.getPlanta();
-            //this.pedidoObra = (PedidoObra)sesion.load(PedidoObra.class, obra.getId());
- //           sesion.getTransaction().commit();
- //       }
- //       catch(Exception e){
- //           System.out.println("ERROR:"+e.getMessage()+"|");
- //           e.printStackTrace();
-  //      }
+
     }
 
     public void buscarContactoYTelefono() {
@@ -115,12 +82,6 @@ public class GestorConsultarObra {
 
     public void buscarEmpresaCliente() {
         try{
-            //SessionFactory sf = HibernateUtil.getSessionFactory();
-            //Session sesion = sf.openSession();
-            //sesion.beginTransaction();
-            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
-            //this.empresaCliente = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEC.intValue());
-            //sesion.getTransaction().commit();
             HibernateUtil.beginTransaction();
             BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
             this.empresaCliente = (EmpresaCliente)HibernateUtil.getSession().load(EmpresaCliente.class,idEC.intValue());
@@ -132,13 +93,6 @@ public class GestorConsultarObra {
        }
     }
 
-    public void calcularPorcentajeCompletado() {
-
-    }
-
-    public void finCU() {
-
-    }
 
     public String mostrarNombreObra(){
         return this.pedidoObra.getNombre();
@@ -152,29 +106,9 @@ public class GestorConsultarObra {
         return formato.format(this.pedidoObra.getFechaDeRegistro());
     }
 
-//    public String mostrarFechaLVP(){
-//        return formato.format(this.pedidoObra.getFechaAceptacion());
-//    }
-//
-//    public String mostrarFechaAceptacion(){
-//        return formato.format(this.pedidoObra.getFechaAceptacion());
-//    }
-//
-//    public String mostrarFechaLEP(){
-//        return formato.format(this.pedidoObra.getFechaLimiteEntregaPresupuesto());
-//    }
-
-//    public String mostrarPliego(){
-//        return this.pedidoObra.getPliego();
-//    }
-//
-//    public String mostrarPlanos(){
-//        return this.pedidoObra.getPlanos();
-//    }
-//
-//    public String mostrarMontoObra(){
-//        return ""+this.pedidoObra.getMonto();
-//    }
+    public String mostrarPresupuestoMaximo(){
+        return ""+this.pedidoObra.getPresupuestoMaximo();
+    }
 
     public String mostrarRazonSocialPlanta(){
         return this.planta.getRazonSocial();
@@ -379,5 +313,31 @@ public class GestorConsultarObra {
         else{
             return null;
         }
+    }
+
+    public String mostrarFechaInicio() {
+        return FechaUtil.getFecha(this.pedidoObra.getFechaInicio());
+    }
+
+    public String mostrarFechaFin() {
+        return FechaUtil.getFecha(this.pedidoObra.getFechaFin());
+    }
+
+    public String mostrarFormaPago() {
+        return this.pedidoObra.getFormaPago().getNombre();
+    }
+
+    public ArrayList<NTupla> mostrarCR(){
+        Iterator<ContactoResponsable> ic = pedidoObra.getContactos().iterator();
+        ArrayList<NTupla> nc = new ArrayList<NTupla>();
+        while(ic.hasNext()){
+            ContactoResponsable cr = ic.next();
+            NTupla nt = new NTupla();
+            nt.setNombre(cr.getNombre());
+            String datos[] = {cr.getRol().getNombre(),cr.getTelefono().getTipo().getNombre()+": "+cr.getTelefono().getNumero()};
+            nt.setData(datos);
+            nc.add(nt);
+        }
+        return nc;
     }
 }

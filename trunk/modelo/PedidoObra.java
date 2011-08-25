@@ -31,8 +31,6 @@ public class PedidoObra{
     private List<ContactoResponsable> contactos;
     private Planta planta;
     private Date fechaDeRegistro;
-    private String plazoEntrega;
-    private String lugarEntrega;
 
 
 
@@ -388,21 +386,5 @@ public class PedidoObra{
 
     public void setHib_flag_estado(String hib_flag_estado) {
         this.hib_flag_estado = hib_flag_estado;
-    }
-
-        public String getLugarEntrega() {
-        return lugarEntrega;
-    }
-
-    public void setLugarEntrega(String lugarEntrega) {
-        this.lugarEntrega = lugarEntrega;
-    }
-
-    public String getPlazoEntrega() {
-        return plazoEntrega;
-    }
-
-    public void setPlazoEntrega(String plazoEntrega) {
-        this.plazoEntrega = plazoEntrega;
     }
 }

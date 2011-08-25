@@ -24,7 +24,5 @@
     <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
     <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
     <property name="hib_flag_estado" not-null="true" type="string"/>
-    <property column="PLAZO_ENTREGA" name="plazoEntrega" type="string"/>
-    <property column="LUGAR_ENTREGA" name="lugarEntrega" type="string"/>
   </class>
 </hibernate-mapping>
