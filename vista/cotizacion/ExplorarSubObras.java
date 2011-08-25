@@ -809,7 +809,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblMenuMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pantallaConsultarObra pco = new pantallaConsultarObra();
+        pantallaConsultarObra pco = new pantallaConsultarObra(gestor.getObra().getId());
         SwingPanel.getInstance().addWindow(pco);
         pco.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed

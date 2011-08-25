@@ -54,6 +54,10 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         refrescarVentana();
     }
 
+    public PedidoObra getObra() {
+        return obra;
+    }
+
     private void refrescarVentana() 
     {
         // Cargo en el menú las SubObras

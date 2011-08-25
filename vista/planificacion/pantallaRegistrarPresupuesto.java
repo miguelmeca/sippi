@@ -969,9 +969,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     }//GEN-LAST:event_menuVistaSemanalActionPerformed
 
     private void btnDatosObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatosObraActionPerformed
-        pantallaConsultarObra pco = new pantallaConsultarObra();
-        SwingPanel.getInstance().addWindow(pco);
-        pco.setVisible(true);
+//        pantallaConsultarObra pco = new pantallaConsultarObra();
+//        SwingPanel.getInstance().addWindow(pco);
+//        pco.setVisible(true);
     }//GEN-LAST:event_btnDatosObraActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

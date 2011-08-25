@@ -220,8 +220,6 @@ public class GestorRegistrarPedido {
         nuevo.setFechaInicio(fechaInicio);
         nuevo.setPresupuestoMaximo(montoMaximo);
         nuevo.setFormaPago(formaDePago);
-        nuevo.setPlazoEntrega(plazoEntrega);
-        nuevo.setLugarEntrega(lugarEntrega);
         nuevo.setContactos(contactos);
         nuevo.setEstado(new EstadoPedidoObraPendiente());
 
