@@ -11,6 +11,7 @@
 package vista.users;
 
 import controlador.users.GestorLogin;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -66,7 +67,7 @@ public class UserLogin extends javax.swing.JFrame {
         setTitle("Iniciar Sesión - ACERO");
         setResizable(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setText("Contraseña:");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -83,7 +84,12 @@ public class UserLogin extends javax.swing.JFrame {
         tablaUsers.setTableHeader(null);
         jScrollPane1.setViewportView(tablaUsers);
 
-        txtPass.setText("test");
+        txtPass.setText("Dev");
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
         jButton1.setText("Iniciar Sesión");
@@ -103,7 +109,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/64x64/lock.png"))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 11));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Usuarios y Pass: Dev/Dev - Test/Test");
 
@@ -159,22 +165,22 @@ public class UserLogin extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
-        if(tablaUsers.getSelectedRow()!=-1)
-        {
-            DefaultTableModel modelo = (DefaultTableModel)tablaUsers.getModel();
-            NTupla nt = (NTupla)modelo.getValueAt(tablaUsers.getSelectedRow(),1);
-            gestor.login(nt.getId(),txtPass.getText());
-        }
-        else
-        {
-            MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!","Debe seleccionar un Usuario para ingresar");
-        }
+    loginUser();
     
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     System.exit(1);
 }//GEN-LAST:event_jButton2ActionPerformed
+
+private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+    {
+        loginUser();
+    }
+    
+}//GEN-LAST:event_txtPassKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -246,6 +252,20 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     {
        new VentanaPrincipal().setVisible(true);
        this.dispose();    
+    }
+    
+    private void loginUser()
+    {
+        if(tablaUsers.getSelectedRow()!=-1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel)tablaUsers.getModel();
+            NTupla nt = (NTupla)modelo.getValueAt(tablaUsers.getSelectedRow(),1);
+            gestor.login(nt.getId(),txtPass.getText());
+        }
+        else
+        {
+            MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!","Debe seleccionar un Usuario para ingresar");
+        }
     }
 
 }

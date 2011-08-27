@@ -219,6 +219,8 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
             ExplorarSubObras mod =  new ExplorarSubObras(cot_id);
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
+            
+            this.dispose();
         }
         else
         {
@@ -236,6 +238,8 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
             RegistrarCotizacion regcot = new RegistrarCotizacion(po_id);
             SwingPanel.getInstance().addWindow(regcot);
             regcot.setVisible(true);
+            
+            this.dispose();
         }
         else
         {

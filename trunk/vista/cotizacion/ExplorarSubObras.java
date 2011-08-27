@@ -14,6 +14,7 @@ package vista.cotizacion;
 import controlador.cotizacion.GestorExplorarSubObras;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -77,9 +78,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         cmbLEP = new com.toedter.calendar.JDateChooser();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNroCotizacion = new javax.swing.JTextField();
+        txtPlazoEntrega = new javax.swing.JTextField();
+        txtLugarEntrega = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
@@ -115,11 +116,10 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionObra = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -193,13 +193,13 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addComponent(jButton5)
                 .addGap(2, 2, 2)
                 .addComponent(btnEliminarSubObra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(btnEditarAlfonsina, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton5)
@@ -222,7 +222,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addComponent(lblMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -241,6 +241,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        cmbLVP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbLVPFocusLost(evt);
+            }
+        });
+
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Validez de la Oferta:");
 
@@ -252,8 +258,31 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jLabel14.setText("Número de Cotización:");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("0001");
+        cmbLEP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbLEPFocusLost(evt);
+            }
+        });
+
+        txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNroCotizacion.setText("0001");
+        txtNroCotizacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNroCotizacionFocusLost(evt);
+            }
+        });
+
+        txtPlazoEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPlazoEntregaFocusLost(evt);
+            }
+        });
+
+        txtLugarEntrega.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLugarEntregaFocusLost(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Plazo de Entrega:");
@@ -286,9 +315,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbLVP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                     .addComponent(cmbLEP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                    .addComponent(txtNroCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(txtPlazoEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(txtLugarEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -296,7 +325,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNroCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,11 +337,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                     .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPlazoEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLugarEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -428,7 +457,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -450,7 +479,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -604,32 +633,30 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Estadisticas", jScrollPane2);
 
         txtDescripcionObra.setColumns(20);
-        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10));
+        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         txtDescripcionObra.setRows(5);
         txtDescripcionObra.setText("Por la presente cotizamos ...");
+        txtDescripcionObra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDescripcionObraFocusLost(evt);
+            }
+        });
         jScrollPane3.setViewportView(txtDescripcionObra);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
-        jButton3.setText("Guardar");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -639,11 +666,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
@@ -670,8 +697,13 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Save.png"))); // NOI18N
-        jButton4.setText("Guardar");
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Save.png"))); // NOI18N
+        btnSave.setText("Guardar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -688,7 +720,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -709,7 +741,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                             .addComponent(btnCancelar)
                             .addComponent(jButton1)
                             .addComponent(btnGuardar)
-                            .addComponent(jButton4))))
+                            .addComponent(btnSave))))
                 .addContainerGap())
         );
 
@@ -834,6 +866,36 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     }
 }//GEN-LAST:event_btnEliminarSubObraActionPerformed
 
+private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+    guardarCotizacion();
+    
+}//GEN-LAST:event_btnSaveActionPerformed
+
+private void txtNroCotizacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNroCotizacionFocusLost
+    gestor.updateNroCotizacion(txtNroCotizacion.getText());
+}//GEN-LAST:event_txtNroCotizacionFocusLost
+
+private void cmbLEPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbLEPFocusLost
+    gestor.updateLEP(cmbLEP.getDate());
+}//GEN-LAST:event_cmbLEPFocusLost
+
+private void cmbLVPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbLVPFocusLost
+    gestor.updateLVP(cmbLVP.getDate());
+}//GEN-LAST:event_cmbLVPFocusLost
+
+private void txtPlazoEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlazoEntregaFocusLost
+    gestor.updatePlazoEntrega(txtPlazoEntrega.getText());
+}//GEN-LAST:event_txtPlazoEntregaFocusLost
+
+private void txtLugarEntregaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLugarEntregaFocusLost
+    gestor.updateLugarEntrega(txtLugarEntrega.getText());
+}//GEN-LAST:event_txtLugarEntregaFocusLost
+
+private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionObraFocusLost
+    gestor.updateDescripcion(txtDescripcionObra.getText());// TODO add your handling code here:
+}//GEN-LAST:event_txtDescripcionObraFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel _containerGraficoRecursos;
@@ -842,14 +904,13 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JButton btnEditarAlfonsina;
     private javax.swing.JButton btnEliminarSubObra;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnSave;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private com.toedter.calendar.JDateChooser cmbLVP;
     private javax.swing.JPanel graficoTortaRecursos;
     private javax.swing.JPanel graficoTortalSO;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -878,9 +939,6 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblMontoTotal;
     private javax.swing.JLabel lbl_est_titulo_barra;
     private javax.swing.JLabel lbl_obra_fechafin;
@@ -896,6 +954,9 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JProgressBar prog_est_max;
     private javax.swing.JTable tblMenu;
     private javax.swing.JTextArea txtDescripcionObra;
+    private javax.swing.JTextField txtLugarEntrega;
+    private javax.swing.JTextField txtNroCotizacion;
+    private javax.swing.JTextField txtPlazoEntrega;
     // End of variables declaration//GEN-END:variables
 
     public void updateGraphs()
@@ -945,6 +1006,15 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
         lbl_obra_fechaini.setText(fecha_ini);
         lbl_obra_fechafin.setText(fecha_fin);
     }
+    
+    public void llenarDatosCotizacion(int nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega)
+    {
+        txtNroCotizacion.setText(String.valueOf(nroCotizacion));
+        cmbLEP.setDate(fle);
+        cmbLVP.setDate(vo);
+        txtPlazoEntrega.setText(plazoEntrega);
+        txtLugarEntrega.setText(lugarEntrega);
+    }    
     
     public void setMontoTotal(String monto)
     {
@@ -1008,5 +1078,27 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
         gestor.cambiarNombreSubObra(tp.getId(),tp.getNombre());
         tblMenu.repaint();
     }
+
+    private void guardarCotizacion() 
+    {
+        int n = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+    
+        if(n==JOptionPane.YES_OPTION)
+        {
+            gestor.guardarCotizacion();
+        }
+        necesita_guardar = false;
+    }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
 
 }
