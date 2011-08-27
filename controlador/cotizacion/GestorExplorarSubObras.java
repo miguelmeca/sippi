@@ -5,7 +5,9 @@
 package controlador.cotizacion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.PedidoObra;
 import modelo.SubObra;
@@ -49,7 +51,10 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
         this.obra = cot.buscarPedidoObra();   
         
+        // Cargo la descripcion de la Obra
         cargarDescripcionObra();
+        // Cargo lso datos de la cotizacion
+        cargarDatosGeneralesCotizacion();
         
         refrescarVentana();
     }
@@ -94,6 +99,11 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         String lbl_obra_fechafin = FechaUtil.getFecha(this.obra.getFechaFin());
         
         pantalla.llenarDatosGeneralesObra(lbl_obra_nombre, lbl_obra_planta, lbl_obra_lugar, lbl_obra_montomax, lbl_obra_fechaini, lbl_obra_fechafin);
+    }
+    
+    private void cargarDatosGeneralesCotizacion()
+    {
+        pantalla.llenarDatosCotizacion(this.cot.getNroCotizacion(),this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega());
     }
     
     private double getMontoMaximo()
@@ -266,9 +276,50 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         return this.cot;
     }
 
-   
+    public void guardarCotizacion() 
+    {
+        // Actualizo la ultima modificacion
+        this.cot.setFechaModificacion(new Date());
+        
+        // GUARDO LA COTIZACION EN LA BD
+        try
+        {
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(this.cot);
+            sesion.getTransaction().commit(); 
+        }
+        catch(Exception e)
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
+        }
+        
+        pantalla.MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se guardo correctamente la cotización número "+this.cot.getNroCotizacion()+" !");
+    }
 
-            
+    public void updateNroCotizacion(String text) 
+    {
+        this.cot.setNroCotizacion(Integer.valueOf(text));
+    }
+
+    public void updateLEP(Date date) {
+        this.cot.setFechaLimiteEntrega(date);
+    }
+
+    public void updateLVP(Date date) {
+        this.cot.setValidezOferta(date);
+    }
+
+    public void updatePlazoEntrega(String text) {
+        this.cot.setPlazoEntrega(text);
+    }
+
+    public void updateLugarEntrega(String text) {
+        this.cot.setLugarEntrega(text);
+    }
+
+    public void updateDescripcion(String text) {
+        this.cot.setDescripcion(text);
+    }        
     
     
 }
