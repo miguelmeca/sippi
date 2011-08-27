@@ -5,6 +5,7 @@
 package controlador.cotizacion;
 
 import modelo.Cotizacion;
+import modelo.SubObra;
 import vista.cotizacion.EditarCotizacion;
 
 /**
@@ -14,9 +15,9 @@ import vista.cotizacion.EditarCotizacion;
 public class GestorEditarCotizacion implements IGestorCotizacion{
     
     private EditarCotizacion pantalla;
-    
-    private Cotizacion cot;
 
+    private SubObra subObra;
+    
     // GESTOR PADRE
     private GestorExplorarSubObras gestorPadre;
     
@@ -33,6 +34,19 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     {
         this.gestorPadre = gestor;
     }
+    
+    public void seleccionarSubObra(int idSubObra)
+    {
+        for (int i = 0; i < getCotizacion().getSubObras().size(); i++) 
+        {
+            SubObra so = (SubObra)getCotizacion().getSubObras().get(i);
+            if(so.getId()==idSubObra)
+            {
+                this.subObra = so;
+            }
+        }
+    }
+    
 
     public void setPantalla(EditarCotizacion pantalla) {
         this.pantalla = pantalla;
@@ -105,6 +119,11 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     public Cotizacion getCotizacion() 
     {
         return this.gestorPadre.getCotizacion();
+    }
+
+    @Override
+    public SubObra getSubObraActual() {
+        return this.subObra;
     }
     
 }

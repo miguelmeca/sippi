@@ -5,6 +5,7 @@
 package controlador.cotizacion;
 
 import modelo.Cotizacion;
+import modelo.SubObra;
 
 /**
  * @author Iuga
@@ -12,5 +13,7 @@ import modelo.Cotizacion;
 public interface IGestorCotizacion {
  
     public Cotizacion getCotizacion();
+    
+    public SubObra getSubObraActual();
     
 }

@@ -5,6 +5,7 @@
 package controlador.cotizacion;
 
 import modelo.Cotizacion;
+import modelo.SubObra;
 import vista.cotizacion.CotizacionMateriales;
 
 /**
@@ -28,6 +29,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public Cotizacion getCotizacion() 
     {
         return this.gestorPadre.getCotizacion();
+    }
+
+    @Override
+    public SubObra getSubObraActual()
+    {
+        return this.gestorPadre.getSubObraActual();
     }
   
 }

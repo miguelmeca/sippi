@@ -34,16 +34,16 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAgregarCompra" pref="319" max="32767" attributes="1"/>
+                      <Component id="btnAgregarCompra" pref="317" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnQuitarCompra" min="-2" pref="97" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="420" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="418" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="176" max="-2" attributes="0"/>
+                              <EmptySpace pref="174" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtSubtotalCompras" min="-2" pref="96" max="-2" attributes="0"/>
@@ -92,8 +92,8 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane2" alignment="0" pref="410" max="32767" attributes="0"/>
-              <Component id="cmbConceptoAlquiler" alignment="0" pref="410" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" alignment="0" pref="408" max="32767" attributes="0"/>
+              <Component id="cmbConceptoAlquiler" alignment="0" pref="408" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -101,7 +101,7 @@
               <Group type="102" attributes="0">
                   <Component id="cmbConceptoAlquiler" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="49" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="61" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,7 +123,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="txtDescripcion">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
@@ -148,7 +148,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="txtMontoUnitario" min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="txtCantidad" min="-2" pref="119" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -157,7 +157,7 @@
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="txtCantidad" min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="txtPrecio" min="-2" pref="119" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -170,7 +170,7 @@
                           <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="txtSubtotal" pref="128" max="32767" attributes="0"/>
+                          <Component id="txtSubtotal" pref="134" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -187,9 +187,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtMontoUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtSubtotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -213,14 +213,14 @@
             <Property name="text" type="java.lang.String" value="Subtotal"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMontoUnitario">
+        <Component class="javax.swing.JTextField" name="txtCantidad">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="text" type="java.lang.String" value="x"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCantidad">
+        <Component class="javax.swing.JTextField" name="txtPrecio">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>

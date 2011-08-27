@@ -791,11 +791,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         if(tblMenu.getSelectedRow()!=-1)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion());
+            Tupla tp = (Tupla)modelo.getValueAt(tblMenu.getSelectedRow(), 0);
+            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion(tp.getId()));
             if(tblMenu.getSelectedRow() >=0)
-                mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+                mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else
-                mod.setTitle("Editar CotizaciÃ³n: Default");
+                mod.setTitle("Editar Cotización: Default");
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }
@@ -830,11 +831,14 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         if(evt.getClickCount()>=2)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
-            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion());
+            
+            Tupla tp = (Tupla)modelo.getValueAt(tblMenu.getSelectedRow(), 0);
+            EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion(tp.getId()));
+            
             if(tblMenu.getSelectedRow() >=0)
-                mod.setTitle("Editar CotizaciÃ³n: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+                mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else
-                mod.setTitle("Editar CotizaciÃ³n: Default");
+                mod.setTitle("Editar Cotización: Default");
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }
