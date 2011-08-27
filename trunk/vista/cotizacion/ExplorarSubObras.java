@@ -760,32 +760,21 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private void cerrarVentana()
     {
-        if(necesita_guardar)
+        int btn = JOptionPane.showConfirmDialog(this,"¿Desea Guardar los cambios antes de cerrar?","Atención",JOptionPane.YES_NO_OPTION);
+        switch(btn)
         {
-            int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea cerrar sin guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
-            switch(btn)
-            {
-                case JOptionPane.YES_OPTION:
-                    this.dispose();
-                    break;
-            }
+            case JOptionPane.YES_OPTION:
+                guardarCotizacion();
+                this.dispose();
+                break;
+            case JOptionPane.NO_OPTION:
+                this.dispose();
+                break;
         }
-        else
-        {
-            this.dispose();
-        }
+
     }
 
-    private void guardar()
-    {
-        int btn = JOptionPane.showConfirmDialog(this,"¿Está seguro que desea guardar los cambios?","Atención",JOptionPane.YES_NO_OPTION);
-        if(btn==JOptionPane.YES_OPTION)
-        {
-            // GUARDO
-            this.necesita_guardar=false;
-        }
-    }    
-    
+   
     private void btnEditarAlfonsinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlfonsinaActionPerformed
 
         if(tblMenu.getSelectedRow()!=-1)

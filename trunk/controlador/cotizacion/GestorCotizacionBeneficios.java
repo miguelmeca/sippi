@@ -36,6 +36,11 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
     {
         return this.gestorPadre.getSubObraActual();
     }
+
+    @Override
+    public void refrescarPantallas() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     
 }
