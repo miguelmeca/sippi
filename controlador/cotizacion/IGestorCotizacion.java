@@ -12,8 +12,22 @@ import modelo.SubObra;
  */
 public interface IGestorCotizacion {
  
+    /**
+     * Obtiene la cotizacion con la que se esta trabajando
+     * @return 
+     */
     public Cotizacion getCotizacion();
     
+    
+    /**
+     * Obtiene la SubObra Actual que se está editando
+     * @return 
+     */
     public SubObra getSubObraActual();
+    
+    /**
+     * Envia un pedido para que se refresquen el resto de las pantallas
+     */
+    public void refrescarPantallas();
     
 }

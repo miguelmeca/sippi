@@ -125,5 +125,10 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     public SubObra getSubObraActual() {
         return this.subObra;
     }
+
+    @Override
+    public void refrescarPantallas() {
+        gestorPadre.refrescarPantallas();
+    }
     
 }

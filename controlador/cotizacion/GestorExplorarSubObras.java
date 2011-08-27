@@ -327,6 +327,12 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     public SubObra getSubObraActual() {
         return null;
     }
+
+    @Override
+    public void refrescarPantallas() 
+    {
+        refrescarVentana();
+    }
     
     
 }
