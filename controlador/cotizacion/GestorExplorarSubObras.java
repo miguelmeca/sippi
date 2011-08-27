@@ -262,12 +262,14 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         }
     }
 
-    public GestorEditarCotizacion getGestorEditarCotizacion() 
+    public GestorEditarCotizacion getGestorEditarCotizacion(int idSubObra) 
     {
         if(this.gestorEditarCotizacion==null)
         {
             this.gestorEditarCotizacion = new GestorEditarCotizacion(this);
+            this.gestorEditarCotizacion.seleccionarSubObra(idSubObra);
         }
+        this.gestorEditarCotizacion.seleccionarSubObra(idSubObra);
         return gestorEditarCotizacion;
     }
 
@@ -319,7 +321,12 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     public void updateDescripcion(String text) {
         this.cot.setDescripcion(text);
-    }        
+    }
+
+    @Override
+    public SubObra getSubObraActual() {
+        return null;
+    }
     
     
 }

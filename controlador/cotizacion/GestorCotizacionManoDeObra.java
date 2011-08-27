@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
 import modelo.Cotizacion;
+import modelo.SubObra;
 import modelo.TipoTarea;
 import modelo.RangoEmpleado;
 import util.RubroUtil;
@@ -149,6 +150,12 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     public Cotizacion getCotizacion() 
     {
         return this.gestorPadre.getCotizacion();
+    }
+
+    @Override
+    public SubObra getSubObraActual()
+    {
+        return this.gestorPadre.getSubObraActual();
     }
  
 }

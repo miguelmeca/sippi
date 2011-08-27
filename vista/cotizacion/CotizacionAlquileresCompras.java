@@ -12,6 +12,7 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionAlquileresCompras;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,10 +23,12 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     private GestorCotizacionAlquileresCompras gestor;
     
     /** Creates new form editarCotizacion_Compras */
-    public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor) {
+    public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor, int idSubObra) 
+    {
         initComponents();
         this.gestor = gestor;
         this.gestor.setPantalla(this);
+        this.gestor.llenarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -40,14 +43,14 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         cmbConceptoAlquiler = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDescripcion = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMontoUnitario = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         btnAgregarCompra = new javax.swing.JButton();
@@ -64,23 +67,23 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         cmbConceptoAlquiler.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Galpón", "Grúa", "Fletes", "Camiones - Trasporte" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-            .addComponent(cmbConceptoAlquiler, 0, 410, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(cmbConceptoAlquiler, 0, 408, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cmbConceptoAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -104,14 +107,14 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtMontoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4))
                     .addComponent(jLabel2))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5))
                     .addComponent(jLabel1))
@@ -121,7 +124,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addGap(98, 98, 98))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -133,9 +136,9 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMontoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -194,15 +197,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnAgregarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                        .addComponent(btnAgregarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnQuitarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSubtotalCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -230,30 +233,11 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
-//        if(tbMaterialEspecifico.getSelectedRow()>=0){
-//            Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
-//            NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
-//            pantallaSeleccionarProveedorCotizacion psp = new pantallaSeleccionarProveedorCotizacion(this.gestorRAM,r.getId(),re.getId());
-//            if(psp.isBanHayPreciosMaterial()){
-//                SwingPanel.getInstance().addWindow(psp);
-//                psp.setVisible(true);
-//            } else{
-//                JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
-//                psp.dispose();
-//            }
-//        }
+
 }//GEN-LAST:event_btnAgregarCompraActionPerformed
 
     private void btnQuitarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarCompraActionPerformed
-//        if(tbCompras.getSelectedRow()>=0){
-//            NTupla nt = (NTupla)tbCompras.getModel().getValueAt(tbCompras.getSelectedRow(), 0);
-//            if(gestorRAM.quitarMaterial(nt.getId())){
-//                DefaultTableModel dtm = (DefaultTableModel)tbCompras.getModel();
-//                dtm.removeRow(tbCompras.getSelectedRow());
-//                this.mostrarMaterialesAUtilizar();
-//                this.cargarTabMateriales();
-//            }
-//        }
+
 }//GEN-LAST:event_btnQuitarCompraActionPerformed
 
     private void txtSubtotalComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalComprasActionPerformed
@@ -275,12 +259,23 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable tbCompras;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtMontoUnitario;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtSubtotalCompras;
     // End of variables declaration//GEN-END:variables
 
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
 }
