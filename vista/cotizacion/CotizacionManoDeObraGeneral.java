@@ -13,6 +13,8 @@ package vista.cotizacion;
 
 import java.util.Calendar;
 import java.util.Date;
+import util.NTupla;
+import util.Tupla;
 import vista.interfaces.ICallBack_v2;
 import controlador.cotizacion.GestorCotizacionManoDeObra;
 import org.jfree.chart.ChartFactory;
@@ -23,7 +25,7 @@ import org.jfree.data.gantt.Task;
 import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 import org.jfree.data.time.SimpleTimePeriod;
-import util.SwingPanel;
+import javax.swing.table.DefaultTableModel;
 import util.SwingPanel;
 
 
@@ -53,6 +55,11 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         chartPanel.setSize(450,137);
         panelGantt.add( chartPanel );
         panelGantt.getParent().validate();
+    }
+    public void agregarTarea(Object[] datos)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+        modelo.addRow(datos);
     }
 
      /**
@@ -148,7 +155,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTareas = new javax.swing.JTable();
         panelGantt = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -179,12 +186,9 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Tareas"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Tarea", "Personas", "Rango", "Hs/Día", "Fecha Inicio", "Fecha Fin", "Subtotal"
@@ -198,7 +202,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblTareas);
 
         panelGantt.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelGantt.setAutoscrolls(true);
@@ -308,11 +312,11 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel panelGantt;
+    private javax.swing.JTable tblTareas;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -5,7 +5,7 @@
 
 package controlador.cotizacion;
 
-import controlador.Compras.*;
+
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ import vista.cotizacion.CotizacionManoDeObraGeneral;
 import vista.cotizacion.CotizacionManoDeObraAgregarMO;
 import org.hibernate.Session;
 import util.HibernateUtil;
+import util.LogUtil;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -114,6 +115,27 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                     tuplas.add(nTupla);
              }
             return tuplas;           
+        }
+        public boolean setearNuevoCostoPorDefectoEnRolEmpleado(int idRangoEmpleado, double nuevoCosto)
+        {
+            Session sesion;
+            try
+            {
+                sesion = HibernateUtil.getSession();                
+                HibernateUtil.beginTransaction();
+                RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class,idRangoEmpleado);
+                re.setCostoXHora(nuevoCosto);
+                sesion.update(re);
+                HibernateUtil.commitTransaction();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
+                HibernateUtil.rollbackTransaction();
+                return false;
+            }
+            
         }
 
 ////////////////////////////
