@@ -149,7 +149,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         tblMenu.setIntercellSpacing(new java.awt.Dimension(10, 5));
         tblMenu.setMaximumSize(new java.awt.Dimension(300, 300));
         tblMenu.setRowHeight(25);
-        tblMenu.setTableHeader(null);
         tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMenuMouseClicked(evt);
@@ -791,7 +790,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(this,"Seleccione una SubObra para Mofificar su Nombre","Atencion!",JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Seleccione una SubObra para Mofificar su Nombre","Atención!",JOptionPane.QUESTION_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarAlfonsinaActionPerformed
 

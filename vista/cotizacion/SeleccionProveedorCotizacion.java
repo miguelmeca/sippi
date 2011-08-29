@@ -11,6 +11,7 @@
 
 package vista.cotizacion;
 
+import controlador.cotizacion.GestorCotizacionMateriales;
 import vista.planificacion.*;
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import util.TablaUtil;
  * @author Administrador
  */
 public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
-    private GestorRegistrarAsignacionMateriales gestorRAM;
+    private GestorCotizacionMateriales gestor;
     private int idR;
     private int idRE;
     private boolean banHayPreciosMaterial;
@@ -39,9 +40,9 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         initComponents();
     }
 
-    SeleccionProveedorCotizacion(GestorRegistrarAsignacionMateriales gestorRAM,int idR, int idRE) {
+    SeleccionProveedorCotizacion(GestorCotizacionMateriales gestor,int idR, int idRE) {
         initComponents();
-        this.gestorRAM = gestorRAM;
+        this.gestor = gestor;
         this.idR=idR;
         this.idRE=idRE;
         this.banHayPreciosMaterial = true;
@@ -56,8 +57,8 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         // VACIO LA TABLA
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        ArrayList<NTupla> listaRecEsp = gestorRAM.mostrarRecursosEspecificosXProveedor(idR,idRE);
-        ((TitledBorder)this.panelProveedor.getBorder()).setTitle("Seleccione un Proveedor para ( "+gestorRAM.getNombreRecurso(idR,idRE)+" )");
+        ArrayList<NTupla> listaRecEsp = gestor.mostrarRecursosEspecificosXProveedor(idR,idRE);
+        ((TitledBorder)this.panelProveedor.getBorder()).setTitle("Seleccione un Proveedor para ( "+gestor.getNombreRecurso(idR,idRE)+" )");
         Iterator<NTupla> itp = listaRecEsp.iterator();
 
         if(listaRecEsp.size()>0){
@@ -110,7 +111,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         panelProveedor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProveedores = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarNuevoPrecio = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         fxtCantidad = new javax.swing.JFormattedTextField();
@@ -148,11 +149,11 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbProveedores);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        jButton1.setText("Agregar Nuevo Precio");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarNuevoPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarNuevoPrecio.setText("Agregar Nuevo Precio");
+        btnAgregarNuevoPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarNuevoPrecioActionPerformed(evt);
             }
         });
 
@@ -164,13 +165,13 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         panelProveedorLayout.setVerticalGroup(
             panelProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProveedorLayout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(btnAgregarNuevoPrecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -262,7 +263,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("")){
             NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
             int cantidad = Integer.parseInt(fxtCantidad.getText());
-            txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+            txtSubtotal.setText(gestor.getSubtotal(nt.getId(),cantidad));
         }
     }//GEN-LAST:event_tbProveedoresFocusLost
 
@@ -277,7 +278,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         }
         if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("") && banCantidad){
             NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-            txtSubtotal.setText(gestorRAM.getSubtotal(nt.getId(),cantidad));
+            txtSubtotal.setText(gestor.getSubtotal(nt.getId(),cantidad));
         }
     }//GEN-LAST:event_fxtCantidadFocusLost
 
@@ -297,23 +298,23 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         }
         if(banCantidad && banProveedor){
             NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
-            gestorRAM.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText());
+            gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText());
             this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoPrecioActionPerformed
         AgregarNuevoPrecio anp = new AgregarNuevoPrecio();
         SwingPanel.getInstance().addWindow(anp);
         anp.setVisible(true);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAgregarNuevoPrecioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarNuevoPrecio;
     private javax.swing.JFormattedTextField fxtCantidad;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

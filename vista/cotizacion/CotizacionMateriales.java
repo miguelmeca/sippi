@@ -44,13 +44,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         
         this.gestor = gestor;
         this.gestor.setPantalla(this);
-        
-        String material[]= new String[4];
-        material[0] = "3 kg.";
-        material[1] = "CHAPA";
-        material[2] = "Perfil IPN 200";
-        material[3] = "12,5";
-        mostrarMaterialesAUtilizar(material);
+        cargarTabMateriales();
+        mostrarMaterialesAUtilizar();
     }
 
     private void FiltrarTabla(JTable table,JTextField field){
@@ -90,96 +85,78 @@ public class CotizacionMateriales extends javax.swing.JPanel {
     }
 
     private void mostrarEspecificacionMaterial(int id) {
-//        ArrayList<Tupla> esps = gestorRAM.getEspecificacionMaterial(id);
-//
-//        DefaultTableModel modelo = (DefaultTableModel)tbMaterialEspecifico.getModel();
-//
-//        // VACIO LA TABLA
-//        TablaUtil.vaciarDefaultTableModel(modelo);
-//
-//        Iterator it = esps.iterator();
-//
-//        while (it.hasNext())
-//        {
-//            Tupla ntp = (Tupla)it.next();
-//            Object[] fila = new Object[1];
-//            fila[0] = ntp;
-//
-//            modelo.addRow(fila);
-//        }
+        ArrayList<Tupla> esps = gestor.getEspecificacionMaterial(id);
+
+        DefaultTableModel modelo = (DefaultTableModel)tbMaterialEspecifico.getModel();
+
+        // VACIO LA TABLA
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = esps.iterator();
+
+        while (it.hasNext())
+        {
+            Tupla ntp = (Tupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
     }
 
     private void mostrarMaterialesAUtilizar() {
-//        ArrayList<NTupla> materiales = gestorRAM.getMaterialesAUtilizar();
-//
-//        DefaultTableModel modelo = (DefaultTableModel)tbMaterialesAUsar.getModel();
-//
-//        TablaUtil.vaciarDefaultTableModel(modelo);
-//
-//        Iterator it = materiales.iterator();
-//
-//        int cantidad = 0;
-//        double precio = 0;
-//        double total = 0;
-//        while (it.hasNext())
-//        {
-//            NTupla ntp = (NTupla)it.next();
-//            Object[] fila = new Object[4];
-//            fila[0] = ntp;
-//            Object[] o = (Object[]) ntp.getData();
-//            fila[1] = o[0];
-//            fila[2] = o[1];
-//            cantidad = (Integer)o[1];
-//            precio = (Double)o[2];
-//            double subtotal = cantidad*precio;
-//            fila[3] = subtotal;
-//            total+=subtotal;
-//            modelo.addRow(fila);
-//        }
-//        txtSubtotalMateriales.setText("$ "+total);
-    }
-
-        private void mostrarMaterialesAUtilizar(String[] material) {
+        ArrayList<NTupla> materiales = gestor.getMaterialesAUtilizar();
 
         DefaultTableModel modelo = (DefaultTableModel)tbMaterialesAUsar.getModel();
 
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        double total = 0;
-        Object[] fila = new Object[4];
-        fila[0] = material[0];
-        fila[1] = material[1];
-        fila[2] = material[2];
-        fila[3] = material[3];
-        total+=12.5;
-        modelo.addRow(fila);
+        Iterator it = materiales.iterator();
 
-        txtSubtotalMateriales.setText("$ "+total);
+        int cantidad = 0;
+        double precio = 0;
+        double total = 0;
+        while (it.hasNext())
+        {
+            NTupla ntp = (NTupla)it.next();
+            Object[] fila = new Object[5];
+            Object[] o = (Object[]) ntp.getData();
+            fila[0] = o[1];
+            fila[1] = ntp;
+            fila[2] = o[0];
+            cantidad = (Integer)o[1];
+            precio = (Double)o[2];
+            fila[3] = precio;
+            double subtotal = cantidad*precio;
+            fila[4] = subtotal;
+            total+=subtotal;
+            modelo.addRow(fila);
+        }
+        txtSubtotalMateriales.setText(""+total);
     }
 
     private void cargarTabMateriales() {
-//        ArrayList<NTupla> materiales = gestorRAM.getMaterialesDisponibles();
-//
-//        DefaultTableModel modelo = (DefaultTableModel)tbMateriales.getModel();
-//
-//        // VACIO LA TABLA MATERIALES
-//        TablaUtil.vaciarDefaultTableModel(modelo);
-//
-//        Iterator it = materiales.iterator();
-//
-//        int i = 0;
-//        while (it.hasNext())
-//        {
-//            NTupla ntp = (NTupla)it.next();
-//            Object[] fila = new Object[1];
-//            fila[0] = ntp;
-//
-//            modelo.addRow(fila);
-//        }
-//        DefaultTableModel modelo2 = (DefaultTableModel)tbMaterialEspecifico.getModel();
-//
-//        // VACIO LA TABLA MATERIAL ESPECIFICO
-//        TablaUtil.vaciarDefaultTableModel(modelo2);
+        ArrayList<NTupla> materiales = gestor.getMaterialesDisponibles();
+
+        DefaultTableModel modelo = (DefaultTableModel)tbMateriales.getModel();
+
+        // VACIO LA TABLA MATERIALES
+        TablaUtil.vaciarDefaultTableModel(modelo);
+
+        Iterator it = materiales.iterator();
+        int i = 0;
+        while (it.hasNext())
+        {
+            NTupla ntp = (NTupla)it.next();
+            Object[] fila = new Object[1];
+            fila[0] = ntp;
+
+            modelo.addRow(fila);
+        }
+
+        // VACIO LA TABLA MATERIAL ESPECIFICO
+        DefaultTableModel modelo2 = (DefaultTableModel)tbMaterialEspecifico.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo2);
     }
 
     /** This method is called from within the constructor to
@@ -204,6 +181,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         tbMaterialesAUsar = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         txtSubtotalMateriales = new javax.swing.JTextField();
+        btnAgregarNuevoPrecio = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
@@ -278,14 +256,26 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             new String [] {
                 "Cantidad", "Tipo", "Nombre", "Precio Unitario", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbMaterialesAUsar);
 
         jLabel3.setText("Subtotal Materiales $");
 
-        txtSubtotalMateriales.addActionListener(new java.awt.event.ActionListener() {
+        txtSubtotalMateriales.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        btnAgregarNuevoPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarNuevoPrecio.setText("Agregar Precio");
+        btnAgregarNuevoPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSubtotalMaterialesActionPerformed(evt);
+                btnAgregarNuevoPrecioActionPerformed(evt);
             }
         });
 
@@ -298,16 +288,13 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(btnAgregarNuevoPrecio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,22 +302,28 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubtotalMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSubtotalMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9)
-                        .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarMaterial)
@@ -361,42 +354,39 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 }//GEN-LAST:event_tbMaterialesMouseReleased
 
     private void btnAgregarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMaterialActionPerformed
-        SeleccionProveedorCotizacion pspc = new SeleccionProveedorCotizacion(new GestorRegistrarAsignacionMateriales(null),1,1);
-        SwingPanel.getInstance().addWindow(pspc);
-        pspc.setVisible(true);
-        //        if(tbMaterialEspecifico.getSelectedRow()>=0){
-//            Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
-//            NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
-//            pantallaSeleccionarProveedorCotizacion psp = new pantallaSeleccionarProveedorCotizacion(this.gestorRAM,r.getId(),re.getId());
-//            if(psp.isBanHayPreciosMaterial()){
-//                SwingPanel.getInstance().addWindow(psp);
-//                psp.setVisible(true);
-//            } else{
-//                JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
-//                psp.dispose();
-//            }
-//        }
+        if(tbMaterialEspecifico.getSelectedRow()>=0){
+            Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
+            NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
+            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,r.getId(),re.getId());
+            if(psp.isBanHayPreciosMaterial()){
+                SwingPanel.getInstance().addWindow(psp);
+                psp.setVisible(true);
+            } else{
+                JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
+                psp.dispose();
+            }
+        }
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
-//        if(tbMaterialesAUsar.getSelectedRow()>=0){
-//            NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 0);
-//            if(gestorRAM.quitarMaterial(nt.getId())){
-//                DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
-//                dtm.removeRow(tbMaterialesAUsar.getSelectedRow());
-//                this.mostrarMaterialesAUtilizar();
-//                this.cargarTabMateriales();
-//            }
-//        }
+        if(tbMaterialesAUsar.getSelectedRow()>=0){
+            NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 1);
+            if(gestor.quitarMaterial(nt.getId())){
+                this.mostrarMaterialesAUtilizar();
+                this.cargarTabMateriales();
+            }
+        }
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
-    private void txtSubtotalMaterialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalMaterialesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSubtotalMaterialesActionPerformed
-
+    private void btnAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoPrecioActionPerformed
+        AgregarNuevoPrecio anp = new AgregarNuevoPrecio();
+        SwingPanel.getInstance().addWindow(anp);
+        anp.setVisible(true);
+    }//GEN-LAST:event_btnAgregarNuevoPrecioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarMaterial;
+    private javax.swing.JButton btnAgregarNuevoPrecio;
     private javax.swing.JButton btnQuitarMaterial;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
@@ -411,4 +401,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
     private javax.swing.JTextField txtSubtotalMateriales;
     // End of variables declaration//GEN-END:variables
 
+    public void actualizar(int id, String msg, boolean pass){
+        this.cargarTabMateriales();
+        this.mostrarMaterialesAUtilizar();
+    }
 }

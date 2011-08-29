@@ -283,7 +283,4 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
 
-
-
-
 }

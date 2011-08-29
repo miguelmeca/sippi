@@ -29,6 +29,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private PedidoObra obra;
     private Cotizacion cot;
+    private SubObra subObra;
     
     private GestorEditarCotizacion gestorEditarCotizacion;
     
@@ -84,7 +85,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         while(it.hasNext())
         {
             SubObra sb = (SubObra) it.next();
-            Tupla nt = new Tupla(sb.getId(),sb.getNombre());
+            Tupla nt = new Tupla(sb.hashCode(),sb.getNombre());
             this.pantalla.cargarSubObras(nt);
         }     
     }
