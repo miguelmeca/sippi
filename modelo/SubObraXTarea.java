@@ -16,7 +16,7 @@ public class SubObraXTarea implements ISubtotal{
     private TipoTarea tipoTarea;
     private String observaciones;
     private int cantOperarios;
-    private int cantHoras;
+    private double cantHoras;
     private Date fechaInicio;
     private Date fechaFin;
     private RangoEmpleado rangoEmpleado;
@@ -58,11 +58,11 @@ public class SubObraXTarea implements ISubtotal{
         this.fechaInicio = fechaInicio;
     }
 
-    public int getCantHoras() {
+    public double getCantHoras() {
         return cantHoras;
     }
 
-    public void setCantHoras(int cantHoras) {
+    public void setCantHoras(double cantHoras) {
         this.cantHoras = cantHoras;
     }
 

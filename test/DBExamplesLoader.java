@@ -745,7 +745,6 @@ public class DBExamplesLoader {
         Telefono t = new Telefono();
         t.setNumero("(0351) 4564478");
         t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-
         sesion.beginTransaction();
         sesion.save(t);
         sesion.save(contacto);
@@ -1132,7 +1131,7 @@ public class DBExamplesLoader {
                 so1.addHerramienta(soxh);
 
                 SubObraXTarea soxt = new SubObraXTarea();
-                soxt.setCantHoras(8);
+                soxt.setCantHoras(7.0);
                 soxt.setCantOperarios(1);
                 soxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
                 soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));

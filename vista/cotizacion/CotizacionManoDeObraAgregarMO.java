@@ -596,12 +596,12 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
            datosTarea[1]=txaObservaciones.getText();//Mierda q quilombo!!!
        tar.setData(datosTarea);       
        datos[0]=(tar); 
-       datos[1]=txtPersonas.getText(); 
+       datos[1]=Integer.parseInt(txtPersonas.getText()); 
        NTupla nvoRango=new NTupla( ((NTupla)cboRango.getSelectedItem()).getId());
        nvoRango.setNombre(((NTupla)cboRango.getSelectedItem()).getNombre());
        nvoRango.setData(Double.parseDouble(txtCosto.getText()));
        datos[2]=nvoRango;
-       datos[3]=txtHoras.getText(); 
+       datos[3]=Double.parseDouble(txtHoras.getText()); 
        NTupla tFI=new NTupla(0);
        tFI.setNombre(FechaUtil.getFecha(jdcFInicio.getDate()));
        tFI.setData(jdcFInicio.getDate());

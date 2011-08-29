@@ -17,6 +17,7 @@ import util.NTupla;
 import util.Tupla;
 import vista.interfaces.ICallBack_v2;
 import controlador.cotizacion.GestorCotizacionManoDeObra;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -37,7 +38,7 @@ import util.SwingPanel;
 public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements ICallBack_v2 {
     
     private GestorCotizacionManoDeObra gestor;
-    private final IntervalCategoryDataset dataset;
+    private  IntervalCategoryDataset dataset;
 
     public CotizacionManoDeObraGeneral(GestorCotizacionManoDeObra gestor)
     {
@@ -46,18 +47,17 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         this.gestor=gestor;
         this.gestor.setPantalla(this);
         limpiarTabla();
-       // initGrafico();
+        gestor.getTareasDeSubObra();
+        //initGrafico();
         
     }
     private void initGrafico()
     {
-        IntervalCategoryDataset dataset = createDataset();
+        dataset = createDataset();
         final JFreeChart chart = createChart(dataset);
         final ChartPanel chartPanel = new ChartPanel(chart);
-        //chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         chartPanel.setSize(panelGantt.getWidth(),panelGantt.getHeight());
-        //chartPanel.setSize(panelGantt.getHeight(), panelGantt.getWidth());
-        chartPanel.setSize(450,137);
+        //chartPanel.setSize(450,137);
         panelGantt.add( chartPanel );
         panelGantt.getParent().validate();
     }
@@ -71,9 +71,13 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
     
     public void agregarTarea(Object[] datos)
     {
-       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+       if(!gestor.agregarTarea(datos))
+       { JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);}
+       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();       
+       panelGantt.removeAll();
        modelo.addRow(datos);
        initGrafico();
+       panelGantt.getParent().validate();
     }
 
      /**
