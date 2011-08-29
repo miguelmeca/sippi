@@ -43,6 +43,7 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
             if(so.hashCode()==idSubObra)
             {
                 this.subObra = so;
+                break;
             }
         }
     }
