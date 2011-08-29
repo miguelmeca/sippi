@@ -42,10 +42,12 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     private GestorEditarCotizacion gestorPadre;
     private CotizacionManoDeObraGeneral pantallaGeneral;
     private CotizacionManoDeObraAgregarMO pantallaAgregarMO;
+    private SubObra subObra;
     //ArrayList<PrecioSegunCantidad> listaPrecios;
 
     public GestorCotizacionManoDeObra(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;
+        subObra=getSubObraActual();
     }
     
 
@@ -132,7 +134,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
             catch (Exception ex)
             {
-                LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
+                LogUtil.addError("No se pudo realizar la transacción en la actualizacion de precios");
                 HibernateUtil.rollbackTransaction();
                 return false;
             }
@@ -168,6 +170,37 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            datos[6]=soxt.calcularSubtotal();
            pantallaGeneral.agregarTarea(datos); 
         }
+    }
+    
+    public boolean agregarTarea(Object[] datos)
+    {
+        Session sesion;
+        
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            
+            SubObraXTarea soxt=new SubObraXTarea();
+            soxt.setId(((NTupla)datos[0]).getId());
+            TipoTarea tt=(TipoTarea) sesion.load(TipoTarea.class, ((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()  );
+            soxt.setTipoTarea(tt);
+            soxt.setObservaciones(  (String)(((Object[])((NTupla)datos[0]).getData())[1])  );
+            soxt.setCantOperarios((Integer)datos[1]);
+            RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class, ((NTupla)datos[2]).getId());
+            soxt.setRangoEmpleado(re);
+            soxt.setCantHoras((Double)datos[3]);
+            soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
+            soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
+
+            subObra.addTarea(soxt);
+            return true;
+        }
+        catch (Exception ex)
+            {
+                LogUtil.addError("ERROR abriendo sesion en gestor.agregarTarea: "+ex);
+                HibernateUtil.rollbackTransaction();
+                return false;
+            }
     }
 
 ////////////////////////////
