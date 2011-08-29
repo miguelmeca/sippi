@@ -129,7 +129,10 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
 
     @Override
     public void refrescarPantallas() {
+        // Paso el mensaje
         gestorPadre.refrescarPantallas();
+        // Me actualizo (SubTotal)
+        //....
     }
     
 }

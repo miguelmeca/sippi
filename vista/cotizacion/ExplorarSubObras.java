@@ -859,8 +859,14 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_btnEliminarSubObraActionPerformed
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
-    guardarCotizacion();
+    
+        int n = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+    
+        if(n==JOptionPane.YES_OPTION)
+        {
+            guardarCotizacion();
+        }
+    
     
 }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1073,12 +1079,7 @@ private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-F
 
     private void guardarCotizacion() 
     {
-        int n = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
-    
-        if(n==JOptionPane.YES_OPTION)
-        {
-            gestor.guardarCotizacion();
-        }
+        gestor.guardarCotizacion();
         necesita_guardar = false;
     }
     

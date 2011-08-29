@@ -79,9 +79,22 @@ public class UserLogin extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaUsers.setAutoscrolls(false);
         tablaUsers.setTableHeader(null);
+        tablaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaUsers);
 
         txtPass.setText("Dev");
@@ -181,6 +194,10 @@ private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
     }
     
 }//GEN-LAST:event_txtPassKeyPressed
+
+private void tablaUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsersMouseClicked
+
+}//GEN-LAST:event_tablaUsersMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
