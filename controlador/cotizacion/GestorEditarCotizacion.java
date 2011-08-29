@@ -40,7 +40,7 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
         for (int i = 0; i < getCotizacion().getSubObras().size(); i++) 
         {
             SubObra so = (SubObra)getCotizacion().getSubObras().get(i);
-            if(so.getId()==idSubObra)
+            if(so.hashCode()==idSubObra)
             {
                 this.subObra = so;
             }
