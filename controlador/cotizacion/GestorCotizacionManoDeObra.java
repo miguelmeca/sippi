@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.Date;
 import modelo.Cotizacion;
 import modelo.SubObra;
+import modelo.SubObraXTarea;
 import modelo.TipoTarea;
 import modelo.RangoEmpleado;
 import util.RubroUtil;
@@ -137,6 +138,37 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
             
         }
+    public void getTareasDeSubObra()
+    {
+        for (SubObraXTarea soxt : getSubObraActual().getTareas()) 
+        {
+           Object[] datos=new Object[7];           
+           NTupla tar=new NTupla(soxt.getTipoTarea().getId());
+           tar.setNombre(soxt.getTipoTarea().getNombre());
+           Object[] datosTarea=new Object[2];       
+               Tupla tipoTar=new Tupla(soxt.getTipoTarea().getId(), soxt.getTipoTarea().getNombre());
+               datosTarea[0]=tipoTar;
+               datosTarea[1]=soxt.getObservaciones();//Mierda q quilombo!!!
+           tar.setData(datosTarea);       
+           datos[0]=(tar); 
+           datos[1]=soxt.getCantOperarios(); 
+           NTupla nvoRango=new NTupla(soxt.getRangoEmpleado().getId());
+           nvoRango.setNombre(soxt.getRangoEmpleado().getNombre());
+           nvoRango.setData(soxt.getRangoEmpleado().getCostoXHora());
+           datos[2]=nvoRango;
+           datos[3]=soxt.getCantHoras(); 
+           NTupla tFI=new NTupla(0);
+           tFI.setNombre(FechaUtil.getFecha(soxt.getFechaInicio()));
+           tFI.setData(soxt.getFechaInicio());
+           datos[4]=tFI;
+           NTupla tFF=new NTupla(0);
+           tFF.setNombre(FechaUtil.getFecha(soxt.getFechaFin()));
+           tFF.setData(soxt.getFechaFin());
+           datos[5]=tFF;
+           datos[6]=soxt.calcularSubtotal();
+           pantallaGeneral.agregarTarea(datos); 
+        }
+    }
 
 ////////////////////////////
 

@@ -26,6 +26,7 @@ import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 import org.jfree.data.time.SimpleTimePeriod;
 import javax.swing.table.DefaultTableModel;
+import util.FechaUtil;
 import util.SwingPanel;
 
 
@@ -35,18 +36,22 @@ import util.SwingPanel;
  */
 public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements ICallBack_v2 {
     
-    public GestorCotizacionManoDeObra gestor;
+    private GestorCotizacionManoDeObra gestor;
+    private final IntervalCategoryDataset dataset;
 
     public CotizacionManoDeObraGeneral(GestorCotizacionManoDeObra gestor)
     {
         initComponents();
+        dataset=null;
         this.gestor=gestor;
         this.gestor.setPantalla(this);
-        initGraphs();
+        limpiarTabla();
+       // initGrafico();
+        
     }
-    private void initGraphs()
+    private void initGrafico()
     {
-         final IntervalCategoryDataset dataset = createDataset();
+        IntervalCategoryDataset dataset = createDataset();
         final JFreeChart chart = createChart(dataset);
         final ChartPanel chartPanel = new ChartPanel(chart);
         //chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
@@ -56,10 +61,19 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         panelGantt.add( chartPanel );
         panelGantt.getParent().validate();
     }
+    private void limpiarTabla()
+    {
+        int fil=((DefaultTableModel) tblTareas.getModel()).getRowCount();
+        for (int i = 0; i < fil; i++) {
+            ((DefaultTableModel) tblTareas.getModel()).removeRow(0);
+        }
+    }
+    
     public void agregarTarea(Object[] datos)
     {
-        DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
-        modelo.addRow(datos);
+       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+       modelo.addRow(datos);
+       initGrafico();
     }
 
      /**
@@ -67,25 +81,16 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
      *
      * @return The dataset.
      */
-    public static IntervalCategoryDataset createDataset() {
+    public IntervalCategoryDataset createDataset() {
 
         final TaskSeries s1 = new TaskSeries("Tareas");
-        s1.add(new Task("Montaje Parte G4",
-               new SimpleTimePeriod(date(1, Calendar.APRIL, 2001),
-                                    date(5, Calendar.APRIL, 2001))));
-        s1.add(new Task("Traslado",
-               new SimpleTimePeriod(date(9, Calendar.APRIL, 2001),
-                                    date(9, Calendar.APRIL, 2001))));
-        s1.add(new Task("Montaje Parte G5",
-               new SimpleTimePeriod(date(10, Calendar.APRIL, 2001),
-                                    date(5, Calendar.MAY, 2001))));
-        s1.add(new Task("Ensamblaje en fabrica G4",
-               new SimpleTimePeriod(date(6, Calendar.MAY, 2001),
-                                    date(30, Calendar.MAY, 2001))));
-        s1.add(new Task("Puesta a punto",
-               new SimpleTimePeriod(date(2, Calendar.JUNE, 2001),
-                                    date(2, Calendar.JUNE, 2001))));
-        
+        for (int i = 0; i < ((DefaultTableModel)tblTareas.getModel()).getRowCount(); i++) 
+        {
+               s1.add(new Task(((NTupla)(tblTareas.getModel().getValueAt(i, 0))).getNombre(),
+               new SimpleTimePeriod(((Date)((NTupla)(tblTareas.getModel().getValueAt(i, 4))).getData()),
+                                    FechaUtil.fechaMas(((Date)((NTupla)(tblTareas.getModel().getValueAt(i, 5))).getData()),1) )));
+              
+        } 
 
         
 
@@ -150,18 +155,14 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         jLabel10 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTareas = new javax.swing.JTable();
         panelGantt = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSubtotal = new javax.swing.JTextField();
 
         jLabel9.setText("Plano");
 
@@ -171,16 +172,21 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton2.setText("Quitar");
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Subtotal Recursos Humanos   $");
 
@@ -238,24 +244,13 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 .addContainerGap())
         );
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        jButton3.setText("Quitar");
-        jPanel1.add(jButton3);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton4.setText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        txtSubtotal.setEditable(false);
+        txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                txtSubtotalActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
-
-        jLabel12.setText("Subtotal Recursos Humanos   $");
-        jPanel1.add(jLabel12);
-
-        jTextField1.setEditable(false);
-        jPanel1.add(jTextField1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -266,14 +261,14 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(220, 220, 220)
-                .addComponent(jButton1)
+                .addComponent(btnAgregar)
                 .addGap(10, 10, 10)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(164, 164, 164)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,41 +277,48 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel11))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnQuitar))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
       CotizacionManoDeObraAgregarMO at = new CotizacionManoDeObraAgregarMO(this, gestor);
         SwingPanel.getInstance().addWindow(at);
        at.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_txtSubtotalActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+       if(tblTareas.getSelectedRow()!=-1)
+        {
+            ((DefaultTableModel)tblTareas.getModel()).removeRow(tblTareas.getSelectedRow());
+        //id=((Tupla)(tblTareas.getModel().getValueAt(tblTareas.getSelectedRow(), 0))).getId(); 
+        }
+    }//GEN-LAST:event_btnQuitarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnQuitar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel panelGantt;
     private javax.swing.JTable tblTareas;
+    private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 
 }
