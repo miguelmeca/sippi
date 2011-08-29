@@ -21,7 +21,9 @@ public class SubObraXTarea implements ISubtotal{
     private Date fechaFin;
     private RangoEmpleado rangoEmpleado;
 
-    public SubObraXTarea() {
+    public SubObraXTarea() 
+    {
+        id=-1;
     }
 
     public int getId() {

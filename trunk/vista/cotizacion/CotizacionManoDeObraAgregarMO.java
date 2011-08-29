@@ -16,18 +16,21 @@ import javax.swing.DefaultComboBoxModel;
 import util.SwingPanel;
 import util.Tupla;
 import util.NTupla;
+import util.FechaUtil;
 import javax.swing.JOptionPane;
+import java.text.ParseException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
+import java.util.Date;
 
 /**
  *
  * @author Iuga
  */
 public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
-    public GestorCotizacionManoDeObra gestor;
-    public CotizacionManoDeObraGeneral pantallaPadre;
+    private GestorCotizacionManoDeObra gestor;
+    private CotizacionManoDeObraGeneral pantallaPadre;
 
     /** Creates new form editarCotizacion_ManoDeObra_OpcionB_parte2Fix */
     public CotizacionManoDeObraAgregarMO(CotizacionManoDeObraGeneral pant, GestorCotizacionManoDeObra gestorX) 
@@ -70,18 +73,117 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         cboRango.setModel(model);
         cboRango.setSelectedIndex(-1);   
     }
-    public void calcularSubtotal()
+    public void calcularSubtotal(boolean ok)
     {
-        
-       /* if(validarDatos)
-        {
-            long cantDias=jdcFFin.getDate().getTime()-jdcFInicio.getDate().getTime();
-            double subT=Double.parseDouble(txtPersonas.getText())*cantDias*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
+       if(ok)
+       {  long cantDias=FechaUtil.diasDiferencia(jdcFInicio.getDate(), jdcFFin.getDate());//(jdcFFin.getDate().getTime()-jdcFInicio.getDate().getTime())/(1000*60*60*24);
+           /*try{
+               cantDias=FechaUtil.diasDiferencia(jdcFInicio.getDateFormatString(), jdcFFin.getDateFormatString());
+           }
+           catch(ParseException pe)
+           {JOptionPane.showMessageDialog(this.getParent(), "Error en las fechas ingresadas", "Error",JOptionPane.ERROR_MESSAGE);
+           return;}*/
+           double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
             //Milisegundos por dia!!!
-             txtSubtotal.setText(Double.toString(subT));
-        }  */  
+           txtSubtotal.setText(Double.toString(subT));
+       }
+       else
+       {
+           txtSubtotal.setText("");
+       }
+          
+    }
+    
+    public boolean validarDatos(boolean mostrarErrores)
+    {
+       if(!validarNumeroPositivo(txtPersonas.getText()))
+       {  
+         if(mostrarErrores)
+         { JOptionPane.showMessageDialog(this.getParent(), "La cantidad de personas ingresadas no es válida", "Error",JOptionPane.ERROR_MESSAGE);
+          txtPersonas.requestFocusInWindow();}
+          return false;          
+       }
+       if(!validarNumeroPositivo(txtCosto.getText()))
+       {  
+          if(mostrarErrores)
+          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
+          txtCosto.requestFocusInWindow();}
+          return false;          
+       }
+       if(!validarNumeroPositivo(txtHoras.getText()))
+       {  
+           if(mostrarErrores)
+           {JOptionPane.showMessageDialog(this.getParent(), "Las horas por día ingresadas no son válidas", "Error",JOptionPane.ERROR_MESSAGE);
+          txtHoras.requestFocusInWindow();}
+          return false;          
+       }
+       
+        if(jdcFInicio.getDate()==null)        
+       {
+          if(mostrarErrores)
+           {    JOptionPane.showMessageDialog(this.getParent(), "Error en la fecha inicio ingresada", "Error",JOptionPane.ERROR_MESSAGE);
+                jdcFInicio.requestFocusInWindow();
+            }
+       
+           return false ;
+       }
+       //if(FechaUtil.getFecha(jdcFFin.getDate()).equals(""))
+        if(jdcFFin.getDate()==null)
+       {
+          if(mostrarErrores)
+           {    JOptionPane.showMessageDialog(this.getParent(), "Error en la fecha fin ingresada", "Error",JOptionPane.ERROR_MESSAGE);
+                jdcFFin.requestFocusInWindow();
+            }
+       
+           return false ;
+       }
+       
+       if(FechaUtil.diasDiferencia(jdcFInicio.getDate(), jdcFFin.getDate())<0)
+       {    if(mostrarErrores)
+           {    JOptionPane.showMessageDialog(this.getParent(), "La fecha de finalización fin de la tarea no puede ser mayor a la fecha de inicio", "Error",JOptionPane.ERROR_MESSAGE);
+                jdcFFin.requestFocusInWindow();
+            }
+       
+           return false ;
+       }
+       return true;
+        
     }
 
+    //Código a mover a una clase d validaciones (Metodo validarDoublePositivo que recibe por parametro el String a validar y el nombre del campo "Costo por hora")
+    ///------------------------------
+    public boolean validarNumeroPositivo(String aValidar)
+    {
+         
+        boolean valido = true;
+        if(aValidar.equals(""))
+        {
+          valido = false;
+                //JOptionPane.showMessageDialog(this.getParent(),"Ingrese '"+nombreCampo+"'","Faltan Datos",JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+           try
+           {
+               double cant = Double.valueOf(aValidar);
+               if(cant<=0)
+               {
+                 valido = false;
+                       // JOptionPane.showMessageDialog(this.getParent(),"'"+nombreCampo+"' debe ser mayor a Cero","Faltan Datos",JOptionPane.ERROR_MESSAGE);
+               }
+           }
+           catch(NumberFormatException ex)
+           {
+             valido = false;
+           }
+           
+        }
+        return valido;
+    }
+    /////////////////////////////////////////////
+    
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -104,7 +206,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         cboRango = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         btnSetearCostoRango = new javax.swing.JButton();
-        txtCosto = new javax.swing.JFormattedTextField();
+        txtCosto = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -124,17 +226,42 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         txtPersonas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPersonas.setEnabled(false);
+        txtPersonas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPersonasFocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Hs/Día");
 
         txtHoras.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtHoras.setEnabled(false);
+        txtHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtHorasFocusLost(evt);
+            }
+        });
 
         jLabel7.setText("Costo/Hora");
 
         jdcFInicio.setEnabled(false);
+        jdcFInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jdcFInicioMouseClicked(evt);
+            }
+        });
+        jdcFInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jdcFInicioFocusLost(evt);
+            }
+        });
 
         jdcFFin.setEnabled(false);
+        jdcFFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jdcFFinFocusLost(evt);
+            }
+        });
 
         jLabel12.setText("Fecha Inicio");
 
@@ -163,8 +290,22 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
             }
         });
 
-        txtCosto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtCosto.setEnabled(false);
+        txtCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCostoActionPerformed(evt);
+            }
+        });
+        txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCostoFocusLost(evt);
+            }
+        });
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,7 +316,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(txtPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                             .addComponent(jLabel3))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -186,8 +327,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                                 .addComponent(cboRango, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                            .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -240,7 +381,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jdcFFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         txtSubtotal.setEditable(false);
@@ -313,25 +454,26 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(btnAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(204, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAceptar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -341,45 +483,27 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addGap(16, 16, 16))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetearCostoRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetearCostoRangoActionPerformed
-    if(txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
+    if(!txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
     {
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cambiar el costo por defecto del rango de empleado '"+((NTupla)cboRango.getModel().getSelectedItem()).getNombre()+"' a "+txtCosto.getText()+"?","Confirmación",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cambiar el costo por defecto del rango de empleado'"+((NTupla)cboRango.getModel().getSelectedItem()).getNombre()+"' a "+txtCosto.getText()+"?","ConfirmaciÃ³n",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {   
-            //Código a mover a una clase d validaciones (Metodo validarDoublePositivo que recibe por parametro el JFormattedTextField y el nombre del campo "Costo por hora")
-            ///------------------------------
-            boolean valido = true;
-            if(txtCosto.getText().isEmpty())
-            {
-                valido = false;
-                JOptionPane.showMessageDialog(this.getParent(),"Ingrese un Costo por hora","Faltan Datos",JOptionPane.ERROR_MESSAGE);
-            }
-            else
-            {
-                int cant = Integer.valueOf(txtCosto.getText());
-                if(cant<=0)
-                {
-                    valido = false;
-                    JOptionPane.showMessageDialog(this.getParent(),"Costo por hora debe ser mayor a Cero","Faltan Datos",JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            //-------------------------
-            if(valido)
+            if(validarNumeroPositivo(txtCosto.getText()))
             {   
                 double nuevoCosto=Double.parseDouble(txtCosto.getText());
                 if(gestor.setearNuevoCostoPorDefectoEnRolEmpleado(((NTupla)cboRango.getModel().getSelectedItem()).getId(),nuevoCosto))
@@ -460,23 +584,76 @@ else
 }//GEN-LAST:event_cboRangoActionPerformed
 
 private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-   //if(validaciones)
-   //{
-       
+   if(validarDatos(true))
+   {
+       calcularSubtotal(true);
        Object[] datos=new Object[7];
-       datos[0]=(cboTareas.getSelectedItem()); 
+       NTupla tar=new NTupla(-1); //Id de la tarea (SubObraXTarea) todavía no seteado
+       tar.setNombre(((NTupla)cboTareas.getSelectedItem()).getNombre());
+       Object[] datosTarea=new Object[2];       
+           Tupla tipoTar=new Tupla(((NTupla)cboTareas.getSelectedItem()).getId(), ((NTupla)cboTareas.getSelectedItem()).getNombre());
+           datosTarea[0]=tipoTar;
+           datosTarea[1]=txaObservaciones.getText();//Mierda q quilombo!!!
+       tar.setData(datosTarea);       
+       datos[0]=(tar); 
        datos[1]=txtPersonas.getText(); 
        NTupla nvoRango=new NTupla( ((NTupla)cboRango.getSelectedItem()).getId());
        nvoRango.setNombre(((NTupla)cboRango.getSelectedItem()).getNombre());
        nvoRango.setData(Double.parseDouble(txtCosto.getText()));
        datos[2]=nvoRango;
        datos[3]=txtHoras.getText(); 
-       datos[4]=jdcFInicio.getDate();
-       datos[5]=jdcFFin.getDate();
+       NTupla tFI=new NTupla(0);
+       tFI.setNombre(FechaUtil.getFecha(jdcFInicio.getDate()));
+       tFI.setData(jdcFInicio.getDate());
+       datos[4]=tFI;
+       NTupla tFF=new NTupla(0);
+       tFF.setNombre(FechaUtil.getFecha(jdcFFin.getDate()));
+       tFF.setData(jdcFFin.getDate());
+       datos[5]=tFF;
        datos[6]=Double.parseDouble(txtSubtotal.getText());
        pantallaPadre.agregarTarea(datos);
-   //}
+       this.dispose();
+   }
 }//GEN-LAST:event_btnAceptarActionPerformed
+
+private void txtPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPersonasFocusLost
+    calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_txtPersonasFocusLost
+
+private void jdcFInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFInicioFocusLost
+  calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_jdcFInicioFocusLost
+
+private void jdcFFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFFinFocusLost
+calcularSubtotal(validarDatos(false));   
+}//GEN-LAST:event_jdcFFinFocusLost
+
+private void txtHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorasFocusLost
+    calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_txtHorasFocusLost
+
+private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+   calcularSubtotal(validarDatos(false));    
+}//GEN-LAST:event_txtCostoFocusLost
+
+private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
+    
+}//GEN-LAST:event_txtCostoActionPerformed
+
+private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+   if(txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
+    {
+        btnSetearCostoRango.setEnabled(false);
+    }    
+    else
+    {
+        btnSetearCostoRango.setEnabled(true);
+    }
+}//GEN-LAST:event_txtCostoKeyTyped
+
+private void jdcFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jdcFInicioMouseClicked
+
+}//GEN-LAST:event_jdcFInicioMouseClicked
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -498,7 +675,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private com.toedter.calendar.JDateChooser jdcFFin;
     private com.toedter.calendar.JDateChooser jdcFInicio;
     private javax.swing.JTextArea txaObservaciones;
-    private javax.swing.JFormattedTextField txtCosto;
+    private javax.swing.JTextField txtCosto;
     private javax.swing.JTextField txtHoras;
     private javax.swing.JTextField txtPersonas;
     private javax.swing.JTextField txtSubtotal;
