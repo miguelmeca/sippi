@@ -54,8 +54,7 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
     public void initVentana() 
     {
         llenarComboTipoAlquilerCompra();
-        llenarTablaAlquilerCompra();
-                
+        llenarTablaAlquilerCompra();    
     }
 
     private void llenarComboTipoAlquilerCompra() 

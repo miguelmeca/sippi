@@ -5,6 +5,7 @@
 
 package controlador.xml;
 
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import org.jdom.Element;
@@ -18,7 +19,7 @@ public class XMLReaderMenu extends XMLReader {
 
     private TreeEntry root;
 
-    public XMLReaderMenu(String urlXml) {
+    public XMLReaderMenu(URL urlXml) {
         super(urlXml);
         this.root = new TreeEntry("_ROOT_", null);
     }
@@ -30,7 +31,7 @@ public class XMLReaderMenu extends XMLReader {
         {
              Element raiz=doc.getRootElement();
              List equipos=raiz.getChildren("itemcat");
-             if(equipos.size()!=0)
+             if(!equipos.isEmpty())
               {
                 Iterator it = equipos.iterator();
                 while (it.hasNext())
