@@ -10,6 +10,7 @@
     <property column="CANT_HORAS" name="cantHoras" type="double"/>
     <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
     <property column="FECHA_FIN" name="fechaFin" type="date"/>
+    <property column="COSTO_X_HORA" name="costoXHora" type="double"/>
     <many-to-one class="modelo.RangoEmpleado" column="ID_RANGO_EMPLEADO" name="rangoEmpleado"/>
   </class>
 </hibernate-mapping>

@@ -77,14 +77,9 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     {
        if(ok)
        {  long cantDias=FechaUtil.diasDiferencia(jdcFInicio.getDate(), jdcFFin.getDate());//(jdcFFin.getDate().getTime()-jdcFInicio.getDate().getTime())/(1000*60*60*24);
-           /*try{
-               cantDias=FechaUtil.diasDiferencia(jdcFInicio.getDateFormatString(), jdcFFin.getDateFormatString());
-           }
-           catch(ParseException pe)
-           {JOptionPane.showMessageDialog(this.getParent(), "Error en las fechas ingresadas", "Error",JOptionPane.ERROR_MESSAGE);
-           return;}*/
+           
            double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
-            //Milisegundos por dia!!!
+          
            txtSubtotal.setText(Double.toString(subT));
        }
        else
@@ -588,7 +583,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
    {
        calcularSubtotal(true);
        Object[] datos=new Object[7];
-       NTupla tar=new NTupla(-1); //Id de la tarea (SubObraXTarea) todavía no seteado
+       NTupla tar=new NTupla(0); //Id de la tarea (SubObraXTarea) todavía no seteado
        tar.setNombre(((NTupla)cboTareas.getSelectedItem()).getNombre());
        Object[] datosTarea=new Object[2];       
            Tupla tipoTar=new Tupla(((NTupla)cboTareas.getSelectedItem()).getId(), ((NTupla)cboTareas.getSelectedItem()).getNombre());
@@ -611,7 +606,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        tFF.setData(jdcFFin.getDate());
        datos[5]=tFF;
        datos[6]=Double.parseDouble(txtSubtotal.getText());
-       pantallaPadre.agregarTarea(datos);
+       pantallaPadre.agregarTarea(datos, true);
        this.dispose();
    }
 }//GEN-LAST:event_btnAceptarActionPerformed

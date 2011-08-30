@@ -20,6 +20,7 @@ public class SubObraXTarea implements ISubtotal{
     private Date fechaInicio;
     private Date fechaFin;
     private RangoEmpleado rangoEmpleado;
+    private double costoXHora;
 
     public SubObraXTarea() 
     {
@@ -89,10 +90,24 @@ public class SubObraXTarea implements ISubtotal{
     public void setTipoTarea(TipoTarea tipoTarea) {
         this.tipoTarea = tipoTarea;
     }
+    
+    public double getCostoXHora() {
+        return costoXHora;
+    }
+
+    
+    public void setCostoXHora(double costoXHora) {
+        this.costoXHora = costoXHora;
+    }
 
     @Override
-    public double calcularSubtotal() {
-        return cantHoras*cantOperarios; // FAKE
+    public double calcularSubtotal() 
+    {        
+       double cantDias=Math.floor((fechaFin.getTime()-fechaInicio.getTime())/(1000*60*60*24));        
+       double subT=cantOperarios*(((int)cantDias)+1)*costoXHora*cantHoras;          
+       return subT; 
     }
+
+    
 
 }
