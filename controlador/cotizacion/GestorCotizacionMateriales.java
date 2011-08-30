@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.Material;
@@ -328,6 +330,20 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
            }
 
         return lista;
+    }
+
+    public ArrayList<Tupla> mostrarProveedoresMaterial(int idRe){
+        ArrayList<Tupla> provs = null;
+        RecursoEspecifico re;
+        try {
+            provs = new ArrayList<Tupla>();
+//            HibernateUtil.getSession().createQuery("select * from Rubro where nombre=:nombre").setParameter("", re)
+//            HibernateUtil.getSession().createQuery("select * from Provedor")
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(pantalla.getParent(), "A ocurrido un error al intentar mostrar los proveedores del material seleccionado: \n"+ ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+        return provs;
     }
 
     public String mostrarUnidadDeMedida(int idRecEsp)
