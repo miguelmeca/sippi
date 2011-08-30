@@ -69,10 +69,13 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         }
     }
     
-    public void agregarTarea(Object[] datos)
+    public void agregarTarea(Object[] datos, boolean nueva)
     {
-       if(!gestor.agregarTarea(datos))
-       { JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);}
+       if(nueva && !gestor.agregarTarea(datos))
+       { 
+           JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);
+           return;
+       }
        DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();       
        panelGantt.removeAll();
        modelo.addRow(datos);

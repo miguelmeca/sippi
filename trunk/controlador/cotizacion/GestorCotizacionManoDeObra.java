@@ -142,7 +142,9 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         }
     public void getTareasDeSubObra()
     {
-        for (SubObraXTarea soxt : getSubObraActual().getTareas()) 
+        List<SubObraXTarea> tareas= subObra.getTareas();
+        
+        for (SubObraXTarea soxt : tareas) 
         {
            Object[] datos=new Object[7];           
            NTupla tar=new NTupla(soxt.getTipoTarea().getId());
@@ -156,7 +158,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            datos[1]=soxt.getCantOperarios(); 
            NTupla nvoRango=new NTupla(soxt.getRangoEmpleado().getId());
            nvoRango.setNombre(soxt.getRangoEmpleado().getNombre());
-           nvoRango.setData(soxt.getRangoEmpleado().getCostoXHora());
+           nvoRango.setData(soxt.getCostoXHora());
            datos[2]=nvoRango;
            datos[3]=soxt.getCantHoras(); 
            NTupla tFI=new NTupla(0);
@@ -168,7 +170,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            tFF.setData(soxt.getFechaFin());
            datos[5]=tFF;
            datos[6]=soxt.calcularSubtotal();
-           pantallaGeneral.agregarTarea(datos); 
+           pantallaGeneral.agregarTarea(datos, false); 
         }
     }
     
@@ -189,6 +191,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class, ((NTupla)datos[2]).getId());
             soxt.setRangoEmpleado(re);
             soxt.setCantHoras((Double)datos[3]);
+            soxt.setCostoXHora((Double)((NTupla)datos[2]).getData());
             soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
             soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
 

@@ -1132,6 +1132,7 @@ public class DBExamplesLoader {
 
                 SubObraXTarea soxt = new SubObraXTarea();
                 soxt.setCantHoras(7.0);
+                soxt.setCostoXHora(22.0);
                 soxt.setCantOperarios(1);
                 soxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
                 soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
