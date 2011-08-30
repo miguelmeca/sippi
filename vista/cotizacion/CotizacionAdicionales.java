@@ -12,6 +12,12 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionAdicionales;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.TablaUtil;
+import util.Tupla;
 
 /**
  *
@@ -26,6 +32,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         initComponents();
         this.gestor = gestor;
         this.gestor.setPantalla(this);
+        this.gestor.initVentana();
     }
 
     /** This method is called from within the constructor to
@@ -45,14 +52,14 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCantidadPersonas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCantidadHs = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txtCantidadPersonas = new javax.swing.JFormattedTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         btnAgregarAdicional = new javax.swing.JButton();
         btnQuitarAdicional = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -62,9 +69,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo/Observación"));
-
-        cmbTipoAdicional.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hospedaje", "Comida", "Viáticos", "Viajes" }));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo (*)/Observación"));
 
         txtConcepto.setColumns(20);
         txtConcepto.setRows(5);
@@ -74,8 +79,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cmbTipoAdicional, 0, 408, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(cmbTipoAdicional, 0, 426, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,77 +92,85 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Concepto"));
 
-        jLabel1.setText("Catidad Operarios");
+        jLabel1.setText("Catidad Operarios (*)");
 
-        jLabel2.setText("Cantidad Días");
+        jLabel2.setText("Cantidad Días (*)");
 
-        jLabel3.setText("Precio Unitario");
+        jLabel3.setText("Precio Unitario (*)");
+        jLabel3.setToolTipText("");
 
         jLabel4.setText("x");
 
         jLabel5.setText("x");
 
-        txtMonto.setEditable(false);
-
         jLabel6.setText("=");
 
+        txtSubtotal.setEditable(false);
+
         jLabel7.setText("Subtotal");
+
+        txtCantidadPersonas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtCantidadPersonas)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(txtCantidadHs, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
-                    .addComponent(jLabel3))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(45, Short.MAX_VALUE))
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCantidadHs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel7))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAgregarAdicional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -180,19 +193,25 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         tbAdicionales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Cantidad", "Descripción", "Precio Unitario", "Subtotal"
+                "Descripción", "Cantidad Operarios", "Cantidad Días", "Precio Unitario", "SubTotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tbAdicionales);
 
         jLabel8.setText("Subtotal Adicionales $");
 
+        txtSubtotalAdicionales.setEditable(false);
         txtSubtotalAdicionales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubtotalAdicionalesActionPerformed(evt);
@@ -207,10 +226,10 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                        .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnQuitarAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,15 +275,17 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 }//GEN-LAST:event_btnAgregarAdicionalActionPerformed
 
     private void btnQuitarAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarAdicionalActionPerformed
-//        if(tbAdicionales.getSelectedRow()>=0){
-//            NTupla nt = (NTupla)tbAdicionales.getModel().getValueAt(tbAdicionales.getSelectedRow(), 0);
-//            if(gestorRAM.quitarMaterial(nt.getId())){
-//                DefaultTableModel dtm = (DefaultTableModel)tbAdicionales.getModel();
-//                dtm.removeRow(tbAdicionales.getSelectedRow());
-//                this.mostrarMaterialesAUtilizar();
-//                this.cargarTabMateriales();
-//            }
-//        }
+        if(tbAdicionales.getSelectedRow()!= -1)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tbAdicionales.getModel();
+            NTupla ntp = (NTupla) dtm.getValueAt(tbAdicionales.getSelectedRow(), 0);
+            gestor.quitarAlquilerCompra(ntp);
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Adicional","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
 }//GEN-LAST:event_btnQuitarAdicionalActionPerformed
 
     private void txtSubtotalAdicionalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalAdicionalesActionPerformed
@@ -276,6 +297,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregarAdicional;
     private javax.swing.JButton btnQuitarAdicional;
     private javax.swing.JComboBox cmbTipoAdicional;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -289,12 +312,62 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbAdicionales;
-    private javax.swing.JTextField txtCantidadHs;
-    private javax.swing.JTextField txtCantidadPersonas;
+    private javax.swing.JFormattedTextField txtCantidadPersonas;
     private javax.swing.JTextArea txtConcepto;
-    private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtSubtotalAdicionales;
     // End of variables declaration//GEN-END:variables
 
+    public void llenarComboTipos(ArrayList<Tupla> listaTipos) 
+    {
+        cmbTipoAdicional.removeAllItems();
+        for (int i = 0; i < listaTipos.size(); i++) 
+        {
+            Tupla tp = listaTipos.get(i);
+            cmbTipoAdicional.addItem(tp);
+        }
+    }
+    
+    
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    public void llenarTabla(ArrayList<NTupla> listaFilas) {
+                double total = 0;
+        
+        DefaultTableModel modelo = (DefaultTableModel)tbAdicionales.getModel();
+        // Vacio la tabla por si ya tiene filas de otra llamada
+        TablaUtil.vaciarDefaultTableModel(modelo);
+        // lleno con los nuevos datos
+        for (int i = 0; i < listaFilas.size(); i++) 
+        {
+            NTupla nt = listaFilas.get(i);
+            
+            String[] data = (String[])nt.getData();
+            
+            Object fila[] = new Object[5];
+                fila[0] = nt;
+                fila[1] = data[0];
+                fila[2] = data[1];
+                fila[3] = data[2];
+                fila[4] = data[3];
+                
+                total += Double.valueOf(data[3]);
+                
+            modelo.addRow(fila);
+        }
+        
+        // muestro el total calculado
+        txtSubtotalAdicionales.setText(String.valueOf(total));
+    }
+    
 }

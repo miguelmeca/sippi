@@ -99,7 +99,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         treeMenu.setExpandsSelectedPaths(true);
         treeMenu.setBackground(null);
 
-        XMLReaderMenu menuxml = new XMLReaderMenu(getClass().getResource("/config/menu.xml").getPath());
+        XMLReaderMenu menuxml = new XMLReaderMenu(getClass().getResource("/config/menu.xml"));
         IconTreeModel itm = new IconTreeModel();
         itm.RellenarArbol(menuxml.cargarMenu());
         treeMenu.setModel(itm);

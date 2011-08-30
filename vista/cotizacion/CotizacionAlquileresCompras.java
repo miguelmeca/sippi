@@ -86,7 +86,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cmbConceptoAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -204,7 +204,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             new String [] {
                 "Cantidad", "Descripción", "Precio Unitario", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbCompras);
 
         txtSubtotalCompras.setEditable(false);
@@ -408,7 +416,7 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         }
         
         // muestro el total calculado
-        txtSubtotalCompras.setText("$"+total);
+        txtSubtotalCompras.setText(String.valueOf(total));
 
     }
 
