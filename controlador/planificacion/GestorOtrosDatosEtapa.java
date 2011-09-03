@@ -104,12 +104,12 @@ public class GestorOtrosDatosEtapa   {
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
             for (int i = 0; i < lista.size(); i++)
             {
-                HerramientaDeEmpresa he = (HerramientaDeEmpresa)lista.get(i);
-                if(he.getEstado().esDisponible()) //TODO: Analizar bien esto, podria querer asignar una herramienta que todavia no esta disponible pero q se esta arreglando en este momento
-                {
-                Tupla tupla = new Tupla(he.getId(),he.getNroSerie());
-                    tuplas.add(tupla);
-                }
+//                HerramientaDeEmpresa he = (HerramientaDeEmpresa)lista.get(i);
+//                if(he.getEstado().esDisponible()) //TODO: Analizar bien esto, podria querer asignar una herramienta que todavia no esta disponible pero q se esta arreglando en este momento
+//                {
+//                Tupla tupla = new Tupla(he.getId(),he.getNroSerie());
+//                    tuplas.add(tupla);
+//                }
             }
 
             return tuplas;
