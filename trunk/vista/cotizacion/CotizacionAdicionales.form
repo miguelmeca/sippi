@@ -25,11 +25,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnAgregarAdicional" pref="336" max="32767" attributes="1"/>
+                      <Component id="btnAgregarAdicional" pref="326" max="32767" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnQuitarAdicional" min="-2" pref="105" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" alignment="1" pref="447" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="1" pref="437" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -79,8 +79,8 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="cmbTipoAdicional" alignment="0" pref="435" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" alignment="0" pref="435" max="32767" attributes="0"/>
+              <Component id="cmbTipoAdicional" alignment="0" pref="425" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="425" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -156,7 +156,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtSubtotal" pref="84" max="32767" attributes="0"/>
+                          <Component id="txtSubtotal" pref="74" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -272,7 +272,6 @@
               <Format format="#.##" subtype="-1" type="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrecioUnitarioActionPerformed"/>
