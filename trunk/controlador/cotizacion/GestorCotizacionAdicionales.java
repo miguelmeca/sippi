@@ -123,6 +123,36 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         }
         pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo eliminar de la lista el Alquiler/Compra");
     }
+
+    public void AgregarAdicional(Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) 
+    {
+        SubObraXAdicional detalle = new SubObraXAdicional();
+        detalle.setDescripcion(descripcion);
+        detalle.setCantDias(cantidadDias);
+        detalle.setCantOperarios(cantidadOperarios);
+        detalle.setPrecioUnitario(precio);
+        
+        // Busco el Tipo Alquiler Compra
+        for (int i = 0; i < bufferTipos.size(); i++) 
+        {
+            TipoAdicional ta = bufferTipos.get(i);
+            if(ta.getId()==tipo.getId())
+            {
+                detalle.setTipoAdicional(ta);
+            }
+        }
+        // lo agrego
+        if(detalle.getTipoAdicional()!=null)
+        {
+            getSubObraActual().getAdicionales().add(detalle);
+            llenarTablaAdicionales();
+            refrescarPantallas();
+        }
+        else
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo agregar el Adicional");
+        }        
+    }
     
     
 }
