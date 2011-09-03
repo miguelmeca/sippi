@@ -106,6 +106,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCantidad.setText("0");
         txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCantidadFocusLost(evt);
@@ -119,6 +120,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrecio.setText("0");
         txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioActionPerformed(evt);

@@ -123,8 +123,6 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
 
     public void AgregarCompraAlquiler(Tupla tipo, String descripcion, int cantidad, double precio) 
     {
-        
-        
         // Creo el objeto
         SubObraXAlquilerCompra detalle = new SubObraXAlquilerCompra();    
         detalle.setCantidad(cantidad);
