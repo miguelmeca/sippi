@@ -130,6 +130,25 @@ public class SubObra implements ISubtotal
     public void addMaterial(SubObraXMaterial soxm){
         this.materiales.add(soxm);
     }
+    public boolean eliminarTarea(int id){
+        for (int i = 0; i < tareas.size(); i++)
+        {
+            if ((tareas.get(i).getId())==id) 
+            {
+             tareas.remove(i);
+             return true;
+            }
+        }
+        /*for (SubObraXTarea soxt: tareas) 
+        {
+            if (soxt.getId()==id) 
+            {
+             tareas.remove(soxt); 
+             return true;
+            }
+        }*/
+        return false;
+    }
 
     @Override
     public double calcularSubtotal() 

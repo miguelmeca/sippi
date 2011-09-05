@@ -1141,6 +1141,18 @@ public class DBExamplesLoader {
                 dummy.set(2011,4,6);
                 soxt.setFechaFin(dummy.getTime());
                 so1.addTarea(soxt);
+                
+                SubObraXTarea soxt1 = new SubObraXTarea();
+                soxt1.setCantHoras(2.0);
+                soxt1.setCostoXHora(20.0);
+                soxt1.setCantOperarios(1);
+                soxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2));
+                dummy.set(2011, 4, 8);
+                soxt1.setFechaInicio(dummy.getTime());
+                dummy.set(2011,4,10);
+                soxt1.setFechaFin(dummy.getTime());
+                so1.addTarea(soxt1);
 
 //                SubObraXMaterial
                 //TODO: IMPEDIMENT WITH THE STRUCTURE OF SUBOBRAXMATERIAL
@@ -1217,6 +1229,7 @@ public class DBExamplesLoader {
 
             HibernateUtil.getSession().saveOrUpdate(soxh);
             HibernateUtil.getSession().saveOrUpdate(soxt);
+            HibernateUtil.getSession().saveOrUpdate(soxt1);
             HibernateUtil.getSession().saveOrUpdate(soxm); 
             HibernateUtil.getSession().saveOrUpdate(so1);
             HibernateUtil.getSession().saveOrUpdate(soxa);
@@ -1260,10 +1273,23 @@ public class DBExamplesLoader {
         tt1.setCantHorasPredeterminada(4);
         tt1.setCantOperariosPredeterminada(1);
         tt1.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
-
+        
+        TipoTarea tt2 = new TipoTarea();
+        tt2.setNombre("Calibracion");
+        tt2.setCantHorasPredeterminada(5);
+        tt2.setCantOperariosPredeterminada(2);
+        tt2.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
+        
+        TipoTarea tt3 = new TipoTarea();
+        tt3.setNombre("Mecanizado");
+        tt3.setCantHorasPredeterminada(5);
+        tt3.setCantOperariosPredeterminada(2);
+        tt3.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(tt1);
+            sesion.saveOrUpdate(tt2);
+            sesion.saveOrUpdate(tt3);
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());

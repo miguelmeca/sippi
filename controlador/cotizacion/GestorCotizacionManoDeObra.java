@@ -140,6 +140,16 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
             
         }
+        
+    public double calcularSubtotal()
+    {
+        double monto=0.0;
+        for (int j = 0; j < subObra.getTareas().size(); j++) 
+        {
+             monto+= subObra.getTareas().get(j).calcularSubtotal();
+        }
+        return monto;
+    }
     public void getTareasDeSubObra()
     {
         List<SubObraXTarea> tareas= subObra.getTareas();
@@ -147,7 +157,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         for (SubObraXTarea soxt : tareas) 
         {
            Object[] datos=new Object[7];           
-           NTupla tar=new NTupla(soxt.getTipoTarea().getId());
+           NTupla tar=new NTupla(soxt.getId());
            tar.setNombre(soxt.getTipoTarea().getNombre());
            Object[] datosTarea=new Object[2];       
                Tupla tipoTar=new Tupla(soxt.getTipoTarea().getId(), soxt.getTipoTarea().getNombre());
@@ -173,6 +183,11 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            pantallaGeneral.agregarTarea(datos, false); 
         }
     }
+    public void eliminarTarea(int id)
+    {
+        subObra.eliminarTarea(id);
+        refrescarPantallas();
+    }
     
     public boolean agregarTarea(Object[] datos)
     {
@@ -196,6 +211,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
 
             subObra.addTarea(soxt);
+            refrescarPantallas();
             return true;
         }
         catch (Exception ex)
@@ -250,7 +266,8 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
 
     @Override
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        gestorPadre.refrescarPantallas();
     }
+    
  
 }
