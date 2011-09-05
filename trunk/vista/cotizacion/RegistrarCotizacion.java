@@ -36,14 +36,14 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
+        rbtnCotizacionBlanco = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rbtnCotizacionExistente = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btnExplorarCotizaciones = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        bntNuevaCotizacion = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
@@ -53,8 +53,8 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jRadioButton1);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
-        jLabel1.setText("Cotización en Blanco");
+        rbtnCotizacionBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
+        rbtnCotizacionBlanco.setText("Cotización en Blanco");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,7 +64,7 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(rbtnCotizacionBlanco)
                 .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -73,7 +73,7 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1))
+                        .addComponent(rbtnCotizacionBlanco))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jRadioButton1)))
@@ -82,8 +82,8 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setSelected(true);
+        buttonGroup1.add(rbtnCotizacionExistente);
+        rbtnCotizacionExistente.setSelected(true);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"))); // NOI18N
         jLabel2.setText("Cotización a partir de una ya existente:");
@@ -111,7 +111,7 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton2)
+                .addComponent(rbtnCotizacionExistente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +127,7 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jRadioButton2))
+                        .addComponent(rbtnCotizacionExistente))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)))
@@ -140,11 +140,11 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton1.setText("Nueva Cotización");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bntNuevaCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        bntNuevaCotizacion.setText("Nueva Cotización");
+        bntNuevaCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bntNuevaCotizacionActionPerformed(evt);
             }
         });
 
@@ -164,7 +164,7 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bntNuevaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,9 +180,9 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(bntNuevaCotizacion)
                     .addComponent(jButton2))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,13 +192,14 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
 this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bntNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNuevaCotizacionActionPerformed
 
+        //if(rbtnCotizacionBlanco.)
         ExplorarSubObras mod =  new ExplorarSubObras(1);
         SwingPanel.getInstance().addWindow(mod);
         mod.setVisible(true);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bntNuevaCotizacionActionPerformed
 
     private void btnExplorarCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplorarCotizacionesActionPerformed
 
@@ -215,18 +216,18 @@ this.dispose();        // TODO add your handling code here:
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntNuevaCotizacion;
     private javax.swing.JButton btnExplorarCotizaciones;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel rbtnCotizacionBlanco;
+    private javax.swing.JRadioButton rbtnCotizacionExistente;
     // End of variables declaration//GEN-END:variables
 
 }

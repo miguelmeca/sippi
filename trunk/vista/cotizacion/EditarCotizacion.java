@@ -45,6 +45,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
         panel.setViewportView(ecd);
         ecd.setVisible(true);
+        actualizar();
 
     }
   
@@ -62,7 +63,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         panel = new javax.swing.JScrollPane();
         btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        txtSubtotalSubObra = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
@@ -86,7 +87,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -100,11 +101,11 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("SubTotal"));
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 300));
 
-        jLabel4.setBackground(new java.awt.Color(251, 250, 241));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("$2500");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 239, 161)));
-        jLabel4.setOpaque(true);
+        txtSubtotalSubObra.setBackground(new java.awt.Color(251, 250, 241));
+        txtSubtotalSubObra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSubtotalSubObra.setText("$2500");
+        txtSubtotalSubObra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 239, 161)));
+        txtSubtotalSubObra.setOpaque(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -112,13 +113,13 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(txtSubtotalSubObra, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addComponent(txtSubtotalSubObra, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -166,7 +167,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,25 +263,27 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 panel.setViewportView(ecd2);
                 ecd2.setVisible(true);
         }
-
-
     }//GEN-LAST:event_tblMenuMousePressed
-
+    
 
     private void setNombrePanel(String nombre)
     {
          panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
     }
+    public void actualizar()
+    {
+        txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane panel;
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JTable tblMenu;
+    private javax.swing.JLabel txtSubtotalSubObra;
     // End of variables declaration//GEN-END:variables
 
 }

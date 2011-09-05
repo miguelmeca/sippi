@@ -131,8 +131,13 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     public void refrescarPantallas() {
         // Paso el mensaje
         gestorPadre.refrescarPantallas();
+        pantalla.actualizar();
         // Me actualizo (SubTotal)
         //....
+    }
+    public double calcularSubtotalSubObra()
+    {
+        return subObra.calcularSubtotal();
     }
     
 }

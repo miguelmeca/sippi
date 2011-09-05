@@ -48,18 +48,21 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         this.gestor.setPantalla(this);
         limpiarTabla();
         gestor.getTareasDeSubObra();
-        //initGrafico();
+        initGrafico();
+        mostrarTotal();
         
     }
     private void initGrafico()
     {
+        panelGantt.removeAll();
         dataset = createDataset();
-        final JFreeChart chart = createChart(dataset);
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(panelGantt.getWidth(),panelGantt.getHeight());
-        //chartPanel.setSize(450,137);
-        panelGantt.add( chartPanel );
-        panelGantt.getParent().validate();
+        JFreeChart chart = createChart(dataset);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setSize(471,159);
+        if(panelGantt.getWidth()!=0)
+        {chartPanel.setSize(panelGantt.getWidth(),panelGantt.getHeight());}        
+        panelGantt.add( chartPanel );        
+        //panelGantt.getParent().validate();
     }
     private void limpiarTabla()
     {
@@ -76,11 +79,17 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
            JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);
            return;
        }
-       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();       
-       panelGantt.removeAll();
+       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel(); 
        modelo.addRow(datos);
-       initGrafico();
-       panelGantt.getParent().validate();
+       if(nueva)
+       {
+        initGrafico();
+        mostrarTotal();
+       }
+    }
+    private void mostrarTotal()
+    {
+        txtSubtotal.setText(Double.toString(gestor.calcularSubtotal()));
     }
 
      /**
@@ -90,10 +99,10 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
      */
     public IntervalCategoryDataset createDataset() {
 
-        final TaskSeries s1 = new TaskSeries("Tareas");
+        TaskSeries s1 = new TaskSeries("Tareas");
         for (int i = 0; i < ((DefaultTableModel)tblTareas.getModel()).getRowCount(); i++) 
         {
-               s1.add(new Task(((NTupla)(tblTareas.getModel().getValueAt(i, 0))).getNombre(),
+               s1.add(new Task(  (i+1)+"- "+((NTupla)(tblTareas.getModel().getValueAt(i, 0))).getNombre()  ,
                new SimpleTimePeriod(((Date)((NTupla)(tblTareas.getModel().getValueAt(i, 4))).getData()),
                                     FechaUtil.fechaMas(((Date)((NTupla)(tblTareas.getModel().getValueAt(i, 5))).getData()),1) )));
               
@@ -101,7 +110,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
         
 
-        final TaskSeriesCollection collection = new TaskSeriesCollection();
+        TaskSeriesCollection collection = new TaskSeriesCollection();
         collection.add(s1);
 
         return collection;
@@ -307,7 +316,15 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
        if(tblTareas.getSelectedRow()!=-1)
         {
+            if(JOptionPane.showConfirmDialog(this.getParent(), "¿Está seguro de eliminar la tarea "+((NTupla)((DefaultTableModel)tblTareas.getModel()).getValueAt(tblTareas.getSelectedRow(), 0)).getNombre()+"?", "Eliminar tarea", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+            {
+              int idT=((NTupla)((DefaultTableModel)tblTareas.getModel()).getValueAt(tblTareas.getSelectedRow(), 0)).getId();
+            gestor.eliminarTarea(idT);
             ((DefaultTableModel)tblTareas.getModel()).removeRow(tblTareas.getSelectedRow());
+            initGrafico();
+            mostrarTotal();
+            }
+            
         //id=((Tupla)(tblTareas.getModel().getValueAt(tblTareas.getSelectedRow(), 0))).getId(); 
         }
     }//GEN-LAST:event_btnQuitarActionPerformed
