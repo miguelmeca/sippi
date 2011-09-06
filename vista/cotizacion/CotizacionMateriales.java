@@ -62,7 +62,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
            RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
            modeloOrdenado.setRowFilter(cadenaFilter);
 
-           // CAMBIO LOS TAMAÃƒâ€˜OS DE LAS FILAS
+           // CAMBIO LOS TAMAÃƒÆ’Ã¢â‚¬ËœOS DE LAS FILAS
            DefaultTableModel modelo = (DefaultTableModel) table.getModel();
            for (int i = 0; i < modelo.getRowCount(); i++)
            {
@@ -223,7 +223,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Especificación"
+                "EspecificaciÃ³n"
             }
         ));
         jScrollPane7.setViewportView(tbMaterialEspecifico);
@@ -364,7 +364,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     psp.setVisible(true);
                 } else{
                     //JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
-                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. ¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
                         SwingPanel.getInstance().addWindow(anp);
                         anp.setVisible(true);
@@ -390,9 +390,19 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
     private void btnAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoPrecioActionPerformed
-//        AgregarNuevoPrecio anp = new AgregarNuevoPrecio();
-//        SwingPanel.getInstance().addWindow(anp);
-//        anp.setVisible(true);
+        String msg = "Debe seleccionar los siguientes elementos: \n";
+        if(tbMateriales.getSelectedRow() >= 0){
+            if(tbMaterialEspecifico.getSelectedRow()>=0){
+                Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
+                NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
+                AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
+                SwingPanel.getInstance().addWindow(anp);
+                anp.setVisible(true);
+            }else{
+                msg= "- Especificación\n";
+            }
+            msg= "- Material";
+        }
     }//GEN-LAST:event_btnAgregarNuevoPrecioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
