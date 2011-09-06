@@ -80,7 +80,6 @@ public class RecursoXProveedor {
             }
             if(cant==false)
             {ultimosPrecios.add(listaPrecios.get(i));}
-            
         }
         
         

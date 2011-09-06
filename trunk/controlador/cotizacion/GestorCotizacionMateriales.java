@@ -558,6 +558,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 
     }
 
+
+
     @Override
     public SubObra getSubObraActual()
     {
@@ -567,5 +569,54 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     @Override
     public void refrescarPantallas() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String mostrarMaterial(int idR) {
+        String name = "";
+        try {
+            Material m = (Material) HibernateUtil.getSession().load(Material.class, idR);
+            name = m.getNombre();
+        } catch (Exception ex) {
+            LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
+        }
+        return name;
+    }
+
+    public ArrayList<NTupla> mostrarPreciosVigentes(int idProv, int idRe) {
+        ArrayList<NTupla> provs = new ArrayList<NTupla>();
+        try {
+            RecursoEspecifico re = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class, idRe);
+            Iterator<RecursoXProveedor> it= re.getRecursosXProveedor().iterator();
+            while(it.hasNext()){
+                RecursoXProveedor rxp = it.next();
+                int id = rxp.getProveedor().getId();
+                if(id == idProv){
+                    Iterator<PrecioSegunCantidad> itPrecios = rxp.getListaUltimosPrecios().iterator();
+                    while(itPrecios.hasNext()){
+                        PrecioSegunCantidad psc = itPrecios.next();
+                        Object o[] = {psc.getCantidad(),psc.getPrecio(),psc.getFechaVigencia()};
+                        NTupla nt = new NTupla();
+                        nt.setId(nt.getId());
+                        nt.setData(o);
+                        provs.add(nt);
+                    }
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return provs;
+    }
+
+    public String mostrarRE(int idRe) {
+        String name = "";
+        try {
+            RecursoEspecifico re = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class, idRe);
+            name = re.getNombre();
+        } catch (Exception ex) {
+            LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
+        }
+        return name;
     }
 }
