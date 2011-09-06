@@ -14,6 +14,9 @@ package vista.cotizacion;
 import controlador.cotizacion.GestorCotizacionHerramientas;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
+import util.TablaUtil;
 import util.Tupla;
 
 /**
@@ -55,7 +58,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         txtCantDias = new javax.swing.JFormattedTextField();
         txtHorasDia = new javax.swing.JFormattedTextField();
         txtCostoHora = new javax.swing.JFormattedTextField();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        txtSubTotalConcepto = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -64,7 +67,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         txtSubTotal = new javax.swing.JTextField();
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Herramienta/ Observaciones"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Herramienta a Utilizar (*)/ Observaciones"));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -74,8 +77,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-            .addComponent(cmbHerramienta, javax.swing.GroupLayout.Alignment.TRAILING, 0, 422, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+            .addComponent(cmbHerramienta, javax.swing.GroupLayout.Alignment.TRAILING, 0, 423, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +90,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel14.setText("Costo x Hora");
+        jLabel14.setText("Costo x Hora (*)");
 
         jLabel15.setText("=");
 
@@ -97,11 +100,16 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel19.setText("X");
 
-        jLabel3.setText("Cantidad Días");
+        jLabel3.setText("Cantidad Días (*)");
 
-        jLabel4.setText("Horas x Día");
+        jLabel4.setText("Horas x Día (*)");
 
         txtCantDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtCantDias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantDiasKeyReleased(evt);
+            }
+        });
 
         txtHorasDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtHorasDia.addActionListener(new java.awt.event.ActionListener() {
@@ -109,10 +117,20 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                 txtHorasDiaActionPerformed(evt);
             }
         });
+        txtHorasDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHorasDiaKeyReleased(evt);
+            }
+        });
 
         txtCostoHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
+        txtCostoHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCostoHoraKeyReleased(evt);
+            }
+        });
 
-        jFormattedTextField4.setEditable(false);
+        txtSubTotalConcepto.setEditable(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -140,7 +158,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                    .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -160,31 +178,38 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Herramientas a utilizar"));
 
         tblHeramientas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Herramienta", "Cantidad días", "Horas x Día", "Costo x Hora", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,7 +222,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +251,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                        .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,12 +289,52 @@ private void txtHorasDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
 }//GEN-LAST:event_txtHorasDiaActionPerformed
 
+private void txtCantDiasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantDiasKeyReleased
+    CalcularSubTotalConcepto();
+}//GEN-LAST:event_txtCantDiasKeyReleased
+
+private void txtHorasDiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasDiaKeyReleased
+    CalcularSubTotalConcepto();
+}//GEN-LAST:event_txtHorasDiaKeyReleased
+
+private void txtCostoHoraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoHoraKeyReleased
+    CalcularSubTotalConcepto();
+}//GEN-LAST:event_txtCostoHoraKeyReleased
+
+private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+    if(!txtCantDias.getText().isEmpty() && !txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
+    {
+        int cantDias =0;
+        cantDias = Integer.parseInt(txtCantDias.getText());
+        int cantHoras = 0;
+        cantHoras = Integer.parseInt(txtHorasDia.getText());
+        double costoHora = 0;
+        costoHora = Double.parseDouble(txtCostoHora.getText());
+
+        gestor.AgregarHerramienta((Tupla)cmbHerramienta.getSelectedItem(), cantDias, cantHoras, costoHora);
+    }
+    
+}//GEN-LAST:event_btnAgregarActionPerformed
+
+private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        if(tblHeramientas.getSelectedRow()!= -1)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tblHeramientas.getModel();
+            NTupla ntp = (NTupla) dtm.getValueAt(tblHeramientas.getSelectedRow(), 0);
+            gestor.quitarHerramienta(ntp);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Herramienta","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+}//GEN-LAST:event_btnQuitarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JComboBox cmbHerramienta;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -289,6 +354,7 @@ private void txtHorasDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JFormattedTextField txtHorasDia;
     private javax.swing.JTextField txtSubTotal;
+    private javax.swing.JTextField txtSubTotalConcepto;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -311,5 +377,48 @@ private void txtHorasDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             cmbHerramienta.addItem(tp);
         }
     }    
+    
+    public void CalcularSubTotalConcepto()
+    {
+        if(!txtCantDias.getText().isEmpty() && !txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
+        {
+            double cantDias = Double.parseDouble(txtCantDias.getText());
+            double cantHoras = Double.parseDouble(txtHorasDia.getText());
+            double costoHora = Double.parseDouble(txtCostoHora.getText());
+            
+            txtSubTotalConcepto.setText("$"+cantDias*cantHoras*costoHora);
+        }
+    }
+
+    public void llenarTabla(ArrayList<NTupla> listaFilas) 
+    {
+        double total = 0;
+        
+        DefaultTableModel modelo = (DefaultTableModel)tblHeramientas.getModel();
+        // Vacio la tabla por si ya tiene filas de otra llamada
+        TablaUtil.vaciarDefaultTableModel(modelo);
+        // lleno con los nuevos datos
+        for (int i = 0; i < listaFilas.size(); i++) 
+        {
+            NTupla nt = listaFilas.get(i);
+            
+            String[] data = (String[])nt.getData();
+            
+            Object fila[] = new Object[5];
+                fila[0] = nt;
+                fila[1] = data[0];
+                fila[2] = data[1];
+                fila[3] = data[2];
+                fila[4] = data[3];
+                
+                total += Double.valueOf(data[3]);
+                
+            modelo.addRow(fila);
+        }
+        
+        // muestro el total calculado
+        txtSubTotal.setText(String.valueOf(total));
+    
+    }
     
 }

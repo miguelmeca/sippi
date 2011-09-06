@@ -10,7 +10,9 @@ import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.HerramientaDeEmpresa;
 import modelo.SubObra;
+import modelo.SubObraXHerramienta;
 import util.HibernateUtil;
+import util.NTupla;
 import util.Tupla;
 import vista.cotizacion.CotizacionHerramientas;
 
@@ -32,6 +34,7 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
     public void setPantalla(CotizacionHerramientas pantalla) {
         this.pantalla = pantalla;
         llenarComboHerramientas();
+        llenarTablaHerramientas();
     }
 
     @Override
@@ -47,8 +50,9 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
     }
 
     @Override
-    public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void refrescarPantallas() 
+    {
+        gestorPadre.refrescarPantallas();
     }
 
     private void llenarComboHerramientas() 
@@ -80,6 +84,71 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
            ex.printStackTrace();
            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista de Tipos de Alquileres / Compras");
         }
+    }
+    
+    public void AgregarHerramienta(Tupla tph, int cantDias, int cantHoras, double costo)
+    {
+        SubObraXHerramienta detalle = new SubObraXHerramienta();
+        
+        detalle.setCantDias(cantDias);
+        detalle.setCantHoras(cantHoras);
+        detalle.setCostoXHora(costo);
+        
+        for (int i = 0; i < bufferHerramientas.size(); i++) 
+        {
+            HerramientaDeEmpresa hde = bufferHerramientas.get(i);
+            if(hde.getId()==tph.getId())
+            {
+                detalle.setHerramienta(hde);
+            }
+        }
+        
+        if(detalle.getHerramienta()!=null)
+        {
+            getSubObraActual().getHerramientas().add(detalle);
+            llenarTablaHerramientas();
+            refrescarPantallas();
+        }
+        else
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo agregar la Herramienta");
+        }          
+    }
+    
+    public void quitarHerramienta(NTupla ntp) 
+    {
+        for (int i = 0; i < getSubObraActual().getHerramientas().size(); i++) 
+        {
+            if(i==ntp.getId())
+            {
+                getSubObraActual().getHerramientas().remove(i);
+                llenarTablaHerramientas();
+                refrescarPantallas();
+                return;
+            }
+        }
+        pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo eliminar de la lista la herramienta");
+    }
+
+    private void llenarTablaHerramientas() 
+    {
+         ArrayList<NTupla> listaFilas = new ArrayList<NTupla>();
+         
+         for (int i = 0; i < getSubObraActual().getHerramientas().size(); i++) 
+         {
+            SubObraXHerramienta detalle = getSubObraActual().getHerramientas().get(i);
+            
+                NTupla tp = new NTupla(i);
+                tp.setNombre(detalle.getHerramienta().getRecursoEsp().getNombre()+" "+detalle.getHerramienta().getRecursoEsp().getRecurso().getNombre()+" ("+detalle.getHerramienta().getNroSerie()+")");
+                String[] data = new String[4];
+                    data[0] =  String.valueOf(detalle.getCantDias());
+                    data[1] =  String.valueOf(detalle.getCantHoras());
+                    data[2] =  String.valueOf(detalle.getCostoXHora());
+                    data[3] =  String.valueOf(detalle.calcularSubtotal());
+                tp.setData(data);
+                listaFilas.add(tp);
+        }
+        pantalla.llenarTabla(listaFilas);        
     }
     
 }
