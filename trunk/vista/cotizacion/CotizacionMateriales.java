@@ -223,7 +223,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
             },
             new String [] {
-                "EspecificaciÃ³n"
+                "Especificación"
             }
         ));
         jScrollPane7.setViewportView(tbMaterialEspecifico);
@@ -318,7 +318,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAgregarNuevoPrecio))
                         .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +390,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
     private void btnAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoPrecioActionPerformed
-        String msg = "Debe seleccionar los siguientes elementos: \n";
+        String msg = "";
         if(tbMateriales.getSelectedRow() >= 0){
             if(tbMaterialEspecifico.getSelectedRow()>=0){
                 Tupla re = (Tupla)(tbMaterialEspecifico.getModel()).getValueAt(tbMaterialEspecifico.getSelectedRow(), 0);
@@ -402,6 +402,9 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 msg= "- Especificación\n";
             }
             msg= "- Material";
+        }
+        if(!msg.equals("")){
+            JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar los siguientes elementos: \n"+msg,"Agregar Precio",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarNuevoPrecioActionPerformed
 

@@ -113,7 +113,7 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Cantidad:");
@@ -181,10 +181,23 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cantidad", "Precio", "Fecha Vigencia"
+                "Cantidad", "Precio", "Fecha Vigencia", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaNuevosPrecios);
+        tablaNuevosPrecios.getColumnModel().getColumn(0).setPreferredWidth(250);
+        tablaNuevosPrecios.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tablaNuevosPrecios.getColumnModel().getColumn(2).setPreferredWidth(250);
+        tablaNuevosPrecios.getColumnModel().getColumn(3).setResizable(false);
+        tablaNuevosPrecios.getColumnModel().getColumn(3).setPreferredWidth(0);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnSalir.setText("Salir");
@@ -214,7 +227,7 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
@@ -266,7 +279,12 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        if(!gestor.quitarPrecioVigente((Integer)((DefaultTableModel)tablaNuevosPrecios.getModel()).getValueAt(tablaNuevosPrecios.getSelectedRow(), 3))){
+            JOptionPane.showMessageDialog(this.getParent(), "Ha ocurrido un error al momento de quitar el precio vigente.\nContactese con su administrador.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+            mostrarPreciosVigentes();
+        }
+}//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
