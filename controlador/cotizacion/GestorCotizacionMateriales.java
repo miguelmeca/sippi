@@ -226,7 +226,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
            try {
                 sesion = HibernateUtil.getSession();
 
-                List<Proveedor> listaProv = sesion.createQuery("FROM Proveedor AS pv").list();
+                Rubro r = (Rubro)sesion.createQuery("from Rubro r where r.nombre=:name").setParameter("name", "Material").uniqueResult();
+                List<Proveedor> listaProv = sesion.createQuery("FROM Proveedor AS pv WHERE :rub in elements(pv.rubros)").setParameter("rub", r).list();
 
                 Iterator<Proveedor> it = listaProv.iterator();
                 while (it.hasNext())
@@ -594,9 +595,9 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                     Iterator<PrecioSegunCantidad> itPrecios = rxp.getListaUltimosPrecios().iterator();
                     while(itPrecios.hasNext()){
                         PrecioSegunCantidad psc = itPrecios.next();
-                        Object o[] = {psc.getCantidad(),psc.getPrecio(),psc.getFechaVigencia()};
+                        Object o[] = {psc.getCantidad(),psc.getPrecio(),FechaUtil.getFecha(psc.getFechaVigencia())};
                         NTupla nt = new NTupla();
-                        nt.setId(nt.getId());
+                        nt.setId(psc.getId());
                         nt.setData(o);
                         provs.add(nt);
                     }
@@ -618,5 +619,25 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
         }
         return name;
+    }
+
+    public boolean quitarPrecioVigente(int idPrecio) {
+        try {
+            HibernateUtil.beginTransaction();
+            PrecioSegunCantidad psc = (PrecioSegunCantidad) HibernateUtil.getSession().get(PrecioSegunCantidad.class, idPrecio);
+            RecursoXProveedor rxp = (RecursoXProveedor)HibernateUtil.getSession().createQuery("from RecursoXProveedor rxp where :cID in elements(rxp.listaPrecios)").setParameter("cID", psc).uniqueResult();
+            rxp.getListaPrecios().remove(psc);
+            HibernateUtil.getSession().saveOrUpdate(rxp);
+            HibernateUtil.getSession().saveOrUpdate(psc);
+            HibernateUtil.getSession().delete(psc);
+            HibernateUtil.commitTransaction();
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
+
+
     }
 }
