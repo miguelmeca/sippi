@@ -7,6 +7,6 @@
     </id>
     <property column="PRECIO" name="precio" type="float"/>
     <property column="CANTIDAD" name="cantidad" type="integer"/>
-    <many-to-one column="IDProveedor" name="empresa"/>
+    <many-to-one column="IDProveedor" name="empresa" class="modelo.Proveedor"/>
   </class>
 </hibernate-mapping>

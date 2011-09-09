@@ -6,9 +6,9 @@
       <generator class="increment"/>
     </id>
     <property column="PRECIO" name="precio" type="float"/>
-    <many-to-one column="ID_DOMICI_ORI" name="origen"/>
-    <many-to-one column="ID_DOMICI_DES" name="destino"/>
-    <many-to-one column="IDProveedor" name="empresa"/>
+    <many-to-one column="ID_DOMICI_ORI" name="origen" class="modelo.Domicilio"/>
+    <many-to-one column="ID_DOMICI_DES" name="destino" class="modelo.Domicilio"/>
+    <many-to-one column="IDProveedor" name="empresa" class="modelo.Proveedor"/>
     <list cascade="all" name="herramientas" table="TMYH_X_HDE">
       <key column="ID_TMYH_X_HDE"/>
       <index column="idx"/>

@@ -7,6 +7,6 @@
     </id>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="CANTIDAD" name="cantidad" type="integer"/>
-    <many-to-one column="IDCONSUMIBLE" name="consumible"/>
+    <many-to-one column="IDCONSUMIBLE" name="consumible" class="modelo.Consumible"/>
   </class>
 </hibernate-mapping>

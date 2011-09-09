@@ -5,7 +5,7 @@
     <id column="ID_RXP" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <many-to-one column="ID_PROVEEDOR" name="proveedor"/>
+    <many-to-one column="ID_PROVEEDOR" name="proveedor" class="modelo.Proveedor"/>
     <list cascade="all" name="listaPrecios" table="RXP_X_PSC">
       <key column="ID_RXP"/>
       <index column="idx"/>
