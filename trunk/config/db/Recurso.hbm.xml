@@ -6,7 +6,7 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <many-to-one column="ID_UNIDAD_MEDIDA" name="unidadDeMedida"/>
+    <many-to-one column="ID_UNIDAD_MEDIDA" name="unidadDeMedida" class="modelo.UnidadDeMedida"/>
     <list cascade="all" name="recursos" table="RECURSO_X_RECURSOESPECIFICO">
       <key column="ID_REC"/>
       <index column="idx"/>
@@ -27,7 +27,7 @@
     </joined-subclass>
     <joined-subclass name="modelo.Indumentaria" table="Indumentarias">
       <key column="ID_INDUMENTARIA"/>
-      <many-to-one column="ID_TALLE" name="talle"/>
+      <many-to-one column="ID_TALLE" name="talle" class="modelo.Talle"/>
       <property column="ESTADO" name="hib_flag_estado" type="string"/>
     </joined-subclass>
   </class>

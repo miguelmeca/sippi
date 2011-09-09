@@ -20,7 +20,7 @@ import modelo.PrecioSegunCantidad;
 //
 
 public class Tarea extends DetalleEtapa{
-    //private int id;
+    private int id;
     //private GrupoDeTrabajo grupo;
    // private int orden;
     private String ubicacion;

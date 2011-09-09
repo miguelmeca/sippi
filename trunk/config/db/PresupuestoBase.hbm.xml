@@ -35,7 +35,7 @@
     </joined-subclass>
     <joined-subclass name="modelo.Planificacion" table="PLANIFICACION">
       <key column="IDPLANIFICACION"/>
-      <many-to-one column="ID_EJECUCION" name="ejecucion"/>
+      <many-to-one column="ID_EJECUCION" name="ejecucion" class="modelo.EjecucionObra"/>
     </joined-subclass>
     <joined-subclass name="modelo.EjecucionObra" table="EJECUCIONOBRA">
       <key column="IDEJECUCIONOBRA"/>
