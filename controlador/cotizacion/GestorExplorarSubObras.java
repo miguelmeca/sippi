@@ -133,7 +133,10 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     private void cargarDescripcionObra() 
     {
-        pantalla.setDescripcionObra(this.cot.getDescripcion());
+        if(this.cot.getDescripcion()!=null)
+        {
+            pantalla.setDescripcionObra(this.cot.getDescripcion());
+        }
     }
     
     public void crearSubObra(String nombre)
