@@ -12,16 +12,25 @@
 package vista.cotizacion;
 
 import util.SwingPanel;
+import controlador.cotizacion.GestorRegistrarCotizacion;
+import javax.swing.JOptionPane;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
  * @author Administrador
  */
-public class RegistrarCotizacion extends javax.swing.JInternalFrame {
+public class RegistrarCotizacion extends javax.swing.JInternalFrame implements ICallBack_v2
+{
 
     /** Creates new form registrarCotizacion */
-    public RegistrarCotizacion(int po_id) {
+    private GestorRegistrarCotizacion gestor;
+    private int idCotizacionSeleccionadaParaCopia;
+    public RegistrarCotizacion(int po_id) 
+    {
         initComponents();
+        gestor = new GestorRegistrarCotizacion(this, po_id);
+        
     }
 
     /** This method is called from within the constructor to
@@ -35,26 +44,31 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        rbtnCotizacionBlanco = new javax.swing.JLabel();
+        rbtnCotizacionBlanco = new javax.swing.JRadioButton();
+        lblCotizacionBlanco = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rbtnCotizacionExistente = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblCotizacionExistente = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCotizacionSeleccionda = new javax.swing.JTextField();
         btnExplorarCotizaciones = new javax.swing.JButton();
         bntNuevaCotizacion = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Registrar Cotizacion");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(rbtnCotizacionBlanco);
 
-        rbtnCotizacionBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
-        rbtnCotizacionBlanco.setText("Cotización en Blanco");
+        lblCotizacionBlanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/vacio.png"))); // NOI18N
+        lblCotizacionBlanco.setText("Cotización en Blanco");
+        lblCotizacionBlanco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCotizacionBlancoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -62,10 +76,10 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnCotizacionBlanco)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCotizacionBlanco)
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,10 +87,10 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(rbtnCotizacionBlanco))
+                        .addComponent(lblCotizacionBlanco))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jRadioButton1)))
+                        .addComponent(rbtnCotizacionBlanco)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -85,16 +99,20 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
         buttonGroup1.add(rbtnCotizacionExistente);
         rbtnCotizacionExistente.setSelected(true);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"))); // NOI18N
-        jLabel2.setText("Cotización a partir de una ya existente:");
+        lblCotizacionExistente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/sistema.png"))); // NOI18N
+        lblCotizacionExistente.setText("Cotización a partir de una ya existente");
+        lblCotizacionExistente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCotizacionExistenteMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Cotización:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("Transportadora ARCOR ( 0001-0000720 )");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtCotizacionSeleccionda.setEditable(false);
+        txtCotizacionSeleccionda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtCotizacionSelecciondaActionPerformed(evt);
             }
         });
 
@@ -114,12 +132,12 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addComponent(rbtnCotizacionExistente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblCotizacionExistente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCotizacionSeleccionda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExplorarCotizaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,12 +148,12 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                         .addComponent(rbtnCotizacionExistente))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)))
+                        .addComponent(lblCotizacionExistente)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCotizacionSeleccionda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExplorarCotizaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -148,11 +166,11 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -162,14 +180,14 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bntNuevaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+                        .addComponent(btnCancelar))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,53 +199,93 @@ public class RegistrarCotizacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntNuevaCotizacion)
-                    .addComponent(jButton2))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btnCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void bntNuevaCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntNuevaCotizacionActionPerformed
 
-        //if(rbtnCotizacionBlanco.)
-        ExplorarSubObras mod =  new ExplorarSubObras(1);
-        SwingPanel.getInstance().addWindow(mod);
-        mod.setVisible(true);
+        int nuevoId=-1;
+        if(rbtnCotizacionBlanco.isSelected())
+        {
+            nuevoId=gestor.crearCotizacionNueva();
+            
+        }
+        else
+        {
+           if(idCotizacionSeleccionadaParaCopia>0)
+           {   
+                nuevoId=gestor.crearCotizacionAPartirExistente(idCotizacionSeleccionadaParaCopia);               
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una cotizacion existnte","Error",JOptionPane.ERROR_MESSAGE);
+               return;
+           }
+        }
+        if(nuevoId<0)
+        {
+         JOptionPane.showMessageDialog(this.getParent(),"Ocurrió un error en el registro de la cotización","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+          ExplorarSubObras mod =  new ExplorarSubObras(nuevoId);
+          SwingPanel.getInstance().addWindow(mod);
+          mod.setVisible(true);
+        }
+        
+        
 
     }//GEN-LAST:event_bntNuevaCotizacionActionPerformed
 
     private void btnExplorarCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplorarCotizacionesActionPerformed
 
-        ExplorarCotizaciones ec = new ExplorarCotizaciones();
+        ExplorarCotizaciones ec = new ExplorarCotizaciones(this);
         ec.setTipo(ExplorarCotizaciones.TIPO_EXPLORAR_ONLY);
         SwingPanel.getInstance().addWindow(ec);
         ec.setVisible(true);
 
     }//GEN-LAST:event_btnExplorarCotizacionesActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtCotizacionSelecciondaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCotizacionSelecciondaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtCotizacionSelecciondaActionPerformed
+
+private void lblCotizacionExistenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotizacionExistenteMouseClicked
+   rbtnCotizacionExistente.setSelected(true);
+}//GEN-LAST:event_lblCotizacionExistenteMouseClicked
+
+private void lblCotizacionBlancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotizacionBlancoMouseClicked
+    rbtnCotizacionBlanco.setSelected(true);
+}//GEN-LAST:event_lblCotizacionBlancoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntNuevaCotizacion;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExplorarCotizaciones;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel rbtnCotizacionBlanco;
+    private javax.swing.JLabel lblCotizacionBlanco;
+    private javax.swing.JLabel lblCotizacionExistente;
+    private javax.swing.JRadioButton rbtnCotizacionBlanco;
     private javax.swing.JRadioButton rbtnCotizacionExistente;
+    private javax.swing.JTextField txtCotizacionSeleccionda;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void actualizar(int id, String CU, boolean exito)
+    {
+        idCotizacionSeleccionadaParaCopia=id;
+        txtCotizacionSeleccionda.setText(gestor.getNombreCotizacion(id));
+    }
 }

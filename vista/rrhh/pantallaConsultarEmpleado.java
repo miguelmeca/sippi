@@ -294,6 +294,11 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                 txtBuscarMouseClicked(evt);
             }
         });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
         txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtBuscarFocusGained(evt);
@@ -363,7 +368,7 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                     .addComponent(btnLicencias)
                     .addComponent(btnAltaEmpleado)
                     .addComponent(btnBajaEmpleado))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -536,6 +541,10 @@ public class pantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
            btnAltaEmpleado.setEnabled(false);
        }
     }//GEN-LAST:event_tablaEmpleadosMouseReleased
+
+private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_txtBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
