@@ -150,4 +150,11 @@ public class Cotizacion {
         return 0;
     }    
     
+    public String toString()
+    {
+       String aux= buscarPedidoObra().getNombre()+" Cotizacion N° "+nroCotizacion+"-Revisión N°"+nroRevision;
+    
+        return aux;
+    }
+    
 }

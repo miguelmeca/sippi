@@ -119,6 +119,17 @@ public class FechaUtil {
         }
         return false;
     }
+    public static boolean fechaMayorQue(Date fecha, Date aComparar)
+    {
+        long f = fecha.getTime();
+        long ri = aComparar.getTime();       
+
+        if(f-ri>0)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public static boolean horaEnRango(String hora, String horaInicio, String horaFin) throws ParseException
     {
