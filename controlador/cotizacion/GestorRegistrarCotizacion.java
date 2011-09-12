@@ -95,6 +95,7 @@ public class GestorRegistrarCotizacion {
        obraOriginal=cotOriginal.buscarPedidoObra();
        Date fechaInicioObraOriginal=obraOriginal.getFechaInicio();
        fechaInicioObra=obra.getFechaInicio(); 
+       fechaFinObra=obra.getFechaFin();
        diasDiferencia=FechaUtil.diasDiferencia(fechaInicioObraOriginal, fechaInicioObra);
        
        Cotizacion cotiz=new Cotizacion();
@@ -103,18 +104,23 @@ public class GestorRegistrarCotizacion {
        cotiz.setFechaModificacion(new Date());//TODO:revisar
        cotiz.setDescripcion("");
        //Copio SubObras
-       ArrayList<SubObra> listaOriginal = (ArrayList)cotOriginal.getSubObras();
-        for (SubObra so: listaOriginal) 
+       Iterator<SubObra> itso = cotOriginal.getSubObras().iterator();
+        while (itso.hasNext()) 
         {
+            SubObra so = itso.next();
+       //ArrayList<SubObra> listaOriginal = (ArrayList)cotOriginal.getSubObras();
+        //for (SubObra so: listaOriginal) 
+        //{
             SubObra nuevaSO=new SubObra();
             nuevaSO.setDescripcion(so.getDescripcion());
             nuevaSO.setGananciaMonto(so.getGananciaMonto());
             nuevaSO.setGananciaPorcentaje(so.getGananciaPorcentaje());
             nuevaSO.setNombre(so.getNombre());
             //Copio SubObrasXTareas
-            List<SubObraXTarea> lisaTareas=so.getTareas();
-            for (SubObraXTarea soxt: lisaTareas)
+            Iterator<SubObraXTarea> it = so.getTareas().iterator();
+            while (it.hasNext()) 
             {
+               SubObraXTarea soxt = it.next();
                SubObraXTarea nuevaSoxt =new SubObraXTarea();
                nuevaSoxt.setCantHoras(soxt.getCantHoras());
                nuevaSoxt.setCantOperarios(soxt.getCantOperarios());
@@ -149,49 +155,70 @@ public class GestorRegistrarCotizacion {
                
                nuevaSoxt.setFechaInicio(fechaInicioObra);
                nuevaSoxt.setFechaFin(fechaInicioObra);
+               nuevaSO.addTarea(nuevaSoxt);
             }
             //Copio SubObrasXMaterial
-            List<SubObraXMaterial> lisaMateriales=so.getMateriales();
-            for (SubObraXMaterial soxm: lisaMateriales)
+            //List<SubObraXMaterial> lisaMateriales=so.getMateriales();
+           // for (SubObraXMaterial soxm: lisaMateriales)
+            //{
+            Iterator<SubObraXMaterial> im = so.getMateriales().iterator();
+            while (im.hasNext()) 
             {
+               SubObraXMaterial soxm = im.next();
                SubObraXMaterial nuevaSoxm =new SubObraXMaterial();
                nuevaSoxm.setCantidad(soxm.getCantidad());
                nuevaSoxm.setDescripcion(soxm.getDescripcion());
                nuevaSoxm.setMaterial(soxm.getMaterial());//TODO: El modelo está mal, acá no se esta teniendo en cuetna el precio histórico
+               nuevaSO.addMaterial(nuevaSoxm);
             }
             //Copio SubObrasXAdicional
-             List<SubObraXAdicional> lisaAdicionales=so.getAdicionales();
-            for (SubObraXAdicional soxa: lisaAdicionales) 
+            Iterator<SubObraXAdicional> ia = so.getAdicionales().iterator();
+            while (ia.hasNext()) 
             {
+               SubObraXAdicional soxa = ia.next();
+            // List<SubObraXAdicional> lisaAdicionales=so.getAdicionales();
+           // for (SubObraXAdicional soxa: lisaAdicionales) 
+           // {
                 SubObraXAdicional nuevaSoxa =new SubObraXAdicional();
                 nuevaSoxa.setCantDias(soxa.getCantDias());
                 nuevaSoxa.setCantOperarios(soxa.getCantOperarios());
                 nuevaSoxa.setDescripcion(soxa.getDescripcion());
                 nuevaSoxa.setPrecioUnitario(soxa.getPrecioUnitario());
                 nuevaSoxa.setTipoAdicional(soxa.getTipoAdicional());
+                nuevaSO.addAdicional(nuevaSoxa);
                 
             }
             //Copio SubObrasXAlquilerCompra
-            List<SubObraXAlquilerCompra> lisaAlquilerCompra=so.getAlquileresCompras();
-            for (SubObraXAlquilerCompra soxac: lisaAlquilerCompra) 
+            Iterator<SubObraXAlquilerCompra> iac = so.getAlquileresCompras().iterator();
+            while (iac.hasNext()) 
             {
+               SubObraXAlquilerCompra soxac = iac.next();
+            //List<SubObraXAlquilerCompra> lisaAlquilerCompra=so.getAlquileresCompras();
+           // for (SubObraXAlquilerCompra soxac: lisaAlquilerCompra) 
+            //{
                 SubObraXAlquilerCompra nuevaSoxac =new SubObraXAlquilerCompra();
                 nuevaSoxac.setCantidad(soxac.getCantidad());
                 nuevaSoxac.setDescripcion(soxac.getDescripcion());
                 nuevaSoxac.setPrecioUnitario(soxac.getPrecioUnitario());
                 nuevaSoxac.setTipoAlquilerCompra(soxac.getTipoAlquilerCompra());
+                nuevaSO.addAlquilerCompra(nuevaSoxac);
                 
             }
             //Copio SubObrasXHerramienta
-            List<SubObraXHerramienta> lisaHerramientas=so.getHerramientas();
-            for (SubObraXHerramienta soxh: lisaHerramientas) 
+            Iterator<SubObraXHerramienta> ih = so.getHerramientas().iterator();
+            while (ih.hasNext()) 
             {
+               SubObraXHerramienta soxh = ih.next();
+            //List<SubObraXHerramienta> lisaHerramientas=so.getHerramientas();
+            //for (SubObraXHerramienta soxh: lisaHerramientas) 
+            //{
                 SubObraXHerramienta nuevaSoxh =new SubObraXHerramienta();
                 nuevaSoxh.setCantDias(soxh.getCantDias());
                 nuevaSoxh.setCantHoras(soxh.getCantHoras());
                 nuevaSoxh.setCostoXHora(soxh.getCostoXHora());
                 nuevaSoxh.setObservaciones(soxh.getObservaciones());
                 nuevaSoxh.setHerramienta(soxh.getHerramienta());
+                nuevaSO.addHerramienta(nuevaSoxh);
             }
             
             cotiz.addSubObra(nuevaSO);
@@ -264,29 +291,7 @@ public class GestorRegistrarCotizacion {
         return cotOriginal.toString();
     }
     
-   /* 
-    
-    public void guardarCotizacion() 
-    {
-        // Actualizo la ultima modificacion
-        this.cot.setFechaModificacion(new Date());
-        
-        // GUARDO LA COTIZACION EN LA BD
-        try
-        {
-            sesion.beginTransaction();
-            sesion.saveOrUpdate(this.cot);
-            sesion.getTransaction().commit(); 
-        }
-        catch(Exception e)
-        {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
-        }
-        
-        pantalla.MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se guardo correctamente la cotización número "+this.cot.getNroCotizacion()+" !");
-    }
-
-*/
+  
     public void updateLEP(Date date) {
         this.cot.setFechaLimiteEntrega(date);
     }

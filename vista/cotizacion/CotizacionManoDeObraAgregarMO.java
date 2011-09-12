@@ -91,6 +91,13 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     
     public boolean validarDatos(boolean mostrarErrores)
     {
+       if(cboTareas.getSelectedIndex()<0)
+       {  
+         if(mostrarErrores)
+         { JOptionPane.showMessageDialog(this.getParent(), "Seleccione una tarea", "Error",JOptionPane.ERROR_MESSAGE);
+          cboTareas.requestFocusInWindow();}
+          return false;          
+       }
        if(!validarNumeroPositivo(txtPersonas.getText()))
        {  
          if(mostrarErrores)
