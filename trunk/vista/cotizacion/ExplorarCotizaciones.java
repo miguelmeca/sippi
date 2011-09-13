@@ -21,6 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.Tupla;
 import util.SwingPanel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+
 
 
 /**
@@ -37,6 +41,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     private List<NTupla> listaCotizaciones;
     private DefaultTableModel model;
     private ICallBack_v2 pantallaPadre;
+    private boolean filtroBuscarActivado;
 
     /** Creates new form explorarCotizaciones */
     public ExplorarCotizaciones(ICallBack_v2 padre)
@@ -63,7 +68,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
     
     private void habilitarVentana()
     {
-        
+        filtroBuscarActivado=false;
         cargarCotizaciones();
          if(tablaCotizaciones.getSelectedRow()!=-1)
         {
@@ -131,6 +136,27 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
          // }
             
      }
+     public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+           // model.setRowFilter(RowFilter.regexFilter("2", 1));
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tablaCotizaciones.setRowSorter(modeloOrdenado);
+        
+
+        
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -160,19 +186,9 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             }
         });
 
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
         txtBuscar.setText("Buscar...");
-        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBuscarMouseClicked(evt);
-            }
-        });
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
-            }
-        });
         txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtBuscarFocusGained(evt);
@@ -182,8 +198,8 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             }
         });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
@@ -246,7 +262,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -278,14 +294,6 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         
 }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
-
-    }//GEN-LAST:event_txtBuscarMouseClicked
-
-    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-
-}//GEN-LAST:event_txtBuscarKeyPressed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
@@ -294,15 +302,17 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
        if(txtBuscar.getText().equals("Buscar...")) {
             txtBuscar.setText("");
             txtBuscar.setForeground(Color.BLACK);
-            
-        }
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
     }//GEN-LAST:event_txtBuscarFocusGained
 
     private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
          if(txtBuscar.getText().equals("")) 
          {
             txtBuscar.setText("Buscar...");
-            txtBuscar.setForeground(Color.GRAY);            
+            txtBuscar.setForeground(Color.GRAY); 
+            filtroBuscarActivado=false;
         } 
     }//GEN-LAST:event_txtBuscarFocusLost
 
@@ -322,11 +332,9 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
        }
     }//GEN-LAST:event_tablaCotizacionesMouseReleased
 
-private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-    for (int i = 0; i < 10; i++) {
-        
-    }
-}//GEN-LAST:event_txtBuscarActionPerformed
+private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+    activarFiltrosTabla();
+}//GEN-LAST:event_txtBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
