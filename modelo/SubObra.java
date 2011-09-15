@@ -19,7 +19,8 @@ public class SubObra implements ISubtotal
     private int id;
     private String nombre;
     private double gananciaMonto;
-    private int gananciaPorcentaje;
+    private double gananciaPorcentaje;
+    private boolean flagGananciaPorcentaje;
     private String descripcion;
     private List<SubObraXAdicional> adicionales;
     private List<SubObraXAlquilerCompra> alquileresCompras;
@@ -67,20 +68,28 @@ public class SubObra implements ISubtotal
         this.descripcion = descripcion;
     }
 
-    public double getGananciaMonto() {
-        return gananciaMonto;
+    public double getGananciaMonto() 
+    {
+       return gananciaMonto;
+        
+        
     }
 
-    public void setGananciaMonto(double gananciaMonto) {
+    public void setGananciaMonto(double gananciaMonto) 
+    {
         this.gananciaMonto = gananciaMonto;
+        gananciaPorcentaje = (gananciaMonto/calcularSubtotal())*100;
     }
 
-    public int getGananciaPorcentaje() {
+    public double getGananciaPorcentaje() {
         return gananciaPorcentaje;
     }
 
-    public void setGananciaPorcentaje(int gananciaPorcentaje) {
+    public void setGananciaPorcentaje(double gananciaPorcentaje) 
+    {
         this.gananciaPorcentaje = gananciaPorcentaje;
+        
+        gananciaMonto =(gananciaPorcentaje/100)*calcularSubtotal();
     }
 
     public List<SubObraXHerramienta> getHerramientas() {
@@ -149,6 +158,12 @@ public class SubObra implements ISubtotal
         }*/
         return false;
     }
+    
+    public double calcularSubtotalConBeneficio() 
+    {
+        
+        return (calcularSubtotal()+getGananciaMonto());
+    }
 
     @Override
     public double calcularSubtotal() 
@@ -185,5 +200,19 @@ public class SubObra implements ISubtotal
                     monto += getAlquileresCompras().get(j).calcularSubtotal();
                 }    
         return monto;
+    }
+
+    /**
+     * @return the flagGananciaPorcentaje
+     */
+    public boolean isFlagGananciaPorcentaje() {
+        return flagGananciaPorcentaje;
+    }
+
+    
+    //Existe solo porque lo necesita hibernate. Este método no deberia ser accedido externamente.
+    private void setFlagGananciaPorcentaje(boolean flag) 
+    {
+        flagGananciaPorcentaje=flag;
     }
 }

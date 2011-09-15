@@ -7,7 +7,8 @@
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
     <property column="GANANCIA_MONTO" name="gananciaMonto" type="double"/>
-    <property column="GANANCIA_PORCENTAJE" name="gananciaPorcentaje" type="integer"/>
+    <property column="GANANCIA_PORCENTAJE" name="gananciaPorcentaje" type="double"/>
+    <property column="FLAG_GANANCIA_PORCENTAJE" name="flagGananciaPorcentaje" type="boolean"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <list cascade="all" name="adicionales" table="SUBOBRA_X_ADICIONALES">
       <key column="ID_SUBOBRA"/>

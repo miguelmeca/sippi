@@ -1162,7 +1162,8 @@ public class DBExamplesLoader {
                 soxm.setDescripcion("PROBANDO");
                 soxm.setMaterial(rxp1);
                 so1.addMaterial(soxm);
-
+                
+                so1.setGananciaMonto(500.0);
                 cot.addSubObra(so1);
 
                 //SUBOBRA 2
@@ -1184,7 +1185,7 @@ public class DBExamplesLoader {
                 soxac.setTipoAlquilerCompra((TipoAlquilerCompra)sesion.load(TipoAlquilerCompra.class,3));
                 soxac.setDescripcion("Flete desde Cordoba");
                 so2.addAlquilerCompra(soxac);
-
+                so2.setGananciaPorcentaje(5.0);
                 cot.addSubObra(so2);
 
 
