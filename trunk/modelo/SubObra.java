@@ -78,7 +78,8 @@ public class SubObra implements ISubtotal
     public void setGananciaMonto(double gananciaMonto) 
     {
         this.gananciaMonto = gananciaMonto;
-        gananciaPorcentaje = (gananciaMonto/calcularSubtotal())*100;
+        //gananciaPorcentaje = (gananciaMonto/calcularSubtotal())*100;
+        gananciaPorcentaje = (double)Math.round((gananciaMonto/calcularSubtotal())*10000)/100;
     }
 
     public double getGananciaPorcentaje() {
@@ -88,8 +89,8 @@ public class SubObra implements ISubtotal
     public void setGananciaPorcentaje(double gananciaPorcentaje) 
     {
         this.gananciaPorcentaje = gananciaPorcentaje;
-        
-        gananciaMonto =(gananciaPorcentaje/100)*calcularSubtotal();
+        //gananciaMonto =(gananciaPorcentaje/100)*calcularSubtotal();
+        gananciaMonto =(double)Math.round(((gananciaPorcentaje/100)*calcularSubtotal())*100)/100;
     }
 
     public List<SubObraXHerramienta> getHerramientas() {
