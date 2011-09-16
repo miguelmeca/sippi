@@ -8,7 +8,7 @@ import util.HibernateUtil;
 
 public class Cotizacion {
     private int id;
-    private int nroCotizacion;
+    private String nroCotizacion;
     private int nroRevision;
     private Date fechaCreacion;
     private Date fechaModificacion;
@@ -81,11 +81,11 @@ public class Cotizacion {
     public void setNroRevision(int nroRevision) {
         this.nroRevision = nroRevision;
     }
-    public int getNroCotizacion() {
+    public String getNroCotizacion() {
         return nroCotizacion;
     }
 
-    public void setNroCotizacion(int nroCotizacion) {
+    public void setNroCotizacion(String nroCotizacion) {
         this.nroCotizacion = nroCotizacion;
     }
 

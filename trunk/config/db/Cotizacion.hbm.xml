@@ -5,7 +5,7 @@
     <id column="ID_COTIZACION" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property column="NRO_COTIZACION" name="nroCotizacion" type="integer"/>
+    <property column="NRO_COTIZACION" name="nroCotizacion" type="string"/>
     <property column="NRO_REVISION" name="nroRevision" type="integer"/>
     <property column="FECHA_CREACION" name="fechaCreacion" type="date"/>
     <property column="FECHA_MODIFICACION" name="fechaModificacion" type="date"/>
