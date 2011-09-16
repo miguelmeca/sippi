@@ -198,7 +198,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton5)
@@ -264,7 +264,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         });
 
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNroCotizacion.setText("0001");
+        txtNroCotizacion.setText("P0000-0000000A");
         txtNroCotizacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNroCotizacionFocusLost(evt);
@@ -456,7 +456,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -478,7 +478,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -632,7 +632,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Estadisticas", jScrollPane2);
 
         txtDescripcionObra.setColumns(20);
-        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10));
         txtDescripcionObra.setRows(5);
         txtDescripcionObra.setText("Por la presente cotizamos ...");
         txtDescripcionObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -655,7 +655,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -669,7 +669,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
@@ -763,7 +763,19 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         switch(btn)
         {
             case JOptionPane.YES_OPTION:
-                guardarCotizacion();
+                    if(txtNroCotizacion.getText().equals("P0000-0000000A"))
+                    {
+                        int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000A ¿Está seguro que no desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
+
+                        if(n==JOptionPane.NO_OPTION)
+                        {
+                                guardarCotizacion();
+                        }
+                    }
+                    else
+                    {
+                        guardarCotizacion();    
+                    }
                 this.dispose();
                 break;
             case JOptionPane.NO_OPTION:
@@ -859,14 +871,31 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_btnEliminarSubObraActionPerformed
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+    if(txtNroCotizacion.getText().equals("P0000-0000000A"))
+    {
+        int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000A ¿Está seguro que no desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
     
-        int n = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
-    
-        if(n==JOptionPane.YES_OPTION)
+        if(n==JOptionPane.NO_OPTION)
         {
-            guardarCotizacion();
+            int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+
+            if(nx==JOptionPane.YES_OPTION)
+            {
+                guardarCotizacion();
+            }
         }
-    
+    }
+    else
+    {
+            int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+
+            if(nx==JOptionPane.YES_OPTION)
+            {
+                guardarCotizacion();
+            }        
+    }
+
     
 }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1005,7 +1034,7 @@ private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-F
         lbl_obra_fechafin.setText(fecha_fin);
     }
     
-    public void llenarDatosCotizacion(int nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega)
+    public void llenarDatosCotizacion(String nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega)
     {
         txtNroCotizacion.setText(String.valueOf(nroCotizacion));
         cmbLEP.setDate(fle);

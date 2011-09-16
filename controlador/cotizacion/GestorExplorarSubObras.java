@@ -304,7 +304,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     public void updateNroCotizacion(String text) 
     {
-        this.cot.setNroCotizacion(Integer.valueOf(text));
+        this.cot.setNroCotizacion(text);
     }
 
     public void updateLEP(Date date) {

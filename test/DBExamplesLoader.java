@@ -1105,7 +1105,7 @@ public class DBExamplesLoader {
             // -------     COTIZACIONES     --------
             Cotizacion cot = new Cotizacion();
             cot.setNroRevision(1);
-            cot.setNroCotizacion(1);
+            cot.setNroCotizacion("P0000-0000000A");
             cot.setDescripcion("Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos");
             cot.setFechaCreacion(new Date());
             dummy.set(2011, 2, 13);
