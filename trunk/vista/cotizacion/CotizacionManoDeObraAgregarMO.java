@@ -17,6 +17,7 @@ import util.NTupla;
 import util.FechaUtil;
 import javax.swing.JOptionPane;
 import vista.util.Validaciones;
+import java.util.Date;
 
 /**
  *
@@ -40,7 +41,16 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     {
         cargarCboTareas();
         cargarCboRangos();
-        
+        jdcFInicio.getDateEditor().getUiComponent().addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jdcFInicioFocusLost(evt);
+            }
+        });
+        jdcFFin.getDateEditor().getUiComponent().addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jdcFFinFocusLost(evt);
+            }
+        });
         txtCosto.addKeyListener(Validaciones.getKaNumeros());
         txtHoras.addKeyListener(Validaciones.getKaNumeros());
         txtPersonas.addKeyListener(Validaciones.getKaNumerosEnteros());
@@ -139,6 +149,29 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
            return false ;
        }
        
+       if(mostrarErrores)
+       { 
+           
+           if(jdcFInicio.getDate().before(FechaUtil.getToday(new Date())))        
+           {
+              //if(mostrarErrores)
+               {    JOptionPane.showMessageDialog(this.getParent(), "La fecha inicio ingresada es anterior al día actual", "Error",JOptionPane.ERROR_MESSAGE);
+                    jdcFInicio.requestFocusInWindow();
+                }
+
+               return false ;
+           }
+           if(jdcFFin.getDate().before(FechaUtil.getToday(new Date())))        
+           {
+             // if(mostrarErrores)
+               {    JOptionPane.showMessageDialog(this.getParent(), "La fecha fin ingresada es anterior al día actual", "Error",JOptionPane.ERROR_MESSAGE);
+                    jdcFInicio.requestFocusInWindow();
+                }
+
+               return false ;
+           }
+       }
+       
        if(FechaUtil.diasDiferencia(jdcFInicio.getDate(), jdcFFin.getDate())<0)
        {    if(mostrarErrores)
            {    JOptionPane.showMessageDialog(this.getParent(), "La fecha de finalización fin de la tarea no puede ser mayor a la fecha de inicio", "Error",JOptionPane.ERROR_MESSAGE);
@@ -155,7 +188,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     ///------------------------------
     public boolean validarNumeroPositivo(String aValidar)
     {
-         
+        aValidar=aValidar.replace( ',','.' );
         boolean valido = true;
         if(aValidar.equals(""))
         {
@@ -240,11 +273,21 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 jdcFInicioFocusLost(evt);
             }
         });
+        jdcFInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcFInicioPropertyChange(evt);
+            }
+        });
 
         jdcFFin.setEnabled(false);
         jdcFFin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jdcFFinFocusLost(evt);
+            }
+        });
+        jdcFFin.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcFFinPropertyChange(evt);
             }
         });
 
@@ -315,9 +358,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(jLabel5))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboRango, 0, 0, Short.MAX_VALUE)))
+                            .addComponent(cboRango, 0, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
@@ -477,7 +518,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -524,8 +565,10 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
        if(cboTareas.getSelectedIndex()!=-1)
        { 
         NTupla tarea=(NTupla)cboTareas.getModel().getSelectedItem();
-        txtHoras.setText((String)((Object[])tarea.getData())[0]);
-        txtPersonas.setText((String)((Object[])tarea.getData())[1]); 
+        //txtHoras.setText((String)((Object[])tarea.getData())[0]);
+       //txtPersonas.setText((String)((Object[])tarea.getData())[1]);
+        txtHoras.setText(((String)((Object[])tarea.getData())[0]).replace(".", ","));
+        txtPersonas.setText(((String)((Object[])tarea.getData())[1]).replace(".", ",")); 
         DefaultComboBoxModel modeloRango=(DefaultComboBoxModel) cboRango.getModel();
             for (int i= 0; i < modeloRango.getSize(); i++)
             {
@@ -631,6 +674,14 @@ calcularSubtotal(validarDatos(false));
 private void txtPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPersonasFocusLost
 calcularSubtotal(validarDatos(false));
 }//GEN-LAST:event_txtPersonasFocusLost
+
+private void jdcFInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcFInicioPropertyChange
+calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_jdcFInicioPropertyChange
+
+private void jdcFFinPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcFFinPropertyChange
+calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_jdcFFinPropertyChange
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
