@@ -64,9 +64,8 @@
     <Component class="javax.swing.JFormattedTextField" name="ftxtPorcentaje">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#0.00%" subtype="-1" type="3"/>
+          <Format format="#.##" subtype="-1" type="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="5.00%"/>
       </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ftxtPorcentajeFocusLost"/>
@@ -76,7 +75,7 @@
     <Component class="javax.swing.JFormattedTextField" name="ftxtMonto">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format subtype="0" type="4"/>
+          <Format format="#.##" subtype="-1" type="4"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

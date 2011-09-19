@@ -13,6 +13,7 @@ package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionBeneficios;
 import java.lang.NumberFormatException;
+import vista.util.Validaciones;
 
 /**
  *
@@ -29,7 +30,13 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         initComponents();
         this.gestor = gestor;
         gestor.setPantalla(this);
+        habilitarVentana();
         actualizarDatos();
+    }
+    private void habilitarVentana()
+    {
+        ftxtPorcentaje.addKeyListener(Validaciones.getKaNumeros());
+        ftxtMonto.addKeyListener(Validaciones.getKaNumeros());
     }
     
     public void actualizarDatos()
@@ -41,9 +48,10 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         rbtnMontoGanancia.setSelected(!flagGananciaPorcentaje);
         ftxtPorcentaje.setEnabled(flagGananciaPorcentaje);
         ftxtMonto.setEnabled(!flagGananciaPorcentaje);
-        ftxtPorcentaje.setText(Double.toString(gananciaPorcentaje));        
-        ftxtMonto.setText(Double.toString(gananciaMonto));
-        
+        //ftxtPorcentaje.setText(Double.toString(gananciaPorcentaje));  
+        ftxtPorcentaje.setText(Double.toString(gananciaPorcentaje).replace(".", ","));
+        //ftxtMonto.setText(Double.toString(gananciaMonto));
+        ftxtMonto.setText(Double.toString(gananciaMonto).replace(".", ","));
         
         actualizarMonto();
     }
@@ -65,20 +73,22 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         } 
         try
         {
-            ganancia=Double.parseDouble(StringGanancia);
+            //ganancia=Double.parseDouble(StringGanancia);
+            ganancia=Double.parseDouble(StringGanancia.replace(",", "."));
         }
         catch(NumberFormatException pe)
         {
          lblGanancia.setText("-"); 
         }
-        lblGanancia.setText("Ganancia por el Item de Obra: $"+Double.toString(gestor.calcularGananciaSubObra(flagGananciaPorcentaje,ganancia)));
+        //lblGanancia.setText("Ganancia por el Item de Obra: $"+Double.toString(gestor.calcularGananciaSubObra(flagGananciaPorcentaje,ganancia)));
+        lblGanancia.setText("Ganancia por el Item de Obra: $"+Double.toString(gestor.calcularGananciaSubObra(flagGananciaPorcentaje,ganancia)).replace(".", ","));
         if(flagGananciaPorcentaje)
         {
-            ftxtMonto.setText(Double.toString(gestor.getGananciaMonto()));           
+            ftxtMonto.setText(Double.toString(gestor.getGananciaMonto()).replace(".", ","));           
         }
         else
         {
-           ftxtPorcentaje.setText(Double.toString(gestor.getGananciaPorcentaje()));            
+           ftxtPorcentaje.setText(Double.toString(gestor.getGananciaPorcentaje()).replace(".", ","));            
         } 
     }
 
@@ -99,8 +109,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         jRadioButton2 = new javax.swing.JRadioButton();
         rbtnPorcentajeGanancia = new javax.swing.JRadioButton();
 
-        ftxtPorcentaje.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00%"))));
-        ftxtPorcentaje.setText("5.00%");
+        ftxtPorcentaje.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         ftxtPorcentaje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ftxtPorcentajeFocusLost(evt);
@@ -112,7 +121,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
             }
         });
 
-        ftxtMonto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        ftxtMonto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         ftxtMonto.setEnabled(false);
         ftxtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
