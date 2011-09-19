@@ -272,7 +272,8 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     }
     public void actualizar()
     {
-        txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()));
+        txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
+        //txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

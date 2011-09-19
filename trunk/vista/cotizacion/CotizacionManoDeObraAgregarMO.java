@@ -10,19 +10,13 @@
  */
 package vista.cotizacion;
 import controlador.cotizacion.GestorCotizacionManoDeObra;
-import vista.interfaces.ICallBack_v2;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import util.SwingPanel;
 import util.Tupla;
 import util.NTupla;
 import util.FechaUtil;
 import javax.swing.JOptionPane;
-import java.text.ParseException;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
-import util.LimitadorCaracteres;
-import java.util.Date;
+import vista.util.Validaciones;
 
 /**
  *
@@ -46,6 +40,10 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     {
         cargarCboTareas();
         cargarCboRangos();
+        
+        txtCosto.addKeyListener(Validaciones.getKaNumeros());
+        txtHoras.addKeyListener(Validaciones.getKaNumeros());
+        txtPersonas.addKeyListener(Validaciones.getKaNumerosEnteros());
     }
     
     public void cargarCboTareas()
@@ -78,9 +76,10 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
        if(ok)
        {  long cantDias=FechaUtil.diasDiferencia(jdcFInicio.getDate(), jdcFFin.getDate());//(jdcFFin.getDate().getTime()-jdcFInicio.getDate().getTime())/(1000*60*60*24);
            
-           double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
-          
-           txtSubtotal.setText(Double.toString(subT));
+           //double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
+           double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText().replace(",", "."))*Double.parseDouble(txtHoras.getText().replace(",", "."));
+           //txtSubtotal.setText(Double.toString(subT));
+           txtSubtotal.setText(Double.toString(subT).replace(".",","));
        }
        else
        {
@@ -197,9 +196,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtPersonas = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtHoras = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jdcFInicio = new com.toedter.calendar.JDateChooser();
         jdcFFin = new com.toedter.calendar.JDateChooser();
@@ -208,7 +205,9 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         cboRango = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         btnSetearCostoRango = new javax.swing.JButton();
-        txtCosto = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JFormattedTextField();
+        txtHoras = new javax.swing.JFormattedTextField();
+        txtPersonas = new javax.swing.JFormattedTextField();
         txtSubtotal = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -226,23 +225,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cantidad de Personas");
 
-        txtPersonas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPersonas.setEnabled(false);
-        txtPersonas.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPersonasFocusLost(evt);
-            }
-        });
-
         jLabel4.setText("Hs/Día");
-
-        txtHoras.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtHoras.setEnabled(false);
-        txtHoras.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtHorasFocusLost(evt);
-            }
-        });
 
         jLabel7.setText("Costo/Hora");
 
@@ -292,20 +275,27 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCosto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         txtCosto.setEnabled(false);
-        txtCosto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCostoActionPerformed(evt);
-            }
-        });
         txtCosto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCostoFocusLost(evt);
             }
         });
-        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCostoKeyTyped(evt);
+
+        txtHoras.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
+        txtHoras.setEnabled(false);
+        txtHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtHorasFocusLost(evt);
+            }
+        });
+
+        txtPersonas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        txtPersonas.setEnabled(false);
+        txtPersonas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPersonasFocusLost(evt);
             }
         });
 
@@ -318,8 +308,9 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPersonas, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
@@ -329,8 +320,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                                 .addComponent(cboRango, 0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -338,27 +329,24 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(40, 40, 40))
-                            .addComponent(jdcFInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                            .addComponent(jdcFInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(64, 64, 64))
-                            .addComponent(jdcFFin, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                            .addComponent(jdcFFin, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtHoras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(26, 26, 26))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -367,7 +355,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cboRango)
-                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnSetearCostoRango, 0, 0, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -435,12 +424,12 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,15 +446,17 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar)))
@@ -486,21 +477,23 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetearCostoRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetearCostoRangoActionPerformed
-    if(!txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
+    //if(!txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
+    if(!txtCosto.getText().replace(",", ".").equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
     {
         int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cambiar el costo por defecto del rango de empleado'"+((NTupla)cboRango.getModel().getSelectedItem()).getNombre()+"' a "+txtCosto.getText()+"?","ConfirmaciÃ³n",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {   
             if(validarNumeroPositivo(txtCosto.getText()))
             {   
-                double nuevoCosto=Double.parseDouble(txtCosto.getText());
+                double nuevoCosto=Double.parseDouble(txtCosto.getText().replace( ',','.' ));
+                //double nuevoCosto=Double.parseDouble(txtCosto.getText());
                 if(gestor.setearNuevoCostoPorDefectoEnRolEmpleado(((NTupla)cboRango.getModel().getSelectedItem()).getId(),nuevoCosto))
                 {
                     JOptionPane.showMessageDialog(this.getParent(), "Nuevo costo por defecto modificado exitosamente", "Exito",JOptionPane.OK_OPTION);
@@ -571,7 +564,8 @@ private void cboRangoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
 private void cboRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRangoActionPerformed
 if(cboRango.getSelectedIndex()!=-1)
 {
-    txtCosto.setText(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()));
+    //txtCosto.setText(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()));
+    txtCosto.setText(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()).replace(".",","));
     txtCosto.setEnabled(true);
 }    
 else
@@ -594,9 +588,11 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        datos[1]=Integer.parseInt(txtPersonas.getText()); 
        NTupla nvoRango=new NTupla( ((NTupla)cboRango.getSelectedItem()).getId());
        nvoRango.setNombre(((NTupla)cboRango.getSelectedItem()).getNombre());
-       nvoRango.setData(Double.parseDouble(txtCosto.getText()));
+       //nvoRango.setData(Double.parseDouble(txtCosto.getText()));
+       nvoRango.setData(Double.parseDouble(txtCosto.getText().replace(",", ".")));
        datos[2]=nvoRango;
-       datos[3]=Double.parseDouble(txtHoras.getText()); 
+       //datos[3]=Double.parseDouble(txtHoras.getText()); 
+       datos[3]=Double.parseDouble(txtHoras.getText().replace(",", "."));
        NTupla tFI=new NTupla(0);
        tFI.setNombre(FechaUtil.getFecha(jdcFInicio.getDate()));
        tFI.setData(jdcFInicio.getDate());
@@ -605,15 +601,12 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        tFF.setNombre(FechaUtil.getFecha(jdcFFin.getDate()));
        tFF.setData(jdcFFin.getDate());
        datos[5]=tFF;
-       datos[6]=Double.parseDouble(txtSubtotal.getText());
+       //datos[6]=Double.parseDouble(txtSubtotal.getText());
+       datos[6]=Double.parseDouble(txtSubtotal.getText().replace(",", "."));
        pantallaPadre.agregarTarea(datos, true);
        this.dispose();
    }
 }//GEN-LAST:event_btnAceptarActionPerformed
-
-private void txtPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPersonasFocusLost
-    calcularSubtotal(validarDatos(false));
-}//GEN-LAST:event_txtPersonasFocusLost
 
 private void jdcFInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFInicioFocusLost
   calcularSubtotal(validarDatos(false));
@@ -623,32 +616,21 @@ private void jdcFFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_
 calcularSubtotal(validarDatos(false));   
 }//GEN-LAST:event_jdcFFinFocusLost
 
-private void txtHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorasFocusLost
-    calcularSubtotal(validarDatos(false));
-}//GEN-LAST:event_txtHorasFocusLost
-
-private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
-   calcularSubtotal(validarDatos(false));    
-}//GEN-LAST:event_txtCostoFocusLost
-
-private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
-    
-}//GEN-LAST:event_txtCostoActionPerformed
-
-private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
-   if(txtCosto.getText().equals(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData())))
-    {
-        btnSetearCostoRango.setEnabled(false);
-    }    
-    else
-    {
-        btnSetearCostoRango.setEnabled(true);
-    }
-}//GEN-LAST:event_txtCostoKeyTyped
-
 private void jdcFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jdcFInicioMouseClicked
 
 }//GEN-LAST:event_jdcFInicioMouseClicked
+
+private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
+calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_txtCostoFocusLost
+
+private void txtHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorasFocusLost
+calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_txtHorasFocusLost
+
+private void txtPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPersonasFocusLost
+calcularSubtotal(validarDatos(false));
+}//GEN-LAST:event_txtPersonasFocusLost
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
@@ -670,9 +652,9 @@ private void jdcFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private com.toedter.calendar.JDateChooser jdcFFin;
     private com.toedter.calendar.JDateChooser jdcFInicio;
     private javax.swing.JTextArea txaObservaciones;
-    private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtHoras;
-    private javax.swing.JTextField txtPersonas;
+    private javax.swing.JFormattedTextField txtCosto;
+    private javax.swing.JFormattedTextField txtHoras;
+    private javax.swing.JFormattedTextField txtPersonas;
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 }
