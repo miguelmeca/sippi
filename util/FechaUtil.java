@@ -171,5 +171,14 @@ public class FechaUtil {
      return new Date(cal.getTimeInMillis()); 
    }
 
+   public static Date getToday(Date d) //Devuelve la fecha pasada por parametros pero sin horas ni minutos (fecha en hora cero)
+   { 
+        // el dia de hoy sin horas ni nada.        
+        GregorianCalendar ddate = new GregorianCalendar();
+        ddate.setTime(d);    
+        GregorianCalendar ddateday = new GregorianCalendar(ddate.get(GregorianCalendar.YEAR), ddate.get(GregorianCalendar.MONTH), ddate.get(GregorianCalendar.DAY_OF_MONTH));
+        return ddateday.getTime();       
+    }
+   
 
 }

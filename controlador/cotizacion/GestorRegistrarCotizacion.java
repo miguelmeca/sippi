@@ -131,23 +131,23 @@ public class GestorRegistrarCotizacion {
                //Adapto las fechas de las tareas a la nueva obra
                Date fechaInicioTarea=FechaUtil.fechaMas(soxt.getFechaInicio(), diasDiferencia);
                Date fechaFinTarea=FechaUtil.fechaMas(soxt.getFechaFin(), diasDiferencia);
-               if(FechaUtil.fechaMayorQue(fechaInicioTarea, fechaFinObra))
+               if(fechaInicioTarea.after(fechaFinObra))
                {
                    fechasFueraDeRango=true;
                    fechaInicioTarea=fechaFinObra;
                }
-               if(FechaUtil.fechaMayorQue(fechaFinTarea, fechaFinObra))
+               if(fechaFinTarea.after(fechaFinObra))
                {
                    fechasFueraDeRango=true;
                    fechaFinTarea=fechaFinObra;
                }
                
-               if(FechaUtil.fechaMayorQue(fechaInicioObra, fechaInicioTarea))
+               if(fechaInicioObra.after(fechaInicioTarea) )
                {
                    fechasFueraDeRango=true;
                    fechaInicioTarea=fechaInicioObra;
                }
-               if(FechaUtil.fechaMayorQue(fechaInicioObra,fechaFinTarea))
+               if(fechaInicioObra.after(fechaFinTarea))
                {
                    fechasFueraDeRango=true;
                    fechaFinTarea=fechaInicioObra;

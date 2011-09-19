@@ -64,7 +64,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,10 +96,7 @@
                                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="1"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="cboRango" min="0" pref="0" max="32767" attributes="1"/>
-                              </Group>
+                              <Component id="cboRango" min="0" pref="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -204,6 +201,7 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jdcFInicioMouseClicked"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jdcFInicioFocusLost"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdcFInicioPropertyChange"/>
           </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jdcFFin">
@@ -212,6 +210,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jdcFFinFocusLost"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdcFFinPropertyChange"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
