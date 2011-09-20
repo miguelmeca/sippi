@@ -34,6 +34,7 @@ import vista.gui.TortaRotator;
 public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private GestorExplorarSubObras gestor;
+    private int cotizacionId;
     
     
     /** Creates new form pantallaExplorarAlfonsinas */
@@ -43,6 +44,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         
         gestor = new GestorExplorarSubObras(this);
         gestor.cargarCotizacion(cot_id);
+        
+        this.cotizacionId = cot_id;
         
     }
 
@@ -111,7 +114,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionObra = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
@@ -667,19 +669,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        jButton1.setText("Generar Cotización Interna");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
+        jButton1.setText("Generar Cotización");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
-        btnGuardar.setText("Generar Cotización Externa");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -711,10 +705,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addGap(199, 199, 199)
+                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -734,7 +726,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCancelar)
                             .addComponent(jButton1)
-                            .addComponent(btnGuardar)
                             .addComponent(btnSave))))
                 .addContainerGap())
         );
@@ -807,16 +798,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditarAlfonsinaActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-        GenerarCotizacionExterna gce = new GenerarCotizacionExterna();
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        GenerarCotizacion gce = new GenerarCotizacion(this.cotizacionId);
         SwingPanel.getInstance().addWindow(gce);
         gce.setVisible(true);
-
-}//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
 }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -932,7 +919,6 @@ private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-F
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarAlfonsina;
     private javax.swing.JButton btnEliminarSubObra;
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSave;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private com.toedter.calendar.JDateChooser cmbLVP;
