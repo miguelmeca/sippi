@@ -112,25 +112,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public void updateMenu()
     {
-        FavoritoBean[] listaFavs = SwingPanel.getInstance().getFavoritos();
-        TreeEntry favMenu = new TreeEntry("Favoritos","/res/iconos/var/16x16/Favourites.png");
-        TreeEntry leafFavoritos = (TreeEntry)treeMenu.getModel().getChild(treeMenu.getModel().getRoot(),0);
-            // Limpio los viejos
-            leafFavoritos.getEntries().clear();
-            // Agrego los nuevos
-            for (int i = 0; i < listaFavs.length; i++) 
-            {
-                FavoritoBean fb = listaFavs[i];
-                if(fb!=null)
+        try
+        {
+            FavoritoBean[] listaFavs = SwingPanel.getInstance().getFavoritos();
+            TreeEntry favMenu = new TreeEntry("Favoritos","/res/iconos/var/16x16/Favourites.png");
+            TreeEntry leafFavoritos = (TreeEntry)treeMenu.getModel().getChild(treeMenu.getModel().getRoot(),0);
+                // Limpio los viejos
+                leafFavoritos.getEntries().clear();
+                // Agrego los nuevos
+                for (int i = 0; i < listaFavs.length; i++) 
                 {
-                    TreeEntry nuevo = new TreeEntry(fb.getNombre(),fb.getIcono());
-                    nuevo.setClassInstance(fb.getInstance());
-                    leafFavoritos.add(nuevo);
+                    FavoritoBean fb = listaFavs[i];
+                    if(fb!=null)
+                    {
+                        TreeEntry nuevo = new TreeEntry(fb.getNombre(),fb.getIcono());
+                        nuevo.setClassInstance(fb.getInstance());
+                        leafFavoritos.add(nuevo);
+                    }
                 }
-            }
-        
-        treeMenu.setSelectionRow(0);
-        treeMenu.updateUI();
+
+            treeMenu.setSelectionRow(0);        
+            treeMenu.updateUI();
+            
+        }catch(NullPointerException e){ /* do nothing ... */ }
     }
     
     private void Salir()
@@ -396,6 +400,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void treeMenuValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeMenuValueChanged
+     
+        try
+        {
+        
         TreeEntry node = (TreeEntry)evt.getPath().getLastPathComponent();
         
         if(node!=null)
@@ -404,8 +412,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         
         treeMenu.setSelectionRow(0);
-                
-        return;
+               
+        }catch(NullPointerException e){ /* do nothing ... */ }
         
     }//GEN-LAST:event_treeMenuValueChanged
 

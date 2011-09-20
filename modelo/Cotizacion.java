@@ -7,6 +7,13 @@ import util.HibernateUtil;
 
 
 public class Cotizacion {
+    
+    public final static String ESTADO_CREADO               = "En Creación";
+    public final static String ESTADO_PENDIENTE_ACEPTACION = "Pendiente de Aceptación";
+    public final static String ESTADO_ACEPTADO             = "Aceptado";
+    public final static String ESTADO_RECHAZADO            = "Rechazado";
+    public final static String ESTADO_CANCELADO            = "Cancelado";
+    
     private int id;
     private String nroCotizacion;
     private int nroRevision;
@@ -18,12 +25,16 @@ public class Cotizacion {
     private String descripcion;
     private Date fechaLimiteEntrega;
     private List<SubObra> subObras;
+    
+    private String estado;
 
-    public void crear() {
-    }
-
-    public Cotizacion() {
+    public Cotizacion() 
+    {
         subObras = new ArrayList<SubObra>();
+        // Estado por default
+        estado = Cotizacion.ESTADO_CREADO;
+        // nro de Cotizacion por default
+        nroCotizacion = "P0000-0000000";
     }
 
     public int getId() {
@@ -156,5 +167,15 @@ public class Cotizacion {
     
         return aux;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
     
 }
