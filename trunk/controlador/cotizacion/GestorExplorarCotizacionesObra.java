@@ -65,18 +65,24 @@ public class GestorExplorarCotizacionesObra {
             while(it.hasNext())
             {
                 Cotizacion cot = (Cotizacion)it.next();
-                NTupla nt = new NTupla(cot.getId());
-                    
-                    String[] data = new String[5];
-                    data[0] = String.valueOf(cot.getNroCotizacion());
-                    data[1] = String.valueOf(cot.getNroRevision());
-                    data[2] = FechaUtil.getFecha(cot.getFechaModificacion());
-                    data[3] = FechaUtil.getFecha(cot.getFechaCreacion());
-                    
-                        data[4] = String.valueOf(p.getId());
-                    
-                    nt.setData(data);
-                listaCotizaciones.add(nt);
+                
+                // Solo agrego las cotizaciones que se estén creando o esperando aceptacion !!
+                if(cot.getEstado().equals(Cotizacion.ESTADO_CREADO) || cot.getEstado().equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION) )
+                {
+                    NTupla nt = new NTupla(cot.getId());
+
+                        String[] data = new String[6];
+                        data[0] = String.valueOf(cot.getNroCotizacion());
+                        data[1] = String.valueOf(cot.getNroRevision());
+                        data[2] = FechaUtil.getFecha(cot.getFechaModificacion());
+                        data[3] = FechaUtil.getFecha(cot.getFechaCreacion());
+
+                            data[4] = String.valueOf(p.getId());
+                            data[5] = cot.getEstado();
+
+                        nt.setData(data);
+                    listaCotizaciones.add(nt);
+                }
             }
         
         return listaCotizaciones;

@@ -3,12 +3,6 @@
  * and open the template in the editor.
  */
 
-/*
- * pantallaExplorarAlfonsinas.java
- *
- * Created on 09/05/2011, 21:27:18
- */
-
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorExplorarSubObras;
@@ -40,7 +34,7 @@ import vista.gui.TortaRotator;
 public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private GestorExplorarSubObras gestor;
-    private boolean necesita_guardar = true;
+    
     
     /** Creates new form pantallaExplorarAlfonsinas */
     public ExplorarSubObras(int cot_id)
@@ -149,6 +143,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         tblMenu.setIntercellSpacing(new java.awt.Dimension(10, 5));
         tblMenu.setMaximumSize(new java.awt.Dimension(300, 300));
         tblMenu.setRowHeight(25);
+        tblMenu.setTableHeader(null);
         tblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMenuMouseClicked(evt);
@@ -264,7 +259,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         });
 
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNroCotizacion.setText("P0000-0000000A");
+        txtNroCotizacion.setText("P0000-0000000");
         txtNroCotizacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNroCotizacionFocusLost(evt);
@@ -759,30 +754,36 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private void cerrarVentana()
     {
-        int btn = JOptionPane.showConfirmDialog(this,"¿Desea Guardar los cambios antes de cerrar?","Atención",JOptionPane.YES_NO_OPTION);
-        switch(btn)
+        if(gestor.isNecesitaGuardar())   
         {
-            case JOptionPane.YES_OPTION:
-                    if(txtNroCotizacion.getText().equals("P0000-0000000A"))
-                    {
-                        int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000A ¿Está seguro que no desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
-
-                        if(n==JOptionPane.NO_OPTION)
+            int btn = JOptionPane.showConfirmDialog(this,"¿Desea Guardar los cambios antes de cerrar?","Atención",JOptionPane.YES_NO_OPTION);
+            switch(btn)
+            {
+                case JOptionPane.YES_OPTION:
+                        if(txtNroCotizacion.getText().equals("P0000-0000000A"))
                         {
-                                guardarCotizacion();
-                        }
-                    }
-                    else
-                    {
-                        guardarCotizacion();    
-                    }
-                this.dispose();
-                break;
-            case JOptionPane.NO_OPTION:
-                this.dispose();
-                break;
-        }
+                            int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000A ¿Está seguro que no desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
 
+                            if(n==JOptionPane.NO_OPTION)
+                            {
+                                    guardarCotizacion();
+                            }
+                        }
+                        else
+                        {
+                            guardarCotizacion();    
+                        }
+                    this.dispose();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    this.dispose();
+                    break;
+            }
+        }
+        else
+        {
+            this.dispose();
+        }
     }
 
    
@@ -872,30 +873,31 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-    if(txtNroCotizacion.getText().equals("P0000-0000000A"))
-    {
-        int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000A ¿Está seguro que no desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
-    
-        if(n==JOptionPane.NO_OPTION)
+        if(txtNroCotizacion.getText().equals("P0000-0000000"))
         {
-            int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000 ¿Desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
 
-            if(nx==JOptionPane.YES_OPTION)
+            if(n==JOptionPane.NO_OPTION)
             {
-                guardarCotizacion();
+
+                int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+
+                if(nx==JOptionPane.YES_OPTION)
+                {
+                    guardarCotizacion();
+                }
+
             }
         }
-    }
-    else
-    {
-            int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+        else
+        {
+                int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
 
-            if(nx==JOptionPane.YES_OPTION)
-            {
-                guardarCotizacion();
-            }        
-    }
-
+                if(nx==JOptionPane.YES_OPTION)
+                {
+                    guardarCotizacion();
+                }        
+        }
     
 }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1109,7 +1111,6 @@ private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-F
     private void guardarCotizacion() 
     {
         gestor.guardarCotizacion();
-        necesita_guardar = false;
     }
     
     /**

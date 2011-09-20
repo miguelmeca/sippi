@@ -34,27 +34,27 @@ public class Loading extends javax.swing.JFrame {
         initComponents();
         habilitarVentana();
 
-        
+        // Tienen que sumar 100
         CargarLibrerias(10,"Cargando Librerías...");
-        //CargarNetDaemon(30,"Cargando tester de Red ...");
         CargarHibernate(50,"Cargando Hibernate...");
-        CargarEjemplos(10,"Cargando Datos iniciales...");
+        CargarEjemplos(40,"Cargando Datos iniciales...");
 
+        // Termino
         LanzarSistema();
     }
 
     private void CargarNetDaemon(int i, String txt)
     {
-        lblMsg.setText(txt);
-
-        // LANZO UN HILO QUE VIGILA EL ESTADO DE LA CONEXION AL SERVER
-        daemonNet demon = new daemonNet();
-        Thread daemonNet = new Thread(demon,"net");
-        daemonNet.setPriority(10);
-        daemonNet.setDaemon(true);
-        daemonNet.start(); // INESTABLE E INFUNCIONAL
-
-        setProgress(jpb.getValue()+i);
+//        lblMsg.setText(txt);
+//
+//        // LANZO UN HILO QUE VIGILA EL ESTADO DE LA CONEXION AL SERVER
+//        daemonNet demon = new daemonNet();
+//        Thread daemonNet = new Thread(demon,"net");
+//        daemonNet.setDaemon(true);
+//        daemonNet.start(); 
+//        // INESTABLE E INFUNCIONAL
+//
+//        setProgress(jpb.getValue()+i);
     }
 
     private void CargarEjemplos(int i, String txt)
@@ -78,7 +78,7 @@ public class Loading extends javax.swing.JFrame {
 
                 test.DBExamplesLoader load = new DBExamplesLoader();
                 load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
-                jpb.setValue(20);
+                jpb.setValue(jpb.getValue()+i);
 
                 setProgress(jpb.getValue()+i);
                 this.update(this.getGraphics());
@@ -117,7 +117,8 @@ public class Loading extends javax.swing.JFrame {
         UserLogin ul = new UserLogin();
         ul.setVisible(true);
         RefineryUtilities.centerFrameOnScreen(ul);
-       
+        
+        this.dispose();
     }
 
     // Llama punto por punto cargando las librerias

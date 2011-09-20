@@ -240,30 +240,11 @@ public class DBExamplesLoader {
 
     private void cargarCompras()
     {
-               int seleccion = JOptionPane.showOptionDialog(
-                       new JFrame(),
-                       "Â¿Desea cargar los datos de COMPRAS?",
-                       "Seleccione una opciÃ³n",
-                       JOptionPane.YES_NO_CANCEL_OPTION,
-                       JOptionPane.QUESTION_MESSAGE,
-                       null,    // null para icono por defecto.
-                       new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
-                       "Si");
+        this.cargarMateriales(this.cargarProveedor());
+        this.cargarHerramientas();
 
-        if (seleccion != -1)
-        {
-            if((seleccion + 1)==1)
-            {
-                
-                this.cargarMateriales(this.cargarProveedor());
-                this.cargarHerramientas();
-                
-                this.cargarConsumibles();
-                this.cargarAlojamientos();
-                
-            }
-        }
-
+        this.cargarConsumibles();
+        this.cargarAlojamientos();
     }
 
     private void cargarProveedores()

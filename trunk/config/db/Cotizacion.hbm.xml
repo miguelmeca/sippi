@@ -14,6 +14,9 @@
     <property column="VALIDEZ_OFERTA" name="validezOferta" type="date"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <property column="FECHA_LIMITE_ENTREGA" name="fechaLimiteEntrega" type="date"/>
+    
+    <property column="ESTADO" name="estado" type="string"/>
+    
     <list cascade="all" name="subObras" table="COTIZACION_X_SUBOBRAS">
       <key column="ID_COTIZACION"/>
       <index column="idx"/>

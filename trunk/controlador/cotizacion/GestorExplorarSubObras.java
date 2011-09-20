@@ -33,6 +33,8 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private GestorEditarCotizacion gestorEditarCotizacion;
     
+    private boolean necesita_guardar = false;
+    
 
     public GestorExplorarSubObras(ExplorarSubObras pantalla) 
     {
@@ -293,6 +295,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             sesion.beginTransaction();
             sesion.saveOrUpdate(this.cot);
             sesion.getTransaction().commit(); 
+            necesita_guardar = false;
         }
         catch(Exception e)
         {
@@ -336,7 +339,13 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     public void refrescarPantallas() 
     {
         refrescarVentana();
+        necesita_guardar = true;
     }
+
+    public boolean isNecesitaGuardar() {
+        return necesita_guardar;
+    }
+
     
     
 }
