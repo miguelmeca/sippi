@@ -11,17 +11,26 @@
 
 package vista.cotizacion;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Cotizacion;
+import util.HibernateUtil;
+import util.ReporteUtil;
+
 /**
  *
  * @author Administrador
  */
 public class GenerarCotizacion extends javax.swing.JInternalFrame {
-
+    private int cotizacionId;
     /** Creates new form generarCotizacionExterna */
     public GenerarCotizacion(int cotizacionId) 
     {
         initComponents();
         lblLoad.setVisible(false);
+        this.cotizacionId = cotizacionId;
     }
 
     /** This method is called from within the constructor to
@@ -34,7 +43,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnPresupuestoSinDetalle = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -47,12 +56,12 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Externa ( Entregar al Cliente )"));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/empty.png"))); // NOI18N
-        jButton1.setText("Presupuesto: Sin Detalle");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPresupuestoSinDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/empty.png"))); // NOI18N
+        btnPresupuestoSinDetalle.setText("Presupuesto: Sin Detalle");
+        btnPresupuestoSinDetalle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPresupuestoSinDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPresupuestoSinDetalleActionPerformed(evt);
             }
         });
 
@@ -83,14 +92,14 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPresupuestoSinDetalle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnPresupuestoSinDetalle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +156,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblLoad, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                        .addComponent(lblLoad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCerrar)))
                 .addContainerGap())
@@ -163,7 +172,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(lblLoad))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,12 +183,26 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     this.dispose();
 }//GEN-LAST:event_btnCerrarActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void btnPresupuestoSinDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoSinDetalleActionPerformed
     showLoading();
-    // Acá tu código ...
-    // ...
+    if(cotizacionId>0) {
+        String urlReporte = "/vista/reportes/CotizacionExternaGeneral.jrxml";
+        try {
+            Cotizacion cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, cotizacionId);
+
+            Map params = new HashMap();
+            params.put("idCot",cotizacionId);
+            params.put("precioTotal", cot.CalcularTotal());
+            params.put("Contacto", "Armando Paredes");
+
+            ReporteUtil ru = new ReporteUtil();
+            ru.mostrarReporte(urlReporte,params);
+        } catch (Exception ex) {
+            Logger.getLogger(GenerarCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     hideLoading();
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_btnPresupuestoSinDetalleActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     showLoading();
@@ -218,7 +241,7 @@ private void hideLoading()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPresupuestoSinDetalle;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
