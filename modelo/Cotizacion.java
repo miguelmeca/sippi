@@ -176,6 +176,26 @@ public class Cotizacion {
         this.estado = estado;
     }
     
+    public void cancelarCotizacion()
+    {
+        this.estado = Cotizacion.ESTADO_CANCELADO;
+    }
+  
+    public void enviarCotizacionACliente()
+    {
+        this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
+    }    
+    
+    public void aceptarCotizacion()
+    {
+        this.estado = Cotizacion.ESTADO_ACEPTADO;
+    }
+    
+    public void rechazarCotizacion()
+    {
+        this.estado = Cotizacion.ESTADO_RECHAZADO;
+    }    
+    
     
     
 }
