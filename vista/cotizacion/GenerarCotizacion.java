@@ -11,6 +11,7 @@
 
 package vista.cotizacion;
 
+import controlador.reportes.GestorReportesCotizacion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -186,8 +187,10 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void btnPresupuestoSinDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoSinDetalleActionPerformed
     showLoading();
     if(cotizacionId>0) {
-        String urlReporte = "/vista/reportes/CotizacionExternaGeneral.jrxml";
+        String urlReporte = "/vista/reportes/CotizacionExternaGeneral.jasper";
         try {
+            // CUANDO TERMINES, RECORDA QUE NO VA ACA, ESTO ES VISTA, PONE EL METODO EN 
+            // controlador/reportes/GestorReportesCotizacion.java
             Cotizacion cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, cotizacionId);
 
             Map params = new HashMap();
@@ -221,6 +224,11 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     showLoading();
     // Acá tu código ...
+    if(cotizacionId>0) 
+    {
+        GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+        gestor.emitirPresupuestoInterno(cotizacionId);
+    }
     // ...
     hideLoading();
 }//GEN-LAST:event_jButton4ActionPerformed

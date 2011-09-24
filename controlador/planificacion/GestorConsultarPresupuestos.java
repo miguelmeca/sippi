@@ -1,22 +1,12 @@
 package controlador.planificacion;
 
-import controlador.comer.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Iterator;
 import modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.collection.PersistentSet;
-import sun.util.calendar.CalendarDate;
 import util.HibernateUtil;
 import util.NTupla;
-import util.Tupla;
-import vista.comer.pantallaConsultarObra;
 import vista.planificacion.pantallaConsultarPresupuestos;
 
 

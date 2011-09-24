@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePruebaEMMA" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PresupuestoInterno" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="221"/>
+	<property name="ireport.y" value="239"/>
 	<property name="net.sf.jasperreports.hql.field.mapping.descriptions" value="false"/>
 	<style name="Info" fontSize="10"/>
 	<style name="table">
@@ -25,18 +25,16 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<parameter name="ID_PRESUPUESTO" class="java.lang.Integer"/>
-	<parameter name="imagenLogo" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="ID_PRESUPUESTO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\Tesis\\trunk\\vista\\reportes\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="hql">
 		<![CDATA[SELECT
 	Cot.nroCotizacion AS nroCotizacion,
-	Cot.descripcion AS descripcion,
-	Cot.lugarEntrega AS lugarEntrega,
-	Cot.plazoEntrega AS plazoEntrega,
-	Cot.validezOferta AS validezOferta
+	Cot.descripcion AS descripcion
 FROM
 	Cotizacion as Cot
 WHERE
@@ -44,9 +42,6 @@ WHERE
 	</queryString>
 	<field name="nroCotizacion" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
-	<field name="lugarEntrega" class="java.lang.String"/>
-	<field name="plazoEntrega" class="java.lang.String"/>
-	<field name="validezOferta" class="java.util.Date"/>
 	<variable name="TOTAL" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
@@ -67,11 +62,6 @@ WHERE
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[CUIT: 30-70936605-6                            IIBB: 01-30709366056]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="458" y="15" width="96" height="15"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement style="Info" x="170" y="46" width="216" height="15"/>
 				<textElement textAlignment="Center"/>
@@ -94,10 +84,6 @@ WHERE
 				</textElement>
 				<text><![CDATA[METAR SRL]]></text>
 			</staticText>
-			<image>
-				<reportElement x="1" y="0" width="151" height="57"/>
-				<imageExpression class="java.lang.String"><![CDATA[$P{imagenLogo}]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -123,16 +109,6 @@ WHERE
 				</textElement>
 				<text><![CDATA[MEMORIA DESCRIPTIVA]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="91" y="23" width="181" height="15"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nroCotizacion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="67" y="23" width="293" height="36"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -147,7 +123,28 @@ WHERE
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="170" splitType="Stretch"/>
+		<band height="170" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="30" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[nroCotizacion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="279" y="30" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nroCotizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="197" y="72" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="297" y="72" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="81" splitType="Stretch">
@@ -186,21 +183,6 @@ WHERE
 				</textElement>
 				<text><![CDATA[Validez de la Oferta:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="105" y="30" width="447" height="15"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{plazoEntrega}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="105" y="45" width="447" height="15"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{lugarEntrega}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="105" y="60" width="447" height="15"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{validezOferta}]]></textFieldExpression>
-			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
@@ -208,12 +190,12 @@ WHERE
 			<textField>
 				<reportElement x="433" y="0" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Pag. "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="513" y="0" width="40" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
