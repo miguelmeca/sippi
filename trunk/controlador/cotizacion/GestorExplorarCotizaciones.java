@@ -79,10 +79,17 @@ public class GestorExplorarCotizaciones
     
     public void reporteCotizacionExternaPorSubObra(int id)
     {
-        String urlReporte = "/vista/reportes/CotizacionExternaSubObra.jrxml";
+        String urlReporte = "/vista/reportes/CotizacionExternaSubObra.jasper";
         Map params = parametrosAImprimir(id);
         ReporteUtil ru = new ReporteUtil();
-        ru.mostrarReporte(urlReporte,params);
+        try
+        {
+            ru.mostrarReporte(urlReporte,params);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public Map parametrosAImprimir(int id) {

@@ -18,10 +18,8 @@
     <property name="c3p0.min_size">0</property-->
     <!--.. CLASES DE MAPEO ....................................................-->
     <property name="hibernate.show_sql">true</property>
-    
     <mapping package="modelo" resource="config/db/User.hbm.xml"/>
     <mapping package="modelo" resource="config/db/FavoritoBean.hbm.xml"/>
-    
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Pais.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Provincia.hbm.xml"/>

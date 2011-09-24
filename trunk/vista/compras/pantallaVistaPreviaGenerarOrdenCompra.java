@@ -403,7 +403,14 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
             //           params.put("DIRECCION", "Algun LADO");
 
             ReporteUtil ru = new ReporteUtil();
-            ru.mostrarReporte(urlReporte,params);
+            try
+            {
+                ru.mostrarReporte(urlReporte,params);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
             //SwingPanel.getInstance().setCargando(false);
             gestor.emitirOrdenDeCompra(id);
         }

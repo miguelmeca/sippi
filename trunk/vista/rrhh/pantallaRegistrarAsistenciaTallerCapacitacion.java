@@ -438,7 +438,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
            params.put("HORARIO_TALLER",SELECTED_DetalleHorario);
 
            ReporteUtil ru = new ReporteUtil();
-           ru.mostrarReporte(urlReporte,params);
+           //ru.mostrarReporte(urlReporte,params);
            //SwingPanel.getInstance().setCargando(false);
       }
     }//GEN-LAST:event_btnImprimirActionPerformed

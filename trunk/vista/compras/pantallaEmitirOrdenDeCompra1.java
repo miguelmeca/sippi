@@ -581,7 +581,7 @@ public class pantallaEmitirOrdenDeCompra1 extends javax.swing.JInternalFrame imp
         int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
         if(id>0) {
             //           SwingPanel.getInstance().setCargando(true);
-            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
+            String urlReporte = "/vista/reportes/OrdenDeCompra.jasper";
 
             //           Map params = new HashMap();
 
@@ -592,7 +592,15 @@ public class pantallaEmitirOrdenDeCompra1 extends javax.swing.JInternalFrame imp
             //           params.put("DIRECCION", "Algun LADO");
 
             ReporteUtil ru = new ReporteUtil();
-            ru.mostrarReporte(urlReporte,params);
+            try
+            {
+                ru.mostrarReporte(urlReporte,params);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            
             //SwingPanel.getInstance().setCargando(false);
             gestor.emitirOrdenDeCompra(id);
         }
