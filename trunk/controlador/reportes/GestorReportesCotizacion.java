@@ -1,7 +1,13 @@
 
 package controlador.reportes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import modelo.Cotizacion;
+import modelo.SubObra;
+import org.hibernate.Hibernate;
+import util.HibernateUtil;
 import util.ReporteUtil;
 
 /**
@@ -21,15 +27,27 @@ public class GestorReportesCotizacion {
     
     public void emitirPresupuestoInterno(int id_presupuesto)
     {
-        String reporte = GestorReportesCotizacion.REPORTE_PATH+GestorReportesCotizacion.REPORTE_COTIZACION_INTERNO;
+         try
+        {       
+            String reporte = GestorReportesCotizacion.REPORTE_PATH+GestorReportesCotizacion.REPORTE_COTIZACION_INTERNO;
 
             // Busco los datos
             HashMap params = new HashMap();
             params.put("ID_PRESUPUESTO",id_presupuesto);
             
-        try
-        {
-            reporteUtil.mostrarReporte(reporte,params);
+            // Listado de SubObras
+            Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
+            
+            List listaSubObras = new ArrayList();
+            for (int i = 0; i < cot.getSubObras().size(); i++) 
+            {
+               SubObra so = cot.getSubObras().get(i);
+               listaSubObras.add(so);
+            }
+
+            
+
+            reporteUtil.mostrarReporte(reporte,params,listaSubObras);
         }
         catch(Exception e)
         {

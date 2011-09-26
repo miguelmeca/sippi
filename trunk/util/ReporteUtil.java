@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -56,8 +57,6 @@ public class ReporteUtil {
         
     }
 
-
-
     public void mostrarReporte(String urlReporte, Map parametros) throws Exception
     {
         sesion.beginTransaction();
@@ -81,6 +80,30 @@ public class ReporteUtil {
            jv.setVisible(true);
 
            
+    }
+
+    public void mostrarReporte(String urlReporte, Map parametros, List data) throws Exception
+    {
+        sesion.beginTransaction();
+        
+        if(parametros==null)
+        {
+            parametros = new HashMap();
+        }
+        
+        // Put Conection as PARAMETER
+        parametros.put("HIBERNATE_SESSION",sesion);
+
+           InputStream isrep = getClass().getResourceAsStream(urlReporte);
+           
+           JasperPrint jp = JasperFillManager.fillReport(isrep,parametros, new JRBeanCollectionDataSource(data));
+           
+           sesion.getTransaction().commit();
+           
+           JasperViewer jv = new JasperViewer(jp,false);
+           jv.setTitle("MetAr");
+           jv.setVisible(true);
+
     }
 
 }
