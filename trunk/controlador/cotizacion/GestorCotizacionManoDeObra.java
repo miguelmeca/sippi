@@ -180,7 +180,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            tFF.setData(soxt.getFechaFin());
            datos[5]=tFF;
            datos[6]=soxt.calcularSubtotal();
-           pantallaGeneral.agregarTarea(datos, false); 
+           pantallaGeneral.agregarTarea(datos, false, false); 
         }
     }
     public void eliminarTarea(int id)
@@ -192,13 +192,37 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     public boolean agregarTarea(Object[] datos)
     {
         Session sesion;
-        
+        SubObraXTarea soxt;
+        boolean tareaNueva;
         try
         {
             sesion = HibernateUtil.getSession();
-            
-            SubObraXTarea soxt=new SubObraXTarea();
-            soxt.setId(((NTupla)datos[0]).getId());
+            soxt=new SubObraXTarea();
+            if(((NTupla)datos[0]).getId()>0)
+            {
+               tareaNueva=false;
+               List<SubObraXTarea> tareas= subObra.getTareas();
+        
+               
+                boolean codigoInalzanzableAlcanzado=true;
+                for (SubObraXTarea soxtAux : tareas) 
+                {
+                    if(soxtAux.getId()==((NTupla)datos[0]).getId())
+                    {
+                        soxt=soxtAux;
+                        codigoInalzanzableAlcanzado=false;
+                        break;
+                    }
+                }
+                if(codigoInalzanzableAlcanzado)
+                {
+                    Exception eCIA=new Exception("ERROR:Id de tarea inexistente");
+                    throw eCIA; 
+                }
+            }
+            else
+            {tareaNueva=true;}
+                      
             TipoTarea tt=(TipoTarea) sesion.load(TipoTarea.class, ((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()  );
             soxt.setTipoTarea(tt);
             soxt.setObservaciones(  (String)(((Object[])((NTupla)datos[0]).getData())[1])  );
@@ -209,15 +233,23 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             soxt.setCostoXHora((Double)((NTupla)datos[2]).getData());
             soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
             soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
-
-            subObra.addTarea(soxt);
+            
+            if(tareaNueva)
+            {
+               subObra.addTarea(soxt); 
+            }
+            
+            
             refrescarPantallas();
+            //return soxt.getId();
             return true;
         }
         catch (Exception ex)
             {
                 LogUtil.addError("ERROR abriendo sesion en gestor.agregarTarea: "+ex);
+                System.out.println("ERROR abriendo sesion en gestor.agregarTarea: "+ex);
                 HibernateUtil.rollbackTransaction();
+                //return -1;
                 return false;
             }
     }
