@@ -26,6 +26,8 @@ import java.util.Date;
 public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     private GestorCotizacionManoDeObra gestor;
     private CotizacionManoDeObraGeneral pantallaPadre;
+    private int indiceFilaModificada;
+    private int idTarea;
 
     /** Creates new form editarCotizacion_ManoDeObra_OpcionB_parte2Fix */
     public CotizacionManoDeObraAgregarMO(CotizacionManoDeObraGeneral pant, GestorCotizacionManoDeObra gestorX) 
@@ -33,6 +35,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         pantallaPadre=pant;
         gestor=gestorX;
         initComponents();
+        indiceFilaModificada=-1;
+        idTarea=-1;
         habiliarVentana();        
     }
      
@@ -81,6 +85,33 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         cboRango.setModel(model);
         cboRango.setSelectedIndex(-1);   
     }
+    public void tomarValoresDeDatos(Object[] datos, int indiceFila)
+    {
+        indiceFilaModificada=indiceFila;
+        idTarea=((NTupla)datos[0]).getId();
+        for (int i = 0; i < cboTareas.getItemCount(); i++) 
+        {
+            if(((NTupla)cboTareas.getItemAt(i)).getId()==(((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()))//Que Quilombo!
+            {
+                cboTareas.setSelectedIndex(i);
+            }            
+        }
+       txaObservaciones.setText(((String)((Object[])((NTupla)datos[0]).getData())[1]));
+       txtPersonas.setText(((Integer)datos[1]).toString());
+       for (int i = 0; i < cboRango.getItemCount(); i++) 
+        {
+            if(((NTupla)cboRango.getItemAt(i)).getId()==(((NTupla)datos[2]).getId()) )
+            {
+                cboRango.setSelectedIndex(i);
+            }            
+        }
+       txtCosto.setText(((Double)((NTupla)datos[2]).getData()).toString().replace(".", ","));
+       txtHoras.setText(((Double)datos[3]).toString().replace(".", ","));
+       jdcFInicio.setDate((Date)((NTupla)datos[4]).getData());
+       jdcFFin.setDate((Date)((NTupla)datos[5]).getData());       
+       calcularSubtotal(true);//calcularSubtotal(validarDatos(false));
+    }
+    
     public void calcularSubtotal(boolean ok)
     {
        if(ok)
@@ -107,21 +138,21 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
           cboTareas.requestFocusInWindow();}
           return false;          
        }
-       if(!validarNumeroPositivo(txtPersonas.getText()))
+       if(!Validaciones.validarNumeroPositivo(txtPersonas.getText().replace( ',','.' )))
        {  
          if(mostrarErrores)
          { JOptionPane.showMessageDialog(this.getParent(), "La cantidad de personas ingresadas no es válida", "Error",JOptionPane.ERROR_MESSAGE);
           txtPersonas.requestFocusInWindow();}
           return false;          
        }
-       if(!validarNumeroPositivo(txtCosto.getText()))
+       if(!Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
        {  
           if(mostrarErrores)
           {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
           txtCosto.requestFocusInWindow();}
           return false;          
        }
-       if(!validarNumeroPositivo(txtHoras.getText()))
+       if(!Validaciones.validarNumeroPositivo(txtHoras.getText().replace( ',','.' )))
        {  
            if(mostrarErrores)
            {JOptionPane.showMessageDialog(this.getParent(), "Las horas por día ingresadas no son válidas", "Error",JOptionPane.ERROR_MESSAGE);
@@ -184,36 +215,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         
     }
 
-    //Código a mover a una clase d validaciones (Metodo validarDoublePositivo que recibe por parametro el String a validar y el nombre del campo "Costo por hora")
-    ///------------------------------
-    public boolean validarNumeroPositivo(String aValidar)
-    {
-        aValidar=aValidar.replace( ',','.' );
-        boolean valido = true;
-        if(aValidar.equals(""))
-        {
-          valido = false;
-                //JOptionPane.showMessageDialog(this.getParent(),"Ingrese '"+nombreCampo+"'","Faltan Datos",JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-           try
-           {
-               double cant = Double.valueOf(aValidar);
-               if(cant<=0)
-               {
-                 valido = false;
-                       // JOptionPane.showMessageDialog(this.getParent(),"'"+nombreCampo+"' debe ser mayor a Cero","Faltan Datos",JOptionPane.ERROR_MESSAGE);
-               }
-           }
-           catch(NumberFormatException ex)
-           {
-             valido = false;
-           }
-           
-        }
-        return valido;
-    }
+    
+   
     /////////////////////////////////////////////
     
     
@@ -425,7 +428,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         });
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
-        btnAceptar.setText("Agregar");
+        btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -518,7 +521,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -531,7 +534,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cambiar el costo por defecto del rango de empleado'"+((NTupla)cboRango.getModel().getSelectedItem()).getNombre()+"' a "+txtCosto.getText()+"?","ConfirmaciÃ³n",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {   
-            if(validarNumeroPositivo(txtCosto.getText()))
+            if(Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
             {   
                 double nuevoCosto=Double.parseDouble(txtCosto.getText().replace( ',','.' ));
                 //double nuevoCosto=Double.parseDouble(txtCosto.getText());
@@ -620,7 +623,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
    {
        calcularSubtotal(true);
        Object[] datos=new Object[7];
-       NTupla tar=new NTupla(0); //Id de la tarea (SubObraXTarea) todavía no seteado
+       NTupla tar=new NTupla(idTarea); //Id de la tarea (SubObraXTarea) todavía no seteado
        tar.setNombre(((NTupla)cboTareas.getSelectedItem()).getNombre());
        Object[] datosTarea=new Object[2];       
            Tupla tipoTar=new Tupla(((NTupla)cboTareas.getSelectedItem()).getId(), ((NTupla)cboTareas.getSelectedItem()).getNombre());
@@ -646,7 +649,12 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        datos[5]=tFF;
        //datos[6]=Double.parseDouble(txtSubtotal.getText());
        datos[6]=Double.parseDouble(txtSubtotal.getText().replace(",", "."));
-       pantallaPadre.agregarTarea(datos, true);
+       boolean modificada=false;
+       //if(indiceFilaModificada>0)
+       if(idTarea>0)
+       {modificada=true;}
+      // pantallaPadre.agregarTarea(datos, !modificada, modificada,indiceFilaModificada);
+       pantallaPadre.agregarTarea(datos, !modificada, modificada);
        this.dispose();
    }
 }//GEN-LAST:event_btnAceptarActionPerformed

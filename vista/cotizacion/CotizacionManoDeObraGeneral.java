@@ -72,16 +72,41 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         }
     }
     
-    public void agregarTarea(Object[] datos, boolean nueva)
+    public void agregarTarea(Object[] datos, boolean nueva, boolean modificada)//una tarea puede no ser ni nueva ni modificada (cuando se cargan los datos en la tabla de las tareas existentes en el sistema)
     {
-       if(nueva && !gestor.agregarTarea(datos))
-       { 
-           JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);
-           return;
+       int idTar=((NTupla)datos[0]).getId();
+       boolean exito=true;
+       if(nueva || modificada )
+       {exito=gestor.agregarTarea(datos);
+           if( (exito==false))
+           { 
+                   JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);
+                   return;
+           }
        }
-       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel(); 
-       modelo.addRow(datos);
-       if(nueva)
+       
+       
+             
+       DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+       if(!modificada)
+       {modelo.addRow(datos);}
+       else
+       {         
+           int indiceFila=-1;
+           for (int j = 0; j < modelo.getRowCount() ; j++) 
+           {
+               if(((NTupla)modelo.getValueAt(j,0)).getId()==((NTupla)datos[0]).getId())
+               {
+                   indiceFila=j;
+               }
+               
+           }
+           for (int i = 0; i < modelo.getColumnCount() ; i++) 
+           {
+             modelo.setValueAt(datos[i], indiceFila, i);  
+           }
+       }
+       if(nueva|| modificada)
        {
         initGrafico();
         mostrarTotal();
@@ -179,6 +204,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         tblTareas = new javax.swing.JTable();
         panelGantt = new javax.swing.JPanel();
         txtSubtotal = new javax.swing.JTextField();
+        btnModificar = new javax.swing.JButton();
 
         jLabel9.setText("Plano");
 
@@ -198,6 +224,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.setEnabled(false);
         btnQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitarActionPerformed(evt);
@@ -217,11 +244,16 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, true, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblTareas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTareasMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblTareas);
@@ -268,6 +300,15 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
             }
         });
 
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Notes.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -276,25 +317,30 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 .addGap(10, 10, 10)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(btnAgregar)
-                .addGap(10, 10, 10)
-                .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(164, 164, 164)
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
-                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnQuitar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuitar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnAgregar))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -329,9 +375,53 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         }
     }//GEN-LAST:event_btnQuitarActionPerformed
 
+private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+     modificarTarea();
+    
+}//GEN-LAST:event_btnModificarActionPerformed
+private void modificarTarea()
+{
+    int selectedRow=tblTareas.getSelectedRow();
+    if(selectedRow!=-1)
+        {
+           CotizacionManoDeObraAgregarMO at = new CotizacionManoDeObraAgregarMO(this, gestor);
+           SwingPanel.getInstance().addWindow(at);       
+           at.setVisible(true);
+           //////////////////////////////
+           Object[] datos=new Object[6];       
+           for (int i = 0; i < datos.length; i++) 
+           {
+             datos[i]=(tblTareas.getModel().getValueAt(selectedRow, i));   
+           }
+           
+           at.tomarValoresDeDatos(datos, tblTareas.getSelectedRow());
+        }  
+}        
+        
+private void tblTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTareasMouseClicked
+
+    int selectedRow=tblTareas.getSelectedRow();
+   
+           if(evt.getClickCount()==1)
+           {
+               if(selectedRow!=-1)
+             {
+                btnModificar.setEnabled(true);
+                btnQuitar.setEnabled(true);
+             }
+           }
+           if(evt.getClickCount()==2)
+           {
+            modificarTarea();
+           }
+           
+        
+}//GEN-LAST:event_tblTareasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
