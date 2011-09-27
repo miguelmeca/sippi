@@ -39,8 +39,27 @@ public class GestorCotizacionDescripcion implements IGestorCotizacion{
 
     @Override
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        gestorPadre.refrescarPantallas();
     }
+
+    public void cargarDatosSubObra() 
+    {
+        // Cargo el nombre
+        pantalla.mostrarDatos(getSubObraActual().getNombre(),getSubObraActual().getDescripcion()); 
+    }
+    
+    public void actualizarNombre(String nombre)
+    {
+        getSubObraActual().setNombre(nombre);
+        refrescarPantallas();
+    }
+    
+    public void actualizarDescripcion(String descripcion)
+    {
+        getSubObraActual().setDescripcion(descripcion);
+        refrescarPantallas();
+    }
+
     
     
     

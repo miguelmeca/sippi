@@ -21,7 +21,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jScrollPane1" alignment="0" pref="380" max="32767" attributes="0"/>
                   <Component id="jLabel1" alignment="0" pref="380" max="32767" attributes="0"/>
-                  <Component id="jTextField1" alignment="0" pref="380" max="32767" attributes="0"/>
+                  <Component id="txtNombre" alignment="0" pref="380" max="32767" attributes="0"/>
                   <Component id="jLabel2" alignment="1" pref="380" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -34,7 +34,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+              <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="txtDescripcion">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -61,6 +61,10 @@
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" value="mecanizado de conjunto pin &amp; pin locker comprendido por &#xa;arandela de &#xd8; exterior 30 mm y &#xd8; interior 15 mm y perno &#xa;de encastre de &#xd8; exterior 25 mm con un perno convexo R0.75. &#xa;Este conjunto ser&#xe1; mecanizado en acero SAE 1010.&#xa;"/>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescripcionFocusLost"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescripcionKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -72,7 +76,11 @@
         <Property name="text" type="java.lang.String" value="Nombre de la SubObra"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtNombre">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNombreFocusLost"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
