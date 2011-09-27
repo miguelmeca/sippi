@@ -67,7 +67,7 @@ public class GestorExplorarCotizacionesObra {
                 Cotizacion cot = (Cotizacion)it.next();
                 
                 // Solo agrego las cotizaciones que se estén creando o esperando aceptacion !!
-                if(cot.getEstado().equals(Cotizacion.ESTADO_CREADO) || cot.getEstado().equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION) )
+                if(cot.getEstado().equals(Cotizacion.ESTADO_EN_CREACION) || cot.getEstado().equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION) )
                 {
                     NTupla nt = new NTupla(cot.getId());
 
