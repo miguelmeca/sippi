@@ -946,7 +946,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(this,"Seleccione una SubObra para Mofificar su Nombre","Atención!",JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Seleccione una sub-obra para modificar sus recursos","Atención!",JOptionPane.QUESTION_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarAlfonsinaActionPerformed
 

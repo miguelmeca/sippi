@@ -13,6 +13,7 @@ package vista.cotizacion;
 
 import controlador.cotizacion.GestorEditarCotizacion;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,13 +24,13 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
 
     private GestorEditarCotizacion gestor;
 
-    private static final int OPTN_RRHH                  = 0;
+    private static final int OPTN_DESCRIPCION           = 0;    
     private static final int OPTN_HERRAMIENTAS          = 1;
     private static final int OPTN_MATERIALES            = 2;
     private static final int OPTN_ALQUILERES_COMPRAS    = 3;
     private static final int OPTN_BENEFICIOS            = 4;
     private static final int OPTN_ADICIONALES           = 5;
-    private static final int OPTN_DESCRIPCION           = 6;
+    private static final int OPTN_RRHH                  = 6;
 
     public EditarCotizacion(GestorEditarCotizacion gestor)
     {
@@ -45,6 +46,10 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
         panel.setViewportView(ecd);
         ecd.setVisible(true);
+        
+        ListSelectionModel selectionModel = tblMenu.getSelectionModel();
+        selectionModel.setSelectionInterval(0,0);
+        
         actualizar();
 
     }
@@ -87,7 +92,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -128,13 +133,13 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Recursos Humanos"},
+                {"Descripción"},
                 {"Herramientas"},
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Beneficios"},
                 {"Adicionales"},
-                {"Descripción"}
+                {"Recursos Humanos"}
             },
             new String [] {
                 "Title 1"
@@ -167,7 +172,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
