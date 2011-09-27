@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.swing.JTextField;
 import modelo.ContactoResponsable;
 import modelo.EmpresaCliente;
-import modelo.EstadoPedidoObraPendiente;
 import modelo.FormaDePago;
 import modelo.PedidoObra;
 import modelo.Planta;
@@ -204,12 +203,14 @@ public class GestorRegistrarPedido {
 
     private int crearPedidoObra(int id) {
         PedidoObra nuevo=null;
-        if(id>0){
+        if(id>0)
+        {
             Session sesion = HibernateUtil.getSessionFactory().openSession();
             sesion.beginTransaction();
             nuevo = (PedidoObra)sesion.load(PedidoObra.class, id);
         }
-        else{
+        else
+        {
             nuevo = new PedidoObra();
         }
         nuevo.setNombre(nombre);
@@ -221,14 +222,9 @@ public class GestorRegistrarPedido {
         nuevo.setPresupuestoMaximo(montoMaximo);
         nuevo.setFormaPago(formaDePago);
         nuevo.setContactos(contactos);
-        nuevo.setEstado(new EstadoPedidoObraPendiente());
-
-
 
         generarNumeroPedido();           // AL PEDO
         buscarUltimoNumeroPedidoObra();  // AL PEDO
-
-        nuevo.crear();
 
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -490,7 +486,7 @@ public class GestorRegistrarPedido {
     public void seleccionPedido(int idPedido) {
         this.buscarDatosPedido(idPedido);
         this.pantalla.setNumeroPedido(String.valueOf(this.pedido.getId()));
-        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado().getNombre());
+        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado());
         this.pantalla.setNombreObra(this.pedido.getNombre());
         this.pantalla.setDescripcionObra(this.pedido.getDescripcion());
         int idPlanta = this.pedido.getPlanta().getId();

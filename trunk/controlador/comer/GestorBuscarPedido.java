@@ -56,7 +56,7 @@ import vista.comer.pantallaBuscarPedido;
             NTupla p = new NTupla();
             p.setId(po.getId());
             p.setNombre(po.getNombre());
-            datos.add(po.getEstado().getNombre());
+            datos.add(po.getEstado());
 //            if(po.getContacto() != null)
 //                datos.add(po.getContacto().getApellido()+", "+po.getContacto().getNombre());
 //            else

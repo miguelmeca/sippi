@@ -8,11 +8,11 @@ import util.HibernateUtil;
 
 public class Cotizacion {
     
-    public final static String ESTADO_CREADO               = "En Creación";
+    public final static String ESTADO_EN_CREACION          = "En Creación";
     public final static String ESTADO_PENDIENTE_ACEPTACION = "Pendiente de Aceptación";
     public final static String ESTADO_ACEPTADO             = "Aceptado";
     public final static String ESTADO_RECHAZADO            = "Rechazado";
-    public final static String ESTADO_CANCELADO            = "Cancelado";
+    public final static String ESTADO_DESCARTADO           = "Descartado";
     
     private int id;
     private String nroCotizacion;
@@ -32,7 +32,7 @@ public class Cotizacion {
     {
         subObras = new ArrayList<SubObra>();
         // Estado por default
-        estado = Cotizacion.ESTADO_CREADO;
+        estado = Cotizacion.ESTADO_EN_CREACION;
         // nro de Cotizacion por default
         nroCotizacion = "P0000-0000000";
     }
@@ -176,24 +176,44 @@ public class Cotizacion {
         this.estado = estado;
     }
     
-    public void cancelarCotizacion()
+    public boolean setEstadoDescartado()
     {
-        this.estado = Cotizacion.ESTADO_CANCELADO;
+        if(this.estado.equals(Cotizacion.ESTADO_EN_CREACION))
+        {
+            this.estado = Cotizacion.ESTADO_DESCARTADO;
+            return true;
+        }
+        return false;
     }
   
-    public void enviarCotizacionACliente()
+    public boolean setEstadoPendienteAceptacion()
     {
-        this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
+        if(this.estado.equals(Cotizacion.ESTADO_EN_CREACION))
+        {
+            this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
+            return true;
+        }
+        return false;        
     }    
     
-    public void aceptarCotizacion()
+    public boolean setEstadoAceptado()
     {
-        this.estado = Cotizacion.ESTADO_ACEPTADO;
+        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
+        {
+            this.estado = Cotizacion.ESTADO_ACEPTADO;
+            return true;
+        }
+        return false;         
     }
     
-    public void rechazarCotizacion()
+    public boolean setEstadoRechazado()
     {
-        this.estado = Cotizacion.ESTADO_RECHAZADO;
+        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
+        {
+            this.estado = Cotizacion.ESTADO_RECHAZADO;
+            return true;
+        }
+        return false;         
     }    
     
     
