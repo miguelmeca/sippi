@@ -155,6 +155,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
         btnModificarCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/folder.png"))); // NOI18N
         btnModificarCotizacion.setText("Modificar Cotización");
+        btnModificarCotizacion.setEnabled(false);
         btnModificarCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarCotizacionActionPerformed(evt);
@@ -163,6 +164,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
         btnNuevaCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevaCotizacion.setText("Nueva Cotización");
+        btnNuevaCotizacion.setEnabled(false);
         btnNuevaCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevaCotizacionActionPerformed(evt);
@@ -301,6 +303,16 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
      
         ArrayList<NTupla> obras = gestor.getObras();
         
+        // Activo - Desactivo el boton modificar
+        if(obras.isEmpty())
+        {
+            btnNuevaCotizacion.setEnabled(false);
+        }
+        else
+        {
+            btnNuevaCotizacion.setEnabled(true);
+        }
+        
         for (int i = 0; i < obras.size(); i++) 
         {
             NTupla nt = obras.get(i);
@@ -324,6 +336,16 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     private void llenarTablaCotizaciones(ArrayList<NTupla> lista) 
     {
+        // Activo - Desactivo el boton modificar
+        if(lista.isEmpty())
+        {
+            btnModificarCotizacion.setEnabled(false);
+        }
+        else
+        {
+            btnModificarCotizacion.setEnabled(true);
+        }
+        
         Object filaTabla[] = new Object[1];
 
         DefaultTableModel modelo = (DefaultTableModel) tablaCotizaciones.getModel();

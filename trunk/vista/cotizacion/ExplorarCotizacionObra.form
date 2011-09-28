@@ -189,6 +189,7 @@
           <Image iconType="3" name="/res/iconos/var/16x16/folder.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Modificar Cotizaci&#xf3;n"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarCotizacionActionPerformed"/>
@@ -200,6 +201,7 @@
           <Image iconType="3" name="/res/iconos/var/16x16/add.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nueva Cotizaci&#xf3;n"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaCotizacionActionPerformed"/>

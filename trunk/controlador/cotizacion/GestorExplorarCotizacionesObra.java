@@ -43,14 +43,17 @@ public class GestorExplorarCotizacionesObra {
             {
                 PedidoObra p = (PedidoObra)iter.next();
 
-                NTupla nt = new NTupla(p.getId());
-                    String[] datos = new String[4];
-                        datos[0] = p.getNombre();
-                        datos[1] = p.getPlanta().getRazonSocial();
-                        datos[2] = FechaUtil.getFecha(p.getFechaInicio());
-                        datos[3] = FechaUtil.getFecha(p.getFechaFin());
-                    nt.setData(datos);
-                listaObras.add(nt);
+                if(p.getEstado().equals(PedidoObra.ESTADO_SOLICITADO) ||p.getEstado().equals(PedidoObra.ESTADO_PRESUPUESTADO))
+                {
+                    NTupla nt = new NTupla(p.getId());
+                        String[] datos = new String[4];
+                            datos[0] = p.getNombre();
+                            datos[1] = p.getPlanta().getRazonSocial();
+                            datos[2] = FechaUtil.getFecha(p.getFechaInicio());
+                            datos[3] = FechaUtil.getFecha(p.getFechaFin());
+                        nt.setData(datos);
+                    listaObras.add(nt);
+                }
             }
         
         return listaObras;
@@ -67,7 +70,7 @@ public class GestorExplorarCotizacionesObra {
                 Cotizacion cot = (Cotizacion)it.next();
                 
                 // Solo agrego las cotizaciones que se estén creando o esperando aceptacion !!
-                if(cot.getEstado().equals(Cotizacion.ESTADO_EN_CREACION) || cot.getEstado().equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION) )
+                if(cot.getEstado().equals(Cotizacion.ESTADO_EN_CREACION) )
                 {
                     NTupla nt = new NTupla(cot.getId());
 
