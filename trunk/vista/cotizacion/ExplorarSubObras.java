@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -274,6 +275,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNroCotizacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNroCotizacion.setText("P0000-0000000");
         txtNroCotizacion.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1014,28 +1016,16 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
         if(txtNroCotizacion.getText().equals("P0000-0000000"))
         {
-            int n = JOptionPane.showConfirmDialog(this,"El número de la cotización es P0000-0000000 ¿Desea cambiarlo? '","Atención!",JOptionPane.YES_NO_OPTION);
-
-            if(n==JOptionPane.NO_OPTION)
-            {
-
-                int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
-
-                if(nx==JOptionPane.YES_OPTION)
-                {
-                    guardarCotizacion();
-                }
-
-            }
+            JOptionPane.showMessageDialog(new JInternalFrame(),"Debe ingresar un número de Cotización para continuar", "Atencion!",JOptionPane.ERROR_MESSAGE);
         }
         else
         {
-                int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+            int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
 
-                if(nx==JOptionPane.YES_OPTION)
-                {
-                    guardarCotizacion();
-                }        
+            if(nx==JOptionPane.YES_OPTION)
+            {
+                guardarCotizacion();
+            }        
         }
     
 }//GEN-LAST:event_btnSaveActionPerformed

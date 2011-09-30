@@ -33,8 +33,8 @@ public class Cotizacion {
         subObras = new ArrayList<SubObra>();
         // Estado por default
         estado = Cotizacion.ESTADO_EN_CREACION;
-        // nro de Cotizacion por default
-        nroCotizacion = "P0000-0000000";
+        // nro de Cotizacion por default EMPTY
+        nroCotizacion = new String();
     }
 
     public int getId() {

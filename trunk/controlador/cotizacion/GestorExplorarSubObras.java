@@ -106,7 +106,17 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private void cargarDatosGeneralesCotizacion()
     {
-        pantalla.llenarDatosCotizacion(this.cot.getNroCotizacion(),this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega());
+        String cot_id;
+        if(this.cot.getNroCotizacion().isEmpty())
+        {
+            cot_id = "P0000-0000000";
+        }
+        else
+        {
+            cot_id = this.cot.getNroCotizacion();
+        }
+        
+        pantalla.llenarDatosCotizacion(cot_id,this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega());
     }
     
     private double getMontoMaximo()
