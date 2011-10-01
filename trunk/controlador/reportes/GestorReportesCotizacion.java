@@ -9,6 +9,7 @@ import modelo.SubObra;
 import org.hibernate.Hibernate;
 import util.HibernateUtil;
 import util.ReporteUtil;
+import vista.reportes.sources.CotizacionInterna;
 
 /**
  * @author Iuga
@@ -28,13 +29,7 @@ public class GestorReportesCotizacion {
     public void emitirPresupuestoInterno(int id_presupuesto)
     {
          try
-        {       
-            String reporte = GestorReportesCotizacion.REPORTE_PATH+GestorReportesCotizacion.REPORTE_COTIZACION_INTERNO;
-
-            // Busco los datos
-            HashMap params = new HashMap();
-            params.put("ID_PRESUPUESTO",id_presupuesto);
-            
+        {                  
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
             
@@ -45,9 +40,16 @@ public class GestorReportesCotizacion {
                listaSubObras.add(so);
             }
 
-            
-
-            reporteUtil.mostrarReporte(reporte,params,listaSubObras);
+            try
+            {
+                CotizacionInterna ci = new CotizacionInterna(id_presupuesto);
+                ci.setNombreReporte("Cotizacion Interna");
+                ci.makeAndShow();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
         catch(Exception e)
         {
