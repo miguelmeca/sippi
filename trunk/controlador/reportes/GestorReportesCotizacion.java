@@ -42,9 +42,17 @@ public class GestorReportesCotizacion {
 
             try
             {
+                HashMap<String,Object> params = new HashMap<String, Object>();
+                
+                    params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
+                    params.put("COTIZACION_MEMDESC",cot.getDescripcion());
+                    params.put("LISTA_SUB_OBRAS",listaSubObras);
+                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    
                 CotizacionInterna ci = new CotizacionInterna(id_presupuesto);
-                ci.setNombreReporte("Cotizacion Interna");
-                ci.makeAndShow();
+                ci.setNombreReporte("Cotización Interna");
+                ci.makeAndShow(params);
+                
             }
             catch(Exception e)
             {
