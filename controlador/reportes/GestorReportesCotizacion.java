@@ -2,11 +2,14 @@
 package controlador.reportes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import modelo.Cotizacion;
+import modelo.PedidoObra;
 import modelo.SubObra;
 import org.hibernate.Hibernate;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.ReporteUtil;
 import vista.reportes.ReportDesigner;
@@ -34,6 +37,8 @@ public class GestorReportesCotizacion {
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
             
+            PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot).uniqueResult(); 
+            
             List listaSubObras = new ArrayList();
             for (int i = 0; i < cot.getSubObras().size(); i++) 
             {
@@ -49,6 +54,14 @@ public class GestorReportesCotizacion {
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
                     params.put("LISTA_SUB_OBRAS",listaSubObras);
                     params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    
+                    params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
+                    params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
+                    params.put("LUGAR_ENTREGA",cot.getLugarEntrega());
+                    
+                    String valof = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta())+" días ( desde el "+FechaUtil.getFechaActual()+")";
+                    params.put("VALIDEZ_OFERTA",valof);
+                    
                     
                 CotizacionInterna ci = new CotizacionInterna(id_presupuesto);
                 ci.setNombreReporte("Cotización Interna");
