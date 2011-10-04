@@ -9,6 +9,7 @@ import modelo.SubObra;
 import org.hibernate.Hibernate;
 import util.HibernateUtil;
 import util.ReporteUtil;
+import vista.reportes.ReportDesigner;
 import vista.reportes.sources.CotizacionInterna;
 
 /**
@@ -51,6 +52,7 @@ public class GestorReportesCotizacion {
                     
                 CotizacionInterna ci = new CotizacionInterna(id_presupuesto);
                 ci.setNombreReporte("Cotización Interna");
+                ci.setNombreArchivo("CotizacionInterna-"+cot.getNroCotizacion()+"Rev."+cot.getNroRevision(),ReportDesigner.REPORTE_TIPO_COTIZACION);
                 ci.makeAndShow(params);
                 
             }

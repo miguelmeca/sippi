@@ -4,12 +4,9 @@
  */
 package vista.reportes;
 
-import com.adobe.acrobat.Viewer;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -18,21 +15,14 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64.InputStream;
-import config.SConfig;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Frame;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.lang.Object;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.view.JasperViewer;
+import util.FechaUtil;
 
 /**
  * Diseñador de Reportes con iText
@@ -40,19 +30,23 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class ReportDesigner 
 {
+    private final String URL_DIR_REPORTES = "Reportes/";
+    
+    public static final int REPORTE_TIPO_OTROS         = 0;
+    public static final int REPORTE_TIPO_COTIZACION    = 1;
+    public static final int REPORTE_TIPO_PLANIFICACION = 2;
+    public static final int REPORTE_TIPO_SEGUIMIENTO   = 3;
+    
     private String nombre;
     protected Document doc;
     private PdfWriter out;
     private File out_file;
+    private int tipoReporte;
     
-    public ReportDesigner() throws FileNotFoundException, DocumentException
+    public ReportDesigner()
     {
         this.nombre = "";
-        this.out_file = new File("ReporteTest.pdf");
-        
-        doc = new Document(PageSize.A4, 36,36,36,108);
-        PdfWriter.getInstance(this.doc, new FileOutputStream(out_file));
-        this.doc.open();
+        this.tipoReporte = ReportDesigner.REPORTE_TIPO_OTROS;
     }
 
     /**
@@ -65,10 +59,35 @@ public class ReportDesigner
     }
     
     /**
+     * Setea el nombre del archivo ( No necesariamente será el final )
+     * @param nombre 
+     */
+    public void setNombreArchivo(String nombre, int tipoReporte)
+    {
+        this.tipoReporte = tipoReporte;
+        this.out_file = generarNombre(nombre);
+    }
+    
+   
+    /**
      * Compila y muestra el reporte
      */
-    public void makeAndShow(HashMap<String,Object> params)  throws DocumentException
+    public void makeAndShow(HashMap<String,Object> params)  throws DocumentException, FileNotFoundException
     {
+       
+        // Default Name
+        if(this.out_file==null)
+        {
+            this.out_file = generarNombre("ReporteTest");
+        }
+
+        // PDF Settings
+        doc = new Document(PageSize.A4, 36,36,36,108);
+        PdfWriter.getInstance(this.doc, new FileOutputStream(this.out_file));
+        
+        // Open Doc
+        this.doc.open();
+        
         // Compile Report
         try
         {
@@ -144,6 +163,42 @@ public class ReportDesigner
     private void makePie()
     {
         
+    }
+
+    private File generarNombre(String nombre) 
+    {
+        File test;
+        String fileName;
+        int i = 1;
+     
+        do
+        {
+            fileName = getCarpetaDestino()+nombre +"-"+ FechaUtil.getMaskedDate("yyyyMMdd",new Date())+"-"+ i + ".pdf";
+            test = new File(fileName);
+            i++;
+        }
+        while(test.exists());
+        
+        return test;
+    }
+    
+    private String getCarpetaDestino()
+    {
+        switch(this.tipoReporte)
+        {               
+            case ReportDesigner.REPORTE_TIPO_COTIZACION:
+                return URL_DIR_REPORTES+"Cotizaciones/"; 
+                
+            case ReportDesigner.REPORTE_TIPO_PLANIFICACION:
+                return URL_DIR_REPORTES+"Planificaciones/";                 
+                
+            case ReportDesigner.REPORTE_TIPO_SEGUIMIENTO:
+                return URL_DIR_REPORTES+"Seguimientos/";    
+               
+            case ReportDesigner.REPORTE_TIPO_OTROS: 
+            default:
+                return URL_DIR_REPORTES;             
+        }
     }
     
     

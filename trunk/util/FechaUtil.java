@@ -49,6 +49,14 @@ public class FechaUtil {
 
     }
 
+    public static String getMaskedDate(String mascara,Date fecha)
+    {
+        DATE_FORMAT = new SimpleDateFormat(mascara, new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+
+        return DATE_FORMAT.format(fecha);
+    }    
+    
     public static String getYear()
     {
         DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_ES"));

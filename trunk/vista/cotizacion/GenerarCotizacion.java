@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 import modelo.Cotizacion;
 import util.HibernateUtil;
 import util.ReporteUtil;
@@ -124,7 +125,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -145,6 +146,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
 
         lblLoad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/loader.gif"))); // NOI18N
         lblLoad.setText("Generando, Espere por favor ...");
+        lblLoad.setDoubleBuffered(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,15 +224,23 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    
     showLoading();
+    jButton4.setEnabled(false);
+
     // Acá tu código ...
     if(cotizacionId>0) 
-    {
-        GestorReportesCotizacion gestor = new GestorReportesCotizacion();
-        gestor.emitirPresupuestoInterno(cotizacionId);
+    { 
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+               GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+               gestor.emitirPresupuestoInterno(cotizacionId);
+            }
+        });        
     }
     // ...
     hideLoading();
+    jButton4.setEnabled(true);
 }//GEN-LAST:event_jButton4ActionPerformed
 
 
@@ -238,6 +248,9 @@ private void showLoading()
 {
     lblLoad.setVisible(true);
     this.repaint();
+    lblLoad.repaint();
+    this.pack();
+    
 }
 
 private void hideLoading()
