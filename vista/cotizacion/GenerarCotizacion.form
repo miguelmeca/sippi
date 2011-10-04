@@ -193,6 +193,7 @@
           <Image iconType="3" name="/res/imagenes/loader.gif"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Generando, Espere por favor ..."/>
+        <Property name="doubleBuffered" type="boolean" value="true"/>
       </Properties>
     </Component>
   </SubComponents>
