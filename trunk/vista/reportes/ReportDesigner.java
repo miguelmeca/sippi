@@ -12,12 +12,15 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JInternalFrame;
@@ -36,6 +39,13 @@ public class ReportDesigner
     public static final int REPORTE_TIPO_COTIZACION    = 1;
     public static final int REPORTE_TIPO_PLANIFICACION = 2;
     public static final int REPORTE_TIPO_SEGUIMIENTO   = 3;
+    
+    public static final Font FUENTE_TITULO_1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
+    public static final Font FUENTE_TITULO_2 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC);
+    public static final Font FUENTE_NORMAL   = new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL);
+    public static final Font FUENTE_NORMAL_B   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLD);
+    public static final Font FUENTE_NORMAL_K   = new Font(Font.FontFamily.HELVETICA,10,Font.ITALIC);
+    public static final Font FUENTE_NORMAL_BK   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC);
     
     private String nombre;
     protected Document doc;
@@ -83,6 +93,8 @@ public class ReportDesigner
 
         // PDF Settings
         doc = new Document(PageSize.A4, 36,36,36,108);
+        doc.addCreationDate();
+        doc.addAuthor("ACERO");
         PdfWriter.getInstance(this.doc, new FileOutputStream(this.out_file));
         
         // Open Doc
@@ -151,7 +163,7 @@ public class ReportDesigner
         // TITULO
         PdfPTable titulo = new PdfPTable(1);
             titulo.setWidthPercentage(100);
-            PdfPCell celda = new PdfPCell(new Paragraph(this.nombre.toUpperCase()));
+            PdfPCell celda = new PdfPCell(new Paragraph(this.nombre.toUpperCase(),new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
             celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
             celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
             celda.setBorder(PdfPCell.NO_BORDER);
@@ -160,9 +172,9 @@ public class ReportDesigner
         
     }
     
-    private void makePie()
+    private void makePie() throws DocumentException
     {
-        
+
     }
 
     private File generarNombre(String nombre) 
@@ -200,6 +212,5 @@ public class ReportDesigner
                 return URL_DIR_REPORTES;             
         }
     }
-    
     
 }

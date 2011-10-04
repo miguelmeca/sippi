@@ -48,19 +48,19 @@ public class CotizacionInterna extends ReportDesigner{
         // Titulos e Introducción
         Paragraph PTitulo = new Paragraph();
             PTitulo.setAlignment(Paragraph.ALIGN_LEFT);
-            Phrase nPre = new Phrase("Presupuesto",new Font(Font.FontFamily.HELVETICA,14,Font.BOLD));
+            Phrase nPre = new Phrase("Presupuesto",ReportDesigner.FUENTE_TITULO_1);
             PTitulo.add(nPre);    
             
-            Phrase nMD = new Phrase("\nMemoria Descriptiva:\n",new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC));
+            Phrase nMD = new Phrase("\nMemoria Descriptiva:\n",ReportDesigner.FUENTE_TITULO_2);
             PTitulo.add(nMD);    
             
-            Phrase nMemDesc = new Phrase((String)params.get("COTIZACION_MEMDESC"),new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL));
+            Phrase nMemDesc = new Phrase((String)params.get("COTIZACION_MEMDESC"),ReportDesigner.FUENTE_NORMAL);
             PTitulo.add(nMemDesc);    
             
-            Phrase nIO = new Phrase("\nItems de la Obra:\n",new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC));
+            Phrase nIO = new Phrase("\nItems de la Obra:\n",ReportDesigner.FUENTE_NORMAL_BK);
             PTitulo.add(nIO);       
             
-            Phrase nIOIntro = new Phrase("A continuación se listan en detalle los items de la obra presupuestados con sus subtotales.\n\n",new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL));
+            Phrase nIOIntro = new Phrase("A continuación se listan en detalle los items de la obra presupuestados con sus subtotales.\n\n",ReportDesigner.FUENTE_NORMAL);
             PTitulo.add(nIOIntro); 
         super.doc.add(PTitulo);
         
@@ -74,19 +74,19 @@ public class CotizacionInterna extends ReportDesigner{
                 PdfPTable tabla = new PdfPTable(3);
                 tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
                 tabla.setWidthPercentage(95);
-                    PdfPCell celdaNombre = new PdfPCell(new Paragraph((i+1)+"-"+so.getNombre(),new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaNombre = new PdfPCell(new Paragraph((i+1)+"-"+so.getNombre(),ReportDesigner.FUENTE_NORMAL));
                     celdaNombre.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     celdaNombre.setBackgroundColor(new BaseColor(219,229,241));
                     celdaNombre.setColspan(3);
                     tabla.addCell(celdaNombre);
                     
-                    PdfPCell celdaDesc = new PdfPCell(new Paragraph(so.getDescripcion(),new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaDesc = new PdfPCell(new Paragraph(so.getDescripcion(),ReportDesigner.FUENTE_NORMAL));
                     celdaDesc.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
                     celdaDesc.setColspan(3);
                     tabla.addCell(celdaDesc);
                     
                     // Mano de Obra
-                    PdfPCell celdaMOT = new PdfPCell(new Paragraph("Mano de Obra",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaMOT = new PdfPCell(new Paragraph("Mano de Obra",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaMOT);
                         String detalleMO = new String();
                         String subtotalmo = new String();
@@ -96,14 +96,14 @@ public class CotizacionInterna extends ReportDesigner{
                             detalleMO += som.getTipoTarea().getNombre()+"\n";
                             subtotalmo += "$"+som.calcularSubtotal()+"\n";
                         }                      
-                    PdfPCell celdaMOD = new PdfPCell(new Paragraph(detalleMO,new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaMOD = new PdfPCell(new Paragraph(detalleMO,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaMOD);
-                    PdfPCell celdaMOST = new PdfPCell(new Paragraph(subtotalmo,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaMOST = new PdfPCell(new Paragraph(subtotalmo,ReportDesigner.FUENTE_NORMAL_B));
                     celdaMOST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaMOST);
                     
                     // Materiales
-                    PdfPCell celdaMatT = new PdfPCell(new Paragraph("Materiales",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaMatT = new PdfPCell(new Paragraph("Materiales",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaMatT);
                         String detalle = new String();
                         String subtotalmat = new String();
@@ -113,14 +113,14 @@ public class CotizacionInterna extends ReportDesigner{
                             detalle += som.getDescripcion()+"\n";
                             subtotalmat += "$"+som.calcularSubtotal()+"\n";
                         }                    
-                    PdfPCell celdaMatD = new PdfPCell(new Paragraph(detalle,new Font(Font.FontFamily.HELVETICA,10,Font.ITALIC)));
+                    PdfPCell celdaMatD = new PdfPCell(new Paragraph(detalle,ReportDesigner.FUENTE_NORMAL_K));
                     tabla.addCell(celdaMatD);
-                    PdfPCell celdaMatST = new PdfPCell(new Paragraph(subtotalmat,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaMatST = new PdfPCell(new Paragraph(subtotalmat,ReportDesigner.FUENTE_NORMAL_B));
                     celdaMatST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaMatST);   
                     
                     // Herramientas
-                    PdfPCell celdaHerr = new PdfPCell(new Paragraph("Herramientas",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaHerr = new PdfPCell(new Paragraph("Herramientas",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaHerr);
                         String detalleHerr = new String();
                         String subtotalherr = new String();
@@ -130,14 +130,14 @@ public class CotizacionInterna extends ReportDesigner{
                             detalleHerr += som.getHerramienta().getNroSerie()+"\n";
                             subtotalherr += "$"+som.calcularSubtotal()+"\n";
                         }                       
-                    PdfPCell celdaHerrD = new PdfPCell(new Paragraph(detalleHerr,new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaHerrD = new PdfPCell(new Paragraph(detalleHerr,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaHerrD);
-                    PdfPCell celdaHerrST = new PdfPCell(new Paragraph(subtotalherr,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaHerrST = new PdfPCell(new Paragraph(subtotalherr,ReportDesigner.FUENTE_NORMAL_B));
                     celdaHerrST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaHerrST);  
                     
                     // Alquileres Compras
-                    PdfPCell celdaComp = new PdfPCell(new Paragraph("Alquileres / Compras",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaComp = new PdfPCell(new Paragraph("Alquileres / Compras",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaComp);
                         String detalleComp = new String();
                         String subtotalcomp= new String();
@@ -147,14 +147,14 @@ public class CotizacionInterna extends ReportDesigner{
                             detalleComp += som.getTipoAlquilerCompra().getNombre()+"\n";
                             subtotalcomp += "$"+som.calcularSubtotal()+"\n";
                         }                       
-                    PdfPCell celdaCompD = new PdfPCell(new Paragraph(detalleComp,new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaCompD = new PdfPCell(new Paragraph(detalleComp,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaCompD);
-                    PdfPCell celdaCompST = new PdfPCell(new Paragraph(subtotalcomp,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaCompST = new PdfPCell(new Paragraph(subtotalcomp,ReportDesigner.FUENTE_NORMAL_B));
                     celdaCompST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaCompST);      
                     
                     // Adicionales
-                    PdfPCell celdaAdic = new PdfPCell(new Paragraph("Adicionales",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaAdic = new PdfPCell(new Paragraph("Adicionales",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaAdic);
                         String detalleAdic = new String();
                         String subtotalAdic= new String();
@@ -164,14 +164,14 @@ public class CotizacionInterna extends ReportDesigner{
                             detalleAdic += som.getTipoAdicional().getNombre()+"\n";
                             subtotalAdic += "$"+som.calcularSubtotal()+"\n";
                         }                       
-                    PdfPCell celdaAdicD = new PdfPCell(new Paragraph(detalleAdic,new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaAdicD = new PdfPCell(new Paragraph(detalleAdic,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaAdicD);
-                    PdfPCell celdaAdicST = new PdfPCell(new Paragraph(subtotalAdic,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaAdicST = new PdfPCell(new Paragraph(subtotalAdic,ReportDesigner.FUENTE_NORMAL_B));
                     celdaAdicST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaAdicST);                      
 
                     // Beneficios
-                    PdfPCell celdaBen = new PdfPCell(new Paragraph("Beneficios",new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC)));
+                    PdfPCell celdaBen = new PdfPCell(new Paragraph("Beneficios",ReportDesigner.FUENTE_NORMAL_BK));
                     tabla.addCell(celdaBen);
                         String detalleBen = new String();
                         String subtotalBen= new String();
@@ -181,16 +181,16 @@ public class CotizacionInterna extends ReportDesigner{
                         }
                         subtotalBen ="$"+so.getGananciaMonto();
 
-                    PdfPCell celdaBenD = new PdfPCell(new Paragraph(detalleBen,new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+                    PdfPCell celdaBenD = new PdfPCell(new Paragraph(detalleBen,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaBenD);
-                    PdfPCell celdaBenST = new PdfPCell(new Paragraph(subtotalBen,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaBenST = new PdfPCell(new Paragraph(subtotalBen,ReportDesigner.FUENTE_NORMAL_B));
                     celdaBenST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     tabla.addCell(celdaBenST); 
                     
                     // Sub Total
                     tabla.addCell("");
                     tabla.addCell("");
-                    PdfPCell celdaST = new PdfPCell(new Paragraph("$"+so.calcularSubtotal(),new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaST = new PdfPCell(new Paragraph("$"+so.calcularSubtotal(),ReportDesigner.FUENTE_NORMAL_B));
                     celdaST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     celdaST.setBackgroundColor(new BaseColor(214,227,188));
                     tabla.addCell(celdaST);
@@ -205,17 +205,40 @@ public class CotizacionInterna extends ReportDesigner{
         PdfPTable tabla = new PdfPTable(2);
         tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
         tabla.setWidthPercentage(95);
-            PdfPCell celdaNombre = new PdfPCell(new Paragraph("Precio Total Cotizado por la Obra:",new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL)));
+            PdfPCell celdaNombre = new PdfPCell(new Paragraph("Precio Total Cotizado por la Obra:",ReportDesigner.FUENTE_NORMAL));
             tabla.addCell(celdaNombre);
             
-            PdfPCell celdaTotal = new PdfPCell(new Paragraph((String)params.get("COTIZACION_TOTAL"),new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+            PdfPCell celdaTotal = new PdfPCell(new Paragraph((String)params.get("COTIZACION_TOTAL"),ReportDesigner.FUENTE_NORMAL_B));
             celdaTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
             celdaTotal.setBackgroundColor(new BaseColor(194,214,155));
             tabla.addCell(celdaTotal); 
         super.doc.add(tabla);
         
         Paragraph pnl = new Paragraph(new Phrase("\n"));
-        super.doc.add(pnl);        
+        super.doc.add(pnl);   
+        
+        /*
+         * Datos Adicionales:
+            Forma de pago: A convenir.
+            Plazo de Entrega: A convenir.
+            Lugar de entrega: Planta Bagley Villa Mercedes (San Luis).
+            Validez de la Oferta: 7 días (Desde el 11/06/2011)
+
+         * 
+         */
+        
+        Paragraph datosGenerales = new Paragraph();
+            datosGenerales.add(new Phrase("Datos Adicionales:\n", FUENTE_TITULO_2));
+            datosGenerales.add(new Phrase("Forma de pago: ", FUENTE_NORMAL_B));
+            datosGenerales.add(new Phrase((String)params.get("FORMA_DE_PAGO"), FUENTE_NORMAL));
+            datosGenerales.add(new Phrase("\nPlazo de entrega: ", FUENTE_NORMAL_B));
+            datosGenerales.add(new Phrase((String)params.get("PLAZO_ENTREGA"), FUENTE_NORMAL));
+            datosGenerales.add(new Phrase("\nLugar de entrega: ", FUENTE_NORMAL_B));
+            datosGenerales.add(new Phrase((String)params.get("LUGAR_ENTREGA"), FUENTE_NORMAL));    
+            datosGenerales.add(new Phrase("\nValidez de la Oferta: ", FUENTE_NORMAL_B));
+            datosGenerales.add(new Phrase((String)params.get("VALIDEZ_OFERTA"), FUENTE_NORMAL));                
+        super.doc.add(datosGenerales);
+        
     }
     
     

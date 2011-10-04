@@ -231,12 +231,8 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Acá tu código ...
     if(cotizacionId>0) 
     { 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-               GestorReportesCotizacion gestor = new GestorReportesCotizacion();
-               gestor.emitirPresupuestoInterno(cotizacionId);
-            }
-        });        
+       GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+       gestor.emitirPresupuestoInterno(cotizacionId);
     }
     // ...
     hideLoading();
@@ -250,6 +246,7 @@ private void showLoading()
     this.repaint();
     lblLoad.repaint();
     this.pack();
+    lblLoad.repaint();
     
 }
 
