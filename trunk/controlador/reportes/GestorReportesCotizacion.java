@@ -14,6 +14,7 @@ import util.HibernateUtil;
 import util.ReporteUtil;
 import vista.reportes.ReportDesigner;
 import vista.reportes.sources.CotizacionInterna;
+import vista.reportes.sources.CotizacionExternaSubObras;
 
 /**
  * @author Iuga
@@ -67,6 +68,46 @@ public class GestorReportesCotizacion {
                 ci.setNombreReporte("Cotización Interna");
                 ci.setNombreArchivo("CotizacionInterna-"+cot.getNroCotizacion()+"Rev."+cot.getNroRevision(),ReportDesigner.REPORTE_TIPO_COTIZACION);
                 ci.makeAndShow(params);
+                
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public void emitirPresupuestoExternoSubObras(int id_presupuesto)
+    {
+         try
+        {                  
+            // Listado de SubObras
+            Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
+            
+            List listaSubObras = new ArrayList();
+            for (int i = 0; i < cot.getSubObras().size(); i++) 
+            {
+               SubObra so = cot.getSubObras().get(i);
+               listaSubObras.add(so);
+            }
+
+            try
+            {
+                HashMap<String,Object> params = new HashMap<String, Object>();
+                
+                    params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
+                    params.put("COTIZACION_MEMDESC",cot.getDescripcion());
+                    params.put("LISTA_SUB_OBRAS",listaSubObras);
+                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    
+                CotizacionExternaSubObras ceso = new CotizacionExternaSubObras(id_presupuesto);
+                ceso.setNombreReporte("Cotización Externa por Items de la Obra");
+                ceso.setNombreArchivo("CotizacionExternaItemsDeObra-"+cot.getNroCotizacion()+"Rev."+cot.getNroRevision(),ReportDesigner.REPORTE_TIPO_COTIZACION);
+                ceso.makeAndShow(params);
                 
             }
             catch(Exception e)

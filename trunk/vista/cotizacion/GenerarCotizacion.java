@@ -46,8 +46,8 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnPresupuestoSinDetalle = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPresupuestoExternoSubObras = new javax.swing.JButton();
+        btnPresupuestoExternoRecursos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
@@ -67,21 +67,21 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/x-dia-diagram.png"))); // NOI18N
-        jButton2.setText("Presupuesto: Discriminado por Sub-Obras");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPresupuestoExternoSubObras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/x-dia-diagram.png"))); // NOI18N
+        btnPresupuestoExternoSubObras.setText("Presupuesto: Discriminado por Sub-Obras");
+        btnPresupuestoExternoSubObras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPresupuestoExternoSubObras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPresupuestoExternoSubObrasActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/exec.png"))); // NOI18N
-        jButton3.setText("Presupuesto: Discriminado por Recursos");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnPresupuestoExternoRecursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/exec.png"))); // NOI18N
+        btnPresupuestoExternoRecursos.setText("Presupuesto: Discriminado por Recursos");
+        btnPresupuestoExternoRecursos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPresupuestoExternoRecursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnPresupuestoExternoRecursosActionPerformed(evt);
             }
         });
 
@@ -92,8 +92,8 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPresupuestoExternoRecursos, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                    .addComponent(btnPresupuestoExternoSubObras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPresupuestoSinDetalle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -103,9 +103,9 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(btnPresupuestoSinDetalle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnPresupuestoExternoSubObras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnPresupuestoExternoRecursos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,7 +159,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblLoad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                        .addComponent(lblLoad, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCerrar)))
                 .addContainerGap())
@@ -175,7 +175,7 @@ public class GenerarCotizacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(lblLoad))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,19 +209,24 @@ private void btnPresupuestoSinDetalleActionPerformed(java.awt.event.ActionEvent 
     hideLoading();
 }//GEN-LAST:event_btnPresupuestoSinDetalleActionPerformed
 
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+private void btnPresupuestoExternoSubObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoExternoSubObrasActionPerformed
     showLoading();
     // Acá tu código ...
+    if(cotizacionId>0) 
+    { 
+       GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+       gestor.emitirPresupuestoExternoSubObras(cotizacionId);
+    }
     // ...
     hideLoading();
-}//GEN-LAST:event_jButton2ActionPerformed
+}//GEN-LAST:event_btnPresupuestoExternoSubObrasActionPerformed
 
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+private void btnPresupuestoExternoRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoExternoRecursosActionPerformed
     showLoading();
     // Acá tu código ...
     // ...
     hideLoading();
-}//GEN-LAST:event_jButton3ActionPerformed
+}//GEN-LAST:event_btnPresupuestoExternoRecursosActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     
@@ -259,9 +264,9 @@ private void hideLoading()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnPresupuestoExternoRecursos;
+    private javax.swing.JButton btnPresupuestoExternoSubObras;
     private javax.swing.JButton btnPresupuestoSinDetalle;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

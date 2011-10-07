@@ -174,7 +174,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCotizaciones = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCotizacion = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Explorar Cotizaciones");
@@ -238,10 +238,12 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         });
         jScrollPane1.setViewportView(tablaCotizaciones);
 
-        jButton1.setText("PruebaReporteSubObras");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCotizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
+        btnCotizacion.setText("Generar Cotización");
+        btnCotizacion.setEnabled(false);
+        btnCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCotizacionActionPerformed(evt);
             }
         });
 
@@ -257,8 +259,8 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(42, 42, 42)
+                        .addComponent(btnCotizacion)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSeleccionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
@@ -273,12 +275,12 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSeleccionar)
-                    .addComponent(jButton1))
+                    .addComponent(btnCotizacion))
                 .addContainerGap())
         );
 
@@ -333,6 +335,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
        {
            //id=((Tupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
            btnSeleccionar.setEnabled(true);
+           btnCotizacion.setEnabled(true);
            if (evt.getClickCount() == 2)
             {
              llamarEditarCotizacion();
@@ -341,6 +344,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
        else
        {
            btnSeleccionar.setEnabled(false);
+           btnCotizacion.setEnabled(false);
        }
     }//GEN-LAST:event_tablaCotizacionesMouseReleased
 
@@ -348,23 +352,28 @@ private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
     activarFiltrosTabla();
 }//GEN-LAST:event_txtBuscarKeyReleased
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
-    if(tablaCotizaciones.getSelectedRow()!=-1)
+private void btnCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizacionActionPerformed
+       
+        
+        
+        if(tablaCotizaciones.getSelectedRow()!=-1)
        {
-        int id = (Integer) tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0);
-        //if(id>0) 
-        //{
-           gestor.reporteCotizacionExternaPorSubObra(id); 
-        //}
-       }
-}//GEN-LAST:event_jButton1ActionPerformed
+             
+          int id;            
+          id=((Tupla)(tablaCotizaciones.getModel().getValueAt(tablaCotizaciones.getSelectedRow(), 0))).getId();
+          GenerarCotizacion gce = new GenerarCotizacion(id);
+          SwingPanel.getInstance().addWindow(gce);
+          gce.setVisible(true);
+            
+        }
+        
+}//GEN-LAST:event_btnCotizacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCotizacion;
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCotizaciones;
