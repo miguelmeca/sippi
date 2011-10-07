@@ -78,6 +78,8 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         cargarMontoActualVSMaximo();
         // Actualiza los graficos
         cargarGraficos();
+        // Cambiar Interface segun el estado de la cotizacion
+        refrescarVentanaSegunEstado();
     }    
     
     private void cargarSubObras()
@@ -116,7 +118,9 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             cot_id = this.cot.getNroCotizacion();
         }
         
-        pantalla.llenarDatosCotizacion(cot_id,this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega());
+        
+        
+        pantalla.llenarDatosCotizacion(cot_id,this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega(),cot.getEstado());
     }
     
     private double getMontoMaximo()
@@ -354,6 +358,62 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     public boolean isNecesitaGuardar() {
         return necesita_guardar;
+    }
+
+    public void rechazarCotizacion() 
+    {
+        if(getCotizacion().getId()!=0)
+        {
+            if(getCotizacion().setEstadoRechazado())
+            {
+                pantalla.setEstadoRechazado();
+                refrescarVentana();
+            }
+            else
+            {
+                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cambiar el estado de la cotización");
+            }
+        }
+        else
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para realizar esta acción antes debe guardar la cotización");
+        }
+    }
+
+    private void refrescarVentanaSegunEstado() 
+    {
+        if(cot.getEstado().equals(Cotizacion.ESTADO_DESCARTADO) || cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO))
+        {
+            pantalla.refrescarVentanaEstadoRechazado();
+        }
+        if(cot.getEstado().equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
+        {
+            pantalla.refrescarVentanaEstadoPendienteAceptacion();
+        }
+        if(cot.getEstado().equals(Cotizacion.ESTADO_EN_CREACION))
+        {
+            pantalla.refrescarVentanaEstadoEnCreacion();
+        }
+    }
+    
+    public void enviarCotizacionCliente()
+    {
+        if(getCotizacion().getId()!=0)
+        {
+            if(getCotizacion().setEstadoPendienteAceptacion())
+            {
+                pantalla.setEstadoEnviadoCliente();
+                refrescarVentana();
+            }
+            else
+            {
+                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cambiar el estado de la cotización");
+            }
+        }
+        else
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para realizar esta acción antes debe guardar la cotización");
+        }        
     }
 
     

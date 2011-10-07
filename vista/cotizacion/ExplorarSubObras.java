@@ -81,6 +81,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         txtLugarEntrega = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -114,20 +116,16 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionObra = new javax.swing.JTextArea();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        btnPlanificar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnRecotizar = new javax.swing.JButton();
+        btnRechazar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnEnviarCliente = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -302,6 +300,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Lugar de Entrega:");
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Estado:");
+
+        txtEstado.setEditable(false);
+        txtEstado.setEnabled(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -310,26 +314,30 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel14)))
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbLVP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                     .addComponent(cmbLEP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                     .addComponent(txtNroCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                     .addComponent(txtPlazoEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                    .addComponent(txtLugarEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                    .addComponent(txtLugarEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -355,6 +363,10 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLugarEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -469,7 +481,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -491,7 +503,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -674,94 +686,44 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Descripición de la Obra", jPanel6);
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones con la Cotización"));
-
-        jLabel3.setText("Mi cliente acepto este presupuesto:");
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Play.png"))); // NOI18N
-        jButton3.setText("Comenzar una planificación sobre este presupuesto");
-        jButton3.setActionCommand("Comenzar una planificación desde este presupuesto");
-
-        jLabel6.setText("Mi cliente no acepto el presupuesto:");
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Eject.png"))); // NOI18N
-        jButton4.setText("Rechazar y comenzar a cotizar nuevamente");
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Previous record.png"))); // NOI18N
-        jButton6.setText("Recotizar sobre este presupuesto");
-        jButton6.setActionCommand("Recotizar desde este presupuesto");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Opciones", jPanel5);
-
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones con la Cotización"));
 
         jLabel7.setText("Mi cliente acepto esta cotización:");
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Play.png"))); // NOI18N
-        jButton7.setText("Comenzar una planificación sobre esta cotización");
-        jButton7.setActionCommand("Comenzar una planificación desde este presupuesto");
+        btnPlanificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Play.png"))); // NOI18N
+        btnPlanificar.setText("Comenzar una planificación sobre esta cotización");
+        btnPlanificar.setActionCommand("Comenzar una planificación desde este presupuesto");
+        btnPlanificar.setEnabled(false);
 
         jLabel8.setText("Mi cliente no acepto la cotización:");
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Previous record.png"))); // NOI18N
-        jButton9.setText("Recotizar a partir de esta cotización");
-        jButton9.setActionCommand("Recotizar desde este presupuesto");
+        btnRecotizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Previous record.png"))); // NOI18N
+        btnRecotizar.setText("Recotizar a partir de esta cotización");
+        btnRecotizar.setActionCommand("Recotizar desde este presupuesto");
+        btnRecotizar.setEnabled(false);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Stop.png"))); // NOI18N
-        jButton10.setText("Rechazar cotización");
-        jButton10.setActionCommand("Recotizar desde este presupuesto");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnRechazar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Stop.png"))); // NOI18N
+        btnRechazar.setText("Rechazar cotización");
+        btnRechazar.setActionCommand("Recotizar desde este presupuesto");
+        btnRechazar.setEnabled(false);
+        btnRechazar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnRechazarActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("¿Desea enviar al cliente esta cotización?");
+
+        btnEnviarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Target.png"))); // NOI18N
+        btnEnviarCliente.setText("Marcar esta cotización como enviada a un cliente y en espera de aceptación");
+        btnEnviarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Up-down.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -770,27 +732,36 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(btnPlanificar, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
+                    .addComponent(btnRecotizar, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(btnRechazar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(btnEnviarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEnviarCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
+                .addComponent(btnPlanificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
+                .addComponent(btnRecotizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnRechazar)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -810,7 +781,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addContainerGap(272, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Opciones - 25/09/2011", jPanel11);
+        jTabbedPane1.addTab("Opciones de la Cotización", jPanel11);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1054,9 +1025,15 @@ private void txtDescripcionObraFocusLost(java.awt.event.FocusEvent evt) {//GEN-F
     gestor.updateDescripcion(txtDescripcionObra.getText());// TODO add your handling code here:
 }//GEN-LAST:event_txtDescripcionObraFocusLost
 
-private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-    // TODO add your handling code here:
-}//GEN-LAST:event_jButton10ActionPerformed
+private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
+
+    rechazarCotizacion();
+    
+}//GEN-LAST:event_btnRechazarActionPerformed
+
+    private void btnEnviarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarClienteActionPerformed
+      enviarCotizacionCliente();
+    }//GEN-LAST:event_btnEnviarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1065,21 +1042,20 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarAlfonsina;
     private javax.swing.JButton btnEliminarSubObra;
+    private javax.swing.JButton btnEnviarCliente;
+    private javax.swing.JButton btnPlanificar;
+    private javax.swing.JButton btnRechazar;
+    private javax.swing.JButton btnRecotizar;
     private javax.swing.JButton btnSave;
     private com.toedter.calendar.JDateChooser cmbLEP;
     private com.toedter.calendar.JDateChooser cmbLVP;
     private javax.swing.JPanel graficoTortaRecursos;
     private javax.swing.JPanel graficoTortalSO;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1099,13 +1075,11 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -1129,6 +1103,7 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JProgressBar prog_est_max;
     private javax.swing.JTable tblMenu;
     private javax.swing.JTextArea txtDescripcionObra;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtLugarEntrega;
     private javax.swing.JTextField txtNroCotizacion;
     private javax.swing.JTextField txtPlazoEntrega;
@@ -1182,13 +1157,14 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         lbl_obra_fechafin.setText(fecha_fin);
     }
     
-    public void llenarDatosCotizacion(String nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega)
+    public void llenarDatosCotizacion(String nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega, String estado)
     {
         txtNroCotizacion.setText(String.valueOf(nroCotizacion));
         cmbLEP.setDate(fle);
         cmbLVP.setDate(vo);
         txtPlazoEntrega.setText(plazoEntrega);
         txtLugarEntrega.setText(lugarEntrega);
+        txtEstado.setText(estado);
     }    
     
     public void setMontoTotal(String monto)
@@ -1268,6 +1244,84 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public void MostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    }    
+    }
 
+    private void rechazarCotizacion() 
+    {
+        gestor.rechazarCotizacion();
+    }
+
+    public void setEstadoRechazado() 
+    {
+        int nx = JOptionPane.showConfirmDialog(this,"Se rechazó la cotización \n¿Desea guardar los cambios? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+
+            if(nx==JOptionPane.YES_OPTION)
+            {
+                gestor.guardarCotizacion();
+            }
+    }
+
+    public void refrescarVentanaEstadoRechazado() 
+    {
+        btnSave.setEnabled(false);
+        txtNroCotizacion.setEnabled(false);
+        cmbLEP.setEnabled(false);
+        cmbLVP.setEnabled(false);
+        txtLugarEntrega.setEnabled(false);
+        txtDescripcionObra.setEnabled(false);
+        txtPlazoEntrega.setEnabled(false);
+        
+        btnRechazar.setEnabled(false);
+        btnPlanificar.setEnabled(false);
+        btnRecotizar.setEnabled(false);
+        btnEnviarCliente.setEnabled(false);
+    }
+
+    public void refrescarVentanaEstadoPendienteAceptacion() 
+    {
+        btnSave.setEnabled(false);
+        txtNroCotizacion.setEnabled(false);
+        cmbLEP.setEnabled(false);
+        cmbLVP.setEnabled(false);
+        txtLugarEntrega.setEnabled(false);
+        txtDescripcionObra.setEnabled(false);
+        txtPlazoEntrega.setEnabled(false);
+        
+        btnRechazar.setEnabled(true);
+        btnRecotizar.setEnabled(true);
+        btnPlanificar.setEnabled(true);
+        btnEnviarCliente.setEnabled(false);
+    }
+
+    public void refrescarVentanaEstadoEnCreacion() 
+    {
+        btnSave.setEnabled(true);
+        txtNroCotizacion.setEnabled(true);
+        cmbLEP.setEnabled(true);
+        cmbLVP.setEnabled(true);
+        txtLugarEntrega.setEnabled(true);
+        txtDescripcionObra.setEnabled(true);
+        txtPlazoEntrega.setEnabled(true);
+        
+        btnRechazar.setEnabled(false);
+        btnPlanificar.setEnabled(false);
+        btnRecotizar.setEnabled(false);
+        btnEnviarCliente.setEnabled(true);
+    }
+
+    private void enviarCotizacionCliente() 
+    {
+        gestor.enviarCotizacionCliente();
+    }
+    
+    public void setEstadoEnviadoCliente() 
+    {
+        int nx = JOptionPane.showConfirmDialog(this,"Esta cotización se ha enviado al cliente \n¿Desea guardar los cambios? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+
+            if(nx==JOptionPane.YES_OPTION)
+            {
+                gestor.guardarCotizacion();
+            }
+    }    
+    
 }
