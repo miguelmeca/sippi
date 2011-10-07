@@ -109,7 +109,8 @@ public class ReportDesigner
         }
         catch(Exception e)
         {
-            System.err.println("No se pudo compilar el Reporte");
+            System.err.println("No se pudo compilar el Reporte:");
+            e.printStackTrace();
         }
         // Close Doc
         this.doc.close(); 
