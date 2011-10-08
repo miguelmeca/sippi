@@ -257,6 +257,7 @@
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new IconTreeModel()" type="code"/>
                             </Property>
+                            <Property name="expandsSelectedPaths" type="boolean" value="false"/>
                             <Property name="rootVisible" type="boolean" value="false"/>
                           </Properties>
                           <Events>
