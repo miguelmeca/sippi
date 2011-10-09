@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import modelo.PrecioSegunCantidad;
 import util.LogUtil;
 import util.NTupla;
 import util.StringUtil;
@@ -284,7 +285,8 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         }
         if(banCantidad && banProveedor){
             NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
-            gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText());
+            double precio = gestor.getPrecioMaterial(nt.getId(),cantidad);
+            gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio);
             this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed

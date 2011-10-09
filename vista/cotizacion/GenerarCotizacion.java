@@ -188,25 +188,17 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void btnPresupuestoSinDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoSinDetalleActionPerformed
     showLoading();
-    if(cotizacionId>0) {
-        String urlReporte = "/vista/reportes/CotizacionExternaGeneral.jasper";
-        try {
-            // CUANDO TERMINES, RECORDA QUE NO VA ACA, ESTO ES VISTA, PONE EL METODO EN 
-            // controlador/reportes/GestorReportesCotizacion.java
-            Cotizacion cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, cotizacionId);
+    btnPresupuestoSinDetalle.setEnabled(false);
 
-            Map params = new HashMap();
-            params.put("idCot",cotizacionId);
-            params.put("precioTotal", cot.CalcularTotal());
-            params.put("Contacto", "Armando Paredes");
-
-            ReporteUtil ru = new ReporteUtil();
-            ru.mostrarReporte(urlReporte,params);
-        } catch (Exception ex) {
-            Logger.getLogger(GenerarCotizacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    // Acá tu código ...
+    if(cotizacionId>0)
+    {
+       GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+       gestor.emitirPresupuestoExternoGeneral(cotizacionId);
     }
+    // ...
     hideLoading();
+    btnPresupuestoSinDetalle.setEnabled(true);
 }//GEN-LAST:event_btnPresupuestoSinDetalleActionPerformed
 
 private void btnPresupuestoExternoSubObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoExternoSubObrasActionPerformed
@@ -223,10 +215,18 @@ private void btnPresupuestoExternoSubObrasActionPerformed(java.awt.event.ActionE
 
 private void btnPresupuestoExternoRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPresupuestoExternoRecursosActionPerformed
     showLoading();
+    btnPresupuestoSinDetalle.setEnabled(false);
+
     // Acá tu código ...
+    if(cotizacionId>0)
+    {
+       GestorReportesCotizacion gestor = new GestorReportesCotizacion();
+       gestor.emitirPresupuestoExternoXRecurso(cotizacionId);
+    }
     // ...
     hideLoading();
-}//GEN-LAST:event_btnPresupuestoExternoRecursosActionPerformed
+    btnPresupuestoSinDetalle.setEnabled(true);
+}//GEN-LAST:event_btnPresupuestoExternoXRecursoActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     

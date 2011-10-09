@@ -49,39 +49,41 @@ public class CotizacionMateriales extends javax.swing.JPanel {
     }
 
     private void FiltrarTabla(JTable table,JTextField field){
-       TableRowSorter<TableModel> modeloOrdenado;
-       modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
-       table.setRowSorter(modeloOrdenado);
+//       if(!field.getText().matches("[\[\*\(\)\?]")){
+           TableRowSorter<TableModel> modeloOrdenado;
+           modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
+           table.setRowSorter(modeloOrdenado);
 
-           String[] cadena=field.getText().trim().split(" ");
-           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
-           for (int i= 0; i < cadena.length; i++)
-           {
-             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
-           }
-           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
-           modeloOrdenado.setRowFilter(cadenaFilter);
+               String[] cadena=field.getText().trim().split(" ");
+               List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+               for (int i= 0; i < cadena.length; i++)
+               {
+                 filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+               }
+               RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
+               modeloOrdenado.setRowFilter(cadenaFilter);
 
-           // CAMBIO LOS TAMAÃƒÆ’Ã¢â‚¬ËœOS DE LAS FILAS
-           DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-           for (int i = 0; i < modelo.getRowCount(); i++)
-           {
-            // REDIMENSIONO LA FILA !!! -----------------------------------
-                int index = modeloOrdenado.convertRowIndexToView(i);
-                if(index>-1)
-                {
-                    // ESTA
-//                    String item = (String) modelo.getValueAt(i,0);
-                    String item = ((NTupla) modelo.getValueAt(i,0)).getNombre() ;
-                    int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
-                    if(cantItems!=0)
-                    {
-                        table.setRowHeight(index,16*cantItems);
-                    }
-                    //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
-                }
+               // CAMBIO LOS TAMAÃƒÆ’Ã¢â‚¬ËœOS DE LAS FILAS
+               DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+               for (int i = 0; i < modelo.getRowCount(); i++)
+               {
                 // REDIMENSIONO LA FILA !!! -----------------------------------
-           }
+                    int index = modeloOrdenado.convertRowIndexToView(i);
+                    if(index>-1)
+                    {
+                        // ESTA
+    //                    String item = (String) modelo.getValueAt(i,0);
+                        String item = ((NTupla) modelo.getValueAt(i,0)).getNombre() ;
+                        int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
+                        if(cantItems!=0)
+                        {
+                            table.setRowHeight(index,16*cantItems);
+                        }
+                        //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+                    }
+                    // REDIMENSIONO LA FILA !!! -----------------------------------
+               }
+//        }
     }
 
     private void mostrarEspecificacionMaterial(int id) {
@@ -185,7 +187,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
-        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscarMaterial.setForeground(java.awt.Color.gray);
         txtBuscarMaterial.setText("Buscar...");
         txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -269,6 +271,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
         jLabel3.setText("Subtotal Materiales $");
 
+        txtSubtotalMateriales.setEditable(false);
         txtSubtotalMateriales.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         btnAgregarNuevoPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
@@ -322,8 +325,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                         .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarMaterial)

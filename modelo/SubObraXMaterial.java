@@ -14,6 +14,7 @@ public class SubObraXMaterial implements ISubtotal{
     private int cantidad;
     private String descripcion;
     private RecursoXProveedor material;
+    private double precioUnitario;
 
     public SubObraXMaterial() {
     }
@@ -50,7 +51,15 @@ public class SubObraXMaterial implements ISubtotal{
         this.descripcion = descripcion;
     }
 
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
     public double calcularSubtotal() {
-        return cantidad; // FAKE
+        return cantidad*precioUnitario;
     }
 }

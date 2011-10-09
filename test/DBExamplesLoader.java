@@ -6,6 +6,7 @@
 package test;
 
 import config.PropiedadBean;
+import controlador.cotizacion.GestorCotizacionMateriales;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1142,6 +1143,8 @@ public class DBExamplesLoader {
                 soxm.setCantidad(44);
                 soxm.setDescripcion("PROBANDO");
                 soxm.setMaterial(rxp1);
+                GestorCotizacionMateriales gestor = new GestorCotizacionMateriales();
+                soxm.setPrecioUnitario(gestor.getPrecioMaterial(rxp1.getId(), 44));
                 so1.addMaterial(soxm);
                 
                 so1.setGananciaMonto(500.0);
