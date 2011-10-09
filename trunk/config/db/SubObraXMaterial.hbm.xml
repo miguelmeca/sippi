@@ -7,7 +7,7 @@
     </id>
     <property column="CANTIDAD" name="cantidad" type="int"/>
     <property column="DESCRIPCION" name="descripcion" type="string"/>
-    <!--<many-to-one class="modelo.PrecioSegunCantidad" column="ID_PRECIO_SEGUN_CANTIDAD" name="precio"/>-->
     <many-to-one class="modelo.RecursoXProveedor" column="ID_MATERIAL" name="material"/>
+    <property column="PRECIOUNITARIO" name="precioUnitario" type="double"/>
   </class>
 </hibernate-mapping>

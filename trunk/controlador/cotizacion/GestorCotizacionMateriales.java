@@ -45,6 +45,11 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         this.subObra = gestorPadre.getSubObraActual();
     }
 
+    public GestorCotizacionMateriales() {
+        this.gestorPadre = null;
+        this.subObra = null;
+    }
+
     public void setPantalla(CotizacionMateriales pantalla) {
         this.pantalla = pantalla;
     }
@@ -107,15 +112,15 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 Object[] o = new Object[3];
                 o[0]= re.getNombre();
                 o[1]= soxm.getCantidad();
-                Iterator<PrecioSegunCantidad> itPrecio = soxm.getMaterial().getListaPrecios().iterator();
-                double precio = 0;
-                while(itPrecio.hasNext()){
-                    PrecioSegunCantidad psc = itPrecio.next();
-                    if(soxm.getCantidad() >= psc.getCantidad()){
-                        precio=psc.getPrecio();
-                    }
-                }
-                o[2]= precio;
+//                Iterator<PrecioSegunCantidad> itPrecio = soxm.getMaterial().getListaPrecios().iterator();
+//                double precio = 0;
+//                while(itPrecio.hasNext()){
+//                    PrecioSegunCantidad psc = itPrecio.next();
+//                    if(soxm.getCantidad() >= psc.getCantidad()){
+//                        precio=psc.getPrecio();
+//                    }
+//                }
+                o[2]= soxm.getPrecioUnitario();
                 nt.setData(o);
                 mau.add(nt);
             }
@@ -187,13 +192,14 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         return subtotal;
     }
 
-    public void agregarMaterial(int idRXP, int cantidad, String desc) {
+    public void agregarMaterial(int idRXP, int cantidad, String desc,double precio) {
         try {
             SubObraXMaterial soxm = new SubObraXMaterial();
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             soxm.setMaterial(rxp);
             soxm.setCantidad(cantidad);
             soxm.setDescripcion(desc);
+            soxm.setPrecioUnitario(precio);
             subObra.getMateriales().add(soxm);
             //pantalla.actualizar(dm.getId(), "...", true);
 
@@ -637,7 +643,25 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             HibernateUtil.rollbackTransaction();
             return false;
         }
+    }
 
+    public double getPrecioMaterial(int idRXP,int cantidad) {
+        double precio = 0;
+        try {
+            HibernateUtil.beginTransaction();
+            RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+            Iterator it = rxp.getListaUltimosPrecios().iterator();
+            while(it.hasNext()){
+                PrecioSegunCantidad psc = (PrecioSegunCantidad)it.next();
+                if(cantidad >= psc.getCantidad())
+                    precio=psc.getPrecio();
+            }
 
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+        }
+        return precio;
     }
 }
