@@ -108,12 +108,11 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         jLabel5.setText("=");
 
-        txtSubtotal.setEditable(false);
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSubtotal.setEnabled(false);
 
-        txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.00"))));
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCantidad.setText("0");
         txtCantidad.setEnabled(false);
         txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
