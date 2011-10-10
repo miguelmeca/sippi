@@ -28,10 +28,10 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     private static final int OPTN_HERRAMIENTAS          = 1;
     private static final int OPTN_MATERIALES            = 2;
     private static final int OPTN_ALQUILERES_COMPRAS    = 3;
-    private static final int OPTN_BENEFICIOS            = 4;
+    private static final int OPTN_RRHH                  = 4;    
     private static final int OPTN_ADICIONALES           = 5;
-    private static final int OPTN_RRHH                  = 6;
-
+    private static final int OPTN_BENEFICIOS            = 6;
+    
     public EditarCotizacion(GestorEditarCotizacion gestor)
     {
         initComponents();
@@ -137,9 +137,9 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 {"Herramientas"},
                 {"Materiales"},
                 {"Alquileres/Compras"},
-                {"Beneficios"},
+                {"Recursos Humanos"},
                 {"Adicionales"},
-                {"Recursos Humanos"}
+                {"Beneficios"}
             },
             new String [] {
                 "Title 1"

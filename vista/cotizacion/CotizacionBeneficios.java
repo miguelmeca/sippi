@@ -141,7 +141,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         lblGanancia.setOpaque(true);
 
         buttonGroup1.add(rbtnMontoGanancia);
-        rbtnMontoGanancia.setText("Monto de Ganancia por el Item de Obra ($)");
+        rbtnMontoGanancia.setText("Monto de Ganancias Fijo para la Sub-obra($)");
         rbtnMontoGanancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnMontoGananciaActionPerformed(evt);
@@ -152,7 +152,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
 
         buttonGroup1.add(rbtnPorcentajeGanancia);
         rbtnPorcentajeGanancia.setSelected(true);
-        rbtnPorcentajeGanancia.setText("Porcentaje de Ganancia por el Item de Obra (%)");
+        rbtnPorcentajeGanancia.setText("Porcentaje de Ganancia para la sub-obra(%)");
         rbtnPorcentajeGanancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnPorcentajeGananciaActionPerformed(evt);
@@ -170,7 +170,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbtnMontoGanancia, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                            .addComponent(rbtnPorcentajeGanancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(rbtnPorcentajeGanancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ftxtPorcentaje, javax.swing.GroupLayout.Alignment.TRAILING)

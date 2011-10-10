@@ -69,8 +69,15 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Herramienta a Utilizar (*)/ Observaciones"));
 
+        cmbHerramienta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbHerramientaActionPerformed(evt);
+            }
+        });
+
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.setEnabled(false);
         jScrollPane3.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -105,6 +112,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jLabel4.setText("Horas x Día (*)");
 
         txtCantDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtCantDias.setEnabled(false);
         txtCantDias.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCantDiasKeyReleased(evt);
@@ -112,6 +120,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         });
 
         txtHorasDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtHorasDia.setEnabled(false);
         txtHorasDia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHorasDiaActionPerformed(evt);
@@ -124,6 +133,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         });
 
         txtCostoHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
+        txtCostoHora.setEnabled(false);
         txtCostoHora.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCostoHoraKeyReleased(evt);
@@ -312,7 +322,15 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         double costoHora = 0;
         costoHora = Double.parseDouble(txtCostoHora.getText());
 
-        gestor.AgregarHerramienta((Tupla)cmbHerramienta.getSelectedItem(), cantDias, cantHoras, costoHora);
+        Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
+        if(tpitem.getId()!=0)
+        {         
+            gestor.AgregarHerramienta(tpitem, cantDias, cantHoras, costoHora);
+        }
+        else
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar una Herramienta");
+        }
     }
     
 }//GEN-LAST:event_btnAgregarActionPerformed
@@ -329,6 +347,25 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             JOptionPane.showMessageDialog(this, "Debe seleccionar una Herramienta","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void cmbHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHerramientaActionPerformed
+        Tupla tp = (Tupla)cmbHerramienta.getSelectedItem();
+        if(tp.getId()!=0)
+        {
+            txtCantDias.setEnabled(true);
+            txtHorasDia.setEnabled(true);
+            txtCostoHora.setEnabled(true);
+            txtCantDias.setEnabled(true);
+        }
+        else
+        {
+            txtCantDias.setEnabled(false);
+            txtHorasDia.setEnabled(false);
+            txtCostoHora.setEnabled(false);
+            txtCantDias.setEnabled(false);
+        }
+            
+    }//GEN-LAST:event_cmbHerramientaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -370,7 +407,10 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     public void llenarComboHerramientas(ArrayList<Tupla> listaTipos) 
     {
+        Tupla tp0 = new Tupla(0,"Seleccione una Herramienta...");
+        
         cmbHerramienta.removeAllItems();
+        cmbHerramienta.addItem(tp0);
         for (int i = 0; i < listaTipos.size(); i++) 
         {
             Tupla tp = listaTipos.get(i);

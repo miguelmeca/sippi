@@ -71,16 +71,23 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo (*)/Observación"));
 
+        cmbTipoAdicional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoAdicionalActionPerformed(evt);
+            }
+        });
+
         txtConcepto.setColumns(20);
         txtConcepto.setRows(5);
+        txtConcepto.setEnabled(false);
         jScrollPane1.setViewportView(txtConcepto);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cmbTipoAdicional, 0, 425, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+            .addComponent(cmbTipoAdicional, 0, 446, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +99,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Concepto"));
 
-        jLabel1.setText("Catidad Operarios (*)");
+        jLabel1.setText("Cantidad de Operarios (*)");
 
         jLabel2.setText("Cantidad Días (*)");
 
@@ -112,6 +119,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         txtCantidadPersonas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         txtCantidadPersonas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantidadPersonas.setText("0");
+        txtCantidadPersonas.setEnabled(false);
         txtCantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadPersonasActionPerformed(evt);
@@ -126,6 +134,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         txtCantidadDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         txtCantidadDias.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantidadDias.setText("0");
+        txtCantidadDias.setEnabled(false);
         txtCantidadDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadDiasActionPerformed(evt);
@@ -139,6 +148,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         txtPrecioUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         txtPrecioUnitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrecioUnitario.setEnabled(false);
         txtPrecioUnitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioUnitarioActionPerformed(evt);
@@ -156,9 +166,9 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCantidadPersonas)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,7 +234,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
         });
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Materiales a Utilizar"));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Adicionales"));
 
         tbAdicionales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -261,10 +271,10 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                        .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnQuitarAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,7 +290,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitarAdicional)
                     .addComponent(btnAgregarAdicional))
@@ -317,22 +327,28 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
         String descripcion = txtConcepto.getText();
         
-        if(cantidadOperarios>0 && cantidadDias>0)
+        if(tipo.getId()!=0)
         {
-            if(precio>0)
+            if(cantidadOperarios>0 && cantidadDias>0)
             {
-                AgregarAdicional(tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+                if(precio>0)
+                {
+                    AgregarAdicional(tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+                }
+                else
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar un Precio positivo");
+                }
             }
             else
             {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar un Precio positivo");
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad positiva de Operarios y días");
             }
         }
         else
         {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad positiva de Operarios y días");
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar un Tipo");
         }
-        
 }//GEN-LAST:event_btnAgregarAdicionalActionPerformed
 
     private void btnQuitarAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarAdicionalActionPerformed
@@ -377,6 +393,26 @@ private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FI
     MostrarSubtotalConcepto();
 }//GEN-LAST:event_txtPrecioUnitarioKeyReleased
 
+    private void cmbTipoAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoAdicionalActionPerformed
+        
+        Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
+        if(tipo.getId()==0)
+        {
+            txtCantidadPersonas.setEnabled(false);
+            txtCantidadDias.setEnabled(false);
+            txtPrecioUnitario.setEnabled(false);
+            txtConcepto.setEnabled(false);
+        }
+        else
+        {
+            txtCantidadPersonas.setEnabled(true);
+            txtCantidadDias.setEnabled(true);
+            txtPrecioUnitario.setEnabled(true);
+            txtConcepto.setEnabled(true);            
+        }
+        
+    }//GEN-LAST:event_cmbTipoAdicionalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarAdicional;
@@ -405,7 +441,10 @@ private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FI
 
     public void llenarComboTipos(ArrayList<Tupla> listaTipos) 
     {
+        Tupla tp0 = new Tupla(0,"Seleccione un Tipo...");
+        
         cmbTipoAdicional.removeAllItems();
+        cmbTipoAdicional.addItem(tp0);
         for (int i = 0; i < listaTipos.size(); i++) 
         {
             Tupla tp = listaTipos.get(i);
