@@ -198,9 +198,9 @@
                       <Data value="Herramientas"/>
                       <Data value="Materiales"/>
                       <Data value="Alquileres/Compras"/>
-                      <Data value="Beneficios"/>
-                      <Data value="Adicionales"/>
                       <Data value="Recursos Humanos"/>
+                      <Data value="Adicionales"/>
+                      <Data value="Beneficios"/>
                     </Column>
                   </Table>
                 </Property>

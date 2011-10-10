@@ -70,8 +70,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Concepto(*) / Descripción"));
 
+        cmbConceptoAlquiler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbConceptoAlquilerActionPerformed(evt);
+            }
+        });
+
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.setEnabled(false);
         jScrollPane2.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -107,6 +114,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantidad.setText("0");
+        txtCantidad.setEnabled(false);
         txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCantidadFocusLost(evt);
@@ -121,6 +129,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
         txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecio.setText("0");
+        txtPrecio.setEnabled(false);
         txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioActionPerformed(evt);
@@ -291,20 +300,28 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         Tupla tipo = (Tupla)cmbConceptoAlquiler.getSelectedItem();
         String descripcion = txtDescripcion.getText();
         
-        if(cantidad>0)
+        if(tipo.getId()!=0)
         {
-            if(precio>0)
+            if(cantidad>0)
             {
-                AgregarCompraAlquiler(tipo,descripcion,cantidad,precio);
+                if(precio>0)
+                {
+
+                        AgregarCompraAlquiler(tipo,descripcion,cantidad,precio);
+                }
+                else
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar un Precio mayor a cero");
+                }
             }
             else
             {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar un Precio positivo");
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad mayor a cero");
             }
         }
         else
         {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad positiva");
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar un Concepto");
         }
         
 }//GEN-LAST:event_btnAgregarCompraActionPerformed
@@ -347,6 +364,24 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     CalcularSubTotal();
 }//GEN-LAST:event_txtPrecioFocusLost
 
+    private void cmbConceptoAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbConceptoAlquilerActionPerformed
+    
+        Tupla tipo = (Tupla)cmbConceptoAlquiler.getSelectedItem();
+        if(tipo.getId()!=0)
+        {
+            txtCantidad.setEnabled(true);
+            txtPrecio.setEnabled(true);
+            txtDescripcion.setEnabled(true);
+        }
+        else
+        {
+            txtCantidad.setEnabled(false);
+            txtPrecio.setEnabled(false);
+            txtDescripcion.setEnabled(false);            
+        }
+        
+    }//GEN-LAST:event_cmbConceptoAlquilerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCompra;
@@ -384,7 +419,10 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 
     public void llenarComboTipos(ArrayList<Tupla> listaTipos) 
     {
+        Tupla tp0 = new Tupla(0,"Seleccione un Concepto...");
+        
         cmbConceptoAlquiler.removeAllItems();
+        cmbConceptoAlquiler.addItem(tp0);
         for (int i = 0; i < listaTipos.size(); i++) 
         {
             Tupla tp = listaTipos.get(i);
