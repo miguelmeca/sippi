@@ -61,6 +61,7 @@ public class GestorRegistrarCotizacion {
     {
         cot=new Cotizacion();     
         cot.setDescripcion("");
+        cot.setNroRevision(0);
         obra.addCotizaciones(cot);
         
         try 
@@ -84,7 +85,9 @@ public class GestorRegistrarCotizacion {
     {
         cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
         
-        cot=copiarCotización(cotOriginal);
+        cot=copiarCotización(cotOriginal);        
+        /*int nvoNroRevision=(Integer)sesion.createQuery("select max(cot.nroRevision) from Cotizacion cot where cot.nroCotizacion=:nroCot").setParameter("nroCot", cotOriginal.getNroCotizacion()).uniqueResult();
+        cot.setNroRevision(nvoNroRevision+1);*/
         cot.setDescripcion("");
         obra.addCotizaciones(cot);
         return guardarCotizacion();
@@ -99,6 +102,7 @@ public class GestorRegistrarCotizacion {
        diasDiferencia=FechaUtil.diasDiferencia(fechaInicioObraOriginal, fechaInicioObra);
        
        Cotizacion cotiz=new Cotizacion();
+       //cotiz.setNroCotizacion(cotOriginal.getNroCotizacion());            
        
        cotiz.setFechaCreacion(new Date()); 
        cotiz.setFechaModificacion(new Date());//TODO:revisar

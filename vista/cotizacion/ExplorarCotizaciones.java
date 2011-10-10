@@ -53,6 +53,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         this.habilitarVentana();
         desdeRegistrarNuevaCotizacion=true;
         btnSeleccionar.setText("Seleccionar");
+        btnCotizacion.setVisible(false);
     }
     public ExplorarCotizaciones()
     {
@@ -61,6 +62,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         this.habilitarVentana();
         desdeRegistrarNuevaCotizacion=false;
         btnSeleccionar.setText("Editar");
+        btnCotizacion.setVisible(true);
     }
     public void setTipo(int TIPO) 
     {
