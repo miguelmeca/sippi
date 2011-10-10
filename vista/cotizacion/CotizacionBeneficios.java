@@ -41,6 +41,7 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
     
     public void actualizarDatos()
     {
+        gestor.reiniciarGestor();
         flagGananciaPorcentaje=gestor.isFlagGananciaPorcentaje();
         gananciaMonto=gestor.getGananciaMonto();
         gananciaPorcentaje=gestor.getGananciaPorcentaje();

@@ -47,7 +47,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
 
     public GestorCotizacionManoDeObra(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;
-        subObra=getSubObraActual();
+        subObra=this.getSubObraActual();
     }
     
 
@@ -144,15 +144,15 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     public double calcularSubtotal()
     {
         double monto=0.0;
-        for (int j = 0; j < subObra.getTareas().size(); j++) 
+        for (int j = 0; j < getSubObraActual().getTareas().size(); j++) 
         {
-             monto+= subObra.getTareas().get(j).calcularSubtotal();
+             monto+= getSubObraActual().getTareas().get(j).calcularSubtotal();
         }
         return monto;
     }
     public void getTareasDeSubObra()
     {
-        List<SubObraXTarea> tareas= subObra.getTareas();
+        List<SubObraXTarea> tareas= getSubObraActual().getTareas();
         
         for (SubObraXTarea soxt : tareas) 
         {
@@ -185,7 +185,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     }
     public void eliminarTarea(int id)
     {
-        subObra.eliminarTarea(id);
+        getSubObraActual().eliminarTarea(id);
         refrescarPantallas();
     }
     
@@ -201,7 +201,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             if(((NTupla)datos[0]).getId()>0)
             {
                tareaNueva=false;
-               List<SubObraXTarea> tareas= subObra.getTareas();
+               List<SubObraXTarea> tareas= getSubObraActual().getTareas();
         
                
                 boolean codigoInalzanzableAlcanzado=true;
@@ -236,7 +236,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             
             if(tareaNueva)
             {
-               subObra.addTarea(soxt); 
+              getSubObraActual().addTarea(soxt); 
             }
             
             
