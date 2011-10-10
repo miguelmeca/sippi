@@ -30,6 +30,14 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
         flagGananciaPorcentaje=subObraActual.isFlagGananciaPorcentaje();
         
     }
+    public void reiniciarGestor() 
+    {
+        subObraActual=getSubObraActual();
+        montoGanancia=subObraActual.getGananciaMonto();
+        porcentageGanancia=subObraActual.getGananciaPorcentaje();
+        flagGananciaPorcentaje=subObraActual.isFlagGananciaPorcentaje();
+        
+    }
 
     public void setPantalla(CotizacionBeneficios pantalla) 
     {
@@ -38,8 +46,10 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
     
     public double calcularGananciaSubObra(boolean flagGananciaPorcentaj,double ganancia)
     {
-        flagGananciaPorcentaje=flagGananciaPorcentaj;
+        
+        reiniciarGestor();
         subObraActual=getSubObraActual();
+        flagGananciaPorcentaje=flagGananciaPorcentaj;
        // subObraActual.setFlagGananciaPorcentaje(flagGananciaPorcentaje);
         if(flagGananciaPorcentaje)
         {
