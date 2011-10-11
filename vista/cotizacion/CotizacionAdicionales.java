@@ -57,9 +57,9 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCantidadPersonas = new javax.swing.JFormattedTextField();
-        txtCantidadDias = new javax.swing.JFormattedTextField();
-        txtPrecioUnitario = new javax.swing.JFormattedTextField();
+        txtCantidadPersonas = new javax.swing.JTextField();
+        txtCantidadDias = new javax.swing.JTextField();
+        txtPrecioUnitario = new javax.swing.JTextField();
         btnAgregarAdicional = new javax.swing.JButton();
         btnQuitarAdicional = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -116,47 +116,39 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jLabel7.setText("Subtotal");
 
-        txtCantidadPersonas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        txtCantidadPersonas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCantidadPersonas.setText("0");
         txtCantidadPersonas.setEnabled(false);
         txtCantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadPersonasActionPerformed(evt);
             }
         });
-        txtCantidadPersonas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCantidadPersonasKeyReleased(evt);
+        txtCantidadPersonas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCantidadPersonasFocusLost(evt);
             }
         });
 
-        txtCantidadDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        txtCantidadDias.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCantidadDias.setText("0");
         txtCantidadDias.setEnabled(false);
         txtCantidadDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadDiasActionPerformed(evt);
             }
         });
-        txtCantidadDias.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCantidadDiasKeyReleased(evt);
+        txtCantidadDias.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCantidadDiasFocusLost(evt);
             }
         });
 
-        txtPrecioUnitario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
-        txtPrecioUnitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPrecioUnitario.setEnabled(false);
         txtPrecioUnitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioUnitarioActionPerformed(evt);
             }
         });
-        txtPrecioUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPrecioUnitarioKeyReleased(evt);
+        txtPrecioUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecioUnitarioFocusLost(evt);
             }
         });
 
@@ -169,7 +161,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtCantidadPersonas)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -179,8 +171,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtPrecioUnitario)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -202,7 +194,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel4)
-                                .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)))
@@ -210,11 +203,10 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
+                            .addComponent(jLabel6)
+                            .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -307,22 +299,56 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     private void btnAgregarAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAdicionalActionPerformed
 
         int cantidadDias = 0;
-        if(!txtCantidadDias.getText().isEmpty())
+        try
         {
             cantidadDias = Integer.parseInt(txtCantidadDias.getText());
         }
-        
-        int cantidadOperarios = 0;
-        if(!txtCantidadPersonas.getText().isEmpty())
+        catch(Exception e)
         {
-            cantidadOperarios = Integer.parseInt(txtCantidadPersonas.getText());
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada no es válida");
+            return;            
+        }
+
+        if(cantidadDias<=0)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
+             return;
         }        
         
+        int cantidadOperarios = 0;
+        try
+        {
+            cantidadOperarios = Integer.parseInt(txtCantidadPersonas.getText());
+        } 
+        catch(Exception e)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada no es válida");
+            return;            
+        }        
+        
+        if(cantidadOperarios<=0)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada debe ser positiva");
+             return;
+        }          
+                
         double precio = 0;
-        if(!txtPrecioUnitario.getText().isEmpty())
+        try
         {
             precio = Double.parseDouble(txtPrecioUnitario.getText().replaceAll(",","."));
         }
+        catch(Exception e)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
+            return;            
+        }
+        
+        if(precio<=0)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado debe ser positivo");
+            return;
+        }          
+        
         
         Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
         String descripcion = txtConcepto.getText();
@@ -369,30 +395,6 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         // TODO add your handling code here:
 }//GEN-LAST:event_txtSubtotalAdicionalesActionPerformed
 
-private void txtCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadPersonasActionPerformed
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtCantidadPersonasActionPerformed
-
-private void txtCantidadDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadDiasActionPerformed
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtCantidadDiasActionPerformed
-
-private void txtPrecioUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioActionPerformed
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtPrecioUnitarioActionPerformed
-
-private void txtCantidadPersonasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadPersonasKeyReleased
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtCantidadPersonasKeyReleased
-
-private void txtCantidadDiasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadDiasKeyReleased
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtCantidadDiasKeyReleased
-
-private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioKeyReleased
-    MostrarSubtotalConcepto();
-}//GEN-LAST:event_txtPrecioUnitarioKeyReleased
-
     private void cmbTipoAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoAdicionalActionPerformed
         
         Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
@@ -413,6 +415,30 @@ private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FI
         
     }//GEN-LAST:event_cmbTipoAdicionalActionPerformed
 
+    private void txtCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadPersonasActionPerformed
+        MostrarSubtotalConcepto();
+    }//GEN-LAST:event_txtCantidadPersonasActionPerformed
+
+    private void txtCantidadDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadDiasActionPerformed
+        MostrarSubtotalConcepto();
+    }//GEN-LAST:event_txtCantidadDiasActionPerformed
+
+    private void txtPrecioUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioActionPerformed
+        MostrarSubtotalConcepto();
+    }//GEN-LAST:event_txtPrecioUnitarioActionPerformed
+
+    private void txtCantidadPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadPersonasFocusLost
+        MostrarSubtotalConcepto();  
+    }//GEN-LAST:event_txtCantidadPersonasFocusLost
+
+    private void txtCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadDiasFocusLost
+        MostrarSubtotalConcepto();
+    }//GEN-LAST:event_txtCantidadDiasFocusLost
+
+    private void txtPrecioUnitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioFocusLost
+        MostrarSubtotalConcepto();
+    }//GEN-LAST:event_txtPrecioUnitarioFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarAdicional;
@@ -431,10 +457,10 @@ private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FI
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbAdicionales;
-    private javax.swing.JFormattedTextField txtCantidadDias;
-    private javax.swing.JFormattedTextField txtCantidadPersonas;
+    private javax.swing.JTextField txtCantidadDias;
+    private javax.swing.JTextField txtCantidadPersonas;
     private javax.swing.JTextArea txtConcepto;
-    private javax.swing.JFormattedTextField txtPrecioUnitario;
+    private javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtSubtotalAdicionales;
     // End of variables declaration//GEN-END:variables
@@ -496,9 +522,20 @@ private void txtPrecioUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FI
     
     private void MostrarSubtotalConcepto()
     {
-        double cantPersonas = Double.parseDouble(txtCantidadPersonas.getText());
-        double cantDías = Double.parseDouble(txtCantidadDias.getText());
-        double precioUnitario = Double.parseDouble(txtPrecioUnitario.getText());
+        double cantPersonas = 0;
+        double cantDías = 0;
+        double precioUnitario = 0;
+        
+        try
+        {
+            cantPersonas = Double.parseDouble(txtCantidadPersonas.getText());
+            cantDías = Double.parseDouble(txtCantidadDias.getText());
+            precioUnitario = Double.parseDouble(txtPrecioUnitario.getText());        
+        }
+        catch(Exception e)
+        {
+            return;
+        }
         
         txtSubtotal.setText("$"+cantDías*cantPersonas*precioUnitario);
         

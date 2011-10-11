@@ -45,6 +45,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         cmbConceptoAlquiler = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -56,14 +57,16 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
-        txtCantidad = new javax.swing.JFormattedTextField();
-        txtPrecio = new javax.swing.JFormattedTextField();
+        txtPrecio = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         btnAgregarCompra = new javax.swing.JButton();
         btnQuitarCompra = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCompras = new javax.swing.JTable();
         txtSubtotalCompras = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+
+        jTextField1.setText("jTextField1");
 
         setName("Alquileres / Compras"); // NOI18N
         setPreferredSize(new java.awt.Dimension(440, 380));
@@ -111,8 +114,18 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSubtotal.setEnabled(false);
 
-        txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.00"))));
-        txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrecio.setEnabled(false);
+        txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecioFocusLost(evt);
+            }
+        });
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyPressed(evt);
+            }
+        });
+
         txtCantidad.setEnabled(false);
         txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -120,28 +133,8 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             }
         });
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCantidadKeyReleased(evt);
-            }
-        });
-
-        txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
-        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPrecio.setText("0");
-        txtPrecio.setEnabled(false);
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
-            }
-        });
-        txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPrecioFocusLost(evt);
-            }
-        });
-        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyReleased(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
             }
         });
 
@@ -150,10 +143,10 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4))
                     .addComponent(jLabel2))
@@ -163,15 +156,16 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
@@ -179,10 +173,10 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -285,15 +279,25 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
         
         int cantidad = 0;
-        if(!txtCantidad.getText().isEmpty())
+        try
         {
             cantidad = Integer.parseInt(txtCantidad.getText());
         }
+        catch(Exception e)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad ingresada no es válida");
+            return;            
+        }
         
         double precio = 0;
-        if(!txtPrecio.getText().isEmpty())
+        try
         {
             precio = Double.parseDouble(txtPrecio.getText().replaceAll(",","."));
+        }
+        catch(Exception e)
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
+            return;            
         }
         
         Tupla tipo = (Tupla)cmbConceptoAlquiler.getSelectedItem();
@@ -343,26 +347,6 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         // TODO add your handling code here:
 }//GEN-LAST:event_txtSubtotalComprasActionPerformed
 
-private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtPrecioActionPerformed
-
-private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
-    CalcularSubTotal();
-}//GEN-LAST:event_txtCantidadKeyReleased
-
-private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-    CalcularSubTotal();
-}//GEN-LAST:event_txtPrecioKeyReleased
-
-private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
-    CalcularSubTotal();
-}//GEN-LAST:event_txtCantidadFocusLost
-
-private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusLost
-    CalcularSubTotal();
-}//GEN-LAST:event_txtPrecioFocusLost
-
     private void cmbConceptoAlquilerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbConceptoAlquilerActionPerformed
     
         Tupla tipo = (Tupla)cmbConceptoAlquiler.getSelectedItem();
@@ -381,6 +365,22 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         
     }//GEN-LAST:event_cmbConceptoAlquilerActionPerformed
 
+    private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
+        CalcularSubTotal();
+    }//GEN-LAST:event_txtCantidadFocusLost
+
+    private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusLost
+        CalcularSubTotal();
+    }//GEN-LAST:event_txtPrecioFocusLost
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        CalcularSubTotal();
+    }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
+        CalcularSubTotal();
+    }//GEN-LAST:event_txtPrecioKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCompra;
@@ -396,10 +396,11 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tbCompras;
-    private javax.swing.JFormattedTextField txtCantidad;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JFormattedTextField txtPrecio;
+    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtSubtotalCompras;
     // End of variables declaration//GEN-END:variables
@@ -466,17 +467,19 @@ private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 
     private void CalcularSubTotal() 
     {
+        
         int cantidad = 0;
-        if(!txtCantidad.getText().isEmpty())
+        double precio = 0;
+        
+        try
         {
             cantidad = Integer.parseInt(txtCantidad.getText());
-        }
-        
-        double precio = 0;
-        if(!txtPrecio.getText().isEmpty())
-        {
             precio = Double.parseDouble(txtPrecio.getText().replaceAll(",","."));
-        }  
+        }
+        catch(Exception e)
+        {
+            return;
+        }
         
         txtSubtotal.setText("$"+cantidad*precio);
     }
