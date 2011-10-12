@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.FechaUtil;
 import util.NTupla;
 import util.TablaUtil;
 import util.Tupla;
@@ -113,7 +114,7 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Cantidad:");
@@ -193,9 +194,9 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tablaNuevosPrecios);
-        tablaNuevosPrecios.getColumnModel().getColumn(0).setPreferredWidth(250);
-        tablaNuevosPrecios.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tablaNuevosPrecios.getColumnModel().getColumn(2).setPreferredWidth(250);
+        tablaNuevosPrecios.getColumnModel().getColumn(0).setPreferredWidth(260);
+        tablaNuevosPrecios.getColumnModel().getColumn(1).setPreferredWidth(260);
+        tablaNuevosPrecios.getColumnModel().getColumn(2).setPreferredWidth(260);
         tablaNuevosPrecios.getColumnModel().getColumn(3).setResizable(false);
         tablaNuevosPrecios.getColumnModel().getColumn(3).setPreferredWidth(0);
 
@@ -251,15 +252,23 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
     private void btbAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbAgregarNuevoPrecioActionPerformed
         String msg = "";
         int cantidad = 0;
+
+        // Validaciones
         try{
             cantidad = Integer.parseInt(txtCantidad.getText());
         }
         catch(Exception ex){msg+="- Debe ingresar una cantidad válida\n";}
         double precio = 0;
         try{
-            precio = Double.parseDouble(txtPrecio.getText());
+            String prc = txtPrecio.getText().replace(",", ".");
+            precio = Double.parseDouble(prc);
         }
         catch(Exception ex){msg+="- Debe ingresar un precio válido\n";}
+        if(!FechaUtil.fechaMayorQue(dcVigencia.getDate(), new Date())){
+            msg+="- Debe ingresar una fecha mayor a la actual\n";
+        }
+
+        // Envío al gestor
         int idProv = ((Tupla)cmbProveedores.getSelectedItem()).getId();
         Date vigencia = dcVigencia.getDate();
         if(msg.equals("")){

@@ -170,6 +170,7 @@ public class GestorRegistrarPedido {
 //
 //    }
 
+    @Deprecated
     public int generarNumeroPedido()
     {
         SessionFactory sf = HibernateUtil.getSessionFactory();

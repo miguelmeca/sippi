@@ -141,7 +141,7 @@ public class GestorABMEmpresaCliente {
     public boolean validarExistenciaCUIT(String cuit) {
         boolean respuesta = true;
         try {
-            List pr = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente WHERE cuit LIKE :cuitP").setParameter("%cuitP%", cuit).list();
+            List pr = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente WHERE cuit LIKE :cuitP").setParameter("cuitP", cuit).list();
             if(pr.isEmpty())
                 respuesta = false;
         } catch (Exception ex) {
