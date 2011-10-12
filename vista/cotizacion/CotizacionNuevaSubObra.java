@@ -11,6 +11,7 @@
 
 package vista.cotizacion;
 
+import javax.swing.JOptionPane;
 import util.Tupla;
 
 /**
@@ -119,6 +120,8 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
 
 private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
 
+    if(!txtNombra.getText().isEmpty())
+    {
         switch(this.TIPO)
         {
             case TIPO_CREAR:
@@ -131,7 +134,11 @@ private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
                 this.dispose();
                 break;
         }    
-    
+    }
+    else
+    {
+       MostrarMensaje(JOptionPane.ERROR,"Error!","Debe ingresar un nombre para la nueva SubObra");
+    }
 }//GEN-LAST:event_btnOKActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -152,4 +159,15 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         this.txtNombra.setText(t.getNombre());
     }
 
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
+    
 }
