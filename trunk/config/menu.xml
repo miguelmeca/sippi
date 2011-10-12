@@ -19,7 +19,7 @@
 
     <itemcat icono="/res/iconos/var/16x16/Equipment.png" nombre="Obras">
         <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.pantallaBuscarPedido"/>
-        <item nombre="Nuevo Pedidos de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.pantallaRegistrarPedido"/>
+        <item nombre="Nuevo Pedido de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.pantallaRegistrarPedido"/>
     </itemcat>    
 
     <itemcat icono="/res/iconos/var/16x16/chart_pie.png" nombre="Cotización">

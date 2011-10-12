@@ -30,6 +30,7 @@ import util.HibernateUtil;
 import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
+import vista.gui.IFavorito;
 import vista.interfaces.IAyuda;
 import vista.interfaces.ICallBack;
 import vista.interfaces.IPantallaPedidoABM;
@@ -38,7 +39,7 @@ import vista.interfaces.IPantallaPedidoABM;
  *
  * @author Administrador
  */
-public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM, ICallBack{
+public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM, ICallBack,IFavorito{
 
     private GestorRegistrarPedido gestor;
     private pantallaBuscarPedido pBuscar;
@@ -877,5 +878,16 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
     public void actualizar(int flag, boolean exito) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() 
+    {
+        return "/res/iconos/var/16x16/add.png";
     }
 }
