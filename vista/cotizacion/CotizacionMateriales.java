@@ -404,6 +404,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             }else{
                 msg= "- Especificación\n";
             }
+        }
+        else{
             msg= "- Material";
         }
         if(!msg.equals("")){
