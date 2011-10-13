@@ -366,13 +366,11 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
                 } else{
-                    //JOptionPane.showMessageDialog(this.getParent(),"No se encontraron precios de este material","Material",JOptionPane.INFORMATION_MESSAGE);
                     if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
                         SwingPanel.getInstance().addWindow(anp);
                         anp.setVisible(true);
                     }
-
                     psp.dispose();
                 }
             }
