@@ -14,6 +14,7 @@ package vista.cotizacion;
 import controlador.cotizacion.GestorCotizacionMateriales;
 import vista.planificacion.*;
 import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JDialog;
@@ -100,6 +101,23 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         this.banHayPreciosMaterial = banHayPreciosMaterial;
     }
 
+    public void actualizarSubTotal(){
+        int cantidad = 0;
+        boolean banCantidad=true;
+        try{
+            cantidad=Integer.parseInt(this.fxtCantidad.getText());
+        }catch(NumberFormatException ex)
+        {
+            banCantidad=false;
+        }
+        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("") && banCantidad){
+            NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
+            double subtotal = gestor.getSubtotal(nt.getId(),cantidad);
+            DecimalFormat df =  new DecimalFormat("0.00");
+            txtSubtotal.setText(df.format(subtotal));
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -142,9 +160,12 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbProveedores.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tbProveedoresFocusLost(evt);
+        tbProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProveedoresMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbProveedoresMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tbProveedores);
@@ -246,27 +267,8 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbProveedoresFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbProveedoresFocusLost
-        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("")){
-            NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-            int cantidad = Integer.parseInt(fxtCantidad.getText());
-            txtSubtotal.setText(gestor.getSubtotal(nt.getId(),cantidad));
-        }
-    }//GEN-LAST:event_tbProveedoresFocusLost
-
     private void fxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fxtCantidadFocusLost
-        int cantidad = 0;
-        boolean banCantidad=true;
-        try{
-            cantidad=Integer.parseInt(this.fxtCantidad.getText());
-        }catch(NumberFormatException ex)
-        {
-            banCantidad=false;
-        }
-        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("") && banCantidad){
-            NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
-            txtSubtotal.setText(gestor.getSubtotal(nt.getId(),cantidad));
-        }
+        actualizarSubTotal();
     }//GEN-LAST:event_fxtCantidadFocusLost
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -290,6 +292,14 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tbProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProveedoresMouseClicked
+        actualizarSubTotal();
+    }//GEN-LAST:event_tbProveedoresMouseClicked
+
+    private void tbProveedoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProveedoresMouseReleased
+        actualizarSubTotal();
+    }//GEN-LAST:event_tbProveedoresMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

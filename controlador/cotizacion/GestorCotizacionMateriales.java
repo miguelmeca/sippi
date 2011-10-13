@@ -173,8 +173,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         return nombre;
     }
 
-    public String getSubtotal(int idRXP, int cantidad) {
-        String subtotal="";
+    public double getSubtotal(int idRXP, int cantidad) {
+        double subtotal=0;
         try {
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             Iterator it = rxp.getListaUltimosPrecios().iterator();
@@ -184,8 +184,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 if(cantidad >= psc.getCantidad())
                     precio=psc.getPrecio();
             }
-            double sub = precio*cantidad;
-            subtotal = String.valueOf(sub);
+            subtotal = precio*cantidad;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar calcular el subtotal: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -201,12 +200,11 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             soxm.setDescripcion(desc);
             soxm.setPrecioUnitario(precio);
             subObra.getMateriales().add(soxm);
-            //pantalla.actualizar(dm.getId(), "...", true);
+            refrescarPantallas();
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar agregar un material: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            //this.pantalla.actualizar(-1, "NO IMPLEMENTADO AUN", false);
         }
         pantalla.actualizar(1, "...", true);
     }
@@ -575,7 +573,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 
     @Override
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        gestorPadre.refrescarPantallas();
     }
 
     public String mostrarMaterial(int idR) {
