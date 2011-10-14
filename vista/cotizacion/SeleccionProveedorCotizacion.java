@@ -82,7 +82,11 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
                 int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
                 if(cantItems!=0)
                 {
+                    if(cantItems>2){
                     tbProveedores.setRowHeight(i,16*cantItems);
+                    }else{
+                        tbProveedores.setRowHeight(i,16*2);
+                    }
                 }
                 LogUtil.addDebug("Registrar Asignacion de Materiales: Cantidad de Repeticiones: "+cantItems);
                 // REDIMENSIONO LA FILA !!! -----------------------------------
@@ -105,12 +109,12 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         int cantidad = 0;
         boolean banCantidad=true;
         try{
-            cantidad=Integer.parseInt(this.fxtCantidad.getText());
+            cantidad=Integer.parseInt(this.txtCantidad.getText());
         }catch(NumberFormatException ex)
         {
             banCantidad=false;
         }
-        if(tbProveedores.getSelectedRow()>=0 && !fxtCantidad.getText().equals("") && banCantidad){
+        if(tbProveedores.getSelectedRow()>=0 && !txtCantidad.getText().equals("") && banCantidad){
             NTupla nt = (NTupla)((DefaultTableModel)this.tbProveedores.getModel()).getValueAt(tbProveedores.getSelectedRow(), 0);
             double subtotal = gestor.getSubtotal(nt.getId(),cantidad);
             DecimalFormat df =  new DecimalFormat("0.00");
@@ -132,7 +136,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         tbProveedores = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        fxtCantidad = new javax.swing.JFormattedTextField();
+        txtCantidad = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
@@ -189,10 +193,10 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setText("Cantidad:");
 
-        fxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        fxtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                fxtCantidadFocusLost(evt);
+                txtCantidadFocusLost(evt);
             }
         });
 
@@ -217,7 +221,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +234,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
-                .addComponent(fxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel2)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnAgregar))
@@ -267,29 +271,47 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fxtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fxtCantidadFocusLost
-        actualizarSubTotal();
-    }//GEN-LAST:event_fxtCantidadFocusLost
+    private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
+        Double cant = 0d;
+        String msg = "";
+        try{
+            cant = Double.parseDouble(txtCantidad.getText());
+        }catch(Exception ex){
+            msg = "Debe ingresar un número válido";
+        }
+        if(cant < 0){
+            msg += "Debe ingresar una cifra positiva";
+        }
+        if(msg.equals("")){
+            actualizarSubTotal();
+        }else{
+            JOptionPane.showMessageDialog(this.getParent(),msg,"Advertencia",JOptionPane.WARNING_MESSAGE);
+            txtCantidad.setText("");
+        }
+    }//GEN-LAST:event_txtCantidadFocusLost
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         int cantidad = 0;
-        boolean banCantidad=true, banProveedor=true;
+        String msg = "";
+        boolean ban=true;
         try{
-            cantidad=Integer.parseInt(this.fxtCantidad.getText());
+            cantidad=Integer.parseInt(this.txtCantidad.getText());
         }catch(NumberFormatException ex)
         {
-            JOptionPane.showMessageDialog(this.getParent(),"Debe ingresar una cantidad válida","Cantidad",JOptionPane.WARNING_MESSAGE);
-            banCantidad=false;
+            msg+="\n- Debe ingresar una cantidad válida";;
+            ban=false;
         }
         if(tbProveedores.getSelectedRow()<0){
-            JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un proveedor para este material","Proveedor",JOptionPane.WARNING_MESSAGE);
-            banProveedor=false;
+            msg+="\n- Debe seleccionar un proveedor para este material";
+            ban=false;
         }
-        if(banCantidad && banProveedor){
+        if(ban){
             NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
             double precio = gestor.getPrecioMaterial(nt.getId(),cantidad);
             gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio);
             this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this.getParent(),"No se ha podido agregar el material debido a: "+msg,"Advertencia",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -304,7 +326,6 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JFormattedTextField fxtCantidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
@@ -313,6 +334,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelProveedor;
     private javax.swing.JTextArea taDescripcion;
     private javax.swing.JTable tbProveedores;
+    private javax.swing.JFormattedTextField txtCantidad;
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 

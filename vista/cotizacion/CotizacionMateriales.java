@@ -187,7 +187,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
-        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11));
         txtBuscarMaterial.setForeground(java.awt.Color.gray);
         txtBuscarMaterial.setText("Buscar...");
         txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -228,6 +228,11 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 "Especificación"
             }
         ));
+        tbMaterialEspecifico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbMaterialEspecificoMouseReleased(evt);
+            }
+        });
         jScrollPane7.setViewportView(tbMaterialEspecifico);
 
         btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -276,6 +281,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
         btnAgregarNuevoPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
         btnAgregarNuevoPrecio.setText("Agregar Precio");
+        btnAgregarNuevoPrecio.setEnabled(false);
         btnAgregarNuevoPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarNuevoPrecioActionPerformed(evt);
@@ -292,8 +298,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(btnAgregarNuevoPrecio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,13 +322,13 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(btnAgregarNuevoPrecio))
-                        .addComponent(jLabel9)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregarNuevoPrecio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
@@ -346,6 +352,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 }//GEN-LAST:event_txtBuscarMaterialFocusGained
 
     private void txtBuscarMaterialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMaterialKeyReleased
+        DefaultTableModel dtm = (DefaultTableModel)tbMaterialEspecifico.getModel();
+        TablaUtil.vaciarDefaultTableModel(dtm);
         this.FiltrarTabla(this.tbMateriales, txtBuscarMaterial);
 }//GEN-LAST:event_txtBuscarMaterialKeyReleased
 
@@ -353,6 +361,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         if(tbMateriales.getSelectedRow()!=-1 && tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0) instanceof NTupla) {
             NTupla t = (NTupla)tbMateriales.getValueAt(tbMateriales.getSelectedRow(),0);
             mostrarEspecificacionMaterial(t.getId());
+            btnAgregarNuevoPrecio.setEnabled(false);
         }
 }//GEN-LAST:event_tbMaterialesMouseReleased
 
@@ -365,6 +374,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 if(psp.isBanHayPreciosMaterial()){
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
+                    btnAgregarNuevoPrecio.setEnabled(false);
                 } else{
                     if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
@@ -410,6 +420,10 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar los siguientes elementos: \n"+msg,"Agregar Precio",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarNuevoPrecioActionPerformed
+
+    private void tbMaterialEspecificoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMaterialEspecificoMouseReleased
+        btnAgregarNuevoPrecio.setEnabled(true);
+    }//GEN-LAST:event_tbMaterialEspecificoMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarMaterial;
