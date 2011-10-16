@@ -46,6 +46,7 @@ public class CotizacionDescripcion extends javax.swing.JPanel {
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
         txtDescripcion.setText("mecanizado de conjunto pin & pin locker comprendido por \narandela de Ø exterior 30 mm y Ø interior 15 mm y perno \nde encastre de Ø exterior 25 mm con un perno convexo R0.75. \nEste conjunto será mecanizado en acero SAE 1010.\n");
         txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {

@@ -243,6 +243,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
 
         taDescripcion.setColumns(20);
+        taDescripcion.setLineWrap(true);
         taDescripcion.setRows(5);
         jScrollPane2.setViewportView(taDescripcion);
 

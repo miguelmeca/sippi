@@ -78,6 +78,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         });
 
         txtConcepto.setColumns(20);
+        txtConcepto.setLineWrap(true);
         txtConcepto.setRows(5);
         txtConcepto.setEnabled(false);
         jScrollPane1.setViewportView(txtConcepto);

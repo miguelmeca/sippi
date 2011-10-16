@@ -36,6 +36,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
 
     private GestorExplorarSubObras gestor;
     private int cotizacionId;
+    private String estadoCotizacion;
     
     
     /** Creates new form pantallaExplorarAlfonsinas */
@@ -62,9 +63,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        btnNuevaSubObra = new javax.swing.JButton();
         btnEliminarSubObra = new javax.swing.JButton();
-        btnEditarAlfonsina = new javax.swing.JButton();
+        btnEditarSubObra = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblMontoTotal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -169,11 +170,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblMenu);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        jButton5.setToolTipText("Nueva SubObra");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaSubObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevaSubObra.setToolTipText("Nueva SubObra");
+        btnNuevaSubObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnNuevaSubObraActionPerformed(evt);
             }
         });
 
@@ -185,11 +186,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEditarAlfonsina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
-        btnEditarAlfonsina.setToolTipText("Modificar la SubObra seleccionada (Otra Forma: Doble click en una SubObra)");
-        btnEditarAlfonsina.addActionListener(new java.awt.event.ActionListener() {
+        btnEditarSubObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnEditarSubObra.setToolTipText("Modificar la SubObra seleccionada (Otra Forma: Doble click en una SubObra)");
+        btnEditarSubObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarAlfonsinaActionPerformed(evt);
+                btnEditarSubObraActionPerformed(evt);
             }
         });
 
@@ -199,11 +200,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton5)
+                .addComponent(btnNuevaSubObra)
                 .addGap(2, 2, 2)
                 .addComponent(btnEliminarSubObra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(btnEditarAlfonsina, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEditarSubObra, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,9 +212,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5)
+                    .addComponent(btnNuevaSubObra)
                     .addComponent(btnEliminarSubObra)
-                    .addComponent(btnEditarAlfonsina)))
+                    .addComponent(btnEditarSubObra)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Monto Total de la Obra"));
@@ -273,7 +274,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             }
         });
 
-        txtNroCotizacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtNroCotizacion.setFont(new java.awt.Font("Tahoma", 1, 11));
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNroCotizacion.setText("P0000-0000000");
         txtNroCotizacion.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -657,7 +658,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Estadisticas", jScrollPane2);
 
         txtDescripcionObra.setColumns(20);
-        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10));
+        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        txtDescripcionObra.setLineWrap(true);
         txtDescripcionObra.setRows(5);
         txtDescripcionObra.setText("Por la presente cotizamos ...");
         txtDescripcionObra.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -778,7 +780,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Cotización", jPanel11);
@@ -859,9 +861,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
-
-
-
     }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -903,7 +902,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
     }
 
    
-    private void btnEditarAlfonsinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlfonsinaActionPerformed
+    private void btnEditarSubObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSubObraActionPerformed
 
         if(tblMenu.getSelectedRow()!=-1)
         {
@@ -921,7 +920,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         {
             JOptionPane.showMessageDialog(this,"Seleccione una sub-obra para modificar sus recursos","Atención!",JOptionPane.QUESTION_MESSAGE);
         }
-    }//GEN-LAST:event_btnEditarAlfonsinaActionPerformed
+    }//GEN-LAST:event_btnEditarSubObraActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
@@ -931,17 +930,17 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         
 }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnNuevaSubObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSubObraActionPerformed
 
         CotizacionNuevaSubObra nso = new CotizacionNuevaSubObra(this,CotizacionNuevaSubObra.TIPO_CREAR);
         SwingPanel.getInstance().addWindow(nso);
         nso.setVisible(true);
 
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnNuevaSubObraActionPerformed
 
     private void tblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMouseClicked
 
-        if(evt.getClickCount()>=2)
+        if(evt.getClickCount()>=2 && this.estadoCotizacion!=null && this.estadoCotizacion.equals("En Creacion"))
         {
             DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
             
@@ -1040,9 +1039,10 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JPanel _containerGraficoRecursos;
     private javax.swing.JPanel _containerGraficoTortaSubObras;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditarAlfonsina;
+    private javax.swing.JButton btnEditarSubObra;
     private javax.swing.JButton btnEliminarSubObra;
     private javax.swing.JButton btnEnviarCliente;
+    private javax.swing.JButton btnNuevaSubObra;
     private javax.swing.JButton btnPlanificar;
     private javax.swing.JButton btnRechazar;
     private javax.swing.JButton btnRecotizar;
@@ -1053,7 +1053,6 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JPanel graficoTortalSO;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1275,6 +1274,12 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         btnPlanificar.setEnabled(false);
         btnRecotizar.setEnabled(false);
         btnEnviarCliente.setEnabled(false);
+        
+        btnNuevaSubObra.setEnabled(false);
+        btnEliminarSubObra.setEnabled(false);
+        btnEditarSubObra.setEnabled(false);
+        
+        this.estadoCotizacion = "Rechazado";
     }
 
     public void refrescarVentanaEstadoPendienteAceptacion() 
@@ -1291,6 +1296,12 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         btnRecotizar.setEnabled(true);
         btnPlanificar.setEnabled(true);
         btnEnviarCliente.setEnabled(false);
+        
+        btnNuevaSubObra.setEnabled(false);
+        btnEliminarSubObra.setEnabled(false);
+        btnEditarSubObra.setEnabled(false);     
+        
+        this.estadoCotizacion = "Pendiente de Aceptacion";
     }
 
     public void refrescarVentanaEstadoEnCreacion() 
@@ -1307,6 +1318,12 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         btnPlanificar.setEnabled(false);
         btnRecotizar.setEnabled(false);
         btnEnviarCliente.setEnabled(true);
+        
+        btnNuevaSubObra.setEnabled(true);
+        btnEliminarSubObra.setEnabled(true);
+        btnEditarSubObra.setEnabled(true);   
+        
+        this.estadoCotizacion = "En Creacion";
     }
 
     private void enviarCotizacionCliente() 
@@ -1316,7 +1333,7 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void setEstadoEnviadoCliente() 
     {
-        int nx = JOptionPane.showConfirmDialog(this,"Esta cotización se ha enviado al cliente \n¿Desea guardar los cambios? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
+        int nx = JOptionPane.showConfirmDialog(this,"Esta cotización se ha enviado al cliente \n¿Desea guardar los cambios?","Está Seguro?",JOptionPane.YES_NO_OPTION);
 
             if(nx==JOptionPane.YES_OPTION)
             {
