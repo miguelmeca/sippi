@@ -287,11 +287,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jPanel9" alignment="0" pref="540" max="32767" attributes="1"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel8" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jPanel9" alignment="0" pref="555" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -326,15 +326,15 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel3" pref="297" max="32767" attributes="1"/>
+                                      <Component id="jLabel3" pref="304" max="32767" attributes="1"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel19" pref="297" max="32767" attributes="1"/>
+                                      <Component id="jLabel19" pref="304" max="32767" attributes="1"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel1" pref="297" max="32767" attributes="0"/>
+                                      <Component id="jLabel1" pref="304" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
@@ -351,12 +351,12 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cmbLVP" alignment="1" pref="209" max="32767" attributes="1"/>
-                                  <Component id="cmbLEP" alignment="1" pref="209" max="32767" attributes="1"/>
-                                  <Component id="txtNroCotizacion" alignment="0" pref="209" max="32767" attributes="1"/>
-                                  <Component id="txtPlazoEntrega" alignment="0" pref="209" max="32767" attributes="0"/>
-                                  <Component id="txtLugarEntrega" alignment="0" pref="209" max="32767" attributes="0"/>
-                                  <Component id="txtEstado" pref="209" max="32767" attributes="0"/>
+                                  <Component id="cmbLVP" alignment="1" pref="217" max="32767" attributes="1"/>
+                                  <Component id="cmbLEP" alignment="1" pref="217" max="32767" attributes="1"/>
+                                  <Component id="txtNroCotizacion" alignment="0" pref="217" max="32767" attributes="1"/>
+                                  <Component id="txtPlazoEntrega" alignment="0" pref="217" max="32767" attributes="0"/>
+                                  <Component id="txtLugarEntrega" alignment="0" pref="217" max="32767" attributes="0"/>
+                                  <Component id="txtEstado" pref="217" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -512,8 +512,8 @@
                                               </Group>
                                               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lbl_obra_fechafin" pref="333" max="32767" attributes="1"/>
-                                                  <Component id="lbl_obra_fechaini" alignment="0" pref="333" max="32767" attributes="1"/>
+                                                  <Component id="lbl_obra_fechafin" pref="348" max="32767" attributes="1"/>
+                                                  <Component id="lbl_obra_fechaini" alignment="0" pref="348" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
