@@ -76,6 +76,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         });
 
         txtDescripcion.setColumns(20);
+        txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
         txtDescripcion.setEnabled(false);
         jScrollPane3.setViewportView(txtDescripcion);
@@ -351,7 +352,7 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
         catch(Exception e)
         {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecta");
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecto");
             return;
         }   
         
@@ -396,6 +397,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             txtHorasDia.setEnabled(true);
             txtCostoHora.setEnabled(true);
             txtCantDias.setEnabled(true);
+            txtDescripcion.setEnabled(true);
         }
         else
         {
@@ -403,6 +405,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             txtHorasDia.setEnabled(false);
             txtCostoHora.setEnabled(false);
             txtCantDias.setEnabled(false);
+            txtDescripcion.setEnabled(false);
         }
             
     }//GEN-LAST:event_cmbHerramientaActionPerformed
