@@ -112,14 +112,6 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 Object[] o = new Object[3];
                 o[0]= re.getNombre();
                 o[1]= soxm.getCantidad();
-//                Iterator<PrecioSegunCantidad> itPrecio = soxm.getMaterial().getListaPrecios().iterator();
-//                double precio = 0;
-//                while(itPrecio.hasNext()){
-//                    PrecioSegunCantidad psc = itPrecio.next();
-//                    if(soxm.getCantidad() >= psc.getCantidad()){
-//                        precio=psc.getPrecio();
-//                    }
-//                }
                 o[2]= soxm.getPrecioUnitario();
                 nt.setData(o);
                 mau.add(nt);
@@ -179,10 +171,13 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             Iterator it = rxp.getListaUltimosPrecios().iterator();
             double precio=0;
+            double cantMayor=0;
             while(it.hasNext()){
                 PrecioSegunCantidad psc = (PrecioSegunCantidad)it.next();
-                if(cantidad >= psc.getCantidad())
+                if(cantidad >= psc.getCantidad() && psc.getCantidad() > cantMayor){
                     precio=psc.getPrecio();
+                    cantMayor=psc.getCantidad();
+                }
             }
             subtotal = precio*cantidad;
         } catch (Exception ex) {
@@ -210,16 +205,31 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     }
 
     public boolean quitarMaterial(int idDM) {
-        boolean respuesta=false;
-        Iterator<SubObraXMaterial> it = this.subObra.getMateriales().iterator();
-        while(it.hasNext()){
-            SubObraXMaterial soxm = it.next();
-            if(soxm.hashCode() == idDM){
-                this.subObra.getMateriales().remove(soxm);
-                respuesta = true;
+        boolean respuesta = false;
+//        SubObraXMaterial soxm;
+        for (int i = 0; i < getSubObraActual().getMateriales().size(); i++)
+        {
+            int hc = getSubObraActual().getMateriales().get(i).hashCode();
+            if(hc==idDM)
+            {
+                getSubObraActual().getMateriales().remove(i);
+                return true;
             }
         }
+        if(!respuesta){
+            JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar quitar un material: \n", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
         return respuesta;
+//        boolean respuesta=false;
+//        Iterator<SubObraXMaterial> it = this.subObra.getMateriales().iterator();
+//        while(it.hasNext()){
+//            SubObraXMaterial soxm = it.next();
+//            if(soxm.hashCode() == idDM){
+//                this.subObra.getMateriales().remove(soxm);
+//                respuesta = true;
+//            }
+//        }
+//        return respuesta;
     }
 
     public ArrayList<Tupla> mostrarProveedores()

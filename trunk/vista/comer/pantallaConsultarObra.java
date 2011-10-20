@@ -122,15 +122,15 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         setIconifiable(true);
         setTitle("Consultar Obra");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Nombre del a Obra:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Descripción: ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Fecha de Registro:");
 
@@ -139,15 +139,15 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         lblMonto.setText("Monto de la Obra: ");
         lblMonto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Fecha Inicio:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Fecha Fin:");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Forma de Pago:");
 
@@ -224,9 +224,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFormaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(lblFormaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -274,48 +272,40 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel22.setText("Calle: ");
 
-        txtCallePlanta.setEnabled(false);
+        txtCallePlanta.setEditable(false);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel23.setText("Nº:");
 
+        txtNroPlanta.setEditable(false);
         txtNroPlanta.setText("112");
-        txtNroPlanta.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel24.setText("Piso:");
 
-        txtPisoPlanta.setEnabled(false);
+        txtPisoPlanta.setEditable(false);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel25.setText("Departamento: ");
 
-        txtDptoPlanta.setEnabled(false);
+        txtDptoPlanta.setEditable(false);
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel26.setText("Código Postal:");
 
-        txtCPPlanta.setEnabled(false);
+        txtCPPlanta.setEditable(false);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel27.setText("Pais: ");
 
-        cmbPaisPlanta.setEnabled(false);
-
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel28.setText("Provincia:");
-
-        cmbProvinciaPlanta.setEnabled(false);
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel29.setText("Localidad: ");
 
-        cmbLocalidadPlanta.setEnabled(false);
-
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel30.setText("Barrio:");
-
-        cmbBarrioPlanta.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -692,7 +682,7 @@ public class pantallaConsultarObra extends javax.swing.JInternalFrame implements
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();

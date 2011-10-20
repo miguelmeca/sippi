@@ -43,7 +43,7 @@
               <Component id="jTabbedPane1" min="-2" pref="389" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,10 +91,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblFechaFin" pref="174" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblFormaPago" min="-2" pref="402" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblFormaPago" alignment="0" min="-2" pref="402" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -501,7 +498,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCallePlanta">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
@@ -514,8 +511,8 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtNroPlanta">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="text" type="java.lang.String" value="112"/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel24">
@@ -528,7 +525,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPisoPlanta">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
@@ -541,7 +538,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtDptoPlanta">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
@@ -554,7 +551,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCPPlanta">
                   <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel27">
@@ -566,9 +563,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbPaisPlanta">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
                   <Properties>
@@ -579,9 +573,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbProvinciaPlanta">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel29">
                   <Properties>
@@ -592,9 +583,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbLocalidadPlanta">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel30">
                   <Properties>
@@ -609,7 +597,6 @@
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
                     </Property>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
