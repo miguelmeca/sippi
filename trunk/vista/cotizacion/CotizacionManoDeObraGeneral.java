@@ -19,6 +19,7 @@ import vista.interfaces.ICallBack_v2;
 import controlador.cotizacion.GestorCotizacionManoDeObra;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
+import java.text.DecimalFormat;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.IntervalCategoryDataset;
@@ -114,7 +115,9 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
     }
     private void mostrarTotal()
     {
-        txtSubtotal.setText(Double.toString(gestor.calcularSubtotal()));
+        DecimalFormat df =  new DecimalFormat("0.00");
+        txtSubtotal.setText(df.format(gestor.calcularSubtotal()).replace(".",","));        
+        //txtSubtotal.setText(Double.toString(gestor.calcularSubtotal()));
     }
 
      /**

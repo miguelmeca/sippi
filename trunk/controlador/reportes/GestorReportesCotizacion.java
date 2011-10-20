@@ -167,6 +167,7 @@ public class GestorReportesCotizacion {
 
                     String valof = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta())+" días ( desde el "+FechaUtil.getFechaActual()+")";
                     params.put("VALIDEZ_OFERTA",valof);
+                    
 
 
                 CotizacionExternaXRecurso cexr = new CotizacionExternaXRecurso(cotizacionId);
@@ -191,7 +192,7 @@ public class GestorReportesCotizacion {
         {                  
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
-            
+            PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot).uniqueResult();
             List listaSubObras = new ArrayList();
             for (int i = 0; i < cot.getSubObras().size(); i++) 
             {
@@ -207,6 +208,12 @@ public class GestorReportesCotizacion {
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
                     params.put("LISTA_SUB_OBRAS",listaSubObras);
                     params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    
+                    params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
+                    params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
+                    params.put("LUGAR_ENTREGA",cot.getLugarEntrega());
+
+                    params.put("VALIDEZ_OFERTA",cot.getValidezOferta());
                     
                 CotizacionExternaSubObras ceso = new CotizacionExternaSubObras(id_presupuesto);
                 ceso.setNombreReporte("Cotización Externa por Items de la Obra");

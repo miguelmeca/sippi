@@ -14,6 +14,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Date;
 import modelo.SubObra;
 import modelo.SubObraXAdicional;
 import modelo.SubObraXAlquilerCompra;
@@ -24,6 +25,7 @@ import vista.reportes.ReportDesigner;
 import java.io.File;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
+import util.FechaUtil;
 /**
  *
  * @author Iuga
@@ -119,9 +121,9 @@ public class CotizacionExternaSubObras extends ReportDesigner{
         String FORMA_DE_PAGO=(String)params.get("FORMA_DE_PAGO");
         String PLAZO_ENTREGA=(String)params.get("PLAZO_ENTREGA");
         String LUGAR_ENTREGA=(String)params.get("LUGAR_ENTREGA");;
-        String VALIDEZ_OFERTA=(String)params.get("PLAZO_ENTREGA");;
+        Date VALIDEZ_OFERTA=(Date)params.get("VALIDEZ_OFERTA");;
         
-        if(   (FORMA_DE_PAGO!=null && !FORMA_DE_PAGO.isEmpty()) || (PLAZO_ENTREGA!=null && !PLAZO_ENTREGA.isEmpty()) ||  (LUGAR_ENTREGA!=null && !LUGAR_ENTREGA.isEmpty()) ||   (VALIDEZ_OFERTA!=null && !VALIDEZ_OFERTA.isEmpty()) )
+        if(   (FORMA_DE_PAGO!=null && !FORMA_DE_PAGO.isEmpty()) || (PLAZO_ENTREGA!=null && !PLAZO_ENTREGA.isEmpty()) ||  (LUGAR_ENTREGA!=null && !LUGAR_ENTREGA.isEmpty()) ||   (VALIDEZ_OFERTA!=null) )
         {
          Paragraph datosGenerales = new Paragraph();
          datosGenerales.add(new Phrase("Datos Adicionales:\n", FUENTE_TITULO_2));
@@ -140,12 +142,16 @@ public class CotizacionExternaSubObras extends ReportDesigner{
                 datosGenerales.add(new Phrase("\nLugar de entrega: ", FUENTE_NORMAL_B));
                 datosGenerales.add(new Phrase((String)params.get("LUGAR_ENTREGA"), FUENTE_NORMAL)); 
             }
-            if(VALIDEZ_OFERTA!=null && !VALIDEZ_OFERTA.isEmpty())
+            if(VALIDEZ_OFERTA!=null)
             {
-                datosGenerales.add(new Phrase("\nValidez de la Oferta: ", FUENTE_NORMAL_B));
-                datosGenerales.add(new Phrase((String)params.get("VALIDEZ_OFERTA"), FUENTE_NORMAL)); 
+                int diffDays = FechaUtil.diasDiferencia(new Date(),(Date)params.get("VALIDEZ_OFERTA"));
+                if(diffDays > 0)
+                {
+                    datosGenerales.add(new Phrase("\nValidez de la Oferta:", FUENTE_NORMAL_B));
+                    datosGenerales.add(new Phrase("Hasta el "+FechaUtil.getFecha((Date)params.get("VALIDEZ_OFERTA"))+" ("+FechaUtil.diasDiferencia(new Date(),(Date)params.get("VALIDEZ_OFERTA"))+" días a partir de la fecha actual, "+FechaUtil.getFechaActual()+")", FUENTE_NORMAL));                             
+                }                
             }  
-                           
+                          
          super.doc.add(datosGenerales);
     }   }
     
