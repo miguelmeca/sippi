@@ -116,8 +116,21 @@ public class GestorReportesCotizacion {
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
                     params.put("LUGAR_ENTREGA",cot.getLugarEntrega());
 
-                    String valof = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta())+" días ( desde el "+FechaUtil.getFechaActual()+")";
-                    params.put("VALIDEZ_OFERTA",valof);
+                    if(cot.getValidezOferta()!=null)
+                    {
+                        int diffDays = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta());
+                        String valof;
+                        if(diffDays > 0)
+                        {
+                            valof = diffDays+" días ( desde el "+FechaUtil.getFechaActual()+")";
+
+                        }
+                        else
+                        {
+                            valof = "";
+                        }
+                        params.put("VALIDEZ_OFERTA",valof);
+                    }
 
 
                 CotizacionExternaGeneral ceg = new CotizacionExternaGeneral(id_presupuesto);
@@ -165,9 +178,22 @@ public class GestorReportesCotizacion {
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
                     params.put("LUGAR_ENTREGA",cot.getLugarEntrega());
 
-                    String valof = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta())+" días ( desde el "+FechaUtil.getFechaActual()+")";
-                    params.put("VALIDEZ_OFERTA",valof);
+                    if(cot.getValidezOferta()!=null)
+                    {
+                        int diffDays = FechaUtil.diasDiferencia(new Date(),cot.getValidezOferta());
+                        String valof;
+                        if(diffDays > 0)
+                        {
+                            valof = diffDays+" días ( desde el "+FechaUtil.getFechaActual()+")";
                     
+
+                        }
+                        else
+                        {
+                            valof = "";
+                        }
+                        params.put("VALIDEZ_OFERTA",valof);
+                    }
 
 
                 CotizacionExternaXRecurso cexr = new CotizacionExternaXRecurso(cotizacionId);
