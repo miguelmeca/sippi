@@ -18,6 +18,7 @@ import util.FechaUtil;
 import javax.swing.JOptionPane;
 import vista.util.Validaciones;
 import java.util.Date;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -120,7 +121,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
            //double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtHoras.getText());
            double subT=Double.parseDouble(txtPersonas.getText())*(cantDias+1)*Double.parseDouble(txtCosto.getText().replace(",", "."))*Double.parseDouble(txtHoras.getText().replace(",", "."));
            //txtSubtotal.setText(Double.toString(subT));
-           txtSubtotal.setText(Double.toString(subT).replace(".",","));
+           DecimalFormat df =  new DecimalFormat("0.00");
+           txtSubtotal.setText(df.format(subT).replace(".",","));
        }
        else
        {

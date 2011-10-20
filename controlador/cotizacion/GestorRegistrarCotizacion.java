@@ -62,7 +62,9 @@ public class GestorRegistrarCotizacion {
         cot=new Cotizacion();     
         cot.setDescripcion("");
         cot.setNroRevision(0);
+        cot.setNroCotizacion("");
         obra.addCotizaciones(cot);
+        
         
         try 
         {    
@@ -89,6 +91,7 @@ public class GestorRegistrarCotizacion {
         /*int nvoNroRevision=(Integer)sesion.createQuery("select max(cot.nroRevision) from Cotizacion cot where cot.nroCotizacion=:nroCot").setParameter("nroCot", cotOriginal.getNroCotizacion()).uniqueResult();
         cot.setNroRevision(nvoNroRevision+1);*/
         cot.setDescripcion("");
+        cot.setNroCotizacion("");
         obra.addCotizaciones(cot);
         return guardarCotizacion();
         
