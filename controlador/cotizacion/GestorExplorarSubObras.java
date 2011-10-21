@@ -52,6 +52,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     public void cargarCotizacion(int id_cot)
     {
+        sesion.clear();
         this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
         this.obra = cot.buscarPedidoObra();   
         
