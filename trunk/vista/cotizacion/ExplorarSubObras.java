@@ -1158,7 +1158,21 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void llenarDatosCotizacion(String nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega, String estado)
     {
-        txtNroCotizacion.setText(String.valueOf(nroCotizacion));
+        
+        
+        if(nroCotizacion.isEmpty())
+        {
+            txtNroCotizacion.setText("P0000-0000000");
+            txtNroCotizacion.setEnabled(true);
+            setNroCotizacionInvalido();
+        }
+        else
+        {
+            txtNroCotizacion.setText(nroCotizacion);
+            txtNroCotizacion.setEnabled(false);
+            setNroCotizacionValido();
+        }
+        
         cmbLEP.setDate(fle);
         cmbLVP.setDate(vo);
         txtPlazoEntrega.setText(plazoEntrega);
@@ -1339,6 +1353,23 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             {
                 gestor.guardarCotizacion();
             }
-    }    
+    }
+
+    public void setNroCotizacionInvalido() 
+    {
+        txtNroCotizacion.setBackground(Color.red);
+    }
+
+    public void setNroCotizacionValido() 
+    {
+        txtNroCotizacion.setBackground(Color.GREEN);
+    }
+
+    public void setNroCotizacionValidoGuardado() 
+    
+    {
+        txtNroCotizacion.setBackground(Color.GREEN);
+        txtNroCotizacion.setEnabled(false);
+    }
     
 }
