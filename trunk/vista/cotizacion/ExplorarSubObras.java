@@ -1158,9 +1158,7 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void llenarDatosCotizacion(String nroCotizacion, Date fle,Date vo, String plazoEntrega, String lugarEntrega, String estado)
     {
-        
-        
-        if(nroCotizacion.isEmpty())
+        if(nroCotizacion==null || nroCotizacion.isEmpty())
         {
             txtNroCotizacion.setText("P0000-0000000");
             txtNroCotizacion.setEnabled(true);
@@ -1321,7 +1319,7 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     public void refrescarVentanaEstadoEnCreacion() 
     {
         btnSave.setEnabled(true);
-        txtNroCotizacion.setEnabled(true);
+        //txtNroCotizacion.setEnabled(true);
         cmbLEP.setEnabled(true);
         cmbLVP.setEnabled(true);
         txtLugarEntrega.setEnabled(true);
