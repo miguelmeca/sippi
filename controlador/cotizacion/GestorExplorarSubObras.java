@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.PedidoObra;
 import modelo.SubObra;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
@@ -107,20 +108,8 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     }
     
     private void cargarDatosGeneralesCotizacion()
-    {
-        String cot_id;
-        if(this.cot.getNroCotizacion().isEmpty())
-        {
-            cot_id = "P0000-0000000";
-        }
-        else
-        {
-            cot_id = this.cot.getNroCotizacion();
-        }
-        
-        
-        
-        pantalla.llenarDatosCotizacion(cot_id,this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega(),cot.getEstado());
+    {    
+        pantalla.llenarDatosCotizacion(this.cot.getNroCotizacion(),this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega(),cot.getEstado());
     }
     
     private double getMontoMaximo()
@@ -300,28 +289,87 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     public void guardarCotizacion() 
     {
-        // Actualizo la ultima modificacion
-        this.cot.setFechaModificacion(new Date());
-        
-        // GUARDO LA COTIZACION EN LA BD
+        boolean flag_valido_nropresupuesto = false;
+        // Busco si el número de cotización no está repetido
+        // OJO, tengo que chequear que no me choque con esta misma cotizacion
         try
         {
-            sesion.beginTransaction();
-            sesion.saveOrUpdate(this.cot);
-            sesion.getTransaction().commit(); 
-            necesita_guardar = false;
-        }
-        catch(Exception e)
+            Query q = HibernateUtil.getSession().createQuery("FROM Cotizacion C WHERE C.nroCotizacion=? AND C.id!=?");
+            q.setParameter(0,this.cot.getNroCotizacion());
+            q.setParameter(1,this.cot.getId());
+            
+            ArrayList<Cotizacion> lista = (ArrayList) q.list();
+            if(lista.size()==0)
+            {
+                flag_valido_nropresupuesto = true;
+            }
+        } 
+        catch (Exception ex)
         {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo comprobar si el número ingresado ya está en uso\nIntentelo nuevamente");
         }
         
-        pantalla.MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se guardo correctamente la cotización número "+this.cot.getNroCotizacion()+" !");
+        if(flag_valido_nropresupuesto)
+        {
+            // Actualizo la ultima modificacion
+            this.cot.setFechaModificacion(new Date());
+
+            // GUARDO LA COTIZACION EN LA BD
+            try
+            {
+                sesion.beginTransaction();
+                sesion.saveOrUpdate(this.cot);
+                sesion.getTransaction().commit(); 
+                necesita_guardar = false;
+
+                pantalla.setNroCotizacionValidoGuardado();
+            }
+            catch(Exception e)
+            {
+                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
+            }
+
+            pantalla.MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se guardo correctamente la cotización número "+this.cot.getNroCotizacion()+" !");
+        }
+        else
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El número de Presupuesto \""+this.cot.getNroCotizacion()+"\" ya está en uso\nIngrese uno diferente!");
+        }
     }
 
     public void updateNroCotizacion(String text) 
     {
-        this.cot.setNroCotizacion(text);
+        // Busco si el número de cotización no está repetido
+        // OJO, tengo que chequear que no me choque con esta misma cotizacion
+        try
+        {
+            Query q = HibernateUtil.getSession().createQuery("FROM Cotizacion C WHERE C.nroCotizacion=? AND C.id!=?");
+            q.setParameter(0,text);
+            q.setParameter(1,this.cot.getId());
+            
+            ArrayList<Cotizacion> lista = (ArrayList) q.list();
+            if(lista.size()==0)
+            {
+                // Puedo usar ese Nro de Cotizacion
+                this.cot.setNroCotizacion(text);
+                pantalla.setNroCotizacionValido();
+            }
+            else
+            {
+                // Ya está en uso
+                pantalla.setNroCotizacionInvalido();
+                this.cot.setNroCotizacion(text);
+                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El número de Presupuesto \""+text+"\" ya está en uso\nIngrese uno diferente!");
+            }
+        } 
+        catch (Exception ex)
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo comprobar si el número ingresado ya está en uso\nIntentelo nuevamente");
+        }
+
+        
+        
+        
     }
 
     public void updateLEP(Date date) {

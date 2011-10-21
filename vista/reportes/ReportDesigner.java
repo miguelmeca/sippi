@@ -157,7 +157,7 @@ public class ReportDesigner
             Phrase dirEmpresa = new Phrase("\nDR. DOMINGUEZ 283 - TEL. (02657)431599 / ALDOROMERO@SPEEDY.COM.AR ",new Font(Font.FontFamily.HELVETICA,8,Font.BOLD));
             encabezado.add(dirEmpresa);
 
-            Phrase locEmpresa = new Phrase("\nVilla  Mercedes (S.L.) - 30 de Marzo de 2011\n\n",new Font(Font.FontFamily.HELVETICA,8,Font.BOLD));
+            Phrase locEmpresa = new Phrase("\nVilla  Mercedes (S.L.) - "+FechaUtil.getMaskedDate("dd/MM/yyyy",new Date()) +"\n\n",new Font(Font.FontFamily.HELVETICA,8,Font.BOLD));
             encabezado.add(locEmpresa);        
         this.doc.add(encabezado);
         
