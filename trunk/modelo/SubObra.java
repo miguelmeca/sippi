@@ -159,15 +159,15 @@ public class SubObra implements ISubtotal
         }*/
         return false;
     }
-    
-    public double calcularSubtotalConBeneficio() 
-    {
-        
-        return (calcularSubtotal()+getGananciaMonto());
-    }
-
     @Override
     public double calcularSubtotal() 
+    {
+        
+        return (calcularSubtotalSinBeneficio()+getGananciaMonto());
+    }
+
+    
+    public double calcularSubtotalSinBeneficio() 
     {
         double monto = 0;
         // 1-Material 

@@ -65,6 +65,7 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
             porcentageGanancia=subObraActual.getGananciaPorcentaje();
         }
         
+        refrescarPantallas();
         return subObraActual.getGananciaMonto();        
     }
     
@@ -82,7 +83,7 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
 
     @Override
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       gestorPadre.refrescarPantallas();
     }
 
     /**
