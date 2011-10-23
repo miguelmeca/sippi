@@ -56,7 +56,7 @@
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="274" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="278" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
                 <Column editable="false" title="Cotizaci&#xf3;n" type="java.lang.Object"/>
                 <Column editable="false" title="Revisi&#xf3;n" type="java.lang.Object"/>
                 <Column editable="false" title="Fecha Creaci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="false" title="Fecha &#xda;ltima Modoficaci&#xf3;n" type="java.lang.Object"/>
+                <Column editable="false" title="Fecha &#xda;ltima Modificaci&#xf3;n" type="java.lang.Object"/>
                 <Column editable="false" title="Monto Total" type="java.lang.Object"/>
               </Table>
             </Property>
