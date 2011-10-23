@@ -70,8 +70,11 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         {
             model.addElement(nombre);
         }
-        cboTareas.setModel(model);
-        cboTareas.setSelectedIndex(-1);   
+        cboTareas.setModel(model);        
+        NTupla t0 = new NTupla(-1);
+        t0.setNombre("Seleccione una tarea..."); 
+        cboTareas.insertItemAt(t0, 0);
+        cboTareas.setSelectedIndex(0);   
     }
     
     public void cargarCboRangos()
@@ -84,7 +87,10 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
             model.addElement(rango);
         }
         cboRango.setModel(model);
-        cboRango.setSelectedIndex(-1);   
+        NTupla t0 = new NTupla(-1);
+        t0.setNombre("Seleccione un rango..."); 
+        cboRango.insertItemAt(t0, 0);
+        cboRango.setSelectedIndex(0);   
     }
     public void tomarValoresDeDatos(Object[] datos, int indiceFila)
     {
@@ -133,11 +139,18 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     
     public boolean validarDatos(boolean mostrarErrores)
     {
-       if(cboTareas.getSelectedIndex()<0)
+      if(((NTupla)cboTareas.getSelectedItem()).getId()<0)
        {  
          if(mostrarErrores)
          { JOptionPane.showMessageDialog(this.getParent(), "Seleccione una tarea", "Error",JOptionPane.ERROR_MESSAGE);
           cboTareas.requestFocusInWindow();}
+          return false;          
+       }
+      if(((NTupla)cboRango.getSelectedItem()).getId()<0)
+       {  
+         if(mostrarErrores)
+         { JOptionPane.showMessageDialog(this.getParent(), "Seleccione un rango", "Error",JOptionPane.ERROR_MESSAGE);
+          cboRango.requestFocusInWindow();}
           return false;          
        }
        if(!Validaciones.validarNumeroPositivo(txtPersonas.getText().replace( ',','.' )))
@@ -217,10 +230,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         
     }
 
-    
    
-    /////////////////////////////////////////////
-    
     
     
     /** This method is called from within the constructor to
@@ -437,7 +447,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("Subtotal");
+        jLabel8.setText("Subtotal   $");
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -449,6 +459,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tarea/ Observaciones"));
 
+        cboTareas.setName(""); // NOI18N
         cboTareas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTareasActionPerformed(evt);
@@ -471,19 +482,18 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(cboTareas, 0, 366, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(cboTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
         );
@@ -524,7 +534,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -568,13 +578,22 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cboTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTareasActionPerformed
-       if(cboTareas.getSelectedIndex()!=-1)
+       if(((NTupla)cboTareas.getSelectedItem()).getId()!=-1)
        { 
+          if(((NTupla)cboTareas.getItemAt(0)).getId()==-1)
+           {
+            cboTareas.removeItemAt(0);
+           }
         NTupla tarea=(NTupla)cboTareas.getModel().getSelectedItem();
         //txtHoras.setText((String)((Object[])tarea.getData())[0]);
        //txtPersonas.setText((String)((Object[])tarea.getData())[1]);
         txtHoras.setText(((String)((Object[])tarea.getData())[0]).replace(".", ","));
         txtPersonas.setText(((String)((Object[])tarea.getData())[1]).replace(".", ",")); 
+        
+       /* if(((NTupla)cboRango.getItemAt(0)).getId() <0)
+        {  
+         cboRango.removeItemAt(0);
+        } */ 
         DefaultComboBoxModel modeloRango=(DefaultComboBoxModel) cboRango.getModel();
             for (int i= 0; i < modeloRango.getSize(); i++)
             {
@@ -611,8 +630,13 @@ private void cboRangoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_cboRangoItemStateChanged
 
 private void cboRangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboRangoActionPerformed
-if(cboRango.getSelectedIndex()!=-1)
-{
+if(((NTupla)cboRango.getSelectedItem()).getId()!=-1)
+{ 
+        if(((NTupla)cboRango.getItemAt(0)).getId() <0)
+        {  
+         cboRango.removeItemAt(0);
+        }  
+
     //txtCosto.setText(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()));
     txtCosto.setText(Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()).replace(".",","));
     txtCosto.setEnabled(true);
