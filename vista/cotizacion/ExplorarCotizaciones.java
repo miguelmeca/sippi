@@ -179,6 +179,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
         btnCotizacion = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Explorar Cotizaciones");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
@@ -222,11 +223,11 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
 
             },
             new String [] {
-                "Pedido de Obra", "Cotización", "Revisión", "Fecha Creación", "Fecha Última Modificación", "Monto Total"
+                "Pedido de Obra", "Cotización", "Revisión", "Estado", "Fecha Creación", "Fecha Última Modificación", "Monto Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -266,7 +267,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                         .addComponent(btnSeleccionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -277,7 +278,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -319,8 +320,12 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
             txtBuscar.setText("");
             txtBuscar.setForeground(Color.BLACK);
             filtroBuscarActivado=false;
-        } else {
-            filtroBuscarActivado=true;}
+        } 
+       
+       else 
+       {
+            filtroBuscarActivado=true;
+       }
     }//GEN-LAST:event_txtBuscarFocusGained
 
     private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
@@ -352,6 +357,9 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
 
 private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
     activarFiltrosTabla();
+    btnSeleccionar.setEnabled(false);
+    btnCotizacion.setEnabled(false);
+    tablaCotizaciones.removeRowSelectionInterval(0, tablaCotizaciones.getRowCount()-1);
 }//GEN-LAST:event_txtBuscarKeyReleased
 
 private void btnCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCotizacionActionPerformed
