@@ -60,12 +60,13 @@ public class GestorExplorarCotizaciones
                 String nombrePedidoObra=cot.buscarPedidoObra().getNombre();
                 NTupla tupla = new NTupla(cot.getId());
                 tupla.setNombre(nombrePedidoObra);//No me gusta como queda esto... Pero es la 1er columna...
-                String[] datos=new String[5];
+                String[] datos=new String[6];
                 datos[0]=String.valueOf(cot.getNroCotizacion());
                 datos[1]=String.valueOf(cot.getNroRevision());
-                datos[2]=String.valueOf(FechaUtil.getFecha(cot.getFechaCreacion()));                
-                datos[3]=String.valueOf(FechaUtil.getFecha(cot.getFechaModificacion()));
-                datos[4]=String.valueOf(cot.CalcularTotal());
+                datos[2]=String.valueOf(cot.getEstado());
+                datos[3]=String.valueOf(FechaUtil.getFecha(cot.getFechaCreacion()));                
+                datos[4]=String.valueOf(FechaUtil.getFecha(cot.getFechaModificacion()));
+                datos[5]="$ "+String.valueOf(cot.CalcularTotal());
                 tupla.setData(datos);
                     listaCotizaciones.add(tupla);
             }
