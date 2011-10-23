@@ -18,6 +18,7 @@ import util.HibernateUtil;
 import util.Tupla;
 import vista.cotizacion.CotizacionGraficoBean;
 import vista.cotizacion.ExplorarSubObras;
+import controlador.cotizacion.GestorRegistrarCotizacion;
 
 /**
  *
@@ -463,6 +464,15 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         {
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para realizar esta acción antes debe guardar la cotización");
         }        
+    }
+    
+    public int recotizar() 
+    {
+        int nuevoId=-1;
+        GestorRegistrarCotizacion gestorgestorRecotizar = new GestorRegistrarCotizacion(getCotizacion().buscarPedidoObra().getNumero());
+        nuevoId=gestorgestorRecotizar.crearCotizacionAPartirExistente(getCotizacion().getId());
+        
+        return nuevoId;
     }
 
     

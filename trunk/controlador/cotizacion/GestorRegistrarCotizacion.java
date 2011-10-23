@@ -56,13 +56,42 @@ public class GestorRegistrarCotizacion {
         } 
         obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
     }
+    public GestorRegistrarCotizacion(int po_id) 
+    {
+        fechasFueraDeRango=false;
+        try 
+        {    
+            this.sesion = HibernateUtil.getSession();            
+        } 
+        catch (Exception ex) 
+        {
+            ex.printStackTrace();
+        } 
+        obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
+    }
     
     public int crearCotizacionNueva()
     {
         cot=new Cotizacion();     
-        cot.setDescripcion("");
-        cot.setNroRevision(0);
-        cot.setNroCotizacion("");
+        cot.setDescripcion("");        
+        if(obra.getCotizaciones().isEmpty())
+        {
+            cot.setNroCotizacion("");
+            cot.setNroRevision(0);
+        }
+        else
+        {
+             cot.setNroCotizacion(obra.getCotizaciones().get(0).getNroCotizacion());
+             List<Cotizacion> listCotX= obra.getCotizaciones();
+             int maxNroRevision=0;
+             for (Cotizacion cotX : listCotX) 
+             {
+                if(cotX.getNroRevision()>maxNroRevision) 
+                    maxNroRevision=cotX.getNroRevision();                
+             }         
+             cot.setNroRevision(maxNroRevision+1);
+        }
+        
         obra.addCotizaciones(cot);
         
         
@@ -88,10 +117,28 @@ public class GestorRegistrarCotizacion {
         cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
         
         cot=copiarCotización(cotOriginal);        
-        /*int nvoNroRevision=(Integer)sesion.createQuery("select max(cot.nroRevision) from Cotizacion cot where cot.nroCotizacion=:nroCot").setParameter("nroCot", cotOriginal.getNroCotizacion()).uniqueResult();
-        cot.setNroRevision(nvoNroRevision+1);*/
+        
+        //Si se trata de una recotizacion, acá siempre va entrar por el camino del else.
+        if(obra.getCotizaciones().isEmpty())
+        {
+            cot.setNroCotizacion("");
+            cot.setNroRevision(0);
+        }
+        else
+        {
+             cot.setNroCotizacion(obra.getCotizaciones().get(0).getNroCotizacion());
+             List<Cotizacion> listCotX= obra.getCotizaciones();
+             /*int maxNroRevision=(Integer)sesion.createQuery("select max(cot.nroRevision) from Cotizacion cot where cot.nroCotizacion=:nroCot").setParameter("nroCot", cotOriginal.getNroCotizacion()).uniqueResult();
+                cot.setNroRevision(maxNroRevision+1);*/
+             int maxNroRevision=0;
+             for (Cotizacion cotX : listCotX) 
+             {
+                if(cotX.getNroRevision()>maxNroRevision) 
+                    maxNroRevision=cotX.getNroRevision();                
+             }         
+             cot.setNroRevision(maxNroRevision+1);
+        }        
         cot.setDescripcion("");
-        cot.setNroCotizacion("");
         obra.addCotizaciones(cot);
         return guardarCotizacion();
         

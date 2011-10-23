@@ -222,7 +222,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
 
             },
             new String [] {
-                "Pedido de Obra", "Cotización", "Revisión", "Fecha Creación", "Fecha Última Modoficación", "Monto Total"
+                "Pedido de Obra", "Cotización", "Revisión", "Fecha Creación", "Fecha Última Modificación", "Monto Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -277,7 +277,7 @@ public class ExplorarCotizaciones extends javax.swing.JInternalFrame implements 
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
