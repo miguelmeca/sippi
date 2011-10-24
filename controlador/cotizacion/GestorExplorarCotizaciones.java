@@ -45,6 +45,7 @@ public class GestorExplorarCotizaciones
         try{
 
         sesion= HibernateUtil.getSession();
+        //sesion.clear();
         } catch (Exception ex)////////////
             {//////////////////////////////////////////
                 System.out.println("No se pudo abrir la sesion");//////////

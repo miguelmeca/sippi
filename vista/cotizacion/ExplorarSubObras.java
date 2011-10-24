@@ -27,12 +27,13 @@ import util.TablaUtil;
 import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.TortaRotator;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
  * @author iuga
  */
-public class ExplorarSubObras extends javax.swing.JInternalFrame {
+public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICallBack_v2{
 
     private GestorExplorarSubObras gestor;
     private int cotizacionId;
@@ -209,7 +210,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnNuevaSubObra)
@@ -482,7 +483,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -504,7 +505,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -682,7 +683,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -702,7 +703,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         btnRecotizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Previous record.png"))); // NOI18N
         btnRecotizar.setText("Recotizar a partir de esta cotización");
         btnRecotizar.setActionCommand("Recotizar desde este presupuesto");
-        btnRecotizar.setEnabled(false);
         btnRecotizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecotizarActionPerformed(evt);
@@ -784,7 +784,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Cotización", jPanel11);
@@ -797,7 +797,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
@@ -1040,7 +1040,7 @@ private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecotizarActionPerformed
         
-        int nuevoId=gestor.recotizar();               
+        int nuevoId=gestor.recotizar(this);               
                      
         
         if(nuevoId<0)
@@ -1327,7 +1327,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         txtPlazoEntrega.setEnabled(false);
         
         btnRechazar.setEnabled(true);
-        btnRecotizar.setEnabled(true);
+        //btnRecotizar.setEnabled(true);
         btnPlanificar.setEnabled(true);
         btnEnviarCliente.setEnabled(false);
         
@@ -1350,7 +1350,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         btnRechazar.setEnabled(false);
         btnPlanificar.setEnabled(false);
-        btnRecotizar.setEnabled(false);
+        //btnRecotizar.setEnabled(false);
         btnEnviarCliente.setEnabled(true);
         
         btnNuevaSubObra.setEnabled(true);
@@ -1390,6 +1390,16 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     {
         txtNroCotizacion.setBackground(Color.GREEN);
         txtNroCotizacion.setEnabled(false);
+    }
+    @Override
+    public void actualizar(int id, String CU, boolean exito)
+    {
+        
+        if(CU.equals("CopiaCotizacionCambioFechas")&&exito==false)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Las fechas de las tareas en la tareas de la cotización fueron modificadas para adaptarse a las fechas de la obra. \nFavor de verificar las fechas de las tareas","Advertencia",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
     
 }

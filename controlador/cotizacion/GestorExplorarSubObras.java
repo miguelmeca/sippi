@@ -19,6 +19,7 @@ import util.Tupla;
 import vista.cotizacion.CotizacionGraficoBean;
 import vista.cotizacion.ExplorarSubObras;
 import controlador.cotizacion.GestorRegistrarCotizacion;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
@@ -466,10 +467,10 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         }        
     }
     
-    public int recotizar() 
+    public int recotizar(ICallBack_v2 pantallaRecotizacion) 
     {
         int nuevoId=-1;
-        GestorRegistrarCotizacion gestorgestorRecotizar = new GestorRegistrarCotizacion(getCotizacion().buscarPedidoObra().getNumero());
+        GestorRegistrarCotizacion gestorgestorRecotizar = new GestorRegistrarCotizacion(pantallaRecotizacion,getCotizacion().buscarPedidoObra().getNumero());
         nuevoId=gestorgestorRecotizar.crearCotizacionAPartirExistente(getCotizacion().getId());
         
         return nuevoId;

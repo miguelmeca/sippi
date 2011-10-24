@@ -99,7 +99,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane1" pref="413" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="421" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnNuevaSubObra" min="-2" max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabbedPane1" alignment="1" pref="488" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="1" pref="496" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -303,7 +303,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" pref="254" max="32767" attributes="0"/>
+                          <Component id="jPanel9" pref="262" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -578,7 +578,7 @@
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_obra_fechafin" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="39" max="32767" attributes="0"/>
+                              <EmptySpace pref="47" max="32767" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -950,7 +950,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="438" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="446" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1006,7 +1006,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="204" max="32767" attributes="0"/>
+                          <EmptySpace pref="212" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1091,7 +1091,6 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Recotizar a partir de esta cotizaci&#xf3;n"/>
                         <Property name="actionCommand" type="java.lang.String" value="Recotizar desde este presupuesto"/>
-                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecotizarActionPerformed"/>
