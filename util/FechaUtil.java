@@ -127,6 +127,7 @@ public class FechaUtil {
         }
         return false;
     }
+    
     public static boolean fechaMayorQue(Date fecha, Date aComparar)
     {
         long f = fecha.getTime();
@@ -138,7 +139,7 @@ public class FechaUtil {
         }
         return false;
     }
-
+    
     public static boolean horaEnRango(String hora, String horaInicio, String horaFin) throws ParseException
     {
         DATE_FORMAT = new SimpleDateFormat("H:m", new Locale("es_ES"));

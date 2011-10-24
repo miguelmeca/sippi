@@ -141,9 +141,7 @@ public class Cotizacion {
        }
         return PO;
         
-    }
-    
-            
+    }   
     
     public double CalcularTotal()
     {
@@ -153,7 +151,7 @@ public class Cotizacion {
             SubObra so = subObras.get(i);
             monto += so.calcularSubtotal();
         }
-        return monto;
+        return Math.rint(monto*100)/100; // Redondeo
     }
     
     public double CalcularMontoBase()
