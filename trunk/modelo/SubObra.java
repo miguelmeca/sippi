@@ -162,7 +162,6 @@ public class SubObra implements ISubtotal
     @Override
     public double calcularSubtotal() 
     {
-        
         return (calcularSubtotalSinBeneficio()+getGananciaMonto());
     }
 
@@ -200,7 +199,7 @@ public class SubObra implements ISubtotal
                 {
                     monto += getAlquileresCompras().get(j).calcularSubtotal();
                 }    
-        return monto;
+         return Math.rint(monto*100)/100; // Redondeo
     }
 
     /**
@@ -209,8 +208,8 @@ public class SubObra implements ISubtotal
     public boolean isFlagGananciaPorcentaje() {
         return flagGananciaPorcentaje;
     }
-
     
+    // NO BORRAR; ERROR DE HIBERNATE, POR MAS Q SEA VIEJO
     //Existe solo porque lo necesita hibernate. Este método no deberia ser accedido externamente.
     private void setFlagGananciaPorcentaje(boolean flag) 
     {

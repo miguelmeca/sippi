@@ -112,7 +112,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private void cargarDatosGeneralesCotizacion()
     {    
-        pantalla.llenarDatosCotizacion(this.cot.getNroCotizacion(),this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega(),cot.getEstado());
+        pantalla.llenarDatosCotizacion(this.cot.getNroCotizacion(),this.cot.getNroRevision(),this.cot.getFechaLimiteEntrega(),cot.getValidezOferta(),cot.getPlazoEntrega(),cot.getLugarEntrega(),cot.getEstado());
     }
     
     private double getMontoMaximo()
@@ -290,26 +290,33 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         return this.cot;
     }
 
-    public void guardarCotizacion() 
+    public void guardarCotizacion(boolean validoNroPresupuesto) 
     {
         boolean flag_valido_nropresupuesto = false;
         // Busco si el número de cotización no está repetido
         // OJO, tengo que chequear que no me choque con esta misma cotizacion
-        try
+        if(validoNroPresupuesto)
         {
-            Query q = HibernateUtil.getSession().createQuery("FROM Cotizacion C WHERE C.nroCotizacion=? AND C.id!=?");
-            q.setParameter(0,this.cot.getNroCotizacion());
-            q.setParameter(1,this.cot.getId());
-            
-            ArrayList<Cotizacion> lista = (ArrayList) q.list();
-            if(lista.size()==0)
+            try
             {
-                flag_valido_nropresupuesto = true;
+                Query q = HibernateUtil.getSession().createQuery("FROM Cotizacion C, SubObra SO WHERE C.nroCotizacion=? AND C.id!=?");
+                q.setParameter(0,this.cot.getNroCotizacion());
+                q.setParameter(1,this.cot.getId());
+
+                ArrayList<Cotizacion> lista = (ArrayList) q.list();
+                if(lista.isEmpty())
+                {
+                    flag_valido_nropresupuesto = true;
+                }
+            } 
+            catch (Exception ex)
+            {
+                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo comprobar si el número ingresado ya está en uso\nIntentelo nuevamente");
             }
-        } 
-        catch (Exception ex)
+        }
+        else
         {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo comprobar si el número ingresado ya está en uso\nIntentelo nuevamente");
+             flag_valido_nropresupuesto = true;
         }
         
         if(flag_valido_nropresupuesto)
