@@ -286,7 +286,15 @@ private void lblCotizacionBlancoMouseClicked(java.awt.event.MouseEvent evt) {//G
     @Override
     public void actualizar(int id, String CU, boolean exito)
     {
-        idCotizacionSeleccionadaParaCopia=id;
-        txtCotizacionSeleccionda.setText(gestor.getNombreCotizacion(id));
+        
+        if(CU.equals("CopiaCotizacionCambioFechas")&&exito==false)
+        {
+            JOptionPane.showMessageDialog(this.getParent(),"Las fechas de las tareas en la tareas de la cotización fueron modificadas para adaptarse a las fechas de la obra. \nFavor de verificar las fechas de las tareas","Advertencia",JOptionPane.ERROR_MESSAGE);
+        }
+        if(CU.equals("ExplorarCotizaciones"))
+        {
+            idCotizacionSeleccionadaParaCopia=id;
+            txtCotizacionSeleccionda.setText(gestor.getNombreCotizacion(id));
+        }
     }
 }

@@ -20,9 +20,8 @@ import modelo.SubObraXTarea;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
-import util.Tupla;
-import vista.cotizacion.CotizacionGraficoBean;
-import vista.cotizacion.RegistrarCotizacion;
+
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
@@ -30,7 +29,7 @@ import vista.cotizacion.RegistrarCotizacion;
  */
 public class GestorRegistrarCotizacion {
     
-    private RegistrarCotizacion pantalla;
+    private ICallBack_v2 pantalla;
     private Session sesion;
     private PedidoObra obra;
     private Cotizacion cot;
@@ -42,13 +41,14 @@ public class GestorRegistrarCotizacion {
     boolean fechasFueraDeRango;
     
 
-    public GestorRegistrarCotizacion(RegistrarCotizacion pantalla, int po_id) 
+    public GestorRegistrarCotizacion(ICallBack_v2 pantalla, int po_id) 
     {
         fechasFueraDeRango=false;
         this.pantalla = pantalla;
         try 
         {    
-            this.sesion = HibernateUtil.getSession();            
+            this.sesion = HibernateUtil.getSession();  
+            //sesion.clear();
         } 
         catch (Exception ex) 
         {
@@ -56,19 +56,7 @@ public class GestorRegistrarCotizacion {
         } 
         obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
     }
-    public GestorRegistrarCotizacion(int po_id) 
-    {
-        fechasFueraDeRango=false;
-        try 
-        {    
-            this.sesion = HibernateUtil.getSession();            
-        } 
-        catch (Exception ex) 
-        {
-            ex.printStackTrace();
-        } 
-        obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
-    }
+    
     
     public int crearCotizacionNueva()
     {
@@ -140,8 +128,11 @@ public class GestorRegistrarCotizacion {
         }        
         cot.setDescripcion("");
         obra.addCotizaciones(cot);
-        return guardarCotizacion();
-        
+        if(fechasFueraDeRango)
+        {
+            pantalla.actualizar(0, "CopiaCotizacionCambioFechas", false);
+        }
+        return guardarCotizacion();        
     }
     private Cotizacion copiarCotización(Cotizacion cotOriginal)
     {
@@ -167,8 +158,10 @@ public class GestorRegistrarCotizacion {
         //{
             SubObra nuevaSO=new SubObra();
             nuevaSO.setDescripcion(so.getDescripcion());
-            nuevaSO.setGananciaMonto(so.getGananciaMonto());
-            nuevaSO.setGananciaPorcentaje(so.getGananciaPorcentaje());
+            if(so.isFlagGananciaPorcentaje())
+            {nuevaSO.setGananciaPorcentaje(so.getGananciaPorcentaje());}
+            else
+            {nuevaSO.setGananciaMonto(so.getGananciaMonto());}            
             nuevaSO.setNombre(so.getNombre());
             //Copio SubObrasXTareas
             Iterator<SubObraXTarea> it = so.getTareas().iterator();
@@ -188,27 +181,27 @@ public class GestorRegistrarCotizacion {
                if(fechaInicioTarea.after(fechaFinObra))
                {
                    fechasFueraDeRango=true;
-                   fechaInicioTarea=fechaFinObra;
+                   //fechaInicioTarea=fechaFinObra;
                }
                if(fechaFinTarea.after(fechaFinObra))
                {
                    fechasFueraDeRango=true;
-                   fechaFinTarea=fechaFinObra;
+                   //fechaFinTarea=fechaFinObra;
                }
                
                if(fechaInicioObra.after(fechaInicioTarea) )
                {
                    fechasFueraDeRango=true;
-                   fechaInicioTarea=fechaInicioObra;
+                   //fechaInicioTarea=fechaInicioObra;
                }
                if(fechaInicioObra.after(fechaFinTarea))
                {
                    fechasFueraDeRango=true;
-                   fechaFinTarea=fechaInicioObra;
+                   //fechaFinTarea=fechaInicioObra;
                }               
                
-               nuevaSoxt.setFechaInicio(fechaInicioObra);
-               nuevaSoxt.setFechaFin(fechaInicioObra);
+               nuevaSoxt.setFechaInicio(fechaInicioTarea);
+               nuevaSoxt.setFechaFin(fechaInicioTarea);
                nuevaSO.addTarea(nuevaSoxt);
             }
             //Copio SubObrasXMaterial
