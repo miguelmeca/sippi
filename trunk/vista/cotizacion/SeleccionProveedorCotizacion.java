@@ -12,8 +12,6 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionMateriales;
-import vista.planificacion.*;
-import controlador.planificacion.GestorRegistrarAsignacionMateriales;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -9,11 +9,11 @@
  * Created on 06-sep-2010, 22:16:38
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
-import controlador.planificacion.GestorRegistrarAsignacionMateriales;
-import controlador.planificacion.GestorRegistrarAsignacionHerramientas;
-import controlador.planificacion.GestorRegistrarTarea;
+import controlador.planificacion_old.GestorRegistrarAsignacionMateriales;
+import controlador.planificacion_old.GestorRegistrarAsignacionHerramientas;
+import controlador.planificacion_old.GestorRegistrarTarea;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;

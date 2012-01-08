@@ -9,7 +9,7 @@
  * Created on 10-sep-2010, 23:47:56
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
 /**
  *

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import modelo.RangoEspecialidad;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
-import vista.planificacion.pantallaRegistrarTarea;
+import vista.planificacion_old.pantallaRegistrarTarea;
 import controlador.utiles.gestorBDvarios;
 import util.Tupla;
 import util.NTupla;

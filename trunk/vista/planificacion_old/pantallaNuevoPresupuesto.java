@@ -9,9 +9,9 @@
  * Created on 15-sep-2010, 17:00:14
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
-import controlador.planificacion.GestorNuevoPresupuesto;
+import controlador.planificacion_old.GestorNuevoPresupuesto;
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.Date;

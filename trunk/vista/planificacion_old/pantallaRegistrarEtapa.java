@@ -9,7 +9,7 @@
  * Created on 13-sep-2010, 17:41:19
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
 import java.util.Date;
 import javax.swing.JComboBox;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import controlador.planificacion.GestorOtrosDatosEtapa;
-import controlador.planificacion.GestorRegistrarEtapa;
+import controlador.planificacion_old.GestorOtrosDatosEtapa;
+import controlador.planificacion_old.GestorRegistrarEtapa;
 import javax.swing.JOptionPane;
 import vista.interfaces.ICallBack_v2;
 import util.SwingPanel;

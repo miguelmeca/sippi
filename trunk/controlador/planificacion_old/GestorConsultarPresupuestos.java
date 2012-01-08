@@ -1,4 +1,4 @@
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import util.NTupla;
-import vista.planificacion.pantallaConsultarPresupuestos;
+import vista.planificacion_old.pantallaConsultarPresupuestos;
 
 
 public class GestorConsultarPresupuestos {

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import config.SConfig;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
 import modelo.Proveedor;
-import vista.planificacion.pantallaRegistrarEtapa;
+import vista.planificacion_old.pantallaRegistrarEtapa;
 import controlador.utiles.gestorGeoLocalicacion;
 import controlador.utiles.gestorBDvarios;
 import util.Tupla;

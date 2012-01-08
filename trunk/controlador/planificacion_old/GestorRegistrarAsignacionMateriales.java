@@ -3,7 +3,7 @@
  * and open the template in the editor.
  *///
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import util.HibernateUtil;
 import util.NTupla;
 import util.RecursosUtil;
 import util.Tupla;
-import vista.planificacion.pantallaRegistrarTarea;
+import vista.planificacion_old.pantallaRegistrarTarea;
 
 /**
  *

@@ -9,7 +9,7 @@
  * Created on 09-oct-2010, 17:13:37
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
 import java.awt.Color;
 import java.util.Date;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,7 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
-import vista.planificacion.pantallaRegistrarEtapa;
+import vista.planificacion_old.pantallaRegistrarEtapa;
 
 
 /**
