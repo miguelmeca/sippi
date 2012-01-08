@@ -36,7 +36,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
-                      <Component id="btnSave" pref="149" max="32767" attributes="0"/>
+                      <Component id="btnSave" pref="159" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -91,7 +91,7 @@
                   <Component id="btnNuevaSubObra" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="btnEliminarSubObra" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
                   <Component id="btnEditarSubObra" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -99,7 +99,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane1" pref="426" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="430" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnNuevaSubObra" min="-2" max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabbedPane1" alignment="1" pref="496" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" alignment="1" pref="510" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -303,7 +303,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" pref="239" max="32767" attributes="0"/>
+                          <Component id="jPanel9" pref="250" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -604,7 +604,7 @@
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_obra_fechafin" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="24" max="32767" attributes="0"/>
+                              <EmptySpace pref="35" max="32767" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -976,7 +976,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="449" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="460" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1032,7 +1032,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="220" max="32767" attributes="0"/>
+                          <EmptySpace pref="221" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1053,14 +1053,14 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnPlanificar" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="btnEnviarCliente" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="jLabel10" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="btnRechazar" alignment="0" pref="527" max="32767" attributes="0"/>
-                                  <Component id="btnRecotizar" alignment="1" pref="527" max="32767" attributes="0"/>
+                                  <Component id="btnPlanificar" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="jLabel7" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="jLabel8" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="btnEnviarCliente" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="jLabel10" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="btnRechazar" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="btnRecotizar" alignment="1" pref="521" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
