@@ -1,6 +1,6 @@
 package vista.gui.graphProxy;
 
-import vista.planificacion.pantallaRegistrarPresupuesto;
+import vista.planificacion_old.pantallaRegistrarPresupuesto;
 
 /**
  * Descripción:

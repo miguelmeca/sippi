@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +31,7 @@ import util.LogUtil;
 import util.NTupla;
 import util.RecursosUtil;
 import util.Tupla;
-import vista.planificacion.pantallaRegistrarPresupuesto;
+import vista.planificacion_old.pantallaRegistrarPresupuesto;
 
 /**
  * Descripción:

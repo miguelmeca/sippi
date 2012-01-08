@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package controlador.planificacion;
+package controlador.planificacion_old;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
-import vista.planificacion.pantallaNuevoPresupuesto;
+import vista.planificacion_old.pantallaNuevoPresupuesto;
 
 /**
  * Descripción:

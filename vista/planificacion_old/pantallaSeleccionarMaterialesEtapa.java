@@ -9,9 +9,9 @@
  * Created on 10-sep-2010, 15:39:00
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
-import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import controlador.planificacion_old.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

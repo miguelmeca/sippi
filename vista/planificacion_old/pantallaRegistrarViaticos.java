@@ -9,7 +9,7 @@
  * Created on 27-sep-2010, 16:29:40
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
 import javax.swing.JOptionPane;
 

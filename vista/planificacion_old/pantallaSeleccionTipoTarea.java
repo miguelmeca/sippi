@@ -9,7 +9,7 @@
  * Created on 15-oct-2010, 16:42:08
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 import vista.interfaces.ICallBack_v2;
 import util.SwingPanel;
 

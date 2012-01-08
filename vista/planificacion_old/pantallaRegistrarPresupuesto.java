@@ -1,6 +1,6 @@
-package vista.planificacion;
+package vista.planificacion_old;
 
-import controlador.planificacion.GestorRegistrarPresupuesto;
+import controlador.planificacion_old.GestorRegistrarPresupuesto;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

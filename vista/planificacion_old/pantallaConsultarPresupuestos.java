@@ -9,9 +9,9 @@
  * Created on 06-ago-2010, 15:44:11
  */
 
-package vista.planificacion;
+package vista.planificacion_old;
 
-import controlador.planificacion.GestorConsultarPresupuestos;
+import controlador.planificacion_old.GestorConsultarPresupuestos;
 import vista.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
