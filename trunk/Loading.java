@@ -59,7 +59,19 @@ public class Loading extends javax.swing.JFrame {
 
     private void CargarEjemplos(int i, String txt)
     {
-       int seleccion = JOptionPane.showOptionDialog(
+       int seleccion = -1;
+        
+       String conn = HibernateUtil.getCadenaConexion();
+       
+       // Si la base de datos es en memoria, siempre tengo que cargar los datos
+       // asi que ni pregunto, los cargo de una
+       if(conn.equals("jdbc:hsqldb:mem:testdb"))
+       {
+           seleccion = 0;
+       }
+       else
+       {
+            seleccion = JOptionPane.showOptionDialog(
                        this,
                        "¿Desea cargar los datos de prueba / Inicialización?",
                        "Seleccione una opción",
@@ -68,7 +80,7 @@ public class Loading extends javax.swing.JFrame {
                        null,    // null para icono por defecto.
                        new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
                        "Si");
-
+       }
         if (seleccion != -1)
         {
             if((seleccion + 1)==1)
