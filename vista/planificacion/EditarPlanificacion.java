@@ -8,23 +8,27 @@
  *
  * Created on 08-ene-2012, 17:13:17
  */
-
 package vista.planificacion;
 
 import com.hackelare.coolgantt.*;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
+import controlador.planificacion.GestorEditarPlanificacion;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.TransferHandler;
+import javax.swing.table.DefaultTableModel;
+import util.NTupla;
 
 /**
  *
@@ -32,77 +36,102 @@ import javax.swing.JLabel;
  */
 public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
-    ICoolGantt graph;
-    JComponent grafico;    
+    private static final String iconoSubObra = "/res/iconos/var/16x16/Application.png";
+    private static final String iconoTarea = "/res/iconos/var/16x16/calendar.png";
     
-    /** Creates new form EditarPlanificacion */
-    public EditarPlanificacion() {
+    
+    private GestorEditarPlanificacion _gestor;
+    ICoolGantt graph;
+    JComponent grafico;
+   
+
+    /**
+     * Creates new form EditarPlanificacion
+     */
+    public EditarPlanificacion(int idObra) {
+        _gestor = new GestorEditarPlanificacion(this);
         initComponents();
+
+        tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
+        tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
+
+//        JLabel label = new JLabel("Drag this text", JLabel.CENTER);
+//        panelTest.add(label);
+//        JLabelDragSource dragSource = new JLabelDragSource(label);
+        
+        
+        initArbolRecursos();
         initGraph();
     }
-    
-    private void initGraph() 
-    {
+
+    private void initArbolRecursos() {
+
+        initTablaSubObras();
+        initTablaTareas(1);
+        initArbolRecursosCotizados();
+    }
+
+    private void initGraph() {
         graph = CoolGanttFactory.create();
         graph.setEventHandler(new demoEvents());
-        
+
         initTypeModel();
         initModel();
-        
+
         grafico = graph.getComponent();
-        panelLineaDeTiempo.add(grafico,BorderLayout.CENTER);
+        panelLineaDeTiempo.add(grafico, BorderLayout.CENTER);
         pack();
         setVisible(true);
     }
-    
+
     private void initModel() {
 
-            // Create a new Phrase
-            CoolGanttPhase p1 = new CoolGanttPhase();
-            p1.setEditable(true);
-            p1.setId(1);
-            p1.setNombre("Phase Test 1");
-            p1.setType(demoTypes.TYPE_NORMAL);
-            p1.setStartDate(new Date());
-            p1.setEndDate(fechaMas(new Date(),5));
-            
-            // Create a new Phrase
-            CoolGanttPhase p2 = new CoolGanttPhase();
-            p2.setEditable(true);
-            p2.setId(2);
-            p2.setNombre("Phase Test 2");
-            p2.setType(demoTypes.TYPE_TRANSPORTE);
-            p2.setStartDate(fechaMas(new Date(),5));
-            p2.setEndDate(fechaMas(new Date(),10));      
-            
-            // Create a new Phrase
-            CoolGanttPhase p3 = new CoolGanttPhase();
-            p3.setEditable(false);
-            p3.setId(3);
-            p3.setNombre("Phase Test 3");
-            p3.setStartDate(fechaMas(new Date(),10));
-            p3.setEndDate(fechaMas(new Date(),20));  
-       
-            // Create a new Phrase
-            CoolGanttPhase p4 = new CoolGanttPhase();
-            p4.setId(4);
-            p4.setNombre("Phase Test 4");
-            p4.setStartDate(fechaMas(new Date(),20));
-            p4.setEndDate(fechaMas(new Date(),30));    
-            
-            // Create a new Phrase
-            CoolGanttPhase p5 = new CoolGanttPhase();
-            p5.setEditable(true);
-            p5.setId(5);
-            p5.setNombre("Phase Test 5");
-            p5.setStartDate(fechaMas(new Date(),10));
-            p5.setEndDate(fechaMas(new Date(),20));  
-            
-            // Set dependencies
-            p2.addSubsequentPhase(p1);
-            p4.addSubsequentPhase(p2);
-            p5.addSubsequentPhase(p1);
-            
+        // Create a new Phrase
+        CoolGanttPhase p1 = new CoolGanttPhase();
+        p1.setEditable(true);
+        p1.setId(1);
+        p1.setNombre("Phase Test 1");
+        p1.setType(demoTypes.TYPE_NORMAL);
+        p1.setStartDate(new Date());
+        p1.setEndDate(fechaMas(new Date(), 5));
+
+        // Create a new Phrase
+        CoolGanttPhase p2 = new CoolGanttPhase();
+        p2.setEditable(true);
+        p2.setId(2);
+        p2.setNombre("Phase Test 2");
+        p2.setType(demoTypes.TYPE_TRANSPORTE);
+        p2.setStartDate(fechaMas(new Date(), 5));
+        p2.setEndDate(fechaMas(new Date(), 10));
+
+        // Create a new Phrase
+        CoolGanttPhase p3 = new CoolGanttPhase();
+        p3.setEditable(false);
+        p3.setId(3);
+        p3.setNombre("Phase Test 3");
+        p3.setStartDate(fechaMas(new Date(), 10));
+        p3.setEndDate(fechaMas(new Date(), 20));
+
+        // Create a new Phrase
+        CoolGanttPhase p4 = new CoolGanttPhase();
+        p4.setId(4);
+        p4.setNombre("Phase Test 4");
+        p4.setStartDate(fechaMas(new Date(), 20));
+        p4.setEndDate(fechaMas(new Date(), 30));
+
+        // Create a new Phrase
+        CoolGanttPhase p5 = new CoolGanttPhase();
+        p5.setEditable(true);
+        p5.setId(5);
+        p5.setNombre("Phase Test 5");
+        p5.setStartDate(fechaMas(new Date(), 10));
+        p5.setEndDate(fechaMas(new Date(), 20));
+
+        // Set dependencies
+        p2.addSubsequentPhase(p1);
+        p4.addSubsequentPhase(p2);
+        p5.addSubsequentPhase(p1);
+
         graph.addPhase(p1);
         graph.addPhase(p2);
         graph.addPhase(p3);
@@ -113,30 +142,27 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
         //graph.refresh();
         //pack();
-    }    
-
-    private Date fechaMas(Date fch, int dias){
-         Calendar cal = new GregorianCalendar();
-         cal.setTimeInMillis(fch.getTime());
-         cal.add(Calendar.DATE, dias);
-         return new Date(cal.getTimeInMillis());
     }
 
-    
+    private Date fechaMas(Date fch, int dias) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(fch.getTime());
+        cal.add(Calendar.DATE, dias);
+        return new Date(cal.getTimeInMillis());
+    }
+
     private void initTypeModel() {
         CoolGanttTypeModel typeModel = new CoolGanttTypeModel();
-        typeModel.addType(demoTypes.TYPE_NORMAL,ColorLabel.COLOR_LABELS[0]);
-        typeModel.addType(demoTypes.TYPE_TRANSPORTE,ColorLabel.COLOR_LABELS[1]);
-        typeModel.addType(demoTypes.TYPE_MONTAJE,ColorLabel.COLOR_LABELS[2]);
+        typeModel.addType(demoTypes.TYPE_NORMAL, ColorLabel.COLOR_LABELS[0]);
+        typeModel.addType(demoTypes.TYPE_TRANSPORTE, ColorLabel.COLOR_LABELS[1]);
+        typeModel.addType(demoTypes.TYPE_MONTAJE, ColorLabel.COLOR_LABELS[2]);
         graph.getModel().setTypeModel(typeModel);
     }
-    
 
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -145,11 +171,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         panelBarraIzquierda = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblTareas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSubObras = new javax.swing.JTable();
         btnEmitirInforme = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -158,6 +184,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         panelLineaDeTiempo = new javax.swing.JPanel();
         panelArbolTareas = new javax.swing.JPanel();
         panelDatosGenerales = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setIconifiable(true);
         setMaximizable(true);
@@ -168,10 +196,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles de la SubObra"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null}
+
             },
             new String [] {
                 "Tareas Cotizadas"
@@ -185,7 +212,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tblTareas.setCellSelectionEnabled(true);
+        tblTareas.setDragEnabled(true);
+        jScrollPane2.setViewportView(tblTareas);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Herramientas");
@@ -219,11 +248,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSubObras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Sub Obra 1"},
-                {"Sub Obra 2"},
-                {"SubObra 3"}
+
             },
             new String [] {
                 "Nombre de la SubObra"
@@ -237,7 +264,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblSubObras.setCellSelectionEnabled(true);
+        tblSubObras.setDragEnabled(true);
+        jScrollPane1.setViewportView(tblSubObras);
 
         javax.swing.GroupLayout panelBarraIzquierdaLayout = new javax.swing.GroupLayout(panelBarraIzquierda);
         panelBarraIzquierda.setLayout(panelBarraIzquierdaLayout);
@@ -291,20 +320,30 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane4.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout panelDatosGeneralesLayout = new javax.swing.GroupLayout(panelDatosGenerales);
         panelDatosGenerales.setLayout(panelDatosGeneralesLayout);
         panelDatosGeneralesLayout.setHorizontalGroup(
             panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 582, Short.MAX_VALUE)
+            .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelDatosGeneralesLayout.setVerticalGroup(
             panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", panelDatosGenerales);
@@ -357,19 +396,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmitirInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirInformeActionPerformed
-
     }//GEN-LAST:event_btnEmitirInformeActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
-
     }//GEN-LAST:event_btnSaveActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEmitirInforme;
@@ -379,14 +413,54 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTree jTree1;
     private javax.swing.JPanel panelArbolTareas;
     private javax.swing.JPanel panelBarraIzquierda;
     private javax.swing.JTabbedPane panelCentral;
     private javax.swing.JPanel panelDatosGenerales;
     private javax.swing.JPanel panelLineaDeTiempo;
+    private javax.swing.JTable tblSubObras;
+    private javax.swing.JTable tblTareas;
     // End of variables declaration//GEN-END:variables
 
+    private void initTablaSubObras() {
+
+
+        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaSubObras();
+
+        for (int i = 0; i < lista.size(); i++) {
+            NTupla nt = lista.get(i);
+                   
+            ArbolDeTareasCelda item = new ArbolDeTareasCelda();
+            item.setItemData(iconoSubObra, nt.getNombre());
+
+            DefaultTableModel modelo = (DefaultTableModel) tblSubObras.getModel();
+            Object[] fila = new Object[1];
+            fila[0] = item;
+            modelo.addRow(fila);
+        }
+    }
+
+    private void initTablaTareas(int idSubObra) {
+        
+        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaTareasXSubObra(idSubObra);
+
+        for (int i = 0; i < lista.size(); i++) {
+            NTupla nt = lista.get(i);
+            ArbolDeTareasCelda item = new ArbolDeTareasCelda();
+            item.setItemData(iconoTarea, nt.getNombre());
+
+            DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+            Object[] fila = new Object[1];
+            fila[0] = item;
+            modelo.addRow(fila);
+
+        }
+        
+    }
+
+    private void initArbolRecursosCotizados() {
+    }
 }
