@@ -11,7 +11,7 @@
 
 package vista.prototipos;
 
-import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import controlador.planificacion_old.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

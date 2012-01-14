@@ -624,7 +624,7 @@ public class pantallaExplorarAlfonsinas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblMenuMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pantallaConsultarObra pco = new pantallaConsultarObra();
+        pantallaConsultarObra pco = new pantallaConsultarObra(1);
         pco.setVisible(true);
         SwingPanel.getInstance().addWindow(pco);
     }//GEN-LAST:event_jButton2ActionPerformed

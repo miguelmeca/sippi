@@ -12,7 +12,7 @@
 package vista.prototipos;
 
 import vista.planificacion.*;
-import controlador.planificacion.GestorRegistrarAsignacionMateriales;
+import controlador.planificacion_old.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JDialog;
