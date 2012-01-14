@@ -10,25 +10,23 @@
  */
 package vista.planificacion;
 
+import vista.gui.dnd.PanelDropTarget;
 import com.hackelare.coolgantt.*;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import controlador.planificacion.GestorEditarPlanificacion;
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.TransferHandler;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import vista.gui.dnd.IDropEvent;
 
 /**
  *
@@ -55,13 +53,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
         tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
 
-//        JLabel label = new JLabel("Drag this text", JLabel.CENTER);
-//        panelTest.add(label);
-//        JLabelDragSource dragSource = new JLabelDragSource(label);
-        
-        
         initArbolRecursos();
         initGraph();
+
+        //TODO: Sacar esto, test de DnD
+        PanelDropTarget target = new PanelDropTarget(jPanel2, new GanttDropEvent());
+        
     }
 
     private void initArbolRecursos() {
@@ -79,11 +76,38 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         initModel();
 
         grafico = graph.getComponent();
+        
+        // Soporte para Drop
+        PanelDropTarget target = new PanelDropTarget(grafico, new GanttDropEvent());
+        
         panelLineaDeTiempo.add(grafico, BorderLayout.CENTER);
         pack();
         setVisible(true);
+        
+        // Agrego el menu del boton derecho
+        grafico.setComponentPopupMenu(jpm);
+        
+        // Le doy el zoom que quiero
+         graph.setZoomOut();
+          graph.setZoomOut();
+           graph.setZoomOut();
+            graph.setZoomOut();
+             graph.setZoomOut();
+         
+        graph.setEventHandler(new GanttEventMouse());
     }
 
+    private void updateGantt()
+    {
+        panelLineaDeTiempo.remove(grafico);
+        pack();
+        grafico = graph.getComponent();
+        panelLineaDeTiempo.add(grafico, BorderLayout.CENTER);
+        pack();
+        // Soporte para Drop
+        PanelDropTarget target = new PanelDropTarget(grafico, new GanttDropEvent());
+    }
+    
     private void initModel() {
 
         // Create a new Phrase
@@ -168,6 +192,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpm = new javax.swing.JPopupMenu();
+        menuNuevaEtapa = new javax.swing.JMenuItem();
+        menuZoomMas = new javax.swing.JMenuItem();
+        menuZoomMenos = new javax.swing.JMenuItem();
+        menuDerecha = new javax.swing.JMenuItem();
+        menuIzquierda = new javax.swing.JMenuItem();
+        menuFechaActual = new javax.swing.JMenuItem();
+        menuVistaAnual = new javax.swing.JMenuItem();
+        menuVistaSemanal = new javax.swing.JMenuItem();
         panelBarraIzquierda = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -186,6 +219,79 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         panelDatosGenerales = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+
+        menuNuevaEtapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        menuNuevaEtapa.setText("Nueva Tarea");
+        menuNuevaEtapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuNuevaEtapaActionPerformed(evt);
+            }
+        });
+        jpm.add(menuNuevaEtapa);
+
+        menuZoomMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        menuZoomMas.setText("Zoom +");
+        menuZoomMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuZoomMasActionPerformed(evt);
+            }
+        });
+        jpm.add(menuZoomMas);
+
+        menuZoomMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        menuZoomMenos.setText("Zoom -");
+        menuZoomMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuZoomMenosActionPerformed(evt);
+            }
+        });
+        jpm.add(menuZoomMenos);
+
+        menuDerecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
+        menuDerecha.setText("Mover a la Derecha");
+        menuDerecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDerechaActionPerformed(evt);
+            }
+        });
+        jpm.add(menuDerecha);
+
+        menuIzquierda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
+        menuIzquierda.setText("Mover a la Izquierda");
+        menuIzquierda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuIzquierdaActionPerformed(evt);
+            }
+        });
+        jpm.add(menuIzquierda);
+
+        menuFechaActual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuFechaActual.setText("Ir a Fecha Actual");
+        menuFechaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFechaActualActionPerformed(evt);
+            }
+        });
+        jpm.add(menuFechaActual);
+
+        menuVistaAnual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuVistaAnual.setText("Vista Anual");
+        menuVistaAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVistaAnualActionPerformed(evt);
+            }
+        });
+        jpm.add(menuVistaAnual);
+
+        menuVistaSemanal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/calendar.png"))); // NOI18N
+        menuVistaSemanal.setText("Vista Semanal");
+        menuVistaSemanal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVistaSemanalActionPerformed(evt);
+            }
+        });
+        jpm.add(menuVistaSemanal);
 
         setIconifiable(true);
         setMaximizable(true);
@@ -214,6 +320,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         });
         tblTareas.setCellSelectionEnabled(true);
         tblTareas.setDragEnabled(true);
+        tblTareas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tblTareas);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -266,6 +373,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         });
         tblSubObras.setCellSelectionEnabled(true);
         tblSubObras.setDragEnabled(true);
+        tblSubObras.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblSubObras);
 
         javax.swing.GroupLayout panelBarraIzquierdaLayout = new javax.swing.GroupLayout(panelBarraIzquierda);
@@ -320,7 +428,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
+            .addGap(0, 519, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -329,24 +437,41 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 110, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelDatosGeneralesLayout = new javax.swing.GroupLayout(panelDatosGenerales);
         panelDatosGenerales.setLayout(panelDatosGeneralesLayout);
         panelDatosGeneralesLayout.setHorizontalGroup(
             panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                .addGroup(panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDatosGeneralesLayout.setVerticalGroup(
             panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(296, Short.MAX_VALUE))
         );
 
-        panelCentral.addTab("Datos Generales", panelDatosGenerales);
+        panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -404,11 +529,49 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void menuNuevaEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevaEtapaActionPerformed
+
+//        pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
+//        SwingPanel.getInstance().addWindow(pre);
+//        pre.setVisible(true);
+        
+    }//GEN-LAST:event_menuNuevaEtapaActionPerformed
+
+    private void menuZoomMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMasActionPerformed
+        graph.setZoomIn();
+    }//GEN-LAST:event_menuZoomMasActionPerformed
+
+    private void menuZoomMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMenosActionPerformed
+        graph.setZoomOut();
+    }//GEN-LAST:event_menuZoomMenosActionPerformed
+
+    private void menuDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDerechaActionPerformed
+        graph.moveRight();
+    }//GEN-LAST:event_menuDerechaActionPerformed
+
+    private void menuIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuIzquierdaActionPerformed
+        graph.moveLeft();
+    }//GEN-LAST:event_menuIzquierdaActionPerformed
+
+    private void menuFechaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFechaActualActionPerformed
+        graph.setFocusToday();
+    }//GEN-LAST:event_menuFechaActualActionPerformed
+
+    private void menuVistaAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVistaAnualActionPerformed
+        graph.setYearView();
+    }//GEN-LAST:event_menuVistaAnualActionPerformed
+
+    private void menuVistaSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVistaSemanalActionPerformed
+        graph.setWeeklyView();
+    }//GEN-LAST:event_menuVistaSemanalActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEmitirInforme;
     private javax.swing.JButton btnSave;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -416,6 +579,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTree jTree1;
+    private javax.swing.JPopupMenu jpm;
+    private javax.swing.JMenuItem menuDerecha;
+    private javax.swing.JMenuItem menuFechaActual;
+    private javax.swing.JMenuItem menuIzquierda;
+    private javax.swing.JMenuItem menuNuevaEtapa;
+    private javax.swing.JMenuItem menuVistaAnual;
+    private javax.swing.JMenuItem menuVistaSemanal;
+    private javax.swing.JMenuItem menuZoomMas;
+    private javax.swing.JMenuItem menuZoomMenos;
     private javax.swing.JPanel panelArbolTareas;
     private javax.swing.JPanel panelBarraIzquierda;
     private javax.swing.JTabbedPane panelCentral;
@@ -433,7 +605,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
                    
-            ArbolDeTareasCelda item = new ArbolDeTareasCelda();
+            ArbolDeTareasCelda item = new ArbolDeTareasCelda(ArbolDeTareasTipos.TIPO_SUBOBRA,String.valueOf(nt.getId()));
             item.setItemData(iconoSubObra, nt.getNombre());
 
             DefaultTableModel modelo = (DefaultTableModel) tblSubObras.getModel();
@@ -449,7 +621,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
-            ArbolDeTareasCelda item = new ArbolDeTareasCelda();
+            ArbolDeTareasCelda item = new ArbolDeTareasCelda(ArbolDeTareasTipos.TIPO_TAREA,String.valueOf(nt.getId()));
             item.setItemData(iconoTarea, nt.getNombre());
 
             DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
@@ -463,4 +635,51 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private void initArbolRecursosCotizados() {
     }
+    
+    private void AgregarNuevaTarea(int id,String nombre)
+    {
+        // Create a new Phrase
+        CoolGanttPhase p5 = new CoolGanttPhase();
+        p5.setEditable(true);
+        p5.setId(id);
+        p5.setNombre(nombre);
+        p5.setStartDate(fechaMas(new Date(), 10));
+        p5.setEndDate(fechaMas(new Date(), 20));
+        
+        graph.addPhase(p5);
+
+        graph.refreshModel();     
+        updateGantt();
+    }
+    
+    
+    /**
+     * InnerClass para manerja el disparo de evento Drag&Drop
+     */
+    public class GanttDropEvent implements IDropEvent{
+
+        @Override
+        public void dropEvent(String data) {
+
+            if(data!=null && !data.isEmpty())
+            {
+                String[] dataTrigger = data.split(";");
+                if(dataTrigger.length==3)
+                {
+
+                    if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_SUBOBRA))
+                    {
+                        // Por ahora no hago nada
+                        JOptionPane.showMessageDialog(new JFrame(),"ESTO ES UNA SUBOBRA IDIOTA \n Disparador del Drop > Tipo:"+ dataTrigger[0]+"  ID: "+dataTrigger[1]);
+                    }
+                    if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
+                    {
+                        // Agrego una nueva Tarea
+                        AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                    }
+                }
+            }   
+        }
+    }
+    
 }

@@ -35,10 +35,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
             NTupla nt1 = new NTupla(1);
             nt1.setNombre("TestSubTarea1:"+(Math.random()*100));
 
-            NTupla nt2 = new NTupla(1);
+            NTupla nt2 = new NTupla(2);
             nt2.setNombre("TestSubTarea2:"+(Math.random()*100));
             
-            NTupla nt3 = new NTupla(1);
+            NTupla nt3 = new NTupla(3);
             nt3.setNombre("TestSubTarea3:"+(Math.random()*100));
             
             lista.add(nt1);
@@ -58,10 +58,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
             NTupla nt1 = new NTupla(1);
             nt1.setNombre("Tarea 1:"+(Math.random()*100));
 
-            NTupla nt2 = new NTupla(1);
+            NTupla nt2 = new NTupla(2);
             nt2.setNombre("Tarea 2:"+(Math.random()*100));
             
-            NTupla nt3 = new NTupla(1);
+            NTupla nt3 = new NTupla(3);
             nt3.setNombre("Tarea 3:"+(Math.random()*100));
             
             lista.add(nt1);

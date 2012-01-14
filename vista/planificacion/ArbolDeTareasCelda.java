@@ -18,30 +18,19 @@ import javax.swing.TransferHandler;
  */
 public class ArbolDeTareasCelda extends javax.swing.JPanel {
 
+    private String component;
+    private String id;
     
     /**
      * Creates new form ArbolDeTareasCelda
      */
-    public ArbolDeTareasCelda() {
+    public ArbolDeTareasCelda(String component,String id) {
+        
+        this.component = component;
+        this.id = id;
+        
         initComponents();
-        
-        JLabelDragSource dragSource = new JLabelDragSource(lblTexto);
-        
-        
-        this.setTransferHandler(new TransferHandler("text"));
-        
-        MouseListener ml = new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                JComponent c = (JComponent)e.getSource();
-                TransferHandler th = c.getTransferHandler();
-                th.exportAsDrag(c, e, TransferHandler.COPY);
-            }
-
-        };
-        this.addMouseListener(ml);
-        
-        
-        
+       
         
     }
 
@@ -91,4 +80,11 @@ public class ArbolDeTareasCelda extends javax.swing.JPanel {
     {
         return lblTexto;
     }
+
+    @Override
+    public String toString() {
+        return component+";"+id+";"+lblTexto.getText();
+    }
+    
+    
 }
