@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleSubObraXTarea" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_COTIZACION_MOD" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property name="cantHorasNormales" type="integer"/>
+    <property name="cantHorasAl50" type="integer"/>
+    <property name="cantHorasAl100" type="integer"/>
+    <property name="costoXHora" type="float"/>
+    <property name="cantidadPersonas" type="integer"/>
+    <many-to-one class="modelo.RangoEmpleado" name="rango"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.TareaPlanificacion" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_TAREAPLANIFICACION" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <list cascade="all" name="subtareas" table="TAREAPLAN_X_SUBTAREAS">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.TareaPlanificacion"/>
+    </list>
+    <many-to-one class="modelo.TipoTarea" name="tipoTarea"/>
+    <property name="observaciones" type="string"/>
+    <list cascade="all" name="asignacionesEmpleados" table="TAREAPLAN_X_ASIGNACIONESPLAN">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.AsignacionEmpleadoPlanificacion"/>
+    </list>
+    <list cascade="all" name="herramientas" table="TAREAPLAN_X_HERRAMIENTA">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.PlanificacionXHerramienta"/>
+    </list>
+    <list cascade="all" name="materiales" table="TAREAPLAN_X_MATERIAL">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.PlanificacionXMaterial"/>
+    </list>
+    <list cascade="all" name="alquilerCompras" table="TAREAPLAN_X_ALQUILERCOMPRA">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.PlanificacionXAlquilerCompra"/>
+    </list>
+    <list cascade="all" name="tareasModificadas" table="TAREAPLAN_X_TAREASMODIFICADA">
+      <key column="ID_TAREAPLANIFICACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.SubObraXTareaModif"/>
+    </list>
+  </class>
+</hibernate-mapping>

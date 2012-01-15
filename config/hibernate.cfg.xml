@@ -102,5 +102,20 @@
     <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
     <mapping resource="config/db/TipoAdicional.hbm.xml"/>
+	    <!--             ::: FIFTH ITERATION :::               -->
+    <mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/>
+    <mapping resource="config/db/CotizacionModificada.hbm.xml"/>
+    <mapping resource="config/db/DetalleSubObraXTarea.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXXX.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXHerramienta.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXMaterial.hbm.xml"/>
+    <mapping resource="config/db/TareaPlanificacion.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAdicionalModif.hbm.xml"/>
+    <mapping resource="config/db/SubObraXTareaModif.hbm.xml"/>
+    <mapping resource="config/db/SubObraModificada.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAlquilerCompraModif.hbm.xml"/>
+    <mapping resource="config/db/SubObraXMaterialModif.hbm.xml"/>
+    <mapping resource="config/db/SubObraXHerramientaModif.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -5,6 +5,8 @@
 
 package modelo;
 
+import java.util.List;
+
 /**
  *
  * @author Emmanuel
@@ -14,7 +16,7 @@ public class TipoTarea {
     private String nombre;
     private int cantOperariosPredeterminada;
     private int cantHorasPredeterminada;
-    private RangoEmpleado rangoEmpleadoPredeterminado;
+    private List<DetalleSubObraXTarea> detalleSOXTareaPredeterminados;
 
     public TipoTarea() {
     }
@@ -51,11 +53,11 @@ public class TipoTarea {
         this.nombre = nombre;
     }
 
-    public RangoEmpleado getRangoEmpleadoPredeterminado() {
-        return rangoEmpleadoPredeterminado;
+    public List<DetalleSubObraXTarea> getDetalleSOXTareaPredeterminados() {
+        return detalleSOXTareaPredeterminados;
     }
 
-    public void setRangoEmpleadoPredeterminado(RangoEmpleado rangoEmpleadoPredeterminado) {
-        this.rangoEmpleadoPredeterminado = rangoEmpleadoPredeterminado;
+    public void setDetalleSOXTareaPredeterminados(List<DetalleSubObraXTarea> detalleSOXTareaPredeterminados) {
+        this.detalleSOXTareaPredeterminados = detalleSOXTareaPredeterminados;
     }
 }
