@@ -39,6 +39,7 @@ import modelo.ContactoResponsable;
 import modelo.Cotizacion;
 import modelo.DetalleMaterial;
 import modelo.DetalleOrdenDeCompra;
+import modelo.DetalleSubObraXTarea;
 import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
 import modelo.Etapa;
 import modelo.FormaDePago;
@@ -1113,28 +1114,49 @@ public class DBExamplesLoader {
                 so1.addHerramienta(soxh);
 
                 SubObraXTarea soxt = new SubObraXTarea();
-                soxt.setCantHoras(7.0);
-                soxt.setCostoXHora(22.0);
-                soxt.setCantOperarios(1);
-                soxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                soxt.setNombre("Armado estructura");
                 soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
-                dummy.set(2011, 4, 4);
-                soxt.setFechaInicio(dummy.getTime());
-                dummy.set(2011,4,6);
-                soxt.setFechaFin(dummy.getTime());
+                DetalleSubObraXTarea dsoxt=new DetalleSubObraXTarea();
+                dsoxt.setCantHorasNormales(17.0);                
+                dsoxt.setCantHorasAl50(5.0);
+                dsoxt.setCantHorasAl100(4.0);
+                dsoxt.setCostoXHoraNormal(22.0);
+                dsoxt.setCantidadPersonas(2);
+                dsoxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                soxt.agreagarDetalle(dsoxt);
+                DetalleSubObraXTarea dsoxt1=new DetalleSubObraXTarea();
+                dsoxt1.setCantHorasNormales(15.0);                
+                dsoxt1.setCantHorasAl50(3.0);
+                dsoxt1.setCantHorasAl100(2.0);
+                dsoxt1.setCostoXHoraNormal(24.0);
+                dsoxt1.setCantidadPersonas(1);
+                dsoxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
+                soxt.agreagarDetalle(dsoxt1);
+                
                 so1.addTarea(soxt);
                 
+                
+                
+                
                 SubObraXTarea soxt1 = new SubObraXTarea();
-                soxt1.setCantHoras(2.0);
-                soxt1.setCostoXHora(20.0);
-                soxt1.setCantOperarios(1);
-                soxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
-                soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2));
-                dummy.set(2011, 4, 8);
-                soxt1.setFechaInicio(dummy.getTime());
-                dummy.set(2011,4,10);
-                soxt1.setFechaFin(dummy.getTime());
-                so1.addTarea(soxt1);
+                soxt.setNombre("Preparacion de la base");                
+                soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2)); 
+                DetalleSubObraXTarea dsoxt2=new DetalleSubObraXTarea();
+                dsoxt2.setCantHorasNormales(17.0);                
+                dsoxt2.setCantHorasAl50(5.0);
+                dsoxt2.setCantHorasAl100(4.0);
+                dsoxt2.setCostoXHoraNormal(22.0);
+                dsoxt2.setCantidadPersonas(3);
+                dsoxt2.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                soxt.agreagarDetalle(dsoxt2);
+                DetalleSubObraXTarea dsoxt3=new DetalleSubObraXTarea();
+                dsoxt3.setCantHorasNormales(14.0);                
+                dsoxt3.setCantHorasAl50(3.0);
+                dsoxt3.setCantHorasAl100(1.0);
+                dsoxt3.setCostoXHoraNormal(24.0);
+                dsoxt3.setCantidadPersonas(2);
+                dsoxt3.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
+                soxt.agreagarDetalle(dsoxt3);
 
 //                SubObraXMaterial
                 //TODO: IMPEDIMENT WITH THE STRUCTURE OF SUBOBRAXMATERIAL

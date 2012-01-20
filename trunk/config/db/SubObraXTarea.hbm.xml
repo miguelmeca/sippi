@@ -6,12 +6,7 @@
       <generator class="increment"/>
     </id>
     <property column="OBSERVACIONES" name="observaciones" type="string"/>
-    <property column="CANT_OPERARIOS" name="cantOperarios" type="int"/>
-    <property column="CANT_HORAS" name="cantHoras" type="double"/>
-    <property column="FECHA_INICIO" name="fechaInicio" type="date"/>
-    <property column="FECHA_FIN" name="fechaFin" type="date"/>
-    <property column="COSTO_X_HORA" name="costoXHora" type="double"/>
-    <many-to-one class="modelo.RangoEmpleado" column="ID_RANGO_EMPLEADO" name="rangoEmpleado"/>
+    <property column="NOMBRE" name="nombre" type="string"/>
     <many-to-one class="modelo.TipoTarea" column="ID_TIPO_TAREA" name="tipoTarea"/>
   </class>
 </hibernate-mapping>

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import modelo.Cotizacion;
+import modelo.DetalleSubObraXTarea;
 import modelo.PedidoObra;
 import modelo.SubObra;
 import modelo.SubObraXAdicional;
@@ -104,9 +105,9 @@ public class GestorRegistrarCotizacion {
     {
         cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
         
-        cot=copiarCotización(cotOriginal);        
+        cot=copiarCotizacion(cotOriginal);        
         
-        //Si se trata de una recotizacion, acá siempre va entrar por el camino del else.
+        //Si se trata de una recotizacion, acÃ¡ siempre va entrar por el camino del else.
         if(obra.getCotizaciones().isEmpty())
         {
             cot.setNroCotizacion("");
@@ -134,7 +135,7 @@ public class GestorRegistrarCotizacion {
         }
         return guardarCotizacion();        
     }
-    private Cotizacion copiarCotización(Cotizacion cotOriginal)
+    private Cotizacion copiarCotizacion(Cotizacion cotOriginal)
     {
        obraOriginal=cotOriginal.buscarPedidoObra();
        Date fechaInicioObraOriginal=obraOriginal.getFechaInicio();
@@ -168,40 +169,9 @@ public class GestorRegistrarCotizacion {
             while (it.hasNext()) 
             {
                SubObraXTarea soxt = it.next();
-               SubObraXTarea nuevaSoxt =new SubObraXTarea();
-               nuevaSoxt.setCantHoras(soxt.getCantHoras());
-               nuevaSoxt.setCantOperarios(soxt.getCantOperarios());
-               nuevaSoxt.setObservaciones(soxt.getObservaciones());
-               nuevaSoxt.setRangoEmpleado(soxt.getRangoEmpleado());
-               nuevaSoxt.setCostoXHora(soxt.getCostoXHora());
-               nuevaSoxt.setTipoTarea(soxt.getTipoTarea());
-               //Adapto las fechas de las tareas a la nueva obra
-               Date fechaInicioTarea=FechaUtil.fechaMas(soxt.getFechaInicio(), diasDiferencia);
-               Date fechaFinTarea=FechaUtil.fechaMas(soxt.getFechaFin(), diasDiferencia);
-               if(fechaInicioTarea.after(fechaFinObra))
-               {
-                   fechasFueraDeRango=true;
-                   //fechaInicioTarea=fechaFinObra;
-               }
-               if(fechaFinTarea.after(fechaFinObra))
-               {
-                   fechasFueraDeRango=true;
-                   //fechaFinTarea=fechaFinObra;
-               }
+               SubObraXTarea nuevaSoxt =new SubObraXTarea(soxt);
                
-               if(fechaInicioObra.after(fechaInicioTarea) )
-               {
-                   fechasFueraDeRango=true;
-                   //fechaInicioTarea=fechaInicioObra;
-               }
-               if(fechaInicioObra.after(fechaFinTarea))
-               {
-                   fechasFueraDeRango=true;
-                   //fechaFinTarea=fechaInicioObra;
-               }               
                
-               nuevaSoxt.setFechaInicio(fechaInicioTarea);
-               nuevaSoxt.setFechaFin(fechaInicioTarea);
                nuevaSO.addTarea(nuevaSoxt);
             }
             //Copio SubObrasXMaterial
@@ -215,7 +185,7 @@ public class GestorRegistrarCotizacion {
                SubObraXMaterial nuevaSoxm =new SubObraXMaterial();
                nuevaSoxm.setCantidad(soxm.getCantidad());
                nuevaSoxm.setDescripcion(soxm.getDescripcion());
-               nuevaSoxm.setMaterial(soxm.getMaterial());//TODO: El modelo está mal, acá no se esta teniendo en cuetna el precio histórico
+               nuevaSoxm.setMaterial(soxm.getMaterial());//TODO: El modelo estÃ¡ mal, acÃ¡ no se esta teniendo en cuetna el precio histÃ³rico
                nuevaSO.addMaterial(nuevaSoxm);
             }
             //Copio SubObrasXAdicional

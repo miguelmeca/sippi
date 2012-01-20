@@ -28,6 +28,7 @@ import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 import org.jfree.data.time.SimpleTimePeriod;
 import javax.swing.table.DefaultTableModel;
+import modelo.SubObraXTarea;
 import util.FechaUtil;
 import util.SwingPanel;
 
@@ -49,11 +50,11 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         this.gestor.setPantalla(this);
         limpiarTabla();
         gestor.getTareasDeSubObra();
-        initGrafico();
+       // initGrafico();
         mostrarTotal();
         
     }
-    private void initGrafico()
+    /*private void initGrafico()
     {
         panelGantt.removeAll();
         dataset = createDataset();
@@ -64,7 +65,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         {chartPanel.setSize(panelGantt.getWidth(),panelGantt.getHeight());}        
         panelGantt.add( chartPanel );        
         //panelGantt.getParent().validate();
-    }
+    }*/
     private void limpiarTabla()
     {
         int fil=((DefaultTableModel) tblTareas.getModel()).getRowCount();
@@ -73,43 +74,53 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         }
     }
     
-    public void agregarTarea(Object[] datos, boolean nueva, boolean modificada)//una tarea puede no ser ni nueva ni modificada (cuando se cargan los datos en la tabla de las tareas existentes en el sistema)
-    {
-       int idTar=((NTupla)datos[0]).getId();
-       boolean exito=true;
-       if(nueva || modificada )
-       {exito=gestor.agregarTarea(datos);
+    public void agregarTareaTabla(SubObraXTarea tareaActual, boolean nueva, boolean modificada)//una tarea puede no ser ni nueva ni modificada (cuando se cargan los datos en la tabla de las tareas existentes en el sistema desde el gestor)
+    {      
+       if(nueva || modificada )//Si es una tarea nueva o una modificada y no una existente.
+       {
+           boolean exito;
+           exito=gestor.agregarTarea(tareaActual);
            if( (exito==false))
            { 
-                   JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error cargando la tarea", "Eror",JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error guardando tarea", "Eror",JOptionPane.ERROR_MESSAGE);
                    return;
            }
-       }
+       }  
        
-       
+           
+       NTupla tar=new NTupla(tareaActual.getId());
+       tar.setNombre(tareaActual.getNombre());
+       tar.setData(tareaActual);      
              
        DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
+       int indiceFila=-1;
        if(!modificada)
-       {modelo.addRow(datos);}
+       {
+           indiceFila=modelo.getRowCount();
+           Object[] x=new Object[modelo.getColumnCount()];
+           modelo.addRow(x);
+       }
        else
-       {         
-           int indiceFila=-1;
+       {          
            for (int j = 0; j < modelo.getRowCount() ; j++) 
            {
-               if(((NTupla)modelo.getValueAt(j,0)).getId()==((NTupla)datos[0]).getId())
+               if(((NTupla)modelo.getValueAt(j,0)).getId()==tareaActual.getId())
                {
                    indiceFila=j;
-               }
-               
-           }
-           for (int i = 0; i < modelo.getColumnCount() ; i++) 
-           {
-             modelo.setValueAt(datos[i], indiceFila, i);  
+               }               
            }
        }
+       
+       modelo.setValueAt(tar, indiceFila, 0); 
+       modelo.setValueAt(tareaActual.getTipoTarea().getNombre(), indiceFila, 1); 
+       modelo.setValueAt(tareaActual.obtenerTotalDePersonas(), indiceFila, 2);
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasNormales(), indiceFila, 3); 
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl50(), indiceFila, 4); 
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl100(), indiceFila, 5); 
+       modelo.setValueAt(tareaActual.calcularSubtotal(), indiceFila, 6); 
+       
        if(nueva|| modificada)
        {
-        initGrafico();
         mostrarTotal();
        }
     }
@@ -125,7 +136,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
      *
      * @return The dataset.
      */
-    public IntervalCategoryDataset createDataset() {
+   /* public IntervalCategoryDataset createDataset() {
 
         TaskSeries s1 = new TaskSeries("Tareas");
         for (int i = 0; i < ((DefaultTableModel)tblTareas.getModel()).getRowCount(); i++) 
@@ -142,7 +153,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         collection.add(s1);
 
         return collection;
-    }
+    }*/
 
     /**
      * Utility method for creating <code>Date</code> objects.
@@ -153,14 +164,14 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
      *
      * @return a date.
      */
-    private static Date date(final int day, final int month, final int year) {
+   /* private static Date date(final int day, final int month, final int year) {
 
         final Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         final Date result = calendar.getTime();
         return result;
 
-    }
+    }*/
         
     /**
      * Creates a chart.
@@ -169,7 +180,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
      * 
      * @return The chart.
      */
-    private JFreeChart createChart(final IntervalCategoryDataset dataset) {
+   /* private JFreeChart createChart(final IntervalCategoryDataset dataset) {
         final JFreeChart chart = ChartFactory.createGanttChart(
             "",  // chart title
             "",              // domain axis label
@@ -182,7 +193,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 //        chart.getCategoryPlot().getDomainAxis().setMaxCategoryLabelWidthRatio(10.0f);
         return chart;    
     }
-    
+    */
 
       public void actualizar(int id, String flag, boolean exito)
       {}
@@ -205,7 +216,6 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTareas = new javax.swing.JTable();
-        panelGantt = new javax.swing.JPanel();
         txtSubtotal = new javax.swing.JTextField();
         btnModificar = new javax.swing.JButton();
 
@@ -244,11 +254,11 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
             },
             new String [] {
-                "Tarea", "Personas", "Rango", "Hs/Día", "Fecha Inicio", "Fecha Fin", "Subtotal"
+                "Nomre de Tarea", "Tipo de Tarea", "Personas", "Horas Normales", "Horas al 50%", "Horas al 100%", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -262,37 +272,20 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
         });
         jScrollPane2.setViewportView(tblTareas);
 
-        panelGantt.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelGantt.setAutoscrolls(true);
-
-        javax.swing.GroupLayout panelGanttLayout = new javax.swing.GroupLayout(panelGantt);
-        panelGantt.setLayout(panelGanttLayout);
-        panelGanttLayout.setHorizontalGroup(
-            panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
-        );
-        panelGanttLayout.setVerticalGroup(
-            panelGanttLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
-                    .addComponent(panelGantt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(panelGantt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -374,7 +367,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
               int idT=((NTupla)((DefaultTableModel)tblTareas.getModel()).getValueAt(tblTareas.getSelectedRow(), 0)).getId();
             gestor.eliminarTarea(idT);
             ((DefaultTableModel)tblTareas.getModel()).removeRow(tblTareas.getSelectedRow());
-            initGrafico();
+            //initGrafico();
             mostrarTotal();
             }
             
@@ -400,8 +393,8 @@ private void modificarTarea()
            {
              datos[i]=(tblTareas.getModel().getValueAt(selectedRow, i));   
            }
-           
-           at.tomarValoresDeDatos(datos, tblTareas.getSelectedRow());
+           SubObraXTarea tarea=(SubObraXTarea)((NTupla)tblTareas.getModel().getValueAt(selectedRow, 0)).getData();
+           at.tomarValoresDeDatos(tarea, tblTareas.getSelectedRow());
         }  
 }        
         
@@ -437,7 +430,6 @@ private void tblTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JPanel panelGantt;
     private javax.swing.JTable tblTareas;
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables

@@ -5,7 +5,9 @@
 
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,18 +15,29 @@ import java.util.Date;
  */
 public class SubObraXTarea implements ISubtotal{
     private int id;
+    private String nombre;
     private TipoTarea tipoTarea;
     private String observaciones;
-    private int cantOperarios;
-    private double cantHoras;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private RangoEmpleado rangoEmpleado;
-    private double costoXHora;
+    private List<DetalleSubObraXTarea> detalles;
 
     public SubObraXTarea() 
     {
         id=-1;
+        detalles=new ArrayList<DetalleSubObraXTarea>();
+    }
+    public SubObraXTarea(SubObraXTarea aCopiar) 
+    {
+        id=-1;
+        this.nombre=aCopiar.getNombre();;
+        this.observaciones=aCopiar.getObservaciones();
+        this.tipoTarea=aCopiar.getTipoTarea();
+        List<DetalleSubObraXTarea> detallesAux=aCopiar.getDetalles();
+        detalles=new ArrayList<DetalleSubObraXTarea>();
+        for (DetalleSubObraXTarea detalle:detallesAux) 
+        {
+           DetalleSubObraXTarea nuevoDetalle=new DetalleSubObraXTarea(detalle);
+           detalles.add(nuevoDetalle);
+        }
     }
 
     public int getId() {
@@ -35,37 +48,20 @@ public class SubObraXTarea implements ISubtotal{
         this.id = id;
     }
 
-    public int getCantOperarios() {
-        return cantOperarios;
+    public List<DetalleSubObraXTarea> getDetalles() {
+        return detalles;
     }
 
-    public void setCantOperarios(int cantOperarios) {
-        this.cantOperarios = cantOperarios;
+    public void setDetalles(List<DetalleSubObraXTarea> detalles) {
+        this.detalles = detalles;
     }
-
-    public Date getFechaFin() {
-        return fechaFin;
+     public void agreagarDetalle(DetalleSubObraXTarea detalle) {
+        this.detalles.add(detalle);
     }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public double getCantHoras() {
-        return cantHoras;
-    }
-
-    public void setCantHoras(double cantHoras) {
-        this.cantHoras = cantHoras;
-    }
+    
+    public DetalleSubObraXTarea getDetalleParticular(int i) {
+        return detalles.get(i);
+    }    
 
     public String getObservaciones() {
         return observaciones;
@@ -74,14 +70,15 @@ public class SubObraXTarea implements ISubtotal{
     public void setObservaciones(String observacion) {
         this.observaciones = observacion;
     }
-
-    public RangoEmpleado getRangoEmpleado() {
-        return rangoEmpleado;
+    
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setRangoEmpleado(RangoEmpleado rangoEmpleado) {
-        this.rangoEmpleado = rangoEmpleado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+
 
     public TipoTarea getTipoTarea() {
         return tipoTarea;
@@ -91,23 +88,56 @@ public class SubObraXTarea implements ISubtotal{
         this.tipoTarea = tipoTarea;
     }
     
-    public double getCostoXHora() {
-        return costoXHora;
-    }
-
-    
-    public void setCostoXHora(double costoXHora) {
-        this.costoXHora = costoXHora;
-    }
 
     @Override
     public double calcularSubtotal() 
     {        
-       double cantDias=Math.floor((fechaFin.getTime()-fechaInicio.getTime())/(1000*60*60*24));        
-       double subT=cantOperarios*(((int)cantDias)+1)*costoXHora*cantHoras;          
+        double subT=0.0;
+        for (int i = 0; i < detalles.size(); i++) 
+        {
+            subT+=detalles.get(i).calcularSubtotal();
+            
+        }               
        return subT; 
     }
-
+    
+    public int obtenerTotalDePersonas()
+    {
+        int totalPersonas=0;
+        for (DetalleSubObraXTarea detalle: detalles) 
+        {
+            totalPersonas+=detalle.getCantidadPersonas();
+        }
+        return totalPersonas;
+    }
+    
+    public double obtenerTotalDeHorasNormales()
+    {
+        double totalHorasNormales=0;
+        for (DetalleSubObraXTarea detalle: detalles) 
+        {
+            totalHorasNormales+=detalle.getCantHorasNormales();
+        }
+        return totalHorasNormales;
+    }
+    public double obtenerTotalDeHorasAl50()
+    {
+        double totalHoras50=0;
+        for (DetalleSubObraXTarea detalle: detalles) 
+        {
+            totalHoras50+=detalle.getCantHorasAl50();
+        }
+        return totalHoras50;
+    }
+    public double obtenerTotalDeHorasAl100()
+    {
+        double totalHoras100=0;
+        for (DetalleSubObraXTarea detalle: detalles) 
+        {
+            totalHoras100+=detalle.getCantHorasAl100();
+        }
+        return totalHoras100;
+    }
     
 
 }
