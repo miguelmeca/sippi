@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
 import modelo.Cotizacion;
+import modelo.DetalleSubObraXTarea;
 import modelo.SubObra;
 import modelo.SubObraXTarea;
 import modelo.TipoTarea;
@@ -35,7 +36,7 @@ import util.LogUtil;
 
 /**
  *
- * @author Emmanuel
+ * @author Fran
  */
 public class GestorCotizacionManoDeObra implements IGestorCotizacion
 {
@@ -43,7 +44,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     private CotizacionManoDeObraGeneral pantallaGeneral;
     private CotizacionManoDeObraAgregarMO pantallaAgregarMO;
     private SubObra subObra;
-    //ArrayList<PrecioSegunCantidad> listaPrecios;
+    List<DetalleSubObraXTarea> cacheDetalles;
 
     public GestorCotizacionManoDeObra(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;
@@ -154,13 +155,15 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         }
         return monto;
     }
+    
     public void getTareasDeSubObra()
     {
         List<SubObraXTarea> tareas= getSubObraActual().getTareas();
         
         for (SubObraXTarea soxt : tareas) 
         {
-           Object[] datos=new Object[7];           
+           pantallaGeneral.agregarTareaTabla(soxt, false, false); 
+           /* Object[] datos=new Object[7];           
            NTupla tar=new NTupla(soxt.getId());
            tar.setNombre(soxt.getTipoTarea().getNombre());
            Object[] datosTarea=new Object[2];       
@@ -184,7 +187,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            tFF.setData(soxt.getFechaFin());
            datos[5]=tFF;
            datos[6]=soxt.calcularSubtotal();
-           pantallaGeneral.agregarTarea(datos, false, false); 
+           pantallaGeneral.agregarTareaTabla(datos, false, false); */
         }
     }
     public void eliminarTarea(int id)
@@ -193,27 +196,26 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         refrescarPantallas();
     }
     
-    public boolean agregarTarea(Object[] datos)
+    public boolean agregarTarea(SubObraXTarea tarea)
     {
         Session sesion;
-        SubObraXTarea soxt;
-        boolean tareaNueva;
+        
+       // boolean esTareaNueva;
         try
         {
             sesion = HibernateUtil.getSession();
-            soxt=new SubObraXTarea();
-            if(((NTupla)datos[0]).getId()>0)
-            {
-               tareaNueva=false;
-               List<SubObraXTarea> tareas= getSubObraActual().getTareas();
-        
+            
+            if(tarea.getId()>0)
+            {//Es una tarea modificada
+              // esTareaNueva=false;
+               List<SubObraXTarea> tareas= getSubObraActual().getTareas();        
                
                 boolean codigoInalzanzableAlcanzado=true;
                 for (SubObraXTarea soxtAux : tareas) 
                 {
-                    if(soxtAux.getId()==((NTupla)datos[0]).getId())
+                    if(soxtAux.getId()==tarea.getId())
                     {
-                        soxt=soxtAux;
+                        soxtAux=tarea;
                         codigoInalzanzableAlcanzado=false;
                         break;
                     }
@@ -225,23 +227,27 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                 }
             }
             else
-            {tareaNueva=true;}
-                      
-            TipoTarea tt=(TipoTarea) sesion.load(TipoTarea.class, ((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()  );
-            soxt.setTipoTarea(tt);
-            soxt.setObservaciones(  (String)(((Object[])((NTupla)datos[0]).getData())[1])  );
-            soxt.setCantOperarios((Integer)datos[1]);
-            RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class, ((NTupla)datos[2]).getId());
-            soxt.setRangoEmpleado(re);
-            soxt.setCantHoras((Double)datos[3]);
-            soxt.setCostoXHora((Double)((NTupla)datos[2]).getData());
-            soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
-            soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
-            
-            if(tareaNueva)
+            {
+               // esTareaNueva=true;
+                /*SubObraXTarea soxt;
+                soxt=new SubObraXTarea();
+                TipoTarea tt=(TipoTarea) sesion.load(TipoTarea.class, ((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()  );
+                soxt.setTipoTarea(tt);
+                soxt.setObservaciones(  (String)(((Object[])((NTupla)datos[0]).getData())[1])  );
+                soxt.setCantOperarios((Integer)datos[1]);
+                RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class, ((NTupla)datos[2]).getId());
+                soxt.setRangoEmpleado(re);
+                soxt.setCantHoras((Double)datos[3]);
+                soxt.setCostoXHora((Double)((NTupla)datos[2]).getData());
+                soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
+                soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
+                */
+                getSubObraActual().addTarea(tarea);
+            }
+           /** if(esTareaNueva)
             {
               getSubObraActual().addTarea(soxt); 
-            }
+            }*/
             
             
             refrescarPantallas();
@@ -257,7 +263,56 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                 return false;
             }
     }
-
+    
+    public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idRangoEmpleado)
+    {
+       DetalleSubObraXTarea detalleNuevo=crearDetalleVacio();
+        detalleNuevo.setCantHorasNormales(hsNormales);
+        detalleNuevo.setCantHorasAl50(hs50);
+        detalleNuevo.setCantHorasAl100(hs100);
+        detalleNuevo.setCantidadPersonas(cantidadPersonas );
+        detalleNuevo.setCostoXHoraNormal(costoNormal);
+        RangoEmpleado rangoEmpleado=levantarRangoEmpleado(idRangoEmpleado);        
+        detalleNuevo.setRangoEmpleado(rangoEmpleado); 
+        
+        return detalleNuevo;    
+    }
+    private DetalleSubObraXTarea crearDetalleVacio()
+    {
+        return new DetalleSubObraXTarea();
+    }
+    
+    public RangoEmpleado levantarRangoEmpleado(int idRango)
+    {
+       Session sesion;
+        RangoEmpleado re=null;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            re = (RangoEmpleado) sesion.load(RangoEmpleado.class, (idRango));
+            
+        }
+        catch (Exception ex)
+        {   System.out.println("No se ejecutar la consulta en levantarRangoEmpleado(id)");            
+        }
+        return re;
+    }
+    
+    public TipoTarea levantarTipoTarea(int idTipoTarea)
+    {
+       Session sesion;
+        TipoTarea tt=null;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            tt = (TipoTarea) sesion.load(TipoTarea.class, (idTipoTarea));
+            
+        }
+        catch (Exception ex)
+        {   System.out.println("No se ejecutar la consulta en levantarTipoTarea(id)");            
+        }
+        return tt;
+    }
 ////////////////////////////
 
     /**

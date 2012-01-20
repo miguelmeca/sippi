@@ -93,7 +93,7 @@ public class CotizacionInterna extends ReportDesigner{
                         for (int j = 0; j < so.getTareas().size(); j++) 
                         {
                             SubObraXTarea som = so.getTareas().get(j);
-                            detalleMO += som.getTipoTarea().getNombre()+"\n";
+                            detalleMO += som.getNombre()+"\n";
                             subtotalmo += "$"+som.calcularSubtotal()+"\n";
                         }                      
                     PdfPCell celdaMOD = new PdfPCell(new Paragraph(detalleMO,ReportDesigner.FUENTE_NORMAL));

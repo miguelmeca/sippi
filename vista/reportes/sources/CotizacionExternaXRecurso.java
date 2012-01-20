@@ -144,10 +144,12 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
         celdaAdi.setBackgroundColor(new BaseColor(219,229,241));
         celdaAdi.setColspan(5);
         tablaAdicionales.addCell(celdaAdi);
-        tablaAdicionales.addCell(new Paragraph("Descripción",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Nombre",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Tipo de tarea",ReportDesigner.FUENTE_NORMAL_BK));
         tablaAdicionales.addCell(new Paragraph("Cantidad de Operarios",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Cantidad de Días",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Precio Unitario",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas Normales",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas al 50%",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas al 100%",ReportDesigner.FUENTE_NORMAL_BK));
         tablaAdicionales.addCell(new Paragraph("Subtotal",ReportDesigner.FUENTE_NORMAL_BK));
 
         // ARMADO DE TABLAS
@@ -160,12 +162,12 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
             Iterator<SubObraXTarea> itMO = so.getTareas().iterator();
             while(itMO.hasNext()){
                 SubObraXTarea soxt = itMO.next();
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(soxt.getNombre(),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(soxt.getTipoTarea().getNombre(),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.getCantOperarios()),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(soxt.getRangoEmpleado().getNombre(),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.getCantHoras()),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(FechaUtil.getFecha(soxt.getFechaInicio()),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(FechaUtil.getFecha(soxt.getFechaFin()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDePersonas()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasNormales()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl50()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl100()),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxt.calcularSubtotal();
             }
