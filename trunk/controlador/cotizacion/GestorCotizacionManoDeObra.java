@@ -80,10 +80,10 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                 
                 NTupla tuplaT = new NTupla(tt.getId());
                 tuplaT.setNombre(tt.getNombre());
-                Object[] datos=new Object[3];
+                /*Object[] datos=new Object[3];
                 datos[0]=Double.toString(tareas.get(i).getCantHorasPredeterminada());                
                 datos[1]=Integer.toString(tareas.get(i).getCantOperariosPredeterminada());
-
+*/
                 //TODO: Fran, vos cambiaste la estructura de esto! Hay que corregirlo!
                   //  RangoEmpleado rangoEmp=tareas.get(i).getRangoEmpleadoPredeterminado();
 
@@ -94,7 +94,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
 
                 // TODO: FRAN!!! Más correcciones
                 //datos[2]=rangoEmp.getId();
-                tuplaT.setData(datos);
+                //tuplaT.setData(datos);
                 tuplas.add(tuplaT);
              }
             return tuplas;           

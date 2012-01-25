@@ -1277,22 +1277,16 @@ public class DBExamplesLoader {
     private void cargarTipoTarea() {
         TipoTarea tt1 = new TipoTarea();
         tt1.setNombre("Desarme");
-        tt1.setCantHorasPredeterminada(4);
-        tt1.setCantOperariosPredeterminada(1);
         //TODO: Fran, debes arreglar esto
         //tt1.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
         
         TipoTarea tt2 = new TipoTarea();
         tt2.setNombre("Calibracion");
-        tt2.setCantHorasPredeterminada(5);
-        tt2.setCantOperariosPredeterminada(2);
         //TODO: Fran, debes arreglar esto
         //tt2.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
         
         TipoTarea tt3 = new TipoTarea();
         tt3.setNombre("Mecanizado");
-        tt3.setCantHorasPredeterminada(5);
-        tt3.setCantOperariosPredeterminada(2);
         //TODO: Fran, debes arreglar esto
         //tt3.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
         try{
