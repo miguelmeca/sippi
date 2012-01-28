@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ayuda>
+    <capitulo id="1" nombre="Introduccion" hoja="1">
+        <titulo id="1" hoja="2">Empezando con el Sistema</titulo>
+        <titulo id="2" hoja="2">Pantallas principales</titulo>
+        <titulo id="3" hoja="3">Como usar el sistema</titulo>
+        <titulo id="4" hoja="3">Ayudas generales</titulo>
+    </capitulo>
+    <capitulo id="2" nombre="Presupuestacion" hoja="4">
+        <titulo id="1" hoja="4">Cargando un Presupuesto</titulo>
+        <titulo id="2" hoja="4">Listando Presupuestos</titulo>
+        <titulo id="3" hoja="5">Cargando Tareas en un Presupuesto</titulo>
+        <titulo id="4" hoja="5">Imprimir presupuestos</titulo>
+    </capitulo>
+</ayuda>

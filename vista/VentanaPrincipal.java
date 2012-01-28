@@ -28,6 +28,7 @@ import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ExplorarSubObras;
 import modelo.FavoritoBean;
+import vista.ayuda.VisorDeAyuda;
 import vista.planificacion.EditarPlanificacion;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 
@@ -188,6 +189,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        btnMenuAyuda = new javax.swing.JMenuItem();
+        btnMenuAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acá va el nombre del sistema");
@@ -320,7 +324,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -352,7 +356,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -404,6 +408,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
+        jMenu1.setText("Ayuda");
+
+        btnMenuAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        btnMenuAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
+        btnMenuAyuda.setMnemonic('F');
+        btnMenuAyuda.setText("Tabla de Contenidos");
+        btnMenuAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuAyudaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnMenuAyuda);
+
+        btnMenuAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
+        btnMenuAcercaDe.setText("Acerca De");
+        jMenu1.add(btnMenuAcercaDe);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -510,10 +534,19 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        ep.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void btnMenuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAyudaActionPerformed
+    
+        VisorDeAyuda.getInstance().mostrarAyuda();
+        
+    }//GEN-LAST:event_btnMenuAyudaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnMenuAcercaDe;
+    private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
     private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
