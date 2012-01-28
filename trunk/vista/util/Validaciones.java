@@ -78,6 +78,32 @@ public class Validaciones
         }
         return valido;
     }
+    public static boolean validarNumeroPositivoOCero(String aValidar)            
+    {
+        aValidar=aValidar.replace( ',','.' );
+        boolean valido = true;
+        if(aValidar.equals(""))
+        {
+          valido = false;               
+        }
+        else
+        {
+           try
+           {
+               double cant = Double.valueOf(aValidar);
+               if(cant<0)
+               {
+                 valido = false;                       
+               }
+           }
+           catch(NumberFormatException ex)
+           {
+             valido = false;
+           }
+           
+        }
+        return valido;
+    }
      
     /**
      * @return the kaNumerosEnteros
