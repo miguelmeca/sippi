@@ -258,7 +258,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
