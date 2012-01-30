@@ -1,7 +1,6 @@
 package modelo;
 
 //
-
 import java.util.List;
 
 //
@@ -13,21 +12,17 @@ import java.util.List;
 //  @ Author : 
 //
 //
-
-
-
-
 public class TareaPlanificacion {
+
     private int id;
-	private List<TareaPlanificacion> subtareas;
-	private String nombre;
-	private TipoTarea tipoTarea;
-	private String observaciones;
-	private AsignacionEmpleadoPlanificacion asignacionesEmpleados;
-	private List<PlanificacionXHerramienta> herramientas;
-	private List<PlanificacionXMaterial> materiales;
-        private List<PlanificacionXAlquilerCompra> alquilerCompras;
-        private List<SubObraXTareaModif> tareasModificadas;
+    private List<TareaPlanificacion> subtareas;
+    private String nombre;
+    private TipoTarea tipoTarea;
+    private String observaciones;
+    private List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados;
+    private List<PlanificacionXHerramienta> herramientas;
+    private List<PlanificacionXMaterial> materiales;
+    private List<PlanificacionXAlquilerCompra> alquilerCompras;
 
     public TareaPlanificacion() {
     }
@@ -56,11 +51,11 @@ public class TareaPlanificacion {
         this.alquilerCompras = alquilercompras;
     }
 
-    public AsignacionEmpleadoPlanificacion getAsignacionesEmpleados() {
+    public List<AsignacionEmpleadoPlanificacion> getAsignacionesEmpleados() {
         return asignacionesEmpleados;
     }
 
-    public void setAsignacionesEmpleados(AsignacionEmpleadoPlanificacion asignacionesEmpleados) {
+    public void setAsignacionesEmpleados(List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados) {
         this.asignacionesEmpleados = asignacionesEmpleados;
     }
 
@@ -104,14 +99,6 @@ public class TareaPlanificacion {
         this.subtareas = subtareas;
     }
 
-    public List<SubObraXTareaModif> getTareasModificadas() {
-        return tareasModificadas;
-    }
-
-    public void setTareasModificadas(List<SubObraXTareaModif> tareasModificadas) {
-        this.tareasModificadas = tareasModificadas;
-    }
-
     public TipoTarea getTipoTarea() {
         return tipoTarea;
     }
@@ -119,5 +106,4 @@ public class TareaPlanificacion {
     public void setTipoTarea(TipoTarea tipoTarea) {
         this.tipoTarea = tipoTarea;
     }
-
 }

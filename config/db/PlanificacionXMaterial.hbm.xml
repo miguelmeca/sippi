@@ -5,6 +5,6 @@
     <id column="ID_PLAN_X_MATERIAL" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <many-to-one class="modelo.SubObraXMaterial" name="materialCotizacion"/>
+    <many-to-one class="modelo.SubObraXMaterialModif" name="materialCotizacion"/>
   </class>
 </hibernate-mapping>

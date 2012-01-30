@@ -16,7 +16,7 @@ package modelo;
 
 public class PlanificacionXMaterial {
     private int id;
-	private SubObraXMaterial materialCotizacion;
+	private SubObraXMaterialModif materialCotizacion;
 
     public PlanificacionXMaterial() {
     }
@@ -29,11 +29,11 @@ public class PlanificacionXMaterial {
         this.id = id;
     }
 
-    public SubObraXMaterial getMaterialCotizacion() {
+    public SubObraXMaterialModif getMaterialCotizacion() {
         return materialCotizacion;
     }
 
-    public void setMaterialCotizacion(SubObraXMaterial materialCotizacion) {
+    public void setMaterialCotizacion(SubObraXMaterialModif materialCotizacion) {
         this.materialCotizacion = materialCotizacion;
     }
 

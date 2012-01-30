@@ -11,7 +11,7 @@
       <property column="UBICACION" name="ubicacion" type="string"/>
       <property column="DESCRIPCION" name="descripcion" type="string"/>
       <property column="OBSERVACIONES" name="observaciones" type="string"/>
-      <many-to-one column="IDCRITICIDAD" name="criticidad" class="modelo.Criticidad"/>
+      <many-to-one class="modelo.Criticidad" column="IDCRITICIDAD" name="criticidad"/>
       <property column="FECHAINICIO" name="fechaInicio" type="date"/>
       <property column="FECHAFIN" name="FechaFin" type="date"/>
       <list cascade="all" name="detallesMaterial" table="TAREA_X_DM">

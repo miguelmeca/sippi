@@ -8,6 +8,6 @@
     <property column="HSNORMALES" name="hsNormales" type="double"/>
     <property column="HS50" name="hs50" type="double"/>
     <property column="HS100" name="hs100" type="double"/>
-    <many-to-one column="ID_ROLEMP" name="rol" class="modelo.RolEmpleado"/>
+    <many-to-one class="modelo.RolEmpleado" column="ID_ROLEMP" name="rol"/>
   </class>
 </hibernate-mapping>

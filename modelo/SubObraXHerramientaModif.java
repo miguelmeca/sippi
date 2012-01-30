@@ -14,7 +14,7 @@ package modelo;
 
 
 
-public class SubObraXHerramientaModif {
+public class SubObraXHerramientaModif extends SubObraXHerramienta {
     private int id;
 	private SubObraXHerramienta original;
 

@@ -9,5 +9,9 @@
     <property column="DESCRIPCION" name="descripcion" type="string"/>
     <many-to-one class="modelo.RecursoXProveedor" column="ID_MATERIAL" name="material"/>
     <property column="PRECIOUNITARIO" name="precioUnitario" type="double"/>
+    <joined-subclass name="modelo.SubObraXMaterialModif" table="SO_X_MATERIALMOD">
+      <key column="ID_SO_X_MATERIALMOD"/>
+      <many-to-one class="modelo.SubObraXMaterial" name="original"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

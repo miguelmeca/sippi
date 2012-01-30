@@ -1,7 +1,5 @@
 package modelo;
 
-//
-
 import java.util.List;
 
 //
@@ -14,10 +12,7 @@ import java.util.List;
 //
 //
 
-
-
-
-public class SubObraXTareaModif {
+public class SubObraXTareaModif extends SubObraXTarea {
     private int id;
 	private List<DetalleSubObraXTarea> detalles;
 	private SubObraXTarea original;

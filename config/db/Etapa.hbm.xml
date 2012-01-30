@@ -17,8 +17,8 @@
       <one-to-many class="modelo.Etapa"/>
     </list>
     <property name="ubicacion" type="string"/>
-    <many-to-one column="IDTRANSPPASAJEROS" name="transportePasajeros" class="modelo.TransporteDePasajeros"/>
-    <many-to-one column="IDTRANSPMYH" name="tranportMyH" class="modelo.TransporteDeMaterialesYHerramientas"/>
+    <many-to-one class="modelo.TransporteDePasajeros" column="IDTRANSPPASAJEROS" name="transportePasajeros"/>
+    <many-to-one class="modelo.TransporteDeMaterialesYHerramientas" column="IDTRANSPMYH" name="tranportMyH"/>
     <list cascade="all" name="tareas" table="ETAPA_X_TAREAS">
       <key column="ID_ETAPA"/>
       <index column="idx"/>
