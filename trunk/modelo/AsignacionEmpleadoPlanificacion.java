@@ -15,14 +15,14 @@ import java.util.List;
 
 public class AsignacionEmpleadoPlanificacion {
     private int id;
-	private int cantHorasNormales;
-	private int cantHorasAl50;
-	private int cantHorasAl100;
-	private float costoXHora;
-	private int cantidadPersonas;
-	private DetalleSubObraXTarea asignacionTareaCotizacion;
-	private List<Empleado> empleados;
-	private RangoEmpleado rango;
+    private int cantHorasNormales;
+    private int cantHorasAl50;
+    private int cantHorasAl100;
+    private float costoXHora;
+    private int cantidadPersonas;
+    private DetalleSubObraXTarea asignacionTareaCotizacion;
+    private List<Empleado> empleados;
+    private RangoEmpleado rango;
 
     public AsignacionEmpleadoPlanificacion() {
     }

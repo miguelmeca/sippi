@@ -6,9 +6,6 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-    
-<!--    <many-to-one class="modelo.RangoEmpleado" column="ID_RANGO_EMPLEADO" name="rangoEmpleadoPredeterminado"/>-->
-    
-    
+    <!--    <many-to-one class="modelo.RangoEmpleado" column="ID_RANGO_EMPLEADO" name="rangoEmpleadoPredeterminado"/>-->
   </class>
 </hibernate-mapping>

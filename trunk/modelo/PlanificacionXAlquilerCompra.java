@@ -11,12 +11,9 @@ package modelo;
 //
 //
 
-
-
-
 public class PlanificacionXAlquilerCompra {
     private int id;
-	private SubObraXAlquilerCompraModif AlquilerCompraCotizacion;
+    private SubObraXAlquilerCompraModif AlquilerCompraCotizacion;
 
     public PlanificacionXAlquilerCompra() {
     }

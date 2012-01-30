@@ -10,5 +10,9 @@
     <property column="CANT_OPERARIOS" name="cantOperarios" type="int"/>
     <property column="CANT_DIAS" name="cantDias" type="int"/>
     <property column="PRECIO_UNITARIO" name="precioUnitario" type="double"/>
+    <joined-subclass name="modelo.SubObraXAdicionalModif" table="SO_X_ADICIONALMOD">
+      <key column="ID_SO_X_ADICIONALMOD"/>
+      <many-to-one class="modelo.SubObraXAdicional" name="original"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

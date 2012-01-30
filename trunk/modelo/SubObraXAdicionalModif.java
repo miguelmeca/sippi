@@ -11,12 +11,9 @@ package modelo;
 //
 //
 
-
-
-
-public class SubObraXAdicionalModif {
+public class SubObraXAdicionalModif extends SubObraXAdicional{
     private int id;
-	private SubObraXAdicional original;
+    private SubObraXAdicional original;
 
     public SubObraXAdicional getOriginal() {
         return original;

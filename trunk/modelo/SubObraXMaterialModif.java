@@ -11,12 +11,9 @@ package modelo;
 //
 //
 
-
-
-
-public class SubObraXMaterialModif {
+public class SubObraXMaterialModif extends SubObraXMaterial {
     private int id;
-	private SubObraXMaterial original;
+    private SubObraXMaterial original;
 
     public SubObraXMaterialModif() {
     }

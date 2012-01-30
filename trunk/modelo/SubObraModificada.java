@@ -19,11 +19,11 @@ import java.util.List;
 
 public class SubObraModificada {
     private int id;
-	private List<SubObraXAlquilerCompraModif> alquileres;
-	private List<SubObraXHerramientaModif> herramientas;
-	private List<SubObraXTareaModif> tareas;
-	private List<SubObraXAdicionalModif> adicionales;
-	private List<SubObraXMaterialModif> materiales;
+    private List<SubObraXAlquilerCompraModif> alquileres;
+    private List<SubObraXHerramientaModif> herramientas;
+    private List<SubObraXTareaModif> tareas;
+    private List<SubObraXAdicionalModif> adicionales;
+    private List<SubObraXMaterialModif> materiales;
 
     public SubObraModificada() {
     }

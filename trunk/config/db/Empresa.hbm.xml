@@ -10,7 +10,7 @@
     <property column="CUIT" name="cuit" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="PAGINAWEB" name="paginaWeb" type="string"/>
-    <many-to-one column="IDDOMICILIO" name="domicilio" class="modelo.Domicilio"/>
+    <many-to-one class="modelo.Domicilio" column="IDDOMICILIO" name="domicilio"/>
     <set cascade="all" name="telefonos" table="EmpresaXTelefono">
       <key column="ID_EMPRESA"/>
       <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>

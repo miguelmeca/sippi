@@ -7,16 +7,13 @@ package modelo;
 //  @ Project : Proyecto2010_Requerimientos
 //  @ File Name : PlanificacionXHerramienta.java
 //  @ Date : 14/01/2012
-//  @ Author : 
+//  @ Author : Emmanuel
 //
 //
-
-
-
 
 public class PlanificacionXHerramienta {
     private int id;
-	private SubObraXHerramienta herramientaCotizacion;
+    private SubObraXHerramientaModif herramientaCotizacion;
 
     public PlanificacionXHerramienta() {
     }
@@ -29,11 +26,11 @@ public class PlanificacionXHerramienta {
         this.id = id;
     }
 
-    public SubObraXHerramienta getHerramientaCotizacion() {
+    public SubObraXHerramientaModif getHerramientaCotizacion() {
         return herramientaCotizacion;
     }
 
-    public void setHerramientaCotizacion(SubObraXHerramienta herramientaCotizacion) {
+    public void setHerramientaCotizacion(SubObraXHerramientaModif herramientaCotizacion) {
         this.herramientaCotizacion = herramientaCotizacion;
     }
 }

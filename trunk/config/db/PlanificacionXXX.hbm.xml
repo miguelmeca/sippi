@@ -9,5 +9,10 @@
     <property name="fechaFin" type="date"/>
     <property name="numeroPlanificacion" type="integer"/>
     <many-to-one class="modelo.CotizacionModificada" name="cotizacion"/>
+    <list cascade="all-delete-orphan" name="tareas" table="TAREAS_X_PLANIFICACIONXXX">
+      <key column="ID"/>
+      <index column="ID_TAREAS_X_PXXX"/>
+      <one-to-many class="modelo.TareaPlanificacion"/>
+    </list>
   </class>
 </hibernate-mapping>

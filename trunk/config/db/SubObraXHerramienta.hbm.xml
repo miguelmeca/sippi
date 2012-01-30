@@ -10,5 +10,9 @@
     <property column="CANT_DIAS" name="cantDias" type="int"/>
     <property column="CANT_HORAS" name="cantHoras" type="int"/>
     <property column="COSTO_X_HORA" name="costoXHora" type="double"/>
+    <joined-subclass name="modelo.SubObraXHerramientaModif" table="SUBOBRA_X_HERRAMIENTA_MODIF">
+      <key column="ID_SUBOBRA_X_HERRAMIENTA_MODIF"/>
+      <many-to-one class="modelo.SubObraXHerramienta" name="original"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

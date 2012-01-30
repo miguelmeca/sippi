@@ -14,9 +14,9 @@ package modelo;
 
 
 
-public class SubObraXAlquilerCompraModif {
+public class SubObraXAlquilerCompraModif extends SubObraXAlquilerCompra {
     private int id;
-	private SubObraXAlquilerCompra original;
+    private SubObraXAlquilerCompra original;
         
 
     public SubObraXAlquilerCompraModif() {
