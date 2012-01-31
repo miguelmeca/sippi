@@ -45,4 +45,6 @@ public class CotizacionModificada {
     public void setSubObra(List<SubObraModificada> subObra) {
         this.subObra = subObra;
     }
+    
+    
 }

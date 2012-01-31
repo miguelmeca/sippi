@@ -17,15 +17,22 @@ import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import controlador.planificacion.GestorEditarPlanificacion;
 import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.TablaUtil;
 import vista.gui.dnd.IDropEvent;
 
 /**
@@ -37,6 +44,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private static final String iconoSubObra = "/res/iconos/var/16x16/Application.png";
     private static final String iconoTarea = "/res/iconos/var/16x16/calendar.png";
     
+    // TODO: Remover !! ( Solo para development )
+    private final int ID_PEDIDO_OBRA_DEVELOPMENT = 1;
     
     private GestorEditarPlanificacion _gestor;
     ICoolGantt graph;
@@ -48,8 +57,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
      */
     public EditarPlanificacion(int idObra) {
         _gestor = new GestorEditarPlanificacion(this);
-        initComponents();
-
+        initComponents(); 
+        
         tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
         tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
 
@@ -63,9 +72,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private void initArbolRecursos() {
 
-        initTablaSubObras();
-        initTablaTareas(1);
-        initArbolRecursosCotizados();
+        initTablaSubObras(ID_PEDIDO_OBRA_DEVELOPMENT);
     }
 
     private void initGraph() {
@@ -382,6 +389,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         tblSubObras.setCellSelectionEnabled(true);
         tblSubObras.setDragEnabled(true);
         tblSubObras.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblSubObras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSubObrasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSubObras);
 
         javax.swing.GroupLayout panelBarraIzquierdaLayout = new javax.swing.GroupLayout(panelBarraIzquierda);
@@ -436,7 +448,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
+            .addGap(0, 548, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -476,7 +488,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -489,7 +501,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -574,6 +586,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         graph.setWeeklyView();
     }//GEN-LAST:event_menuVistaSemanalActionPerformed
 
+    private void tblSubObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSubObrasMouseClicked
+        if(evt.getButton()==MouseEvent.BUTTON1)
+        {
+            ArbolDeTareasCelda tpSelected = (ArbolDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
+            if(tpSelected!=null)
+            {
+                initTablaTareas(Integer.parseInt(tpSelected.getId()));
+                initArbolRecursosCotizados(Integer.parseInt(tpSelected.getId()));
+            }
+        }
+    }//GEN-LAST:event_tblSubObrasMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -606,10 +630,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblTareas;
     // End of variables declaration//GEN-END:variables
 
-    private void initTablaSubObras() {
+    private void initTablaSubObras(int idPedidoDeObra) {
 
-
-        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaSubObras();
+        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaSubObras(idPedidoDeObra);
 
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
@@ -627,22 +650,23 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private void initTablaTareas(int idSubObra) {
         
         ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaTareasXSubObra(idSubObra);
+        
+        DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
+        modelo = TablaUtil.vaciarDefaultTableModel(modelo);
 
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
             ArbolDeTareasCelda item = new ArbolDeTareasCelda(ArbolDeTareasTipos.TIPO_TAREA,String.valueOf(nt.getId()));
             item.setItemData(iconoTarea, nt.getNombre());
 
-            DefaultTableModel modelo = (DefaultTableModel) tblTareas.getModel();
             Object[] fila = new Object[1];
             fila[0] = item;
             modelo.addRow(fila);
-
         }
         
     }
 
-    private void initArbolRecursosCotizados() {
+    private void initArbolRecursosCotizados(int idSubObra) {
     }
     
     private void AgregarNuevaTarea(int id,String nombre)

@@ -85,6 +85,11 @@ public class ArbolDeTareasCelda extends javax.swing.JPanel {
     public String toString() {
         return component+";"+id+";"+lblTexto.getText();
     }
+
+    public String getId() {
+        return id;
+    }
+   
     
     
 }
