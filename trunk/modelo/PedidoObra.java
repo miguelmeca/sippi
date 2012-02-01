@@ -27,6 +27,7 @@ public class PedidoObra{
     private List<ContactoResponsable> contactos;
     private Planta planta;
     private Date fechaDeRegistro;
+    private PlanificacionXXX planificacion;
 
     private String estado;
 
@@ -300,5 +301,11 @@ public class PedidoObra{
         this.estado = estado;
     }
 
-    
+    public PlanificacionXXX getPlanificacion() {
+        return planificacion;
+    }
+
+    public void setPlanificacion(PlanificacionXXX planificacion) {
+        this.planificacion = planificacion;
+    }
 }

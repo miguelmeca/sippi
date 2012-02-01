@@ -24,5 +24,6 @@
     </list>
     <many-to-one class="modelo.Planta" column="ID_PLANTA" name="planta"/>
     <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
+    <many-to-one class="modelo.PlanificacionXXX" column="ID_PLANIFICACION" name="planificacion"/>
   </class>
 </hibernate-mapping>
