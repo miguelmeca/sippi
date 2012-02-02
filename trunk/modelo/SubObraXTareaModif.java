@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SubObraXTareaModif extends SubObraXTarea {
     private int id;
-	private List<DetalleSubObraXTarea> detalles;
+	private List<DetalleSubObraXTareaModif> detallesMod;
 	private SubObraXTarea original;
 
     public SubObraXTareaModif() {
@@ -28,12 +28,12 @@ public class SubObraXTareaModif extends SubObraXTarea {
         this.id = id;
     }
 
-    public List<DetalleSubObraXTarea> getDetalles() {
-        return detalles;
+    public List<DetalleSubObraXTareaModif> getDetallesMod() {
+        return detallesMod;
     }
 
-    public void setDetalles(List<DetalleSubObraXTarea> detalles) {
-        this.detalles = detalles;
+    public void setDetallesMod(List<DetalleSubObraXTareaModif> detallesMod) {
+        this.detallesMod = detallesMod;
     }
 
     public SubObraXTarea getOriginal() {
