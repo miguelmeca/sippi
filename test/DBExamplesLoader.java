@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package test;
 
 import config.PropiedadBean;
@@ -32,14 +27,17 @@ import util.HibernateUtil;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.ContactoResponsable;
 import modelo.Cotizacion;
+import modelo.CotizacionModificada;
 import modelo.DetalleMaterial;
 import modelo.DetalleOrdenDeCompra;
 import modelo.DetalleSubObraXTarea;
+import modelo.DetalleSubObraXTareaModif;
 import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
 import modelo.Etapa;
 import modelo.FormaDePago;
@@ -57,11 +55,17 @@ import modelo.RecursoEspecifico;
 import modelo.RolContactoResponsable;
 import modelo.Rubro;
 import modelo.SubObra;
+import modelo.SubObraModificada;
 import modelo.SubObraXAdicional;
+import modelo.SubObraXAdicionalModif;
 import modelo.SubObraXAlquilerCompra;
+import modelo.SubObraXAlquilerCompraModif;
 import modelo.SubObraXHerramienta;
+import modelo.SubObraXHerramientaModif;
 import modelo.SubObraXMaterial;
+import modelo.SubObraXMaterialModif;
 import modelo.SubObraXTarea;
+import modelo.SubObraXTareaModif;
 import modelo.Tarea;
 import modelo.TipoAdicional;
 import modelo.TipoAlquilerCompra;
@@ -82,7 +86,7 @@ public class DBExamplesLoader {
     Session sesion;
     boolean band=false;
 
-    public DBExamplesLoader() 
+    public DBExamplesLoader()
     {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         sesion = sf.openSession();
@@ -97,7 +101,7 @@ public class DBExamplesLoader {
           this.cargarConfiguraciones();
 
           this.cargarUsuarios();
-          
+
           this.cargarUnidadesMedida();
           this.cargarFormasDePago();
 
@@ -123,6 +127,7 @@ public class DBExamplesLoader {
           this.cargarTipoTarea();
           this.cargarRolesContactoResponsable();
           this.cargarCotizacionEjemplo();
+          this.cargarPlanificacionEjemplo();
     }
 
     public void cargarConfiguraciones()
@@ -185,7 +190,7 @@ public class DBExamplesLoader {
         sesion.save(r6);
         sesion.save(r7);
         sesion.getTransaction().commit();
-        
+
     }
 
     private void cargarFormasDePago()
@@ -333,7 +338,7 @@ public class DBExamplesLoader {
             re3.setDescipcion("IPN 750 de 2x3m.");
             items.add(re3);
         h1.setRecursos(items);
-        
+
         Prov.getListaArticulos().add(re1);
         Prov.getListaArticulos().add(re2);
         //Prov.getListaArticulos().add(re3);
@@ -391,7 +396,7 @@ public class DBExamplesLoader {
 
         sesion.beginTransaction();
         sesion.save(um);
-        
+
         sesion.save(h1);
         //sesion.saveOrUpdate(Prov);
         sesion.save(psc1);
@@ -444,7 +449,7 @@ public class DBExamplesLoader {
         TipoLicenciaEmpleado tle4 = new TipoLicenciaEmpleado();
         tle4.setNombre("Paternidad / Maternidad");
         TipoLicenciaEmpleado tle5 = new TipoLicenciaEmpleado();
-        tle5.setNombre("Matrimonio");        
+        tle5.setNombre("Matrimonio");
         TipoLicenciaEmpleado tle6 = new TipoLicenciaEmpleado();
         tle6.setNombre("Licencias Especiales");
 
@@ -658,7 +663,7 @@ public class DBExamplesLoader {
         sesion.save(t9);
         sesion.save(d2);
         sesion.save(planta1);
-        
+
         sesion.save(d);
         sesion.save(ec1);
         sesion.getTransaction().commit();
@@ -776,7 +781,7 @@ public class DBExamplesLoader {
                 sesion.saveOrUpdate(tP);
                 sesion.saveOrUpdate(tA);
                 sesion.getTransaction().commit();
-        
+
             p.setRazonSocial("SIDERUGIA SAN LUIS S.R.L.");
             band=true;
         }
@@ -816,7 +821,7 @@ public class DBExamplesLoader {
             listaRubro.add(r3);
             p.setConfiabilidad(0.5);
             p.setRubros(listaRubro); // ESTE PROVEEDOR VENDE TODO !!
-            
+
             // FIN WORKARROUND
 
         sesion.beginTransaction();
@@ -1117,7 +1122,7 @@ public class DBExamplesLoader {
                 soxt.setNombre("Armado estructura");
                 soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
                 DetalleSubObraXTarea dsoxt=new DetalleSubObraXTarea();
-                dsoxt.setCantHorasNormales(17.0);                
+                dsoxt.setCantHorasNormales(17.0);
                 dsoxt.setCantHorasAl50(5.0);
                 dsoxt.setCantHorasAl100(4.0);
                 dsoxt.setCostoXHoraNormal(22.0);
@@ -1125,24 +1130,24 @@ public class DBExamplesLoader {
                 dsoxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
                 soxt.agreagarDetalle(dsoxt);
                 DetalleSubObraXTarea dsoxt1=new DetalleSubObraXTarea();
-                dsoxt1.setCantHorasNormales(15.0);                
+                dsoxt1.setCantHorasNormales(15.0);
                 dsoxt1.setCantHorasAl50(3.0);
                 dsoxt1.setCantHorasAl100(2.0);
                 dsoxt1.setCostoXHoraNormal(24.0);
                 dsoxt1.setCantidadPersonas(1);
                 dsoxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
                 soxt.agreagarDetalle(dsoxt1);
-                
+
                 so1.addTarea(soxt);
-                
-                
-                
-                
+
+
+
+
                 SubObraXTarea soxt1 = new SubObraXTarea();
-                soxt.setNombre("Preparacion de la base");                
-                soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2)); 
+                soxt.setNombre("Preparacion de la base");
+                soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2));
                 DetalleSubObraXTarea dsoxt2=new DetalleSubObraXTarea();
-                dsoxt2.setCantHorasNormales(17.0);                
+                dsoxt2.setCantHorasNormales(17.0);
                 dsoxt2.setCantHorasAl50(5.0);
                 dsoxt2.setCantHorasAl100(4.0);
                 dsoxt2.setCostoXHoraNormal(22.0);
@@ -1150,7 +1155,7 @@ public class DBExamplesLoader {
                 dsoxt2.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
                 soxt.agreagarDetalle(dsoxt2);
                 DetalleSubObraXTarea dsoxt3=new DetalleSubObraXTarea();
-                dsoxt3.setCantHorasNormales(14.0);                
+                dsoxt3.setCantHorasNormales(14.0);
                 dsoxt3.setCantHorasAl50(3.0);
                 dsoxt3.setCantHorasAl100(1.0);
                 dsoxt3.setCostoXHoraNormal(24.0);
@@ -1168,7 +1173,7 @@ public class DBExamplesLoader {
                 GestorCotizacionMateriales gestor = new GestorCotizacionMateriales();
                 soxm.setPrecioUnitario(gestor.getPrecioMaterial(rxp1.getId(), 44));
                 so1.addMaterial(soxm);
-                
+
                 so1.setGananciaMonto(500.0);
                 cot.addSubObra(so1);
 
@@ -1222,12 +1227,12 @@ public class DBExamplesLoader {
 
             // -------     FECHA CREACION     -------
             po.setFechaDeRegistro(new Date());
-            
+
             // ------- ASIGNO LA COTIZACION AL PEDIDO DE OBRA -----
             po.addCotizaciones(cot);
 
             // ------- ALTA EN BASE DE DATOS -------
-            
+
             HibernateUtil.beginTransaction();
             HibernateUtil.getSession().saveOrUpdate(t);
             HibernateUtil.getSession().saveOrUpdate(contacto);
@@ -1237,20 +1242,145 @@ public class DBExamplesLoader {
             HibernateUtil.getSession().saveOrUpdate(soxh);
             HibernateUtil.getSession().saveOrUpdate(soxt);
             HibernateUtil.getSession().saveOrUpdate(soxt1);
-            HibernateUtil.getSession().saveOrUpdate(soxm); 
+            HibernateUtil.getSession().saveOrUpdate(soxm);
             HibernateUtil.getSession().saveOrUpdate(so1);
             HibernateUtil.getSession().saveOrUpdate(soxa);
             HibernateUtil.getSession().saveOrUpdate(soxac);
             HibernateUtil.getSession().saveOrUpdate(so2);
             HibernateUtil.getSession().saveOrUpdate(cot);
-            
+
             HibernateUtil.getSession().saveOrUpdate(po);
             HibernateUtil.commitTransaction();
-            //HibernateUtil.getSession().getTransaction().commit();
-
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getCause().toString());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void cargarPlanificacionEjemplo() {
+        try {
+            HibernateUtil.beginTransaction();
+            Cotizacion cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, 1);
+            Iterator<SubObra> itSubObras = cot.getSubObras().iterator();
+            CotizacionModificada cotMod = new CotizacionModificada();
+            cotMod.setCotizacionOriginal(cot);
+            
+            while(itSubObras.hasNext()){
+                SubObra subObra = itSubObras.next();
+
+                SubObraModificada subObraMod = new SubObraModificada();
+                List<SubObraXAdicionalModif> subObraXAdicionalModifs = new ArrayList<SubObraXAdicionalModif>();
+                List<SubObraXAlquilerCompraModif> subObraXAlquilerCompraModifs = new ArrayList<SubObraXAlquilerCompraModif>();
+                List<SubObraXHerramientaModif> subObraXHerramientaModifs = new ArrayList<SubObraXHerramientaModif>();
+                List<SubObraXMaterialModif> subObraXMaterialModifs = new ArrayList<SubObraXMaterialModif>();
+                List<SubObraXTareaModif> subObraXTareaModifs = new ArrayList<SubObraXTareaModif>();
+
+                Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();
+                while(itSubObraXAdcional.hasNext()){
+                    SubObraXAdicional subObraXAdicional = itSubObraXAdcional.next();
+                    SubObraXAdicionalModif soXAdicionalModif = new SubObraXAdicionalModif();
+                    soXAdicionalModif.setOriginal(subObraXAdicional);
+                    int aleaCantDias = (int) (Math.random()*subObraXAdicional.getCantDias() + 2);
+                    soXAdicionalModif.setCantDias(aleaCantDias);
+                    int aleaCantOperarios = (int) (Math.random()*subObraXAdicional.getCantOperarios() + 3);
+                    soXAdicionalModif.setCantOperarios(aleaCantOperarios);
+                    soXAdicionalModif.setDescripcion(subObraXAdicional.getDescripcion());
+                    double aleaPrecioUnit = (int) Math.random()*subObraXAdicional.getPrecioUnitario() + 1;
+                    soXAdicionalModif.setPrecioUnitario(aleaPrecioUnit);
+                    soXAdicionalModif.setTipoAdicional(subObraXAdicional.getTipoAdicional());
+                    HibernateUtil.getSession().save(subObraXAdicionalModifs);
+                    subObraXAdicionalModifs.add(soXAdicionalModif);
+                }
+                subObraMod.setAdicionales(subObraXAdicionalModifs);
+
+
+                Iterator<SubObraXAlquilerCompra> itSubObraXAlquilerCompra = subObra.getAlquileresCompras().iterator();
+                while(itSubObraXAlquilerCompra.hasNext()){
+                    SubObraXAlquilerCompra subObraXAlquilerCompra = itSubObraXAlquilerCompra.next();
+                    SubObraXAlquilerCompraModif subObraXAlquilerCompraModif = new SubObraXAlquilerCompraModif();
+                    subObraXAlquilerCompraModif.setOriginal(subObraXAlquilerCompra);
+                    int aleaCant = (int) Math.random()*subObraXAlquilerCompraModif.getCantidad() + 10;
+                    subObraXAlquilerCompraModif.setCantidad(aleaCant);
+                    subObraXAlquilerCompraModif.setDescripcion(subObraXAlquilerCompra.getDescripcion());
+                    double aleaPU = (int) Math.random()*subObraXAlquilerCompraModif.getPrecioUnitario() + 10;
+                    subObraXAlquilerCompraModif.setPrecioUnitario(aleaPU);
+                    subObraXAlquilerCompraModif.setTipoAlquilerCompra(subObraXAlquilerCompra.getTipoAlquilerCompra());
+                    HibernateUtil.getSession().save(subObraXAlquilerCompraModif);
+                    subObraXAlquilerCompraModifs.add(subObraXAlquilerCompraModif);
+                }
+                subObraMod.setAlquileres(subObraXAlquilerCompraModifs);
+
+                Iterator<SubObraXHerramienta> itSubObraXHerramienta = subObra.getHerramientas().iterator();
+                while(itSubObraXHerramienta.hasNext()){
+                    SubObraXHerramienta subObraXHerramienta = itSubObraXHerramienta.next();
+                    SubObraXHerramientaModif subObraXHerramientaModif = new SubObraXHerramientaModif();
+                    subObraXHerramientaModif.setOriginal(subObraXHerramienta);
+                    int aleaCantDias = (int) (Math.random()*subObraXHerramienta.getCantDias() + 4);
+                    subObraXHerramientaModif.setCantDias(aleaCantDias);
+                    int aleaCantHoras = (int) (Math.random()*subObraXHerramienta.getCantDias() + 10);
+                    subObraXHerramientaModif.setCantHoras(aleaCantHoras);
+                    subObraXHerramientaModif.setHerramienta(subObraXHerramienta.getHerramienta());
+                    subObraXHerramientaModif.setObservaciones(subObraXHerramienta.getObservaciones());
+                    HibernateUtil.getSession().save(subObraXHerramientaModif);
+                    subObraXHerramientaModifs.add(subObraXHerramientaModif);
+                }
+                subObraMod.setHerramientas(subObraXHerramientaModifs);
+
+                Iterator<SubObraXMaterial> itSubObraXMaterial = subObra.getMateriales().iterator();
+                while(itSubObraXMaterial.hasNext()){
+                    SubObraXMaterial subObraXMaterial = itSubObraXMaterial.next();
+                    SubObraXMaterialModif subObraXMaterialModif = new SubObraXMaterialModif();
+                    subObraXMaterialModif.setOriginal(subObraXMaterial);
+                    int aleaCant = (int) (Math.random()*subObraXMaterial.getCantidad() + 15);
+                    subObraXMaterialModif.setCantidad(aleaCant);
+                    subObraXMaterialModif.setMaterial(subObraXMaterial.getMaterial());
+                    double aleaPrecioUnit = (int) Math.random()*subObraXMaterial.getPrecioUnitario() + 3;
+                    subObraXMaterialModif.setPrecioUnitario(aleaPrecioUnit);
+                    HibernateUtil.getSession().saveOrUpdate(subObraXMaterialModif);
+                    subObraXMaterialModifs.add(subObraXMaterialModif);
+                }
+                subObraMod.setMateriales(subObraXMaterialModifs);
+
+                Iterator<SubObraXTarea> itSubObraXTarea = subObra.getTareas().iterator();
+                while(itSubObraXTarea.hasNext()){
+                    SubObraXTarea subObraXTarea = itSubObraXTarea.next();
+                    SubObraXTareaModif subObraXTareaModif = new SubObraXTareaModif();
+                    subObraXTareaModif.setOriginal(subObraXTarea);
+                    subObraXTareaModif.setObservaciones(subObraXTarea.getObservaciones());
+                    subObraXTareaModif.setNombre(subObraXTarea.getNombre());
+                    subObraXTareaModif.setTipoTarea(subObraXTarea.getTipoTarea());
+                    List<DetalleSubObraXTareaModif> detalleMods = new ArrayList<DetalleSubObraXTareaModif>();
+                    Iterator<DetalleSubObraXTarea> itDetalleSOXT = subObraXTarea.getDetalles().iterator();
+                    while(itDetalleSOXT.hasNext()){
+                        DetalleSubObraXTarea detalle = itDetalleSOXT.next();
+                        DetalleSubObraXTareaModif detalleMod = new DetalleSubObraXTareaModif();
+                        detalleMod.setOriginal(detalle);
+                        double aleaCantHoras100 = (int) Math.random()*detalle.getCantHorasAl100() + 10;
+                        detalleMod.setCantHorasAl100(aleaCantHoras100);
+                        double aleaCantHoras50 = (int) Math.random()*detalle.getCantHorasAl50() + 10;
+                        detalleMod.setCantHorasAl50(aleaCantHoras50);
+                        double aleaCantHorasNormales = (int) Math.random()*detalle.getCantHorasNormales() + 12;
+                        detalleMod.setCantHorasNormales(aleaCantHoras50);
+                        int aleaCantPersona = (int) Math.random()*detalle.getCantidadPersonas() + 12;
+                        detalleMod.setCantidadPersonas(aleaCantPersona);
+                        double aleaCostoXHoraNormal = (int) Math.random()*detalle.getCostoXHoraNormal() + 12;
+                        detalleMod.setCostoXHoraNormal(aleaCostoXHoraNormal);
+                        detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                        HibernateUtil.getSession().saveOrUpdate(detalleMod);
+                        detalleMods.add(detalleMod);
+                    }
+                    subObraXTareaModif.setDetallesMod(detalleMods);
+                    HibernateUtil.getSession().saveOrUpdate(subObraXTareaModif);
+                    subObraXTareaModifs.add(subObraXTareaModif);
+                }
+                subObraMod.setTareas(subObraXTareaModifs);
+
+                HibernateUtil.getSession().saveOrUpdate(subObraMod);
+                HibernateUtil.commitTransaction();
+            }
+
+        } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
         }
 

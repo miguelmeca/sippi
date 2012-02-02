@@ -5,10 +5,10 @@
     <id column="ID_COTIZACION_MOD" name="id" type="integer">
       <generator class="increment"/>
     </id>
-    <property name="cantHorasNormales" type="float"/>
-    <property name="cantHorasAl50" type="float"/>
-    <property name="cantHorasAl100" type="float"/>
-    <property name="costoXHoraNormal" type="float"/>
+    <property name="cantHorasNormales" type="double"/>
+    <property name="cantHorasAl50" type="double"/>
+    <property name="cantHorasAl100" type="double"/>
+    <property name="costoXHoraNormal" type="double"/>
     <property name="cantidadPersonas" type="integer"/>
     <many-to-one class="modelo.RangoEmpleado" name="rangoEmpleado"/>
     <joined-subclass name="modelo.DetalleSubObraXTareaModif" table="DETALLE_SUBOBRA_X_TAREA_MODIF">

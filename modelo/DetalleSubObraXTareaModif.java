@@ -4,7 +4,7 @@ package modelo;
  *
  * @author Emmanuel
  */
-public class DetalleSubObraXTareaModif extends DetalleSubObraXTarea{
+public class DetalleSubObraXTareaModif extends DetalleSubObraXTarea {
     private int id;
     private DetalleSubObraXTarea original;
 
