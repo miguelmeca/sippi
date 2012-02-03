@@ -1,6 +1,7 @@
 package modelo;
 
 //
+import java.util.Date;
 import java.util.List;
 
 //
@@ -23,6 +24,8 @@ public class TareaPlanificacion {
     private List<PlanificacionXHerramienta> herramientas;
     private List<PlanificacionXMaterial> materiales;
     private List<PlanificacionXAlquilerCompra> alquilerCompras;
+    private Date fechaInicio;
+    private Date fechaFin;
 
     public TareaPlanificacion() {
     }
@@ -105,5 +108,21 @@ public class TareaPlanificacion {
 
     public void setTipoTarea(TipoTarea tipoTarea) {
         this.tipoTarea = tipoTarea;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 }
