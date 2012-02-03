@@ -3,6 +3,7 @@ package test;
 import config.PropiedadBean;
 import controlador.cotizacion.GestorCotizacionMateriales;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Barrio;
@@ -29,6 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.ContactoResponsable;
@@ -46,6 +48,8 @@ import modelo.HerramientaDeEmpresa;
 import modelo.Material;
 import modelo.OrdenDeCompra;
 import modelo.PedidoObra;
+import modelo.Planificacion;
+import modelo.PlanificacionXXX;
 import modelo.Proveedor;
 import modelo.RecursoXProveedor;
 import modelo.PrecioSegunCantidad;
@@ -67,6 +71,7 @@ import modelo.SubObraXMaterialModif;
 import modelo.SubObraXTarea;
 import modelo.SubObraXTareaModif;
 import modelo.Tarea;
+import modelo.TareaPlanificacion;
 import modelo.TipoAdicional;
 import modelo.TipoAlquilerCompra;
 import modelo.TipoLicenciaEmpleado;
@@ -1261,11 +1266,16 @@ public class DBExamplesLoader {
     private void cargarPlanificacionEjemplo() {
         try {
             HibernateUtil.beginTransaction();
+
+            // ---------------------------------------------------------
+            // --------------- COTIZACION MODIFICADA -------------------
+            // ---------------------------------------------------------
+
             Cotizacion cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, 1);
             Iterator<SubObra> itSubObras = cot.getSubObras().iterator();
             CotizacionModificada cotMod = new CotizacionModificada();
             cotMod.setCotizacionOriginal(cot);
-            
+
             while(itSubObras.hasNext()){
                 SubObra subObra = itSubObras.next();
 
@@ -1377,9 +1387,53 @@ public class DBExamplesLoader {
                 subObraMod.setTareas(subObraXTareaModifs);
 
                 HibernateUtil.getSession().saveOrUpdate(subObraMod);
-                HibernateUtil.commitTransaction();
-            }
 
+                // ---------------------------------------------------------
+                // ------------------- PLANIFICACIONXXX --------------------
+                // ---------------------------------------------------------
+
+                PedidoObra PO = (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", this).uniqueResult();
+                PlanificacionXXX planificacion = new PlanificacionXXX();
+                GregorianCalendar cal = new GregorianCalendar() {};
+                cal.setTime(PO.getFechaInicio());
+                cal.add(Calendar.DAY_OF_MONTH, 5);
+                planificacion.setFechaInicio(cal.getTime());
+                cal.setTime(PO.getFechaFin());
+                cal.add(Calendar.DAY_OF_MONTH, 5);
+                planificacion.setFechaFin(cal.getTime());
+                planificacion.setNumeroPlanificacion(PO.getNumero());
+                planificacion.setCotizacion(cotMod);
+                PO.setPlanificacion(planificacion);
+
+
+                GregorianCalendar fechaInicioTarea = new GregorianCalendar();
+                fechaInicioTarea.setTime(PO.getFechaInicio());
+                Iterator<SubObraModificada> itSubObraMod = cotMod.getSubObra().iterator();
+                ArrayList<TareaPlanificacion> tareas = new ArrayList<TareaPlanificacion>();
+                while(itSubObraMod.hasNext()){
+                    SubObraModificada subObraModificada = itSubObraMod.next();
+                    TareaPlanificacion tarea = new TareaPlanificacion();
+                    Iterator<SubObraXTareaModif> itSOXTM = subObraModificada.getTareas().iterator();
+                    while(itSOXTM.hasNext()){
+                        SubObraXTareaModif soxtm = itSOXTM.next();
+                        tarea.setNombre(soxtm.getNombre());
+                        tarea.setObservaciones(soxtm.getObservaciones());
+                        tarea.setTipoTarea(soxtm.getTipoTarea());
+                        tarea.setFechaInicio(fechaInicioTarea.getTime());
+                        GregorianCalendar fechaFinTarea = fechaInicioTarea;
+                        fechaFinTarea.add(Calendar.DAY_OF_MONTH, (int) Math.random()*5+4);
+                        tarea.setFechaFin(fechaFinTarea.getTime());
+                        fechaInicioTarea.add(Calendar.DAY_OF_MONTH, (int) Math.random()*8-3);
+                        tareas.add(tarea);
+                        HibernateUtil.getSession().saveOrUpdate(tarea);
+                    }
+                }
+                planificacion.setTareas(tareas);
+                HibernateUtil.getSession().saveOrUpdate(planificacion);
+                HibernateUtil.getSession().saveOrUpdate(PO);
+                HibernateUtil.commitTransaction();
+
+            }
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
         }
