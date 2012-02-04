@@ -18,12 +18,15 @@ import java.util.List;
 
 
 public class SubObraModificada {
+    
     private int id;
     private List<SubObraXAlquilerCompraModif> alquileres;
     private List<SubObraXHerramientaModif> herramientas;
     private List<SubObraXTareaModif> tareas;
     private List<SubObraXAdicionalModif> adicionales;
     private List<SubObraXMaterialModif> materiales;
+    
+    // Falta la relacion a la subObra Original de presupuestacion
 
     public SubObraModificada() {
     }

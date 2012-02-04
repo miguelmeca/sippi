@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.List;
 
 //
@@ -20,6 +21,9 @@ public class CotizacionModificada {
     private List<SubObraModificada> subObra;
 
     public CotizacionModificada() {
+        
+        subObra = new ArrayList<SubObraModificada>();
+        
     }
 
     public int getId() {
@@ -44,6 +48,10 @@ public class CotizacionModificada {
 
     public void setSubObra(List<SubObraModificada> subObra) {
         this.subObra = subObra;
+    }
+
+    public void addSubObra(SubObraModificada subObraMod) {
+        this.subObra.add(subObraMod);
     }
     
     
