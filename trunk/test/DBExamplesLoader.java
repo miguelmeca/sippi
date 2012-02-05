@@ -1386,13 +1386,16 @@ public class DBExamplesLoader {
                 }
                 subObraMod.setTareas(subObraXTareaModifs);
 
+                cotMod.getSubObra().add(subObraMod);
                 HibernateUtil.getSession().saveOrUpdate(subObraMod);
+            }
+            HibernateUtil.getSession().saveOrUpdate(cotMod);
 
                 // ---------------------------------------------------------
                 // ------------------- PLANIFICACIONXXX --------------------
                 // ---------------------------------------------------------
 
-                PedidoObra PO = (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", this).uniqueResult();
+                PedidoObra PO = (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot.getId()).uniqueResult();
                 PlanificacionXXX planificacion = new PlanificacionXXX();
                 GregorianCalendar cal = new GregorianCalendar() {};
                 cal.setTime(PO.getFechaInicio());
@@ -1432,8 +1435,6 @@ public class DBExamplesLoader {
                 HibernateUtil.getSession().saveOrUpdate(planificacion);
                 HibernateUtil.getSession().saveOrUpdate(PO);
                 HibernateUtil.commitTransaction();
-
-            }
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
         }
