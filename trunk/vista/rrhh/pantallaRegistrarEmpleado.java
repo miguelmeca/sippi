@@ -39,6 +39,7 @@ import vista.interfaces.ICallBack_v2;
 import controlador.rrhh.IGestorEmpleado;
 
 
+import util.imagenes.GestorImagenes;
 import util.SwingPanel;
 /**
  *
@@ -75,7 +76,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     private String nombre;
     private String apellido;
     private int idEmp;
-    
+    GestorImagenes gestorImagenes;
     
     public pantallaRegistrarEmpleado()
     {
@@ -88,6 +89,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();        
         instanciadaDesdeCU=false;
+        gestorImagenes=new GestorImagenes();
     }
     public pantallaRegistrarEmpleado(ICallBack pantallaConsu)
     {
@@ -119,6 +121,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
         //boolean r= gestorModificar.levantarEmpleado(legajo);
+        //panelFotografia.setSize(200, 200);
         boolean r= gestorModificar.levantarEmpleado(id);
         if (!r)
         {
@@ -136,6 +139,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     }
    private void habilitarVentana()
     {
+        
         cmbProvincias.setEnabled(false);
         cmbLocalidades.setEnabled(false);
         cmbBarrios.setEnabled(false);
@@ -150,14 +154,20 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         mostrarRangosEspecialidad();
         // Fecha de Nacimiento
         cmbfechaNacimiento = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
+        //cmbfechaNacimiento.setBounds(130,jblFechaNacimiento.getY(),100,22); // x y ancho alto
+        //System.out.println("Fecha Nacimiento Y:"+jblFechaNacimiento.getY());
         cmbfechaNacimiento.setBounds(130,120,100,22); // x y ancho alto
         jpDatosPersonales.add(cmbfechaNacimiento);
         cmbfechaVencimiento = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
+        ///cmbfechaVencimiento.setBounds(160,jblFechaVencimiento.getY(),100,22); // x y ancho alto
         cmbfechaVencimiento.setBounds(160,135,100,22); // x y ancho alto
         jpCapacitaciones.add(cmbfechaVencimiento);
         cmbfechaIngreso = new JDateChooser("dd/MM/yyyy", "####/##/##", '_');
+        //cmbfechaIngreso.setBounds(325, jblFechaIngreso.getBounds().y ,100,22); // x y ancho alto
+        //System.out.println("Fecha Ingreso Y:"+jblFechaIngreso.getBounds().y);
         cmbfechaIngreso.setBounds(325,25,100,22); // x y ancho alto
-        jPanel2.add(cmbfechaIngreso);
+        jPanel2.add(cmbfechaIngreso);        
+        
         
 
 KeyAdapter kaNuemros=(new KeyAdapter()
@@ -430,13 +440,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel18 = new javax.swing.JLabel();
         txtLegajo = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        jblFechaIngreso = new javax.swing.JLabel();
         jpDatosPersonales = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jblFechaNacimiento = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -491,7 +501,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         tablaCapacitaciones = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jblFechaVencimiento = new javax.swing.JLabel();
         btnGestionCapacitaciones = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -505,6 +515,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         btnGestionEspecialidades = new javax.swing.JButton();
+        seccionFotografia = new javax.swing.JPanel();
+        panelFotografia = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         emQuitarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -554,6 +567,17 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
+        pnRegEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnRegEmpleadoMousePressed(evt);
+            }
+        });
+        pnRegEmpleado.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pnRegEmpleadoStateChanged(evt);
+            }
+        });
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Legajo"));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -567,8 +591,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel25.setText("*");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel32.setText("Fecha de Ingreso:");
+        jblFechaIngreso.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaIngreso.setText("Fecha de Ingreso:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -581,7 +605,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jblFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -590,7 +614,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addComponent(jLabel18)
                 .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel25)
-                .addComponent(jLabel32))
+                .addComponent(jblFechaIngreso))
         );
 
         jpDatosPersonales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
@@ -613,8 +637,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel5.setText("Fecha de Nacimiento:");
+        jblFechaNacimiento.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaNacimiento.setText("Fecha de Nacimiento:");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel7.setText("Email: ");
@@ -677,7 +701,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(txtCUIL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jblFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(74, 74, 74)))
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
@@ -722,7 +746,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(jblFechaNacimiento)
                     .addComponent(jLabel33)))
             .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                 .addGroup(jpDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -829,7 +853,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnQuitarTelefono)
                             .addComponent(btnAgregarTelefono)))
@@ -990,7 +1014,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(cmbBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
                     .addComponent(jLabel16))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1005,7 +1029,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1016,7 +1040,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jpDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1071,8 +1095,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel26.setText("Agregadas: ");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel6.setText("<html>Fecha de<br> Vencimiento:</html>");
+        jblFechaVencimiento.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaVencimiento.setText("<html>Fecha de<br> Vencimiento:</html>");
 
         btnGestionCapacitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
         btnGestionCapacitaciones.setText("<html>Modificar<br> Disponibles</html>");
@@ -1090,7 +1114,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addComponent(btnGestionCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpCapacitacionesLayout.createSequentialGroup()
                         .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
@@ -1098,8 +1122,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnQuitarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                    .addComponent(btnAgregarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))))
+                                    .addComponent(btnQuitarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(btnAgregarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel26)
@@ -1124,7 +1148,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addComponent(jScrollPane4, 0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Especialidades"));
@@ -1202,8 +1226,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQuitarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                            .addComponent(btnAgregarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                            .addComponent(btnQuitarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                            .addComponent(btnAgregarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -1257,6 +1281,55 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         pnRegEmpleado.addTab("Otros Datos", jPanel6);
 
+        seccionFotografia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                seccionFotografiaFocusGained(evt);
+            }
+        });
+
+        panelFotografia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout panelFotografiaLayout = new javax.swing.GroupLayout(panelFotografia);
+        panelFotografia.setLayout(panelFotografiaLayout);
+        panelFotografiaLayout.setHorizontalGroup(
+            panelFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 185, Short.MAX_VALUE)
+        );
+        panelFotografiaLayout.setVerticalGroup(
+            panelFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 229, Short.MAX_VALUE)
+        );
+
+        jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout seccionFotografiaLayout = new javax.swing.GroupLayout(seccionFotografia);
+        seccionFotografia.setLayout(seccionFotografiaLayout);
+        seccionFotografiaLayout.setHorizontalGroup(
+            seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seccionFotografiaLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(435, Short.MAX_VALUE))
+        );
+        seccionFotografiaLayout.setVerticalGroup(
+            seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seccionFotografiaLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+
+        pnRegEmpleado.addTab("Fotografia", seccionFotografia);
+
         jLabel2.setText("* Campos requeridos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1286,7 +1359,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6)
                     .addComponent(jLabel2))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -1352,6 +1425,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             int legajo=Integer.parseInt(txtLegajo.getText());
             gestor.datosPersonalesEmpleado(legajo, txtCUIL.getText() ,txtNroDocumento.getText(),td, txtNombre.getText(),txtApellido.getText(), fechaNac,fechaIng,txtEmail.getText());
             gestor.telefonosEmpleado(listaNroTel, listaTipoTel);
+            gestor.imagenEmpleado(gestorImagenes);
             /*if(cmbBarrios.getSelectedIndex()!=-1)
             { 
                Tupla tupBarrio=new Tupla();
@@ -1456,6 +1530,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         cmbProvincias.setEnabled(false);
         cmbLocalidades.setEnabled(false);
         cmbBarrios.setEnabled(false);
+        panelFotografia.removeAll();
+        gestorImagenes=new GestorImagenes();
 
     }
         private boolean ValidarDatos()
@@ -1666,6 +1742,33 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         win.setPantalla(this);
         win.setVisible(true);*/
     }//GEN-LAST:event_btnGestionCapacitacionesActionPerformed
+
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+gestorImagenes.cargarImagenDeArchivo(panelFotografia, this);
+
+}//GEN-LAST:event_jButton4ActionPerformed
+
+private void seccionFotografiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_seccionFotografiaFocusGained
+           
+}//GEN-LAST:event_seccionFotografiaFocusGained
+
+private void pnRegEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnRegEmpleadoMousePressed
+   
+     
+    
+}//GEN-LAST:event_pnRegEmpleadoMousePressed
+
+private void pnRegEmpleadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pnRegEmpleadoStateChanged
+
+            if(seccionFotografia==pnRegEmpleado.getSelectedComponent())
+            {
+                if(!gestorImagenes.cargarImagenEnPanel(panelFotografia))
+                {
+                    JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error cargando la imagen","ERROR",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+}//GEN-LAST:event_pnRegEmpleadoStateChanged
  private void agregarEspecialidad()
     {
         if(!lstTiposEspecialidad.isSelectionEmpty())
@@ -1894,6 +1997,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             txtCPDomicilio.setText(cp);
 
 	}
+        
+        public void mostrarImagenEmpleado(GestorImagenes ge)
+        {            
+            gestorImagenes=ge;
+             panelFotografia.removeAll();
+             //El renderizado se hace en el evento cuando se selecciona la pestaña.
+            
+        }
         //Fin Metodos Modificar Empleado
     /////////////////////////////////////////////////////
 
@@ -1919,6 +2030,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1945,11 +2057,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1964,6 +2073,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel jblFechaIngreso;
+    private javax.swing.JLabel jblFechaNacimiento;
+    private javax.swing.JLabel jblFechaVencimiento;
     private javax.swing.JPanel jpCapacitaciones;
     private javax.swing.JPanel jpDatosPersonales;
     private javax.swing.JComboBox lstRangosEspecialidad;
@@ -1972,7 +2084,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     private javax.swing.JPopupMenu menuCapacitaciones;
     private javax.swing.JPopupMenu menuEspecialidades;
     private javax.swing.JPopupMenu menuTelefonos;
+    private javax.swing.JPanel panelFotografia;
     private javax.swing.JTabbedPane pnRegEmpleado;
+    private javax.swing.JPanel seccionFotografia;
     private javax.swing.JTable tablaCapacitaciones;
     private javax.swing.JTable tablaEspecialidades;
     private javax.swing.JTable tablaTelefonos;
@@ -2018,4 +2132,6 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         else
         {return "Opción: Nuevo Empleado";}
     }
+    
+    
 }

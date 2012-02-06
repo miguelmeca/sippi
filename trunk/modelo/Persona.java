@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.sql.Blob;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,6 +33,8 @@ public class Persona {
 	private Domicilio domicilio;
         private Date fechaAlta;
         private Date fechaBaja;
+        
+        private Blob imagen;
 	//private Object estado; COMO ES ESTO??? PERSONA TIENE ESTADO??? O EMPLEADO Y CLIENTE??? ESTA MAL MODELADO EN NUESTRO MODELOADO!!!
 	public void mostrarPersona() {
 	
@@ -144,7 +147,17 @@ public class Persona {
     public void setNroDoc(String nroDoc) {
         this.nroDoc = nroDoc;
     }
-
+    
+    public Blob getImagen() 
+    {
+	return this.imagen;
+    }
+ 
+    public void setImagen(Blob image) 
+    {
+	this.imagen = image;
+    }
+    
     public Set<Telefono> getTelefonos() {
         return telefonos;
     }

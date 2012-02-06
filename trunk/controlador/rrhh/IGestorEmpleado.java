@@ -7,6 +7,7 @@ package controlador.rrhh;
 import java.util.ArrayList;
 import util.Tupla;
 import java.util.Date;
+import util.imagenes.GestorImagenes;
 /**
  *
  * @author Administrador
@@ -33,4 +34,5 @@ public interface IGestorEmpleado
     public void capacitaciones(ArrayList<Tupla> lstTipoCapacitaciones, ArrayList<Date> lstVencimientosCapacitaciones);
     public void telefonosEmpleado(ArrayList<String> numero,ArrayList<Tupla> tipo );
     public void vaciarDatos();
+    public void imagenEmpleado(GestorImagenes ge);
 }
