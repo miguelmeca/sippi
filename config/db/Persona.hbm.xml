@@ -14,6 +14,7 @@
     <property column="CUIL" name="cuil" type="string"/>
     <property column="FECH_ALTA" name="fechaAlta" not-null="true" type="date"/>
     <property column="FECH_BAJA" name="fechaBaja" type="date"/>
+    <property column="FOTOGRAFIA" name="imagen"  type="blob"/>
     <many-to-one class="modelo.TipoDocumento" column="ID_TIPO_DOC" name="tipoDoc"/>
     <set name="telefonos" table="PersonaXTelefono">
       <key column="ID_PERSONA"/>

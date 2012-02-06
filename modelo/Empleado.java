@@ -245,6 +245,7 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
     public void setRango(String rango) {
         this.rango = rango;
     }
+    
 
     public boolean darDeBaja(Date fechaB, String motiv)
         {

@@ -30,7 +30,9 @@ import vista.cotizacion.ExplorarSubObras;
 import modelo.FavoritoBean;
 import vista.ayuda.VisorDeAyuda;
 import vista.planificacion.EditarPlanificacion;
+import vista.rrhh.pantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
+import vista.rrhh.pantallaRegistrarEmpleado;
 
 
 
@@ -185,6 +187,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -291,10 +295,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblAyudaTitulo.setText("Titulo de la Ayuda");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Dialog", 2, 10));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
         jButton1.setText("Más Ayuda ...");
 
@@ -324,7 +328,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -356,7 +360,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -374,6 +378,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         jMenu3.setText("Prototipos");
+
+        jMenuItem4.setText("Registrar Empleado");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem6.setText("Ver Empleados");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
 
         jMenuItem3.setText("Editar Planificacion");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -540,6 +560,18 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
     }//GEN-LAST:event_btnMenuAyudaActionPerformed
 
+private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    pantallaRegistrarEmpleado ep = new pantallaRegistrarEmpleado();
+       SwingPanel.getInstance().addWindow(ep);
+       ep.setVisible(true);
+}//GEN-LAST:event_jMenuItem4ActionPerformed
+
+private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    pantallaConsultarEmpleado ep = new pantallaConsultarEmpleado();
+       SwingPanel.getInstance().addWindow(ep);
+       ep.setVisible(true);
+}//GEN-LAST:event_jMenuItem6ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -552,7 +584,9 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
