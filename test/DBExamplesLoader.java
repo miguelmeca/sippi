@@ -1287,6 +1287,7 @@ public class DBExamplesLoader {
                 List<SubObraXTareaModif> subObraXTareaModifs = new ArrayList<SubObraXTareaModif>();
 
                 Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();
+                
                 while(itSubObraXAdcional.hasNext()){
                     SubObraXAdicional subObraXAdicional = itSubObraXAdcional.next();
                     SubObraXAdicionalModif soXAdicionalModif = new SubObraXAdicionalModif();
@@ -1299,7 +1300,7 @@ public class DBExamplesLoader {
                     double aleaPrecioUnit = (int) Math.random()*subObraXAdicional.getPrecioUnitario() + 1;
                     soXAdicionalModif.setPrecioUnitario(aleaPrecioUnit);
                     soXAdicionalModif.setTipoAdicional(subObraXAdicional.getTipoAdicional());
-                    HibernateUtil.getSession().save(subObraXAdicionalModifs);
+                    HibernateUtil.getSession().save(soXAdicionalModif);
                     subObraXAdicionalModifs.add(soXAdicionalModif);
                 }
                 subObraMod.setAdicionales(subObraXAdicionalModifs);
@@ -1385,6 +1386,8 @@ public class DBExamplesLoader {
                     subObraXTareaModifs.add(subObraXTareaModif);
                 }
                 subObraMod.setTareas(subObraXTareaModifs);
+                
+                subObraMod.setSubObraOriginal(subObra);
 
                 cotMod.getSubObra().add(subObraMod);
                 HibernateUtil.getSession().saveOrUpdate(subObraMod);
@@ -1436,7 +1439,8 @@ public class DBExamplesLoader {
                 HibernateUtil.getSession().saveOrUpdate(PO);
                 HibernateUtil.commitTransaction();
         } catch (Exception ex) {
-            HibernateUtil.rollbackTransaction();
+            System.err.println("ERROR AL CARGAR LOS EJEMPLOS: "+ex.getMessage());
+            //HibernateUtil.rollbackTransaction();
         }
 
     }

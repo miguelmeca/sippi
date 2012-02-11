@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.TablaUtil;
 import vista.gui.dnd.IDropEvent;
+import vista.gui.sidebar.IconTreeRenderer;
 
 /**
  *
@@ -58,6 +59,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
         tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
         tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
+        
+        treeRecursos.setCellRenderer(new IconTreeRenderer());
+        //treeRecursos.setOpaque(false);
+        treeRecursos.setRootVisible(false);
 
         initArbolRecursos();
         initDatosGenerales(idObra);
@@ -216,7 +221,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTareas = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        treeRecursos = new javax.swing.JTree();
         btnEditar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSubObras = new javax.swing.JTable();
@@ -362,21 +367,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblTareas);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Herramientas");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("AutoElevadora");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Alquileres / Compras");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Galpon");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Materiales");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Plancha 3' DXA x5");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.setRootVisible(false);
-        jScrollPane3.setViewportView(jTree1);
+        treeRecursos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeRecursos.setRootVisible(false);
+        jScrollPane3.setViewportView(treeRecursos);
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
 
@@ -478,7 +471,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGap(0, 572, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -518,7 +511,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -727,7 +720,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -874,7 +867,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTree jTree1;
     private javax.swing.JPopupMenu jpm;
     private javax.swing.JLabel lblCotMontoTotal;
     private javax.swing.JLabel lblObraFechaFin;
@@ -897,6 +889,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelLineaDeTiempo;
     private javax.swing.JTable tblSubObras;
     private javax.swing.JTable tblTareas;
+    private javax.swing.JTree treeRecursos;
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNroCotizacion;
@@ -940,6 +933,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }
 
     private void initArbolRecursosCotizados(int idSubObra) {
+        _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
     
     private void AgregarNuevaTarea(int id,String nombre)
@@ -1028,7 +1022,16 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
     }
     
-    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
     
     
 }
