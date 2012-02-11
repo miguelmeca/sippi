@@ -2,10 +2,19 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.CotizacionModificada" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    
     <id column="ID_COTIZACION_MOD" name="id" type="integer">
       <generator class="increment"/>
     </id>
+    
     <many-to-one class="modelo.Cotizacion" name="cotizacionOriginal"/>
-    <many-to-one class="modelo.SubObraModificada" name="subObra"/>
+<!--    <many-to-one class="modelo.SubObraModificada" name="subObra"/>-->
+
+    <list cascade="all" name="subObra" table="COTIZACIONMOD_X_SUBOBRAMOD">
+      <key column="ID_SUBOBRAMOD"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.SubObraModificada"/>
+    </list>
+
   </class>
 </hibernate-mapping>
