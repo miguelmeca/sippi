@@ -432,6 +432,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         emQuitarEspecialidad = new javax.swing.JMenuItem();
         menuCapacitaciones = new javax.swing.JPopupMenu();
         emQuitarCapacitacion = new javax.swing.JMenuItem();
+        buttonGroupAjustar = new javax.swing.ButtonGroup();
         btnConfirmar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         pnRegEmpleado = new javax.swing.JTabbedPane();
@@ -517,7 +518,9 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         btnGestionEspecialidades = new javax.swing.JButton();
         seccionFotografia = new javax.swing.JPanel();
         panelFotografia = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        btnSeleccionarArchivo = new javax.swing.JButton();
+        btnAjustarAltura = new javax.swing.JRadioButton();
+        btnAjustarAncho = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
 
         emQuitarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -1281,29 +1284,43 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         pnRegEmpleado.addTab("Otros Datos", jPanel6);
 
-        seccionFotografia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                seccionFotografiaFocusGained(evt);
-            }
-        });
-
         panelFotografia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelFotografia.setPreferredSize(new java.awt.Dimension(260, 260));
+        panelFotografia.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout panelFotografiaLayout = new javax.swing.GroupLayout(panelFotografia);
         panelFotografia.setLayout(panelFotografiaLayout);
         panelFotografiaLayout.setHorizontalGroup(
             panelFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 185, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
         panelFotografiaLayout.setVerticalGroup(
             panelFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnSeleccionarArchivo.setText("Seleccionar archivo");
+        btnSeleccionarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnSeleccionarArchivoActionPerformed(evt);
+            }
+        });
+
+        buttonGroupAjustar.add(btnAjustarAltura);
+        btnAjustarAltura.setText("Ajustar a altura");
+        btnAjustarAltura.setEnabled(false);
+        btnAjustarAltura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjustarAlturaActionPerformed(evt);
+            }
+        });
+
+        buttonGroupAjustar.add(btnAjustarAncho);
+        btnAjustarAncho.setText("Ajustar a ancho");
+        btnAjustarAncho.setEnabled(false);
+        btnAjustarAncho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjustarAnchoActionPerformed(evt);
             }
         });
 
@@ -1311,21 +1328,33 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         seccionFotografia.setLayout(seccionFotografiaLayout);
         seccionFotografiaLayout.setHorizontalGroup(
             seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionFotografiaLayout.createSequentialGroup()
+                .addContainerGap(303, Short.MAX_VALUE)
+                .addComponent(btnSeleccionarArchivo)
+                .addGap(309, 309, 309))
             .addGroup(seccionFotografiaLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(233, 233, 233)
                 .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(435, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAjustarAltura)
+                    .addComponent(btnAjustarAncho))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         seccionFotografiaLayout.setVerticalGroup(
             seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionFotografiaLayout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSeleccionarArchivo)
+                .addGap(28, 28, 28))
             .addGroup(seccionFotografiaLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(btnAjustarAltura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAjustarAncho)
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         pnRegEmpleado.addTab("Fotografia", seccionFotografia);
@@ -1359,7 +1388,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6)
                     .addComponent(jLabel2))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -1531,7 +1560,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         cmbLocalidades.setEnabled(false);
         cmbBarrios.setEnabled(false);
         panelFotografia.removeAll();
+        panelFotografia.repaint();
         gestorImagenes=new GestorImagenes();
+        btnAjustarAltura.setEnabled(false);
+        btnAjustarAltura.setSelected(false);
+        btnAjustarAncho.setEnabled(false);
+        btnAjustarAncho.setSelected(false);
 
     }
         private boolean ValidarDatos()
@@ -1543,27 +1577,30 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         //validar campos not null: TODO: EN PANTALLA
         boolean ban=true;
             Date fechaAct=new Date();
-            if(  (((JDateChooser) cmbfechaNacimiento).getDate()== null ) )
+            
+            //El siguiente codigo comentado es para validar que el usuario ingrese una fecha de nacimiento
+           /* if(  (((JDateChooser) cmbfechaNacimiento).getDate()== null ) )
            {
                 JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de nacimiento valida","ERROR",JOptionPane.ERROR_MESSAGE);
               return false;
            }
             else
-            {
-               if(( ((JDateChooser) cmbfechaNacimiento).getDate().compareTo(fechaAct) )>0 )
+            {*/
+               if(  (((JDateChooser) cmbfechaNacimiento).getDate()!= null ) )
                {
-                   JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de nacimiento menor a la fecha actual","ERROR",JOptionPane.ERROR_MESSAGE);
-                  return false;          
-               }
+                   if(( ((JDateChooser) cmbfechaNacimiento).getDate().compareTo(fechaAct) )>0 )
+                   {
+                       JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de nacimiento menor a la fecha actual","ERROR",JOptionPane.ERROR_MESSAGE);
+                      return false;          
+                   }                   
+               }               
+          // } 
                
-           }
-            
-
-               if( (((JDateChooser) cmbfechaIngreso).getDate()!= null ) &&     ( ((JDateChooser) cmbfechaNacimiento).getDate().compareTo(((JDateChooser) cmbfechaIngreso).getDate()) )>0 )
-               {
-                   JOptionPane.showMessageDialog(this.getParent(),"La fecha de nacimiento no puede ser posterior a la fecha de ingreso","ERROR",JOptionPane.ERROR_MESSAGE);
-                  return false;
-               }
+        if((((JDateChooser) cmbfechaNacimiento).getDate()!= null )&& (((JDateChooser) cmbfechaIngreso).getDate()!= null ) &&     ( ((JDateChooser) cmbfechaNacimiento).getDate().compareTo(((JDateChooser) cmbfechaIngreso).getDate()) )>0 )
+        {
+           JOptionPane.showMessageDialog(this.getParent(),"La fecha de nacimiento no puede ser posterior a la fecha de ingreso","ERROR",JOptionPane.ERROR_MESSAGE);
+           return false;
+        }
 
 
         if(txtNroDocumento.getText().equals(""))
@@ -1743,15 +1780,20 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         win.setVisible(true);*/
     }//GEN-LAST:event_btnGestionCapacitacionesActionPerformed
 
-private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+private void btnSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarArchivoActionPerformed
 
-gestorImagenes.cargarImagenDeArchivo(panelFotografia, this);
+int cargo=gestorImagenes.cargarImagenDeArchivo(panelFotografia, this);
+if(cargo!=GestorImagenes.noCargoImagen)
+{
+    btnAjustarAncho.setEnabled(true);
+    btnAjustarAltura.setEnabled(true);
+    if(cargo==GestorImagenes.cargoImagenAjustadaEnAltura)
+    {btnAjustarAltura.setSelected(true); }
+    else if(cargo==GestorImagenes.cargoImagenAjustadaEnAncho)
+    {btnAjustarAncho.setSelected(true);}
+ }
 
-}//GEN-LAST:event_jButton4ActionPerformed
-
-private void seccionFotografiaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_seccionFotografiaFocusGained
-           
-}//GEN-LAST:event_seccionFotografiaFocusGained
+}//GEN-LAST:event_btnSeleccionarArchivoActionPerformed
 
 private void pnRegEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnRegEmpleadoMousePressed
    
@@ -1761,14 +1803,26 @@ private void pnRegEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIR
 
 private void pnRegEmpleadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pnRegEmpleadoStateChanged
 
-            if(seccionFotografia==pnRegEmpleado.getSelectedComponent())
-            {
-                if(!gestorImagenes.cargarImagenEnPanel(panelFotografia))
-                {
-                    JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error cargando la imagen","ERROR",JOptionPane.ERROR_MESSAGE);
-                }
-            }
+    if(seccionFotografia==pnRegEmpleado.getSelectedComponent())
+    {
+       gestorImagenes.cargarImagenEnPanel(panelFotografia);
+                
+    }
 }//GEN-LAST:event_pnRegEmpleadoStateChanged
+
+private void btnAjustarAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustarAlturaActionPerformed
+if(btnAjustarAltura.isSelected())
+{
+    gestorImagenes.cargarImagenEnPanelAjustandoTamaño(panelFotografia,true);
+}
+}//GEN-LAST:event_btnAjustarAlturaActionPerformed
+
+private void btnAjustarAnchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustarAnchoActionPerformed
+if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
+{
+    gestorImagenes.cargarImagenEnPanelAjustandoTamaño(panelFotografia,false);
+}
+}//GEN-LAST:event_btnAjustarAnchoActionPerformed
  private void agregarEspecialidad()
     {
         if(!lstTiposEspecialidad.isSelectionEmpty())
@@ -2012,12 +2066,16 @@ private void pnRegEmpleadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     private javax.swing.JButton btnAgregarCapacitacion;
     private javax.swing.JButton btnAgregarEspecialidad;
     private javax.swing.JButton btnAgregarTelefono;
+    private javax.swing.JRadioButton btnAjustarAltura;
+    private javax.swing.JRadioButton btnAjustarAncho;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnGestionCapacitaciones;
     private javax.swing.JButton btnGestionEspecialidades;
     private javax.swing.JButton btnQuitarCapacitacion;
     private javax.swing.JButton btnQuitarEspecialidad;
     private javax.swing.JButton btnQuitarTelefono;
+    private javax.swing.JButton btnSeleccionarArchivo;
+    private javax.swing.ButtonGroup buttonGroupAjustar;
     private javax.swing.JComboBox cmbBarrios;
     private javax.swing.JComboBox cmbLocalidades;
     private javax.swing.JComboBox cmbPaises;
@@ -2030,7 +2088,6 @@ private void pnRegEmpleadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

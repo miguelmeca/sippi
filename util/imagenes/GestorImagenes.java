@@ -5,8 +5,16 @@
 package util.imagenes;
 
 
+
+import com.sun.image.codec.jpeg.ImageFormatException;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,37 +37,101 @@ import org.hibernate.Hibernate;
  */
 public class GestorImagenes 
 {
-    BufferedImage bufferedImagen;//Imagen para la interfaz
+    BufferedImage bufferedImagenOriginal;//Guarda la imagen original pero con tamaño reducido.
+    BufferedImage bufferedImagen;//Imagen que se muestra
     Blob imagenBlob; //Imagen para el gestor y la base de datos
+    public static final int cargoImagenAjustadaEnAltura=1;
+    public static final int cargoImagenAjustadaEnAncho=2;
+    public static final int noCargoImagen=0;
     
     public GestorImagenes()
     {
-        bufferedImagen=null;
+        bufferedImagenOriginal=null;
         imagenBlob=null;
     }        
     
-    public void cargarImagenDeArchivo(JPanel panel,JComponent ventana )
+    public int cargarImagenDeArchivo(JPanel panel,JComponent ventana )
     {
        //this.ventana =ventana;
        File archivoImagen=abrirArchivoImagen(new FileChooserImageFilter(), ventana);
        if(archivoImagen!=null)
        {
            String pathImagen= archivoImagen.getAbsolutePath();
-           bufferedImagen=leerImageDeArchivo(pathImagen);
-           imagenBlob=getImagenBlobDeArrayDeBytes(ArrayDeBytesDeArchivo(archivoImagen));
+           bufferedImagenOriginal=leerImageDeArchivo(pathImagen);           
+           
            if(pathImagen!=null)
            {panel.removeAll();}
-
-           //Cento la imagen
+           
+           //Para ajustar a alto o a ancho dependiendo de la proporcion entre la imagen y el panel:
+           boolean ajustarA;
+           int retorno;
+           if(bufferedImagenOriginal.getWidth()>bufferedImagenOriginal.getHeight())
+           {
+               ajustarA=true;
+               retorno=cargoImagenAjustadaEnAltura;
+           }
+           else
+           {
+               ajustarA=false;
+               retorno=cargoImagenAjustadaEnAncho;
+           }
+           bufferedImagenOriginal=ajustarTamañoImagenAPanel(panel,bufferedImagenOriginal, ajustarA);
+           bufferedImagen=obtenerImagenVisibleEnPanel(bufferedImagenOriginal, panel);
+           imagenBlob=aBlob(bufferedImagen);
            cargarImagenEnPanel(panel);
-           //...
-           //Posible Procesamiento Extra
-           //...       
-           //return pathImagen; 
-       }     
+           return retorno;
+       }  
+       return noCargoImagen;
+       
     }
-    public boolean cargarImagenEnPanel(JPanel panel)
+    
+    private BufferedImage obtenerImagenVisibleEnPanel(BufferedImage imagen, JPanel panel)
     {
+       if(imagen==null)
+       {return null;}       
+       BufferedImage imagenNueva;
+       int largo;
+       int alto;
+       int x;
+       int y;
+       if(panel.getHeight()>imagen.getHeight())
+       {
+           alto=imagen.getHeight();
+           y=0;
+       }
+       else
+       {
+           alto=panel.getHeight();
+           y= (int)((imagen.getHeight()-panel.getHeight())/2);
+       }       
+       if(panel.getWidth()>imagen.getWidth())
+       {
+           largo=imagen.getWidth();
+           x=0;
+       }
+       else
+       {
+           largo=panel.getWidth();
+           x= (int)((imagen.getWidth()-panel.getWidth())/2);
+       }      
+       
+       imagenNueva=imagen.getSubimage(x, y, largo, alto);
+       return imagenNueva;
+    }
+    
+    public boolean cargarImagenEnPanelAjustandoTamaño(JPanel panel, boolean ajustarAAltura) 
+    {
+       
+        bufferedImagen=ajustarTamañoImagenAPanel(panel,bufferedImagenOriginal, ajustarAAltura);
+        bufferedImagen=obtenerImagenVisibleEnPanel(bufferedImagen, panel);
+        imagenBlob=aBlob(bufferedImagen);
+       return cargarImagenEnPanel(panel);
+      
+    }
+      
+    public boolean cargarImagenEnPanel(JPanel panel) 
+    {
+       
        if(bufferedImagen!=null)
        { 
            //Cento la imagen
@@ -69,9 +141,10 @@ public class GestorImagenes
            int centroPanelX=panel.getWidth()/2;
            int centroPanelY=panel.getHeight()/2;
            int inicioImagenX=centroPanelX-(largo/2);
-           int inicioImagenY=centroPanelY-(alto/2);
+           int inicioImagenY=centroPanelY-(alto/2);           
            //Creo el panel de la imagen y lo inserto en el panel objetivo
-           panelImagen.setBounds(inicioImagenX, inicioImagenY,bufferedImagen.getWidth() , bufferedImagen.getHeight());
+           panelImagen.setBounds(inicioImagenX, inicioImagenY,bufferedImagen.getWidth() ,bufferedImagen.getHeight());
+           panel.removeAll();
            panel.add(panelImagen);
            panel.repaint();
            panel.setVisible(true);
@@ -81,6 +154,40 @@ public class GestorImagenes
        {return false;}
     }
     
+    private BufferedImage ajustarTamañoImagenAPanel(JPanel panel,BufferedImage imagen, boolean ajustarAAltura)
+    {
+      if(panel==null||imagen ==null)
+      {return null;}
+      int imgW=imagen.getWidth();
+      int imgH=imagen.getHeight();
+      int panelH=panel.getHeight();
+      int panelW=panel.getWidth();
+      if(ajustarAAltura)
+      {
+         float proporcion=((float)panelH/(float)imgH);
+         imgW =(int) (imgW*proporcion);
+         imgH =panel.getHeight();
+      }
+      else
+      {
+         float proporcion=((float)panelW/(float)imgW);
+         imgH =(int) (imgH*proporcion);
+         imgW=panel.getWidth();
+      }
+      return cambiarTamaño(imagen, imgW, imgH);
+        
+    }
+    
+    private static BufferedImage cambiarTamaño(BufferedImage img, int newW, int newH) {  
+        int w = img.getWidth();  
+        int h = img.getHeight();  
+        BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());  
+        Graphics2D g = dimg.createGraphics();  
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
+        g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);  
+        g.dispose();  
+        return dimg;  
+    }
      private static BufferedImage leerImageDeArchivo(String ref) {  
         BufferedImage bimg = null;  
         try {  
@@ -93,7 +200,7 @@ public class GestorImagenes
         return bimg;  
     } 
     
-    public File abrirArchivoImagen(FileFilter ff, JComponent ventana)
+    private File abrirArchivoImagen(FileFilter ff, JComponent ventana)
     {
         JFileChooser fc = new JFileChooser();        
         fc.setFileFilter(ff);
@@ -109,43 +216,19 @@ public class GestorImagenes
         }        
     }   
     
-     private Blob getImagenBlobDeArrayDeBytes(byte[] arrayDeBytes)
-     {
-        return Hibernate.createBlob(arrayDeBytes);
-     }
      
-    private byte[] ArrayDeBytesDeArchivo(File archivo)
-    {
-        if(archivo!=null)
-        {
-            byte[] bFile = new byte[(int) archivo.length()];
- 
-            try 
-            {
-                 FileInputStream fileInputStream = new FileInputStream(archivo);
-                 //convert file into array of bytes
-                 fileInputStream.read(bFile);
-                 fileInputStream.close();
-            } catch (Exception e) {
-                 e.printStackTrace();
-            }
-            return bFile;
-        }
-        else
-        {return null;}        
-        
-    }
         
     public void setImagenBlob(Blob imagenB)
     {
         imagenBlob=imagenB;  
         if(imagenB!=null)
         {    
-            byte[] bytes=toByteArray(imagenBlob);        
+            byte[] bytes=aByteArray(imagenBlob);        
             try 
             {  
                 InputStream in = new ByteArrayInputStream(bytes);
-                bufferedImagen = ImageIO.read(in);
+                bufferedImagenOriginal = ImageIO.read(in);
+                bufferedImagen =bufferedImagenOriginal;
             } catch (Exception e) 
             {  
                 e.printStackTrace();  
@@ -157,9 +240,41 @@ public class GestorImagenes
         return imagenBlob;    
     }
     
-    
-     
-  private byte[] toByteArray(Blob fromImageBlob) {
+   public static byte[] aByteArray(BufferedImage img) throws ImageFormatException, IOException
+   {
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+		encoder.encode(img);
+		return os.toByteArray();	
+    } 
+   /*private byte[] aByteArray(BufferedImage image)
+    {
+        ////////////////////////////////////////////////////////
+        WritableRaster raster = image.getRaster();
+        DataBufferByte buffer = (DataBufferByte)raster.getDataBuffer();
+        return buffer.getData();
+        //////////////////////////////////////////
+       /* byte[] byteArray=null;
+         try {  
+            ByteArrayOutputStream out  = new ByteArrayOutputStream();
+            out = new ByteArrayOutputStream();  
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
+            JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(image);  
+            int quality = 5;  
+            quality = Math.max(0, Math.min(quality, 100));  
+            param.setQuality((float) quality / 100.0f, false);  
+            encoder.setJPEGEncodeParam(param);  
+            encoder.encode(image);  
+            byteArray=out.toByteArray();
+            out.close();  
+            } 
+         catch (Exception e) {  
+            e.printStackTrace();
+            }
+         return byteArray;*/
+        ///////////////////////////////////////////
+   // }  */ 
+  private byte[] aByteArray(Blob fromImageBlob) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     try {
       return toByteArrayImpl(fromImageBlob, baos);
@@ -185,7 +300,53 @@ public class GestorImagenes
     }
     return baos.toByteArray();
   }
-    
+  
+  private Blob aBlob(BufferedImage imagen)
+  {
+        if(imagen!=null)
+        {    
+           byte[] ba=null;
+            try{ ba= aByteArray(imagen);}
+           catch(Exception e)
+           {
+               e.printStackTrace();
+               //Espero q nunca pase por aca. Recen.
+               System.out.println("A esta altura ya estoy podrido de esta mierda de imagenes");
+           }
+            return aBlob(ba);
+        }
+        else
+        {return null;}
+    }
+  private Blob aBlob(byte[] arrayDeBytes)
+  {
+        return Hibernate.createBlob(arrayDeBytes);
+  }
+     
+  private byte[] aArrayDeBytes(File archivo)
+  {
+        if(archivo!=null)
+        {
+            byte[] bFile = new byte[(int) archivo.length()];
+ 
+            try 
+            {
+                 FileInputStream fileInputStream = new FileInputStream(archivo);
+                 //convert file into array of bytes
+                 fileInputStream.read(bFile);
+                 fileInputStream.close();
+            } catch (Exception e) {
+                 e.printStackTrace();
+            }
+            return bFile;
+        }
+        else
+        {return null;}        
+        
+   } 
+  
+  
+    //Panel personalizado en el que será reenderizada la imagen (uso interno unicamente)
     public class PanelImagen extends JPanel
     {  
         private BufferedImage image;  
