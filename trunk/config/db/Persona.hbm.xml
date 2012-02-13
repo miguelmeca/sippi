@@ -8,7 +8,7 @@
     </id>
     <property column="NOMBRE" name="nombre" not-null="true" type="string"/>
     <property column="APELLIDO" name="apellido" not-null="true" type="string"/>
-    <property column="FECH_NAC" name="fechadeNac" not-null="true" type="date"/>
+    <property column="FECH_NAC" name="fechadeNac" type="date"/>
     <property column="NRO_DOC" name="nroDoc" type="string"/>
     <property column="EMAIL" name="email" type="string"/>
     <property column="CUIL" name="cuil" type="string"/>
