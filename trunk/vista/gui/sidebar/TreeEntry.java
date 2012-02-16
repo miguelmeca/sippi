@@ -21,6 +21,8 @@ public class TreeEntry
     private ArrayList<TreeEntry> hijos;
     private String _instance;
 
+    private int id;
+    private String tipo;
 
     public TreeEntry(String titulo, String urlIcono) {
         this();
@@ -97,6 +99,29 @@ public class TreeEntry
             
         }
     }
+
+    @Override
+    public String toString() {
+        return this.tipo+";"+this.id+";"+getTitulo();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
             
+    
+    
     
 }

@@ -20,14 +20,12 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.TablaUtil;
 import vista.gui.dnd.IDropEvent;
@@ -124,62 +122,95 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     
     private void initModel() {
 
-        // Create a new Phrase
+        int n = 0;
+        // TODO: Llenar el Gantt
+        List<TareaPlanificacion> lista = _gestor.getListaTareasPlanificadas();
+        for (int i = 0; i < lista.size(); i++) {
+            TareaPlanificacion tplan = lista.get(i);
+            cargarTareasRecursivas(tplan,n);
+        }
+        
+        graph.refreshModel();
+
+//        // Create a new Phrase
+//        CoolGanttPhase p1 = new CoolGanttPhase();
+//        p1.setEditable(true);
+//        p1.setId(1);
+//        p1.setNombre("Phase Test 1");
+//        p1.setType(demoTypes.TYPE_NORMAL);
+//        p1.setStartDate(new Date());
+//        p1.setEndDate(fechaMas(new Date(), 5));
+//
+//        // Create a new Phrase
+//        CoolGanttPhase p2 = new CoolGanttPhase();
+//        p2.setEditable(true);
+//        p2.setId(2);
+//        p2.setNombre("Phase Test 2");
+//        p2.setType(demoTypes.TYPE_TRANSPORTE);
+//        p2.setStartDate(fechaMas(new Date(), 5));
+//        p2.setEndDate(fechaMas(new Date(), 10));
+//
+//        // Create a new Phrase
+//        CoolGanttPhase p3 = new CoolGanttPhase();
+//        p3.setEditable(false);
+//        p3.setId(3);
+//        p3.setNombre("Phase Test 3");
+//        p3.setStartDate(fechaMas(new Date(), 10));
+//        p3.setEndDate(fechaMas(new Date(), 20));
+//
+//        // Create a new Phrase
+//        CoolGanttPhase p4 = new CoolGanttPhase();
+//        p4.setId(4);
+//        p4.setNombre("Phase Test 4");
+//        p4.setStartDate(fechaMas(new Date(), 20));
+//        p4.setEndDate(fechaMas(new Date(), 30));
+//
+//        // Create a new Phrase
+//        CoolGanttPhase p5 = new CoolGanttPhase();
+//        p5.setEditable(true);
+//        p5.setId(5);
+//        p5.setNombre("Phase Test 5");
+//        p5.setStartDate(fechaMas(new Date(), 10));
+//        p5.setEndDate(fechaMas(new Date(), 20));
+//
+//        // Set dependencies
+//        p2.addSubsequentPhase(p1);
+//        p4.addSubsequentPhase(p2);
+//        p5.addSubsequentPhase(p1);
+//
+//        graph.addPhase(p1);
+//        graph.addPhase(p2);
+//        graph.addPhase(p3);
+//        graph.addPhase(p4);
+//        graph.addPhase(p5);
+
+
+    }
+
+    private void cargarTareasRecursivas(TareaPlanificacion tplan, int n) {
+
         CoolGanttPhase p1 = new CoolGanttPhase();
         p1.setEditable(true);
-        p1.setId(1);
-        p1.setNombre("Phase Test 1");
+        p1.setId(tplan.getIdTareaGantt());
+        p1.setNombre(tplan.getNombre());
         p1.setType(demoTypes.TYPE_NORMAL);
-        p1.setStartDate(new Date());
-        p1.setEndDate(fechaMas(new Date(), 5));
+        p1.setStartDate(tplan.getFechaInicio());
+        p1.setEndDate(tplan.getFechaFin());
 
-        // Create a new Phrase
-        CoolGanttPhase p2 = new CoolGanttPhase();
-        p2.setEditable(true);
-        p2.setId(2);
-        p2.setNombre("Phase Test 2");
-        p2.setType(demoTypes.TYPE_TRANSPORTE);
-        p2.setStartDate(fechaMas(new Date(), 5));
-        p2.setEndDate(fechaMas(new Date(), 10));
-
-        // Create a new Phrase
-        CoolGanttPhase p3 = new CoolGanttPhase();
-        p3.setEditable(false);
-        p3.setId(3);
-        p3.setNombre("Phase Test 3");
-        p3.setStartDate(fechaMas(new Date(), 10));
-        p3.setEndDate(fechaMas(new Date(), 20));
-
-        // Create a new Phrase
-        CoolGanttPhase p4 = new CoolGanttPhase();
-        p4.setId(4);
-        p4.setNombre("Phase Test 4");
-        p4.setStartDate(fechaMas(new Date(), 20));
-        p4.setEndDate(fechaMas(new Date(), 30));
-
-        // Create a new Phrase
-        CoolGanttPhase p5 = new CoolGanttPhase();
-        p5.setEditable(true);
-        p5.setId(5);
-        p5.setNombre("Phase Test 5");
-        p5.setStartDate(fechaMas(new Date(), 10));
-        p5.setEndDate(fechaMas(new Date(), 20));
-
-        // Set dependencies
-        p2.addSubsequentPhase(p1);
-        p4.addSubsequentPhase(p2);
-        p5.addSubsequentPhase(p1);
-
-        graph.addPhase(p1);
-        graph.addPhase(p2);
-        graph.addPhase(p3);
-        graph.addPhase(p4);
-        graph.addPhase(p5);
-
-        graph.refreshModel();
+        // Agrego el nivel de tarea al gantt
+        for (int j = 0; j < n; j++) {
+            p1.setNombre(p1.getNombre()+" @");
+        }
         
-        //graph.refresh();
-        //pack();
+        graph.addPhase(p1);
+
+        tplan.getSubtareas();
+        if (tplan.getSubtareas() != null) {
+            for (int i = 0; i < tplan.getSubtareas().size(); i++) {
+                TareaPlanificacion tp = tplan.getSubtareas().get(i);
+                cargarTareasRecursivas(tp,n++);
+            }
+        }
     }
 
     private Date fechaMas(Date fch, int dias) {
@@ -368,6 +399,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeRecursos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeRecursos.setDragEnabled(true);
         treeRecursos.setRootVisible(false);
         jScrollPane3.setViewportView(treeRecursos);
 
@@ -471,7 +503,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 572, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -511,7 +543,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addContainerGap(357, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -720,7 +752,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -936,8 +968,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
     
-    private void AgregarNuevaTarea(int id,String nombre)
-    {
+    public void AgregarNuevaTarea(int id,String nombre)
+    {  
         // Create a new Phrase
         CoolGanttPhase p5 = new CoolGanttPhase();
         p5.setEditable(true);
@@ -1015,8 +1047,21 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
                     {
                         // Agrego una nueva Tarea
-                        AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                        _gestor.AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                        //AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
                     }
+                    if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                    {
+                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA);
+                    }
+                    if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                    {
+                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL);
+                    }
+                    if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
+                    {
+                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
+                    }                    
                 }
             }   
         }
