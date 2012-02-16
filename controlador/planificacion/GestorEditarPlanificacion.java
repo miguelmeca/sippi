@@ -8,6 +8,7 @@ package controlador.planificacion;
 import config.Iconos;
 import controlador.GestorAbstracto;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -18,6 +19,7 @@ import util.HibernateUtil;
 import util.NTupla;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.TreeEntry;
+import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.EditarPlanificacion;
 
 
@@ -33,16 +35,30 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
     private Session sesion;
     private PedidoObra pedidoDeObra;
     private PlanificacionXXX planificacion;
+    
+    private HashMap<Integer,Boolean> generatedIdGantt;
 
     public GestorEditarPlanificacion(EditarPlanificacion _pantalla, int idPedidoDeObra) {
         this._pantalla = _pantalla;
         this._gestorArbolRecursos = new GestorArbolDeRecursos();
+        generatedIdGantt = new HashMap<Integer, Boolean>();
 
         try {
             sesion = HibernateUtil.getSession();
 
             this.pedidoDeObra = (PedidoObra) sesion.load(PedidoObra.class, idPedidoDeObra);
             this.planificacion = pedidoDeObra.getPlanificacion();
+            
+            if(this.planificacion!=null)
+            {
+                for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+                    TareaPlanificacion tp = this.planificacion.getTareas().get(i);
+                    if(tp!=null)
+                    {
+                        generatedIdGantt.put(tp.getIdTareaGantt(), Boolean.TRUE);
+                    }
+                }
+            }
 
         } catch (Exception e) {
             mostrarMensajeError("No se pudo cargar el Pedido ni la planificación asociada");
@@ -93,31 +109,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
             mostrarMensajeError("No se pudo cargar las subobras del pedido");
         }
         return lista;
-    }
-
-    public List getListaMock(String tipo) {
-
-        ArrayList<NTupla> lista = new ArrayList<NTupla>();
-
-        NTupla nt1 = new NTupla(1);
-        nt1.setNombre(tipo + " 1:" + (Math.random() * 100));
-
-        NTupla nt2 = new NTupla(2);
-        nt2.setNombre(tipo + " 2:" + (Math.random() * 100));
-
-        NTupla nt3 = new NTupla(3);
-        nt3.setNombre(tipo + " 3:" + (Math.random() * 100));
-
-        NTupla nt4 = new NTupla(4);
-        nt4.setNombre(tipo + " 4:" + (Math.random() * 100));
-
-        lista.add(nt1);
-        lista.add(nt2);
-        lista.add(nt3);
-        lista.add(nt4);
-
-        return lista;
-
     }
 
     public void mostrarDatosGenerales(int idPedidoDeObra) {
@@ -175,10 +166,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                         for (int j = 0; j < listaHerramientas.size(); j++) {
                             SubObraXHerramientaModif herr = listaHerramientas.get(j);
                             TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
+                            subNodoHerramientas.setId(herr.getHerramienta().getRecursoEsp().getId());
+                            subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
                             nodoHerramientas.add(subNodoHerramientas);
                         }
                         
                         // MATERIALES
+                        // NECESITO idRecursoEspecifico y idMaterial
                         TreeEntry nodoMateriales = new TreeEntry("Materiales",Iconos.ICONO_MATERIAL);
                         nodoRoot.add(nodoMateriales);
                         
@@ -186,6 +180,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                         for (int j = 0; j < listaMateriales.size(); j++) {
                             SubObraXMaterialModif mat = listaMateriales.get(j);
                             TreeEntry subNodoMaterial = new TreeEntry(String.valueOf(mat.getMaterial().getId()),Iconos.ICONO_MATERIALES);
+                            subNodoMaterial.setId(mat.getMaterial().getId());
+                            subNodoMaterial.setTipo(ArbolDeTareasTipos.TIPO_MATERIAL);
                             nodoMateriales.add(subNodoMaterial);
                         }
                         
@@ -197,6 +193,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                         for (int j = 0; j < listaAlquileres.size(); j++) {
                             SubObraXAlquilerCompraModif alqcomp = listaAlquileres.get(j);
                             TreeEntry subNodoAlquComp = new TreeEntry(alqcomp.getTipoAlquilerCompra().getNombre()+" "+alqcomp.getDescripcion(),Iconos.ICONO_ALQUILERCOMPRA);
+                            subNodoAlquComp.setId(alqcomp.getId());
+                            subNodoAlquComp.setTipo(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
                             nodoAlqComps.add(subNodoAlquComp);
                         }
                         
@@ -211,5 +209,93 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         IconTreeModel modelo = new IconTreeModel();
         modelo.RellenarArbol(nodoRoot);
         treeRecursos.setModel(modelo);
+    }
+    
+    
+    public List<TareaPlanificacion> getListaTareasPlanificadas()
+    {
+        List<TareaPlanificacion> listaTareas = new ArrayList<TareaPlanificacion>();
+        if(this.planificacion!=null)
+        {
+            listaTareas = this.planificacion.getTareas();
+}
+        else
+        {
+            mostrarMensajeError("No se pudo cargar la planificación, por lo tanto no se mostrará el Gantt");
+        }
+        return listaTareas;
+    }
+    
+    private int generarIdTareaGantt()
+    {
+        int id = 1;
+        while (id<=9999) {            
+            if(!generatedIdGantt.containsKey(id))
+            {
+                generatedIdGantt.put(id, Boolean.TRUE);
+                return id;
+            }
+            else
+            {
+                id++;
+            }
+        }
+        return 0;
+    }
+
+    public void AgregarNuevaTarea(int id, String nombre) {
+        
+        // VEO QUE NO ESTE REPETIDA
+        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
+            {
+                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada en el gráfico");
+                return;
+            }
+        }
+        
+        // CREO LA NUEVA TAREA
+        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
+        nuevaTarea.setNombre(nombre);
+        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());
+        
+        // CArgo la SubObra X Tarea Planificada Mod
+        try
+        {
+              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
+              for (int i = 0; i < listaSubObrasMod.size(); i++) {
+                SubObraModificada som = listaSubObrasMod.get(i);
+                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
+                  for (int j = 0; j < lsitasoxtm.size(); j++) {
+                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
+                      if(soxtm.getId()==id)
+                      {
+                          nuevaTarea.setTareaCotizada(soxtm);
+                          break;
+                      }
+                  }
+            }
+        
+        }catch(Exception e)
+        {
+            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+            return;
+        }
+        
+        // Si existe:
+        if(nuevaTarea.getTareaCotizada()==null)
+        {
+            mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
+            return;
+        }
+        
+        // nuevaTarea.set
+        // TODO: Falta la relacion 
+        
+        this.planificacion.getTareas().add(nuevaTarea);
+        
+        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nuevaTarea.getNombre());
+//        _pantalla.updateGantt();
     }
 }

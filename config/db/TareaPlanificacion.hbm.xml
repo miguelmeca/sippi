@@ -34,5 +34,9 @@
     </list>
     <property name="fechaInicio" type="date"/>
     <property name="fechaFin" type="date"/>
+    <property name="idTareaGantt" type="integer"/>
+    
+    <many-to-one class="modelo.SubObraXTareaModif" name="tareaCotizada"/>
+    
   </class>
 </hibernate-mapping>

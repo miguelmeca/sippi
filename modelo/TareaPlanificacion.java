@@ -26,6 +26,8 @@ public class TareaPlanificacion {
     private List<PlanificacionXAlquilerCompra> alquilerCompras;
     private Date fechaInicio;
     private Date fechaFin;
+    private int idTareaGantt;
+    private SubObraXTareaModif tareaCotizada;
 
     public TareaPlanificacion() {
     }
@@ -125,4 +127,29 @@ public class TareaPlanificacion {
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
+
+    public int getOrden() {
+        return idTareaGantt;
+    }
+
+    public void setOrden(int orden) {
+        this.idTareaGantt = orden;
+    }
+
+    public int getIdTareaGantt() {
+        return idTareaGantt;
+    }
+
+    public void setIdTareaGantt(int idTareaGantt) {
+        this.idTareaGantt = idTareaGantt;
+    }
+
+    public SubObraXTareaModif getTareaCotizada() {
+        return tareaCotizada;
+    }
+
+    public void setTareaCotizada(SubObraXTareaModif tareaCotizada) {
+        this.tareaCotizada = tareaCotizada;
+    }
+        
 }

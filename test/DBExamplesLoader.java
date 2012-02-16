@@ -1422,6 +1422,8 @@ public class DBExamplesLoader {
                     Iterator<SubObraXTareaModif> itSOXTM = subObraModificada.getTareas().iterator();
                     while(itSOXTM.hasNext()){
                         SubObraXTareaModif soxtm = itSOXTM.next();
+                        
+                        tarea.setTareaCotizada(soxtm); // by Iuga -> Checkear
                         tarea.setNombre(soxtm.getNombre());
                         tarea.setObservaciones(soxtm.getObservaciones());
                         tarea.setTipoTarea(soxtm.getTipoTarea());
