@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import modelo.Cotizacion;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -29,6 +30,7 @@ import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.TortaRotator;
 import vista.interfaces.ICallBack_v2;
+import vista.planificacion.EditarPlanificacion;
 
 /**
  *
@@ -45,6 +47,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
     public ExplorarSubObras(int cot_id)
     {
         initComponents();
+        
+        panelVerPlanificacion.setVisible(false);
         
         gestor = new GestorExplorarSubObras(this);
         gestor.cargarCotizacion(cot_id);
@@ -131,6 +135,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jLabel6 = new javax.swing.JLabel();
         btnEnviarCliente = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        panelVerPlanificacion = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        btnAbrirPlanificacion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -213,7 +220,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnNuevaSubObra)
@@ -267,7 +274,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Fecha Límite de Entrega del Presupuesto:");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Número de Cotización:");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -278,7 +285,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             }
         });
 
-        txtNroCotizacion.setFont(new java.awt.Font("Tahoma", 1, 11));
+        txtNroCotizacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNroCotizacion.setText("P0000-0000000");
         txtNroCotizacion.addActionListener(new java.awt.event.ActionListener() {
@@ -316,12 +323,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         txtEstado.setEditable(false);
         txtEstado.setEnabled(false);
 
-        txtRevision.setFont(new java.awt.Font("Tahoma", 1, 11));
+        txtRevision.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtRevision.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtRevision.setText("0");
         txtRevision.setEnabled(false);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Revisión:");
 
@@ -338,18 +345,17 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                         .addComponent(txtNroCotizacion, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                .addContainerGap(84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGap(104, 104, 104)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtRevision, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
@@ -411,7 +417,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         jLabel21.setText("Nombre:");
 
-        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 13));
+        jLabel22.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(123, 166, 189));
         jLabel22.setText("Datos de la Obra");
 
@@ -421,7 +427,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         jLabel9.setText("Fecha de Inicio:");
 
-        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 13));
+        jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(123, 166, 189));
         jLabel26.setText("Fechas Importantes");
 
@@ -461,7 +467,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -505,7 +511,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -527,7 +533,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -539,7 +545,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         panelGraficos.setLayout(new javax.swing.BoxLayout(panelGraficos, javax.swing.BoxLayout.PAGE_AXIS));
 
-        lbl_est_titulo_barra.setFont(new java.awt.Font("Ubuntu", 1, 13));
+        lbl_est_titulo_barra.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
         lbl_est_titulo_barra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_est_titulo_barra.setText("Relación del Monto usado con el Monto máximo");
 
@@ -573,7 +579,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         panelGraficoRecursos.setMinimumSize(new java.awt.Dimension(510, 288));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Contribución de cada 'Tipo de Recurso' al monto Total");
 
@@ -599,8 +605,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficoRecursosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGraficoRecursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                    .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelGraficoRecursosLayout.setVerticalGroup(
@@ -609,7 +615,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(_containerGraficoRecursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -617,7 +623,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         panelGraficoSubObras.setMinimumSize(new java.awt.Dimension(510, 288));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Contribución de cada 'Sub-Obra' al monto Total");
 
@@ -643,8 +649,8 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             .addGroup(panelGraficoSubObrasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGraficoSubObrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                    .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelGraficoSubObrasLayout.setVerticalGroup(
@@ -653,7 +659,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(_containerGraficoTortaSubObras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -672,7 +678,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelGraficos, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(panelGraficos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -681,7 +687,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jTabbedPane1.addTab("Estadisticas", jScrollPane2);
 
         txtDescripcionObra.setColumns(20);
-        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10));
+        txtDescripcionObra.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         txtDescripcionObra.setLineWrap(true);
         txtDescripcionObra.setRows(5);
         txtDescripcionObra.setText("Por la presente cotizamos ...");
@@ -705,7 +711,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -719,6 +725,11 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         btnPlanificar.setText("Comenzar una planificación sobre esta cotización");
         btnPlanificar.setActionCommand("Comenzar una planificación desde este presupuesto");
         btnPlanificar.setEnabled(false);
+        btnPlanificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlanificarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Mi cliente no acepto la cotización:");
 
@@ -792,13 +803,46 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addComponent(btnRecotizar))
         );
 
+        panelVerPlanificacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Planificación de esta cotizacion"));
+
+        jLabel15.setText("Deseo Abrir la Planificación para esta Obra:");
+
+        btnAbrirPlanificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/chart.png"))); // NOI18N
+        btnAbrirPlanificacion.setText("Abrir Planificación");
+        btnAbrirPlanificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirPlanificacionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelVerPlanificacionLayout = new javax.swing.GroupLayout(panelVerPlanificacion);
+        panelVerPlanificacion.setLayout(panelVerPlanificacionLayout);
+        panelVerPlanificacionLayout.setHorizontalGroup(
+            panelVerPlanificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVerPlanificacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelVerPlanificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAbrirPlanificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelVerPlanificacionLayout.setVerticalGroup(
+            panelVerPlanificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVerPlanificacionLayout.createSequentialGroup()
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAbrirPlanificacion))
+        );
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelVerPlanificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -806,7 +850,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelVerPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Cotización", jPanel11);
@@ -815,7 +861,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,7 +905,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(199, 199, 199)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1095,10 +1141,35 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNroCotizacionActionPerformed
 
+    private void btnPlanificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanificarActionPerformed
+        
+        gestor.comenzarPlaificacion();
+        this.dispose();
+        
+    }//GEN-LAST:event_btnPlanificarActionPerformed
+
+    private void btnAbrirPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPlanificacionActionPerformed
+        
+        int idPlan = gestor.getIdDePlanificacionDeObra();
+        if(idPlan!=0)
+        {
+            EditarPlanificacion ep = new EditarPlanificacion(idPlan);
+            SwingPanel.getInstance().addWindow(ep);
+            ep.setVisible(true);
+            this.dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"No se encontro la planificacion asociada", "Error!",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnAbrirPlanificacionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel _containerGraficoRecursos;
     private javax.swing.JPanel _containerGraficoTortaSubObras;
+    private javax.swing.JButton btnAbrirPlanificacion;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditarSubObra;
     private javax.swing.JButton btnEliminarSubObra;
@@ -1120,6 +1191,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1161,6 +1233,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JPanel panelGraficoRecursos;
     private javax.swing.JPanel panelGraficoSubObras;
     private javax.swing.JPanel panelGraficos;
+    private javax.swing.JPanel panelVerPlanificacion;
     private javax.swing.JProgressBar prog_est_max;
     private javax.swing.JTable tblMenu;
     private javax.swing.JTextArea txtDescripcionObra;
@@ -1374,6 +1447,8 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         btnEliminarSubObra.setEnabled(false);
         btnEditarSubObra.setEnabled(false);
         
+        panelVerPlanificacion.setVisible(false);
+        
         this.estadoCotizacion = "Rechazado";
     }
 
@@ -1395,6 +1470,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         btnNuevaSubObra.setEnabled(false);
         btnEliminarSubObra.setEnabled(false);
         btnEditarSubObra.setEnabled(false);     
+        panelVerPlanificacion.setVisible(false);
         
         this.estadoCotizacion = "Pendiente de Aceptacion";
     }
@@ -1417,6 +1493,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         btnNuevaSubObra.setEnabled(true);
         btnEliminarSubObra.setEnabled(true);
         btnEditarSubObra.setEnabled(true);   
+        panelVerPlanificacion.setVisible(false);
         
         this.estadoCotizacion = "En Creacion";
     }
@@ -1461,6 +1538,29 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             JOptionPane.showMessageDialog(this.getParent(),"Las fechas de las tareas en la tareas de la cotización fueron modificadas para adaptarse a las fechas de la obra. \nFavor de verificar las fechas de las tareas","Advertencia",JOptionPane.ERROR_MESSAGE);
         }
         
+    }
+
+    public void refrescarVentanaEstadoAceptado() {
+        btnSave.setEnabled(false);
+        txtNroCotizacion.setEnabled(false);
+        cmbLEP.setEnabled(false);
+        cmbLVP.setEnabled(false);
+        txtLugarEntrega.setEnabled(false);
+        txtDescripcionObra.setEnabled(false);
+        txtPlazoEntrega.setEnabled(false);
+        
+        btnRechazar.setEnabled(false);
+        //btnRecotizar.setEnabled(true);
+        btnPlanificar.setEnabled(false);
+        btnEnviarCliente.setEnabled(false);
+        
+        btnNuevaSubObra.setEnabled(false);
+        btnEliminarSubObra.setEnabled(false);
+        btnEditarSubObra.setEnabled(false);    
+        btnRecotizar.setEnabled(false);
+        panelVerPlanificacion.setVisible(true);
+        
+        this.estadoCotizacion = Cotizacion.ESTADO_ACEPTADO;        
     }
     
 }

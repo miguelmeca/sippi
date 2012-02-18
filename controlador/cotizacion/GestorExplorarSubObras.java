@@ -452,6 +452,10 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         {
             pantalla.refrescarVentanaEstadoEnCreacion();
         }
+        if(cot.getEstado().equals(Cotizacion.ESTADO_ACEPTADO))
+        {
+            pantalla.refrescarVentanaEstadoAceptado();
+        }        
     }
     
     public void enviarCotizacionCliente()
@@ -481,6 +485,39 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         nuevoId=gestorgestorRecotizar.crearCotizacionAPartirExistente(getCotizacion().getId());
         
         return nuevoId;
+    }
+
+    public void comenzarPlaificacion() {
+        
+        // Ante todo, cambio el estado de la cotizacion
+        // Y tb cambio el estado del pedido de obra ( atomico )
+        this.cot.setEstadoAceptado();
+        this.obra.setEstadoPresupuestado();
+        
+        // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
+        try
+        {
+            sesion.beginTransaction();
+                sesion.saveOrUpdate(this.cot);
+                sesion.saveOrUpdate(this.obra);
+            sesion.getTransaction().commit(); 
+            necesita_guardar = false;
+        } 
+        catch (Exception ex)
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva planificación\nPongase en contacto con un administrador\n"+ex.getMessage());
+        }
+    }
+
+    public int getIdDePlanificacionDeObra() {
+        if(this.obra.getPlanificacion()!=null)
+        {
+            return this.obra.getPlanificacion().getId();
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     
