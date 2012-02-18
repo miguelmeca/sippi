@@ -134,7 +134,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                 _pantalla.setCotizacionMontoTotal(String.valueOf(this.planificacion.getCotizacion().getCotizacionOriginal().CalcularTotal()));
             }
 
-
         } catch (Exception e) {
             mostrarMensajeError("No se pudo cargar los datos generales de la cotizacion");
         }
@@ -297,5 +296,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         
         _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nuevaTarea.getNombre());
 //        _pantalla.updateGantt();
+    }
+
+    public int getCotizacionPlanificada() {
+        return  this.planificacion.getCotizacion().getCotizacionOriginal().getId();
     }
 }
