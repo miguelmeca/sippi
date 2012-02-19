@@ -1264,6 +1264,8 @@ public class DBExamplesLoader {
     }
 
     private void cargarPlanificacionEjemplo() {
+
+
         try {
             HibernateUtil.beginTransaction();
 
