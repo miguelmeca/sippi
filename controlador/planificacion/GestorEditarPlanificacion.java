@@ -75,7 +75,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                 List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObra();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = listaSO.get(i);
-                    NTupla nt1 = new NTupla(som.getId());
+                    NTupla nt1 = new NTupla(som.getSubObraModificadaId());
                     nt1.setNombre(som.getSubObra().getNombre());
                     lista.add(nt1);
                 }

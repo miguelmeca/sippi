@@ -17,14 +17,6 @@ public class SubObraModificada {
     public SubObraModificada() {
     }
 
-    public int getId() {
-        return subObraModificadaId;
-    }
-
-    public void setId(int id) {
-        this.subObraModificadaId = id;
-    }
-
     public int getSubObraModificadaId() {
         return subObraModificadaId;
     }
