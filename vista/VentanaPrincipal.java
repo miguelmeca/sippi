@@ -29,6 +29,7 @@ import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ExplorarSubObras;
 import modelo.FavoritoBean;
 import vista.ayuda.VisorDeAyuda;
+import vista.compras.pantallaConsultarHerramientas;
 import vista.planificacion.EditarPlanificacion;
 import vista.rrhh.pantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
@@ -188,11 +189,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        btnMenuListHerr = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -295,10 +298,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblAyudaTitulo.setText("Titulo de la Ayuda");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 2, 10));
+        jButton1.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
         jButton1.setText("Más Ayuda ...");
 
@@ -328,7 +331,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -360,7 +363,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -377,6 +380,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Favourites.png"))); // NOI18N
         jMenu3.setText("Prototipos");
 
         jMenuItem4.setText("Registrar Empleado");
@@ -386,14 +390,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem4);
-
-        jMenuItem6.setText("Ver Empleados");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem6);
 
         jMenuItem3.setText("Editar Planificacion");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -428,6 +424,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
+        jMenu2.setText("Listados");
+
+        jMenuItem6.setText("Empleados");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
+        btnMenuListHerr.setText("Herramientas");
+        btnMenuListHerr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListHerrActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListHerr);
+
+        jMenuBar1.add(jMenu2);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
         jMenu1.setText("Ayuda");
@@ -572,13 +589,21 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        ep.setVisible(true);
 }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void btnMenuListHerrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListHerrActionPerformed
+        pantallaConsultarHerramientas pcherr = new pantallaConsultarHerramientas();
+        SwingPanel.getInstance().addWindow(pcherr);
+        pcherr.setVisible(true);
+    }//GEN-LAST:event_btnMenuListHerrActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
+    private javax.swing.JMenuItem btnMenuListHerr;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

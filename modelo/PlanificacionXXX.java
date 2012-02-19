@@ -73,4 +73,19 @@ public class PlanificacionXXX {
     public void setTareas(List<TareaPlanificacion> tareas) {
         this.tareas = tareas;
     }
+    
+    public String getNroCotizacionPlanificada()
+    {
+        if(this.getCotizacion()!=null)
+        {
+            if(this.getCotizacion().getCotizacionOriginal()!=null)
+            {
+                return this.getCotizacion().getCotizacionOriginal().getNroCotizacion();
+            }
+            return "";
+        }
+        return "";
+
+             
+    }
 }

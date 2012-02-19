@@ -47,6 +47,15 @@ public class HerramientaDeEmpresa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
+    public String getNombre()
+    {
+        if(this.recursoEsp!=null && this.recursoEsp.getRecurso()!=null)
+        {
+            return this.recursoEsp.getRecurso().getNombre()+" "+this.recursoEsp.getNombre();
+        }
+        return "";
+    }
 
     
 }
