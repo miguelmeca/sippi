@@ -178,7 +178,30 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
                         List<SubObraXMaterialModif> listaMateriales = som.getMateriales();
                         for (int j = 0; j < listaMateriales.size(); j++) {
                             SubObraXMaterialModif mat = listaMateriales.get(j);
-                            TreeEntry subNodoMaterial = new TreeEntry(String.valueOf(mat.getMaterial().getId()),Iconos.ICONO_MATERIALES);
+                            String nombre = "";
+                                // Busco, un Recurso Especifico que tenga ese recurso x proveedor
+                                 try
+                                 {
+                                    RecursoXProveedor rxp = mat.getMaterial();
+                                    RecursoEspecifico RE= (RecursoEspecifico)HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();  
+                                    if(RE!=null)
+                                    {
+                                        nombre += RE.getNombre();
+                                    }
+                                    
+                                    Recurso R = (Recurso)HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();  
+                                    if(R!=null)
+                                    {
+                                        nombre = R.getNombre()+" "+nombre;
+                                    }                                    
+                                    
+                                 }
+                                 catch(Exception e)
+                                 {
+                                     System.err.println("[ERROR] No se pudo encontrar el nombre del Material");
+                                 }
+                                 
+                            TreeEntry subNodoMaterial = new TreeEntry(nombre,Iconos.ICONO_MATERIALES);
                             subNodoMaterial.setId(mat.getMaterial().getId());
                             subNodoMaterial.setTipo(ArbolDeTareasTipos.TIPO_MATERIAL);
                             nodoMateriales.add(subNodoMaterial);
