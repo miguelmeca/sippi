@@ -85,6 +85,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                                 }  catch (Exception ex) 
                                 {
                                     System.out.println("No se pudo ejecutar el método");
+                                    fila.add("---");
                                 } 
                                 
                             } 

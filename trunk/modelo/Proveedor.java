@@ -69,6 +69,24 @@ public class Proveedor extends Empresa {
         }
         return false;
     }
+    
+    
+    public String mostrarRubros()
+    {
+        if(this.rubros!=null && !this.rubros.isEmpty())
+        {
+            String buffer = "";
+            for (int i = 0; i < rubros.size(); i++) {
+                Rubro rubro = rubros.get(i);
+                if(rubro!=null)
+                {
+                    buffer += rubro.getNombre()+" ";
+                }
+            }
+            return buffer;
+        }
+        return null;
+    }
 
    
 }

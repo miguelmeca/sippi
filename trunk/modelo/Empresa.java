@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -91,8 +92,12 @@ public class Empresa {
 
     }
 
-    public void mostrarDomicilio() {
-
+    public String mostrarDomicilio() {
+        if(getDomicilio()!=null)
+        {
+            return getDomicilio().toString();
+        }
+        return "";
     }
 
     public void mostrarTelefono() {
@@ -167,4 +172,28 @@ public class Empresa {
     public void setEstado(EstadoEmpresa estado){
         this.estado = estado;
     }
+    
+    public String mostrarEstado()
+    {
+        if(getEstado()!=null)
+        {
+            return getEstado().getNombre();
+        }
+        return "";
+    }
+    
+    public String mostrarTelefonos()
+    {
+        if(getTelefonos()!=null)
+        {
+            String buffer = "";
+            for (Telefono tell : (Set<Telefono>)getTelefonos())
+            {
+                buffer += tell.getNumero() + " ";
+            }
+            return buffer;
+        }
+        return "";
+    }    
+    
 }

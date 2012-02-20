@@ -29,6 +29,8 @@ import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ExplorarSubObras;
 import modelo.FavoritoBean;
 import vista.ayuda.VisorDeAyuda;
+import vista.comer.pantallaListadoEmpresaCliente;
+import vista.comer.pantallaListadoProveedores;
 import vista.compras.pantallaConsultarHerramientas;
 import vista.planificacion.EditarPlanificacion;
 import vista.rrhh.pantallaConsultarEmpleado;
@@ -194,6 +196,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
+        btnMenuListadoProveedores = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         btnMenuListHerr = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -428,6 +432,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
         jMenu2.setText("Listados");
 
+        btnMenuListadoEmpresasCliente.setText("Empresas Cliente");
+        btnMenuListadoEmpresasCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoEmpresasClienteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListadoEmpresasCliente);
+
+        btnMenuListadoProveedores.setText("Proveedores");
+        btnMenuListadoProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoProveedoresActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListadoProveedores);
+
         jMenuItem6.setText("Empleados");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -595,10 +615,24 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         pcherr.setVisible(true);
     }//GEN-LAST:event_btnMenuListHerrActionPerformed
 
+    private void btnMenuListadoEmpresasClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoEmpresasClienteActionPerformed
+        pantallaListadoEmpresaCliente win = new pantallaListadoEmpresaCliente();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnMenuListadoEmpresasClienteActionPerformed
+
+    private void btnMenuListadoProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoProveedoresActionPerformed
+        pantallaListadoProveedores win = new pantallaListadoProveedores();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnMenuListadoProveedoresActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;
+    private javax.swing.JMenuItem btnMenuListadoEmpresasCliente;
+    private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
     private javax.swing.JButton jButton1;
