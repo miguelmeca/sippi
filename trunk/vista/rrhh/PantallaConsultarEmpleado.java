@@ -12,8 +12,6 @@
 package vista.rrhh;
 import vista.interfaces.ICallBack;
 import controlador.rrhh.GestorConsultarEmpleado;
-import util.NTupla;
-import util.Tupla;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +23,6 @@ import javax.swing.table.TableRowSorter;
 import java.awt.Color;
 import javax.swing.JTable;
 import modelo.Empleado;
-import util.imagenes.GestorImagenes;
 /**
  *
  * @author Administrador
@@ -63,32 +60,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         activarFiltrosTabla();
         
         seleeccionBotones();
-        /* if(tablaEmpleados.getSelectedRow()!=-1)
-       {
-           int id;
-            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
-           btnModificarEmpleado.setEnabled(true);
-           btnConsultarEmpleado.setEnabled(true);
-           if(!gestor.esBaja(id))
-           {btnBajaEmpleado.setEnabled(true);}
-           else
-           {btnBajaEmpleado.setEnabled(false);}
-
-           if(gestor.esBaja(id))
-           {btnAltaEmpleado.setEnabled(true);}
-           else
-           {btnAltaEmpleado.setEnabled(false);}
-
-        }
-        else
-        {
-            btnModificarEmpleado.setEnabled(false);
-           btnConsultarEmpleado.setEnabled(false);
-
-           btnBajaEmpleado.setEnabled(false);
-
-            btnAltaEmpleado.setEnabled(false);
-        }*/
+       
 
     }
 
@@ -136,7 +108,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
            List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
            for (int i= 0; i < cadena.length; i++)
            {
-             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i],1));
            }
             if(rbFiltroActivos.isSelected())
            {
