@@ -1,10 +1,7 @@
 package vista.rrhh;
 
 import javax.swing.JTable;
-import vista.gui.*;
-import de.javasoft.plaf.synthetica.simple2D.DefaultComboListCellRenderer;
 import java.awt.Component;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 

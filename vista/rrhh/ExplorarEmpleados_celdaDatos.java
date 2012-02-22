@@ -7,10 +7,7 @@
 package vista.rrhh;
 
 import java.awt.Color;
-import java.util.Date;
 import modelo.Empleado;
-import util.FechaUtil;
-import util.NTupla;
 
 /**
  *

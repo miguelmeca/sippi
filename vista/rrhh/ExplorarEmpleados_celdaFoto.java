@@ -9,10 +9,7 @@ package vista.rrhh;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Date;
 import modelo.Empleado;
-import util.FechaUtil;
-import util.NTupla;
 import util.imagenes.GestorImagenes;
 
 /**
