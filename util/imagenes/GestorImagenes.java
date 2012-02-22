@@ -37,7 +37,7 @@ import org.hibernate.Hibernate;
  */
 public class GestorImagenes 
 {
-    BufferedImage bufferedImagenOriginal;//Guarda la imagen original pero con tamaño reducido.
+    BufferedImage bufferedImagenOriginal;//Guarda la imagen original pero con tamaÃ±o reducido.
     BufferedImage bufferedImagen;//Imagen que se muestra
     Blob imagenBlob; //Imagen para el gestor y la base de datos
     public static final int cargoImagenAjustadaEnAltura=1;
@@ -75,7 +75,7 @@ public class GestorImagenes
                ajustarA=false;
                retorno=cargoImagenAjustadaEnAncho;
            }
-           bufferedImagenOriginal=ajustarTamañoImagenAPanel(panel,bufferedImagenOriginal, ajustarA);
+           bufferedImagenOriginal=ajustarTamanoImagenAPanel(panel,bufferedImagenOriginal, ajustarA);
            bufferedImagen=obtenerImagenVisibleEnPanel(bufferedImagenOriginal, panel);
            imagenBlob=aBlob(bufferedImagen);
            cargarImagenEnPanel(panel);
@@ -119,10 +119,10 @@ public class GestorImagenes
        return imagenNueva;
     }
     
-    public boolean cargarImagenEnPanelAjustandoTamaño(JPanel panel, boolean ajustarAAltura) 
+    public boolean cargarImagenEnPanelAjustandoTamano(JPanel panel, boolean ajustarAAltura) 
     {
        
-        bufferedImagen=ajustarTamañoImagenAPanel(panel,bufferedImagenOriginal, ajustarAAltura);
+        bufferedImagen=ajustarTamanoImagenAPanel(panel,bufferedImagenOriginal, ajustarAAltura);
         bufferedImagen=obtenerImagenVisibleEnPanel(bufferedImagen, panel);
         imagenBlob=aBlob(bufferedImagen);
        return cargarImagenEnPanel(panel);
@@ -154,7 +154,7 @@ public class GestorImagenes
        {return false;}
     }
     
-    private BufferedImage ajustarTamañoImagenAPanel(JPanel panel,BufferedImage imagen, boolean ajustarAAltura)
+    private BufferedImage ajustarTamanoImagenAPanel(JPanel panel,BufferedImage imagen, boolean ajustarAAltura)
     {
       if(panel==null||imagen ==null)
       {return null;}
@@ -174,11 +174,11 @@ public class GestorImagenes
          imgH =(int) (imgH*proporcion);
          imgW=panel.getWidth();
       }
-      return cambiarTamaño(imagen, imgW, imgH);
+      return cambiarTamano(imagen, imgW, imgH);
         
     }
     
-    private static BufferedImage cambiarTamaño(BufferedImage img, int newW, int newH) {  
+    private static BufferedImage cambiarTamano(BufferedImage img, int newW, int newH) {  
         int w = img.getWidth();  
         int h = img.getHeight();  
         BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());  
@@ -346,7 +346,7 @@ public class GestorImagenes
    } 
   
   
-    //Panel personalizado en el que será reenderizada la imagen (uso interno unicamente)
+    //Panel personalizado en el que serÃ¡ reenderizada la imagen (uso interno unicamente)
     public class PanelImagen extends JPanel
     {  
         private BufferedImage image;  
