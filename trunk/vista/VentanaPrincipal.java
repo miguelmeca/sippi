@@ -33,7 +33,7 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.pantallaConsultarHerramientas;
 import vista.planificacion.EditarPlanificacion;
-import vista.rrhh.pantallaConsultarEmpleado;
+import vista.rrhh.PantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaRegistrarEmpleado;
 
@@ -604,7 +604,7 @@ private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem4ActionPerformed
 
 private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-    pantallaConsultarEmpleado ep = new pantallaConsultarEmpleado();
+    PantallaConsultarEmpleado ep = new PantallaConsultarEmpleado();
        SwingPanel.getInstance().addWindow(ep);
        ep.setVisible(true);
 }//GEN-LAST:event_jMenuItem6ActionPerformed

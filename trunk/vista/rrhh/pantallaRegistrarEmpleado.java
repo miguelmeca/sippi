@@ -50,7 +50,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
 
     //El gestor a utilizar sera gestorRegistrar o gestorModificar
     //segun sea el caso.
-    //El atributo gestor hace referencia al mismo gestor único nombrado
+    //El atributo gestor hace referencia al mismo gestor Ãºnico nombrado
     //anteriormente, y se usa para acceder a metodos comunes que estan en
     //los 2 gestores
     private IGestorEmpleado gestor;
@@ -89,7 +89,6 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();        
         instanciadaDesdeCU=false;
-        gestorImagenes=new GestorImagenes();
     }
     public pantallaRegistrarEmpleado(ICallBack pantallaConsu)
     {
@@ -102,10 +101,10 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         listaNroTel= new ArrayList<String>();
         listaTipoTel= new ArrayList<Tupla>();
         instanciadaDesdeCU=true;
-        pantallaConsultar=pantallaConsu;
+        pantallaConsultar=pantallaConsu;        
         this.setTitle("Registrar nuevo empleado");
     }
-
+    
    public pantallaRegistrarEmpleado(int id, ICallBack pantallaConsu)
     {
         initComponents();
@@ -127,7 +126,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         {
             JOptionPane.showMessageDialog(this.getParent(),"Error levantando el empleado de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        this.setTitle("Modificar datos de empleado - Legajo Nº"+legajo+" - "+ nombre+" "+apellido);
+        this.setTitle("Modificar datos de empleado - Legajo NÂº"+legajo+" - "+ nombre+" "+apellido);
     }
    private void setGestor(IGestorEmpleado gest)
    {gestor=gest;}
@@ -139,7 +138,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     }
    private void habilitarVentana()
     {
-        
+        gestorImagenes=new GestorImagenes();
         cmbProvincias.setEnabled(false);
         cmbLocalidades.setEnabled(false);
         cmbBarrios.setEnabled(false);
@@ -662,7 +661,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("<html>Número de<br> Documento:</html>");
+        jLabel1.setText("<html>NÃºmero de<br> Documento:</html>");
 
         txtNroDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -774,7 +773,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel23.getAccessibleContext().setAccessibleName("");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Números de Telefono"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("NÃºmeros de Telefono"));
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -783,7 +782,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         });
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel17.setText("Tipo de Teléfono y Número:");
+        jLabel17.setText("Tipo de TelÃ©fono y NÃºmero:");
 
         cmbTiposTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -805,7 +804,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             },
             new String [] {
-                "Tipo", "Número"
+                "Tipo", "NÃºmero"
             }
         ) {
             Class[] types = new Class [] {
@@ -876,7 +875,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel9.setText("Nº:");
+        jLabel9.setText("NÂº:");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Piso:");
@@ -885,7 +884,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jLabel11.setText("Departamento:");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel12.setText("Código Postal:");
+        jLabel12.setText("CÃ³digo Postal:");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel13.setText("Pais: ");
@@ -1050,7 +1049,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel2.getAccessibleContext().setAccessibleName("");
 
-        pnRegEmpleado.addTab("Datos Básicos", jPanel1);
+        pnRegEmpleado.addTab("Datos BÃ¡sicos", jPanel1);
 
         jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Capacitaciones"));
 
@@ -1078,7 +1077,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
             },
             new String [] {
-                "Capacitación", "Fecha de Vencimiento"
+                "CapacitaciÃ³n", "Fecha de Vencimiento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1411,7 +1410,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {       this.dispose();}
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -1472,7 +1471,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             //////////////
             gestor.tipoEspecialidadYRango(listaTipoEspecialidad ,listaRangoEspecialidad);
             gestor.capacitaciones(listaTipoCapacitacion ,listaVencimientoCapacitacion);
-            if(!modificar)//¿Se esta creando un empleado?
+            if(!modificar)//Â¿Se esta creando un empleado?
             {   
                  
                  if(gestorRegistrar.empleadoConfirmado())
@@ -1480,7 +1479,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         JOptionPane.showMessageDialog(this.getParent(),"Empleado Registrado correctamente","Empleado Registrado",JOptionPane.INFORMATION_MESSAGE);
                         if(pantallaConsultar!=null)
                         {pantallaConsultar.actualizar(3, true);}
-                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Desea registrar otro emplado?","Cancelar",JOptionPane.YES_NO_OPTION);
+                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Desea registrar otro emplado?","Cancelar",JOptionPane.YES_NO_OPTION);
                         if(resp==JOptionPane.NO_OPTION)
                         {       
                             this.dispose();
@@ -1507,7 +1506,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     }
                     else
                     {
-                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante la modificación del empleado","ERROR",JOptionPane.ERROR_MESSAGE);
+                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante la modificaciÃ³n del empleado","ERROR",JOptionPane.ERROR_MESSAGE);
                        pantallaConsultar.actualizar(3, false);
                        this.dispose();
                     }
@@ -1667,7 +1666,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
          }
         if(txtNroDomicilio.getText().equals(""))
         {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'NÂº' en Domicilio","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
                  ban=false;
                  return ban;
          } */
@@ -1813,14 +1812,14 @@ private void pnRegEmpleadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN
 private void btnAjustarAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustarAlturaActionPerformed
 if(btnAjustarAltura.isSelected())
 {
-    gestorImagenes.cargarImagenEnPanelAjustandoTamaño(panelFotografia,true);
+    gestorImagenes.cargarImagenEnPanelAjustandoTamano(panelFotografia,true);
 }
 }//GEN-LAST:event_btnAjustarAlturaActionPerformed
 
 private void btnAjustarAnchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustarAnchoActionPerformed
 if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
 {
-    gestorImagenes.cargarImagenEnPanelAjustandoTamaño(panelFotografia,false);
+    gestorImagenes.cargarImagenEnPanelAjustandoTamano(panelFotografia,false);
 }
 }//GEN-LAST:event_btnAjustarAnchoActionPerformed
  private void agregarEspecialidad()
@@ -2056,7 +2055,7 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
         {            
             gestorImagenes=ge;
              panelFotografia.removeAll();
-             //El renderizado se hace en el evento cuando se selecciona la pestaña.
+             //El renderizado se hace en el evento cuando se selecciona la pestaÃ±a.
             
         }
         //Fin Metodos Modificar Empleado
@@ -2185,9 +2184,9 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
 
     public String getTituloAyuda() {
         if(modificar)
-        {return "Opción: Modificar Empleado";}
+        {return "OpciÃ³n: Modificar Empleado";}
         else
-        {return "Opción: Nuevo Empleado";}
+        {return "OpciÃ³n: Nuevo Empleado";}
     }
     
     

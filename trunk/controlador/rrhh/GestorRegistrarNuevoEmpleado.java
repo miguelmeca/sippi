@@ -90,6 +90,14 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
         listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
          listaVencimientoCapacitaciones=new ArrayList<Date>();
     }
+    public GestorRegistrarNuevoEmpleado()
+    {
+        listaEspecialidades= new ArrayList<Especialidad>();
+        listaNroTel= new  ArrayList<String>();
+        listaTipoTel= new ArrayList<TipoTelefono>();
+        listaTipoCapacitaciones=new ArrayList<TipoCapacitacion>();
+         listaVencimientoCapacitaciones=new ArrayList<Date>();
+    }
         
 
         public ArrayList<Tupla> mostrarTiposDeDocumento() {
@@ -183,7 +191,7 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
             for(int i=0; i<listNroDoc.size();i++)
             {
                 n=(String)listNroDoc.get(i);
-                if(n.equals(cuil))
+                if(n!=null && n.equals(cuil))
                 {aprobado=false;
                 break;}
             }
@@ -449,7 +457,8 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
            // fecha_Alta=System
             
             Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado,fechaIngresoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaEspecialidades, listaNroTel, listaTipoTel, listaTipoCapacitaciones, listaVencimientoCapacitaciones, fechaAltaActual);
-            emp.setImagen(gestorImagenes.getImagenBlob());
+            if(gestorImagenes!=null)
+            {emp.setImagen(gestorImagenes.getImagenBlob());}
             //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
             
             return emp;

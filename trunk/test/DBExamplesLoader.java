@@ -33,51 +33,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import modelo.ContactoResponsable;
-import modelo.Cotizacion;
-import modelo.CotizacionModificada;
-import modelo.DetalleMaterial;
-import modelo.DetalleOrdenDeCompra;
-import modelo.DetalleSubObraXTarea;
-import modelo.DetalleSubObraXTareaModif;
-import modelo.EstadoOrdenDeCompraPendienteDeRecepcion;
-import modelo.Etapa;
-import modelo.FormaDePago;
-import modelo.Herramienta;
-import modelo.HerramientaDeEmpresa;
-import modelo.Material;
-import modelo.OrdenDeCompra;
-import modelo.PedidoObra;
-import modelo.Planificacion;
-import modelo.PlanificacionXXX;
-import modelo.Proveedor;
-import modelo.RecursoXProveedor;
-import modelo.PrecioSegunCantidad;
-import modelo.Presupuesto;
-import modelo.RangoEmpleado;
-import modelo.RecursoEspecifico;
-import modelo.RolContactoResponsable;
-import modelo.Rubro;
-import modelo.SubObra;
-import modelo.SubObraModificada;
-import modelo.SubObraXAdicional;
-import modelo.SubObraXAdicionalModif;
-import modelo.SubObraXAlquilerCompra;
-import modelo.SubObraXAlquilerCompraModif;
-import modelo.SubObraXHerramienta;
-import modelo.SubObraXHerramientaModif;
-import modelo.SubObraXMaterial;
-import modelo.SubObraXMaterialModif;
-import modelo.SubObraXTarea;
-import modelo.SubObraXTareaModif;
-import modelo.Tarea;
-import modelo.TareaPlanificacion;
-import modelo.TipoAdicional;
-import modelo.TipoAlquilerCompra;
-import modelo.TipoLicenciaEmpleado;
-import modelo.TipoTarea;
-import modelo.UnidadDeMedida;
-import modelo.User;
+import modelo.*;
 import util.LogUtil;
 import util.RubroUtil;
 //import java.util.Set;
@@ -113,10 +69,13 @@ public class DBExamplesLoader {
           this.cargarRubros();
 
           this.cargarPaises();
-          this.cargarTipoDocumento();
+          
+          
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
+          this.cargarTipoDocumento();
           //this.cargarTipoLicencias();
+          this.cargarEmplados();
           this.cargarContactoResponsable(); //TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
 
           this.cargarCompras();
@@ -514,11 +473,38 @@ public class DBExamplesLoader {
                 prov3.addLocalidad(l9);
 
 ///////////////////////////////////////////
+       
+
+        sesion.beginTransaction();
+        sesion.save(b1);
+        sesion.save(b2);
+        sesion.save(b3);
+        sesion.save(b4);
+        sesion.save(l1);
+        sesion.save(l2);
+        sesion.save(l3);
+        sesion.save(prov1);
+        sesion.save(prov2);
+        sesion.save(p1);
+        sesion.save(p2);
+        sesion.save(prov3);
+        sesion.save(l9);
+        sesion.getTransaction().commit();
+        
+    }
+    
+    public void cargarEmplados()
+    {
         Empleado emp=new Empleado();//
         emp.setApellido("sorongo");//
         emp.setNombre("pedro");//
         emp.setLegajo(53);//
         emp.setNroDoc("12345678");//
+        emp.setCuil("3212155");
+        TipoDocumento td=new TipoDocumento();
+        td.setNombre("LPQLP");
+        td.setDescripcion("");
+        emp.setTipoDoc(td);
         Date d=new Date();
         d.setTime(894665);
         emp.setFechadeNac(d);
@@ -549,21 +535,8 @@ public class DBExamplesLoader {
         Especialidad esp2a=new Especialidad(te2, rng1,11.0);
         Especialidad esp2b=new Especialidad(te2, rng2,13.0);
         Especialidad esp2c=new Especialidad(te2, rng3,15.0);
-
         sesion.beginTransaction();
-        sesion.save(b1);
-        sesion.save(b2);
-        sesion.save(b3);
-        sesion.save(b4);
-        sesion.save(l1);
-        sesion.save(l2);
-        sesion.save(l3);
-        sesion.save(prov1);
-        sesion.save(prov2);
-        sesion.save(p1);
-        sesion.save(p2);
-        sesion.save(prov3);
-        sesion.save(l9);
+        sesion.save(td);
         sesion.save(te);
         sesion.save(te2);
         sesion.save(tc);
@@ -577,7 +550,8 @@ public class DBExamplesLoader {
         sesion.save(esp2a);
         sesion.save(esp2b);
         sesion.save(esp2c);
-        //sesion.save(emp); //
+        sesion.save(dom);
+        sesion.save(emp); //
         sesion.getTransaction().commit();
     }
 

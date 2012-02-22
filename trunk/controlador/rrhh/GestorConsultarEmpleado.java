@@ -4,9 +4,10 @@
  */
 
 package controlador.rrhh;
-import vista.rrhh.pantallaConsultarEmpleado;
+import vista.rrhh.PantallaConsultarEmpleado;
 import util.NTupla;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -20,7 +21,7 @@ import modelo.EstadoEmpleadoActivo;
 public class GestorConsultarEmpleado
 {
 
-    private pantallaConsultarEmpleado pantalla;
+    private PantallaConsultarEmpleado pantalla;
     private Session sesion;
     private List lista;
 
@@ -28,7 +29,7 @@ public class GestorConsultarEmpleado
 
 
 
-    public GestorConsultarEmpleado(pantallaConsultarEmpleado pantalla)
+    public GestorConsultarEmpleado(PantallaConsultarEmpleado pantalla)
     {
         this.pantalla = pantalla;
         //listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
@@ -80,28 +81,21 @@ public class GestorConsultarEmpleado
 
             }
 
-
-
-
-         //sesion.beginTransaction();
             lista = sesion.createQuery("from Empleado order by legajo").list();
-            //sesion.getTransaction().commit();
-
-            //ArrayList<String> listaNombres = new ArrayList<String>();
-            ArrayList<NTupla> listaEmpleados = new ArrayList<NTupla>();
+            
+            ArrayList<Empleado> listaEmpleados = new ArrayList<Empleado>();
             for (int i = 0; i < lista.size(); i++) {
                 Empleado emp = (Empleado)lista.get(i);
-               // listaNombres.add(td.getNombre());
-                NTupla tupla = new NTupla(emp.getOID());
-                tupla.setNombre(String.valueOf(emp.getLegajo()));
-                String[] datos=new String[3];
-                //datos[0]=String.valueOf(emp.getLegajo());
+                //NTupla tupla = new NTupla(emp.getOID());
+               // tupla.setNombre(String.valueOf(emp.getLegajo()));
+                
+                /*String[] datos=new String[3];                
                 datos[0]=emp.getNombre();
-                datos[1]=emp.getApellido();
-                //if(emp.getEstado()!=null)
+                datos[1]=emp.getApellido();               
                 {datos[2]=emp.getEstado().getNombre();}
-                tupla.setData(datos);
-                    listaEmpleados.add(tupla);
+                tupla.setData(datos);*/
+                //tupla.setData(emp);
+                listaEmpleados.add(emp);
             }
 
             return listaEmpleados;

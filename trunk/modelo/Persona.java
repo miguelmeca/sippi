@@ -52,7 +52,7 @@ public class Persona {
     {
          telefonos= new HashSet();
     }
-
+    
     public int getOid() {
         return oid;
     }

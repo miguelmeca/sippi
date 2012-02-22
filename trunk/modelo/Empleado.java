@@ -91,6 +91,8 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
     }
      public Empleado()
      {
+        estado=new EstadoEmpleadoActivo();
+        hib_flag_estado = "modelo.EstadoEmpleadoActivo";
         /* especialiades= new ArrayList();
          indumentaria= new ArrayList();
          capacitacion= new ArrayList();*/
