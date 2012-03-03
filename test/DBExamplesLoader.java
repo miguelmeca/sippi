@@ -1086,44 +1086,44 @@ public class DBExamplesLoader {
             // ------- SUBOBRAS -------
                 // SUBOBRA 1
                 SubObra so1 = new SubObra();
-                so1.setNombre("Desconexionado elÃ©ctrico de tolva y sinfin en Almacenaje de Polvo de Galleta.");
+                so1.setNombre("Desconexionado de la tolva");
                 so1.setDescripcion("");
+                
+                    // Agrego una herramienta
+                    SubObraXHerramienta soxh = new SubObraXHerramienta();
+                    soxh.setHerramienta((HerramientaDeEmpresa)sesion.load(HerramientaDeEmpresa.class,1));
+                    soxh.setCantDias(2);
+                    soxh.setCantHoras(8);
+                    soxh.setCostoXHora(30);
+                    soxh.setObservaciones("Llevar repuestos");
+                    so1.addHerramienta(soxh);
 
-                SubObraXHerramienta soxh = new SubObraXHerramienta();
-                soxh.setHerramienta((HerramientaDeEmpresa)sesion.load(HerramientaDeEmpresa.class,1));
-                soxh.setCantDias(2);
-                soxh.setCantHoras(8);
-                soxh.setCostoXHora(30);
-                soxh.setObservaciones("Llevar repuestos");
-                so1.addHerramienta(soxh);
-
-                SubObraXTarea soxt = new SubObraXTarea();
-                soxt.setNombre("Armado estructura");
-                soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
-                DetalleSubObraXTarea dsoxt=new DetalleSubObraXTarea();
-                dsoxt.setCantHorasNormales(17.0);
-                dsoxt.setCantHorasAl50(5.0);
-                dsoxt.setCantHorasAl100(4.0);
-                dsoxt.setCostoXHoraNormal(22.0);
-                dsoxt.setCantidadPersonas(2);
-                dsoxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
-                soxt.agreagarDetalle(dsoxt);
-                DetalleSubObraXTarea dsoxt1=new DetalleSubObraXTarea();
-                dsoxt1.setCantHorasNormales(15.0);
-                dsoxt1.setCantHorasAl50(3.0);
-                dsoxt1.setCantHorasAl100(2.0);
-                dsoxt1.setCostoXHoraNormal(24.0);
-                dsoxt1.setCantidadPersonas(1);
-                dsoxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
-                soxt.agreagarDetalle(dsoxt1);
+                    // Agrego una Tarea
+                    SubObraXTarea soxt = new SubObraXTarea();
+                    soxt.setNombre("Armado estructura");
+                    soxt.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 1));
+                    DetalleSubObraXTarea dsoxt=new DetalleSubObraXTarea();
+                    dsoxt.setCantHorasNormales(17.0);
+                    dsoxt.setCantHorasAl50(5.0);
+                    dsoxt.setCantHorasAl100(4.0);
+                    dsoxt.setCostoXHoraNormal(22.0);
+                    dsoxt.setCantidadPersonas(2);
+                    dsoxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                    soxt.agreagarDetalle(dsoxt);
+                    DetalleSubObraXTarea dsoxt1=new DetalleSubObraXTarea();
+                    dsoxt1.setCantHorasNormales(15.0);
+                    dsoxt1.setCantHorasAl50(3.0);
+                    dsoxt1.setCantHorasAl100(2.0);
+                    dsoxt1.setCostoXHoraNormal(24.0);
+                    dsoxt1.setCantidadPersonas(1);
+                    dsoxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
+                    soxt.agreagarDetalle(dsoxt1);
 
                 so1.addTarea(soxt);
 
 
-
-
                 SubObraXTarea soxt1 = new SubObraXTarea();
-                soxt.setNombre("Preparacion de la base");
+                soxt1.setNombre("Preparacion de la base");
                 soxt1.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2));
                 DetalleSubObraXTarea dsoxt2=new DetalleSubObraXTarea();
                 dsoxt2.setCantHorasNormales(17.0);
@@ -1132,7 +1132,7 @@ public class DBExamplesLoader {
                 dsoxt2.setCostoXHoraNormal(22.0);
                 dsoxt2.setCantidadPersonas(3);
                 dsoxt2.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
-                soxt.agreagarDetalle(dsoxt2);
+                soxt1.agreagarDetalle(dsoxt2);
                 DetalleSubObraXTarea dsoxt3=new DetalleSubObraXTarea();
                 dsoxt3.setCantHorasNormales(14.0);
                 dsoxt3.setCantHorasAl50(3.0);
@@ -1140,7 +1140,23 @@ public class DBExamplesLoader {
                 dsoxt3.setCostoXHoraNormal(24.0);
                 dsoxt3.setCantidadPersonas(2);
                 dsoxt3.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
-                soxt.agreagarDetalle(dsoxt3);
+                soxt1.agreagarDetalle(dsoxt3);
+                
+
+                SubObraXTarea soxt6 = new SubObraXTarea();
+                soxt6.setNombre("Pintado de la Estructura");
+                soxt6.setTipoTarea((TipoTarea)sesion.load(TipoTarea.class, 2));
+                    
+                    DetalleSubObraXTarea dsoxt6=new DetalleSubObraXTarea();
+                    dsoxt6.setCantHorasNormales(10.0);
+                    dsoxt6.setCantHorasAl50(2.0);
+                    dsoxt6.setCantHorasAl100(1.0);
+                    dsoxt6.setCostoXHoraNormal(22.0);
+                    dsoxt6.setCantidadPersonas(1);
+                    dsoxt6.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                    soxt6.agreagarDetalle(dsoxt6);
+                             
+                so1.addTarea(soxt6);
 
 //                SubObraXMaterial
                 //TODO: IMPEDIMENT WITH THE STRUCTURE OF SUBOBRAXMATERIAL
@@ -1233,6 +1249,7 @@ public class DBExamplesLoader {
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getCause().toString());
+            
             HibernateUtil.rollbackTransaction();
         }
     }
@@ -1387,23 +1404,29 @@ public class DBExamplesLoader {
                 planificacion.setCotizacion(cotMod);
                 PO.setPlanificacion(planificacion);
 
-
+                int idTareaGantt = 1;
+                
                 GregorianCalendar fechaInicioTarea = new GregorianCalendar();
                 fechaInicioTarea.setTime(PO.getFechaInicio());
                 Iterator<SubObraModificada> itSubObraMod = cotMod.getSubObra().iterator();
                 ArrayList<TareaPlanificacion> tareas = new ArrayList<TareaPlanificacion>();
                 while(itSubObraMod.hasNext()){
                     SubObraModificada subObraModificada = itSubObraMod.next();
-                    TareaPlanificacion tarea = new TareaPlanificacion();
+                    
                     Iterator<SubObraXTareaModif> itSOXTM = subObraModificada.getTareas().iterator();
                     while(itSOXTM.hasNext()){
                         SubObraXTareaModif soxtm = itSOXTM.next();
-                        
+                        TareaPlanificacion tarea = new TareaPlanificacion();
                         tarea.setTareaCotizada(soxtm); // by Iuga -> Checkear
                         tarea.setNombre(soxtm.getNombre());
                         tarea.setObservaciones(soxtm.getObservaciones());
                         tarea.setTipoTarea(soxtm.getTipoTarea());
                         tarea.setFechaInicio(fechaInicioTarea.getTime());
+                        
+                        // Orden en el Gantt ( Va a la DB para q simpre se vea igual
+                        tarea.setIdTareaGantt(idTareaGantt);
+                        idTareaGantt++;
+                        
                         GregorianCalendar fechaFinTarea = fechaInicioTarea;
                         fechaFinTarea.add(Calendar.DAY_OF_MONTH, (int) Math.random()*5+4);
                         tarea.setFechaFin(fechaFinTarea.getTime());

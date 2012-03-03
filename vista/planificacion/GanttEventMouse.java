@@ -27,22 +27,22 @@ public class GanttEventMouse implements ICoolGanttEvent{
 
     @Override
     public void outClickPhase(int i) {
-        JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
+        //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
     }
 
     @Override
     public void outMovePhase(int i, Date date) {
-          JOptionPane.showMessageDialog(new JFrame(),"Se movio en la tarea: "+i);
+          //JOptionPane.showMessageDialog(new JFrame(),"Se movio en la tarea: "+i);
     }
 
     @Override
     public void outExtendPhaseBackward(int i, Date date) {
-          JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la izquierda la tarea: "+i);
+          //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la izquierda la tarea: "+i);
     }
 
     @Override
     public void outExtendPhaseForward(int i, Date date) {
-         JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la derecha la tarea: "+i);
+         //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la derecha la tarea: "+i);
     }
     
 }

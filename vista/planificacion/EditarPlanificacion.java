@@ -17,6 +17,7 @@ import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import controlador.planificacion.GestorEditarPlanificacion;
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
@@ -37,27 +38,23 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private static final String iconoSubObra = "/res/iconos/var/16x16/Application.png";
     private static final String iconoTarea = "/res/iconos/var/16x16/calendar.png";
-    
-    // TODO: Remover !! ( Solo para development )
-    private final int ID_PEDIDO_OBRA_DEVELOPMENT = 1;
-    
+    private final String CADENA_SUB_TAREA = "@";
+    private int idObra;
+    private int template;
     private GestorEditarPlanificacion _gestor;
     ICoolGantt graph;
     JComponent grafico;
    
-
-    /**
-     * Creates new form EditarPlanificacion
-     */
-    public EditarPlanificacion(int idObra) {
-        _gestor = new GestorEditarPlanificacion(this,ID_PEDIDO_OBRA_DEVELOPMENT);
+    public EditarPlanificacion(int template, int idObra) {
+        this.template = template;
+        this.idObra = idObra;
+        
+        _gestor = new GestorEditarPlanificacion(this,idObra);
         initComponents(); 
         
         tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
-        tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
-        
+        tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());        
         treeRecursos.setCellRenderer(new IconTreeRenderer());
-        //treeRecursos.setOpaque(false);
         treeRecursos.setRootVisible(false);
 
         initArbolRecursos();
@@ -65,8 +62,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         initGraph();
 
         //TODO: Sacar esto, test de DnD
-        PanelDropTarget target = new PanelDropTarget(jPanel2, new GanttDropEvent());
-        
+        PanelDropTarget target = new PanelDropTarget(jPanel2, new GanttDropEvent());    
     }
 
     private void initDatosGenerales(int idObra) {
@@ -74,8 +70,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }    
     
     private void initArbolRecursos() {
-
-        initTablaSubObras(ID_PEDIDO_OBRA_DEVELOPMENT);
+        initTablaSubObras(this.idObra);
     }
 
     private void initGraph() {
@@ -129,60 +124,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
         
         graph.refreshModel();
-
-//        // Create a new Phrase
-//        CoolGanttPhase p1 = new CoolGanttPhase();
-//        p1.setEditable(true);
-//        p1.setId(1);
-//        p1.setNombre("Phase Test 1");
-//        p1.setType(demoTypes.TYPE_NORMAL);
-//        p1.setStartDate(new Date());
-//        p1.setEndDate(fechaMas(new Date(), 5));
-//
-//        // Create a new Phrase
-//        CoolGanttPhase p2 = new CoolGanttPhase();
-//        p2.setEditable(true);
-//        p2.setId(2);
-//        p2.setNombre("Phase Test 2");
-//        p2.setType(demoTypes.TYPE_TRANSPORTE);
-//        p2.setStartDate(fechaMas(new Date(), 5));
-//        p2.setEndDate(fechaMas(new Date(), 10));
-//
-//        // Create a new Phrase
-//        CoolGanttPhase p3 = new CoolGanttPhase();
-//        p3.setEditable(false);
-//        p3.setId(3);
-//        p3.setNombre("Phase Test 3");
-//        p3.setStartDate(fechaMas(new Date(), 10));
-//        p3.setEndDate(fechaMas(new Date(), 20));
-//
-//        // Create a new Phrase
-//        CoolGanttPhase p4 = new CoolGanttPhase();
-//        p4.setId(4);
-//        p4.setNombre("Phase Test 4");
-//        p4.setStartDate(fechaMas(new Date(), 20));
-//        p4.setEndDate(fechaMas(new Date(), 30));
-//
-//        // Create a new Phrase
-//        CoolGanttPhase p5 = new CoolGanttPhase();
-//        p5.setEditable(true);
-//        p5.setId(5);
-//        p5.setNombre("Phase Test 5");
-//        p5.setStartDate(fechaMas(new Date(), 10));
-//        p5.setEndDate(fechaMas(new Date(), 20));
-//
-//        // Set dependencies
-//        p2.addSubsequentPhase(p1);
-//        p4.addSubsequentPhase(p2);
-//        p5.addSubsequentPhase(p1);
-//
-//        graph.addPhase(p1);
-//        graph.addPhase(p2);
-//        graph.addPhase(p3);
-//        graph.addPhase(p4);
-//        graph.addPhase(p5);
-
-
     }
 
     private void cargarTareasRecursivas(TareaPlanificacion tplan, int n) {
@@ -818,11 +759,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void menuNuevaEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevaEtapaActionPerformed
-
-//        pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
-//        SwingPanel.getInstance().addWindow(pre);
-//        pre.setVisible(true);
-        
+       
     }//GEN-LAST:event_menuNuevaEtapaActionPerformed
 
     private void menuZoomMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMasActionPerformed
@@ -1042,14 +979,20 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     public class GanttDropEvent implements IDropEvent{
 
         @Override
-        public void dropEvent(String data) {
+        public void dropEvent(String data,Point location) {
 
+            // Veo a que apunta location !!!
+            CoolGanttPhase p = graph.getPhase(location);
+            // p==NULL : El Drop no callo sobre ninguna Tarea
+            // p!=NULL :  El Drop callo sobre una Tarea en el Gantt (p)
+
+            
+            // Desencadeno la accion
             if(data!=null && !data.isEmpty())
             {
                 String[] dataTrigger = data.split(";");
                 if(dataTrigger.length==3)
                 {
-
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_SUBOBRA))
                     {
                         // Por ahora no hago nada
@@ -1057,24 +1000,68 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
                     {
-                        // Agrego una nueva Tarea
-                        _gestor.AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
-                        //AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                        if(p==null)
+                        {
+                            // Agrego una nueva Tarea
+                            _gestor.AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                        }
+                        else
+                        {
+                            // Agrego una nueva Sub Tarea
+                            int nivel = calcularNivel(p);
+                            nivel++;
+                            _gestor.AgregarNuevaSubTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2],p.getId(),nivel);
+                        }        
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
                     {
-                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA);
+                        if(p==null)
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+p.getNombre());
+                        }
+                        
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
-                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL);
+                        if(p==null)
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo estsa asignando a ninguna Tarea");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nA la Tarea "+p.getNombre());
+                        }
+                                    
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
                     {
-                        JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\n Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
+                        if(p==null)
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nA la Tarea "+p.getNombre());
+                        }
                     }                    
                 }
             }   
+        }
+
+        private int calcularNivel(CoolGanttPhase p) {
+            String taskNameSearch = p.getNombre();
+            int subNivel = 0;
+            while (taskNameSearch.indexOf(CADENA_SUB_TAREA) > -1) 
+            {
+                taskNameSearch = taskNameSearch.substring(taskNameSearch.indexOf(CADENA_SUB_TAREA)+CADENA_SUB_TAREA.length(),taskNameSearch.length());
+                subNivel++;
+                System.out.println("[DEBUG] Task Level ++");
+            }
+            return subNivel;
         }
     }
     

@@ -7,6 +7,7 @@ package controlador.planificacion;
 
 import config.Iconos;
 import controlador.GestorAbstracto;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -240,7 +241,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         if(this.planificacion!=null)
         {
             listaTareas = this.planificacion.getTareas();
-}
+        }
         else
         {
             mostrarMensajeError("No se pudo cargar la planificación, por lo tanto no se mostrará el Gantt");
@@ -248,7 +249,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         return listaTareas;
     }
     
-    private int generarIdTareaGantt()
+    public int generarIdTareaGantt()
     {
         int id = 1;
         while (id<=9999) {            
@@ -265,6 +266,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         return 0;
     }
 
+   
     public void AgregarNuevaTarea(int id, String nombre) {
         
         // VEO QUE NO ESTE REPETIDA
@@ -323,5 +325,75 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
 
     public int getCotizacionPlanificada() {
         return  this.planificacion.getCotizacion().getCotizacionOriginal().getId();
+    }
+
+    public void AgregarNuevaSubTarea(int id, String nombre,int idTareaPadre, int nivel) {
+
+        // VEO QUE NO ESTE REPETIDA
+        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
+            {
+                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada en el gráfico");
+                return;
+            }
+        }
+        
+        // CREO LA NUEVA TAREA
+        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
+        nuevaTarea.setNombre(nombre);
+        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
+        
+        // CArgo la SubObra X Tarea Planificada Mod
+        try
+        {
+              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
+              for (int i = 0; i < listaSubObrasMod.size(); i++) {
+                SubObraModificada som = listaSubObrasMod.get(i);
+                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
+                  for (int j = 0; j < lsitasoxtm.size(); j++) {
+                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
+                      if(soxtm.getId()==id)
+                      {
+                          nuevaTarea.setTareaCotizada(soxtm);
+                          break;
+                      }
+                  }
+            }
+        
+        }catch(Exception e)
+        {
+            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+            return;
+        }
+        
+        // CARGO LA TAREA PADRE
+        // Tengo el idGantt del padre, ahora tengo que conseguir el id de la Tarea y la tarea en si
+        TareaPlanificacion padre = null;
+        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+            TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+            if(tarea.getIdTareaGantt()==idTareaPadre)
+            {
+                padre = tarea;
+                continue;
+            }
+        }
+        // Agrego el hijo al padre
+        if(padre!=null)
+        {
+            padre.addSubTarea(nuevaTarea);
+        }
+        else
+        {
+            mostrarMensajeError("No se pudo encontrar la Tarea padre a la que se le quiere agregar la SubTarea");
+            return;
+        }   
+        
+        // Agrego el nivel para mostrar en el Gantt
+        String nombreGantt = nuevaTarea.getNombre();
+        for (int i = 0; i < nivel; i++) {
+            nombreGantt+="@";
+        }
+        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nombreGantt);
     }
 }

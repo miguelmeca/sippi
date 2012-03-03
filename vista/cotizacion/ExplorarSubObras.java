@@ -1153,7 +1153,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         int idPlan = gestor.getIdDePlanificacionDeObra();
         if(idPlan!=0)
         {
-            EditarPlanificacion ep = new EditarPlanificacion(idPlan);
+            EditarPlanificacion ep = new EditarPlanificacion(1,idPlan);
             SwingPanel.getInstance().addWindow(ep);
             ep.setVisible(true);
             this.dispose();
