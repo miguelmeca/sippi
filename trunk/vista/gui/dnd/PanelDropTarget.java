@@ -4,8 +4,8 @@
  */
 package vista.gui.dnd;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+
+import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -15,15 +15,9 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import javax.swing.JComponent;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
 
 public class PanelDropTarget implements DropTargetListener {
     
@@ -87,7 +81,7 @@ public class PanelDropTarget implements DropTargetListener {
       Transferable transferable = dtde.getTransferable();
 
       try {
-        boolean result = dropComponent(transferable);
+        boolean result = dropComponent(transferable,dtde.getLocation());
 
         dtde.dropComplete(result);
         DnDUtils.debugPrintln("Drop completed, success: " + result);
@@ -156,7 +150,7 @@ public class PanelDropTarget implements DropTargetListener {
     DnDUtils.debugPrintln("File type acceptable - " + acceptableType);
   }
 
-  protected boolean dropComponent(Transferable transferable)
+  protected boolean dropComponent(Transferable transferable, Point location)
       throws IOException, UnsupportedFlavorException {
       
     Object o = transferable.getTransferData(targetFlavor);
@@ -164,11 +158,14 @@ public class PanelDropTarget implements DropTargetListener {
       DnDUtils.debugPrintln("Dragged component class is "
           + o.getClass().getName());
 
+      System.out.println("Drop Target Point: "+location.x+" | "+location.y);
+      
+      
       if (o instanceof String) 
       {
           //ArbolDeTareasCelda celda = (ArbolDeTareasCelda)o;
           System.out.println("DROPEO : "+o);
-          this.dropEventHandler.dropEvent((String)o);
+          this.dropEventHandler.dropEvent((String)o,location);
       }
       
       return true;

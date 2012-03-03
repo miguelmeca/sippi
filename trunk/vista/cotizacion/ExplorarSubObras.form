@@ -291,7 +291,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel8" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jPanel9" alignment="0" pref="559" max="32767" attributes="1"/>
+                              <Component id="jPanel9" alignment="0" pref="561" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -303,7 +303,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" pref="254" max="32767" attributes="0"/>
+                          <Component id="jPanel9" pref="241" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -603,7 +603,7 @@
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_obra_fechafin" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="39" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -767,7 +767,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="lbl_est_titulo_barra" alignment="0" pref="490" max="32767" attributes="1"/>
+                                          <Component id="lbl_est_titulo_barra" alignment="0" pref="486" max="32767" attributes="1"/>
                                           <Component id="prog_est_max" alignment="0" pref="490" max="32767" attributes="1"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -819,7 +819,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="_containerGraficoRecursos" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="_containerGraficoRecursos" alignment="0" pref="486" max="32767" attributes="0"/>
                                           <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -862,7 +862,7 @@
                                   <Layout>
                                     <DimensionLayout dim="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="490" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="486" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
@@ -889,7 +889,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="_containerGraficoTortaSubObras" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="_containerGraficoTortaSubObras" alignment="1" pref="486" max="32767" attributes="0"/>
                                           <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -932,7 +932,7 @@
                                   <Layout>
                                     <DimensionLayout dim="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="490" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="486" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
@@ -966,7 +966,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="559" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="561" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -975,7 +975,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="464" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="420" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1036,7 +1036,7 @@
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelVerPlanificacion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="142" max="32767" attributes="0"/>
+                          <EmptySpace pref="66" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1061,7 +1061,7 @@
                                   <Component id="jLabel7" alignment="0" pref="521" max="32767" attributes="0"/>
                                   <Component id="jLabel8" alignment="0" pref="521" max="32767" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" pref="521" max="32767" attributes="0"/>
-                                  <Component id="btnEnviarCliente" alignment="0" pref="521" max="32767" attributes="0"/>
+                                  <Component id="btnEnviarCliente" alignment="0" pref="525" max="32767" attributes="0"/>
                                   <Component id="jLabel10" alignment="0" pref="521" max="32767" attributes="0"/>
                                   <Component id="btnRechazar" alignment="0" pref="521" max="32767" attributes="0"/>
                                   <Component id="btnRecotizar" alignment="1" pref="521" max="32767" attributes="0"/>

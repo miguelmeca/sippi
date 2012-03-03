@@ -1,6 +1,7 @@
 package modelo;
 
 //
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class TareaPlanificacion {
     private SubObraXTareaModif tareaCotizada;
 
     public TareaPlanificacion() {
+        this.subtareas = new ArrayList<TareaPlanificacion>();
     }
 
     public List<PlanificacionXAlquilerCompra> getAlquilerCompras() {
@@ -150,6 +152,11 @@ public class TareaPlanificacion {
 
     public void setTareaCotizada(SubObraXTareaModif tareaCotizada) {
         this.tareaCotizada = tareaCotizada;
+    }
+    
+    public void addSubTarea(TareaPlanificacion subTarea)
+    {
+        this.subtareas.add(subTarea);
     }
         
 }

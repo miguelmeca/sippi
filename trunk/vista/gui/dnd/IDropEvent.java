@@ -4,12 +4,15 @@
  */
 package vista.gui.dnd;
 
+import java.awt.Point;
+
 /**
  *
  * @author Administrador
  */
 public interface IDropEvent {
     
-    void dropEvent(String data);
+    void dropEvent(String data, Point location);
+
     
 }
