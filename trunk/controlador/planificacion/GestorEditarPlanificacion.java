@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import modelo.*;
 import org.hibernate.Session;
 import util.FechaUtil;
@@ -22,6 +24,7 @@ import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.TreeEntry;
 import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.EditarPlanificacion;
+import vista.planificacion.arbolTareas.ArbolIconoNodo;
 
 
 /**
@@ -396,4 +399,24 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         }
         _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nombreGantt);
     }
+    
+    public DefaultTreeModel getModeloArbolTareas()
+    {
+        //TODO:
+        ArbolIconoNodo raiz = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_SUBOBRA,"Obra",Iconos.ICONO_ALQUILERESCOMPRAS);
+        
+        //
+        ArbolIconoNodo hijo1 = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_TAREA,"Tarea",Iconos.ICONO_MATERIAL);
+        //
+        
+        DefaultTreeModel modelo = new DefaultTreeModel(raiz);
+        modelo.insertNodeInto(hijo1, raiz, 0);
+        //
+        //
+        //
+        //Agregar todas las tareas, subtareas y recursos de cada obra
+        
+        return modelo;
+    }        
+    
 }
