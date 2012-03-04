@@ -19,4 +19,9 @@ public class Iconos {
     public static final String ICONO_ALQUILERESCOMPRAS = "/res/iconos/var/16x16/delivery.png";
     public static final String ICONO_ALQUILERCOMPRA = "/res/iconos/var/16x16/Shopping cart.png";
     
+    public static final String ICONO_TAREAS = "/res/iconos/var/16x16/calendar_empty.png";
+    public static final String ICONO_TAREA = "/res/iconos/var/16x16/calendar.png";
+    
+    public static final String ICONO_SUBOBRA = "/res/iconos/var/16x16/Application.png";
+    
 }
