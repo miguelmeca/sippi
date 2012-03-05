@@ -50,13 +50,6 @@ public class TareaPlanificacion {
         this.id = id;
     }
 
-    public List<PlanificacionXAlquilerCompra> getAlquilercompras() {
-        return alquilerCompras;
-    }
-
-    public void setAlquilercompras(List<PlanificacionXAlquilerCompra> alquilercompras) {
-        this.alquilerCompras = alquilercompras;
-    }
 
     public List<AsignacionEmpleadoPlanificacion> getAsignacionesEmpleados() {
         return asignacionesEmpleados;
