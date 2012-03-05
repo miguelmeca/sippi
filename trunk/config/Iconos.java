@@ -22,6 +22,8 @@ public class Iconos {
     public static final String ICONO_TAREAS = "/res/iconos/var/16x16/calendar_empty.png";
     public static final String ICONO_TAREA = "/res/iconos/var/16x16/calendar.png";
     
+    public static final String ICONO_OBRA = "/res/iconos/var/16x16/Company.png";
+    
     public static final String ICONO_SUBOBRA = "/res/iconos/var/16x16/Application.png";
     
 }

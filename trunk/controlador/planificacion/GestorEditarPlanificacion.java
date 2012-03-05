@@ -402,21 +402,68 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
     
     public DefaultTreeModel getModeloArbolTareas()
     {
-        //TODO:
-        ArbolIconoNodo raiz = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_SUBOBRA,"Obra",Iconos.ICONO_ALQUILERESCOMPRAS);
-        
-        //
-        ArbolIconoNodo hijo1 = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_TAREA,"Tarea",Iconos.ICONO_MATERIAL);
-        //
-        
+        ArbolIconoNodo raiz = new ArbolIconoNodo(planificacion.getId(),ArbolDeTareasTipos.TIPO_OBRA, pedidoDeObra.getNombre(),Iconos.ICONO_OBRA);
         DefaultTreeModel modelo = new DefaultTreeModel(raiz);
-        modelo.insertNodeInto(hijo1, raiz, 0);
-        //
-        //
-        //
-        //Agregar todas las tareas, subtareas y recursos de cada obra
+        
+        //Agregar todas las tareas, subtareas y recursos de cada obra        
+        cargarTareasEnArbol(modelo, planificacion.getTareas(),raiz);       
+        
         
         return modelo;
-    }        
+    } 
+    
+    //Metodo recursivo
+    private void cargarTareasEnArbol(DefaultTreeModel modelo, List<TareaPlanificacion> listaTareas,ArbolIconoNodo padre)
+    {
+        int cantTareas= listaTareas.size();
+        for (int i = 0; i < cantTareas; i++) 
+        {
+            TareaPlanificacion tarea= planificacion.getTareas().get(i);
+            ArbolIconoNodo nodoTarea = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_TAREA,tarea.getNombre(),Iconos.ICONO_TAREA);
+            modelo.insertNodeInto(nodoTarea, padre, i);            
+            
+            cargarTareasEnArbol(modelo, tarea.getSubtareas(),nodoTarea);
+            
+            if(tarea.getHerramientas()!=null && !tarea.getHerramientas().isEmpty())
+            {
+               ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
+               modelo.insertNodeInto(nodoHerramientas, nodoTarea, 1);
+               int cantHeramientas=tarea.getHerramientas().size();
+               for (int j = 0; j < cantHeramientas; j++) 
+               {
+                  PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
+                  ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
+                  modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
+               }
+            }
+            
+            if(tarea.getMateriales()!=null && !tarea.getMateriales().isEmpty())
+            {
+                ArbolIconoNodo nodoMateriales = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_MATERIALES,ArbolDeTareasTipos.TIPO_MATERIALES,Iconos.ICONO_MATERIALES);
+                modelo.insertNodeInto(nodoMateriales, nodoTarea, 0);
+                int cantMateriales=tarea.getMateriales().size();
+                for (int j = 0; j < cantMateriales; j++) 
+                {
+                  PlanificacionXMaterial material=tarea.getMateriales().get(j);
+                  ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.getId(),ArbolDeTareasTipos.TIPO_MATERIAL,material.toString(),Iconos.ICONO_MATERIAL);
+                  modelo.insertNodeInto(nodoMaterial, nodoMateriales, j);
+                } 
+            }
+            
+            if(tarea.getAlquilerCompras()!=null && !tarea.getAlquilerCompras().isEmpty())
+            {
+                ArbolIconoNodo nodoAlquileresCompras = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,Iconos.ICONO_ALQUILERESCOMPRAS);
+                modelo.insertNodeInto(nodoAlquileresCompras, nodoTarea, 2);
+                int cantAlquileresCompras=tarea.getAlquilerCompras().size();
+                for (int j = 0; j < cantAlquileresCompras; j++) 
+                {
+                    PlanificacionXAlquilerCompra alquilerCompra=tarea.getAlquilerCompras().get(j);
+                    ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.getId(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,alquilerCompra.toString(),Iconos.ICONO_ALQUILERCOMPRA);
+                    modelo.insertNodeInto(nodoAlquilerCompra, nodoAlquileresCompras, j);
+                }
+            }
+            
+        }
+    }
     
 }
