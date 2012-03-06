@@ -26,12 +26,11 @@ import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
-import vista.cotizacion.ExplorarSubObras;
 import modelo.FavoritoBean;
 import vista.ayuda.VisorDeAyuda;
 import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
-import vista.compras.pantallaConsultarHerramientas;
+import vista.compras.*;
 import vista.planificacion.EditarPlanificacion;
 import vista.rrhh.PantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
@@ -195,11 +194,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         btnMenuListHerr = new javax.swing.JMenuItem();
+        btnMenuListadoOrdenesCompra = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -427,6 +430,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
+        jMenuItem7.setText("Ver Orden de Compra");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
+        jMenuItem8.setText("Registrar Orden De Compra");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+
+        jMenuItem9.setText("Recepcion Orden De Compra");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem9);
+
         jMenuBar1.add(jMenu3);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
@@ -463,6 +490,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(btnMenuListHerr);
+
+        btnMenuListadoOrdenesCompra.setText("Ordenes de Compra");
+        btnMenuListadoOrdenesCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoOrdenesCompraActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListadoOrdenesCompra);
 
         jMenuBar1.add(jMenu2);
 
@@ -627,11 +662,36 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_btnMenuListadoProveedoresActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        pantallaConsultarOC win = new pantallaConsultarOC();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);        
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void btnMenuListadoOrdenesCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoOrdenesCompraActionPerformed
+        PantallaConsultarOrdenesDeCompra win = new PantallaConsultarOrdenesDeCompra();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);      
+    }//GEN-LAST:event_btnMenuListadoOrdenesCompraActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        pantallaGenerarOrdenCompra win = new pantallaGenerarOrdenCompra();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);          
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        pantallaRegistrarRecepcionOrdenCompra win = new pantallaRegistrarRecepcionOrdenCompra();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);  
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;
     private javax.swing.JMenuItem btnMenuListadoEmpresasCliente;
+    private javax.swing.JMenuItem btnMenuListadoOrdenesCompra;
     private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
@@ -646,6 +706,9 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
