@@ -105,6 +105,16 @@ public class OrdenDeCompra {
     public Proveedor getProveedor() {
         return proveedor;
     }
+    
+    public String getNombreProveedor()
+    {
+        if(this.proveedor!=null)
+        {
+            return this.proveedor.getRazonSocial();
+        }
+        return "";
+    }
+            
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
@@ -160,6 +170,15 @@ public class OrdenDeCompra {
             return null;
         }
         return null;
+    }
+    
+    public String getNombreEstado()
+    {
+        if(this.estado!=null)
+        {
+            return this.estado.getNombre();
+        }
+        return "";
     }
 
     public void setEstadoPendienteDeRecepcion()
@@ -227,5 +246,20 @@ public class OrdenDeCompra {
     public void setEstado(EstadoOrdenDeCompra estado) {
         this.estado = estado;
     }
-
+    
+    public double CalcularTotal()
+    {
+        double total =0;
+        for (int i = 0; i < detalle.size(); i++) 
+        {
+            DetalleOrdenDeCompra dodc = detalle.get(i);
+            total += dodc.getPrecioParcial();
+        }
+        return total;
+    }
+    
+    public String getCalcularTotal()
+    {
+        return "$ "+String.valueOf(CalcularTotal());
+    }
 }
