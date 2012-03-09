@@ -1365,7 +1365,7 @@ public class DBExamplesLoader {
                         double aleaCantHoras50 = (int) Math.random()*detalle.getCantHorasAl50() + 10;
                         detalleMod.setCantHorasAl50(aleaCantHoras50);
                         double aleaCantHorasNormales = (int) Math.random()*detalle.getCantHorasNormales() + 12;
-                        detalleMod.setCantHorasNormales(aleaCantHoras50);
+                        detalleMod.setCantHorasNormales(aleaCantHorasNormales);
                         int aleaCantPersona = (int) Math.random()*detalle.getCantidadPersonas() + 12;
                         detalleMod.setCantidadPersonas(aleaCantPersona);
                         double aleaCostoXHoraNormal = (int) Math.random()*detalle.getCostoXHoraNormal() + 12;
