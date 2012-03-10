@@ -4,6 +4,7 @@
  */
 package vista.comer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.EmpresaCliente;
 import vista.PantallaConsultarGenerica;
@@ -23,15 +24,15 @@ public class pantallaListadoEmpresaCliente extends PantallaConsultarGenerica{
     }
     
     @Override
-    protected HashMap<String, String> getColumnas()
+    protected ArrayList<String[]> getColumnas()
     {
-        HashMap<String, String> columnas = new HashMap<String, String>();
+         ArrayList<String[]> columnas = new ArrayList<String[]>();
         
-            columnas.put("mostrarEstado","Estado");
-            columnas.put("getRazonSocial","Razon Social");
-            columnas.put("mostrarDomicilio","Domicilio");
-            columnas.put("getEmail","Email");
-            columnas.put("mostrarTelefonos","Teléfonos");
+            columnas.add(new String[]{"mostrarEstado","Estado"});
+            columnas.add(new String[]{"getRazonSocial","Razon Social"});
+            columnas.add(new String[]{"mostrarDomicilio","Domicilio"});
+            columnas.add(new String[]{"getEmail","Email"});
+            columnas.add(new String[]{"mostrarTelefonos","Teléfonos"});
         
         return columnas;
     }    

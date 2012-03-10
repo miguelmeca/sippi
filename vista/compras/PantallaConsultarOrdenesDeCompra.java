@@ -4,6 +4,7 @@
  */
 package vista.compras;
 
+import java.util.ArrayList;
 import vista.planificacion.*;
 import java.util.HashMap;
 import modelo.OrdenDeCompra;
@@ -26,15 +27,15 @@ public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
     }
     
     @Override
-    protected HashMap<String, String> getColumnas()
+    protected ArrayList<String[]> getColumnas()
     {
-        HashMap<String, String> columnas = new HashMap<String, String>();
+        ArrayList<String[]> columnas = new ArrayList<String[]>();
         
-            columnas.put("getId","Número");
-            columnas.put("getNombreProveedor","Proveedor");
-            columnas.put("getFechaDeGeneracion","Fecha de Generación");
-            columnas.put("getNombreEstado","Estado");
-            columnas.put("getCalcularTotal","Total");
+            columnas.add(new String[]{"getId","Número"});
+            columnas.add(new String[]{"getNombreProveedor","Proveedor"});
+            columnas.add(new String[]{"getFechaDeGeneracion","Fecha de Generación"});
+            columnas.add(new String[]{"getNombreEstado","Estado"});
+            columnas.add(new String[]{"getCalcularTotal","Total"});
         
         return columnas;
     }

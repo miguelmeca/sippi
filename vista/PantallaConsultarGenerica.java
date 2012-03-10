@@ -11,19 +11,21 @@
 
 package vista;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import org.hibernate.Session;
 import util.HibernateUtil;
-import util.TablaUtil;
+import util.Tupla;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
@@ -34,11 +36,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private Class entidad;
     private HashMap<String,String> columnas;
     
+    private String nombreOrigenCallback = "";
+    private ICallBackGen origenCallback = null;
+    
     /** Creates new form pantallaConsultar */
     public PantallaConsultarGenerica(Class entidad) {
         
         this.entidad = entidad;
-        
+                
         initComponents();
         initConfig();
         habilitarVentana();
@@ -53,7 +58,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private void cargarDatosIniciales()
     {
         // Limpio el modelo Anterior
-        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<Tupla>> data = new ArrayList<ArrayList<Tupla>>();
         
         // Cargo los datos iniciales de la tabla
         try{
@@ -64,28 +69,31 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 {
                     Object obj = lista.get(i);
                     // Reflexiono un poco
-                    Iterator it = getColumnas().entrySet().iterator();
+                    Iterator it = getColumnas().iterator();
                     
-                    ArrayList<String> fila = new ArrayList<String>();
+                    ArrayList<Tupla> fila = new ArrayList<Tupla>();
                     
                     while (it.hasNext()) {
-                        Map.Entry e = (Map.Entry)it.next();
-                        System.out.println(e.getKey() + " " + e.getValue());
+                        String e[] = (String[])it.next();
+                        System.out.println(e[0] + " " + e[1]);
                         
                             java.lang.reflect.Method method; 
                             try 
                             { 
-                                method = obj.getClass().getMethod((String)e.getKey());
+                                method = obj.getClass().getMethod((String)e[0]);
                                 try { 
                                     String result = (String) String.valueOf(method.invoke(obj));
                                     System.out.println("Resultado Reflection: "+result);
                                     
-                                    fila.add(result);
+                                    java.lang.reflect.Method methodGetId = obj.getClass().getMethod("getId");
+                                    String id = (String) String.valueOf(methodGetId.invoke(obj));
+                                    
+                                    fila.add(new Tupla(Integer.parseInt(id), result));
                                     
                                 }  catch (Exception ex) 
                                 {
                                     System.out.println("No se pudo ejecutar el método");
-                                    fila.add("---");
+                                    fila.add(new Tupla(-1,"---"));
                                 } 
                                 
                             } 
@@ -103,7 +111,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         }
         
         // Armo el modelo
-        DefaultTableModel modelo = new DefaultTableModel(parseData(data), parseColumNames());
+        
+        DefaultTableModel modelo = new DefaultTableModel(parseData(data), parseColumNames()) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    //all cells false
+                    return false;
+                }
+            };
         tblLista.setModel(modelo);
         
         // Muestro la cantidad de Ocurrencias
@@ -129,9 +144,9 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
-        btnCerrar = new javax.swing.JButton();
         lblCantResultados = new javax.swing.JLabel();
         btnRefrescar = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -170,15 +185,13 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblLista);
-
-        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
-        btnCerrar.setText("Cerrar");
-        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
+        tblLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblListaMouseReleased(evt);
             }
         });
+        jScrollPane1.setViewportView(tblLista);
 
         lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         lblCantResultados.setText("Cantidad: ");
@@ -188,6 +201,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefrescarActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnSeleccionar.setText("Cerrar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
             }
         });
 
@@ -206,9 +227,9 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                        .addGap(351, 351, 351)
-                        .addComponent(btnCerrar)))
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                        .addGap(327, 327, 327)
+                        .addComponent(btnSeleccionar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -221,11 +242,11 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addComponent(jLabel1))
                     .addComponent(btnRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCantResultados, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCantResultados)
+                    .addComponent(btnSeleccionar))
                 .addContainerGap())
         );
 
@@ -254,19 +275,56 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         cargarDatosIniciales();
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarActionPerformed
+    private void tblListaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseReleased
+    
+       if(tblLista.getSelectedRow()!=-1)
+       {
+           if (evt.getClickCount() == 2)
+            {
+               abrirEntidad();
+            }
+        }
+    }//GEN-LAST:event_tblListaMouseReleased
 
-    protected HashMap<String,String> getColumnas()
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+
+        // Veo si hay que seleccionar una fila
+        if(!this.nombreOrigenCallback.isEmpty() && this.origenCallback!=null)
+        {
+            // Busco algun ID en la fila != -1
+            if(tblLista.getSelectedRow()!=-1)
+            {
+                int id = getIDfromFila(tblLista.getSelectedRow());
+                if(id!=-1)
+                {
+                    this.origenCallback.actualizar(id,this.nombreOrigenCallback,this.entidad);
+                    this.dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(new JInternalFrame(),"Debe seleccionar al menos una fila!","Atención!",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else
+        {
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    protected ArrayList<String[]> getColumnas()
     {
-        return new HashMap<String,String>();
+        return new ArrayList<String[]>();
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnRefrescar;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantResultados;
@@ -275,10 +333,18 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     // End of variables declaration//GEN-END:variables
 
     private void initConfig() {
-        setNombreVentana();
+        // Pongo el nombre a la ventana
+        this.setName(getNombreVentana());
+        // Pinto y seteo el estado de los componentes y botones
+        setEstadoInicial();
     }
     
-    protected void setNombreVentana()
+    protected String getNombreVentana()
+    {
+        return generarNombreVentana();
+    }
+    
+    private String generarNombreVentana()
     {
         // Seteo el nombre de la ventana
         String nombre = this.entidad.getSimpleName();
@@ -287,17 +353,17 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         {
             nombre = "Planificación";
         }
-        this.setTitle("Listado: "+nombre);        
+        return ("Listado: "+nombre);        
     }
     
     protected Object[] parseColumNames()
     {
         ArrayList<String> lista = new ArrayList<String>();
-        Iterator it = getColumnas().entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry e = (Map.Entry)it.next();
-            System.out.println("[DEBUG] Agrego a la columnas: " + e.getValue());
-            lista.add((String)e.getValue());
+        
+        for (int i = 0; i < getColumnas().size(); i++) {
+            String[] col = (String[])getColumnas().get(i);
+            System.out.println("[DEBUG] Agrego a la columnas: " + col[1]);
+            lista.add((String)col[1]);
         }
         
         Object[] columns = new Object[lista.size()];
@@ -310,7 +376,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         return columns;
     }
 
-    private Object[][] parseData(ArrayList<ArrayList<String>> data) {
+    private Object[][] parseData(ArrayList<ArrayList<Tupla>> data) {
         
         
         
@@ -330,9 +396,9 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         Object[][] fila = new Object[a][b];
         
         for (int i = 0; i < data.size(); i++) {
-            ArrayList<String> arrayList = data.get(i);
+            ArrayList<Tupla> arrayList = data.get(i);
             for (int j = 0; j < arrayList.size(); j++) {
-                String d = arrayList.get(j);
+                Tupla d = arrayList.get(j);
                 fila[i][j] = d;
             }
         }
@@ -362,6 +428,43 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
            modeloOrdenado.setRowFilter(cadenaFilter);
            
            mostrarCantidadFilas();
+    }
+    
+    public void setSeleccionarEnabled(ICallBackGen origen, String nombre)
+    {
+        this.nombreOrigenCallback = nombre;
+        this.origenCallback = origen;
+        
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setEnabled(true);
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png")));
+    }
+
+    private void setEstadoInicial() {
+        btnSeleccionar.setEnabled(true);
+        btnSeleccionar.setText("Cerrar");
+    }
+
+    protected void abrirEntidad() {
+        JOptionPane.showMessageDialog(new JInternalFrame(),"En Contrucción!","Atención!",JOptionPane.INFORMATION_MESSAGE);        
+    }
+    
+    protected String getColumnaId()
+    {
+        return "";
+    }
+    
+    private int getIDfromFila(int fila)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            Tupla tp = (Tupla)modelo.getValueAt(fila, i);
+            if(tp.getId()!=-1)
+            {
+                return tp.getId();
+            }
+        }
+        return -1;
     }
     
 }
