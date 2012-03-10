@@ -4,9 +4,11 @@
  */
 package vista.planificacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.PlanificacionXXX;
 import vista.PantallaConsultarGenerica;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
@@ -24,16 +26,21 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     }
     
     @Override
-    protected HashMap<String, String> getColumnas()
+    protected ArrayList<String[]> getColumnas()
     {
-        HashMap<String, String> columnas = new HashMap<String, String>();
+        ArrayList<String[]> columnas = new ArrayList<String[]>();
         
-            columnas.put("getNumeroPlanificacion","Número");
-            columnas.put("getNroCotizacionPlanificada","Cotización");
-            columnas.put("getFechaInicio","Fecha de Inicio");
-            columnas.put("getFechaFin","Fecha de Fin");
+            columnas.add(new String[]{"getNumeroPlanificacion","Número"});
+            columnas.add(new String[]{"getNroCotizacionPlanificada","Cotización"});
+            columnas.add(new String[]{"getFechaInicio","Fecha de Inicio"});
+            columnas.add(new String[]{"getFechaFin","Fecha de Fin"});
         
         return columnas;
     }
-   
+
+    @Override
+    protected String getNombreVentana() {
+        return "Listado de todas las Planificaciones Realizadas";
+    } 
+    
 }
