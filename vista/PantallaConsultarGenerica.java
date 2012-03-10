@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -26,6 +26,7 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 import util.Tupla;
 import vista.interfaces.ICallBackGen;
+import vista.reportes.ReportDesigner;
 
 /**
  *
@@ -148,6 +149,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         btnRefrescar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
         btnVerDetalles = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -221,6 +223,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             }
         });
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,8 +246,10 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                        .addGap(212, 212, 212)
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                        .addGap(133, 133, 133)
+                        .addComponent(btnImprimir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerDetalles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSeleccionar)))
@@ -258,7 +270,8 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)
                     .addComponent(btnSeleccionar)
-                    .addComponent(btnVerDetalles))
+                    .addComponent(btnVerDetalles)
+                    .addComponent(btnImprimir))
                 .addContainerGap())
         );
 
@@ -341,6 +354,32 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
        }
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        
+        // Recopilo los datos
+        DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+        
+        String [][] datos = new String[modelo.getRowCount()][modelo.getColumnCount()];
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            for (int j = 0; j < modelo.getRowCount(); j++) {
+                
+                String dato = String.valueOf(modelo.getValueAt(j, i));
+                datos[j][i] = dato;
+            }
+        }
+        
+        String[] columnas = new String[getColumnas().size()];
+        for (int i = 0; i < getColumnas().size(); i++) {
+            String[] data = getColumnas().get(i);
+            columnas[i] = data[1];
+        }
+        
+        imprimir(getNombreVentana(),columnas,datos);
+        
+        JOptionPane.showMessageDialog(new JInternalFrame(),"Generando el Reporte\nPor favor aguarde...!","Atención!",JOptionPane.INFORMATION_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/32x32/promotion.png")));                   
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     protected ArrayList<String[]> getColumnas()
     {
         return new ArrayList<String[]>();
@@ -348,6 +387,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVerDetalles;
@@ -506,5 +546,23 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private void initColorCriteria() {
         tblLista.setDefaultRenderer(Object.class,new PantallaConsultarGenericaCellRenderer(getColumnColorCriteria(),getColumnas()));
     }
+    
+    protected void imprimir(String nombre,String[]columnas, String[][] datos)
+    {
+        HashMap<String,Object> params = new HashMap<String,Object>();
+        params.put("NOMBRE",nombre);
+        params.put("DATOS",datos);
+        params.put("NOMBRE_COLUMNAS",columnas);
+        
+        try {
+            PantallaConsultarGenericaImprimir ci = new PantallaConsultarGenericaImprimir();
+            ci.setNombreReporte(nombre);
+            ci.setNombreArchivo("Listado",ReportDesigner.REPORTE_TIPO_LISTADOS);
+            ci.makeAndShow(params);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"Se produjo un error al generar el Reporte\nIntentelo nuevamente.","Error!",JOptionPane.INFORMATION_MESSAGE);
+        } 
+    }
+    
     
 }
