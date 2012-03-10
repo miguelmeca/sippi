@@ -39,6 +39,7 @@ public class ReportDesigner
     public static final int REPORTE_TIPO_COTIZACION    = 1;
     public static final int REPORTE_TIPO_PLANIFICACION = 2;
     public static final int REPORTE_TIPO_SEGUIMIENTO   = 3;
+    public static final int REPORTE_TIPO_LISTADOS      = 4;
     
     public static final Font FUENTE_TITULO_1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
     public static final Font FUENTE_TITULO_2 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC);
@@ -208,6 +209,9 @@ public class ReportDesigner
             case ReportDesigner.REPORTE_TIPO_SEGUIMIENTO:
                 return URL_DIR_REPORTES+"Seguimientos/";    
                
+            case ReportDesigner.REPORTE_TIPO_LISTADOS:
+                return URL_DIR_REPORTES+"Listados/";                    
+                
             case ReportDesigner.REPORTE_TIPO_OTROS: 
             default:
                 return URL_DIR_REPORTES;             
