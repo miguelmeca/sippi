@@ -143,6 +143,11 @@ public class Cotizacion {
         
     }   
     
+    public String getCalcularTotal()
+    {
+        return "$ "+String.valueOf(CalcularTotal());
+    }
+    
     public double CalcularTotal()
     {
         double monto = 0;

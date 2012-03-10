@@ -38,7 +38,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblCantResultados" pref="244" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
+                      <Component id="btnVerDetalles" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSeleccionar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -58,11 +60,12 @@
                   <Component id="btnRefrescar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="276" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="280" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblCantResultados" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSeleccionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVerDetalles" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -146,6 +149,17 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnVerDetalles">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/res/iconos/var/16x16/search_page.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Ver Detalles"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerDetallesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
