@@ -8,6 +8,9 @@
     <property name="fechaInicio" type="date"/>
     <property name="fechaFin" type="date"/>
     <property name="numeroPlanificacion" type="integer"/>
+    
+    <property name="estado" type="string"/>
+    
     <many-to-one class="modelo.CotizacionModificada" name="cotizacion"/>
     <list cascade="all-delete-orphan" name="tareas" table="TAREAS_X_PLANIFICACIONXXX">
       <key column="ID"/>

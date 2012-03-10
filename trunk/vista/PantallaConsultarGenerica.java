@@ -147,6 +147,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         lblCantResultados = new javax.swing.JLabel();
         btnRefrescar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
+        btnVerDetalles = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -212,6 +213,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             }
         });
 
+        btnVerDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        btnVerDetalles.setText("Ver Detalles");
+        btnVerDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetallesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,7 +237,9 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                        .addGap(327, 327, 327)
+                        .addGap(212, 212, 212)
+                        .addComponent(btnVerDetalles)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSeleccionar)))
                 .addContainerGap())
         );
@@ -242,11 +253,12 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addComponent(jLabel1))
                     .addComponent(btnRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)
-                    .addComponent(btnSeleccionar))
+                    .addComponent(btnSeleccionar)
+                    .addComponent(btnVerDetalles))
                 .addContainerGap())
         );
 
@@ -281,7 +293,8 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
        {
            if (evt.getClickCount() == 2)
             {
-               abrirEntidad();
+               int id = getIDfromFila(tblLista.getSelectedRow());
+               abrirEntidad(id);
             }
         }
     }//GEN-LAST:event_tblListaMouseReleased
@@ -316,6 +329,18 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    private void btnVerDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetallesActionPerformed
+       if(tblLista.getSelectedRow()!=-1)
+       {
+          int id = getIDfromFila(tblLista.getSelectedRow());
+          abrirEntidad(id);
+       }
+       else
+       {
+        JOptionPane.showMessageDialog(new JInternalFrame(),"Debe seleccionar al menos una Fila!","Atención!",JOptionPane.INFORMATION_MESSAGE);                   
+       }
+    }//GEN-LAST:event_btnVerDetallesActionPerformed
+
     protected ArrayList<String[]> getColumnas()
     {
         return new ArrayList<String[]>();
@@ -325,6 +350,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton btnVerDetalles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantResultados;
@@ -334,9 +360,11 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
 
     private void initConfig() {
         // Pongo el nombre a la ventana
-        this.setName(getNombreVentana());
+        this.setTitle(getNombreVentana());
         // Pinto y seteo el estado de los componentes y botones
         setEstadoInicial();
+        // Si hay pintado segun criterio lo hago
+        initColorCriteria();
     }
     
     protected String getNombreVentana()
@@ -445,7 +473,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         btnSeleccionar.setText("Cerrar");
     }
 
-    protected void abrirEntidad() {
+    protected void abrirEntidad(int id) {
         JOptionPane.showMessageDialog(new JInternalFrame(),"En Contrucción!","Atención!",JOptionPane.INFORMATION_MESSAGE);        
     }
     
@@ -456,15 +484,27 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     
     private int getIDfromFila(int fila)
     {
+        
+        fila = tblLista.convertRowIndexToModel(fila);
+        
         DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
         for (int i = 0; i < modelo.getColumnCount(); i++) {
-            Tupla tp = (Tupla)modelo.getValueAt(fila, i);
-            if(tp.getId()!=-1)
+            int id=((Tupla)(tblLista.getModel().getValueAt(fila, 0))).getId();      
+            if(id!=-1)
             {
-                return tp.getId();
+                return id;
             }
         }
         return -1;
+    }
+    
+    protected ArrayList<String[]> getColumnColorCriteria()
+    {
+        return new ArrayList<String[]>();
+    }
+
+    private void initColorCriteria() {
+        tblLista.setDefaultRenderer(Object.class,new PantallaConsultarGenericaCellRenderer(getColumnColorCriteria(),getColumnas()));
     }
     
 }

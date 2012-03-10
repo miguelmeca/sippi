@@ -32,7 +32,9 @@ import vista.ayuda.VisorDeAyuda;
 import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.*;
+import vista.cotizacion.ListadoCotizaciones;
 import vista.planificacion.EditarPlanificacion;
+import vista.planificacion.PantallaConsultarPlanificaciones;
 import vista.rrhh.PantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaRegistrarEmpleado;
@@ -205,6 +207,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         btnMenuListHerr = new javax.swing.JMenuItem();
         btnMenuListadoOrdenesCompra = new javax.swing.JMenuItem();
+        btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
+        btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -509,6 +513,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnMenuListadoOrdenesCompra);
 
+        btnMenuListadoPlanificaciones.setText("Planificaciones");
+        btnMenuListadoPlanificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoPlanificacionesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListadoPlanificaciones);
+
+        btnMenuListadoCotizaciones.setText("Cotizaciones");
+        btnMenuListadoCotizaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoCotizacionesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMenuListadoCotizaciones);
+
         jMenuBar1.add(jMenu2);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
@@ -702,12 +722,26 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true); 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void btnMenuListadoPlanificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoPlanificacionesActionPerformed
+        PantallaConsultarPlanificaciones win = new PantallaConsultarPlanificaciones();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+    }//GEN-LAST:event_btnMenuListadoPlanificacionesActionPerformed
+
+    private void btnMenuListadoCotizacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoCotizacionesActionPerformed
+        ListadoCotizaciones win = new ListadoCotizaciones();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+    }//GEN-LAST:event_btnMenuListadoCotizacionesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;
+    private javax.swing.JMenuItem btnMenuListadoCotizaciones;
     private javax.swing.JMenuItem btnMenuListadoEmpresasCliente;
     private javax.swing.JMenuItem btnMenuListadoOrdenesCompra;
+    private javax.swing.JMenuItem btnMenuListadoPlanificaciones;
     private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;

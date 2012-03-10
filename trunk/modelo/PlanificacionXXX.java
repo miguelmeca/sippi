@@ -22,6 +22,19 @@ public class PlanificacionXXX {
     private int numeroPlanificacion;
     private CotizacionModificada cotizacion;
     private List<TareaPlanificacion> tareas;
+    
+    private String estado;
+    
+    public static final String ESTADO_ALTA = "ALTA"; // POR PONER ALGO, NO SON
+    public static final String ESTADO_BAJA = "BAJA"; // POR PONER ALGO, NO SON
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
     public PlanificacionXXX() {
     }

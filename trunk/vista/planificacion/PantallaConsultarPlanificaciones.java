@@ -34,6 +34,7 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
             columnas.add(new String[]{"getNroCotizacionPlanificada","Cotización"});
             columnas.add(new String[]{"getFechaInicio","Fecha de Inicio"});
             columnas.add(new String[]{"getFechaFin","Fecha de Fin"});
+            columnas.add(new String[]{"getEstado","Estado"});
         
         return columnas;
     }
@@ -41,6 +42,18 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     @Override
     protected String getNombreVentana() {
         return "Listado de todas las Planificaciones Realizadas";
-    } 
+    }
+
+    @Override
+    protected ArrayList<String[]> getColumnColorCriteria() {
+        ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
+        
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"102","102","88"});
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_BAJA,"15","200","75"});
+        
+        return colorCriteria;
+    }
+    
+    
     
 }
