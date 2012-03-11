@@ -7,7 +7,7 @@ package vista.cotizacion;
 import java.util.ArrayList;
 import modelo.Cotizacion;
 import util.SwingPanel;
-import vista.PantallaConsultarGenerica;
+import vista.gen.PantallaConsultarGenerica;
 
 /**
  *

@@ -9,7 +9,7 @@ import vista.planificacion.*;
 import java.util.HashMap;
 import modelo.OrdenDeCompra;
 import modelo.PlanificacionXXX;
-import vista.PantallaConsultarGenerica;
+import vista.gen.PantallaConsultarGenerica;
 
 /**
  *
