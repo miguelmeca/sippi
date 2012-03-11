@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package vista.gen;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;

@@ -1,4 +1,4 @@
-package vista;
+package vista.gen;
 
 import java.awt.Color;
 import java.awt.Component;

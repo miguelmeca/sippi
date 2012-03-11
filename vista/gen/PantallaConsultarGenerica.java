@@ -9,7 +9,7 @@
  * Created on 06-ago-2010, 15:44:11
  */
 
-package vista;
+package vista.gen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -265,7 +265,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                         .addComponent(jLabel1))
                     .addComponent(btnRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)

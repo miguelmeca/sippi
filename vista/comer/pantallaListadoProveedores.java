@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.EmpresaCliente;
 import modelo.Proveedor;
-import vista.PantallaConsultarGenerica;
+import vista.gen.PantallaConsultarGenerica;
 
 /**
  *

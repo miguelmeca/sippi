@@ -7,7 +7,7 @@ package vista.planificacion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.PlanificacionXXX;
-import vista.PantallaConsultarGenerica;
+import vista.gen.PantallaConsultarGenerica;
 import vista.interfaces.ICallBackGen;
 
 /**

@@ -7,7 +7,7 @@ package vista.comer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.EmpresaCliente;
-import vista.PantallaConsultarGenerica;
+import vista.gen.PantallaConsultarGenerica;
 
 /**
  *
