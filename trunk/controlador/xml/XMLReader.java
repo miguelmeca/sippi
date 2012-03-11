@@ -15,8 +15,8 @@ import org.jdom.input.SAXBuilder;
  */
 public abstract class XMLReader {
 
-     SAXBuilder builder;
-     Document doc;
+    protected SAXBuilder builder;
+    protected Document doc;
 
     // BugFix: No anda en los jars directamente si es String, paso a URL:
     public XMLReader(URL urlXml) {
