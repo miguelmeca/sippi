@@ -15,14 +15,18 @@ import com.hackelare.coolgantt.*;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
+import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.SwingPanel;
@@ -31,6 +35,7 @@ import vista.cotizacion.ExplorarSubObras;
 import vista.gui.dnd.IDropEvent;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
+import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
 
 /**
@@ -927,8 +932,17 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
     
-    public void AgregarNuevaTarea(int id,String nombre)
+    public void AgregarNuevaTarea(int id,String nombre,String nombreGannt, int idTareaPadre)
     {  
+        
+        agregarNuevaTareaGantt(id, nombreGannt, idTareaPadre);
+        
+        agregarNuevaTareaArbol( id, nombre,idTareaPadre); 
+        
+    }
+    
+    public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
+    { 
         // Create a new Phrase
         CoolGanttPhase p5 = new CoolGanttPhase();
         p5.setEditable(true);
@@ -941,6 +955,47 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         graph.refreshModel();     
         updateGantt();
+    }
+    
+    public void agregarNuevaTareaArbol(int id,String nombre,int idTareaPadre)
+    { 
+        //Arbol
+        ArbolIconoNodo nodoTarea = new ArbolIconoNodo(id,ArbolDeTareasTipos.TIPO_TAREA,nombre,Iconos.ICONO_TAREA);
+        ArbolIconoNodo padre=getNodoArbolTareas(arbolTareas,idTareaPadre);        
+        if(padre!=null)
+        {
+            ((DefaultTreeModel)(arbolTareas.getModel())).insertNodeInto(nodoTarea, padre, padre.getChildCount());
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Nodo padre inexistente.");
+        }
+    }
+    
+    private ArbolIconoNodo getNodoArbolTareas(JTree arbol,int id)
+    {
+        if(id<=0)
+        {
+            return (ArbolIconoNodo)arbol.getModel().getRoot();
+        }
+        
+        ArrayList<ArbolIconoNodo> listaNodos=new ArrayList<ArbolIconoNodo>();
+        listaNodos.add((ArbolIconoNodo)arbol.getModel().getRoot());
+        for (int i = 0; i < listaNodos.size(); i++) 
+        {
+            ArbolIconoNodo nodo=listaNodos.get(i);
+            for (int j = 0; j < nodo.getChildCount(); j++) 
+            {
+               if(nodo.getId()==id)
+               {
+                   return nodo;
+               }
+               else
+               {listaNodos.add(nodo);}
+                
+            }            
+        }
+        return null;
     }
 
     public void setLblObraFechaFin(String lblObraFechaFin) {
@@ -985,7 +1040,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     
     
     /**
-     * InnerClass para manerja el disparo de evento Drag&Drop
+     * InnerClass para manerja el disparo de evento Drag&Drop en el Gantt
      */
     public class GanttDropEvent implements IDropEvent{
 
@@ -1093,9 +1148,53 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
      */
     public void inicializarArbolDeTareas()
     {
+        PanelDropTarget target = new PanelDropTarget(arbolTareas, new ArbolDropEvent());
         DefaultTreeModel modelo=_gestor.getModeloArbolTareas();
         arbolTareas.setModel(modelo);
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
         //arbolTareas.setRootVisible(false);
+    }
+    
+    /**
+     * InnerClass para manerja el disparo de evento Drag&Drop en el arbol
+     */
+    public class ArbolDropEvent implements IDropEvent
+    {
+
+        @Override
+        public void dropEvent(String data,Point location) 
+        {
+
+          TreePath path = arbolTareas.getPathForLocation(location.x, location.y);
+          System.out.println("Path receptor:"+path);
+          TreeNode tn;
+          if(path != null)
+          {
+            tn= (TreeNode) path.getLastPathComponent();
+            System.out.println("Receptor:"+tn);
+          }
+          else
+          {
+              return;
+          }
+          
+          if(data!=null && !data.isEmpty() && tn!=null)
+          {
+              String[] dataTrigger = data.split(";");
+              if(dataTrigger.length==3)
+              {
+                String tipo=dataTrigger[0];
+                int id= Integer.parseInt(dataTrigger[1]);
+                String nombre=dataTrigger[2];              
+
+                if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
+                {
+                      //TODO: 
+                }                  
+            }
+          }
+            
+        }
+       
     }
 }

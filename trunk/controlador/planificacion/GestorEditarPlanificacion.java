@@ -272,46 +272,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
    
     public void AgregarNuevaTarea(int id, String nombre) {
         
-        // VEO QUE NO ESTE REPETIDA
-        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
-        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
-            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
-            {
-                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada en el gráfico");
-                return;
-            }
-        }
-        
-        // CREO LA NUEVA TAREA
-        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
-        nuevaTarea.setNombre(nombre);
-        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());
-        
-        // CArgo la SubObra X Tarea Planificada Mod
-        try
-        {
-              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
-              for (int i = 0; i < listaSubObrasMod.size(); i++) {
-                SubObraModificada som = listaSubObrasMod.get(i);
-                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
-                  for (int j = 0; j < lsitasoxtm.size(); j++) {
-                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
-                      if(soxtm.getId()==id)
-                      {
-                          nuevaTarea.setTareaCotizada(soxtm);
-                          break;
-                      }
-                  }
-            }
-        
-        }catch(Exception e)
-        {
-            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
-            return;
-        }
+        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
         
         // Si existe:
-        if(nuevaTarea.getTareaCotizada()==null)
+        if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
             mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
             return;
@@ -321,52 +285,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         // TODO: Falta la relacion 
         
         this.planificacion.getTareas().add(nuevaTarea);
-        
-        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nuevaTarea.getNombre());
+        String nombreTarea = nuevaTarea.getNombre();
+        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nombreTarea,nombreTarea,0);
 //        _pantalla.updateGantt();
     }
 
     public int getCotizacionPlanificada() {
         return  this.planificacion.getCotizacion().getCotizacionOriginal().getId();
     }
+    
 
     public void AgregarNuevaSubTarea(int id, String nombre,int idTareaPadre, int nivel) {
 
-        // VEO QUE NO ESTE REPETIDA
-        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
-        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
-            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
-            {
-                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada en el gráfico");
-                return;
-            }
-        }
+        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
         
-        // CREO LA NUEVA TAREA
-        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
-        nuevaTarea.setNombre(nombre);
-        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
-        
-        // CArgo la SubObra X Tarea Planificada Mod
-        try
+        if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
-              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
-              for (int i = 0; i < listaSubObrasMod.size(); i++) {
-                SubObraModificada som = listaSubObrasMod.get(i);
-                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
-                  for (int j = 0; j < lsitasoxtm.size(); j++) {
-                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
-                      if(soxtm.getId()==id)
-                      {
-                          nuevaTarea.setTareaCotizada(soxtm);
-                          break;
-                      }
-                  }
-            }
-        
-        }catch(Exception e)
-        {
-            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+            mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
             return;
         }
         
@@ -397,7 +332,50 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
         for (int i = 0; i < nivel; i++) {
             nombreGantt+="@";
         }
-        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nombreGantt);
+        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nuevaTarea.getNombre(),nombreGantt,idTareaPadre);
+    }
+    
+    private TareaPlanificacion crearTarea(String nombre, int id)
+    {
+        // VEO QUE NO ESTE REPETIDA
+        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
+            {
+                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada");
+                return null;
+            }
+        }
+        
+        // CREO LA NUEVA TAREA
+        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
+        nuevaTarea.setNombre(nombre);
+        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
+        
+        // CArgo la SubObra X Tarea Planificada Mod
+        try
+        {
+              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
+              for (int i = 0; i < listaSubObrasMod.size(); i++) {
+                SubObraModificada som = listaSubObrasMod.get(i);
+                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
+                  for (int j = 0; j < lsitasoxtm.size(); j++) {
+                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
+                      if(soxtm.getId()==id)
+                      {
+                          nuevaTarea.setTareaCotizada(soxtm);
+                          return nuevaTarea;
+                      }
+                  }
+            }
+        
+        }catch(Exception e)
+        {
+            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+            return null;
+        }
+        return null;
+    
     }
     
     public DefaultTreeModel getModeloArbolTareas()
