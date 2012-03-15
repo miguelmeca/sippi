@@ -12,7 +12,7 @@ import modelo.TareaPlanificacion;
  *
  * @author Emmanuel
  */
-class GestorPlanificacionAlquileresCompras implements IGestorPlanificacion{
+public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacion{
 
     GestorPlanificacionAlquileresCompras(GestorEditarTarea aThis) {
         throw new UnsupportedOperationException("Not yet implemented");

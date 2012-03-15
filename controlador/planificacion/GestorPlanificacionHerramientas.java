@@ -12,7 +12,7 @@ import modelo.TareaPlanificacion;
  *
  * @author Emmanuel
  */
-class GestorPlanificacionHerramientas implements IGestorPlanificacion{
+public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
 
     GestorPlanificacionHerramientas(GestorEditarTarea aThis) {
         throw new UnsupportedOperationException("Not yet implemented");
