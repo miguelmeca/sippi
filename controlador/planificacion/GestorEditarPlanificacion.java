@@ -32,13 +32,22 @@ import vista.planificacion.arbolTareas.ArbolIconoNodo;
  *
  * @author Administrador
  */
-public class GestorEditarPlanificacion extends GestorAbstracto {
+public class GestorEditarPlanificacion extends GestorAbstracto implements IGestorPlanificacion{
 
     private EditarPlanificacion _pantalla;
     private GestorArbolDeRecursos _gestorArbolRecursos;
     private Session sesion;
     private PedidoObra pedidoDeObra;
     private PlanificacionXXX planificacion;
+
+    @Override
+    public PlanificacionXXX getPlanificacion() {
+        return planificacion;
+    }
+
+    public void setPlanificacion(PlanificacionXXX planificacion) {
+        this.planificacion = planificacion;
+    }
     
     private HashMap<Integer,Boolean> generatedIdGantt;
 
@@ -443,5 +452,14 @@ public class GestorEditarPlanificacion extends GestorAbstracto {
             
         }
     }
-    
+
+    @Override
+    public TareaPlanificacion getTareaActual() {
+        return null;
+    }
+
+    @Override
+    public void refrescarPantallas() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

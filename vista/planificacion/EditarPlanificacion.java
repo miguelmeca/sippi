@@ -17,6 +17,7 @@ import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
+import controlador.planificacion.GestorEditarTarea;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Point;
@@ -359,10 +360,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 204, Short.MAX_VALUE)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -456,7 +457,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -471,7 +472,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 585, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,7 +497,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -517,7 +518,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Número de Planificación: ");
 
@@ -539,11 +540,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtNroPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 32, Short.MAX_VALUE))
+                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -565,29 +566,29 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido de Obra"));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel4.setText("Nombre:");
 
         lblObraNombre.setText("---");
         lblObraNombre.setPreferredSize(new java.awt.Dimension(1, 1));
         lblObraNombre.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel6.setText("Planta: ");
 
         lblObraLugar.setText("---");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel8.setText("Lugar de la Planta:");
 
         lblObraPlanta.setText("---");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel10.setText("Fecha de Inicio:");
 
         lblObraFechaInicio.setText("---");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel12.setText("Fecha de Fin:");
 
         lblObraFechaFin.setText("---");
@@ -606,11 +607,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblObraFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblObraFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblObraNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblObraPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblObraLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblObraFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(lblObraFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(lblObraNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(lblObraPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(lblObraLugar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -640,7 +641,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Cotización"));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel14.setText("Cotización sobre la que se planifico: ");
 
         txtNroCotizacion.setEditable(false);
@@ -653,7 +654,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel15.setText("Monto Total Cotizado: ");
 
         lblCotMontoTotal.setText("---");
@@ -673,7 +674,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                         .addComponent(txtNroCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
-                    .addComponent(lblCotMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblCotMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -710,7 +711,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -723,7 +724,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -738,7 +739,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEmitirInforme)
                         .addGap(127, 127, 127)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1197,4 +1198,44 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
        
     }
+
+    public class GanttEventMouse implements ICoolGanttEvent{
+
+        @Override
+        public Date inGetProjectStartDate() {
+            return new Date();
+        }
+
+        @Override
+        public Date inGetProjectEndDate() {
+            return new Date();
+        }
+
+        @Override
+        public void outClickPhase(int i) {
+            //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
+            GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+            gestorEditarTarea.seleccionarTarea(i);
+            PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
+            SwingPanel.getInstance().addWindow(editarTarea);
+            editarTarea.setVisible(true);
+        }
+
+        @Override
+        public void outMovePhase(int i, Date date) {
+              //JOptionPane.showMessageDialog(new JFrame(),"Se movio en la tarea: "+i);
+        }
+
+        @Override
+        public void outExtendPhaseBackward(int i, Date date) {
+              //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la izquierda la tarea: "+i);
+        }
+
+        @Override
+        public void outExtendPhaseForward(int i, Date date) {
+             //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la derecha la tarea: "+i);
+        }
+
+    }
+
 }

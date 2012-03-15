@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.7" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
@@ -136,7 +136,7 @@
                   <Group type="102" attributes="0">
                       <Component id="btnEmitirInforme" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
-                      <Component id="btnSave" max="32767" attributes="0"/>
+                      <Component id="btnSave" pref="241" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -206,10 +206,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" alignment="0" pref="229" max="32767" attributes="0"/>
-                  <Component id="jScrollPane3" alignment="0" pref="229" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="0" pref="235" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" pref="235" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="204" max="32767" attributes="0"/>
                       <Component id="btnEditar" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -355,7 +355,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelCentral" alignment="0" pref="617" max="32767" attributes="0"/>
+              <Component id="panelCentral" alignment="0" pref="625" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -392,7 +392,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="589" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" alignment="0" pref="597" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -444,7 +444,7 @@
                           <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="366" max="32767" attributes="0"/>
+                          <EmptySpace pref="374" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -475,7 +475,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="585" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -519,7 +519,7 @@
                           <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="216" max="32767" attributes="0"/>
+                          <EmptySpace pref="224" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -546,12 +546,12 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtFechaInicio" max="32767" attributes="1"/>
+                                  <Component id="txtFechaInicio" pref="221" max="32767" attributes="1"/>
                                   <Group type="102" attributes="0">
                                       <Component id="txtNroPlanificacion" min="-2" pref="189" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="txtFechaFin" max="32767" attributes="1"/>
+                                  <Component id="txtFechaFin" pref="221" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -641,11 +641,11 @@
                               </Group>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblObraFechaInicio" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblObraFechaFin" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblObraNombre" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="lblObraPlanta" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblObraLugar" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblObraFechaInicio" alignment="0" pref="424" max="32767" attributes="0"/>
+                                  <Component id="lblObraFechaFin" alignment="0" pref="424" max="32767" attributes="0"/>
+                                  <Component id="lblObraNombre" alignment="1" pref="424" max="32767" attributes="0"/>
+                                  <Component id="lblObraPlanta" alignment="0" pref="424" max="32767" attributes="0"/>
+                                  <Component id="lblObraLugar" alignment="1" pref="424" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -780,7 +780,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton1" pref="132" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="lblCotMontoTotal" max="32767" attributes="0"/>
+                                  <Component id="lblCotMontoTotal" pref="348" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
