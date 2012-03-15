@@ -6,8 +6,11 @@
 package controlador.planificacion;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
+import util.HibernateUtil;
 import vista.planificacion.PantallaEditarTarea;
 
 /**
@@ -42,14 +45,19 @@ public class GestorEditarTarea implements IGestorPlanificacion{
 
     public void seleccionarTarea(int idTarea)
     {
-        for (int i = 0; i < getPlanificacion().getTareas().size(); i++)
-        {
-            TareaPlanificacion tp = (TareaPlanificacion)getPlanificacion().getTareas().get(i);
-            if(tp.getId()==idTarea)
-            {
-                this.tarea = tp;
-                break;
-            }
+        try {
+            //        for (int i = 0; i < getPlanificacion().getTareas().size(); i++)
+            //        {
+            //            TareaPlanificacion tp = (TareaPlanificacion)getPlanificacion().getTareas().get(i);
+            //            if(tp.getId()==idTarea)
+            //            {
+            //                this.tarea = tp;
+            //                break;
+            //            }
+            //        }
+            this.tarea = (TareaPlanificacion) HibernateUtil.getSession().load(TareaPlanificacion.class,idTarea);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEditarTarea.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

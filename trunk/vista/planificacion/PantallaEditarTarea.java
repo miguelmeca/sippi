@@ -221,6 +221,18 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
         switch(tblMenu.getSelectedRow())
         {
+            case OPTN_DATOSGRALES:
+                setNombrePanel(modelo.getValueAt(OPTN_DATOSGRALES, 0).toString());
+                PlanificacionDatosGenerales pdg = new PlanificacionDatosGenerales(gestor.getGestorDatosGenerales());
+                panel.setViewportView(pdg);
+                pdg.setVisible(true);
+                break;
+            case OPTN_SUBTAREAS:
+                setNombrePanel(modelo.getValueAt(OPTN_SUBTAREAS, 0).toString());
+                PlanificacionSubTareas pst = new PlanificacionSubTareas(gestor.getGestorSubTareas());
+                panel.setViewportView(pst);
+                pst.setVisible(true);
+                break;
 //            case OPTN_MATERIALES:
 //                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
 //                VentanaPlanificacionMateriales cm = new VentanaPlanificacionMateriales(gestor.getGestorMateriales());
@@ -245,12 +257,6 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
 //                panel.setViewportView(h);
 //                h.setVisible(true);
 //                break;
-            case OPTN_DATOSGRALES:
-                setNombrePanel(modelo.getValueAt(OPTN_DATOSGRALES, 0).toString());
-                PlanificacionDatosGenerales pdg = new PlanificacionDatosGenerales(gestor.getGestorDatosGenerales());
-                panel.setViewportView(pdg);
-                pdg.setVisible(true);
-                break;
             default:
                 setNombrePanel(modelo.getValueAt(OPTN_DATOSGRALES, 0).toString());
                 PlanificacionDatosGenerales pdg2 = new PlanificacionDatosGenerales(gestor.getGestorDatosGenerales());
