@@ -186,15 +186,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        panel = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         treeMenu = new javax.swing.JTree();
-        jPanel5 = new javax.swing.JPanel();
-        lblAyudaTitulo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lblAyudaDesc = new javax.swing.JTextArea();
-        panel = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -299,6 +293,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jSplitPane2.setDividerLocation(200);
         jSplitPane2.setDoubleBuffered(true);
         jSplitPane2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -306,8 +301,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jSplitPane1.setDividerLocation(510);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        panel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panel.setDoubleBuffered(true);
+        panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                panelMouseMoved(evt);
+            }
+        });
+        jSplitPane2.setRightComponent(panel);
 
         jScrollPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -325,61 +326,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(treeMenu);
 
-        jSplitPane1.setTopComponent(jScrollPane1);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        lblAyudaTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblAyudaTitulo.setText("Titulo de la Ayuda");
-
-        jButton1.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
-        jButton1.setText("Más Ayuda ...");
-
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        lblAyudaDesc.setColumns(20);
-        lblAyudaDesc.setLineWrap(true);
-        lblAyudaDesc.setRows(5);
-        lblAyudaDesc.setEnabled(false);
-        jScrollPane2.setViewportView(lblAyudaDesc);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                    .addComponent(jButton1)
-                    .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblAyudaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-
-        jSplitPane1.setRightComponent(jPanel5);
-
-        jSplitPane2.setLeftComponent(jSplitPane1);
-
-        panel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panel.setDoubleBuffered(true);
-        panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                panelMouseMoved(evt);
-            }
-        });
-        jSplitPane2.setRightComponent(panel);
+        jSplitPane2.setTopComponent(jScrollPane1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -784,7 +731,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -803,29 +749,23 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelCargando;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JProgressBar jpbCargando;
-    private javax.swing.JTextArea lblAyudaDesc;
-    private javax.swing.JLabel lblAyudaTitulo;
     private javax.swing.JDesktopPane panel;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarAyuda(String titulo, String desc, int id)
     {
-        lblAyudaTitulo.setText(titulo);
-        lblAyudaDesc.setText(desc);
+
     }
 
     private void cargarFavoritosGuardados() 
