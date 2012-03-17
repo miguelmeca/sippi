@@ -179,6 +179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnSiderbarAutoHide = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnSalir = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jPanelCargando = new javax.swing.JPanel();
         jpbCargando = new javax.swing.JProgressBar();
@@ -246,6 +247,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnSalir);
+
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
+        btnInicio.setText("Inicio");
+        btnInicio.setFocusable(false);
+        btnInicio.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInicio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnInicio);
         jToolBar1.add(jSeparator2);
 
         jpbCargando.setDoubleBuffered(true);
@@ -753,7 +766,14 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        VentanaHome win = new VentanaHome();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);         
+    }//GEN-LAST:event_btnInicioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInicio;
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;

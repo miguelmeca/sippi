@@ -22,6 +22,10 @@ public class ListadoCotizaciones extends PantallaConsultarGenerica{
     public ListadoCotizaciones() {
         super(Cotizacion.class);
     }
+
+    public ListadoCotizaciones(String filtro) {
+        super(Cotizacion.class,filtro);
+    }    
     
     @Override
     protected ArrayList<String[]> getColumnas()

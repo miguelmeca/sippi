@@ -5,7 +5,13 @@
 package vista;
 
 import java.awt.Cursor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import modelo.Cotizacion;
+import util.FechaUtil;
 import util.SwingPanel;
 import vista.cotizacion.ListadoCotizaciones;
 
@@ -15,13 +21,14 @@ import vista.cotizacion.ListadoCotizaciones;
  */
 public class VentanaHome extends javax.swing.JInternalFrame {
 
+    private boolean deboRefrescar = true;
     /**
      * Creates new form VentanaHome
      */
     public VentanaHome() {
         initComponents();
         setSize(730, 481);
-        
+        initData();
     }
 
     /**
@@ -34,16 +41,55 @@ public class VentanaHome extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lblCotPendiente = new javax.swing.JLabel();
-        lblCotCreacion1 = new javax.swing.JLabel();
-        lblCotCreacion2 = new javax.swing.JLabel();
+        lblCotAceptadas = new javax.swing.JLabel();
+        lblCotCreacion = new javax.swing.JLabel();
+        lblTareasFecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
         setTitle("Bienvenido !");
-        setFocusCycleRoot(false);
         setOpaque(true);
-        setRequestFocusEnabled(false);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                formHierarchyChanged(evt);
+            }
+        });
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         lblCotPendiente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -64,41 +110,59 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         getContentPane().add(lblCotPendiente);
         lblCotPendiente.setBounds(24, 113, 190, 15);
 
-        lblCotCreacion1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblCotCreacion1.setForeground(new java.awt.Color(0, 153, 153));
-        lblCotCreacion1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCotCreacion1.setText("(13)");
-        lblCotCreacion1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCotAceptadas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCotAceptadas.setForeground(new java.awt.Color(0, 153, 153));
+        lblCotAceptadas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCotAceptadas.setText("(13)");
+        lblCotAceptadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCotCreacion1MouseClicked(evt);
+                lblCotAceptadasMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCotCreacion1MouseEntered(evt);
+                lblCotAceptadasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCotCreacion1MouseExited(evt);
+                lblCotAceptadasMouseExited(evt);
             }
         });
-        getContentPane().add(lblCotCreacion1);
-        lblCotCreacion1.setBounds(24, 142, 190, 15);
+        getContentPane().add(lblCotAceptadas);
+        lblCotAceptadas.setBounds(24, 142, 190, 15);
 
-        lblCotCreacion2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblCotCreacion2.setForeground(new java.awt.Color(0, 153, 153));
-        lblCotCreacion2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCotCreacion2.setText("(1)");
-        lblCotCreacion2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCotCreacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCotCreacion.setForeground(new java.awt.Color(0, 153, 153));
+        lblCotCreacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCotCreacion.setText("(1)");
+        lblCotCreacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCotCreacion2MouseClicked(evt);
+                lblCotCreacionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCotCreacion2MouseEntered(evt);
+                lblCotCreacionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCotCreacion2MouseExited(evt);
+                lblCotCreacionMouseExited(evt);
             }
         });
-        getContentPane().add(lblCotCreacion2);
-        lblCotCreacion2.setBounds(24, 83, 190, 15);
+        getContentPane().add(lblCotCreacion);
+        lblCotCreacion.setBounds(24, 83, 190, 15);
+
+        lblTareasFecha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTareasFecha.setForeground(new java.awt.Color(0, 153, 153));
+        lblTareasFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTareasFecha.setText("---");
+        lblTareasFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTareasFechaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblTareasFechaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblTareasFechaMouseExited(evt);
+            }
+        });
+        getContentPane().add(lblTareasFecha);
+        lblTareasFecha.setBounds(500, 83, 190, 15);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/HomeScreen.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -107,8 +171,10 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void lblCotPendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendienteMouseClicked
-        ListadoCotizaciones win = new ListadoCotizaciones();
+        String filtro = "estado LIKE '"+Cotizacion.ESTADO_PENDIENTE_ACEPTACION+"'";
+        ListadoCotizaciones win = new ListadoCotizaciones(filtro);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true); 
     }//GEN-LAST:event_lblCotPendienteMouseClicked
@@ -121,34 +187,93 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblCotPendienteMouseExited
 
-    private void lblCotCreacion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCotCreacion1MouseClicked
+    private void lblCotAceptadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotAceptadasMouseClicked
+        String filtro = "estado LIKE '"+Cotizacion.ESTADO_ACEPTADO+"'";
+        ListadoCotizaciones win = new ListadoCotizaciones(filtro);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+    }//GEN-LAST:event_lblCotAceptadasMouseClicked
 
-    private void lblCotCreacion1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion1MouseEntered
+    private void lblCotAceptadasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotAceptadasMouseEntered
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblCotCreacion1MouseEntered
+    }//GEN-LAST:event_lblCotAceptadasMouseEntered
 
-    private void lblCotCreacion1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion1MouseExited
+    private void lblCotAceptadasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotAceptadasMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_lblCotCreacion1MouseExited
+    }//GEN-LAST:event_lblCotAceptadasMouseExited
 
-    private void lblCotCreacion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCotCreacion2MouseClicked
+    private void lblTareasFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTareasFechaMouseClicked
 
-    private void lblCotCreacion2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion2MouseEntered
+    }//GEN-LAST:event_lblTareasFechaMouseClicked
+
+    private void lblTareasFechaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTareasFechaMouseEntered
+
+    }//GEN-LAST:event_lblTareasFechaMouseEntered
+
+    private void lblTareasFechaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTareasFechaMouseExited
+
+    }//GEN-LAST:event_lblTareasFechaMouseExited
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        deboRefrescar = false; // Corto la ejecucion del HILO
+    }//GEN-LAST:event_formInternalFrameClosing
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+
+    }//GEN-LAST:event_formFocusLost
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+
+    }//GEN-LAST:event_formComponentShown
+
+    private void formHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_formHierarchyChanged
+
+    }//GEN-LAST:event_formHierarchyChanged
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        if(evt.getPropertyName().equals("selected"))
+        {
+            initData();      
+        }
+    }//GEN-LAST:event_formPropertyChange
+
+    private void lblCotCreacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacionMouseClicked
+        String filtro = "estado LIKE '"+Cotizacion.ESTADO_EN_CREACION+"'";
+        ListadoCotizaciones win = new ListadoCotizaciones(filtro);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+    }//GEN-LAST:event_lblCotCreacionMouseClicked
+
+    private void lblCotCreacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacionMouseEntered
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblCotCreacion2MouseEntered
+    }//GEN-LAST:event_lblCotCreacionMouseEntered
 
-    private void lblCotCreacion2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacion2MouseExited
+    private void lblCotCreacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotCreacionMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_lblCotCreacion2MouseExited
+    }//GEN-LAST:event_lblCotCreacionMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblCotCreacion1;
-    private javax.swing.JLabel lblCotCreacion2;
+    private javax.swing.JLabel lblCotAceptadas;
+    private javax.swing.JLabel lblCotCreacion;
     private javax.swing.JLabel lblCotPendiente;
+    private javax.swing.JLabel lblTareasFecha;
     // End of variables declaration//GEN-END:variables
+
+    private void initData() {
+        setDataToLabel(lblTareasFecha,VentanaHomeGestor.getCotizacionesEnCreacion());
+        setDataToLabel(lblCotPendiente,VentanaHomeGestor.getCotizacionesPendientes());
+        setDataToLabel(lblCotAceptadas,VentanaHomeGestor.getCotizacionesAceptadas());
+        lblTareasFecha.setText(FechaUtil.getFechaActual());
+    }
+    
+    private void setDataToLabel(JLabel lbl, int data)
+    {
+        lbl.setText("("+String.valueOf(data) +")");
+    }
+
 }
