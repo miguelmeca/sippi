@@ -40,17 +40,28 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private String nombreOrigenCallback = "";
     private ICallBackGen origenCallback = null;
     
+    private String filtroActivo;
+    
     /** Creates new form pantallaConsultar */
     public PantallaConsultarGenerica(Class entidad) {
         
         this.entidad = entidad;
                 
+        filtroActivo = new String();
+        
         initComponents();
         initConfig();
         habilitarVentana();
-
     }
 
+    public PantallaConsultarGenerica(Class entidad,String filtoActivo) {
+        this.entidad = entidad;                
+        this.filtroActivo = filtoActivo;
+        initComponents();
+        initConfig();
+        habilitarVentana();
+    }    
+    
     private void habilitarVentana()
     {
         cargarDatosIniciales();        
@@ -69,7 +80,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 // CREO LA CONSULTA, CON O SIN FILTROS
                 if(getFiltrosActivos().isEmpty())
                 {
-                    lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()).list();
+                    if(!this.filtroActivo.isEmpty())
+                    {
+                        lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" WHERE "+this.filtroActivo).list();
+                    }
+                    else
+                    {
+                        lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()).list();
+                    }
                 }
                 else
                 {
@@ -597,6 +615,10 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     protected String getFiltrosActivos()
     {
         return "";
+    }
+
+    public void setFiltroActivo(String filtroActivo) {
+        this.filtroActivo = filtroActivo;
     }
     
     
