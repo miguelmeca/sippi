@@ -69,6 +69,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarMenu();
         
         cargarFavoritosGuardados();
+        
+        cargarHomeScreen();
     }
 
     public void mostrarCargando(boolean flag)
@@ -813,6 +815,14 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             SwingPanel.getInstance().fillFavoritos(UserSession.getInstance().getUsuarioLogeado().getListaFavoritos());
             updateMenu();
         }
+    }
+
+    private void cargarHomeScreen() {
+        
+        VentanaHome win = new VentanaHome();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+        
     }
 
 }

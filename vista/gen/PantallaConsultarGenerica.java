@@ -65,7 +65,16 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         try{
             Session sesion= HibernateUtil.getSession();
             sesion.beginTransaction();
-                List lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()).list();
+                List lista=null;
+                // CREO LA CONSULTA, CON O SIN FILTROS
+                if(getFiltrosActivos().isEmpty())
+                {
+                    lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()).list();
+                }
+                else
+                {
+                    lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" WHERE "+getFiltrosActivos()).list();
+                }
                 for (int i = 0; i < lista.size(); i++) 
                 {
                     Object obj = lista.get(i);
@@ -380,6 +389,12 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    /**
+     * Setea el nombre de las columnas y el correspondiente getter de la entidad
+     * que los va a llenar, el formato es:
+     * [getter][nombre de la columna]
+     * @return 
+     */
     protected ArrayList<String[]> getColumnas()
     {
         return new ArrayList<String[]>();
@@ -445,9 +460,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     }
 
     private Object[][] parseData(ArrayList<ArrayList<Tupla>> data) {
-        
-        
-        
+
         int a = 0;
         
         if(data!=null)
@@ -537,7 +550,13 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         }
         return -1;
     }
-    
+
+    /**
+     * Activa el Coloreado de Celdas segun los datos que esta contenga, el filtro
+     * el del tipo:
+     * [Nombre de Columna][Dato][Color]
+     * @return 
+     */
     protected ArrayList<String[]> getColumnColorCriteria()
     {
         return new ArrayList<String[]>();
@@ -547,6 +566,12 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         tblLista.setDefaultRenderer(Object.class,new PantallaConsultarGenericaCellRenderer(getColumnColorCriteria(),getColumnas()));
     }
     
+    /**
+     * Comportamiento del botón Imprimir
+     * @param nombre
+     * @param columnas
+     * @param datos 
+     */
     protected void imprimir(String nombre,String[]columnas, String[][] datos)
     {
         HashMap<String,Object> params = new HashMap<String,Object>();
@@ -562,6 +587,16 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(new JInternalFrame(),"Se produjo un error al generar el Reporte\nIntentelo nuevamente.","Error!",JOptionPane.INFORMATION_MESSAGE);
         } 
+    }
+    
+    /**
+     * Retorna una condicion WHERE de HSQL para filtrar desde el vamos los datos
+     * que serán mostrados en el listado.
+     * @return 
+     */
+    protected String getFiltrosActivos()
+    {
+        return "";
     }
     
     
