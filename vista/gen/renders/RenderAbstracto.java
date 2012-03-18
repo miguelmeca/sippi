@@ -6,6 +6,7 @@ package vista.gen.renders;
 
 import javax.swing.JComponent;
 import org.jdom.Element;
+import vista.gen.PantallaABMGenerica;
 
 /**
  * @author Iuga
@@ -13,11 +14,13 @@ import org.jdom.Element;
 public abstract class RenderAbstracto {
 
     protected JComponent componente;
+       
+    protected String nombreMostrar = "";
     
-    private String name = "";
-    private boolean notNull = false;
-    private boolean unique = false;
-    private String defaultVaule = "";
+    protected String name = "";
+    protected boolean notNull = false;
+    protected boolean unique = false;
+    protected String defaultVaule = "";
     
     public RenderAbstracto(String name,boolean notNull, boolean unique, String defaultVaule) {
         this.name = name;
@@ -28,6 +31,8 @@ public abstract class RenderAbstracto {
     
     public RenderAbstracto(Element e,String nombreCampo)
     {
+        this.nombreMostrar = nombreCampo;
+        
         if(e.getAttributeValue("name")!=null)
         {
             this.name = e.getAttributeValue("name");
@@ -64,9 +69,45 @@ public abstract class RenderAbstracto {
         }
     }
     
-    public JComponent render()
+    public JComponent render(int comportamiento)
     {
+        switch(comportamiento)
+        {
+            case PantallaABMGenerica.COMPORTAMIENTO_ALTA: return renderAlta();
+            case PantallaABMGenerica.COMPORTAMIENTO_BAJA: return renderBaja();
+            case PantallaABMGenerica.COMPORTAMIENTO_MODIFICACION: return renderModificacion();
+            case PantallaABMGenerica.COMPORTAMIENTO_VER: return renderVerDetalles();
+        }
         return null;
     }
+
+    protected JComponent renderAlta() {
+        return null;
+    }
+
+    protected JComponent renderBaja() {
+         return null;
+    }
+
+    protected JComponent renderModificacion() {
+        return null;
+    }
+
+    protected JComponent renderVerDetalles() {
+        return null;
+    }
+    
+    public String getData(){
+        return "";
+    }
+
+    public void setData(String data){
+        
+    }
+
+    public String getAttrName() {
+        return name;
+    }
+    
     
 }

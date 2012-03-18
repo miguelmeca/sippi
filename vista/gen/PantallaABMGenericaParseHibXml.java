@@ -62,9 +62,10 @@ public class PantallaABMGenericaParseHibXml extends XMLReader{
         String nombre = "";
         for (int i = 0; i < campos.size(); i++) {
             String[] s = campos.get(i);
-            if(s[0].equals(e.getAttribute("name")))
+            if(s[0].equals(e.getAttribute("name").getValue()))
             {
                 nombre = s[1];
+                continue;
             }
         }
         

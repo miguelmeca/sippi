@@ -16,6 +16,7 @@ import modelo.HerramientaDeEmpresa;
 public class FactoryABM {
     
     private Class[] intArgsClass = new Class[] { Class.class, int.class };
+    private Class[] intArgsClassMod = new Class[] { Class.class, int.class, int.class };
     private static HashMap<Class, String> storage = new HashMap<Class, String>();
     private static HashMap<Class, String> storageHbm = new HashMap<Class, String>();
     
@@ -57,6 +58,38 @@ public class FactoryABM {
         return pantalla;
     }
     
+    public PantallaABMGenerica create(Class<HerramientaDeEmpresa> clase, int comportamiento, int id) {
+        Object[] params = new Object[3];
+        params[0] = clase;
+        params[1] = comportamiento;
+        params[2] = id;
+        
+        String claseAgenerar = "";
+        if(FactoryABM.storage.containsKey(clase))
+        {
+            claseAgenerar = FactoryABM.storage.get(clase);
+        }
+        if(claseAgenerar.isEmpty())
+        {
+            return null;
+        }
+        
+        PantallaABMGenerica pantalla = null;
+        //Class instancia;
+        Constructor instancia=null;
+        try
+        {
+            instancia = Class.forName( claseAgenerar ).getConstructor(intArgsClassMod);
+            pantalla = (PantallaABMGenerica) createObject(instancia, params);
+            System.out.println("[DEBUG] Se Reflexionó una clase: "+claseAgenerar);
+        }
+        catch(Exception e)
+        {
+            System.err.println("[ERROR] No se pudo generar el ABM, no se encontro la clase buscada");
+        }
+        return pantalla;
+    }    
+    
     public boolean hasABM(Class clase)
     {
         return storage.containsKey(clase);
@@ -90,6 +123,6 @@ public class FactoryABM {
         System.err.println("[ERROR] "+e);
         }
         return object;
-  }    
+  }
     
 }
