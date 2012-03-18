@@ -21,7 +21,7 @@ public class PantallaABMGenericaParseHibXml extends XMLReader{
         super(urlXml);
     }
 
-    public ArrayList<RenderAbstracto> parseEntidad()
+    public ArrayList<RenderAbstracto> parseEntidad(ArrayList<String[]> campos)
     {
         ArrayList<RenderAbstracto> listaRenders = new ArrayList<RenderAbstracto>();
         
@@ -45,7 +45,7 @@ public class PantallaABMGenericaParseHibXml extends XMLReader{
                         while (itpr.hasNext())
                         {
                             Element ep = (Element)itpr.next();
-                            listaRenders.add(createBasicRender(ep.getAttributeValue("type"), ep));
+                            listaRenders.add(createBasicRender(ep.getAttributeValue("type"), ep,campos));
                         }
                     }
                 }
@@ -57,12 +57,21 @@ public class PantallaABMGenericaParseHibXml extends XMLReader{
         return listaRenders;
     }
  
-    private RenderAbstracto createBasicRender(String type, Element e)
-    {
+    private RenderAbstracto createBasicRender(String type, Element e,ArrayList<String[]> campos)
+    {       
+        String nombre = "";
+        for (int i = 0; i < campos.size(); i++) {
+            String[] s = campos.get(i);
+            if(s[0].equals(e.getAttribute("name")))
+            {
+                nombre = s[1];
+            }
+        }
+        
         RenderAbstracto render = null;
         if(type.equals("string"))
         {
-            render = new RenderString(e);
+            render = new RenderString(e,nombre);
         }
         return render;
     }
