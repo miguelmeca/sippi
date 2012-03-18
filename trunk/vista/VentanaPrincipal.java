@@ -203,7 +203,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
@@ -436,13 +440,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem10);
 
-        jMenuItem11.setText("TestABM");
+        jMenu4.setText("ABMs");
+
+        jMenuItem11.setText("TestABM ALTA");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem11ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem11);
+        jMenu4.add(jMenuItem11);
+
+        jMenuItem12.setText("TestABM BAJA");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem12);
+
+        jMenuItem13.setText("TestABM MODIFICACION");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem13);
+
+        jMenuItem14.setText("TestABM VER DETALLES");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem14);
+
+        jMenu3.add(jMenu4);
 
         jMenuBar1.add(jMenu3);
 
@@ -723,6 +755,27 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);         
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        FactoryABM factory = new FactoryABM();
+        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_BAJA);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);     
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        FactoryABM factory = new FactoryABM();
+        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_VER);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);     
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        FactoryABM factory = new FactoryABM();
+        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_MODIFICACION,1);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);     
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;
     private javax.swing.JMenuItem btnMenuAcercaDe;
@@ -738,10 +791,14 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

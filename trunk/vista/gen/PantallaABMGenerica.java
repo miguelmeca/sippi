@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import org.hibernate.Session;
+import util.HibernateUtil;
 import vista.gen.renders.RenderAbstracto;
 
 /**
@@ -20,8 +22,10 @@ import vista.gen.renders.RenderAbstracto;
 public class PantallaABMGenerica extends javax.swing.JInternalFrame {
 
     protected Class clase;
-    
+    protected int id = -1;
     private ArrayList<RenderAbstracto> listaRenders;
+    
+    private Object dataLoaded = null;
     
     private static final String MAPPING_DIR = "/config/db/";
     
@@ -45,6 +49,17 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
         initRender();
         render();
     }
+    
+    public PantallaABMGenerica(Class clase, int comportamiento, int id) {
+        this.comportamiento = comportamiento;
+        this.clase = clase;
+        this.id = id;
+        this.listaRenders = new ArrayList<RenderAbstracto>();
+        loadEntity();
+        initComponents();
+        initRender();
+        render();
+    }    
         
 
     /**
@@ -125,19 +140,21 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
         this.setTitle(getNombreVentana());
         // Renderizo los componentes
         for (int i = 0; i < listaRenders.size(); i++) {
-            // LABEL
-            JLabel label = new JLabel("Titulo del Combo: "+i);
-                label.setFont(new java.awt.Font("Tahoma", 1, 11));
-                label.setMaximumSize(new Dimension(Short.MAX_VALUE, 25)); 
-                label.setHorizontalAlignment(Label.RIGHT);
-                label.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-                label.setOpaque(true);
-                label.setAlignmentY(BOTTOM_ALIGNMENT);
-            panelRenders.add(label);
             // Render
             RenderAbstracto render = listaRenders.get(i);
-            JComponent cp = render.render();
-            panelRenders.add(cp);
+            JComponent cp = render.render(this.comportamiento);
+            
+            if(this.comportamiento==COMPORTAMIENTO_MODIFICACION 
+                    ||this.comportamiento==COMPORTAMIENTO_VER
+                    ||this.comportamiento==COMPORTAMIENTO_BAJA)
+            {
+                render.setData(getDataFromAttribute(render.getAttrName()));
+            }
+            
+            if(cp!=null)
+            {
+                panelRenders.add(cp);
+            }
         }
     }
 
@@ -149,11 +166,58 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
     
     protected String getNombreVentana()
     {
+        switch(this.comportamiento)
+        {
+            case COMPORTAMIENTO_ALTA: return "Nueva Entidad";
+            case COMPORTAMIENTO_BAJA: return "Dat de Baja la Entidad";
+            case COMPORTAMIENTO_MODIFICACION: return "Modificar una Entidad";
+            case COMPORTAMIENTO_VER: return "Detalles de la Entidad";
+        }
         return "";
     }
     
     protected ArrayList<String[]> getNombresCampos()
     {
         return new ArrayList<String[]>();
+    }
+
+    private void loadEntity() {
+        try
+        {
+            Session sesion= HibernateUtil.getSession();
+            sesion.getTransaction().begin();
+            Object data = sesion.load(this.clase,this.id);
+            sesion.getTransaction().commit();
+            this.dataLoaded = data;
+            System.out.println("[DEBUG] DATA LOADED"+data);
+        } catch (Exception ex)
+        {
+            System.out.println("No se pudo abrir la sesion");
+        }
+    }
+    
+    private String getDataFromAttribute(String attr)
+    {
+        String result = "";
+        // Busco el getter a usar
+        String f = attr.substring(0,1);
+        StringBuilder firtsUpper = new StringBuilder("get");
+        firtsUpper.append(f.toUpperCase());
+        firtsUpper.append(attr.substring(1,attr.length()));
+        String getter = firtsUpper.toString();
+        System.out.println("[DEBUG] Getter = "+getter+"();");
+        // Ya tengo el getter, lo invoco
+        java.lang.reflect.Method method; 
+        try 
+        {
+            method = this.dataLoaded.getClass().getMethod(getter);
+            result = (String) String.valueOf(method.invoke(this.dataLoaded));
+            System.out.println("[DEBUG] El Getter retorno: "+result);
+            
+        }catch(Exception e)
+        {
+            System.err.println("[ERROR] No se pudo invocar el metodo "+getter);
+        }
+        return result;
     }
 }
