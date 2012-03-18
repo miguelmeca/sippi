@@ -19,8 +19,8 @@ public class RenderString extends RenderAbstracto{
         super(name, notNull, unique, defaultVaule);
     }
 
-    public RenderString(Element e) {
-        super(e);
+    public RenderString(Element e,String nombre) {
+        super(e,nombre);
     }
 
     @Override

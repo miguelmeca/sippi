@@ -27,6 +27,8 @@ import vista.gui.sidebar.TreeEntry;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
 import modelo.FavoritoBean;
+import modelo.HerramientaDeEmpresa;
+import net.sf.cglib.proxy.Factory;
 import test.TestABM;
 import test.TestCallBackListadoGenerico;
 import vista.ayuda.VisorDeAyuda;
@@ -34,6 +36,7 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.*;
 import vista.cotizacion.ListadoCotizaciones;
+import vista.gen.FactoryABM;
 import vista.gen.PantallaABMGenerica;
 import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaConsultarPlanificaciones;
@@ -708,7 +711,8 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_btnMenuListadoCotizacionesActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        TestABM win = new TestABM(PantallaABMGenerica.COMPORTAMIENTO_ALTA);
+        FactoryABM factory = new FactoryABM();
+        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_ALTA);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);         
     }//GEN-LAST:event_jMenuItem11ActionPerformed

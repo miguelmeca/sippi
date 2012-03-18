@@ -19,6 +19,8 @@ import vista.gen.renders.RenderAbstracto;
  */
 public class PantallaABMGenerica extends javax.swing.JInternalFrame {
 
+    protected Class clase;
+    
     private ArrayList<RenderAbstracto> listaRenders;
     
     private static final String MAPPING_DIR = "/config/db/";
@@ -35,13 +37,15 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
     /**
      * Creates new form PantallaABMGenerica
      */
-    public PantallaABMGenerica(int comportamiento) {
+    public PantallaABMGenerica(Class clase, int comportamiento) {
         this.comportamiento = comportamiento;
+        this.clase = clase;
         this.listaRenders = new ArrayList<RenderAbstracto>();
         initComponents();
         initRender();
         render();
     }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,13 +142,18 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
     }
 
     private void initRender() {
-        URL fileHbmURL = getClass().getResource(MAPPING_DIR+"HerramientaDeEmpresa.xml");
+        URL fileHbmURL = getClass().getResource(MAPPING_DIR+FactoryABM.getHibernateHbm(this.clase));
         this._parser = new PantallaABMGenericaParseHibXml(fileHbmURL);
-        this.listaRenders = this._parser.parseEntidad();
+        this.listaRenders = this._parser.parseEntidad(getNombresCampos());
     }
     
     protected String getNombreVentana()
     {
         return "";
+    }
+    
+    protected ArrayList<String[]> getNombresCampos()
+    {
+        return new ArrayList<String[]>();
     }
 }

@@ -26,7 +26,7 @@ public abstract class RenderAbstracto {
         this.defaultVaule = defaultVaule;
     }
     
-    public RenderAbstracto(Element e)
+    public RenderAbstracto(Element e,String nombreCampo)
     {
         if(e.getAttributeValue("name")!=null)
         {
