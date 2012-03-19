@@ -624,10 +624,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
         
-        if(btnSiderbarAutoHide.isSelected())
+       /* if(btnSiderbarAutoHide.isSelected())
         {
             jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
-        }
+        }*/
     }//GEN-LAST:event_jPanel1MouseMoved
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

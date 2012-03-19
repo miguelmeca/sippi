@@ -278,34 +278,15 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return 0;
     }
 
-   
-    public void AgregarNuevaTarea(int id, String nombre) {
-        
-        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
-        
-        // Si existe:
-        if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
-        {
-            mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
-            return;
-        }
-        
-        // nuevaTarea.set
-        // TODO: Falta la relacion 
-        
-        this.planificacion.getTareas().add(nuevaTarea);
-        String nombreTarea = nuevaTarea.getNombre();
-        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nombreTarea,nombreTarea,0);
-//        _pantalla.updateGantt();
-    }
 
     public int getCotizacionPlanificada() {
         return  this.planificacion.getCotizacion().getCotizacionOriginal().getId();
     }
     
 
-    public void AgregarNuevaSubTarea(int id, String nombre,int idTareaPadre, int nivel) {
-
+    
+    public void agregarNuevaTareaArbol(int id, String nombre,int idTareaPadre)
+    {
         TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
         
         if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
@@ -314,34 +295,81 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             return;
         }
         
-        // CARGO LA TAREA PADRE
-        // Tengo el idGantt del padre, ahora tengo que conseguir el id de la Tarea y la tarea en si
-        TareaPlanificacion padre = null;
-        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
-            TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
-            if(tarea.getIdTareaGantt()==idTareaPadre)
-            {
-                padre = tarea;
-                continue;
-            }
-        }
-        // Agrego el hijo al padre
-        if(padre!=null)
+        if(idTareaPadre<=0)
         {
-            padre.addSubTarea(nuevaTarea);
+            this.planificacion.getTareas().add(nuevaTarea); 
         }
         else
         {
-            mostrarMensajeError("No se pudo encontrar la Tarea padre a la que se le quiere agregar la SubTarea");
-            return;
-        }   
+            // CARGO LA TAREA PADRE
+            TareaPlanificacion padre = null;
+            for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+                TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+                if(tarea.getId()==idTareaPadre)// Compruebo con el ID!!! (diferente del Gantt)
+                {
+                    padre = tarea;
+                    continue;
+                }
+            }
+            // Agrego el hijo al padre
+            if(padre!=null)
+            {
+                padre.addSubTarea(nuevaTarea);
+            }
+            else
+            {
+                mostrarMensajeError("No se pudo encontrar la Tarea padre a la que se le quiere agregar la SubTarea");
+                return;
+            } 
+        }
         
+        _pantalla.agregarNuevaTareaArbol(nuevaTarea.getId(),nuevaTarea.getNombre(),idTareaPadre);
+    }
+    
+    public void agregarNuevaTareaGantt(int id, String nombre, int idTareaGanttPadre, int nivel)
+    {
+        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
+        
+        if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
+        {
+            mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
+            return;
+        }
+        
+        if(idTareaGanttPadre<=0)
+        {
+            this.planificacion.getTareas().add(nuevaTarea); 
+        }
+        else
+        {
+            // CARGO LA TAREA PADRE
+            // Tengo el idGantt del padre, ahora tengo que conseguir el id de la Tarea y la tarea en si
+            TareaPlanificacion padre = null;
+            for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+                TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
+                if(tarea.getIdTareaGantt()==idTareaGanttPadre)
+                {
+                    padre = tarea;
+                    continue;
+                }
+            }
+            // Agrego el hijo al padre
+            if(padre!=null)
+            {
+                padre.addSubTarea(nuevaTarea);
+            }
+            else
+            {
+                mostrarMensajeError("No se pudo encontrar la Tarea padre a la que se le quiere agregar la SubTarea");
+                return;
+            } 
+        }
         // Agrego el nivel para mostrar en el Gantt
         String nombreGantt = nuevaTarea.getNombre();
         for (int i = 0; i < nivel; i++) {
             nombreGantt+="@";
         }
-        _pantalla.AgregarNuevaTarea(nuevaTarea.getIdTareaGantt(),nuevaTarea.getNombre(),nombreGantt,idTareaPadre);
+        _pantalla.agregarNuevaTareaGantt(nuevaTarea.getIdTareaGantt(),nombreGantt,idTareaGanttPadre);
     }
     
     private TareaPlanificacion crearTarea(String nombre, int id)
@@ -358,6 +386,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // CREO LA NUEVA TAREA
         TareaPlanificacion nuevaTarea = new TareaPlanificacion();
+        nuevaTarea.setId(id);
         nuevaTarea.setNombre(nombre);
         nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
         
@@ -389,7 +418,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
     public DefaultTreeModel getModeloArbolTareas()
     {
-        ArbolIconoNodo raiz = new ArbolIconoNodo(planificacion.getId(),ArbolDeTareasTipos.TIPO_OBRA, pedidoDeObra.getNombre(),Iconos.ICONO_OBRA);
+        ArbolIconoNodo raiz = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_OBRA, pedidoDeObra.getNombre(),Iconos.ICONO_OBRA);
         DefaultTreeModel modelo = new DefaultTreeModel(raiz);
         
         //Agregar todas las tareas, subtareas y recursos de cada obra        
@@ -405,7 +434,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         int cantTareas= listaTareas.size();
         for (int i = 0; i < cantTareas; i++) 
         {
-            TareaPlanificacion tarea= planificacion.getTareas().get(i);
+            TareaPlanificacion tarea= listaTareas.get(i);
             ArbolIconoNodo nodoTarea = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_TAREA,tarea.getNombre(),Iconos.ICONO_TAREA);
             modelo.insertNodeInto(nodoTarea, padre, i);            
             
