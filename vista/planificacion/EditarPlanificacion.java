@@ -61,8 +61,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         _gestor = new GestorEditarPlanificacion(this,idObra);
         initComponents(); 
         
-        tblSubObras.setDefaultRenderer(Object.class, new ArbolDeTareasRender());
-        tblTareas.setDefaultRenderer(Object.class, new ArbolDeTareasRender());        
+        tblSubObras.setDefaultRenderer(Object.class, new ListaDeTareasRender());
+        tblTareas.setDefaultRenderer(Object.class, new ListaDeTareasRender());        
         treeRecursos.setCellRenderer(new IconTreeRenderer());
         treeRecursos.setRootVisible(false);
 
@@ -457,7 +457,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
@@ -497,7 +497,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -518,7 +518,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Número de Planificación: ");
 
@@ -566,29 +566,29 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido de Obra"));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Nombre:");
 
         lblObraNombre.setText("---");
         lblObraNombre.setPreferredSize(new java.awt.Dimension(1, 1));
         lblObraNombre.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Planta: ");
 
         lblObraLugar.setText("---");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Lugar de la Planta:");
 
         lblObraPlanta.setText("---");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Fecha de Inicio:");
 
         lblObraFechaInicio.setText("---");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Fecha de Fin:");
 
         lblObraFechaFin.setText("---");
@@ -641,7 +641,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Cotización"));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Cotización sobre la que se planifico: ");
 
         txtNroCotizacion.setEditable(false);
@@ -654,7 +654,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Monto Total Cotizado: ");
 
         lblCotMontoTotal.setText("---");
@@ -711,7 +711,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -724,7 +724,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -739,7 +739,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEmitirInforme)
                         .addGap(127, 127, 127)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -808,7 +808,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private void tblSubObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSubObrasMouseClicked
         if(evt.getButton()==MouseEvent.BUTTON1)
         {
-            ArbolDeTareasCelda tpSelected = (ArbolDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
+            ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             if(tpSelected!=null)
             {
                 initTablaTareas(Integer.parseInt(tpSelected.getId()));
@@ -900,7 +900,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
                    
-            ArbolDeTareasCelda item = new ArbolDeTareasCelda(ArbolDeTareasTipos.TIPO_SUBOBRA,String.valueOf(nt.getId()));
+            ListaDeTareasCelda item = new ListaDeTareasCelda(ArbolDeTareasTipos.TIPO_SUBOBRA,String.valueOf(nt.getId()));
             item.setItemData(iconoSubObra, nt.getNombre());
 
             DefaultTableModel modelo = (DefaultTableModel) tblSubObras.getModel();
@@ -919,7 +919,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
-            ArbolDeTareasCelda item = new ArbolDeTareasCelda(ArbolDeTareasTipos.TIPO_TAREA,String.valueOf(nt.getId()));
+            ListaDeTareasCelda item = new ListaDeTareasCelda(ArbolDeTareasTipos.TIPO_TAREA,String.valueOf(nt.getId()));
             item.setItemData(iconoTarea, nt.getNombre());
 
             Object[] fila = new Object[1];
@@ -932,15 +932,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private void initArbolRecursosCotizados(int idSubObra) {
         _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
-    
-    public void AgregarNuevaTarea(int id,String nombre,String nombreGannt, int idTareaPadre)
-    {  
         
-        agregarNuevaTareaGantt(id, nombreGannt, idTareaPadre);
-        
-        agregarNuevaTareaArbol( id, nombre,idTareaPadre); 
-        
-    }
     
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
@@ -956,48 +948,85 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         graph.refreshModel();     
         updateGantt();
+        inicializarArbolDeTareas();
+        
     }
     
     public void agregarNuevaTareaArbol(int id,String nombre,int idTareaPadre)
     { 
+        //idTareaPadre sera siempre o una tarea, subtarea o la obra. Nada mas. En caso de ser la obra, el id sera 0 (cero)
+        
         //Arbol
         ArbolIconoNodo nodoTarea = new ArbolIconoNodo(id,ArbolDeTareasTipos.TIPO_TAREA,nombre,Iconos.ICONO_TAREA);
-        ArbolIconoNodo padre=getNodoArbolTareas(arbolTareas,idTareaPadre);        
+        ArbolIconoNodo padre=getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
         if(padre!=null)
         {
             ((DefaultTreeModel)(arbolTareas.getModel())).insertNodeInto(nodoTarea, padre, padre.getChildCount());
+            arbolTareas.expandPath(getTreeNodePath(padre));
         }
         else
         {
              JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Nodo padre inexistente.");
         }
+        graph.refreshModel();     
+        updateGantt();
+        
     }
     
-    private ArbolIconoNodo getNodoArbolTareas(JTree arbol,int id)
+    private ArbolIconoNodo getNodoArbolTareasPorId(JTree arbol,int id)
     {
+        ArbolIconoNodo nodoActual=(ArbolIconoNodo)arbol.getModel().getRoot();
         if(id<=0)
         {
-            return (ArbolIconoNodo)arbol.getModel().getRoot();
+            return nodoActual;
+        }
+        else
+        {
+            return getNodoArbolTareasPorIdRecursivo(nodoActual, id);
         }
         
-        ArrayList<ArbolIconoNodo> listaNodos=new ArrayList<ArbolIconoNodo>();
-        listaNodos.add((ArbolIconoNodo)arbol.getModel().getRoot());
-        for (int i = 0; i < listaNodos.size(); i++) 
+    }
+    
+    private ArbolIconoNodo getNodoArbolTareasPorIdRecursivo(ArbolIconoNodo nodoPadre, int id)
+    {
+        ArbolIconoNodo nodo=null;
+        for (int i = 0; i < nodoPadre.getChildCount(); i++) 
         {
-            ArbolIconoNodo nodo=listaNodos.get(i);
-            for (int j = 0; j < nodo.getChildCount(); j++) 
-            {
-               if(nodo.getId()==id)
-               {
-                   return nodo;
+           
+           if(((ArbolIconoNodo)nodoPadre.getChildAt(i)).getTipo().equals(ArbolDeTareasTipos.TIPO_TAREA))
+           {
+               if(((ArbolIconoNodo)nodoPadre.getChildAt(i)).getId()==id)
+               { 
+                  nodo= ((ArbolIconoNodo)nodoPadre.getChildAt(i));
+                  break;
                }
                else
-               {listaNodos.add(nodo);}
-                
-            }            
-        }
-        return null;
+               {
+                  nodo= getNodoArbolTareasPorIdRecursivo(((ArbolIconoNodo)nodoPadre.getChildAt(i)), id );
+                  if(nodo!=null)
+                  {                    
+                      break;
+                  }
+               }  
+           }      
+        }   
+        return nodo;
+        
     }
+    
+    public static TreePath getTreeNodePath(TreeNode treeNode) {
+    List<Object> nodes = new ArrayList<Object>();
+    if (treeNode != null) {
+      nodes.add(treeNode);
+      treeNode = treeNode.getParent();
+      while (treeNode != null) {
+        nodes.add(0, treeNode);
+        treeNode = treeNode.getParent();
+      }
+    }
+
+    return nodes.isEmpty() ? null : new TreePath(nodes.toArray());
+  }
 
     public void setLblObraFechaFin(String lblObraFechaFin) {
         this.lblObraFechaFin.setText(lblObraFechaFin);
@@ -1070,14 +1099,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                         if(p==null)
                         {
                             // Agrego una nueva Tarea
-                            _gestor.AgregarNuevaTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2]);
+                            //No tiene tarea padre, paso un cero como IdTareaGantt
+                            _gestor.agregarNuevaTareaGantt(Integer.parseInt(dataTrigger[1]),dataTrigger[2],0,0);
                         }
                         else
                         {
                             // Agrego una nueva Sub Tarea
                             int nivel = calcularNivel(p);
                             nivel++;
-                            _gestor.AgregarNuevaSubTarea(Integer.parseInt(dataTrigger[1]),dataTrigger[2],p.getId(),nivel);
+                            _gestor.agregarNuevaTareaGantt(Integer.parseInt(dataTrigger[1]),dataTrigger[2],p.getId(),nivel);
                         }        
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
@@ -1153,6 +1183,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         DefaultTreeModel modelo=_gestor.getModeloArbolTareas();
         arbolTareas.setModel(modelo);
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
+        arbolTareas.repaint();        
         //arbolTareas.setRootVisible(false);
     }
     
@@ -1167,31 +1198,53 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         {
 
           TreePath path = arbolTareas.getPathForLocation(location.x, location.y);
-          System.out.println("Path receptor:"+path);
-          TreeNode tn;
+          ArbolIconoNodo padre;
           if(path != null)
           {
-            tn= (TreeNode) path.getLastPathComponent();
-            System.out.println("Receptor:"+tn);
+            padre= (ArbolIconoNodo) path.getLastPathComponent();
+            System.out.println("Receptor:"+padre);
+            for (int i = 0; i < ArbolDeTareasTipos.getSinHijos().length; i++) 
+            {
+                if(ArbolDeTareasTipos.getSinHijos()[i].equals(padre.getTipo()));
+                {return;}  
+            }            
           }
           else
           {
               return;
           }
           
-          if(data!=null && !data.isEmpty() && tn!=null)
+          if(data!=null && !data.isEmpty() && padre!=null)
           {
               String[] dataTrigger = data.split(";");
               if(dataTrigger.length==3)
               {
                 String tipo=dataTrigger[0];
                 int id= Integer.parseInt(dataTrigger[1]);
-                String nombre=dataTrigger[2];              
-
-                if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
+                String nombre=dataTrigger[2]; 
+                int idTareaPadre=padre.getId(); 
+                
+                //Agregamos una tarea
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
                 {
-                      //TODO: 
-                }                  
+                    //Es una tarea, pero no es una subtarea
+                    if(padre.getTipo().equals(ArbolDeTareasTipos.TIPO_OBRA))
+                    {
+                        idTareaPadre=0;
+                    }
+                    else
+                    {
+                      //Si el nodo padre es un recurso
+                      if(!padre.getTipo().equals(ArbolDeTareasTipos.TIPO_TAREA))
+                        {
+                            return;
+                        }  
+                    }
+                    _gestor.agregarNuevaTareaArbol(id, nombre, idTareaPadre);                    
+                } 
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                {
+                }
             }
           }
             
