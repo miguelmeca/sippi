@@ -17,6 +17,9 @@ public class PlanificacionXHerramienta {
 
     public PlanificacionXHerramienta() {
     }
+    
+    public PlanificacionXHerramienta(SubObraXHerramientaModif herramientaCotizacion) 
+    {this.herramientaCotizacion=herramientaCotizacion;}
 
     public int getId() {
         return id;

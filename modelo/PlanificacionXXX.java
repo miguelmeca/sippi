@@ -97,8 +97,49 @@ public class PlanificacionXXX {
             }
             return "";
         }
-        return "";
-
-             
+        return "";             
     }
+    
+    public TareaPlanificacion buscarTarea(int idTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).getId()==idTarea)
+            {
+                tarea=tareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=tareas.get(i).buscarSubTarea(idTarea);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;
+        
+    }
+    public TareaPlanificacion buscarTareaPorIdTareaCotizada(int idTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).getTareaCotizada().getId()==idTarea)
+            {
+                tarea=tareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=tareas.get(i).buscarSubTareaPorIdTareaCotizada(idTarea);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;
+        
+    }
+    
 }
+    

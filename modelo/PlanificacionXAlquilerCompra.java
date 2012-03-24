@@ -13,10 +13,13 @@ package modelo;
 
 public class PlanificacionXAlquilerCompra {
     private int id;
-    private SubObraXAlquilerCompraModif AlquilerCompraCotizacion;
+    private SubObraXAlquilerCompraModif alquilerCompraCotizacion;
 
     public PlanificacionXAlquilerCompra() {
     }
+    
+    public PlanificacionXAlquilerCompra(SubObraXAlquilerCompraModif alquilerCompraCotizacion) 
+    {this.alquilerCompraCotizacion=alquilerCompraCotizacion;}
 
     public int getId() {
         return id;
@@ -27,10 +30,10 @@ public class PlanificacionXAlquilerCompra {
     }
 
     public SubObraXAlquilerCompraModif getAlquilerCompraCotizacion() {
-        return AlquilerCompraCotizacion;
+        return alquilerCompraCotizacion;
     }
 
     public void setAlquilerCompraCotizacion(SubObraXAlquilerCompraModif AlquilerCompraCotizacion) {
-        this.AlquilerCompraCotizacion = AlquilerCompraCotizacion;
+        this.alquilerCompraCotizacion = AlquilerCompraCotizacion;
     }
 }

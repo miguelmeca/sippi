@@ -301,16 +301,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         else
         {
-            // CARGO LA TAREA PADRE
+            // CARGO LA TAREA PADRE            
             TareaPlanificacion padre = null;
-            for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
-                TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
-                if(tarea.getId()==idTareaPadre)// Compruebo con el ID!!! (diferente del Gantt)
-                {
-                    padre = tarea;
-                    continue;
-                }
-            }
+            padre=planificacion.buscarTarea(idTareaPadre);
+            
             // Agrego el hijo al padre
             if(padre!=null)
             {
@@ -346,11 +340,16 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             // Tengo el idGantt del padre, ahora tengo que conseguir el id de la Tarea y la tarea en si
             TareaPlanificacion padre = null;
             for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
+                
+                //TODO: IUGA, me parece q aca estas buscando solo en las tareas y no en las subtareas tmbn
+                //Hice esto, fijate si te sirve:
+                //TareaPlanificacion padre = null;
+                //padre=planificacion.buscarSubTarea(idTareaPadre);
                 TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
                 if(tarea.getIdTareaGantt()==idTareaGanttPadre)
                 {
                     padre = tarea;
-                    continue;
+                    continue;//TODO: IUGA, no sera break? Un continue aca, no hace nada pq no hay codigo despues
                 }
             }
             // Agrego el hijo al padre
@@ -375,17 +374,17 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     private TareaPlanificacion crearTarea(String nombre, int id)
     {
         // VEO QUE NO ESTE REPETIDA
-        for (int i = 0; i < this.planificacion.getTareas().size(); i++) {
-        TareaPlanificacion tarea = this.planificacion.getTareas().get(i);
-            if(tarea.getTareaCotizada()!=null && tarea.getTareaCotizada().getId()==id)
-            {
-                mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada");
-                return null;
-            }
+        TareaPlanificacion nuevaTarea = null;
+        nuevaTarea=planificacion.buscarTareaPorIdTareaCotizada(id);
+        if(nuevaTarea!=null)
+        {
+            mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada");
+            return null;
         }
+         
         
         // CREO LA NUEVA TAREA
-        TareaPlanificacion nuevaTarea = new TareaPlanificacion();
+        nuevaTarea = new TareaPlanificacion();
         nuevaTarea.setId(id);
         nuevaTarea.setNombre(nombre);
         nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
@@ -440,19 +439,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
             cargarTareasEnArbol(modelo, tarea.getSubtareas(),nodoTarea);
             
-            if(tarea.getHerramientas()!=null && !tarea.getHerramientas().isEmpty())
-            {
-               ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
-               modelo.insertNodeInto(nodoHerramientas, nodoTarea, 1);
-               int cantHeramientas=tarea.getHerramientas().size();
-               for (int j = 0; j < cantHeramientas; j++) 
-               {
-                  PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
-                  ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
-                  modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
-               }
-            }
-            
             if(tarea.getMateriales()!=null && !tarea.getMateriales().isEmpty())
             {
                 ArbolIconoNodo nodoMateriales = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_MATERIALES,ArbolDeTareasTipos.TIPO_MATERIALES,Iconos.ICONO_MATERIALES);
@@ -466,6 +452,19 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 } 
             }
             
+            if(tarea.getHerramientas()!=null && !tarea.getHerramientas().isEmpty())
+            {
+               ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
+               modelo.insertNodeInto(nodoHerramientas, nodoTarea, 1);
+               int cantHeramientas=tarea.getHerramientas().size();
+               for (int j = 0; j < cantHeramientas; j++) 
+               {
+                  PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
+                  ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
+                  modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
+               }
+            }
+                        
             if(tarea.getAlquilerCompras()!=null && !tarea.getAlquilerCompras().isEmpty())
             {
                 ArbolIconoNodo nodoAlquileresCompras = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,Iconos.ICONO_ALQUILERESCOMPRAS);
@@ -480,6 +479,63 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             }
             
         }
+    }
+    
+    public void asociarRecurso(int idRecuso, String nombre,int idTareaPadre, String tipoRecurso)
+    {
+        if(this.planificacion!=null)
+        {
+            
+            // CARGO LA TAREA PADRE
+            TareaPlanificacion tareaPadre = null;
+            tareaPadre= planificacion.buscarTarea(idTareaPadre);
+            boolean yaExiste=false;
+            // Agrego el hijo al padre
+            if(tareaPadre!=null)
+            {
+                 
+                try {
+                    sesion = HibernateUtil.getSession();
+                
+                    //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
+                    {
+                       SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
+                        yaExiste=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
+                    }
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                    {
+                       SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
+                        yaExiste=tareaPadre.agregarMaterialCotizacion(material);   
+                    }
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                    {
+                      SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
+                        yaExiste=tareaPadre.agregarHerramientaCotizacion(herramienta);   
+                    }
+                } catch (Exception e) {
+                    mostrarMensajeError("No se pudo cargar el recurso de cotizacion");
+                    return;
+                } 
+               
+                if(yaExiste)           
+                {
+                    mostrarMensajeError("El recurso ya se encuentara asociado a la tarea.");
+                }
+                else
+                {
+                    _pantalla.asociarRecursoATareaArbol(idRecuso,nombre, idTareaPadre, tipoRecurso);
+                }
+            }
+            else
+            {
+                mostrarMensajeError("No se pudo encontrar la Tarea padre a la que se le quiere agregar la SubTarea");
+                return;
+            } 
+           
+        }
+        
+        
     }
 
     @Override

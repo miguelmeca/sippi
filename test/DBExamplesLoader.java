@@ -1410,7 +1410,7 @@ public class DBExamplesLoader {
                 fechaInicioTarea.setTime(PO.getFechaInicio());
                 Iterator<SubObraModificada> itSubObraMod = cotMod.getSubObra().iterator();
                 ArrayList<TareaPlanificacion> tareas = new ArrayList<TareaPlanificacion>();
-                while(itSubObraMod.hasNext()){
+                /*while(itSubObraMod.hasNext()){
                     SubObraModificada subObraModificada = itSubObraMod.next();
                     
                     Iterator<SubObraXTareaModif> itSOXTM = subObraModificada.getTareas().iterator();
@@ -1445,7 +1445,7 @@ public class DBExamplesLoader {
                         tareas.add(tarea);
                         HibernateUtil.getSession().saveOrUpdate(tarea);
                     }
-                }
+                }*/
                 planificacion.setTareas(tareas);
                 HibernateUtil.getSession().saveOrUpdate(planificacion);
                 HibernateUtil.getSession().saveOrUpdate(PO);
