@@ -18,7 +18,11 @@ public class PlanificacionXMaterial {
     private int id;
 	private SubObraXMaterialModif materialCotizacion;
 
-    public PlanificacionXMaterial() {
+    public PlanificacionXMaterial(SubObraXMaterialModif materialCotizacion) 
+    {this.materialCotizacion=materialCotizacion;}
+    
+    public PlanificacionXMaterial() 
+    {
     }
 
     public int getId() {

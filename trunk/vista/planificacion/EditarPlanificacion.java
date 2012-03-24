@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import modelo.PlanificacionXMaterial;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.SwingPanel;
@@ -53,6 +54,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private GestorEditarPlanificacion _gestor;
     ICoolGantt graph;
     JComponent grafico;
+    ArbolTareas arbolTareasGestor;
    
     public EditarPlanificacion(int template, int idObra) {
         this.template = template;
@@ -68,6 +70,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         initArbolRecursos();
         initDatosGenerales(idObra);
+        arbolTareasGestor=new ArbolTareas(arbolTareas);
         inicializarArbolDeTareas();
         initGraph();
 
@@ -933,7 +936,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
         
-    
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
         // Create a new Phrase
@@ -958,11 +960,52 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
         //Arbol
         ArbolIconoNodo nodoTarea = new ArbolIconoNodo(id,ArbolDeTareasTipos.TIPO_TAREA,nombre,Iconos.ICONO_TAREA);
-        ArbolIconoNodo padre=getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
+        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
         if(padre!=null)
         {
             ((DefaultTreeModel)(arbolTareas.getModel())).insertNodeInto(nodoTarea, padre, padre.getChildCount());
-            arbolTareas.expandPath(getTreeNodePath(padre));
+            arbolTareas.expandPath(arbolTareasGestor.getTreeNodePath(padre));
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Nodo padre inexistente.");
+        }
+        graph.refreshModel();     
+        updateGantt();
+        
+    }
+    public void asociarRecursoATareaArbol(int id,String nombre,int idTareaPadre, String tipo)
+    { 
+        DefaultTreeModel modelo=(DefaultTreeModel)(arbolTareas.getModel());
+        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
+        if(padre!=null)
+        {
+            String tipoGrupo=ArbolDeTareasTipos.getTipoColectivo(tipo); 
+            //Ejemplo
+            //tipo="MATERIAL"
+            //tipoGrupo="MATERIALES"
+
+            //El nodo puede ser un nodo de grupo, pero no necesariamente el que necesito
+            //En este caso, obtengo la tarea padre
+            String[] grupos=ArbolDeTareasTipos.getGruposRecursos();
+            for (int i = 0; i < grupos.length; i++) 
+            {
+               if(grupos[i].equals(padre.getTipo()));
+                {
+                    padre=(ArbolIconoNodo)padre.getParent();
+                    break;
+                }  
+            }                
+            //Si el nodo padre es una tarea, obtengo grupo (Materiales, Herramientas, AlquileresCompras) como padre
+            if(padre.getTipo().equals(ArbolDeTareasTipos.TIPO_TAREA))
+            {  //obtener Nodo Grupo De Tarea
+             ArbolIconoNodo  nodoGrupo=arbolTareasGestor.obtenerNodoGrupoDeTarea(modelo,padre,tipoGrupo);
+             padre=nodoGrupo;    
+            }
+             //Creo el nodo
+            ArbolIconoNodo nodo = new ArbolIconoNodo(id,tipo,nombre,ArbolDeTareasTipos.getIcono(tipo));
+            modelo.insertNodeInto(nodo, padre, padre.getChildCount());
+            arbolTareas.expandPath(arbolTareasGestor.getTreeNodePath(padre));
         }
         else
         {
@@ -973,60 +1016,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
     }
     
-    private ArbolIconoNodo getNodoArbolTareasPorId(JTree arbol,int id)
-    {
-        ArbolIconoNodo nodoActual=(ArbolIconoNodo)arbol.getModel().getRoot();
-        if(id<=0)
-        {
-            return nodoActual;
-        }
-        else
-        {
-            return getNodoArbolTareasPorIdRecursivo(nodoActual, id);
-        }
-        
-    }
-    
-    private ArbolIconoNodo getNodoArbolTareasPorIdRecursivo(ArbolIconoNodo nodoPadre, int id)
-    {
-        ArbolIconoNodo nodo=null;
-        for (int i = 0; i < nodoPadre.getChildCount(); i++) 
-        {
-           
-           if(((ArbolIconoNodo)nodoPadre.getChildAt(i)).getTipo().equals(ArbolDeTareasTipos.TIPO_TAREA))
-           {
-               if(((ArbolIconoNodo)nodoPadre.getChildAt(i)).getId()==id)
-               { 
-                  nodo= ((ArbolIconoNodo)nodoPadre.getChildAt(i));
-                  break;
-               }
-               else
-               {
-                  nodo= getNodoArbolTareasPorIdRecursivo(((ArbolIconoNodo)nodoPadre.getChildAt(i)), id );
-                  if(nodo!=null)
-                  {                    
-                      break;
-                  }
-               }  
-           }      
-        }   
-        return nodo;
-        
-    }
-    
-    public static TreePath getTreeNodePath(TreeNode treeNode) {
-    List<Object> nodes = new ArrayList<Object>();
-    if (treeNode != null) {
-      nodes.add(treeNode);
-      treeNode = treeNode.getParent();
-      while (treeNode != null) {
-        nodes.add(0, treeNode);
-        treeNode = treeNode.getParent();
-      }
-    }
-
-    return nodes.isEmpty() ? null : new TreePath(nodes.toArray());
-  }
 
     public void setLblObraFechaFin(String lblObraFechaFin) {
         this.lblObraFechaFin.setText(lblObraFechaFin);
@@ -1205,8 +1194,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             System.out.println("Receptor:"+padre);
             for (int i = 0; i < ArbolDeTareasTipos.getSinHijos().length; i++) 
             {
-                if(ArbolDeTareasTipos.getSinHijos()[i].equals(padre.getTipo()));
-                {return;}  
+                //if el nodo receptor es un recurso
+                String[] sinHijos=ArbolDeTareasTipos.getSinHijos();
+                if(sinHijos[i].equals(padre.getTipo()))
+                {
+                    return;
+                }  
             }            
           }
           else
@@ -1224,7 +1217,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 String nombre=dataTrigger[2]; 
                 int idTareaPadre=padre.getId(); 
                 
-                //Agregamos una tarea
+                //Si agregamos una tarea
                 if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
                 {
                     //Es una tarea, pero no es una subtarea
@@ -1241,15 +1234,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                         }  
                     }
                     _gestor.agregarNuevaTareaArbol(id, nombre, idTareaPadre);                    
-                } 
-                if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
-                {
                 }
+                else //Si agregamos un recurso
+                {  
+                    _gestor.asociarRecurso(id, nombre, idTareaPadre,tipo);
+                }                
             }
-          }
-            
+          }//Fin de if(data!=null && !data.isEmpty() && padre!=null)            
         }
-       
+        
     }
 
     public class GanttEventMouse implements ICoolGanttEvent{
