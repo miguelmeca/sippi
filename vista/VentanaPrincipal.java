@@ -150,7 +150,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             treeMenu.setSelectionRow(0);        
             treeMenu.updateUI();
             
-        }catch(NullPointerException e){ /* do nothing ... */ }
+        }catch(NullPointerException e)
+        {
+            e.printStackTrace(); /* do nothing ... */ }
     }
     
     private void Salir()
@@ -578,7 +580,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         treeMenu.setSelectionRow(0);
                
-        }catch(NullPointerException e){ /* do nothing ... */ }
+        }catch(NullPointerException e){ e.printStackTrace();/* do nothing ... */ }
         
     }//GEN-LAST:event_treeMenuValueChanged
 

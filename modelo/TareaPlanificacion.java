@@ -210,7 +210,7 @@ public class TareaPlanificacion {
         //Creo y agrego el recurso a la lista
         PlanificacionXMaterial pm=new  PlanificacionXMaterial(materialCotizacion);
         materiales.add(pm);
-        return false;        
+        return true;        
     }
     
     public boolean agregarHerramientaCotizacion(SubObraXHerramientaModif herramientaCotizacion)
@@ -225,7 +225,7 @@ public class TareaPlanificacion {
         //Creo y agrego el recurso a la lista
         PlanificacionXHerramienta ph=new  PlanificacionXHerramienta(herramientaCotizacion);
         herramientas.add(ph);
-        return false;        
+        return true;        
     }
     
     public boolean agregarAlquilerCompraCotizacion(SubObraXAlquilerCompraModif alquilerCompraCotizacion)
@@ -240,7 +240,7 @@ public class TareaPlanificacion {
         //Creo y agrego el recurso a la lista
         PlanificacionXAlquilerCompra ph=new  PlanificacionXAlquilerCompra(alquilerCompraCotizacion);
         alquilerCompras.add(ph);
-        return false;        
+        return true;        
     }
     
     public boolean tieneMaterialCotizacion(int idMaterialCotizacion)

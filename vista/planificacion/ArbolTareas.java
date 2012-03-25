@@ -97,8 +97,20 @@ public class ArbolTareas
            {
               ordenGrupo=i;
               break;
-           }
+           }           
        }
+       if(ordenGrupo> tarea.getChildCount())
+       {ordenGrupo=tarea.getChildCount();}
+        for (int i = 0; i < tarea.getChildCount(); i++) {
+            if(((ArbolIconoNodo)tarea.getChildAt(i)).getTipo().equals(ArbolDeTareasTipos.TIPO_TAREA))
+            {
+                ordenGrupo=i;
+                break;
+            }
+        }
+       
+       //Si ya exste un nodo en esa posicion, lo inserto antes de esa.
+       
        modelo.insertNodeInto(nodoGrupo, tarea, ordenGrupo);
        return nodoGrupo;
     }    

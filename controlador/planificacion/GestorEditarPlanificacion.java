@@ -74,7 +74,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar el Pedido ni la planificación asociada");
+            
         }
 
     }
@@ -94,6 +96,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar las subobras del pedido");
         }
         return lista;
@@ -119,6 +122,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar las subobras del pedido");
         }
         return lista;
@@ -148,6 +152,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar los datos generales de la cotizacion");
         }
 
@@ -178,14 +183,14 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         for (int j = 0; j < listaHerramientas.size(); j++) {
                             SubObraXHerramientaModif herr = listaHerramientas.get(j);
                             TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
-                            subNodoHerramientas.setId(herr.getHerramienta().getRecursoEsp().getId());
+                            subNodoHerramientas.setId(herr.getId());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
                             nodoHerramientas.add(subNodoHerramientas);
                         }
                         
                         // MATERIALES
                         // NECESITO idRecursoEspecifico y idMaterial
-                        TreeEntry nodoMateriales = new TreeEntry("Materiales",Iconos.ICONO_MATERIAL);
+                        TreeEntry nodoMateriales = new TreeEntry("Materiales",Iconos.ICONO_MATERIALES);
                         nodoRoot.add(nodoMateriales);
                         
                         List<SubObraXMaterialModif> listaMateriales = som.getMateriales();
@@ -211,11 +216,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                                  }
                                  catch(Exception e)
                                  {
+                                     e.printStackTrace();
                                      System.err.println("[ERROR] No se pudo encontrar el nombre del Material");
                                  }
                                  
-                            TreeEntry subNodoMaterial = new TreeEntry(nombre,Iconos.ICONO_MATERIALES);
-                            subNodoMaterial.setId(mat.getMaterial().getId());
+                            TreeEntry subNodoMaterial = new TreeEntry(nombre,Iconos.ICONO_MATERIAL);
+                            subNodoMaterial.setId(mat.getId());
                             subNodoMaterial.setTipo(ArbolDeTareasTipos.TIPO_MATERIAL);
                             nodoMateriales.add(subNodoMaterial);
                         }
@@ -238,6 +244,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarMensajeError("No se pudo cargar las subobras del pedido");
         } 
         
@@ -378,7 +385,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         nuevaTarea=planificacion.buscarTareaPorIdTareaCotizada(id);
         if(nuevaTarea!=null)
         {
-            mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agegada");
+            mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agregada");
             return null;
         }
          
@@ -408,8 +415,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         }catch(Exception e)
         {
-            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
-            return null;
+           e.printStackTrace();
+           mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+           return null;
         }
         return null;
     
@@ -483,13 +491,26 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
     public void asociarRecurso(int idRecuso, String nombre,int idTareaPadre, String tipoRecurso)
     {
+        //Veo si es un recurso
+        String[] sinHijos=ArbolDeTareasTipos.getSinHijos();
+        boolean esRecurso=false;
+        for (int i = 0; i < sinHijos.length; i++) {
+           if(sinHijos[i].equals(tipoRecurso))
+           {
+             esRecurso=true;
+             break;
+           }
+        }
+        if(!esRecurso)
+        {return;}
+        
         if(this.planificacion!=null)
         {
             
             // CARGO LA TAREA PADRE
             TareaPlanificacion tareaPadre = null;
             tareaPadre= planificacion.buscarTarea(idTareaPadre);
-            boolean yaExiste=false;
+            boolean exito=false;
             // Agrego el hijo al padre
             if(tareaPadre!=null)
             {
@@ -501,29 +522,31 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
                     {
                        SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
-                        yaExiste=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
+                        exito=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
                     }
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
                        SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
-                        yaExiste=tareaPadre.agregarMaterialCotizacion(material);   
+                        exito=tareaPadre.agregarMaterialCotizacion(material);   
                     }
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
                     {
                       SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
-                        yaExiste=tareaPadre.agregarHerramientaCotizacion(herramienta);   
+                        exito=tareaPadre.agregarHerramientaCotizacion(herramienta);   
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     mostrarMensajeError("No se pudo cargar el recurso de cotizacion");
                     return;
                 } 
                
-                if(yaExiste)           
+                if(!exito)           
                 {
                     mostrarMensajeError("El recurso ya se encuentara asociado a la tarea.");
                 }
                 else
                 {
+                    
                     _pantalla.asociarRecursoATareaArbol(idRecuso,nombre, idTareaPadre, tipoRecurso);
                 }
             }
