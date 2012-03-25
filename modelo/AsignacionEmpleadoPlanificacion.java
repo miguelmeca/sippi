@@ -15,14 +15,9 @@ import java.util.List;
 
 public class AsignacionEmpleadoPlanificacion {
     private int id;
-    private int cantHorasNormales;
-    private int cantHorasAl50;
-    private int cantHorasAl100;
-    private float costoXHora;
-    private int cantidadPersonas;
+    
     private DetalleSubObraXTarea asignacionTareaCotizacion;
     private List<Empleado> empleados;
-    private RangoEmpleado rango;
 
     public AsignacionEmpleadoPlanificacion() {
     }
@@ -43,45 +38,7 @@ public class AsignacionEmpleadoPlanificacion {
         this.asignacionTareaCotizacion = asignacionTareaCotizacion;
     }
 
-    public int getCantHorasAl100() {
-        return cantHorasAl100;
-    }
-
-    public void setCantHorasAl100(int cantHorasAl100) {
-        this.cantHorasAl100 = cantHorasAl100;
-    }
-
-    public int getCantHorasAl50() {
-        return cantHorasAl50;
-    }
-
-    public void setCantHorasAl50(int cantHorasAl50) {
-        this.cantHorasAl50 = cantHorasAl50;
-    }
-
-    public int getCantHorasNormales() {
-        return cantHorasNormales;
-    }
-
-    public void setCantHorasNormales(int cantHorasNormales) {
-        this.cantHorasNormales = cantHorasNormales;
-    }
-
-    public int getCantidadPersonas() {
-        return cantidadPersonas;
-    }
-
-    public void setCantidadPersonas(int cantidadPersonas) {
-        this.cantidadPersonas = cantidadPersonas;
-    }
-
-    public float getCostoXHora() {
-        return costoXHora;
-    }
-
-    public void setCostoXHora(float costoXHora) {
-        this.costoXHora = costoXHora;
-    }
+    
 
     public List<Empleado> getEmpleados() {
         return empleados;
@@ -90,12 +47,5 @@ public class AsignacionEmpleadoPlanificacion {
     public void setEmpleados(List<Empleado> empleados) {
         this.empleados = empleados;
     }
-
-    public RangoEmpleado getRango() {
-        return rango;
-    }
-
-    public void setRango(RangoEmpleado rango) {
-        this.rango = rango;
-    }
+    
 }
