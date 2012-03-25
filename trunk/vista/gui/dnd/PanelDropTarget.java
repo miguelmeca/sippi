@@ -86,7 +86,7 @@ public class PanelDropTarget implements DropTargetListener {
         dtde.dropComplete(result);
       //  DnDUtils.debugPrintln("Drop completed, success: " + result);
       } catch (Exception e) {
-       // DnDUtils.debugPrintln("Exception while handling drop " + e);
+        DnDUtils.debugPrintln("Exception while handling drop " + e);
         dtde.dropComplete(false);
       }
     } else {

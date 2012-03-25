@@ -990,7 +990,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             String[] grupos=ArbolDeTareasTipos.getGruposRecursos();
             for (int i = 0; i < grupos.length; i++) 
             {
-               if(grupos[i].equals(padre.getTipo()));
+               if(grupos[i].equals(padre.getTipo()))
                 {
                     padre=(ArbolIconoNodo)padre.getParent();
                     break;
