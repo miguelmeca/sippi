@@ -137,7 +137,8 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaInicio">
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dcFechaInicioMouseClicked"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dcFechaInicioMousePressed"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaInicioFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -150,7 +151,7 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaFin">
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dcFechaFinMouseClicked"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaFinFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbTipoTarea">
@@ -160,7 +161,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbTipoTareaMouseClicked"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cmbTipoTareaFocusLost"/>
       </Events>
     </Component>
   </SubComponents>

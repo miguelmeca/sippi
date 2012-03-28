@@ -33,11 +33,13 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void cargarDatosTarea() {
         TareaPlanificacion tarea = gestorPadre.getTareaActual();
-        pantalla.mostrarDatos(tarea.getNombre(),
+        if(tarea.getId() != 0){
+            pantalla.mostrarDatos(tarea.getNombre(),
                 tarea.getTipoTarea().getNombre(),
                 tarea.getFechaInicio(),
                 tarea.getFechaFin(),
                 tarea.getObservaciones());
+        }
     }
 
     public PlanificacionXXX getPlanificacion() {
