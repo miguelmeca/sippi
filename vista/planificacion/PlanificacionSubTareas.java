@@ -11,13 +11,17 @@
 
 package vista.planificacion;
 
+import controlador.planificacion.GestorEditarPlanificacion;
+import controlador.planificacion.GestorEditarTarea;
 import controlador.planificacion.GestorPlanificacionSubTareas;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
+import util.SwingPanel;
 import util.TablaUtil;
+import util.Tupla;
 
 /**
  *
@@ -31,6 +35,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
     public PlanificacionSubTareas(GestorPlanificacionSubTareas gestor) {
         initComponents();
         this.gestor = gestor;
+        
         gestor.setPantalla(this);
         gestor.cargarSubTareas();
     }
@@ -56,11 +61,11 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Sub Tarea", "Fecha Inicio", "Fecha Fin", "null"
+                "Sub Tarea", "Fecha Inicio", "Fecha Fin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -72,11 +77,14 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         tablaSubTareas.getColumnModel().getColumn(0).setPreferredWidth(100);
         tablaSubTareas.getColumnModel().getColumn(1).setResizable(false);
         tablaSubTareas.getColumnModel().getColumn(2).setResizable(false);
-        tablaSubTareas.getColumnModel().getColumn(3).setResizable(false);
-        tablaSubTareas.getColumnModel().getColumn(3).setPreferredWidth(0);
 
         btnNuevaSubTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnNuevaSubTarea.setText("Nueva Sub Tarea");
+        btnNuevaSubTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaSubTareaActionPerformed(evt);
+            }
+        });
 
         btnEditarSubTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
         btnEditarSubTarea.setText("Editar");
@@ -120,9 +128,24 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarSubTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSubTareaActionPerformed
-        // TODO add your handling code here:
+        GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(this.gestor.getGestorPlanificacion());
+        DefaultTableModel dtm = (DefaultTableModel) this.tablaSubTareas.getModel();
+        Tupla t = (Tupla)dtm.getValueAt(tablaSubTareas.getSelectedRow(),0);
+        gestorEditarTarea.seleccionarTarea(this.gestor.getSubTareaPlanificada(t.getId())); // Editando una tarea existente en memoria
+        gestorEditarTarea.setGestorTareaPadre(this.gestor.getGestorPadre());
+        PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea,this.gestor.getGestorPadre().getPantalla());
+        SwingPanel.getInstance().addWindow(editarTarea);
+        editarTarea.setVisible(true);
     }//GEN-LAST:event_btnEditarSubTareaActionPerformed
 
+    private void btnNuevaSubTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSubTareaActionPerformed
+        GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(this.gestor.getGestorPlanificacion());
+        gestorEditarTarea.seleccionarTarea(0); // Una tarea nueva
+        gestorEditarTarea.setGestorTareaPadre(this.gestor.getGestorPadre());
+        PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea,this.gestor.getGestorPadre().getPantalla());
+        SwingPanel.getInstance().addWindow(editarTarea);
+        editarTarea.setVisible(true);
+    }//GEN-LAST:event_btnNuevaSubTareaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarSubTarea;
@@ -140,8 +163,21 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         {
             NTupla nt = itSubTareas.next();
             Date[] fechas = (Date[])nt.getData();
-            Object[] fila = { nt.getNombre(),fechas[0].toString(),fechas[1].toString(),nt.getId()};
+            Tupla t = new Tupla();
+            t.setNombre(nt.getNombre());
+            t.setId(nt.getId());
+            String fechaInicio = "";
+            if(fechas[0] != null)
+                fechaInicio = fechas[0].toString();
+            String fechaFin = "";
+            if(fechas[1] != null)
+                fechaFin = fechas[0].toString();
+            Object[] fila = { t,fechaInicio,fechaFin};
             dtm.addRow(fila);
         }
+    }
+
+    public void actualizar() {
+        this.cargarSubTareas();
     }
 }

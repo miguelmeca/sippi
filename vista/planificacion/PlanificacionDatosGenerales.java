@@ -11,7 +11,6 @@
 
 package vista.planificacion;
 
-import controlador.cotizacion.GestorCotizacionDescripcion;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import java.util.Date;
 
@@ -83,23 +82,28 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         jLabel4.setText("Fecha de Inicio:");
 
         dcFechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dcFechaInicioMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                dcFechaInicioMousePressed(evt);
+            }
+        });
+        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaInicioFocusLost(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
         jLabel5.setText("Fecha de Fin:");
 
-        dcFechaFin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dcFechaFinMouseClicked(evt);
+        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaFinFocusLost(evt);
             }
         });
 
-        cmbTipoTarea.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbTipoTareaMouseClicked(evt);
+        cmbTipoTarea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbTipoTareaFocusLost(evt);
             }
         });
 
@@ -163,17 +167,21 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         gestor.actualizarObservaciones(txtObservaciones.getText());
     }//GEN-LAST:event_txtObservacionesFocusLost
 
-    private void cmbTipoTareaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTipoTareaMouseClicked
+    private void cmbTipoTareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbTipoTareaFocusLost
         gestor.actualizarTipoTarea(cmbTipoTarea.getModel().getSelectedItem().toString());
-    }//GEN-LAST:event_cmbTipoTareaMouseClicked
+    }//GEN-LAST:event_cmbTipoTareaFocusLost
 
-    private void dcFechaInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dcFechaInicioMouseClicked
+    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
         gestor.actualizarFechaInicio(dcFechaInicio.getDate());
-    }//GEN-LAST:event_dcFechaInicioMouseClicked
+    }//GEN-LAST:event_dcFechaInicioFocusLost
 
-    private void dcFechaFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dcFechaFinMouseClicked
+    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
         gestor.actualizarFechaFin(dcFechaFin.getDate());
-    }//GEN-LAST:event_dcFechaFinMouseClicked
+    }//GEN-LAST:event_dcFechaFinFocusLost
+
+    private void dcFechaInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dcFechaInicioMousePressed
+        gestor.actualizarFechaInicio(dcFechaInicio.getDate());
+    }//GEN-LAST:event_dcFechaInicioMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

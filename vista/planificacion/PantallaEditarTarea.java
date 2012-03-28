@@ -11,11 +11,7 @@
 
 package vista.planificacion;
 
-import vista.cotizacion.*;
-import controlador.cotizacion.GestorEditarCotizacion;
 import controlador.planificacion.GestorEditarTarea;
-import controlador.planificacion.GestorPlanificacionDatosGenerales;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class PantallaEditarTarea extends javax.swing.JInternalFrame {
 
     private GestorEditarTarea gestor;
+    private PantallaEditarTarea pantallaEditarTareaPadre;
+    private PlanificacionSubTareas pst;
 
     private static final int OPTN_DATOSGRALES           = 0;
     private static final int OPTN_SUBTAREAS             = 1;
@@ -36,6 +34,17 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
     
     public PantallaEditarTarea(GestorEditarTarea gestor)
     {
+        construirPantalla(gestor);
+        this.pantallaEditarTareaPadre = null;
+    }
+
+    public PantallaEditarTarea(GestorEditarTarea gestorEditarTarea, PantallaEditarTarea pantallaPadre) {
+        this.pantallaEditarTareaPadre = pantallaPadre;
+        construirPantalla(gestorEditarTarea);
+        this.btnGuardarTarea.setText("Agregar Subtarea");
+    }
+  
+    private void construirPantalla(GestorEditarTarea gestor){
         initComponents();
         
         this.gestor = gestor;
@@ -54,9 +63,8 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         selectionModel.setSelectionInterval(0,0);
         
         actualizar();
-
     }
-  
+    
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -75,6 +83,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
+        btnGuardarTarea = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -95,7 +104,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -173,8 +182,16 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
         );
+
+        btnGuardarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Save.png"))); // NOI18N
+        btnGuardarTarea.setText("Guardar");
+        btnGuardarTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarTareaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,7 +204,10 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCancelar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardarTarea)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
                     .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -203,7 +223,9 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnGuardarTarea))))
                 .addContainerGap())
         );
 
@@ -211,9 +233,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
         this.dispose();
-
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
@@ -229,7 +249,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
                 break;
             case OPTN_SUBTAREAS:
                 setNombrePanel(modelo.getValueAt(OPTN_SUBTAREAS, 0).toString());
-                PlanificacionSubTareas pst = new PlanificacionSubTareas(gestor.getGestorSubTareas());
+                pst = new PlanificacionSubTareas(gestor.getGestorSubTareas());
                 panel.setViewportView(pst);
                 pst.setVisible(true);
                 break;
@@ -264,20 +284,36 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
                 pdg2.setVisible(true);
         }
     }//GEN-LAST:event_tblMenuMousePressed
+
+    private void btnGuardarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaActionPerformed
+        gestor.guardarCambios();
+        this.actualizar();
+        this.setVisible(false);
+    }//GEN-LAST:event_btnGuardarTareaActionPerformed
     
 
     private void setNombrePanel(String nombre)
     {
          panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
     }
+    
     public void actualizar()
     {
-//        txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
-        //txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()));
+        if(pantallaEditarTareaPadre != null){
+            pantallaEditarTareaPadre.actualizar();
+        }
+        else
+        {
+            if(pst != null)
+            {
+                pst.actualizar();
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardarTarea;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
