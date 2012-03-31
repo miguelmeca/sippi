@@ -122,7 +122,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         grafico = graph.getComponent();
         panelLineaDeTiempo.add(grafico, BorderLayout.CENTER);
         pack();
-        // Soporte para Drop
         PanelDropTarget target = new PanelDropTarget(grafico, new GanttDropEvent());
     }
     
@@ -156,7 +155,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
         graph.addPhase(p1);
 
-        tplan.getSubtareas();
+//        tplan.getSubtareas();
         if (tplan.getSubtareas() != null) {
             for (int i = 0; i < tplan.getSubtareas().size(); i++) {
                 TareaPlanificacion tp = tplan.getSubtareas().get(i);
@@ -165,6 +164,30 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
     }
 
+    public void refreshGanttAndData()
+    {
+        // Limpio las tareas anteriores
+//        List<CoolGanttPhase> lst = graph.getModel().getPhaseList();
+        graph.getModel().getPhaseList().clear();
+//        for (int i = 0; i < lst.size(); i++) {
+//            lst.remove(i);
+//        }
+        graph.refreshModel();
+        
+        // Cargo de nuevo todas las tareas
+        int n = 0;
+        // TODO: Llenar el Gantt
+        List<TareaPlanificacion> lista = _gestor.getListaTareasPlanificadas();
+        for (int i = 0; i < lista.size(); i++) {
+            TareaPlanificacion tplan = lista.get(i);
+            cargarTareasRecursivas(tplan,n);
+        }
+        
+        // refresco el modelo
+        graph.refreshModel();
+        updateGantt();
+    }
+    
     private Date fechaMas(Date fch, int dias) {
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(fch.getTime());
@@ -213,10 +236,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         btnSave = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         panelCentral = new javax.swing.JTabbedPane();
-        panelLineaDeTiempo = new javax.swing.JPanel();
         panelArbolTareas = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         arbolTareas = new javax.swing.JTree();
+        panelLineaDeTiempo = new javax.swing.JPanel();
         panelDatosGenerales = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -446,8 +469,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles Generales"));
 
-        panelLineaDeTiempo.setLayout(new java.awt.BorderLayout());
-        panelCentral.addTab("Línea de Tiempo", panelLineaDeTiempo);
+        panelCentral.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                panelCentralStateChanged(evt);
+            }
+        });
 
         arbolTareas.setModel(null);
         jScrollPane5.setViewportView(arbolTareas);
@@ -456,14 +482,22 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         panelArbolTareas.setLayout(panelArbolTareasLayout);
         panelArbolTareasLayout.setHorizontalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
+
+        panelLineaDeTiempo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                panelLineaDeTiempoFocusGained(evt);
+            }
+        });
+        panelLineaDeTiempo.setLayout(new java.awt.BorderLayout());
+        panelCentral.addTab("Línea de Tiempo", panelLineaDeTiempo);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -489,7 +523,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -500,7 +534,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -714,7 +748,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -727,7 +761,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+            .addComponent(panelCentral)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -836,6 +870,26 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void panelLineaDeTiempoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelLineaDeTiempoFocusGained
+    }//GEN-LAST:event_panelLineaDeTiempoFocusGained
+
+    private void panelCentralStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_panelCentralStateChanged
+        System.out.println("Gano foco");
+        JTabbedPane pan = (JTabbedPane)evt.getSource();
+        switch(pan.getSelectedIndex())
+        {
+            case 0: 
+                // Se mostro la ventana del arbol de tareas
+                System.out.println("[DEBUG] Foco en el árbol de Tareas");
+                break;
+            case 1:
+                // Se mostro el Gantt
+                System.out.println("[DEBUG] Foco en el Gantt");
+                refreshGanttAndData();
+                break;
+        }
+    }//GEN-LAST:event_panelCentralStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnCancelar;
@@ -935,23 +989,24 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private void initArbolRecursosCotizados(int idSubObra) {
         _gestor.cargarArbolRecursos(idSubObra,treeRecursos);
     }
-        
+     
+    @Deprecated
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
-        // Create a new Phrase
-        CoolGanttPhase p5 = new CoolGanttPhase();
-        p5.setEditable(true);
-        p5.setId(id);
-        p5.setNombre(nombre);
-        p5.setStartDate(fechaMas(new Date(), 10));
-        p5.setEndDate(fechaMas(new Date(), 20));
-        
-        graph.addPhase(p5);
-
-        graph.refreshModel();     
-        updateGantt();
-        inicializarArbolDeTareas();
-        
+//        IUGA: Comente este método, no se debería usar MAS        
+//        // Create a new Phrase
+//        CoolGanttPhase p5 = new CoolGanttPhase();
+//        p5.setEditable(true);
+//        p5.setId(id);
+//        p5.setNombre(nombre);
+//        p5.setStartDate(fechaMas(new Date(), 10));
+//        p5.setEndDate(fechaMas(new Date(), 20));
+//        
+//        graph.addPhase(p5);
+//
+//        graph.refreshModel();     
+//        updateGantt();
+//        inicializarArbolDeTareas();
     }
     
     public void agregarNuevaTareaArbol(int id,String nombre,int idTareaPadre)
@@ -970,8 +1025,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         {
              JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Nodo padre inexistente.");
         }
-        graph.refreshModel();     
-        updateGantt();
+//        graph.refreshModel();     
+//        updateGantt();
         
     }
     public void asociarRecursoATareaArbol(int id,String nombre,int idTareaPadre, String tipo)
@@ -1242,9 +1297,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
           }//Fin de if(data!=null && !data.isEmpty() && padre!=null)            
         }
-        
     }
-
+    
     public class GanttEventMouse implements ICoolGanttEvent{
 
         @Override
