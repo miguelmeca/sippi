@@ -8,9 +8,7 @@ package controlador.planificacion;
 import config.Iconos;
 import controlador.GestorAbstracto;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -325,6 +323,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         
         _pantalla.agregarNuevaTareaArbol(nuevaTarea.getId(),nuevaTarea.getNombre(),idTareaPadre);
+        _pantalla.refreshGanttAndData();
     }
     
     public void agregarNuevaTareaGantt(int id, String nombre, int idTareaGanttPadre, int nivel)
@@ -375,8 +374,17 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         for (int i = 0; i < nivel; i++) {
             nombreGantt+="@";
         }
-        _pantalla.agregarNuevaTareaGantt(nuevaTarea.getIdTareaGantt(),nombreGantt,idTareaGanttPadre);
+        _pantalla.refreshGanttAndData();
+        _pantalla.inicializarArbolDeTareas();
+//        _pantalla.agregarNuevaTareaGantt(nuevaTarea.getIdTareaGantt(),nombreGantt,idTareaGanttPadre);
     }
+    
+    private Date fechaMas(Date fch, int horas) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(fch.getTime());
+        cal.add(Calendar.DATE, horas);
+        return new Date(cal.getTimeInMillis());
+    }    
     
     private TareaPlanificacion crearTarea(String nombre, int id)
     {
@@ -394,7 +402,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         nuevaTarea = new TareaPlanificacion();
         nuevaTarea.setId(id);
         nuevaTarea.setNombre(nombre);
-        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());        
+        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());  
+        
+        Date fechaEstimada = this.planificacion.getFechaInicio();
+        nuevaTarea.setFechaInicio(fechaEstimada);
+        nuevaTarea.setFechaFin(fechaMas(fechaEstimada,3));
         
         // CArgo la SubObra X Tarea Planificada Mod
         try
