@@ -582,7 +582,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Legajo"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Legajo:");
 
         txtLegajo.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +593,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel25.setText("*");
 
-        jblFechaIngreso.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaIngreso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jblFechaIngreso.setText("Fecha de Ingreso:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -621,7 +621,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jpDatosPersonales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nombre:");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -630,7 +630,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Apellido: ");
 
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
@@ -639,13 +639,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jblFechaNacimiento.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaNacimiento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jblFechaNacimiento.setText("Fecha de Nacimiento:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Email: ");
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("CUIL:");
 
         txtCUIL.addActionListener(new java.awt.event.ActionListener() {
@@ -654,14 +654,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("<html>Tipo de<br> Documento:</html> ");
 
         cmbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "D.N.I", "L.C" }));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("<html>NÃºmero de<br> Documento:</html>");
+        jLabel1.setText("<html>Número de<br> Documento:</html>");
 
         txtNroDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -773,7 +773,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jLabel23.getAccessibleContext().setAccessibleName("");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("NÃºmeros de Telefono"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Números de Telefono"));
 
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -781,8 +781,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel17.setText("Tipo de TelÃ©fono y NÃºmero:");
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setText("Tipo de Teléfono y Número:");
 
         cmbTiposTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -798,13 +798,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaTelefonos.setFont(new java.awt.Font("Tahoma", 0, 10));
+        tablaTelefonos.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         tablaTelefonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tipo", "NÃºmero"
+                "Tipo", "Número"
             }
         ) {
             Class[] types = new Class [] {
@@ -835,14 +835,15 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnQuitarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregarTelefono))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel17))
+                    .addComponent(jLabel17)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(btnQuitarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnAgregarTelefono))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -855,17 +856,17 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnQuitarTelefono)
-                            .addComponent(btnAgregarTelefono)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregarTelefono)
+                            .addComponent(btnQuitarTelefono)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Calle: ");
 
         txtCalleDomicilio.addActionListener(new java.awt.event.ActionListener() {
@@ -874,19 +875,19 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel9.setText("NÂº:");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Nº:");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Piso:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Departamento:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel12.setText("CÃ³digo Postal:");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Código Postal:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Pais: ");
 
         cmbPaises.addActionListener(new java.awt.event.ActionListener() {
@@ -895,7 +896,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Provincia:");
 
         cmbProvincias.setEnabled(false);
@@ -907,12 +908,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Localidad: ");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Barrio:");
 
         cmbBarrios.setEnabled(false);
@@ -942,21 +943,21 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jLabel12))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNroDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(txtPisoDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(txtCPDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(txtCalleDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(txtDeptoDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)))
+                            .addComponent(txtNroDomicilio)
+                            .addComponent(txtPisoDomicilio)
+                            .addComponent(txtCPDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCalleDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDeptoDomicilio, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(33, 33, 33)
-                                .addComponent(cmbBarrios, 0, 0, Short.MAX_VALUE))
+                                .addComponent(cmbBarrios, 0, 115, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbLocalidades, 0, 116, Short.MAX_VALUE)))
+                                .addComponent(cmbLocalidades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -966,11 +967,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(41, 41, 41)
-                                .addComponent(cmbPaises, 0, 0, Short.MAX_VALUE))
+                                .addComponent(cmbPaises, 0, 1, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbProvincias, 0, 0, Short.MAX_VALUE)))
+                                .addComponent(cmbProvincias, 0, 1, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -1016,7 +1017,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(cmbBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3)
                     .addComponent(jLabel16))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1030,15 +1031,15 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jpDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1049,7 +1050,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel2.getAccessibleContext().setAccessibleName("");
 
-        pnRegEmpleado.addTab("Datos BÃ¡sicos", jPanel1);
+        pnRegEmpleado.addTab("Datos Básicos", jPanel1);
 
         jpCapacitaciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Capacitaciones"));
 
@@ -1071,13 +1072,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10));
+        tablaCapacitaciones.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         tablaCapacitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CapacitaciÃ³n", "Fecha de Vencimiento"
+                "Capacitación", "Fecha de Vencimiento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1091,13 +1092,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         tablaCapacitaciones.setComponentPopupMenu(menuCapacitaciones);
         jScrollPane5.setViewportView(tablaCapacitaciones);
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel24.setText("Disponibles: ");
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel26.setText("Agregadas: ");
 
-        jblFechaVencimiento.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jblFechaVencimiento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jblFechaVencimiento.setText("<html>Fecha de<br> Vencimiento:</html>");
 
         btnGestionCapacitaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
@@ -1124,8 +1125,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnQuitarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                    .addComponent(btnAgregarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))))
+                                    .addComponent(btnQuitarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(btnAgregarCapacitacion, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel26)
@@ -1142,14 +1143,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGestionCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpCapacitacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpCapacitacionesLayout.createSequentialGroup()
-                            .addComponent(btnAgregarCapacitacion)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnQuitarCapacitacion))
-                        .addComponent(jScrollPane4, 0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                    .addGroup(jpCapacitacionesLayout.createSequentialGroup()
+                        .addComponent(btnAgregarCapacitacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarCapacitacion))
+                    .addComponent(jScrollPane4, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jblFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1173,7 +1173,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaEspecialidades.setFont(new java.awt.Font("Tahoma", 0, 10));
+        tablaEspecialidades.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         tablaEspecialidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1193,13 +1193,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         tablaEspecialidades.setComponentPopupMenu(menuEspecialidades);
         jScrollPane2.setViewportView(tablaEspecialidades);
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel20.setText("Disponibles: ");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setText("Rango: ");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Agregadas: ");
 
         btnGestionEspecialidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/next.png"))); // NOI18N
@@ -1228,8 +1228,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQuitarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(btnAgregarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                            .addComponent(btnQuitarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(btnAgregarEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -1328,7 +1328,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         seccionFotografiaLayout.setHorizontalGroup(
             seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionFotografiaLayout.createSequentialGroup()
-                .addContainerGap(303, Short.MAX_VALUE)
+                .addContainerGap(302, Short.MAX_VALUE)
                 .addComponent(btnSeleccionarArchivo)
                 .addGap(309, 309, 309))
             .addGroup(seccionFotografiaLayout.createSequentialGroup()
@@ -1338,12 +1338,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGroup(seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAjustarAltura)
                     .addComponent(btnAjustarAncho))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         seccionFotografiaLayout.setVerticalGroup(
             seccionFotografiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionFotografiaLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(panelFotografia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSeleccionarArchivo)
@@ -1353,7 +1353,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addComponent(btnAjustarAltura)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAjustarAncho)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
 
         pnRegEmpleado.addTab("Fotografia", seccionFotografia);
@@ -1364,30 +1364,30 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirmar)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
                 .addGap(51, 51, 51))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnRegEmpleado)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6)
                     .addComponent(jLabel2))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

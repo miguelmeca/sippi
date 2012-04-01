@@ -75,7 +75,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarMensajeError("No se pudo cargar el Pedido ni la planificación asociada");
+            mostrarMensajeError("No se pudo cargar el Pedido ni la planificaciÃ³n asociada");
             
         }
 
@@ -160,7 +160,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     private void mostrarMensajeError(String msg) {
         System.err.println("[ERROR] " + msg);
-        _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
+        _pantalla.mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
     }
 
     public void cargarArbolRecursos(int idSubObra, JTree treeRecursos) {
@@ -263,7 +263,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         else
         {
-            mostrarMensajeError("No se pudo cargar la planificación, por lo tanto no se mostrará el Gantt");
+            mostrarMensajeError("No se pudo cargar la planificaciÃ³n, por lo tanto no se mostrarÃ¡ el Gantt");
         }
         return listaTareas;
     }
@@ -574,6 +574,18 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         
     }
+    
+    public boolean quitarTarea(int id, String nombre,int idTareaPadre)
+    {
+       boolean eliminada= planificacion.eliminarTarea(id, true);
+       return eliminada;
+        
+    }
+    public void quitarRecurso(int id, String nombre,int idTareaPadre,String tipoRecurso)
+    {
+        
+    }
+    
 
     @Override
     public TareaPlanificacion getTareaActual() {
