@@ -120,6 +120,7 @@ public class PlanificacionXXX {
         return tarea;
         
     }
+    
     public TareaPlanificacion buscarTareaPorIdTareaCotizada(int idTarea)
     {
         TareaPlanificacion tarea=null;
@@ -138,7 +139,26 @@ public class PlanificacionXXX {
             }
         }
         return tarea;
-        
+    }
+    
+    public TareaPlanificacion buscarTareaPorIdTareaGantt(int idTareaGantt)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).getIdTareaGantt()==idTareaGantt)
+            {
+                tarea=tareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=tareas.get(i).buscarTareaPorIdTareaGantt(idTareaGantt);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;
     }
     
 }

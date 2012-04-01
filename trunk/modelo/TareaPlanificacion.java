@@ -198,6 +198,26 @@ public class TareaPlanificacion {
         return tarea;        
     }
     
+    public TareaPlanificacion buscarTareaPorIdTareaGantt(int idTareaGantt)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < subtareas.size(); i++) {
+            
+            if(subtareas.get(i).getIdTareaGantt()==idTareaGantt)
+            {
+                tarea=subtareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=subtareas.get(i).buscarTareaPorIdTareaGantt(idTareaGantt);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;        
+    }    
+    
     public boolean agregarMaterialCotizacion(SubObraXMaterialModif materialCotizacion)
     {        
         //Veo q no se repita

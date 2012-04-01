@@ -167,11 +167,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     public void refreshGanttAndData()
     {
         // Limpio las tareas anteriores
-//        List<CoolGanttPhase> lst = graph.getModel().getPhaseList();
         graph.getModel().getPhaseList().clear();
-//        for (int i = 0; i < lst.size(); i++) {
-//            lst.remove(i);
-//        }
         graph.refreshModel();
         
         // Cargo de nuevo todas las tareas
@@ -188,13 +184,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         updateGantt();
     }
     
-    private Date fechaMas(Date fch, int dias) {
-        Calendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(fch.getTime());
-        cal.add(Calendar.DATE, dias);
-        return new Date(cal.getTimeInMillis());
-    }
-
     private void initTypeModel() {
         CoolGanttTypeModel typeModel = new CoolGanttTypeModel();
         typeModel.addType(demoTypes.TYPE_NORMAL, ColorLabel.COLOR_LABELS[0]);
@@ -1323,17 +1312,17 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         @Override
         public void outMovePhase(int i, Date date) {
-              //JOptionPane.showMessageDialog(new JFrame(),"Se movio en la tarea: "+i);
+              _gestor.tareaCambioFecha(i,date);
         }
 
         @Override
         public void outExtendPhaseBackward(int i, Date date) {
-              //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la izquierda la tarea: "+i);
+              _gestor.tareaCambioFechaInicio(i,date);
         }
 
         @Override
         public void outExtendPhaseForward(int i, Date date) {
-             //JOptionPane.showMessageDialog(new JFrame(),"Se agrando a la derecha la tarea: "+i);
+             _gestor.tareaCambioFechaFin(i,date);
         }
 
     }
