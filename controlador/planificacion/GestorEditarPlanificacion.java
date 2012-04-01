@@ -634,4 +634,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
          TareaPlanificacion tarea = PlanificacionUtils.getTareaFromGantt(planificacion, idGantt);
          return tarea.getId();
     }
+
+    public TareaPlanificacion getTareaFromIDGantt(int i) {
+        return PlanificacionUtils.getTareaFromGantt(this.planificacion, i);
+    }
 }

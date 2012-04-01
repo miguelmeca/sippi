@@ -14,7 +14,8 @@ import modelo.TareaPlanificacion;
 public class PlanificacionUtils {
     
     /**
-     * Se le pasa un id de Tarea del Gantt y te retorna la Tarea Asociada a ese ID
+     * Se le pasa un id de Tarea del Gantt y te retorna la Tarea Asociada a ese ID.
+     * Esto es porque el gantt no maneja los mismos IDS !!
      * @param plan
      * @param idTareaGantt
      * @return 

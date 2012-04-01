@@ -55,10 +55,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     ICoolGantt graph;
     JComponent grafico;
     ArbolTareas arbolTareasGestor;
+    private HashMap<Integer,PantallaEditarTarea> ventanasEditarTareasAbiertas;
    
     public EditarPlanificacion(int template, int idObra) {
         this.template = template;
         this.idObra = idObra;
+        
+        ventanasEditarTareasAbiertas = new HashMap<Integer, PantallaEditarTarea>();
         
         _gestor = new GestorEditarPlanificacion(this,idObra);
         initComponents(); 
@@ -336,7 +339,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Editar Planificación");
+        setTitle("Editar PlanificaciÃ³n");
 
         panelBarraIzquierda.setBorder(javax.swing.BorderFactory.createTitledBorder("Sub Obras Cotizadas"));
 
@@ -478,7 +481,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
         );
 
-        panelCentral.addTab("Árbol de Tareas", panelArbolTareas);
+        panelCentral.addTab("Ã�rbol de Tareas", panelArbolTareas);
 
         panelLineaDeTiempo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -486,7 +489,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
         panelLineaDeTiempo.setLayout(new java.awt.BorderLayout());
-        panelCentral.addTab("Línea de Tiempo", panelLineaDeTiempo);
+        panelCentral.addTab("LÃ­nea de Tiempo", panelLineaDeTiempo);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -528,7 +531,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Planificación"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la PlanificaciÃ³n"));
 
         txtNroPlanificacion.setEditable(false);
 
@@ -546,7 +549,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Número de Planificación: ");
+        jLabel1.setText("NÃºmero de PlanificaciÃ³n: ");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Fecha de Inicio: ");
@@ -665,15 +668,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Cotización"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la CotizaciÃ³n"));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Cotización sobre la que se planifico: ");
+        jLabel14.setText("CotizaciÃ³n sobre la que se planifico: ");
 
         txtNroCotizacion.setEditable(false);
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
-        jButton1.setText("Abrir Cotización");
+        jButton1.setText("Abrir CotizaciÃ³n");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -869,7 +872,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         {
             case 0: 
                 // Se mostro la ventana del arbol de tareas
-                System.out.println("[DEBUG] Foco en el árbol de Tareas");
+                System.out.println("[DEBUG] Foco en el Ã¡rbol de Tareas");
                 break;
             case 1:
                 // Se mostro el Gantt
@@ -982,7 +985,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     @Deprecated
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
-//        IUGA: Comente este método, no se debería usar MAS        
+//        IUGA: Comente este mÃ©todo, no se deberÃ­a usar MAS        
 //        // Create a new Phrase
 //        CoolGanttPhase p5 = new CoolGanttPhase();
 //        p5.setEditable(true);
@@ -1303,18 +1306,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         @Override
         public void outClickPhase(int i) {
             try{
-                // Hay que transformar el idGantt en un idTarea
-                int idConvert = _gestor.getIdTareaFromGantt(i);
-                //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
-                GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
-                gestorEditarTarea.seleccionarTarea(idConvert);
-                PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
-                SwingPanel.getInstance().addWindow(editarTarea);
-                editarTarea.setVisible(true);
+                // Mantenemos un registro unificado de q ventanas ya estan abiertas
+                // Antes busco q tarea es!
+                TareaPlanificacion tarea = _gestor.getTareaFromIDGantt(i);
+                if(tarea!=null)
+                {
+                    abrirEditarTarea(tarea);
+                }
+                
             }catch(Exception ex)
             {
                 System.err.println("Error al abrir una tarea !");
-                JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Error al abrir una tarea","Error!",JOptionPane.ERROR);
+                JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Error al abrir una tarea","Error!",JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -1334,5 +1337,63 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    /**
+     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃ¡n abiertas
+     * esto es para que no puedan abrir mas de un "Editar Tarea" con la misma Tarea.
+     * Manenemos un registro de q ventanas ya estan abiertas !
+     * NOTA: Se usa desde el Gantt y desde el Arbol.
+     * @param tareaGantt: tarea a Editar
+     */
+    private void abrirEditarTarea(TareaPlanificacion tarea)
+    {
+        // Si no esta abierta, la creo, registro y Muestro
+        if(!ventanasEditarTareasAbiertas.containsKey(tarea.hashCode()))
+        {
+            GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+            gestorEditarTarea.seleccionarTarea(tarea);
+            PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
+            SwingPanel.getInstance().addWindow(editarTarea);
+            
+            // Registro
+            ventanasEditarTareasAbiertas.put(tarea.hashCode(),editarTarea);
+            
+            // Muestro
+            editarTarea.setVisible(true);        
+        }
+        else
+        {
+            PantallaEditarTarea editarTarea = ventanasEditarTareasAbiertas.get(tarea.hashCode());
+            if(editarTarea!=null)
+            {
+                if(editarTarea.isVisible())
+                {
+                    editarTarea.requestFocus();
+                    editarTarea.requestFocusInWindow();
+                }
+                else
+                {
+                    SwingPanel.getInstance().addWindow(editarTarea);
+                    editarTarea.setVisible(true);
+                    editarTarea.requestFocus();
+                }
+            }        
+            else
+            {
+                GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+                gestorEditarTarea.seleccionarTarea(tarea);
+                editarTarea = new PantallaEditarTarea(gestorEditarTarea);
+                SwingPanel.getInstance().addWindow(editarTarea);
+
+                // Registro
+                ventanasEditarTareasAbiertas.put(tarea.hashCode(),editarTarea);
+
+                // Muestro
+                editarTarea.setVisible(true);                    
+            }
+        }
+        
+    }
+    
 
 }
