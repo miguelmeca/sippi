@@ -1302,14 +1302,20 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         @Override
         public void outClickPhase(int i) {
-            // Hay que transformar el idGantt en un idTarea
-            int idConvert = _gestor.getIdTareaFromGantt(i);
-            //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
-            GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
-            gestorEditarTarea.seleccionarTarea(idConvert);
-            PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
-            SwingPanel.getInstance().addWindow(editarTarea);
-            editarTarea.setVisible(true);
+            try{
+                // Hay que transformar el idGantt en un idTarea
+                int idConvert = _gestor.getIdTareaFromGantt(i);
+                //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
+                GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+                gestorEditarTarea.seleccionarTarea(idConvert);
+                PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
+                SwingPanel.getInstance().addWindow(editarTarea);
+                editarTarea.setVisible(true);
+            }catch(Exception ex)
+            {
+                System.err.println("Error al abrir una tarea !");
+                JOptionPane.showMessageDialog(new JFrame(),"Se ha producido un error interno. Razon: Error al abrir una tarea","Error!",JOptionPane.ERROR);
+            }
         }
 
         @Override
