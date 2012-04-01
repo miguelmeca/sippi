@@ -141,6 +141,26 @@ public class PlanificacionXXX {
         return tarea;
     }
     
+    public boolean eliminarTarea(int idTarea, boolean busquedaProfunda)
+    {
+        boolean eliminada=false;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).getId()==idTarea)
+            {
+                tareas.remove(i);
+                eliminada=true;
+                break;
+            }
+            else
+            {
+                if(busquedaProfunda)
+                {tareas.get(i).eliminarSubTarea(idTarea, busquedaProfunda);}
+            }
+        }  
+        return eliminada;
+    }
+
     public TareaPlanificacion buscarTareaPorIdTareaGantt(int idTareaGantt)
     {
         TareaPlanificacion tarea=null;

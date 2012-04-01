@@ -298,6 +298,26 @@ public class TareaPlanificacion {
         return false;        
     }
     
+    public boolean eliminarSubTarea(int idTarea, boolean busquedaProfunda)
+    {
+        boolean eliminada=false;
+        for (int i = 0; i < subtareas.size(); i++) {
+            
+            if(subtareas.get(i).getId()==idTarea)
+            {
+                subtareas.remove(i);
+                eliminada=true;
+                break;
+            }
+            else
+            {
+                if(busquedaProfunda)
+                {subtareas.get(i).eliminarSubTarea(idTarea, busquedaProfunda);}
+            }
+        }  
+        return eliminada;
+    }
+    
     
     /* Aca una idea sin terminar... ya fue, q venga nomas la horda de ifs
     public HashMap getRecursos()
