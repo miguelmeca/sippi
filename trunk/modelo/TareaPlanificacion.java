@@ -40,6 +40,9 @@ public class TareaPlanificacion {
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
+        this.tipoTarea = new TipoTarea();
+        this.tipoTarea.setNombre("NORMAL?");
+        this.observaciones = new String();
         
         /*recursos.put(ArbolDeTareasTipos.TIPO_HERRAMIENTAS, herramientas);
         recursos.put(ArbolDeTareasTipos.TIPO_ASIGNACIONESEMPLEADOS, asignacionesEmpleados);

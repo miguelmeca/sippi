@@ -60,11 +60,14 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     {
         if(idTarea != 0) // Si se trata de modificar una existente
         {
-            try {
-                this.tarea = (TareaPlanificacion) HibernateUtil.getSession().load(TareaPlanificacion.class,idTarea);
-            } catch (Exception ex) {
-                Logger.getLogger(GestorEditarTarea.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.tarea = gestorPadre.getPlanificacion().buscarTarea(idTarea);
+//            try {
+//                HibernateUtil.getSession().beginTransaction();
+//                this.tarea = (TareaPlanificacion) HibernateUtil.getSession().load(TareaPlanificacion.class,idTarea);
+//                HibernateUtil.getSession().getTransaction().commit();
+//            } catch (Exception ex) {
+//                System.err.println("Error al intentar cargar la Tarea! Msg:"+ex.getMessage());
+//            }
         }
         else // Si se trata de una tarea nueva
         {
