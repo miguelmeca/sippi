@@ -582,4 +582,43 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     public void refrescarPantallas() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public void tareaCambioFecha(int id, Date date) {
+        
+        TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
+        if(nuevaTarea!=null)
+        {
+            // OJO, muevo Toda la tarea
+            // Calculo la duracion:
+            int dias = FechaUtil.diasDiferencia(nuevaTarea.getFechaInicio(),date);
+            // x dias para la izquierda o derecha?
+            if(nuevaTarea.getFechaInicio().after(date))
+            {
+                // Derecha
+                nuevaTarea.setFechaFin(FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias));
+            }
+            else
+            {
+                // Izquierda
+                nuevaTarea.setFechaFin(FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias));
+            }
+            nuevaTarea.setFechaInicio(date);
+        }
+    }
+
+    public void tareaCambioFechaInicio(int id, Date date) {
+        TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
+        if(nuevaTarea!=null)
+        {
+            nuevaTarea.setFechaInicio(date);
+        }
+    }
+
+    public void tareaCambioFechaFin(int id, Date date) {
+        TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
+        if(nuevaTarea!=null)
+        {
+            nuevaTarea.setFechaFin(date);
+        }
+    }
 }
