@@ -1302,9 +1302,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         @Override
         public void outClickPhase(int i) {
+            // Hay que transformar el idGantt en un idTarea
+            int idConvert = _gestor.getIdTareaFromGantt(i);
             //JOptionPane.showMessageDialog(new JFrame(),"Se hizo click en la tarea: "+i);
             GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
-            gestorEditarTarea.seleccionarTarea(i);
+            gestorEditarTarea.seleccionarTarea(idConvert);
             PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
             SwingPanel.getInstance().addWindow(editarTarea);
             editarTarea.setVisible(true);

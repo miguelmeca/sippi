@@ -56,9 +56,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
         try {
             sesion = HibernateUtil.getSession();
-
+            
+            HibernateUtil.getSession().beginTransaction();
             this.pedidoDeObra = (PedidoObra) sesion.load(PedidoObra.class, idPedidoDeObra);
             this.planificacion = pedidoDeObra.getPlanificacion();
+            HibernateUtil.getSession().getTransaction().commit();
             
             if(this.planificacion!=null)
             {
@@ -620,5 +622,16 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             nuevaTarea.setFechaFin(date);
         }
+    }
+    
+    /**
+     * Le pasas un id de Tarea del Gantt y te retorna el ID de la tarea
+     * @param idGantt
+     * @return 
+     */
+    public int getIdTareaFromGantt(int idGantt)
+    {
+         TareaPlanificacion tarea = PlanificacionUtils.getTareaFromGantt(planificacion, idGantt);
+         return tarea.getId();
     }
 }
