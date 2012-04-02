@@ -53,7 +53,8 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     public void habiliarVentana()
     {
         cargarCboTareas();
-        cargarCboRangos();       
+        cargarCboRangos();   
+        cargarCboTipoEspecialidad();
         txtCosto.addKeyListener(Validaciones.getKaNumeros());
         txtHorasNormales.addKeyListener(Validaciones.getKaNumeros());
         txtHoras50.addKeyListener(Validaciones.getKaNumeros());
@@ -92,6 +93,20 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         cboRango.insertItemAt(t0, 0);
         cboRango.setSelectedIndex(0);   
     }
+    public void cargarCboTipoEspecialidad()
+    {
+        ArrayList<Tupla> listaTipoEspecialidad = gestor.mostrarTiposEspecialidad();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        if(listaTipoEspecialidad!=null && !listaTipoEspecialidad.isEmpty())
+        for (Tupla te : listaTipoEspecialidad)
+        {
+            model.addElement(te);
+        }
+        cboTipoEspecialidad.setModel(model);
+        Tupla t0 = new Tupla(-1,"Seleccione una especialidad...");
+        cboTipoEspecialidad.insertItemAt(t0, 0);
+        cboTipoEspecialidad.setSelectedIndex(0);   
+    }
     
     
     public void tomarValoresDeDatos(SubObraXTarea tarea, int indiceFila)
@@ -108,6 +123,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
                 break;
             }            
         }
+        
        txtNombre.setText(tarea.getNombre());
        txaObservaciones.setText(tarea.getObservaciones());
         for (DetalleSubObraXTarea detalle:tarea.getDetalles()) {
@@ -153,6 +169,14 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
          { JOptionPane.showMessageDialog(this.getParent(), "Seleccione un rango", "Error",JOptionPane.ERROR_MESSAGE);
           cboRango.requestFocusInWindow();}
           return false;          
+       }
+      if(mostrarErrores)
+      {
+        if(((Tupla)cboTipoEspecialidad.getSelectedItem()).getId()<0)
+        {  
+          JOptionPane.showMessageDialog(this.getParent(), "Seleccione un especialidad", "Error",JOptionPane.ERROR_MESSAGE);
+          cboTipoEspecialidad.requestFocusInWindow();
+          return false;          }
        }
        if(!Validaciones.validarNumeroPositivo(txtPersonas.getText().replace( ',','.' )))
        {  
@@ -248,6 +272,7 @@ private void limpiarCamposDetalle()
     btnSetearCostoRango.setEnabled(false);
     txtCosto.setEnabled(false);
     cargarCboRangos();
+    cargarCboTipoEspecialidad();
 }
     
 private DetalleSubObraXTarea pedirAlGestorNuevoDetalleSegunDatosNuevos()
@@ -258,24 +283,28 @@ private DetalleSubObraXTarea pedirAlGestorNuevoDetalleSegunDatosNuevos()
        int cantidadPersonas=Integer.parseInt(txtPersonas.getText());
        double costoNormal =Double.parseDouble(txtCosto.getText().replace(",", "."));
        int rangoEmpleado =((NTupla)cboRango.getSelectedItem()).getId();
-       DetalleSubObraXTarea detalleNuevo=gestor.crearDetalleTarea(hsNormales, hs50, hs100, cantidadPersonas, costoNormal, rangoEmpleado);
+       int tipoEspecialidad =((Tupla)cboTipoEspecialidad.getSelectedItem()).getId();
+       DetalleSubObraXTarea detalleNuevo=gestor.crearDetalleTarea(hsNormales, hs50, hs100, cantidadPersonas, costoNormal, rangoEmpleado, tipoEspecialidad);
        return  detalleNuevo;
 }
 
 private void agregarDetalleTareaATabla(DetalleSubObraXTarea detalleTarea) //throws Exception
 {
     
-       Object[] datos=new Object[7];     
+       Object[] datos=new Object[8];     
        NTupla detalleYNombreRango=new NTupla();
        detalleYNombreRango.setNombre(detalleTarea.getRangoEmpleado().getNombre());
        detalleYNombreRango.setData(detalleTarea);
        datos[0]=detalleYNombreRango;
-       datos[1]=detalleTarea.getCantidadPersonas();
-       datos[2]=detalleTarea.getCostoXHoraNormal();
-       datos[3]=detalleTarea.getCantHorasNormales();
-       datos[4]=detalleTarea.getCantHorasAl50();
-       datos[5]=detalleTarea.getCantHorasAl100();
-       datos[6]=detalleTarea.calcularSubtotal();
+       Tupla nombreTipoEspecialidad=new Tupla();
+       nombreTipoEspecialidad.setNombre(detalleTarea.getRangoEmpleado().getNombre());
+       datos[1]=nombreTipoEspecialidad;
+       datos[2]=detalleTarea.getCantidadPersonas();
+       datos[3]=detalleTarea.getCostoXHoraNormal();
+       datos[4]=detalleTarea.getCantHorasNormales();
+       datos[5]=detalleTarea.getCantHorasAl50();
+       datos[6]=detalleTarea.getCantHorasAl100();
+       datos[7]=detalleTarea.calcularSubtotal();
        
        DefaultTableModel modelo = (DefaultTableModel) tblDetallesTarea.getModel();
        
@@ -340,6 +369,8 @@ private double calcularTotalTarea()
         txtHorasNormales = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         txtSubtotalDetalle = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cboTipoEspecialidad = new javax.swing.JComboBox();
         btnAgregarDetalle = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetallesTarea = new javax.swing.JTable();
@@ -414,7 +445,7 @@ private double calcularTotalTarea()
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -422,10 +453,10 @@ private double calcularTotalTarea()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(cboTareas, 0, 385, Short.MAX_VALUE)
+                                .addComponent(cboTareas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAgregarTipoDeTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))))
+                            .addComponent(txtNombre))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -485,6 +516,11 @@ private double calcularTotalTarea()
                 txtCostoFocusLost(evt);
             }
         });
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCostoKeyReleased(evt);
+            }
+        });
 
         txtHoras100.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -520,87 +556,109 @@ private double calcularTotalTarea()
             }
         });
 
+        jLabel11.setText("Especialidad de empleados");
+
+        cboTipoEspecialidad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTipoEspecialidadItemStateChanged(evt);
+            }
+        });
+        cboTipoEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoEspecialidadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpDatosDetalleTareaLayout = new javax.swing.GroupLayout(jpDatosDetalleTarea);
         jpDatosDetalleTarea.setLayout(jpDatosDetalleTareaLayout);
         jpDatosDetalleTareaLayout.setHorizontalGroup(
             jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorasNormales, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHoras50, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHoras100))
+                .addGap(43, 43, 43)
                 .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(cboRango, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtHorasNormales, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                                .addComponent(txtHoras50, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtHoras100, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createSequentialGroup()
-                        .addContainerGap(289, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSubtotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSubtotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(35, 35, 35))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cboRango, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboTipoEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jpDatosDetalleTareaLayout.setVerticalGroup(
             jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cboRango))
-                        .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnSetearCostoRango, 0, 0, Short.MAX_VALUE)
-                                .addComponent(txtCosto)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtHoras100, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtHoras50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboTipoEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboRango))
+                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnSetearCostoRango, 0, 0, Short.MAX_VALUE)
+                                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtHorasNormales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtSubtotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtHorasNormales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtHoras50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtHoras100, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosDetalleTareaLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtSubtotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         btnAgregarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
@@ -616,11 +674,11 @@ private double calcularTotalTarea()
 
             },
             new String [] {
-                "Rango", "Personas", "Costo Hora", "Hs Normales", "Hs 50%", "Hs 100%", "Subtotal"
+                "Rango", "Especialidad", "Personas", "Costo Hora", "Hs Normales", "Hs 50%", "Hs 100%", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -657,45 +715,41 @@ private double calcularTotalTarea()
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jpDatosDetalleTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(91, 91, 91)
                         .addComponent(btnAgregarDetalle)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnEditarDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                        .addGap(28, 28, 28)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnEditarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
                         .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                        .addGap(0, 57, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jpDatosDetalleTarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jpDatosDetalleTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditarDetalle)
-                    .addComponent(btnQuitarDetalle)
-                    .addComponent(btnAgregarDetalle))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuitarDetalle)
+                    .addComponent(btnAgregarDetalle)
+                    .addComponent(btnEditarDetalle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(283, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnAceptar)
@@ -705,7 +759,8 @@ private double calcularTotalTarea()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -721,7 +776,7 @@ private double calcularTotalTarea()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -788,11 +843,13 @@ private void habilitarCamposDatosDetalleTarea(boolean habilitar)
 {
     txtPersonas.setEnabled(habilitar);
        cboRango.setEnabled(habilitar);
+       cboTipoEspecialidad.setEnabled(habilitar);
        txtHorasNormales.setEnabled(habilitar);
        txtHoras50.setEnabled(habilitar);
        txtHoras100.setEnabled(habilitar);  
        if(!habilitar)//no habilitar si es true. Solo deshabilitar si es false.
-       {btnSetearCostoRango.setEnabled(habilitar);}
+       {btnSetearCostoRango.setEnabled(habilitar);
+       txtCosto.setEnabled(habilitar);}
 }
 
 private void btnAgregarTipoDeTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTipoDeTareaActionPerformed
@@ -851,6 +908,8 @@ private void btnSetearCostoRangoActionPerformed(java.awt.event.ActionEvent evt) 
 
 private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
 calcularSubtotalDetalle(validarDatosDetalle(false));
+
+    
 }//GEN-LAST:event_txtCostoFocusLost
 
 private void txtHoras100FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoras100FocusLost
@@ -915,10 +974,18 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
                 break;
             }            
         }
-       
+       for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) 
+        {
+            if( (((Tupla)cboTipoEspecialidad.getItemAt(i)).getId()) == detalleTarea.getTipoEspecialidad().getId())
+            {
+                cboTipoEspecialidad.setSelectedIndex(i);
+                break;
+            }            
+        }       
        txtHorasNormales.setText(String.valueOf(detalleTarea.getCantHorasNormales()));
        txtHoras50.setText(String.valueOf(detalleTarea.getCantHorasAl50()));
        txtHoras100.setText(String.valueOf(detalleTarea.getCantHorasAl100())); 
+       calcularSubtotalDetalle(true);
        ((DefaultTableModel)tblDetallesTarea.getModel()).removeRow(tblDetallesTarea.getSelectedRow());
         mostrarTotalTarea();
         habilitarBotonesParaTablaDetalle(false);
@@ -929,6 +996,32 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
 private void tblDetallesTareaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetallesTareaMousePressed
 habilitarBotonesParaTablaDetalle(true);
 }//GEN-LAST:event_tblDetallesTareaMousePressed
+
+    private void cboTipoEspecialidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTipoEspecialidadItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTipoEspecialidadItemStateChanged
+
+    private void cboTipoEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoEspecialidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTipoEspecialidadActionPerformed
+
+    private void txtCostoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyReleased
+        if(Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
+        {   String costo=Double.toString( (Double)((NTupla)cboRango.getModel().getSelectedItem()).getData()).replace(".",",");
+            if(txtCosto.getText().equals(costo))
+            {
+                btnSetearCostoRango.setEnabled(false);
+            }
+            else
+            {
+                btnSetearCostoRango.setEnabled(true);
+            }
+        }
+        else
+        {
+            btnSetearCostoRango.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtCostoKeyReleased
 private void habilitarBotonesParaTablaDetalle(boolean habilitar)
 {
     if(tblDetallesTarea.getSelectedRow()!=-1)
@@ -953,7 +1046,9 @@ else
     private javax.swing.JButton btnSetearCostoRango;
     private javax.swing.JComboBox cboRango;
     private javax.swing.JComboBox cboTareas;
+    private javax.swing.JComboBox cboTipoEspecialidad;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;

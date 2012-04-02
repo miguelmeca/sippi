@@ -19,6 +19,7 @@ public class DetalleSubObraXTarea implements ISubtotal{
     private double cantHorasAl100;
     private RangoEmpleado rangoEmpleado;
     private double costoXHoraNormal;
+    private TipoEspecialidad tipoEspecialidad;
 
     public DetalleSubObraXTarea() 
     {
@@ -34,6 +35,7 @@ public class DetalleSubObraXTarea implements ISubtotal{
         this.cantHorasAl100=aCopiar.cantHorasAl100;
         this.rangoEmpleado=aCopiar.rangoEmpleado;
         this.costoXHoraNormal=aCopiar.costoXHoraNormal;
+        this.tipoEspecialidad=aCopiar.tipoEspecialidad;
     }
 
     public int getId() {
@@ -84,7 +86,14 @@ public class DetalleSubObraXTarea implements ISubtotal{
     public void setRangoEmpleado(RangoEmpleado rangoEmpleado) {
         this.rangoEmpleado = rangoEmpleado;
     }
+    
+    public TipoEspecialidad getTipoEspecialidad() {
+        return tipoEspecialidad;
+    }
 
+    public void setTipoEspecialidad(TipoEspecialidad tipoEspecialidad) {
+        this.tipoEspecialidad = tipoEspecialidad;
+    }
        
     public double getCostoXHoraNormal() {
         return costoXHoraNormal;

@@ -13,12 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
-import modelo.Cotizacion;
-import modelo.DetalleSubObraXTarea;
-import modelo.SubObra;
-import modelo.SubObraXTarea;
-import modelo.TipoTarea;
-import modelo.RangoEmpleado;
+import modelo.*;
 import util.RubroUtil;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -85,6 +80,30 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
              }
             return tuplas;           
         }
+    public ArrayList<Tupla> mostrarTiposEspecialidad()
+    { Session sesion;
+
+        List<TipoEspecialidad> tiposEspecialidad=null;
+        try{
+            sesion= HibernateUtil.getSession();
+            tiposEspecialidad=sesion.createQuery("from TipoEspecialidad").list();
+        }
+        catch (Exception ex)
+        {System.out.println("No se ejecutar la consulta en mostrarTiposEspecialidad()");
+        return null;}
+        if(tiposEspecialidad==null)
+        {return null;}           
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        for (int i = 0; i < tiposEspecialidad.size(); i++)
+        {
+           TipoEspecialidad te = (TipoEspecialidad)tiposEspecialidad.get(i);
+                
+           Tupla tupla = new Tupla(te.getId(), te.getNombre());
+           tuplas.add(tupla);
+        }
+        return tuplas;           
+      }
+ 
  public ArrayList<NTupla> mostrarRangos()
         { Session sesion;
 
@@ -250,16 +269,19 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
     }
     
-    public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idRangoEmpleado)
+    public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idRangoEmpleado, int idTipoEspecialidad)
     {
        DetalleSubObraXTarea detalleNuevo=crearDetalleVacio();
         detalleNuevo.setCantHorasNormales(hsNormales);
+        detalleNuevo.setCantHorasAl50(hs50);
         detalleNuevo.setCantHorasAl50(hs50);
         detalleNuevo.setCantHorasAl100(hs100);
         detalleNuevo.setCantidadPersonas(cantidadPersonas );
         detalleNuevo.setCostoXHoraNormal(costoNormal);
         RangoEmpleado rangoEmpleado=levantarRangoEmpleado(idRangoEmpleado);        
         detalleNuevo.setRangoEmpleado(rangoEmpleado); 
+        TipoEspecialidad tipoEspecialidad=levantarTipoEspecialidad(idTipoEspecialidad);        
+        detalleNuevo.setTipoEspecialidad(tipoEspecialidad); 
         
         return detalleNuevo;    
     }
@@ -275,13 +297,33 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         try
         {
             sesion = HibernateUtil.getSession();
+            sesion.beginTransaction();
             re = (RangoEmpleado) sesion.load(RangoEmpleado.class, (idRango));
+            sesion.getTransaction().commit();
             
         }
-        catch (Exception ex)
-        {   System.out.println("No se ejecutar la consulta en levantarRangoEmpleado(id)");            
+        catch (Exception ex)            
+        {   System.out.println("No se ejecutar la consulta en levantarRangoEmpleado(id)"); 
         }
         return re;
+    }
+    
+    public TipoEspecialidad levantarTipoEspecialidad(int idTipoEspecialidad)
+    {
+       Session sesion;
+        TipoEspecialidad te=null;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            sesion.beginTransaction();
+            te = (TipoEspecialidad) sesion.load(TipoEspecialidad.class, (idTipoEspecialidad));
+            sesion.getTransaction().commit();
+            
+        }
+        catch (Exception ex)            
+        {   System.out.println("No se ejecutar la consulta en levantarRangoEmpleado(id)"); 
+        }
+        return te;
     }
     
     public TipoTarea levantarTipoTarea(int idTipoTarea)
