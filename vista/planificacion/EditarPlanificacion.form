@@ -361,7 +361,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelCentral" alignment="0" pref="527" max="32767" attributes="0"/>
+              <Component id="panelCentral" alignment="0" pref="531" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -376,8 +376,8 @@
             <Container class="javax.swing.JPanel" name="panelArbolTareas">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#xc1;rbol de Tareas">
-                    <Property name="tabTitle" type="java.lang.String" value="&#xc1;rbol de Tareas"/>
+                  <JTabbedPaneConstraints tabName="Arbol de Tareas">
+                    <Property name="tabTitle" type="java.lang.String" value="Arbol de Tareas"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -390,7 +390,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="499" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" alignment="0" pref="503" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -459,7 +459,7 @@
                           <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="276" max="32767" attributes="0"/>
+                          <EmptySpace pref="280" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -534,7 +534,7 @@
                           <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="111" max="32767" attributes="0"/>
+                          <EmptySpace pref="130" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -793,7 +793,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="txtNroCotizacion" min="-2" pref="210" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton1" pref="132" max="32767" attributes="0"/>
+                                      <Component id="jButton1" pref="138" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="lblCotMontoTotal" pref="348" max="32767" attributes="0"/>
                               </Group>

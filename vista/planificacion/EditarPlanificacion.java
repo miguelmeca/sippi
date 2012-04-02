@@ -343,7 +343,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Editar PlanificaciÃ³n");
+        setTitle("Editar Planificación");
 
         panelBarraIzquierda.setBorder(javax.swing.BorderFactory.createTitledBorder("Sub Obras Cotizadas"));
 
@@ -483,10 +483,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
 
-        panelCentral.addTab("Ã�rbol de Tareas", panelArbolTareas);
+        panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
 
         panelLineaDeTiempo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -494,7 +494,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         });
         panelLineaDeTiempo.setLayout(new java.awt.BorderLayout());
-        panelCentral.addTab("LÃ­nea de Tiempo", panelLineaDeTiempo);
+        panelCentral.addTab("Línea de Tiempo", panelLineaDeTiempo);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -531,12 +531,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la PlanificaciÃ³n"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Planificación"));
 
         txtNroPlanificacion.setEditable(false);
 
@@ -554,7 +554,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("NÃºmero de PlanificaciÃ³n: ");
+        jLabel1.setText("Número de Planificación: ");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Fecha de Inicio: ");
@@ -673,15 +673,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la CotizaciÃ³n"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Cotización"));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("CotizaciÃ³n sobre la que se planifico: ");
+        jLabel14.setText("Cotización sobre la que se planifico: ");
 
         txtNroCotizacion.setEditable(false);
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
-        jButton1.setText("Abrir CotizaciÃ³n");
+        jButton1.setText("Abrir Cotización");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -707,7 +707,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(txtNroCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                     .addComponent(lblCotMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
@@ -745,7 +745,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -758,7 +758,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
