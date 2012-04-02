@@ -19,7 +19,11 @@ import util.Tupla;
 import vista.cotizacion.CotizacionGraficoBean;
 import vista.cotizacion.ExplorarSubObras;
 import controlador.cotizacion.GestorRegistrarCotizacion;
+import modelo.*;
+import org.hibernate.Transaction;
+import util.*;
 import vista.interfaces.ICallBack_v2;
+import vista.planificacion.EditarPlanificacion;
 
 /**
  *
@@ -494,19 +498,53 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         this.cot.setEstadoAceptado();
         this.obra.setEstadoPresupuestado();
         
-        // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
+       
+        // Ahora... Creo la PlanificacionXXX
+        PlanificacionXXX nuevaPlan = new PlanificacionXXX();
+        nuevaPlan.setFechaInicio(this.obra.getFechaInicio());
+        nuevaPlan.setFechaFin(this.obra.getFechaFin());
+
+        // Lanzo el algoritmo para la cotizacion Intermedia
+        CotizacionModificada copiaCot = null;
         try
         {
-            sesion.beginTransaction();
+            Trazabilidad algoritmoCopia = new Trazabilidad();
+            copiaCot = algoritmoCopia.copiarCotizacionACotizacionModificada(this.cot);
+        }catch(Exception e)
+        {
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la cotización\nRevise que no falte ningún dato\n"+e.getMessage());
+        }
+        
+        // Asocio la planificacion a la OBRA
+        this.obra.setPlanificacion(nuevaPlan);
+        
+        // Asocio la copia de la cotizacion a la planificacion
+        nuevaPlan.setCotizacion(copiaCot);
+        
+        // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
+        Transaction tx = null;
+        try
+        {
+             tx = sesion.beginTransaction();
+                // Guardo el cambio de estado de la cotizacion
                 sesion.saveOrUpdate(this.cot);
+                // Guardo el cambio de estado de la obra
                 sesion.saveOrUpdate(this.obra);
-            sesion.getTransaction().commit(); 
+                // Guardo la cotizacion intermedia
+                sesion.saveOrUpdate(copiaCot);
+                // Guardo la nueva Planificacion
+                sesion.saveOrUpdate(nuevaPlan);
+            tx.commit();
             necesita_guardar = false;
         } 
         catch (Exception ex)
         {
+            tx.rollback();
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva planificación\nPongase en contacto con un administrador\n"+ex.getMessage());
-        }
+        }        
+        
+        // Si no exploto hasta ahora, lanzo la nueva ventana
+        pantalla.lanzarPlanificacion(this.obra.getId());
     }
 
     public int getIdDePlanificacionDeObra() {

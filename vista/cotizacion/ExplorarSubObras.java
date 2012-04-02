@@ -1144,10 +1144,18 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private void btnPlanificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanificarActionPerformed
         
         gestor.comenzarPlaificacion();
-        this.dispose();
-        
+   
     }//GEN-LAST:event_btnPlanificarActionPerformed
 
+    public void lanzarPlanificacion(int idObra)
+    {
+        // Si no exploto hasta ahora, lanzo la nueva ventana
+        EditarPlanificacion win = new EditarPlanificacion(EditarPlanificacion.TEMPLATE_MODIFICACION,idObra);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);  
+        this.dispose();
+    }
+    
     private void btnAbrirPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPlanificacionActionPerformed
         
         int idPlan = gestor.getIdDePlanificacionDeObra();

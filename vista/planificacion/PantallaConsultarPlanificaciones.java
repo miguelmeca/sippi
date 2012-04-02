@@ -7,6 +7,7 @@ package vista.planificacion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.PlanificacionXXX;
+import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
 import vista.interfaces.ICallBackGen;
 
@@ -53,6 +54,14 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
         
         return colorCriteria;
     }
+
+    @Override
+    protected void abrirEntidad(int id) {
+        EditarPlanificacion win = new EditarPlanificacion(id);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }
+    
     
     
     
