@@ -134,7 +134,15 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             sesion = HibernateUtil.getSession();
             pedidoDeObra = (PedidoObra) sesion.load(PedidoObra.class, idPedidoDeObra);
 
-            _pantalla.setLblObraNombre(pedidoDeObra.getNombre().substring(0, 60) + "...");
+            if(pedidoDeObra.getNombre()!=null && pedidoDeObra.getNombre().length()>60)
+            {
+                _pantalla.setLblObraNombre(pedidoDeObra.getNombre().substring(0, 60) + "...");
+            }
+            else
+            {
+                _pantalla.setLblObraNombre(pedidoDeObra.getNombre());
+            }
+            
             _pantalla.setLblObraFechaFin(FechaUtil.getFecha(pedidoDeObra.getFechaFin()));
             _pantalla.setLblObraFechaInicio(FechaUtil.getFecha(pedidoDeObra.getFechaInicio()));
             _pantalla.setLblObraLugar(pedidoDeObra.getPlanta().getDomicilio().toString());

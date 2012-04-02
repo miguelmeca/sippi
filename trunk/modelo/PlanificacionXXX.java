@@ -2,6 +2,7 @@ package modelo;
 
 //
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class PlanificacionXXX {
     }
 
     public PlanificacionXXX() {
+        this.estado = PlanificacionXXX.ESTADO_ALTA;
+        this.tareas = new ArrayList<TareaPlanificacion>();
     }
 
     public int getId() {

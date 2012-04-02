@@ -49,6 +49,9 @@ import vista.planificacion.arbolTareas.ArbolIconoRenderer;
  */
 public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
+    public static int TEMPLATE_MODIFICACION = 0;
+    public static int TEMPLATE_SOLOLECTURA  = 1;
+    
     private static final String iconoSubObra = "/res/iconos/var/16x16/Application.png";
     private static final String iconoTarea = "/res/iconos/var/16x16/calendar.png";
     private final String CADENA_SUB_TAREA = "@";
@@ -60,6 +63,36 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     ArbolTareasGestor arbolTareasGestor;
     private HashMap<Integer,PantallaEditarTarea> ventanasEditarTareasAbiertas;
    
+ public EditarPlanificacion( int idObra) {
+        this.idObra = idObra;
+        
+        ventanasEditarTareasAbiertas = new HashMap<Integer, PantallaEditarTarea>();
+        
+        _gestor = new GestorEditarPlanificacion(this,idObra);
+        initComponents(); 
+        
+        tblSubObras.setDefaultRenderer(Object.class, new ListaDeTareasRender());
+        tblTareas.setDefaultRenderer(Object.class, new ListaDeTareasRender());        
+        treeRecursos.setCellRenderer(new IconTreeRenderer());
+        treeRecursos.setRootVisible(false);
+
+        initArbolRecursos();
+        initDatosGenerales(idObra);
+        arbolTareasGestor=new ArbolTareasGestor(arbolTareas);
+        inicializarArbolDeTareas();
+        initGraph();
+
+        //TODO: Sacar esto, test de DnD
+        PanelDropTarget target = new PanelDropTarget(jPanel2, new GanttDropEvent());    
+    }    
+    
+    /**
+     * No usea, el template tiene que setearse segun el estado de la planificacion
+     * @param template
+     * @param idObra
+     * @deprecated
+     */
+    @Deprecated
     public EditarPlanificacion(int template, int idObra) {
         this.template = template;
         this.idObra = idObra;
@@ -84,6 +117,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         PanelDropTarget target = new PanelDropTarget(jPanel2, new GanttDropEvent());    
     }
 
+    
+    
     private void initDatosGenerales(int idObra) {
         _gestor.mostrarDatosGenerales(idObra);
     }    
