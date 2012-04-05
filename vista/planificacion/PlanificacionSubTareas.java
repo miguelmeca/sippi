@@ -17,11 +17,10 @@ import controlador.planificacion.GestorPlanificacionSubTareas;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import util.NTupla;
-import util.SwingPanel;
-import util.TablaUtil;
-import util.Tupla;
+import util.*;
 
 /**
  *
@@ -95,7 +94,12 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         });
 
         btnEliminarSubTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Erase.png"))); // NOI18N
-        btnEliminarSubTarea.setText("Eliminar");
+        btnEliminarSubTarea.setText("Eliminar como Sub Tarea");
+        btnEliminarSubTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSubTareaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,21 +107,21 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevaSubTarea)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminarSubTarea)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditarSubTarea)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(btnEditarSubTarea))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevaSubTarea)
@@ -147,6 +151,26 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         editarTarea.setVisible(true);
     }//GEN-LAST:event_btnNuevaSubTareaActionPerformed
 
+    private void btnEliminarSubTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSubTareaActionPerformed
+       GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(this.gestor.getGestorPlanificacion());
+       gestorEditarTarea.setGestorTareaPadre(this.gestor.getGestorPadre());
+       DefaultTableModel dtm = (DefaultTableModel) this.tablaSubTareas.getModel();
+       Tupla t = (Tupla)dtm.getValueAt(tablaSubTareas.getSelectedRow(),0);
+       gestorEditarTarea.seleccionarTarea(this.gestor.getSubTareaPlanificada(t.getId()));
+       
+       StringBuilder mensajeRetorno = new StringBuilder();
+       if(gestorEditarTarea.eliminarComoSubTarea(mensajeRetorno))
+       {
+           JOptionPane.showMessageDialog(new JFrame(),mensajeRetorno,"Exito!",JOptionPane.INFORMATION_MESSAGE);
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(new JFrame(),mensajeRetorno,"Error!",JOptionPane.INFORMATION_MESSAGE);
+       }
+       // Refrescar Tabla
+       cargarSubTareas();
+    }//GEN-LAST:event_btnEliminarSubTareaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarSubTarea;
     private javax.swing.JButton btnEliminarSubTarea;
@@ -168,10 +192,10 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
             t.setId(nt.getId());
             String fechaInicio = "";
             if(fechas[0] != null)
-                fechaInicio = fechas[0].toString();
+                fechaInicio = FechaUtil.getFecha(fechas[0]);
             String fechaFin = "";
             if(fechas[1] != null)
-                fechaFin = fechas[0].toString();
+                fechaFin = FechaUtil.getFecha(fechas[1]);
             Object[] fila = { t,fechaInicio,fechaFin};
             dtm.addRow(fila);
         }
@@ -180,4 +204,6 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
     public void actualizar() {
         this.cargarSubTareas();
     }
+    
+    
 }
