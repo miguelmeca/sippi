@@ -181,60 +181,62 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     
     public void guardarTareaRecursiva(TareaPlanificacion tareaR)
     {
-        try {
-            if(tareaR.getAlquilerCompras() != null)
-            {
-                Iterator<PlanificacionXAlquilerCompra> itAlquilerCompra = tareaR.getAlquilerCompras().iterator();
-                while(itAlquilerCompra.hasNext())
-                {
-                    PlanificacionXAlquilerCompra pac = itAlquilerCompra.next();
-                    HibernateUtil.getSession().saveOrUpdate(pac.getAlquilerCompraCotizacion());
-                    HibernateUtil.getSession().saveOrUpdate(pac);
-                }
-            }
-            if(tareaR.getHerramientas() != null)
-            {
-                Iterator<PlanificacionXHerramienta> itHerramienta = tareaR.getHerramientas().iterator();
-                while(itHerramienta.hasNext())
-                {
-                    PlanificacionXHerramienta ph = itHerramienta.next();
-                    HibernateUtil.getSession().saveOrUpdate(ph.getHerramientaCotizacion());
-                    HibernateUtil.getSession().saveOrUpdate(ph);
-                }
-            }
-            if(tareaR.getMateriales() != null)
-            {
-                Iterator<PlanificacionXMaterial> itMaterial = tareaR.getMateriales().iterator();
-                while(itMaterial.hasNext())
-                {
-                    PlanificacionXMaterial pm = itMaterial.next();
-                    HibernateUtil.getSession().saveOrUpdate(pm.getMaterialCotizacion());
-                    HibernateUtil.getSession().saveOrUpdate(pm);
-                }
-            }
-            if(tareaR.getAsignacionesEmpleados() != null)
-            {
-                Iterator<AsignacionEmpleadoPlanificacion> itAsignaciones = tareaR.getAsignacionesEmpleados().iterator();
-                while(itAsignaciones.hasNext())
-                {
-                    AsignacionEmpleadoPlanificacion aep = itAsignaciones.next();
-                    HibernateUtil.getSession().saveOrUpdate(aep.getAsignacionTareaCotizacion());
-                    HibernateUtil.getSession().saveOrUpdate(aep);
-                }
-            }
-            if(tareaR.getSubtareas() != null)
-            {
-                Iterator<TareaPlanificacion> itSubTareas = tareaR.getSubtareas().iterator();
-                while(itSubTareas.hasNext())
-                {
-                    TareaPlanificacion tp = itSubTareas.next();
-                    this.guardarTareaRecursiva(tp);
-                }
-            }
-            HibernateUtil.getSession().saveOrUpdate(tareaR);
-        } catch (Exception ex) {
-            Logger.getLogger(GestorEditarTarea.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+//        TODO ESTO ESTA MAL, NO TIENE QUE GUARDAR EN DB, SOLO EN MEMORIA !!!
+//        OJO CON ESTO !
+//        try {
+//            if(tareaR.getAlquilerCompras() != null)
+//            {
+//                Iterator<PlanificacionXAlquilerCompra> itAlquilerCompra = tareaR.getAlquilerCompras().iterator();
+//                while(itAlquilerCompra.hasNext())
+//                {
+//                    PlanificacionXAlquilerCompra pac = itAlquilerCompra.next();
+//                    HibernateUtil.getSession().saveOrUpdate(pac.getAlquilerCompraCotizacion());
+//                    HibernateUtil.getSession().saveOrUpdate(pac);
+//                }
+//            }
+//            if(tareaR.getHerramientas() != null)
+//            {
+//                Iterator<PlanificacionXHerramienta> itHerramienta = tareaR.getHerramientas().iterator();
+//                while(itHerramienta.hasNext())
+//                {
+//                    PlanificacionXHerramienta ph = itHerramienta.next();
+//                    HibernateUtil.getSession().saveOrUpdate(ph.getHerramientaCotizacion());
+//                    HibernateUtil.getSession().saveOrUpdate(ph);
+//                }
+//            }
+//            if(tareaR.getMateriales() != null)
+//            {
+//                Iterator<PlanificacionXMaterial> itMaterial = tareaR.getMateriales().iterator();
+//                while(itMaterial.hasNext())
+//                {
+//                    PlanificacionXMaterial pm = itMaterial.next();
+//                    HibernateUtil.getSession().saveOrUpdate(pm.getMaterialCotizacion());
+//                    HibernateUtil.getSession().saveOrUpdate(pm);
+//                }
+//            }
+//            if(tareaR.getAsignacionesEmpleados() != null)
+//            {
+//                Iterator<AsignacionEmpleadoPlanificacion> itAsignaciones = tareaR.getAsignacionesEmpleados().iterator();
+//                while(itAsignaciones.hasNext())
+//                {
+//                    AsignacionEmpleadoPlanificacion aep = itAsignaciones.next();
+//                    HibernateUtil.getSession().saveOrUpdate(aep.getAsignacionTareaCotizacion());
+//                    HibernateUtil.getSession().saveOrUpdate(aep);
+//                }
+//            }
+//            if(tareaR.getSubtareas() != null)
+//            {
+//                Iterator<TareaPlanificacion> itSubTareas = tareaR.getSubtareas().iterator();
+//                while(itSubTareas.hasNext())
+//                {
+//                    TareaPlanificacion tp = itSubTareas.next();
+//                    this.guardarTareaRecursiva(tp);
+//                }
+//            }
+//            HibernateUtil.getSession().saveOrUpdate(tareaR);
+//        } catch (Exception ex) {
+//            Logger.getLogger(GestorEditarTarea.class.getName()).log(Level.SEVERE, null, ex);
+//        }   
     }
 
     public GestorEditarPlanificacion getGestorPadre() {
@@ -244,5 +246,30 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     public void agregarSubTarea() {
         this.gestorTareaPadre.getTareaActual().addSubTarea(tarea);
     }
+
+    public boolean eliminarComoSubTarea(StringBuilder mensaje) {
+        System.out.println("[DEBUG] Eliminar como SubTarea");
+        if(PlanificacionUtils.puedeEliminarseTarea(getTareaActual()))
+        {
+            if(PlanificacionUtils.eliminarTarea(this.getGestorTareaPadre().getGestorPadre().getPlanificacion(), tarea))
+            {
+                // Se elimino correctamente
+                mensaje.append("Se eliminó correctamente la Tarea");
+                return true;
+            }
+            else
+            {
+                mensaje.append("Se produjo un error al borrar la Tarea");
+                return false;
+            }
+        }
+        else
+        {
+            // Avisar que esta tarea no puede eliminarse
+            mensaje.append("Esta tarea no puede eliminarse\nCompruebe que no tiene SubTareas cargadas");
+            return false;
+        }
+    }
+    
     
 }
