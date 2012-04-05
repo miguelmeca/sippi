@@ -1406,7 +1406,6 @@ public class DBExamplesLoader {
                 cal.setTime(PO.getFechaFin());
                 cal.add(Calendar.DAY_OF_MONTH, 5);
                 planificacion.setFechaFin(cal.getTime());
-                planificacion.setNumeroPlanificacion(PO.getNumero());
                 planificacion.setCotizacion(cotMod);
                 PO.setPlanificacion(planificacion);
 

@@ -22,15 +22,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EditarCotizacion extends javax.swing.JInternalFrame {
 
-    private GestorEditarCotizacion gestor;
+    protected GestorEditarCotizacion gestor;
 
-    private static final int OPTN_DESCRIPCION           = 0;    
-    private static final int OPTN_HERRAMIENTAS          = 1;
-    private static final int OPTN_MATERIALES            = 2;
-    private static final int OPTN_ALQUILERES_COMPRAS    = 3;
-    private static final int OPTN_RRHH                  = 4;    
-    private static final int OPTN_ADICIONALES           = 5;
-    private static final int OPTN_BENEFICIOS            = 6;
+    protected static final int OPTN_DESCRIPCION           = 0;    
+    protected static final int OPTN_HERRAMIENTAS          = 1;
+    protected static final int OPTN_MATERIALES            = 2;
+    protected static final int OPTN_ALQUILERES_COMPRAS    = 3;
+    protected static final int OPTN_RRHH                  = 4;    
+    protected static final int OPTN_ADICIONALES           = 5;
+    protected static final int OPTN_BENEFICIOS            = 6;
     
     public EditarCotizacion(GestorEditarCotizacion gestor)
     {
@@ -42,16 +42,13 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         // POR DEFAULT VA DESCRIPCION DEL ITEM
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
 
-        setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
-        CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
-        panel.setViewportView(ecd);
-        ecd.setVisible(true);
+        // Refactor !!
+        initVentanaDefecto(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
         
         ListSelectionModel selectionModel = tblMenu.getSelectionModel();
         selectionModel.setSelectionInterval(0,0);
         
         actualizar();
-
     }
   
     
@@ -218,6 +215,51 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
 
         DefaultTableModel modelo = (DefaultTableModel)tblMenu.getModel();
+        clickMenuLateral(modelo);
+        
+    }//GEN-LAST:event_tblMenuMousePressed
+    
+
+    protected void setNombrePanel(String nombre)
+    {
+         panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
+    }
+    
+    public void actualizar()
+    {
+        setMontoTotal(Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane panel;
+    private javax.swing.JPanel panelGeneral;
+    private javax.swing.JTable tblMenu;
+    private javax.swing.JLabel txtSubtotalSubObra;
+    // End of variables declaration//GEN-END:variables
+
+    protected void initVentanaDefecto(String nombre) {
+        setNombrePanel(nombre);
+        CotizacionDescripcion ecd = new CotizacionDescripcion(gestor.getGestorDescripcion());
+        panel.setViewportView(ecd);
+        ecd.setVisible(true);
+    }
+
+    protected javax.swing.JScrollPane getPanel()
+    {
+        return panel;
+    }
+    
+    protected javax.swing.JTable getMenuLateral()
+    {
+        return tblMenu;
+    }
+    
+    protected void clickMenuLateral(DefaultTableModel modelo)
+    {
         switch(tblMenu.getSelectedRow())
         {
             case OPTN_BENEFICIOS:
@@ -267,29 +309,11 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 CotizacionDescripcion ecd2 = new CotizacionDescripcion(gestor.getGestorDescripcion());
                 panel.setViewportView(ecd2);
                 ecd2.setVisible(true);
-        }
-    }//GEN-LAST:event_tblMenuMousePressed
+        }        
+    }
     
-
-    private void setNombrePanel(String nombre)
+    protected void setMontoTotal(String monto)
     {
-         panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
+        txtSubtotalSubObra.setText("$ "+monto);
     }
-    public void actualizar()
-    {
-        txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
-        //txtSubtotalSubObra.setText("$"+Double.toString(gestor.calcularSubtotalSubObra()));
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane panel;
-    private javax.swing.JPanel panelGeneral;
-    private javax.swing.JTable tblMenu;
-    private javax.swing.JLabel txtSubtotalSubObra;
-    // End of variables declaration//GEN-END:variables
-
 }

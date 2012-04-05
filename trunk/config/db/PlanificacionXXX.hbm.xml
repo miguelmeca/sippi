@@ -7,7 +7,6 @@
     </id>
     <property name="fechaInicio" type="date"/>
     <property name="fechaFin" type="date"/>
-    <property name="numeroPlanificacion" type="integer"/>
     
     <property name="estado" type="string"/>
     

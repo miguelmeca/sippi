@@ -20,7 +20,6 @@ public class PlanificacionXXX {
     private int id;
     private Date fechaInicio;
     private Date fechaFin;
-    private int numeroPlanificacion;
     private CotizacionModificada cotizacion;
     private List<TareaPlanificacion> tareas;
     
@@ -72,14 +71,6 @@ public class PlanificacionXXX {
 
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
-    }
-
-    public int getNumeroPlanificacion() {
-        return numeroPlanificacion;
-    }
-
-    public void setNumeroPlanificacion(int numeroPlanificacion) {
-        this.numeroPlanificacion = numeroPlanificacion;
     }
 
     public List<TareaPlanificacion> getTareas() {
