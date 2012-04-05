@@ -5,6 +5,8 @@
 
 package vista.planificacion;
 
+import util.SwingPanel;
+
 /**
  *
  * @author Administrador
@@ -152,7 +154,9 @@ private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent
     btnInformeTareasXEmpleado.setEnabled(false);
 
     // Acá tu código ...
-
+    EmitirInformeSeleccionEmpleados win = new EmitirInformeSeleccionEmpleados();
+    SwingPanel.getInstance().addWindow(win);
+    win.setVisible(true);
     // ...
     hideLoading();
     btnInformeTareasXEmpleado.setEnabled(true);

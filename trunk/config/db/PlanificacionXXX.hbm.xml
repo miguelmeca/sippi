@@ -9,6 +9,7 @@
     <property name="fechaFin" type="date"/>
     
     <property name="estado" type="string"/>
+    <property name="descripcion" type="string"/>
     
     <many-to-one class="modelo.CotizacionModificada" name="cotizacion"/>
     <list cascade="all-delete-orphan" name="tareas" table="TAREAS_X_PLANIFICACIONXXX">

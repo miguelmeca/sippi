@@ -157,6 +157,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 _pantalla.setTxtNroCotizacion(this.planificacion.getCotizacion().getCotizacionOriginal().getNroCotizacion());
                 _pantalla.setCotizacionMontoTotal(String.valueOf(this.planificacion.getCotizacion().getCotizacionOriginal().CalcularTotal()));
             }
+            
+            if (this.planificacion != null)
+            {
+                _pantalla.setDescripcionPlanificacion(this.planificacion.getDescripcion());
+            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();

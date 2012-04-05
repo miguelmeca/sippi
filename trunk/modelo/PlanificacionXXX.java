@@ -22,23 +22,25 @@ public class PlanificacionXXX {
     private Date fechaFin;
     private CotizacionModificada cotizacion;
     private List<TareaPlanificacion> tareas;
+    private String descripcion;
     
     private String estado;
     
     public static final String ESTADO_ALTA = "ALTA"; // POR PONER ALGO, NO SON
     public static final String ESTADO_BAJA = "BAJA"; // POR PONER ALGO, NO SON
 
+    public PlanificacionXXX() {
+        this.estado = PlanificacionXXX.ESTADO_ALTA;
+        this.tareas = new ArrayList<TareaPlanificacion>();
+        this.descripcion = new String();
+    }
+    
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public PlanificacionXXX() {
-        this.estado = PlanificacionXXX.ESTADO_ALTA;
-        this.tareas = new ArrayList<TareaPlanificacion>();
     }
 
     public int getId() {
@@ -174,6 +176,16 @@ public class PlanificacionXXX {
         }
         return tarea;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
     
 }
     
