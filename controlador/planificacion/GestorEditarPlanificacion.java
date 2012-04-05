@@ -149,7 +149,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             _pantalla.setLblObraPlanta(pedidoDeObra.getPlanta().getRazonSocial());
 
             if (this.planificacion != null && this.planificacion.getCotizacion() != null) {
-                _pantalla.setNroPlanificacion(String.valueOf(this.planificacion.getNumeroPlanificacion()));
                 _pantalla.setFechaInicioPlanif(this.planificacion.getFechaInicio());
                 _pantalla.setFechaFinPlanif(this.planificacion.getFechaFin());
             }
@@ -657,5 +656,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     public TareaPlanificacion getTareaFromIDGantt(int i) {
         return PlanificacionUtils.getTareaFromGantt(this.planificacion, i);
+    }
+
+    public Date getFechaInicioObra() {
+        return planificacion.getFechaInicio();
+    }
+
+    public Date getFechaFinObra() {
+        return planificacion.getFechaFin();
     }
 }

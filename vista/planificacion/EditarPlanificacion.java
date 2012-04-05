@@ -10,14 +10,17 @@
  */
 package vista.planificacion;
 
+import vista.planificacion.cotizacion.EditarCotizacionIntermedia;
 import vista.gui.dnd.PanelDropTarget;
 import com.hackelare.coolgantt.*;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import config.Iconos;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionIntermedia;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
+import controlador.planificacion.cotizacion.GestorExplorarSubObrasIntermedias;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Point;
@@ -277,10 +280,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        txtNroPlanificacion = new javax.swing.JTextField();
         txtFechaFin = new com.toedter.calendar.JDateChooser();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -412,6 +413,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(treeRecursos);
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -475,7 +481,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
 
         btnEmitirInforme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnEmitirInforme.setText("Generar Planificacion");
+        btnEmitirInforme.setText("Emitir Informes");
         btnEmitirInforme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmitirInformeActionPerformed(evt);
@@ -514,11 +520,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         panelArbolTareas.setLayout(panelArbolTareasLayout);
         panelArbolTareasLayout.setHorizontalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
@@ -555,7 +561,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -566,14 +572,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Planificación"));
-
-        txtNroPlanificacion.setEditable(false);
 
         txtFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -586,10 +590,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 txtFechaInicioFocusLost(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Número de Planificación: ");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Fecha de Inicio: ");
@@ -604,33 +604,24 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtNroPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 32, Short.MAX_VALUE))
-                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNroPlanificacion)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido de Obra"));
@@ -776,11 +767,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -793,7 +784,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+            .addComponent(panelCentral)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -807,8 +798,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEmitirInforme)
-                        .addGap(127, 127, 127)
-                        .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -833,6 +824,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmitirInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirInformeActionPerformed
+       EmitirInformes informesWin = new EmitirInformes(_gestor.getPlanificacion().getId());
+       SwingPanel.getInstance().addWindow(informesWin);
+       informesWin.setVisible(true);
     }//GEN-LAST:event_btnEmitirInformeActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -922,6 +916,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_panelCentralStateChanged
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+        GestorEditarCotizacionIntermedia gestor = new GestorEditarCotizacionIntermedia(null);
+        EditarCotizacionIntermedia win = new EditarCotizacionIntermedia(gestor);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnCancelar;
@@ -929,7 +932,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEmitirInforme;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
@@ -980,7 +982,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNroCotizacion;
-    private javax.swing.JTextField txtNroPlanificacion;
     // End of variables declaration//GEN-END:variables
 
     private void initTablaSubObras(int idPedidoDeObra) {
@@ -1132,11 +1133,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     public void setCotizacionMontoTotal(String monto) {
         this.lblCotMontoTotal.setText("$ "+monto);
     }     
-    
-    public void setNroPlanificacion(String nroPlanificacion) {
-        this.txtNroPlanificacion.setText(nroPlanificacion);
-    }
-    
+       
     public void setFechaInicioPlanif(Date fecha) {
         this.txtFechaInicio.setDate(fecha);
     }    
@@ -1417,12 +1414,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
         @Override
         public Date inGetProjectStartDate() {
-            return new Date();
+            return _gestor.getFechaInicioObra();
         }
 
         @Override
         public Date inGetProjectEndDate() {
-            return new Date();
+            return _gestor.getFechaFinObra();
         }
 
         @Override
