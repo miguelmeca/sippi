@@ -3,34 +3,32 @@
  * and open the template in the editor.
  */
 
-/*
- * modificarPresupuesto.java
- *
- * Created on 24/04/2011, 15:49:18
- */
-
 package vista.planificacion;
 
 import controlador.planificacion.GestorEditarTarea;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import modelo.TareaPlanificacion;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
  * @author iuga
  */
-public class PantallaEditarTarea extends javax.swing.JInternalFrame {
+public class PantallaEditarTarea extends javax.swing.JInternalFrame{
 
     private GestorEditarTarea gestor;
     private PantallaEditarTarea pantallaEditarTareaPadre;
     private PlanificacionSubTareas pst;
-
+    
     private static final int OPTN_DATOSGRALES           = 0;
     private static final int OPTN_SUBTAREAS             = 1;
     private static final int OPTN_ASIG_EMPLEADOS        = 2;
     private static final int OPTN_HERRAMIENTAS          = 3;
     private static final int OPTN_MATERIALES            = 4;
     private static final int OPTN_ALQUILERES_COMPRAS    = 5;
+    
+    private ICallBackGen tieneCallback = null; // Si no es nulo, tiene callback
     
     public PantallaEditarTarea(GestorEditarTarea gestor)
     {
@@ -62,7 +60,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
         ListSelectionModel selectionModel = tblMenu.getSelectionModel();
         selectionModel.setSelectionInterval(0,0);
         
-        actualizar();
+        actualizarPantallas();
     }
     
     
@@ -255,7 +253,14 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
 
     private void btnGuardarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarTareaActionPerformed
         gestor.guardarCambios();
-        this.actualizar();
+        this.actualizarPantallas();
+        
+            // Si tiene callback lo activo
+            if(this.tieneCallback!=null)
+            {
+                this.tieneCallback.actualizar(gestor.getTareaActual().hashCode(),PlanificacionSubTareas.CALLBACK_NUEVASUBTAREA,TareaPlanificacion.class);
+            }
+        
         this.setVisible(false);
     }//GEN-LAST:event_btnGuardarTareaActionPerformed
     
@@ -265,20 +270,26 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
          panelGeneral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
     }
     
-    public void actualizar()
+    public void actualizarPantallas()
     {
         if(pantallaEditarTareaPadre != null){
-            pantallaEditarTareaPadre.actualizar();
+            pantallaEditarTareaPadre.actualizarPantallas();
         }
         else
         {
             if(pst != null)
             {
-                pst.actualizar();
+                pst.actualizarSubTareas();
             }
         }
     }
 
+    public void setCallback(ICallBackGen tieneCallback) {
+        this.tieneCallback = tieneCallback;
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardarTarea;
@@ -289,4 +300,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
 
+
+   
+    
 }
