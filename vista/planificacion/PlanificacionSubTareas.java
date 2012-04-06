@@ -11,24 +11,25 @@
 
 package vista.planificacion;
 
-import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
 import controlador.planificacion.GestorPlanificacionSubTareas;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.*;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
  * @author Administrador
  */
-public class PlanificacionSubTareas extends javax.swing.JPanel {
+public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallBackGen {
 
     private GestorPlanificacionSubTareas gestor;
+    
+    public static final String CALLBACK_NUEVASUBTAREA  = "NUEVASUBTAREA";
     
     /** Creates new form editarCotizacion_Descripcion */
     public PlanificacionSubTareas(GestorPlanificacionSubTareas gestor) {
@@ -94,7 +95,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         });
 
         btnEliminarSubTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Erase.png"))); // NOI18N
-        btnEliminarSubTarea.setText("Eliminar como Sub Tarea");
+        btnEliminarSubTarea.setText("Eliminar");
         btnEliminarSubTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarSubTareaActionPerformed(evt);
@@ -147,6 +148,8 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         gestorEditarTarea.seleccionarTarea(0); // Una tarea nueva
         gestorEditarTarea.setGestorTareaPadre(this.gestor.getGestorPadre());
         PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea,this.gestor.getGestorPadre().getPantalla());
+            // Seteo El Callback
+            editarTarea.setCallback(this);
         SwingPanel.getInstance().addWindow(editarTarea);
         editarTarea.setVisible(true);
     }//GEN-LAST:event_btnNuevaSubTareaActionPerformed
@@ -201,8 +204,20 @@ public class PlanificacionSubTareas extends javax.swing.JPanel {
         }
     }
 
-    public void actualizar() {
+    public void actualizarSubTareas() {
         this.cargarSubTareas();
+    }
+
+    @Override
+    public void actualizar(int id, String flag, Class tipo) {
+        
+        if(flag.equals(PlanificacionSubTareas.CALLBACK_NUEVASUBTAREA))
+        {
+            // Terminó de agregar una nueva SubTarea por lo tanto actualizo la tabla
+            actualizarSubTareas();
+        }
+            
+        
     }
     
     

@@ -7,10 +7,7 @@ package controlador.planificacion;
 
 
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.*;
-import util.HibernateUtil;
 import vista.planificacion.PantallaEditarTarea;
 
 /**
@@ -136,7 +133,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     @Override
     public void refrescarPantallas() {
         gestorPadre.refrescarPantallas();
-        pantalla.actualizar();
+        pantalla.actualizarPantallas();
     }
 
     @Override
@@ -154,7 +151,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
         if(gestorTareaPadre == null){
             this.guardarTareaRecursiva(this.tarea);
             //this.gestorPadre.refrescarPantallas();
-            this.pantalla.actualizar();
+            this.pantalla.actualizarPantallas();
             this.pantalla.setVisible(false);
         }
         else
