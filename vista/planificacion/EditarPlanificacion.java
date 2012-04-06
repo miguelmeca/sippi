@@ -20,28 +20,21 @@ import config.Iconos;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionIntermedia;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
-import controlador.planificacion.cotizacion.GestorExplorarSubObrasIntermedias;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import modelo.PlanificacionXMaterial;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gui.dnd.IDropEvent;
-import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
@@ -65,6 +58,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     JComponent grafico;
     ArbolTareasGestor arbolTareasGestor;
     private HashMap<Integer,PantallaEditarTarea> ventanasEditarTareasAbiertas;
+    
+    private int idSubObraSeleccionada = -1;
    
  public EditarPlanificacion( int idObra) {
         this.idObra = idObra;
@@ -918,7 +913,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             if(tpSelected!=null)
             {
-                initTablaTareas(Integer.parseInt(tpSelected.getId()));
+                this.idSubObraSeleccionada = Integer.parseInt(tpSelected.getId());
+                initTablaTareas(this.idSubObraSeleccionada);
                 initArbolRecursosCotizados(Integer.parseInt(tpSelected.getId()));
             }
         }
@@ -962,7 +958,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
-        GestorEditarCotizacionIntermedia gestor = new GestorEditarCotizacionIntermedia(null);
+        GestorEditarCotizacionIntermedia gestor = new GestorEditarCotizacionIntermedia(null,_gestor.getPlanificacion(),this.idSubObraSeleccionada);
         EditarCotizacionIntermedia win = new EditarCotizacionIntermedia(gestor);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);

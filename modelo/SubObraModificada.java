@@ -24,6 +24,14 @@ public class SubObraModificada {
     public void setSubObraModificadaId(int subObraModificadaId) {
         this.subObraModificadaId = subObraModificadaId;
     }  
+    
+    public int getId() {
+        return subObraModificadaId;
+    }
+
+    public void setId(int subObraModificadaId) {
+        this.subObraModificadaId = subObraModificadaId;
+    }      
 
     public List<SubObraXAdicionalModif> getAdicionales() {
         return adicionales;

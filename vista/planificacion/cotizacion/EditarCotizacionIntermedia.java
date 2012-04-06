@@ -29,7 +29,7 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
     protected static final int OPTN_MATERIALES            = 1;
     protected static final int OPTN_ALQUILERES_COMPRAS    = 2;
     protected static final int OPTN_ADICIONALES           = 3;
-        
+    
     
     public EditarCotizacionIntermedia(GestorEditarCotizacion gestor) {
         super(gestor);
@@ -80,21 +80,21 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
                 break;
             case OPTN_MATERIALES:
                   JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
-//                CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
-//                panel.setViewportView(cm);
-//                cm.setVisible(true);
+//                  setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
+//                  CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
+//                  getPanel().setViewportView(cm);
+//                  cm.setVisible(true);
                 break;
             case OPTN_ALQUILERES_COMPRAS:
                   JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
+                  setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
 //                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0);
 //                panel.setViewportView(cc);
 //                cc.setVisible(true);
                 break;
             case OPTN_ADICIONALES:
                   JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
+                  setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
 //                CotizacionAdicionales ca = new CotizacionAdicionales(gestor.getGestorAdicionales());
 //                panel.setViewportView(ca);
 //                ca.setVisible(true);
@@ -102,10 +102,10 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
             
             case OPTN_HERRAMIENTAS:
                   JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
-//                CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas());
-//                panel.setViewportView(h);
-//                h.setVisible(true);
+                  setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
+                  CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas());
+                  getPanel().setViewportView(h);
+                  h.setVisible(true);
                 break;
             default:
                   JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);

@@ -22,9 +22,9 @@ import vista.cotizacion.CotizacionHerramientas;
  */
 public class GestorCotizacionHerramientas implements IGestorCotizacion{
     
-    private GestorEditarCotizacion gestorPadre;
-    private CotizacionHerramientas pantalla;
-    private ArrayList<HerramientaDeEmpresa> bufferHerramientas;
+    protected GestorEditarCotizacion gestorPadre;
+    protected CotizacionHerramientas pantalla;
+    protected ArrayList<HerramientaDeEmpresa> bufferHerramientas;
 
     public GestorCotizacionHerramientas(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;

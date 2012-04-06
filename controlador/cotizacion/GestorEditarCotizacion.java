@@ -22,13 +22,13 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     private GestorExplorarSubObras gestorPadre;
     
     // LISTA DE GESTORES
-    private GestorCotizacionManoDeObra gestorManoObra;
-    private GestorCotizacionHerramientas gestorHerramientas;
-    private GestorCotizacionMateriales gestorMateriales;
-    private GestorCotizacionAlquileresCompras gestorAlquileresCompras;
-    private GestorCotizacionBeneficios gestorBeneficios;
-    private GestorCotizacionAdicionales gestorAdicionales;
-    private GestorCotizacionDescripcion gestorDescripcion;    
+    protected GestorCotizacionManoDeObra gestorManoObra;
+    protected GestorCotizacionHerramientas gestorHerramientas;
+    protected GestorCotizacionMateriales gestorMateriales;
+    protected GestorCotizacionAlquileresCompras gestorAlquileresCompras;
+    protected GestorCotizacionBeneficios gestorBeneficios;
+    protected GestorCotizacionAdicionales gestorAdicionales;
+    protected GestorCotizacionDescripcion gestorDescripcion;    
     
     public GestorEditarCotizacion(GestorExplorarSubObras gestor) 
     {

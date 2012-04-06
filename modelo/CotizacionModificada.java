@@ -42,5 +42,15 @@ public class CotizacionModificada {
         this.subObra.add(subObraMod);
     }
     
-    
+    public SubObraModificada buscarSubObra(int idSubObra)
+    {
+        for (int i = 0; i < subObra.size(); i++) {
+            SubObraModificada som = subObra.get(i);
+            if(idSubObra == som.getId())
+            {
+                return som;
+            }
+        }
+        return null;
+    }
 }
