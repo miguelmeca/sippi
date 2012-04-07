@@ -104,7 +104,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
        {          
            for (int j = 0; j < modelo.getRowCount() ; j++) 
            {
-               if(((NTupla)modelo.getValueAt(j,0)).getId()==tareaActual.getId())
+               if(((NTupla)modelo.getValueAt(j,0)).getData().hashCode()==tareaActual.hashCode())
                {
                    indiceFila=j;
                }               
@@ -265,6 +265,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
                 return canEdit [columnIndex];
             }
         });
+        tblTareas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblTareas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTareasMouseClicked(evt);

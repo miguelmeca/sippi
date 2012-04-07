@@ -68,8 +68,6 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre de la Sub-Obra:");
 
-        txtNombra.setText("Traslado");
-
         btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         btnOK.setText("Crear");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +110,7 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
