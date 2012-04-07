@@ -33,6 +33,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     private CotizacionManoDeObraGeneral pantallaPadre;
     private int indiceFilaModificada;
     private int idTarea;
+    private int hashCodeTarea;
     //private List<DetalleSubObraXTarea> listaDetallesTarea;
     private SubObraXTarea tareaActual;
     
@@ -44,6 +45,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         initComponents();
         indiceFilaModificada=-1;
         idTarea=-1;
+        hashCodeTarea=-1;
         habiliarVentana();   
         tareaActual=new SubObraXTarea();
         this.setTitle("Nueva Tarea");
@@ -114,6 +116,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         this.setTitle("Modificar Tarea");
         tareaActual=tarea;
         indiceFilaModificada=indiceFila;
+        hashCodeTarea=tarea.hashCode();
         idTarea=tarea.getId();
         for (int i = 0; i < cboTareas.getItemCount(); i++) 
         {
@@ -297,7 +300,7 @@ private void agregarDetalleTareaATabla(DetalleSubObraXTarea detalleTarea) //thro
        detalleYNombreRango.setData(detalleTarea);
        datos[0]=detalleYNombreRango;
        Tupla nombreTipoEspecialidad=new Tupla();
-       nombreTipoEspecialidad.setNombre(detalleTarea.getRangoEmpleado().getNombre());
+       nombreTipoEspecialidad.setNombre(detalleTarea.getTipoEspecialidad().getNombre());
        datos[1]=nombreTipoEspecialidad;
        datos[2]=detalleTarea.getCantidadPersonas();
        datos[3]=detalleTarea.getCostoXHoraNormal();
@@ -685,6 +688,7 @@ private double calcularTotalTarea()
                 return canEdit [columnIndex];
             }
         });
+        tblDetallesTarea.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblDetallesTarea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblDetallesTareaMousePressed(evt);
@@ -776,7 +780,7 @@ private double calcularTotalTarea()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -805,7 +809,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        tareaActual.setDetalles(listaDetallesTarea);
               
        boolean modificada=false;
-       if(idTarea>0)
+       if(hashCodeTarea>0)
        {modificada=true;}
        
        //en este caso es o nueva o modificada (opciones mutuamente excluyentes. Pero se da el caso donde no es ni nueva ni modificada, falso en ambos casos, cuando se agrega una tarea vieja a la lista)
