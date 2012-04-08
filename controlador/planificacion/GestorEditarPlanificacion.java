@@ -87,11 +87,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
         try {
             if (this.planificacion != null && this.planificacion.getId() != 0) {
-                List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObra();
+                List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = listaSO.get(i);
-                    NTupla nt1 = new NTupla(som.getSubObraModificadaId());
-                    nt1.setNombre(som.getSubObra().getNombre());
+                    NTupla nt1 = new NTupla(som.getId());
+                    nt1.setNombre(som.getNombre());
                     lista.add(nt1);
                 }
             }
@@ -107,13 +107,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
         try {
             if (this.planificacion != null && this.planificacion.getId() != 0) {
-                List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObra();
+                List<SubObra> listaSO =  this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
-                    SubObraModificada som = listaSO.get(i);
-                    if (som.getSubObraOriginal().getId() == idSubObra) {
-                        List<SubObraXTareaModif> listaTareasMod = som.getTareas();
+                    SubObraModificada som = (SubObraModificada)listaSO.get(i);
+                    if (som.getId() == idSubObra) {
+                        List<SubObraXTarea> listaTareasMod = som.getTareas();
                         for (int j = 0; j < listaTareasMod.size(); j++) {
-                            SubObraXTareaModif starea = listaTareasMod.get(j);
+                            SubObraXTareaModif starea = (SubObraXTareaModif) listaTareasMod.get(j);
                             NTupla nt1 = new NTupla(starea.getId());
                             nt1.setNombre(starea.getNombre());
                             lista.add(nt1);
@@ -182,19 +182,19 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                
        try {
             if (this.planificacion != null && this.planificacion.getId() != 0) {
-                List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObra();
+                List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = listaSO.get(i);
-                    if (som.getSubObraOriginal().getId() == idSubObra) {
+                    if (som.getId() == idSubObra) {
                         
                         // CARGO LOS RECURSOS !!
                         // HERRAMIENTAS
                         TreeEntry nodoHerramientas = new TreeEntry("Herramientas",Iconos.ICONO_HERRAMIENTAS);
                         nodoRoot.add(nodoHerramientas);
                         
-                        List<SubObraXHerramientaModif> listaHerramientas = som.getHerramientas();
+                        List<SubObraXHerramienta> listaHerramientas = som.getHerramientas();
                         for (int j = 0; j < listaHerramientas.size(); j++) {
-                            SubObraXHerramientaModif herr = listaHerramientas.get(j);
+                            SubObraXHerramientaModif herr = (SubObraXHerramientaModif)listaHerramientas.get(j);
                             TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
                             subNodoHerramientas.setId(herr.getId());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
@@ -206,9 +206,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         TreeEntry nodoMateriales = new TreeEntry("Materiales",Iconos.ICONO_MATERIALES);
                         nodoRoot.add(nodoMateriales);
                         
-                        List<SubObraXMaterialModif> listaMateriales = som.getMateriales();
+                        List<SubObraXMaterial> listaMateriales =  som.getMateriales();
                         for (int j = 0; j < listaMateriales.size(); j++) {
-                            SubObraXMaterialModif mat = listaMateriales.get(j);
+                            SubObraXMaterialModif mat = (SubObraXMaterialModif)listaMateriales.get(j);
                             String nombre = "";
                                 // Busco, un Recurso Especifico que tenga ese recurso x proveedor
                                  try
@@ -243,9 +243,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         TreeEntry nodoAlqComps = new TreeEntry("Alquileres / Compras",Iconos.ICONO_ALQUILERESCOMPRAS);
                         nodoRoot.add(nodoAlqComps);
                         
-                        List<SubObraXAlquilerCompraModif> listaAlquileres = som.getAlquileres();
+                        List<SubObraXAlquilerCompra> listaAlquileres = som.getAlquileresCompras();
                         for (int j = 0; j < listaAlquileres.size(); j++) {
-                            SubObraXAlquilerCompraModif alqcomp = listaAlquileres.get(j);
+                            SubObraXAlquilerCompraModif alqcomp = (SubObraXAlquilerCompraModif)listaAlquileres.get(j);
                             TreeEntry subNodoAlquComp = new TreeEntry(alqcomp.getTipoAlquilerCompra().getNombre()+" "+alqcomp.getDescripcion(),Iconos.ICONO_ALQUILERCOMPRA);
                             subNodoAlquComp.setId(alqcomp.getId());
                             subNodoAlquComp.setTipo(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
@@ -426,12 +426,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // CArgo la SubObra X Tarea Planificada Mod
         try
         {
-              List<SubObraModificada> listaSubObrasMod = this.planificacion.getCotizacion().getSubObra();
+              List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
               for (int i = 0; i < listaSubObrasMod.size(); i++) {
-                SubObraModificada som = listaSubObrasMod.get(i);
-                List<SubObraXTareaModif> lsitasoxtm = som.getTareas();
+                SubObraModificada som = (SubObraModificada)listaSubObrasMod.get(i);
+                List<SubObraXTarea> lsitasoxtm = som.getTareas();
                   for (int j = 0; j < lsitasoxtm.size(); j++) {
-                      SubObraXTareaModif soxtm = lsitasoxtm.get(j);
+                      SubObraXTareaModif soxtm = (SubObraXTareaModif)lsitasoxtm.get(j);
                       if(soxtm.getId()==id)
                       {
                           nuevaTarea.setTareaCotizada(soxtm);
