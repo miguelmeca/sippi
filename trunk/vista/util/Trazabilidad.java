@@ -39,17 +39,29 @@ public class Trazabilidad {
     public CotizacionModificada copiarCotizacionACotizacionModificada(Cotizacion cot){
         CotizacionModificada cotMod = new CotizacionModificada();
         cotMod.setCotizacionOriginal(cot);
+        cotMod.setFechaCreacion(cot.getFechaCreacion());
+        cotMod.setFechaLimiteEntrega(cot.getFechaLimiteEntrega());
+        cotMod.setLugarEntrega(cot.getLugarEntrega());
+        cotMod.setNroCotizacion(cot.getNroCotizacion());
+        cotMod.setNroRevision(cot.getNroRevision());
+        cotMod.setPlazoEntrega(cot.getPlazoEntrega());
+        cotMod.setValidezOferta(cot.getValidezOferta());
 
         Iterator<SubObra> itSubObras = cot.getSubObras().iterator();
         while(itSubObras.hasNext()){
             SubObra subObra = itSubObras.next();
+            
             SubObraModificada subObraMod = new SubObraModificada();
-            List<SubObraXAdicionalModif> subObraXAdicionalModifs = new ArrayList<SubObraXAdicionalModif>();
-            List<SubObraXAlquilerCompraModif> subObraXAlquilerCompraModifs = new ArrayList<SubObraXAlquilerCompraModif>();
-            List<SubObraXHerramientaModif> subObraXHerramientaModifs = new ArrayList<SubObraXHerramientaModif>();
-            List<SubObraXMaterialModif> subObraXMaterialModifs = new ArrayList<SubObraXMaterialModif>();
-            List<SubObraXTareaModif> subObraXTareaModifs = new ArrayList<SubObraXTareaModif>();
-
+            List<SubObraXAdicional> subObraXAdicionalModifs = new ArrayList<SubObraXAdicional>();
+            List<SubObraXAlquilerCompra> subObraXAlquilerCompraModifs = new ArrayList<SubObraXAlquilerCompra>();
+            List<SubObraXHerramienta> subObraXHerramientaModifs = new ArrayList<SubObraXHerramienta>();
+            List<SubObraXMaterial> subObraXMaterialModifs = new ArrayList<SubObraXMaterial>();
+            List<SubObraXTarea> subObraXTareaModifs = new ArrayList<SubObraXTarea>();
+            subObraMod.setDescripcion(subObra.getDescripcion());
+            subObraMod.setGananciaMonto(subObra.getGananciaMonto());
+            subObraMod.setGananciaPorcentaje(subObra.getGananciaPorcentaje());
+            subObraMod.setNombre(subObra.getNombre());
+                
             Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();
             while(itSubObraXAdcional.hasNext()){
                 SubObraXAdicional subObraXAdicional = itSubObraXAdcional.next();
@@ -75,7 +87,7 @@ public class Trazabilidad {
                 subObraXAlquilerCompraModif.setTipoAlquilerCompra(subObraXAlquilerCompra.getTipoAlquilerCompra());
                 subObraXAlquilerCompraModifs.add(subObraXAlquilerCompraModif);
             }
-            subObraMod.setAlquileres(subObraXAlquilerCompraModifs);
+            subObraMod.setAlquileresCompras(subObraXAlquilerCompraModifs);
 
             Iterator<SubObraXHerramienta> itSubObraXHerramienta = subObra.getHerramientas().iterator();
             while(itSubObraXHerramienta.hasNext()){
@@ -131,7 +143,7 @@ public class Trazabilidad {
 
             subObraMod.setSubObraOriginal(subObra);
 
-            cotMod.getSubObra().add(subObraMod);
+            cotMod.getSubObras().add(subObraMod);
         }
 
         return cotMod;

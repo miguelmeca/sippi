@@ -20,5 +20,9 @@
       <index column="idx"/>
       <one-to-many class="modelo.SubObra"/>
     </list>
+    <joined-subclass name="modelo.CotizacionModificada" table="COT_MODIFICADA">
+      <key column="ID_COTIZACION_MOD"/>
+      <many-to-one class="modelo.Cotizacion" name="cotizacionOriginal"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

@@ -1273,17 +1273,30 @@ public class DBExamplesLoader {
             Iterator<SubObra> itSubObras = cot.getSubObras().iterator();
             CotizacionModificada cotMod = new CotizacionModificada();
             cotMod.setCotizacionOriginal(cot);
+            cotMod.setDescripcion(cot.getDescripcion());
+            cotMod.setEstado(cot.getEstado());
+            cotMod.setFechaCreacion(cot.getFechaCreacion());
+            cotMod.setFechaLimiteEntrega(cot.getFechaLimiteEntrega());
+            cotMod.setLugarEntrega(cot.getLugarEntrega());
+            cotMod.setNroCotizacion(cot.getNroCotizacion());
+            cotMod.setNroRevision(cot.getNroRevision());
+            cotMod.setPlazoEntrega(cot.getPlazoEntrega());
+            cotMod.setValidezOferta(cot.getValidezOferta());
 
             while(itSubObras.hasNext()){
                 SubObra subObra = itSubObras.next();
 
                 SubObraModificada subObraMod = new SubObraModificada();
-                List<SubObraXAdicionalModif> subObraXAdicionalModifs = new ArrayList<SubObraXAdicionalModif>();
-                List<SubObraXAlquilerCompraModif> subObraXAlquilerCompraModifs = new ArrayList<SubObraXAlquilerCompraModif>();
-                List<SubObraXHerramientaModif> subObraXHerramientaModifs = new ArrayList<SubObraXHerramientaModif>();
-                List<SubObraXMaterialModif> subObraXMaterialModifs = new ArrayList<SubObraXMaterialModif>();
-                List<SubObraXTareaModif> subObraXTareaModifs = new ArrayList<SubObraXTareaModif>();
-
+                List<SubObraXAdicional> subObraXAdicionalModifs = new ArrayList<SubObraXAdicional>();
+                List<SubObraXAlquilerCompra> subObraXAlquilerCompraModifs = new ArrayList<SubObraXAlquilerCompra>();
+                List<SubObraXHerramienta> subObraXHerramientaModifs = new ArrayList<SubObraXHerramienta>();
+                List<SubObraXMaterial> subObraXMaterialModifs = new ArrayList<SubObraXMaterial>();
+                List<SubObraXTarea> subObraXTareaModifs = new ArrayList<SubObraXTarea>();
+                   
+                subObraMod.setDescripcion(subObra.getDescripcion());
+                subObraMod.setGananciaMonto(subObra.getGananciaMonto());
+                subObraMod.setGananciaPorcentaje(subObra.getGananciaPorcentaje());
+                subObraMod.setNombre(subObra.getNombre());
                 Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();
                 
                 while(itSubObraXAdcional.hasNext()){
@@ -1318,7 +1331,7 @@ public class DBExamplesLoader {
                     HibernateUtil.getSession().save(subObraXAlquilerCompraModif);
                     subObraXAlquilerCompraModifs.add(subObraXAlquilerCompraModif);
                 }
-                subObraMod.setAlquileres(subObraXAlquilerCompraModifs);
+                subObraMod.setAlquileresCompras(subObraXAlquilerCompraModifs);
 
                 Iterator<SubObraXHerramienta> itSubObraXHerramienta = subObra.getHerramientas().iterator();
                 while(itSubObraXHerramienta.hasNext()){
@@ -1388,7 +1401,7 @@ public class DBExamplesLoader {
                 
                 subObraMod.setSubObraOriginal(subObra);
 
-                cotMod.getSubObra().add(subObraMod);
+                cotMod.getSubObras().add(subObraMod);
                 HibernateUtil.getSession().saveOrUpdate(subObraMod);
             }
             HibernateUtil.getSession().saveOrUpdate(cotMod);
@@ -1413,7 +1426,7 @@ public class DBExamplesLoader {
                 
                 GregorianCalendar fechaInicioTarea = new GregorianCalendar();
                 fechaInicioTarea.setTime(PO.getFechaInicio());
-                Iterator<SubObraModificada> itSubObraMod = cotMod.getSubObra().iterator();
+                Iterator<SubObra> itSubObraMod = cotMod.getSubObras().iterator();
                 ArrayList<TareaPlanificacion> tareas = new ArrayList<TareaPlanificacion>();
                 /*while(itSubObraMod.hasNext()){
                     SubObraModificada subObraModificada = itSubObraMod.next();

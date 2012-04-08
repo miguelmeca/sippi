@@ -67,7 +67,7 @@ public class TrazabilidadTest {
             {
                 assertEquals(cot, cotMod.getCotizacionOriginal());
                 List<SubObra> subObras = cot.getSubObras();
-                List<SubObraModificada> subObraModifs = cotMod.getSubObra();
+                List<SubObra> subObraModifs = cotMod.getSubObras();
                 assertEquals(subObras.size(),subObraModifs.size());
             }
             else

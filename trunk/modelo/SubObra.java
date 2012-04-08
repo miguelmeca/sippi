@@ -22,11 +22,11 @@ public class SubObra implements ISubtotal
     private double gananciaPorcentaje;
     private boolean flagGananciaPorcentaje;
     private String descripcion;
-    private List<SubObraXAdicional> adicionales;
-    private List<SubObraXAlquilerCompra> alquileresCompras;
-    private List<SubObraXTarea> tareas;
-    private List<SubObraXHerramienta> herramientas;
-    private List<SubObraXMaterial> materiales;
+    protected List<SubObraXAdicional> adicionales;
+    protected List<SubObraXAlquilerCompra> alquileresCompras;
+    protected List<SubObraXTarea> tareas;
+    protected List<SubObraXHerramienta> herramientas;
+    protected List<SubObraXMaterial> materiales;
 
     public SubObra() {
         adicionales = new ArrayList<SubObraXAdicional>();
@@ -102,7 +102,7 @@ public class SubObra implements ISubtotal
     }
 
     public List<SubObraXMaterial> getMateriales() {
-        return materiales;
+        return (List<SubObraXMaterial>)materiales;
     }
 
     public void setMateriales(List<SubObraXMaterial> materiales) {
@@ -138,7 +138,7 @@ public class SubObra implements ISubtotal
         this.herramientas.add(soxh);
     }
     public void addMaterial(SubObraXMaterial soxm){
-        this.materiales.add(soxm);
+        ((List<SubObraXMaterial>)this.materiales).add(soxm);
     }
     public boolean eliminarTarea(int id){
         for (int i = 0; i < tareas.size(); i++)
