@@ -79,40 +79,40 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
                 System.err.println("Error! Pero no debería pasar");
                 break;
             case OPTN_MATERIALES:
-                  JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                  setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
-//                  CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
-//                  getPanel().setViewportView(cm);
-//                  cm.setVisible(true);
+                 // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                  setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
+                  CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
+                  getPanel().setViewportView(cm);
+                  cm.setVisible(true);
                 break;
             case OPTN_ALQUILERES_COMPRAS:
-                  JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                 // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
-//                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0);
-//                panel.setViewportView(cc);
-//                cc.setVisible(true);
+                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0);
+                getPanel().setViewportView(cc);
+                cc.setVisible(true);
                 break;
             case OPTN_ADICIONALES:
-                  JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                  //JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
-//                CotizacionAdicionales ca = new CotizacionAdicionales(gestor.getGestorAdicionales());
-//                panel.setViewportView(ca);
-//                ca.setVisible(true);
+                CotizacionAdicionales ca = new CotizacionAdicionales(gestor.getGestorAdicionales());
+                getPanel().setViewportView(ca);
+                ca.setVisible(true);
                 break;
             
             case OPTN_HERRAMIENTAS:
-                  JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                  //JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
                   CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas());
                   getPanel().setViewportView(h);
                   h.setVisible(true);
                 break;
             default:
-                  JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
-//                setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
-//                CotizacionDescripcion ecd2 = new CotizacionDescripcion(gestor.getGestorDescripcion());
-//                panel.setViewportView(ecd2);
-//                ecd2.setVisible(true);
+                 // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
+                CotizacionDescripcion ecd2 = new CotizacionDescripcion(gestor.getGestorDescripcion());
+                getPanel().setViewportView(ecd2);
+                ecd2.setVisible(true);
         }        
     }
     
