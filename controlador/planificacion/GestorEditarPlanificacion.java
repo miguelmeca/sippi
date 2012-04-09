@@ -90,7 +90,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = listaSO.get(i);
-                    NTupla nt1 = new NTupla(som.getId());
+                    NTupla nt1 = new NTupla(som.hashCode());
                     nt1.setNombre(som.getNombre());
                     lista.add(nt1);
                 }
@@ -102,7 +102,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return lista;
     }
 
-    public List getListaTareasXSubObra(int idSubObra) {
+    public List getListaTareasXSubObra(int hashSubObra) {
 
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
         try {
@@ -110,7 +110,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 List<SubObra> listaSO =  this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = (SubObraModificada)listaSO.get(i);
-                    if (som.getId() == idSubObra) {
+                    if (som.hashCode() == hashSubObra) {
                         List<SubObraXTarea> listaTareasMod = som.getTareas();
                         for (int j = 0; j < listaTareasMod.size(); j++) {
                             SubObraXTareaModif starea = (SubObraXTareaModif) listaTareasMod.get(j);
@@ -176,7 +176,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         _pantalla.mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
     }
 
-    public void cargarArbolRecursos(int idSubObra, JTree treeRecursos) {
+    public void cargarArbolRecursos(int hashSubObra, JTree treeRecursos) {
        
        TreeEntry nodoRoot = new TreeEntry("Recursos",Iconos.ICONO_HERRAMIENTA);
                
@@ -185,7 +185,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 List<SubObraModificada> listaSO = (List) this.planificacion.getCotizacion().getSubObras();
                 for (int i = 0; i < listaSO.size(); i++) {
                     SubObraModificada som = listaSO.get(i);
-                    if (som.getId() == idSubObra) {
+                    if (som.hashCode() == hashSubObra) {
                         
                         // CARGO LOS RECURSOS !!
                         // HERRAMIENTAS
