@@ -18,17 +18,25 @@ public class GestorEditarCotizacionIntermedia extends GestorEditarCotizacion{
     // DE ACA SACO TODOS LOS DATOS DE LA PLANIFICACION Y DE LA COTIZACION INTERMEDIA
     private PlanificacionXXX planificacion;
     private int idSubObra = -1;
-    
+     
     public GestorEditarCotizacionIntermedia(GestorExplorarSubObras gestor, PlanificacionXXX plan, int idSubObra) {
         super(gestor);
         
         this.planificacion = plan;
         this.idSubObra = idSubObra;
-        
-        super.gestorMateriales = new GestorMaterialesCotizacionIntermedia();
-        super.gestorHerramientas = new GestorHerramientasCotizacionIntermedia(this);
-        super.gestorAlquileresCompras = new GestorAlquileresComprasCotizacionIntermedia(this);
-        super.gestorAdicionales = new GestorAdicionalesCotizacionIntermedia(this);
+        for (int i = 0; i < planificacion.getCotizacion().getSubObras().size(); i++) 
+        {
+            SubObra so = (SubObra)planificacion.getCotizacion().getSubObras().get(i);
+            if(so.getId()==idSubObra)
+            {
+                super.setSubObra(so);
+                break;
+            }
+        }
+        super.gestorMateriales = new GestorCotizacionMateriales(this);
+        super.gestorHerramientas = new GestorCotizacionHerramientas(this);
+        super.gestorAlquileresCompras = new GestorCotizacionAlquileresCompras(this);
+        super.gestorAdicionales = new GestorCotizacionAdicionales(this);
     }
 
     @Override
@@ -41,7 +49,7 @@ public class GestorEditarCotizacionIntermedia extends GestorEditarCotizacion{
         // Tengo q retornar la cotizacion intermedia
         return this.planificacion.getCotizacion().getCotizacionOriginal();
     }
-
+/*
     @Override
     public GestorCotizacionAdicionales getGestorAdicionales() {
         return super.gestorAdicionales;
@@ -78,26 +86,31 @@ public class GestorEditarCotizacionIntermedia extends GestorEditarCotizacion{
     @Override
     public GestorCotizacionMateriales getGestorMateriales() {
         return super.gestorMateriales;
-    }
+    }*/
 
     @Override
     public SubObra getSubObraActual() {
-        //return this.planificacion.getCotizacion().buscarSubObra(idSubObra);
-        return null;
+        return super.getSubObraActual();
     }
 
     @Override
     public void refrescarPantallas() {
-        super.refrescarPantallas();
+        //TODO:
     }
 
     @Override
-    public void seleccionarSubObra(int idSubObra) {
-        super.seleccionarSubObra(idSubObra);
+    public void seleccionarSubObra(int idSubObra)
+    {
+        for (int i = 0; i < planificacion.getCotizacion().getSubObras().size(); i++) 
+        {
+            SubObra so = (SubObra)planificacion.getCotizacion().getSubObras().get(i);
+            if(so.getId()==idSubObra)
+            {
+                super.setSubObra(so);
+                break;
+            }
+        }
     }
 
-    @Override
-    public void setPantalla(EditarCotizacion pantalla) {
-        super.setPantalla(pantalla);
-    }
+    
 }

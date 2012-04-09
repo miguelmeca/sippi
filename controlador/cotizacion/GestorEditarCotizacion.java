@@ -42,7 +42,7 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
             SubObra so = (SubObra)getCotizacion().getSubObras().get(i);
             if(so.hashCode()==idSubObra)
             {
-                this.subObra = so;
+                this.setSubObra(so);
                 break;
             }
         }
@@ -124,7 +124,7 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
 
     @Override
     public SubObra getSubObraActual() {
-        return this.subObra;
+        return this.getSubObra();
     }
 
     @Override
@@ -137,7 +137,23 @@ public class GestorEditarCotizacion implements IGestorCotizacion{
     }
     public double calcularSubtotalSubObra()
     {
-        return subObra.calcularSubtotal();
+        return getSubObra().calcularSubtotal();
+    }
+
+    
+    
+    /**
+     * @return the subObra
+     */
+    public SubObra getSubObra() {
+        return subObra;
+    }
+
+    /**
+     * @param subObra the subObra to set
+     */
+    public void setSubObra(SubObra subObra) {
+        this.subObra = subObra;
     }
     
 }
