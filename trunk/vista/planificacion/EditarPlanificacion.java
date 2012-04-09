@@ -10,14 +10,14 @@
  */
 package vista.planificacion;
 
-import vista.planificacion.cotizacion.EditarCotizacionIntermedia;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 import vista.gui.dnd.PanelDropTarget;
 import com.hackelare.coolgantt.*;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import config.Iconos;
-import controlador.planificacion.cotizacion.GestorEditarCotizacionIntermedia;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
 import java.awt.BorderLayout;
@@ -36,6 +36,7 @@ import util.TablaUtil;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gui.dnd.IDropEvent;
 import vista.gui.sidebar.IconTreeRenderer;
+import vista.interfaces.ICallBack_v2;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
 
@@ -43,7 +44,7 @@ import vista.planificacion.arbolTareas.ArbolIconoRenderer;
  *
  * @author Administrador
  */
-public class EditarPlanificacion extends javax.swing.JInternalFrame {
+public class EditarPlanificacion extends javax.swing.JInternalFrame implements ICallBack_v2{
 
     public static int TEMPLATE_MODIFICACION = 0;
     public static int TEMPLATE_SOLOLECTURA  = 1;
@@ -59,7 +60,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     ArbolTareasGestor arbolTareasGestor;
     private HashMap<Integer,PantallaEditarTarea> ventanasEditarTareasAbiertas;
     
-    private int idSubObraSeleccionada = -1;
+    private int hashSubObraSeleccionada = -1;
    
  public EditarPlanificacion( int idObra) {
         this.idObra = idObra;
@@ -122,7 +123,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     }    
     
     private void initArbolRecursos() {
-        initTablaSubObras(this.idObra);
+        initTablaSubObras();
     }
 
     private void initGraph() {
@@ -913,8 +914,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             if(tpSelected!=null)
             {
-                this.idSubObraSeleccionada = Integer.parseInt(tpSelected.getId());
-                initTablaTareas(this.idSubObraSeleccionada);
+                this.hashSubObraSeleccionada = Integer.parseInt(tpSelected.getId());
+                initTablaTareas(this.hashSubObraSeleccionada);
                 initArbolRecursosCotizados(Integer.parseInt(tpSelected.getId()));
             }
         }
@@ -958,8 +959,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
-        GestorEditarCotizacionIntermedia gestor = new GestorEditarCotizacionIntermedia(null,_gestor.getPlanificacion(),this.idSubObraSeleccionada);
-        EditarCotizacionIntermedia win = new EditarCotizacionIntermedia(gestor);
+        GestorEditarCotizacionModificada gestor = new GestorEditarCotizacionModificada(null,_gestor.getPlanificacion(),this.hashSubObraSeleccionada);
+        EditarCotizacionModificada win = new EditarCotizacionModificada(gestor, this);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
         
@@ -1036,7 +1037,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNroCotizacion;
     // End of variables declaration//GEN-END:variables
 
-    private void initTablaSubObras(int idPedidoDeObra) {
+    private void initTablaSubObras() {
 
         ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaSubObras();
 
@@ -1053,9 +1054,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
         }
     }
 
-    private void initTablaTareas(int idSubObra) {
+    private void initTablaTareas(int hashSubObra) {
         
-        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaTareasXSubObra(idSubObra);
+        ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaTareasXSubObra(hashSubObra);
         
         DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
         modelo = TablaUtil.vaciarDefaultTableModel(modelo);
@@ -1197,8 +1198,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
     public void setDescripcionPlanificacion(String descripcion) {
         txtDescripcionGeneral.setText(descripcion);
     }
-    
-    
+
     /**
      * InnerClass para manerja el disparo de evento Drag&Drop en el Gantt
      */
@@ -1568,6 +1568,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame {
             }
         }
         
+        
+        
+    }
+    
+    
+    @Override
+    public void actualizar(int id, String flag, boolean exito) {
+        DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
+        modelo = TablaUtil.vaciarDefaultTableModel(modelo);        
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        treeRecursos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        initTablaSubObras();
     }
     
 

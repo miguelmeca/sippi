@@ -13,21 +13,21 @@ import vista.cotizacion.EditarCotizacion;
 /**
  * @author Administrador
  */
-public class GestorEditarCotizacionIntermedia extends GestorEditarCotizacion{
+public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
 
     // DE ACA SACO TODOS LOS DATOS DE LA PLANIFICACION Y DE LA COTIZACION INTERMEDIA
     private PlanificacionXXX planificacion;
-    private int idSubObra = -1;
+    private int hashSubObra = -1;
      
-    public GestorEditarCotizacionIntermedia(GestorExplorarSubObras gestor, PlanificacionXXX plan, int idSubObra) {
+    public GestorEditarCotizacionModificada(GestorExplorarSubObras gestor, PlanificacionXXX plan, int hashSubObra) {
         super(gestor);
         
         this.planificacion = plan;
-        this.idSubObra = idSubObra;
+        this.hashSubObra = hashSubObra;
         for (int i = 0; i < planificacion.getCotizacion().getSubObras().size(); i++) 
         {
             SubObra so = (SubObra)planificacion.getCotizacion().getSubObras().get(i);
-            if(so.getId()==idSubObra)
+            if(so.hashCode()==hashSubObra)
             {
                 super.setSubObra(so);
                 break;

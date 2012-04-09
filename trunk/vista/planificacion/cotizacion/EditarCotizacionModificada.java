@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.TablaUtil;
 import vista.cotizacion.*;
+import vista.interfaces.ICallBack_v2;
 
 
 
@@ -17,11 +18,10 @@ import vista.cotizacion.*;
  *
  * @author Administrador
  */
-public class EditarCotizacionIntermedia extends EditarCotizacion{
+public class EditarCotizacionModificada extends EditarCotizacion{
 
     // No van mas
     protected static final int OPTN_DESCRIPCION           = -1;
-    protected static final int OPTN_RRHH                  = -2;
     protected static final int OPTN_BENEFICIOS            = -3;
     
     // Nuevos
@@ -29,11 +29,15 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
     protected static final int OPTN_MATERIALES            = 1;
     protected static final int OPTN_ALQUILERES_COMPRAS    = 2;
     protected static final int OPTN_ADICIONALES           = 3;
+    protected static final int OPTN_RRHH                  = 4;
+    private ICallBack_v2 pantallaPadre;
     
     
-    public EditarCotizacionIntermedia(GestorEditarCotizacion gestor) {
+    public EditarCotizacionModificada(GestorEditarCotizacion gestor, ICallBack_v2 pantallaP) {
         super(gestor);
+        pantallaPadre= pantallaP;
         editarMenuLateral();
+        
     }
 
     @Override
@@ -46,7 +50,10 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
 
     @Override
     public void actualizar() {
-        setMontoTotal("XXX");
+        if(pantallaPadre!=null)
+        {
+            pantallaPadre.actualizar(0, "",true);
+        }
     }
 
     private void editarMenuLateral() {
@@ -67,6 +74,9 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
         fila[0] = "Adicionales";
         modelo.addRow(fila);
         
+        fila[0] = "Tareas";
+        modelo.addRow(fila);
+        
     }
 
     @Override
@@ -75,6 +85,12 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
         {
             case OPTN_BENEFICIOS:
             case OPTN_RRHH:
+                // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
+                  setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
+                  CotizacionManoDeObraGeneral cmo = new CotizacionManoDeObraGeneral(gestor.getGestorManoObra());
+                  getPanel().setViewportView(cmo);
+                  cmo.setVisible(true);
+                break;
             case OPTN_DESCRIPCION:
                 System.err.println("Error! Pero no debería pasar");
                 break;
@@ -107,6 +123,7 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
                   getPanel().setViewportView(h);
                   h.setVisible(true);
                 break;
+            
             default:
                  // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                 setNombrePanel(modelo.getValueAt(OPTN_DESCRIPCION, 0).toString());
@@ -115,8 +132,7 @@ public class EditarCotizacionIntermedia extends EditarCotizacion{
                 ecd2.setVisible(true);
         }        
     }
-    
-    
+        
     
      
     
