@@ -683,4 +683,41 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     public Date getFechaFinObra() {
         return planificacion.getFechaFin();
     }
+    
+    public boolean eliminarSubObraPorHash(int hash_subObra)
+    {
+        // Recorro, encuentro la subobra y la elimino
+        for (int i = 0; i < this.planificacion.getCotizacion().getSubObras().size(); i++) 
+        {
+            SubObra so = this.planificacion.getCotizacion().getSubObras().get(i);
+            if(so.hashCode()==hash_subObra)
+            {
+                this.planificacion.getCotizacion().getSubObras().remove(i);
+                _pantalla.actualizar(0, "", true);
+                return true;
+            }
+        }
+        return false;
+    }
+    public void crearSubObra(String nombre)
+    {
+        // VEO QUE NO REPITA EL NOMBRE
+        boolean _used_name = false;
+        for (int i = 0; i < this.planificacion.getCotizacion().getSubObras().size(); i++) 
+        {
+            SubObra so = this.planificacion.getCotizacion().getSubObras().get(i);
+            if(so.getNombre().equals(nombre))
+            {
+                _used_name=true;
+            }
+        }
+        
+        if(_used_name==false)
+        {
+            SubObraModificada nuevaso = new SubObraModificada();
+            nuevaso.setNombre(nombre);
+            this.planificacion.getCotizacion().getSubObras().add(nuevaso);
+            _pantalla.actualizar(0, "", true);
+        }
+    }
 }

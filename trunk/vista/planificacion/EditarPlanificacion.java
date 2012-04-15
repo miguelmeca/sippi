@@ -17,6 +17,7 @@ import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import config.Iconos;
+import vista.interfaces.IPermiteCrearSubObra;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
@@ -33,6 +34,8 @@ import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
+import util.Tupla;
+import vista.cotizacion.CotizacionNuevaSubObra;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gui.dnd.IDropEvent;
 import vista.gui.sidebar.IconTreeRenderer;
@@ -44,7 +47,7 @@ import vista.planificacion.arbolTareas.ArbolIconoRenderer;
  *
  * @author Administrador
  */
-public class EditarPlanificacion extends javax.swing.JInternalFrame implements ICallBack_v2{
+public class EditarPlanificacion extends javax.swing.JInternalFrame implements ICallBack_v2,IPermiteCrearSubObra{
 
     public static int TEMPLATE_MODIFICACION = 0;
     public static int TEMPLATE_SOLOLECTURA  = 1;
@@ -259,6 +262,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         jScrollPane3 = new javax.swing.JScrollPane();
         treeRecursos = new javax.swing.JTree();
         btnEditar = new javax.swing.JButton();
+        btnNuevaSubObra = new javax.swing.JButton();
+        btnEliminarSubObra = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSubObras = new javax.swing.JTable();
         btnEmitirInforme = new javax.swing.JButton();
@@ -424,6 +429,22 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
         });
 
+        btnNuevaSubObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnNuevaSubObra.setToolTipText("Nueva SubObra");
+        btnNuevaSubObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaSubObraActionPerformed(evt);
+            }
+        });
+
+        btnEliminarSubObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnEliminarSubObra.setToolTipText("Eliminar SubObra");
+        btnEliminarSubObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSubObraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -431,7 +452,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 204, Short.MAX_VALUE)
+                .addComponent(btnNuevaSubObra)
+                .addGap(2, 2, 2)
+                .addComponent(btnEliminarSubObra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -441,7 +465,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEditar)
+                    .addComponent(btnNuevaSubObra)
+                    .addComponent(btnEliminarSubObra)))
         );
 
         tblSubObras.setModel(new javax.swing.table.DefaultTableModel(
@@ -529,7 +556,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
@@ -577,7 +604,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -776,7 +803,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -810,7 +837,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -824,7 +851,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+            .addComponent(panelCentral)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -974,11 +1001,40 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         System.out.println("[DEBUG] La ventana de Editar Planificacion tomo foco");
     }//GEN-LAST:event_formFocusGained
 
+    private void btnNuevaSubObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSubObraActionPerformed
+
+        CotizacionNuevaSubObra nso = new CotizacionNuevaSubObra(this, CotizacionNuevaSubObra.TIPO_CREAR);
+        SwingPanel.getInstance().addWindow(nso);
+        nso.setVisible(true);
+    }//GEN-LAST:event_btnNuevaSubObraActionPerformed
+
+    private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSubObraActionPerformed
+
+        if (tblSubObras.getSelectedRow() != -1) {
+            ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
+            
+            int n = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "Está Seguro?", JOptionPane.YES_NO_OPTION);
+            
+            boolean exito=true;
+            if (n == JOptionPane.YES_OPTION) {
+                exito=_gestor.eliminarSubObraPorHash(Integer.parseInt(tpSelected.getId()));
+            }
+            if(!exito)
+            {JOptionPane.showMessageDialog(this, "Ocurrio un error eliminando la subobra", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una SubObra para eliminar", "Atencion!", JOptionPane.QUESTION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarSubObraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminarSubObra;
     private javax.swing.JButton btnEmitirInforme;
+    private javax.swing.JButton btnNuevaSubObra;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -1040,14 +1096,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private void initTablaSubObras() {
 
         ArrayList<NTupla> lista = (ArrayList<NTupla>) _gestor.getListaSubObras();
-
+        DefaultTableModel modelo = (DefaultTableModel) tblSubObras.getModel();
+         modelo = TablaUtil.vaciarDefaultTableModel(modelo);
         for (int i = 0; i < lista.size(); i++) {
             NTupla nt = lista.get(i);
                    
             ListaDeTareasCelda item = new ListaDeTareasCelda(ArbolDeTareasTipos.TIPO_SUBOBRA,String.valueOf(nt.getId()));
             item.setItemData(iconoSubObra, nt.getNombre());
 
-            DefaultTableModel modelo = (DefaultTableModel) tblSubObras.getModel();
+            modelo = (DefaultTableModel) tblSubObras.getModel();
             Object[] fila = new Object[1];
             fila[0] = item;
             modelo.addRow(fila);
@@ -1586,8 +1643,17 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
         }
         
-        
-        
+    }
+    
+    public void crearNuevaSubObra(String nombre)
+    {
+        _gestor.crearSubObra(nombre);
+    }
+    public void cambiarNombreSubObra(Tupla tp)
+    {
+       //Este metodo esta aca solamente para poder usar la interfaz "IPermiteCrearSubObra"
+       //En realidad el metodo para modificar nombre no se esta usando en
+       //ninguna parte del sistema asi q podria volar a la mierda perfectamente
     }
     
 

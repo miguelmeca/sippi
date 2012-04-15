@@ -30,13 +30,14 @@ import util.Tupla;
 import vista.comer.pantallaConsultarObra;
 import vista.gui.TortaRotator;
 import vista.interfaces.ICallBack_v2;
+import vista.interfaces.IPermiteCrearSubObra;
 import vista.planificacion.EditarPlanificacion;
 
 /**
  *
  * @author iuga
  */
-public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICallBack_v2{
+public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICallBack_v2,IPermiteCrearSubObra{
 
     private GestorExplorarSubObras gestor;
     private int cotizacionId;
