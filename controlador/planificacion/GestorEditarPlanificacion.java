@@ -113,7 +113,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     if (som.hashCode() == hashSubObra) {
                         List<SubObraXTarea> listaTareasMod = som.getTareas();
                         for (int j = 0; j < listaTareasMod.size(); j++) {
-                            SubObraXTareaModif starea = (SubObraXTareaModif) listaTareasMod.get(j);
+                            SubObraXTarea starea = (SubObraXTarea) listaTareasMod.get(j);
                             NTupla nt1 = new NTupla(starea.getId());
                             nt1.setNombre(starea.getNombre());
                             lista.add(nt1);
@@ -194,7 +194,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         
                         List<SubObraXHerramienta> listaHerramientas = som.getHerramientas();
                         for (int j = 0; j < listaHerramientas.size(); j++) {
-                            SubObraXHerramientaModif herr = (SubObraXHerramientaModif)listaHerramientas.get(j);
+                            SubObraXHerramienta herr = (SubObraXHerramienta)listaHerramientas.get(j);
                             TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
                             subNodoHerramientas.setId(herr.getId());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
@@ -208,7 +208,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         
                         List<SubObraXMaterial> listaMateriales =  som.getMateriales();
                         for (int j = 0; j < listaMateriales.size(); j++) {
-                            SubObraXMaterialModif mat = (SubObraXMaterialModif)listaMateriales.get(j);
+                            SubObraXMaterial mat = (SubObraXMaterial)listaMateriales.get(j);
                             String nombre = "";
                                 // Busco, un Recurso Especifico que tenga ese recurso x proveedor
                                  try
@@ -245,7 +245,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         
                         List<SubObraXAlquilerCompra> listaAlquileres = som.getAlquileresCompras();
                         for (int j = 0; j < listaAlquileres.size(); j++) {
-                            SubObraXAlquilerCompraModif alqcomp = (SubObraXAlquilerCompraModif)listaAlquileres.get(j);
+                            SubObraXAlquilerCompra alqcomp = (SubObraXAlquilerCompra)listaAlquileres.get(j);
                             TreeEntry subNodoAlquComp = new TreeEntry(alqcomp.getTipoAlquilerCompra().getNombre()+" "+alqcomp.getDescripcion(),Iconos.ICONO_ALQUILERCOMPRA);
                             subNodoAlquComp.setId(alqcomp.getId());
                             subNodoAlquComp.setTipo(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);

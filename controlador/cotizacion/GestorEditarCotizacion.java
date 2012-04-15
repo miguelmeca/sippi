@@ -14,7 +14,7 @@ import vista.cotizacion.EditarCotizacion;
  */
 public class GestorEditarCotizacion implements IGestorCotizacion{
     
-    private EditarCotizacion pantalla;
+    protected EditarCotizacion pantalla;
 
     private SubObra subObra;
     
