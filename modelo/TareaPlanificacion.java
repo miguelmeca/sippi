@@ -180,6 +180,19 @@ public class TareaPlanificacion {
         }
         return tarea;
     }
+    public TareaPlanificacion buscarSubTareaPorHash(int hashSubTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < subtareas.size(); i++) {
+            
+            if(subtareas.get(i).hashCode()==hashSubTarea)
+            {
+                tarea=subtareas.get(i);
+                break;
+            }
+        }
+        return tarea;
+    }
     
     public TareaPlanificacion buscarSubTareaPorIdTareaCotizada(int idTarea)
     {
@@ -194,6 +207,25 @@ public class TareaPlanificacion {
             else
             {
                 tarea=subtareas.get(i).buscarSubTareaPorIdTareaCotizada(idTarea);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;        
+    }
+    public TareaPlanificacion buscarSubTareaPorHashTareaCotizada(int hashTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < subtareas.size(); i++) {
+            
+            if(subtareas.get(i).getTareaCotizada().hashCode()==hashTarea)
+            {
+                tarea=subtareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=subtareas.get(i).buscarSubTareaPorHashTareaCotizada(hashTarea);
                 if(tarea!=null)
                 {break;}
             }
@@ -296,6 +328,26 @@ public class TareaPlanificacion {
             }
         }
         return false;        
+    }
+    
+    public boolean eliminarSubTareaPorHash(int hashTarea, boolean busquedaProfunda)
+    {
+        boolean eliminada=false;
+        for (int i = 0; i < subtareas.size(); i++) {
+            
+            if(subtareas.get(i).hashCode()==hashTarea)
+            {
+                subtareas.remove(i);
+                eliminada=true;
+                break;
+            }
+            else
+            {
+                if(busquedaProfunda)
+                {subtareas.get(i).eliminarSubTareaPorHash(hashTarea, busquedaProfunda);}
+            }
+        }  
+        return eliminada;
     }
     
     public boolean eliminarSubTarea(int idTarea, boolean busquedaProfunda)

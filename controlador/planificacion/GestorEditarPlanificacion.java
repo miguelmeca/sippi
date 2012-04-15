@@ -114,7 +114,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         List<SubObraXTarea> listaTareasMod = som.getTareas();
                         for (int j = 0; j < listaTareasMod.size(); j++) {
                             SubObraXTarea starea = (SubObraXTarea) listaTareasMod.get(j);
-                            NTupla nt1 = new NTupla(starea.getId());
+                            //NTupla nt1 = new NTupla(starea.getId());
+                            NTupla nt1 = new NTupla(starea.hashCode());
                             nt1.setNombre(starea.getNombre());
                             lista.add(nt1);
                         }
@@ -196,7 +197,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         for (int j = 0; j < listaHerramientas.size(); j++) {
                             SubObraXHerramienta herr = (SubObraXHerramienta)listaHerramientas.get(j);
                             TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
-                            subNodoHerramientas.setId(herr.getId());
+                            //subNodoHerramientas.setId(herr.getId());
+                            subNodoHerramientas.setId(herr.hashCode());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
                             nodoHerramientas.add(subNodoHerramientas);
                         }
@@ -234,7 +236,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                                  }
                                  
                             TreeEntry subNodoMaterial = new TreeEntry(nombre,Iconos.ICONO_MATERIAL);
-                            subNodoMaterial.setId(mat.getId());
+                            //subNodoMaterial.setId(mat.getId());
+                            subNodoMaterial.setId(mat.hashCode());
                             subNodoMaterial.setTipo(ArbolDeTareasTipos.TIPO_MATERIAL);
                             nodoMateriales.add(subNodoMaterial);
                         }
@@ -247,7 +250,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         for (int j = 0; j < listaAlquileres.size(); j++) {
                             SubObraXAlquilerCompra alqcomp = (SubObraXAlquilerCompra)listaAlquileres.get(j);
                             TreeEntry subNodoAlquComp = new TreeEntry(alqcomp.getTipoAlquilerCompra().getNombre()+" "+alqcomp.getDescripcion(),Iconos.ICONO_ALQUILERCOMPRA);
-                            subNodoAlquComp.setId(alqcomp.getId());
+                            //subNodoAlquComp.setId(alqcomp.getId());
+                            subNodoAlquComp.setId(alqcomp.hashCode());
                             subNodoAlquComp.setTipo(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
                             nodoAlqComps.add(subNodoAlquComp);
                         }
@@ -305,9 +309,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
 
     
-    public void agregarNuevaTareaArbol(int id, String nombre,int idTareaPadre)
+    public void agregarNuevaTareaArbol(int hash, String nombre,int hashTareaPadre)
     {
-        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
+        TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
         
         if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
@@ -315,7 +319,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             return;
         }
         
-        if(idTareaPadre<=0)
+        if(hashTareaPadre<=0)
         {
             this.planificacion.getTareas().add(nuevaTarea); 
         }
@@ -323,7 +327,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             // CARGO LA TAREA PADRE            
             TareaPlanificacion padre = null;
-            padre=planificacion.buscarTarea(idTareaPadre);
+            padre=planificacion.buscarTareaPorHash(hashTareaPadre);
             
             // Agrego el hijo al padre
             if(padre!=null)
@@ -337,14 +341,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             } 
         }
         
-        _pantalla.agregarNuevaTareaArbol(nuevaTarea.getId(),nuevaTarea.getNombre(),idTareaPadre);
+        _pantalla.agregarNuevaTareaArbol(nuevaTarea.hashCode(),nuevaTarea.getNombre(),hashTareaPadre);
         _pantalla.refreshGanttAndData();
     }
     
-    public void agregarNuevaTareaGantt(int id, String nombre, int idTareaGanttPadre, int nivel)
+    public void agregarNuevaTareaGantt(int hash, String nombre, int idTareaGanttPadre, int nivel)
     {
-        TareaPlanificacion nuevaTarea=crearTarea(nombre, id);
-        
+        TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
         if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
             mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
@@ -401,11 +404,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return new Date(cal.getTimeInMillis());
     }    
     
-    private TareaPlanificacion crearTarea(String nombre, int id)
-    {
-        // VEO QUE NO ESTE REPETIDA
+    private TareaPlanificacion crearTarea(String nombre, int hash)
+    { // VEO QUE NO ESTE REPETIDA
         TareaPlanificacion nuevaTarea = null;
-        nuevaTarea=planificacion.buscarTareaPorIdTareaCotizada(id);
+        nuevaTarea=planificacion.buscarTareaPorHashTareaCotizada(hash);
         if(nuevaTarea!=null)
         {
             mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agregada");
@@ -415,7 +417,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // CREO LA NUEVA TAREA
         nuevaTarea = new TareaPlanificacion();
-        nuevaTarea.setId(id);
+       // nuevaTarea.setId(id);
         nuevaTarea.setNombre(nombre);
         nuevaTarea.setIdTareaGantt(generarIdTareaGantt());  
         
@@ -425,20 +427,25 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // CArgo la SubObra X Tarea Planificada Mod
         try
-        {
-              List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
+        {   
+            SubObraXTareaModif soxtm;            
+             soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hash);
+             nuevaTarea.setTareaCotizada(soxtm);
+             return nuevaTarea;
+            /*List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
               for (int i = 0; i < listaSubObrasMod.size(); i++) {
                 SubObraModificada som = (SubObraModificada)listaSubObrasMod.get(i);
                 List<SubObraXTarea> lsitasoxtm = som.getTareas();
                   for (int j = 0; j < lsitasoxtm.size(); j++) {
                       SubObraXTareaModif soxtm = (SubObraXTareaModif)lsitasoxtm.get(j);
-                      if(soxtm.getId()==id)
+                      //if(soxtm.getId()==id)
+                      if(soxtm.hashCode()==hash)
                       {
                           nuevaTarea.setTareaCotizada(soxtm);
                           return nuevaTarea;
                       }
                   }
-            }
+            }*/
         
         }catch(Exception e)
         {
@@ -446,7 +453,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
            mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
            return null;
         }
-        return null;
     
     }
     
@@ -469,46 +475,46 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         for (int i = 0; i < cantTareas; i++) 
         {
             TareaPlanificacion tarea= listaTareas.get(i);
-            ArbolIconoNodo nodoTarea = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_TAREA,tarea.getNombre(),Iconos.ICONO_TAREA);
+            ArbolIconoNodo nodoTarea = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_TAREA,tarea.getNombre(),Iconos.ICONO_TAREA);
             modelo.insertNodeInto(nodoTarea, padre, i);            
             
             cargarTareasEnArbol(modelo, tarea.getSubtareas(),nodoTarea);
             
             if(tarea.getMateriales()!=null && !tarea.getMateriales().isEmpty())
             {
-                ArbolIconoNodo nodoMateriales = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_MATERIALES,ArbolDeTareasTipos.TIPO_MATERIALES,Iconos.ICONO_MATERIALES);
+                ArbolIconoNodo nodoMateriales = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_MATERIALES,ArbolDeTareasTipos.TIPO_MATERIALES,Iconos.ICONO_MATERIALES);
                 modelo.insertNodeInto(nodoMateriales, nodoTarea, 0);
                 int cantMateriales=tarea.getMateriales().size();
                 for (int j = 0; j < cantMateriales; j++) 
                 {
                   PlanificacionXMaterial material=tarea.getMateriales().get(j);
-                  ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.getId(),ArbolDeTareasTipos.TIPO_MATERIAL,material.toString(),Iconos.ICONO_MATERIAL);
+                  ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.hashCode(),ArbolDeTareasTipos.TIPO_MATERIAL,material.toString(),Iconos.ICONO_MATERIAL);
                   modelo.insertNodeInto(nodoMaterial, nodoMateriales, j);
                 } 
             }
             
             if(tarea.getHerramientas()!=null && !tarea.getHerramientas().isEmpty())
             {
-               ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
+               ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
                modelo.insertNodeInto(nodoHerramientas, nodoTarea, 1);
                int cantHeramientas=tarea.getHerramientas().size();
                for (int j = 0; j < cantHeramientas; j++) 
                {
                   PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
-                  ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.getId(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
+                  ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
                   modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
                }
             }
                         
             if(tarea.getAlquilerCompras()!=null && !tarea.getAlquilerCompras().isEmpty())
             {
-                ArbolIconoNodo nodoAlquileresCompras = new ArbolIconoNodo(tarea.getId(),ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,Iconos.ICONO_ALQUILERESCOMPRAS);
+                ArbolIconoNodo nodoAlquileresCompras = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,Iconos.ICONO_ALQUILERESCOMPRAS);
                 modelo.insertNodeInto(nodoAlquileresCompras, nodoTarea, 2);
                 int cantAlquileresCompras=tarea.getAlquilerCompras().size();
                 for (int j = 0; j < cantAlquileresCompras; j++) 
                 {
                     PlanificacionXAlquilerCompra alquilerCompra=tarea.getAlquilerCompras().get(j);
-                    ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.getId(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,alquilerCompra.toString(),Iconos.ICONO_ALQUILERCOMPRA);
+                    ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,alquilerCompra.toString(),Iconos.ICONO_ALQUILERCOMPRA);
                     modelo.insertNodeInto(nodoAlquilerCompra, nodoAlquileresCompras, j);
                 }
             }
@@ -516,7 +522,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
     }
     
-    public void asociarRecurso(int idRecuso, String nombre,int idTareaPadre, String tipoRecurso)
+    public void asociarRecurso(int hashRecuso, String nombre,int hashTareaPadre, String tipoRecurso)
     {
         //Veo si es un recurso
         String[] sinHijos=ArbolDeTareasTipos.getSinHijos();
@@ -536,8 +542,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
             // CARGO LA TAREA PADRE
             TareaPlanificacion tareaPadre = null;
-            tareaPadre= planificacion.buscarTarea(idTareaPadre);
+            tareaPadre= planificacion.buscarTareaPorHash(hashTareaPadre);
             boolean exito=false;
+            CotizacionModificada cotizacionMofificada=planificacion.getCotizacion();
+            
+            
             // Agrego el hijo al padre
             if(tareaPadre!=null)
             {
@@ -548,17 +557,20 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
                     {
-                       SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
+                       //SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
+                       SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif)cotizacionMofificada.getSubObraXAlquilerCompraPorHash(hashRecuso);
                         exito=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
                     }
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
-                       SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
+                       //SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
+                       SubObraXMaterialModif material = (SubObraXMaterialModif) cotizacionMofificada.getSubObraXMaterialPorHash(hashRecuso);
                         exito=tareaPadre.agregarMaterialCotizacion(material);   
                     }
                     if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
                     {
-                      SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
+                      //SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
+                      SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) cotizacionMofificada.getSubObraXHerramientaPorHash(hashRecuso);
                         exito=tareaPadre.agregarHerramientaCotizacion(herramienta);   
                     }
                 } catch (Exception e) {
@@ -574,7 +586,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 else
                 {
                     
-                    _pantalla.asociarRecursoATareaArbol(idRecuso,nombre, idTareaPadre, tipoRecurso);
+                    _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
                 }
             }
             else
@@ -588,9 +600,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
     }
     
-    public boolean quitarTarea(int id, String nombre,int idTareaPadre)
+    public boolean quitarTarea(int hash, String nombre,int idTareaPadre)
     {
-       boolean eliminada= planificacion.eliminarTarea(id, true);
+       boolean eliminada= planificacion.eliminarTareaPorHash(hash, true);
        return eliminada;
         
     }

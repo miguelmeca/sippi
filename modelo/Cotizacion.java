@@ -220,5 +220,56 @@ public class Cotizacion {
     }    
     
     
+    public SubObraXMaterial getSubObraXMaterialPorHash(int hashCode)
+    {
+        for (int i = 0; i < subObras.size(); i++) {
+            
+            SubObraXMaterial soxm =subObras.get(i).getSubObraXMaterialPorHash(hashCode);
+            if(soxm!=null)
+            { return soxm;}            
+        }
+        return null;
+    }
+    public SubObraXAdicional getSubObraXAdicionalPorHash(int hashCode)
+    {
+        for (int i = 0; i < subObras.size(); i++) {
+            
+            SubObraXAdicional soxa =subObras.get(i).getSubObraXAdicionalPorHash(hashCode);
+            if(soxa!=null)
+            { return soxa;}            
+        }
+        return null;
+    }
+    public SubObraXHerramienta getSubObraXHerramientaPorHash(int hashCode)
+    {
+        for (int i = 0; i < subObras.size(); i++) {
+            
+            SubObraXHerramienta soxh =subObras.get(i).getSubObraXHerramientaPorHash(hashCode);
+            if(soxh!=null)
+            { return soxh;}            
+        }
+        return null;
+    }
+    public SubObraXTarea getSubObraXTareaPorHash(int hashCode)
+    {
+        for (int i = 0; i < subObras.size(); i++) {
+            
+            SubObraXTarea soxt =subObras.get(i).getSubObraXTareaPorHash(hashCode);
+            if(soxt!=null)
+            { return soxt;}            
+        }
+        return null;
+    }
+    public SubObraXAlquilerCompra getSubObraXAlquilerCompraPorHash(int hashCode)
+    {
+        for (int i = 0; i < subObras.size(); i++) {
+            
+            SubObraXAlquilerCompra soxac =subObras.get(i).getSubObraXAlquilerCompraPorHash(hashCode);
+            if(soxac!=null)
+            { return soxac;}            
+        }
+        return null;
+    }
+    
     
 }
