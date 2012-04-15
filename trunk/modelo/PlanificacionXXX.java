@@ -95,6 +95,26 @@ public class PlanificacionXXX {
         }
         return "";             
     }
+    public TareaPlanificacion buscarTareaPorHash(int hashTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).hashCode()==hashTarea)
+            {
+                tarea=tareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=tareas.get(i).buscarSubTareaPorHash(hashTarea);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;
+        
+    }
     
     public TareaPlanificacion buscarTarea(int idTarea)
     {
@@ -136,7 +156,45 @@ public class PlanificacionXXX {
         }
         return tarea;
     }
+    public TareaPlanificacion buscarTareaPorHashTareaCotizada(int hashTarea)
+    {
+        TareaPlanificacion tarea=null;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).getTareaCotizada().hashCode()==hashTarea)
+            {
+                tarea=tareas.get(i);
+                break;
+            }
+            else
+            {
+                tarea=tareas.get(i).buscarSubTareaPorHashTareaCotizada(hashTarea);
+                if(tarea!=null)
+                {break;}
+            }
+        }
+        return tarea;
+    }
     
+    public boolean eliminarTareaPorHash(int hashTarea, boolean busquedaProfunda)
+    {
+        boolean eliminada=false;
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            if(tareas.get(i).hashCode()==hashTarea)
+            {
+                tareas.remove(i);
+                eliminada=true;
+                break;
+            }
+            else
+            {
+                if(busquedaProfunda)
+                {tareas.get(i).eliminarSubTareaPorHash(hashTarea, busquedaProfunda);}
+            }
+        }  
+        return eliminada;
+    }
     public boolean eliminarTarea(int idTarea, boolean busquedaProfunda)
     {
         boolean eliminada=false;

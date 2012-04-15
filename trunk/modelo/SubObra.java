@@ -215,4 +215,61 @@ public class SubObra implements ISubtotal
     {
         flagGananciaPorcentaje=flag;
     }
+    
+    public SubObraXMaterial getSubObraXMaterialPorHash(int hashCode)
+    {
+        for (int i = 0; i < materiales.size(); i++) {
+            
+            SubObraXMaterial soxm =materiales.get(i);
+            if(soxm.hashCode()==hashCode)
+            { return soxm;}            
+        }
+        return null;
+    }
+    
+    public SubObraXAdicional getSubObraXAdicionalPorHash(int hashCode)
+    {
+        for (int i = 0; i < adicionales.size(); i++) {
+            
+            SubObraXAdicional soxa =adicionales.get(i);
+            if(soxa.hashCode()==hashCode)
+            { return soxa;}            
+        }
+        return null;
+    }
+    
+    public SubObraXAlquilerCompra getSubObraXAlquilerCompraPorHash(int hashCode)
+    {
+        for (int i = 0; i < alquileresCompras.size(); i++) {
+            
+            SubObraXAlquilerCompra soxac =alquileresCompras.get(i);
+            if(soxac.hashCode()==hashCode)
+            { return soxac;}            
+        }
+        return null;
+    }
+    public SubObraXTarea getSubObraXTareaPorHash(int hashCode)
+    {
+        for (int i = 0; i < tareas.size(); i++) {
+            
+            SubObraXTarea soxt =tareas.get(i);
+            if(soxt.hashCode()==hashCode)
+            { return soxt;}            
+        }
+        return null;
+    }
+    
+    public SubObraXHerramienta getSubObraXHerramientaPorHash(int hashCode)
+    {
+        for (int i = 0; i < herramientas.size(); i++) {
+            
+            SubObraXHerramienta soxh =herramientas.get(i);
+            if(soxh.hashCode()==hashCode)
+            { return soxh;}            
+        }
+        return null;
+    }
+    
+    
+    
 }

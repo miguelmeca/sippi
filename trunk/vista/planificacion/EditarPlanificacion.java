@@ -1096,13 +1096,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 //        inicializarArbolDeTareas();
     }
     
-    public void agregarNuevaTareaArbol(int id,String nombre,int idTareaPadre)
+    public void agregarNuevaTareaArbol(int hash,String nombre,int hashTareaPadre)
     { 
         //idTareaPadre sera siempre o una tarea, subtarea o la obra. Nada mas. En caso de ser la obra, el id sera 0 (cero)
         
         //Arbol
-        ArbolIconoNodo nodoTarea = new ArbolIconoNodo(id,ArbolDeTareasTipos.TIPO_TAREA,nombre,Iconos.ICONO_TAREA);
-        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
+        ArbolIconoNodo nodoTarea = new ArbolIconoNodo(hash,ArbolDeTareasTipos.TIPO_TAREA,nombre,Iconos.ICONO_TAREA);
+        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,hashTareaPadre);        
         if(padre!=null)
         {
             ((DefaultTreeModel)(arbolTareas.getModel())).insertNodeInto(nodoTarea, padre, padre.getChildCount());
@@ -1116,10 +1116,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 //        updateGantt();
         
     }
-    public void asociarRecursoATareaArbol(int id,String nombre,int idTareaPadre, String tipo)
+    public void asociarRecursoATareaArbol(int hash,String nombre,int hashTareaPadre, String tipo)
     { 
         DefaultTreeModel modelo=(DefaultTreeModel)(arbolTareas.getModel());
-        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,idTareaPadre);        
+        ArbolIconoNodo padre=arbolTareasGestor.getNodoArbolTareasPorId(arbolTareas,hashTareaPadre);        
         if(padre!=null)
         {
             String tipoGrupo=ArbolDeTareasTipos.getTipoColectivo(tipo); 
@@ -1145,7 +1145,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
              padre=nodoGrupo;    
             }
              //Creo el nodo
-            ArbolIconoNodo nodo = new ArbolIconoNodo(id,tipo,nombre,ArbolDeTareasTipos.getIcono(tipo));
+            ArbolIconoNodo nodo = new ArbolIconoNodo(hash,tipo,nombre,ArbolDeTareasTipos.getIcono(tipo));
             modelo.insertNodeInto(nodo, padre, padre.getChildCount());
             arbolTareas.expandPath(arbolTareasGestor.getTreeNodePathDeNodo(padre));
         }
@@ -1435,9 +1435,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
               if(dataTrigger.length==3)
               {
                 String tipo=dataTrigger[0];
-                int id= Integer.parseInt(dataTrigger[1]);
+                int hash= Integer.parseInt(dataTrigger[1]);
                 String nombre=dataTrigger[2]; 
-                int idTareaPadre=padre.getId(); 
+                int hashTareaPadre=padre.getId(); 
                 
                 //Si agregamos una tarea
                 if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
@@ -1445,7 +1445,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     //Es una tarea, pero no es una subtarea
                     if(padre.getTipo().equals(ArbolDeTareasTipos.TIPO_OBRA))
                     {
-                        idTareaPadre=0;
+                        hashTareaPadre=0;
                     }
                     else
                     {
@@ -1455,11 +1455,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             return;
                         }  
                     }
-                    _gestor.agregarNuevaTareaArbol(id, nombre, idTareaPadre);                    
+                    _gestor.agregarNuevaTareaArbol(hash, nombre, hashTareaPadre);                    
                 }
                 else //Si agregamos un recurso
                 {  
-                    _gestor.asociarRecurso(id, nombre, idTareaPadre,tipo);
+                    _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
                 }                
             }
           }//Fin de if(data!=null && !data.isEmpty() && padre!=null)            
