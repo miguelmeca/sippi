@@ -95,7 +95,7 @@ public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
 
     @Override
     public void refrescarPantallas() {
-        //TODO:
+        super.pantalla.actualizar();
     }
 
     @Override

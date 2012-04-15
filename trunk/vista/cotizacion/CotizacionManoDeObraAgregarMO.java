@@ -809,7 +809,7 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        tareaActual.setDetalles(listaDetallesTarea);
               
        boolean modificada=false;
-       if(hashCodeTarea>0)
+       if(hashCodeTarea>0)//Nunca seteo el valor hashCodeTarea
        {modificada=true;}
        
        //en este caso es o nueva o modificada (opciones mutuamente excluyentes. Pero se da el caso donde no es ni nueva ni modificada, falso en ambos casos, cuando se agrega una tarea vieja a la lista)

@@ -1576,10 +1576,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     @Override
     public void actualizar(int id, String flag, boolean exito) {
         DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
-        modelo = TablaUtil.vaciarDefaultTableModel(modelo);        
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        treeRecursos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
         initTablaSubObras();
+        for (int i = 0; i < tblSubObras.getRowCount(); i++) 
+        {
+            if( Integer.parseInt(((ListaDeTareasCelda) tblSubObras.getModel().getValueAt(i,0)).getId())==hashSubObraSeleccionada)
+            {initTablaTareas(this.hashSubObraSeleccionada);
+             initArbolRecursosCotizados(hashSubObraSeleccionada);
+            }
+        }
+        
+        
+        
     }
     
 

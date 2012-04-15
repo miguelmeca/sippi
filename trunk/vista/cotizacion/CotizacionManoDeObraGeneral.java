@@ -88,7 +88,7 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
        }  
        
            
-       NTupla tar=new NTupla(tareaActual.getId());
+       NTupla tar=new NTupla(tareaActual.hashCode());
        tar.setNombre(tareaActual.getNombre());
        tar.setData(tareaActual);      
              
@@ -384,11 +384,11 @@ private void modificarTarea()
            SwingPanel.getInstance().addWindow(at);       
            at.setVisible(true);
            //////////////////////////////
-           Object[] datos=new Object[6];       
+           /*Object[] datos=new Object[6];       
            for (int i = 0; i < datos.length; i++) 
            {
              datos[i]=(tblTareas.getModel().getValueAt(selectedRow, i));   
-           }
+           }*/
            SubObraXTarea tarea=(SubObraXTarea)((NTupla)tblTareas.getModel().getValueAt(selectedRow, 0)).getData();
            at.tomarValoresDeDatos(tarea, tblTareas.getSelectedRow());
         }  
