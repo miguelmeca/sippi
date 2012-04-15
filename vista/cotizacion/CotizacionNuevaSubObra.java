@@ -13,6 +13,7 @@ package vista.cotizacion;
 
 import javax.swing.JOptionPane;
 import util.Tupla;
+import vista.interfaces.IPermiteCrearSubObra;
 
 /**
  *
@@ -26,10 +27,10 @@ public class CotizacionNuevaSubObra extends javax.swing.JInternalFrame {
     
     private Tupla tp;
     
-    private ExplorarSubObras pantalla;
+    private IPermiteCrearSubObra pantalla;
 
     /** Creates new form nuevaSubObra */
-    public CotizacionNuevaSubObra(ExplorarSubObras pantalla, int TIPO)
+    public CotizacionNuevaSubObra(IPermiteCrearSubObra pantalla, int TIPO)
     {
         this.pantalla = pantalla;
         this.TIPO = TIPO;
