@@ -12,7 +12,6 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionMateriales;
-import controlador.planificacion_old.GestorRegistrarAsignacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,11 +22,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import util.NTupla;
-import util.StringUtil;
-import util.SwingPanel;
-import util.TablaUtil;
-import util.Tupla;
+import util.*;
 
 /**
  *

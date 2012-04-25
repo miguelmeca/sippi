@@ -1,6 +1,6 @@
 package vista.planificacion_old;
 
-import controlador.planificacion_old.GestorRegistrarPresupuesto;
+//import controlador.planificacion_old.GestorRegistrarPresupuesto;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
-import modelo.Presupuesto;
+//import modelo.Presupuesto;
 import util.FechaUtil;
 import util.LogUtil;
 import util.NTupla;
@@ -46,7 +46,7 @@ import vista.pantallaConsultar;
  */
 public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame implements IGraph,IAyuda {
 
-    private GestorRegistrarPresupuesto gestor;
+//    private GestorRegistrarPresupuesto gestor;
     private int idPedidoObra;
     private int idPresupuesto;
     private int idEtapa;
@@ -67,10 +67,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         initComponents();
 
-        gestor = new GestorRegistrarPresupuesto(this);
+//        gestor = new GestorRegistrarPresupuesto(this);
 
-        gestor.cargarPresupuesto(idPresu);
-        gestor.cargarObra(idObra);
+//        gestor.cargarPresupuesto(idPresu);
+//        gestor.cargarObra(idObra);
 
 
 
@@ -80,19 +80,19 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     pantallaRegistrarPresupuesto(int idPresupuesto)
     {
-        // LINKEO LOS EVENTOS DEL GRAFICO DE GANTT
-        SystemEventProxy.getInstance().setPantalla(this);
-
-        this.idPresupuesto = idPresupuesto;
-
-        initComponents();
-
-        gestor = new GestorRegistrarPresupuesto(this);
-
-        gestor.cargarPresupuesto(idPresupuesto);
-        gestor.buscarObraPorPresupuesto(idPresupuesto);
-
-        habilitarVentana();
+//        // LINKEO LOS EVENTOS DEL GRAFICO DE GANTT
+//        SystemEventProxy.getInstance().setPantalla(this);
+//
+//        this.idPresupuesto = idPresupuesto;
+//
+//        initComponents();
+//
+//        gestor = new GestorRegistrarPresupuesto(this);
+//
+//        gestor.cargarPresupuesto(idPresupuesto);
+//        gestor.buscarObraPorPresupuesto(idPresupuesto);
+//
+//        habilitarVentana();
 
     }
 
@@ -107,35 +107,35 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     private void cargarGraph()
     {
-        // SOLO PARA MOSTRAR -----
-        Date hoy = new Date();
-        Date fechaMas = FechaUtil.fechaMas(hoy,10);
-        Date fechaMasPrev = FechaUtil.fechaMas(hoy,20);
-        addEtapaNoEditable(5000,"OBRA: Horno para ARCOR",fechaMas,fechaMasPrev);
-
-
-        // CARGO TODAS LAS ETAPAS DEL PRESUPUESTO
-        ArrayList<NTupla> listaEtapas = gestor.cargarEtapas();
-        Iterator<NTupla> it = listaEtapas.iterator();
-
-        while (it.hasNext()) 
-        {
-            NTupla nt = it.next();
-            Object[] data = (Object[])nt.getData();
-            
-            addEtapa(nt.getId() ,nt.getNombre(),(Date)data[0],(Date)data[1]);
-        }
-
-        // CARGO TODAS LAS RELACIONES ENTRE ETAPAS
-        ArrayList<Tupla> listaRelaciones = gestor.getRelacionesEntreEtapas();
-        Iterator<Tupla> itt = listaRelaciones.iterator();
-        while (itt.hasNext())
-        {
-            Tupla tp = itt.next();
-            int idEtapa = tp.getId();
-            int idEtapaPredecesora = Integer.parseInt(tp.getNombre());
-            this.setEtapaPredecesora(idEtapa, idEtapaPredecesora);
-        }
+//        // SOLO PARA MOSTRAR -----
+//        Date hoy = new Date();
+//        Date fechaMas = FechaUtil.fechaMas(hoy,10);
+//        Date fechaMasPrev = FechaUtil.fechaMas(hoy,20);
+//        addEtapaNoEditable(5000,"OBRA: Horno para ARCOR",fechaMas,fechaMasPrev);
+//
+//
+//        // CARGO TODAS LAS ETAPAS DEL PRESUPUESTO
+////        ArrayList<NTupla> listaEtapas = gestor.cargarEtapas();
+////        Iterator<NTupla> it = listaEtapas.iterator();
+//
+//        while (it.hasNext()) 
+//        {
+//            NTupla nt = it.next();
+//            Object[] data = (Object[])nt.getData();
+//            
+//            addEtapa(nt.getId() ,nt.getNombre(),(Date)data[0],(Date)data[1]);
+//        }
+//
+//        // CARGO TODAS LAS RELACIONES ENTRE ETAPAS
+//        ArrayList<Tupla> listaRelaciones = gestor.getRelacionesEntreEtapas();
+//        Iterator<Tupla> itt = listaRelaciones.iterator();
+//        while (itt.hasNext())
+//        {
+//            Tupla tp = itt.next();
+//            int idEtapa = tp.getId();
+//            int idEtapaPredecesora = Integer.parseInt(tp.getNombre());
+//            this.setEtapaPredecesora(idEtapa, idEtapaPredecesora);
+//        }
     }
 
 
@@ -922,9 +922,9 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
+//            pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
+//            SwingPanel.getInstance().addWindow(pre);
+//            pre.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void menuZoomMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuZoomMenosActionPerformed
@@ -940,12 +940,12 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        pantallaRegistrarViaticos prv = new pantallaRegistrarViaticos(this);
-        SwingPanel.getInstance().addWindow(prv);
+//        pantallaRegistrarViaticos prv = new pantallaRegistrarViaticos(this);
+//        SwingPanel.getInstance().addWindow(prv);
 
-        prv.setDatos(gestor.getViaticosEmpleados(),gestor.getViaticosDias(),gestor.getViaticosMonto());
-
-        prv.setVisible(true);
+//        prv.setDatos(gestor.getViaticosEmpleados(),gestor.getViaticosDias(),gestor.getViaticosMonto());
+//
+//        prv.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void menuDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDerechaActionPerformed
@@ -1007,10 +1007,10 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
     }//GEN-LAST:event_txtConsumibleFocusLost
 
     private void menuNuevaEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevaEtapaActionPerformed
-
-        pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
-        SwingPanel.getInstance().addWindow(pre);
-        pre.setVisible(true);
+//
+//        pantallaRegistrarEtapaRapida pre = new pantallaRegistrarEtapaRapida(this);
+//        SwingPanel.getInstance().addWindow(pre);
+//        pre.setVisible(true);
     }//GEN-LAST:event_menuNuevaEtapaActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
@@ -1049,28 +1049,28 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     private void cambiarGanancia(String ganancia)
     {
-        try
-        {
-            double g = Double.parseDouble(ganancia);
-            gestor.cambiarGananciaEmpresa(g);
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(this.getParent(),"El formato de la ganancia es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
-        }
+//        try
+//        {
+//            double g = Double.parseDouble(ganancia);
+//            gestor.cambiarGananciaEmpresa(g);
+//        }
+//        catch(Exception ex)
+//        {
+//            JOptionPane.showMessageDialog(this.getParent(),"El formato de la ganancia es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
     private void cambiarConsumible(String cadena)
     {
-        try
-        {
-            float g = Float.parseFloat(cadena);
-            gestor.cambiarPorcentajeConsumible(g);
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(this.getParent(),"El formato del % Consumible es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
-        }
+//        try
+//        {
+//            float g = Float.parseFloat(cadena);
+//            gestor.cambiarPorcentajeConsumible(g);
+//        }
+//        catch(Exception ex)
+//        {
+//            JOptionPane.showMessageDialog(this.getParent(),"El formato del % Consumible es incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+//        }
     }
 
 
@@ -1156,17 +1156,17 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     public void addEtapa(String nombre, Date fechaInicio, Date FechaFin)
     {
-        // COMO NO TENGO EL ID DE LA ETAPA, TENGO Q GUARDARLA
-        int idNuevo = gestor.crearEtapa(nombre, fechaInicio, FechaFin);
-        if(idNuevo!=0)
-        {
-            if(nombre==null)
-            {
-                nombre = "Nueva Etapa";
-            }
-            _gantt.addEtapa(idNuevo, nombre, fechaInicio, FechaFin);
-            this.refescarGrafico();
-        }
+//        // COMO NO TENGO EL ID DE LA ETAPA, TENGO Q GUARDARLA
+//        int idNuevo = gestor.crearEtapa(nombre, fechaInicio, FechaFin);
+//        if(idNuevo!=0)
+//        {
+//            if(nombre==null)
+//            {
+//                nombre = "Nueva Etapa";
+//            }
+//            _gantt.addEtapa(idNuevo, nombre, fechaInicio, FechaFin);
+//            this.refescarGrafico();
+//        }
         
     }
 
@@ -1229,7 +1229,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     public void modificarViaticos(int cantEmp, int cantDias, double monto) throws Exception
     {
-        gestor.modificarViaticos(cantEmp, cantDias, monto);
+//        gestor.modificarViaticos(cantEmp, cantDias, monto);
     }
 
     public void mostrarDatosObra(int idObra,String nombre,String planta)
@@ -1246,29 +1246,29 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
     public void amplioTareaIzquierda(int idEtapa, Date fechaInicioNueva)
     {
-        gestor.cambiarFechaInicioEtapa(idEtapa, fechaInicioNueva);
-        gestor.mostrarDatosEtapa(idEtapa);
+//        gestor.cambiarFechaInicioEtapa(idEtapa, fechaInicioNueva);
+//        gestor.mostrarDatosEtapa(idEtapa);
     }
 
     public void muevoTarea(int idEtapa, Date fechaInicio)
     {
-        gestor.muevoTarea(idEtapa, fechaInicio);
-        gestor.mostrarDatosEtapa(idEtapa);
+//        gestor.muevoTarea(idEtapa, fechaInicio);
+//        gestor.mostrarDatosEtapa(idEtapa);
     }
 
     public void amplioTareaDerecha(int idEtapa, Date fechaFinNueva)
     {
-        gestor.cambiarFechaFinEtapa(idEtapa, fechaFinNueva);
-        gestor.mostrarDatosEtapa(idEtapa);
+//        gestor.cambiarFechaFinEtapa(idEtapa, fechaFinNueva);
+//        gestor.mostrarDatosEtapa(idEtapa);
     }
 
     public void mostrarDatosEtapa(int idEtapa)
     {
-        gestor.mostrarDatosEtapa(idEtapa);
+//        gestor.mostrarDatosEtapa(idEtapa);
 
-        pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa(idEtapa,idPresupuesto);
-        SwingPanel.getInstance().addWindow(pre);
-        pre.setVisible(true);
+//        pantallaRegistrarEtapa pre = new pantallaRegistrarEtapa(idEtapa,idPresupuesto);
+//        SwingPanel.getInstance().addWindow(pre);
+//        pre.setVisible(true);
 
         mostrarListadoTareas(idEtapa);
         mostrarListadoMateriales(idEtapa);
@@ -1307,7 +1307,7 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         private void mostrarTotales()
         {
-            gestor.mostrarTotales();
+//            gestor.mostrarTotales();
         }
 
 
@@ -1318,48 +1318,48 @@ public class pantallaRegistrarPresupuesto extends javax.swing.JInternalFrame imp
 
         private void mostrarListadoTareas(int idEtapa)
         {
-            DefaultTableModel modelo =(DefaultTableModel)tablaListaTareas.getModel();
-            TablaUtil.vaciarDefaultTableModel(modelo);
-            ArrayList<NTupla> lista = gestor.getListadoTareas(idEtapa);
-            Iterator<NTupla> it = lista.iterator();
-            while (it.hasNext())
-            {
-                NTupla nTupla = it.next();
-                Object[] fila = new Object[1];
-                fila[0] = nTupla;
-                modelo.addRow(fila);
-            }
+//            DefaultTableModel modelo =(DefaultTableModel)tablaListaTareas.getModel();
+//            TablaUtil.vaciarDefaultTableModel(modelo);
+//            ArrayList<NTupla> lista = gestor.getListadoTareas(idEtapa);
+//            Iterator<NTupla> it = lista.iterator();
+//            while (it.hasNext())
+//            {
+//                NTupla nTupla = it.next();
+//                Object[] fila = new Object[1];
+//                fila[0] = nTupla;
+//                modelo.addRow(fila);
+//            }
         }
 
         private void mostrarListadoMateriales(int idEtapa)
         {
-            DefaultTableModel modelo =(DefaultTableModel)tablaListaMateriales.getModel();
-            TablaUtil.vaciarDefaultTableModel(modelo);
-            ArrayList<NTupla> lista = gestor.getListadoMateriales(idEtapa);
-            Iterator<NTupla> it = lista.iterator();
-            while (it.hasNext())
-            {
-                NTupla nTupla = it.next();
-                Object[] fila = new Object[2];
-                fila[0] = nTupla;
-                fila[1] = (String) nTupla.getData();
-                modelo.addRow(fila);
-            }
+//            DefaultTableModel modelo =(DefaultTableModel)tablaListaMateriales.getModel();
+//            TablaUtil.vaciarDefaultTableModel(modelo);
+//            ArrayList<NTupla> lista = gestor.getListadoMateriales(idEtapa);
+//            Iterator<NTupla> it = lista.iterator();
+//            while (it.hasNext())
+//            {
+//                NTupla nTupla = it.next();
+//                Object[] fila = new Object[2];
+//                fila[0] = nTupla;
+//                fila[1] = (String) nTupla.getData();
+//                modelo.addRow(fila);
+//            }
         }
 
         private void mostrarListadoHerramientas(int idEtapa)
         {
-            DefaultTableModel modelo =(DefaultTableModel)tablaListaHerramientas.getModel();
-            TablaUtil.vaciarDefaultTableModel(modelo);
-            ArrayList<NTupla> lista = gestor.getListadoHerramientas(idEtapa);
-            Iterator<NTupla> it = lista.iterator();
-            while (it.hasNext())
-            {
-                NTupla nTupla = it.next();
-                Object[] fila = new Object[2];
-                fila[0] = nTupla;
-                modelo.addRow(fila);
-            }
+//            DefaultTableModel modelo =(DefaultTableModel)tablaListaHerramientas.getModel();
+//            TablaUtil.vaciarDefaultTableModel(modelo);
+//            ArrayList<NTupla> lista = gestor.getListadoHerramientas(idEtapa);
+//            Iterator<NTupla> it = lista.iterator();
+//            while (it.hasNext())
+//            {
+//                NTupla nTupla = it.next();
+//                Object[] fila = new Object[2];
+//                fila[0] = nTupla;
+//                modelo.addRow(fila);
+//            }
         }
 
 

@@ -8,14 +8,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import modelo.Alojamiento;
-import modelo.Consumible;
-import modelo.Herramienta;
-import modelo.Indumentaria;
-import modelo.Material;
 import modelo.Rubro;
-import modelo.Transporte;
-import modelo.Viatico;
 import org.hibernate.Session;
 
 /**

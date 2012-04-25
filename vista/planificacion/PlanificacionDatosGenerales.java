@@ -51,9 +51,10 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         dcFechaFin = new com.toedter.calendar.JDateChooser();
         cmbTipoTarea = new javax.swing.JComboBox();
+        jSpinner1 = new javax.swing.JSpinner();
 
         txtObservaciones.setColumns(20);
-        txtObservaciones.setFont(new java.awt.Font("Verdana", 0, 10));
+        txtObservaciones.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         txtObservaciones.setLineWrap(true);
         txtObservaciones.setRows(5);
         txtObservaciones.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -63,7 +64,7 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(txtObservaciones);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Nombre:");
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -72,13 +73,13 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Observaciones");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Tipo:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Fecha de Inicio:");
 
         dcFechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,7 +93,7 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Fecha de Fin:");
 
         dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -122,7 +123,10 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbTipoTarea, 0, 329, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbTipoTarea, 0, 284, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -144,7 +148,8 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbTipoTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipoTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -194,6 +199,7 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
