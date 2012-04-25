@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import modelo.Barrio;
 import modelo.Empleado;
 import modelo.Domicilio;
-import modelo.Criticidad;
 import modelo.RangoEspecialidad;
 import modelo.TipoEspecialidad;
 import modelo.Especialidad;
@@ -30,9 +29,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import modelo.*;
 import util.LogUtil;
 import util.RubroUtil;
@@ -131,21 +127,10 @@ public class DBExamplesLoader {
         Rubro r5 = new Rubro(5,"Transporte De Materiales y Herramientas","TransporteDeMaterialesYHerramientas");
         Rubro r6 = new Rubro(6,"Transporte De Pasajeros","TransporteDePasajeros");
         Rubro r7 = new Rubro(7,"Alojamiento","Alojamiento");
-        Criticidad c1= new Criticidad();
-        c1.setNivel(1);
-        c1.setNombre("Poco importante");
-        Criticidad c2= new Criticidad();
-        c2.setNivel(2);
-        c2.setNombre("Importancia Media");
-        Criticidad c3= new Criticidad();
-        c3.setNivel(3);
-        c3.setNombre("Importante");
+
 
 
         sesion.beginTransaction();
-        sesion.save(c1);
-        sesion.save(c2);
-        sesion.save(c3);
         sesion.save(r1);
         sesion.save(r2);
         sesion.save(r3);
@@ -920,143 +905,6 @@ public class DBExamplesLoader {
         sesion.getTransaction().commit();
     }
 
-    public void cargarPresupuestoDeEjemplo(){
-        try{
-            Presupuesto p = new Presupuesto();
-            p.setFechaEstimadaFinObra(new Date());
-            p.setFechaEstimadaInicioObra(new Date());
-            p.setIVA((float)0.21);
-            p.setPorcConsumibles((float)0.05);
-            p.setVersion("0.1");
-
-            /*******************************************************************
-             *                          ETAPA 1
-             * *****************************************************************
-             */
-
-            Etapa e1 = new Etapa();
-            e1.setNombre("PREPARAR LA PIEZA");
-            e1.setDescripcion("Se realizan las compras y se acondiciona el lugar de construcciÃ³n");
-            e1.setFechaInicio(new Date());
-            e1.setFechaInicio(new Date());
-            e1.setDuracion("MUCHO TIEMPO");
-            e1.setNivelDeCriticidad(5);
-            e1.setUbicacion("CÃ³rdoba");
-
-            Tarea t1 = new Tarea();
-            t1.setDescripcion("MUY DIFICIL");
-            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
-
-            List<DetalleMaterial> materiales1 = new ArrayList<DetalleMaterial>();
-            RecursoXProveedor rxp1 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
-            DetalleMaterial dm1 = new DetalleMaterial();
-            dm1.setCantidad(44);
-            dm1.setDescripcion("PROBANDO");
-            dm1.setMaterial(rxp1);
-            materiales1.add(dm1);
-            HibernateUtil.beginTransaction();
-            HibernateUtil.getSession().saveOrUpdate(dm1);
-
-            t1.setDetallesMaterial(materiales1);
-//            GrupoDeTrabajo gt1 = new GrupoDeTrabajo();
-//            HibernateUtil.getSession().save(gt1);
-//            ArrayList<GrupoDeTrabajo> gts1 = new ArrayList<GrupoDeTrabajo>();
-//            t1.setGrupos(gts1);
-//            ArrayList<HerramientaDeEmpresa> herramientras1 = new ArrayList<HerramientaDeEmpresa>();
-//            t1.setHerramientas(herramientras1);
-            t1.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
-
-            HibernateUtil.getSession().save(t1);
-            e1.getTareas().add(t1);
-            HibernateUtil.getSession().saveOrUpdate(e1);
-            HibernateUtil.commitTransaction();
-
-            Tarea t2 = new Tarea();
-            t2.setDescripcion("TAREA 2");
-            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
-
-            List<DetalleMaterial> materiales2 = new ArrayList<DetalleMaterial>();
-            RecursoXProveedor rxp2 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 1);
-            DetalleMaterial dm2 = new DetalleMaterial();
-            dm2.setCantidad(100);
-            dm2.setDescripcion("DETALLE AMTERIAL 2");
-            dm2.setMaterial(rxp2);
-            materiales2.add(dm2);
-            HibernateUtil.beginTransaction();
-            HibernateUtil.getSession().saveOrUpdate(dm2);
-
-            t2.setDetallesMaterial(materiales2);
-//            GrupoDeTrabajo gt2 = new GrupoDeTrabajo();
-//            HibernateUtil.getSession().save(gt2);
-//            ArrayList<GrupoDeTrabajo> gts2 = new ArrayList<GrupoDeTrabajo>();
-//            t2.setGrupos(gts2);
-//            ArrayList<HerramientaDeEmpresa> herramientras2 = new ArrayList<HerramientaDeEmpresa>();
-//            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().load(HerramientaDeEmpresa.class, 2);
-//            HerramientaDeEmpresa he = (HerramientaDeEmpresa)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa WHERE id=:idH").setParameter("idH", 2).uniqueResult();
-//            herramientras2.add(he);
-//            t2.setHerramientas(herramientras2);
-//            t2.getHerramientas().add(he);
-            t2.setUbicacion("ALGUN LUGAR DE PENSILVANIA");
-
-            HibernateUtil.getSession().saveOrUpdate(t2);
-            e1.getTareas().add(t2);
-            HibernateUtil.getSession().saveOrUpdate(e1);
-            p.getEtapas().add(e1);
-            HibernateUtil.getSession().saveOrUpdate(p);
-            HibernateUtil.commitTransaction();
-
-            /*******************************************************************
-             *                          ETAPA 2
-             * *****************************************************************
-             */
-
-            Etapa e2 = new Etapa();
-            e2.setNombre("CONSTRUIR");
-            e2.setDescripcion("Se sueldan y arman las piezas");
-            e2.setFechaInicio(new Date());
-            e2.setFechaInicio(new Date());
-            e2.setDuracion("BASTANTE TIEMPO");
-            e2.setNivelDeCriticidad(10);
-            e2.setUbicacion("CÃ³rdoba");
-
-            Tarea t3 = new Tarea();
-            t3.setDescripcion("SOLDANDO");
-            //t.setDetallesConsumible(new ArrayList<DetalleConsumible>());
-
-            List<DetalleMaterial> materiales3 = new ArrayList<DetalleMaterial>();
-            RecursoXProveedor rxp3 = (RecursoXProveedor)HibernateUtil.getSession().load(RecursoXProveedor.class, 2);
-            DetalleMaterial dm3 = new DetalleMaterial();
-            dm3.setCantidad(21);
-            dm3.setDescripcion("MATERIAL EXTRAÃ‘O");
-            dm3.setMaterial(rxp3);
-            materiales3.add(dm3);
-            HibernateUtil.beginTransaction();
-            HibernateUtil.getSession().saveOrUpdate(dm3);
-
-            t3.setDetallesMaterial(materiales3);
-//            GrupoDeTrabajo gt3 = new GrupoDeTrabajo();
-//            HibernateUtil.getSession().save(gt3);
-//            ArrayList<GrupoDeTrabajo> gts3 = new ArrayList<GrupoDeTrabajo>();
-//            t3.setGrupos(gts3);
-//            ArrayList<HerramientaDeEmpresa> herramientras3 = new ArrayList<HerramientaDeEmpresa>();
-//            t3.setHerramientas(herramientras3);
-            t3.setUbicacion("TALLERES DE LA EMPRESA");
-
-            HibernateUtil.getSession().save(t3);
-            e2.getTareas().add(t3);
-            HibernateUtil.getSession().saveOrUpdate(e2);
-
-            p.getEtapas().add(e2);
-            HibernateUtil.getSession().saveOrUpdate(p);
-            HibernateUtil.commitTransaction();
-
-        }
-        catch(Exception ex){
-            System.out.println(ex.getCause().toString());
-            HibernateUtil.rollbackTransaction();
-        }
-    }
-
     private void cargarCotizacionEjemplo() {
         try {
             PedidoObra po = new PedidoObra();
@@ -1428,12 +1276,12 @@ public class DBExamplesLoader {
                 fechaInicioTarea.setTime(PO.getFechaInicio());
                 Iterator<SubObra> itSubObraMod = cotMod.getSubObras().iterator();
                 ArrayList<TareaPlanificacion> tareas = new ArrayList<TareaPlanificacion>();
-                /*while(itSubObraMod.hasNext()){
-                    SubObraModificada subObraModificada = itSubObraMod.next();
+                while(itSubObraMod.hasNext()){
+                    SubObra subObraModificada = itSubObraMod.next();
                     
-                    Iterator<SubObraXTareaModif> itSOXTM = subObraModificada.getTareas().iterator();
+                    Iterator<SubObraXTarea> itSOXTM = subObraModificada.getTareas().iterator();
                     while(itSOXTM.hasNext()){
-                        SubObraXTareaModif soxtm = itSOXTM.next();
+                        SubObraXTareaModif soxtm = (SubObraXTareaModif)itSOXTM.next();
                         TareaPlanificacion tarea = new TareaPlanificacion();
                         tarea.setTareaCotizada(soxtm); // by Iuga -> Checkear
                         tarea.setNombre(soxtm.getNombre());
@@ -1463,7 +1311,7 @@ public class DBExamplesLoader {
                         tareas.add(tarea);
                         HibernateUtil.getSession().saveOrUpdate(tarea);
                     }
-                }*/
+                }
                 planificacion.setTareas(tareas);
                 HibernateUtil.getSession().saveOrUpdate(planificacion);
                 HibernateUtil.getSession().saveOrUpdate(PO);
