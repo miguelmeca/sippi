@@ -19,12 +19,6 @@
       <key column="ID_HERRAMIENTA"/>
       <property column="ESTADO" name="estado" type="string"/>
     </joined-subclass>
-    <joined-subclass name="modelo.Consumible" table="CONSUMIBLE">
-      <key column="ID_CONSUMIBLE"/>
-    </joined-subclass>
-    <joined-subclass name="modelo.Viatico" table="Viaticos">
-      <key column="ID_VIATICO"/>
-    </joined-subclass>
     <joined-subclass name="modelo.Indumentaria" table="Indumentarias">
       <key column="ID_INDUMENTARIA"/>
       <many-to-one class="modelo.Talle" column="ID_TALLE" name="talle"/>
