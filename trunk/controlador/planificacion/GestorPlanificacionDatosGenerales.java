@@ -64,7 +64,7 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void actualizarTipoTarea(String tipoTarea) {
         try {
-            TipoTarea tt = (TipoTarea) HibernateUtil.getSession().createQuery("FROM TipoTarea WHERE nombre = "+tipoTarea);
+            TipoTarea tt = (TipoTarea) HibernateUtil.getSession().createQuery("FROM TipoTarea WHERE nombre = :tipoTarea").setParameter("tipoTarea", tipoTarea).uniqueResult();
             this.getTareaActual().setTipoTarea(tt);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacionDatosGenerales.class.getName()).log(Level.SEVERE, null, ex);

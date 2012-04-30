@@ -7,7 +7,8 @@ package controlador.planificacion;
 
 
 import java.util.Iterator;
-import modelo.*;
+import modelo.PlanificacionXXX;
+import modelo.TareaPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
 
 /**
@@ -16,7 +17,6 @@ import vista.planificacion.PantallaEditarTarea;
  */
 public class GestorEditarTarea implements IGestorPlanificacion{
     private PantallaEditarTarea pantalla;
-
     private TareaPlanificacion tarea;
 
     // GESTORES
@@ -58,13 +58,6 @@ public class GestorEditarTarea implements IGestorPlanificacion{
         if(idTarea != 0) // Si se trata de modificar una existente
         {
             this.tarea = gestorPadre.getPlanificacion().buscarTarea(idTarea);
-//            try {
-//                HibernateUtil.getSession().beginTransaction();
-//                this.tarea = (TareaPlanificacion) HibernateUtil.getSession().load(TareaPlanificacion.class,idTarea);
-//                HibernateUtil.getSession().getTransaction().commit();
-//            } catch (Exception ex) {
-//                System.err.println("Error al intentar cargar la Tarea! Msg:"+ex.getMessage());
-//            }
         }
         else // Si se trata de una tarea nueva
         {
@@ -149,9 +142,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     public void guardarCambios() 
     {
         if(gestorTareaPadre == null){
-            this.guardarTareaRecursiva(this.tarea);
-            //this.gestorPadre.refrescarPantallas();
-            this.pantalla.actualizarPantallas();
+            this.gestorPadre.refrescarPantallas();
             this.pantalla.setVisible(false);
         }
         else
@@ -174,75 +165,16 @@ public class GestorEditarTarea implements IGestorPlanificacion{
                 this.gestorTareaPadre.getTareaActual().addSubTarea(tarea);
             }
         }
-    }
-    
-    public void guardarTareaRecursiva(TareaPlanificacion tareaR)
-    {
-//        TODO ESTO ESTA MAL, NO TIENE QUE GUARDAR EN DB, SOLO EN MEMORIA !!!
-//        OJO CON ESTO !
-//        try {
-//            if(tareaR.getAlquilerCompras() != null)
-//            {
-//                Iterator<PlanificacionXAlquilerCompra> itAlquilerCompra = tareaR.getAlquilerCompras().iterator();
-//                while(itAlquilerCompra.hasNext())
-//                {
-//                    PlanificacionXAlquilerCompra pac = itAlquilerCompra.next();
-//                    HibernateUtil.getSession().saveOrUpdate(pac.getAlquilerCompraCotizacion());
-//                    HibernateUtil.getSession().saveOrUpdate(pac);
-//                }
-//            }
-//            if(tareaR.getHerramientas() != null)
-//            {
-//                Iterator<PlanificacionXHerramienta> itHerramienta = tareaR.getHerramientas().iterator();
-//                while(itHerramienta.hasNext())
-//                {
-//                    PlanificacionXHerramienta ph = itHerramienta.next();
-//                    HibernateUtil.getSession().saveOrUpdate(ph.getHerramientaCotizacion());
-//                    HibernateUtil.getSession().saveOrUpdate(ph);
-//                }
-//            }
-//            if(tareaR.getMateriales() != null)
-//            {
-//                Iterator<PlanificacionXMaterial> itMaterial = tareaR.getMateriales().iterator();
-//                while(itMaterial.hasNext())
-//                {
-//                    PlanificacionXMaterial pm = itMaterial.next();
-//                    HibernateUtil.getSession().saveOrUpdate(pm.getMaterialCotizacion());
-//                    HibernateUtil.getSession().saveOrUpdate(pm);
-//                }
-//            }
-//            if(tareaR.getAsignacionesEmpleados() != null)
-//            {
-//                Iterator<AsignacionEmpleadoPlanificacion> itAsignaciones = tareaR.getAsignacionesEmpleados().iterator();
-//                while(itAsignaciones.hasNext())
-//                {
-//                    AsignacionEmpleadoPlanificacion aep = itAsignaciones.next();
-//                    HibernateUtil.getSession().saveOrUpdate(aep.getAsignacionTareaCotizacion());
-//                    HibernateUtil.getSession().saveOrUpdate(aep);
-//                }
-//            }
-//            if(tareaR.getSubtareas() != null)
-//            {
-//                Iterator<TareaPlanificacion> itSubTareas = tareaR.getSubtareas().iterator();
-//                while(itSubTareas.hasNext())
-//                {
-//                    TareaPlanificacion tp = itSubTareas.next();
-//                    this.guardarTareaRecursiva(tp);
-//                }
-//            }
-//            HibernateUtil.getSession().saveOrUpdate(tareaR);
-//        } catch (Exception ex) {
-//            Logger.getLogger(GestorEditarTarea.class.getName()).log(Level.SEVERE, null, ex);
-//        }   
+        gestorPadre.cerrarVentanaEditarTarea(tarea.hashCode());
     }
 
     public GestorEditarPlanificacion getGestorPadre() {
         return gestorPadre;
     }
 
-    public void agregarSubTarea() {
-        this.gestorTareaPadre.getTareaActual().addSubTarea(tarea);
-    }
+//    public void agregarSubTarea() {
+//        this.gestorTareaPadre.getTareaActual().addSubTarea(tarea);
+//    }
 
     public boolean eliminarComoSubTarea(StringBuilder mensaje) {
         System.out.println("[DEBUG] Eliminar como SubTarea");
@@ -266,7 +198,5 @@ public class GestorEditarTarea implements IGestorPlanificacion{
             mensaje.append("Esta tarea no puede eliminarse\nCompruebe que no tiene SubTareas cargadas");
             return false;
         }
-    }
-    
-    
+    }   
 }
