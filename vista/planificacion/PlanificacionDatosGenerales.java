@@ -51,7 +51,6 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         dcFechaFin = new com.toedter.calendar.JDateChooser();
         cmbTipoTarea = new javax.swing.JComboBox();
-        jSpinner1 = new javax.swing.JSpinner();
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
@@ -82,11 +81,6 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Fecha de Inicio:");
 
-        dcFechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                dcFechaInicioMousePressed(evt);
-            }
-        });
         dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 dcFechaInicioFocusLost(evt);
@@ -123,11 +117,8 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbTipoTarea, 0, 284, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                            .addComponent(cmbTipoTarea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,8 +139,7 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cmbTipoTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipoTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,10 +174,6 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         gestor.actualizarFechaFin(dcFechaFin.getDate());
     }//GEN-LAST:event_dcFechaFinFocusLost
 
-    private void dcFechaInicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dcFechaInicioMousePressed
-        gestor.actualizarFechaInicio(dcFechaInicio.getDate());
-    }//GEN-LAST:event_dcFechaInicioMousePressed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbTipoTarea;
@@ -199,7 +185,6 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables

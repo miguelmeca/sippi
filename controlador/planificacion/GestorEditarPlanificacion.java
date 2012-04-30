@@ -7,8 +7,11 @@ package controlador.planificacion;
 
 import config.Iconos;
 import controlador.GestorAbstracto;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import java.awt.Point;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -619,7 +622,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     @Override
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void tareaCambioFecha(int id, Date date) {
@@ -719,5 +722,85 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             this.planificacion.getCotizacion().getSubObras().add(nuevaso);
             _pantalla.actualizar(0, "", true);
         }
+    }
+
+    public void guardarPlanificacion() {
+        try
+        {
+            HibernateUtil.beginTransaction();
+            sesion = HibernateUtil.getSession();
+            GestorEditarCotizacionModificada.guardarCotizacion(planificacion.getCotizacion(), sesion);
+            Iterator<TareaPlanificacion> itT = planificacion.getTareas().iterator();
+            while(itT.hasNext())
+            {
+                TareaPlanificacion tarea = itT.next();
+                this.guardarTareaRecursiva(tarea);
+            }
+            sesion.save(this.planificacion);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            mostrarMensajeError("No se pudo guardar la Planificación.\nDescripción: "+e.getMessage());
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+    
+     public void guardarTareaRecursiva(TareaPlanificacion tareaR) throws Exception
+    {    
+        if(tareaR.getAlquilerCompras() != null)
+        {
+            Iterator<PlanificacionXAlquilerCompra> itAlquilerCompra = tareaR.getAlquilerCompras().iterator();
+            while(itAlquilerCompra.hasNext())
+            {
+                PlanificacionXAlquilerCompra pac = itAlquilerCompra.next();
+                HibernateUtil.getSession().saveOrUpdate(pac.getAlquilerCompraCotizacion());
+                HibernateUtil.getSession().saveOrUpdate(pac);
+            }
+        }
+        if(tareaR.getHerramientas() != null)
+        {
+            Iterator<PlanificacionXHerramienta> itHerramienta = tareaR.getHerramientas().iterator();
+            while(itHerramienta.hasNext())
+            {
+                PlanificacionXHerramienta ph = itHerramienta.next();
+                HibernateUtil.getSession().saveOrUpdate(ph.getHerramientaCotizacion());
+                HibernateUtil.getSession().saveOrUpdate(ph);
+            }
+        }
+        if(tareaR.getMateriales() != null)
+        {
+            Iterator<PlanificacionXMaterial> itMaterial = tareaR.getMateriales().iterator();
+            while(itMaterial.hasNext())
+            {
+                PlanificacionXMaterial pm = itMaterial.next();
+                HibernateUtil.getSession().saveOrUpdate(pm.getMaterialCotizacion());
+                HibernateUtil.getSession().saveOrUpdate(pm);
+            }
+        }
+        if(tareaR.getAsignacionesEmpleados() != null)
+        {
+            Iterator<AsignacionEmpleadoPlanificacion> itAsignaciones = tareaR.getAsignacionesEmpleados().iterator();
+            while(itAsignaciones.hasNext())
+            {
+                AsignacionEmpleadoPlanificacion aep = itAsignaciones.next();
+                HibernateUtil.getSession().saveOrUpdate(aep.getAsignacionTareaCotizacion());
+                HibernateUtil.getSession().saveOrUpdate(aep);
+            }
+        }
+        if(tareaR.getSubtareas() != null)
+        {
+            Iterator<TareaPlanificacion> itSubTareas = tareaR.getSubtareas().iterator();
+            while(itSubTareas.hasNext())
+            {
+                TareaPlanificacion tp = itSubTareas.next();
+                this.guardarTareaRecursiva(tp);
+            }
+        }
+        HibernateUtil.getSession().saveOrUpdate(tareaR);  
+    }
+
+    void cerrarVentanaEditarTarea(Object key) {
+        this._pantalla.cerrarVentanaEditarTarea(key);
     }
 }

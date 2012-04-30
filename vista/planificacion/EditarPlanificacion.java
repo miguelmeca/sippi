@@ -837,7 +837,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -899,9 +899,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void menuNuevaEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNuevaEtapaActionPerformed
        
@@ -1027,6 +1024,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             JOptionPane.showMessageDialog(this, "Seleccione una SubObra para eliminar", "Atencion!", JOptionPane.QUESTION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarSubObraActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        _gestor.guardarPlanificacion();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
@@ -1254,6 +1255,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
     public void setDescripcionPlanificacion(String descripcion) {
         txtDescripcionGeneral.setText(descripcion);
+    }
+
+    public void cerrarVentanaEditarTarea(Object key) {
+        this.ventanasEditarTareasAbiertas.remove(key);
     }
 
     /**
