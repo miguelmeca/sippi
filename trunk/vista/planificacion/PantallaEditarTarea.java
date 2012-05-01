@@ -219,6 +219,12 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
                 panel.setViewportView(pst);
                 pst.setVisible(true);
                 break;
+            case OPTN_HERRAMIENTAS:
+                setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
+                PlanificacionHerramientas h = new PlanificacionHerramientas(gestor.getGestorHerramientas());
+                panel.setViewportView(h);
+                h.setVisible(true);
+                break;                
 //            case OPTN_MATERIALES:
 //                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
 //                VentanaPlanificacionMateriales cm = new VentanaPlanificacionMateriales(gestor.getGestorMateriales());
@@ -237,12 +243,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
 //                panel.setViewportView(mo);
 //                mo.setVisible(true);
 //                break;
-//            case OPTN_HERRAMIENTAS:
-//                setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
-//                VentanaPlanificacionHerramientas h = new VentanaPlanificacionHerramientas(gestor.getGestorHerramientas());
-//                panel.setViewportView(h);
-//                h.setVisible(true);
-//                break;
+
             default:
                 setNombrePanel(modelo.getValueAt(OPTN_DATOSGRALES, 0).toString());
                 PlanificacionDatosGenerales pdg2 = new PlanificacionDatosGenerales(gestor.getGestorDatosGenerales());
