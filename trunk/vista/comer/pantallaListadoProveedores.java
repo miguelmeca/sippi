@@ -37,6 +37,13 @@ public class pantallaListadoProveedores extends PantallaConsultarGenerica{
             columnas.add(new String[]{"mostrarEstado","Estado"});
             
         return columnas;
-    }    
+    }
+
+    @Override
+    protected String[] getColumnasFiltro() {
+        return new String[]{"Rubros","Estado"};
+    }
+    
+    
     
 }

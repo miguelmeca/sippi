@@ -35,5 +35,9 @@ public class pantallaConsultarHerramientas extends PantallaConsultarGenerica{
         return columnas;
     }    
     
+    @Override
+    protected String[] getColumnasFiltro() {
+        return new String[]{"Estado"};
+    }    
     
 }
