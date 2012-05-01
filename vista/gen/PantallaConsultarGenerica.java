@@ -11,11 +11,12 @@
 
 package vista.gen;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.ImageIcon;
+import java.util.Map;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -64,7 +65,18 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     
     private void habilitarVentana()
     {
-        cargarDatosIniciales();        
+        cargarDatosIniciales();
+        cmbColumna.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXX");
+        cmbColumnavalor.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXX");
+        if(getColumnasFiltro()!=null && getColumnasFiltro().length!=0)
+        {
+            mostrarFiltrosColumna(true);   
+            cargarFiltrosColumna();
+        }
+        else
+        {
+            mostrarFiltrosColumna(false);
+        }
     }
 
     private void cargarDatosIniciales()
@@ -168,36 +180,28 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtBuscar = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
         lblCantResultados = new javax.swing.JLabel();
-        btnRefrescar = new javax.swing.JButton();
         btnSeleccionar = new javax.swing.JButton();
         btnVerDetalles = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnRefrescar = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jLabel1 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        jToolBar2 = new javax.swing.JToolBar();
+        txtFiltro = new javax.swing.JLabel();
+        txtFiltroColumna = new javax.swing.JLabel();
+        cmbColumna = new javax.swing.JComboBox();
+        txtFiltroValor = new javax.swing.JLabel();
+        cmbColumnavalor = new javax.swing.JComboBox();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar ...");
-
-        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
-        txtBuscar.setText("Buscar...");
-        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBuscarMouseClicked(evt);
-            }
-        });
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyPressed(evt);
-            }
-        });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
         tblLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -226,14 +230,6 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         lblCantResultados.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         lblCantResultados.setText("Cantidad: ");
 
-        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/refresh.png"))); // NOI18N
-        btnRefrescar.setToolTipText("Refrescar");
-        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefrescarActionPerformed(evt);
-            }
-        });
-
         btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnSeleccionar.setText("Cerrar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +254,71 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             }
         });
 
+        jToolBar1.setRollover(true);
+
+        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/refresh.png"))); // NOI18N
+        btnRefrescar.setText("Actualizar");
+        btnRefrescar.setToolTipText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnRefrescar);
+        jToolBar1.add(jSeparator3);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        jToolBar1.add(jLabel1);
+
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.setMaximumSize(new java.awt.Dimension(300, 2147483647));
+        txtBuscar.setMinimumSize(new java.awt.Dimension(300, 20));
+        txtBuscar.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
+        jToolBar1.add(txtBuscar);
+
+        jToolBar2.setRollover(true);
+
+        txtFiltro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtFiltro.setText("  Fltro:");
+        txtFiltro.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jToolBar2.add(txtFiltro);
+
+        txtFiltroColumna.setText("  Columna:  ");
+        jToolBar2.add(txtFiltroColumna);
+
+        cmbColumna.setMinimumSize(new java.awt.Dimension(150, 18));
+        cmbColumna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbColumnaActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(cmbColumna);
+
+        txtFiltroValor.setText("  Valor:  ");
+        jToolBar2.add(txtFiltroValor);
+
+        cmbColumnavalor.setMinimumSize(new java.awt.Dimension(150, 18));
+        cmbColumnavalor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbColumnavalorActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(cmbColumnavalor);
+
+        jToolBar1.add(jToolBar2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,34 +326,24 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                        .addComponent(lblCantResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                         .addGap(133, 133, 133)
                         .addComponent(btnImprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVerDetalles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSeleccionar)))
+                        .addComponent(btnSeleccionar))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(btnRefrescar))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)
@@ -407,6 +458,53 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    private void cmbColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbColumnaActionPerformed
+        // Saco el valor del elemento seleccionado
+        String valor = (String) cmbColumna.getItemAt(cmbColumna.getSelectedIndex());
+        if(valor!=null && !valor.isEmpty())
+        {
+            cargarFiltrosValorColumna(valor);
+        }
+        else
+        {
+            // Limpio el otro combo
+           cmbColumnavalor.removeAllItems();
+           cmbColumnavalor.addItem("");
+           cmbColumnavalor.setMinimumSize(new Dimension(150,18));
+        }
+    }//GEN-LAST:event_cmbColumnaActionPerformed
+
+    private void cmbColumnavalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbColumnavalorActionPerformed
+        // Saco el valor del elemento seleccionado
+        String valor = (String) cmbColumnavalor.getItemAt(cmbColumnavalor.getSelectedIndex());
+        if(valor!=null && !valor.isEmpty())
+        {
+            // Filtro !
+           TableRowSorter<TableModel> modeloOrdenado;
+
+           modeloOrdenado = new TableRowSorter<TableModel>(tblLista.getModel());
+           tblLista.setRowSorter(modeloOrdenado);
+        
+           String[] cadena= new String[1];
+           cadena[0] = valor;
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+           
+           mostrarCantidadFilas();            
+        } 
+        else if(valor!=null && valor.isEmpty())
+        {
+            TableRowSorter<TableModel> modeloOrdenVacio = new TableRowSorter<TableModel>(tblLista.getModel());
+            tblLista.setRowSorter(modeloOrdenVacio);
+        }
+    }//GEN-LAST:event_cmbColumnavalorActionPerformed
+
     /**
      * Setea el nombre de las columnas y el correspondiente getter de la entidad
      * que los va a llenar, el formato es:
@@ -424,11 +522,19 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVerDetalles;
+    private javax.swing.JComboBox cmbColumna;
+    private javax.swing.JComboBox cmbColumnavalor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JLabel lblCantResultados;
     private javax.swing.JTable tblLista;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JLabel txtFiltro;
+    private javax.swing.JLabel txtFiltroColumna;
+    private javax.swing.JLabel txtFiltroValor;
     // End of variables declaration//GEN-END:variables
 
     private void initConfig() {
@@ -584,6 +690,19 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         tblLista.setDefaultRenderer(Object.class,new PantallaConsultarGenericaCellRenderer(getColumnColorCriteria(),getColumnas()));
     }
     
+    private int getIdColumnFromColumnName(String name)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            String actualName = modelo.getColumnName(i);
+            if(actualName.equals(name))
+            {
+                return i;
+            }
+        }        
+        return -1;
+    }
+    
     /**
      * Comportamiento del botón Imprimir
      * @param nombre
@@ -621,5 +740,74 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         this.filtroActivo = filtroActivo;
     }
     
+    protected void mostrarFiltrosColumna(boolean flag)
+    {
+        txtFiltro.setVisible(flag);
+        txtFiltroColumna.setVisible(flag);
+        txtFiltroValor.setVisible(flag);
+        cmbColumna.setVisible(flag);
+        cmbColumnavalor.setVisible(flag);
+    }
+    
+    /**
+     * Activa el filtrado por columna / valor
+     * @return 
+     */
+    protected String[] getColumnasFiltro()
+    {
+        return new String[0];
+    }
+
+    protected void cargarFiltrosColumna() {
+        // COLUMNAS !!
+        // Borro todo lo que tenga esta combo
+        cmbColumna.removeAllItems();
+        // Agrego el elemento vacio
+        // cmbColumna.addItem("");
+        // Lo lleno con los filtros activos
+        if(getColumnasFiltro()!=null && getColumnasFiltro().length>0)
+        {
+            for (int i = 0; i < getColumnasFiltro().length; i++) {
+                String item = getColumnasFiltro()[i];
+                cmbColumna.addItem(item);
+            }
+        }  
+        cmbColumnavalor.setMinimumSize(new Dimension(150,18));
+    }
+    
+    protected void cargarFiltrosValorColumna(String columna){
+        
+        // VALOR DE COLUMNAS !!
+        // Borro todo lo que tenga esta combo
+        cmbColumnavalor.removeAllItems();
+        // Agrego el elemento vacio
+        cmbColumnavalor.addItem("");        
+        // Lo lleno con los valores actuales
+        if(columna!=null && !columna.isEmpty())
+        {
+            // Armo un hashmap con todos los valores posibles
+            HashMap<String,String> valores = new HashMap<String, String>();
+            int orden = getIdColumnFromColumnName(columna);
+            if(orden!=-1)
+            {
+               // Recorro todas las filas de la columna orden
+                DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+                for (int i = 0; i < modelo.getRowCount(); i++) {
+                    String valor =((Tupla)(tblLista.getModel().getValueAt(i,orden))).getNombre();      
+                    if(valor!=null && !valor.isEmpty())
+                    {
+                        valores.put(valor, valor);
+                    }
+                }                
+            }
+            // Recorro todos los valores y los cargo al combo
+            Iterator it = valores.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry e = (Map.Entry)it.next();
+                cmbColumnavalor.addItem(e.getValue());
+            }
+        }   
+        cmbColumnavalor.setMinimumSize(new Dimension(150,18));
+    }
     
 }

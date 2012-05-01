@@ -61,6 +61,12 @@ public class ListadoCotizaciones extends PantallaConsultarGenerica{
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }
+
+    @Override
+    protected String[] getColumnasFiltro() {
+        return new String[]{"Estado"};
+    }
+    
     
     
     
