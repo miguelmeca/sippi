@@ -24,6 +24,7 @@ public class GestorPlanificacionSubTareas implements IGestorPlanificacion{
 
     GestorPlanificacionSubTareas(GestorEditarTarea gestorPadre) {
         this.gestorPadre = gestorPadre;
+        this.gestorPlanificacion = this.gestorPadre.getGestorPadre();
     }
 
     public PlanificacionXXX getPlanificacion() {

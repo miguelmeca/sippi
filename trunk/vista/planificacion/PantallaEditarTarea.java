@@ -225,12 +225,12 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
                 panel.setViewportView(h);
                 h.setVisible(true);
                 break;                
-//            case OPTN_MATERIALES:
-//                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
-//                VentanaPlanificacionMateriales cm = new VentanaPlanificacionMateriales(gestor.getGestorMateriales());
-//                panel.setViewportView(cm);
-//                cm.setVisible(true);
-//                break;
+            case OPTN_MATERIALES:
+                setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
+                PlanificacionMateriales cm = new PlanificacionMateriales(gestor.getGestorMateriales());
+                panel.setViewportView(cm);
+                cm.setVisible(true);
+                break;
 //            case OPTN_ALQUILERES_COMPRAS:
 //                setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
 //                VentanaPlanificacionAlquileresCompras cc = new VentanaPlanificacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0);
