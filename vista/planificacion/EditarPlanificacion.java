@@ -30,7 +30,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import modelo.TareaPlanificacion;
+import modelo.*;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
@@ -1306,11 +1306,32 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+p.getNombre());
+                            System.out.println("Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+p.getNombre());
+                            TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
+                            SubObraXHerramientaModif gastosMod     = _gestor.getGastosHerramientaFromHash(dataTrigger[1]);
+                            HerramientaDeEmpresa herramienta  = null;
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            
+                            if(gastosMod!=null)
+                            {
+                                herramienta = gastosMod.getHerramienta();
+                            }
+                            
+                            if(tarea!=null && gastosMod!=null && herramienta!=null && plan != null)
+                            {
+                                AsignacionHerramientasHoras winAsignacion = new AsignacionHerramientasHoras(plan,tarea,gastosMod,herramienta);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                            }
+                            else
+                            {
+                                // MEnsaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o la herramienta\nIntentelo nuevamente");
+                            }
                         }
                         
                     }

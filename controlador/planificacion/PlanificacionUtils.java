@@ -4,8 +4,11 @@
  */
 package controlador.planificacion;
 
+import java.util.ArrayList;
 import java.util.List;
+import modelo.PlanificacionXHerramienta;
 import modelo.PlanificacionXXX;
+import modelo.SubObraXHerramientaModif;
 import modelo.TareaPlanificacion;
 
 /**
@@ -76,6 +79,57 @@ public class PlanificacionUtils {
         
         // Regla X-
         return true;
+    }
+    
+    /**
+     * Busca Recursivamente y devuelve Todas las Tareas y SubTareas que haya en una planificacion
+     * @param plan
+     * @return 
+     */
+    public static ArrayList<TareaPlanificacion> getTodasTareasPlanificacion(PlanificacionXXX plan)
+    {
+        ArrayList<TareaPlanificacion> lista = new ArrayList<TareaPlanificacion>();
+        
+        for (int i = 0; i < plan.getTareas().size(); i++) {
+            TareaPlanificacion tarea = plan.getTareas().get(i);
+            getTareasRecursivas(lista, tarea);
+        }
+        
+        return lista;
+    }
+    private static void getTareasRecursivas(ArrayList<TareaPlanificacion> lista, TareaPlanificacion tarea)
+    {
+        lista.add(tarea);
+        for (int i = 0; i < tarea.getSubtareas().size(); i++) {
+            TareaPlanificacion tarearec = tarea.getSubtareas().get(i);
+            getTareasRecursivas(lista, tarearec);
+        }        
+    }
+    
+    /**
+     * Busco en todas las tareas planificadas la cantidad de horas asignadas a cierta Herramienta (SubObraxHerramienta)
+     * @param plan
+     * @param sxh
+     * @return 
+     */
+    public static int getHorasTotalesAsignadasAHerramienta(PlanificacionXXX plan, SubObraXHerramientaModif sxh)
+    {
+        int count = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getHerramientas().size(); j++) {
+                PlanificacionXHerramienta pxh = tarea.getHerramientas().get(j);
+                if(pxh!=null && pxh.getHerramientaCotizacion()!=null)
+                {
+                    if(sxh.hashCode() == pxh.getHerramientaCotizacion().hashCode())
+                    {
+                        count += pxh.getHorasAsignadas();
+                    }
+                }
+            }
+        }
+        return count;
     }
     
     

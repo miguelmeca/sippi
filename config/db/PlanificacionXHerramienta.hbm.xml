@@ -5,6 +5,9 @@
     <id column="ID_PLAN_X_HERRAMIENTA" name="id" type="integer">
       <generator class="increment"/>
     </id>
+    
+    <property column="HORAS_ASIGNADAS" name="horasAsignadas" type="integer"/>
+    
     <many-to-one class="modelo.SubObraXHerramientaModif" name="herramientaCotizacion"/>
   </class>
 </hibernate-mapping>

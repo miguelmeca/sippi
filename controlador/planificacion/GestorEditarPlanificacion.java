@@ -5,6 +5,7 @@
  */
 package controlador.planificacion;
 
+import com.hackelare.coolgantt.CoolGanttPhase;
 import config.Iconos;
 import controlador.GestorAbstracto;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
@@ -802,5 +803,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     void cerrarVentanaEditarTarea(Object key) {
         this._pantalla.cerrarVentanaEditarTarea(key);
+    }
+
+    public TareaPlanificacion getTareaPlanificacionFromTareaGantt(CoolGanttPhase p) {
+       return PlanificacionUtils.getTareaFromGantt(planificacion,p.getId());
+    }
+
+    public SubObraXHerramientaModif getGastosHerramientaFromHash(String hash) {
+        return (SubObraXHerramientaModif) planificacion.getCotizacion().getSubObraXHerramientaPorHash(Integer.parseInt(hash));
     }
 }
