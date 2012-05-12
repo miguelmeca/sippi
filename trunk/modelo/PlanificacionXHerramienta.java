@@ -14,6 +14,7 @@ package modelo;
 public class PlanificacionXHerramienta {
     private int id;
     private SubObraXHerramientaModif herramientaCotizacion;
+    private int horasAsignadas;
 
     public PlanificacionXHerramienta() {
     }
@@ -36,4 +37,14 @@ public class PlanificacionXHerramienta {
     public void setHerramientaCotizacion(SubObraXHerramientaModif herramientaCotizacion) {
         this.herramientaCotizacion = herramientaCotizacion;
     }
+
+    public int getHorasAsignadas() {
+        return horasAsignadas;
+    }
+
+    public void setHorasAsignadas(int horasAsignadas) {
+        this.horasAsignadas = horasAsignadas;
+    }
+    
+    
 }

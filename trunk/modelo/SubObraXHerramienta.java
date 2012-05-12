@@ -73,4 +73,9 @@ public class SubObraXHerramienta implements ISubtotal{
     {
         return costoXHora*cantDias*cantHoras;
     }
+    
+    public int getHorasDisponibles()
+    {
+        return cantDias*cantHoras;
+    }
 }

@@ -16,7 +16,7 @@ package modelo;
 
 public class SubObraXHerramientaModif extends SubObraXHerramienta {
     private int id;
-	private SubObraXHerramienta original;
+    private SubObraXHerramienta original;
 
     public SubObraXHerramientaModif() {
     }
@@ -35,5 +35,10 @@ public class SubObraXHerramientaModif extends SubObraXHerramienta {
 
     public void setOriginal(SubObraXHerramienta original) {
         this.original = original;
+    }
+    
+    public int getHorasDisponibles()
+    {
+        return super.getCantDias()*super.getCantHoras();
     }
 }
