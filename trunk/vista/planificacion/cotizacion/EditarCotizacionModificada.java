@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import util.TablaUtil;
 import vista.cotizacion.*;
 import vista.interfaces.ICallBack_v2;
+import vista.interfaces.ICallBack_v3;
 
 
 
@@ -30,10 +31,10 @@ public class EditarCotizacionModificada extends EditarCotizacion{
     protected static final int OPTN_ALQUILERES_COMPRAS    = 2;
     protected static final int OPTN_ADICIONALES           = 3;
     protected static final int OPTN_RRHH                  = 4;
-    private ICallBack_v2 pantallaPadre;
+    private ICallBack_v3 pantallaPadre;
     
     
-    public EditarCotizacionModificada(GestorEditarCotizacion gestor, ICallBack_v2 pantallaP) {
+    public EditarCotizacionModificada(GestorEditarCotizacion gestor, ICallBack_v3 pantallaP) {
         super(gestor);
         pantallaPadre= pantallaP;
         editarMenuLateral();
@@ -52,7 +53,7 @@ public class EditarCotizacionModificada extends EditarCotizacion{
     public void actualizar() {
         if(pantallaPadre!=null)
         {
-            pantallaPadre.actualizar(0, "",true);
+            pantallaPadre.actualizar(0, "",true,null);
         }
     }
 

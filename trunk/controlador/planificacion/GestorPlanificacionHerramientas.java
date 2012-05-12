@@ -56,7 +56,7 @@ public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
                 NTupla nt = new NTupla(herr.hashCode());
                 nt.setNombre(herr.getHerramientaCotizacion().getHerramienta().getNombre()+"("+herr.getHerramientaCotizacion().getHerramienta().getNroSerie()+")");
                 String[] datos = new String[1];
-                datos[0] = "No hecho, ni pensado";
+                datos[0] = herr.getHorasAsignadas()+" Hs.";
                 nt.setData(datos);
                 filasHerramienta.add(nt);
             }

@@ -6,27 +6,35 @@ package vista.planificacion;
 
 import controlador.planificacion.PlanificacionUtils;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import modelo.HerramientaDeEmpresa;
 import modelo.PlanificacionXXX;
 import modelo.SubObraXHerramientaModif;
 import modelo.TareaPlanificacion;
+import vista.interfaces.ICallBack_v3;
 
 /**
  * @author Administrador
  */
 public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
 
+    public static final String CALLBACK_FLAG = "CALLBACK_FLAG_ASIGNACION_HERRAMIENTAS";
+    
+    private ICallBack_v3 callback;
+    
     private TareaPlanificacion tarea;
     private HerramientaDeEmpresa herramienta;
     private SubObraXHerramientaModif gastos;
     private PlanificacionXXX plan;
     
-    public AsignacionHerramientasHoras(PlanificacionXXX plan, TareaPlanificacion tarea,SubObraXHerramientaModif gastos, HerramientaDeEmpresa herramienta) {
+    public AsignacionHerramientasHoras(ICallBack_v3 callback,PlanificacionXXX plan, TareaPlanificacion tarea,SubObraXHerramientaModif gastos, HerramientaDeEmpresa herramienta) {
         initComponents();
         this.tarea = tarea;
         this.herramienta = herramienta;
         this.gastos = gastos;
         this.plan = plan;
+        this.callback = callback;
         init();
     }
 
@@ -35,11 +43,9 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        txtHoras = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         lblHerramientaNombre = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         lblTareaNombre = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -56,20 +62,17 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Asignar Herramientas");
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Está asignando");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        txtHoras.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
         jLabel2.setText("Horas de uso a la");
 
-        jLabel3.setText("Herramienta:");
-
-        lblHerramientaNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblHerramientaNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHerramientaNombre.setText("...");
 
-        jLabel4.setText("a la Tarea:");
-
-        lblTareaNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTareaNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTareaNombre.setText("...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Información"));
@@ -80,7 +83,7 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
         lblHorasDisponibles.setForeground(new java.awt.Color(0, 153, 0));
         lblHorasDisponibles.setText("- Hs.");
 
-        jLabel7.setText("sin asignar del Total de:");
+        jLabel7.setText("de un Total disponible de :");
 
         lblHorrasTotales.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblHorrasTotales.setText("- Hs.");
@@ -105,15 +108,17 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(23, 23, 23)
-                        .addComponent(lblHorasYaAsignadas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
+                        .addComponent(lblHorasYaAsignadas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(42, 42, 42)
-                        .addComponent(lblHorrasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel9)))
+                        .addComponent(lblHorrasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(14, 14, 14))
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblHorasDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,38 +142,42 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
         );
 
         btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblHerramientaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblHerramientaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAsignar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,16 +186,12 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblHerramientaNombre))
+                .addComponent(lblHerramientaNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblTareaNombre))
+                .addComponent(lblTareaNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,30 +203,46 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        
+        SpinnerNumberModel model = (SpinnerNumberModel)txtHoras.getModel();
+        int value = model.getNumber().intValue();
+        
+        int horasYaAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(this.plan,this.gastos);
+        int horasTotal = this.gastos.getHorasDisponibles();
+        int horasCotizadas = this.gastos.getOriginal().getHorasDisponibles();
+        int horasQueQuedan = horasTotal - horasYaAsignadas;
+        
+        asignarHoras(value,horasQueQuedan,horasCotizadas,horasTotal);
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblHerramientaNombre;
     private javax.swing.JLabel lblHorasCotizadas;
     private javax.swing.JLabel lblHorasDisponibles;
     private javax.swing.JLabel lblHorasYaAsignadas;
     private javax.swing.JLabel lblHorrasTotales;
     private javax.swing.JLabel lblTareaNombre;
+    private javax.swing.JSpinner txtHoras;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        lblHerramientaNombre.setText(this.herramienta.getNombre()+" ("+this.herramienta.getNroSerie()+")");
-        lblTareaNombre.setText(this.tarea.getNombre());
+        lblHerramientaNombre.setText("<HTML>herramienta: <b>"+this.herramienta.getNombre()+"</b> ("+this.herramienta.getNroSerie()+")");
+        lblTareaNombre.setText("<HTML>a la tarea: <b>"+this.tarea.getNombre()+"</b>");
         
         int horasYaAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(this.plan,this.gastos);
         lblHorasYaAsignadas.setText(horasYaAsignadas+" Hs.");
@@ -252,4 +273,89 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
         }
         
     }
+
+    private void asignarHoras(int value , int horasQueQuedan, int horasCotizadas, int horasTotalesDisponibles) {
+  
+        int sePasoDeHoras = horasQueQuedan - value;
+        
+        if(sePasoDeHoras<0)
+        {
+            // Hoas que me pase de la cotizacion original
+            int cuantoSePasoDeCotizacionOriginal = horasTotalesDisponibles - horasCotizadas + Math.abs(sePasoDeHoras);
+            // Me pase de horas
+            StringBuilder msg = new StringBuilder("<HTML>");
+            msg.append("Está asignando ");
+            msg.append("<b><span color=\"#FF0000\">");
+            msg.append(Math.abs(sePasoDeHoras));
+                if(Math.abs(sePasoDeHoras)==1)
+                {
+                    msg.append(" Hora");
+                }
+                else
+                {
+                    msg.append(" Horas");
+                }
+            msg.append("</span></b>");
+            msg.append(" más de las que tienes disponibles");
+            msg.append("<br>");
+            msg.append("La cotización original (enviada al cliente) se excedera por ");
+            msg.append("<span color=\"#FF0000\"><b>");
+            msg.append(cuantoSePasoDeCotizacionOriginal);
+                if(cuantoSePasoDeCotizacionOriginal==1)
+                {
+                    msg.append(" Hora");
+                }
+                else
+                {
+                    msg.append(" Horas");
+                }
+            msg.append("</b></span>");
+            msg.append("<br>");
+            msg.append("¿Deseas asignar las horas a esta tarea de todas formas?");
+            msg.append("<br>");
+            msg.append("<br>");
+            msg.append("<i><b>Nota:</b></i>");
+            msg.append("<br>");
+            msg.append("<i>");
+            msg.append("Las horas asignadas a la planificación se agregarán automaticamente a los gastos de la obra");
+            msg.append("</i>");
+
+            Object[] options = {"Cancelar","Aumentar las horas y asignar"};
+            int n = JOptionPane.showInternalOptionDialog(this,msg.toString(),"Atencion!",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);            
+            System.out.println("SELECCIONO: "+n);
+            
+            if(n==1)
+            {
+                // Aumentar y Asignar
+                actualizar(value);
+            }
+            else
+            {
+                // Cancelar ... No hago nada ...
+            }            
+        }
+        else
+        {
+            // No me pase en las horas, Aumentar y asignar
+            actualizar(value);
+        }
+    }
+    
+    /**
+     * Manda el mensaje callback con los datos asociados
+     * [0] SubObraXHerramientaMod
+     * [1] TareaPlanificacion
+     * [2] cantida de horas
+     * @param value 
+     */
+    private void actualizar(int value)
+    {
+        Object[] data = new Object[3];
+        data[0] = this.gastos;
+        data[1] = this.tarea;
+        data[2] = value;
+        this.callback.actualizar(value,AsignacionHerramientasHoras.CALLBACK_FLAG,true,data);
+        this.dispose();
+    }
+    
 }

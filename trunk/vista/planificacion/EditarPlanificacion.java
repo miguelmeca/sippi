@@ -40,6 +40,7 @@ import vista.cotizacion.ExplorarSubObras;
 import vista.gui.dnd.IDropEvent;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.interfaces.ICallBack_v2;
+import vista.interfaces.ICallBack_v3;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
 
@@ -47,10 +48,12 @@ import vista.planificacion.arbolTareas.ArbolIconoRenderer;
  *
  * @author Administrador
  */
-public class EditarPlanificacion extends javax.swing.JInternalFrame implements ICallBack_v2,IPermiteCrearSubObra{
+public class EditarPlanificacion extends javax.swing.JInternalFrame implements ICallBack_v3,IPermiteCrearSubObra{
 
     public static int TEMPLATE_MODIFICACION = 0;
     public static int TEMPLATE_SOLOLECTURA  = 1;
+    
+    private ICallBack_v3 thisWindowWorkArround = this;
     
     private static final String iconoSubObra = "/res/iconos/var/16x16/Application.png";
     private static final String iconoTarea = "/res/iconos/var/16x16/calendar.png";
@@ -1261,6 +1264,41 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         this.ventanasEditarTareasAbiertas.remove(key);
     }
 
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        if(flag.equals(AsignacionHerramientasHoras.CALLBACK_FLAG))
+        {
+            // [0] SubObraXHerramientaMod
+            // [1] TareaPlanificacion
+            // [2] cantida de horas
+            SubObraXHerramientaModif soxhm = (SubObraXHerramientaModif) data[0];
+            TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+            int cantidadDeHoras = (Integer) data[2];
+            if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+            }
+        }
+        else
+        {
+            DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
+            modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
+            initTablaSubObras();
+            for (int i = 0; i < tblSubObras.getRowCount(); i++) 
+            {
+                if( Integer.parseInt(((ListaDeTareasCelda) tblSubObras.getModel().getValueAt(i,0)).getId())==hashSubObraSeleccionada)
+                {initTablaTareas(this.hashSubObraSeleccionada);
+                initArbolRecursosCotizados(hashSubObraSeleccionada);
+                }
+            }
+        }   
+    }
+
     /**
      * InnerClass para manerja el disparo de evento Drag&Drop en el Gantt
      */
@@ -1323,7 +1361,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             
                             if(tarea!=null && gastosMod!=null && herramienta!=null && plan != null)
                             {
-                                AsignacionHerramientasHoras winAsignacion = new AsignacionHerramientasHoras(plan,tarea,gastosMod,herramienta);
+                                AsignacionHerramientasHoras winAsignacion = new AsignacionHerramientasHoras(thisWindowWorkArround,plan,tarea,gastosMod,herramienta);
                                 SwingPanel.getInstance().addWindow(winAsignacion);
                                 winAsignacion.setVisible(true);
                             }
@@ -1655,21 +1693,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         
     }
     
-    
-    @Override
-    public void actualizar(int id, String flag, boolean exito) {
-        DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
-        modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
-        initTablaSubObras();
-        for (int i = 0; i < tblSubObras.getRowCount(); i++) 
-        {
-            if( Integer.parseInt(((ListaDeTareasCelda) tblSubObras.getModel().getValueAt(i,0)).getId())==hashSubObraSeleccionada)
-            {initTablaTareas(this.hashSubObraSeleccionada);
-             initArbolRecursosCotizados(hashSubObraSeleccionada);
-            }
-        }
-        
-    }
+
     
     public void crearNuevaSubObra(String nombre)
     {
