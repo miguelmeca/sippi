@@ -697,7 +697,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             if(so.hashCode()==hash_subObra)
             {
                 this.planificacion.getCotizacion().getSubObras().remove(i);
-                _pantalla.actualizar(0, "", true);
+                _pantalla.actualizar(0, "", true,null);
                 return true;
             }
         }
@@ -721,7 +721,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             SubObraModificada nuevaso = new SubObraModificada();
             nuevaso.setNombre(nombre);
             this.planificacion.getCotizacion().getSubObras().add(nuevaso);
-            _pantalla.actualizar(0, "", true);
+            _pantalla.actualizar(0, "", true,null);
         }
     }
 
@@ -811,5 +811,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     public SubObraXHerramientaModif getGastosHerramientaFromHash(String hash) {
         return (SubObraXHerramientaModif) planificacion.getCotizacion().getSubObraXHerramientaPorHash(Integer.parseInt(hash));
+    }
+
+    public boolean asignarHerramientaATarea(SubObraXHerramientaModif soxhm, TareaPlanificacion tarea, int cantidadDeHoras) {
+        PlanificacionXHerramienta pxh = new PlanificacionXHerramienta(soxhm);
+        pxh.setHorasAsignadas(cantidadDeHoras);
+        tarea.getHerramientas().add(pxh);
+        
+        // Modifico el soxhm si es necesario
+        // Hago los calculos de nuevo
+        int cantidadHorasDisponiblesPlanificacion = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(planificacion, soxhm);
+        int horasDisponibles = soxhm.getHorasDisponibles()-cantidadHorasDisponiblesPlanificacion;
+        if(horasDisponibles<0)
+        {
+            // Me paso, modifico el soxhm
+            soxhm.setCantHoras(soxhm.getCantHoras()+Math.abs(horasDisponibles));
+        }       
+        
+        return true;
     }
 }
