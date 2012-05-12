@@ -94,8 +94,8 @@ public class Trazabilidad {
                 SubObraXHerramienta subObraXHerramienta = itSubObraXHerramienta.next();
                 SubObraXHerramientaModif subObraXHerramientaModif = new SubObraXHerramientaModif();
                 subObraXHerramientaModif.setOriginal(subObraXHerramienta);
-                subObraXHerramientaModif.setCantDias(subObraXHerramienta.getCantDias());
-                subObraXHerramientaModif.setCantHoras(subObraXHerramienta.getCantDias());
+//                subObraXHerramientaModif.setCantDias(subObraXHerramienta.getCantDias());
+                subObraXHerramientaModif.setCantHoras(subObraXHerramienta.getCantHoras());
                 subObraXHerramientaModif.setHerramienta(subObraXHerramienta.getHerramienta());
                 subObraXHerramientaModif.setObservaciones(subObraXHerramienta.getObservaciones());
                 subObraXHerramientaModifs.add(subObraXHerramientaModif);

@@ -940,7 +940,7 @@ public class DBExamplesLoader {
                     // Agrego una herramienta
                     SubObraXHerramienta soxh = new SubObraXHerramienta();
                     soxh.setHerramienta((HerramientaDeEmpresa)sesion.load(HerramientaDeEmpresa.class,1));
-                    soxh.setCantDias(2);
+//                    soxh.setCantDias(2);
                     soxh.setCantHoras(8);
                     soxh.setCostoXHora(30);
                     soxh.setObservaciones("Llevar repuestos");
@@ -1186,9 +1186,9 @@ public class DBExamplesLoader {
                     SubObraXHerramienta subObraXHerramienta = itSubObraXHerramienta.next();
                     SubObraXHerramientaModif subObraXHerramientaModif = new SubObraXHerramientaModif();
                     subObraXHerramientaModif.setOriginal(subObraXHerramienta);
-                    int aleaCantDias = (int) (Math.random()*subObraXHerramienta.getCantDias() + 4);
-                    subObraXHerramientaModif.setCantDias(aleaCantDias);
-                    int aleaCantHoras = (int) (Math.random()*subObraXHerramienta.getCantDias() + 10);
+//                    int aleaCantDias = (int) (Math.random()*subObraXHerramienta.getCantDias() + 4);
+//                    subObraXHerramientaModif.setCantDias(aleaCantDias);
+                    int aleaCantHoras = (int) (Math.random()*subObraXHerramienta.getCantHoras() + 10);
                     subObraXHerramientaModif.setCantHoras(aleaCantHoras);
                     subObraXHerramientaModif.setHerramienta(subObraXHerramienta.getHerramienta());
                     subObraXHerramientaModif.setObservaciones(subObraXHerramienta.getObservaciones());

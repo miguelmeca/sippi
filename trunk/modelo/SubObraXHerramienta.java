@@ -13,16 +13,15 @@ public class SubObraXHerramienta implements ISubtotal{
     private int id;
     private HerramientaDeEmpresa herramienta;
     private String observaciones;
-    private int cantDias;
     private int cantHoras;
     private double costoXHora;
 
     public SubObraXHerramienta() {
     }
 
-    public int getCantDias() {
-        return cantDias;
-    }
+//    public int getCantDias() {
+//        return cantDias;
+//    }
 
     public int getId() {
         return id;
@@ -32,9 +31,9 @@ public class SubObraXHerramienta implements ISubtotal{
         this.id = id;
     }
 
-    public void setCantDias(int cantDias) {
-        this.cantDias = cantDias;
-    }
+//    public void setCantDias(int cantDias) {
+//        this.cantDias = cantDias;
+//    }
 
     public int getCantHoras() {
         return cantHoras;
@@ -71,11 +70,13 @@ public class SubObraXHerramienta implements ISubtotal{
     @Override
     public double calcularSubtotal() 
     {
-        return costoXHora*cantDias*cantHoras;
+//        return costoXHora*cantDias*cantHoras;
+        return costoXHora*cantHoras;        
     }
     
     public int getHorasDisponibles()
     {
-        return cantDias*cantHoras;
+//        return cantDias*cantHoras;
+        return cantHoras;        
     }
 }

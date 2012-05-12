@@ -86,11 +86,11 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         }
     }
     
-    public void AgregarHerramienta(Tupla tph, int cantDias, int cantHoras, double costo)
+    public void AgregarHerramienta(Tupla tph, int cantHoras, double costo)
     {
         SubObraXHerramienta detalle = new SubObraXHerramienta();
         
-        detalle.setCantDias(cantDias);
+//        detalle.setCantDias(cantDias);
         detalle.setCantHoras(cantHoras);
         detalle.setCostoXHora(costo);
         
@@ -140,11 +140,11 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
             
                 NTupla tp = new NTupla(i);
                 tp.setNombre(detalle.getHerramienta().getRecursoEsp().getNombre()+" "+detalle.getHerramienta().getRecursoEsp().getRecurso().getNombre()+" ("+detalle.getHerramienta().getNroSerie()+")");
-                String[] data = new String[4];
-                    data[0] =  String.valueOf(detalle.getCantDias());
-                    data[1] =  String.valueOf(detalle.getCantHoras());
-                    data[2] =  String.valueOf(detalle.getCostoXHora());
-                    data[3] =  String.valueOf(detalle.calcularSubtotal());
+                String[] data = new String[3];
+//                    data[0] =  String.valueOf(detalle.getCantDias());
+                    data[0] =  String.valueOf(detalle.getCantHoras());
+                    data[1] =  String.valueOf(detalle.getCostoXHora());
+                    data[2] =  String.valueOf(detalle.calcularSubtotal());
                 tp.setData(data);
                 listaFilas.add(tp);
         }

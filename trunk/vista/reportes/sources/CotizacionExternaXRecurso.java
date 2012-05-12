@@ -74,7 +74,7 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
         // Tablas de Recursos y Cabeceras
         PdfPTable tablaManoDeObra = new PdfPTable(7);
         PdfPTable tablaMateriales = new PdfPTable(5);
-        PdfPTable tablaHerramientas = new PdfPTable(5);
+        PdfPTable tablaHerramientas = new PdfPTable(4);
         PdfPTable tablaCompras = new PdfPTable(4);
         PdfPTable tablaAdicionales = new PdfPTable(5);
 
@@ -115,10 +115,10 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
         celdaH.setPaddingLeft(0);
         celdaH.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaH.setBackgroundColor(new BaseColor(219,229,241));
-        celdaH.setColspan(5);
+        celdaH.setColspan(4);
         tablaHerramientas.addCell(celdaH);
         tablaHerramientas.addCell(new Paragraph("Herramienta",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaHerramientas.addCell(new Paragraph("Cantidad de Días",ReportDesigner.FUENTE_NORMAL_BK));
+//        tablaHerramientas.addCell(new Paragraph("Cantidad de Días",ReportDesigner.FUENTE_NORMAL_BK));
         tablaHerramientas.addCell(new Paragraph("Cantidad de Horas",ReportDesigner.FUENTE_NORMAL_BK));
         tablaHerramientas.addCell(new Paragraph("Costo por Hora",ReportDesigner.FUENTE_NORMAL_BK));
         tablaHerramientas.addCell(new Paragraph("Subtotal",ReportDesigner.FUENTE_NORMAL_BK));
@@ -210,7 +210,7 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 SubObraXHerramienta soxh = itH.next();
                 String nombreH = soxh.getHerramienta().getRecursoEsp().getNombre()+" "+soxh.getHerramienta().getRecursoEsp().getRecurso().getNombre()+" ("+soxh.getHerramienta().getNroSerie()+")";
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(nombreH,ReportDesigner.FUENTE_NORMAL)));
-                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantDias()),ReportDesigner.FUENTE_NORMAL)));
+//                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantDias()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantHoras()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCostoXHora()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
@@ -218,7 +218,6 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
             }
             if(subtotal != 0){
                 tablaHerramientas.addCell("");tablaHerramientas.addCell("");tablaHerramientas.addCell("");
-                tablaHerramientas.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));

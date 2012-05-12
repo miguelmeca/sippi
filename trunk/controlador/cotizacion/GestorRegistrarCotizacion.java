@@ -230,7 +230,7 @@ public class GestorRegistrarCotizacion {
             //for (SubObraXHerramienta soxh: lisaHerramientas) 
             //{
                 SubObraXHerramienta nuevaSoxh =new SubObraXHerramienta();
-                nuevaSoxh.setCantDias(soxh.getCantDias());
+//                nuevaSoxh.setCantDias(soxh.getCantDias());
                 nuevaSoxh.setCantHoras(soxh.getCantHoras());
                 nuevaSoxh.setCostoXHora(soxh.getCostoXHora());
                 nuevaSoxh.setObservaciones(soxh.getObservaciones());
