@@ -68,9 +68,9 @@ public class CotizacionModificada extends Cotizacion{
                     SubObraXHerramienta subObraXHerramienta = itSubObraXHerramienta.next();
                     SubObraXHerramientaModif subObraXHerramientaModif = new SubObraXHerramientaModif();
                     subObraXHerramientaModif.setOriginal(subObraXHerramienta);
-                    int aleaCantDias = (int) (Math.random()*subObraXHerramienta.getCantDias() + 4);
-                    subObraXHerramientaModif.setCantDias(aleaCantDias);
-                    int aleaCantHoras = (int) (Math.random()*subObraXHerramienta.getCantDias() + 10);
+//                    int aleaCantDias = (int) (Math.random()*subObraXHerramienta.getCantDias() + 4);
+//                    subObraXHerramientaModif.setCantDias(aleaCantDias);
+                    int aleaCantHoras = (int) (Math.random()*subObraXHerramienta.getCantHoras() + 10);
                     subObraXHerramientaModif.setCantHoras(aleaCantHoras);
                     subObraXHerramientaModif.setHerramienta(subObraXHerramienta.getHerramienta());
                     subObraXHerramientaModif.setObservaciones(subObraXHerramienta.getObservaciones());

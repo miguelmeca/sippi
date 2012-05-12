@@ -39,6 +39,7 @@ public class SubObraXHerramientaModif extends SubObraXHerramienta {
     
     public int getHorasDisponibles()
     {
-        return super.getCantDias()*super.getCantHoras();
+        return super.getCantHoras();
+//        return super.getCantDias()*super.getCantHoras();
     }
 }

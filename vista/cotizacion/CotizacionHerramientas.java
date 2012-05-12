@@ -52,13 +52,10 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtSubTotalConcepto = new javax.swing.JTextField();
         txtCostoHora = new javax.swing.JTextField();
         txtHorasDia = new javax.swing.JTextField();
-        txtCantDias = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -85,8 +82,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
-            .addComponent(cmbHerramienta, javax.swing.GroupLayout.Alignment.TRAILING, 0, 423, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
+            .addComponent(cmbHerramienta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,11 +103,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel17.setText("X");
 
-        jLabel19.setText("X");
-
-        jLabel3.setText("Cantidad Días (*)");
-
-        jLabel4.setText("Horas x Día (*)");
+        jLabel4.setText("Horas Necesarias (*)");
 
         txtSubTotalConcepto.setEnabled(false);
 
@@ -138,66 +131,45 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
             }
         });
 
-        txtCantDias.setEnabled(false);
-        txtCantDias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantDiasActionPerformed(evt);
-            }
-        });
-        txtCantDias.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCantDiasFocusLost(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                    .addComponent(txtCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtHorasDia)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(11, 11, 11)
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
-                    .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel14)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel19)
                     .addComponent(jLabel15)
                     .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -223,11 +195,11 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Herramienta", "Cantidad días", "Horas x Día", "Costo x Hora", "Subtotal"
+                "Herramienta", "Horas", "Costo x Hora", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -240,7 +212,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +241,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                        .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -303,25 +275,25 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
 private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-    if(!txtCantDias.getText().isEmpty() && !txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
+    if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
     {
        
-        int cantDias =0;
-        try
-        {
-            cantDias = Integer.parseInt(txtCantDias.getText());
-        }
-        catch(Exception e)
-        {
-             MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada es incorrecta");
-             return;
-        }
+//        int cantDias =0;
+//        try
+//        {
+//            cantDias = Integer.parseInt(txtCantDias.getText());
+//        }
+//        catch(Exception e)
+//        {
+//             MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada es incorrecta");
+//             return;
+//        }
         
-        if(cantDias<=0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
-             return;
-        }
+//        if(cantDias<=0)
+//        {
+//            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
+//             return;
+//        }
         
         int cantHoras = 0;
         try
@@ -366,7 +338,8 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
         if(tpitem.getId()!=0)
         {         
-            gestor.AgregarHerramienta(tpitem, cantDias, cantHoras, costoHora);
+//            gestor.AgregarHerramienta(tpitem, cantDias, cantHoras, costoHora);
+            gestor.AgregarHerramienta(tpitem,cantHoras, costoHora);
         }
         else
         {
@@ -393,30 +366,22 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Tupla tp = (Tupla)cmbHerramienta.getSelectedItem();
         if(tp.getId()!=0)
         {
-            txtCantDias.setEnabled(true);
+//            txtCantDias.setEnabled(true);
             txtHorasDia.setEnabled(true);
             txtCostoHora.setEnabled(true);
-            txtCantDias.setEnabled(true);
+//            txtCantDias.setEnabled(true);
             txtDescripcion.setEnabled(true);
         }
         else
         {
-            txtCantDias.setEnabled(false);
+//            txtCantDias.setEnabled(false);
             txtHorasDia.setEnabled(false);
             txtCostoHora.setEnabled(false);
-            txtCantDias.setEnabled(false);
+//            txtCantDias.setEnabled(false);
             txtDescripcion.setEnabled(false);
         }
             
     }//GEN-LAST:event_cmbHerramientaActionPerformed
-
-    private void txtCantDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantDiasActionPerformed
-        CalcularSubTotalConcepto();
-    }//GEN-LAST:event_txtCantDiasActionPerformed
-
-    private void txtCantDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantDiasFocusLost
-        CalcularSubTotalConcepto();
-    }//GEN-LAST:event_txtCantDiasFocusLost
 
     private void txtHorasDiaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorasDiaFocusLost
         CalcularSubTotalConcepto();
@@ -443,9 +408,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -453,7 +416,6 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblHeramientas;
-    private javax.swing.JTextField txtCantDias;
     private javax.swing.JTextField txtCostoHora;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtHorasDia;
@@ -487,14 +449,14 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     public void CalcularSubTotalConcepto()
     {
-        if(!txtCantDias.getText().isEmpty() && !txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
+        if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
         {
-            double cantDias = 0;
+//            double cantDias = 0;
             double cantHoras = 0;
             double costoHora = 0;
             try
             {
-                cantDias = Double.parseDouble(txtCantDias.getText());
+//                cantDias = Double.parseDouble(txtCantDias.getText());
                 cantHoras = Double.parseDouble(txtHorasDia.getText());
                 costoHora = Double.parseDouble(txtCostoHora.getText().replaceAll(",","."));
             }
@@ -502,7 +464,8 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             {
                 return;
             }
-            txtSubTotalConcepto.setText("$"+Math.abs(cantDias)*Math.abs(cantHoras)*Math.abs(costoHora));
+//            txtSubTotalConcepto.setText("$"+Math.abs(cantDias)*Math.abs(cantHoras)*Math.abs(costoHora));
+            txtSubTotalConcepto.setText("$"+Math.abs(cantHoras)*Math.abs(costoHora));
         }
     }
 
@@ -520,14 +483,14 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             
             String[] data = (String[])nt.getData();
             
-            Object fila[] = new Object[5];
+            Object fila[] = new Object[4];
                 fila[0] = nt;
                 fila[1] = data[0];
                 fila[2] = data[1];
                 fila[3] = data[2];
-                fila[4] = data[3];
+//                fila[4] = data[3];
                 
-                total += Double.valueOf(data[3]);
+                total += Double.valueOf(data[2]);
                 
             modelo.addRow(fila);
         }
