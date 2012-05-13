@@ -78,7 +78,10 @@ public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
                     if(eliminoGastos)
                     {
                         // Elimino los gastos
-                        
+                        // Esto es un borrador del algoritmo, no se me ocurre otra cosa
+                        int horasBaul = pxh.getHerramientaCotizacion().getHorasDisponibles();
+                        horasBaul = horasBaul - pxh.getHorasAsignadas();
+                        pxh.getHerramientaCotizacion().setCantHoras(horasBaul);
                     }
                     // Elimino la asignacion
                     tarea.getHerramientas().remove(j);
