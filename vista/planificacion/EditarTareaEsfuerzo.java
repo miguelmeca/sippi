@@ -11,19 +11,20 @@
 
 package vista.planificacion;
 
+import controlador.planificacion.GestorEditarTareaEsfuerzo;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import java.util.Date;
 
 /**
  *
- * @author Administrador
+ * @author Fran
  */
-public class TareaEsfuerzo extends javax.swing.JPanel {
+public class EditarTareaEsfuerzo extends javax.swing.JPanel {
 
-    //private GestorPlanificacionDatosGenerales gestor;
+    private GestorEditarTareaEsfuerzo gestor;
     
     /** Creates new form editarCotizacion_Descripcion */
-    public TareaEsfuerzo() {
+    public EditarTareaEsfuerzo(GestorEditarTareaEsfuerzo gestor) {
         initComponents();
         /*this.gestor = gestor;
         gestor.setPantalla(this);
@@ -106,6 +107,7 @@ public class TareaEsfuerzo extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas disponibles en la tarea seleccionada"));
 
+        tblEsfuerzoTareaSuperior.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         tblEsfuerzoTareaSuperior.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -318,6 +320,7 @@ public class TareaEsfuerzo extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        tblEsfuerzo.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         tblEsfuerzo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -409,14 +412,12 @@ public class TareaEsfuerzo extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbTareaSuperior, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(215, 215, 215))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbTareaSuperior, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)

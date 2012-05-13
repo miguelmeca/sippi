@@ -26,7 +26,6 @@ import java.awt.Point;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
