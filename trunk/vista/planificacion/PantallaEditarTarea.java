@@ -23,10 +23,12 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     
     private static final int OPTN_DATOSGRALES           = 0;
     private static final int OPTN_SUBTAREAS             = 1;
-    private static final int OPTN_ASIG_EMPLEADOS        = 2;
-    private static final int OPTN_HERRAMIENTAS          = 3;
-    private static final int OPTN_MATERIALES            = 4;
-    private static final int OPTN_ALQUILERES_COMPRAS    = 5;
+    private static final int OPTN_ESFUERZO              = 2;
+    private static final int OPTN_ASIG_EMPLEADOS        = 3;
+    private static final int OPTN_HERRAMIENTAS          = 4;
+    private static final int OPTN_MATERIALES            = 5;
+    private static final int OPTN_ALQUILERES_COMPRAS    = 6;
+    
     
     private ICallBackGen tieneCallback = null; // Si no es nulo, tiene callback
     
@@ -96,11 +98,11 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -118,6 +120,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
             new Object [][] {
                 {"Datos Generales"},
                 {"Subtareas"},
+                {"Esfuerzo"},
                 {"Asignación de Empleados"},
                 {"Herramientas"},
                 {"Materiales"},
@@ -154,7 +157,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
 
         btnGuardarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
@@ -237,6 +240,12 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
 //                panel.setViewportView(cc);
 //                cc.setVisible(true);
 //                break;
+            case OPTN_ESFUERZO:
+               setNombrePanel(modelo.getValueAt(OPTN_ESFUERZO,0).toString());
+               TareaEsfuerzo te = new TareaEsfuerzo();
+               panel.setViewportView(te);
+               te.setVisible(true);
+               break;
 //            case OPTN_ASIG_EMPLEADOS:
 //                setNombrePanel(modelo.getValueAt(OPTN_ASIG_EMPLEADOS,0).toString());
 //                VentanaPlanificacionManoDeObraGeneral mo = new VentanaPlanificacionManoDeObraGeneral(gestor.getGestorManoObra());
