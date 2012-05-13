@@ -11,9 +11,12 @@
 
 package vista.planificacion;
 
+
 import controlador.planificacion.GestorEditarTareaEsfuerzo;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
+import java.awt.Font;
 import java.util.Date;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -26,10 +29,28 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
     /** Creates new form editarCotizacion_Descripcion */
     public EditarTareaEsfuerzo(GestorEditarTareaEsfuerzo gestor) {
         initComponents();
+        inicializarVentana();
         /*this.gestor = gestor;
         gestor.setPantalla(this);
         gestor.cargarTiposDeTarea();
         gestor.cargarDatosTarea();*/
+    }
+    private void inicializarVentana()
+    {
+      cambiarTamCabeceraTablas();  
+      
+        
+    }
+    private void cambiarTamCabeceraTablas()
+    {
+        Font fuente = new Font("Verdana", Font.PLAIN, 9);
+        JTableHeader th1;
+        th1 = tblEsfuerzoTareaSuperior.getTableHeader();
+        th1.setFont(fuente); 
+        
+        JTableHeader th2;
+        th2 = tblEsfuerzo.getTableHeader();
+        th2.setFont(fuente);        
     }
 
     /** This method is called from within the constructor to
