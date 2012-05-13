@@ -56,13 +56,37 @@ public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
                 NTupla nt = new NTupla(herr.hashCode());
                 nt.setNombre(herr.getHerramientaCotizacion().getHerramienta().getNombre()+"("+herr.getHerramientaCotizacion().getHerramienta().getNroSerie()+")");
                 String[] datos = new String[1];
-                datos[0] = herr.getHorasAsignadas()+" Hs.";
+                datos[0] = String.valueOf(herr.getHorasAsignadas());
                 nt.setData(datos);
                 filasHerramienta.add(nt);
             }
         }
         
         return filasHerramienta;
+    }
+    
+    public boolean eliminarAsignación(int hashPxH,boolean eliminoGastos)
+    {
+        ArrayList<TareaPlanificacion> tareas = PlanificacionUtils.getTodasTareasPlanificacion(getPlanificacion());
+        for (int i = 0; i < tareas.size(); i++) {
+            TareaPlanificacion tarea = tareas.get(i);
+            for (int j = 0; j < tarea.getHerramientas().size(); j++) {
+                PlanificacionXHerramienta pxh = tarea.getHerramientas().get(j);
+                if(pxh.hashCode()==hashPxH)
+                {
+                    // Es mi asignacion
+                    if(eliminoGastos)
+                    {
+                        // Elimino los gastos
+                        
+                    }
+                    // Elimino la asignacion
+                    tarea.getHerramientas().remove(j);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
