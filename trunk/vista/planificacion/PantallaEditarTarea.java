@@ -242,7 +242,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
 //                break;
             case OPTN_ESFUERZO:
                setNombrePanel(modelo.getValueAt(OPTN_ESFUERZO,0).toString());
-               TareaEsfuerzo te = new TareaEsfuerzo();
+               EditarTareaEsfuerzo te = new EditarTareaEsfuerzo(gestor.getGestorEsfuerzo());
                panel.setViewportView(te);
                te.setVisible(true);
                break;
