@@ -58,7 +58,9 @@ public class GestorExplorarCotizaciones
             ArrayList<NTupla> listaCotizaciones = new ArrayList<NTupla>();
             for (int i = 0; i < lista.size(); i++) {
                 Cotizacion cot = (Cotizacion)lista.get(i);
-                String nombrePedidoObra=cot.buscarPedidoObra().getNombre();
+                String nombrePedidoObra="";
+                if(cot.buscarPedidoObra()!=null)
+                {nombrePedidoObra=cot.buscarPedidoObra().getNombre();}
                 NTupla tupla = new NTupla(cot.getId());
                 tupla.setNombre(nombrePedidoObra);//No me gusta como queda esto... Pero es la 1er columna...
                 String[] datos=new String[6];

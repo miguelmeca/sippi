@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -24,12 +25,16 @@ public class ArbolIconoRenderer extends DefaultTreeCellRenderer
     private final Font boldFont;
 
      private ArbolIconoNodo te;
+     JPopupMenu menu;
 
     public ArbolIconoRenderer()
     {
         label = new JLabel();
         label.setBackground(null);
-
+        //this.menu=menu;
+        //label.add(menu);
+        this.setFocusable(false);
+        label.setFocusable(false);
         orgFont = label.getFont();
         boldFont = label.getFont().deriveFont(label.getFont().getStyle() ^ Font.BOLD);
     }
@@ -53,6 +58,9 @@ public class ArbolIconoRenderer extends DefaultTreeCellRenderer
         label.setPreferredSize(new Dimension(200, 20));
         return label;
     }
+    
+    public JLabel getLabel()
+    {  return label;  }
 
 
 

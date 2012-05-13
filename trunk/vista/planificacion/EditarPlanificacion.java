@@ -23,10 +23,10 @@ import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
 import java.awt.BorderLayout;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -67,6 +67,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private HashMap<Integer,PantallaEditarTarea> ventanasEditarTareasAbiertas;
     
     private int hashSubObraSeleccionada = -1;
+    private ArbolIconoNodo nodoActualArbolTareas;
    
  public EditarPlanificacion( int idObra) {
         this.idObra = idObra;
@@ -548,18 +549,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         });
 
         arbolTareas.setModel(null);
-        arbolTareas.setComponentPopupMenu(menuArbolTareas);
+        arbolTareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane5.setViewportView(arbolTareas);
 
         javax.swing.GroupLayout panelArbolTareasLayout = new javax.swing.GroupLayout(panelArbolTareas);
         panelArbolTareas.setLayout(panelArbolTareasLayout);
         panelArbolTareasLayout.setHorizontalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
@@ -596,7 +597,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addGroup(panelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -607,7 +608,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -768,7 +769,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(txtNroCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                     .addComponent(lblCotMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
@@ -806,7 +807,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -831,7 +832,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane6)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -840,7 +841,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1431,29 +1432,76 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     public void inicializarArbolDeTareas()
     {
         PanelDropTarget target = new PanelDropTarget(arbolTareas, new ArbolDropEvent());
-        DefaultTreeModel modelo=_gestor.getModeloArbolTareas();
+        DefaultTreeModel modelo=_gestor.cargarModeloArbolTareas();
         arbolTareas.setModel(modelo);
+        /////////////
+        JMenuItem editarTarea=new JMenuItem();
+            editarTarea.setText("Editar tarea");
+            editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            menuArbolTareas.add(editarTarea);
+            ////////////////
+        //arbolTareas.setComponentPopupMenu(menuArbolTareas);
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
         inicializarEventosArbol();
-        arbolTareas.repaint();        
+        arbolTareas.repaint();  
         //arbolTareas.setRootVisible(false);
     }
     
     private void inicializarEventosArbol()
     {
+        //arbolTareas.add(menuArbolTareas);
         arbolTareas.addMouseListener(new MouseAdapter() {
-                @Override
+                /*@Override
                 public void mouseClicked(MouseEvent me) {
-                    setearItemsMenuArbol(me);
-                }
+                    
+                    int n=me.getButton();
+                    boolean b=me.isPopupTrigger();
+                    if(me.getButton()==MouseEvent.BUTTON3) {
+                        
+                        setearItemsMenuArbol(me);
+                    }
+                }*/
+            private void checkForPopup(MouseEvent mouseEvent) {
+            if(mouseEvent.isPopupTrigger()) {
+                TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
+                if(tp==null)
+                   {
+                     mouseEvent.consume();
+                     return;
+                   }
+                final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
+                if(nodo==null)
+                { return;}
+                setearItemsMenuArbol(nodo);
+                
+                //TreeNode root = (TreeNode)tree.getModel().getRoot();;
+                //overRoot = path.getLastPathComponent() == root;
+                menuArbolTareas.show(arbolTareas, mouseEvent.getX(), mouseEvent.getY());
+            }
+        }
+ 
+        public void mousePressed(MouseEvent e)  { checkForPopup(e); }
+        public void mouseReleased(MouseEvent e) { checkForPopup(e); }
+        public void mouseClicked(MouseEvent e)  { checkForPopup(e); }
             });
+        
+        
     }
     
-    private void setearItemsMenuArbol(final MouseEvent mouseEvent)
+    private void setearItemsMenuArbol(ArbolIconoNodo nodo)
     {
-        menuArbolTareas.removeAll();
-        TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
-        final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
+        menuArbolTareas.removeAll(); 
+       /* TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
+        if(tp==null)
+        {
+            mouseEvent.consume();
+            return;}*/
+        /*final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
+        if(nodo==null)
+        {
+            //mouseEvent.consume();
+            return;}*/
+        this.nodoActualArbolTareas=nodo;
         String tipo=nodo.getTipo();
         /////////////////////////////////////
         //Si es un nodo al q no se le puede hacer acciones, retorno
@@ -1465,40 +1513,67 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         }        
         if(valido==false && !tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
         {return;}
-        //////////////////////////////
-        //Agrego el listener para quitar
-        /*JMenuItem quitar=new JMenuItem();
-        quitar.setText("Quitar "+tipo.toLowerCase());
-        quitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
-        menuArbolTareas.add(quitar); 
         
-        ActionListener alQuitarTarea=new ActionListener(){
-             @Override
-             public void actionPerformed(ActionEvent e) 
-             {
-               if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
-                {  
-                    eventoQuitarTareaArbol( nodo); 
-                    quitar.addActionListener(alQuitarTarea);
-                } 
-             }
-        };*/
-         
-        /////////////////////////
-       /* if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
+        if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
         {
+            JMenuItem editarTarea=new JMenuItem();
+            editarTarea.setText("Editar tarea");
+            editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            menuArbolTareas.add(editarTarea);
+            
             JMenuItem quitarTarea=new JMenuItem();
             quitarTarea.setText("Quitar tarea");
             quitarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
             menuArbolTareas.add(quitarTarea); 
-        
+            
+            JMenuItem agregarSubtarea=new JMenuItem();
+            agregarSubtarea.setText("Agregar subtarea");
+            agregarSubtarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png")));
+            menuArbolTareas.add(agregarSubtarea);
+            
+            editarTarea.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   abrirEditarTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));
+                }
+            });
+            
             quitarTarea.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    evento_arbol_click(arbolTareas,  mouseEvent, nodo);
+                    //evento_arbol_click(arbolTareas,  mouseEvent, nodo);
                 }
             });
-        }*/
+            
+            agregarSubtarea.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   // evento_arbol_click(arbolTareas,  mouseEvent, nodo);
+                }
+            });
+        }
+        else{
+            /*//////////////////////////////
+            //Agrego el listener para quitar
+            JMenuItem quitar=new JMenuItem();
+            quitar.setText("Quitar "+tipo.toLowerCase());
+            quitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+            menuArbolTareas.add(quitar); 
+
+            ActionListener alQuitarTarea=new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) 
+                {
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
+                    {  
+                        eventoQuitarTareaArbol( nodo); 
+                        quitar.addActionListener(alQuitarTarea);
+                    } 
+                }
+            };*/
+
+            /////////////////////////
+        }
     }
     
     private void eventoQuitarTareaArbol(ArbolIconoNodo nodo) 

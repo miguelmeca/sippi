@@ -460,7 +460,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
     }
     
-    public DefaultTreeModel getModeloArbolTareas()
+    public DefaultTreeModel cargarModeloArbolTareas()
     {
         ArbolIconoNodo raiz = new ArbolIconoNodo(0,ArbolDeTareasTipos.TIPO_OBRA, pedidoDeObra.getNombre(),Iconos.ICONO_OBRA);
         DefaultTreeModel modelo = new DefaultTreeModel(raiz);
