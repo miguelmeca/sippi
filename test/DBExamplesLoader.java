@@ -1308,11 +1308,11 @@ public class DBExamplesLoader {
 //                        tarea.addSubTarea(subTarea);
 //                        HibernateUtil.getSession().save(subTarea);
                         
-                        tareas.add(tarea);
-                        HibernateUtil.getSession().saveOrUpdate(tarea);
+                        //tareas.add(tarea);
+                        //HibernateUtil.getSession().saveOrUpdate(tarea);
                     }
                 }
-                planificacion.setTareas(tareas);
+                //planificacion.setTareas(tareas);
                 HibernateUtil.getSession().saveOrUpdate(planificacion);
                 HibernateUtil.getSession().saveOrUpdate(PO);
                 HibernateUtil.commitTransaction();

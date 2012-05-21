@@ -31,6 +31,7 @@ public class EditarCotizacionModificada extends EditarCotizacion{
     protected static final int OPTN_ALQUILERES_COMPRAS    = 2;
     protected static final int OPTN_ADICIONALES           = 3;
     protected static final int OPTN_RRHH                  = 4;
+    public static final String CALLBACK_FLAG="Callback_EdicionDeCotizacionModificadaEnPlanificacion";
     private ICallBack_v3 pantallaPadre;
     
     
@@ -53,7 +54,7 @@ public class EditarCotizacionModificada extends EditarCotizacion{
     public void actualizar() {
         if(pantallaPadre!=null)
         {
-            pantallaPadre.actualizar(0, "",true,null);
+            pantallaPadre.actualizar(0, CALLBACK_FLAG,true,null);
         }
     }
 

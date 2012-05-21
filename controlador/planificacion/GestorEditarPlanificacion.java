@@ -313,7 +313,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
 
     
-    public void agregarNuevaTareaArbol(int hash, String nombre,int hashTareaPadre)
+    public void agregarNuevaTareaArbolDesdeCotizacion(int hash, String nombre,int hashTareaPadre)
     {
         TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
         
@@ -336,6 +336,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             // Agrego el hijo al padre
             if(padre!=null)
             {
+                if(padre.esCotizadaODescendienteDeTareaCotizada(planificacion))
+                {
+                    mostrarMensajeError("No se puede agregar una tarea cotizada como descendiente de otra tarea cotizada");
+                    return; 
+                }
                 padre.addSubTarea(nuevaTarea);
             }
             else
@@ -829,5 +834,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }       
         
         return true;
+    }
+    
+    public boolean crearSubTarea(String nombre, Date inicioTarea,  Date finTarea, TareaPlanificacion tareaPadre)
+    {
+        try{
+            TareaPlanificacion subTarea=new TareaPlanificacion();
+            subTarea.setTipoTarea(subTarea.getTipoTarea());
+            subTarea.setNombre(nombre);
+            subTarea.setFechaInicio(inicioTarea);
+            subTarea.setFechaFin(finTarea);
+            tareaPadre.addSubTarea(subTarea);
+            return true;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getStackTrace());
+            return false;
+        }
     }
 }

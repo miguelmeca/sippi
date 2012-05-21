@@ -15,8 +15,13 @@ package vista.planificacion;
 import controlador.planificacion.GestorEditarTareaEsfuerzo;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
+import modelo.TareaPlanificacion;
+import util.NTupla;
 
 /**
  *
@@ -28,16 +33,15 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
     
     /** Creates new form editarCotizacion_Descripcion */
     public EditarTareaEsfuerzo(GestorEditarTareaEsfuerzo gestor) {
-        initComponents();
-        inicializarVentana();
-        /*this.gestor = gestor;
+        initComponents();        
+        this.gestor = gestor;
         gestor.setPantalla(this);
-        gestor.cargarTiposDeTarea();
-        gestor.cargarDatosTarea();*/
+        inicializarVentana();
     }
     private void inicializarVentana()
     {
-      cambiarTamCabeceraTablas();  
+      cambiarTamCabeceraTablas(); 
+      cargarCboTareasSuperiores();
       
         
     }
@@ -51,6 +55,27 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
         JTableHeader th2;
         th2 = tblEsfuerzo.getTableHeader();
         th2.setFont(fuente);        
+    }
+    
+    public void cargarCboTareasSuperiores()
+    {
+        ArrayList<NTupla> listaTareasSuperiores = gestor.mostrarTareasSuperiores();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        if(listaTareasSuperiores!=null && !listaTareasSuperiores.isEmpty())
+        for (NTupla ts : listaTareasSuperiores)
+        {
+            model.addElement(ts);
+        }
+        cmbTareaSuperior.setModel(model);        
+        NTupla t0 = new NTupla(-1);
+        if(!listaTareasSuperiores.isEmpty())        
+        {
+            if(listaTareasSuperiores.get(0).getId()!=-1)
+            t0.setNombre("Seleccione una tarea..."); 
+        }
+        
+        cmbTareaSuperior.insertItemAt(t0, 0);
+        cmbTareaSuperior.setSelectedIndex(1);   
     }
 
     /** This method is called from within the constructor to
@@ -124,7 +149,11 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
 
         jLabel6.setText("Tarea de nivel superior de la que usar horas");
 
-        cmbTareaSuperior.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTareaSuperior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTareaSuperiorActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas disponibles en la tarea seleccionada"));
 
@@ -201,7 +230,6 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -238,13 +266,7 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -255,16 +277,24 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
                             .addComponent(lblPersonasDetalleTPadreCotizadas)
                             .addComponent(lblHsNormalesDetalleTPadreCotizadas)
                             .addComponent(lblHs50DetalleTPadreCotizadas))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPersonasDetalleTPadre)
-                            .addComponent(lblHs50DetalleTPadre)
-                            .addComponent(lblHsNormalesDetalleTPadre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHsNormalesDetalleTPadre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblPersonasDetalleTPadre)
+                                .addComponent(lblHs50DetalleTPadre))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(15, 15, 15)
-                        .addComponent(lblHs100DetalleTPadreCotizadas)
-                        .addGap(0, 0, 0)
-                        .addComponent(lblHs100DetalleTPadre)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(15, 15, 15)
+                                .addComponent(lblHs100DetalleTPadreCotizadas)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblHs100DetalleTPadre)))))
                 .addGap(8, 8, 8))
         );
 
@@ -527,6 +557,35 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
         }*/
     }//GEN-LAST:event_btnQuitarDetalleActionPerformed
 
+    private void cmbTareaSuperiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTareaSuperiorActionPerformed
+        if(((NTupla)cmbTareaSuperior.getSelectedItem()).getId()!=-1)
+       { 
+          if(((NTupla)cmbTareaSuperior.getItemAt(0)).getId()==-1)
+           {
+            cmbTareaSuperior.removeItemAt(0);
+           }
+        NTupla tarea=(NTupla)cmbTareaSuperior.getModel().getSelectedItem();
+        
+        llenarTablaTareaSuperior((TareaPlanificacion)tarea.getData());       
+        }
+       else
+       {vaciarTablaTareaSuperior();}
+    }//GEN-LAST:event_cmbTareaSuperiorActionPerformed
+
+    private void llenarTablaTareaSuperior(TareaPlanificacion tareaSuperior)
+    {
+        
+    }
+    
+    private void vaciarTablaTareaSuperior()
+    {
+        
+    }
+    
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDetalle;

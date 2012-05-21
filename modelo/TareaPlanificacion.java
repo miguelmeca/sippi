@@ -390,7 +390,113 @@ public class TareaPlanificacion {
         return false; 
     }*/
     
-    
-    
+     
+    ///////////////////////////////////////////
+    /***
+     * //Buscar camino desde tarea hasta primer padre
+     * 
+     * @param planificacion
+     * @param incluirTareaBuscada
+     * @param cortarEnTareaCotizada
+     * @return 
+     */
+   public List<TareaPlanificacion> buscarCaminoHastaTareaConCotizacion(PlanificacionXXX planificacion, boolean incluirTareaBuscada, boolean cortarEnTareaCotizada)
+    {
+        //Necesario para pasar una boolean como referencia en vez de pasarlo por valor
+        boolean[] todaviaNoPasoTareaCotizada= new boolean[1];
+        todaviaNoPasoTareaCotizada[0]=true;
         
+        
+        List<TareaPlanificacion> tareasSuperiores=new ArrayList<TareaPlanificacion>();        
+        int total=planificacion.getTareas().size();
+        for (int i = 0; i < total; i++) 
+        {   TareaPlanificacion actual=planificacion.getTareas().get(i); 
+            todaviaNoPasoTareaCotizada[0]=true;
+            if(actual.equals(this) )
+            {  
+                if(incluirTareaBuscada)
+                {tareasSuperiores.add(0,actual);}
+                return tareasSuperiores;   
+            }
+            else
+            {                
+              if(buscarCaminoEnTarea(actual, tareasSuperiores,  incluirTareaBuscada,cortarEnTareaCotizada,todaviaNoPasoTareaCotizada))
+                {
+                    
+                    
+                    if(!cortarEnTareaCotizada || (cortarEnTareaCotizada && todaviaNoPasoTareaCotizada[0]))
+                    {tareasSuperiores.add(0,actual);}
+                    
+                     /*if(actual.getTareaCotizada()!=null)
+                    {
+                        todaviaNoPasoTareaCotizada[0]=false;
+                    }**/
+                     
+                     
+                     
+                    break;
+                }  
+            }   
+        }   
+        
+        return tareasSuperiores;
+    }       
+    private boolean buscarCaminoEnTarea(TareaPlanificacion tareaDondeBuscar,  List<TareaPlanificacion> tareasSuperiores,  boolean incluirTareaBuscada, boolean cortarEnTareaCotizada, boolean[] todaviaNoPasoTareaCotizada) 
+    {
+        for (int i = 0; i < tareaDondeBuscar.getSubtareas().size(); i++) 
+        {   
+            
+            TareaPlanificacion actual=tareaDondeBuscar.getSubtareas().get(i); 
+                        
+            if(actual.equals(this))
+            {  
+                if(incluirTareaBuscada)
+                {tareasSuperiores.add(0,actual);}
+                if(actual.getTareaCotizada()!=null)
+                {
+                   todaviaNoPasoTareaCotizada[0]=false;
+                }
+                return true;
+            }
+            else
+            {
+                if((actual.getSubtareas()!=null)&&(!actual.getSubtareas().isEmpty()))
+                {
+                   if(buscarCaminoEnTarea(tareaDondeBuscar.getSubtareas().get(i), tareasSuperiores,  incluirTareaBuscada,cortarEnTareaCotizada, todaviaNoPasoTareaCotizada))
+                   {
+                       
+                       if(!cortarEnTareaCotizada || (cortarEnTareaCotizada && todaviaNoPasoTareaCotizada[0]))
+                        {
+                            tareasSuperiores.add(0,actual);                        
+                        }   
+                       if(actual.getTareaCotizada()!=null)
+                        {
+                        todaviaNoPasoTareaCotizada[0]=false;
+                        }
+                        
+                       return true;
+                   }
+                }
+                
+            }   
+        }
+        return false;
+        
+    }
+    /////////////////////////////
+    
+    public boolean esCotizadaODescendienteDeTareaCotizada(PlanificacionXXX planificacion)
+    {
+        //Este metodo podria optimizarse
+        List<TareaPlanificacion> tareasSuperioresTotales= buscarCaminoHastaTareaConCotizacion(planificacion,true,false);
+        for (int i = 0; i < tareasSuperioresTotales.size(); i++) 
+        {
+            //Incuye tarea actual,la lista nunca esta vacia
+            if (tareasSuperioresTotales.get(i).getTareaCotizada()!=null) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
