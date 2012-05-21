@@ -313,9 +313,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
 
     
-    public void agregarNuevaTareaArbolDesdeCotizacion(int hash, String nombre,int hashTareaPadre)
+    public void agregarNuevaTareaArbolDesdeCotizacion(int hashTaraCotizada, TareaPlanificacion padre, Date fechaInicio, Date fechaFin)
     {
-        TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
+        TareaPlanificacion nuevaTarea=crearTarea( hashTaraCotizada, fechaInicio, fechaFin);
         
         if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
@@ -323,15 +323,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             return;
         }
         
-        if(hashTareaPadre<=0)
+        if(padre==null)
         {
             this.planificacion.getTareas().add(nuevaTarea); 
         }
         else
         {
-            // CARGO LA TAREA PADRE            
-            TareaPlanificacion padre = null;
-            padre=planificacion.buscarTareaPorHash(hashTareaPadre);
             
             // Agrego el hijo al padre
             if(padre!=null)
@@ -349,14 +346,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 return;
             } 
         }
-        
-        _pantalla.agregarNuevaTareaArbol(nuevaTarea.hashCode(),nuevaTarea.getNombre(),hashTareaPadre);
+        int hashPadre;
+        if(padre!=null)
+        {hashPadre=padre.hashCode();}
+        else
+        {hashPadre=0;}
+        _pantalla.agregarNuevaTareaArbol(nuevaTarea.hashCode(),nuevaTarea.getNombre(),hashPadre);
         _pantalla.refreshGanttAndData();
     }
     
-    public void agregarNuevaTareaGantt(int hash, String nombre, int idTareaGanttPadre, int nivel)
+    public void agregarNuevaTareaGantt(int hashTareaCotizada, String nombre, int idTareaGanttPadre, int nivel)
     {
-        TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
+        //TareaPlanificacion nuevaTarea=crearTarea(nombre, hash);
+        //FEcha hardcodeadea:
+        TareaPlanificacion nuevaTarea=crearTarea(hashTareaCotizada, this.planificacion.getFechaInicio(), fechaMas(this.planificacion.getFechaInicio(),3)); 
+        //TODO
+        //IMPORTANTE!!!!  IUGA arregle el metodo crearTarea para que recibieralas fechas de la tarea. La ventana ya esta creada, solo te queda usarla        
+        
         if(nuevaTarea== null && nuevaTarea.getTareaCotizada()==null)
         {
             mostrarMensajeError("No se pudo cargar la Tarea Original Cotizada");
@@ -413,13 +419,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return new Date(cal.getTimeInMillis());
     }    
     
-    private TareaPlanificacion crearTarea(String nombre, int hash)
+    private TareaPlanificacion crearTarea(int hashTaraCotizada, Date fechaInicio, Date fechaFin)
     { // VEO QUE NO ESTE REPETIDA
         TareaPlanificacion nuevaTarea = null;
-        nuevaTarea=planificacion.buscarTareaPorHashTareaCotizada(hash);
+        nuevaTarea=planificacion.buscarTareaPorHashTareaCotizada(hashTaraCotizada);
         if(nuevaTarea!=null)
         {
-            mostrarMensajeError("La Tarea: "+nombre+"\nya se encuentra agregada");
+            mostrarMensajeError("La Tarea: "+nuevaTarea.getNombre()+"\nya se encuentra agregada");
             return null;
         }
          
@@ -427,19 +433,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // CREO LA NUEVA TAREA
         nuevaTarea = new TareaPlanificacion();
        // nuevaTarea.setId(id);
-        nuevaTarea.setNombre(nombre);
+        nuevaTarea.setFechaInicio(fechaInicio);
+        nuevaTarea.setFechaFin(fechaFin);
         nuevaTarea.setIdTareaGantt(generarIdTareaGantt());  
         
-        Date fechaEstimada = this.planificacion.getFechaInicio();
+        
+        /*Date fechaEstimada = this.planificacion.getFechaInicio();
         nuevaTarea.setFechaInicio(fechaEstimada);
-        nuevaTarea.setFechaFin(fechaMas(fechaEstimada,3));
+        nuevaTarea.setFechaFin(fechaMas(fechaEstimada,3));*/
         
         // CArgo la SubObra X Tarea Planificada Mod
         try
         {   
             SubObraXTareaModif soxtm;            
-             soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hash);
+             soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hashTaraCotizada);
+             nuevaTarea.setNombre(soxtm.getNombre());
              nuevaTarea.setTareaCotizada(soxtm);
+             nuevaTarea.setTipoTarea(soxtm.getTipoTarea());
              return nuevaTarea;
             /*List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
               for (int i = 0; i < listaSubObrasMod.size(); i++) {

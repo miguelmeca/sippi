@@ -23,16 +23,25 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
     private ICallBack_v3 callback;
     
     private TareaPlanificacion tareaPadre;
-    private String nombreTareaNueva;
+    private int hashTareaCotizacion;
     private Date inicioTarea;
     private Date finTarea;
     
-    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre) {
+    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, int hashTareaCotizacion, TareaPlanificacion tareaPadre) {
         initComponents();
         this.tareaPadre = tareaPadre;
         this.callback = callback;
-        inicioTarea.setTime(tareaPadre.getFechaInicio().getTime());
-        finTarea.setTime(tareaPadre.getFechaFin().getTime());
+        this.hashTareaCotizacion=hashTareaCotizacion;
+        
+       Date fechaSugeridaInicio;
+       Date fechaSugeridaFin;
+       if(tareaPadre!=null)
+       {
+         inicioTarea.setTime(tareaPadre.getFechaInicio().getTime());
+         finTarea.setTime(tareaPadre.getFechaFin().getTime());
+       }
+       
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -71,22 +80,23 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(55, 55, 55))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(btnCancelar)
+                        .addGap(67, 67, 67)
+                        .addComponent(btnAceptar)))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,9 +104,9 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -148,22 +158,22 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
         
         if(jdcFechaFin.getDate().before(jdcFechaInicio.getDate()))
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la inicio");
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser menor a la inicio");
             return false;
         }
         
         if(tareaPadre!=null)
         {
-        if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
-        {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
-            return false;
-        }
-        if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
-        {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
-            return false;
-        }
+            if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
+                return false;
+            }
+            if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
+                return false;
+            }
         }
         return true;
         
@@ -187,7 +197,7 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
     {
         Object[] data = new Object[4];
         data[0] = this.tareaPadre;
-        data[1] = this.nombreTareaNueva;
+        data[1] = this.hashTareaCotizacion;
         data[2] = this.inicioTarea;
         data[3] = this.finTarea;        
         this.callback.actualizar(0,AsignacionTareaAPlanificacion.CALLBACK_FLAG,true,data);
