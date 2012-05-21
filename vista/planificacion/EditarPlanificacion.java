@@ -1317,9 +1317,16 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         } 
         else if(flag.equals(AsignacionTareaAPlanificacion.CALLBACK_FLAG))
         {
-           /* graph.refreshModel();     
+            TareaPlanificacion tareaPadre=(TareaPlanificacion)data[0];
+            int hashTareaCotizada=(Integer)data[1];
+            Date inicioTarea = (Date)data[2];
+            Date finTarea = (Date)data[3];
+            _gestor.agregarNuevaTareaArbolDesdeCotizacion(hashTareaCotizada, tareaPadre,inicioTarea, finTarea);
+            
+            
+            graph.refreshModel();     
             updateGantt();
-            inicializarArbolDeTareas();*/
+            inicializarArbolDeTareas();
         }
         
     }
@@ -1599,12 +1606,21 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             /////////////////////////
         }
     }
-    
+    //Llama desde el menu emergente
     private void eventoNuevaTarea(TareaPlanificacion tareaPadre) 
     {        
        NuevaTareaPlanificacion ventanaNuevaTarea=new NuevaTareaPlanificacion(thisEP,tareaPadre);
        SwingPanel.getInstance().addWindow(ventanaNuevaTarea);
        ventanaNuevaTarea.setVisible(true);
+    
+    }
+    //Llama desde drag & drop al arbol
+    private void eventoNuevaAsociacionDeTareaAPlanificacion(TareaPlanificacion tareaPadre, int hashTareaCotizada) 
+    {   
+       
+       AsignacionTareaAPlanificacion ventanaAsignacionTarea=new AsignacionTareaAPlanificacion(thisEP,hashTareaCotizada ,tareaPadre );
+       SwingPanel.getInstance().addWindow(ventanaAsignacionTarea);
+        ventanaAsignacionTarea.setVisible(true);
     
     }
     
@@ -1683,14 +1699,29 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             return;
                         }  
                     }
-                    _gestor.agregarNuevaTareaArbolDesdeCotizacion(hash, nombre, hashTareaPadre);                    
+                    
+                    //Agregamos la tarea
+                    TareaPlanificacion tareaPadre=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
+                     eventoNuevaAsociacionDeTareaAPlanificacion(tareaPadre, hash);
+                    
+                                        
                 }
                 else //Si agregamos un recurso
-                {  
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                { 
+                    if(tipo.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
+                    {_gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);}
                     
-                    //TODO: no va mas, tiene q ver q recursos, asignando cantidades
+                    
+                    if(tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                    {
+                        //TODO: Aca van la llamada que tiene q hacer Iuga en su tarea
+                        //_gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                    }
+                    if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                    {
+                        //TODO: Aca van la llamada que tiene q hacer Emma en su tarea
+                        //_gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                    }
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 }                
             }
