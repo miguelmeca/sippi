@@ -67,6 +67,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     
     private int hashSubObraSeleccionada = -1;
     private ArbolIconoNodo nodoActualArbolTareas;
+    
+    private EditarPlanificacion thisEP=this;
    
  public EditarPlanificacion( int idObra) {
         this.idObra = idObra;
@@ -1284,7 +1286,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
             }
         }
-        else
+        else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
         {
             DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
             modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
@@ -1296,7 +1298,30 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 initArbolRecursosCotizados(hashSubObraSeleccionada);
                 }
             }
-        }   
+        }
+        else if(flag.equals(NuevaTareaPlanificacion.CALLBACK_FLAG))
+        {
+            TareaPlanificacion tareaPadre=(TareaPlanificacion)data[0];
+            String nombre=(String)data[1];
+            Date inicioTarea = (Date)data[2];
+            Date finTarea = (Date)data[3];
+            
+            if(!_gestor.crearSubTarea(nombre, inicioTarea,  finTarea, tareaPadre))
+            {
+               mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Ocurrio un error al asignar la tarea"); 
+            }
+            
+            graph.refreshModel();     
+            updateGantt();
+            inicializarArbolDeTareas();
+        } 
+        else if(flag.equals(AsignacionTareaAPlanificacion.CALLBACK_FLAG))
+        {
+           /* graph.refreshModel();     
+            updateGantt();
+            inicializarArbolDeTareas();*/
+        }
+        
     }
 
     /**
@@ -1434,10 +1459,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         DefaultTreeModel modelo=_gestor.cargarModeloArbolTareas();
         arbolTareas.setModel(modelo);
         /////////////
-        JMenuItem editarTarea=new JMenuItem();
+        /*JMenuItem editarTarea=new JMenuItem();
             editarTarea.setText("Editar tarea");
             editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
-            menuArbolTareas.add(editarTarea);
+            menuArbolTareas.add(editarTarea);*/
             ////////////////
         //arbolTareas.setComponentPopupMenu(menuArbolTareas);
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
@@ -1547,7 +1572,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             agregarSubtarea.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                   // evento_arbol_click(arbolTareas,  mouseEvent, nodo);
+                    eventoNuevaTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));                  
                 }
             });
         }
@@ -1573,6 +1598,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
             /////////////////////////
         }
+    }
+    
+    private void eventoNuevaTarea(TareaPlanificacion tareaPadre) 
+    {        
+       NuevaTareaPlanificacion ventanaNuevaTarea=new NuevaTareaPlanificacion(thisEP,tareaPadre);
+       SwingPanel.getInstance().addWindow(ventanaNuevaTarea);
+       ventanaNuevaTarea.setVisible(true);
+    
     }
     
     private void eventoQuitarTareaArbol(ArbolIconoNodo nodo) 
@@ -1637,7 +1670,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 //Si agregamos una tarea
                 if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
                 {
-                    //Es una tarea, pero no es una subtarea
+                    //Es una tarea, pero no es una subtarea, o sea el padre es la raiz)
                     if(padre.getTipo().equals(ArbolDeTareasTipos.TIPO_OBRA))
                     {
                         hashTareaPadre=0;
@@ -1650,11 +1683,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             return;
                         }  
                     }
-                    _gestor.agregarNuevaTareaArbol(hash, nombre, hashTareaPadre);                    
+                    _gestor.agregarNuevaTareaArbolDesdeCotizacion(hash, nombre, hashTareaPadre);                    
                 }
                 else //Si agregamos un recurso
                 {  
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                    
+                    //TODO: no va mas, tiene q ver q recursos, asignando cantidades
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 }                
             }
           }//Fin de if(data!=null && !data.isEmpty() && padre!=null)            

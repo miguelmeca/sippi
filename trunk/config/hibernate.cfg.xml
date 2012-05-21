@@ -2,30 +2,25 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-      
-        <!--        Memory Database        -->
-        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="connection.url">jdbc:hsqldb:mem:testdb</property>
-        <property name="connection.username">sa</property>
-        <property name="connection.password"></property>
-        <property name="connection.pool_size">2</property>
-        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
-        <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
-      
-      
-      
-      
-<!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
-<!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
+    <!--        Memory Database        -->
+    <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+    <property name="connection.url">jdbc:hsqldb:mem:testdb</property>
+    <property name="connection.username">sa</property>
+    <property name="connection.password"/>
+    <property name="connection.pool_size">2</property>
+    <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+    <property name="show_sql">true</property>
+    <property name="hbm2ddl.auto">create</property>
+    <!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
+    <!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
     <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.0.10:1521/xe</property-->
     <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property-->
-<!--    <property name="hibernate.connection.username">administradornn</property>-->
-<!--    <property name="hibernate.connection.password">administradornn</property>-->
-<!--    <property name="hibernate.current_session_context_class">thread</property>-->
-<!--    <property name="hibernate.hbm2ddl.auto">create-drop</property>-->
+    <!--    <property name="hibernate.connection.username">administradornn</property>-->
+    <!--    <property name="hibernate.connection.password">administradornn</property>-->
+    <!--    <property name="hibernate.current_session_context_class">thread</property>-->
+    <!--    <property name="hibernate.hbm2ddl.auto">create-drop</property>-->
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
-<!--    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
+    <!--    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
     <!--property name="connection.pool_size">1</property>
     <property name="c3p0.idle_test_period">100</property>
     <property name="c3p0.max_size">1</property>
@@ -88,7 +83,7 @@
     <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
     <mapping resource="config/db/TipoAdicional.hbm.xml"/>
-	    <!--             ::: FIFTH ITERATION :::               -->
+    <!--             ::: FIFTH ITERATION :::               -->
     <mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/>
     <mapping resource="config/db/DetalleSubObraXTarea.hbm.xml"/>
     <mapping resource="config/db/PlanificacionXXX.hbm.xml"/>
@@ -97,6 +92,5 @@
     <mapping resource="config/db/PlanificacionXMaterial.hbm.xml"/>
     <mapping resource="config/db/TareaPlanificacion.hbm.xml"/>
     <mapping resource="config/db/TipoTarea.hbm.xml"/>
-
   </session-factory>
 </hibernate-configuration>

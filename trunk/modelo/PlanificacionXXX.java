@@ -243,7 +243,13 @@ public class PlanificacionXXX {
         this.descripcion = descripcion;
     }
     
+    public void addTarea(TareaPlanificacion soxt){
+        this.tareas.add(soxt);
+    }
     
     
+    
+    
+     
 }
     

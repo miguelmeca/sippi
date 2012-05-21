@@ -391,6 +391,7 @@ private void modificarTarea()
            }*/
            SubObraXTarea tarea=(SubObraXTarea)((NTupla)tblTareas.getModel().getValueAt(selectedRow, 0)).getData();
            at.tomarValoresDeDatos(tarea, tblTareas.getSelectedRow());
+           
         }  
 }        
         
