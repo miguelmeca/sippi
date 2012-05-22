@@ -23,12 +23,17 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
     private Date inicioTarea;
     private Date finTarea;
     
-    public NuevaTareaPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre) {
+    public NuevaTareaPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre, PlanificacionXXX planificacion) {
         initComponents();
         this.tareaPadre = tareaPadre;
         this.callback = callback;
-        inicioTarea.setTime(tareaPadre.getFechaInicio().getTime());
-        finTarea.setTime(tareaPadre.getFechaFin().getTime());
+        this.planificacion=planificacion;
+        
+        if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
+        {
+            inicioTarea = new Date(tareaPadre.getFechaInicio().getTime());
+            finTarea = new Date(tareaPadre.getFechaFin().getTime());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -169,24 +174,27 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la inicio");
             return false;
         }
-        
-        for (int i = 0; i < planificacion.getTareas().size(); i++) 
+        if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
         {
-            if(txtNombreTarea.getText().equals(planificacion.getTareas().get(i).getNombre()))
+            for (int i = 0; i < tareaPadre.getSubtareas().size(); i++) 
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","Ya existe otra subtarea con el mismo nombre");
+                if(txtNombreTarea.getText().equals(tareaPadre.getSubtareas().get(i).getNombre()))
+                {
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","Ya existe otra subtarea con el mismo nombre");
+                    return false;
+                }
+            }
+        
+            if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
                 return false;
             }
-        }
-        if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
-        {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
-            return false;
-        }
-        if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
-        {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
-            return false;
+            if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
+                return false;
+            }
         }
         return true;
         

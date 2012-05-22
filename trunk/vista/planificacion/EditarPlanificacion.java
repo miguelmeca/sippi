@@ -52,6 +52,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
     public static int TEMPLATE_MODIFICACION = 0;
     public static int TEMPLATE_SOLOLECTURA  = 1;
+    JMenuItem editarTarea;
+    JMenuItem agregarSubtarea;
+    JMenuItem quitarTarea;
+    JMenuItem agregarTareaPlanificacion;
     
     private ICallBack_v3 thisWindowWorkArround = this;
     
@@ -1160,6 +1164,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 //        inicializarArbolDeTareas();
     }
     
+    //Se llama desde el gestor
     public void agregarNuevaTareaArbol(int hash,String nombre,int hashTareaPadre)
     { 
         //idTareaPadre sera siempre o una tarea, subtarea o la obra. Nada mas. En caso de ser la obra, el id sera 0 (cero)
@@ -1506,35 +1511,75 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         PanelDropTarget target = new PanelDropTarget(arbolTareas, new ArbolDropEvent());
         DefaultTreeModel modelo=_gestor.cargarModeloArbolTareas();
         arbolTareas.setModel(modelo);
-        /////////////
-        /*JMenuItem editarTarea=new JMenuItem();
-            editarTarea.setText("Editar tarea");
-            editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
-            menuArbolTareas.add(editarTarea);*/
-            ////////////////
-        //arbolTareas.setComponentPopupMenu(menuArbolTareas);
+         
+        
+        
+        
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
         inicializarEventosArbol();
         arbolTareas.repaint();  
         //arbolTareas.setRootVisible(false);
     }
     
+    
+    
     private void inicializarEventosArbol()
     {
-        //arbolTareas.add(menuArbolTareas);
+        //Menus TAREA
+        editarTarea=new JMenuItem();
+        editarTarea.setText("Editar tarea");
+        editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+        
+        quitarTarea=new JMenuItem();
+        quitarTarea.setText("Quitar tarea");
+        quitarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+        
+        agregarSubtarea=new JMenuItem();
+        agregarSubtarea.setText("Agregar subtarea");
+        agregarSubtarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png")));
+                  
+        editarTarea.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirEditarTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));
+            }
+        });
+            
+       quitarTarea.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+              //evento_arbol_click(arbolTareas,  mouseEvent, nodo);
+           }
+       });
+            
+       agregarSubtarea.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               
+               eventoNuevaTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));                  
+           }
+       });
+       
+       //Menus Planificacion
+       agregarTareaPlanificacion=new JMenuItem();
+       agregarTareaPlanificacion.setText("Agregar tarea");
+        agregarTareaPlanificacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png")));
+       
+        agregarTareaPlanificacion.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               
+               eventoNuevaTarea(null);                  
+           }
+       });
+        
+        
+        //Listener del arbol
         arbolTareas.addMouseListener(new MouseAdapter() {
-                /*@Override
-                public void mouseClicked(MouseEvent me) {
-                    
-                    int n=me.getButton();
-                    boolean b=me.isPopupTrigger();
-                    if(me.getButton()==MouseEvent.BUTTON3) {
-                        
-                        setearItemsMenuArbol(me);
-                    }
-                }*/
+                
             private void checkForPopup(MouseEvent mouseEvent) {
             if(mouseEvent.isPopupTrigger()) {
+                System.out.println("XXXXXXXXXXXXXXadfasdfasdfasdfsadf");
                 TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
                 if(tp==null)
                    {
@@ -1544,23 +1589,28 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
                 if(nodo==null)
                 { return;}
-                setearItemsMenuArbol(nodo);
+                
                 
                 //TreeNode root = (TreeNode)tree.getModel().getRoot();;
                 //overRoot = path.getLastPathComponent() == root;
+                 setearItemsMenuArbol(nodo); 
                 menuArbolTareas.show(arbolTareas, mouseEvent.getX(), mouseEvent.getY());
+                  mouseEvent.consume();
             }
         }
  
+            @Override
         public void mousePressed(MouseEvent e)  { checkForPopup(e); }
+            @Override
         public void mouseReleased(MouseEvent e) { checkForPopup(e); }
+            @Override
         public void mouseClicked(MouseEvent e)  { checkForPopup(e); }
             });
         
         
     }
     
-    private void setearItemsMenuArbol(ArbolIconoNodo nodo)
+    private boolean setearItemsMenuArbol(ArbolIconoNodo nodo)
     {
         menuArbolTareas.removeAll(); 
        /* TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
@@ -1577,54 +1627,47 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         String tipo=nodo.getTipo();
         /////////////////////////////////////
         //Si es un nodo al q no se le puede hacer acciones, retorno
-        String[] tiposSinHijos=ArbolDeTareasTipos.getSinHijos();
-        boolean valido=false;
-        for (int i = 0; i < tiposSinHijos.length; i++) {
-            if(tiposSinHijos[i].equals(tipo))
-            {valido=true;}
+        String[] tiposGruposRecursos=ArbolDeTareasTipos.getGruposRecursos();
+        boolean valido=true;
+        for (int i = 0; i < tiposGruposRecursos.length; i++) {
+            if(tiposGruposRecursos[i].equals(tipo))
+            {valido=false;}
         }        
-        if(valido==false && !tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
-        {return;}
+        if(valido==false )
+        {return false;}
         
         if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
         {
-            JMenuItem editarTarea=new JMenuItem();
+            /*if(editarTarea==null)
+            {editarTarea=new JMenuItem();
             editarTarea.setText("Editar tarea");
-            editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));}*/
             menuArbolTareas.add(editarTarea);
             
-            JMenuItem quitarTarea=new JMenuItem();
-            quitarTarea.setText("Quitar tarea");
-            quitarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+           /* if(quitarTarea==null)
+            {
+                quitarTarea=new JMenuItem();
+                quitarTarea.setText("Quitar tarea");
+                quitarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+            }*/
             menuArbolTareas.add(quitarTarea); 
             
-            JMenuItem agregarSubtarea=new JMenuItem();
+            /*if(agregarSubtarea==null)
+            {
+                agregarSubtarea=new JMenuItem();
             agregarSubtarea.setText("Agregar subtarea");
             agregarSubtarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png")));
+            }*/
             menuArbolTareas.add(agregarSubtarea);
             
-            editarTarea.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                   abrirEditarTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));
-                }
-            });
             
-            quitarTarea.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    //evento_arbol_click(arbolTareas,  mouseEvent, nodo);
-                }
-            });
-            
-            agregarSubtarea.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    eventoNuevaTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));                  
-                }
-            });
+            return true;
         }
-        else{
+        else if(tipo.equals(ArbolDeTareasTipos.TIPO_OBRA))
+        {
+            menuArbolTareas.add(agregarTareaPlanificacion);
+        }
+        //else{
             /*//////////////////////////////
             //Agrego el listener para quitar
             JMenuItem quitar=new JMenuItem();
@@ -1645,12 +1688,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             };*/
 
             /////////////////////////
-        }
+        //}
+        return false;
     }
     //Llama desde el menu emergente
     private void eventoNuevaTarea(TareaPlanificacion tareaPadre) 
     {        
-       NuevaTareaPlanificacion ventanaNuevaTarea=new NuevaTareaPlanificacion(thisEP,tareaPadre);
+       NuevaTareaPlanificacion ventanaNuevaTarea=new NuevaTareaPlanificacion(thisEP,tareaPadre, _gestor.getPlanificacion());
        SwingPanel.getInstance().addWindow(ventanaNuevaTarea);
        ventanaNuevaTarea.setVisible(true);
     
@@ -1658,7 +1702,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     //Llama desde drag & drop al arbol
     private void eventoNuevaAsociacionDeTareaAPlanificacion(TareaPlanificacion tareaPadre, int hashTareaCotizada) 
     {   
-       
+       if(tareaPadre!=null && tareaPadre.esCotizadaODescendienteDeTareaCotizada(_gestor.getPlanificacion()))
+       {
+          mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", "No se puede agregar una tarea cotizada como descendiente de otra tarea cotizada");
+          return; 
+       }
        AsignacionTareaAPlanificacion ventanaAsignacionTarea=new AsignacionTareaAPlanificacion(thisEP,hashTareaCotizada ,tareaPadre );
        SwingPanel.getInstance().addWindow(ventanaAsignacionTarea);
         ventanaAsignacionTarea.setVisible(true);

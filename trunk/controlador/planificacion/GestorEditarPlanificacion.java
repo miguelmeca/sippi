@@ -333,11 +333,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             // Agrego el hijo al padre
             if(padre!=null)
             {
-                if(padre.esCotizadaODescendienteDeTareaCotizada(planificacion))
-                {
-                    mostrarMensajeError("No se puede agregar una tarea cotizada como descendiente de otra tarea cotizada");
-                    return; 
-                }
+                
                 padre.addSubTarea(nuevaTarea);
             }
             else
@@ -850,6 +846,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return true;
     }
     
+    //Sirve tanto como para crear tareas hijas de la planificacion o para crear subtareas de una tarea
     public boolean crearSubTarea(String nombre, Date inicioTarea,  Date finTarea, TareaPlanificacion tareaPadre)
     {
         try{
@@ -858,7 +855,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             subTarea.setNombre(nombre);
             subTarea.setFechaInicio(inicioTarea);
             subTarea.setFechaFin(finTarea);
-            tareaPadre.addSubTarea(subTarea);
+            if(tareaPadre!=null)
+            {tareaPadre.addSubTarea(subTarea);}
+            else{this.planificacion.addTarea(subTarea);}
             return true;
         }
         catch(Exception e)
