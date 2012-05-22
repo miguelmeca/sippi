@@ -828,6 +828,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return (SubObraXHerramientaModif) planificacion.getCotizacion().getSubObraXHerramientaPorHash(Integer.parseInt(hash));
     }
 
+    public SubObraXMaterialModif getGastosMaterialFromHash(String hash) {
+        return (SubObraXMaterialModif) planificacion.getCotizacion().getSubObraXMaterialPorHash(Integer.parseInt(hash));
+    }
+    
     public boolean asignarHerramientaATarea(SubObraXHerramientaModif soxhm, TareaPlanificacion tarea, int cantidadDeHoras) {
         PlanificacionXHerramienta pxh = new PlanificacionXHerramienta(soxhm);
         pxh.setHorasAsignadas(cantidadDeHoras);
@@ -862,5 +866,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             System.out.println(e.getStackTrace());
             return false;
         }
+    }
+    
+    public boolean asignarMaterialATarea(SubObraXMaterialModif soxmm, TareaPlanificacion tarea, int cantidad) {
+        PlanificacionXMaterial pxm = new PlanificacionXMaterial(soxmm);
+        pxm.setCantidad(cantidad);
+        tarea.getMateriales().add(pxm);
+        
+        // Modifico el soxmm si es necesario
+        // Hago los calculos de nuevo
+        int cantidadDisponiblePlanificacion = PlanificacionUtils.getCantidadAsignadaAMaterial(planificacion, soxmm);
+        int cantidadDisponible = soxmm.getCantidadDisponible() - cantidadDisponiblePlanificacion;
+        if(cantidadDisponible<0)
+        {
+            // Me paso, modifico el soxmm
+            soxmm.setCantidad(soxmm.getCantidad()+Math.abs(cantidadDisponible));
+        }       
+        
+        return true;
     }
 }

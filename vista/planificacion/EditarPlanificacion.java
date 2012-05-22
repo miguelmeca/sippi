@@ -31,6 +31,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import modelo.*;
 import util.NTupla;
+import util.RecursosUtil;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
@@ -1271,25 +1272,45 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     public void actualizar(int id, String flag, boolean exito, Object[] data) {
         if(flag.equals(AsignacionHerramientasHoras.CALLBACK_FLAG))
         {
-            // [0] SubObraXHerramientaMod
+            // [0] SubObraXHerramientaMod | SubObraXMaterialMod
             // [1] TareaPlanificacion
             // [2] cantida de horas
-            SubObraXHerramientaModif soxhm = (SubObraXHerramientaModif) data[0];
-            TareaPlanificacion tarea = (TareaPlanificacion) data[1];
-            int cantidadDeHoras = (Integer) data[2];
-            if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
+            
+            if(data[0] instanceof SubObraXHerramientaModif)
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+                SubObraXHerramientaModif soxhm = (SubObraXHerramientaModif) data[0];
+                TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+                int cantidadDeHoras = (Integer) data[2];
+                if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
+                {
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+                }
+                else
+                {
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                }
             }
-            else
+            else if(data[0] instanceof SubObraXMaterialModif)
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                SubObraXMaterialModif soxmm = (SubObraXMaterialModif) data[0];
+                TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+                int cantidad = (Integer) data[2];
+                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxmm.getMaterial());
+                Material material = RecursosUtil.getMaterial(re);
+                if(_gestor.asignarMaterialATarea(soxmm,tarea,cantidad))
+                {
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Material Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+" "+material.getUnidadDeMedida().getAbreviatura()+"</b> del material a la tarea.");
+                }
+                else
+                {
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                }
             }
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
         {
             DefaultTableModel modelo = (DefaultTableModel)tblTareas.getModel();
-            modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
+//            modelo = TablaUtil.vaciarDefaultTableModel(modelo);  
             initTablaSubObras();
             for (int i = 0; i < tblSubObras.getRowCount(); i++) 
             {
@@ -1409,11 +1430,31 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nA la Tarea "+p.getNombre());
+                            TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
+                            SubObraXMaterialModif gastosMod = _gestor.getGastosMaterialFromHash(dataTrigger[1]);
+                            RecursoXProveedor rxp = null;
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            
+                            if(gastosMod!=null)
+                            {
+                                rxp = gastosMod.getMaterial();
+                            }
+                            
+                            if(tarea!=null && gastosMod!=null && rxp!=null && plan != null)
+                            {
+                                AsignacionMaterialesCantidad winAsignacion = new AsignacionMaterialesCantidad(thisWindowWorkArround,plan,tarea,gastosMod,rxp);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                            }
+                            else
+                            {
+                                // MEnsaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o el material.\nIntentelo nuevamente");
+                            }
                         }
                                     
                     }
@@ -1829,13 +1870,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 // Muestro
                 editarTarea.setVisible(true);                    
             }
-        }
-        
-        
-        
+        }   
     }
-    
-
     
     public void crearNuevaSubObra(String nombre)
     {
@@ -1847,6 +1883,4 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
        //En realidad el metodo para modificar nombre no se esta usando en
        //ninguna parte del sistema asi q podria volar a la mierda perfectamente
     }
-    
-
 }

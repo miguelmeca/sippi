@@ -6,10 +6,7 @@ package controlador.planificacion;
 
 import java.util.ArrayList;
 import java.util.List;
-import modelo.PlanificacionXHerramienta;
-import modelo.PlanificacionXXX;
-import modelo.SubObraXHerramientaModif;
-import modelo.TareaPlanificacion;
+import modelo.*;
 
 /**
  *
@@ -132,5 +129,29 @@ public class PlanificacionUtils {
         return count;
     }
     
-    
+    /**
+     * Busco en todas las tareas planificadas la cantidad del Material asignado (SubObraxMaterial)
+     * @param plan
+     * @param sxh
+     * @return 
+     */
+    public static int getCantidadAsignadaAMaterial(PlanificacionXXX plan, SubObraXMaterialModif sxm)
+    {
+        int count = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
+                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
+                {
+                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
+                    {
+                        count += pxm.getCantidad();
+                    }
+                }
+            }
+        }
+        return count;
+    }
 }
