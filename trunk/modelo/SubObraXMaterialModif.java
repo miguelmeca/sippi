@@ -33,4 +33,8 @@ public class SubObraXMaterialModif extends SubObraXMaterial {
     public void setOriginal(SubObraXMaterial original) {
         this.original = original;
     }
+
+    public int getCantidadDisponible() {
+        return super.getCantidad();
+    }
 }
