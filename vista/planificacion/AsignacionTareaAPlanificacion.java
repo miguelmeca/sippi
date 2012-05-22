@@ -35,11 +35,12 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
         
        Date fechaSugeridaInicio;
        Date fechaSugeridaFin;
-       if(tareaPadre!=null)
-       {
-         inicioTarea.setTime(tareaPadre.getFechaInicio().getTime());
-         finTarea.setTime(tareaPadre.getFechaFin().getTime());
-       }
+       if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
+        {
+            inicioTarea = new Date(tareaPadre.getFechaInicio().getTime());
+            finTarea = new Date(tareaPadre.getFechaFin().getTime());
+        }
+       
        
         
     }
