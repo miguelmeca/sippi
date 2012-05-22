@@ -4,17 +4,17 @@
  */
 package controlador.cotizacion;
 
+import controlador.planificacion.PlanificacionUtils;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
-import modelo.Cotizacion;
-import modelo.HerramientaDeEmpresa;
-import modelo.SubObra;
-import modelo.SubObraXHerramienta;
+import modelo.*;
 import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
 import vista.cotizacion.CotizacionHerramientas;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
 /**
  *
@@ -121,6 +121,24 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         {
             if(i==ntp.getId())
             {
+                if(gestorPadre.pantalla.getClass().equals(EditarCotizacionModificada.class))
+                {
+                    GestorEditarCotizacionModificada gestor = (GestorEditarCotizacionModificada)gestorPadre;
+                    
+                    //obtengo la herramienta y pregunto si se puede eliminar
+                    SubObraModificada subMod=((SubObraModificada)gestorPadre.getSubObraActual());
+                    SubObraXHerramientaModif soxhm=(SubObraXHerramientaModif)subMod.getHerramientas().get(i);
+                    
+                    if(gestor.getPlanificacion()!=null && soxhm!=null)
+                    {
+                        boolean estaEnUso = PlanificacionUtils.estaSubObraXHerramientaEnUso(gestor.getPlanificacion(),soxhm);
+                        if(estaEnUso)
+                        {
+                            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML><b>No</b> se puede eliminar la herramienta, está asignada a una tarea de la planificacion"); 
+                            return;                            
+                        }
+                    }
+                }                
                 getSubObraActual().getHerramientas().remove(i);
                 llenarTablaHerramientas();
                 refrescarPantallas();

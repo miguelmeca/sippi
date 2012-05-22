@@ -22,9 +22,4 @@ public class SubObraModificada extends SubObra{
         this.subObraOriginal = subObraOriginal;
     }
     
-    
-    
-
-
-    
 }
