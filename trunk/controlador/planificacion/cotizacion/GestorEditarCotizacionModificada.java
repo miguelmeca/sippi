@@ -159,4 +159,10 @@ public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
          }
          sesion.saveOrUpdate(cot);
     }
+
+    public PlanificacionXXX getPlanificacion() {
+        return planificacion;
+    }
+     
+     
 }

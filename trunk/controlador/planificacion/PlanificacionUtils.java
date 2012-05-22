@@ -154,4 +154,31 @@ public class PlanificacionUtils {
         }
         return count;
     }
+    
+    /**
+     * Busco en todas las tareas planificadas si la (SubObraxHerramienta) esta usandose
+     * @param plan
+     * @param sxh
+     * @return 
+     */
+    public static boolean estaSubObraXHerramientaEnUso(PlanificacionXXX plan, SubObraXHerramientaModif sxh)
+    {
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getHerramientas().size(); j++) {
+                PlanificacionXHerramienta pxh = tarea.getHerramientas().get(j);
+                if(pxh!=null && pxh.getHerramientaCotizacion()!=null)
+                {
+                    if(sxh.hashCode() == pxh.getHerramientaCotizacion().hashCode())
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+        
+    
 }
