@@ -1593,7 +1593,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 
                 //TreeNode root = (TreeNode)tree.getModel().getRoot();;
                 //overRoot = path.getLastPathComponent() == root;
-                 setearItemsMenuArbol(nodo); 
+                setearItemsMenuArbol(nodo); 
                 menuArbolTareas.show(arbolTareas, mouseEvent.getX(), mouseEvent.getY());
                   mouseEvent.consume();
             }
