@@ -479,7 +479,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         //Agregar todas las tareas, subtareas y recursos de cada obra        
         cargarTareasEnArbol(modelo, planificacion.getTareas(),raiz);       
         
-        
         return modelo;
     } 
     
