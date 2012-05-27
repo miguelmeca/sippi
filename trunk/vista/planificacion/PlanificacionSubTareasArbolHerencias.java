@@ -8,6 +8,7 @@ import controlador.planificacion.GestorEditarPlanificacion;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import modelo.TareaPlanificacion;
 import vista.gui.dnd.PanelDropTarget;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
@@ -20,12 +21,14 @@ public class PlanificacionSubTareasArbolHerencias extends javax.swing.JInternalF
 
     private ArbolTareasGestor arbolTareasGestor;
     private GestorEditarPlanificacion _gestorPadre;
+    private TareaPlanificacion tarea;
     
     /**
      * Creates new form PlanificacionSubTareasArbolHerencias
      */
-    public PlanificacionSubTareasArbolHerencias(GestorEditarPlanificacion _gestorPadre) {
+    public PlanificacionSubTareasArbolHerencias(GestorEditarPlanificacion _gestorPadre,TareaPlanificacion tarea) {
         this._gestorPadre = _gestorPadre;
+        this.tarea = tarea;
         initComponents();
         arbolTareasGestor = new ArbolTareasGestor(arbolTareas);
         inicializarArbolDeTareas();
@@ -36,7 +39,7 @@ public class PlanificacionSubTareasArbolHerencias extends javax.swing.JInternalF
      */
     private void inicializarArbolDeTareas()
     {
-        DefaultTreeModel modelo=_gestorPadre.cargarModeloArbolTareas();
+        DefaultTreeModel modelo=_gestorPadre.cargarModeloArbolTareasSoloTareas();
         arbolTareas.setModel(modelo);
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
         arbolTareas.repaint();  
@@ -124,6 +127,39 @@ public class PlanificacionSubTareasArbolHerencias extends javax.swing.JInternalF
         final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
         if(nodo!=null)
         {
+            // Es la misma tarea padre?
+            TareaPlanificacion padre = this.tarea.buscarCaminoHastaTareaConCotizacion(_gestorPadre.getPlanificacion(),true,true).get(0);
+            if(padre!=null)
+            {
+                if(padre.hashCode()==nodo.getId())
+                {
+                    StringBuilder msg = new StringBuilder("<HTML>");
+                    msg.append("La tarea de <b>");
+                    msg.append(this.tarea.getNombre());
+                    msg.append("</b> ya está siendo contenida por la tarea <b>");
+                    msg.append(padre.getNombre());
+                    msg.append("</b><br/>");
+                    msg.append("<i>Por favor seleccione otra tarea</i>");
+                    JOptionPane.showInternalMessageDialog(this,msg.toString(),"Atención!",JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }                  
+            }
+            
+            
+            // Es al misma tarea ?
+            if(nodo.getId()==tarea.hashCode())
+            {
+                StringBuilder msg = new StringBuilder("<HTML>");
+                msg.append("La tarea destino: <b>");
+                msg.append(nodo.getTitulo());
+                msg.append("</b><br>es la misma que la tarea origen: <b>");
+                msg.append(this.tarea.getNombre());
+                msg.append("</b><br/>");
+                msg.append("<i>Por favor seleccione otra tarea</i>");
+                JOptionPane.showInternalMessageDialog(this,msg.toString(),"Atención!",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }            
+            // Confirmar ?
             StringBuilder msg = new StringBuilder("<HTML>");
                 msg.append("Está seguro que desea que la tarea:");
                 msg.append("<br/>");
