@@ -8,6 +8,7 @@ package controlador.planificacion;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
 import util.NTupla;
@@ -94,5 +95,14 @@ public class GestorPlanificacionSubTareas implements IGestorPlanificacion{
             }
         }
         return subtarea;
+    }
+
+    public String getNombreTareaContenedora() {
+        List<TareaPlanificacion> tareas = this.getTareaActual().buscarCaminoHastaTareaConCotizacion(this.gestorPadre.getPlanificacion(),false,true);
+        for (int i = 0; i < tareas.size(); i++) {
+            TareaPlanificacion tareaPlanificacion = tareas.get(i);
+            return tareaPlanificacion.getNombre();
+        }
+        return "";
     }
 }
