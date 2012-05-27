@@ -149,4 +149,16 @@ public class ArbolDeTareasTipos {
         return padres;
     }
     
+    public static boolean esGruposRecursos(String tipo)
+    {
+        if(tipo.equals(TIPO_MATERIALES))
+        {return true;}
+        if(tipo.equals(TIPO_HERRAMIENTAS))
+        {return true;}
+        if(tipo.equals(TIPO_ALQUILERESCOMPRAS))
+        {return true;}
+        if(tipo.equals(TIPO_ASIGNACIONESEMPLEADOS))
+        {return true;}
+        return false;
+    }
 }

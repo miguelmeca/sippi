@@ -27,6 +27,7 @@ public class SubObra implements ISubtotal
     protected List<SubObraXTarea> tareas;
     protected List<SubObraXHerramienta> herramientas;
     protected List<SubObraXMaterial> materiales;
+    private boolean subObraGeneralALaPlanificacion;
 
     public SubObra() {
         adicionales = new ArrayList<SubObraXAdicional>();
@@ -34,6 +35,7 @@ public class SubObra implements ISubtotal
         tareas = new ArrayList<SubObraXTarea>();
         herramientas = new ArrayList<SubObraXHerramienta>();
         materiales = new ArrayList<SubObraXMaterial>();
+        subObraGeneralALaPlanificacion=false;
     }
 
     public int getId() {
@@ -268,6 +270,20 @@ public class SubObra implements ISubtotal
             { return soxh;}            
         }
         return null;
+    }
+
+    /**
+     * @return the subObraGeneralALaPlanificacion
+     */
+    public boolean esSubObraGeneralALaPlanificacion() {
+        return subObraGeneralALaPlanificacion;
+    }
+
+    /**
+     * @param subObraGeneralALaPlanificacion the subObraGeneralALaPlanificacion to set
+     */
+    public void setSubObraGeneralALaPlanificacion(boolean subObraGeneralALaPlanificacion) {
+        this.subObraGeneralALaPlanificacion = subObraGeneralALaPlanificacion;
     }
     
     

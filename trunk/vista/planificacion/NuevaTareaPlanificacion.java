@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
+import util.FechaUtil;
 import vista.interfaces.ICallBack_v3;
 
 /**
@@ -23,6 +24,9 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
     private Date inicioTarea;
     private Date finTarea;
     
+    private Date inicioPadre;
+    private Date finPadre;
+    
     public NuevaTareaPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre, PlanificacionXXX planificacion) {
         initComponents();
         this.tareaPadre = tareaPadre;
@@ -31,9 +35,19 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
         
         if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
         {
-            inicioTarea = new Date(tareaPadre.getFechaInicio().getTime());
-            finTarea = new Date(tareaPadre.getFechaFin().getTime());
+            inicioPadre = new Date(tareaPadre.getFechaInicio().getTime());
+            finPadre = new Date(tareaPadre.getFechaFin().getTime());            
         }
+        else if(planificacion.getFechaInicio()!=null && planificacion.getFechaFin()!=null)
+        {
+            inicioPadre = new Date(planificacion.getFechaInicio().getTime());
+            finPadre = new Date(planificacion.getFechaFin().getTime());
+            
+        }
+        jdcFechaInicio.setDate(inicioPadre);
+        jdcFechaFin.setDate(finPadre);
+            
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -76,12 +90,6 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(55, 55, 55))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,14 +97,23 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel6))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(btnCancelar)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 10, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnAceptar))
+                                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 17, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNombreTarea)
                         .addContainerGap())))
@@ -111,13 +128,13 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel6)
+                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAceptar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,7 +191,7 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la inicio");
             return false;
         }
-        if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
+        if(tareaPadre!=null)
         {
             for (int i = 0; i < tareaPadre.getSubtareas().size(); i++) 
             {
@@ -184,17 +201,24 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                     return false;
                 }
             }
+        }
         
-            if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
-            {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
-                return false;
-            }
-            if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
-            {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
-                return false;
-            }
+        String finalMsje="";
+        if(tareaPadre==null)
+        {finalMsje="la planificación";}
+        else
+        finalMsje="la tarea contenedora";
+        if(FechaUtil.diasDiferencia(finPadre, jdcFechaFin.getDate())>0)
+        //if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de "+finalMsje);
+            return false;
+        }
+        if(FechaUtil.diasDiferencia(jdcFechaInicio.getDate(), inicioPadre)>0)
+        //if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de "+finalMsje);
+            return false;
         }
         return true;
         

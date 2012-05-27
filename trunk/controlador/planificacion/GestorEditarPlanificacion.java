@@ -26,7 +26,9 @@ import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.TreeEntry;
 import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.EditarPlanificacion;
+import vista.planificacion.NuevaTareaPlanificacion;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
 
 /**
@@ -313,7 +315,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
 
     
-    public void agregarNuevaTareaArbolDesdeCotizacion(int hashTaraCotizada, TareaPlanificacion padre, Date fechaInicio, Date fechaFin)
+    public void agregarNuevaTareaDesdeCotizacion(int hashTaraCotizada, TareaPlanificacion padre, Date fechaInicio, Date fechaFin)
     {
         TareaPlanificacion nuevaTarea=crearTarea( hashTaraCotizada, fechaInicio, fechaFin);
         
@@ -347,7 +349,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {hashPadre=padre.hashCode();}
         else
         {hashPadre=0;}
-        _pantalla.agregarNuevaTareaArbol(nuevaTarea.hashCode(),nuevaTarea.getNombre(),hashPadre);
+       _pantalla.agregarNuevaTarea(nuevaTarea.hashCode(),nuevaTarea.getNombre(),hashPadre);
         _pantalla.refreshGanttAndData();
     }
     
@@ -415,10 +417,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return new Date(cal.getTimeInMillis());
     }    
     
-    private TareaPlanificacion crearTarea(int hashTaraCotizada, Date fechaInicio, Date fechaFin)
+    private TareaPlanificacion crearTarea(int hashTaeraCotizada, Date fechaInicio, Date fechaFin)
     { // VEO QUE NO ESTE REPETIDA
         TareaPlanificacion nuevaTarea = null;
-        nuevaTarea=planificacion.buscarTareaPorHashTareaCotizada(hashTaraCotizada);
+        nuevaTarea=planificacion.buscarTareaPorHashTareaCotizada(hashTaeraCotizada);
         if(nuevaTarea!=null)
         {
             mostrarMensajeError("La Tarea: "+nuevaTarea.getNombre()+"\nya se encuentra agregada");
@@ -442,7 +444,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         try
         {   
             SubObraXTareaModif soxtm;            
-             soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hashTaraCotizada);
+             soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hashTaeraCotizada);
              nuevaTarea.setNombre(soxtm.getNombre());
              nuevaTarea.setTareaCotizada(soxtm);
              nuevaTarea.setTipoTarea(soxtm.getTipoTarea());
@@ -494,6 +496,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
             cargarTareasEnArbol(modelo, tarea.getSubtareas(),nodoTarea,incluirRecursos);
             
+            int contadorTipoRecursosCargados=0;
+
             if(incluirRecursos)
             {
                 if(tarea.getMateriales()!=null && !tarea.getMateriales().isEmpty())
@@ -505,27 +509,28 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     {
                     PlanificacionXMaterial material=tarea.getMateriales().get(j);
                     ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.hashCode(),ArbolDeTareasTipos.TIPO_MATERIAL,material.toString(),Iconos.ICONO_MATERIAL);
-                    modelo.insertNodeInto(nodoMaterial, nodoMateriales, j);
+                    modelo.insertNodeInto(nodoMaterial, nodoMateriales, j); 
                     } 
+                    contadorTipoRecursosCargados++;
                 }
-
+            
                 if(tarea.getHerramientas()!=null && !tarea.getHerramientas().isEmpty())
                 {
-                ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
-                modelo.insertNodeInto(nodoHerramientas, nodoTarea, 1);
-                int cantHeramientas=tarea.getHerramientas().size();
-                for (int j = 0; j < cantHeramientas; j++) 
-                {
-                    PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
-                    ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
-                    modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
+                    ArbolIconoNodo nodoHerramientas = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTAS,ArbolDeTareasTipos.TIPO_HERRAMIENTAS,Iconos.ICONO_HERRAMIENTAS);
+                    modelo.insertNodeInto(nodoHerramientas, nodoTarea, contadorTipoRecursosCargados);
+                    int cantHeramientas=tarea.getHerramientas().size();
+                    for (int j = 0; j < cantHeramientas; j++) 
+                    {
+                        PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
+                        ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
+                        modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
+                    }
+                    contadorTipoRecursosCargados++;
                 }
-                }
-
                 if(tarea.getAlquilerCompras()!=null && !tarea.getAlquilerCompras().isEmpty())
                 {
                     ArbolIconoNodo nodoAlquileresCompras = new ArbolIconoNodo(tarea.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS,Iconos.ICONO_ALQUILERESCOMPRAS);
-                    modelo.insertNodeInto(nodoAlquileresCompras, nodoTarea, 2);
+                    modelo.insertNodeInto(nodoAlquileresCompras, nodoTarea, contadorTipoRecursosCargados);
                     int cantAlquileresCompras=tarea.getAlquilerCompras().size();
                     for (int j = 0; j < cantAlquileresCompras; j++) 
                     {
@@ -533,10 +538,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,alquilerCompra.toString(),Iconos.ICONO_ALQUILERCOMPRA);
                         modelo.insertNodeInto(nodoAlquilerCompra, nodoAlquileresCompras, j);
                     }
+                    contadorTipoRecursosCargados++;
                 }
-            }   
-        }
+           }
+       } 
     }
+    
     
     public void asociarRecurso(int hashRecuso, String nombre,int hashTareaPadre, String tipoRecurso)
     {
@@ -602,7 +609,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 else
                 {
                     
-                    _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
+                   // _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
                 }
             }
             else
@@ -709,7 +716,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             if(so.hashCode()==hash_subObra)
             {
                 this.planificacion.getCotizacion().getSubObras().remove(i);
-                _pantalla.actualizar(0, "", true,null);
+                _pantalla.actualizar(0, EditarCotizacionModificada.CALLBACK_FLAG, true,null);
                 return true;
             }
         }
@@ -733,7 +740,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             SubObraModificada nuevaso = new SubObraModificada();
             nuevaso.setNombre(nombre);
             this.planificacion.getCotizacion().getSubObras().add(nuevaso);
-            _pantalla.actualizar(0, "", true,null);
+            _pantalla.actualizar(0, EditarCotizacionModificada.CALLBACK_FLAG, true,null);
         }
     }
 
@@ -848,7 +855,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     }
     
     //Sirve tanto como para crear tareas hijas de la planificacion o para crear subtareas de una tarea
-    public boolean crearSubTarea(String nombre, Date inicioTarea,  Date finTarea, TareaPlanificacion tareaPadre)
+    public boolean crearNuevaTareaPlanificacionVacia(String nombre, Date inicioTarea,  Date finTarea, TareaPlanificacion tareaPadre)
     {
         try{
             TareaPlanificacion subTarea=new TareaPlanificacion();
@@ -858,7 +865,24 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             subTarea.setFechaFin(finTarea);
             if(tareaPadre!=null)
             {tareaPadre.addSubTarea(subTarea);}
-            else{this.planificacion.addTarea(subTarea);}
+            else{
+                // Es una tarea de planificacion hija de la planificacion (no es subtarea)
+                SubObraXTareaModif tareaCotizacionNueva= new SubObraXTareaModif();
+                tareaCotizacionNueva.setNombre(subTarea.getNombre());
+                tareaCotizacionNueva.setTipoTarea(subTarea.getTipoTarea());
+                tareaCotizacionNueva.setObservaciones(CotizacionModificada.obsevacionSubObraXTareaDeSubObraGeneral);                
+                planificacion.getCotizacion().getSubObraGeneral().addTarea(tareaCotizacionNueva);
+                
+                subTarea.setTareaCotizada(tareaCotizacionNueva);
+                this.planificacion.addTarea(subTarea);
+                int hashPadre=0;
+                if(tareaPadre!=null)
+                {
+                    hashPadre=tareaPadre.hashCode();
+                }                
+                
+                _pantalla.agregarNuevaTarea(tareaCotizacionNueva.hashCode(), nombre,hashPadre);
+            }
             return true;
         }
         catch(Exception e)
