@@ -1288,7 +1288,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 int cantidadDeHoras = (Integer) data[2];
                 if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
                 {
-                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+                    mostrarMensaje(JOptionPane.PLAIN_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+                    //
+                    //TODO: Fran, Iuga aca se dispara el metodo que actualiza el arbol de Tareas y reecursos 
+                    //
                 }
                 else
                 {
@@ -1511,10 +1514,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         PanelDropTarget target = new PanelDropTarget(arbolTareas, new ArbolDropEvent());
         DefaultTreeModel modelo=_gestor.cargarModeloArbolTareas();
         arbolTareas.setModel(modelo);
-         
-        
-        
-        
+
         arbolTareas.setCellRenderer(new ArbolIconoRenderer());
         inicializarEventosArbol();
         arbolTareas.repaint();  
@@ -1803,8 +1803,28 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     
                     if(tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
                     {
-                        //TODO: Aca van la llamada que tiene q hacer Iuga en su tarea
-                        //_gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                            TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
+                            System.out.println("Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+tarea.getNombre());
+                            SubObraXHerramientaModif gastosMod     = _gestor.getGastosHerramientaFromHash(dataTrigger[1]);
+                            HerramientaDeEmpresa herramienta  = null;
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            
+                            if(gastosMod!=null)
+                            {
+                                herramienta = gastosMod.getHerramienta();
+                            }
+                            
+                            if(tarea!=null && gastosMod!=null && herramienta!=null && plan != null)
+                            {
+                                AsignacionHerramientasHoras winAsignacion = new AsignacionHerramientasHoras(thisWindowWorkArround,plan,tarea,gastosMod,herramienta);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                            }
+                            else
+                            {
+                                // MEnsaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o la herramienta\nIntentelo nuevamente");
+                            }
                     }
                     if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
