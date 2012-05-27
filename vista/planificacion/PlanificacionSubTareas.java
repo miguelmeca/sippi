@@ -240,7 +240,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
     }//GEN-LAST:event_btnEliminarSubTareaActionPerformed
 
     private void btnCambiarPadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPadreActionPerformed
-        PlanificacionSubTareasArbolHerencias arbolChange = new PlanificacionSubTareasArbolHerencias(gestor.getGestorPlanificacion());
+        PlanificacionSubTareasArbolHerencias arbolChange = new PlanificacionSubTareasArbolHerencias(gestor.getGestorPlanificacion(),this.gestor.getTareaActual());
         SwingPanel.getInstance().addWindow(arbolChange);
         arbolChange.setVisible(true);
     }//GEN-LAST:event_btnCambiarPadreActionPerformed
