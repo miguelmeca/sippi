@@ -167,6 +167,7 @@ public class TareaPlanificacion {
     {
         this.subtareas.add(subTarea);
     }
+    
     public TareaPlanificacion buscarSubTarea(int idSubTarea)
     {
         TareaPlanificacion tarea=null;
@@ -176,6 +177,12 @@ public class TareaPlanificacion {
             {
                 tarea=subtareas.get(i);
                 break;
+            }
+            else
+            {
+                tarea=subtareas.get(i).buscarSubTarea(idSubTarea);
+                if(tarea!=null)
+                {break;}
             }
         }
         return tarea;
@@ -189,6 +196,12 @@ public class TareaPlanificacion {
             {
                 tarea=subtareas.get(i);
                 break;
+            }
+            else
+            {
+                tarea=subtareas.get(i).buscarSubTareaPorHash(hashSubTarea);
+                if(tarea!=null)
+                {break;}
             }
         }
         return tarea;
@@ -218,7 +231,7 @@ public class TareaPlanificacion {
         TareaPlanificacion tarea=null;
         for (int i = 0; i < subtareas.size(); i++) {
             
-            if(subtareas.get(i).getTareaCotizada().hashCode()==hashTarea)
+            if(subtareas.get(i).getTareaCotizada()!=null && subtareas.get(i).getTareaCotizada().hashCode()==hashTarea)
             {
                 tarea=subtareas.get(i);
                 break;
@@ -484,8 +497,37 @@ public class TareaPlanificacion {
         
     }
     /////////////////////////////
-    
+    /**
+     * Este metodo verifica si la tarea es descendiente de una tarea cotizada o ella misma es una tarea cotizada.
+     * IMPORTANTE: Si es hija de una tarea cotizada en la subobra de gastos generales creada en planificacion, el resultado es FALSE
+     * SOLAMENTE devuelve TRUE en caso de q sea o q sea hija de una tera cotizada normal y no de gastos generales.
+     */
     public boolean esCotizadaODescendienteDeTareaCotizada(PlanificacionXXX planificacion)
+    {
+        //Este metodo podria optimizarse para q no haga uso de buscarCaminoHastaTareaConCotizacion() ... pero ya fue...
+        List<TareaPlanificacion> tareasSuperioresTotales= buscarCaminoHastaTareaConCotizacion(planificacion,true,true);
+        for (int i = 0; i < tareasSuperioresTotales.size(); i++) 
+        {
+                        
+            //tareasSuperioresTotales incuye la tarea actual asi q no hace falta preguntar si .get(i!)!=null
+            if (tareasSuperioresTotales.get(i).getTareaCotizada()!=null) 
+            {//Esta tarea padre tiene una tarea cotizada
+                
+                //Es una tarea cotizada en cotizacion o es una tarea cotizada para gastos generales de planificacion)?
+                for (int j = 0; j < planificacion.getCotizacion().getSubObraGeneral().getTareas().size(); j++) {
+                    if(planificacion.getCotizacion().getSubObraGeneral().getTareas().get(j).equals(tareasSuperioresTotales.get(i).getTareaCotizada()))
+                    {return false;}
+                    
+                }
+                
+                //Es una tarea cotizada en cotizacion
+                return true;
+            }
+        }
+        return false;
+    }
+    /*
+     public boolean esCotizadaODescendienteDeTareaCotizada(PlanificacionXXX planificacion)
     {
         //Este metodo podria optimizarse
         List<TareaPlanificacion> tareasSuperioresTotales= buscarCaminoHastaTareaConCotizacion(planificacion,true,false);
@@ -499,4 +541,5 @@ public class TareaPlanificacion {
         }
         return false;
     }
+     */
 }

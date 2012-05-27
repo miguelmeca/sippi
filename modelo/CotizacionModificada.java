@@ -7,6 +7,10 @@ import java.util.List;
 public class CotizacionModificada extends Cotizacion{
     private Cotizacion cotizacionOriginal;
     
+    private final static String nombreSubObraGeneral= "Gastos generales a la obra creados en planificación";
+    private final static String descripcionSubObraGeneral= "Esta subobra ha sido generada automáticamente por el sistema para almacenar los gastos generales de la obra generados durante la planificación";
+    public final static String obsevacionSubObraXTareaDeSubObraGeneral= "Esta tarea ha sido generada automáticamente por el sistema para almacenar los gastos de una tarea creada durante la planificación";
+    
     public CotizacionModificada (Cotizacion cot) {
         cotizacionOriginal=cot;
         this.setDescripcion(cot.getDescripcion());
@@ -140,6 +144,25 @@ public class CotizacionModificada extends Cotizacion{
 
     public void setCotizacionOriginal(Cotizacion cotizacionOriginal) {
         this.cotizacionOriginal = cotizacionOriginal;
+    }
+    
+    public SubObra getSubObraGeneral() {
+        //Si la subOtra existe la devuelvo
+        for(int i=0;i<subObras.size();i++)
+        {
+            if(subObras.get(i).esSubObraGeneralALaPlanificacion())
+            {   return subObras.get(i);}
+        }
+        
+        //Si la subobra todavia no existe la creo y la devuelvo
+        SubObraModificada general=new SubObraModificada();
+        general.setDescripcion(descripcionSubObraGeneral);
+        general.setNombre(nombreSubObraGeneral);
+        general.setSubObraGeneralALaPlanificacion(true);
+        general.setGananciaMonto(0.0);
+        
+        subObras.add(0, general);
+        return general;
     }
 
     

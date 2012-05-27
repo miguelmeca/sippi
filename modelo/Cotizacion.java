@@ -24,7 +24,7 @@ public class Cotizacion {
     private Date validezOferta;
     private String descripcion;
     private Date fechaLimiteEntrega;
-    private List<SubObra> subObras;
+    protected List<SubObra> subObras;
     
     private String estado;
 

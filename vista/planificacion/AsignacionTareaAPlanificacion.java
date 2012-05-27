@@ -11,6 +11,7 @@ import modelo.PlanificacionXXX;
 import modelo.SubObraXHerramientaModif;
 import modelo.TareaPlanificacion;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import util.FechaUtil;
 import vista.interfaces.ICallBack_v3;
 
 /**
@@ -27,19 +28,28 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
     private Date inicioTarea;
     private Date finTarea;
     
-    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, int hashTareaCotizacion, TareaPlanificacion tareaPadre) {
+    private Date inicioPadre;
+    private Date finPadre;
+    
+    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, int hashTareaCotizacion, TareaPlanificacion tareaPadre, PlanificacionXXX planificacion) {
         initComponents();
         this.tareaPadre = tareaPadre;
         this.callback = callback;
         this.hashTareaCotizacion=hashTareaCotizacion;
         
-       Date fechaSugeridaInicio;
-       Date fechaSugeridaFin;
        if(tareaPadre!=null && tareaPadre.getFechaInicio()!=null && tareaPadre.getFechaFin()!=null)
         {
-            inicioTarea = new Date(tareaPadre.getFechaInicio().getTime());
-            finTarea = new Date(tareaPadre.getFechaFin().getTime());
+            inicioPadre = new Date(tareaPadre.getFechaInicio().getTime());
+            finPadre = new Date(tareaPadre.getFechaFin().getTime());            
         }
+       else if(planificacion.getFechaInicio()!=null && planificacion.getFechaFin()!=null)
+        {
+            inicioPadre = new Date(planificacion.getFechaInicio().getTime());
+            finPadre = new Date(planificacion.getFechaFin().getTime());
+            
+        }
+        jdcFechaInicio.setDate(inicioPadre);
+        jdcFechaFin.setDate(finPadre);
        
        
         
@@ -163,18 +173,24 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
             return false;
         }
         
-        if(tareaPadre!=null)
+        
+        String finalMsje="";
+        if(tareaPadre==null)
+        {finalMsje="la planificación";}
+        else
+        finalMsje="la tarea contenedora";
+        
+        if(FechaUtil.diasDiferencia(finPadre, jdcFechaFin.getDate())>0)
+        //if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
         {
-            if(jdcFechaFin.getDate().after(tareaPadre.getFechaFin()))
-            {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de la tarea contenedora");
-                return false;
-            }
-            if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
-            {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de la tarea contenedora");
-                return false;
-            }
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de fin no puede ser mayor a la fecha de fin de "+finalMsje);
+            return false;
+        }
+        if(FechaUtil.diasDiferencia(jdcFechaInicio.getDate(), inicioPadre)>0)
+        //if(jdcFechaFin.getDate().before(tareaPadre.getFechaInicio()))
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La fecha de inicio no puede ser menor a la fecha de inicio de "+finalMsje);
+            return false;
         }
         return true;
         

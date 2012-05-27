@@ -40,6 +40,7 @@ public class ArbolTareasGestor
         
     }
     
+        
     private ArbolIconoNodo getNodoArbolTareasPorIdRecursivo(ArbolIconoNodo nodoPadre, int id)
     {
         ArbolIconoNodo nodo=null;
@@ -67,7 +68,7 @@ public class ArbolTareasGestor
         
     }
     
-    public ArbolIconoNodo obtenerNodoGrupoDeTarea(DefaultTreeModel modelo, ArbolIconoNodo tarea, String tipoGrupo)
+    public ArbolIconoNodo obtenerNodoGrupoDeTarea( ArbolIconoNodo tarea, String tipoGrupo)
     {
        ArbolIconoNodo nodoGrupo=null;
        for (int i = 0; i < tarea.getChildCount(); i++) 
@@ -81,7 +82,7 @@ public class ArbolTareasGestor
        }
        if(nodoGrupo==null)
        {
-           nodoGrupo=crearNodoGrupo(modelo,tarea,tipoGrupo);                           
+           nodoGrupo=crearNodoGrupo((DefaultTreeModel)arbolTareas.getModel(),tarea,tipoGrupo);                           
        }
        return nodoGrupo;
     }
