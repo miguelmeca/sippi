@@ -428,12 +428,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
          
         
-        // CREO LA NUEVA TAREA
-        nuevaTarea = new TareaPlanificacion();
-       // nuevaTarea.setId(id);
-        nuevaTarea.setFechaInicio(fechaInicio);
-        nuevaTarea.setFechaFin(fechaFin);
-        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());  
+        
         
         
         /*Date fechaEstimada = this.planificacion.getFechaInicio();
@@ -441,13 +436,27 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         nuevaTarea.setFechaFin(fechaMas(fechaEstimada,3));*/
         
         // CArgo la SubObra X Tarea Planificada Mod
+        SubObraXTareaModif soxtm; 
         try
         {   
-            SubObraXTareaModif soxtm;            
+                       
              soxtm=(SubObraXTareaModif)this.planificacion.getCotizacion().getSubObraXTareaPorHash(hashTaeraCotizada);
-             nuevaTarea.setNombre(soxtm.getNombre());
-             nuevaTarea.setTareaCotizada(soxtm);
-             nuevaTarea.setTipoTarea(soxtm.getTipoTarea());
+             }catch(Exception e)
+        {
+           e.printStackTrace();
+           mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
+           return null;
+        }
+           // CREO LA NUEVA TAREA
+        nuevaTarea = new TareaPlanificacion(soxtm);
+       // nuevaTarea.setId(id);
+        nuevaTarea.setFechaInicio(fechaInicio);
+        nuevaTarea.setFechaFin(fechaFin);
+        nuevaTarea.setIdTareaGantt(generarIdTareaGantt());    
+             
+             
+             
+             
              return nuevaTarea;
             /*List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
               for (int i = 0; i < listaSubObrasMod.size(); i++) {
@@ -464,12 +473,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                   }
             }*/
         
-        }catch(Exception e)
-        {
-           e.printStackTrace();
-           mostrarMensajeError("No se pudo cargar la Cotizacion Original Modificada");
-           return null;
-        }
+        
     
     }
     
