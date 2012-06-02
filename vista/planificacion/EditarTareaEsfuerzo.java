@@ -13,16 +13,16 @@ package vista.planificacion;
 
 
 import controlador.planificacion.GestorEditarTareaEsfuerzo;
-import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import modelo.DetalleTareaPlanificacion;
 import modelo.TareaPlanificacion;
 import util.NTupla;
+import util.Tupla;
 
 /**
  *
@@ -32,7 +32,6 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
 
     private GestorEditarTareaEsfuerzo gestor;
     
-    /** Creates new form editarCotizacion_Descripcion */
     public EditarTareaEsfuerzo(GestorEditarTareaEsfuerzo gestor) {
         initComponents();        
         this.gestor = gestor;
@@ -327,17 +326,16 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblHs50DetalleTPadreTotales)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblHsNormalesDetalleTPadreCotizadas)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(lbPersonasDetalleTPadreCotizadas)
-                                    .addGap(6, 6, 6)))
+                                    .addGap(6, 6, 6))
+                                .addComponent(lblHsNormalesDetalleTPadreCotizadas))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel15)
                                     .addComponent(lbPersonasDetalleTPadreTotales))
                                 .addComponent(lblHsNormalesDetalleTPadreTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel17)
@@ -628,13 +626,40 @@ public class EditarTareaEsfuerzo extends javax.swing.JPanel {
 
     private void llenarTablaTareaSuperior(TareaPlanificacion tareaSuperior)
     {
-        
+       for (DetalleTareaPlanificacion detalle:tareaSuperior.getDetalles()) {
+            agregarDetalleTareaATabla(detalle);
+        }       
+       
+        //habilitarBotonesParaTablaDetalle(true);
     }
     
     private void vaciarTablaTareaSuperior()
     {
         ((DefaultTableModel)tblEsfuerzoTareaSuperior.getModel()).setRowCount(0);
          //habilitarBotonesParaTablaDetalle(false);
+    }
+    
+    private void agregarDetalleTareaATabla(DetalleTareaPlanificacion detalleTarea) //throws Exception
+    {
+      /* Object[] datos=new Object[8];     
+       NTupla detalleYNombreRango=new NTupla();
+       detalleYNombreRango.setNombre(detalleTarea.getRangoEmpleado().getNombre());
+       detalleYNombreRango.setData(detalleTarea);
+       datos[0]=detalleYNombreRango;
+       Tupla nombreTipoEspecialidad=new Tupla();
+       nombreTipoEspecialidad.setNombre(detalleTarea.getTipoEspecialidad().getNombre());
+       datos[1]=nombreTipoEspecialidad;
+       datos[2]=detalleTarea.getCantidadPersonas();
+       datos[3]=detalleTarea.getCostoXHoraNormal();
+       datos[4]=detalleTarea.getCantHorasNormales();
+       datos[5]=detalleTarea.getCantHorasAl50();
+       datos[6]=detalleTarea.getCantHorasAl100();
+       datos[7]=detalleTarea.calcularSubtotal();
+       
+       DefaultTableModel modelo = (DefaultTableModel) tblDetallesTarea.getModel();
+       
+           modelo.addRow(datos);*/
+       
     }
     
     public void MostrarMensaje(int tipo,String titulo,String mensaje)

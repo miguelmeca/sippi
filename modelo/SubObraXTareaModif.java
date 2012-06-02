@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //
@@ -27,15 +28,8 @@ public class SubObraXTareaModif extends SubObraXTarea {
     public void setId(int id) {
         this.id = id;
     }
-
-    public List<DetalleSubObraXTareaModif> getDetallesMod() {
-        return detallesMod;
-    }
-
-    public void setDetallesMod(List<DetalleSubObraXTareaModif> detallesMod) {
-        this.detallesMod = detallesMod;
-    }
-
+    
+   
     public SubObraXTarea getOriginal() {
         return original;
     }
@@ -43,4 +37,69 @@ public class SubObraXTareaModif extends SubObraXTarea {
     public void setOriginal(SubObraXTarea original) {
         this.original = original;
     }
+    
+    @Deprecated
+    @Override
+    public List<DetalleSubObraXTarea> getDetalles() {
+        List<DetalleSubObraXTarea> aux=new ArrayList<DetalleSubObraXTarea>();
+        for (int i = 0; i < detallesMod.size(); i++) {
+            aux.add(detallesMod.get(i));
+        }
+        return aux;
+    }
+    
+    public List<DetalleSubObraXTareaModif> getDetallesMod() {
+        return detallesMod;
+    }
+
+    @Deprecated
+    @Override
+    public void setDetalles(List<DetalleSubObraXTarea> detalles) {
+        List<DetalleSubObraXTareaModif> aux=new ArrayList<DetalleSubObraXTareaModif>();
+        for (int i = 0; i < detalles.size(); i++) {
+            aux.add((DetalleSubObraXTareaModif)detalles.get(i));
+        }
+        this.detallesMod = aux;
+    }
+    
+    public void setDetallesMod(List<DetalleSubObraXTareaModif> detalles) {        
+        this.detallesMod = detalles;
+    }
+    
+   
+    @Override
+    public void agreagarDetalle(DetalleSubObraXTarea detalle) {
+        this.detallesMod.add((DetalleSubObraXTareaModif)detalle);
+    }
+    
+    @Override
+    public DetalleSubObraXTarea getDetalleParticular(int i) {
+        return detallesMod.get(i);
+    }
+    
+   /* @Override
+    public void setDetalles(List<DetalleSubObraXTarea> detalles) {
+        for (int i = 0; i < detalles.size(); i++) {
+            if(!DetalleSubObraXTareaModif.class.isInstance(detalles.get(i)))
+            {
+               ClassCastException cce=new ClassCastException("ERROR: Los detalles de SubObraTareaModif deben ser instancias de DetalleSubObraTareaModif"); 
+            }
+        }
+        super.setDetalles(detalles);
+    }
+    
+    @Override
+    public void agreagarDetalle(DetalleSubObraXTarea detalle) {
+        if(!DetalleSubObraXTareaModif.class.isInstance(detalle))
+            {
+               ClassCastException cce=new ClassCastException("ERROR: Los detalles de SubObraTareaModif deben ser instancias de DetalleSubObraTareaModif"); 
+            }
+        super.agreagarDetalle((DetalleSubObraXTareaModif)detalle);
+    }
+    
+    @Override
+    public DetalleSubObraXTarea getDetalleParticular(int i) {
+        return (DetalleSubObraXTarea)super.getDetalleParticular(i);
+    }*/
+    
 }
