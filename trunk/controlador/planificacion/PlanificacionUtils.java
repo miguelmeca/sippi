@@ -25,6 +25,17 @@ public class PlanificacionUtils {
     {
         return plan.buscarTareaPorIdTareaGantt(idTareaGantt);
     }
+
+    /**
+     * Se le pasa un hash de Tarea del Gantt y te retorna la Tarea Asociada a ese hash.
+     * @param plan
+     * @param hash
+     * @return
+     */
+    public static TareaPlanificacion getTareaFromHash(PlanificacionXXX plan, int hash)
+    {
+        return plan.buscarTareaPorHash(hash);
+    }
     
     /**
      * Busca la Tarea y la Elimina ( no importa si es una Tarea o SubTarea )
