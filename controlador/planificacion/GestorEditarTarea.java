@@ -207,5 +207,9 @@ public class GestorEditarTarea implements IGestorPlanificacion{
             mensaje.append("Esta tarea no puede eliminarse\nCompruebe que no tiene SubTareas cargadas");
             return false;
         }
-    }   
+    }
+    
+    public void actualizarPantallaPadre(){
+        this.gestorPadre.refrescarPantallas();
+    }
 }

@@ -1875,7 +1875,38 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_MATERIALES;
                         //TODO: Aca van la llamada que tiene q hacer Emma en su tarea
-                        //_gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                        if(path==null)
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                        }
+                        else
+                        {
+                            TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromHashCode(hash);
+                            SubObraXMaterialModif gastosMod = _gestor.getGastosMaterialFromHash(dataTrigger[1]);
+                            RecursoXProveedor rxp = null;
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+
+                            if(gastosMod!=null)
+                            {
+                                rxp = gastosMod.getMaterial();
+                            }
+
+                            if(tarea!=null && gastosMod!=null && rxp!=null && plan != null)
+                            {
+                                AsignacionMaterialesCantidad winAsignacion = new AsignacionMaterialesCantidad(thisWindowWorkArround,plan,tarea,gastosMod,rxp);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                                
+                                // TODO: ACÁ ME QUEDE!!!!! EMMA 21/05/2012
+                                // ESTO DEBE IR EN EL CALLBACK!!!!!!!!!!!!
+                                _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+                            }
+                            else
+                            {
+                                // MEnsaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o el material.\nIntentelo nuevamente");
+                            }
+                        }
                     }
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 }  

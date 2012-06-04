@@ -646,7 +646,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     @Override
     public void refrescarPantallas() {
-//        throw new UnsupportedOperationException("Not supported yet.");
+        this._pantalla.refreshGanttAndData();
+
     }
 
     public void tareaCambioFecha(int id, Date date) {
@@ -830,6 +831,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     public TareaPlanificacion getTareaPlanificacionFromTareaGantt(CoolGanttPhase p) {
        return PlanificacionUtils.getTareaFromGantt(planificacion,p.getId());
+    }
+
+    public TareaPlanificacion getTareaPlanificacionFromHashCode(int hash) {
+       return PlanificacionUtils.getTareaFromGantt(planificacion, hash);
     }
 
     public SubObraXHerramientaModif getGastosHerramientaFromHash(String hash) {

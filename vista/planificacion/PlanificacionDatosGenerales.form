@@ -136,9 +136,6 @@
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaInicio">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaInicioFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -149,9 +146,6 @@
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaFin">
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaFinFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbTipoTarea">
       <Properties>

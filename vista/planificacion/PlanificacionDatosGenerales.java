@@ -11,7 +11,10 @@
 
 package vista.planificacion;
 
+import com.toedter.calendar.JDateChooser;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Date;
 
 /**
@@ -29,6 +32,9 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         gestor.setPantalla(this);
         gestor.cargarTiposDeTarea();
         gestor.cargarDatosTarea();
+        
+        this.addListenerToDateChooser(this.dcFechaInicio);
+        this.addListenerToDateChooser(this.dcFechaFin);
     }
 
     /** This method is called from within the constructor to
@@ -81,20 +87,8 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Fecha de Inicio:");
 
-        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaInicioFocusLost(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Fecha de Fin:");
-
-        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaFinFocusLost(evt);
-            }
-        });
 
         cmbTipoTarea.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -166,14 +160,6 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
         gestor.actualizarTipoTarea(cmbTipoTarea.getModel().getSelectedItem().toString());
     }//GEN-LAST:event_cmbTipoTareaFocusLost
 
-    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
-        gestor.actualizarFechaInicio(dcFechaInicio.getDate());
-    }//GEN-LAST:event_dcFechaInicioFocusLost
-
-    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
-        gestor.actualizarFechaFin(dcFechaFin.getDate());
-    }//GEN-LAST:event_dcFechaFinFocusLost
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbTipoTarea;
@@ -215,5 +201,24 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
 
     public void agregarElementoAlCombo(String nombre) {
         this.cmbTipoTarea.addItem(nombre);
+    }
+    
+    private void actualizarFechas(){
+        gestor.actualizarFechaInicio(dcFechaInicio.getDate());
+        gestor.actualizarFechaFin(dcFechaFin.getDate());
+    }
+    
+    private void addListenerToDateChooser(JDateChooser chooser){
+        chooser = dcFechaFin;
+        chooser.getDateEditor().addPropertyChangeListener(
+        new PropertyChangeListener() {
+        @Override
+        public void propertyChange(PropertyChangeEvent e) {
+            if ("date".equals(e.getPropertyName())) {
+                actualizarFechas();
+            }
+        }
+        });
+        this.add(chooser);
     }
 }
