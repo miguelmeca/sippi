@@ -7,6 +7,7 @@ package controlador.planificacion;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.*;
+import util.NTupla;
 
 /**
  *
@@ -140,31 +141,31 @@ public class PlanificacionUtils {
         return count;
     }
     
-    /**
-     * Busco en todas las tareas planificadas la cantidad del Material asignado (SubObraxMaterial)
-     * @param plan
-     * @param sxh
-     * @return 
-     */
-    public static int getCantidadAsignadaAMaterial(PlanificacionXXX plan, SubObraXMaterialModif sxm)
-    {
-        int count = 0;
-        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
-        for (int i = 0; i < listaTareas.size(); i++) {
-            TareaPlanificacion tarea = listaTareas.get(i);
-            for (int j = 0; j < tarea.getMateriales().size(); j++) {
-                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
-                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
-                {
-                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
-                    {
-                        count += pxm.getCantidad();
-                    }
-                }
-            }
-        }
-        return count;
-    }
+//    /**
+//     * Busco en todas las tareas planificadas la cantidad del Material asignado (SubObraxMaterial)
+//     * @param plan
+//     * @param sxh
+//     * @return 
+//     */
+//    public static int getCantidadAsignadaAMaterial(PlanificacionXXX plan, SubObraXMaterialModif sxm)
+//    {
+//        int count = 0;
+//        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+//        for (int i = 0; i < listaTareas.size(); i++) {
+//            TareaPlanificacion tarea = listaTareas.get(i);
+//            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+//                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
+//                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
+//                {
+//                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
+//                    {
+//                        count += pxm.getCantidad();
+//                    }
+//                }
+//            }
+//        }
+//        return count;
+//    }
     
     /**
      * Busco en todas las tareas planificadas si la (SubObraxHerramienta) esta usandose
@@ -190,6 +191,28 @@ public class PlanificacionUtils {
         }
         return false;
     }
-        
-    
+
+    public static List<NTupla> getTareasQuePoseanMaterialAsignado(PlanificacionXXX plan, SubObraXMaterialModif sxm) {
+        int count = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        List<NTupla> tareas = new ArrayList<NTupla>();
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
+                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
+                {
+                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
+                    {
+                        NTupla nt = new NTupla();
+                        nt.setId(tarea.hashCode());
+                        nt.setNombre(tarea.getNombre());
+                        nt.setData(pxm.getCantidad());
+                        tareas.add(nt);
+                    }
+                }
+            }
+        }
+        return tareas;
+    }
 }

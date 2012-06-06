@@ -834,7 +834,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     }
 
     public TareaPlanificacion getTareaPlanificacionFromHashCode(int hash) {
-       return PlanificacionUtils.getTareaFromGantt(planificacion, hash);
+       return PlanificacionUtils.getTareaFromHash(planificacion, hash);
     }
 
     public SubObraXHerramientaModif getGastosHerramientaFromHash(String hash) {
@@ -908,8 +908,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // Modifico el soxmm si es necesario
         // Hago los calculos de nuevo
-        int cantidadDisponiblePlanificacion = PlanificacionUtils.getCantidadAsignadaAMaterial(planificacion, soxmm);
-        int cantidadDisponible = soxmm.getCantidadDisponible() - cantidadDisponiblePlanificacion;
+//        int cantidadDisponiblePlanificacion = PlanificacionUtils.getCantidadAsignadaAMaterial(planificacion, soxmm);
+        int cantidadDisponible = soxmm.getCantidadDisponible() - pxm.getCantidad();
         if(cantidadDisponible<0)
         {
             // Me paso, modifico el soxmm

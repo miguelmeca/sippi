@@ -1299,43 +1299,41 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     public void actualizar(int id, String flag, boolean exito, Object[] data) {
         if(flag.equals(AsignacionHerramientasHoras.CALLBACK_FLAG))
         {
-            // [0] SubObraXHerramientaMod | SubObraXMaterialMod
+            // [0] SubObraXHerramientaMod
             // [1] TareaPlanificacion
             // [2] cantida de horas
             
-            if(data[0] instanceof SubObraXHerramientaModif)
+            SubObraXHerramientaModif soxhm = (SubObraXHerramientaModif) data[0];
+            TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+            int cantidadDeHoras = (Integer) data[2];
+            if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
             {
-                SubObraXHerramientaModif soxhm = (SubObraXHerramientaModif) data[0];
-                TareaPlanificacion tarea = (TareaPlanificacion) data[1];
-                int cantidadDeHoras = (Integer) data[2];
-                if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
-                {
-                    mostrarMensaje(JOptionPane.PLAIN_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
-                    
-                    inicializarArbolDeTareas();
-                }
-                else
-                {
-                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
-                }
+                mostrarMensaje(JOptionPane.PLAIN_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+
+                inicializarArbolDeTareas();
             }
-            else if(data[0] instanceof SubObraXMaterialModif)
+            else
             {
-                SubObraXMaterialModif soxmm = (SubObraXMaterialModif) data[0];
-                TareaPlanificacion tarea = (TareaPlanificacion) data[1];
-                int cantidad = (Integer) data[2];
-                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxmm.getMaterial());
-                Material material = RecursosUtil.getMaterial(re);
-                if(_gestor.asignarMaterialATarea(soxmm,tarea,cantidad))
-                {
-                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Material Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+" "+material.getUnidadDeMedida().getAbreviatura()+"</b> del material a la tarea.");
-                    inicializarArbolDeTareas();
-                }
-                else
-                {
-                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
-                }
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
             }
+        }
+        else if (flag.equals(AsignacionMaterialesCantidad.CALLBACK_FLAG))
+        {
+            SubObraXMaterialModif soxmm = (SubObraXMaterialModif) data[0];
+            TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+            int cantidad = (Integer) data[2];
+            RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxmm.getMaterial());
+            Material material = RecursosUtil.getMaterial(re);
+            if(_gestor.asignarMaterialATarea(soxmm,tarea,cantidad))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Material Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+" "+material.getUnidadDeMedida().getAbreviatura()+"</b> del material a la tarea.");
+                inicializarArbolDeTareas();
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+            }
+
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
         {
@@ -1874,14 +1872,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_MATERIALES;
-                        //TODO: Aca van la llamada que tiene q hacer Emma en su tarea
                         if(path==null)
                         {
                             JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
-                            TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromHashCode(hash);
+                            TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
                             SubObraXMaterialModif gastosMod = _gestor.getGastosMaterialFromHash(dataTrigger[1]);
                             RecursoXProveedor rxp = null;
                             PlanificacionXXX plan = _gestor.getPlanificacion();
@@ -1899,7 +1896,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                                 
                                 // TODO: ACÁ ME QUEDE!!!!! EMMA 21/05/2012
                                 // ESTO DEBE IR EN EL CALLBACK!!!!!!!!!!!!
-                                _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+//                                _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
                             }
                             else
                             {

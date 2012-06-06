@@ -6,9 +6,13 @@ package vista.planificacion;
 
 import controlador.planificacion.PlanificacionUtils;
 import java.awt.Color;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 import modelo.*;
+import util.NTupla;
 import util.RecursosUtil;
 import vista.interfaces.ICallBack_v3;
 
@@ -17,7 +21,7 @@ import vista.interfaces.ICallBack_v3;
  */
 public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
 
-    public static final String CALLBACK_FLAG = "CALLBACK_FLAG_ASIGNACION_HERRAMIENTAS";
+    public static final String CALLBACK_FLAG = "CALLBACK_FLAG_ASIGNACION_MATERIALES";
     
     private ICallBack_v3 callback;
     
@@ -47,20 +51,19 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JSpinner();
         lblUnidadDeMedida = new javax.swing.JLabel();
-        lblHerramientaNombre = new javax.swing.JLabel();
+        lblMaterialNombre = new javax.swing.JLabel();
         lblTareaNombre = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblCantidadDisponible = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        lblCantidadTotal = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblCantidadCotizada = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        lblCantidadYaAsignada = new javax.swing.JLabel();
+        lblCantidadDisponible = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         btnAsignar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaTareas = new javax.swing.JTable();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Tareas que lo comparten"));
         setClosable(true);
         setTitle("Asignar Material");
 
@@ -69,71 +72,44 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
 
         txtCantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
 
-        lblHerramientaNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHerramientaNombre.setText("...");
+        lblMaterialNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMaterialNombre.setText("...");
 
         lblTareaNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTareaNombre.setText("...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Información"));
 
-        jLabel5.setText("Para este material quedan");
-
-        lblCantidadDisponible.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblCantidadDisponible.setForeground(new java.awt.Color(0, 153, 0));
-
-        jLabel7.setText("de un Total disponible de :");
-
-        lblCantidadTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
         jLabel9.setText("Cotizados Originalmente:");
 
         lblCantidadCotizada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jLabel11.setText("Anteriormente se asignaron");
+        lblCantidadDisponible.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        lblCantidadYaAsignada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Cantidad Disponible:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(23, 23, 23)
-                        .addComponent(lblCantidadYaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblCantidadTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(14, 14, 14))
-                    .addComponent(jLabel5))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCantidadDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCantidadCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lblCantidadYaAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblCantidadDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCantidadTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCantidadCotizada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel9)))
+                    .addComponent(jLabel9)
+                    .addComponent(lblCantidadCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10)
+                    .addComponent(lblCantidadDisponible, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -151,6 +127,30 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
             }
         });
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tareas que lo comparten"));
+
+        tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tarea", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaTareas);
+        tablaTareas.getColumnModel().getColumn(0).setResizable(false);
+        tablaTareas.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tablaTareas.getColumnModel().getColumn(1).setResizable(false);
+        tablaTareas.getColumnModel().getColumn(1).setPreferredWidth(50);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,39 +158,40 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblHerramientaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lblMaterialNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAsignar)))
-                        .addGap(0, 18, Short.MAX_VALUE))
-                    .addComponent(lblTareaNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblHerramientaNombre)
+                .addComponent(lblMaterialNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTareaNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -206,12 +207,10 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
         SpinnerNumberModel model = (SpinnerNumberModel)txtCantidad.getModel();
         int value = model.getNumber().intValue();
         
-        int cantidadYaAsignada = PlanificacionUtils.getCantidadAsignadaAMaterial(this.plan,this.gastos);
-        int cantidadTotal = this.gastos.getCantidadDisponible();
+        int cantidadDisponible = this.gastos.getCantidadDisponible();
         int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
-        int cantidadQueQueda = cantidadTotal - cantidadYaAsignada;
         
-        asignarCantidad(value,cantidadQueQueda,cantidadCotizadas,cantidadTotal);
+        asignarCantidad(value, cantidadDisponible);
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -222,66 +221,54 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAsignar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantidadCotizada;
     private javax.swing.JLabel lblCantidadDisponible;
-    private javax.swing.JLabel lblCantidadTotal;
-    private javax.swing.JLabel lblCantidadYaAsignada;
-    private javax.swing.JLabel lblHerramientaNombre;
+    private javax.swing.JLabel lblMaterialNombre;
     private javax.swing.JLabel lblTareaNombre;
     private javax.swing.JLabel lblUnidadDeMedida;
+    private javax.swing.JTable tablaTareas;
     private javax.swing.JSpinner txtCantidad;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
         String unidadMedida = material.getUnidadDeMedida().getAbreviatura();
-        lblUnidadDeMedida.setText(unidadMedida + " a la");
-        lblHerramientaNombre.setText("<HTML>Material: <b>"+material.getNombre()+"</b> ("+re.getNombre()+")");
+        lblUnidadDeMedida.setText(unidadMedida + " del");
+        lblMaterialNombre.setText("<HTML>Material: <b>"+material.getNombre()+"</b> ("+re.getNombre()+")");
         lblTareaNombre.setText("<HTML>a la tarea: <b>"+this.tarea.getNombre()+"</b>");
-        
-        int cantidadYaAsignada = PlanificacionUtils.getCantidadAsignadaAMaterial(this.plan,this.gastos);
-        lblCantidadYaAsignada.setText(cantidadYaAsignada+" "+unidadMedida);
-        
-        int cantidadTotal = this.gastos.getCantidadDisponible();
-        lblCantidadTotal.setText(cantidadTotal+" "+unidadMedida);
-        
-        int cantidadDisponible = cantidadTotal - cantidadYaAsignada;
+               
+        int cantidadDisponible = this.gastos.getCantidadDisponible();
         lblCantidadDisponible.setText(cantidadDisponible+" "+unidadMedida);
-        
-        int cotaMenor = (int) cantidadTotal * 1/10; 
-        
-        if(cantidadDisponible==0)
-        {
-            lblCantidadDisponible.setForeground(Color.RED);
-        }
-        else if(cantidadDisponible>= 1 && cantidadDisponible <=cotaMenor)
-        {
-            lblCantidadDisponible.setForeground(Color.ORANGE);
-        }
-        else
-        {
-            lblCantidadDisponible.setForeground(Color.GREEN);
-        }   
         
         if(this.gastos.getOriginal()!=null)
         {
             int cantidadCotizada = this.gastos.getOriginal().getCantidad();
             lblCantidadCotizada.setText(cantidadCotizada+" "+unidadMedida);
         }
+        
+        List<NTupla> tareas = PlanificacionUtils.getTareasQuePoseanMaterialAsignado(this.plan, this.gastos);
+        DefaultTableModel dtm = (DefaultTableModel) tablaTareas.getModel();
+        Iterator<NTupla> itTareas = tareas.iterator();
+        while(itTareas.hasNext()){
+            NTupla nt = itTareas.next();
+            Object[] fila = new Object[2];
+            fila[0] = nt;
+            fila[1] = nt.getData();
+            dtm.addRow(fila);
+        }
     }
 
-    private void asignarCantidad(int value , int cantidadQueQueda, int cantidadCotizada, int cantidadTotalDisponible) {
+    private void asignarCantidad(int value , int cantidadDisponible) {
   
-        int sePasoDeCantidad = cantidadQueQueda - value;
+        int sePasoDeCantidad = cantidadDisponible - value;
         
         if(sePasoDeCantidad<0)
         {
             // Hoas que me pase de la cotizacion original
-            int cuantoSePasoDeCotizacionOriginal = cantidadTotalDisponible - cantidadCotizada + Math.abs(sePasoDeCantidad);
+//            int cuantoSePasoDeCotizacionOriginal = cantidadTotalDisponible - cantidadCotizada + Math.abs(sePasoDeCantidad);
             // Me pase de horas
             StringBuilder msg = new StringBuilder("<HTML>");
             msg.append("Está asignando ");
@@ -292,12 +279,7 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
             msg.append("</span></b>");
             msg.append(" más de los que tienes disponibles");
             msg.append("<br>");
-            msg.append("La cotización original (enviada al cliente) se excedera por ");
-            msg.append("<span color=\"#FF0000\"><b>");
-            msg.append(cuantoSePasoDeCotizacionOriginal);
-            msg.append(" ").append(unidadMedida);
-            msg.append("</b></span>");
-            msg.append("<br>");
+            msg.append("La cotización original (enviada al cliente) se verá excedida por este valor.");
             msg.append("¿Desea realizar la asignación a esta tarea de todas formas?");
             msg.append("<br>");
             msg.append("<br>");
@@ -330,7 +312,7 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
     
     /**
      * Manda el mensaje callback con los datos asociados
-     * [0] SubObraXHerramientaMod
+     * [0] SubObraXMaterialMod
      * [1] TareaPlanificacion
      * [2] cantida de horas
      * @param value 
