@@ -14,6 +14,7 @@ package modelo;
 public class PlanificacionXAlquilerCompra {
     private int id;
     private SubObraXAlquilerCompraModif alquilerCompraCotizacion;
+    private int cantidad;
 
     public PlanificacionXAlquilerCompra() {
     }
@@ -35,5 +36,13 @@ public class PlanificacionXAlquilerCompra {
 
     public void setAlquilerCompraCotizacion(SubObraXAlquilerCompraModif AlquilerCompraCotizacion) {
         this.alquilerCompraCotizacion = AlquilerCompraCotizacion;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }
