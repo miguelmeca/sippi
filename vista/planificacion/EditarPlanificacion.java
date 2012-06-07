@@ -1333,7 +1333,22 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             {
                 mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
             }
-
+        }
+        else if (flag.equals(AsignacionAlquileresCompraCantidad.CALLBACK_FLAG))
+        {
+            SubObraXAlquilerCompraModif soxac = (SubObraXAlquilerCompraModif) data[0];
+            TareaPlanificacion tarea = (TareaPlanificacion) data[1];
+            int cantidad = (Integer) data[2];
+            TipoAlquilerCompra tac = soxac.getTipoAlquilerCompra();
+            if(_gestor.asignarAlquilerCompraATarea(soxac,tarea,cantidad))
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Alquiler/Compra Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+"</b> unidades de "+tac.getNombre()+" a la tarea.");
+                inicializarArbolDeTareas();
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+            }
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
         {
@@ -1492,11 +1507,31 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"En Contruccion!\nEstas intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nA la Tarea "+p.getNombre());
+                            TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
+                            SubObraXAlquilerCompraModif gastosMod = _gestor.getGastosAlquilerCompraFromHash(dataTrigger[1]);
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            TipoAlquilerCompra tipoAlquilerCompra = null;
+                            
+                            if(gastosMod!=null)
+                            {
+                                tipoAlquilerCompra = gastosMod.getTipoAlquilerCompra();
+                            }
+                            
+                            if(tarea!=null && gastosMod!=null && tipoAlquilerCompra!=null && plan != null)
+                            {
+                                AsignacionAlquileresCompraCantidad winAsignacion = new AsignacionAlquileresCompraCantidad(thisWindowWorkArround,plan,tarea,gastosMod,tipoAlquilerCompra);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                            }
+                            else
+                            {
+                                // MEnsaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o el material.\nIntentelo nuevamente");
+                            }
                         }
                     }                    
                 }
@@ -1907,8 +1942,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     }
                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 }  
-              
-                
             }
           }//Fin de if(data!=null && !data.isEmpty() && padre!=null)            
         }

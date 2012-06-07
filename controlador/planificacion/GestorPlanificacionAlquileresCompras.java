@@ -5,8 +5,13 @@
 
 package controlador.planificacion;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import modelo.PlanificacionXAlquilerCompra;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
+import util.NTupla;
+import vista.planificacion.PlanificacionAlquileresCompras;
 
 /**
  *
@@ -14,20 +19,61 @@ import modelo.TareaPlanificacion;
  */
 public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacion{
 
-    GestorPlanificacionAlquileresCompras(GestorEditarTarea aThis) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private GestorEditarTarea gestor;
+    private PlanificacionAlquileresCompras pantalla;
+    
+    GestorPlanificacionAlquileresCompras(GestorEditarTarea gestor) {
+        this.gestor = gestor;
     }
 
     public PlanificacionXXX getPlanificacion() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.gestor.getPlanificacion();
     }
 
     public TareaPlanificacion getTareaActual() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.gestor.getTareaActual();
     }
 
     public void refrescarPantallas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.gestor.refrescarPantallas();
     }
 
+    public void setPantalla(PlanificacionAlquileresCompras pantalla) {
+        this.pantalla = pantalla;
+    }
+
+    public ArrayList<NTupla> getAlquileresComprasAsociadas() {
+        TareaPlanificacion tarea = this.getTareaActual();
+        Iterator<PlanificacionXAlquilerCompra> itAC = tarea.getAlquilerCompras().iterator();
+        ArrayList<NTupla> ma = new ArrayList<NTupla>();
+        while(itAC.hasNext())
+        {
+            PlanificacionXAlquilerCompra pxac = itAC.next();           
+            NTupla nt = new NTupla();
+            nt.setId(pxac.hashCode());
+            nt.setNombre(pxac.getAlquilerCompraCotizacion().getOriginal().getTipoAlquilerCompra().getNombre());
+            Object[] o = new Object[2];
+            o[0]= pxac.getCantidad();
+            o[1]= pxac.getAlquilerCompraCotizacion().getOriginal().getPrecioUnitario();
+            nt.setData(o);
+            ma.add(nt);
+        }
+        return ma;
+    }
+
+    public boolean quitarAlquilerCompra(int id) {
+        boolean borrado = false;
+        Iterator<PlanificacionXAlquilerCompra> it = this.getTareaActual().getAlquilerCompras().iterator();
+        while(it.hasNext())
+        {
+            PlanificacionXAlquilerCompra pxac = it.next();
+            if(pxac.hashCode() == id)
+            {
+                this.getTareaActual().getAlquilerCompras().remove(pxac);
+                borrado = true;
+                break;
+            }
+        }
+        return borrado;
+    }
 }

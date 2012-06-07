@@ -845,6 +845,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return (SubObraXMaterialModif) planificacion.getCotizacion().getSubObraXMaterialPorHash(Integer.parseInt(hash));
     }
     
+    public SubObraXAlquilerCompraModif getGastosAlquilerCompraFromHash(String hash) {
+        return (SubObraXAlquilerCompraModif) planificacion.getCotizacion().getSubObraXAlquilerCompraPorHash(Integer.parseInt(hash));
+    }
+        
     public boolean asignarHerramientaATarea(SubObraXHerramientaModif soxhm, TareaPlanificacion tarea, int cantidadDeHoras) {
         PlanificacionXHerramienta pxh = new PlanificacionXHerramienta(soxhm);
         pxh.setHorasAsignadas(cantidadDeHoras);
@@ -914,6 +918,24 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             // Me paso, modifico el soxmm
             soxmm.setCantidad(soxmm.getCantidad()+Math.abs(cantidadDisponible));
+        }       
+        
+        return true;
+    }
+    
+        public boolean asignarAlquilerCompraATarea(SubObraXAlquilerCompraModif soxac, TareaPlanificacion tarea, int cantidad) {
+        PlanificacionXAlquilerCompra pxac = new PlanificacionXAlquilerCompra(soxac);
+        pxac.setCantidad(cantidad);
+        tarea.getAlquilerCompras().add(pxac);
+        
+        // Modifico el soxmm si es necesario
+        // Hago los calculos de nuevo
+//        int cantidadDisponiblePlanificacion = PlanificacionUtils.getCantidadAsignadaAMaterial(planificacion, soxmm);
+        int cantidadDisponible = soxac.getCantidad() - pxac.getCantidad();
+        if(cantidadDisponible<0)
+        {
+            // Me paso, modifico el soxac
+            soxac.setCantidad(soxac.getCantidad()+Math.abs(cantidadDisponible));
         }       
         
         return true;
