@@ -457,22 +457,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
              
              
              
-             return nuevaTarea;
-            /*List<SubObra> listaSubObrasMod = this.planificacion.getCotizacion().getSubObras();
-              for (int i = 0; i < listaSubObrasMod.size(); i++) {
-                SubObraModificada som = (SubObraModificada)listaSubObrasMod.get(i);
-                List<SubObraXTarea> lsitasoxtm = som.getTareas();
-                  for (int j = 0; j < lsitasoxtm.size(); j++) {
-                      SubObraXTareaModif soxtm = (SubObraXTareaModif)lsitasoxtm.get(j);
-                      //if(soxtm.getId()==id)
-                      if(soxtm.hashCode()==hash)
-                      {
-                          nuevaTarea.setTareaCotizada(soxtm);
-                          return nuevaTarea;
-                      }
-                  }
-            }*/
-        
+        return nuevaTarea;
+              
         
     
     }
@@ -511,9 +497,26 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     int cantMateriales=tarea.getMateriales().size();
                     for (int j = 0; j < cantMateriales; j++) 
                     {
-                    PlanificacionXMaterial material=tarea.getMateriales().get(j);
-                    ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.hashCode(),ArbolDeTareasTipos.TIPO_MATERIAL,material.toString(),Iconos.ICONO_MATERIAL);
-                    modelo.insertNodeInto(nodoMaterial, nodoMateriales, j); 
+                        String nombre="";
+                        PlanificacionXMaterial material=tarea.getMateriales().get(j);
+                        RecursoXProveedor rxp = material.getMaterialCotizacion().getMaterial();
+                        RecursoEspecifico RE=null;
+                        try {
+                            RE = (RecursoEspecifico) HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
+
+                            if (RE != null) {
+                                nombre += RE.getNombre();
+                            }
+
+                            Recurso R = (Recurso) HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();
+                            if (R != null) {
+                                nombre = R.getNombre() + " " + nombre;
+                            }
+                        } catch (Exception ex) {
+                            Logger.getLogger(GestorEditarPlanificacion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ArbolIconoNodo nodoMaterial = new ArbolIconoNodo(material.hashCode(),ArbolDeTareasTipos.TIPO_MATERIAL,nombre/*material.toString()*/,Iconos.ICONO_MATERIAL);
+                        modelo.insertNodeInto(nodoMaterial, nodoMateriales, j); 
                     } 
                     contadorTipoRecursosCargados++;
                 }
@@ -526,7 +529,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     for (int j = 0; j < cantHeramientas; j++) 
                     {
                         PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
-                        ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,herramienta.toString(),Iconos.ICONO_HERRAMIENTA);
+                        ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,(herramienta.getHerramientaCotizacion().getHerramienta().getRecursoEsp().getNombre() + ":" +herramienta.getHerramientaCotizacion().getHerramienta().getNroSerie())/*herramienta.toString()*/,Iconos.ICONO_HERRAMIENTA);
                         modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
                     }
                     contadorTipoRecursosCargados++;
@@ -539,7 +542,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     for (int j = 0; j < cantAlquileresCompras; j++) 
                     {
                         PlanificacionXAlquilerCompra alquilerCompra=tarea.getAlquilerCompras().get(j);
-                        ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,alquilerCompra.toString(),Iconos.ICONO_ALQUILERCOMPRA);
+                        ArbolIconoNodo nodoAlquilerCompra = new ArbolIconoNodo(alquilerCompra.hashCode(),ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA,(alquilerCompra.getAlquilerCompraCotizacion().getTipoAlquilerCompra().getNombre()+" "+alquilerCompra.getAlquilerCompraCotizacion().getDescripcion()),Iconos.ICONO_ALQUILERCOMPRA);
                         modelo.insertNodeInto(nodoAlquilerCompra, nodoAlquileresCompras, j);
                     }
                     contadorTipoRecursosCargados++;

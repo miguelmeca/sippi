@@ -59,7 +59,7 @@ public class DetalleTareaPlanificacion {
     /**
      * @param originalCotizado the original to set
      */
-    public void setOriginal(DetalleSubObraXTareaModif originalCotizado) {
+    public void setOriginalCotizado(DetalleSubObraXTareaModif originalCotizado) {
         this.originalCotizado = originalCotizado;
     }
 

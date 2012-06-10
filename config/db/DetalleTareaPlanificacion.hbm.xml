@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleTareaPlanificacion" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_DetalleTareaPlanificacion" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property name="cantHorasNormales" type="double"/>
+    <property name="cantHorasAl50" type="double"/>
+    <property name="cantHorasAl100" type="double"/>
+    <property name="costoXHoraNormal" type="double"/>
+    <property name="cantidadPersonas" type="integer"/>
+    <many-to-one class="modelo.RangoEmpleado" name="rangoEmpleado"/>
+    <many-to-one class="modelo.TipoEspecialidad" name="tipoEspecialidad"/>
+    <many-to-one class="modelo.Empleado" name="empleado"/>
+    <many-to-one class="modelo.DetalleTareaPlanificacion" name="padre"/>
+    <many-to-one class="modelo.DetalleSubObraXTareaModif" name="originalCotizado"/>
+    
+  </class>
+</hibernate-mapping>
