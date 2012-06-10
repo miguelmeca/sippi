@@ -79,4 +79,10 @@ public class SubObraXHerramienta implements ISubtotal{
 //        return cantDias*cantHoras;
         return cantHoras;        
     }
+    
+    @Override
+    public String toString()
+    {
+        return (this.getHerramienta().getRecursoEsp().getNombre() + ":" +this.getHerramienta().getNroSerie());
+    }
 }

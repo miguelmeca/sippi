@@ -64,5 +64,11 @@ public class SubObraXAlquilerCompra implements ISubtotal{
     {
         return cantidad*precioUnitario;
     }
+    
+    @Override
+    public String toString()
+    {
+        return (this.getTipoAlquilerCompra().getNombre());
+    }
 
 }
