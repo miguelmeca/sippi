@@ -6,33 +6,33 @@
 package controlador.planificacion;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
-import org.hibernate.Session;
-import util.HibernateUtil;
 import util.NTupla;
-import vista.planificacion.EditarTareaEsfuerzo;
+import vista.planificacion.EditarTareaDetalles;
+import vista.planificacion.EditarTareaDetallesABM;
 
 /**
  *
  * @author Fran
  */
-public class GestorEditarTareaEsfuerzo implements IGestorPlanificacion{
-    private EditarTareaEsfuerzo pantalla;
+public class GestorEditarTareaDetalles implements IGestorPlanificacion{
+    private EditarTareaDetalles pantallaLista;
+    private EditarTareaDetallesABM pantallaABM;
     private GestorEditarTarea gestorPadre;
 
-    public GestorEditarTareaEsfuerzo(GestorEditarTarea gestorPadre){
+    public GestorEditarTareaDetalles(GestorEditarTarea gestorPadre){
         this.gestorPadre = gestorPadre;
     }
 
-    public void setPantalla(EditarTareaEsfuerzo pantalla) {
-        this.pantalla = pantalla;
+    public void setPantallaLista(EditarTareaDetalles pantallaLista) {
+        this.pantallaLista = pantallaLista;
+    }
+    
+    public void setPantallaABM(EditarTareaDetallesABM pantallaABM) {
+        this.pantallaABM = pantallaABM;
     }
         
     
@@ -65,7 +65,7 @@ public class GestorEditarTareaEsfuerzo implements IGestorPlanificacion{
            }
            catch (Exception ex){
                 System.out.println("No se ejecutar la consulta para cargar el combo de tareas de nivel superior :"+ex);
-                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista Tareas de nivel superior");
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista Tareas de nivel superior");
                 return null;
            }       
         }

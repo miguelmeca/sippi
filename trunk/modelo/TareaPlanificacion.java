@@ -568,4 +568,73 @@ public class TareaPlanificacion
     public DetalleTareaPlanificacion getDetalleParticular(int i) {
         return detalles.get(i);
     } 
+    
+    
+    public double obtenerTotalDeHorasNormalesSinSubtareas()
+    {
+        double totalHorasNormales=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHorasNormales+=(detalle.getCantHorasNormales()*detalle.getCantidadPersonas());
+        }
+        return totalHorasNormales;
+    }
+    public double obtenerTotalDeHorasAl50SinSubtareas()
+    {
+        double totalHoras50=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHoras50+=(detalle.getCantHorasAl50()*detalle.getCantidadPersonas());
+        }
+        return totalHoras50;
+    }
+    public double obtenerTotalDeHorasAl100SinSubtareas()
+    {
+        double totalHoras100=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHoras100+=(detalle.getCantHorasAl100()*detalle.getCantidadPersonas());
+        }
+        return totalHoras100;
+    }
+    
+    public double obtenerTotalDeHorasNormalesConSubtareas()
+    {
+        double totalHorasNormales=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHorasNormales+=(detalle.getCantHorasNormales()*detalle.getCantidadPersonas());
+        }
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            totalHorasNormales+=subtarea.obtenerTotalDeHorasNormalesConSubtareas();
+        }
+        return totalHorasNormales;
+    }
+    public double obtenerTotalDeHorasAl50ConSubtareas()
+    {
+        double totalHoras50=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHoras50+=(detalle.getCantHorasAl50()*detalle.getCantidadPersonas());
+        }
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            totalHoras50+=subtarea.obtenerTotalDeHorasAl50ConSubtareas();
+        }
+        return totalHoras50;
+    }
+    public double obtenerTotalDeHorasAl100ConSubtareas()
+    {
+        double totalHoras100=0;
+        for (DetalleTareaPlanificacion detalle: detalles) 
+        {
+            totalHoras100+=(detalle.getCantHorasAl100()*detalle.getCantidadPersonas());
+        }
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            totalHoras100+=subtarea.obtenerTotalDeHorasAl100ConSubtareas();
+        }
+        return totalHoras100;
+    }
 }

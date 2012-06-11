@@ -101,6 +101,12 @@ public class SubObraXTarea implements ISubtotal{
        return subT; 
     }
     
+    
+    
+    //Este metodo no tiene sentido en el mundo real:
+    //Por ejemplo detalle A tiene 2 personas, detalle B tiene 1
+    //El total de personas de la tarea podria ser 2 o podria ser 3
+    @Deprecated
     public int obtenerTotalDePersonas()
     {
         int totalPersonas=0;
@@ -116,7 +122,7 @@ public class SubObraXTarea implements ISubtotal{
         double totalHorasNormales=0;
         for (DetalleSubObraXTarea detalle: detalles) 
         {
-            totalHorasNormales+=detalle.getCantHorasNormales();
+            totalHorasNormales+=(detalle.getCantHorasNormales()*detalle.getCantidadPersonas());
         }
         return totalHorasNormales;
     }
@@ -125,7 +131,7 @@ public class SubObraXTarea implements ISubtotal{
         double totalHoras50=0;
         for (DetalleSubObraXTarea detalle: detalles) 
         {
-            totalHoras50+=detalle.getCantHorasAl50();
+            totalHoras50+=(detalle.getCantHorasAl50()*detalle.getCantidadPersonas());
         }
         return totalHoras50;
     }
@@ -134,7 +140,7 @@ public class SubObraXTarea implements ISubtotal{
         double totalHoras100=0;
         for (DetalleSubObraXTarea detalle: detalles) 
         {
-            totalHoras100+=detalle.getCantHorasAl100();
+            totalHoras100+=(detalle.getCantHorasAl100()*detalle.getCantidadPersonas());
         }
         return totalHoras100;
     }

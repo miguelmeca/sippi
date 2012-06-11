@@ -30,7 +30,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     private GestorPlanificacionHerramientas gestorHerramientas;
     private GestorPlanificacionMateriales gestorMateriales;
     private GestorPlanificacionAlquileresCompras gestorAlquileresCompras;
-    private GestorEditarTareaEsfuerzo gestorEsfuerzo;
+    private GestorEditarTareaDetalles gestorEsfuerzo;
 
     public GestorEditarTarea(GestorEditarPlanificacion gestor)
     {
@@ -87,11 +87,11 @@ public class GestorEditarTarea implements IGestorPlanificacion{
         return gestorSubTareas;
     }
     
-    public GestorEditarTareaEsfuerzo getGestorEsfuerzo()
+    public GestorEditarTareaDetalles getGestorEsfuerzo()
     {
         if(this.gestorEsfuerzo==null)
         {
-            this.gestorEsfuerzo = new GestorEditarTareaEsfuerzo(this);
+            this.gestorEsfuerzo = new GestorEditarTareaDetalles(this);
         }
         return gestorEsfuerzo;
     }
