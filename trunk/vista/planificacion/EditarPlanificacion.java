@@ -398,7 +398,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Editar Planificación");
+        setTitle("Editar PlanificaciÃ³n");
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
@@ -583,7 +583,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
         });
         panelLineaDeTiempo.setLayout(new java.awt.BorderLayout());
-        panelCentral.addTab("Línea de Tiempo", panelLineaDeTiempo);
+        panelCentral.addTab("LÃ­nea de Tiempo", panelLineaDeTiempo);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -625,7 +625,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Planificación"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la PlanificaciÃ³n"));
 
         txtFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -747,15 +747,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Cotización"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la CotizaciÃ³n"));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Cotización sobre la que se planifico: ");
+        jLabel14.setText("CotizaciÃ³n sobre la que se planifico: ");
 
         txtNroCotizacion.setEditable(false);
         txtNroCotizacion.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
-        jButton1.setText("Abrir Cotización");
+        jButton1.setText("Abrir CotizaciÃ³n");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -825,7 +825,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         panelCentral.addTab("Datos Generales", jPanel3);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Descripción General de la Planificación");
+        jLabel1.setText("DescripciÃ³n General de la PlanificaciÃ³n");
 
         txtDescripcionGeneral.setColumns(20);
         txtDescripcionGeneral.setRows(5);
@@ -857,7 +857,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap())
         );
 
-        panelCentral.addTab("Descripción", jPanel8);
+        panelCentral.addTab("DescripciÃ³n", jPanel8);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -987,7 +987,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         {
             case 0: 
                 // Se mostro la ventana del arbol de tareas
-                System.out.println("[DEBUG] Foco en el Ã¡rbol de Tareas");
+                System.out.println("[DEBUG] Foco en el ÃƒÂ¡rbol de Tareas");
                 break;
             case 1:
                 // Se mostro el Gantt
@@ -1007,7 +1007,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtDescripcionGeneralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionGeneralFocusLost
-        System.out.println("[DEBUG] La descripción de la Planificación perdió el foco");
+        System.out.println("[DEBUG] La descripciÃ³n de la PlanificaciÃ³n perdiÃ³ el foco");
     }//GEN-LAST:event_txtDescripcionGeneralFocusLost
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -1026,7 +1026,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (tblSubObras.getSelectedRow() != -1) {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             
-            int n = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "Está Seguro?", JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(this, "Â¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "EstÃ¡ Seguro?", JOptionPane.YES_NO_OPTION);
             
             boolean exito=true;
             if (n == JOptionPane.YES_OPTION) {
@@ -1043,6 +1043,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         _gestor.guardarPlanificacion();
+        this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1154,7 +1155,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     @Deprecated
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
-//        IUGA: Comente este mÃ©todo, no se deberÃ­a usar MAS        
+//        IUGA: Comente este mÃƒÂ©todo, no se deberÃƒÂ­a usar MAS        
 //        // Create a new Phrase
 //        CoolGanttPhase p5 = new CoolGanttPhase();
 //        p5.setEditable(true);
@@ -1314,7 +1315,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
             }
         }
         else if (flag.equals(AsignacionMaterialesCantidad.CALLBACK_FLAG))
@@ -1331,7 +1332,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
             }
         }
         else if (flag.equals(AsignacionAlquileresCompraCantidad.CALLBACK_FLAG))
@@ -1347,7 +1348,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
             }
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
@@ -1442,7 +1443,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1475,7 +1476,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1507,7 +1508,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1870,13 +1871,42 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 else //Si agregamos un recurso
                 { 
                     if(tipo.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
-                    {   tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS;
-                        _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
-                        inicializarArbolDeTareas();
-                    }
-                    
-                    
-                    if(tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                    {   
+//                        tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS;
+//                        _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
+//                        inicializarArbolDeTareas();
+                        
+                        tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA;
+                        if(path==null)
+                        {
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                        }
+                        else
+                        {
+                            TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
+                            SubObraXAlquilerCompraModif gastosMod = _gestor.getGastosAlquilerCompraFromHash(dataTrigger[1]);
+                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            TipoAlquilerCompra tipoAC = null;
+                            
+                            if(gastosMod!=null)
+                            {
+                                tipoAC = gastosMod.getOriginal().getTipoAlquilerCompra();
+                            }
+
+                            if(tarea!=null && gastosMod!=null && tipoAC!=null && plan != null)
+                            {
+                                AsignacionAlquileresCompraCantidad winAsignacion = new AsignacionAlquileresCompraCantidad(thisWindowWorkArround,plan,tarea,gastosMod,tipoAC);
+                                SwingPanel.getInstance().addWindow(winAsignacion);
+                                winAsignacion.setVisible(true);
+                            }
+                            else
+                            {
+                                // Mensaje de error
+                                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar la tarea o el Alquiler/Compra.\nIntentelo nuevamente");
+                            }
+                        }
+                    }              
+                    else if(tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
                     {
 			tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_HERRAMIENTAS;
                         TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
@@ -1904,12 +1934,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         
 
                     }
-                    if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                    else if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
                     {
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_MATERIALES;
                         if(path==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1929,8 +1959,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                                 SwingPanel.getInstance().addWindow(winAsignacion);
                                 winAsignacion.setVisible(true);
                                 
-                                // TODO: ACÁ ME QUEDE!!!!! EMMA 21/05/2012
-                                // ESTO DEBE IR EN EL CALLBACK!!!!!!!!!!!!
 //                                _gestor.asociarRecurso(hash, nombre, hashTareaPadre,tipo);
                             }
                             else
@@ -1995,7 +2023,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }
     
     /**
-     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃ¡n abiertas
+     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃƒÂ¡n abiertas
      * esto es para que no puedan abrir mas de un "Editar Tarea" con la misma Tarea.
      * Manenemos un registro de q ventanas ya estan abiertas !
      * NOTA: Se usa desde el Gantt y desde el Arbol.

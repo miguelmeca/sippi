@@ -22,6 +22,8 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.RecursoEspecifico;
+import modelo.SubObraXMaterial;
 import util.*;
 
 /**
@@ -125,11 +127,11 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             precio = (Double)o[2];
             fila[3] = precio;
             double subtotal = cantidad*precio;
-            fila[4] = subtotal;
+            fila[4] = Math.rint(subtotal*100)/100;
             total+=subtotal;
             modelo.addRow(fila);
         }
-        txtSubtotalMateriales.setText(""+total);
+        txtSubtotalMateriales.setText(""+Math.rint(total*100)/100);
     }
 
     private void cargarTabMateriales() {
@@ -179,10 +181,11 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtSubtotalMateriales = new javax.swing.JTextField();
         btnAgregarNuevoPrecio = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
-        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11));
+        txtBuscarMaterial.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscarMaterial.setForeground(java.awt.Color.gray);
         txtBuscarMaterial.setText("Buscar...");
         txtBuscarMaterial.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -238,7 +241,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             }
         });
 
-        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitarMaterial.setText("Quitar");
         btnQuitarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,6 +270,11 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tbMaterialesAUsar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMaterialesAUsarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbMaterialesAUsar);
 
         jLabel3.setText("Subtotal Materiales $");
@@ -283,6 +291,14 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             }
         });
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -290,7 +306,13 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregarMaterial)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuitarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -300,17 +322,14 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregarMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubtotalMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSubtotalMateriales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -331,7 +350,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarMaterial)
-                    .addComponent(btnQuitarMaterial))
+                    .addComponent(btnQuitarMaterial)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -420,9 +440,65 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         btnAgregarNuevoPrecio.setEnabled(true);
     }//GEN-LAST:event_tbMaterialEspecificoMouseReleased
 
+    private void tbMaterialesAUsarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMaterialesAUsarMouseClicked
+//        if(evt.getClickCount() > 1)
+//        {
+//            int fila = tbMaterialesAUsar.rowAtPoint(evt.getPoint());
+//            if(fila > -1)
+//            {
+//                DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
+//                NTupla nt = (NTupla)dtm.getValueAt(fila, 1); // Busco el objeto NTupla!!!
+//                SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
+//                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
+//                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
+//                if(psp.isBanHayPreciosMaterial()){
+//                    SwingPanel.getInstance().addWindow(psp);
+//                    psp.setVisible(true);
+//                    btnAgregarNuevoPrecio.setEnabled(false);
+//                } else{
+//                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+//                        AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
+//                        SwingPanel.getInstance().addWindow(anp);
+//                        anp.setVisible(true);
+//                    }
+//                    psp.dispose();
+//                }
+//                
+//            }
+//        }
+    }//GEN-LAST:event_tbMaterialesAUsarMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if(tbMaterialesAUsar.getSelectedRow()> -1)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
+            NTupla nt = (NTupla)dtm.getValueAt(tbMaterialesAUsar.getSelectedRow(), 1); // Busco el objeto NTupla!!!
+            SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
+            RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
+            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
+            if(psp.isBanHayPreciosMaterial()){
+                SwingPanel.getInstance().addWindow(psp);
+                psp.setVisible(true);
+                btnAgregarNuevoPrecio.setEnabled(false);
+            } else{
+                if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
+                    SwingPanel.getInstance().addWindow(anp);
+                    anp.setVisible(true);
+                }
+                psp.dispose();
+            }
+        }
+        else
+        {
+            JOptionPane.showConfirmDialog(this.getParent(), "Debe seleccionar un material para editarlo.", "Seleccione un Material", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarMaterial;
     private javax.swing.JButton btnAgregarNuevoPrecio;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnQuitarMaterial;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
