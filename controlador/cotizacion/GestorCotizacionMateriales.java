@@ -204,9 +204,24 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         pantalla.actualizar(1, "...", true);
     }
 
+    public void modificarMaterial(int idRXP, int cantidad, String desc,double precio, SubObraXMaterial soxm) {
+        try {
+            RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+            soxm.setMaterial(rxp);
+            soxm.setCantidad(cantidad);
+            soxm.setDescripcion(desc);
+            soxm.setPrecioUnitario(precio);
+            refrescarPantallas();
+
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+            JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar agregar un material: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        pantalla.actualizar(1, "...", true);
+    }
+    
     public boolean quitarMaterial(int idDM) {
         boolean respuesta = false;
-//        SubObraXMaterial soxm;
         for (int i = 0; i < getSubObraActual().getMateriales().size(); i++)
         {
             int hc = getSubObraActual().getMateriales().get(i).hashCode();
@@ -220,16 +235,19 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar quitar un material: \n", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return respuesta;
-//        boolean respuesta=false;
-//        Iterator<SubObraXMaterial> it = this.subObra.getMateriales().iterator();
-//        while(it.hasNext()){
-//            SubObraXMaterial soxm = it.next();
-//            if(soxm.hashCode() == idDM){
-//                this.subObra.getMateriales().remove(soxm);
-//                respuesta = true;
-//            }
-//        }
-//        return respuesta;
+    }
+    
+    public SubObraXMaterial getSubObraXMaterialByHash(int hashDM)
+    {
+        for (int i = 0; i < getSubObraActual().getMateriales().size(); i++)
+        {
+            int hc = getSubObraActual().getMateriales().get(i).hashCode();
+            if(hc==hashDM)
+            {
+                return getSubObraActual().getMateriales().get(i);
+            }
+        }
+        return null;
     }
 
     public ArrayList<Tupla> mostrarProveedores()

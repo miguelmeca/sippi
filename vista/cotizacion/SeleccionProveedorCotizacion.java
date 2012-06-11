@@ -15,15 +15,13 @@ import controlador.cotizacion.GestorCotizacionMateriales;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import modelo.PrecioSegunCantidad;
+import modelo.SubObraXMaterial;
 import util.LogUtil;
 import util.NTupla;
 import util.StringUtil;
-import util.SwingPanel;
 import util.TablaUtil;
 
 /**
@@ -35,6 +33,8 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
     private int idR;
     private int idRE;
     private boolean banHayPreciosMaterial;
+    private SubObraXMaterial soxm;
+    
     /** Creates new form pantallaSeleccionarProveedorPresupuesto */
     public SeleccionProveedorCotizacion() {
         initComponents();
@@ -47,6 +47,32 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         this.idRE=idRE;
         this.banHayPreciosMaterial = true;
         mostrarRecursosEspecificosXProveedor();
+    }
+    
+    // Constructor para cuando se pretende editar un material
+    SeleccionProveedorCotizacion(GestorCotizacionMateriales gestor,int idR, int idRE, SubObraXMaterial soxm) {
+        initComponents();
+        this.gestor = gestor;
+        this.idR=idR;
+        this.idRE=idRE;
+        this.banHayPreciosMaterial = true;
+        this.soxm = soxm;
+        mostrarRecursosEspecificosXProveedor();
+        this.txtCantidad.setText(String.valueOf(soxm.getCantidad()));
+        double subtotal = Math.rint((soxm.getCantidad()* soxm.getPrecioUnitario())*100)/100;
+        this.txtSubtotal.setText(String.valueOf(subtotal));
+        this.taDescripcion.setText(soxm.getDescripcion());
+//        soxm.getMaterial().getProveedor()
+        DefaultTableModel modelo = (DefaultTableModel)tbProveedores.getModel();
+        for(int i=0; i< modelo.getRowCount();i++)
+        {
+            NTupla nt = (NTupla)modelo.getValueAt(i, 0);
+            if(nt.getId() == soxm.getMaterial().getId())
+            {
+                tbProveedores.getSelectionModel().setSelectionInterval(0, i);
+                break;
+            }
+        }
     }
 
     private void mostrarRecursosEspecificosXProveedor()
@@ -307,7 +333,14 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         if(ban){
             NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
             double precio = gestor.getPrecioMaterial(nt.getId(),cantidad);
-            gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio);
+            if(soxm == null) // Una nueva SubObraXMaterial
+            {
+                gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio);
+            }
+            else // Se trata de una edición de la SubObraXMaterial
+            {
+                gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm);
+            }
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(this.getParent(),"No se ha podido agregar el material debido a: "+msg,"Advertencia",JOptionPane.WARNING_MESSAGE);
