@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Fran
@@ -11,7 +13,7 @@ package modelo;
 public class DetalleTareaPlanificacion {
     private DetalleSubObraXTareaModif originalCotizado;
     private DetalleTareaPlanificacion padre;
-    private Empleado empleado;
+    private ArrayList<Empleado> empleados;
     private int id;
     private int cantidadPersonas;
     private double cantHorasNormales;
@@ -40,13 +42,14 @@ public class DetalleTareaPlanificacion {
         this.rangoEmpleado=originalCotizado.getRangoEmpleado();
         this.costoXHoraNormal=originalCotizado.getCostoXHoraNormal();
         this.tipoEspecialidad=originalCotizado.getTipoEspecialidad();
+        empleados=new ArrayList<Empleado>();
         
     }
     
-     public DetalleTareaPlanificacion(DetalleTareaPlanificacion padre,Empleado empleado)
+     public DetalleTareaPlanificacion(DetalleTareaPlanificacion padre)
     {
-        this.padre=padre;
-        this.empleado=empleado;        
+        this.padre=padre;    
+        empleados=new ArrayList<Empleado>();
     }
 
     /**
@@ -80,15 +83,27 @@ public class DetalleTareaPlanificacion {
     /**
      * @return the empleado
      */
-    public Empleado getEmpleado() {
-        return empleado;
+    public ArrayList<Empleado> getEmpleados() {
+        return empleados;
     }
 
     /**
-     * @param empleado the empleado to set
+     * ESTE METODO NO DEBERIA USARSE. QUEDA PARA HIBERNATE
      */
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setEmpleados(ArrayList<Empleado> empleados) {
+        this.empleados = empleados;
+    }
+    
+    /**
+     * @param empleado el empleado a agregar
+     */
+    public void addEmpleados(Empleado empleado) throws RuntimeException
+    {
+        if(empleados.size()==cantidadPersonas)
+        {
+            throw new RuntimeException("ERROR: No se pueden asignar mas empleados que el numero de cantidad de personas");
+        }
+        this.empleados.add(empleado);
     }
 
     /**
@@ -110,6 +125,13 @@ public class DetalleTareaPlanificacion {
      */
     public int getCantidadPersonas() {
         return cantidadPersonas;
+    }
+    
+    /**
+     * @return cantidad de empleados asignados
+     */
+    public int getCantidadPersonasAsignadas() {
+        return empleados.size();
     }
 
     /**

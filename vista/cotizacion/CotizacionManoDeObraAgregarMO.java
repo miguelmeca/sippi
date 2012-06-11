@@ -295,13 +295,16 @@ private void agregarDetalleTareaATabla(DetalleSubObraXTarea detalleTarea) //thro
 {
     
        Object[] datos=new Object[8];     
-       NTupla detalleYNombreRango=new NTupla();
-       detalleYNombreRango.setNombre(detalleTarea.getRangoEmpleado().getNombre());
-       detalleYNombreRango.setData(detalleTarea);
-       datos[0]=detalleYNombreRango;
-       Tupla nombreTipoEspecialidad=new Tupla();
+       
+       
+       NTupla nombreTipoEspecialidad=new NTupla();
        nombreTipoEspecialidad.setNombre(detalleTarea.getTipoEspecialidad().getNombre());
-       datos[1]=nombreTipoEspecialidad;
+       nombreTipoEspecialidad.setData(detalleTarea);
+       datos[0]=nombreTipoEspecialidad;
+       
+       Tupla detalleYNombreRango=new Tupla();
+       detalleYNombreRango.setNombre(detalleTarea.getRangoEmpleado().getNombre());       
+       datos[1]=detalleYNombreRango;       
        datos[2]=detalleTarea.getCantidadPersonas();
        datos[3]=detalleTarea.getCostoXHoraNormal();
        datos[4]=detalleTarea.getCantHorasNormales();
@@ -677,11 +680,11 @@ private double calcularTotalTarea()
 
             },
             new String [] {
-                "Rango", "Especialidad", "Personas", "Costo Hora", "Hs Normales", "Hs 50%", "Hs 100%", "Subtotal"
+                "Especialidad", "Rango", "Personas", "Costo Hora", "Hs Normales", "Hs 50%", "Hs 100%", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -778,7 +781,7 @@ private double calcularTotalTarea()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();

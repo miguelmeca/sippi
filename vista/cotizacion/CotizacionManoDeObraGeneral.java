@@ -113,11 +113,10 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
        
        modelo.setValueAt(tar, indiceFila, 0); 
        modelo.setValueAt(tareaActual.getTipoTarea().getNombre(), indiceFila, 1); 
-       modelo.setValueAt(tareaActual.obtenerTotalDePersonas(), indiceFila, 2);
-       modelo.setValueAt(tareaActual.obtenerTotalDeHorasNormales(), indiceFila, 3); 
-       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl50(), indiceFila, 4); 
-       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl100(), indiceFila, 5); 
-       modelo.setValueAt(tareaActual.calcularSubtotal(), indiceFila, 6); 
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasNormales(), indiceFila, 2); 
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl50(), indiceFila, 3); 
+       modelo.setValueAt(tareaActual.obtenerTotalDeHorasAl100(), indiceFila, 4); 
+       modelo.setValueAt(tareaActual.calcularSubtotal(), indiceFila, 5); 
        
        if(nueva|| modificada)
        {
@@ -254,11 +253,11 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
 
             },
             new String [] {
-                "Nomre de Tarea", "Tipo de Tarea", "Personas", "Horas Normales", "Horas al 50%", "Horas al 100%", "Subtotal"
+                "Nomre de Tarea", "Tipo de Tarea", "Horas Normales", "Horas al 50%", "Horas al 100%", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

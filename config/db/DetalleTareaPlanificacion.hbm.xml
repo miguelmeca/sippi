@@ -12,7 +12,11 @@
     <property name="cantidadPersonas" type="integer"/>
     <many-to-one class="modelo.RangoEmpleado" name="rangoEmpleado"/>
     <many-to-one class="modelo.TipoEspecialidad" name="tipoEspecialidad"/>
-    <many-to-one class="modelo.Empleado" name="empleado"/>
+    <list cascade="all" name="empleados" table="EMPLEADOS_X_DETALLE_TAREA_PLANIFICACION">
+      <key column="ID_EXDTP"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.Empleado"/>
+    </list>
     <many-to-one class="modelo.DetalleTareaPlanificacion" name="padre"/>
     <many-to-one class="modelo.DetalleSubObraXTareaModif" name="originalCotizado"/>
     
