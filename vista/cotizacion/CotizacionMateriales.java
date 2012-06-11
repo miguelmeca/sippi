@@ -441,31 +441,31 @@ public class CotizacionMateriales extends javax.swing.JPanel {
     }//GEN-LAST:event_tbMaterialEspecificoMouseReleased
 
     private void tbMaterialesAUsarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMaterialesAUsarMouseClicked
-//        if(evt.getClickCount() > 1)
-//        {
-//            int fila = tbMaterialesAUsar.rowAtPoint(evt.getPoint());
-//            if(fila > -1)
-//            {
-//                DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
-//                NTupla nt = (NTupla)dtm.getValueAt(fila, 1); // Busco el objeto NTupla!!!
-//                SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
-//                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
-//                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
-//                if(psp.isBanHayPreciosMaterial()){
-//                    SwingPanel.getInstance().addWindow(psp);
-//                    psp.setVisible(true);
-//                    btnAgregarNuevoPrecio.setEnabled(false);
-//                } else{
-//                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-//                        AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
-//                        SwingPanel.getInstance().addWindow(anp);
-//                        anp.setVisible(true);
-//                    }
-//                    psp.dispose();
-//                }
-//                
-//            }
-//        }
+        if(evt.getClickCount() > 1)
+        {
+            int fila = tbMaterialesAUsar.rowAtPoint(evt.getPoint());
+            if(fila > -1)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tbMaterialesAUsar.getModel();
+                NTupla nt = (NTupla)dtm.getValueAt(fila, 1); // Busco el objeto NTupla!!!
+                SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
+                RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
+                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
+                if(psp.isBanHayPreciosMaterial()){
+                    SwingPanel.getInstance().addWindow(psp);
+                    psp.setVisible(true);
+                    btnAgregarNuevoPrecio.setEnabled(false);
+                } else{
+                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                        AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
+                        SwingPanel.getInstance().addWindow(anp);
+                        anp.setVisible(true);
+                    }
+                    psp.dispose();
+                }
+                
+            }
+        }
     }//GEN-LAST:event_tbMaterialesAUsarMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
