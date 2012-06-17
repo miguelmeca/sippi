@@ -5,12 +5,15 @@
 
 package controlador.planificacion;
 
+import controlador.utiles.gestorBDvarios;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.PlanificacionXXX;
-import modelo.TareaPlanificacion;
+import modelo.*;
+import org.hibernate.Session;
+import util.HibernateUtil;
 import util.NTupla;
+import util.Tupla;
 import vista.planificacion.EditarTareaDetalles;
 import vista.planificacion.EditarTareaDetallesABM;
 
@@ -22,18 +25,27 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     private EditarTareaDetalles pantallaLista;
     private EditarTareaDetallesABM pantallaABM;
     private GestorEditarTarea gestorPadre;
+    private DetalleTareaPlanificacion detalleAcutal;
 
     public GestorEditarTareaDetalles(GestorEditarTarea gestorPadre){
         this.gestorPadre = gestorPadre;
     }
-
+    
     public void setPantallaLista(EditarTareaDetalles pantallaLista) {
         this.pantallaLista = pantallaLista;
     }
-    
+
     public void setPantallaABM(EditarTareaDetallesABM pantallaABM) {
         this.pantallaABM = pantallaABM;
     }
+    
+    public void setDetalleAcutal(DetalleTareaPlanificacion detalleAcutal) {
+        this.detalleAcutal = detalleAcutal;
+    }
+    
+    public void crearNuevoDetalleAcutal() {
+        this.detalleAcutal = new DetalleTareaPlanificacion();
+    }   
         
     
     public ArrayList<NTupla> mostrarTareasSuperiores()
@@ -69,6 +81,69 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
                 return null;
            }       
         }
+    
+     public ArrayList<NTupla> mostrarTiposEspecialidad()
+    { Session sesion;
+
+        List<TipoEspecialidad> tiposEspecialidad=null;
+        try{
+            sesion= HibernateUtil.getSession();
+            sesion.beginTransaction();
+            tiposEspecialidad=sesion.createQuery("from TipoEspecialidad").list();
+            sesion.getTransaction().commit();
+        }
+        catch (Exception ex)
+        {System.out.println("No se ejecutar la consulta en mostrarTiposEspecialidad()");
+        return null;}
+        if(tiposEspecialidad==null)
+        {return null;}           
+        ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
+        for (int i = 0; i < tiposEspecialidad.size(); i++)
+        {
+           TipoEspecialidad te = (TipoEspecialidad)tiposEspecialidad.get(i);
+                
+           NTupla tupla = new NTupla(te.getId());
+           tupla.setNombre(te.getNombre());
+           tupla.setData(te);
+           
+           tuplas.add(tupla);
+        }
+        return tuplas;           
+      }
+ 
+public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
+        { Session sesion;
+
+        
+            gestorBDvarios gestorBD = new gestorBDvarios();
+            List<Especialidad> rangos=gestorBD.getEspecialidades( te);
+            try{
+                sesion= HibernateUtil.getSession();
+                sesion.beginTransaction();
+                rangos=sesion.createQuery("from Especialidad").list();
+                sesion.getTransaction().commit();
+            }
+            catch (Exception ex)
+            {System.out.println("No se ejecutar la consulta en mostrarRangos()");
+            return null;}
+            if(rangos==null)
+            {return null;}           
+            ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
+            for (int i = 0; i < rangos.size(); i++)
+            {
+                Especialidad re = (Especialidad)rangos.get(i);
+                
+                NTupla nTupla = new NTupla(re.getId());
+                nTupla.setNombre(re.getRango().getNombre());
+                nTupla.setData(re.getPrecioHoraNormal());
+                    tuplas.add(nTupla);
+             }
+            return tuplas;           
+        }
+    
+    public DetalleTareaPlanificacion getDetalleTareaActual() {
+        return this.detalleAcutal;
+    }
 
     public PlanificacionXXX getPlanificacion() {
         return this.gestorPadre.getPlanificacion();

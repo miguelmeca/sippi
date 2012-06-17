@@ -120,8 +120,9 @@ public class CotizacionModificada extends Cotizacion{
                         detalleMod.setCantidadPersonas(aleaCantPersona);
                         double aleaCostoXHoraNormal = (int) Math.random()*detalle.getCostoXHoraNormal() + 12;
                         detalleMod.setCostoXHoraNormal(aleaCostoXHoraNormal);
-                        detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
-                        detalleMod.setTipoEspecialidad(detalle.getTipoEspecialidad());
+                        detalleMod.setEspecialidad(detalle.getEspecialidad());
+                        //detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                        //detalleMod.setTipoEspecialidad(detalle.getTipoEspecialidad());
                          detalleMods.add(detalleMod);
                     }
                     subObraXTareaModif.setDetallesMod(detalleMods);

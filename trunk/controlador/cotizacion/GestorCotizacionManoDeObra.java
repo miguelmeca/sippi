@@ -6,6 +6,7 @@
 package controlador.cotizacion;
 
 
+import controlador.utiles.gestorBDvarios;
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,9 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             List<TipoTarea> tareas=null;
             try{
                 sesion= HibernateUtil.getSession();
+                sesion.beginTransaction();
             tareas=sesion.createQuery("from TipoTarea").list();
+            sesion.getTransaction().commit();
             }
             catch (Exception ex)
             {System.out.println("No se ejecutar la consulta en mostrarNombresTareas");
@@ -75,42 +78,50 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                 
                 NTupla tuplaT = new NTupla(tt.getId());
                 tuplaT.setNombre(tt.getNombre());
-                
                 tuplas.add(tuplaT);
              }
             return tuplas;           
         }
-    public ArrayList<Tupla> mostrarTiposEspecialidad()
+    public ArrayList<NTupla> mostrarTiposEspecialidad()
     { Session sesion;
 
         List<TipoEspecialidad> tiposEspecialidad=null;
         try{
             sesion= HibernateUtil.getSession();
+            sesion.beginTransaction();
             tiposEspecialidad=sesion.createQuery("from TipoEspecialidad").list();
+            sesion.getTransaction().commit();
         }
         catch (Exception ex)
         {System.out.println("No se ejecutar la consulta en mostrarTiposEspecialidad()");
         return null;}
         if(tiposEspecialidad==null)
         {return null;}           
-        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
         for (int i = 0; i < tiposEspecialidad.size(); i++)
         {
            TipoEspecialidad te = (TipoEspecialidad)tiposEspecialidad.get(i);
                 
-           Tupla tupla = new Tupla(te.getId(), te.getNombre());
+           NTupla tupla = new NTupla(te.getId());
+           tupla.setNombre(te.getNombre());
+           tupla.setData(te);
+           
            tuplas.add(tupla);
         }
         return tuplas;           
       }
  
- public ArrayList<NTupla> mostrarRangos()
+ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         { Session sesion;
 
-            List<RangoEmpleado> rangos=null;
+        
+            gestorBDvarios gestorBD = new gestorBDvarios();
+            List<Especialidad> rangos=gestorBD.getEspecialidades( te);
             try{
                 sesion= HibernateUtil.getSession();
-                rangos=sesion.createQuery("from RangoEmpleado").list();
+                sesion.beginTransaction();
+                rangos=sesion.createQuery("from Especialidad").list();
+                sesion.getTransaction().commit();
             }
             catch (Exception ex)
             {System.out.println("No se ejecutar la consulta en mostrarRangos()");
@@ -120,24 +131,24 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
             for (int i = 0; i < rangos.size(); i++)
             {
-                RangoEmpleado re = (RangoEmpleado)rangos.get(i);
+                Especialidad re = (Especialidad)rangos.get(i);
                 
                 NTupla nTupla = new NTupla(re.getId());
-                nTupla.setNombre(re.getNombre());
-                nTupla.setData(re.getCostoXHora());
+                nTupla.setNombre(re.getRango().getNombre());
+                nTupla.setData(re.getPrecioHoraNormal());
                     tuplas.add(nTupla);
              }
             return tuplas;           
         }
-        public boolean setearNuevoCostoPorDefectoEnRolEmpleado(int idRangoEmpleado, double nuevoCosto)
+        public boolean setearNuevoCostoPorDefectoEnRolEmpleado(int idEspecialidad, double nuevoCosto)
         {
             Session sesion;
             try
             {
                 sesion = HibernateUtil.getSession();                
                 HibernateUtil.beginTransaction();
-                RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class,idRangoEmpleado);
-                re.setCostoXHora(nuevoCosto);
+                Especialidad re = (Especialidad) sesion.load(Especialidad.class,idEspecialidad);
+                re.setPrecioHoraNormal(nuevoCosto);
                 sesion.update(re);
                 HibernateUtil.commitTransaction();
                 return true;
@@ -269,7 +280,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
     }
     
-    public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idRangoEmpleado, int idTipoEspecialidad)
+    public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idEspecialidad)
     {
        DetalleSubObraXTarea detalleNuevo=crearDetalleVacio();
         detalleNuevo.setCantHorasNormales(hsNormales);
@@ -278,10 +289,12 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         detalleNuevo.setCantHorasAl100(hs100);
         detalleNuevo.setCantidadPersonas(cantidadPersonas );
         detalleNuevo.setCostoXHoraNormal(costoNormal);
-        RangoEmpleado rangoEmpleado=levantarRangoEmpleado(idRangoEmpleado);        
+        /*RangoEspecialidad rangoEmpleado=levantarRangoEmpleado(idRangoEmpleado);        
         detalleNuevo.setRangoEmpleado(rangoEmpleado); 
         TipoEspecialidad tipoEspecialidad=levantarTipoEspecialidad(idTipoEspecialidad);        
-        detalleNuevo.setTipoEspecialidad(tipoEspecialidad); 
+        detalleNuevo.setTipoEspecialidad(tipoEspecialidad); */
+        Especialidad especialidad=levantarEspecialidad(idEspecialidad);  
+        detalleNuevo.setEspecialidad(especialidad);
         
         return detalleNuevo;    
     }
@@ -290,15 +303,32 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         return new DetalleSubObraXTarea();
     }
     
-    public RangoEmpleado levantarRangoEmpleado(int idRango)
+    public Especialidad levantarEspecialidad(int idEspecialidad)
     {
        Session sesion;
-        RangoEmpleado re=null;
+        Especialidad te=null;
         try
         {
             sesion = HibernateUtil.getSession();
             sesion.beginTransaction();
-            re = (RangoEmpleado) sesion.load(RangoEmpleado.class, (idRango));
+            te = (Especialidad) sesion.load(Especialidad.class, (idEspecialidad));
+            sesion.getTransaction().commit();
+            
+        }
+        catch (Exception ex)            
+        {   System.out.println("No se ejecutar la consulta en levantarEspecialidad(id)"); 
+        }
+        return te;
+    }
+   /* public RangoEspecialidad levantarRangoEmpleado(int idRango)
+    {
+       Session sesion;
+        RangoEspecialidad re=null;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            sesion.beginTransaction();
+            re = (RangoEspecialidad) sesion.load(RangoEspecialidad.class, (idRango));
             sesion.getTransaction().commit();
             
         }
@@ -324,7 +354,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         {   System.out.println("No se ejecutar la consulta en levantarRangoEmpleado(id)"); 
         }
         return te;
-    }
+    }*/
     
     public TipoTarea levantarTipoTarea(int idTipoTarea)
     {
@@ -333,7 +363,9 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         try
         {
             sesion = HibernateUtil.getSession();
+            sesion.beginTransaction();
             tt = (TipoTarea) sesion.load(TipoTarea.class, (idTipoTarea));
+            sesion.getTransaction().commit();
             
         }
         catch (Exception ex)

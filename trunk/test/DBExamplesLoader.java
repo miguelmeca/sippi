@@ -956,17 +956,19 @@ public class DBExamplesLoader {
                     dsoxt.setCantHorasAl100(4.0);
                     dsoxt.setCostoXHoraNormal(22.0);
                     dsoxt.setCantidadPersonas(2);
-                    dsoxt.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
-                    dsoxt.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                    dsoxt.setEspecialidad((Especialidad)sesion.load(Especialidad.class, 1));
+                    //dsoxt.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
+                    //dsoxt.setRangoEmpleado((RangoEspecialidad)sesion.load(RangoEspecialidad.class, 1));
                     soxt.agreagarDetalle(dsoxt);
                     DetalleSubObraXTarea dsoxt1=new DetalleSubObraXTarea();
                     dsoxt1.setCantHorasNormales(15.0);
                     dsoxt1.setCantHorasAl50(3.0);
-                    dsoxt1.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 2));
+                    dsoxt1.setEspecialidad((Especialidad)sesion.load(Especialidad.class, 2));
+                    //dsoxt1.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 2));
                     dsoxt1.setCantHorasAl100(2.0);
                     dsoxt1.setCostoXHoraNormal(24.0);
                     dsoxt1.setCantidadPersonas(1);
-                    dsoxt1.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
+                   // dsoxt1.setRangoEmpleado((RangoEspecialidad)sesion.load(RangoEspecialidad.class, 2));
                     soxt.agreagarDetalle(dsoxt1);
 
                 so1.addTarea(soxt);
@@ -981,8 +983,9 @@ public class DBExamplesLoader {
                 dsoxt2.setCantHorasAl100(4.0);
                 dsoxt2.setCostoXHoraNormal(22.0);
                 dsoxt2.setCantidadPersonas(3);
-                dsoxt2.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
-                dsoxt2.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                dsoxt2.setEspecialidad((Especialidad)sesion.load(Especialidad.class, 1));
+                //dsoxt2.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
+                //dsoxt2.setRangoEmpleado((RangoEspecialidad)sesion.load(RangoEspecialidad.class, 1));
                 soxt1.agreagarDetalle(dsoxt2);
                 DetalleSubObraXTarea dsoxt3=new DetalleSubObraXTarea();
                 dsoxt3.setCantHorasNormales(14.0);
@@ -990,8 +993,9 @@ public class DBExamplesLoader {
                 dsoxt3.setCantHorasAl100(1.0);
                 dsoxt3.setCostoXHoraNormal(24.0);
                 dsoxt3.setCantidadPersonas(2);
-                dsoxt3.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 2));
-                dsoxt3.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 2));
+                dsoxt3.setEspecialidad((Especialidad)sesion.load(Especialidad.class, 2));
+                //dsoxt3.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 2));
+                //dsoxt3.setRangoEmpleado((RangoEspecialidad)sesion.load(RangoEspecialidad.class, 2));
                 soxt1.agreagarDetalle(dsoxt3);
                 
 
@@ -1005,8 +1009,9 @@ public class DBExamplesLoader {
                     dsoxt6.setCantHorasAl100(1.0);
                     dsoxt6.setCostoXHoraNormal(22.0);
                     dsoxt6.setCantidadPersonas(1);
-                    dsoxt6.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
-                    dsoxt6.setRangoEmpleado((RangoEmpleado)sesion.load(RangoEmpleado.class, 1));
+                    dsoxt6.setEspecialidad((Especialidad)sesion.load(Especialidad.class, 1));
+                    //dsoxt6.setTipoEspecialidad((TipoEspecialidad)sesion.load(TipoEspecialidad.class, 1));
+                    //dsoxt6.setRangoEmpleado((RangoEspecialidad)sesion.load(RangoEspecialidad.class, 1));
                     soxt6.agreagarDetalle(dsoxt6);
                              
                 so1.addTarea(soxt6);
@@ -1236,8 +1241,9 @@ public class DBExamplesLoader {
                         detalleMod.setCantidadPersonas(aleaCantPersona);
                         double aleaCostoXHoraNormal = (int) Math.random()*detalle.getCostoXHoraNormal() + 12;
                         detalleMod.setCostoXHoraNormal(aleaCostoXHoraNormal);
-                        detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
-                        detalleMod.setTipoEspecialidad(detalle.getTipoEspecialidad());
+                        detalleMod.setEspecialidad(detalle.getEspecialidad());
+                        //detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                        //detalleMod.setTipoEspecialidad(detalle.getTipoEspecialidad());
                         HibernateUtil.getSession().saveOrUpdate(detalleMod);
                         detalleMods.add(detalleMod);
                     }
@@ -1324,12 +1330,10 @@ public class DBExamplesLoader {
     }
 
     private void cargarRangosEmpleado() {
-        RangoEmpleado re1 = new RangoEmpleado();
-        re1.setNombre("Cadete");
-        re1.setCostoXHora(15.0);
-        RangoEmpleado re2 = new RangoEmpleado();
+        RangoEspecialidad re1 = new RangoEspecialidad();
+        re1.setNombre("Cadete");        
+        RangoEspecialidad re2 = new RangoEspecialidad();
         re2.setNombre("Especializado");
-        re2.setCostoXHora(18.0);
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(re1);

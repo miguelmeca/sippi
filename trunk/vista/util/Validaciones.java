@@ -34,6 +34,7 @@ public class Validaciones
               }
            }
         });
+    
         private static KeyAdapter kaNumerosEnteros=(new KeyAdapter()
         {
            

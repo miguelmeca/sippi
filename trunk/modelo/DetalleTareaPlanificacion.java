@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -13,15 +14,14 @@ import java.util.ArrayList;
 public class DetalleTareaPlanificacion {
     private DetalleSubObraXTareaModif originalCotizado;
     private DetalleTareaPlanificacion padre;
-    private ArrayList<Empleado> empleados;
+    private List<Empleado> empleados;
     private int id;
     private int cantidadPersonas;
     private double cantHorasNormales;
     private double cantHorasAl50;
     private double cantHorasAl100;
-    private RangoEmpleado rangoEmpleado;
     private double costoXHoraNormal;
-    private TipoEspecialidad tipoEspecialidad;
+    private Especialidad especialidad;
     
     
     /**
@@ -39,9 +39,8 @@ public class DetalleTareaPlanificacion {
         this.cantHorasNormales=originalCotizado.getCantHorasNormales();
         this.cantHorasAl50=originalCotizado.getCantHorasAl50();
         this.cantHorasAl100=originalCotizado.getCantHorasAl100();
-        this.rangoEmpleado=originalCotizado.getRangoEmpleado();
         this.costoXHoraNormal=originalCotizado.getCostoXHoraNormal();
-        this.tipoEspecialidad=originalCotizado.getTipoEspecialidad();
+        this.especialidad=originalCotizado.getEspecialidad();
         empleados=new ArrayList<Empleado>();
         
     }
@@ -49,6 +48,11 @@ public class DetalleTareaPlanificacion {
      public DetalleTareaPlanificacion(DetalleTareaPlanificacion padre)
     {
         this.padre=padre;    
+        empleados=new ArrayList<Empleado>();
+    }
+     
+     public DetalleTareaPlanificacion()
+    {
         empleados=new ArrayList<Empleado>();
     }
 
@@ -83,14 +87,15 @@ public class DetalleTareaPlanificacion {
     /**
      * @return the empleado
      */
-    public ArrayList<Empleado> getEmpleados() {
+    public List<Empleado> getEmpleados() {
         return empleados;
     }
 
     /**
+     * @param empleados the empleados to set
      * ESTE METODO NO DEBERIA USARSE. QUEDA PARA HIBERNATE
      */
-    public void setEmpleados(ArrayList<Empleado> empleados) {
+    public void setEmpleados(List<Empleado> empleados) {
         this.empleados = empleados;
     }
     
@@ -184,20 +189,6 @@ public class DetalleTareaPlanificacion {
     }
 
     /**
-     * @return the rangoEmpleado
-     */
-    public RangoEmpleado getRangoEmpleado() {
-        return rangoEmpleado;
-    }
-
-    /**
-     * @param rangoEmpleado the rangoEmpleado to set
-     */
-    public void setRangoEmpleado(RangoEmpleado rangoEmpleado) {
-        this.rangoEmpleado = rangoEmpleado;
-    }
-
-    /**
      * @return the costoXHoraNormal
      */
     public double getCostoXHoraNormal() {
@@ -214,14 +205,14 @@ public class DetalleTareaPlanificacion {
     /**
      * @return the tipoEspecialidad
      */
-    public TipoEspecialidad getTipoEspecialidad() {
-        return tipoEspecialidad;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
     /**
      * @param tipoEspecialidad the tipoEspecialidad to set
      */
-    public void setTipoEspecialidad(TipoEspecialidad tipoEspecialidad) {
-        this.tipoEspecialidad = tipoEspecialidad;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
     }
 }

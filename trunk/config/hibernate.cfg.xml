@@ -10,7 +10,7 @@
     <property name="connection.pool_size">2</property>
     <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
     <property name="show_sql">true</property>
-    <property name="hbm2ddl.auto">create</property>
+    <property name="hbm2ddl.auto">create-drop</property>
     <!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
     <!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
     <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.0.10:1521/xe</property-->
@@ -78,7 +78,6 @@
     <mapping resource="config/db/TipoAlquilerCompra.hbm.xml"/>
     <mapping resource="config/db/SubObraXHerramienta.hbm.xml"/>
     <mapping resource="config/db/SubObraXTarea.hbm.xml"/>
-    <mapping resource="config/db/RangoEmpleado.hbm.xml"/>
     <mapping resource="config/db/SubObraXMaterial.hbm.xml"/>
     <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>

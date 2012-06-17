@@ -133,7 +133,8 @@ public class Trazabilidad {
                     detalleMod.setCantHorasNormales(detalle.getCantHorasNormales());
                     detalleMod.setCantidadPersonas(detalle.getCantidadPersonas());
                     detalleMod.setCostoXHoraNormal(detalle.getCostoXHoraNormal());
-                    detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                    detalleMod.setEspecialidad(detalle.getEspecialidad());
+                    //detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
                     detalleMods.add(detalleMod);
                 }
                 subObraXTareaModif.setDetallesMod(detalleMods);
