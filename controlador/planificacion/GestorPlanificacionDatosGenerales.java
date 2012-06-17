@@ -81,7 +81,9 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void cargarTiposDeTarea() {
         try {
+            HibernateUtil.getSession().beginTransaction();
             Iterator<TipoTarea> tipoTareas = HibernateUtil.getSession().createQuery("FROM TipoTarea").iterate();
+            HibernateUtil.getSession().getTransaction().commit();
             while(tipoTareas.hasNext()){
                 TipoTarea tipoTarea= tipoTareas.next();
                 pantalla.agregarElementoAlCombo(tipoTarea.getNombre());

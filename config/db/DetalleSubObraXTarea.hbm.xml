@@ -10,8 +10,7 @@
     <property name="cantHorasAl100" type="double"/>
     <property name="costoXHoraNormal" type="double"/>
     <property name="cantidadPersonas" type="integer"/>
-    <many-to-one class="modelo.RangoEmpleado" name="rangoEmpleado"/>
-    <many-to-one class="modelo.TipoEspecialidad" name="tipoEspecialidad"/>
+    <many-to-one class="modelo.Especialidad" name="Especialidad"/>
     <joined-subclass name="modelo.DetalleSubObraXTareaModif" table="DETALLE_SUBOBRA_X_TAREA_MODIF">
       <key column="ID_DETALLE_SUBOBRA_X_TAREA_MODIF"/>
       <many-to-one class="modelo.DetalleSubObraXTarea" name="original"/>

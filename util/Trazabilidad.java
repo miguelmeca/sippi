@@ -142,7 +142,8 @@ public class Trazabilidad {
                         detalleMod.setCantHorasNormales(detalle.getCantHorasNormales());
                         detalleMod.setCantidadPersonas(detalle.getCantidadPersonas());
                         detalleMod.setCostoXHoraNormal(detalle.getCostoXHoraNormal());
-                        detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                        //detalleMod.setRangoEmpleado(detalle.getRangoEmpleado());
+                        detalleMod.setEspecialidad(detalle.getEspecialidad());
                         detalleMods.add(detalleMod);
                         HibernateUtil.getSession().save(detalleMod);
                     }

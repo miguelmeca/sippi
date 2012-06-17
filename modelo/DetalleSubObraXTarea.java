@@ -17,9 +17,10 @@ public class DetalleSubObraXTarea implements ISubtotal{
     private double cantHorasNormales;
     private double cantHorasAl50;
     private double cantHorasAl100;
-    private RangoEmpleado rangoEmpleado;
+    private Especialidad especialidad;
+    //private RangoEspecialidad rangoEmpleado;
     private double costoXHoraNormal;
-    private TipoEspecialidad tipoEspecialidad;
+    //private TipoEspecialidad tipoEspecialidad;
 
     public DetalleSubObraXTarea() 
     {
@@ -33,9 +34,10 @@ public class DetalleSubObraXTarea implements ISubtotal{
         this.cantHorasNormales=aCopiar.cantHorasNormales;
         this.cantHorasAl50=aCopiar.cantHorasAl50;
         this.cantHorasAl100=aCopiar.cantHorasAl100;
-        this.rangoEmpleado=aCopiar.rangoEmpleado;
+        this.especialidad=aCopiar.especialidad;
+        /*this.rangoEmpleado=aCopiar.rangoEmpleado;
         this.costoXHoraNormal=aCopiar.costoXHoraNormal;
-        this.tipoEspecialidad=aCopiar.tipoEspecialidad;
+        this.tipoEspecialidad=aCopiar.tipoEspecialidad;*/
     }
 
     public int getId() {
@@ -77,13 +79,20 @@ public class DetalleSubObraXTarea implements ISubtotal{
         this.cantHorasAl100 = cantHoras;
     }
 
-    
-
-    public RangoEmpleado getRangoEmpleado() {
-        return rangoEmpleado;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setRangoEmpleado(RangoEmpleado rangoEmpleado) {
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+    
+/*
+    public RangoEspecialidad getRangoEmpleado() {
+        return rangoEmpleado;
+    }
+    
+    public void setRangoEmpleado(RangoEspecialidad rangoEmpleado) {
         this.rangoEmpleado = rangoEmpleado;
     }
     
@@ -94,7 +103,7 @@ public class DetalleSubObraXTarea implements ISubtotal{
     public void setTipoEspecialidad(TipoEspecialidad tipoEspecialidad) {
         this.tipoEspecialidad = tipoEspecialidad;
     }
-       
+       */
     public double getCostoXHoraNormal() {
         return costoXHoraNormal;
     }

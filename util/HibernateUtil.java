@@ -47,6 +47,7 @@ public class HibernateUtil {
 		} catch (Exception ex) {
 
                         System.out.println("EXCEPTION EN GETSESION !!!!!!!!! ");
+                        System.out.println(ex.getCause());
                         JOptionPane.showMessageDialog(new JFrame(),"No se puso iniciar:\n"+ex.getMessage(),"ERROR DE HIBERNATE",JOptionPane.ERROR_MESSAGE);
 			throw new ExceptionInInitializerError(ex);
 		} 
@@ -96,6 +97,7 @@ public class HibernateUtil {
 		}
                 catch (Exception ex) {
                     System.out.println("EXCEPTION EN GETSESION !!!!!!!!! ");
+                    System.out.println(ex.getCause());
                     throw new HibernateException(ex);
 		}
 		return s;

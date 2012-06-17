@@ -578,45 +578,31 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
             
             // Agrego el hijo al padre
-            if(tareaPadre!=null)
-            {
-                 
-                try {
-                    sesion = HibernateUtil.getSession();
-                
-                    //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
-                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
-                    {
-                       //SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
-                       SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif)cotizacionMofificada.getSubObraXAlquilerCompraPorHash(hashRecuso);
-                        exito=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
-                    }
-                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
-                    {
-                       //SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
-                       SubObraXMaterialModif material = (SubObraXMaterialModif) cotizacionMofificada.getSubObraXMaterialPorHash(hashRecuso);
-                        exito=tareaPadre.agregarMaterialCotizacion(material);   
-                    }
-                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
-                    {
-                      //SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
-                      SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) cotizacionMofificada.getSubObraXHerramientaPorHash(hashRecuso);
-                        exito=tareaPadre.agregarHerramientaCotizacion(herramienta);   
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mostrarMensajeError("No se pudo cargar el recurso de cotizacion");
-                    return;
-                } 
-               
-                if(!exito)           
-                {
-                    mostrarMensajeError("El recurso ya se encuentara asociado a la tarea.");
+            if (tareaPadre != null) {
+
+
+                //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
+                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA)) {
+                    //SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
+                    SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) cotizacionMofificada.getSubObraXAlquilerCompraPorHash(hashRecuso);
+                    exito = tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);
                 }
-                else
-                {
-                    
-                   // _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
+                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL)) {
+                    //SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
+                    SubObraXMaterialModif material = (SubObraXMaterialModif) cotizacionMofificada.getSubObraXMaterialPorHash(hashRecuso);
+                    exito = tareaPadre.agregarMaterialCotizacion(material);
+                }
+                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA)) {
+                    //SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
+                    SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) cotizacionMofificada.getSubObraXHerramientaPorHash(hashRecuso);
+                    exito = tareaPadre.agregarHerramientaCotizacion(herramienta);
+                }
+
+
+                if (!exito) {
+                    mostrarMensajeError("El recurso ya se encuentara asociado a la tarea.");
+                } else {
+                    // _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
                 }
             }
             else

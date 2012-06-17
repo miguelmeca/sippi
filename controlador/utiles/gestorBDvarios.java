@@ -102,6 +102,23 @@ public class gestorBDvarios
          Especialidad esp=(Especialidad) sesion.createQuery("from Especialidad where tipo = (:tipoEsp) and rango = (:rangoEsp)").setParameter("tipoEsp", te).setParameter("rangoEsp", re).uniqueResult();
          return esp;
     }
+    
+    public ArrayList<Especialidad> getEspecialidades(TipoEspecialidad te)
+    {
+         //TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
+         //RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
+        sesion.beginTransaction();
+         List lista = sesion.createQuery("from Especialidad where tipo = (:tipoEsp)").setParameter("tipoEsp", te).list();
+          sesion.getTransaction().commit();
+         ArrayList<Especialidad> especialidades = new ArrayList<Especialidad>();
+            for (int i = 0; i < lista.size(); i++) {
+                Especialidad e = (Especialidad)lista.get(i);
+               // listaNombres.add(td.getNombre());
+              especialidades.add(e);
+            }
+
+            return especialidades;
+    }
 
     public Especialidad getEspecialidad(int idTipoE ,int idRangoE )
     {
