@@ -970,14 +970,6 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
        txtPersonas.setText(String.valueOf(detalleTarea.getCantidadPersonas()));
        txtCosto.setText(String.valueOf(detalleTarea.getCostoXHoraNormal()));
        
-       for (int i = 0; i < cboRango.getItemCount(); i++) 
-        {
-            if( (((NTupla)cboRango.getItemAt(i)).getId()) == detalleTarea.getEspecialidad().getRango().getId())
-            {
-                cboRango.setSelectedIndex(i);
-                break;
-            }            
-        }
        for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) 
         {
             if( (((NTupla)cboTipoEspecialidad.getItemAt(i)).getId()) == detalleTarea.getEspecialidad().getTipo().getId())
@@ -986,6 +978,14 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
                 break;
             }            
         }       
+        for (int i = 0; i < cboRango.getItemCount(); i++) 
+        {
+            if( (((NTupla)cboRango.getItemAt(i)).getId()) == detalleTarea.getEspecialidad().getRango().getId())
+            {
+                cboRango.setSelectedIndex(i);
+                break;
+            }            
+        }
        txtHorasNormales.setText(String.valueOf(detalleTarea.getCantHorasNormales()));
        txtHoras50.setText(String.valueOf(detalleTarea.getCantHorasAl50()));
        txtHoras100.setText(String.valueOf(detalleTarea.getCantHorasAl100())); 
