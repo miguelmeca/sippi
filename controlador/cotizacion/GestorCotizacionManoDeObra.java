@@ -310,13 +310,14 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         try
         {
             sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             te = (Especialidad) sesion.load(Especialidad.class, (idEspecialidad));
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
             
         }
         catch (Exception ex)            
         {   System.out.println("No se ejecutar la consulta en levantarEspecialidad(id)"); 
+            HibernateUtil.rollbackTransaction();
         }
         return te;
     }
@@ -363,13 +364,14 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         try
         {
             sesion = HibernateUtil.getSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             tt = (TipoTarea) sesion.load(TipoTarea.class, (idTipoTarea));
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
             
         }
         catch (Exception ex)
-        {   System.out.println("No se ejecutar la consulta en levantarTipoTarea(id)");            
+        {   System.out.println("No se ejecutar la consulta en levantarTipoTarea(id)");
+            HibernateUtil.rollbackTransaction();
         }
         return tt;
     }

@@ -80,6 +80,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public ArrayList<Tupla> getEspecificacionMaterial(int id) {
         ArrayList<Tupla> esps = new ArrayList<Tupla>();
         try {
+            HibernateUtil.beginTransaction();
             Material m = (Material)HibernateUtil.getSession().load(Material.class, id);
             Iterator it = m.getRecursosEspecificos().iterator();
             while(it.hasNext()){
@@ -89,8 +90,10 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 t.setNombre(re.getNombre());
                 esps.add(t);
             }
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             System.out.println("Ocurrió un problema: "+ex.getMessage());
+            HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar cargar las especificaciones de una material: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return esps;
@@ -125,6 +128,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public ArrayList<NTupla> mostrarRecursosEspecificosXProveedor(int idR, int idRE) {
         ArrayList<NTupla> esps = new ArrayList<NTupla>();
         try {
+            HibernateUtil.beginTransaction();
             RecursoEspecifico re = (RecursoEspecifico)HibernateUtil.getSession().load(RecursoEspecifico.class, idRE);
             Iterator it = re.getRecursosXProveedor().iterator();
 
@@ -146,7 +150,9 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 nt.setData(precios);
                 esps.add(nt);
             }
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar mostrar los precios del material por proveedor: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return esps;
@@ -155,11 +161,14 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public String getNombreRecurso(int idR, int idRE) {
         String nombre="";
         try {
+            HibernateUtil.beginTransaction();
             Material m = (Material) HibernateUtil.getSession().load(Material.class, idR);
             nombre=m.getNombre();
             RecursoEspecifico re = (RecursoEspecifico)HibernateUtil.getSession().load(RecursoEspecifico.class, idRE);
             nombre+=(" "+re.getNombre());
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar mostrar el nombre del recurso: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return nombre;
@@ -188,6 +197,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 
     public void agregarMaterial(int idRXP, int cantidad, String desc,double precio) {
         try {
+            HibernateUtil.beginTransaction();
             SubObraXMaterial soxm = new SubObraXMaterial();
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             soxm.setMaterial(rxp);
@@ -196,6 +206,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             soxm.setPrecioUnitario(precio);
             subObra.getMateriales().add(soxm);
             refrescarPantallas();
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
@@ -206,12 +217,14 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 
     public void modificarMaterial(int idRXP, int cantidad, String desc,double precio, SubObraXMaterial soxm) {
         try {
+            HibernateUtil.beginTransaction();
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             soxm.setMaterial(rxp);
             soxm.setCantidad(cantidad);
             soxm.setDescripcion(desc);
             soxm.setPrecioUnitario(precio);
             refrescarPantallas();
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
@@ -286,7 +299,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
-
+                HibernateUtil.beginTransaction();
                 // CARGO EL PROVEEDOR
                 Proveedor pv = (Proveedor) sesion.load(Proveedor.class,idProveedor);
 
@@ -354,10 +367,11 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                         }
                     }
                 }
-
+                HibernateUtil.commitTransaction();
                }catch(Exception ex)
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
                 ex.printStackTrace();
                 //pantalla.MostrarMensaje("EG-0002");
            }
@@ -384,7 +398,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
-
+                HibernateUtil.beginTransaction();
+                
                 RecursoEspecifico re = (RecursoEspecifico)sesion.load(RecursoEspecifico.class,idRecEsp);
 
                 Recurso rec = re.getRecurso();
@@ -392,11 +407,13 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 {
                     return rec.getUnidadDeMedida().getAbreviatura();
                 }
+                HibernateUtil.commitTransaction();
                 return "";
-
+                
                }catch(Exception ex)
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
                 ex.printStackTrace();
                 //pantalla.MostrarMensaje("ME-0001");
            }
@@ -419,7 +436,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         try
         {
             sesion = HibernateUtil.getSession();
-
+            HibernateUtil.beginTransaction();
+            
             // CARGO LOS DATOS
             RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
             Proveedor pr         = (Proveedor)sesion.load(Proveedor.class,idProv);
@@ -581,6 +599,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                         }
                     }
                 }
+            HibernateUtil.commitTransaction();
         }
         catch (Exception ex)
         {
@@ -607,9 +626,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public String mostrarMaterial(int idR) {
         String name = "";
         try {
+            HibernateUtil.beginTransaction();
             Material m = (Material) HibernateUtil.getSession().load(Material.class, idR);
             name = m.getNombre();
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
         }
         return name;
@@ -618,6 +640,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public ArrayList<NTupla> mostrarPreciosVigentes(int idProv, int idRe) {
         ArrayList<NTupla> provs = new ArrayList<NTupla>();
         try {
+            HibernateUtil.beginTransaction();
             RecursoEspecifico re = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class, idRe);
             Iterator<RecursoXProveedor> it= re.getRecursosXProveedor().iterator();
             while(it.hasNext()){
@@ -636,7 +659,9 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                     break;
                 }
             }
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
         }
         return provs;
@@ -645,9 +670,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public String mostrarRE(int idRe) {
         String name = "";
         try {
+            HibernateUtil.beginTransaction();
             RecursoEspecifico re = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class, idRe);
             name = re.getNombre();
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
             LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
         }
         return name;

@@ -77,6 +77,7 @@ public class gestorRegistrarPrecioRecurso {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 // CARGO EL PROVEEDOR
                 Proveedor pv = (Proveedor) sesion.load(Proveedor.class,idProveedor);
@@ -145,11 +146,12 @@ public class gestorRegistrarPrecioRecurso {
                         }
                     }
                 }
-
+                HibernateUtil.commitTransaction();
                }catch(Exception ex)
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
                 ex.printStackTrace();
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje("EG-0002");
            }
 
@@ -162,6 +164,7 @@ public class gestorRegistrarPrecioRecurso {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 RecursoEspecifico re = (RecursoEspecifico)sesion.load(RecursoEspecifico.class,idRecEsp);
 
@@ -170,8 +173,9 @@ public class gestorRegistrarPrecioRecurso {
                 {
                     return rec.getUnidadDeMedida().getAbreviatura();
                 }
+                HibernateUtil.commitTransaction();
                 return "";
-
+                
                }catch(Exception ex)
            {
                 System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
@@ -582,6 +586,7 @@ public class gestorRegistrarPrecioRecurso {
         try
         {
             sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
 
             // CARGO LOS DATOS
             RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
@@ -744,6 +749,7 @@ public class gestorRegistrarPrecioRecurso {
                         }
                     }
                 }
+                HibernateUtil.commitTransaction();
         }
         catch (Exception ex)
         {

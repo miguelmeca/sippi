@@ -73,6 +73,7 @@ public class UserSession {
         }
         catch(Exception e)
         {
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
     }

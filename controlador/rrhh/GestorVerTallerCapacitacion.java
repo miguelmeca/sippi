@@ -43,12 +43,15 @@ public class GestorVerTallerCapacitacion {
                try
                {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
 
                     this.taller = (TallerCapacitacion) sesion.load(TallerCapacitacion.class,id);
+                    HibernateUtil.commitTransaction();
 
                }catch(Exception ex)
                {
                     System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EG-0017");
                }
 

@@ -8,16 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
-import modelo.ContactoResponsable;
-import modelo.EmpresaCliente;
-import modelo.FormaDePago;
-import modelo.PedidoObra;
-import modelo.Planta;
-import modelo.RolContactoResponsable;
-import modelo.Telefono;
-import modelo.TipoDocumento;
-import modelo.TipoTelefono;
+import modelo.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.collection.PersistentList;
@@ -25,10 +16,8 @@ import util.HibernateUtil;
 import util.NTupla;
 import util.SwingPanel;
 import util.Tupla;
-import vista.comer.pantallaModificarPedido;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.comer.pantallaRegistrarNuevaPlanta;
-import vista.comer.pantallaRegistrarPedido;
 import vista.interfaces.IPantallaPedidoABM;
 
 //
@@ -82,7 +71,16 @@ public class GestorRegistrarPedido {
 
     public GestorRegistrarPedido(IPantallaPedidoABM aThis, int id) {
         this.pantalla = aThis;
-        this.pedido = (PedidoObra) HibernateUtil.getSessionFactory().openSession().load(PedidoObra.class, id);
+        try
+        {
+            HibernateUtil.beginTransaction();
+            this.pedido = (PedidoObra) HibernateUtil.getSessionFactory().openSession().load(PedidoObra.class, id);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
     }
 
     public void nombreObra(String nombre)
@@ -111,12 +109,13 @@ public class GestorRegistrarPedido {
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             this.planta = (Planta)sesion.load(Planta.class, p.getId());
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
         }catch(Exception e)
         {
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
     }
@@ -136,12 +135,13 @@ public class GestorRegistrarPedido {
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             this.formaDePago = (FormaDePago)sesion.load(FormaDePago.class, f.getId());
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
         }catch(Exception e)
         {
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
     }
@@ -206,9 +206,17 @@ public class GestorRegistrarPedido {
         PedidoObra nuevo=null;
         if(id>0)
         {
-            Session sesion = HibernateUtil.getSessionFactory().openSession();
-            sesion.beginTransaction();
-            nuevo = (PedidoObra)sesion.load(PedidoObra.class, id);
+            try
+            {
+                Session sesion = HibernateUtil.getSessionFactory().openSession();
+                HibernateUtil.beginTransaction();
+                nuevo = (PedidoObra)sesion.load(PedidoObra.class, id);
+                HibernateUtil.commitTransaction();
+            }
+            catch(Exception ex)
+            {
+                HibernateUtil.rollbackTransaction();
+            }
         }
         else
         {
@@ -230,7 +238,7 @@ public class GestorRegistrarPedido {
         try{
             SessionFactory sf = HibernateUtil.getSessionFactory();
             Session sesion = sf.openSession();
-            sesion.beginTransaction();
+            HibernateUtil.beginTransaction();
             Iterator it = contactos.iterator();
             while(it.hasNext()){
                 ContactoResponsable cr = (ContactoResponsable)it.next();
@@ -238,10 +246,11 @@ public class GestorRegistrarPedido {
                 sesion.save(t);
             }
             sesion.saveOrUpdate(nuevo);
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
         }catch(Exception e)
         {
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
         return nuevo.getId();
@@ -295,17 +304,25 @@ public class GestorRegistrarPedido {
         ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session sesion = sf.openSession();
-
-        sesion.beginTransaction();
-        EmpresaCliente ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, id);
-        //ArrayList<Planta> plantas = (ArrayList<Planta>)ec.getPlantas();
-        PersistentList plantas = (PersistentList) ec.getPlantas();
-        Iterator iter = plantas.iterator();
-        while ( iter.hasNext() )
+        
+        try
         {
-            Planta pl = (Planta)iter.next();
-            Tupla tupla = new Tupla(pl.getId(),pl.getRazonSocial());
-            tuplas.add(tupla);
+            HibernateUtil.beginTransaction();
+            EmpresaCliente ec = (EmpresaCliente)sesion.load(EmpresaCliente.class, id);
+            //ArrayList<Planta> plantas = (ArrayList<Planta>)ec.getPlantas();
+            PersistentList plantas = (PersistentList) ec.getPlantas();
+            Iterator iter = plantas.iterator();
+            while ( iter.hasNext() )
+            {
+                Planta pl = (Planta)iter.next();
+                Tupla tupla = new Tupla(pl.getId(),pl.getRazonSocial());
+                tuplas.add(tupla);
+            }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
         }
         return tuplas;
     }
@@ -384,6 +401,7 @@ public class GestorRegistrarPedido {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
         return empresaCliente.getId();
@@ -529,6 +547,7 @@ public class GestorRegistrarPedido {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
     }
@@ -554,14 +573,17 @@ public class GestorRegistrarPedido {
         Telefono telCR = new Telefono();
         telCR.setNumero(tel);
         try {
+            HibernateUtil.beginTransaction();
             cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
             telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
             cr.setTelefono(telCR);
             this.contactos.add(cr);
+            HibernateUtil.commitTransaction();
             return cr;
 
         } catch (Exception ex) {
             Logger.getLogger(GestorRegistrarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
             return null;
         }
     }

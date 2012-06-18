@@ -116,48 +116,56 @@ public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
 
      public static void guardarCotizacion(CotizacionModificada cot, Session sesion) throws Exception
     {
-         List<SubObra> listaOriginal = (List)cot.getSubObras();
-         for (SubObra so: listaOriginal) 
-         {
-             //Guardo SubObrasXTareas
-            List<SubObraXTarea> lisaTareas=so.getTareas();
-            for (SubObraXTarea soxt: lisaTareas)
+        try
+        {
+            HibernateUtil.beginTransaction();
+            List<SubObra> listaOriginal = (List)cot.getSubObras();
+            for (SubObra so: listaOriginal) 
             {
-              List<DetalleSubObraXTarea> dsoxt = soxt.getDetalles();
-              for(DetalleSubObraXTarea detalle: dsoxt)
-              {
-                  sesion.saveOrUpdate(detalle);
-              }
-              sesion.saveOrUpdate(soxt);
+                //Guardo SubObrasXTareas
+                List<SubObraXTarea> lisaTareas=so.getTareas();
+                for (SubObraXTarea soxt: lisaTareas)
+                {
+                List<DetalleSubObraXTarea> dsoxt = soxt.getDetalles();
+                for(DetalleSubObraXTarea detalle: dsoxt)
+                {
+                    sesion.saveOrUpdate(detalle);
+                }
+                sesion.saveOrUpdate(soxt);
+                }
+                //Guardo SubObrasXMaterial
+                List<SubObraXMaterial> lisaMateriales=so.getMateriales();
+                for (SubObraXMaterial soxm: lisaMateriales)
+                {
+                sesion.saveOrUpdate(soxm);
+                }
+                //Guardo SubObrasXAdicional
+                List<SubObraXAdicional> lisaAdicionales=so.getAdicionales();
+                for (SubObraXAdicional soxa: lisaAdicionales) 
+                {
+                sesion.saveOrUpdate(soxa);
+                }
+                //Guardo SubObrasXAlquilerCompra
+                List<SubObraXAlquilerCompra> lisaAlquilerCompra=so.getAlquileresCompras();
+                for (SubObraXAlquilerCompra soxac: lisaAlquilerCompra) 
+                {
+                sesion.saveOrUpdate(soxac);
+                }
+                //Guardo SubObrasXHerramienta
+                List<SubObraXHerramienta> lisaHerramientas=so.getHerramientas();
+                for (SubObraXHerramienta soxh: lisaHerramientas) 
+                {
+                    sesion.saveOrUpdate(soxh);
+                }
+
+                sesion.saveOrUpdate(so);             
             }
-            //Guardo SubObrasXMaterial
-            List<SubObraXMaterial> lisaMateriales=so.getMateriales();
-            for (SubObraXMaterial soxm: lisaMateriales)
-            {
-               sesion.saveOrUpdate(soxm);
-            }
-            //Guardo SubObrasXAdicional
-             List<SubObraXAdicional> lisaAdicionales=so.getAdicionales();
-            for (SubObraXAdicional soxa: lisaAdicionales) 
-            {
-               sesion.saveOrUpdate(soxa);
-            }
-            //Guardo SubObrasXAlquilerCompra
-            List<SubObraXAlquilerCompra> lisaAlquilerCompra=so.getAlquileresCompras();
-            for (SubObraXAlquilerCompra soxac: lisaAlquilerCompra) 
-            {
-               sesion.saveOrUpdate(soxac);
-            }
-            //Guardo SubObrasXHerramienta
-            List<SubObraXHerramienta> lisaHerramientas=so.getHerramientas();
-            for (SubObraXHerramienta soxh: lisaHerramientas) 
-            {
-                sesion.saveOrUpdate(soxh);
-            }
-            
-            sesion.saveOrUpdate(so);             
-         }
-         sesion.saveOrUpdate(cot);
+            sesion.saveOrUpdate(cot);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex){
+            HibernateUtil.rollbackTransaction();
+        }
     }
 
     public PlanificacionXXX getPlanificacion() {

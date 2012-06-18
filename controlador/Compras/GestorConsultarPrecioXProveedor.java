@@ -47,6 +47,7 @@ public class GestorConsultarPrecioXProveedor {
            try 
            {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
                 Proveedor p = (Proveedor)sesion.load(Proveedor.class,idProv);
                 
                 Iterator<Rubro> it = p.getRubros().iterator();
@@ -56,11 +57,13 @@ public class GestorConsultarPrecioXProveedor {
                     Tupla tp = new Tupla(rb.getId(),rb.getNombre());
                     lista.add(tp);
                 }
+                HibernateUtil.commitTransaction();
            }
            catch(Exception e)
            {
                LogUtil.addError("ConsultarPrecioXProveedor: No se pudo cargar la lista de Rubros");
                e.printStackTrace();
+               HibernateUtil.rollbackTransaction();
                pantalla.MostrarMensaje("ME-0002");
            }
         return lista;
@@ -105,6 +108,7 @@ public class GestorConsultarPrecioXProveedor {
            try
            {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
                 Proveedor p = (Proveedor)sesion.load(Proveedor.class,idProv);
                 Rubro r = RubroUtil.getRubro(idRubro);
 
@@ -140,12 +144,12 @@ public class GestorConsultarPrecioXProveedor {
                        lista.add(ntp);
                     }
                 }
-
-
+                HibernateUtil.commitTransaction();
            }
            catch(Exception e)
            {
                LogUtil.addError("ConsultarPrecioXProveedor: No se pudo cargar la tabla de precios");
+               HibernateUtil.rollbackTransaction();
                e.printStackTrace();
                pantalla.MostrarMensaje("ME-0003");
            }

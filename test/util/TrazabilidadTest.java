@@ -5,22 +5,15 @@
 
 package test.util;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Cotizacion;
 import modelo.CotizacionModificada;
 import modelo.SubObra;
-import modelo.SubObraModificada;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import test.DBExamplesLoader;
 import static org.junit.Assert.*;
+import org.junit.*;
+import test.DBExamplesLoader;
 import util.HibernateUtil;
 import util.Trazabilidad;
 
@@ -59,6 +52,7 @@ public class TrazabilidadTest {
         System.out.println("copiarCotizacionACotizacionModificada");
         Cotizacion cot = null;
         try {
+            HibernateUtil.beginTransaction();
             cot = (Cotizacion) HibernateUtil.getSession().load(Cotizacion.class, 1);
             Trazabilidad instance = new Trazabilidad();
             CotizacionModificada expResult = null;
@@ -76,9 +70,11 @@ public class TrazabilidadTest {
             }
             CotizacionModificada cm = (CotizacionModificada) HibernateUtil.getSession().load(CotizacionModificada.class, cotMod.getId());
             assertEquals(cotMod, cm);
+            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             System.out.println("No funciona");
             Logger.getLogger(TrazabilidadTest.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
         }
     }
 }

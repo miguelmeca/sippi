@@ -37,6 +37,7 @@ public class GestorReportesCotizacion {
     {
          try
         {                  
+            HibernateUtil.beginTransaction();
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
             
@@ -89,10 +90,12 @@ public class GestorReportesCotizacion {
             {
                 e.printStackTrace();
             }
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
         }
     }
 
@@ -100,6 +103,7 @@ public class GestorReportesCotizacion {
     {
          try
         {
+            HibernateUtil.beginTransaction();
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
 
             PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot).uniqueResult();
@@ -143,16 +147,19 @@ public class GestorReportesCotizacion {
             {
                 e.printStackTrace();
             }
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
         }
     }
 
     public void emitirPresupuestoExternoXRecurso(int cotizacionId) {
          try
         {
+            HibernateUtil.beginTransaction();
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,cotizacionId);
 
@@ -206,16 +213,19 @@ public class GestorReportesCotizacion {
             {
                 e.printStackTrace();
             }
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
         }
     }
     public void emitirPresupuestoExternoSubObras(int id_presupuesto)
     {
          try
         {                  
+            HibernateUtil.beginTransaction();
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
             PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot).uniqueResult();
@@ -251,10 +261,12 @@ public class GestorReportesCotizacion {
             {
                 e.printStackTrace();
             }
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
         }
     }
     

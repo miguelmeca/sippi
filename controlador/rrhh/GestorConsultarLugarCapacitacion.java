@@ -115,18 +115,21 @@ public class GestorConsultarLugarCapacitacion {
         Session sesion;
             try {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
                     LugardeCapacitacion tc = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,id);
 
-                        tc.darDeBaja(); // Ya di de baja , ahora actualizo
+                    tc.darDeBaja(); // Ya di de baja , ahora actualizo
 
-                        sesion.update(tc);
-                        pantalla.MostrarMensaje("MI-0008");
+                    sesion.update(tc);
+                    pantalla.MostrarMensaje("MI-0008");
 
+                    HibernateUtil.commitTransaction();
                 }
                 catch(Exception ex)
                 {
                     System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
                     ex.printStackTrace();
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EG-0019");
                 }
     }
@@ -136,18 +139,21 @@ public class GestorConsultarLugarCapacitacion {
         Session sesion;
             try {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
                     LugardeCapacitacion tc = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,id);
 
-                        tc.darDeAlta(); // Ya di de baja , ahora actualizo
+                    tc.darDeAlta(); // Ya di de baja , ahora actualizo
 
-                        sesion.update(tc);
-                        pantalla.MostrarMensaje("MI-0009");
-
+                    sesion.update(tc);
+                    pantalla.MostrarMensaje("MI-0009");
+                    
+                    HibernateUtil.commitTransaction();
                 }
                 catch(Exception ex)
                 {
                     System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
                     ex.printStackTrace();
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EG-0019");
                 }
     }
