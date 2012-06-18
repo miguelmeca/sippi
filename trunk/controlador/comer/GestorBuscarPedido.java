@@ -90,6 +90,7 @@ import vista.comer.pantallaBuscarPedido;
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
     }

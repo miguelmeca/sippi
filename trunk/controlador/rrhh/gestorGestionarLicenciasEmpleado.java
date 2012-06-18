@@ -91,14 +91,17 @@ public class gestorGestionarLicenciasEmpleado {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
-
+                HibernateUtil.beginTransaction();
                 Empleado e = (Empleado)sesion.load(Empleado.class,tp.getId());
 
                 this.n_empleado = e;
+                
+                HibernateUtil.commitTransaction();
 
                }catch(Exception ex)
            {
                 System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje("EG-0009");
            }
 
@@ -121,14 +124,18 @@ public class gestorGestionarLicenciasEmpleado {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
-
+                HibernateUtil.beginTransaction();
+                
                 TipoLicenciaEmpleado tl = (TipoLicenciaEmpleado)sesion.load(TipoLicenciaEmpleado.class,tp.getId());
 
                 this.n_tipoLicencia = tl;
+                
+                HibernateUtil.commitTransaction();
 
                }catch(Exception ex)
            {
                 System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje("EG-0010");
            }
     }
@@ -242,6 +249,7 @@ public class gestorGestionarLicenciasEmpleado {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 LicenciaEmpleado tl = (LicenciaEmpleado)sesion.load(LicenciaEmpleado.class,oid);
 
@@ -250,10 +258,11 @@ public class gestorGestionarLicenciasEmpleado {
                 pantalla.seleccionarEmpleadoLicencia(tl.getEmpleado().getoId());
                 pantalla.seleccionarTipoLicencia(tl.getTipoLicencia().getOid());
 
-
+                HibernateUtil.commitTransaction();
                }catch(Exception ex)
            {
                 System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje("EG-0010");
            }
 
@@ -268,7 +277,8 @@ public class gestorGestionarLicenciasEmpleado {
                 Session sesion;
                 try {
                        sesion = HibernateUtil.getSession();
-
+                       HibernateUtil.beginTransaction();
+                       
                        LicenciaEmpleado le = (LicenciaEmpleado)sesion.load(LicenciaEmpleado.class,id);
 
                         le.setEmpleado(n_empleado);
@@ -278,7 +288,7 @@ public class gestorGestionarLicenciasEmpleado {
                         le.setMotivo(n_motivo);
                         le.setTipoLicencia(n_tipoLicencia);
 
-                        HibernateUtil.beginTransaction();
+
                         sesion.update(le);
                         HibernateUtil.commitTransaction();
 

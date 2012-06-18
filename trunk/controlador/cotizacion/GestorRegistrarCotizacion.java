@@ -48,14 +48,17 @@ public class GestorRegistrarCotizacion {
         this.pantalla = pantalla;
         try 
         {    
+            HibernateUtil.beginTransaction();
             this.sesion = HibernateUtil.getSession();  
             //sesion.clear();
+            obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
+            HibernateUtil.commitTransaction();
         } 
         catch (Exception ex) 
         {
             ex.printStackTrace();
+            HibernateUtil.rollbackTransaction();
         } 
-        obra=(PedidoObra)sesion.load(PedidoObra.class, po_id);
     }
     
     
@@ -103,7 +106,16 @@ public class GestorRegistrarCotizacion {
     
     public int crearCotizacionAPartirExistente(int id_cot)
     {
-        cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
+        try
+        {
+            HibernateUtil.beginTransaction();
+            cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         
         cot=copiarCotizacion(cotOriginal);        
         
@@ -304,7 +316,16 @@ public class GestorRegistrarCotizacion {
     
     public String getNombreCotizacion(int id_cot)
     {
-        cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
+        try
+        {
+            HibernateUtil.beginTransaction();
+            cotOriginal = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
+            HibernateUtil.beginTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return cotOriginal.toString();
     }
     

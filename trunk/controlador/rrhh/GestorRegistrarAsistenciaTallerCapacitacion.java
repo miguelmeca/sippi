@@ -72,6 +72,7 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 TallerCapacitacion lugar = (TallerCapacitacion) sesion.load(TallerCapacitacion.class,taller.getId());
 
@@ -85,10 +86,12 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
                             lista.add(new Tupla(dht.getId(),FechaUtil.getFecha(dht.getFecha())));
                        }
                     }
+                    HibernateUtil.commitTransaction();
 
                 }catch(Exception ex)
                {
                     System.out.println("EL-0003 :"+ex.getMessage());
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EL-0003");
                }
            return lista;
@@ -116,6 +119,7 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 TallerCapacitacion lugar = (TallerCapacitacion) sesion.load(TallerCapacitacion.class,tTaller.getId());
 
@@ -131,10 +135,12 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
                             }
                        
                     }
+                    HibernateUtil.commitTransaction();
 
                 }catch(Exception ex)
                {
                     System.out.println("EL-0004 :"+ex.getMessage());
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EL-0004");
                }
            return lista;
@@ -146,6 +152,7 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
 
                 DetalleHorarioTaller horario = (DetalleHorarioTaller) sesion.load(DetalleHorarioTaller.class,idHorarioTaller);
 
@@ -161,10 +168,12 @@ public class GestorRegistrarAsistenciaTallerCapacitacion {
 
                    lista.add(nt);
                }
+                HibernateUtil.commitTransaction();
 
                 }catch(Exception ex)
                {
                     System.out.println("EL-0005 :"+ex.getMessage());
+                    HibernateUtil.rollbackTransaction();
                     pantalla.MostrarMensaje("EL-0005");
                }
            return lista;

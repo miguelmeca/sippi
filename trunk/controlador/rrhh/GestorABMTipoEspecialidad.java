@@ -93,6 +93,7 @@ public class GestorABMTipoEspecialidad {
         try
         {
             Session sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
             TipoEspecialidad tc = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,oid);
             tc.setNombre(nombre);
             tc.setDescripcion(desc);
@@ -105,9 +106,11 @@ public class GestorABMTipoEspecialidad {
                 System.out.println("Error al modificar un TipoEspecialidad");
                 return false;
             }
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
              System.out.println("No se pudo abrir la sesion");
+             HibernateUtil.rollbackTransaction();
              return false;
         }
 
@@ -126,6 +129,7 @@ public class GestorABMTipoEspecialidad {
          try
         {
             Session sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
             TipoEspecialidad tc = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,oid);
 
             try
@@ -137,9 +141,11 @@ public class GestorABMTipoEspecialidad {
                 System.out.println("Error al modificar un TipoEspecialidad");
                 return 0;
             }
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
              System.out.println("No se pudo abrir la sesion");
+             HibernateUtil.rollbackTransaction();
              return 0;
         }
         return 1;

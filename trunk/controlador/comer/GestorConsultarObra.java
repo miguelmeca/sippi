@@ -63,6 +63,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
         }
     }
@@ -85,6 +86,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
     }
@@ -140,6 +142,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
        return p.getNombre();
@@ -155,6 +158,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
         this.provinciaPlanta = p;
@@ -171,6 +175,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
         this.localidadPlanta = l;
@@ -211,6 +216,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
         this.localidad = l;
@@ -220,12 +226,6 @@ public class GestorConsultarObra {
     public String mostrarProvinciaEC(){
         Provincia p = null;
         try{
-            //SessionFactory sf = HibernateUtil.getSessionFactory();
-            //Session sesion = sf.openSession();
-            //sesion.beginTransaction();
-            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
-            //p = (Provincia)sesion.load(Provincia.class,idEC.intValue());
-            //sesion.getTransaction().commit();
             HibernateUtil.beginTransaction();
             BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
             p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC.intValue());
@@ -233,6 +233,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
         this.provincia = p;
@@ -242,12 +243,6 @@ public class GestorConsultarObra {
     public String mostrarPaisEC(){
         Pais p = null;
         try{
-            //SessionFactory sf = HibernateUtil.getSessionFactory();
-            //Session sesion = sf.openSession();
-            //sesion.beginTransaction();
-            //BigDecimal idEC = (BigDecimal)sesion.createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.localidad.getId()).uniqueResult();
-            //p = (Pais)sesion.load(Pais.class,idEC.intValue());
-            //sesion.getTransaction().commit();
             HibernateUtil.beginTransaction();
             BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provincia.getId()).uniqueResult();
             p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC.intValue());
@@ -255,6 +250,7 @@ public class GestorConsultarObra {
         }
         catch(Exception e){
             System.out.println("ERROR:"+e.getMessage()+"|");
+            HibernateUtil.rollbackTransaction();
             e.printStackTrace();
        }
        return p.getNombre();

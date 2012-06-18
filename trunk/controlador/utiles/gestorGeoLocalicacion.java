@@ -87,7 +87,17 @@ public class gestorGeoLocalicacion {
     public  ArrayList<Tupla> getProvincias(int idPais)
     {
         // Tengo solo el ID, así que busco el objeto
-        Pais p = (Pais) sesion.load(Pais.class,idPais);
+        Pais p = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             p = (Pais) sesion.load(Pais.class,idPais);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return this.getProvincias(p);
     }
 
@@ -100,7 +110,17 @@ public class gestorGeoLocalicacion {
     public  ArrayList<Tupla> getLocalidades(int idProvincia)
     {
         // Tengo solo el ID, así que busco el objeto
-        Provincia p = (Provincia) sesion.load(Provincia.class,idProvincia);
+        Provincia p = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             p = (Provincia) sesion.load(Provincia.class,idProvincia);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return this.getLocalidades(p);
     }
 
@@ -133,7 +153,17 @@ public class gestorGeoLocalicacion {
      */
     public  ArrayList<Tupla> getBarrios(int idLocalidad)
     {
-        Localidad l = (Localidad)sesion.load(Localidad.class,idLocalidad);
+        Localidad l = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             l = (Localidad)sesion.load(Localidad.class,idLocalidad);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return this.getBarrios(l);
     }
 
@@ -165,7 +195,18 @@ public class gestorGeoLocalicacion {
      */
     public Pais getPais(int idPais)
     {
-        return (Pais) sesion.load(Pais.class,idPais);
+        Pais pais = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             pais = (Pais) sesion.load(Pais.class,idPais);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return pais;
     }
 
     /**
@@ -175,7 +216,18 @@ public class gestorGeoLocalicacion {
      */
     public Provincia getProvincia(int idProvincia)
     {
-        return (Provincia) sesion.load(Provincia.class,idProvincia);
+        Provincia provincia = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             provincia = (Provincia) sesion.load(Provincia.class,idProvincia);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return provincia;
     }
 
     /**
@@ -185,7 +237,18 @@ public class gestorGeoLocalicacion {
      */
     public Localidad getLocalidad(int idLocalidad)
     {
-        return (Localidad) sesion.load(Localidad.class,idLocalidad);
+        Localidad localidad = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             localidad = (Localidad) sesion.load(Localidad.class,idLocalidad);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return localidad;
     }
 
     /**
@@ -195,7 +258,18 @@ public class gestorGeoLocalicacion {
      */
     public Barrio getBarrio(int idBarrio)
     {
-        return (Barrio) sesion.load(Barrio.class,idBarrio);
+        Barrio barrio = null;
+        try
+        {
+             HibernateUtil.beginTransaction();
+             barrio = (Barrio) sesion.load(Barrio.class,idBarrio);
+             HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return barrio;
     }
 
     /**

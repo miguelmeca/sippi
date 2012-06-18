@@ -131,13 +131,17 @@ public class GestorRegistrarTallerDeCapacitacion {
                    try
                    {
                         sesion = HibernateUtil.getSession();
+                        HibernateUtil.beginTransaction();
 
                         LugardeCapacitacion lugar = (LugardeCapacitacion) sesion.load(LugardeCapacitacion.class,idLugar);
                         dire = lugar.getDomicilio().toString();
+                        
+                        HibernateUtil.commitTransaction();
 
                    }catch(Exception ex)
                    {
                         System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                        HibernateUtil.rollbackTransaction();
                    }
 
              return dire;
@@ -153,6 +157,7 @@ public class GestorRegistrarTallerDeCapacitacion {
                 // LOGICA LOGICA LOGICA
                 try
                 {
+                    HibernateUtil.beginTransaction();
                     TipoCapacitacion tc = (TipoCapacitacion) HibernateUtil.getSession().load(TipoCapacitacion.class, idTipoCapacitacion);
 
 
@@ -167,10 +172,10 @@ public class GestorRegistrarTallerDeCapacitacion {
                                 listaCap.add(cp);
                             }
                         }
-
+                    HibernateUtil.commitTransaction();
                 }
                 catch (Exception ex) {
-
+                    HibernateUtil.rollbackTransaction();
                 }
 
 
@@ -223,6 +228,7 @@ public class GestorRegistrarTallerDeCapacitacion {
 
                 try
                 {
+                    HibernateUtil.beginTransaction();
                     TipoCapacitacion tcx = (TipoCapacitacion) HibernateUtil.getSession().load(TipoCapacitacion.class, idTipoCapacitacion);
 
                     Iterator it = HibernateUtil.getSession().createQuery("from Empleado").iterate();
@@ -256,11 +262,12 @@ public class GestorRegistrarTallerDeCapacitacion {
                         tuplaEmpleado.setData(params);
                         lista.add(tuplaEmpleado);
                     }
-
+                    HibernateUtil.commitTransaction();
                 }
                 catch(Exception e)
                 {
                     e.printStackTrace();
+                    HibernateUtil.rollbackTransaction();
                 }
 
             return lista;

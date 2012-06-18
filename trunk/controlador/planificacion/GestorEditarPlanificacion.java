@@ -39,7 +39,6 @@ import vista.planificacion.cotizacion.EditarCotizacionModificada;
 public class GestorEditarPlanificacion extends GestorAbstracto implements IGestorPlanificacion{
 
     private EditarPlanificacion _pantalla;
-    private GestorArbolDeRecursos _gestorArbolRecursos;
     private Session sesion;
     private PedidoObra pedidoDeObra;
     private PlanificacionXXX planificacion;
@@ -57,16 +56,15 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
     public GestorEditarPlanificacion(EditarPlanificacion _pantalla, int idPedidoDeObra) {
         this._pantalla = _pantalla;
-        this._gestorArbolRecursos = new GestorArbolDeRecursos();
         generatedIdGantt = new HashMap<Integer, Boolean>();
 
         try {
             sesion = HibernateUtil.getSession();
             
-            HibernateUtil.getSession().beginTransaction();
+            HibernateUtil.beginTransaction();
             this.pedidoDeObra = (PedidoObra) sesion.load(PedidoObra.class, idPedidoDeObra);
             this.planificacion = pedidoDeObra.getPlanificacion();
-            HibernateUtil.getSession().getTransaction().commit();
+            HibernateUtil.commitTransaction();
             
             if(this.planificacion!=null)
             {
@@ -81,6 +79,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
         } catch (Exception e) {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
             mostrarMensajeError("No se pudo cargar el Pedido ni la planificaciÃ³n asociada");
             
         }
@@ -139,6 +138,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
 
         try {
             sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
             pedidoDeObra = (PedidoObra) sesion.load(PedidoObra.class, idPedidoDeObra);
 
             if(pedidoDeObra.getNombre()!=null && pedidoDeObra.getNombre().length()>60)
@@ -169,10 +169,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             {
                 _pantalla.setDescripcionPlanificacion(this.planificacion.getDescripcion());
             }
-            
+            HibernateUtil.commitTransaction();
 
         } catch (Exception e) {
             e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
             mostrarMensajeError("No se pudo cargar los datos generales de la cotizacion");
         }
 
@@ -578,28 +579,39 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
             
             // Agrego el hijo al padre
-            if (tareaPadre != null) {
-
-
-                //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
-                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA)) {
-                    //SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
-                    SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) cotizacionMofificada.getSubObraXAlquilerCompraPorHash(hashRecuso);
-                    exito = tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);
-                }
-                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL)) {
-                    //SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
-                    SubObraXMaterialModif material = (SubObraXMaterialModif) cotizacionMofificada.getSubObraXMaterialPorHash(hashRecuso);
-                    exito = tareaPadre.agregarMaterialCotizacion(material);
-                }
-                if (tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA)) {
-                    //SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
-                    SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) cotizacionMofificada.getSubObraXHerramientaPorHash(hashRecuso);
-                    exito = tareaPadre.agregarHerramientaCotizacion(herramienta);
-                }
-
-
-                if (!exito) {
+            if(tareaPadre!=null)
+            {
+                 
+                try {
+                    sesion = HibernateUtil.getSession();
+                    
+                    //Si tuviera mas tiempo hubiera puesto el hashmap de recurso en TareaPlanificacion... bue.. ifs nomas
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
+                    {
+                       //SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif) sesion.load(SubObraXAlquilerCompraModif.class, idRecuso);
+                       SubObraXAlquilerCompraModif alquilerCompra = (SubObraXAlquilerCompraModif)cotizacionMofificada.getSubObraXAlquilerCompraPorHash(hashRecuso);
+                        exito=tareaPadre.agregarAlquilerCompraCotizacion(alquilerCompra);  
+                    }
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                    {
+                       //SubObraXMaterialModif material = (SubObraXMaterialModif) sesion.load(SubObraXMaterialModif.class, idRecuso);
+                       SubObraXMaterialModif material = (SubObraXMaterialModif) cotizacionMofificada.getSubObraXMaterialPorHash(hashRecuso);
+                        exito=tareaPadre.agregarMaterialCotizacion(material);   
+                    }
+                    if(tipoRecurso.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                    {
+                      //SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) sesion.load(SubObraXHerramientaModif.class, idRecuso);
+                      SubObraXHerramientaModif herramienta = (SubObraXHerramientaModif) cotizacionMofificada.getSubObraXHerramientaPorHash(hashRecuso);
+                        exito=tareaPadre.agregarHerramientaCotizacion(herramienta);   
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mostrarMensajeError("No se pudo cargar el recurso de cotizacion");
+                    return;
+                } 
+               
+                if(!exito)           
+                {
                     mostrarMensajeError("El recurso ya se encuentara asociado a la tarea.");
                 } else {
                     // _pantalla.asociarRecursoATareaArbol(hashRecuso,nombre, hashTareaPadre, tipoRecurso);
@@ -742,8 +754,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         try
         {
             HibernateUtil.beginTransaction();
-            sesion = HibernateUtil.getSession();
             GestorEditarCotizacionModificada.guardarCotizacion(planificacion.getCotizacion(), sesion);
+            //sesion = HibernateUtil.getSession();
             Iterator<TareaPlanificacion> itT = planificacion.getTareas().iterator();
             while(itT.hasNext())
             {

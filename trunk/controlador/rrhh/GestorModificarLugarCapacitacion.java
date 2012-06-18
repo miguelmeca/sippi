@@ -135,7 +135,7 @@ public class GestorModificarLugarCapacitacion {
         Session sesion;
         try {
             sesion = HibernateUtil.getSession();
-
+            HibernateUtil.beginTransaction();
 
 
             LugardeCapacitacion lugar = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,id);
@@ -150,9 +150,6 @@ public class GestorModificarLugarCapacitacion {
                 d.setPiso(piso);
 
                 lugar.setEstado(new EstadoLugarCapacitacionAlta());
-            
-                    HibernateUtil.beginTransaction();
-
                      
                             sesion.update(d);
                             sesion.update(lugar);
@@ -177,6 +174,7 @@ public class GestorModificarLugarCapacitacion {
             try
             {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
                     //List lista = sesion.createQuery("from LugardeCapacitacion lc WHERE lc.nombre = :nom").setParameter("nom","'"+nombreLugar+"'").list();
                     LugardeCapacitacion lc = (LugardeCapacitacion)sesion.load(LugardeCapacitacion.class,idLugar);
 
@@ -197,11 +195,13 @@ public class GestorModificarLugarCapacitacion {
 
 
                     pantalla.mostrarGeo(tPais, tProvincia, tLocalidad, tBarrio);
+                    HibernateUtil.commitTransaction();
 
             }catch(Exception e)
             {
                 e.printStackTrace();
                 System.out.println("No se pudo conectar con la BD");
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje("EG-0014");
             }
 

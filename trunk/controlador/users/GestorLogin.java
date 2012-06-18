@@ -60,6 +60,7 @@ public class GestorLogin {
         
         try 
         {
+            HibernateUtil.beginTransaction();
             User u = (User)HibernateUtil.getSession().load(User.class,idUser);
             
             if(u.getPassword().equals(encriptedPassword))
@@ -72,11 +73,13 @@ public class GestorLogin {
             {
                 pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","La información de usuario o contraseña introducida no es correcta");
             }
+            HibernateUtil.commitTransaction();
             
         } 
         catch (Exception ex) 
         {
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","No se pudieron cargar los usuarios del Sistema");
+            HibernateUtil.rollbackTransaction();
             ex.printStackTrace();
         }
 

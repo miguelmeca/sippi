@@ -58,16 +58,25 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     public void cargarCotizacion(int id_cot)
     {
-        sesion.clear();
-        this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
-        this.obra = cot.buscarPedidoObra();   
-        
-        // Cargo la descripcion de la Obra
-        cargarDescripcionObra();
-        // Cargo lso datos de la cotizacion
-        cargarDatosGeneralesCotizacion();
-        
-        refrescarVentana();
+        try
+        {
+            HibernateUtil.beginTransaction();
+            sesion.clear();
+            this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
+            this.obra = cot.buscarPedidoObra();   
+
+            // Cargo la descripcion de la Obra
+            cargarDescripcionObra();
+            // Cargo lso datos de la cotizacion
+            cargarDatosGeneralesCotizacion();
+
+            refrescarVentana();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
     }
 
     public PedidoObra getObra() {
@@ -331,15 +340,16 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             // GUARDO LA COTIZACION EN LA BD
             try
             {
-                sesion.beginTransaction();
+                HibernateUtil.beginTransaction();
                 sesion.saveOrUpdate(this.cot);
-                sesion.getTransaction().commit(); 
+                HibernateUtil.commitTransaction();
                 necesita_guardar = false;
 
                 pantalla.setNroCotizacionValidoGuardado();
             }
             catch(Exception e)
             {
+                HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
             }
 
@@ -522,10 +532,9 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         nuevaPlan.setCotizacion(copiaCot);
         
         // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
-        Transaction tx = null;
         try
         {
-             tx = sesion.beginTransaction();
+             HibernateUtil.beginTransaction();
                 // Guardo el cambio de estado de la cotizacion
                 sesion.saveOrUpdate(this.cot);
                 // Guardo el cambio de estado de la obra
@@ -534,12 +543,12 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
                 sesion.saveOrUpdate(copiaCot);
                 // Guardo la nueva Planificacion
                 sesion.saveOrUpdate(nuevaPlan);
-            tx.commit();
+            HibernateUtil.commitTransaction();
             necesita_guardar = false;
         } 
         catch (Exception ex)
         {
-            tx.rollback();
+            HibernateUtil.rollbackTransaction();
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva planificación\nPongase en contacto con un administrador\n"+ex.getMessage());
         }        
         

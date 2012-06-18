@@ -75,11 +75,14 @@ public class RubroUtil {
           try
           {
                 sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
                 rb = (Rubro)sesion.load(Rubro.class,id);
+                HibernateUtil.commitTransaction();
 
           }catch(Exception e)
           {
               LogUtil.addError("Error al cargar los rubros");
+              HibernateUtil.rollbackTransaction();
           }
           return rb;
     }

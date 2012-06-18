@@ -133,17 +133,20 @@ public class GestorConsultarTallerCapacitacion {
         Session sesion;
             try {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
                     TallerCapacitacion tc = (TallerCapacitacion)sesion.load(TallerCapacitacion.class,id);
 
-                        tc.darDeBaja(); // Ya di de baja , ahora actualizo
+                    tc.darDeBaja(); // Ya di de baja , ahora actualizo
 
-                        sesion.update(tc);
-                        pantalla.MostrarMensaje("ME-0006");
-
+                    sesion.update(tc);
+                    pantalla.MostrarMensaje("ME-0006");
+                    
+                    HibernateUtil.commitTransaction();
                 }
                 catch(Exception ex)
                 {
                     System.out.println("No se pudo abrir la sesion: "+ex.getMessage());
+                    HibernateUtil.rollbackTransaction();
                     ex.printStackTrace();
                     pantalla.MostrarMensaje("EG-0018");
                 }
@@ -154,12 +157,14 @@ public class GestorConsultarTallerCapacitacion {
         Session sesion;
             try {
                     sesion = HibernateUtil.getSession();
+                    HibernateUtil.beginTransaction();
                     TallerCapacitacion tc = (TallerCapacitacion)sesion.load(TallerCapacitacion.class,id);
 
-                        tc.darDeAlta(); // Ya di de baja , ahora actualizo
+                    tc.darDeAlta(); // Ya di de baja , ahora actualizo
 
-                        sesion.update(tc);
-                        pantalla.MostrarMensaje("ME-0007");
+                    sesion.update(tc);
+                    pantalla.MostrarMensaje("ME-0007");
+                    HibernateUtil.commitTransaction();
 
                 }
                 catch(Exception ex)

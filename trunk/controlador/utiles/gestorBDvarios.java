@@ -8,6 +8,8 @@ package controlador.utiles;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.ContactoResponsable;
 import modelo.TipoDocumento;
 import modelo.TipoTelefono;
@@ -65,15 +67,33 @@ public class gestorBDvarios
             return tuplas;
     }
 
-     public  TipoDocumento getTipoDeDocumento(int idTipoDoc)
+    public TipoDocumento getTipoDeDocumento(int idTipoDoc)
     {
-        TipoDocumento td = (TipoDocumento)sesion.load(TipoDocumento.class,idTipoDoc);
+        TipoDocumento td = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            td = (TipoDocumento)sesion.load(TipoDocumento.class,idTipoDoc);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return td;
     }
 
-      public  TipoTelefono getTipoDeTelefono(int idTipoTel)
+    public TipoTelefono getTipoDeTelefono(int idTipoTel)
     {
-        TipoTelefono tt = (TipoTelefono)sesion.load(TipoTelefono.class,idTipoTel);
+        TipoTelefono tt = null;
+        try 
+        {
+            HibernateUtil.beginTransaction();
+            tt = (TipoTelefono)sesion.load(TipoTelefono.class,idTipoTel);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+        }
         return tt;
     }
 
@@ -130,7 +150,17 @@ public class gestorBDvarios
 
        public  TipoEspecialidad getTipoEspecialidad(int idTipoEspecialidad)
     {
-        TipoEspecialidad esp = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,idTipoEspecialidad);
+        TipoEspecialidad esp = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            esp = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,idTipoEspecialidad);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return esp;
     }
 
@@ -154,7 +184,16 @@ public class gestorBDvarios
 
      public  RangoEspecialidad getRangoEspecialidad(int idRango)
     {
-        RangoEspecialidad rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);
+        RangoEspecialidad rng = null ;
+        try{
+            HibernateUtil.beginTransaction();
+            rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);   
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return rng;
     }
 
@@ -178,7 +217,16 @@ public class gestorBDvarios
 
     public  TipoCapacitacion getTipoCapacitacion(int idTipoCapacitacion)
     {
-        TipoCapacitacion cap = (TipoCapacitacion)sesion.load(TipoCapacitacion.class,idTipoCapacitacion);
+        TipoCapacitacion cap = null;
+        try{
+            HibernateUtil.beginTransaction();
+            cap = (TipoCapacitacion)sesion.load(TipoCapacitacion.class,idTipoCapacitacion);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return cap;
     }
 
@@ -237,7 +285,16 @@ public class gestorBDvarios
 
      public  EmpresaCliente getEmpresa(int idEmpresa)
     {
-        EmpresaCliente emp = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEmpresa);
+        EmpresaCliente emp = null;
+        try{
+            HibernateUtil.beginTransaction();
+            emp = (EmpresaCliente)sesion.load(EmpresaCliente.class,idEmpresa);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return emp;
     }
 
@@ -266,7 +323,18 @@ public class gestorBDvarios
 
     public Planta getPlanta(int idPlanta)
     {
-        return (Planta) sesion.load(Planta.class,idPlanta);
+        Planta planta = null;
+        try{
+            HibernateUtil.beginTransaction();
+            planta = (Planta) sesion.load(Planta.class,idPlanta);
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        
+        return planta;
     }
 
     	public ArrayList<Tupla> mostrarContactos() {

@@ -93,6 +93,7 @@ public class GestorABMTipoCapacitacion {
         try
         {
             Session sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
             TipoCapacitacion tc = (TipoCapacitacion)sesion.load(TipoCapacitacion.class,oid);
             tc.setNombre(nombre);
             tc.setDescripcion(desc);
@@ -105,9 +106,11 @@ public class GestorABMTipoCapacitacion {
                 System.out.println("Error al modificar un TipoCapacitacion");
                 return false;
             }
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
              System.out.println("No se pudo abrir la sesion");
+             HibernateUtil.rollbackTransaction();
              return false;
         }
 
@@ -126,6 +129,7 @@ public class GestorABMTipoCapacitacion {
          try
         {
             Session sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
             TipoCapacitacion tc = (TipoCapacitacion)sesion.load(TipoCapacitacion.class,oid);
 
             try
@@ -137,9 +141,11 @@ public class GestorABMTipoCapacitacion {
                 System.out.println("Error al modificar un TipoCapacitacion");
                 return 0;
             }
+            HibernateUtil.commitTransaction();
 
         } catch (Exception ex) {
              System.out.println("No se pudo abrir la sesion");
+             HibernateUtil.rollbackTransaction();
              return 0;
         }
         return 1;

@@ -62,13 +62,15 @@ public class GestorExplorarCotizacionesObra {
     public ArrayList<NTupla> getCotizaciones(int idObra)
     {
         ArrayList<NTupla> listaCotizaciones = new ArrayList<NTupla>();
-        
+        try
+        {
+            HibernateUtil.beginTransaction();
             PedidoObra p = (PedidoObra) sesion.load(PedidoObra.class,idObra);
             Iterator it = p.getCotizaciones().iterator();
             while(it.hasNext())
             {
                 Cotizacion cot = (Cotizacion)it.next();
-                
+
                 // Solo agrego las cotizaciones que se estén creando o esperando aceptacion !!
                 if(cot.getEstado().equals(Cotizacion.ESTADO_EN_CREACION) )
                 {
@@ -87,10 +89,13 @@ public class GestorExplorarCotizacionesObra {
                     listaCotizaciones.add(nt);
                 }
             }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         
         return listaCotizaciones;
     }
-    
-    
-    
 }

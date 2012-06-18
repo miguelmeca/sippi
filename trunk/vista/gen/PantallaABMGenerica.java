@@ -1,17 +1,9 @@
 
 package vista.gen;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Label;
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import vista.gen.renders.RenderAbstracto;
@@ -185,14 +177,15 @@ public class PantallaABMGenerica extends javax.swing.JInternalFrame {
         try
         {
             Session sesion= HibernateUtil.getSession();
-            sesion.getTransaction().begin();
+            HibernateUtil.beginTransaction();
             Object data = sesion.load(this.clase,this.id);
-            sesion.getTransaction().commit();
+            HibernateUtil.commitTransaction();
             this.dataLoaded = data;
             System.out.println("[DEBUG] DATA LOADED"+data);
         } catch (Exception ex)
         {
             System.out.println("No se pudo abrir la sesion");
+            HibernateUtil.rollbackTransaction();
         }
     }
     
