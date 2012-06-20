@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.TallerCapacitacion" table="TALLERES">
+    <id column="ID_TALLER" name="id" type="integer" unsaved-value="0">
+      <generator class="increment"/>
+    </id>
+    <property name="descripcion" type="string"/>
+    <property name="hib_flag_estado" not-null="true" type="string"/>
+    <set cascade="all" name="detalle" table="Det_Horario_TallerXTaller">
+      <key column="ID_TALLER"/>
+      <many-to-many class="modelo.DetalleHorarioTaller" column="ID_DETALLE_HORARIO_TALLER"/>
+    </set>
+    <many-to-one class="modelo.LugardeCapacitacion" column="ID_LUGAR_TALLER" name="lugar"/>
+    <many-to-one class="modelo.TipoCapacitacion" column="ID_TIPO_CAPAC" name="tipoCapacitacion"/>
+    <many-to-one class="modelo.Capacitador" column="ID_CAPAC" name="capacitador"/>
+  </class>
+</hibernate-mapping>

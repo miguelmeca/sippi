@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.AsistenciaTallerCapacitacion">
+    <id column="ID_ASISTENCIA_TALLER" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="ASISTIO" name="asistio" type="boolean"/>
+    <many-to-one class="modelo.Empleado" column="ID_EMPLEADO" name="empleado"/>
+  </class>
+</hibernate-mapping>

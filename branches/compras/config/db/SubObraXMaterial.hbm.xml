@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.SubObraXMaterial" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_SUBOBRA_X_MATERIAL" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="CANTIDAD" name="cantidad" type="int"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <many-to-one class="modelo.RecursoXProveedor" column="ID_MATERIAL" name="material"/>
+    <property column="PRECIOUNITARIO" name="precioUnitario" type="double"/>
+    <joined-subclass name="modelo.SubObraXMaterialModif" table="SO_X_MATERIALMOD">
+      <key column="ID_SO_X_MATERIALMOD"/>
+      <many-to-one class="modelo.SubObraXMaterial" name="original"/>
+    </joined-subclass>
+  </class>
+</hibernate-mapping>

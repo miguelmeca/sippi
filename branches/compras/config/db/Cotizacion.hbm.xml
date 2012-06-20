@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Cotizacion" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_COTIZACION" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="NRO_COTIZACION" name="nroCotizacion" type="string"/>
+    <property column="NRO_REVISION" name="nroRevision" type="integer"/>
+    <property column="FECHA_CREACION" name="fechaCreacion" type="date"/>
+    <property column="FECHA_MODIFICACION" name="fechaModificacion" type="date"/>
+    <property column="PLAZO_ENTREGA" name="plazoEntrega" type="string"/>
+    <property column="LUGAR_ENTREGA" name="lugarEntrega" type="string"/>
+    <property column="VALIDEZ_OFERTA" name="validezOferta" type="date"/>
+    <property column="DESCRIPCION" name="descripcion" type="string"/>
+    <property column="FECHA_LIMITE_ENTREGA" name="fechaLimiteEntrega" type="date"/>
+    <property column="ESTADO" name="estado" type="string"/>
+    <list cascade="all" name="subObras" table="COTIZACION_X_SUBOBRAS">
+      <key column="ID_COTIZACION"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.SubObra"/>
+    </list>
+    <joined-subclass name="modelo.CotizacionModificada" table="COT_MODIFICADA">
+      <key column="ID_COTIZACION_MOD"/>
+      <many-to-one class="modelo.Cotizacion" name="cotizacionOriginal"/>
+    </joined-subclass>
+  </class>
+</hibernate-mapping>

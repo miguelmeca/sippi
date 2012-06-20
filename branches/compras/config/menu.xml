@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : menu.xml
+    Created on : 7 de junio de 2010, 19:36
+    Author     : iuga
+    Version    : 1.0
+    Descricion:
+        Mantiene los items del menu principal de la aplicacion
+        (Se cargan automaticamente en el menu)
+        Para configurar el comportamiento de cada item ir a:
+        ventanaPrincipal.treeMenuValueChanged();
+-->
+
+<menu>
+
+    <itemcat icono="/res/iconos/var/16x16/promotion.png" nombre="Favoritos">
+    </itemcat>
+
+    <itemcat icono="/res/iconos/var/16x16/Equipment.png" nombre="Obras">
+        <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.pantallaBuscarPedido"/>
+        <item nombre="Nuevo Pedido de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.pantallaRegistrarPedido"/>
+    </itemcat>    
+
+    <itemcat icono="/res/iconos/var/16x16/chart_pie.png" nombre="Cotización">
+        <item nombre="Explorar Cotizaciones de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.cotizacion.ExplorarCotizacionObra"/>
+        <item nombre="Explorar Cotizaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.cotizacion.ExplorarCotizaciones"/>
+    </itemcat>
+    
+    <itemcat icono="/res/iconos/var/16x16/chart.png" nombre="Planificación">
+        <item nombre="Explorar Planificaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.planificacion.PantallaConsultarPlanificaciones"/>
+    </itemcat>    
+
+    <itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       
+    </itemcat>
+
+</menu>

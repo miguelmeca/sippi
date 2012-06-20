@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Empresa" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <!--<discriminator column="TIPOEMPRESA" type="string"/>-->
+    <property column="RAZONSOCIAL" name="razonSocial" type="string"/>
+    <property column="CUIT" name="cuit" type="string"/>
+    <property column="EMAIL" name="email" type="string"/>
+    <property column="PAGINAWEB" name="paginaWeb" type="string"/>
+    <many-to-one class="modelo.Domicilio" column="IDDOMICILIO" name="domicilio"/>
+    <set cascade="all" name="telefonos" table="EmpresaXTelefono">
+      <key column="ID_EMPRESA"/>
+      <many-to-many class="modelo.Telefono" column="ID_TELEFONO"/>
+    </set>
+    <property name="hib_flag_estado" not-null="true" type="string"/>
+    <!--La propiedad telefonos de la clase Empresa se relaciona  con la tabla EMPRESAXTELEFONO
+    <set name="telefonos" table="EMPRESAXTELEFONO">
+       La columna clave de la tabla EMPRESAXTELEFONO que se relaciona
+        con la clave primeria del objeto Empresa es IDEMPRESA
+      <key column="IDEMPRESA"/>
+       La propiedad telefonos tiene una relacion "muchos-a-muchos"
+        con la columna IDTELEFONO de la tabla EMPRESAXTELEFONO
+      <many-to-many class="modelo.Telefono" column="IDTELEFONO"/>
+    </set>-->
+    <!--    ::: EMPRESACLIENTE :::     -->
+    <joined-subclass name="modelo.EmpresaCliente" table="EMPRESACLIENTE">
+      <!--La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
+        La subclase/subtabla EmpresaCliente se asocia con la clase/tabla padre EMPRESA
+        por medio del atributo ID de la clase/tabla EMPRESA-->
+      <key column="ID"/>
+      <list cascade="all-delete-orphan" name="plantas" table="Planta">
+        <key column="ID_EMPRESA"/>
+        <index column="ID"/>
+        <one-to-many class="modelo.Planta"/>
+      </list>
+    </joined-subclass>
+    <!--    ::: PROVEEDOR :::     -->
+    <joined-subclass name="modelo.Proveedor" table="PROVEEDOR">
+      <key column="ID_PROVEEDOR"/>
+      <list cascade="all-delete-orphan" name="rubros" table="PROVEEDOR_X_RUBRO">
+        <key column="ID_PROVEEDOR"/>
+        <index column="idx"/>
+        <many-to-many class="modelo.Rubro"/>
+      </list>
+      <list cascade="all-delete-orphan" name="listaArticulos" table="PROVEEDOR_X_RECURSOESPECIFICO">
+        <key column="ID_RUBRO"/>
+        <index column="idx"/>
+        <many-to-many class="modelo.RecursoEspecifico"/>
+      </list>
+      <property column="CONFIABILIDAD" name="confiabilidad" type="double"/>
+    </joined-subclass>
+  </class>
+</hibernate-mapping>

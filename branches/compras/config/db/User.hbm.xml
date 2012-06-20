@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.User" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="USUARIOS">
+    <id column="IDUSER" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="USUARIO" name="usuario" type="string"/>
+    <property column="PASS" name="password" type="string"/>
+    <property column="ESTADO" name="estado" type="string"/>
+    <property column="URL_FOTO" name="urlFoto" type="string"/>
+    <property column="IS_ADMIN" name="isAdmin" type="boolean"/>
+    <list cascade="all" name="listaFavoritos" table="USER_X_FAVORITO">
+      <key column="ID_USER_FAV"/>
+      <index column="idx"/>
+      <one-to-many class="modelo.FavoritoBean"/>
+    </list>
+  </class>
+</hibernate-mapping>

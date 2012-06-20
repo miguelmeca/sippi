@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!--        Memory Database        -->
+    <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+    <property name="connection.url">jdbc:hsqldb:mem:testdb</property>
+    <property name="connection.username">sa</property>
+    <property name="connection.password"/>
+    <property name="connection.pool_size">2</property>
+    <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+    <property name="show_sql">true</property>
+    <property name="hbm2ddl.auto">create-drop</property>
+    <!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
+    <!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
+    <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.0.10:1521/xe</property-->
+    <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property-->
+    <!--    <property name="hibernate.connection.username">administradornn</property>-->
+    <!--    <property name="hibernate.connection.password">administradornn</property>-->
+    <!--    <property name="hibernate.current_session_context_class">thread</property>-->
+    <!--    <property name="hibernate.hbm2ddl.auto">create-drop</property>-->
+    <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
+    <!--    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
+    <!--property name="connection.pool_size">1</property>
+    <property name="c3p0.idle_test_period">100</property>
+    <property name="c3p0.max_size">1</property>
+    <property name="c3p0.min_size">0</property-->
+    <!--.. CLASES DE MAPEO ....................................................-->
+    <property name="hibernate.show_sql">true</property>
+    <mapping package="modelo" resource="config/db/User.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/FavoritoBean.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Pais.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Provincia.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Barrio.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Localidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoEspecialidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/PedidoObra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/RangoEspecialidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Especialidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Domicilio.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Empresa.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Planta.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoTelefono.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Telefono.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/ContactoResponsable.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/ItemIndumentaria.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TipoCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/TallerCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Capacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/LugarCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Persona.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/AsistenciaTallerCapacitacion.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/DetalleHorarioTaller.hbm.xml"/>
+    <!--<mapping package="modelo" resource="config/db/LicenciaEmpleado.hbm.xml"/>-->
+    <!--<mapping package="modelo" resource="config/db/TipoLicenciaEmpleado.hbm.xml"/>-->
+    <!-- SEGUNDA ITERACION                                                  -->
+    <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Recurso.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/RecursoEspecifico.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/FormaDePago.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/UnidadDeMedida.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/RecursoXProveedor.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/PrecioSegunCantidad.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/Rubro.hbm.xml"/>
+    <mapping resource="config/db/Remito.xml"/>
+    <mapping resource="config/db/DetalleRemito.hbm.xml"/>
+    <mapping resource="config/db/TipoIndumentaria.hbm.xml"/>
+    <mapping resource="config/db/RolEmpleado.hbm.xml"/>
+    <mapping resource="config/db/PropiedadBean.hbm.xml"/>
+    <!--             ::: FOURTH ITERATION :::               -->
+    <mapping resource="config/db/Cotizacion.hbm.xml"/>
+    <mapping resource="config/db/SubObra.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAdicional.hbm.xml"/>
+    <mapping resource="config/db/SubObraXAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/TipoAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/SubObraXHerramienta.hbm.xml"/>
+    <mapping resource="config/db/SubObraXTarea.hbm.xml"/>
+    <mapping resource="config/db/SubObraXMaterial.hbm.xml"/>
+    <mapping resource="config/db/RolContactoResponsable.hbm.xml"/>
+    <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
+    <mapping resource="config/db/TipoAdicional.hbm.xml"/>
+    <!--             ::: FIFTH ITERATION :::               -->
+    <mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/>
+    <mapping resource="config/db/DetalleSubObraXTarea.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXXX.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXAlquilerCompra.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXHerramienta.hbm.xml"/>
+    <mapping resource="config/db/PlanificacionXMaterial.hbm.xml"/>
+    <mapping resource="config/db/TareaPlanificacion.hbm.xml"/>
+    <mapping resource="config/db/DetalleTareaPlanificacion.hbm.xml"/>
+    <mapping resource="config/db/TipoTarea.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

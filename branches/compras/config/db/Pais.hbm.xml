@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Pais" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    <property column="NOMBRE" name="nombre" type="string"/>
+    <list cascade="all-delete-orphan" name="provincias" table="Provincia">
+      <key column="pais_id"/>
+      <index column="ID"/>
+      <one-to-many class="modelo.Provincia"/>
+    </list>
+  </class>
+</hibernate-mapping>
