@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
-
-<jasperTemplate>
-	<style name="Titulo" mode="Opaque" backcolor="#CCCCCC" hAlign="Center" fontSize="24" isBold="true" isItalic="false" isStrikeThrough="false"/>
-	<style name="Heading 1" fontSize="18" isBold="true"/>
-	<style name="Heading 2" fontSize="14" isBold="true"/>
-	<style name="Info" fontSize="10"/>
-</jasperTemplate>
