@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Generar Informes de Planificaci&#xf3;n"/>
   </Properties>
   <SyntheticProperties>
@@ -42,11 +43,11 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel3" min="-2" pref="105" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,14 +65,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="btnResumenPlanifiacion" max="32767" attributes="1"/>
-              <Component id="jLabel1" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="btnResumenPlanifiacion" alignment="0" max="32767" attributes="1"/>
+              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnResumenPlanifiacion" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -90,9 +97,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResumenPlanifiacionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Este informe pretende detallar los datos de la planificaci&#xf3;n realizada sobre la obra. En el se listan tareas y subtareas con los diferentes recursos asociados.&#xa;&lt;br&gt;Adem&#xe1;s se adicionan fechas de inicio y fin de cada una de ellas, descripciones, esfuerzo requerido y un breve listado con los empleados asociados a la obra."/>
+            <Property name="text" type="java.lang.String" value="Este informe pretende detallar los datos de la planificaci&#xf3;n realizada sobre la obra. En el se listan tareas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" y subtareas con los diferentes recursos asociados. Adem&#xe1;s se adicionan fechas de inicio y fin de cada una"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" de ellas, descripciones, esfuerzo requerido y un breve listado con los empleados asociados a la obra."/>
           </Properties>
         </Component>
       </SubComponents>
@@ -109,11 +126,18 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel5" pref="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="btnListadoEmpleadosAsignados" pref="282" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnInformeTareasXEmpleado" min="-2" max="-2" attributes="1"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel1" max="32767" attributes="0"/>
+                      <Component id="jLabel5" pref="511" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="btnInformeTareasXEmpleado" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnListadoEmpleadosAsignados" min="-2" pref="227" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,11 +145,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnListadoEmpleadosAsignados" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnInformeTareasXEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnListadoEmpleadosAsignados" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,7 +160,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Muestra una lista simple &quot;con los nombres, telefonos y mails&quot; de los empleados que van a participar en una obra seg&#xfa;n lo que se planific&#xf3;, o puede agruparlos por las tareas que realizar&#xe1;n."/>
+            <Property name="text" type="java.lang.String" value="Muestra una lista simple &quot;con los nombres, telefonos y mails&quot; de los empleados que van a participar en "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnListadoEmpleadosAsignados">
@@ -158,6 +185,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformeTareasXEmpleadoActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="una obra seg&#xfa;n lo que se planific&#xf3;, o puede agruparlos por las tareas que realizar&#xe1;n."/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -172,8 +204,15 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jLabel7" pref="0" max="32767" attributes="0"/>
-              <Component id="btnListadoTareasPlanificadas" alignment="0" max="32767" attributes="1"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel7" pref="511" max="32767" attributes="0"/>
+                      <Component id="btnListadoTareasPlanificadas" alignment="1" pref="511" max="32767" attributes="1"/>
+                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -181,8 +220,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnListadoTareasPlanificadas" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnListadoTareasPlanificadas" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -190,7 +231,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Muestra una lista simple &quot;con los nombres&quot; de las tareas a realizar y los tiempos estimados para cada una y algunos datos extras de inter&#xe9;s."/>
+            <Property name="text" type="java.lang.String" value="Muestra una lista simple &quot;con los nombres&quot; de las tareas a realizar y los tiempos estimados para cada"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnListadoTareasPlanificadas">
@@ -204,6 +245,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListadoTareasPlanificadasActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="una y algunos datos extras de inter&#xe9;s."/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
@@ -214,9 +260,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="lblLoad" min="-2" pref="243" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblLoad" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -225,24 +271,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblLoad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="1"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblLoad">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/imagenes/loader.gif"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Generando, Espere por favor ..."/>
-            <Property name="doubleBuffered" type="boolean" value="true"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnCerrar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -253,6 +290,15 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblLoad">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/imagenes/loader.gif"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Generando, Espere por favor ..."/>
+            <Property name="doubleBuffered" type="boolean" value="true"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

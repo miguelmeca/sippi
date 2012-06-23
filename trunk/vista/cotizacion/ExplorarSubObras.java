@@ -1003,10 +1003,12 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             switch(btn)
             {
                 case JOptionPane.YES_OPTION:
-                    guardarCotizacion();
+                    if(guardarCotizacion())
+                    {
                         GenerarCotizacion gce = new GenerarCotizacion(this.cotizacionId);
                         SwingPanel.getInstance().addWindow(gce);
                         gce.setVisible(true);
+                    }
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
