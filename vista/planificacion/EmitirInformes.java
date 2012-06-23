@@ -5,6 +5,8 @@
 
 package vista.planificacion;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.SwingPanel;
 
 /**
@@ -31,25 +33,28 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnInformeTareasXEmpleado = new javax.swing.JButton();
         btnResumenPlanifiacion = new javax.swing.JButton();
-        btnListadoTareasPlanificadas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         btnListadoEmpleadosAsignados = new javax.swing.JButton();
-        btnCerrar = new javax.swing.JButton();
+        btnInformeTareasXEmpleado = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        btnListadoTareasPlanificadas = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         lblLoad = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Generar Informes de Planificación");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Externa ( Entregar al Cliente )"));
-
-        btnInformeTareasXEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/msn.png"))); // NOI18N
-        btnInformeTareasXEmpleado.setText("Informe de Tareas por Empleados");
-        btnInformeTareasXEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInformeTareasXEmpleadoActionPerformed(evt);
-            }
-        });
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Resumen de la Planificación"));
 
         btnResumenPlanifiacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/x-dia-diagram.png"))); // NOI18N
         btnResumenPlanifiacion.setText("Resumen de la Planificación");
@@ -59,13 +64,44 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
             }
         });
 
-        btnListadoTareasPlanificadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/tarea.png"))); // NOI18N
-        btnListadoTareasPlanificadas.setText("Listado de Tareas Planificadas");
-        btnListadoTareasPlanificadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListadoTareasPlanificadasActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Este informe pretende detallar los datos de la planificación realizada sobre la obra");
+
+        jLabel2.setText("En el se listan tareas y subtareas con los diferentes recursos asociados");
+
+        jLabel3.setText("Además se adicionan fechas de inicio y fin de cada una de ellas, descripciones, esfuerzo requerido ");
+
+        jLabel4.setText("y un breve listado con los empleados asociados a la obra.");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnResumenPlanifiacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel3)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnResumenPlanifiacion))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informes de Empleados en esta Planificación"));
+
+        jLabel5.setText("Muestra una lista simple \"con los nombres, telefonos y mails\" de los empleados que van a participar");
+
+        jLabel6.setText("en una obra según lo que se planificó, o puede agruparlos por las tareas que realizarán.");
 
         btnListadoEmpleadosAsignados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/msn.png"))); // NOI18N
         btnListadoEmpleadosAsignados.setText("Listado de Empleados Asignados");
@@ -75,33 +111,72 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnResumenPlanifiacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnListadoTareasPlanificadas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnInformeTareasXEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListadoEmpleadosAsignados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btnResumenPlanifiacion)
+        btnInformeTareasXEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/msn.png"))); // NOI18N
+        btnInformeTareasXEmpleado.setText("Informe de Tareas por Empleados");
+        btnInformeTareasXEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeTareasXEmpleadoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnListadoEmpleadosAsignados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnInformeTareasXEmpleado))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnListadoEmpleadosAsignados, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInformeTareasXEmpleado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListadoTareasPlanificadas)
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnInformeTareasXEmpleado)))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Informe de Tareas Planificadas"));
+
+        jLabel7.setText("Muestra una lista simple \"con los nombres\" de las tareas a realizar y los tiempos estimados para ");
+
+        jLabel8.setText("cada una y algunos datos extras de interés.");
+
+        btnListadoTareasPlanificadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/tarea.png"))); // NOI18N
+        btnListadoTareasPlanificadas.setText("Listado de Tareas Planificadas");
+        btnListadoTareasPlanificadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoTareasPlanificadasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnListadoTareasPlanificadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnListadoTareasPlanificadas))
+        );
+
+        lblLoad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/loader.gif"))); // NOI18N
+        lblLoad.setText("Generando, Espere por favor ...");
+        lblLoad.setDoubleBuffered(true);
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
@@ -111,9 +186,26 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
             }
         });
 
-        lblLoad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/loader.gif"))); // NOI18N
-        lblLoad.setText("Generando, Espere por favor ...");
-        lblLoad.setDoubleBuffered(true);
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCerrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLoad)
+                    .addComponent(btnCerrar))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,23 +214,26 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblLoad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnCerrar)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCerrar)
-                    .addComponent(lblLoad))
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -164,8 +259,12 @@ private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent
 
 private void btnResumenPlanifiacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenPlanifiacionActionPerformed
     showLoading();
-    // Acá tu código ...
-
+        try {
+            // Acá tu código ...
+                wait(50000);
+        } catch (InterruptedException ex) {
+            System.out.println("");
+        }
     // ...
     hideLoading();
 }//GEN-LAST:event_btnResumenPlanifiacionActionPerformed
@@ -175,7 +274,12 @@ private void btnListadoTareasPlanificadasActionPerformed(java.awt.event.ActionEv
     btnInformeTareasXEmpleado.setEnabled(false);
 
     // Acá tu código ...
-
+    try {
+            // Acá tu código ...
+                wait(50000);
+        } catch (InterruptedException ex) {
+            System.out.println("");
+        }
     // ...
     hideLoading();
     btnInformeTareasXEmpleado.setEnabled(true);
@@ -187,7 +291,12 @@ private void btnListadoEmpleadosAsignadosActionPerformed(java.awt.event.ActionEv
     btnListadoEmpleadosAsignados.setEnabled(false);
 
     // Acá tu código ...
-
+        try {
+            // Acá tu código ...
+                wait(50000);
+        } catch (InterruptedException ex) {
+            System.out.println("");
+        }
     // ...
     hideLoading();
     btnListadoEmpleadosAsignados.setEnabled(true);
@@ -217,7 +326,18 @@ private void hideLoading()
     private javax.swing.JButton btnListadoEmpleadosAsignados;
     private javax.swing.JButton btnListadoTareasPlanificadas;
     private javax.swing.JButton btnResumenPlanifiacion;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblLoad;
     // End of variables declaration//GEN-END:variables
 
