@@ -15,6 +15,7 @@ import controlador.cotizacion.GestorCotizacionAlquileresCompras;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.SubObraXAlquilerCompra;
 import util.NTupla;
 import util.TablaUtil;
 import util.Tupla;
@@ -25,7 +26,13 @@ import util.Tupla;
  */
 public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
+    private static final String TEXTO_BTN_AGREGAR = "Agregar";
+    private static final String TEXTO_BTN_MODIFICAR = "Modificar";
+    private static final String TEXTO_BTN_CANCELAR = "Cancelar";
+    private static final String TEXTO_BTN_EDITAR = "Editar";
+    
     private GestorCotizacionAlquileresCompras gestor;
+    private SubObraXAlquilerCompra alqcompraEditando;
     
     /** Creates new form editarCotizacion_Compras */
     public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor, int idSubObra) 
@@ -65,6 +72,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         tbCompras = new javax.swing.JTable();
         txtSubtotalCompras = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -89,15 +97,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
-            .addComponent(cmbConceptoAlquiler, 0, 408, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
+            .addComponent(cmbConceptoAlquiler, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cmbConceptoAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -112,8 +120,9 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         jLabel5.setText("=");
 
+        txtSubtotal.setBackground(new java.awt.Color(204, 204, 255));
+        txtSubtotal.setEditable(false);
         txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSubtotal.setEnabled(false);
 
         txtPrecio.setEnabled(false);
         txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -160,7 +169,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                    .addComponent(txtSubtotal))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -189,7 +198,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             }
         });
 
-        btnQuitarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitarCompra.setText("Quitar");
         btnQuitarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,13 +210,10 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         tbCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Cantidad", "Descripción", "Precio Unitario", "Subtotal"
+                "Descripción", "Cantidad", "Precio Unitario", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -229,6 +235,14 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
         jLabel6.setText("Subtotal Alquileres/Compras $");
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -237,7 +251,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -246,11 +260,13 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnAgregarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                        .addComponent(btnAgregarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnQuitarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSubtotalCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -266,14 +282,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitarCompra)
-                    .addComponent(btnAgregarCompra))
+                    .addComponent(btnAgregarCompra)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtSubtotalCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -310,8 +327,15 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             {
                 if(precio>0)
                 {
-
-                        AgregarCompraAlquiler(tipo,descripcion,cantidad,precio);
+                        if(this.alqcompraEditando==null)
+                        {
+                            AgregarCompraAlquiler(tipo,descripcion,cantidad,precio);
+                        }
+                        else
+                        {
+                            AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
+                            cargarModificacionAlquilerCompra(null);
+                        } 
                 }
                 else
                 {
@@ -382,9 +406,33 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         CalcularSubTotal();
     }//GEN-LAST:event_txtPrecioKeyPressed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        if(btnEditar.getText().equals(TEXTO_BTN_EDITAR))
+        {
+            if(tbCompras.getSelectedRow()!= -1)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tbCompras.getModel();
+                NTupla ntp = (NTupla) dtm.getValueAt(tbCompras.getSelectedRow(), 0);
+
+                SubObraXAlquilerCompra h = gestor.getAlquilerCompraAgregada(ntp);
+                cargarModificacionAlquilerCompra(h);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Alquiler/Compra agregada para Editarlo","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
+        }else if(btnEditar.getText().equals(TEXTO_BTN_CANCELAR))
+        {
+            // No modifico más
+            cargarModificacionAlquilerCompra(null);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCompra;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnQuitarCompra;
     private javax.swing.JComboBox cmbConceptoAlquiler;
     private javax.swing.JLabel jLabel1;
@@ -483,5 +531,52 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         }
         
         txtSubtotal.setText("$"+cantidad*precio);
+    }
+
+    private void cargarModificacionAlquilerCompra(SubObraXAlquilerCompra h) {
+        this.alqcompraEditando = h;
+        if(this.alqcompraEditando!=null)
+        {
+            btnAgregarCompra.setText(TEXTO_BTN_MODIFICAR);
+            btnEditar.setText(TEXTO_BTN_CANCELAR);
+            btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+ 
+            // Selecciona la herramienta
+            for (int i = 0; i < cmbConceptoAlquiler.getItemCount(); i++) {
+                Tupla tp = (Tupla)cmbConceptoAlquiler.getItemAt(i);
+                if(tp.getId()==h.getTipoAlquilerCompra().getId()){
+                    cmbConceptoAlquiler.setSelectedIndex(i);
+                    continue;
+                }
+            }
+            // Concepto
+            txtDescripcion.setText(h.getDescripcion());
+            txtDescripcion.setEnabled(true);
+            txtDescripcion.setEditable(true);
+            
+            // Costos
+            txtCantidad.setText(String.valueOf(this.alqcompraEditando.getCantidad()));
+            txtCantidad.setEnabled(true);
+            txtCantidad.setEditable(true);
+            
+            txtPrecio.setText(String.valueOf(this.alqcompraEditando.getPrecioUnitario()));
+            txtPrecio.setEnabled(true);
+            txtPrecio.setEditable(true);
+            
+            CalcularSubTotal();
+        }
+        else{
+            btnAgregarCompra.setText(TEXTO_BTN_AGREGAR);
+            btnEditar.setText(TEXTO_BTN_EDITAR);
+            btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            txtDescripcion.setText("");
+            txtCantidad.setText("");
+            txtPrecio.setText("");
+            cmbConceptoAlquiler.setSelectedIndex(0);
+        }
+    }
+
+    private void AgregarCompraAlquiler(SubObraXAlquilerCompra editando, Tupla tipo, String descripcion, int cantidad, double precio) {
+        gestor.AgregarCompraAlquiler(editando,tipo,descripcion,cantidad,precio);
     }
 }

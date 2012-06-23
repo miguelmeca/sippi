@@ -316,7 +316,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -485,7 +485,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una Herramienta agregada para Editarla","Advertencia",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una Adicional agregado para Editarlo","Advertencia",JOptionPane.WARNING_MESSAGE);
             }
         }else if(btnEditar.getText().equals(TEXTO_BTN_CANCELAR))
         {
