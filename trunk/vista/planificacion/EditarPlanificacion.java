@@ -448,7 +448,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         tblSubObras.setModel(new javax.swing.table.DefaultTableModel(
@@ -515,8 +515,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addGap(2, 2, 2)
                 .addComponent(btnEliminarSubObra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelBarraIzquierdaLayout.setVerticalGroup(
             panelBarraIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,7 +574,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
@@ -623,7 +622,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Test de Drag&Drop DnD", panelDatosGenerales);
@@ -822,7 +821,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", jPanel3);
@@ -856,7 +855,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -870,7 +869,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .addComponent(panelCentral)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -981,7 +980,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         {
             case 0: 
                 // Se mostro la ventana del arbol de tareas
-                System.out.println("[DEBUG] Foco en el ÃƒÂ¡rbol de Tareas");
+                System.out.println("[DEBUG] Foco en el ÃƒÆ’Ã‚Â¡rbol de Tareas");
                 break;
             case 1:
                 // Se mostro el Gantt
@@ -992,7 +991,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_panelCentralStateChanged
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+
+        if(this.hashSubObraSeleccionada==-1){
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione la SubObra que desee modificar para continar");
+            return;
+        }
         GestorEditarCotizacionModificada gestor = new GestorEditarCotizacionModificada(null,_gestor.getPlanificacion(),this.hashSubObraSeleccionada);
         EditarCotizacionModificada win = new EditarCotizacionModificada(gestor, this);
         SwingPanel.getInstance().addWindow(win);
@@ -1001,7 +1004,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtDescripcionGeneralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionGeneralFocusLost
-        System.out.println("[DEBUG] La descripciÃ³n de la PlanificaciÃ³n perdiÃ³ el foco");
+        System.out.println("[DEBUG] La descripciÃƒÂ³n de la PlanificaciÃƒÂ³n perdiÃƒÂ³ el foco");
     }//GEN-LAST:event_txtDescripcionGeneralFocusLost
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -1020,7 +1023,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (tblSubObras.getSelectedRow() != -1) {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             
-            int n = JOptionPane.showConfirmDialog(this, "Â¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "EstÃ¡ Seguro?", JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(this, "Ã‚Â¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "EstÃƒÂ¡ Seguro?", JOptionPane.YES_NO_OPTION);
             
             boolean exito=true;
             if (n == JOptionPane.YES_OPTION) {
@@ -1172,7 +1175,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     @Deprecated
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
-//        IUGA: Comente este mÃƒÂ©todo, no se deberÃƒÂ­a usar MAS        
+//        IUGA: Comente este mÃƒÆ’Ã‚Â©todo, no se deberÃƒÆ’Ã‚Â­a usar MAS        
 //        // Create a new Phrase
 //        CoolGanttPhase p5 = new CoolGanttPhase();
 //        p5.setEditable(true);
@@ -1332,7 +1335,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
             }
         }
         else if (flag.equals(AsignacionMaterialesCantidad.CALLBACK_FLAG))
@@ -1349,7 +1352,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
             }
         }
         else if (flag.equals(AsignacionAlquileresCompraCantidad.CALLBACK_FLAG))
@@ -1365,7 +1368,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
             }
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
@@ -1460,7 +1463,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1493,7 +1496,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1525,7 +1528,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1896,7 +1899,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA;
                         if(path==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1956,7 +1959,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_MATERIALES;
                         if(path==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -2040,7 +2043,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }
     
     /**
-     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃƒÂ¡n abiertas
+     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃƒÆ’Ã‚Â¡n abiertas
      * esto es para que no puedan abrir mas de un "Editar Tarea" con la misma Tarea.
      * Manenemos un registro de q ventanas ya estan abiertas !
      * NOTA: Se usa desde el Gantt y desde el Arbol.

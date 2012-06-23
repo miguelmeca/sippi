@@ -15,6 +15,7 @@ import controlador.cotizacion.GestorCotizacionHerramientas;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.SubObraXHerramienta;
 import util.NTupla;
 import util.TablaUtil;
 import util.Tupla;
@@ -25,7 +26,13 @@ import util.Tupla;
  */
 public class CotizacionHerramientas extends javax.swing.JPanel {
 
+    private static final String TEXTO_BTN_AGREGAR = "Agregar";
+    private static final String TEXTO_BTN_MODIFICAR = "Modificar";
+    private static final String TEXTO_BTN_CANCELAR = "Cancelar";
+    private static final String TEXTO_BTN_EDITAR = "Editar";
+    
     private GestorCotizacionHerramientas gestor;
+    private SubObraXHerramienta herramientaEditando;
     
     /** Creates new form pantallaHerramientas */
     public CotizacionHerramientas(GestorCotizacionHerramientas gestor) {
@@ -63,6 +70,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         tblHeramientas = new javax.swing.JTable();
         jLabel20 = new javax.swing.JLabel();
         txtSubTotal = new javax.swing.JTextField();
+        btnEditar = new javax.swing.JButton();
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Herramienta a Utilizar (*)/ Observaciones"));
 
@@ -144,11 +152,11 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15))
-                    .addComponent(jLabel14))
+                        .addComponent(jLabel15)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSubTotalConcepto)
@@ -179,7 +187,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
             }
         });
 
-        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitar.setText("Quitar");
         btnQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,23 +215,42 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(tblHeramientas);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         jLabel20.setText("Subtotal Herramientas   $");
 
         txtSubTotal.setEditable(false);
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addContainerGap())
+        );
+
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -238,13 +265,11 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnQuitar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -257,14 +282,11 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnQuitar))
+                    .addComponent(btnQuitar)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,78 +295,60 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 }//GEN-LAST:event_txtSubTotalActionPerformed
 
 private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
+        {
+            int cantHoras = 0;
+            try
+            {
+                cantHoras = Integer.parseInt(txtHorasDia.getText());
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada es incorrecta");
+                return;
+            }
+            if(cantHoras<=0)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada debe ser positiva");
+                return;
+            }
 
-    if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
-    {
-       
-//        int cantDias =0;
-//        try
-//        {
-//            cantDias = Integer.parseInt(txtCantDias.getText());
-//        }
-//        catch(Exception e)
-//        {
-//             MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada es incorrecta");
-//             return;
-//        }
-        
-//        if(cantDias<=0)
-//        {
-//            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
-//             return;
-//        }
-        
-        int cantHoras = 0;
-        try
-        {
-            cantHoras = Integer.parseInt(txtHorasDia.getText());
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada es incorrecta");
-            return;
-        }
-        
-        if(cantHoras>24)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada debe ser menor a 24");
-            return;
-        }
-        if(cantHoras<=0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada debe ser positiva");
-            return;
-        }
-        
-        double costoHora = 0;
-        try
-        {
-            costoHora = Double.parseDouble(txtCostoHora.getText().replaceAll(",","."));
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecto");
-            return;
-        }   
-        
-        if(costoHora<0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado debe ser positivo");
-            return;            
-        }
-        
+            double costoHora = 0;
+            try
+            {
+                costoHora = Double.parseDouble(txtCostoHora.getText().replaceAll(",","."));
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecto");
+                return;
+            }   
 
-        Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
-        if(tpitem.getId()!=0)
-        {         
-//            gestor.AgregarHerramienta(tpitem, cantDias, cantHoras, costoHora);
-            gestor.AgregarHerramienta(tpitem,cantHoras, costoHora);
+            if(costoHora<0)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado debe ser positivo");
+                return;            
+            }
+
+
+            Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
+            if(tpitem.getId()!=0)
+            {         
+                if(this.herramientaEditando==null)
+                {
+                    gestor.AgregarHerramienta(tpitem,cantHoras, costoHora,txtDescripcion.getText());
+                }
+                else
+                {
+                    gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
+                    cargarModificacionHerramienta(null);
+                }
+            }
+            else
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar una Herramienta");
+            }
         }
-        else
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar una Herramienta");
-        }
-    }
     
 }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -398,9 +402,33 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         CalcularSubTotalConcepto();
     }//GEN-LAST:event_txtCostoHoraActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        if(btnEditar.getText().equals(TEXTO_BTN_EDITAR))
+        {
+            if(tblHeramientas.getSelectedRow()!= -1)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tblHeramientas.getModel();
+                NTupla ntp = (NTupla) dtm.getValueAt(tblHeramientas.getSelectedRow(), 0);
+
+                SubObraXHerramienta h = gestor.getHerramientaAgregada(ntp);
+                cargarModificacionHerramienta(h);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una Herramienta agregada para Editarla","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
+        }else if(btnEditar.getText().equals(TEXTO_BTN_CANCELAR))
+        {
+            // No modifico más
+            cargarModificacionHerramienta(null);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JComboBox cmbHerramienta;
     private javax.swing.JLabel jLabel14;
@@ -497,6 +525,47 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         // muestro el total calculado
         txtSubTotal.setText(String.valueOf(total));
     
+    }
+
+    private void cargarModificacionHerramienta(SubObraXHerramienta h) {
+        this.herramientaEditando = h;
+        if(this.herramientaEditando!=null)
+        {
+            btnAgregar.setText(TEXTO_BTN_MODIFICAR);
+            btnEditar.setText(TEXTO_BTN_CANCELAR);
+            btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+ 
+            // Selecciona la herramienta
+            for (int i = 0; i < cmbHerramienta.getItemCount(); i++) {
+                Tupla tp = (Tupla)cmbHerramienta.getItemAt(i);
+                if(tp.getId()==h.getHerramienta().getId()){
+                    cmbHerramienta.setSelectedIndex(i);
+                    continue;
+                }
+            }
+            // Concepto
+            txtDescripcion.setText(h.getObservaciones());
+            txtDescripcion.setEnabled(true);
+            txtDescripcion.setEditable(true);
+            
+            // Costos
+            txtHorasDia.setText(String.valueOf(this.herramientaEditando.getCantHoras()));
+            txtHorasDia.setEnabled(true);
+            txtHorasDia.setEditable(true);
+            txtCostoHora.setText(String.valueOf(this.herramientaEditando.getCostoXHora()));
+            txtCostoHora.setEnabled(true);
+            txtCostoHora.setEditable(true);
+            CalcularSubTotalConcepto();
+        }
+        else{
+            btnAgregar.setText(TEXTO_BTN_AGREGAR);
+            btnEditar.setText(TEXTO_BTN_EDITAR);
+            btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            txtDescripcion.setText("");
+            txtHorasDia.setText("");
+            txtCostoHora.setText("");
+            cmbHerramienta.setSelectedIndex(0);
+        }
     }
     
 }

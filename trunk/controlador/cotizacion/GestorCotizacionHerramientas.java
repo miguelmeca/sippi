@@ -86,13 +86,13 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         }
     }
     
-    public void AgregarHerramienta(Tupla tph, int cantHoras, double costo)
+    public void AgregarHerramienta(Tupla tph, int cantHoras, double costo, String observaciones)
     {
         SubObraXHerramienta detalle = new SubObraXHerramienta();
         
-//        detalle.setCantDias(cantDias);
         detalle.setCantHoras(cantHoras);
         detalle.setCostoXHora(costo);
+        detalle.setObservaciones(observaciones);
         
         for (int i = 0; i < bufferHerramientas.size(); i++) 
         {
@@ -115,6 +115,28 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         }          
     }
     
+    public void AgregarHerramienta(SubObraXHerramienta herramientaEditando, Tupla tpitem, int cantHoras, double costoHora, String observaciones) {
+        
+        for (int i = 0; i < getSubObraActual().getHerramientas().size(); i++) {
+            SubObraXHerramienta soxhde = getSubObraActual().getHerramientas().get(i);
+            if(soxhde.hashCode()==herramientaEditando.hashCode())
+            {
+                soxhde.setCantHoras(cantHoras);
+                soxhde.setCostoXHora(costoHora);
+                for (int j = 0; j < bufferHerramientas.size(); j++) {
+                    HerramientaDeEmpresa hde = bufferHerramientas.get(j);
+                    if(hde.getId()==tpitem.getId()){
+                        soxhde.setHerramienta(hde);
+                    }
+                }
+                soxhde.setObservaciones(observaciones);
+                
+                llenarTablaHerramientas();
+                refrescarPantallas();
+            }
+        }
+    }    
+    
     public void quitarHerramienta(NTupla ntp) 
     {
         for (int i = 0; i < getSubObraActual().getHerramientas().size(); i++) 
@@ -127,7 +149,7 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
                     
                     //obtengo la herramienta y pregunto si se puede eliminar
                     SubObraModificada subMod=((SubObraModificada)gestorPadre.getSubObraActual());
-                    SubObraXHerramientaModif soxhm=(SubObraXHerramientaModif)subMod.getHerramientas().get(i);
+                    SubObraXHerramienta soxhm=(SubObraXHerramienta)subMod.getHerramientas().get(i);
                     
                     if(gestor.getPlanificacion()!=null && soxhm!=null)
                     {
@@ -168,5 +190,12 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         }
         pantalla.llenarTabla(listaFilas);        
     }
+
+    public SubObraXHerramienta getHerramientaAgregada(NTupla ntp) {
+        // Retorna por posicion en el Array, no por el Hash
+        return getSubObraActual().getHerramientas().get(ntp.getId());       
+    }
+
+    
     
 }
