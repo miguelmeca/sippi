@@ -279,6 +279,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
         jLabel3.setText("Subtotal Materiales $");
 
+        txtSubtotalMateriales.setBackground(new java.awt.Color(204, 204, 255));
         txtSubtotalMateriales.setEditable(false);
         txtSubtotalMateriales.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 

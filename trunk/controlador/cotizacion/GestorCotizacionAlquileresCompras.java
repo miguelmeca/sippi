@@ -95,9 +95,9 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
             SubObraXAlquilerCompra detalle = getSubObraActual().getAlquileresCompras().get(i);
             
                 NTupla tp = new NTupla(i);
-                tp.setNombre(String.valueOf(detalle.getCantidad()));
+                tp.setNombre(detalle.getTipoAlquilerCompra().getNombre()+"-"+detalle.getDescripcion());
                 String[] data = new String[3];
-                    data[0] = detalle.getTipoAlquilerCompra().getNombre()+"-"+detalle.getDescripcion();
+                    data[0] = String.valueOf(detalle.getCantidad());
                     data[1] =  String.valueOf(detalle.getPrecioUnitario());
                     data[2] =  String.valueOf(detalle.calcularSubtotal());
                 tp.setData(data);
@@ -157,6 +157,33 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
     public void refrescarPantallas() 
     {
         gestorPadre.refrescarPantallas();
+    }
+
+    public SubObraXAlquilerCompra getAlquilerCompraAgregada(NTupla ntp) {
+        // Retorna por posicion en el Array, no por el Hash
+        return getSubObraActual().getAlquileresCompras().get(ntp.getId()); 
+    }
+
+    public void AgregarCompraAlquiler(SubObraXAlquilerCompra editando, Tupla tipo, String descripcion, int cantidad, double precio) {
+        for (int i = 0; i < getSubObraActual().getAlquileresCompras().size(); i++) {
+            SubObraXAlquilerCompra soxhde = getSubObraActual().getAlquileresCompras().get(i);
+            if(soxhde.hashCode()==editando.hashCode())
+            {
+                soxhde.setCantidad(cantidad);
+                soxhde.setDescripcion(descripcion);
+                soxhde.setPrecioUnitario(precio);
+                
+                for (int j = 0; j < bufferTiposAlquileresCompras.size(); j++) {
+                    TipoAlquilerCompra hde = bufferTiposAlquileresCompras.get(j);
+                    if(hde.getId()==tipo.getId()){
+                        soxhde.setTipoAlquilerCompra(hde);
+                    }
+                }
+                
+                llenarTablaAlquilerCompra();
+                refrescarPantallas();
+            }
+        }
     }
     
 }
