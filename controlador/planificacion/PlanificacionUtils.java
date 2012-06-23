@@ -173,7 +173,7 @@ public class PlanificacionUtils {
      * @param sxh
      * @return 
      */
-    public static boolean estaSubObraXHerramientaEnUso(PlanificacionXXX plan, SubObraXHerramientaModif sxh)
+    public static boolean estaSubObraXHerramientaEnUso(PlanificacionXXX plan, SubObraXHerramienta sxh)
     {
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         for (int i = 0; i < listaTareas.size(); i++) {
