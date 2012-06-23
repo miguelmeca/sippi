@@ -154,5 +154,35 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         }        
     }
     
+    public void AgregarAdicional(SubObraXAdicional editando, Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) {
+        for (int i = 0; i < getSubObraActual().getAdicionales().size(); i++) {
+            SubObraXAdicional soxhde = getSubObraActual().getAdicionales().get(i);
+            if(soxhde.hashCode()==editando.hashCode())
+            {
+                soxhde.setCantDias(cantidadDias);
+                soxhde.setCantOperarios(cantidadOperarios);
+                soxhde.setDescripcion(descripcion);
+                soxhde.setPrecioUnitario(precio);
+
+                for (int j = 0; j < bufferTipos.size(); j++) {
+                    TipoAdicional ta = bufferTipos.get(j);
+                    if(ta.getId()==tipo.getId()){
+                        soxhde.setTipoAdicional(ta);
+                    }
+                }
+                
+                llenarTablaAdicionales();
+                refrescarPantallas();
+            }
+        }
+    }    
+
+    public SubObraXAdicional getAdicionalAgregada(NTupla ntp) {
+        // Retorna por posicion en el Array, no por el Hash
+        return getSubObraActual().getAdicionales().get(ntp.getId());   
+    }
+
+
+    
     
 }
