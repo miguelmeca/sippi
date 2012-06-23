@@ -26,11 +26,14 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblLoad" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,14 +43,14 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="1"/>
-                  <Component id="lblLoad" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,7 +60,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Externa ( Entregar al Cliente )"/>
+            <TitledBorder title="Resumen de la Planificaci&#xf3;n"/>
           </Border>
         </Property>
       </Properties>
@@ -65,49 +68,32 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnResumenPlanifiacion" max="32767" attributes="1"/>
-                      <Component id="btnListadoTareasPlanificadas" alignment="0" max="32767" attributes="1"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnInformeTareasXEmpleado" max="32767" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnListadoEmpleadosAsignados" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jLabel3" max="32767" attributes="0"/>
+                  <Component id="jLabel4" max="32767" attributes="0"/>
+                  <Component id="btnResumenPlanifiacion" alignment="0" max="32767" attributes="1"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnResumenPlanifiacion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnListadoEmpleadosAsignados" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="btnInformeTareasXEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnListadoTareasPlanificadas" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnInformeTareasXEmpleado">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/iconos/plantillas/msn.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Informe de Tareas por Empleados"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformeTareasXEmpleadoActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnResumenPlanifiacion">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -119,16 +105,74 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResumenPlanifiacionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnListadoTareasPlanificadas">
+        <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/iconos/plantillas/tarea.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Listado de Tareas Planificadas"/>
+            <Property name="text" type="java.lang.String" value="Este informe pretende detallar los datos de la planificaci&#xf3;n realizada sobre la obra"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListadoTareasPlanificadasActionPerformed"/>
-          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="En el se listan tareas y subtareas con los diferentes recursos asociados"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Adem&#xe1;s se adicionan fechas de inicio y fin de cada una de ellas, descripciones, esfuerzo requerido "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="y un breve listado con los empleados asociados a la obra."/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Informes de Empleados en esta Planificaci&#xf3;n"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jLabel5" max="32767" attributes="0"/>
+              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="btnListadoEmpleadosAsignados" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnInformeTareasXEmpleado" min="-2" max="-2" attributes="1"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnListadoEmpleadosAsignados" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="btnInformeTareasXEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Muestra una lista simple &quot;con los nombres, telefonos y mails&quot; de los empleados que van a participar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="en una obra seg&#xfa;n lo que se planific&#xf3;, o puede agruparlos por las tareas que realizar&#xe1;n."/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnListadoEmpleadosAsignados">
           <Properties>
@@ -141,27 +185,121 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListadoEmpleadosAsignadosActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="btnInformeTareasXEmpleado">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/iconos/plantillas/msn.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Informe de Tareas por Empleados"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformeTareasXEmpleadoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnCerrar">
+    <Container class="javax.swing.JPanel" name="jPanel3">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/iconos/var/16x16/block.png"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Informe de Tareas Planificadas"/>
+          </Border>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cerrar"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblLoad">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/imagenes/loader.gif"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Generando, Espere por favor ..."/>
-        <Property name="doubleBuffered" type="boolean" value="true"/>
-      </Properties>
-    </Component>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jLabel7" max="32767" attributes="0"/>
+              <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
+              <Component id="btnListadoTareasPlanificadas" alignment="0" max="32767" attributes="1"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnListadoTareasPlanificadas" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Muestra una lista simple &quot;con los nombres&quot; de las tareas a realizar y los tiempos estimados para "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel8">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="cada una y algunos datos extras de inter&#xe9;s."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnListadoTareasPlanificadas">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/iconos/plantillas/tarea.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Listado de Tareas Planificadas"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListadoTareasPlanificadasActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel4">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnCerrar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="lblLoad" min="-2" pref="243" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblLoad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="1"/>
+                  </Group>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblLoad">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/imagenes/loader.gif"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Generando, Espere por favor ..."/>
+            <Property name="doubleBuffered" type="boolean" value="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCerrar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/res/iconos/var/16x16/block.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cerrar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
