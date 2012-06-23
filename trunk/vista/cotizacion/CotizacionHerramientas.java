@@ -113,7 +113,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel4.setText("Horas Necesarias (*)");
 
-        txtSubTotalConcepto.setEnabled(false);
+        txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
+        txtSubTotalConcepto.setEditable(false);
 
         txtCostoHora.setEnabled(false);
         txtCostoHora.addActionListener(new java.awt.event.ActionListener() {
@@ -369,18 +370,14 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Tupla tp = (Tupla)cmbHerramienta.getSelectedItem();
         if(tp.getId()!=0)
         {
-//            txtCantDias.setEnabled(true);
             txtHorasDia.setEnabled(true);
             txtCostoHora.setEnabled(true);
-//            txtCantDias.setEnabled(true);
             txtDescripcion.setEnabled(true);
         }
         else
         {
-//            txtCantDias.setEnabled(false);
             txtHorasDia.setEnabled(false);
             txtCostoHora.setEnabled(false);
-//            txtCantDias.setEnabled(false);
             txtDescripcion.setEnabled(false);
         }
             
@@ -564,6 +561,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             txtDescripcion.setText("");
             txtHorasDia.setText("");
             txtCostoHora.setText("");
+            txtSubTotalConcepto.setText("");
             cmbHerramienta.setSelectedIndex(0);
         }
     }
