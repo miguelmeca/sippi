@@ -239,4 +239,23 @@ public class PlanificacionUtils {
         }
         return tareas;
     }
+
+    /**
+     * Determina si una SubObraXTareaModif esta siendo usada en una Planificacion
+     * @param plan
+     * @param soxtm
+     * @return 
+     */
+    public static boolean estaSubObraXTareaEnUso(PlanificacionXXX plan, SubObraXTareaModif soxtm) {
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            SubObraXTareaModif stm = tarea.getTareaCotizada();
+            if(soxtm.hashCode()==stm.hashCode())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

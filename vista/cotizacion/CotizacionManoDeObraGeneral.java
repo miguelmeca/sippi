@@ -430,4 +430,8 @@ private void tblTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 
+    public void MostrarMensaje(int tipo,String titulo,String mensaje) {
+        JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
 }

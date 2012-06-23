@@ -6,6 +6,8 @@
 package controlador.cotizacion;
 
 
+import controlador.planificacion.PlanificacionUtils;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import controlador.utiles.gestorBDvarios;
 import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import modelo.*;
 import util.RubroUtil;
 import org.hibernate.Session;
@@ -26,6 +29,7 @@ import vista.cotizacion.CotizacionManoDeObraAgregarMO;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import util.LogUtil;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -208,8 +212,26 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     }
     public void eliminarTarea(int id)
     {
-        getSubObraActual().eliminarTarea(id);
-        refrescarPantallas();
+        if(gestorPadre.pantalla.getClass().equals(EditarCotizacionModificada.class))
+        {
+            GestorEditarCotizacionModificada gestor = (GestorEditarCotizacionModificada)gestorPadre;
+
+            //obtengo la herramienta y pregunto si se puede eliminar
+            SubObraModificada subMod=((SubObraModificada)gestorPadre.getSubObraActual());
+            SubObraXTareaModif soxtm=(SubObraXTareaModif)subMod.getSubObraXTareaPorHash(id);
+            System.out.println("asd");
+            
+            if(gestor.getPlanificacion()!=null && soxtm!=null){
+                boolean estaEnUso = PlanificacionUtils.estaSubObraXTareaEnUso(gestor.getPlanificacion(),soxtm);
+                if(estaEnUso){
+                    pantallaGeneral.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML><b>No</b> se puede eliminar la Tarea, está asignada a una tarea de la planificacion"); 
+                }
+                else{
+                    getSubObraActual().eliminarTarea(id);
+                    refrescarPantallas();
+                }
+            }
+        } 
     }
     
     public boolean agregarTarea(SubObraXTarea tarea)
