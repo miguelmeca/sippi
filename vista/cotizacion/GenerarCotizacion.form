@@ -27,10 +27,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="1"/>
-                  <Component id="jPanel2" pref="0" max="32767" attributes="1"/>
+                  <Component id="jPanel2" max="32767" attributes="1"/>
                   <Component id="jPanel3" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,7 +43,7 @@
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" pref="45" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,25 +61,53 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <Component id="btnPresupuestoSinDetalle" max="32767" attributes="1"/>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnPresupuestoExternoSubObras" min="-2" max="-2" attributes="1"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnPresupuestoExternoRecursos" min="-2" max="-2" attributes="1"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel3" pref="532" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel7" max="32767" attributes="0"/>
+                                      <Component id="jLabel6" max="32767" attributes="0"/>
+                                      <Component id="jLabel5" max="32767" attributes="0"/>
+                                      <Component id="jLabel4" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnPresupuestoSinDetalle" min="-2" pref="130" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnPresupuestoExternoSubObras" min="-2" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnPresupuestoExternoRecursos" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
-              <Component id="jLabel1" min="-2" pref="522" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnPresupuestoSinDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPresupuestoExternoSubObras" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPresupuestoExternoRecursos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnPresupuestoSinDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -122,9 +150,29 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPresupuestoExternoRecursosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Estos informes pretenden emitir una cotizaci&#xf3;n para el &lt;b&gt;cliente&lt;/b&gt; con distintos niveles de detalle seg&#xfa;n lo que deseen o soliciten.&#xa;&lt;br&gt;&lt;b&gt;Sin Detalle&lt;/b&gt;: &lt;i&gt;Muestra solo la descripci&#xf3;n de la obra y el monto final.&lt;/i&gt;&#xa;&lt;br&gt;&lt;b&gt;Discriminado por Sub-Obras:&lt;/b&gt;&lt;i&gt;El presupuesto esta dividido en las distintas subobras que se realizar&#xe1;n&lt;/i&gt;&#xa;&lt;br&gt;&lt;b&gt;Discriminado por Recursos:&lt;/b&gt;&lt;i&gt;El presupuesto esta discriminado por los tipos de recursos a utilizar&lt;/i&gt;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Estos informes pretenden emitir una cotizaci&#xf3;n para el &lt;b&gt;cliente&lt;/b&gt; con distintos niveles de detalle seg&#xfa;n lo que"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="deseen o soliciten."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&lt;b&gt;Sin Detalle&lt;/b&gt;: &lt;i&gt;Muestra solo la descripci&#xf3;n de la obra y el monto final.&lt;/i&gt; "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&lt;b&gt;Discriminado por Sub-Obras:&lt;/b&gt;&lt;i&gt;El presupuesto esta dividido en las distintas subobras que se realizar&#xe1;n&lt;/i&gt; "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;&lt;b&gt;Discriminado por Recursos:&lt;/b&gt;&lt;i&gt;El presupuesto esta discriminado por los tipos de recursos a utilizar&lt;/i&gt; "/>
           </Properties>
         </Component>
       </SubComponents>
@@ -141,19 +189,26 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="jLabel2" min="-2" pref="525" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel8" max="32767" attributes="0"/>
+                      <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButton4" alignment="1" pref="522" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton4" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,9 +225,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;El objetivo es emitir un &lt;b&gt;resumen completo&lt;/b&gt; de la cotizaci&#xf3;n realizada, para que la &lt;b&gt;empresa&lt;/b&gt; pueda tener a mano y utilizar."/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;El objetivo es emitir un &lt;b&gt;resumen completo&lt;/b&gt; de la cotizaci&#xf3;n realizada, para que la &lt;b&gt;empresa&lt;/b&gt; pueda tener"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="a mano y utilizar."/>
           </Properties>
         </Component>
       </SubComponents>
