@@ -1069,7 +1069,6 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-    
         if(txtNroCotizacion.getText().equals("P0000-0000000"))
         {
             JOptionPane.showMessageDialog(new JInternalFrame(),"Debe ingresar un número de Cotización para continuar", "Atencion!",JOptionPane.ERROR_MESSAGE);
@@ -1387,27 +1386,27 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         tblMenu.repaint();
     }
 
-    private void guardarCotizacion() 
+    private boolean guardarCotizacion()
     {
-        
         if(cmbLVP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLVP.getDate(),new Date()))
         {
             JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha de validez de la Oferta\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
         
         if(cmbLEP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLEP.getDate(),new Date()))
         {
             JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha límite de Entrega del Presupuesto\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }        
+        
         if(txtNroCotizacion.isEnabled())
         {
-            gestor.guardarCotizacion(true);
+            return gestor.guardarCotizacion(true);
         }
         else
         {
-            gestor.guardarCotizacion(false);
+            return gestor.guardarCotizacion(false);
         }
     }
     
@@ -1512,14 +1511,16 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         gestor.enviarCotizacionCliente();
     }
     
-    public void setEstadoEnviadoCliente() 
+    public boolean guardarAntesDeEnviarAlCliente() 
     {
-        int nx = JOptionPane.showConfirmDialog(this,"Esta cotización se ha enviado al cliente \n¿Desea guardar los cambios?","Está Seguro?",JOptionPane.YES_NO_OPTION);
+        int nx = JOptionPane.showConfirmDialog(this,"Esta cotización va a marcarse como enviada al cliente \nPara continuar necesita guardar los cambios realizados\n¿Desea guardar los cambios y continuar?","Está Seguro?",JOptionPane.YES_NO_OPTION);
 
             if(nx==JOptionPane.YES_OPTION)
             {
-                guardarCotizacion();
+               return guardarCotizacion();
             }
+            
+         return false;
     }
 
     public void setNroCotizacionInvalido() 

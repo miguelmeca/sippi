@@ -303,7 +303,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         return this.cot;
     }
 
-    public void guardarCotizacion(boolean validoNroPresupuesto) 
+    public boolean guardarCotizacion(boolean validoNroPresupuesto) 
     {
         boolean flag_valido_nropresupuesto = false;
         // Busco si el número de cotización no está repetido
@@ -351,13 +351,16 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             {
                 HibernateUtil.rollbackTransaction();
                 pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo guardar la cotización!\n"+e.getLocalizedMessage());
+                return false;
             }
 
             pantalla.MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se guardo correctamente la cotización número "+this.cot.getNroCotizacion()+" !");
+            return true;
         }
         else
         {
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El número de Presupuesto \""+this.cot.getNroCotizacion()+"\" ya está en uso\nIngrese uno diferente!");
+            return false;
         }
     }
 
@@ -476,14 +479,17 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     {
         if(getCotizacion().getId()!=0)
         {
-            if(getCotizacion().setEstadoPendienteAceptacion())
+            if(pantalla.guardarAntesDeEnviarAlCliente())
             {
-                pantalla.setEstadoEnviadoCliente();
-                refrescarVentana();
-            }
-            else
-            {
-                pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cambiar el estado de la cotización");
+                //FIXME, tiene que preguntar de Guardar, si es exitosso, cambia el estado, no al revez !!!
+                if(getCotizacion().setEstadoPendienteAceptacion())
+                {
+                    refrescarVentana();
+                }
+                else
+                {
+                    pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cambiar el estado de la cotización");
+                }
             }
         }
         else
