@@ -191,6 +191,10 @@ public class Cotizacion {
   
     public boolean setEstadoPendienteAceptacion()
     {
+        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
+        {
+            return true;
+        }       
         if(this.estado.equals(Cotizacion.ESTADO_EN_CREACION))
         {
             this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
