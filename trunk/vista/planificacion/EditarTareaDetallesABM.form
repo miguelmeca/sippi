@@ -46,7 +46,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -151,7 +151,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Horas disponibles en la tarea de nivel superior seleccionada"/>
+                    <TitledBorder title="Horas disponibles en la tarea de nivel superior. Seleccione un detalle:"/>
                   </Border>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -349,26 +349,26 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spnPersonas" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="spnPersonas" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spnHsNormales" min="-2" pref="51" max="-2" attributes="0"/>
+                                  <Component id="spnHsNormales" min="-2" pref="63" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="spnHs50" min="-2" pref="52" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="spnHs50" min="-2" pref="62" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spnHs100" min="-2" pref="53" max="-2" attributes="0"/>
+                                  <Component id="spnHs100" max="32767" attributes="0"/>
                               </Group>
                               <Component id="cboRango" min="-2" pref="192" max="-2" attributes="1"/>
                           </Group>
@@ -486,8 +486,8 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
-                              <Component id="lblHsNormalesTPadreCotizada" alignment="1" max="32767" attributes="0"/>
-                              <Component id="lblHsNormaleTCotizadaActual" max="32767" attributes="0"/>
+                              <Component id="lblHsNormalesTCotizada" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblHsNormalesTCotizadaActual" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -529,7 +529,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblHsNormalesTPadreCotizada" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHsNormalesTCotizada" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHs50TCotizada" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHs100TCotizada" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblCostoTCotizada" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -537,7 +537,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblHs50TCotizadaActual" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblHsNormaleTCotizadaActual" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="lblHsNormalesTCotizadaActual" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                               <Component id="lblHs100TCotizadaActual" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblCostoTCotizadaActual" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -626,13 +626,13 @@
                     <Property name="text" type="java.lang.String" value="---"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblHsNormalesTPadreCotizada">
+                <Component class="javax.swing.JLabel" name="lblHsNormalesTCotizada">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="---"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblHsNormaleTCotizadaActual">
+                <Component class="javax.swing.JLabel" name="lblHsNormalesTCotizadaActual">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="---"/>

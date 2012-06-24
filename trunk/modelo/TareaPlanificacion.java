@@ -36,10 +36,47 @@ public class TareaPlanificacion
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
-        this.tipoTarea = new TipoTarea();
-        this.tipoTarea.setNombre("NORMAL?");
         this.observaciones = new String();
         this.detalles= new ArrayList<DetalleTareaPlanificacion>();
+       
+    }
+    
+    public TareaPlanificacion(TareaPlanificacion aCopiar) {
+        this.nombre=aCopiar.nombre;
+        this.tipoTarea=aCopiar.tipoTarea;
+        this.observaciones=aCopiar.observaciones;
+        
+        this.fechaInicio=aCopiar.fechaInicio;
+        this.fechaFin=aCopiar.fechaFin;
+        this.idTareaGantt=aCopiar.idTareaGantt;
+        this.tareaCotizada=aCopiar.tareaCotizada;    
+        this.subtareas = new ArrayList<TareaPlanificacion>();
+        this.asignacionesEmpleados = new ArrayList<AsignacionEmpleadoPlanificacion>();
+        this.herramientas = new ArrayList<PlanificacionXHerramienta>();
+        this.materiales = new ArrayList<PlanificacionXMaterial>();
+        this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
+        this.detalles= new ArrayList<DetalleTareaPlanificacion>();
+        
+        for (int i = 0; i < detalles.size(); i++) 
+        {
+           DetalleTareaPlanificacion detalleNuevaTarea=new DetalleTareaPlanificacion(aCopiar.getDetalleParticular(i));
+           detalles.add(detalleNuevaTarea);            
+        }
+        
+        /*for (int i = 0; i < alquilerCompras.size(); i++) 
+        {
+           PlanificacionXAlquilerCompra planificacionXAlquilerCompra=new PlanificacionXAlquilerCompra(aCopiar.alquilerCompras.get(i));
+           alquilerCompras.add(planificacionXAlquilerCompra);            
+        }
+        * 
+        * etc
+        * 
+        * 
+        * etc
+        * 
+        * etc
+        */
+        
        
     }
     
@@ -49,8 +86,6 @@ public class TareaPlanificacion
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
-        this.tipoTarea = new TipoTarea();
-        this.tipoTarea.setNombre("NORMAL?");
         this.observaciones = new String();
         this.detalles= new ArrayList<DetalleTareaPlanificacion>();
         

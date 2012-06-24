@@ -21,6 +21,22 @@ public class SubObraXTareaModif extends SubObraXTarea {
     public SubObraXTareaModif() {
     }
 
+    public SubObraXTareaModif(SubObraXTareaModif aCopiar) 
+    {
+        id=-1;
+        super.setNombre(aCopiar.getNombre());
+        super.setObservaciones(aCopiar.getObservaciones());
+        super.setTipoTarea(aCopiar.getTipoTarea());
+        List<DetalleSubObraXTareaModif> detallesAux=aCopiar.getDetallesMod();
+        detallesMod=new ArrayList<DetalleSubObraXTareaModif>();
+        for (DetalleSubObraXTareaModif detalleMod:detallesAux) 
+        {
+           DetalleSubObraXTareaModif nuevoDetalle=new DetalleSubObraXTareaModif(detalleMod);
+           detallesMod.add(nuevoDetalle);
+        }
+        this.original=aCopiar.original;
+    }
+    
     public int getId() {
         return id;
     }
