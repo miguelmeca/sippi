@@ -33,9 +33,16 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void cargarDatosTarea() {
         TareaPlanificacion tarea = gestorPadre.getTareaActual();
+        
+        String tipoTarea=null;
+        
         if(tarea!=null){
+            if(tarea.getTipoTarea()!=null)
+            {
+                tipoTarea=tarea.getTipoTarea().getNombre();
+            }
             pantalla.mostrarDatos(tarea.getNombre(),
-                tarea.getTipoTarea().getNombre(),
+                tipoTarea,
                 tarea.getFechaInicio(),
                 tarea.getFechaFin(),
                 tarea.getObservaciones());
@@ -64,7 +71,9 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void actualizarTipoTarea(String tipoTarea) {
         try {
+            HibernateUtil.getSession().beginTransaction();
             TipoTarea tt = (TipoTarea) HibernateUtil.getSession().createQuery("FROM TipoTarea WHERE nombre = :tipoTarea").setParameter("tipoTarea", tipoTarea).uniqueResult();
+            HibernateUtil.getSession().getTransaction().commit();
             this.getTareaActual().setTipoTarea(tt);
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacionDatosGenerales.class.getName()).log(Level.SEVERE, null, ex);

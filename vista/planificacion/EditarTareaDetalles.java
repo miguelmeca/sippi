@@ -343,7 +343,6 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
-      gestor.crearNuevoDetalleAcutal();
       EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, false);
         SwingPanel.getInstance().addWindow(at);
        at.setVisible(true);
