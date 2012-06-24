@@ -194,6 +194,13 @@ public class Empresa {
             return buffer;
         }
         return "";
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return razonSocial+" - ("+cuit+") - "+ email;
+    }
+    
+    
     
 }

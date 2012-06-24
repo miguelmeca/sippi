@@ -83,5 +83,12 @@ public class Planta {
         {return false;}
     }
 
+    @Override
+    public String toString() {
+        return razonSocial+" - "+domicilio.toString();
+    }
+    
+    
+
 
 }

@@ -184,6 +184,14 @@ public class PlanificacionSubTareasArbolHerencias extends javax.swing.JInternalF
                 {
                     case 0:
                        // Si
+                        if(megaAlgoritmoQueNoEntiendoDeCambioDeHoras(this.tarea,padre))
+                        {
+                            // Se cambio correctamente
+                        }
+                        else
+                        {
+                            // Error al cambiar
+                        }
                        break;
                     default:
                         // No, nadaremos
@@ -199,4 +207,12 @@ public class PlanificacionSubTareasArbolHerencias extends javax.swing.JInternalF
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean megaAlgoritmoQueNoEntiendoDeCambioDeHoras(TareaPlanificacion hija, TareaPlanificacion padre) {
+        
+        System.out.println("[DEBUG] Moviendo la Tarea "+hija+" dentro de la tarea"+padre);
+        
+        
+        return false;
+    }
 }

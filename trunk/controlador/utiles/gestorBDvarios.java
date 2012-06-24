@@ -10,15 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.ContactoResponsable;
-import modelo.TipoDocumento;
-import modelo.TipoTelefono;
-import modelo.EmpresaCliente;
-import modelo.Planta;
-import modelo.RangoEspecialidad;
-import modelo.TipoEspecialidad;
-import modelo.Especialidad;
-import modelo.TipoCapacitacion;
+import modelo.*;
 //import modelo.Criticidad;
 import org.hibernate.EntityMode;
 import org.hibernate.Session;
@@ -356,4 +348,28 @@ public class gestorBDvarios
 
 	}
 
+    public EmpresaCliente buscarEmpresaCliente(Planta p)
+    {
+        List lista = null;
+        try{
+            HibernateUtil.beginTransaction();
+            lista = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").list();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            return null;
+        }
+        
+        for (int i = 0; i < lista.size(); i++) {
+            EmpresaCliente ec = (EmpresaCliente)lista.get(i);
+            if(ec.esMiPlanta(p.getId()))
+            {
+                return ec;
+            }
+        }
+        return null;
+    }        
+        
 }

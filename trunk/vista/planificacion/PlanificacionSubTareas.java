@@ -76,7 +76,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
         });
 
         lblTareaContenedora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblTareaContenedora.setText("...");
+        lblTareaContenedora.setText("Ninguna, no tiene padre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

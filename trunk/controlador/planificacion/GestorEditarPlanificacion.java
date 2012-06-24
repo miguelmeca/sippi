@@ -51,6 +51,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     public void setPlanificacion(PlanificacionXXX planificacion) {
         this.planificacion = planificacion;
     }
+
+    public PedidoObra getPedidoDeObra() {
+        return pedidoDeObra;
+    }
     
     private HashMap<Integer,Boolean> generatedIdGantt;
 
