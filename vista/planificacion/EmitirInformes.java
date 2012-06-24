@@ -5,22 +5,38 @@
 
 package vista.planificacion;
 
+import com.itextpdf.text.DocumentException;
+import controlador.utiles.gestorBDvarios;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import modelo.EmpresaCliente;
+import modelo.PedidoObra;
+import modelo.PlanificacionXXX;
+import util.FechaUtil;
 import util.SwingPanel;
+import vista.reportes.ReportDesigner;
+import vista.reportes.sources.InformeDePlanificacion;
+import vista.reportes.sources.InformeDePlanificaiconEmpleadosEnObra;
 
 /**
  *
  * @author Administrador
  */
 public class EmitirInformes extends javax.swing.JInternalFrame {
-    private int planificacionID;
+    
+    private PlanificacionXXX plan;
+    private PedidoObra obra;
+    
     /** Creates new form generarCotizacionExterna */
-    public EmitirInformes(int planificacionID) 
+    public EmitirInformes(PedidoObra obra,PlanificacionXXX plan) 
     {
+        this.plan = plan;
+        this.obra = obra;
         initComponents();
         lblLoad.setVisible(false);
-        this.planificacionID = planificacionID;
     }
 
     /** This method is called from within the constructor to
@@ -96,7 +112,7 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
         jLabel5.setText("Muestra una lista simple \"con los nombres, telefonos y mails\" de los empleados que van a participar en ");
 
         btnListadoEmpleadosAsignados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/plantillas/msn.png"))); // NOI18N
-        btnListadoEmpleadosAsignados.setText("Listado de Empleados Asignados");
+        btnListadoEmpleadosAsignados.setText("Listado de Empleados Asignados a la Obra");
         btnListadoEmpleadosAsignados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListadoEmpleadosAsignadosActionPerformed(evt);
@@ -123,9 +139,9 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnInformeTareasXEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnInformeTareasXEmpleado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListadoEmpleadosAsignados, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnListadoEmpleadosAsignados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -235,7 +251,7 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,7 +260,7 @@ public class EmitirInformes extends javax.swing.JInternalFrame {
 private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeTareasXEmpleadoActionPerformed
     showLoading();
     btnInformeTareasXEmpleado.setEnabled(false);
-
+    esperarWorkArround();
     // Acá tu código ...
     EmitirInformeSeleccionEmpleados win = new EmitirInformeSeleccionEmpleados();
     SwingPanel.getInstance().addWindow(win);
@@ -256,12 +272,8 @@ private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent
 
 private void btnResumenPlanifiacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenPlanifiacionActionPerformed
     showLoading();
-        try {
-            // Acá tu código ...
-                wait(50000);
-        } catch (InterruptedException ex) {
-            System.out.println("");
-        }
+    esperarWorkArround();
+    
     // ...
     hideLoading();
 }//GEN-LAST:event_btnResumenPlanifiacionActionPerformed
@@ -269,14 +281,9 @@ private void btnResumenPlanifiacionActionPerformed(java.awt.event.ActionEvent ev
 private void btnListadoTareasPlanificadasActionPerformed(java.awt.event.ActionEvent evt) {                                                              
     showLoading();
     btnInformeTareasXEmpleado.setEnabled(false);
-
+    esperarWorkArround();
     // Acá tu código ...
-    try {
-            // Acá tu código ...
-                wait(50000);
-        } catch (InterruptedException ex) {
-            System.out.println("");
-        }
+
     // ...
     hideLoading();
     btnInformeTareasXEmpleado.setEnabled(true);
@@ -286,14 +293,25 @@ private void btnListadoEmpleadosAsignadosActionPerformed(java.awt.event.ActionEv
     
     showLoading();
     btnListadoEmpleadosAsignados.setEnabled(false);
-
+    esperarWorkArround();
     // Acá tu código ...
+        
+        InformeDePlanificaiconEmpleadosEnObra ceg = new InformeDePlanificaiconEmpleadosEnObra(this.plan);
+        ceg.setNombreReporte("Listado de Empleados Asignados a la Obra");
+        ceg.setNombreArchivo("Planificacion-EmpleadosAsignadosEnObra-"+this.plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
+        
+            HashMap<String,Object> params = new HashMap<String, Object>();
+            // Carga los datos comunes a todos los informes
+            cargarDatosCabecera(params);
+        
         try {
-            // Acá tu código ...
-                wait(50000);
-        } catch (InterruptedException ex) {
-            System.out.println("");
+            ceg.makeAndShow(params);
+        } catch (DocumentException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+        } catch (FileNotFoundException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
         }
+        
     // ...
     hideLoading();
     btnListadoEmpleadosAsignados.setEnabled(true);
@@ -341,4 +359,59 @@ private void hideLoading()
     private javax.swing.JLabel lblLoad;
     // End of variables declaration//GEN-END:variables
 
+    private void esperarWorkArround() {
+        try {
+            // Acá tu código ...
+                Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            System.out.println("");
+        }
+    }
+
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
+    
+    /**
+     * Carga los datos que son comunes a todos los informes de planificacion
+     * @param params 
+     */
+    private void cargarDatosCabecera(HashMap<String,Object> params)
+    {
+        params.put(InformeDePlanificacion.PARAM_PLAN_NRO,this.plan.getNroCotizacionPlanificada());
+            
+        gestorBDvarios utils = new gestorBDvarios();
+        EmpresaCliente ec = utils.buscarEmpresaCliente(this.obra.getPlanta());
+
+        if(ec==null)
+        {
+            params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,"");
+        }
+        else
+        {
+            params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,ec.toString());
+        }
+        if(this.obra.getPlanta()!=null)
+        {
+            params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,this.obra.getPlanta().toString());
+        }
+        else
+        {
+            params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,"");
+        }
+        
+        params.put(InformeDePlanificacion.PARAM_PLAN_OBRA,this.obra.getNombre());
+        
+        params.put(InformeDePlanificacion.PARAM_PLAN_FINICIO,FechaUtil.getFecha(this.plan.getFechaInicio()));
+        
+        params.put(InformeDePlanificacion.PARAM_PLAN_FFIN,FechaUtil.getFecha(this.plan.getFechaInicio()));
+    }
 }

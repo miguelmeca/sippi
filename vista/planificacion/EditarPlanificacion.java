@@ -909,7 +909,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmitirInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirInformeActionPerformed
-       EmitirInformes informesWin = new EmitirInformes(_gestor.getPlanificacion().getId());
+       EmitirInformes informesWin = new EmitirInformes(_gestor.getPedidoDeObra(),_gestor.getPlanificacion());
        SwingPanel.getInstance().addWindow(informesWin);
        informesWin.setVisible(true);
     }//GEN-LAST:event_btnEmitirInformeActionPerformed
