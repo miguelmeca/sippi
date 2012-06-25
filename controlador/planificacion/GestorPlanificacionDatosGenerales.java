@@ -90,16 +90,13 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
 
     public void cargarTiposDeTarea() {
         try {
-            HibernateUtil.beginTransaction();
             Iterator<TipoTarea> tipoTareas = HibernateUtil.getSession().createQuery("FROM TipoTarea").iterate();
             while(tipoTareas.hasNext()){
                 TipoTarea tipoTarea= tipoTareas.next();
                 pantalla.agregarElementoAlCombo(tipoTarea.getNombre());
             }
-            HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             Logger.getLogger(GestorPlanificacionDatosGenerales.class.getName()).log(Level.SEVERE, null, ex);
-            HibernateUtil.rollbackTransaction();
         }
     }
 }
