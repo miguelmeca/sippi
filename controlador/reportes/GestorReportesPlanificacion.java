@@ -25,13 +25,10 @@ public class GestorReportesPlanificacion {
         reporteUtil = new ReporteUtil();
     }
     
-    public void emitirResumenPlanificacion(int id_planificacion)
+    public void emitirResumenPlanificacion(PlanificacionXXX plan)
     {
          try
         {                  
-            HibernateUtil.beginTransaction();
-            // Listado de SubObras
-            PlanificacionXXX plan =(PlanificacionXXX) HibernateUtil.getSession().load(PlanificacionXXX.class,id_planificacion);
             PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID = PO.planificacion").setParameter("cID", plan).uniqueResult(); 
             EmpresaCliente empresa = (EmpresaCliente)HibernateUtil.getSession().createQuery("from EmpresaCliente EC where :cID in elements(EC.plantas)").setParameter("cID", po.getPlanta()).uniqueResult();
 
@@ -41,33 +38,24 @@ public class GestorReportesPlanificacion {
                TareaPlanificacion tp = plan.getTareas().get(i);
                listaTareas.add(tp);
             }
-            try
-            {
-                HashMap<String,Object> params = new HashMap<String, Object>();
-                
-                    params.put("PLANIFICACION_NRO",plan.getId());
-                    params.put("PLANIFICACION_EMPRESA_CLIENTE", empresa.getRazonSocial() );
-                    params.put("PLANIFICACION_PEDIDO_OBRA", po.getNombre() );
-                    params.put("PLANIFICACION_FECHA_INICIO", FechaUtil.getFecha(plan.getFechaInicio()) );
-                    params.put("PLANIFICACION_FECHA_FIN", FechaUtil.getFecha(plan.getFechaFin()) );
-                    params.put("PLANIFICACION_TAREAS", listaTareas );
-                    
-                ResumenPlanificacion re = new ResumenPlanificacion(id_planificacion);
-                re.setNombreReporte("Resumen Planificación");
-                re.setNombreArchivo("ResumenPlanificacion-"+plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
-                re.makeAndShow(params);
-                
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-            HibernateUtil.commitTransaction();
+            HashMap<String,Object> params = new HashMap<String, Object>();
+
+                params.put("PLANIFICACION_NRO",plan.getId());
+                params.put("PLANIFICACION_EMPRESA_CLIENTE", empresa.getRazonSocial() );
+                params.put("PLANIFICACION_PEDIDO_OBRA", po.getNombre() );
+                params.put("PLANIFICACION_FECHA_INICIO", FechaUtil.getFecha(plan.getFechaInicio()) );
+                params.put("PLANIFICACION_FECHA_FIN", FechaUtil.getFecha(plan.getFechaFin()) );
+                params.put("PLANIFICACION_TAREAS", listaTareas );
+
+            ResumenPlanificacion re = new ResumenPlanificacion(plan.getId());
+            re.setNombreReporte("Resumen Planificación");
+            re.setNombreArchivo("ResumenPlanificacion-"+plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
+            re.makeAndShow(params);
         }
         catch(Exception e)
         {
             e.printStackTrace();
-            HibernateUtil.rollbackTransaction();
+            //HibernateUtil.rollbackTransaction();
         }
     }
 }
