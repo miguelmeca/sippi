@@ -125,29 +125,24 @@ public class ResumenPlanificacion extends ReportDesigner{
         tabla.addCell(celdaDescripcion);
 
         String unidad= "";
-
+        
         // Mano de Obra
-//            Iterator<AsignacionEmpleadoPlanificacion> it = tarea.getAsignacionesEmpleados().iterator();
-//            while(it.hasNext())
-//            {
-//                AsignacionEmpleadoPlanificacion asignacion = it.next();
-//                asignacion.getAsignacionTareaCotizacion().
-//            }
-//            PdfPCell celdaMOT = new PdfPCell(new Paragraph("Mano de Obra",ReportDesigner.FUENTE_NORMAL_BK));
-//            tabla.addCell(celdaMOT);
-//                String detalleMO = new String();
-//                String subtotalmo = new String();
-//                for (int j = 0; j < so.getTareas().size(); j++) 
-//                {
-//                    SubObraXTarea som = so.getTareas().get(j);
-//                    detalleMO += som.getNombre()+"\n";
-//                    subtotalmo += "$"+som.calcularSubtotal()+"\n";
-//                }                      
-//            PdfPCell celdaMOD = new PdfPCell(new Paragraph(detalleMO,ReportDesigner.FUENTE_NORMAL));
-//            tabla.addCell(celdaMOD);
-//            PdfPCell celdaMOST = new PdfPCell(new Paragraph(subtotalmo,ReportDesigner.FUENTE_NORMAL_B));
-//            celdaMOST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-//            tabla.addCell(celdaMOST);
+        Iterator<DetalleTareaPlanificacion> itDetalles = tarea.getDetalles().iterator();
+        while(itDetalles.hasNext())
+        {
+            DetalleTareaPlanificacion detalle = itDetalles.next();
+            celdaRecurso = new PdfPCell(new Paragraph("Mano de Obra",ReportDesigner.FUENTE_NORMAL));
+            tabla.addCell(celdaRecurso);
+            celdaDescripcion = new PdfPCell(new Paragraph(
+                detalle.getCantidadPersonas() + " personas - " + 
+                detalle.getEspecialidad().getTipo().getNombre() + " " +
+                detalle.getEspecialidad().getRango().getNombre() + ", " +
+                detalle.getCantHorasNormales() + " hs/hombre - " +
+                detalle.getCantHorasAl50() + " HES - " +
+                detalle.getCantHorasAl100() + " HED."
+                    ));
+            tabla.addCell(celdaDescripcion);
+        }
 
         // Materiales
         Iterator<PlanificacionXMaterial> itMateriales = tarea.getMateriales().iterator();
@@ -207,7 +202,7 @@ public class ResumenPlanificacion extends ReportDesigner{
             celdaRecurso = new PdfPCell(new Paragraph("",ReportDesigner.FUENTE_NORMAL));
             celdaRecurso.setColspan(2);
             tabla.addCell(celdaRecurso);
-            this.pintarTarea(tarea, orden1, "Subtarea", tabla);
+            this.pintarTarea(subtarea, orden1, "Subtarea", tabla);
             orden1++;
         }
     }

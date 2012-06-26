@@ -6,6 +6,7 @@
 package vista.planificacion;
 
 import com.itextpdf.text.DocumentException;
+import controlador.reportes.GestorReportesPlanificacion;
 import controlador.utiles.gestorBDvarios;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -272,8 +273,9 @@ private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent
 
 private void btnResumenPlanifiacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenPlanifiacionActionPerformed
     showLoading();
-    esperarWorkArround();
-    
+    // Acá tu código ...
+        GestorReportesPlanificacion gestorReportes = new GestorReportesPlanificacion();
+        gestorReportes.emitirResumenPlanificacion(plan);
     // ...
     hideLoading();
 }//GEN-LAST:event_btnResumenPlanifiacionActionPerformed
