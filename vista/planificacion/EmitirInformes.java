@@ -20,6 +20,7 @@ import util.FechaUtil;
 import util.SwingPanel;
 import vista.reportes.ReportDesigner;
 import vista.reportes.sources.InformeDePlanificacion;
+import vista.reportes.sources.InformeDePlanificacionTareasARealizar;
 import vista.reportes.sources.InformeDePlanificaiconEmpleadosEnObra;
 
 /**
@@ -282,13 +283,29 @@ private void btnResumenPlanifiacionActionPerformed(java.awt.event.ActionEvent ev
 
 private void btnListadoTareasPlanificadasActionPerformed(java.awt.event.ActionEvent evt) {                                                              
     showLoading();
-    btnInformeTareasXEmpleado.setEnabled(false);
+    btnListadoTareasPlanificadas.setEnabled(false);
     esperarWorkArround();
     // Acá tu código ...
-
+        
+        InformeDePlanificacionTareasARealizar informe = new InformeDePlanificacionTareasARealizar(plan);
+        informe.setNombreReporte("Listado de Tareas Planificadas");
+        informe.setNombreArchivo("Planificacion-Tareas-"+this.plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
+        
+            HashMap<String,Object> params = new HashMap<String, Object>();
+            // Carga los datos comunes a todos los informes
+            cargarDatosCabecera(params);
+        
+        try {
+            informe.makeAndShow(params);
+        } catch (DocumentException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+        } catch (FileNotFoundException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
+        }
+        
     // ...
     hideLoading();
-    btnInformeTareasXEmpleado.setEnabled(true);
+    btnListadoTareasPlanificadas.setEnabled(true);
 }                                                             
 
 private void btnListadoEmpleadosAsignadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoEmpleadosAsignadosActionPerformed

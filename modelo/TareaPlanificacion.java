@@ -672,4 +672,13 @@ public class TareaPlanificacion
         }
         return totalHoras100;
     }
+    
+    public double obtenerTotalDeHoras()
+    {
+        double total = 0;
+        total += obtenerTotalDeHorasNormalesConSubtareas();
+        total += obtenerTotalDeHorasAl50ConSubtareas();
+        total += obtenerTotalDeHorasAl100ConSubtareas();
+        return total;
+    }
 }

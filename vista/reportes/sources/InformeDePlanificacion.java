@@ -25,7 +25,7 @@ public class InformeDePlanificacion extends ReportDesigner {
     public static final String PARAM_PLAN_FINICIO = "PLANIFICAICON_FECHA_INICIO";
     public static final String PARAM_PLAN_FFIN    = "PLANIFICAICON_FECHA_FIN";
     
-    private PlanificacionXXX planificacion;
+    protected PlanificacionXXX planificacion;
 
     public InformeDePlanificacion(PlanificacionXXX planificacion) {
         this.planificacion = planificacion;
@@ -73,6 +73,9 @@ public class InformeDePlanificacion extends ReportDesigner {
                 Phrase nEM4 = new Phrase((String)params.get(PARAM_PLAN_FFIN),ReportDesigner.FUENTE_NORMAL);
                 PTitulo.add(nEM4);             
         super.doc.add(PTitulo);
+        
+        Paragraph pnl = new Paragraph(new Phrase("\n"));
+        super.doc.add(pnl);
     }
     
     @Override

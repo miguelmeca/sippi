@@ -8,7 +8,7 @@ import modelo.*;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.ReporteUtil;
-import vista.planificacion.reportes.ResumenPlanificacion;
+import vista.reportes.sources.ResumenPlanificacion;
 import vista.reportes.ReportDesigner;
 
 /**
@@ -55,7 +55,6 @@ public class GestorReportesPlanificacion {
         catch(Exception e)
         {
             e.printStackTrace();
-            //HibernateUtil.rollbackTransaction();
         }
     }
 }
