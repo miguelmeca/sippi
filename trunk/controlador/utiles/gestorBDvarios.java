@@ -352,13 +352,10 @@ public class gestorBDvarios
     {
         List lista = null;
         try{
-            HibernateUtil.beginTransaction();
             lista = sesion.createQuery("from EmpresaCliente ec order by ec.razonSocial").list();
-            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
-            HibernateUtil.rollbackTransaction();
             return null;
         }
         

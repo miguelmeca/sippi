@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.planificacion.reportes;
+package vista.reportes.sources;
 
 import vista.reportes.sources.*;
 import com.itextpdf.text.BaseColor;
