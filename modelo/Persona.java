@@ -165,13 +165,7 @@ public class Persona {
     public void setTelefonos(Set<Telefono> telefono) {
         this.telefonos = telefono;
     }
-/*public ArrayList<Telefono> getTelefonos() {
-        return telefonos;
-    }
 
-    public void setTelefonos(ArrayList<Telefono> telefono) {
-        this.telefonos = telefono;
-    }*/
     public void setTelefonos(ArrayList<String> nroTelefono, ArrayList<TipoTelefono> tipoTelefono)
     {
        telefonos.clear();
@@ -180,7 +174,12 @@ public class Persona {
            Telefono tel=new Telefono(nroTelefono.get(i) , tipoTelefono.get(i));
            this.telefonos.add(tel);
        }
-
+    }
+    
+    public String mostrarTelefonos()
+    {
+       String data = "";
+       return data;
     }
     
     public TipoDocumento getTipoDoc() {

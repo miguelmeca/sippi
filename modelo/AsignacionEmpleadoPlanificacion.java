@@ -38,8 +38,6 @@ public class AsignacionEmpleadoPlanificacion {
         this.asignacionTareaCotizacion = asignacionTareaCotizacion;
     }
 
-    
-
     public List<Empleado> getEmpleados() {
         return empleados;
     }

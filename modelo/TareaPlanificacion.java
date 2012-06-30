@@ -594,6 +594,10 @@ public class TareaPlanificacion
         this.detalles = detalles;
     }
     
+    public void addDetalle(DetalleTareaPlanificacion detalle) {
+        this.detalles.add(detalle);
+    }
+    
     
     public void agreagarDetalle(DetalleTareaPlanificacion detalle) {
         this.detalles.add(detalle);

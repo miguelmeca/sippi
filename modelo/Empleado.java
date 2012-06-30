@@ -291,8 +291,8 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
 	
 	}
 	
-	public void mostrarEmpleado() {
-	
+	public String getNombreEmpleado() {
+            return super.getApellido()+", "+super.getNombre();
 	}
 	
 	public void mostrarRangoEmpleado() {

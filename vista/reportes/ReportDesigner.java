@@ -48,6 +48,8 @@ public class ReportDesigner
     public static final Font FUENTE_NORMAL_K   = new Font(Font.FontFamily.HELVETICA,10,Font.ITALIC);
     public static final Font FUENTE_NORMAL_BK   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC);
     
+    public static final BaseColor COLOR_HEADINGS = new BaseColor(219,229,241);
+    
     private String nombre;
     protected Document doc;
     private PdfWriter out;
