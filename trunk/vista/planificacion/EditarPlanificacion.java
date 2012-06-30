@@ -79,7 +79,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private String tipoUltimoNodoArbolTareas=null;
     
    
- public EditarPlanificacion( int idObra) {
+ public EditarPlanificacion(int idObra) {
         this.idObra = idObra;
         
         ventanasEditarTareasAbiertas = new HashMap<Integer, PantallaEditarTarea>();
@@ -216,7 +216,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (tplan.getSubtareas() != null) {
             for (int i = 0; i < tplan.getSubtareas().size(); i++) {
                 TareaPlanificacion tp = tplan.getSubtareas().get(i);
-                cargarTareasRecursivas(tp,n++);
+                int nuevoNivel = n +1;
+                cargarTareasRecursivas(tp,nuevoNivel);
             }
         }
     }
