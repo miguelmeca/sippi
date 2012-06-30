@@ -412,7 +412,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         _pantalla.refreshGanttAndData();
         _pantalla.inicializarArbolDeTareas();
-//        _pantalla.agregarNuevaTareaGantt(nuevaTarea.getIdTareaGantt(),nombreGantt,idTareaGanttPadre);
+
     }
     
     private Date fechaMas(Date fch, int horas) {
@@ -431,14 +431,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             mostrarMensajeError("La Tarea: "+nuevaTarea.getNombre()+"\nya se encuentra agregada");
             return null;
         }
-         
-        
-        
-        
-        
-        /*Date fechaEstimada = this.planificacion.getFechaInicio();
-        nuevaTarea.setFechaInicio(fechaEstimada);
-        nuevaTarea.setFechaFin(fechaMas(fechaEstimada,3));*/
         
         // CArgo la SubObra X Tarea Planificada Mod
         SubObraXTareaModif soxtm; 
@@ -459,13 +451,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         nuevaTarea.setFechaFin(fechaFin);
         nuevaTarea.setIdTareaGantt(generarIdTareaGantt());    
              
-             
-             
-             
         return nuevaTarea;
-              
-        
-    
     }
     
     public DefaultTreeModel cargarModeloArbolTareas()
@@ -656,25 +642,37 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     }
 
     public void tareaCambioFecha(int id, Date date) {
-        
+        // Muevo Toda la tarea
         TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
         if(nuevaTarea!=null)
         {
-            // OJO, muevo Toda la tarea
             // Calculo la duracion:
             int dias = FechaUtil.diasDiferencia(nuevaTarea.getFechaInicio(),date);
+            
             // x dias para la izquierda o derecha?
-            if(nuevaTarea.getFechaInicio().after(date))
+            Date res = FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias);
+            
+            if(PlanificacionUtils.esFechaValidaParaHija(planificacion,true,date,nuevaTarea) &&
+               PlanificacionUtils.esFechaValidaParaHija(planificacion,false,res,nuevaTarea)  )
             {
-                // Derecha
-                nuevaTarea.setFechaFin(FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias));
+                nuevaTarea.setFechaInicio(date);
+
+                if(nuevaTarea.getFechaInicio().after(date))
+                {
+                    // Derecha
+                    nuevaTarea.setFechaFin(res);
+                }
+                else
+                {
+                    // Izquierda
+                    nuevaTarea.setFechaFin(res);
+                }
             }
             else
             {
-                // Izquierda
-                nuevaTarea.setFechaFin(FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias));
+                // Ahora al Gantt ???
+                _pantalla.refreshGanttAndData();
             }
-            nuevaTarea.setFechaInicio(date);
         }
     }
 
@@ -682,7 +680,21 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
         if(nuevaTarea!=null)
         {
-            nuevaTarea.setFechaInicio(date);
+            if(PlanificacionUtils.esFechaValidaParaHija(planificacion,true,date,nuevaTarea))
+            {
+                nuevaTarea.setFechaInicio(date);
+            }
+            else
+            {
+                // La fecha que se paso es invalida, calculo la del padre y se la seteo
+                TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(planificacion, nuevaTarea);
+                if(padre!=null)
+                {
+                    nuevaTarea.setFechaInicio(padre.getFechaInicio());
+                }
+                // Ahora al Gantt ???
+                _pantalla.refreshGanttAndData();
+            }
         }
     }
 
@@ -690,7 +702,21 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         TareaPlanificacion nuevaTarea = planificacion.buscarTareaPorIdTareaGantt(id);    
         if(nuevaTarea!=null)
         {
-            nuevaTarea.setFechaFin(date);
+            if(PlanificacionUtils.esFechaValidaParaHija(planificacion,false,date,nuevaTarea))
+            {
+                nuevaTarea.setFechaFin(date);
+            }
+            else
+            {
+                // La fecha que se paso es invalida, calculo la del padre y se la seteo
+                TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(planificacion, nuevaTarea);
+                if(padre!=null)
+                {
+                    nuevaTarea.setFechaFin(padre.getFechaFin());
+                }
+                // Ahora al Gantt ???
+                _pantalla.refreshGanttAndData();
+            }
         }
     }
     
@@ -881,6 +907,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             subTarea.setNombre(nombre);
             subTarea.setFechaInicio(inicioTarea);
             subTarea.setFechaFin(finTarea);
+            subTarea.setIdTareaGantt(generarIdTareaGantt());
             if(tareaPadre!=null)
             {tareaPadre.addSubTarea(subTarea);}
             else{
@@ -955,7 +982,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         cargarTareasEnArbol(modelo, planificacion.getTareas(),raiz,false);       
         
         return modelo;
-    } 
+    }
+
+    
+    
     
     
     

@@ -15,6 +15,7 @@ import com.toedter.calendar.JDateChooser;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -204,8 +205,23 @@ public class PlanificacionDatosGenerales extends javax.swing.JPanel {
     }
     
     private void actualizarFechas(){
-        gestor.actualizarFechaInicio(dcFechaInicio.getDate());
-        gestor.actualizarFechaFin(dcFechaFin.getDate());
+        
+        Calendar fInicio = Calendar.getInstance();
+        fInicio.setTime(dcFechaInicio.getDate());
+        fInicio.set(Calendar.HOUR,21);
+        fInicio.set(Calendar.MINUTE,0);
+        fInicio.set(Calendar.SECOND,0);
+        fInicio.set(Calendar.MILLISECOND,0);
+        
+        Calendar fFin = Calendar.getInstance();
+        fFin.setTime(dcFechaFin.getDate());
+        fFin.set(Calendar.HOUR,21);
+        fFin.set(Calendar.MINUTE,0);
+        fFin.set(Calendar.SECOND,0);
+        fFin.set(Calendar.MILLISECOND,0);      
+        
+        gestor.actualizarFechaInicio(fInicio.getTime());
+        gestor.actualizarFechaFin(fFin.getTime());
     }
     
     private void addListenerToDateChooser(JDateChooser chooser){
