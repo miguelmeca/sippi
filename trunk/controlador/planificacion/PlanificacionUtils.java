@@ -5,8 +5,10 @@
 package controlador.planificacion;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import modelo.*;
+import util.FechaUtil;
 import util.NTupla;
 
 /**
@@ -257,5 +259,74 @@ public class PlanificacionUtils {
             }
         }
         return false;
+    }
+    
+    public static TareaPlanificacion getTareaPadre(PlanificacionXXX plan,TareaPlanificacion tareaHija)
+    {
+        TareaPlanificacion padre = null;
+        
+        List<TareaPlanificacion> padres = tareaHija.buscarCaminoHastaTareaConCotizacion(plan,true,true);
+        if(padres.size()>=2)
+        {
+            padre = padres.get(padres.size()-2);
+        }
+        
+        return padre;
+    }
+    
+    /**
+     * Verifica si la fecha que se pasa puede ser su fecha de inicio o fin de la 
+     * tarea hija, dependiendo de la tarea Padre ( la fecha de inicio y fin no pueden
+     * exceder a las del padre )
+     * @param plan Planificacion sobre la que se esta trabajando
+     * @param inicio Boolean, TRUE valida la fecha de inicio, en FALSE la de Fin
+     * @param date Fecha a validar
+     * @param tareaHija Tarea a la que se le quiere cambiar la fecha de inicio/fin
+     * @return 
+     */
+    public static boolean esFechaValidaParaHija(PlanificacionXXX plan,boolean inicio,Date date,TareaPlanificacion tareaHija)
+    {
+        if(tareaHija!=null)
+        {
+            List<TareaPlanificacion> padres = tareaHija.buscarCaminoHastaTareaConCotizacion(plan,true,true);
+            if(padres.size()>=2)
+            {
+                TareaPlanificacion padre = padres.get(padres.size()-2);
+                if(inicio)
+                {
+                    // Chequeo la fecha de inicio
+                    if(FechaUtil.fechaMayorOIgualQue(date,padre.getFechaInicio()))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    // Chequeo la fecha de fin
+                    // Chequeo la fecha de inicio
+                    if(FechaUtil.fechaMayorOIgualQue(padre.getFechaFin(),date))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }                    
+                }
+            }
+            else
+            {
+                // No tiene Padre, movimiento libre
+                return true;
+            }
+        }
+        else
+        {
+            return false;
+        }  
     }
 }

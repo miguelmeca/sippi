@@ -495,13 +495,6 @@ public class TareaPlanificacion
                     if(!cortarEnTareaCotizada || (cortarEnTareaCotizada && todaviaNoPasoTareaCotizada[0]))
                     {tareasSuperiores.add(0,actual);}
                     
-                     /*if(actual.getTareaCotizada()!=null)
-                    {
-                        todaviaNoPasoTareaCotizada[0]=false;
-                    }**/
-                     
-                     
-                     
                     break;
                 }  
             }   

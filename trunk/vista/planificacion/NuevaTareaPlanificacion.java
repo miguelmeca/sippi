@@ -2,6 +2,7 @@
 package vista.planificacion;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import modelo.PlanificacionXXX;
@@ -54,18 +55,22 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAceptar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNombreTarea = new javax.swing.JTextField();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jdcFechaInicio = new com.toedter.calendar.JDateChooser();
-        jdcFechaFin = new com.toedter.calendar.JDateChooser();
+        btnCopyDates = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jdcFechaFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setTitle("Nueva Tarea");
 
+        jLabel3.setText("Nombre de la tarea:");
+
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +78,7 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,9 +86,14 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setText("Nombre de la tarea:");
-
         jLabel4.setText("Fecha de inicio:");
+
+        btnCopyDates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Forward.png"))); // NOI18N
+        btnCopyDates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCopyDatesActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Fecha de fin:");
 
@@ -94,28 +105,28 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtNombreTarea)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnCancelar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnAceptar))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCopyDates)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(52, 52, 52)
-                                        .addComponent(btnCancelar)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(btnAceptar))
-                                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 17, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombreTarea)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -125,16 +136,19 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
                 .addComponent(txtNombreTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAceptar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnAceptar)))
+                    .addComponent(btnCopyDates)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,9 +172,18 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnCopyDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyDatesActionPerformed
+        Date fini = jdcFechaInicio.getDate();
+        if(fini!=null)
+        {
+            jdcFechaFin.setDate(fini);
+        }
+    }//GEN-LAST:event_btnCopyDatesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCopyDates;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -240,13 +263,39 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
      */
     private void actualizar()
     {
+        Calendar fInicio = Calendar.getInstance();
+        fInicio.setTime(this.inicioTarea);
+        fInicio.set(Calendar.HOUR,21);
+        fInicio.set(Calendar.MINUTE,0);
+        fInicio.set(Calendar.SECOND,0);
+        fInicio.set(Calendar.MILLISECOND,0);
+        
+        Calendar fFin = Calendar.getInstance();
+        fFin.setTime(this.finTarea);
+        fFin.set(Calendar.HOUR,21);
+        fFin.set(Calendar.MINUTE,0);
+        fFin.set(Calendar.SECOND,0);
+        fFin.set(Calendar.MILLISECOND,0);        
+            
+        
+        //WORKARROUND - NO FUNCA !!
+        Date p1 = new Date(this.inicioTarea.getYear(),this.inicioTarea.getMonth(),this.inicioTarea.getDay(),0,0,0);
+        Date p2 = new Date(this.finTarea.getYear(),this.finTarea.getMonth(),this.finTarea.getDay(),0,0,0);
         Object[] data = new Object[4];
         data[0] = this.tareaPadre;
         data[1] = this.nombreTareaNueva;
-        data[2] = this.inicioTarea;
-        data[3] = this.finTarea;        
+        data[2] = fInicio.getTime();
+        data[3] = fFin.getTime();        
         this.callback.actualizar(0,NuevaTareaPlanificacion.CALLBACK_FLAG,true,data);
-        this.dispose();
+        this.dispose();        
+        
+//        Object[] data = new Object[4];
+//        data[0] = this.tareaPadre;
+//        data[1] = this.nombreTareaNueva;
+//        data[2] = this.inicioTarea;
+//        data[3] = this.finTarea;        
+//        this.callback.actualizar(0,NuevaTareaPlanificacion.CALLBACK_FLAG,true,data);
+//        this.dispose();
     }
     
 }
