@@ -1303,7 +1303,7 @@ public class DBExamplesLoader {
                         fechaFinTarea.add(Calendar.DAY_OF_MONTH, (int) Math.random()*5+4);
                         tarea.setFechaFin(fechaFinTarea.getTime());
                         fechaInicioTarea.add(Calendar.DAY_OF_MONTH, (int) Math.random()*8-3);
-
+                        
 //                        // Probando Subtareas
 //                        TareaPlanificacion subTarea = new TareaPlanificacion();
 //                        subTarea.setNombre("SubTarea perteneciente a: "+tarea.getNombre());
