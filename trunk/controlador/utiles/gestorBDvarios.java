@@ -16,6 +16,7 @@ import org.hibernate.EntityMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
+import util.NTupla;
 import util.Tupla;
 
 /**
@@ -119,9 +120,9 @@ public class gestorBDvarios
     {
          //TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
          //RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
-        sesion.beginTransaction();
+        //sesion.beginTransaction();
          List lista = sesion.createQuery("from Especialidad where tipo = (:tipoEsp)").setParameter("tipoEsp", te).list();
-          sesion.getTransaction().commit();
+         // sesion.getTransaction().commit();
          ArrayList<Especialidad> especialidades = new ArrayList<Especialidad>();
             for (int i = 0; i < lista.size(); i++) {
                 Especialidad e = (Especialidad)lista.get(i);
@@ -156,7 +157,7 @@ public class gestorBDvarios
         return esp;
     }
 
-     public ArrayList<Tupla> getTipoEspecialidades()
+     public ArrayList<Tupla> getTuplasTipoEspecialidades()
     {
          //sesion.beginTransaction();
             List lista = sesion.createQuery("from TipoEspecialidad").list();
@@ -169,6 +170,26 @@ public class gestorBDvarios
                // listaNombres.add(td.getNombre());
                 Tupla tupla = new Tupla(te.getId(),te.getNombre());
                     tuplas.add(tupla);
+            }
+
+            return tuplas;
+    }
+     
+      public ArrayList<NTupla> getNTuplasTipoEspecialidades()
+    {
+         //sesion.beginTransaction();
+            List lista = sesion.createQuery("from TipoEspecialidad").list();
+           // sesion.getTransaction().commit();
+
+            //ArrayList<String> listaNombres = new ArrayList<String>();
+            ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
+            for (int i = 0; i < lista.size(); i++) {
+                TipoEspecialidad te = (TipoEspecialidad)lista.get(i);
+               // listaNombres.add(td.getNombre());
+                NTupla nTupla = new NTupla(te.getId());
+                nTupla.setNombre(te.getNombre());
+                nTupla.setData(te);
+                tuplas.add(nTupla);
             }
 
             return tuplas;

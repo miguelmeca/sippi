@@ -57,12 +57,18 @@ public class TareaPlanificacion
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
         this.detalles= new ArrayList<DetalleTareaPlanificacion>();
         
-        for (int i = 0; i < detalles.size(); i++) 
+        for (int i = 0; i < aCopiar.getDetalles().size(); i++) 
         {
            DetalleTareaPlanificacion detalleNuevaTarea=new DetalleTareaPlanificacion(aCopiar.getDetalleParticular(i));
            detalles.add(detalleNuevaTarea);            
         }
         
+        for (int i = 0; i < aCopiar.getSubtareas().size(); i++) 
+        {
+           TareaPlanificacion nuevaSubtarea=new TareaPlanificacion(aCopiar.getSubtareas().get(i));
+           subtareas.add(nuevaSubtarea);            
+        }
+        //TODO: no vale la pena hacer lo q sigue por ahora
         /*for (int i = 0; i < alquilerCompras.size(); i++) 
         {
            PlanificacionXAlquilerCompra planificacionXAlquilerCompra=new PlanificacionXAlquilerCompra(aCopiar.alquilerCompras.get(i));
