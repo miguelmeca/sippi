@@ -206,7 +206,7 @@ public class GestorConsultarDatosEmpleado    {
 	public ArrayList<Tupla> mostrarTipoEspecialidad()
         {
             gestorBDvarios bdv = new gestorBDvarios();
-           return bdv.getTipoEspecialidades();
+           return bdv.getTuplasTipoEspecialidades();
 
 	}
 

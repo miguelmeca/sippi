@@ -116,11 +116,11 @@
                       <Component id="cmbTareaSuperior" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <EmptySpace pref="60" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -165,28 +165,29 @@
                           <Component id="jLabel17" min="-2" pref="58" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="lblPersonasDetalleTPadreDisponibles" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblPersonasDetalleTPadreDisponibles_Nvo" alignment="1" max="32767" attributes="0"/>
+                              <Component id="lblPersonasDetalleTPadreDisponibles" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel8" max="32767" attributes="0"/>
                               <Component id="lblHsNormalesDetalleTPadreDisponibles" max="32767" attributes="0"/>
+                              <Component id="lblHsNormalesDetalleTPadreDisponibles_Nvo" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel9" max="32767" attributes="0"/>
                               <Component id="lblHs50DetalleTPadreDisponibles" max="32767" attributes="0"/>
+                              <Component id="lblHs50DetalleTPadreDisponibles_Nvo" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel10" max="32767" attributes="0"/>
                               <Component id="lblHs100DetalleTPadreDisponibles" max="32767" attributes="0"/>
+                              <Component id="lblHs100DetalleTPadreDisponibles_Nvo" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="32" max="32767" attributes="0"/>
+                          <EmptySpace min="32" pref="69" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -219,6 +220,13 @@
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblPersonasDetalleTPadreDisponibles_Nvo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHsNormalesDetalleTPadreDisponibles_Nvo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHs50DetalleTPadreDisponibles_Nvo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHs100DetalleTPadreDisponibles_Nvo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -321,6 +329,30 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Hs al 50%"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblPersonasDetalleTPadreDisponibles_Nvo">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="---"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblHsNormalesDetalleTPadreDisponibles_Nvo">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="---"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblHs50DetalleTPadreDisponibles_Nvo">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="---"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblHs100DetalleTPadreDisponibles_Nvo">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="---"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -663,7 +695,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="564" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="601" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

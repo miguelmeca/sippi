@@ -238,7 +238,7 @@ public class DetalleTareaPlanificacion {
         this.especialidad = especialidad;
     }
     
-    
+    /*
     public void impactarDatos( int cantidadPersonas,double cantHorasNormales, double cantHorasAl50, double cantHorasAl100, double costoXHoraNormal, Especialidad especialidad, TareaPlanificacion tarea) throws RuntimeException
     {
         if(tarea.getDetalles().indexOf(this)==-1)
@@ -322,8 +322,8 @@ public class DetalleTareaPlanificacion {
             padreNuevo.setCostoXHoraNormal(costoXHoraNormal);
             padreNuevo.setEspecialidad(especialidad);
             padreNuevo.setCantHorasNormales(cantHorasNormales);
-            padreNuevo.setCantHorasNormales(cantHorasAl50);
-            padreNuevo.setCantHorasNormales(cantHorasAl100);
+            padreNuevo.setCantHorasAl50(cantHorasAl50);
+            padreNuevo.setCantHorasAl100(cantHorasAl100);
             
             //Creo la cotizacion de  padre nuevo
             DetalleSubObraXTareaModif padreNuevoCotizado= new DetalleSubObraXTareaModif(padre.cotizado);
@@ -331,8 +331,8 @@ public class DetalleTareaPlanificacion {
             padreNuevoCotizado.setCostoXHoraNormal(costoXHoraNormal);
             padreNuevoCotizado.setEspecialidad(especialidad);
             padreNuevoCotizado.setCantHorasNormales(cantHorasNormales);
-            padreNuevoCotizado.setCantHorasNormales(cantHorasAl50);
-            padreNuevoCotizado.setCantHorasNormales(cantHorasAl100);
+            padreNuevoCotizado.setCantHorasAl50(cantHorasAl50);
+            padreNuevoCotizado.setCantHorasAl100(cantHorasAl100);
             
             padreNuevo.setCotizado(padreNuevoCotizado);
             
@@ -359,7 +359,7 @@ public class DetalleTareaPlanificacion {
         
         if( padre.getCantHorasAl50() <cantHorasAl50) 
         {
-            padre.cotizado.setCantHorasNormales(padre.cotizado.getCantHorasAl50()+(cantHorasAl50-padre.getCantHorasAl50()));
+            padre.cotizado.setCantHorasAl50(padre.cotizado.getCantHorasAl50()+(cantHorasAl50-padre.getCantHorasAl50()));
             padre.setCantHorasAl50(0.0);
         }
         else
@@ -369,7 +369,7 @@ public class DetalleTareaPlanificacion {
         
         if( padre.getCantHorasAl100() <cantHorasAl100)
         {
-            padre.cotizado.setCantHorasNormales(padre.cotizado.getCantHorasAl100()+(cantHorasAl100-padre.getCantHorasAl100()));
+            padre.cotizado.setCantHorasAl100(padre.cotizado.getCantHorasAl100()+(cantHorasAl100-padre.getCantHorasAl100()));
             padre.setCantHorasAl100(0.0);
         }
         else
@@ -383,23 +383,23 @@ public class DetalleTareaPlanificacion {
        if( this.cantHorasNormales >cantHorasNormales)
         {
             padre.setCantHorasNormales(padre.getCantHorasNormales()+(this.cantHorasNormales - cantHorasNormales));
-            padre.setCantHorasNormales(0.0);
+            //padre.setCantHorasNormales(0.0);
         }
         
         if( this.cantHorasAl50 >cantHorasAl50) 
         {
-            padre.setCantHorasNormales(padre.getCantHorasAl50()+(this.cantHorasAl50- cantHorasAl50));
-            padre.setCantHorasAl50(0.0);
+            padre.setCantHorasAl50(padre.getCantHorasAl50()+(this.cantHorasAl50- cantHorasAl50));
+            ///padre.setCantHorasAl50(0.0);
         }
         
         if( this.cantHorasAl100 >cantHorasAl100)
         {
-            padre.setCantHorasNormales(padre.getCantHorasAl100()+(this.cantHorasAl100 - cantHorasAl100));
-            padre.setCantHorasAl100(0.0);
+            padre.setCantHorasAl100(padre.getCantHorasAl100()+(this.cantHorasAl100 - cantHorasAl100));
+            //padre.setCantHorasAl100(0.0);
         }
         
        
-    }
+    }*/
     
     public void eliminar(boolean horasAlPadre)
     {
