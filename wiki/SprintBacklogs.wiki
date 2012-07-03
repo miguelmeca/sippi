@@ -1,12 +1,12 @@
 #labels Phase-Requirements
 = Product Backlog =
 El backlog de todo el producto:
-[https://code.google.com/p/sippi/issues/list?can=2&q=&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&cells=tiles Product Backlog]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&cells=tiles Product Backlog]
 
 = Defects Backlogs =
 El Backlog que contiene todos los defectos abiertos:
-[https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto Defects List]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto Defects List]
 
 = Sprint Backlogs =
 Listado de los backlogs separados por sprints:
-[https://code.google.com/p/sippi/issues/list?can=2&q=label:Tipo-Tarea%20label:Iteracion-6%20label:Sprint-1&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles&mode=grid Iteración 6 - Sprint 1]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=label:Tipo-Tarea%20label:Iteracion-6%20label:Sprint-1&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles&mode=grid Iteración 6 - Sprint 1]
