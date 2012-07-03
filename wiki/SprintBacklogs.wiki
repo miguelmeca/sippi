@@ -1,4 +1,7 @@
 #labels Phase-Requirements
+= Product Backlog =
+[https://code.google.com/p/sippi/issues/list?can=2&q=&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&cells=tiles Product Backlog]
+
 = Defects Backlogs =
 [https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto Defects List]
 
