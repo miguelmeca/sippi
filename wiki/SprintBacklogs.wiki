@@ -1,6 +1,4 @@
 #labels Phase-Requirements
-#Listados de los Work Items y los BackLogs.
-
 = Product Backlog =
 El backlog de todo el producto:
 [https://code.google.com/p/sippi/issues/list?can=2&q=&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&cells=tiles Product Backlog]
