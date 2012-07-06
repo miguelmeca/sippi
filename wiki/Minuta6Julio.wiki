@@ -2,8 +2,11 @@
 = Minuta 6 de Julio 2012=
 
 == Planificacion ==
-La ventana de Ejecucion va a ser igual que la de Planificacion.
+La ventana de Ejecucion va a ser analoga a la de Planificacion.
 
 Va a ser una herencia, tanto de la ventana como del gestor.
 
-El gantt va a ser No editable (redimensionable) y va a mostrar un progreso del avance de la tarea. El avance es un % que el usuario va a ingresar sobre el progreso y avance de toda la tarea.
+El gantt va a ser No-editable (tareas redimensionables) y va a mostrar un progreso del avance de la tarea. El avance es un (%) que el usuario va a ingresar sobre el progreso y avance de toda la tarea.
+
+
+
