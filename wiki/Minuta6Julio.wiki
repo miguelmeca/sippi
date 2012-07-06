@@ -17,3 +17,4 @@
   * Ventana para agregar una herramienta a la empresa ( puede asociarse a una orden de compra )
 
   * Ventana de ABM para cargar Materiales.
+  * Emma: Mandar las fotos de los prototipos
