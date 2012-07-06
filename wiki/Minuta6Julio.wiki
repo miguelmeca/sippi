@@ -1,0 +1,5 @@
+#labels Phase-Requirements
+= Minuta 6 de Julio 2012=
+
+== Detalles ==
+  * asd
