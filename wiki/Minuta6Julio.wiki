@@ -15,3 +15,5 @@ Arreglar las ventanas del emma (Issue 16)
 
 == Notas Generales ==
 Ventana para agregar una herramienta a la empresa ( puede asociarse a una orden de compra )
+
+Ventana de ABM para cargar Materiales.
