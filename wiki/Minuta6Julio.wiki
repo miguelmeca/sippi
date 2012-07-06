@@ -9,6 +9,7 @@ Va a ser una herencia, tanto de la ventana como del gestor.
 El gantt va a ser No-editable (tareas redimensionables) y va a mostrar un progreso del avance de la tarea. El avance es un (%) que el usuario va a ingresar sobre el progreso y avance de toda la tarea.
 
 == Planificacion ==
+Arreglar las ventanas del emma (Issue 16)
 
 == Lanzamiento ==
 
