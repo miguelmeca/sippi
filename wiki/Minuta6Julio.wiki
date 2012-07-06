@@ -14,3 +14,4 @@ Arreglar las ventanas del emma (Issue 16)
 == Lanzamiento ==
 
 == Notas Generales ==
+Ventana para agregar una herramienta a la empresa ( puede asociarse a una orden de compra )
