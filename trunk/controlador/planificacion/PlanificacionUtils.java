@@ -329,4 +329,54 @@ public class PlanificacionUtils {
             return false;
         }  
     }
+
+    /**
+     * RECURSIVA:
+     * Cuando le cambio la fecha de inicio a una tarea, verifico si es posible el cambio
+     * y que sus tareas hijas no queden afuera de la tarea padre ( la que estoy modificando )
+     * @param planificacion lanificacion sobre la que se esta trabajando
+     * @param boolean Boolean, TRUE valida la fecha de inicio, en FALSE la de Fin
+     * @param date Fecha a validar
+     * @param tarea Tarea a la que se le quiere cambiar la fecha de inicio/fin
+     * @return 
+     */
+    public static boolean esFechaValidaParaSusHijas(boolean inicio, Date date, TareaPlanificacion tarea) {
+        
+        if(tarea!=null)
+        {
+             for (int i = 0; i < tarea.getSubtareas().size(); i++) {
+                TareaPlanificacion t = tarea.getSubtareas().get(i);
+                if(inicio)
+                {
+                    // Si es la de inicio A la izquierda puedo mover libremente
+                    if(!FechaUtil.fechaMayorOIgualQue(tarea.getFechaInicio(), date))
+                    {
+                        // Muevo a la derecha
+                        if(!FechaUtil.fechaMayorOIgualQue(t.getFechaInicio(),date))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    // Si es la de Fin A la derecha puedo mover libremente
+                    if(!FechaUtil.fechaMayorOIgualQue(date,tarea.getFechaFin()))
+                    {
+                        // muevo a la izquierda
+                        if(!FechaUtil.fechaMayorOIgualQue(date,t.getFechaFin()))
+                        {
+                            return false;
+                        }
+                    }
+                }
+             }
+        }
+        else
+        {
+            return false;
+        }
+        return true; // No tiene hijas
+    }
+
 }

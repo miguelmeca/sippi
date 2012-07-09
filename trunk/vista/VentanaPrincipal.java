@@ -73,7 +73,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         cargarFavoritosGuardados();
         
-        cargarHomeScreen();
+        //cargarHomeScreen();
     }
 
     public void mostrarCargando(boolean flag)
