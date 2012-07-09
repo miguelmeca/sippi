@@ -655,17 +655,25 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             if(PlanificacionUtils.esFechaValidaParaHija(planificacion,true,date,nuevaTarea) &&
                PlanificacionUtils.esFechaValidaParaHija(planificacion,false,res,nuevaTarea)  )
             {
-                nuevaTarea.setFechaInicio(date);
-
-                if(nuevaTarea.getFechaInicio().after(date))
+                if(PlanificacionUtils.esFechaValidaParaSusHijas(true,date,nuevaTarea) && 
+                   PlanificacionUtils.esFechaValidaParaSusHijas(false,res,nuevaTarea))
                 {
-                    // Derecha
-                    nuevaTarea.setFechaFin(res);
+                    nuevaTarea.setFechaInicio(date);
+
+                    if(nuevaTarea.getFechaInicio().after(date))
+                    {
+                        // Derecha
+                        nuevaTarea.setFechaFin(res);
+                    }
+                    else
+                    {
+                        // Izquierda
+                        nuevaTarea.setFechaFin(res);
+                    }
                 }
                 else
                 {
-                    // Izquierda
-                    nuevaTarea.setFechaFin(res);
+                    _pantalla.refreshGanttAndData();
                 }
             }
             else
@@ -682,7 +690,15 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             if(PlanificacionUtils.esFechaValidaParaHija(planificacion,true,date,nuevaTarea))
             {
-                nuevaTarea.setFechaInicio(date);
+                if(PlanificacionUtils.esFechaValidaParaSusHijas(true,date,nuevaTarea))
+                {
+                    nuevaTarea.setFechaInicio(date);
+                }
+                else
+                {
+                    _pantalla.refreshGanttAndData();
+                }
+                
             }
             else
             {
@@ -704,7 +720,14 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             if(PlanificacionUtils.esFechaValidaParaHija(planificacion,false,date,nuevaTarea))
             {
-                nuevaTarea.setFechaFin(date);
+                if(PlanificacionUtils.esFechaValidaParaSusHijas(false,date,nuevaTarea))
+                {
+                    nuevaTarea.setFechaFin(date);
+                }
+                else
+                {
+                    _pantalla.refreshGanttAndData();
+                }
             }
             else
             {
