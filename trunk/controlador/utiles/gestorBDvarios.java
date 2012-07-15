@@ -41,7 +41,30 @@ public class gestorBDvarios
             }
     }
 
+    public ArrayList<Tupla> getUnidadesDeMedida()
+    {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        List lista = new ArrayList();
+        try
+        {
+            HibernateUtil.beginTransaction();
+            lista = HibernateUtil.getSession().createQuery("from UnidadDeMedida").list();
+            HibernateUtil.commitTransaction();
+        }catch(Exception e)
+        {
+            return tuplas;
+        }
+       
+        
+        for (int i = 0; i < lista.size(); i++) {
+            UnidadDeMedida td = (UnidadDeMedida)lista.get(i);
+            Tupla tupla = new Tupla(td.getId(),td.getNombre()+" ["+td.getAbreviatura()+"]");
+            tuplas.add(tupla);
+        }
 
+        return tuplas;
+    }
+    
      public ArrayList<Tupla> getTiposDeDocumento()
     {
          //sesion.beginTransaction();

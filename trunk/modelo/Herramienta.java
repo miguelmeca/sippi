@@ -15,8 +15,6 @@ public class Herramienta extends Recurso{
     public Herramienta() {
         estado = "Alta";
     }
-    
-    
 
     public String getEstado() {
         return estado;
