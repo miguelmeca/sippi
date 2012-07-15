@@ -16,6 +16,8 @@ import util.HibernateUtil;
 
 public class RecursoEspecifico {
 
+    public final static String[] tiposDeRecurso = {"Materiales", "Herramientas"};
+    
     private int id;
     private String nombre;
     private String descipcion;
@@ -41,6 +43,10 @@ public class RecursoEspecifico {
     }
 
     public String getDescipcion() {
+        if(descipcion==null)
+        {
+            return "";
+        }
         return descipcion;
     }
 
@@ -145,6 +151,30 @@ public class RecursoEspecifico {
                     return null;
                }
            return null;
+    }
+    
+    public String getNombreRecurso()
+    {
+        Recurso r = getRecurso();
+        if(r!=null)
+        {
+            return r.getNombre();
+        }
+        return "";
+    }
+    
+    public String getTipoRecursoespecifico()
+    {
+        Recurso r = getRecurso();
+        if(r instanceof Material)
+        {
+            return RecursoEspecifico.tiposDeRecurso[0];
+        }
+        if(r instanceof Herramienta)
+        {
+            return RecursoEspecifico.tiposDeRecurso[1];
+        }
+        return "";
     }
 
 

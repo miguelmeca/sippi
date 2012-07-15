@@ -17,7 +17,7 @@ import util.Tupla;
  */
 
 public abstract class Recurso {
-
+    
     private int id;
     private String nombre;
     private List<RecursoEspecifico> recursos;

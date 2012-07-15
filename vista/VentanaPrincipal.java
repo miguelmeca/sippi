@@ -31,6 +31,7 @@ import modelo.HerramientaDeEmpresa;
 import net.sf.cglib.proxy.Factory;
 import test.TestABM;
 import test.TestCallBackListadoGenerico;
+import vista.abms.ListadoRecursosEmpresa;
 import vista.ayuda.VisorDeAyuda;
 import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
@@ -218,6 +219,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnMenuListadoOrdenesCompra = new javax.swing.JMenuItem();
         btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
         btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
+        btnMnuRecursos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -539,6 +541,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnMenuListadoCotizaciones);
 
+        btnMnuRecursos.setText("Recursos");
+        btnMnuRecursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMnuRecursosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMnuRecursos);
+
         jMenuBar1.add(jMenu2);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
@@ -778,6 +788,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);     
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void btnMnuRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMnuRecursosActionPerformed
+        ListadoRecursosEmpresa win = new ListadoRecursosEmpresa();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);         
+    }//GEN-LAST:event_btnMnuRecursosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;
     private javax.swing.JMenuItem btnMenuAcercaDe;
@@ -788,6 +804,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem btnMenuListadoOrdenesCompra;
     private javax.swing.JMenuItem btnMenuListadoPlanificaciones;
     private javax.swing.JMenuItem btnMenuListadoProveedores;
+    private javax.swing.JMenuItem btnMnuRecursos;
     private javax.swing.JButton btnSalir;
     private javax.swing.JToggleButton btnSiderbarAutoHide;
     private javax.swing.JMenu jMenu1;
