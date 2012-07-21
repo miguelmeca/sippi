@@ -22,9 +22,14 @@ public abstract class Recurso {
     private String nombre;
     private List<RecursoEspecifico> recursos;
     private UnidadDeMedida unidadDeMedida;
+    private String estado;
+    
+    public static final String ESTADO_ALTA = "Alta";
+    public static final String ESTADO_BAJA = "Baja";
 
     public Recurso() {
         recursos = new ArrayList<RecursoEspecifico>();
+        estado = Recurso.ESTADO_ALTA;
     }
 
     public boolean esRubro(int idRubro)
@@ -72,4 +77,27 @@ public abstract class Recurso {
     public void setUnidadDeMedida(UnidadDeMedida unidadDeMedida) {
         this.unidadDeMedida = unidadDeMedida;
     }
+    
+    public String mostrarUnidadDeMedida() {
+        if(unidadDeMedida!=null)
+        {
+            return unidadDeMedida.getNombre()+" ["+unidadDeMedida.getAbreviatura()+"]";
+        }
+        return "";
+        
+    }
+
+    public String getEstado() {
+        if(this.estado==null)
+        {
+            return "";
+        }
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
 }

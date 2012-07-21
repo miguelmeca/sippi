@@ -42,6 +42,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     private ICallBackGen origenCallback = null;
     
     private String filtroActivo;
+    private FiltroPasivo filtoPasivo;
     
     /** Creates new form pantallaConsultar */
     public PantallaConsultarGenerica(Class entidad) {
@@ -61,7 +62,16 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         initComponents();
         initConfig();
         habilitarVentana();
-    }    
+    }   
+    
+    public PantallaConsultarGenerica(Class entidad,FiltroPasivo filtoPasivo) {
+        this.entidad = entidad;                
+        this.filtoPasivo = filtoPasivo;
+        filtroActivo = new String();
+        initComponents();
+        initConfig();
+        habilitarVentana();
+    }        
     
     private void habilitarVentana()
     {
@@ -94,7 +104,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 {
                     if(!this.filtroActivo.isEmpty())
                     {
-                        lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" WHERE "+this.filtroActivo).list();
+                        lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" As SC WHERE "+this.filtroActivo).list();
                     }
                     else
                     {
@@ -103,8 +113,14 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 }
                 else
                 {
-                    lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" WHERE "+getFiltrosActivos()).list();
+                    lista = sesion.createQuery("FROM "+this.entidad.getSimpleName()+" As SC WHERE "+getFiltrosActivos()).list();
                 }
+                
+                if(this.filtoPasivo!=null)
+                {
+                    lista = this.filtoPasivo.Excecute(lista);
+                }
+                
                 for (int i = 0; i < lista.size(); i++) 
                 {
                     Object obj = lista.get(i);

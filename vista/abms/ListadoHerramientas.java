@@ -5,26 +5,30 @@
 package vista.abms;
 
 import java.util.ArrayList;
-import modelo.Cotizacion;
-import modelo.Material;
+import java.util.List;
+import modelo.Herramienta;
 import modelo.RecursoEspecifico;
 import util.SwingPanel;
-import vista.cotizacion.ExplorarSubObras;
+import vista.gen.FiltroPasivo;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
  *
  * @author Administrador
  */
-public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
-
-    public ListadoRecursosEmpresa(Class entidad) {
+public class ListadoHerramientas  extends PantallaConsultarGenerica {
+    
+    public ListadoHerramientas(Class entidad) {
         super(entidad);
     }
 
-    public ListadoRecursosEmpresa() {
+    public ListadoHerramientas() {
         super(RecursoEspecifico.class);
     }
+    
+    public ListadoHerramientas(FiltroPasivo filtro) {
+        super(RecursoEspecifico.class,filtro);
+    }    
   
     @Override
     protected ArrayList<String[]> getColumnas()
@@ -37,18 +41,14 @@ public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
             columnas.add(new String[]{"getDescipcion","Descripcion"});
         
         return columnas;
-    }
-    
-    @Override
-    protected String[] getColumnasFiltro() {
-        return new String[]{"Tipo"};
-    }
+    }    
     
     @Override
     protected void abrirEntidad(int id) {
-        PantallaGestionarRecursos win = new PantallaGestionarRecursos(Material.class,id);
+        PantallaGestionarRecursos win = new PantallaGestionarRecursos(Herramienta.class,id);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
-    }    
+    }
+    
     
 }
