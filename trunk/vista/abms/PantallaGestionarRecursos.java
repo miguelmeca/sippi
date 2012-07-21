@@ -52,7 +52,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         initTituloVentana();
         initComboRecursos();
         initNombres();
-        initLoadComponent(id);
+        initLoadComponent();
     }
     
     
@@ -74,9 +74,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtNombreEspec = new javax.swing.JTextField();
@@ -118,15 +116,9 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
         jLabel3.setText("Seleccione el Nombre General del recurso que desee agregar, algunos ejemplos:");
 
-        jLabel6.setText("Materiales:");
+        jLabel6.setText("Materiales: Chapas, Hierros, Tornillos, Pintura, Electrodos, etc");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel8.setText("Chapas, Hierros, Tornillos, Pintura, Electrodos, etc");
-
-        jLabel9.setText("Herramientas:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jLabel10.setText("Tornos, Fresadora, Autoelevadora, Moladora, etc");
+        jLabel9.setText("Herramientas: Tornos, Fresadora, Autoelevadora, Moladora, etc");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -134,20 +126,13 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,13 +142,9 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                .addComponent(jLabel9)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -267,7 +248,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreEspec)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -324,14 +305,10 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCancelar)
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnNuevoModificar)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnNuevoModificar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -376,43 +353,59 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
     private void btnNuevoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoModificarActionPerformed
 
+        if(txtNombreEspec.getText().isEmpty())
+        {
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Ingrese un nombre para el Recurso");
+            return;
+        }
+        
         if(this.id==-1)
         {
             // Creo uno nuevo
-            RecursoEspecifico nuevo = new RecursoEspecifico();
-            nuevo.setDescipcion(txtDescEspec.getText());
-            nuevo.setNombre(txtNombreEspec.getText());
+            this.recursoEspecifico = new RecursoEspecifico();
+            this.recursoEspecifico.setDescipcion(txtDescEspec.getText());
+            this.recursoEspecifico.setNombre(txtNombreEspec.getText());
+        }
+        else
+        {
+            // Modifico
+            this.recursoEspecifico.setDescipcion(txtDescEspec.getText());
+            this.recursoEspecifico.setNombre(txtNombreEspec.getText());
+        }
+        
+        // UN recursoEspecifico tiene una Lista de RecursoXProveedor
+        List<RecursoXProveedor> proveedores = new ArrayList<RecursoXProveedor>();
+        DefaultTableModel modelo = (DefaultTableModel)tblProveedores.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Tupla fila = (Tupla)modelo.getValueAt(i, 0);
 
-            // UN recursoEspecifico tiene una Lista de RecursoXProveedor
-            List<RecursoXProveedor> proveedores = new ArrayList<RecursoXProveedor>();
-            DefaultTableModel modelo = (DefaultTableModel)tblProveedores.getModel();
-            for (int i = 0; i < modelo.getRowCount(); i++) {
-                Tupla fila = (Tupla)modelo.getValueAt(i, 0);
+            Proveedor p = getProveedor(fila.getId());
+            if(p!=null)
+            {
+                RecursoXProveedor rxp = new RecursoXProveedor();
+                rxp.setProveedor(p);
+                proveedores.add(rxp);
 
-                Proveedor p = getProveedor(fila.getId());
-                if(p!=null)
-                {
-                    RecursoXProveedor rxp = new RecursoXProveedor();
-                    rxp.setProveedor(p);
-                    proveedores.add(rxp);
-
-                    // A su vez ese proveedor tiene la lista de RecursosEspecificos
-                    p.getListaArticulos().add(nuevo);
-                }
-                else
-                {
-                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar el Proveedor a asociar");
-                    return;
-                }
+                // A su vez ese proveedor tiene la lista de RecursosEspecificos
+                p.getListaArticulos().add(this.recursoEspecifico);
             }
-            nuevo.setProveedores(proveedores);
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar el Proveedor a asociar");
+                return;
+            }
+        }
+        this.recursoEspecifico.setProveedores(proveedores);
             
             // Ahora creo cargo el RECURSO y le asocio el recurso Especifico
             Tupla tp = (Tupla) cmbRecursos.getSelectedItem();
             Recurso r = getRecurso(tp.getId());
             if(r!=null)
             {
-                r.getRecursosEspecificos().add(nuevo);
+                if(!r.yaTieneRecursoEspecifico(this.recursoEspecifico.getId()))
+                {
+                    r.getRecursosEspecificos().add(this.recursoEspecifico);
+                }
             }
             else
             {
@@ -420,39 +413,57 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 return;
             }
             
-                    try
+            // Si cambie el recurso, tengo que borrar la relacion vieja a Recurso Especifico
+            if(r.getId()!=this.recurso.getId())
+            {
+                // r = recurso nuevo
+                // this.recurso = recurso viejo
+                List lrecesp = this.recurso.getRecursosEspecificos();
+                for (int i = 0; i < lrecesp.size(); i++) {
+                    RecursoEspecifico rec = (RecursoEspecifico)lrecesp.get(i);
+                    if(rec.getId()==this.recursoEspecifico.getId())
                     {
-                        HibernateUtil.beginTransaction();
-                            HibernateUtil.getSession().save(nuevo);
-                            
-                            for (int i = 0; i < nuevo.getRecursosXProveedor().size(); i++) {
-                                
-                                RecursoXProveedor rxp = nuevo.getRecursosXProveedor().get(i);
-                                HibernateUtil.getSession().saveOrUpdate(rxp);
-                                
-                                Proveedor p = rxp.getProveedor();
-                                HibernateUtil.getSession().update(p);
-                            }
-                            
-                            HibernateUtil.getSession().update(nuevo);
-                            HibernateUtil.getSession().update(r);
-                            
-                        HibernateUtil.commitTransaction();
-
-                    }catch(Exception e)
-                    {
-                        HibernateUtil.rollbackTransaction();
-                        mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Crear el nuevo Recurso Especifico");
-                        return;
+                        lrecesp.remove(i);
                     }
-        }
-        else
-        {
-            // Modifico
+                }
+            }
+            
+            try
+            {
+                HibernateUtil.beginTransaction();
+                    HibernateUtil.getSession().save(this.recursoEspecifico);
+
+                    for (int i = 0; i < this.recursoEspecifico.getRecursosXProveedor().size(); i++) {
+
+                        RecursoXProveedor rxp = this.recursoEspecifico.getRecursosXProveedor().get(i);
+                        HibernateUtil.getSession().saveOrUpdate(rxp);
+
+                        Proveedor p = rxp.getProveedor();
+                        HibernateUtil.getSession().update(p);
+                    }
+
+                    HibernateUtil.getSession().update(this.recursoEspecifico);
+                    HibernateUtil.getSession().update(r);
+                    HibernateUtil.getSession().saveOrUpdate(this.recurso);
+
+                HibernateUtil.commitTransaction();
+
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Crear el nuevo Recurso Especifico");
+                return;
+            }        
         
-        }
-        
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","El nuevo Recurso se creo Exitosamente !!");
+            if(this.id==-1)
+            {
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","El nuevo Recurso se creo Exitosamente !!");
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","El Recurso se modificó Exitosamente !!");
+            }
+            
         this.dispose();
     }//GEN-LAST:event_btnNuevoModificarActionPerformed
 
@@ -465,12 +476,10 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
     private javax.swing.JButton btnNuevoModificar;
     private javax.swing.JComboBox cmbRecursos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -483,23 +492,21 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
     private javax.swing.JTextField txtNombreEspec;
     // End of variables declaration//GEN-END:variables
 
-    private void initLoadComponent(int id) {
+    private void initLoadComponent() {
         
         try
         {
             HibernateUtil.beginTransaction();
-            recursoEspecifico = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class,id);
+            recursoEspecifico = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class,this.id);
             HibernateUtil.commitTransaction();
         }catch(Exception e)
         {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar el Recurso indicado");
+            this.dispose();
         }
-        
         
         if(recursoEspecifico!=null)
         {
-            System.out.println("RE:"+recursoEspecifico.toString());
-            
             txtNombreEspec.setText(recursoEspecifico.getNombre());
             
             if(recursoEspecifico.getDescipcion()!=null)
@@ -507,19 +514,40 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 txtDescEspec.setText(recursoEspecifico.getDescipcion());
             }
             
+            // Get Proveedores
+            DefaultTableModel modelo = (DefaultTableModel) tblProveedores.getModel();
+            for (int i = 0; i < recursoEspecifico.getProveedores().size(); i++) {
+                RecursoXProveedor rxp = recursoEspecifico.getProveedores().get(i);
+                if(rxp.getProveedor()!=null)
+                {
+                    Tupla tp = new Tupla(rxp.getProveedor().getId(),rxp.getProveedor().getRazonSocial());
+
+                    Object[] fila = new Object[2];
+                        fila[0] = tp;
+                        fila[1] = rxp.getProveedor().getCuit();
+
+                    modelo.addRow(fila);
+                }
+            }
         }
         
         // Get Recurso
         this.recurso = recursoEspecifico.getRecurso();
         if(this.recurso!=null)
         {   
-            //txtNombre.setText(this.recurso.getNombre());
-
+            for (int i = 0; i < cmbRecursos.getItemCount(); i++) {
+                Tupla tp = (Tupla) cmbRecursos.getItemAt(i);
+                if(tp.getId()==this.recurso.getId())
+                {
+                    cmbRecursos.setSelectedIndex(i);
+                }
+            }
         }
         else
         {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar el Recurso indicado");
         }
+
         
     }
     
@@ -546,7 +574,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 
                 for (int i = 0; i < listaRec.size(); i++) {
                     Recurso rec1 = listaRec.get(i);
-                    Tupla tp = new Tupla(rec1.getId(),rec1.getNombre());
+                    Tupla tp = new Tupla(rec1.getId(),rec1.getNombre()+" ["+rec1.getUnidadDeMedida().getAbreviatura()+"]");
                     cmbRecursos.addItem(tp);
                 }
                 
@@ -584,6 +612,12 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         // Selecciono un Proveedor, lo agergo a la lista
         if(flag.equals(PantallaGestionarRecursos.FLAG_SELECCIONAR_PROVEEDOR))
         {
+            // Veo si no esta ya agregado
+            if(elProveedorYaEstaAgregado(id))
+            {
+                return;
+            }
+            
             try
             {
                 HibernateUtil.beginTransaction();
@@ -653,4 +687,22 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             }
         return null;
     }    
+    
+    private boolean elProveedorYaEstaAgregado(int id)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tblProveedores.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Tupla fila = (Tupla)modelo.getValueAt(i, 0);
+
+            Proveedor p = getProveedor(fila.getId());
+            if(p!=null)
+            {
+                if(p.getId()==id)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

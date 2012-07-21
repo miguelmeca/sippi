@@ -99,5 +99,16 @@ public abstract class Recurso {
         this.estado = estado;
     }
     
+    public boolean yaTieneRecursoEspecifico(int id)
+    {
+        for (int i = 0; i < recursos.size(); i++) {
+            RecursoEspecifico re = recursos.get(i);
+            if(re.getId()==id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
 }
