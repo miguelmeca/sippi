@@ -10,18 +10,18 @@ package modelo;
 
 public class Herramienta extends Recurso{
 
-    private String estado;
-
     public Herramienta() {
-        estado = "Alta";
+        
     }
 
+    @Override
     public String getEstado() {
-        return estado;
+        return super.getEstado();
     }
 
+    @Override
     public void setEstado(String estado) {
-        this.estado = estado;
+        super.setEstado(estado);
     }
     
     @Override
@@ -29,4 +29,16 @@ public class Herramienta extends Recurso{
     {
         return "Herramienta";
     }
+
+    @Override
+    public String getNombre() {
+        return super.getNombre();
+    }
+
+    @Override
+    public String mostrarUnidadDeMedida() {
+        return super.mostrarUnidadDeMedida();
+    }
+    
+    
 }

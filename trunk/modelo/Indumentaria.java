@@ -22,10 +22,6 @@ public class Indumentaria extends Recurso{
         this.talle = talle;
     }
 
-    public EstadoIndumentaria getEstado() {
-        return estado;
-    }
-
     public void setEstado(EstadoIndumentaria estado) {
         this.estado = estado;
     }

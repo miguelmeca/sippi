@@ -10,21 +10,26 @@ import modelo.Material;
 import modelo.RecursoEspecifico;
 import util.SwingPanel;
 import vista.cotizacion.ExplorarSubObras;
+import vista.gen.FiltroPasivo;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
  *
  * @author Administrador
  */
-public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
+public class ListadoMateriales  extends PantallaConsultarGenerica {
 
-    public ListadoRecursosEmpresa(Class entidad) {
+    public ListadoMateriales(Class entidad) {
         super(entidad);
     }
 
-    public ListadoRecursosEmpresa() {
-        super(RecursoEspecifico.class);
+    public ListadoMateriales() {
+        super(Material.class);
     }
+    
+    public ListadoMateriales(FiltroPasivo filtro) {
+        super(RecursoEspecifico.class,filtro);
+    }    
   
     @Override
     protected ArrayList<String[]> getColumnas()
