@@ -24,7 +24,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     private static final int OPTN_DATOSGRALES           = 0;
     private static final int OPTN_SUBTAREAS             = 1;
     private static final int OPTN_ESFUERZO              = 2;
-    private static final int OPTN_ASIG_EMPLEADOS        = 3;
+    //private static final int OPTN_ASIG_EMPLEADOS        = 3;
     private static final int OPTN_HERRAMIENTAS          = 4;
     private static final int OPTN_MATERIALES            = 5;
     private static final int OPTN_ALQUILERES_COMPRAS    = 6;
@@ -121,7 +121,6 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
                 {"Datos Generales"},
                 {"Subtareas"},
                 {"Esfuerzo"},
-                {"Asignación de Empleados"},
                 {"Herramientas"},
                 {"Materiales"},
                 {"Alquileres/Compras"}
@@ -157,7 +156,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
         );
 
         btnGuardarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N

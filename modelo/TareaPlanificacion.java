@@ -602,6 +602,11 @@ public class TareaPlanificacion
         this.detalles.add(detalle);
     }
     
+    public void agreagarDetalle(DetalleTareaPlanificacion detalle, int indice) throws RuntimeException{
+        if(indice>(detalles.size()+1))
+        {throw new RuntimeException("Indice fuera de rango");}
+        this.detalles.add(indice, detalle);
+    }
     
     public DetalleTareaPlanificacion getDetalleParticular(int i) {
         return detalles.get(i);
@@ -683,5 +688,30 @@ public class TareaPlanificacion
         total += obtenerTotalDeHorasAl50ConSubtareas();
         total += obtenerTotalDeHorasAl100ConSubtareas();
         return total;
+    }
+    public boolean tieneDetalle(DetalleTareaPlanificacion detalle)
+    {
+        if(this.detalles.indexOf(detalle)==-1)
+        {return false;}
+        else{return true;}
+        
+        /*for (int i = 0; i < this.detalles.size(); i++) {
+            if(this.detalles.get(i).equals(detalle))
+            {return true;}
+        }
+        return false;*/
+    }
+    
+    public TareaPlanificacion buscarDetalleEnSubtareas(DetalleTareaPlanificacion detalle)
+    {
+        for (int i = 0; i < this.subtareas.size(); i++) {
+            if(this.subtareas.get(i).tieneDetalle(detalle))
+            {return subtareas.get(i);}
+            else
+            {
+               subtareas.get(i).buscarDetalleEnSubtareas(detalle);
+            }
+        }
+        return null;
     }
 }

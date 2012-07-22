@@ -247,7 +247,21 @@ public class PlanificacionXXX {
         this.tareas.add(soxt);
     }
     
-    
+    public TareaPlanificacion getTareaDeDetalle(DetalleTareaPlanificacion detalle)
+    {
+        for (int i = 0; i < this.tareas.size(); i++) {
+            if(this.tareas.get(i).tieneDetalle(detalle))
+            {return this.tareas.get(i);}
+            else
+            {
+                TareaPlanificacion tareaX=this.tareas.get(i).buscarDetalleEnSubtareas(detalle);
+                if(tareaX!=null)
+                {return tareaX;}
+            }
+            
+        }
+        return null;
+    }
     
     
      

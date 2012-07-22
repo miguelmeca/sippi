@@ -28,6 +28,7 @@ public class SubObraXTareaModif extends SubObraXTarea {
         super.setObservaciones(aCopiar.getObservaciones());
         super.setTipoTarea(aCopiar.getTipoTarea());
         List<DetalleSubObraXTareaModif> detallesAux=aCopiar.getDetallesMod();
+        
         detallesMod=new ArrayList<DetalleSubObraXTareaModif>();
         for (DetalleSubObraXTareaModif detalleMod:detallesAux) 
         {
@@ -117,5 +118,45 @@ public class SubObraXTareaModif extends SubObraXTarea {
     public DetalleSubObraXTarea getDetalleParticular(int i) {
         return (DetalleSubObraXTarea)super.getDetalleParticular(i);
     }*/
+    
+     public double obtenerTotalDeHorasNormales()
+    {
+        double totalHorasNormales=0;
+        for (DetalleSubObraXTareaModif detalle: detallesMod) 
+        {
+            totalHorasNormales+=(detalle.getCantHorasNormales()*detalle.getCantidadPersonas());
+        }
+        return totalHorasNormales;
+    }
+    public double obtenerTotalDeHorasAl50()
+    {
+        double totalHoras50=0;
+        for (DetalleSubObraXTareaModif detalle: detallesMod) 
+        {
+            totalHoras50+=(detalle.getCantHorasAl50()*detalle.getCantidadPersonas());
+        }
+        return totalHoras50;
+    }
+    public double obtenerTotalDeHorasAl100()
+    {
+        double totalHoras100=0;
+        for (DetalleSubObraXTareaModif detalle: detallesMod) 
+        {
+            totalHoras100+=(detalle.getCantHorasAl100()*detalle.getCantidadPersonas());
+        }
+        return totalHoras100;
+    }
+    
+    @Override
+    public double calcularSubtotal() 
+    {        
+        double subT=0.0;
+        for (int i = 0; i < detallesMod.size(); i++) 
+        {
+            subT+=detallesMod.get(i).calcularSubtotal();
+            
+        }               
+       return subT; 
+    }
     
 }
