@@ -20,6 +20,7 @@ public class DetalleSubObraXTareaModif extends DetalleSubObraXTarea {
         super.setCantHorasAl50(aCopiar.getCantHorasAl50());
         super.setCantHorasAl100(aCopiar.getCantHorasAl100());
         super.setEspecialidad(aCopiar.getEspecialidad());
+        super.setCostoXHoraNormal(aCopiar.getCostoXHoraNormal());
         this.original=aCopiar.original;
         
     }

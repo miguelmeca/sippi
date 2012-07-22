@@ -81,7 +81,7 @@ public class DetalleTareaPlanificacion {
     /**
      * @return the original
      */
-    public DetalleSubObraXTarea getCotizado() {
+    public DetalleSubObraXTareaModif getCotizado() {
         return cotizado;
     }
 
@@ -401,10 +401,7 @@ public class DetalleTareaPlanificacion {
        
     }*/
     
-    public void eliminar(boolean horasAlPadre)
-    {
-        
-    }
+    
     
     
     
