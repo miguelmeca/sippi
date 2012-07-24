@@ -997,23 +997,23 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if(this.estadoCotizacion.equals("En Creacion"))
-        {
-            int btn = JOptionPane.showConfirmDialog(this,"Para que el reporte muestre los datos actualizados, necesita guardar la cotización antes de continuar\n¿Desea Guardar y Continuar?","Atención",JOptionPane.YES_NO_OPTION);
-            switch(btn)
-            {
-                case JOptionPane.YES_OPTION:
-                    if(guardarCotizacion())
-                    {
+//        if(this.estadoCotizacion.equals("En Creacion"))
+//        {
+//            int btn = JOptionPane.showConfirmDialog(this,"Para que el reporte muestre los datos actualizados, necesita guardar la cotización antes de continuar\n¿Desea Guardar y Continuar?","Atención",JOptionPane.YES_NO_OPTION);
+//            switch(btn)
+//            {
+//                case JOptionPane.YES_OPTION:
+//                    if(guardarCotizacion())
+//                    {
                         GenerarCotizacion gce = new GenerarCotizacion(this.cotizacionId);
                         SwingPanel.getInstance().addWindow(gce);
                         gce.setVisible(true);
-                    }
-                    break;
-                case JOptionPane.NO_OPTION:
-                    break;
-            }
-        }
+//                    }
+//                    break;
+//                case JOptionPane.NO_OPTION:
+//                    break;
+//            }
+//        }
         
 }//GEN-LAST:event_jButton1ActionPerformed
 
