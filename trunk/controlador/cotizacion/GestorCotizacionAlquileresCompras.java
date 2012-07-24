@@ -4,20 +4,20 @@
  */
 package controlador.cotizacion;
 
+import controlador.planificacion.PlanificacionUtils;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Cotizacion;
-import modelo.SubObra;
-import modelo.SubObraXAlquilerCompra;
-import modelo.TipoAlquilerCompra;
+import modelo.*;
 import org.hibernate.Hibernate;
 import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
 import vista.cotizacion.CotizacionAlquileresCompras;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
 /**
  * @author Iuga
@@ -112,6 +112,25 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
         {
             if(i==ntp.getId())
             {
+                if(gestorPadre.pantalla.getClass().equals(EditarCotizacionModificada.class))
+                {
+                    GestorEditarCotizacionModificada gestor = (GestorEditarCotizacionModificada)gestorPadre;
+                    
+                    //obtengo el alquiler/compra y pregunto si se puede eliminar
+                    SubObraModificada subMod =((SubObraModificada)gestorPadre.getSubObraActual());
+                    SubObraXAlquilerCompra soxac =(SubObraXAlquilerCompra)subMod.getAlquileresCompras().get(i);
+                    
+                    if(gestor.getPlanificacion()!=null && soxac!=null)
+                    {
+                        boolean estaEnUso = PlanificacionUtils.estaSubObraXAlquilerCompraEnUso(gestor.getPlanificacion(),soxac);
+                        if(estaEnUso)
+                        {
+                            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML><b>No</b> se puede eliminar el alquiler/compra, está asignado a una tarea de la planificacion"); 
+                            return;
+                        }
+                    }
+                } 
+                
                 getSubObraActual().getAlquileresCompras().remove(i);
                 llenarTablaAlquilerCompra();
                 refrescarPantallas();

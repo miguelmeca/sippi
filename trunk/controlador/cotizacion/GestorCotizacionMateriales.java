@@ -4,6 +4,8 @@
  */
 package controlador.cotizacion;
 
+import controlador.planificacion.PlanificacionUtils;
+import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,16 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelo.Cotizacion;
-import modelo.Material;
-import modelo.PrecioSegunCantidad;
-import modelo.Proveedor;
-import modelo.Recurso;
-import modelo.RecursoEspecifico;
-import modelo.RecursoXProveedor;
-import modelo.Rubro;
-import modelo.SubObra;
-import modelo.SubObraXMaterial;
+import modelo.*;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
@@ -29,6 +22,7 @@ import util.NTupla;
 import util.RecursosUtil;
 import util.Tupla;
 import vista.cotizacion.CotizacionMateriales;
+import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
 /**
  *
@@ -240,6 +234,25 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             int hc = getSubObraActual().getMateriales().get(i).hashCode();
             if(hc==idDM)
             {
+                if(gestorPadre.pantalla.getClass().equals(EditarCotizacionModificada.class))
+                {
+                    GestorEditarCotizacionModificada gestor = (GestorEditarCotizacionModificada)gestorPadre;
+                    
+                    //obtengo un material y pregunto si se puede eliminar
+                    SubObraModificada subMod =((SubObraModificada)gestorPadre.getSubObraActual());
+                    SubObraXMaterial soxmm =(SubObraXMaterial)subMod.getMateriales().get(i);
+                    
+                    if(gestor.getPlanificacion()!=null && soxmm!=null)
+                    {
+                        boolean estaEnUso = PlanificacionUtils.estaSubObraXMaterialEnUso(gestor.getPlanificacion(),soxmm);
+                        if(estaEnUso)
+                        {
+                            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML><b>No</b> se puede eliminar el material, está asignado a una tarea de la planificacion"); 
+                            return false;                            
+                        }
+                    }
+                }   
+                
                 getSubObraActual().getMateriales().remove(i);
                 return true;
             }

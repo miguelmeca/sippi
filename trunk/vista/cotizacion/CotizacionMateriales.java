@@ -157,6 +157,17 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         DefaultTableModel modelo2 = (DefaultTableModel)tbMaterialEspecifico.getModel();
         TablaUtil.vaciarDefaultTableModel(modelo2);
     }
+    
+        /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void MostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -413,6 +424,10 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 this.mostrarMaterialesAUtilizar();
                 this.cargarTabMateriales();
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Material","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 

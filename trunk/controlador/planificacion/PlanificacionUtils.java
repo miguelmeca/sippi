@@ -193,7 +193,57 @@ public class PlanificacionUtils {
         }
         return false;
     }
+    
+    /**
+     * Busco en todas las tareas planificadas si la (SubObraxMaterial) esta usandose
+     * @param plan
+     * @param sxm
+     * @return 
+     */
+    public static boolean estaSubObraXMaterialEnUso(PlanificacionXXX plan, SubObraXMaterial sxm)
+    {
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
+                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
+                {
+                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
+    /**
+     * Busco en todas las tareas planificadas si la (SubObraxAlquilerCompra) esta usandose
+     * @param plan
+     * @param sxac
+     * @return 
+     */
+    public static boolean estaSubObraXAlquilerCompraEnUso(PlanificacionXXX plan, SubObraXAlquilerCompra sxac)
+    {
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getAlquilerCompras().size(); j++) {
+                PlanificacionXAlquilerCompra pxac = tarea.getAlquilerCompras().get(j);
+                if(pxac!=null && pxac.getAlquilerCompraCotizacion()!=null)
+                {
+                    if(sxac.hashCode() == pxac.getAlquilerCompraCotizacion().hashCode())
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public static List<NTupla> getTareasQuePoseanMaterialAsignado(PlanificacionXXX plan, SubObraXMaterialModif sxm) {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
