@@ -33,6 +33,7 @@ import util.*;
 public class CotizacionMateriales extends javax.swing.JPanel {
 
     private GestorCotizacionMateriales gestor;
+    private boolean modificando;
     
     /** Creates new form editarCotizacion_Materiales */
     public CotizacionMateriales(GestorCotizacionMateriales gestor) 
@@ -43,6 +44,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         this.gestor.setPantalla(this);
         cargarTabMateriales();
         mostrarMaterialesAUtilizar();
+        modificando = false;
     }
 
     private void FiltrarTabla(JTable table,JTextField field){
@@ -402,6 +404,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
                     btnAgregarNuevoPrecio.setEnabled(false);
+                    modificando = false;
                 } else{
                     if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
@@ -418,17 +421,24 @@ public class CotizacionMateriales extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarMaterialActionPerformed
 
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
-        if(tbMaterialesAUsar.getSelectedRow()>=0){
-            NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 1);
-            if(gestor.quitarMaterial(nt.getId())){
-                this.mostrarMaterialesAUtilizar();
-                this.cargarTabMateriales();
+        if(!modificando){
+            if(tbMaterialesAUsar.getSelectedRow()>=0){
+                NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 1);
+                if(gestor.quitarMaterial(nt.getId())){
+                    this.mostrarMaterialesAUtilizar();
+                    this.cargarTabMateriales();
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Material","Advertencia",JOptionPane.WARNING_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un Material","Advertencia",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe terminar la edición actual antes de realizar esta acción.","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
+           
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
     private void btnAgregarNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoPrecioActionPerformed
@@ -496,6 +506,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 SwingPanel.getInstance().addWindow(psp);
                 psp.setVisible(true);
                 btnAgregarNuevoPrecio.setEnabled(false);
+                modificando=true;
             } else{
                 if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                     AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());

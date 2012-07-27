@@ -34,6 +34,8 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     private GestorCotizacionAlquileresCompras gestor;
     private SubObraXAlquilerCompra alqcompraEditando;
     
+    private boolean modificando;
+    
     /** Creates new form editarCotizacion_Compras */
     public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor, int idSubObra) 
     {
@@ -41,6 +43,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         this.gestor = gestor;
         this.gestor.setPantalla(this);
         this.gestor.initVentana();
+        modificando=false;
     }
 
     /** This method is called from within the constructor to
@@ -295,34 +298,33 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
-        
-        int cantidad = 0;
-        try
-        {
-            cantidad = Integer.parseInt(txtCantidad.getText());
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad ingresada no es válida");
-            return;            
-        }
-        
-        double precio = 0;
-        try
-        {
-            precio = Double.parseDouble(txtPrecio.getText().replaceAll(",","."));
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
-            return;            
-        }
-        
+     
         Tupla tipo = (Tupla)cmbConceptoAlquiler.getSelectedItem();
         String descripcion = txtDescripcion.getText();
         
         if(tipo.getId()!=0)
         {
+            int cantidad = 0;
+            try
+            {
+                cantidad = Integer.parseInt(txtCantidad.getText());
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad ingresada no es válida");
+                return;            
+            }
+
+            double precio = 0;
+            try
+            {
+                precio = Double.parseDouble(txtPrecio.getText().replaceAll(",","."));
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
+                return;            
+            }
             if(cantidad>0)
             {
                 if(precio>0)
@@ -330,11 +332,13 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         if(this.alqcompraEditando==null)
                         {
                             AgregarCompraAlquiler(tipo,descripcion,cantidad,precio);
+                            cargarModificacionAlquilerCompra(alqcompraEditando);
                         }
                         else
                         {
                             AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
                             cargarModificacionAlquilerCompra(null);
+                            modificando=false;
                         } 
                 }
                 else
@@ -355,16 +359,23 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 }//GEN-LAST:event_btnAgregarCompraActionPerformed
 
     private void btnQuitarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarCompraActionPerformed
-        if(tbCompras.getSelectedRow()!= -1)
+        if(!modificando)
         {
-            DefaultTableModel dtm = (DefaultTableModel)tbCompras.getModel();
-            NTupla ntp = (NTupla) dtm.getValueAt(tbCompras.getSelectedRow(), 0);
-            gestor.quitarAlquilerCompra(ntp);
+            if(tbCompras.getSelectedRow()!= -1)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tbCompras.getModel();
+                NTupla ntp = (NTupla) dtm.getValueAt(tbCompras.getSelectedRow(), 0);
+                gestor.quitarAlquilerCompra(ntp);
 
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Alquiler/Compra","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un Alquiler/Compra","Advertencia",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe terminar la edición actual antes de realizar esta acción.","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarCompraActionPerformed
 
@@ -417,6 +428,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
 
                 SubObraXAlquilerCompra h = gestor.getAlquilerCompraAgregada(ntp);
                 cargarModificacionAlquilerCompra(h);
+                modificando=true;
             }
             else
             {
@@ -426,6 +438,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         {
             // No modifico más
             cargarModificacionAlquilerCompra(null);
+            modificando=false;
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -572,6 +585,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
             txtDescripcion.setText("");
             txtCantidad.setText("");
             txtPrecio.setText("");
+            txtSubtotal.setText("");
             cmbConceptoAlquiler.setSelectedIndex(0);
         }
     }

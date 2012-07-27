@@ -36,12 +36,15 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     
     private SubObraXAdicional adicionalEditando;
     
+    private boolean editando;
+    
     /** Creates new form editarCotizacion_Adicionales */
     public CotizacionAdicionales(GestorCotizacionAdicionales gestor) {
         initComponents();
         this.gestor = gestor;
         this.gestor.setPantalla(this);
         this.gestor.initVentana();
+        this.editando = false;
     }
 
     /** This method is called from within the constructor to
@@ -295,8 +298,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,69 +318,67 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAdicionalActionPerformed
-
-        int cantidadDias = 0;
-        try
-        {
-            cantidadDias = Integer.parseInt(txtCantidadDias.getText());
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada no es válida");
-            return;            
-        }
-
-        if(cantidadDias<=0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
-             return;
-        }        
-        
-        int cantidadOperarios = 0;
-        try
-        {
-            cantidadOperarios = Integer.parseInt(txtCantidadPersonas.getText());
-        } 
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada no es válida");
-            return;            
-        }        
-        
-        if(cantidadOperarios<=0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada debe ser positiva");
-             return;
-        }          
-                
-        double precio = 0;
-        try
-        {
-            precio = Double.parseDouble(txtPrecioUnitario.getText().replaceAll(",","."));
-        }
-        catch(Exception e)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
-            return;            
-        }
-        
-        if(precio<=0)
-        {
-            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado debe ser positivo");
-            return;
-        }          
-        
-        
         Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
         String descripcion = txtConcepto.getText();
         
         if(tipo.getId()!=0)
         {
+            int cantidadDias = 0;
+            try
+            {
+                cantidadDias = Integer.parseInt(txtCantidadDias.getText());
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada no es válida");
+                return;            
+            }
+
+            if(cantidadDias<=0)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
+                return;
+            }        
+
+            int cantidadOperarios = 0;
+            try
+            {
+                cantidadOperarios = Integer.parseInt(txtCantidadPersonas.getText());
+            } 
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada no es válida");
+                return;            
+            }        
+
+            if(cantidadOperarios<=0)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada debe ser positiva");
+                return;
+            }          
+
+            double precio = 0;
+            try
+            {
+                precio = Double.parseDouble(txtPrecioUnitario.getText().replaceAll(",","."));
+            }
+            catch(Exception e)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado no es válido");
+                return;            
+            }
+
+            if(precio<=0)
+            {
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El precio ingresado debe ser positivo");
+                return;
+            }  
+            
             if(cantidadOperarios>0 && cantidadDias>0)
             {
                 if(precio>0)
@@ -390,8 +390,10 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                     else
                     {
                         AgregarAdicional(this.adicionalEditando,tipo,descripcion,cantidadOperarios,cantidadDias,precio);
-                        cargarModificacionAdicional(null);
+                        
                     }
+                    cargarModificacionAdicional(null);
+                    editando=false;
                     
                 }
                 else
@@ -411,16 +413,23 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 }//GEN-LAST:event_btnAgregarAdicionalActionPerformed
 
     private void btnQuitarAdicionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarAdicionalActionPerformed
-        if(tbAdicionales.getSelectedRow()!= -1)
+        if(!editando)
         {
-            DefaultTableModel dtm = (DefaultTableModel)tbAdicionales.getModel();
-            NTupla ntp = (NTupla) dtm.getValueAt(tbAdicionales.getSelectedRow(), 0);
-            gestor.quitarAlquilerCompra(ntp);
+            if(tbAdicionales.getSelectedRow()!= -1)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tbAdicionales.getModel();
+                NTupla ntp = (NTupla) dtm.getValueAt(tbAdicionales.getSelectedRow(), 0);
+                gestor.quitarAlquilerCompra(ntp);
 
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Adicional","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un Adicional","Advertencia",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe terminar la edición actual antes de realizar esta acción.","Advertencia",JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarAdicionalActionPerformed
 
@@ -482,6 +491,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
                 SubObraXAdicional h = gestor.getAdicionalAgregada(ntp);
                 cargarModificacionAdicional(h);
+                
+                editando = true;
             }
             else
             {
@@ -491,6 +502,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         {
             // No modifico más
             cargarModificacionAdicional(null);
+            editando=false;
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
