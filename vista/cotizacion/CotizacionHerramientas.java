@@ -34,6 +34,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
     private GestorCotizacionHerramientas gestor;
     private SubObraXHerramienta herramientaEditando;
     
+    private boolean modificando = false;
+    
     /** Creates new form pantallaHerramientas */
     public CotizacionHerramientas(GestorCotizacionHerramientas gestor) {
         initComponents();
@@ -296,45 +298,43 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 }//GEN-LAST:event_txtSubTotalActionPerformed
 
 private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
-        {
-            int cantHoras = 0;
-            try
+        Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
+        if(tpitem.getId()!=0)
+        {         
+            if(!txtHorasDia.getText().isEmpty() && !txtCostoHora.getText().isEmpty())
             {
-                cantHoras = Integer.parseInt(txtHorasDia.getText());
-            }
-            catch(Exception e)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada es incorrecta");
-                return;
-            }
-            if(cantHoras<=0)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada debe ser positiva");
-                return;
-            }
+                int cantHoras = 0;
+                try
+                {
+                    cantHoras = Integer.parseInt(txtHorasDia.getText());
+                }
+                catch(Exception e)
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada es incorrecta");
+                    return;
+                }
+                if(cantHoras<=0)
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de horas ingresada debe ser positiva");
+                    return;
+                }
 
-            double costoHora = 0;
-            try
-            {
-                costoHora = Double.parseDouble(txtCostoHora.getText().replaceAll(",","."));
-            }
-            catch(Exception e)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecto");
-                return;
-            }   
+                double costoHora = 0;
+                try
+                {
+                    costoHora = Double.parseDouble(txtCostoHora.getText().replaceAll(",","."));
+                }
+                catch(Exception e)
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado es incorrecto");
+                    return;
+                }   
 
-            if(costoHora<0)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado debe ser positivo");
-                return;            
-            }
-
-
-            Tupla tpitem = (Tupla)cmbHerramienta.getSelectedItem();
-            if(tpitem.getId()!=0)
-            {         
+                if(costoHora<0)
+                {
+                    MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","El costo ingresado debe ser positivo");
+                    return;            
+                }
                 if(this.herramientaEditando==null)
                 {
                     gestor.AgregarHerramienta(tpitem,cantHoras, costoHora,txtDescripcion.getText());
@@ -342,13 +342,14 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 else
                 {
                     gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
-                    cargarModificacionHerramienta(null);
                 }
+                cargarModificacionHerramienta(null);
+                modificando= false;
             }
-            else
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar una Herramienta");
-            }
+        }
+        else
+        {
+            MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe seleccionar una Herramienta");
         }
     
 }//GEN-LAST:event_btnAgregarActionPerformed
@@ -356,9 +357,16 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         if(tblHeramientas.getSelectedRow()!= -1)
         {
-            DefaultTableModel dtm = (DefaultTableModel)tblHeramientas.getModel();
-            NTupla ntp = (NTupla) dtm.getValueAt(tblHeramientas.getSelectedRow(), 0);
-            gestor.quitarHerramienta(ntp);
+            if(!modificando)
+            {
+                DefaultTableModel dtm = (DefaultTableModel)tblHeramientas.getModel();
+                NTupla ntp = (NTupla) dtm.getValueAt(tblHeramientas.getSelectedRow(), 0);
+                gestor.quitarHerramienta(ntp);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Debe terminar la edición actual antes de realizar esta acción.","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
         }
         else
         {
@@ -410,6 +418,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
                 SubObraXHerramienta h = gestor.getHerramientaAgregada(ntp);
                 cargarModificacionHerramienta(h);
+                modificando = true;
             }
             else
             {
@@ -419,6 +428,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         {
             // No modifico más
             cargarModificacionHerramienta(null);
+            modificando = false;
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
