@@ -10,8 +10,7 @@ import modelo.HerramientaDeEmpresa;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
- *
- * @author Administrador
+ * @author Iuga
  */
 public class pantallaConsultarHerramientas extends PantallaConsultarGenerica{
 

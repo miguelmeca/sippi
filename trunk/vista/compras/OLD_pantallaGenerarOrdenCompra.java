@@ -21,229 +21,230 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 import util.LimitadorCaracteres;
 
-import controlador.Compras.GestorGenerarOrdenCompra;
+import controlador.Compras.OLD_GestorGenerarOrdenCompra;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
+@Deprecated
+public class OLD_pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
-    private GestorGenerarOrdenCompra gestor;
+    private OLD_GestorGenerarOrdenCompra gestor;
     private boolean mostroPrecios=false;
     /** Creates new form pantallaGenerarOrdenCompra */
-    public pantallaGenerarOrdenCompra() {
-        gestor = new GestorGenerarOrdenCompra(this);
+    public OLD_pantallaGenerarOrdenCompra() {
+        gestor = new OLD_GestorGenerarOrdenCompra(this);
         initComponents();
-        habilitarVentana();
+//        habilitarVentana();
 
 
     }
-    public void habilitarVentana()
-    {
-        mostrarTipoRecurso();
-
-        KeyAdapter kaNuemros=(new KeyAdapter()
-{
-
-            @Override
-   public  void keyTyped(KeyEvent e)
-   {
-      char caracter = e.getKeyChar();
-
-      // Verificar si la tecla pulsada no es un digito
-      if(((caracter < '0') ||
-         (caracter > '9')) &&
-         (caracter != KeyEvent.VK_BACK_SPACE)&&(caracter != '.')&&(caracter != ','))
-      {
-          if((caracter == '.'))
-          {
-              e.setKeyChar(',');
-          }
-          else
-          { e.consume(); // ignorar el evento de teclado}
-          } 
-      }
-   }
-});
-   // ftxtCantidad.addKeyListener(kaNuemros);
-    txtCantidad.addKeyListener(kaNuemros);
-        //ftxtCantidad.setDocument(new LimitadorCaracteres(txtApellido,50));
-    txtCantidad.setDocument(new LimitadorCaracteres(txtCantidad,9));
-
-    }
-    private void mostrarTipoRecurso()
-    {
-        mostroPrecios=false;
-        ArrayList<Tupla> listaNombresTipoDeRecurso = gestor.mostrarRubrosCompras();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        if(listaNombresTipoDeRecurso!=null && !listaNombresTipoDeRecurso.isEmpty())
-        for (Tupla nombre : listaNombresTipoDeRecurso)
-        {
-            model.addElement(nombre);
-        }
-        cmbTiposRecurso.setModel(model);
-        cmbTiposRecurso.setSelectedIndex(-1);
-        cmbRecursos.setModel(new DefaultComboBoxModel());
-        cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
-        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
-        modeloTablaPro.setRowCount(0);
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        cmbRecursos.setEnabled(false);
-        cmbRecursosEspecificos.setEnabled(false);
-        tablaProveedores.setEnabled(false);
-
-
-    }
-
-    private void mostrarRecursos()
-    {
-        mostroPrecios=false;
-        if(cmbTiposRecurso.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbTiposRecurso.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarRecursos(t.getId());
-        for (Tupla nombre : lista)
-        {
-            valores.addElement(nombre);
-        }
-
-        cmbRecursos.setModel(valores);
-        cmbRecursos.setSelectedIndex(-1);
-        cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
-        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
-        modeloTablaPro.setRowCount(0);
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        cmbRecursos.setEnabled(true);
-        cmbRecursosEspecificos.setEnabled(false);
-        tablaProveedores.setEnabled(false);
-
-        }
-    }
-
-    private void mostrarRecursosEspecificos()
-    {
-        mostroPrecios=false;
-        if(cmbRecursos.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbRecursos.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos(t.getId());
-        for (Tupla nombre : lista)
-        {
-            valores.addElement(nombre);
-        }
-        
-        cmbRecursosEspecificos.setModel(valores);
-        cmbRecursosEspecificos.setSelectedIndex(-1);
-        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
-        modeloTablaPro.setRowCount(0);
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        cmbRecursos.setEnabled(true);
-        cmbRecursosEspecificos.setEnabled(true);
-        tablaProveedores.setEnabled(false);
-        
-        }
-        
-    }
-    private void mostrarUnidadMedida()
-    {
-        if(cmbRecursos.getSelectedIndex()!=-1)
-       {
-        //DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbRecursos.getSelectedItem() ;
-        String um = gestor.mostrarUnidadMedida(t.getId());
-        lblUnidadMedida.setText(um);
-        }
-    }
-    private void mostrarProveedores()
-    {
-       mostroPrecios=false;
-        if(cmbRecursosEspecificos.getSelectedIndex()!=-1)
-       {
-
-        DefaultTableModel valores = (DefaultTableModel)tablaProveedores.getModel();
-        valores.setRowCount(0);
-        /*int fil=valores.getRowCount();
-        for (int i = 0; i < fil; i++) {
-            valores.removeRow(0);
-        }*/
-        Tupla t = (Tupla) cmbRecursosEspecificos.getSelectedItem() ;
-        ArrayList<NTupla> lista = gestor.mostrarProveedores(t.getId());
-
-        for (NTupla nTuplaP : lista)
-        {
-            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
-            double conf=(Double)nTuplaP.getData();
-            //obj[0]=nTuplaEmpleado.getId();
-            Tupla tup=new Tupla();
-            tup.setId(nTuplaP.getId());
-            tup.setNombre(nTuplaP.getNombre());
-            Object[] obj=new Object[2];
-            obj[0]=tup;
-            obj[1]=conf;
-
-            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
-            //System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
-            valores.addRow( obj );
-        }
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        tablaProveedores.setEnabled(true);
-        }
-         
-
-    }
-
-    private void mostrarPrecios()
-    {
-        if(tablaProveedores.getSelectedRow()!=-1 && cmbRecursosEspecificos.getSelectedIndex()!=-1)
-       {
-
-        DefaultTableModel valores = (DefaultTableModel)tablaPrecios.getModel();
-        valores.setRowCount(0);
-        /*int fil=valores.getRowCount();
-        for (int i = 0; i < fil; i++) {
-            valores.removeRow(0);
-        }*/
-        int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
-        int idRE= ((Tupla) cmbRecursosEspecificos.getSelectedItem()).getId();
-        ArrayList<NTupla> lista = gestor.mostrarPrecios(idProv, idRE);
-
-        for (NTupla nTuplaP : lista)
-        {
-            mostroPrecios=true;//Pasa por aquí si es que se muestra por lo menos un precio
-            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
-            Object[] obj=new Object[((Object[])nTuplaP.getData()).length+1];
-            //obj[0]=nTuplaEmpleado.getId();
-            Tupla tup=new Tupla();
-            tup.setId(nTuplaP.getId());
-            tup.setNombre(nTuplaP.getNombre());
-            obj[0]=tup;
-
-            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
-            System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
-            valores.addRow( obj );
-        }
-        setearPrecioXCantidad();
-        }
-
-    }
-
-
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+//    public void habilitarVentana()
+//    {
+//        mostrarTipoRecurso();
+//
+//        KeyAdapter kaNuemros=(new KeyAdapter()
+//{
+//
+//            @Override
+////   public  void keyTyped(KeyEvent e)
+////   {
+////      char caracter = e.getKeyChar();
+////
+////      // Verificar si la tecla pulsada no es un digito
+////      if(((caracter < '0') ||
+////         (caracter > '9')) &&
+////         (caracter != KeyEvent.VK_BACK_SPACE)&&(caracter != '.')&&(caracter != ','))
+////      {
+////          if((caracter == '.'))
+////          {
+////              e.setKeyChar(',');
+////          }
+////          else
+////          { e.consume(); // ignorar el evento de teclado}
+////          } 
+////      }
+////   }
+////});
+////   // ftxtCantidad.addKeyListener(kaNuemros);
+////    txtCantidad.addKeyListener(kaNuemros);
+////        //ftxtCantidad.setDocument(new LimitadorCaracteres(txtApellido,50));
+////    txtCantidad.setDocument(new LimitadorCaracteres(txtCantidad,9));
+////
+////    }
+////    private void mostrarTipoRecurso()
+////    {
+////        mostroPrecios=false;
+////        ArrayList<Tupla> listaNombresTipoDeRecurso = gestor.mostrarRubrosCompras();
+////        DefaultComboBoxModel model = new DefaultComboBoxModel();
+////        if(listaNombresTipoDeRecurso!=null && !listaNombresTipoDeRecurso.isEmpty())
+////        for (Tupla nombre : listaNombresTipoDeRecurso)
+////        {
+////            model.addElement(nombre);
+////        }
+////        cmbTiposRecurso.setModel(model);
+////        cmbTiposRecurso.setSelectedIndex(-1);
+////        cmbRecursos.setModel(new DefaultComboBoxModel());
+////        cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
+////        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
+////        modeloTablaPro.setRowCount(0);
+////        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
+////        modeloTablaPre.setRowCount(0);
+////        cmbRecursos.setEnabled(false);
+////        cmbRecursosEspecificos.setEnabled(false);
+////        tablaProveedores.setEnabled(false);
+////
+////
+////    }
+////
+////    private void mostrarRecursos()
+////    {
+////        mostroPrecios=false;
+////        if(cmbTiposRecurso.getSelectedIndex()!=-1)
+////       {
+////        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+////
+////        Tupla t = (Tupla) cmbTiposRecurso.getSelectedItem() ;
+////        ArrayList<Tupla> lista = gestor.mostrarRecursos(t.getId());
+////        for (Tupla nombre : lista)
+////        {
+////            valores.addElement(nombre);
+////        }
+////
+////        cmbRecursos.setModel(valores);
+////        cmbRecursos.setSelectedIndex(-1);
+////        cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
+////        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
+////        modeloTablaPro.setRowCount(0);
+////        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
+////        modeloTablaPre.setRowCount(0);
+////        cmbRecursos.setEnabled(true);
+////        cmbRecursosEspecificos.setEnabled(false);
+////        tablaProveedores.setEnabled(false);
+////
+////        }
+////    }
+////
+////    private void mostrarRecursosEspecificos()
+////    {
+////        mostroPrecios=false;
+////        if(cmbRecursos.getSelectedIndex()!=-1)
+////       {
+////        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+////
+////        Tupla t = (Tupla) cmbRecursos.getSelectedItem() ;
+////        ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos(t.getId());
+////        for (Tupla nombre : lista)
+////        {
+////            valores.addElement(nombre);
+////        }
+////        
+////        cmbRecursosEspecificos.setModel(valores);
+////        cmbRecursosEspecificos.setSelectedIndex(-1);
+////        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
+////        modeloTablaPro.setRowCount(0);
+////        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
+////        modeloTablaPre.setRowCount(0);
+////        cmbRecursos.setEnabled(true);
+////        cmbRecursosEspecificos.setEnabled(true);
+////        tablaProveedores.setEnabled(false);
+////        
+////        }
+////        
+////    }
+////    private void mostrarUnidadMedida()
+////    {
+////        if(cmbRecursos.getSelectedIndex()!=-1)
+////       {
+////        //DefaultComboBoxModel valores = new DefaultComboBoxModel();
+////
+////        Tupla t = (Tupla) cmbRecursos.getSelectedItem() ;
+////        String um = gestor.mostrarUnidadMedida(t.getId());
+////        lblUnidadMedida.setText(um);
+////        }
+////    }
+////    private void mostrarProveedores()
+////    {
+////       mostroPrecios=false;
+////        if(cmbRecursosEspecificos.getSelectedIndex()!=-1)
+////       {
+////
+////        DefaultTableModel valores = (DefaultTableModel)tablaProveedores.getModel();
+////        valores.setRowCount(0);
+////        /*int fil=valores.getRowCount();
+////        for (int i = 0; i < fil; i++) {
+////            valores.removeRow(0);
+////        }*/
+////        Tupla t = (Tupla) cmbRecursosEspecificos.getSelectedItem() ;
+////        ArrayList<NTupla> lista = gestor.mostrarProveedores(t.getId());
+////
+////        for (NTupla nTuplaP : lista)
+////        {
+////            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+////            double conf=(Double)nTuplaP.getData();
+////            //obj[0]=nTuplaEmpleado.getId();
+////            Tupla tup=new Tupla();
+////            tup.setId(nTuplaP.getId());
+////            tup.setNombre(nTuplaP.getNombre());
+////            Object[] obj=new Object[2];
+////            obj[0]=tup;
+////            obj[1]=conf;
+////
+////            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+////            //System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
+////            valores.addRow( obj );
+////        }
+////        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
+////        modeloTablaPre.setRowCount(0);
+////        tablaProveedores.setEnabled(true);
+////        }
+////         
+////
+////    }
+////
+////    private void mostrarPrecios()
+////    {
+////        if(tablaProveedores.getSelectedRow()!=-1 && cmbRecursosEspecificos.getSelectedIndex()!=-1)
+////       {
+////
+////        DefaultTableModel valores = (DefaultTableModel)tablaPrecios.getModel();
+////        valores.setRowCount(0);
+////        /*int fil=valores.getRowCount();
+////        for (int i = 0; i < fil; i++) {
+////            valores.removeRow(0);
+////        }*/
+////        int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
+////        int idRE= ((Tupla) cmbRecursosEspecificos.getSelectedItem()).getId();
+////        ArrayList<NTupla> lista = gestor.mostrarPrecios(idProv, idRE);
+////
+////        for (NTupla nTuplaP : lista)
+////        {
+////            mostroPrecios=true;//Pasa por aquí si es que se muestra por lo menos un precio
+////            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+////            Object[] obj=new Object[((Object[])nTuplaP.getData()).length+1];
+////            //obj[0]=nTuplaEmpleado.getId();
+////            Tupla tup=new Tupla();
+////            tup.setId(nTuplaP.getId());
+////            tup.setNombre(nTuplaP.getNombre());
+////            obj[0]=tup;
+////
+////            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+////            System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
+////            valores.addRow( obj );
+////        }
+////        setearPrecioXCantidad();
+////        }
+////
+////    }
+////
+////
+////    /** This method is called from within the constructor to
+////     * initialize the form.
+////     * WARNING: Do NOT modify this code. The content of this method is
+////     * always regenerated by the Form Editor.
+////     */
+////    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -299,7 +300,7 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
 
         setTitle("Generar Orden de Compra");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Obra:");
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Recursos"));
@@ -473,12 +474,12 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        lblPrecioParcial.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPrecioParcial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblPrecioParcial.setText("$0.00");
 
         jLabel8.setText("Precio Unitariol:");
 
-        lblPrecioUnitario.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPrecioUnitario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblPrecioUnitario.setText("$0.00");
 
         txtCantidad.setText("jTextField1");
@@ -516,16 +517,13 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addGap(4, 4, 4)
                                 .addComponent(cmbRecursosEspecificos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,13 +536,12 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblPrecioParcial))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblUnidadMedida)
                                 .addGap(76, 76, 76)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -710,125 +707,125 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
-        if(validarDatos())
-        {
-            
-          DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
-          Object[] det = new Object[6];
-          
-          double canti=Double.parseDouble(txtCantidad.getText());
-          
-          NTupla ntCant=new NTupla();
-          //nt.setId(1);
-          ntCant.setNombre(canti+" "+lblUnidadMedida.getText());
-          ntCant.setData(canti);
-          det[0]=ntCant;
-          Tupla tRE=new Tupla();
-          //tRE=((Tupla)cmbRecursosEspecificos.getSelectedItem());
-          tRE.setId(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getId());
-          tRE.setNombre(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getNombre());
-          //ntRE.setId(cmbRecursosEspecificos.getSelectedItem());
-          String nomR=((Tupla)cmbRecursos.getSelectedItem()).getNombre();
-          tRE.setNombre(nomR+" "+tRE.getNombre());
-          //ntRE.setData(canti);
-          det[1]=tRE;
-          det[2]=txtDescripcion.getText();
-          Tupla tProv=(Tupla)tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0);
-          det[3]=tProv;
-          //double canti=Double.parseDouble(ftxtCantidad.getText());
-
-          double[] precios =gestor.precioParcial(canti);
-          det[4]=precios[0];
-          det[5]=precios[1];
-          boolean repetido=false;
-          for (int i= 0; i < tablaDetallesOC.getRowCount(); i++)
-          {
-           if( (((Tupla)modelo.getValueAt(i, 1)).getId()==tRE.getId()) &&   (((Tupla)modelo.getValueAt(i, 3)).getId()==tProv.getId())  &&  (((String)modelo.getValueAt(i, 2)).equalsIgnoreCase((String)det[2]))  )
-           {
-              double d1=(Double)((NTupla)modelo.getValueAt(i, 0)).getData();
-               double d2=(Double)(((NTupla)det[0]).getData());
-               double can=d1+d2;
-               //can=can+(Double)(((NTupla)det[0]).getData());
-               //ntCant.setData(can);
-
-               ((NTupla)modelo.getValueAt(i, 0)).setData(can);
-               ((NTupla)modelo.getValueAt(i, 0)).setNombre(can+" "+lblUnidadMedida.getText());
-               det[0]=(NTupla)modelo.getValueAt(i, 0);
-               precios =gestor.precioParcial(can);
-               det[4]=precios[0];
-               det[5]=precios[1];
-               repetido=true;
-               modelo.removeRow(i);
-               modelo.insertRow(i, det);
-
-
-           }
-          }
-          if(!repetido)
-          {modelo.addRow(det);}
-
-
-        }
+//        if(validarDatos())
+//        {
+//            
+//          DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
+//          Object[] det = new Object[6];
+//          
+//          double canti=Double.parseDouble(txtCantidad.getText());
+//          
+//          NTupla ntCant=new NTupla();
+//          //nt.setId(1);
+//          ntCant.setNombre(canti+" "+lblUnidadMedida.getText());
+//          ntCant.setData(canti);
+//          det[0]=ntCant;
+//          Tupla tRE=new Tupla();
+//          //tRE=((Tupla)cmbRecursosEspecificos.getSelectedItem());
+//          tRE.setId(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getId());
+//          tRE.setNombre(((Tupla)cmbRecursosEspecificos.getSelectedItem()).getNombre());
+//          //ntRE.setId(cmbRecursosEspecificos.getSelectedItem());
+//          String nomR=((Tupla)cmbRecursos.getSelectedItem()).getNombre();
+//          tRE.setNombre(nomR+" "+tRE.getNombre());
+//          //ntRE.setData(canti);
+//          det[1]=tRE;
+//          det[2]=txtDescripcion.getText();
+//          Tupla tProv=(Tupla)tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0);
+//          det[3]=tProv;
+//          //double canti=Double.parseDouble(ftxtCantidad.getText());
+//
+//          double[] precios =gestor.precioParcial(canti);
+//          det[4]=precios[0];
+//          det[5]=precios[1];
+//          boolean repetido=false;
+//          for (int i= 0; i < tablaDetallesOC.getRowCount(); i++)
+//          {
+//           if( (((Tupla)modelo.getValueAt(i, 1)).getId()==tRE.getId()) &&   (((Tupla)modelo.getValueAt(i, 3)).getId()==tProv.getId())  &&  (((String)modelo.getValueAt(i, 2)).equalsIgnoreCase((String)det[2]))  )
+//           {
+//              double d1=(Double)((NTupla)modelo.getValueAt(i, 0)).getData();
+//               double d2=(Double)(((NTupla)det[0]).getData());
+//               double can=d1+d2;
+//               //can=can+(Double)(((NTupla)det[0]).getData());
+//               //ntCant.setData(can);
+//
+//               ((NTupla)modelo.getValueAt(i, 0)).setData(can);
+//               ((NTupla)modelo.getValueAt(i, 0)).setNombre(can+" "+lblUnidadMedida.getText());
+//               det[0]=(NTupla)modelo.getValueAt(i, 0);
+//               precios =gestor.precioParcial(can);
+//               det[4]=precios[0];
+//               det[5]=precios[1];
+//               repetido=true;
+//               modelo.removeRow(i);
+//               modelo.insertRow(i, det);
+//
+//
+//           }
+//          }
+//          if(!repetido)
+//          {modelo.addRow(det);}
+//
+//
+//        }
     }//GEN-LAST:event_btnAgregarDetalleActionPerformed
 
     private void cmbTiposRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTiposRecursoActionPerformed
-       mostrarRecursos();
+//       mostrarRecursos();
     }//GEN-LAST:event_cmbTiposRecursoActionPerformed
 
     private void cmbRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRecursosActionPerformed
-        mostrarRecursosEspecificos();
-        mostrarUnidadMedida();
+//        mostrarRecursosEspecificos();
+//        mostrarUnidadMedida();
     }//GEN-LAST:event_cmbRecursosActionPerformed
 
     private void cmbRecursosEspecificosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRecursosEspecificosActionPerformed
-        mostrarProveedores();
+//        mostrarProveedores();
     }//GEN-LAST:event_cmbRecursosEspecificosActionPerformed
 
     private void tablaProveedoresMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProveedoresMouseReleased
-        mostrarPrecios();
+//        mostrarPrecios();
     }//GEN-LAST:event_tablaProveedoresMouseReleased
 
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
-       if((tablaDetallesOC.getSelectedRowCount())==1)
-        {
-        DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
-        //Tupla tipo=(Tupla)modelo.getValueAt(tablaDetallesOC.getSelectedRow(), 0) ;
-        //((DefaultComboBoxModel)lstTiposEspecialidad.getModel()).addElement(tipo);
-
-        modelo.removeRow(tablaDetallesOC.getSelectedRow());
-        }
+//       if((tablaDetallesOC.getSelectedRowCount())==1)
+//        {
+//        DefaultTableModel modelo = (DefaultTableModel) tablaDetallesOC.getModel();
+//        //Tupla tipo=(Tupla)modelo.getValueAt(tablaDetallesOC.getSelectedRow(), 0) ;
+//        //((DefaultComboBoxModel)lstTiposEspecialidad.getModel()).addElement(tipo);
+//
+//        modelo.removeRow(tablaDetallesOC.getSelectedRow());
+//        }
     }//GEN-LAST:event_btnQuitarDetalleActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
-        if(resp==JOptionPane.YES_OPTION)
-        {       this.dispose();}
+//       int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+//        if(resp==JOptionPane.YES_OPTION)
+//        {       this.dispose();}
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        if(tablaDetallesOC.getRowCount()>0)
-        {   int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Proseguir con la generación de las ordenes de compra?","Generar",JOptionPane.YES_NO_OPTION);
-            if(resp==JOptionPane.YES_OPTION)
-            {
-            if(!generar(true))
-            {JOptionPane.showMessageDialog(this.getParent(), "Ocurrio un error durante la generacion de las ordenes de compras","Error",JOptionPane.ERROR_MESSAGE);}
-
-            else
-            {
-                this.dispose();
-            }
-            }
-        
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this.getParent(), "Debe agregar articulos para generar una orden de compra","Error",JOptionPane.ERROR_MESSAGE);
-        }
+//        if(tablaDetallesOC.getRowCount()>0)
+//        {   int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Proseguir con la generación de las ordenes de compra?","Generar",JOptionPane.YES_NO_OPTION);
+//            if(resp==JOptionPane.YES_OPTION)
+//            {
+//            if(!generar(true))
+//            {JOptionPane.showMessageDialog(this.getParent(), "Ocurrio un error durante la generacion de las ordenes de compras","Error",JOptionPane.ERROR_MESSAGE);}
+//
+//            else
+//            {
+//                this.dispose();
+//            }
+//            }
+//        
+//        }
+//        else
+//        {
+//            JOptionPane.showMessageDialog(this.getParent(), "Debe agregar articulos para generar una orden de compra","Error",JOptionPane.ERROR_MESSAGE);
+//        }
 
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnVistaPreviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaPreviaActionPerformed
-       generar(false);
+//       generar(false);
     }//GEN-LAST:event_btnVistaPreviaActionPerformed
 
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
@@ -836,35 +833,35 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
-        /*String texto=txtCantidad.getText();
-        char[] cadena= texto.toCharArray();
-        boolean primera=false;
-        for (int i= 0; i < cadena.length; i++)
-        {
-           if(cadena[i]==',')
-           {
-               if(!primera)
-               {primera =true;}
-               else
-               {
-
-               }
-           }
-
-        }*/
-        if(validarCantidad())
-        {double canti=Double.parseDouble(txtCantidad.getText());
-            if (canti<0)
-            {
-                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
-                txtCantidad.setText(Double.toString(canti));
-            }
-        setearPrecioXCantidad();}
-        else
-        {
-            JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-            txtCantidad.requestFocus();
-        }
+//        /*String texto=txtCantidad.getText();
+//        char[] cadena= texto.toCharArray();
+//        boolean primera=false;
+//        for (int i= 0; i < cadena.length; i++)
+//        {
+//           if(cadena[i]==',')
+//           {
+//               if(!primera)
+//               {primera =true;}
+//               else
+//               {
+//
+//               }
+//           }
+//
+//        }*/
+//        if(validarCantidad())
+//        {double canti=Double.parseDouble(txtCantidad.getText());
+//            if (canti<0)
+//            {
+//                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
+//                txtCantidad.setText(Double.toString(canti));
+//            }
+//        setearPrecioXCantidad();}
+//        else
+//        {
+//            JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+//            txtCantidad.requestFocus();
+//        }
 
     }//GEN-LAST:event_txtCantidadFocusLost
 
@@ -872,145 +869,145 @@ public class pantallaGenerarOrdenCompra extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadKeyPressed
 
-    private boolean generar(boolean definitivo)
-    {
-
-        ArrayList<Tupla> listaTuplaProveedores=new ArrayList<Tupla>();
-         listaTuplaProveedores.add((Tupla)tablaDetallesOC.getValueAt(0,3));
-         boolean repetido=false;
-        for (int i= 0; i < tablaDetallesOC.getRowCount(); i++)
-        {
-            for (int j= 0; j < listaTuplaProveedores.size(); j++)
-            {
-                if(listaTuplaProveedores.get(j).getId()==((Tupla)tablaDetallesOC.getValueAt(i,3)).getId())
-                {
-                    repetido=true;
-                    break;
-                }
-            }
-            if(!repetido)
-            {listaTuplaProveedores.add((Tupla)tablaDetallesOC.getValueAt(i,3));}
-            repetido=false;
-        }
-         //ArrayList<NTupla> datos=new ArrayList<NTupla>();
-         ArrayList<Object[]> daktos=new ArrayList<Object[]>();
-        
-         for (int i= 0; i < listaTuplaProveedores.size(); i++)
-        {
-            ArrayList<Tupla> recs=new ArrayList<Tupla>();
-            ArrayList<String> descrips=new ArrayList<String>();
-            ArrayList<NTupla> cants=new ArrayList<NTupla>();
-            ArrayList<Double> precios=new ArrayList<Double>();            
-            Tupla prov=listaTuplaProveedores.get(i);
-            
-            for (int j= 0; j < tablaDetallesOC.getRowCount(); j++) 
-            {
-                if(((Tupla)tablaDetallesOC.getValueAt(j, 3)).getId()== listaTuplaProveedores.get(i).getId() )
-                {
-                    cants.add((NTupla)tablaDetallesOC.getValueAt(j, 0));
-                    recs.add((Tupla)tablaDetallesOC.getValueAt(j, 1));                    
-                    descrips.add((String)tablaDetallesOC.getValueAt(j, 2));
-                      
-                    precios.add((Double)tablaDetallesOC.getValueAt(j, 4));                    
-                }
-            }
-            Object[] obj=new Object[7];
-            obj[0]=cants;
-            obj[1]=recs;
-            obj[2]=descrips;
-            obj[3]=prov;
-            obj[4]=precios;
-            obj[5]=gestor.generarNuevoNmroOC()+(i);
-
-            obj[6]=gestor.fechaActual();
-            daktos.add(obj);
-        }
-
-
-
-    // Trabajar con daktos
-         if(definitivo)
-         {
-            int[] nmrosO=gestor.registrar(daktos);
-            if( nmrosO==null)
-            {return false;}
-            else
-            {
-                for (int i= 0; i < nmrosO.length; i++)
-                {
-                   daktos.get(i)[5]=nmrosO[i];
-                }
-                JOptionPane.showMessageDialog(this.getParent(), "Se han registrado correctamente "+nmrosO.length+" Ordenes de Compra","Registro Correcto",JOptionPane.INFORMATION_MESSAGE);
-                pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(true, gestor, daktos);
-                 SwingPanel.getInstance().addWindow(pcle);
-                pcle.setVisible(true);
-                return true;
-            }
-         }
-         else // vista previa
-         {
-             pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(false, gestor, daktos);
-             SwingPanel.getInstance().addWindow(pcle);
-             pcle.setVisible(true);
-             return false;
-         }    
-        
+//    private boolean generar(boolean definitivo)
+//    {
+//
+//        ArrayList<Tupla> listaTuplaProveedores=new ArrayList<Tupla>();
+//         listaTuplaProveedores.add((Tupla)tablaDetallesOC.getValueAt(0,3));
+//         boolean repetido=false;
+//        for (int i= 0; i < tablaDetallesOC.getRowCount(); i++)
+//        {
+//            for (int j= 0; j < listaTuplaProveedores.size(); j++)
+//            {
+//                if(listaTuplaProveedores.get(j).getId()==((Tupla)tablaDetallesOC.getValueAt(i,3)).getId())
+//                {
+//                    repetido=true;
+//                    break;
+//                }
+//            }
+//            if(!repetido)
+//            {listaTuplaProveedores.add((Tupla)tablaDetallesOC.getValueAt(i,3));}
+//            repetido=false;
+//        }
+//         //ArrayList<NTupla> datos=new ArrayList<NTupla>();
+//         ArrayList<Object[]> daktos=new ArrayList<Object[]>();
+//        
+//         for (int i= 0; i < listaTuplaProveedores.size(); i++)
+//        {
+//            ArrayList<Tupla> recs=new ArrayList<Tupla>();
+//            ArrayList<String> descrips=new ArrayList<String>();
+//            ArrayList<NTupla> cants=new ArrayList<NTupla>();
+//            ArrayList<Double> precios=new ArrayList<Double>();            
+//            Tupla prov=listaTuplaProveedores.get(i);
+//            
+//            for (int j= 0; j < tablaDetallesOC.getRowCount(); j++) 
+//            {
+//                if(((Tupla)tablaDetallesOC.getValueAt(j, 3)).getId()== listaTuplaProveedores.get(i).getId() )
+//                {
+//                    cants.add((NTupla)tablaDetallesOC.getValueAt(j, 0));
+//                    recs.add((Tupla)tablaDetallesOC.getValueAt(j, 1));                    
+//                    descrips.add((String)tablaDetallesOC.getValueAt(j, 2));
+//                      
+//                    precios.add((Double)tablaDetallesOC.getValueAt(j, 4));                    
+//                }
+//            }
+//            Object[] obj=new Object[7];
+//            obj[0]=cants;
+//            obj[1]=recs;
+//            obj[2]=descrips;
+//            obj[3]=prov;
+//            obj[4]=precios;
+//            obj[5]=gestor.generarNuevoNmroOC()+(i);
+//
+//            obj[6]=gestor.fechaActual();
+//            daktos.add(obj);
+//        }
 
 
-//List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p)
- 
 
-
- }
-
-private boolean validarCantidad()
-{
-    try{
-            Double.parseDouble(txtCantidad.getText());
-                    return true;
-    }
-    catch(Exception ex)
-   {
-      return false;
-
-   }
-}
-private boolean validarDatos()
-{
-    if(!validarCantidad())
-    {
-        JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    if(!(tablaProveedores.getSelectedRow()!=-1))
-    {
-        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    if(!mostroPrecios)// Nunca deberia pasar por aca... pero nunca se sabe...
-    {
-        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor que tenga precios registrados","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-    return true;
-}
-private void setearPrecioXCantidad()
-{
-   
-    if(validarCantidad() && tablaProveedores.getSelectedRow()!=-1 )
-        {
-           // int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
-            double canti=Double.parseDouble(txtCantidad.getText());
-            /*if (canti<0)
-            {
-                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
-                ftxtCantidad.setText(Double.toString(canti));
-            }*/
-            double[] precios =gestor.precioParcial(canti);
-            lblPrecioUnitario.setText("$ "+precios[0]);
-            lblPrecioParcial.setText("$ "+precios[1]);
-        }
-}
+//    // Trabajar con daktos
+//         if(definitivo)
+//         {
+//            int[] nmrosO=gestor.registrar(daktos);
+//            if( nmrosO==null)
+//            {return false;}
+//            else
+//            {
+//                for (int i= 0; i < nmrosO.length; i++)
+//                {
+//                   daktos.get(i)[5]=nmrosO[i];
+//                }
+//                JOptionPane.showMessageDialog(this.getParent(), "Se han registrado correctamente "+nmrosO.length+" Ordenes de Compra","Registro Correcto",JOptionPane.INFORMATION_MESSAGE);
+//                pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(true, gestor, daktos);
+//                 SwingPanel.getInstance().addWindow(pcle);
+//                pcle.setVisible(true);
+//                return true;
+//            }
+//         }
+//         else // vista previa
+//         {
+//             pantallaVistaPreviaGenerarOrdenCompra pcle = new pantallaVistaPreviaGenerarOrdenCompra(false, gestor, daktos);
+//             SwingPanel.getInstance().addWindow(pcle);
+//             pcle.setVisible(true);
+//             return false;
+//         }    
+//        
+//
+//
+////List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p)
+// 
+//
+//
+// }
+//
+//private boolean validarCantidad()
+//{
+//    try{
+//            Double.parseDouble(txtCantidad.getText());
+//                    return true;
+//    }
+//    catch(Exception ex)
+//   {
+//      return false;
+//
+//   }
+//}
+//private boolean validarDatos()
+//{
+//    if(!validarCantidad())
+//    {
+//        JOptionPane.showMessageDialog(this.getParent(),"Debe introducir una cantidad valida","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+//        return false;
+//    }
+//    if(!(tablaProveedores.getSelectedRow()!=-1))
+//    {
+//        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+//        return false;
+//    }
+//    if(!mostroPrecios)// Nunca deberia pasar por aca... pero nunca se sabe...
+//    {
+//        JOptionPane.showMessageDialog(this.getParent(),"Debe selecionar un proveedor que tenga precios registrados","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
+//        return false;
+//    }
+//    return true;
+//}
+//private void setearPrecioXCantidad()
+//{
+//   
+//    if(validarCantidad() && tablaProveedores.getSelectedRow()!=-1 )
+//        {
+//           // int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
+//            double canti=Double.parseDouble(txtCantidad.getText());
+//            /*if (canti<0)
+//            {
+//                canti=canti-(2*canti);//Convierto a valor positivo si es q es negativo
+//                ftxtCantidad.setText(Double.toString(canti));
+//            }*/
+//            double[] precios =gestor.precioParcial(canti);
+//            lblPrecioUnitario.setText("$ "+precios[0]);
+//            lblPrecioParcial.setText("$ "+precios[1]);
+//        }
+//}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

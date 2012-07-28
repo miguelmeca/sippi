@@ -12,8 +12,7 @@ import modelo.PlanificacionXXX;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
- *
- * @author Administrador
+ * @author Iuga
  */
 public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
 

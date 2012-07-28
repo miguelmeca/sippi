@@ -7,6 +7,10 @@
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
     <property column="ESTADO" name="estado" type="string"/>
+    
+    <property column="ES_COMPRABLE"  name="esComprable"  type="boolean"/>
+    <property column="ES_STOCKEABLE" name="esStockeable" type="boolean"/>
+    
     <many-to-one class="modelo.UnidadDeMedida" column="ID_UNIDAD_MEDIDA" name="unidadDeMedida"/>
     <list cascade="all" name="recursos" table="RECURSO_X_RECURSOESPECIFICO">
       <key column="ID_REC"/>

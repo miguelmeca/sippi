@@ -15,14 +15,14 @@ import util.Tupla;
 /**
  * @author Iuga
  */
-public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
+public class OLD_pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
     private gestorRegistrarPrecioRecurso gestor;
     private DefaultTableModel modeloFinal;
     private String unidadMedida;
 
     /** Creates new form pantallaRegistrarPrecioRecurso */
-    public pantallaRegistrarPrecioRecurso() {
+    public OLD_pantallaRegistrarPrecioRecurso() {
         initComponents();
 
         //gestor = new gestorRegistrarPrecioRecurso(this);
@@ -201,7 +201,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("1. Seleccione el Recurso al que le registrará el Precio"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nombre:");
 
         cmbRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Torno" }));
@@ -225,10 +225,10 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Rubro:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Lista de Recursos:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -273,7 +273,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Últimos precios conocidos:");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Proveedor:");
 
         cmbProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -325,10 +325,10 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("3. Actualizar los Precios para el Proveedor elegido"));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Nuevo Precio");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Fecha de Vigencia");
 
         cmbLEP.setDateFormatString("dd/MM/yyyy");
@@ -341,7 +341,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Cantidad");
 
         lblUnidadMedida.setText("UN.");
@@ -353,7 +353,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
 
         txtPrecio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 2, 11));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("(Si no tiene vigencia, dejar en blanco)");
 
@@ -489,7 +489,7 @@ public class pantallaRegistrarPrecioRecurso extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuitar)
