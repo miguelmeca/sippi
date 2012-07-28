@@ -61,8 +61,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
 
-        this.jpbCargando.setVisible(false);
-
         // Mando el Panel a un Singleton para poder accederlo de manera unica
         SwingPanel.getInstance().setPane(panel);
         SwingPanel.getInstance().setVentanaPrincipal(this);
@@ -77,37 +75,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarFavoritosGuardados();
         
         //cargarHomeScreen();
-    }
-
-    public void mostrarCargando(boolean flag)
-    {
-        if(flag==true)
-        {
-                jpbCargando.setVisible(true);
-                setProgress(10);
-                jpbCargando.setString("Cargando...");
-                jpbCargando.setIndeterminate(true);
-                jPanelCargando.update(jPanelCargando.getGraphics());
-
-          setProgress(20);
-          jPanelCargando.update(jPanelCargando.getGraphics());
-          setProgress(30);
-          jPanelCargando.update(jPanelCargando.getGraphics());
-
-        }
-        else
-        {
-            jPanelCargando.setVisible(false);
-        }
-    }
-
-    public void setProgress(final int progress)
-    {
-        SwingUtilities.invokeLater(new Runnable() {
-          public void run() {
-            jpbCargando.setValue(progress);
-          }
-        });
     }
 
     private void cargarMenu()
@@ -182,15 +149,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jPopupMenu3 = new javax.swing.JPopupMenu();
-        jPanel2 = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
-        btnSiderbarAutoHide = new javax.swing.JToggleButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnSalir = new javax.swing.JButton();
-        btnInicio = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
-        jPanelCargando = new javax.swing.JPanel();
-        jpbCargando = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
@@ -198,6 +156,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         treeMenu = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -235,77 +196,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acá va el nombre del sistema");
-
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-
-        btnSiderbarAutoHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/fullscreen.png"))); // NOI18N
-        btnSiderbarAutoHide.setFocusable(false);
-        btnSiderbarAutoHide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSiderbarAutoHide.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSiderbarAutoHide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSiderbarAutoHideActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnSiderbarAutoHide);
-        jToolBar1.add(jSeparator1);
-
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.setFocusable(false);
-        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnSalir);
-
-        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
-        btnInicio.setText("Inicio");
-        btnInicio.setFocusable(false);
-        btnInicio.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnInicio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnInicio);
-        jToolBar1.add(jSeparator2);
-
-        jpbCargando.setDoubleBuffered(true);
-        jpbCargando.setString("Cargando...");
-        jpbCargando.setStringPainted(true);
-
-        javax.swing.GroupLayout jPanelCargandoLayout = new javax.swing.GroupLayout(jPanelCargando);
-        jPanelCargando.setLayout(jPanelCargandoLayout);
-        jPanelCargandoLayout.setHorizontalGroup(
-            jPanelCargandoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCargandoLayout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
-                .addComponent(jpbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanelCargandoLayout.setVerticalGroup(
-            jPanelCargandoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpbCargando, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jToolBar1.add(jPanelCargando);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -361,7 +251,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -377,6 +267,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/favorite.png"))); // NOI18N
+        jMenu8.setText("Sistema");
+
+        jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
+        jMenuItem19.setText("Inicio");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem19);
+
+        cmbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        cmbSalir.setText("Salir");
+        cmbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSalirActionPerformed(evt);
+            }
+        });
+        jMenu8.add(cmbSalir);
+
+        jMenuBar1.add(jMenu8);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Favourites.png"))); // NOI18N
         jMenu3.setText("Prototipos");
@@ -654,12 +567,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_treeMenuValueChanged
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
-        Salir();
-
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         pantallaConsultarLicenciasEmpleado pcle = new pantallaConsultarLicenciasEmpleado();
@@ -678,11 +585,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void panelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseMoved
 
-        if(btnSiderbarAutoHide.isSelected())
-        {
-            jSplitPane2.setDividerLocation(0);
-        }
-        
+      
     }//GEN-LAST:event_panelMouseMoved
 
     private void jScrollPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseMoved
@@ -709,19 +612,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         prp.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-private void btnSiderbarAutoHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiderbarAutoHideActionPerformed
-
-    if(btnSiderbarAutoHide.isSelected())
-    {
-        jSplitPane2.setDividerLocation(0);
-    }
-    else
-    {
-        jSplitPane2.setDividerLocation(PANEL_DERECHO_SIZE);
-    }
-    
-}//GEN-LAST:event_btnSiderbarAutoHideActionPerformed
 
 private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
     
@@ -821,12 +711,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
-    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        VentanaHome win = new VentanaHome();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);         
-    }//GEN-LAST:event_btnInicioActionPerformed
-
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         FactoryABM factory = new FactoryABM();
         PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_BAJA);
@@ -878,8 +762,17 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true); 
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
+    private void cmbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalirActionPerformed
+        Salir();
+    }//GEN-LAST:event_cmbSalirActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        VentanaHome win = new VentanaHome();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInicio;
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;
@@ -889,8 +782,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem btnMenuListadoPlanificaciones;
     private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JMenuItem btnMnuRecursos;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JToggleButton btnSiderbarAutoHide;
+    private javax.swing.JMenuItem cmbSalir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -898,6 +790,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -909,6 +802,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -918,18 +812,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanelCargando;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JProgressBar jpbCargando;
     private javax.swing.JDesktopPane panel;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables

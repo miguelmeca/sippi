@@ -20,6 +20,7 @@ public interface IDetallable {
      * @return 
      */
     public String getNombre();
+    public void setNombre(String nombre);
     /**
      * Retorna la cantidad de estos items que se estan agregando al detalle
      * Columna: Cantidad
@@ -27,18 +28,21 @@ public interface IDetallable {
      * @return 
      */
     public float getCantidad();
+    public void setCantidad(float cantidad);
     /**
      * Unidad en la que se mide el item (Nombre [Abreviatura])
      * Columna: Unidad
      * @return 
      */
     public String getUnidadDeMedida();
+    public void setUnidadDeMedida(String unidadDeMedida);
     /**
      * Precio unitario al que se compro/Vendio el item
      * Columna: Precio Unitario
      * @return 
      */
-    public float getPrecioUnitario();
+    public double getPrecioUnitario();
+    public void setPrecioUnitario(double precio);
     /**
      * Metodo que calcula el SubTotal de este Detalle
      * Columna: SubTotal

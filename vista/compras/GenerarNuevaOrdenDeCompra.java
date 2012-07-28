@@ -5,21 +5,36 @@
 package vista.compras;
 
 import java.util.List;
-import modelo.PedidoObra;
-import modelo.Proveedor;
-import modelo.IDetallable;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.*;
+import util.HibernateUtil;
+import util.SwingPanel;
+import util.Tupla;
+import vista.comer.pantallaListadoProveedores;
+import vista.interfaces.ICallBackGen;
+import vista.interfaces.ICallBackObject;
 
 /**
  *
  * @author Administrador
  */
-public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame {
+public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implements ICallBackGen, ICallBackObject {
 
+    public static final String CALLBACK_SELECCION_PROVEEDOR   = "SeleccionDeProveedor";
+    public static final String CALLBACK_SELECCION_ITEMDETALLE = "SeleccionItemDetalle";
+    
+    private Proveedor proveedorSeleccionado;
+    private OrdenDeCompra ordenDeCompraCargada;
+    
     /**
      * Permite crear desde cero una orden de compra (por ejemplo si se llama desde el menú principal)
      */
     public GenerarNuevaOrdenDeCompra() {
         initComponents();
+        initComboFormaDePago();
+        initComboFormaDeEntrega();
+        txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
     }
 
     /**
@@ -27,6 +42,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame {
      * @param idOrdenDeCompra 
      */
     public GenerarNuevaOrdenDeCompra(int idOrdenDeCompra) {
+        initComponents();
+        initComboFormaDePago();    
+        initComboFormaDeEntrega();
+        initDatos(idOrdenDeCompra);
+        initEstado();
     }
     
     /**
@@ -37,6 +57,10 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame {
      * desde la ejecución de una Obra)
      */
     public GenerarNuevaOrdenDeCompra(PedidoObra obra, Proveedor p, List<IDetallable> listaItemsOrden) {
+        initComponents();
+        initComboFormaDePago();  
+        initComboFormaDeEntrega();
+        txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
     }    
 
     /**
@@ -48,11 +72,197 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        txtNroOrdenDeCompra = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbFormaDePago = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        cmbFormaDeEntrega = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        txtProveedor = new javax.swing.JTextField();
+        btnSeleccionarProveedor = new javax.swing.JButton();
+        txtFecha = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDetalle = new javax.swing.JTable();
+        btnAgregar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        btnRegistrarRecepcion = new javax.swing.JButton();
+        btnEmitir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Generar Nueva Orden de Compra");
 
-        jLabel1.setText("Ventana que genera una nueva orden de compra simple. VER HLD 1.1");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de la Orden"));
+
+        txtNroOrdenDeCompra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtNroOrdenDeCompra)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtNroOrdenDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
+
+        jLabel1.setText("Fecha:");
+
+        jLabel2.setText("Forma de Pago:");
+
+        jLabel3.setText("Forma de Entrega:");
+
+        jLabel4.setText("Proveedor:");
+
+        txtProveedor.setBackground(new java.awt.Color(204, 204, 204));
+        txtProveedor.setEditable(false);
+
+        btnSeleccionarProveedor.setText("...");
+        btnSeleccionarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarProveedorActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Estado:");
+
+        txtEstado.setBackground(new java.awt.Color(204, 204, 204));
+        txtEstado.setEditable(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbFormaDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbFormaDeEntrega, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtProveedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSeleccionarProveedor))
+                    .addComponent(txtEstado)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeleccionarProveedor)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbFormaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbFormaDeEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Orden de Compra"));
+
+        tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre y Descripción", "Cantidad", "Precio", "SubTotal"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDetalle);
+
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnQuitar.setText("Quitar");
+
+        jTextField3.setBackground(new java.awt.Color(204, 204, 204));
+        jTextField3.setEditable(false);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Total:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnQuitar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnQuitar)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)))
+        );
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+
+        btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
+        btnRegistrarRecepcion.setText("Registrar Recepción");
+
+        btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitir.setText("Emitir Orden de Compra");
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,20 +270,229 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegistrarRecepcion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEmitir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnRegistrarRecepcion)
+                    .addComponent(btnEmitir)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSeleccionarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProveedorActionPerformed
+        pantallaListadoProveedores win = new pantallaListadoProveedores();
+        win.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompra.CALLBACK_SELECCION_PROVEEDOR);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        GenerarNuevaOrdenDeCompraAgregarRecurso win = new GenerarNuevaOrdenDeCompraAgregarRecurso(this);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEmitir;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnQuitar;
+    private javax.swing.JButton btnRegistrarRecepcion;
+    private javax.swing.JButton btnSeleccionarProveedor;
+    private javax.swing.JComboBox cmbFormaDeEntrega;
+    private javax.swing.JComboBox cmbFormaDePago;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable tblDetalle;
+    private javax.swing.JTextField txtEstado;
+    private com.toedter.calendar.JDateChooser txtFecha;
+    private javax.swing.JTextField txtNroOrdenDeCompra;
+    private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actualizar(int id, String flag, Class tipo) {
+        if(CALLBACK_SELECCION_PROVEEDOR.equals(flag))
+        {
+            if(tipo == Proveedor.class)
+            {
+                try
+                {
+                    HibernateUtil.beginTransaction();
+                    Proveedor p = (Proveedor)HibernateUtil.getSession().load(tipo, id);
+                    HibernateUtil.commitTransaction();
+                    
+                    if(p!=null)
+                    {
+                        this.proveedorSeleccionado = p;
+                    }
+                    
+                    txtProveedor.setText(p.getRazonSocial());
+
+                }catch(Exception e)
+                {
+                    HibernateUtil.rollbackTransaction();
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar el Proveedor Seleccionado\n"+e.getMessage());
+                    e.printStackTrace();
+                    return;
+                } 
+            }
+        }
+    }
+    
+    @Override
+    public void actualizarConObjeto(String flag, Class tipo, Object[] data) {
+        if(CALLBACK_SELECCION_ITEMDETALLE.equals(flag))
+        {
+            DetalleOrdenDeCompra doc = (DetalleOrdenDeCompra) data[0];
+            agregarDetalleOrdenCompraATabla(doc);
+        }        
+    }    
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    private void initComboFormaDePago() {
+        
+        cmbFormaDePago.removeAllItems();
+        try
+            {
+                HibernateUtil.beginTransaction();
+                List<FormaDePago> listado = HibernateUtil.getSession().createQuery("from FormaDePago").list();
+                HibernateUtil.commitTransaction();
+                
+                for (int i = 0; i < listado.size(); i++) {
+                    FormaDePago fdp = listado.get(i);
+                    Tupla tp = new Tupla(fdp.getId(),fdp.getNombre());
+                    cmbFormaDePago.addItem(tp);
+                }
+
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar las formas de Pago\n"+e.getMessage());
+                e.printStackTrace();
+                return;
+            } 
+
+    }
+
+    private void initComboFormaDeEntrega() {
+        for (int i = 0; i < OrdenDeCompra.FORMAS_DE_ENTREGA.length; i++) {
+            String fde = OrdenDeCompra.FORMAS_DE_ENTREGA[i];
+            Tupla tp = new Tupla(i,fde);
+            cmbFormaDeEntrega.addItem(tp);
+        }
+    }
+
+    private void initEstado() {
+        txtEstado.setText("No implementado");
+    }
+
+    private void initDatos(int idOrdenDeCompra) {
+        // Cargo la Orden y muestro los datos
+        try
+        {
+            HibernateUtil.beginTransaction();
+            this.ordenDeCompraCargada = (OrdenDeCompra)HibernateUtil.getSession().load(OrdenDeCompra.class,idOrdenDeCompra);
+            HibernateUtil.commitTransaction();
+            
+            if(this.ordenDeCompraCargada!=null)
+            {
+                // Numero
+                txtNroOrdenDeCompra.setText(""+this.ordenDeCompraCargada.getNumero());
+                // Proveedor
+                if(this.ordenDeCompraCargada.getProveedor()!=null)
+                {
+                    this.proveedorSeleccionado = this.ordenDeCompraCargada.getProveedor();
+                    txtProveedor.setText(this.proveedorSeleccionado.getRazonSocial());
+                }
+                // Fecha
+                this.txtFecha.setDate( this.ordenDeCompraCargada.getFechaDeGeneracion());
+                // Forma De Pago
+                Tupla.seleccionarTuplaPorId(cmbFormaDePago, this.ordenDeCompraCargada.getFormaDePago().getId());
+                // Forma De Entrega
+                for (int i = 0; i < OrdenDeCompra.FORMAS_DE_ENTREGA.length; i++) {
+                    String sfde = OrdenDeCompra.FORMAS_DE_ENTREGA[i];
+                    if(sfde.equals(this.ordenDeCompraCargada.getFormaDeEntrega()))
+                    {
+                        Tupla.seleccionarTuplaPorId(cmbFormaDeEntrega, i);
+                    }
+                }
+                // Estado
+                txtEstado.setText(this.ordenDeCompraCargada.getEstado());   
+            }
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la Orden De Compra\n"+e.getMessage());
+            e.printStackTrace();
+            return;
+        } 
+    }
+    
+    private void agregarDetalleOrdenCompraATabla(DetalleOrdenDeCompra doc)
+    {
+        DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
+        
+        Object[] fila = new Object[4];
+            fila[0] = "???";
+            fila[1] = doc.getCantidad();
+            fila[2] = doc.getPrecioUnitario();
+            fila[3] = doc.calcularSubTotal();
+        
+        modelo.addRow(fila);
+        
+    }
+
+
 }

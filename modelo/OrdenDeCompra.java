@@ -25,14 +25,16 @@ public class OrdenDeCompra {
     private FormaDePago formaDePago;
     
     private String estado;
+    public static final String ESTADO_EN_CREACION  = "En Creación"; //Estado Falso, nunca lo tiene, solo es para mostrar mientras se crea !!!
     public static final String ESTADO_PENDIENTE  = "Pendiente";
     public static final String ESTADO_EMITIDA    = "Emitida";
     public static final String ESTADO_ANULADA    = "Anulada";
     
     private String formaDeEntrega;
-    public static final String[] FORMAS_DE_ENTREGA  = { "En la Empresa",
-                                                        "En el Cliente",
-                                                        "Envío a domicilio"};      
+    public static final String[] FORMAS_DE_ENTREGA  = { "En la empresa",
+                                                        "En el cliente",
+                                                        "Envío a domicilio",
+                                                        "A definir"};      
     
     private List<DetalleOrdenDeCompra> detalle;
     

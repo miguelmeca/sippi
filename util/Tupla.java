@@ -5,6 +5,8 @@
 
 package util;
 
+import javax.swing.JComboBox;
+
 /**
  *
  * @author Emmanuel
@@ -50,6 +52,21 @@ public class Tupla {
         return nombre;
     }
 
-
+    /**
+     * Del combo que se le pasa, selecciona la Tupla que corresponda a ese ID
+     * @param combo
+     * @param id 
+     */
+    public static void seleccionarTuplaPorId(JComboBox combo, int id)
+    {
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            Tupla tp = (Tupla) combo.getItemAt(i);
+            if(tp.getId()==id)
+            {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
 
 }

@@ -190,6 +190,9 @@ public class Loading extends javax.swing.JFrame {
                 {
                     //UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");    
+                    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");   
+                    //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");    
+                    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
                 }
                 catch(Exception e)
                 {}
