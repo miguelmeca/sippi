@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.*;
 import util.HibernateUtil;
 import util.Tupla;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
@@ -20,6 +21,7 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
     private Class claseBase;
     private int id = -1;
     private Recurso recurso;
+    private ICallBackGen callback;
     
     /**
      * Creates new form PantallaGestionarRecurso
@@ -28,6 +30,7 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
         this.claseBase = claseBase;
         initComponents();
         initCombos();
+        initPorClase();
     }
     
     public PantallaGestionarRecurso(Class claseBase, int id) {
@@ -36,6 +39,7 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
         initComponents();
         initCombos();
         initLoadComponent();
+        initPorClase(); 
     }    
 
     /**
@@ -54,9 +58,9 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cmbStockeable = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        cmbComprable = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnCrearModificar = new javax.swing.JButton();
@@ -74,12 +78,14 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones Generales"));
 
-        jCheckBox1.setText("Éste recurso puede tener Stock");
+        cmbStockeable.setSelected(true);
+        cmbStockeable.setText("Éste recurso puede tener Stock");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel4.setText("( Todos los recursos de este tipo tienen Stock en la empresa )");
 
-        jCheckBox2.setText("Éste recurso puede generar Ordenes de Compra");
+        cmbComprable.setSelected(true);
+        cmbComprable.setText("Éste recurso puede generar Ordenes de Compra");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel5.setText("(Todos los recursos de este tipo pueden agregarse en una orden de compra)");
@@ -91,8 +97,8 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbStockeable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbComprable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,11 +109,11 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jCheckBox1)
+                .addComponent(cmbStockeable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(cmbComprable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5))
         );
@@ -173,7 +179,7 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnCrearModificar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,6 +218,9 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
             
             this.recurso.setNombre(txtNombre.getText());
             
+            this.recurso.setEsComprable(cmbComprable.isSelected());
+            this.recurso.setEsStockeable(cmbStockeable.isSelected());
+            
             Tupla tpudm = (Tupla) cmbUnidadMedida.getSelectedItem();
             
             try
@@ -241,7 +250,19 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
             return;
         }              
         
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","El Nuevo Recurso se agrego exitosamente !");
+        if(this.id==-1)
+        {
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","El Nuevo Recurso se agrego exitosamente !");
+        }
+        else
+        {
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","El Nuevo Recurso se modifico exitosamente !");
+        }
+        if(this.callback!=null)
+        {
+            this.callback.actualizar(this.recurso.getId(),PantallaGestionarRecursos.CALLBACK_NUEVO_RECURSO,this.recurso.getClass());
+        }
+        
         this.dispose();
         
         // Llamar al CallBack si hay
@@ -251,10 +272,10 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrearModificar;
+    private javax.swing.JCheckBox cmbComprable;
     private javax.swing.JComboBox cmbEstado;
+    private javax.swing.JCheckBox cmbStockeable;
     private javax.swing.JComboBox cmbUnidadMedida;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -316,9 +337,61 @@ public class PantallaGestionarRecurso extends javax.swing.JInternalFrame {
     }
 
     private void initLoadComponent() {
-        // Cargo los datos del recurso que me pasaron para modificarlo
-        btnCrearModificar.setText("Modificar");
-        btnCrearModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+        // Cargo el Recurso
+        try{
+            HibernateUtil.beginTransaction();
+            this.recurso = (Recurso) HibernateUtil.getSession().load(Recurso.class,this.id);
+            HibernateUtil.commitTransaction();
+        }catch(Exception e){
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar el Recurso Indicado");
+            this.dispose();
+        }
+        
+        if(this.recurso!=null)
+        {
+            // Cargo los datos del recurso que me pasaron para modificarlo
+            btnCrearModificar.setText("Modificar");
+            btnCrearModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
+            
+            txtNombre.setText(this.recurso.getNombre());
+            
+            // Estado
+            for (int i = 0; i < cmbEstado.getItemCount(); i++) {
+                Tupla tp = (Tupla) cmbEstado.getItemAt(i);
+                if(tp.getNombre().equals(this.recurso.getEstado()))
+                {
+                    cmbEstado.setSelectedIndex(i);
+                }
+            }
+            
+            // Unidad De Medida
+            for (int i = 0; i < cmbUnidadMedida.getItemCount(); i++) {
+                Tupla tp = (Tupla) cmbUnidadMedida.getItemAt(i);
+                if(tp.getId()==this.recurso.getUnidadDeMedida().getId())
+                {
+                    cmbUnidadMedida.setSelectedIndex(i);
+                }
+            }
+            // Stockeable y Comprable
+            cmbComprable.setSelected(this.recurso.isEsComprable());
+            cmbStockeable.setSelected(this.recurso.isEsStockeable());
+        }
     }
+
+    private void initPorClase() {
+        if(this.claseBase == Herramienta.class)
+        {
+            this.cmbComprable.setSelected(true);
+            this.cmbComprable.setEnabled(false);
+            this.cmbStockeable.setSelected(true);
+            this.cmbStockeable.setEnabled(false);
+        }
+    }
+
+    public void setCallback(ICallBackGen callback) {
+        this.callback = callback;
+    }
+    
+    
     
 }
