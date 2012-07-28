@@ -20,7 +20,7 @@ import util.LogUtil;
 import util.NTupla;
 import util.RubroUtil;
 import util.Tupla;
-import vista.compras.pantallaRegistrarPrecioRecurso;
+import vista.compras.OLD_pantallaRegistrarPrecioRecurso;
 import vista.compras.pantallaRegistrarPrecioRecursoNueva;
 
 /**

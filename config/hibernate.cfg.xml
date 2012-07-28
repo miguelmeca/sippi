@@ -58,18 +58,21 @@
     <mapping package="modelo" resource="config/db/Talle.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Recurso.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RecursoEspecifico.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/FormaDePago.hbm.xml"/>
     <mapping package="modelo" resource="config/db/UnidadDeMedida.hbm.xml"/>
-    <mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/RecursoXProveedor.hbm.xml"/>
     <mapping package="modelo" resource="config/db/PrecioSegunCantidad.hbm.xml"/>
     <mapping package="modelo" resource="config/db/Rubro.hbm.xml"/>
-    <mapping resource="config/db/Remito.xml"/>
-    <mapping resource="config/db/DetalleRemito.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/FormaDePago.hbm.xml"/>
     <mapping resource="config/db/TipoIndumentaria.hbm.xml"/>
     <mapping resource="config/db/RolEmpleado.hbm.xml"/>
     <mapping resource="config/db/PropiedadBean.hbm.xml"/>
+    
+    <!--mapping resource="config/db/DetalleRemito.hbm.xml"/-->
+    <!--mapping resource="config/db/Remito.xml"/-->
+    <!--mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/-->
+    
+    <!--mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/-->
+    
     <!--             ::: FOURTH ITERATION :::               -->
     <mapping resource="config/db/Cotizacion.hbm.xml"/>
     <mapping resource="config/db/SubObra.hbm.xml"/>

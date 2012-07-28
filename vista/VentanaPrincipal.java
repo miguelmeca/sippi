@@ -773,7 +773,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_btnMenuListadoProveedoresActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        pantallaConsultarOC win = new pantallaConsultarOC();
+        OLD_pantallaConsultarOC win = new OLD_pantallaConsultarOC();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);        
     }//GEN-LAST:event_jMenuItem7ActionPerformed
@@ -785,13 +785,13 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_btnMenuListadoOrdenesCompraActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        pantallaGenerarOrdenCompra win = new pantallaGenerarOrdenCompra();
+        OLD_pantallaGenerarOrdenCompra win = new OLD_pantallaGenerarOrdenCompra();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);          
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        pantallaRegistrarRecepcionOrdenCompra win = new pantallaRegistrarRecepcionOrdenCompra();
+        OLD_pantallaRegistrarRecepcionOrdenCompra win = new OLD_pantallaRegistrarRecepcionOrdenCompra();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);  
     }//GEN-LAST:event_jMenuItem9ActionPerformed

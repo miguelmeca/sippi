@@ -182,8 +182,8 @@ public class DBExamplesLoader {
         {
 
             sesion.beginTransaction();
-            sesion.save(um1);
-            sesion.save(um2);
+            sesion.saveOrUpdate(um1);
+            sesion.saveOrUpdate(um2);
             sesion.getTransaction().commit();
 
         } catch (Exception ex)
@@ -269,8 +269,8 @@ public class DBExamplesLoader {
         Material h1 = new Material();
         h1.setNombre("Chapa");
         UnidadDeMedida um = new UnidadDeMedida();
-        um.setAbreviatura("Kg.");
-        um.setNombre("Kilogramo");
+        um.setAbreviatura("Pk.");
+        um.setNombre("Pack");
         h1.setUnidadDeMedida(um);
 
         ArrayList<RecursoEspecifico> items = new ArrayList<RecursoEspecifico>();
@@ -797,72 +797,72 @@ public class DBExamplesLoader {
     }
 
     public void cargarOrdenDeCompra(){
-        OrdenDeCompra oc = new OrdenDeCompra();
-        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
-        oc.setProveedor(cargarProveedor());
-
-        UnidadDeMedida um = null;
-        try {
-            um = (UnidadDeMedida) HibernateUtil.getSession().get(UnidadDeMedida.class, 1);
-        } catch (Exception ex) {
-            Logger.getLogger(DBExamplesLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
-        Material m = new Material();
-        m.setUnidadDeMedida(um);
-        m.setNombre("PLACA DE METAL 2X2MTS");
-        RecursoEspecifico re = new RecursoEspecifico();
-        re.setNombre("PLACA DE METAL");
-        re.setDescipcion("Galvanizada");
-
-        ArrayList<RecursoEspecifico> res = new ArrayList<RecursoEspecifico>();
-        res.add(re);
-        m.setRecursos(res);
-        doc.setRecurso(re);
-        doc.setCantidad(12);
-        doc.setPrecio(150);
-
-        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
-        docs.add(doc);
-        oc.setDetalle(docs);
-
-        DetalleOrdenDeCompra doc1 = new DetalleOrdenDeCompra();
-        Material m1 = new Material();
-        m1.setUnidadDeMedida(um);
-        m1.setNombre("TUERCAS 2 PULGADAS");
-        RecursoEspecifico re1 = new RecursoEspecifico();
-        re1.setNombre("TUERCA");
-        re1.setDescipcion("REFORZADA");
-
-        ArrayList<RecursoEspecifico> res1 = new ArrayList<RecursoEspecifico>();
-        res1.add(re1);
-        m1.setRecursos(res1);
-        doc1.setRecurso(re1);
-        doc1.setCantidad(12);
-        doc1.setPrecio(150);
-
-        docs.add(doc1);
-        oc.setDetalle(docs);
-        oc.setFechaDeGeneracion(new Date());
-        oc.setFechaDePedido(new Date());
-        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraGenerada");
-        oc.setFechaDeRecepcion(new Date(02122010));
-
-        FormaDePago fp = new FormaDePago();
-        fp.setNombre("Efectivo");
-        oc.setFormaDePago(fp);
-
-        sesion.beginTransaction();
-        sesion.save(m);
-        sesion.save(m1);
-        sesion.save(re);
-        sesion.save(re1);
-        sesion.save(doc);
-        sesion.save(doc1);
-        sesion.save(fp);
-        sesion.save(oc);
-        sesion.getTransaction().commit();
+//        OrdenDeCompra oc = new OrdenDeCompra();
+//        oc.setEstado(new EstadoOrdenDeCompraPendienteDeRecepcion());
+//        oc.setProveedor(cargarProveedor());
+//
+//        UnidadDeMedida um = null;
+//        try {
+//            um = (UnidadDeMedida) HibernateUtil.getSession().get(UnidadDeMedida.class, 1);
+//        } catch (Exception ex) {
+//            Logger.getLogger(DBExamplesLoader.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
+//        Material m = new Material();
+//        m.setUnidadDeMedida(um);
+//        m.setNombre("PLACA DE METAL 2X2MTS");
+//        RecursoEspecifico re = new RecursoEspecifico();
+//        re.setNombre("PLACA DE METAL");
+//        re.setDescipcion("Galvanizada");
+//
+//        ArrayList<RecursoEspecifico> res = new ArrayList<RecursoEspecifico>();
+//        res.add(re);
+//        m.setRecursos(res);
+//        doc.setRecurso(re);
+//        doc.setCantidad(12);
+//        doc.setPrecio(150);
+//
+//        List<DetalleOrdenDeCompra> docs = new ArrayList<DetalleOrdenDeCompra>();
+//        docs.add(doc);
+//        oc.setDetalle(docs);
+//
+//        DetalleOrdenDeCompra doc1 = new DetalleOrdenDeCompra();
+//        Material m1 = new Material();
+//        m1.setUnidadDeMedida(um);
+//        m1.setNombre("TUERCAS 2 PULGADAS");
+//        RecursoEspecifico re1 = new RecursoEspecifico();
+//        re1.setNombre("TUERCA");
+//        re1.setDescipcion("REFORZADA");
+//
+//        ArrayList<RecursoEspecifico> res1 = new ArrayList<RecursoEspecifico>();
+//        res1.add(re1);
+//        m1.setRecursos(res1);
+//        doc1.setRecurso(re1);
+//        doc1.setCantidad(12);
+//        doc1.setPrecio(150);
+//
+//        docs.add(doc1);
+//        oc.setDetalle(docs);
+//        oc.setFechaDeGeneracion(new Date());
+//        oc.setFechaDePedido(new Date());
+//        oc.setHib_flag_estado("modelo.EstadoOrdenDeCompraGenerada");
+//        oc.setFechaDeRecepcion(new Date(02122010));
+//
+//        FormaDePago fp = new FormaDePago();
+//        fp.setNombre("Efectivo");
+//        oc.setFormaDePago(fp);
+//
+//        sesion.beginTransaction();
+//        sesion.save(m);
+//        sesion.save(m1);
+//        sesion.save(re);
+//        sesion.save(re1);
+//        sesion.save(doc);
+//        sesion.save(doc1);
+//        sesion.save(fp);
+//        sesion.save(oc);
+//        sesion.getTransaction().commit();
     }
 
     private void cargarHerramientasDeEmpresa() {

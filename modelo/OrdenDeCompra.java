@@ -16,45 +16,47 @@ public class OrdenDeCompra {
 
     private int id;
     private int numero;
+    
     private Date fechaDeGeneracion;
-    private Date fechaDePedido;
-    private Date fechaDeRecepcion;
+    private Date fechaUltimaModificacion;
+    
     private Proveedor proveedor;
-    private List<DetalleOrdenDeCompra> detalle;
+    
     private FormaDePago formaDePago;
-    private EstadoOrdenDeCompra estado;
-    private String hib_flag_estado;
+    
+    private String estado;
+    public static final String ESTADO_PENDIENTE  = "Pendiente";
+    public static final String ESTADO_EMITIDA    = "Emitida";
+    public static final String ESTADO_ANULADA    = "Anulada";
+    
+    private String formaDeEntrega;
+    public static final String[] FORMAS_DE_ENTREGA  = { "En la Empresa",
+                                                        "En el Cliente",
+                                                        "Envío a domicilio"};      
+    
+    private List<DetalleOrdenDeCompra> detalle;
+    
+    private RecepcionOrdenDeCompra recepcion;
 
-    public OrdenDeCompra()
-    {
-        this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
+    public OrdenDeCompra(){
     }
 
-    public OrdenDeCompra(int id,List<RecursoEspecifico> lstRec, String[] lstDescrip, double[] lstCantidades, double[] lstPrecios, Proveedor p, Date fechaGeneracion)
-    {
-        this.id=id;
-        this.hib_flag_estado = "modelo.EstadoOrdenDeCompraGenerada";
-        estado=this.getEstado();
-        proveedor=p;
-        fechaDeGeneracion=fechaGeneracion;
-        detalle=new ArrayList<DetalleOrdenDeCompra>();
-        try
-        {
-            for (int i = 0; i < lstRec.size(); i++)
-            {
-               DetalleOrdenDeCompra doc=new DetalleOrdenDeCompra(lstCantidades[i], lstPrecios[i],lstDescrip[i], lstRec.get(i));
-
-                detalle.add(doc);
-
-            }
-        }
-        catch(Exception e)
-        {
-            System.err.println("ERORRRRRR:  Lista para detalles pasadas a OrdenDeCompra mal cargadas");
-        }
-
-
+    public List<DetalleOrdenDeCompra> getDetalle() {
+        return detalle;
     }
+
+    public void setDetalle(List<DetalleOrdenDeCompra> detalle) {
+        this.detalle = detalle;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public Date getFechaDeGeneracion() {
         return fechaDeGeneracion;
     }
@@ -62,28 +64,29 @@ public class OrdenDeCompra {
     public void setFechaDeGeneracion(Date fechaDeGeneracion) {
         this.fechaDeGeneracion = fechaDeGeneracion;
     }
-    public Date getFechaDePedido() {
-        return fechaDePedido;
+
+    public Date getFechaUltimaModificacion() {
+        return fechaUltimaModificacion;
     }
 
-    public void setFechaDePedido(Date fechaDePedido) {
-        this.fechaDePedido = fechaDePedido;
+    public void setFechaUltimaModificacion(Date fechaUltimaModificacion) {
+        this.fechaUltimaModificacion = fechaUltimaModificacion;
     }
 
-    public Date getFechaDeRecepcion() {
-        return fechaDeRecepcion;
+    public String getFormaDeEntrega() {
+        return formaDeEntrega;
     }
 
-    public void setFechaDeRecepcion(Date fechaDeRecepcion) {
-        this.fechaDeRecepcion = fechaDeRecepcion;
+    public void setFormaDeEntrega(String formaDeEntrega) {
+        this.formaDeEntrega = formaDeEntrega;
     }
 
-    public String getHib_flag_estado() {
-        return hib_flag_estado;
+    public FormaDePago getFormaDePago() {
+        return formaDePago;
     }
 
-    public void setHib_flag_estado(String hib_flag_estado) {
-        this.hib_flag_estado = hib_flag_estado;
+    public void setFormaDePago(FormaDePago formaDePago) {
+        this.formaDePago = formaDePago;
     }
 
     public int getId() {
@@ -105,161 +108,18 @@ public class OrdenDeCompra {
     public Proveedor getProveedor() {
         return proveedor;
     }
-    
-    public String getNombreProveedor()
-    {
-        if(this.proveedor!=null)
-        {
-            return this.proveedor.getRazonSocial();
-        }
-        return "";
-    }
-            
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 
-    public List<DetalleOrdenDeCompra> getDetalle() {
-        return detalle;
+    public RecepcionOrdenDeCompra getRecepcion() {
+        return recepcion;
     }
 
-    public void setDetalle(List<DetalleOrdenDeCompra> detalle) {
-        this.detalle = detalle;
+    public void setRecepcion(RecepcionOrdenDeCompra recepcion) {
+        this.recepcion = recepcion;
     }
 
-    public FormaDePago getFormaDePago() {
-        return formaDePago;
-    }
-
-    public void setFormaDePago(FormaDePago formaDePago) {
-        this.formaDePago = formaDePago;
-    }
-
-/*************************************************************
- *                    MANEJO DE ESTADOS                      *
- * ***********************************************************
- */
     
-    public EstadoOrdenDeCompra getEstado()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado==null)
-            {
-                try {
-                        //Class estadoAux = Class.forName(this.hib_flag_estado);
-                        EstadoOrdenDeCompra estadoAux = (EstadoOrdenDeCompra) Class.forName(this.hib_flag_estado).newInstance();
-                        this.estado = estadoAux;
-                        return estado;
-                    }
-                    catch (Exception ex)
-                    {
-                        System.out.println("No se encontro la clase Estado Concreto");
-                    }
-            }
-            else
-            {
-                return this.estado;
-            }
-
-        }
-        else
-        {
-            System.out.println("Carga el objeto antes de usarlo");
-            return null;
-        }
-        return null;
-    }
-    
-    public String getNombreEstado()
-    {
-        if(this.estado!=null)
-        {
-            return this.estado.getNombre();
-        }
-        return "";
-    }
-
-    public void setEstadoPendienteDeRecepcion()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado.esGenerada())
-            {
-                ((EstadoOrdenDeCompraGenerada)this.estado).setPendiente(this);
-            }
-        }
-    }
-
-    public void setEstadoRecibidaParcial()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado.esPendiente())
-            {
-                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibidaParcial(this);
-            }else{
-                if(this.estado.esRecibidaParcial()){
-                    ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setRecibidaParcial(this);
-                }
-            }
-        }
-    }
-
-    public void setEstadoRecibidaTotal()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado.esPendiente())
-            {
-                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setRecibidaTotal(this);
-            }else{
-                if(this.estado.esRecibidaParcial()){
-                    ((EstadoOrdenDeCompraRecibidaParcial)this.estado).setRecibidaTotal(this);
-                }
-            }
-        }
-    }
-
-
-    public void setEstadoCancelado()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado.esGenerada()){
-                ((EstadoOrdenDeCompraGenerada)this.estado).setCancelado(this);
-            }
-        }
-    }
-
-    public void setEstadoAnulada()
-    {
-        if(this.id!=0) // Objeto no cargado
-        {
-            if(this.estado.esPendiente()){
-                ((EstadoOrdenDeCompraPendienteDeRecepcion)this.estado).setAnulada(this);
-            }
-        }
-    }
-
-    public void setEstado(EstadoOrdenDeCompra estado) {
-        this.estado = estado;
-    }
-    
-    public double CalcularTotal()
-    {
-        double total =0;
-        for (int i = 0; i < detalle.size(); i++) 
-        {
-            DetalleOrdenDeCompra dodc = detalle.get(i);
-            total += dodc.getPrecioParcial();
-        }
-        return total;
-    }
-    
-    public String getCalcularTotal()
-    {
-        return "$ "+String.valueOf(CalcularTotal());
-    }
 }

@@ -11,7 +11,7 @@
 
 package vista.compras;
 
-import controlador.Compras.GestorGenerarOrdenCompra;
+import controlador.Compras.OLD_GestorGenerarOrdenCompra;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,12 +41,13 @@ import util.Tupla;
  *
  * @author Fran
  */
-public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternalFrame {
-    private GestorGenerarOrdenCompra gestor;
+@Deprecated
+public class OLD_pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternalFrame {
+    private OLD_GestorGenerarOrdenCompra gestor;
     boolean definitivo;
     ArrayList<Object[]> daktos;
     /** Creates new form pantallaRegistrarRecepcionOrdenCompra */
-    public pantallaVistaPreviaGenerarOrdenCompra(boolean definitiv, GestorGenerarOrdenCompra ges, ArrayList<Object[]> dakt)
+    public OLD_pantallaVistaPreviaGenerarOrdenCompra(boolean definitiv, OLD_GestorGenerarOrdenCompra ges, ArrayList<Object[]> dakt)
     {
         definitivo=definitiv;
         daktos=dakt;
@@ -375,7 +376,7 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnImprimir))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -387,37 +388,37 @@ public class pantallaVistaPreviaGenerarOrdenCompra extends javax.swing.JInternal
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-    if(tablaOrdenesCompra.getSelectedRow()!=-1)
-       {
-          int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
-        if(id>0) {
-            //           SwingPanel.getInstance().setCargando(true);
-            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
-
-            //           Map params = new HashMap();
-
-            Map params = gestor.parametrosAImprimir(id);
-            //           params.put("idOC",id);
-            //           params.put("PROVEEDOR", "EXPRESO BRIOS");
-            //           params.put("CUIT", "12233");
-            //           params.put("DIRECCION", "Algun LADO");
-
-            ReporteUtil ru = new ReporteUtil();
-            try
-            {
-                ru.mostrarReporte(urlReporte,params);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-            //SwingPanel.getInstance().setCargando(false);
-            gestor.emitirOrdenDeCompra(id);
-        }
-
-        this.dispose();
-
-    }
+//    if(tablaOrdenesCompra.getSelectedRow()!=-1)
+//       {
+//          int id = (Integer) tablaOrdenesCompra.getModel().getValueAt(tablaOrdenesCompra.getSelectedRow(), 0);
+//        if(id>0) {
+//            //           SwingPanel.getInstance().setCargando(true);
+//            String urlReporte = "/vista/reportes/OrdenDeCompra.jrxml";
+//
+//            //           Map params = new HashMap();
+//
+//            Map params = gestor.parametrosAImprimir(id);
+//            //           params.put("idOC",id);
+//            //           params.put("PROVEEDOR", "EXPRESO BRIOS");
+//            //           params.put("CUIT", "12233");
+//            //           params.put("DIRECCION", "Algun LADO");
+//
+//            ReporteUtil ru = new ReporteUtil();
+//            try
+//            {
+//                ru.mostrarReporte(urlReporte,params);
+//            }
+//            catch(Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+//            //SwingPanel.getInstance().setCargando(false);
+//            gestor.emitirOrdenDeCompra(id);
+//        }
+//
+//        this.dispose();
+//
+//    }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void tablaOrdenesCompraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesCompraMousePressed

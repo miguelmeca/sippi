@@ -17,6 +17,15 @@
     <itemcat icono="/res/iconos/var/16x16/promotion.png" nombre="Favoritos">
     </itemcat>
 
+    <itemcat icono="/res/iconos/var/16x16/Shopping cart.png" nombre="Compras">
+        <item nombre="Generar una Orden De Compra" icono="/res/iconos/var/16x16/List.png" instance="vista.compras.GenerarNuevaOrdenDeCompra"/>
+        <item nombre="Recepcion de Compras" icono="/res/iconos/var/16x16/delivery.png" instance="vista.compras.RegistrarRecepcionDeRecursos"/>
+        <item nombre="Gestionar Stock" icono="/res/iconos/var/16x16/Wallet.png" instance="vista.compras.GestionarStock"/>
+        <item nombre="Consultar Precios" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.ConsultarPrecios"/>
+        <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.pantallaRegistrarProveedor"/>
+        <item nombre="Registrar Precios de Recursos" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.pantallaRegistrarPrecioRecursoNueva"/>
+    </itemcat>  
+
     <itemcat icono="/res/iconos/var/16x16/Equipment.png" nombre="Obras">
         <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.pantallaBuscarPedido"/>
         <item nombre="Nuevo Pedido de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.pantallaRegistrarPedido"/>

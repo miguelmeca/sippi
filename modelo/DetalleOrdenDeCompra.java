@@ -12,19 +12,14 @@ public class DetalleOrdenDeCompra {
 
     private int id;
     private double cantidad;
-    private double precio;
-    private String descripcion;
-    private RecursoEspecifico recurso;
+    private double precioUnitario;
+    private IDetallable item;
+    
+    private DetalleRecepcionOrdenDeCompra recepcion;
 
     public DetalleOrdenDeCompra() {
     }
-    public DetalleOrdenDeCompra(double cant, double preci, String descripcio, RecursoEspecifico rec)
-    {
-     cantidad=cant;
-     precio=preci;
-     descripcion=descripcio;
-     recurso=rec;
-    }
+
     public double getCantidad() {
         return cantidad;
     }
@@ -40,33 +35,29 @@ public class DetalleOrdenDeCompra {
     public void setId(int id) {
         this.id = id;
     }
-    public String getDescripcion()
-    {
-        return descripcion;
+
+    public IDetallable getItem() {
+        return item;
     }
 
-    public void setDescripcion(String descripcio) {
-        this.descripcion = descripcio;
-    }
-    public double getPrecio() {
-        return precio;
+    public void setItem(IDetallable item) {
+        this.item = item;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public double getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public RecursoEspecifico getRecurso() {
-        return recurso;
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
-    public void setRecurso(RecursoEspecifico recurso) {
-        this.recurso = recurso;
+    public DetalleRecepcionOrdenDeCompra getRecepcion() {
+        return recepcion;
     }
 
-    public double getPrecioParcial()
-    {
-        return (precio*cantidad);
+    public void setRecepcion(DetalleRecepcionOrdenDeCompra recepcion) {
+        this.recepcion = recepcion;
     }
 
 }

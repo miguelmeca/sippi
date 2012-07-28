@@ -24,6 +24,11 @@ public abstract class Recurso {
     private UnidadDeMedida unidadDeMedida;
     private String estado;
     
+    // Este Recurso puede tener Stock
+    private boolean esStockeable = false;
+    // Este recurso puede agregarse a una orden de compra
+    private boolean esComprable  = false;
+    
     public static final String ESTADO_ALTA = "Alta";
     public static final String ESTADO_BAJA = "Baja";
 
@@ -77,6 +82,22 @@ public abstract class Recurso {
     public void setUnidadDeMedida(UnidadDeMedida unidadDeMedida) {
         this.unidadDeMedida = unidadDeMedida;
     }
+
+    public boolean isEsComprable() {
+        return esComprable;
+    }
+
+    public void setEsComprable(boolean esComprable) {
+        this.esComprable = esComprable;
+    }
+
+    public boolean isEsStockeable() {
+        return esStockeable;
+    }
+
+    public void setEsStockeable(boolean esStockeable) {
+        this.esStockeable = esStockeable;
+    }    
     
     public String mostrarUnidadDeMedida() {
         if(unidadDeMedida!=null)

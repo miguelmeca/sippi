@@ -105,6 +105,11 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         });
 
         btnAddRecurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAddRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddRecursoActionPerformed(evt);
+            }
+        });
 
         btnModificarRecurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
 
@@ -308,7 +313,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevoModificar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -466,6 +471,14 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             
         this.dispose();
     }//GEN-LAST:event_btnNuevoModificarActionPerformed
+
+    private void btnAddRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRecursoActionPerformed
+       
+        PantallaGestionarRecurso win = new PantallaGestionarRecurso(this.claseBase);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+        
+    }//GEN-LAST:event_btnAddRecursoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRecurso;
