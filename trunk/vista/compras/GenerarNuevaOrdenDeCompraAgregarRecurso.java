@@ -4,19 +4,42 @@
  */
 package vista.compras;
 
+import javax.swing.JOptionPane;
+import modelo.*;
+import util.HibernateUtil;
+import util.SwingPanel;
+import util.Tupla;
+import vista.abms.FiltroPasivoHerramientas;
+import vista.abms.FiltroPasivoMateriales;
+import vista.abms.ListadoHerramientas;
+import vista.abms.ListadoMateriales;
+import vista.interfaces.ICallBackGen;
+import vista.interfaces.ICallBackObject;
+
 /**
  *
  * @author Administrador
  */
-public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JInternalFrame {
+public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JInternalFrame implements ICallBackGen {
 
+    public static final String CALLBACK_SELECCION_MATERIAL     = "SeleccionDeMaterial";
+    public static final String CALLBACK_SELECCION_HERRAMIENTA  = "SeleccionDeHerramietna";
+    private ICallBackObject callback;
+    
+    // NO CAMBIAR EL ORDEN !!
+    private static final String[] conceptos = {"Materiales","Herramientas", "Alquileres y Compras", "Adicionales"};
+    
+    private ItemComprable itemSeleccionado;
+    
     /**
      * Creates new form GenerarNuevaOrdenDeCompraAgregarRecurso
      */
-    public GenerarNuevaOrdenDeCompraAgregarRecurso() {
+    public GenerarNuevaOrdenDeCompraAgregarRecurso(ICallBackObject callback) {
+        this.callback = callback;
         initComponents();
-    }
-
+        initComboConceptos();
+    }   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,9 +49,71 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        cmbConcepto = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        txtItem = new javax.swing.JTextField();
+        btnExplorarItems = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtCantidad = new javax.swing.JTextField();
+        lblUnidadDeMedida = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        btnConsultarPrecios = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
-        jLabel1.setText("Ventana para agregar Recursos a la orden de compra. VER HLD 1.2");
+        setClosable(true);
+        setTitle("Agregar Un Item a la Orden de Compra");
+
+        jLabel2.setText("Concepto:");
+
+        cmbConcepto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Materiales", "Herramientas", "Alquileres y Compras", "Adicionales" }));
+        cmbConcepto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbConceptoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Item a agregar en la Orden de Compra:");
+
+        txtItem.setBackground(new java.awt.Color(204, 204, 204));
+        txtItem.setEditable(false);
+
+        btnExplorarItems.setText("...");
+        btnExplorarItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExplorarItemsActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Cantidad:");
+
+        jLabel4.setText("Precio:");
+
+        lblUnidadDeMedida.setText("[UN.]");
+
+        btnConsultarPrecios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        btnConsultarPrecios.setToolTipText("Consultar Precios");
+        btnConsultarPrecios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarPreciosActionPerformed(evt);
+            }
+        });
+
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        jLabel5.setText("$");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -36,20 +121,194 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExplorarItems))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCantidad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblUnidadDeMedida))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExplorarItems))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExplorarItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExplorarItemsActionPerformed
+        // OJO, SOLO PUEDE MOSTRAR RECURSOS COMPRABLES !! USAR UN FILTRO PASIVO !!
+        Tupla tp = (Tupla) cmbConcepto.getSelectedItem();
+        
+        switch(tp.getId())
+        {
+            case 0: 
+                 ListadoMateriales win = new ListadoMateriales(new FiltroPasivoMateriales());
+                 win.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_MATERIAL);
+                 SwingPanel.getInstance().addWindow(win);
+                 win.setVisible(true);
+            break;
+            case 1: 
+                 ListadoHerramientas winh = new ListadoHerramientas(new FiltroPasivoHerramientas());   
+                 winh.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_HERRAMIENTA);
+                 SwingPanel.getInstance().addWindow(winh);
+                 winh.setVisible(true);
+            break;
+            case 2: 
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","En Construcción");break;
+            case 3: 
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","En Construcción");break;
+        }
+    }//GEN-LAST:event_btnExplorarItemsActionPerformed
+
+    private void btnConsultarPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPreciosActionPerformed
+        // TODO: Hacer que esta pantalla ya este cargada con recurso y proveedor
+        pantallaConsultarPrecioXRecurso win = new pantallaConsultarPrecioXRecurso();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+        this.dispose();
+    }//GEN-LAST:event_btnConsultarPreciosActionPerformed
+
+    private void cmbConceptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbConceptoActionPerformed
+        txtItem.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        lblUnidadDeMedida.setText("[UN.]");
+    }//GEN-LAST:event_cmbConceptoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // Validar Ventana
+        DetalleOrdenDeCompra id = new DetalleOrdenDeCompra();
+        id.setCantidad(Float.parseFloat(txtCantidad.getText()));
+        id.setItem(itemSeleccionado);
+        id.setPrecioUnitario(Double.parseDouble(txtPrecio.getText()));
+        
+        Object[] retorno = new Object[1];
+        retorno[0] = id;
+        this.callback.actualizarConObjeto(GenerarNuevaOrdenDeCompra.CALLBACK_SELECCION_ITEMDETALLE,DetalleOrdenDeCompra.class,retorno);
+        
+        this.dispose();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConsultarPrecios;
+    private javax.swing.JButton btnExplorarItems;
+    private javax.swing.JComboBox cmbConcepto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblUnidadDeMedida;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtItem;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
+    private void initComboConceptos() {
+        cmbConcepto.removeAllItems();
+        for (int i = 0; i < conceptos.length; i++) {
+            String c = conceptos[i];
+            Tupla tp = new Tupla(i,conceptos[i]);
+            cmbConcepto.addItem(tp);
+        }
+    }
+
+    @Override
+    public void actualizar(int id, String flag, Class tipo) {
+        // Ahora tengo que generar el Item Comprable
+        if(CALLBACK_SELECCION_HERRAMIENTA.equals(flag) || CALLBACK_SELECCION_MATERIAL.equals(flag))
+        {
+             ItemComprable ic = new ItemComprable(tipo, id);
+             this.itemSeleccionado = ic;
+             
+             RecursoEspecifico re = getRecursoEspecifico(id);
+             if(re!=null)
+             {
+                 txtItem.setText(re.getNombreRecurso()+" - "+re.getNombre());
+                 lblUnidadDeMedida.setText("["+re.getRecurso().getUnidadDeMedida().getAbreviatura() +"]");
+             }
+        }
+    }
+    
+    private RecursoEspecifico getRecursoEspecifico(int id)
+    {
+        RecursoEspecifico re = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            re = (RecursoEspecifico)HibernateUtil.getSession().load(RecursoEspecifico.class, id);
+            HibernateUtil.commitTransaction();
+            return re;
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la Orden De Compra\n"+e.getMessage());
+            e.printStackTrace();
+        }         
+        return null;
+    }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
 }

@@ -11,21 +11,13 @@ package modelo;
 public class DetalleOrdenDeCompra {
 
     private int id;
-    private double cantidad;
+    private float cantidad;
     private double precioUnitario;
-    private IDetallable item;
+    private ItemComprable item;
     
     private DetalleRecepcionOrdenDeCompra recepcion;
 
     public DetalleOrdenDeCompra() {
-    }
-
-    public double getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
     }
 
     public int getId() {
@@ -34,14 +26,6 @@ public class DetalleOrdenDeCompra {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public IDetallable getItem() {
-        return item;
-    }
-
-    public void setItem(IDetallable item) {
-        this.item = item;
     }
 
     public double getPrecioUnitario() {
@@ -60,4 +44,25 @@ public class DetalleOrdenDeCompra {
         this.recepcion = recepcion;
     }
 
+    public ItemComprable getItem() {
+        return item;
+    }
+
+    public void setItem(ItemComprable item) {
+        this.item = item;
+    }
+
+    public void setCantidad(float cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public float getCantidad() {
+        return cantidad;
+    }
+    
+    public double calcularSubTotal()
+    {
+        return cantidad * precioUnitario;
+    }
+    
 }
