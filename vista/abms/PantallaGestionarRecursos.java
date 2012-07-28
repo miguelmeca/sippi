@@ -35,6 +35,8 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
     private static final String QUERY_LIST_RECURSOS_MATERIAL = "FROM Material";
     private static final String QUERY_LIST_RECURSOS_HERRAMIENTA = "FROM Herramienta";
     
+    public static final String CALLBACK_NUEVO_RECURSO = "NuevoRecurso";
+    
     private static final String FLAG_SELECCIONAR_PROVEEDOR = "Seleccionar_Proveedor";
 
     public PantallaGestionarRecursos(Class claseBase) {
@@ -112,6 +114,11 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         });
 
         btnModificarRecurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnModificarRecurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRecursoActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 102)));
@@ -313,7 +320,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevoModificar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -377,7 +384,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             this.recursoEspecifico.setDescipcion(txtDescEspec.getText());
             this.recursoEspecifico.setNombre(txtNombreEspec.getText());
         }
-        
+                
         // UN recursoEspecifico tiene una Lista de RecursoXProveedor
         List<RecursoXProveedor> proveedores = new ArrayList<RecursoXProveedor>();
         DefaultTableModel modelo = (DefaultTableModel)tblProveedores.getModel();
@@ -419,7 +426,8 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             }
             
             // Si cambie el recurso, tengo que borrar la relacion vieja a Recurso Especifico
-            if(r.getId()!=this.recurso.getId())
+            // Solo si no estoy creando uno nuevo
+            if(this.id!=-1 && r.getId()!=this.recurso.getId())
             {
                 // r = recurso nuevo
                 // this.recurso = recurso viejo
@@ -431,6 +439,10 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                         lrecesp.remove(i);
                     }
                 }
+            }
+            else
+            {
+                this.recurso = r;
             }
             
             try
@@ -456,7 +468,8 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             }catch(Exception e)
             {
                 HibernateUtil.rollbackTransaction();
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Crear el nuevo Recurso Especifico");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Crear el nuevo Recurso Especifico\n"+e.getMessage());
+                e.printStackTrace();
                 return;
             }        
         
@@ -476,9 +489,22 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
        
         PantallaGestionarRecurso win = new PantallaGestionarRecurso(this.claseBase);
         SwingPanel.getInstance().addWindow(win);
+        win.setCallback(this);
         win.setVisible(true); 
         
     }//GEN-LAST:event_btnAddRecursoActionPerformed
+
+    private void btnModificarRecursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRecursoActionPerformed
+
+        Tupla tp = (Tupla)cmbRecursos.getSelectedItem();
+        if(tp!=null)
+        {
+            PantallaGestionarRecurso win = new PantallaGestionarRecurso(this.claseBase,tp.getId());
+            SwingPanel.getInstance().addWindow(win);
+            win.setCallback(this);
+            win.setVisible(true); 
+        }
+    }//GEN-LAST:event_btnModificarRecursoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRecurso;
@@ -580,6 +606,8 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
      * Inicializa el combo de recursos segun con la clase que se esté trabajando
      */
     private void initComboRecursos() {
+        
+        cmbRecursos.removeAllItems();
         try {
                 HibernateUtil.beginTransaction();
                 List<Recurso> listaRec = HibernateUtil.getSession().createQuery(getRecursosListQuery()).list();
@@ -622,6 +650,21 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
     @Override
     public void actualizar(int id, String flag, Class tipo) {
+        
+        // Agrego un nuevo Recurso, lo selecciono
+        if(flag.equals(PantallaGestionarRecursos.CALLBACK_NUEVO_RECURSO))
+        {
+            initComboRecursos();
+            for (int i = 0; i < cmbRecursos.getItemCount(); i++) {
+                Tupla tp  = (Tupla) cmbRecursos.getItemAt(i);
+                if(tp.getId()==id)
+                {
+                    cmbRecursos.setSelectedItem(tp);
+                }
+            }
+            // Cargo el Recurso
+        }
+        
         // Selecciono un Proveedor, lo agergo a la lista
         if(flag.equals(PantallaGestionarRecursos.FLAG_SELECCIONAR_PROVEEDOR))
         {
@@ -686,18 +729,18 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
     
     private Recurso getRecurso(int id)
     {
-            try
-            {
-                HibernateUtil.beginTransaction();
-                Recurso r = (Recurso) HibernateUtil.getSession().load(Recurso.class,id);
-                HibernateUtil.commitTransaction();
-                
-                return r;
-                
-            }catch(Exception e)
-            {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar el Recurso");
-            }
+        try
+        {
+            HibernateUtil.beginTransaction();
+            Recurso r = (Recurso) HibernateUtil.getSession().load(Recurso.class,id);
+            HibernateUtil.commitTransaction();
+
+            return r;
+
+        }catch(Exception e)
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar el Recurso");
+        }
         return null;
     }    
     

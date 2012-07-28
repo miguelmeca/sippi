@@ -68,7 +68,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
     private void mostrarRecursos()
     {
         
-        if(cmbTiposRecurso.getSelectedIndex()!=-1)
+       if(cmbTiposRecurso.getSelectedIndex()!=-1)
        {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
@@ -246,7 +246,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
 
         jLabel4.setText("Nombre:");
 
-        cmbTiposRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Indumentaria", "Material", "Herramienta" }));
+        cmbTiposRecurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Material", "Herramienta" }));
         cmbTiposRecurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTiposRecursoActionPerformed(evt);

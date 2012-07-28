@@ -128,10 +128,9 @@
         <Component class="javax.swing.JComboBox" name="cmbTiposRecurso">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Indumentaria"/>
-                <StringItem index="1" value="Material"/>
-                <StringItem index="2" value="Herramienta"/>
+              <StringArray count="2">
+                <StringItem index="0" value="Material"/>
+                <StringItem index="1" value="Herramienta"/>
               </StringArray>
             </Property>
           </Properties>
