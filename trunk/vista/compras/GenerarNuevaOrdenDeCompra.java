@@ -106,6 +106,9 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de la Orden"));
 
+        txtNroOrdenDeCompra.setBackground(new java.awt.Color(204, 204, 204));
+        txtNroOrdenDeCompra.setEditable(false);
+        txtNroOrdenDeCompra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtNroOrdenDeCompra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -251,7 +254,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -265,6 +268,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
         btnRegistrarRecepcion.setText("Registrar Recepción");
+        btnRegistrarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarRecepcionActionPerformed(evt);
+            }
+        });
 
         btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitir.setText("Emitir Orden de Compra");
@@ -368,6 +376,10 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la Orden de Compra","Advertencia!",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void btnRegistrarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRecepcionActionPerformed
+
+    }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

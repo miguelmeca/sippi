@@ -13,17 +13,9 @@ import java.util.Date;
 public class DetalleRecepcionOrdenDeCompra {
     
     private int id;
-    private double cantidadRecibida;
+    private double cantidad;
     private Date fechaDeRecepcion;
     private String estado;
-
-    public double getCantidadRecibida() {
-        return cantidadRecibida;
-    }
-
-    public void setCantidadRecibida(double cantidadRecibida) {
-        this.cantidadRecibida = cantidadRecibida;
-    }
 
     public String getEstado() {
         return estado;
@@ -48,6 +40,14 @@ public class DetalleRecepcionOrdenDeCompra {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
 }

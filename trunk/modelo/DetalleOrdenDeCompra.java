@@ -11,7 +11,7 @@ package modelo;
 public class DetalleOrdenDeCompra {
 
     private int id;
-    private float cantidad;
+    private double cantidad;
     private double precioUnitario;
     private String descripcion;
     private ItemComprable item;
@@ -53,14 +53,6 @@ public class DetalleOrdenDeCompra {
         this.item = item;
     }
 
-    public void setCantidad(float cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public float getCantidad() {
-        return cantidad;
-    }
-    
     public double calcularSubTotal()
     {
         return cantidad * precioUnitario;
@@ -73,5 +65,15 @@ public class DetalleOrdenDeCompra {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
     
 }
