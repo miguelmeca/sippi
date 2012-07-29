@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Emmanuel
  */
-public class TipoAdicional {
+public class TipoAdicional implements IComprable{
     private int id;
     private String nombre;
 

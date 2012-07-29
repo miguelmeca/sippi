@@ -14,7 +14,7 @@ import util.HibernateUtil;
  * @todo
  */
 
-public class RecursoEspecifico {
+public class RecursoEspecifico implements IComprable {
 
     public final static String[] tiposDeRecurso = {"Materiales", "Herramientas"};
     

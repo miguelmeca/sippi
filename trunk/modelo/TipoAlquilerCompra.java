@@ -9,7 +9,7 @@ package modelo;
  *
  * @author Emmanuel
  */
-public class TipoAlquilerCompra {
+public class TipoAlquilerCompra implements IComprable{
     private int id;
     private String nombre;
 

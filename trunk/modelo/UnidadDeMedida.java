@@ -16,6 +16,8 @@ public class UnidadDeMedida {
     
     // Esta unidad de medida {Unidad} tiene que SI O SI tener el ID:
     public static final int ID_UNIDAD_BASE = 1;
+    public static final String UNIDAD_BASE_NOMBRE = "Unidad";
+    public static final String UNIDAD_BASE_ABREVIATURA = "UN";
 
     public UnidadDeMedida() {
     }

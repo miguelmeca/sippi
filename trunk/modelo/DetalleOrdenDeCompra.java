@@ -13,6 +13,7 @@ public class DetalleOrdenDeCompra {
     private int id;
     private float cantidad;
     private double precioUnitario;
+    private String descripcion;
     private ItemComprable item;
     
     private DetalleRecepcionOrdenDeCompra recepcion;
@@ -63,6 +64,14 @@ public class DetalleOrdenDeCompra {
     public double calcularSubTotal()
     {
         return cantidad * precioUnitario;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }
