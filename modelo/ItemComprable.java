@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import util.HibernateUtil;
+
 /**
  * @author Iuga
  */
@@ -11,6 +13,7 @@ public class ItemComprable {
     
     private Class tipoComprable;
     private int id;
+    private IComprable item;
 
     public ItemComprable(Class tipoComprable, int id) {
         this.tipoComprable = tipoComprable;
@@ -33,6 +36,52 @@ public class ItemComprable {
         this.tipoComprable = tipoComprable;
     }
     
+    /**
+     * Reflexiono el objeto al que hace referencia y retorno su nombre a mostrar
+     * @return 
+     */
+    public String getNombre()
+    {
+        if(this.item==null)
+        {
+            loadItem();
+        }
+        
+        if(this.item!=null)
+        {
+            if(item instanceof RecursoEspecifico)
+            {
+                String retorno = "";
+                RecursoEspecifico re = (RecursoEspecifico)item;
+                retorno += re.getRecurso().getNombre()+" "+item.getNombre();
+                return retorno;
+            }
+            else
+            {    
+                return item.getNombre();
+            }
+        }
+        else
+        {
+            return "???";
+        }
+    }
+
+    private void loadItem() {
+        try
+        {
+            
+            HibernateUtil.beginTransaction();
+            this.item = (IComprable)HibernateUtil.getSession().load(this.tipoComprable, this.id);
+            HibernateUtil.commitTransaction();
+            
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            e.printStackTrace();
+            return;
+        } 
+    }
     
     
 }

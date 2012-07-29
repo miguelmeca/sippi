@@ -9,10 +9,7 @@ import modelo.*;
 import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
-import vista.abms.FiltroPasivoHerramientas;
-import vista.abms.FiltroPasivoMateriales;
-import vista.abms.ListadoHerramientas;
-import vista.abms.ListadoMateriales;
+import vista.abms.*;
 import vista.interfaces.ICallBackGen;
 import vista.interfaces.ICallBackObject;
 
@@ -24,6 +21,8 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
 
     public static final String CALLBACK_SELECCION_MATERIAL     = "SeleccionDeMaterial";
     public static final String CALLBACK_SELECCION_HERRAMIENTA  = "SeleccionDeHerramietna";
+    public static final String CALLBACK_SELECCION_ALQUILERCOMPRA  = "SeleccionAlquilerCompra";
+    public static final String CALLBACK_SELECCION_ADICIONAL  = "SeleccionAdicional";
     private ICallBackObject callback;
     
     // NO CAMBIAR EL ORDEN !!
@@ -63,6 +62,8 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtDescripción = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Agregar Un Item a la Orden de Compra");
@@ -115,6 +116,8 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
 
         jLabel5.setText("$");
 
+        jLabel6.setText("Descripción:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,6 +125,7 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -145,7 +149,8 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(txtDescripción)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
@@ -165,6 +170,10 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                     .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExplorarItems))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescripción, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -173,13 +182,13 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAgregar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,17 +205,25 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                  win.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_MATERIAL);
                  SwingPanel.getInstance().addWindow(win);
                  win.setVisible(true);
-            break;
+                break;
             case 1: 
                  ListadoHerramientas winh = new ListadoHerramientas(new FiltroPasivoHerramientas());   
                  winh.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_HERRAMIENTA);
                  SwingPanel.getInstance().addWindow(winh);
                  winh.setVisible(true);
-            break;
+                break;
             case 2: 
-                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","En Construcción");break;
+                ListadoAlquileresCompras winac = new ListadoAlquileresCompras();
+                winac.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_ALQUILERCOMPRA);
+                SwingPanel.getInstance().addWindow(winac);
+                winac.setVisible(true);    
+                break;
             case 3: 
-                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","En Construcción");break;
+                ListadoAdicionales winad = new ListadoAdicionales();
+                winad.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_ADICIONAL);
+                SwingPanel.getInstance().addWindow(winad);
+                winad.setVisible(true);  
+                break;
         }
     }//GEN-LAST:event_btnExplorarItemsActionPerformed
 
@@ -231,6 +248,7 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
         id.setCantidad(Float.parseFloat(txtCantidad.getText()));
         id.setItem(itemSeleccionado);
         id.setPrecioUnitario(Double.parseDouble(txtPrecio.getText()));
+        id.setDescripcion(txtDescripción.getText());
         
         Object[] retorno = new Object[1];
         retorno[0] = id;
@@ -250,8 +268,10 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblUnidadDeMedida;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtDescripción;
     private javax.swing.JTextField txtItem;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
@@ -279,6 +299,30 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                  txtItem.setText(re.getNombreRecurso()+" - "+re.getNombre());
                  lblUnidadDeMedida.setText("["+re.getRecurso().getUnidadDeMedida().getAbreviatura() +"]");
              }
+        }
+        if(CALLBACK_SELECCION_ALQUILERCOMPRA.equals(flag))
+        {
+            ItemComprable ic = new ItemComprable(tipo, id);
+            this.itemSeleccionado = ic;
+            
+            TipoAlquilerCompra tac = getTipoAlquilerCompra(id);
+            if(tac!=null)
+            {
+                txtItem.setText(tac.getNombre());
+                lblUnidadDeMedida.setText("["+UnidadDeMedida.UNIDAD_BASE_ABREVIATURA+"]");
+            }
+        }
+        if(CALLBACK_SELECCION_ADICIONAL.equals(flag))
+        {
+            ItemComprable ic = new ItemComprable(tipo, id);
+            this.itemSeleccionado = ic;
+            
+            TipoAdicional ta = getTipoAdicional(id);
+            if(ta!=null)
+            {
+                txtItem.setText(ta.getNombre());
+                lblUnidadDeMedida.setText("["+UnidadDeMedida.UNIDAD_BASE_ABREVIATURA+"]");
+            }            
         }
     }
     
@@ -310,5 +354,41 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    }    
+    }
+
+    private TipoAlquilerCompra getTipoAlquilerCompra(int id) {
+        TipoAlquilerCompra tac = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            tac = (TipoAlquilerCompra)HibernateUtil.getSession().load(TipoAlquilerCompra.class, id);
+            HibernateUtil.commitTransaction();
+            return tac;
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar el Aquiler o Compra\n"+e.getMessage());
+            e.printStackTrace();
+        }         
+        return null;
+    }
+
+    private TipoAdicional getTipoAdicional(int id) {
+        TipoAdicional tac = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            tac = (TipoAdicional)HibernateUtil.getSession().load(TipoAdicional.class, id);
+            HibernateUtil.commitTransaction();
+            return tac;
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar el Adicional\n"+e.getMessage());
+            e.printStackTrace();
+        }         
+        return null;
+    }
 }

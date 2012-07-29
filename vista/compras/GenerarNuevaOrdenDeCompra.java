@@ -91,7 +91,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         tblDetalle = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnRegistrarRecepcion = new javax.swing.JButton();
@@ -200,7 +200,15 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             new String [] {
                 "Nombre y Descripción", "Cantidad", "Precio", "SubTotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDetalle);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -213,9 +221,14 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField3.setEditable(false);
+        txtTotal.setBackground(new java.awt.Color(204, 204, 204));
+        txtTotal.setEditable(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -233,17 +246,17 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnQuitar)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)))
         );
 
@@ -322,6 +335,40 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         win.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        if(tblDetalle.getSelectedRow()>=0){
+            
+            // Esta seguro?
+            int seleccion = JOptionPane.showOptionDialog(
+                this, // Componente padre
+                "¿Está seguro que desea elmininar esta fila de la Orden de Compra?", //Mensaje
+                "Seleccione una opción", // Título
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,    // null para icono por defecto.
+                new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                "Si");
+                if (seleccion != -1)
+                {
+                    if((seleccion + 1)==1)
+                    {
+                        // PRESIONO SI
+                        Tupla tp = (Tupla)tblDetalle.getModel().getValueAt(tblDetalle.getSelectedRow(),0);
+                        if(tp!=null)
+                        {
+                            DefaultTableModel model = (DefaultTableModel) tblDetalle.getModel();
+                            model.removeRow(tblDetalle.getSelectedRow());
+                            actualizarTotalCompra();
+                        }                        
+                    }
+                }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fila de la Orden de Compra","Advertencia!",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
@@ -342,12 +389,12 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTextField txtEstado;
     private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtNroOrdenDeCompra;
     private javax.swing.JTextField txtProveedor;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -485,13 +532,42 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
         
         Object[] fila = new Object[4];
-            fila[0] = "???";
+            // Nombre de ItemComprable + Descripcion
+            String nombre = "";
+            if(doc.getDescripcion().isEmpty())
+            {
+                nombre = "<HTML><b>"+doc.getItem().getNombre() + "</b>";
+            }
+            else
+            {
+                nombre = "<HTML><b>"+doc.getItem().getNombre() + "</b> <i>("+doc.getDescripcion()+")</i>";
+            }
+            fila[0] = new Tupla(doc.hashCode(), nombre);
+            
             fila[1] = doc.getCantidad();
-            fila[2] = doc.getPrecioUnitario();
-            fila[3] = doc.calcularSubTotal();
-        
+            fila[2] = "$"+doc.getPrecioUnitario();
+            fila[3] = "$"+doc.calcularSubTotal();
         modelo.addRow(fila);
         
+        actualizarTotalCompra();
+    }
+    
+    private void actualizarTotalCompra()
+    {
+        double total = 0 ;
+        DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
+        for (int i = 0; i <  modelo.getRowCount(); i++) {
+            String subtotal =  (String) modelo.getValueAt(i,3);
+            subtotal = subtotal.replaceAll("\\$","");
+            try
+            {
+                total += Double.parseDouble(subtotal);
+            }catch(Exception e)
+            {
+                System.err.println("Error al calcular el total de la Orden de Compra");
+            }
+        }
+        txtTotal.setText("$"+total);
     }
 
 
