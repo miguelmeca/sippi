@@ -62,7 +62,7 @@ public class PantallaConsultarGenericaCellRenderer extends DefaultTableCellRende
                 {
                     // ES LA COLUMNA Y MACHEA CON EL CONTENIDO
                     if(isSelected){
-                        l.setBackground(new Color(180,185,194));
+                        l.setBackground(new Color(153,153,255));
                         l.setForeground(t.getSelectionForeground());
                     }
                     else{
@@ -77,11 +77,21 @@ public class PantallaConsultarGenericaCellRenderer extends DefaultTableCellRende
             else
             {
                 if(isSelected){
-                    l.setBackground(new Color(180,185,194));
+                    l.setBackground(new Color(153,153,255));
                     l.setForeground(t.getSelectionForeground());
                 }
             }
         }
+        
+        // Si no hay criteria de color, pinto la fila de otro color cuando se selecciona
+        if(colorCriteria.isEmpty())
+        {
+            if(isSelected){
+                l.setBackground(new Color(153,153,255));
+                l.setForeground(t.getSelectionForeground());
+            }
+        }
+        
     }
 
 }
