@@ -2,20 +2,31 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="modelo.OrdenDeCompra">
+    
     <id column="ID_ORDEN_COMPRA" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
+    
     <property name="numero" type="integer"/>
+    
     <property name="fechaDeGeneracion" type="date"/>
-    <property name="fechaDePedido" type="date"/>
-    <property name="fechaDeRecepcion" type="date"/>
-    <many-to-one class="modelo.Proveedor" column="ID_PROVEEDOR" name="proveedor"/>
-    <many-to-one class="modelo.FormaDePago" column="ID_FORMA_PAGO" name="formaDePago"/>
-    <property name="hib_flag_estado" not-null="true" type="string"/>
+    <property name="fechaUltimaModificacion" type="date"/>
+    
+    <many-to-one class="modelo.Proveedor" column="FK_PROVEEDOR" name="proveedor"/>
+    
+    <many-to-one class="modelo.FormaDePago" column="FK_FORMA_PAGO" name="formaDePago"/>
+    
+    <property name="estado" type="string"/>
+    
+    <property name="formaDeEntrega" type="string"/>
+    
     <list cascade="all" name="detalle" table="ORDENCOMPRA_X_DETALLEORDENCOMPRA">
       <key column="ID_ORDEN_COMPRA"/>
       <index column="idx"/>
       <one-to-many class="modelo.DetalleOrdenDeCompra"/>
     </list>
+    
+    <many-to-one class="modelo.RecepcionOrdenDeCompra" column="FK_RECEPCION" name="recepcion"/>
+    
   </class>
 </hibernate-mapping>

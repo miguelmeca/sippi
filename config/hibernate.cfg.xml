@@ -69,7 +69,7 @@
     
     <!--mapping resource="config/db/DetalleRemito.hbm.xml"/-->
     <!--mapping resource="config/db/Remito.xml"/-->
-    <!--mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/-->
+    
     
     <!--mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/-->
     
@@ -95,5 +95,15 @@
     <mapping resource="config/db/TareaPlanificacion.hbm.xml"/>
     <mapping resource="config/db/DetalleTareaPlanificacion.hbm.xml"/>
     <mapping resource="config/db/TipoTarea.hbm.xml"/>
+    <!--             ::: SIXTH ITERATION :::               -->
+    <mapping package="modelo" resource="config/db/ItemComprable.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/OrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/RecepcionOrdenDeCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/DetalleRecepcionOrdenDeCompra.hbm.xml"/>
+    
+    
+    
+    
   </session-factory>
 </hibernate-configuration>
