@@ -235,6 +235,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 return canEdit [columnIndex];
             }
         });
+        tblLista.setSelectionBackground(new java.awt.Color(153, 153, 255));
         tblLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -359,7 +360,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)
