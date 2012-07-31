@@ -22,6 +22,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.Material;
 import modelo.RecursoEspecifico;
 import modelo.SubObraXMaterial;
 import util.*;
@@ -239,12 +240,14 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 "Especificación"
             }
         ));
+        tbMaterialEspecifico.setColumnSelectionAllowed(true);
         tbMaterialEspecifico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tbMaterialEspecificoMouseReleased(evt);
             }
         });
         jScrollPane7.setViewportView(tbMaterialEspecifico);
+        tbMaterialEspecifico.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
         btnAgregarMaterial.setText("Agregar");
@@ -330,7 +333,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -359,7 +362,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addComponent(btnAgregarNuevoPrecio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -476,7 +479,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 NTupla nt = (NTupla)dtm.getValueAt(fila, 1); // Busco el objeto NTupla!!!
                 SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
                 RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
-                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
+                Material material = RecursosUtil.getMaterial(soxm.getMaterial());
+                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm);
                 if(psp.isBanHayPreciosMaterial()){
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
@@ -501,7 +505,8 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             NTupla nt = (NTupla)dtm.getValueAt(tbMaterialesAUsar.getSelectedRow(), 1); // Busco el objeto NTupla!!!
             SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
             RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
-            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,re.getId(),soxm.getMaterial().getId(),soxm);
+            Material material = RecursosUtil.getMaterial(soxm.getMaterial());
+            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm);
             if(psp.isBanHayPreciosMaterial()){
                 SwingPanel.getInstance().addWindow(psp);
                 psp.setVisible(true);

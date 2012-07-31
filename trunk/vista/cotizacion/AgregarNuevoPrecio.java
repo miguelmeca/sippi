@@ -254,18 +254,30 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
         int cantidad = 0;
 
         // Validaciones
-        try{
-            cantidad = Integer.parseInt(txtCantidad.getText());
+        if(txtCantidad.getText().equals("")){
+            msg+="- Debe ingresar una cantidad\n";
+        }else{
+            try{
+                cantidad = Integer.parseInt(txtCantidad.getText());
+            }
+            catch(Exception ex){msg+="- Debe ingresar una cantidad válida\n";}
         }
-        catch(Exception ex){msg+="- Debe ingresar una cantidad válida\n";}
         double precio = 0;
-        try{
-            String prc = txtPrecio.getText().replace(",", ".");
-            precio = Double.parseDouble(prc);
+        if(txtPrecio.getText().equals("")){
+            msg+="- Debe ingresar un precio\n";
+        }else{
+            try{
+                String prc = txtPrecio.getText().replace(",", ".");
+                precio = Double.parseDouble(prc);
+            }
+            catch(Exception ex){msg+="- Debe ingresar un precio válido\n";}
         }
-        catch(Exception ex){msg+="- Debe ingresar un precio válido\n";}
-        if(!FechaUtil.fechaMayorQue(dcVigencia.getDate(), new Date())){
-            msg+="- Debe ingresar una fecha mayor a la actual\n";
+        if(dcVigencia.getDate() == null){
+            msg+="- Debes ingresar una fecha de vigencia\n";
+        }else{
+            if(!FechaUtil.fechaMayorQue(dcVigencia.getDate(), new Date())){
+                msg+="- Debe ingresar una fecha mayor a la actual\n";
+            }
         }
 
         // Envío al gestor
@@ -275,7 +287,7 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
             gestor.registrarPrecio(cantidad, precio, idProv, idRe, vigencia);
             txtCantidad.setText("");
             txtPrecio.setText("");
-            dcVigencia.setDate(new Date());
+            dcVigencia.setDate(null);
             mostrarPreciosVigentes();
         }else{
             JOptionPane.showMessageDialog(this.getParent(), "Ha ocurrido un error debido a: \n"+msg+"Ingrese nuevamente.", "Advertencia", JOptionPane.WARNING_MESSAGE);

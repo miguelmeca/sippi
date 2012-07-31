@@ -324,11 +324,8 @@ public class DBExamplesLoader {
         psc2a.setCantidad(10);
         psc2a.setPrecio(70);
         Date d=new Date();
-        d.setDate(50000);
         psc2a.setFechaVigencia(new Date());
-        double n=23123;
-        psc2a.setFecha(d);
-
+        psc2a.setFecha(new Date());
         PrecioSegunCantidad psc2a_ =new PrecioSegunCantidad();
         psc2a_.setCantidad(10);
         psc2a_.setPrecio(0.1);
@@ -352,6 +349,7 @@ public class DBExamplesLoader {
         sesion.save(psc2);
         sesion.save(psc1a);
         sesion.save(psc2a);
+        sesion.save(psc2a_);
         sesion.save(rxp1);
         sesion.save(rxp2);
         sesion.saveOrUpdate(re1);
