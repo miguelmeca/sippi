@@ -89,6 +89,42 @@ public class RecursosUtil {
         }
         return rEncontrado;
     }
+    
+    /**
+     * Método que busca un Material por RecursoXProveedor, es decir, por el precio que el Proveedor lo vende
+     * @param rxp
+     * @return el Material buscado
+     */
+    public static Material getMaterial(RecursoXProveedor rxp){
+        Material rEncontrado = null;
+        Material r=null;
+        try {
+            //r = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso r WHERE re.recursos IN(:re)").setParameter("%re%", re);
+            Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
+            while(it.hasNext()){
+                r=(Material)it.next();
+                Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
+                RecursoEspecifico resp = null;
+                while(itr.hasNext()){
+                    resp = itr.next();
+                    RecursoXProveedor rxpAux = null;
+                    Iterator<RecursoXProveedor> itrxp = resp.getRecursosXProveedor().iterator();
+                    while(itrxp.hasNext())
+                    {
+                        rxpAux = itrxp.next();
+                        if(rxpAux.getId() == rxp.getId())
+                        {
+                            rEncontrado=r;
+                        break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rEncontrado;
+    }
 
     public static Herramienta getHerramienta(RecursoEspecifico re){
         Herramienta rEncontrado = null;
