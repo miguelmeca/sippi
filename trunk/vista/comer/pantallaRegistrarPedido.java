@@ -258,10 +258,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Obra"));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Nombre de la Obra: *");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Descripción:");
 
@@ -278,17 +278,17 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addComponent(txtNombreObra, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombreObra))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNombreObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,10 +299,10 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Generales"));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Empresa Cliente *:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Fecha de Inicio: *");
 
@@ -319,11 +319,11 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Planta: *");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Fecha de Fin: *");
 
         cmbPlanta.setEnabled(false);
@@ -336,12 +336,12 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Presupuesto Máximo ($): *");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Forma de Pago: *");
 
         cmbFormaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contado", "Cheque" }));
@@ -367,17 +367,17 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(cmbPlanta, 0, 106, Short.MAX_VALUE)
+                        .addComponent(cmbPlanta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbFormaDePago, 0, 141, Short.MAX_VALUE)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(cmbFormaDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtMonto)
                     .addComponent(cmbfechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -407,7 +407,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbFormaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -443,15 +443,15 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Nombre:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Rol:");
 
         cmbRolCR.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Guardia", "Gerente", "Abogado", "Contratista" }));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Tel.:");
 
         btnQuitarCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
@@ -507,7 +507,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,7 +542,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                     .addComponent(txtNombreCR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAgregarRol, 0, 0, Short.MAX_VALUE)
+                    .addComponent(btnAgregarRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbRolCR)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
@@ -554,7 +554,7 @@ public class pantallaRegistrarPedido extends javax.swing.JInternalFrame implemen
                     .addComponent(btnAgregarCR)
                     .addComponent(btnQuitarCR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
