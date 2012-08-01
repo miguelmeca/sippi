@@ -336,45 +336,48 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     private void llenarTablaCotizaciones(ArrayList<NTupla> lista) 
     {
-        // Activo - Desactivo el boton modificar
-        if(lista.isEmpty())
-        {
-            btnModificarCotizacion.setEnabled(false);
-        }
-        else
-        {
-            btnModificarCotizacion.setEnabled(true);
-        }
-        
-        Object filaTabla[] = new Object[1];
-
         DefaultTableModel modelo = (DefaultTableModel) tablaCotizaciones.getModel();
-
         // Vacio la tabla
         for (int i = 0; i < modelo.getRowCount(); i++) 
         {
             modelo.removeRow(i);
         }
         
-        for (int i = 0; i < lista.size(); i++) 
+        // Activo - Desactivo el boton modificar
+        if(lista.isEmpty())
         {
-            NTupla nt = lista.get(i);
-            
-            ExplorarCotizacionObra_celda fila = new ExplorarCotizacionObra_celda();
-            
-            String[] data = (String[]) nt.getData();
-            
-            fila.setId(nt.getId());
-            fila.setNumeroCotizacion(data[0]);
-            fila.setRevision(Integer.parseInt(data[1]));
-            fila.setFechaCreacion(data[3]);
-            fila.setUltimaModificacion(data[2]);
-            fila.setObraId(Integer.parseInt(data[4]));
-            fila.setEstado(data[5]);
-            
-            filaTabla[0] = fila;
-            modelo.addRow(filaTabla);
+            btnModificarCotizacion.setEnabled(false);
+            Object filaVacia[] = new Object[1];
+            filaVacia[0] = "No se encontraron cotizaciones. ¿Desea agregar una?";
+            modelo.addRow(filaVacia);
         }
+        else
+        {
+            btnModificarCotizacion.setEnabled(true);
+            Object filaTabla[] = new Object[1];
+        
+            for (int i = 0; i < lista.size(); i++) 
+            {
+                NTupla nt = lista.get(i);
+
+                ExplorarCotizacionObra_celda fila = new ExplorarCotizacionObra_celda();
+
+                String[] data = (String[]) nt.getData();
+
+                fila.setId(nt.getId());
+                fila.setNumeroCotizacion(data[0]);
+                fila.setRevision(Integer.parseInt(data[1]));
+                fila.setFechaCreacion(data[3]);
+                fila.setUltimaModificacion(data[2]);
+                fila.setObraId(Integer.parseInt(data[4]));
+                fila.setEstado(data[5]);
+
+                filaTabla[0] = fila;
+                modelo.addRow(filaTabla);
+            }
+        }
+        
+
                 
     }
 

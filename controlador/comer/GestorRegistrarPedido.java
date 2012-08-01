@@ -208,9 +208,8 @@ public class GestorRegistrarPedido {
         {
             try
             {
-                Session sesion = HibernateUtil.getSessionFactory().openSession();
                 HibernateUtil.beginTransaction();
-                nuevo = (PedidoObra)sesion.load(PedidoObra.class, id);
+                nuevo = (PedidoObra)HibernateUtil.getSession().load(PedidoObra.class, id);
                 HibernateUtil.commitTransaction();
             }
             catch(Exception ex)
@@ -236,16 +235,14 @@ public class GestorRegistrarPedido {
         buscarUltimoNumeroPedidoObra();  // AL PEDO
 
         try{
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
             HibernateUtil.beginTransaction();
             Iterator it = contactos.iterator();
             while(it.hasNext()){
                 ContactoResponsable cr = (ContactoResponsable)it.next();
                 Telefono t = cr.getTelefono();
-                sesion.save(t);
+                HibernateUtil.getSession().save(t);
             }
-            sesion.saveOrUpdate(nuevo);
+            HibernateUtil.getSession().saveOrUpdate(nuevo);
             HibernateUtil.commitTransaction();
         }catch(Exception e)
         {
