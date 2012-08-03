@@ -38,12 +38,14 @@ public class GestorExplorarCotizacionesObra {
     {
         ArrayList<NTupla> listaObras = new ArrayList<NTupla>();
         
+       try
+       {
+            HibernateUtil.beginTransaction();
             Iterator iter = sesion.createQuery("from PedidoObra p order by p.nombre").iterate();
             while (iter.hasNext())
             {
                 PedidoObra p = (PedidoObra)iter.next();
-
-                if(p.getEstado().equals(PedidoObra.ESTADO_SOLICITADO) ||p.getEstado().equals(PedidoObra.ESTADO_PRESUPUESTADO))
+                if(p.getEstado().equals(PedidoObra.ESTADO_SOLICITADO))
                 {
                     NTupla nt = new NTupla(p.getId());
                         String[] datos = new String[4];
@@ -55,7 +57,11 @@ public class GestorExplorarCotizacionesObra {
                     listaObras.add(nt);
                 }
             }
-        
+            HibernateUtil.commitTransaction();
+       }
+       catch(Exception ex){
+           HibernateUtil.rollbackTransaction();
+       }
         return listaObras;
     }
 
