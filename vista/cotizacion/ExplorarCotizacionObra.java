@@ -307,6 +307,9 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         if(obras.isEmpty())
         {
             btnNuevaCotizacion.setEnabled(false);
+            Object filaVacia[] = new Object[1];
+            filaVacia[0] = "<html><body>No se encontraron Pedidos de Obra<br> solicitados.";
+            modelo.addRow(filaVacia);
         }
         else
         {
