@@ -11,9 +11,9 @@
     <property name="precioUnitario" type="double"/>
     <property name="descripcion" type="string"/>
     
-    <many-to-one class="modelo.ItemComprable" column="ITEM" name="item"/>
+    <many-to-one class="modelo.ItemComprable"  column="ITEM" name="item"/>
     
-    <many-to-one class="modelo.DetalleRecepcionOrdenDeCompra" column="DETALLE_RECEPCION" name="recepcion"/>
+    <many-to-one class="modelo.DetalleRecepcionOrdenDeCompra" column="DETALLE_RECEPCION" name="recepcion" not-null="false"/>
     
   </class>
 </hibernate-mapping>

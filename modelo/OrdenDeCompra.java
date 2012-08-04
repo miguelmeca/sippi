@@ -1,5 +1,7 @@
 package modelo;
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +15,8 @@ import java.util.List;
 
 public class OrdenDeCompra {
 
+    // EL NUMERO TAMBIEN ES EL ID !!!
     private int id;
-    private int numero;
     
     private Date fechaDeGeneracion;
     private Date fechaUltimaModificacion;
@@ -24,10 +26,18 @@ public class OrdenDeCompra {
     private FormaDePago formaDePago;
     
     private String estado;
-    public static final String ESTADO_EN_CREACION  = "En Creación"; //Estado Falso, nunca lo tiene, solo es para mostrar mientras se crea !!!
+    /**
+     * En Creacion: Estado Falso, nunca lo tiene, solo es para mostrar mientras se crea !!!
+     */
+    public static final String ESTADO_EN_CREACION  = "En Creación";
+
     public static final String ESTADO_PENDIENTE  = "Pendiente";
     public static final String ESTADO_EMITIDA    = "Emitida";
     public static final String ESTADO_ANULADA    = "Anulada";
+    
+    public static final Color COLOR_ESTADO_PENDIENTE  = new Color(214,227,188);
+    public static final Color COLOR_ESTADO_EMITIDA    = new Color(184,204,240);
+    public static final Color COLOR_ESTADO_ANULADA    = new Color(229,184,183);    
     
     private String formaDeEntrega;
     public static final String[] FORMAS_DE_ENTREGA  = { "En la empresa",
@@ -40,6 +50,7 @@ public class OrdenDeCompra {
     private RecepcionOrdenDeCompra recepcion;
 
     public OrdenDeCompra(){
+        detalle = new ArrayList<DetalleOrdenDeCompra>();
     }
 
     public List<DetalleOrdenDeCompra> getDetalle() {
@@ -98,14 +109,6 @@ public class OrdenDeCompra {
         this.id = id;
     }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
     public Proveedor getProveedor() {
         return proveedor;
     }
@@ -113,6 +116,16 @@ public class OrdenDeCompra {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+    
+    public String getNombreProveedor()
+    {
+        if(this.proveedor!=null)
+        {
+            return this.proveedor.toString();
+        }
+        return "";
+    }
+            
 
     public RecepcionOrdenDeCompra getRecepcion() {
         return recepcion;
@@ -121,6 +134,33 @@ public class OrdenDeCompra {
     public void setRecepcion(RecepcionOrdenDeCompra recepcion) {
         this.recepcion = recepcion;
     }
+    
+    public void addDetalleOrdenDeCompra(DetalleOrdenDeCompra doc) {
+        detalle.add(doc);
+    }
+    
+    /**
+     * Calcula el Total de la Compra
+     * @return 
+     */
+    public double calcularTotal()
+    {
+        double total = 0;
+        for (int i = 0; i < detalle.size(); i++) {
+            DetalleOrdenDeCompra doc = detalle.get(i);
+            total += doc.calcularSubTotal();
+        }
+        return total;
+    }
+    
+    /**
+     * Calcula el Total de la Compra
+     * @return 
+     */
+    public String mostrarCalcularTotal()
+    {
+        return "$ "+calcularTotal();
+    }    
 
     
 }

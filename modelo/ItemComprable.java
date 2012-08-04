@@ -11,21 +11,30 @@ import util.HibernateUtil;
  */
 public class ItemComprable {
     
-    private Class tipoComprable;
     private int id;
+    private Class tipoComprable;
+    private int idComprable;
     private IComprable item;
 
     public ItemComprable(Class tipoComprable, int id) {
         this.tipoComprable = tipoComprable;
-        this.id = id;
+        this.idComprable = id;
     }
-    
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getIdComprable() {
+        return idComprable;
+    }
+
+    public void setIdComprable(int id) {
+        this.idComprable = id;
     }
 
     public Class getTipoComprable() {
@@ -72,7 +81,7 @@ public class ItemComprable {
         {
             
             HibernateUtil.beginTransaction();
-            this.item = (IComprable)HibernateUtil.getSession().load(this.tipoComprable, this.id);
+            this.item = (IComprable)HibernateUtil.getSession().load(this.tipoComprable, this.idComprable);
             HibernateUtil.commitTransaction();
             
         }catch(Exception e)
