@@ -11,7 +11,7 @@ import util.HibernateUtil;
  */
 public class ItemComprable {
     
-    private int id;
+    private int id = 0;
     private Class tipoComprable;
     private int idComprable;
     private IComprable item;

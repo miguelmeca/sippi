@@ -10,7 +10,7 @@ package modelo;
 
 public class DetalleOrdenDeCompra {
 
-    private int id;
+    private int id = 0;
     private double cantidad;
     private double precioUnitario;
     private String descripcion;
@@ -37,13 +37,21 @@ public class DetalleOrdenDeCompra {
         this.precioUnitario = precioUnitario;
     }
 
+    public DetalleRecepcionOrdenDeCompra getDetalleRecepcion() {
+        return recepcion;
+    }
+
+    public void setDetalleRecepcion(DetalleRecepcionOrdenDeCompra recepcion) {
+        this.recepcion = recepcion;
+    }
+    
     public DetalleRecepcionOrdenDeCompra getRecepcion() {
         return recepcion;
     }
 
     public void setRecepcion(DetalleRecepcionOrdenDeCompra recepcion) {
         this.recepcion = recepcion;
-    }
+    }    
 
     public ItemComprable getItem() {
         return item;

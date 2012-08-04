@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleOrdenDeCompra" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+  <class  name="modelo.DetalleOrdenDeCompra">
     
-    <id column="ID_DETALLEOC" name="id" type="integer">
+    <id column="ID_DETALLEOC" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
     
@@ -11,9 +11,9 @@
     <property name="precioUnitario" type="double"/>
     <property name="descripcion" type="string"/>
     
-    <many-to-one class="modelo.ItemComprable"  column="ITEM" name="item"/>
+    <many-to-one class="modelo.ItemComprable" cascade="none" column="ITEM_COMPRABLE" name="item"  not-null="true"/>
     
-    <many-to-one class="modelo.DetalleRecepcionOrdenDeCompra" column="DETALLE_RECEPCION" name="recepcion" not-null="false"/>
+    <many-to-one class="modelo.DetalleRecepcionOrdenDeCompra"  cascade="none"  column="DETALLE_RECEPCION" name="recepcion" not-null="false"/>
     
   </class>
 </hibernate-mapping>
