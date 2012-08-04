@@ -13,8 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import modelo.*;
+import org.hibernate.Transaction;
 import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
@@ -45,6 +49,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         initComponents();
         initComboFormaDePago();
         initComboFormaDeEntrega();
+        initAnchoColumnasTablaDetalles();
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
         txtFecha.setDate(new Date());
     }
@@ -58,6 +63,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         initComponents();
         initComboFormaDePago();    
         initComboFormaDeEntrega();
+        initAnchoColumnasTablaDetalles();
         initDatos(idOrdenDeCompra);
         initEstado();
     }
@@ -74,6 +80,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         initComponents();
         initComboFormaDePago();  
         initComboFormaDeEntrega();
+        initAnchoColumnasTablaDetalles();
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
         txtFecha.setDate(new Date());
     }    
@@ -269,7 +276,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -664,6 +671,13 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 }
                 // Estado
                 txtEstado.setText(this.ordenDeCompraCargada.getEstado());   
+                
+                // Detalles
+                for (int i = 0; i < this.ordenDeCompraCargada.getDetalle().size(); i++) 
+                {
+                    DetalleOrdenDeCompra doc = this.ordenDeCompraCargada.getDetalle().get(i);
+                    agregarDetalleOrdenCompraATabla(doc);
+                }
             }
 
         }catch(Exception e)
@@ -727,7 +741,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         
         OrdenDeCompra odc = new OrdenDeCompra();
         odc.setEstado(OrdenDeCompra.ESTADO_PENDIENTE);
-        odc.setFechaDeGeneracion(new Date());
+        odc.setFechaDeGeneracion(txtFecha.getDate());
         odc.setFechaUltimaModificacion(new Date());
         odc.setFormaDeEntrega(OrdenDeCompra.FORMAS_DE_ENTREGA[cmbFormaDeEntrega.getSelectedIndex()]);
         odc.setProveedor(proveedorSeleccionado);
@@ -758,7 +772,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 
                     // Creo las recepciones
                     DetalleRecepcionOrdenDeCompra drodc = new DetalleRecepcionOrdenDeCompra();
-                    doc.setRecepcion(drodc);
+                    doc.setDetalleRecepcion(drodc);
                     rodc.addRecepcionesParciales(drodc);
                 
                 odc.addDetalleOrdenDeCompra(doc);
@@ -784,27 +798,31 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      */
     private boolean guardar(OrdenDeCompra odc)
     {
+      System.out.println("--------[Comenzando el saveOrUpdate de OrdenDeCompra]-------");
       try
-        {
+        {   
             HibernateUtil.beginTransaction();
             
             HibernateUtil.getSession().saveOrUpdate(odc);
             HibernateUtil.getSession().saveOrUpdate(odc.getRecepcion());
-
-                for (int i = 0; i < odc.getDetalle().size(); i++) {
-                    DetalleOrdenDeCompra doc = odc.getDetalle().get(i);
-                    
-                    HibernateUtil.getSession().saveOrUpdate(doc.getRecepcion());
-                    HibernateUtil.getSession().saveOrUpdate(doc.getItem());
-                    HibernateUtil.getSession().saveOrUpdate(doc);
-                }
-                
+            
+            for (int i = 0; i < odc.getDetalle().size(); i++) {
+                DetalleOrdenDeCompra doc = odc.getDetalle().get(i);
+                HibernateUtil.getSession().saveOrUpdate(doc.getItem());
+                HibernateUtil.getSession().saveOrUpdate(doc.getDetalleRecepcion());
+                HibernateUtil.getSession().saveOrUpdate(doc);
+            }
+            
+            HibernateUtil.getSession().saveOrUpdate(odc);
+            HibernateUtil.getSession().saveOrUpdate(odc.getRecepcion());
+            
             HibernateUtil.commitTransaction();
+            
         }catch(Exception e)
         {
             HibernateUtil.rollbackTransaction();
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Generar y Guardar la Orden De Compra\n"+e.getMessage());
             e.printStackTrace();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Generar y Guardar la Orden De Compra\n"+e.getMessage());
             return false;
         }       
         return true;
@@ -855,7 +873,21 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             // Detalle de Orden de Compra
             for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
                 DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
-                odc.addDetalleOrdenDeCompra(doc);
+                // Solo lo agrego si es nuevo
+                if(doc.getId()==0)
+                {
+                    // Lo agrego
+                    odc.addDetalleOrdenDeCompra(doc);
+                    
+                    // Creo las recepciones
+                    DetalleRecepcionOrdenDeCompra drodc = new DetalleRecepcionOrdenDeCompra();
+                    doc.setDetalleRecepcion(drodc);
+                    odc.getRecepcion().addRecepcionesParciales(drodc);
+                }
+                else
+                {
+                    //TODO: Tengo que actualizar los datos ?? ( Solo si hay modificar )
+                }
             }    
 
             if(guardar(odc))
@@ -911,6 +943,30 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se Guardó y Emitió exitosamente la Orden de Compra !");
         initEstado();
         return true;
+    }
+
+    /**
+     * Setea el ancho de las columnas de la tabla por defecto
+     */
+    private void initAnchoColumnasTablaDetalles() {
+        int anchoColumna = 0; 
+        TableColumnModel modeloColumna = tblDetalle.getColumnModel(); 
+        TableColumn columnaTabla; 
+        for (int i = 0; i < tblDetalle.getColumnCount(); i++) { 
+            columnaTabla = modeloColumna.getColumn(i); 
+            switch(i){ 
+                case 0: anchoColumna = 500; 
+                        break; 
+                case 1: anchoColumna = 100; 
+                        break; 
+                case 2: anchoColumna = 100; 
+                        break; 
+                case 3: anchoColumna = 100; 
+                        break; 
+            }                      
+            columnaTabla.setPreferredWidth(anchoColumna); 
+            columnaTabla.setWidth(anchoColumna);
+        } 
     }
 
 

@@ -72,6 +72,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         cargarMenu();
         
+        cargarBarraHoy();
+        
         cargarFavoritosGuardados();
         
         //cargarHomeScreen();
@@ -153,8 +155,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         panel = new javax.swing.JDesktopPane();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         treeMenu = new javax.swing.JTree();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        lblFechaHoy = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
@@ -203,7 +209,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jSplitPane2.setDividerLocation(200);
+        jSplitPane2.setDividerLocation(250);
         jSplitPane2.setDoubleBuffered(true);
         jSplitPane2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -220,6 +226,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jSplitPane2.setRightComponent(panel);
 
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        jScrollPane1.setBorder(null);
         jScrollPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jScrollPane1MouseMoved(evt);
@@ -236,7 +245,43 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(treeMenu);
 
-        jSplitPane2.setTopComponent(jScrollPane1);
+        jTabbedPane1.addTab("Menú", jScrollPane1);
+
+        jPanel4.setBackground(new java.awt.Color(57, 105, 138));
+
+        lblFechaHoy.setBackground(new java.awt.Color(57, 105, 138));
+        lblFechaHoy.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblFechaHoy.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaHoy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFechaHoy.setText("Junio 11");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFechaHoy, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblFechaHoy)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 629, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Inicio", jPanel2);
+
+        jSplitPane2.setLeftComponent(jTabbedPane1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,7 +296,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addComponent(jSplitPane2)
                 .addContainerGap())
         );
 
@@ -812,12 +857,16 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblFechaHoy;
     private javax.swing.JDesktopPane panel;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables
@@ -841,6 +890,17 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         VentanaHome win = new VentanaHome();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
+        
+    }
+
+    /**
+     * Arma y setea los datos de la barra lateral de Hoy !!
+     */
+    private void cargarBarraHoy() {
+        
+        // Seteo la Fecha !!
+        String msg = "Mayo 23";
+        lblFechaHoy.setText(msg);
         
     }
 

@@ -17,7 +17,7 @@ public class RecepcionOrdenDeCompra {
     public static final String ESTADO_RECIBIDA_PARCIALMENTE = "Recibida Parcialmente";
     public static final String ESTADO_RECIBIDA_TOTALMENTE = "Recibida Totalmente";
     
-    private int id;
+    private int id = 0;
     private String estado;
     private String observaciones;
     

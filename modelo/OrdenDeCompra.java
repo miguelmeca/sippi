@@ -16,7 +16,7 @@ import java.util.List;
 public class OrdenDeCompra {
 
     // EL NUMERO TAMBIEN ES EL ID !!!
-    private int id;
+    private int id = 0;
     
     private Date fechaDeGeneracion;
     private Date fechaUltimaModificacion;

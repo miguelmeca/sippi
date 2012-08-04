@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class DetalleRecepcionOrdenDeCompra {
     
-    private int id;
+    private int id = 0;
     private double cantidad;
     private Date fechaDeRecepcion;
     private String estado;

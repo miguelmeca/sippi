@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" optimistic-lock="version" polymorphism="implicit" select-before-update="false" name="modelo.OrdenDeCompra">
+  <class name="modelo.OrdenDeCompra">
     
     <id column="ID_ORDEN_COMPRA" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
@@ -18,13 +18,13 @@
     
     <property name="formaDeEntrega" type="string"/>
     
-    <list cascade="all-delete-orphan" name="detalle" table="ORDENCOMPRA_X_DETALLEORDENCOMPRA">
-      <key column="ID_DETALLEOC"/>
-      <index column="ID"/>
+    <list name="detalle" table="ORDENCOMPRA_X_DETALLEORDENCOMPRA">
+      <key column="ID_DETALLEOC_KEY"/>
+      <index column="ID_DETALLE_INDEX"/>
       <one-to-many class="modelo.DetalleOrdenDeCompra"/>
     </list>
     
-    <many-to-one class="modelo.RecepcionOrdenDeCompra" column="FK_RECEPCION" name="recepcion"/>
+    <many-to-one  cascade="none" class="modelo.RecepcionOrdenDeCompra" column="FK_RECEPCION" name="recepcion"/>
     
   </class>
 </hibernate-mapping>
