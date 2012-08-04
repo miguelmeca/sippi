@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="modelo.OrdenDeCompra">
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" optimistic-lock="version" polymorphism="implicit" select-before-update="false" name="modelo.OrdenDeCompra">
     
     <id column="ID_ORDEN_COMPRA" name="id" type="integer" unsaved-value="0">
       <generator class="increment"/>
     </id>
-    
-    <property name="numero" type="integer"/>
     
     <property name="fechaDeGeneracion" type="date"/>
     <property name="fechaUltimaModificacion" type="date"/>
@@ -20,9 +18,9 @@
     
     <property name="formaDeEntrega" type="string"/>
     
-    <list cascade="all" name="detalle" table="ORDENCOMPRA_X_DETALLEORDENCOMPRA">
-      <key column="ID_ORDEN_COMPRA"/>
-      <index column="idx"/>
+    <list cascade="all-delete-orphan" name="detalle" table="ORDENCOMPRA_X_DETALLEORDENCOMPRA">
+      <key column="ID_DETALLEOC"/>
+      <index column="ID"/>
       <one-to-many class="modelo.DetalleOrdenDeCompra"/>
     </list>
     

@@ -4,12 +4,13 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Iuga
  */
-class RecepcionOrdenDeCompra {
+public class RecepcionOrdenDeCompra {
     
     public static final String ESTADO_PENDIENTE = "Pendiente";
     public static final String ESTADO_ANULADA   = "Anulada";
@@ -23,6 +24,7 @@ class RecepcionOrdenDeCompra {
     private List<DetalleRecepcionOrdenDeCompra> recepcionesParciales;
 
     public RecepcionOrdenDeCompra() {
+        recepcionesParciales = new ArrayList<DetalleRecepcionOrdenDeCompra>();
     }
 
     public String getEstado() {
@@ -57,6 +59,8 @@ class RecepcionOrdenDeCompra {
         this.recepcionesParciales = recepcionesParciales;
     }
     
-    
+    public void addRecepcionesParciales(DetalleRecepcionOrdenDeCompra recepcionParcial) {
+        this.recepcionesParciales.add(recepcionParcial);
+    }    
     
 }

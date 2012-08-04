@@ -4,7 +4,14 @@
  */
 package vista.compras;
 
+import com.itextpdf.text.DocumentException;
+import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
@@ -14,6 +21,8 @@ import util.Tupla;
 import vista.comer.pantallaListadoProveedores;
 import vista.interfaces.ICallBackGen;
 import vista.interfaces.ICallBackObject;
+import vista.reportes.ReportDesigner;
+import vista.reportes.sources.EmitirOrdenDeCompra;
 
 /**
  *
@@ -26,15 +35,18 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     
     private Proveedor proveedorSeleccionado;
     private OrdenDeCompra ordenDeCompraCargada;
+    private List<DetalleOrdenDeCompra> listadoDetalleOrdenDeCompra;
     
     /**
      * Permite crear desde cero una orden de compra (por ejemplo si se llama desde el menú principal)
      */
     public GenerarNuevaOrdenDeCompra() {
+        listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
         initComponents();
         initComboFormaDePago();
         initComboFormaDeEntrega();
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
+        txtFecha.setDate(new Date());
     }
 
     /**
@@ -42,6 +54,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      * @param idOrdenDeCompra 
      */
     public GenerarNuevaOrdenDeCompra(int idOrdenDeCompra) {
+        listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
         initComponents();
         initComboFormaDePago();    
         initComboFormaDeEntrega();
@@ -57,10 +70,12 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      * desde la ejecución de una Obra)
      */
     public GenerarNuevaOrdenDeCompra(PedidoObra obra, Proveedor p, List<IDetallable> listaItemsOrden) {
+        listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
         initComponents();
         initComboFormaDePago();  
         initComboFormaDeEntrega();
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
+        txtFecha.setDate(new Date());
     }    
 
     /**
@@ -254,7 +269,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -265,6 +280,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
         btnRegistrarRecepcion.setText("Registrar Recepción");
@@ -276,6 +296,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitir.setText("Emitir Orden de Compra");
+        btnEmitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -364,6 +389,16 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                         Tupla tp = (Tupla)tblDetalle.getModel().getValueAt(tblDetalle.getSelectedRow(),0);
                         if(tp!=null)
                         {
+                            // Remuevo de los datos de la clase
+                            for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
+                                DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
+                                if(doc.hashCode()==tp.getId())
+                                {
+                                    listadoDetalleOrdenDeCompra.remove(i);
+                                    break;
+                                }
+                            }
+                            // Remuevo del Modelo
                             DefaultTableModel model = (DefaultTableModel) tblDetalle.getModel();
                             model.removeRow(tblDetalle.getSelectedRow());
                             actualizarTotalCompra();
@@ -380,6 +415,85 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     private void btnRegistrarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRecepcionActionPerformed
 
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        int n = JOptionPane.showConfirmDialog(
+                new JFrame(),
+                "¿Está seguro que desea guardar la Orden de Compra?",
+                "Atencion!",
+                JOptionPane.YES_NO_OPTION);
+        
+        if(n==JOptionPane.YES_OPTION)
+        {
+            if(validar())
+            {
+                if(ordenDeCompraCargada==null)
+                {
+                    crearYguardar();
+                }
+                else
+                {
+                    actualizarYGuardar();
+                }
+                initEstado();
+            }
+        }
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirActionPerformed
+
+        // Si ya está emitida, la muestro de una
+        if(this.ordenDeCompraCargada!=null && this.ordenDeCompraCargada.getId()!=0)
+        {
+            // Si ya está emitida, muestro de una
+            if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
+            {
+                emitirOrdenDeCompra();
+                return;
+            }
+        }
+        String msg = "<HTML>Está por emitir la orden de compra<br>Y una vez que esté emitida NO podrá modificarse<br>¿Desea guardar los cambios y continar?";
+        
+        int seleccion = JOptionPane.showOptionDialog(
+                        this, // Componente padre
+                        msg, //Mensaje
+                        "Seleccione una opción", // Título
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,    // null para icono por defecto.
+                        new Object[] { "Guardar y Continuar", "Cancelar"},    // null para YES, NO y CANCEL
+                        "Guardar y Continuar");
+        
+        if (seleccion != -1)
+        {
+            if((seleccion + 1)==1)
+            {     
+                if(validar())
+                {
+                    boolean exito = false;
+                    if(ordenDeCompraCargada==null)
+                    {
+                        exito = crearYguardar();
+                    }
+                    else
+                    {
+                        exito = actualizarYGuardar();
+                    }
+                    if(exito)
+                    {
+                        // Cambio el estado de la ODC a EMITIDA !
+                        if(cambiarEstadoAEmitida())
+                        {
+                            emitirOrdenDeCompra();
+                        }
+                    }
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnEmitirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -443,8 +557,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     public void actualizarConObjeto(String flag, Class tipo, Object[] data) {
         if(CALLBACK_SELECCION_ITEMDETALLE.equals(flag))
         {
-            DetalleOrdenDeCompra doc = (DetalleOrdenDeCompra) data[0];
-            agregarDetalleOrdenCompraATabla(doc);
+            if(data[0] instanceof DetalleOrdenDeCompra)
+            {
+                DetalleOrdenDeCompra doc = (DetalleOrdenDeCompra) data[0];
+                agregarDetalleOrdenCompraATabla(doc);
+            }
         }        
     }    
     
@@ -492,8 +609,27 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         }
     }
 
+    /**
+     * Setea el estado de la orden en el txt 
+     */
     private void initEstado() {
-        txtEstado.setText("No implementado");
+        if(this.ordenDeCompraCargada!=null)
+        {
+            txtEstado.setText(this.ordenDeCompraCargada.getEstado());
+            
+            if(OrdenDeCompra.ESTADO_ANULADA.equals(this.ordenDeCompraCargada.getEstado()))
+            {
+                txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_ANULADA);
+            }
+            if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
+            {
+                txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_EMITIDA);
+            }
+            if(OrdenDeCompra.ESTADO_PENDIENTE.equals(this.ordenDeCompraCargada.getEstado()))
+            {
+                txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_PENDIENTE);
+            }               
+        }
     }
 
     private void initDatos(int idOrdenDeCompra) {
@@ -507,7 +643,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             if(this.ordenDeCompraCargada!=null)
             {
                 // Numero
-                txtNroOrdenDeCompra.setText(""+this.ordenDeCompraCargada.getNumero());
+                txtNroOrdenDeCompra.setText(""+this.ordenDeCompraCargada.getId());
                 // Proveedor
                 if(this.ordenDeCompraCargada.getProveedor()!=null)
                 {
@@ -541,6 +677,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     
     private void agregarDetalleOrdenCompraATabla(DetalleOrdenDeCompra doc)
     {
+        this.listadoDetalleOrdenDeCompra.add(doc);
+        
         DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
         
         Object[] fila = new Object[4];
@@ -580,6 +718,199 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             }
         }
         txtTotal.setText("$"+total);
+    }
+
+    /**
+     * Crea una Nueva Orden de Compra (No usar para Actualizar)
+     */
+    private boolean crearYguardar() {
+        
+        OrdenDeCompra odc = new OrdenDeCompra();
+        odc.setEstado(OrdenDeCompra.ESTADO_PENDIENTE);
+        odc.setFechaDeGeneracion(new Date());
+        odc.setFechaUltimaModificacion(new Date());
+        odc.setFormaDeEntrega(OrdenDeCompra.FORMAS_DE_ENTREGA[cmbFormaDeEntrega.getSelectedIndex()]);
+        odc.setProveedor(proveedorSeleccionado);
+        
+            // Forma de Pago
+            try
+            {
+                Tupla tp = (Tupla) cmbFormaDePago.getSelectedItem();
+                HibernateUtil.beginTransaction();
+                FormaDePago fdp = (FormaDePago)HibernateUtil.getSession().load(FormaDePago.class,tp.getId());
+                HibernateUtil.commitTransaction();
+                odc.setFormaDePago(fdp);
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la Forma de Pago\n"+e.getMessage());
+                e.printStackTrace();
+                return false;
+            } 
+            
+            // Recepcion
+            RecepcionOrdenDeCompra rodc = new RecepcionOrdenDeCompra();
+            odc.setRecepcion(rodc);
+            
+            // Detalle de Orden de Compra
+            for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
+                DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
+                
+                    // Creo las recepciones
+                    DetalleRecepcionOrdenDeCompra drodc = new DetalleRecepcionOrdenDeCompra();
+                    doc.setRecepcion(drodc);
+                    rodc.addRecepcionesParciales(drodc);
+                
+                odc.addDetalleOrdenDeCompra(doc);
+            }    
+
+            if(guardar(odc))
+            {
+                txtNroOrdenDeCompra.setText(""+odc.getId());
+                this.ordenDeCompraCargada = odc;
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra se Creo exitosamente<br>y se le asigno el número: <b>"+odc.getId()+"</b>");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+    }
+    
+    /**
+     * Método que persiste la Orden De Compra en la DB
+     * @param odc
+     * @return 
+     */
+    private boolean guardar(OrdenDeCompra odc)
+    {
+      try
+        {
+            HibernateUtil.beginTransaction();
+            
+            HibernateUtil.getSession().saveOrUpdate(odc);
+            HibernateUtil.getSession().saveOrUpdate(odc.getRecepcion());
+
+                for (int i = 0; i < odc.getDetalle().size(); i++) {
+                    DetalleOrdenDeCompra doc = odc.getDetalle().get(i);
+                    
+                    HibernateUtil.getSession().saveOrUpdate(doc.getRecepcion());
+                    HibernateUtil.getSession().saveOrUpdate(doc.getItem());
+                    HibernateUtil.getSession().saveOrUpdate(doc);
+                }
+                
+            HibernateUtil.commitTransaction();
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Generar y Guardar la Orden De Compra\n"+e.getMessage());
+            e.printStackTrace();
+            return false;
+        }       
+        return true;
+    }
+
+    private void emitirOrdenDeCompra() {
+        
+        EmitirOrdenDeCompra informe = new EmitirOrdenDeCompra(ordenDeCompraCargada);
+        informe.setNombreReporte("Orden de Compra : "+ordenDeCompraCargada.getId());
+        informe.setNombreArchivo("Compras-"+ordenDeCompraCargada.getId(),ReportDesigner.REPORTE_TIPO_COMPRAS);
+
+        try 
+        {
+            informe.makeAndShow(new HashMap<String,Object>());
+        } catch (DocumentException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+        } catch (FileNotFoundException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
+        }                   
+    }
+
+    /**
+     * Actualiza el objeto antes de pedir que se guarde
+     */
+    private boolean actualizarYGuardar() {
+        OrdenDeCompra odc = this.ordenDeCompraCargada;
+        odc.setFechaDeGeneracion(new Date());
+        odc.setFechaUltimaModificacion(new Date());
+        odc.setFormaDeEntrega(OrdenDeCompra.FORMAS_DE_ENTREGA[cmbFormaDeEntrega.getSelectedIndex()]);
+        odc.setProveedor(proveedorSeleccionado);
+        
+            // Forma de Pago
+            try
+            {
+                Tupla tp = (Tupla) cmbFormaDePago.getSelectedItem();
+                HibernateUtil.beginTransaction();
+                FormaDePago fdp = (FormaDePago)HibernateUtil.getSession().load(FormaDePago.class,tp.getId());
+                HibernateUtil.commitTransaction();
+                odc.setFormaDePago(fdp);
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la Forma de Pago\n"+e.getMessage());
+                e.printStackTrace();
+                return false;
+            } 
+            
+            // Detalle de Orden de Compra
+            for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
+                DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
+                odc.addDetalleOrdenDeCompra(doc);
+            }    
+
+            if(guardar(odc))
+            {
+                txtNroOrdenDeCompra.setText(""+odc.getId());
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra número <b>"+odc.getId()+"</b> se actualizó exitosamente");
+                return true;
+            }
+            {
+                return false;
+            }        
+    }
+
+    /**
+     * Valido que todos los datos sean correctos antes de guardar
+     * @return 
+     */
+    private boolean validar() {
+        return true;
+    }
+
+    /**
+     * Cambia el estado de la ODC a Emitida 
+     * ATENCION! Solo debe llamarse despues de guardar la ODC exitosamente
+     */
+    private boolean cambiarEstadoAEmitida() {
+        // Si se guardo exitosamente
+        if(this.ordenDeCompraCargada!=null && this.ordenDeCompraCargada.getId()!=0)
+        {
+            // Si ya está emitida, no hago nada
+            if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
+            {
+                return true;
+            }
+            
+            // Sino cambio el estado !!
+            this.ordenDeCompraCargada.setEstado(OrdenDeCompra.ESTADO_EMITIDA);
+            try
+            {
+                HibernateUtil.beginTransaction();
+
+                HibernateUtil.getSession().saveOrUpdate(this.ordenDeCompraCargada);
+
+                HibernateUtil.commitTransaction();
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Emitir y Cerrar la orden de Compra\n"+e.getMessage());
+                e.printStackTrace();
+                return false;
+            }  
+        }
+        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se Guardó y Emitió exitosamente la Orden de Compra !");
+        initEstado();
+        return true;
     }
 
 

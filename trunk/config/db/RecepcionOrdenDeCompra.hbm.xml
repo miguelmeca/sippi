@@ -10,7 +10,7 @@
     <property name="estado" type="string"/>
     <property name="observaciones" type="string"/>
     
-    <list cascade="all" name="recepcionesParciales" table="RECEPCION_X_DETALLERECEPCION">
+    <list cascade="all-delete-orphan" name="recepcionesParciales" table="RECEPCION_X_DETALLERECEPCION">
       <key column="ID_RECEPCION"/>
       <index column="idx"/>
       <one-to-many class="modelo.DetalleRecepcionOrdenDeCompra"/>
