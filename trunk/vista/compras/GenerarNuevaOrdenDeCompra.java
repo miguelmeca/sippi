@@ -254,6 +254,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         txtTotal.setBackground(new java.awt.Color(204, 204, 204));
         txtTotal.setEditable(false);
+        txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotal.setText("$ -");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -276,7 +278,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -922,7 +924,35 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      * @return 
      */
     private boolean validar() {
-        return true;
+        
+        boolean validado = true;
+        StringBuilder msg = new StringBuilder("<HTML>Para continuar, asegurese que:");
+        
+        // Fecha de la Orden de Compra
+        if(txtFecha.getDate()==null)
+        {
+            msg.append("<br>- La <b>Fecha</b> de la orden de compra no esté vacía");
+            validado = false;
+        }
+        // Proveedor
+        if(txtProveedor.getText().isEmpty() || this.proveedorSeleccionado==null)
+        {
+            msg.append("<br>- Elija el <b>Proveedor</b> al que se le realizarán las compras");
+            validado = false;
+        }
+        // Al menor un item en la compra
+        if(tblDetalle.getRowCount()<=0)
+        {
+            msg.append("<br>- Agregue al menos un <b>Item</b> al detalle de la compra");
+            validado = false;
+        }
+
+        if(!validado)
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de Validación!",msg.toString());
+        }
+        
+        return validado;
     }
 
     /**

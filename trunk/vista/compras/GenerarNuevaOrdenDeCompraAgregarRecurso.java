@@ -100,10 +100,15 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Descripción:");
 
-        jLabel4.setText("Precio:");
+        jLabel4.setText("Precio Unitario:");
 
         jLabel3.setText("Cantidad:");
 
@@ -149,10 +154,9 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCantidad)
-                        .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUnidadDeMedida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -203,7 +207,7 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
                     .addComponent(btnAgregar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -258,18 +262,25 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // Validar Ventana
-        DetalleOrdenDeCompra id = new DetalleOrdenDeCompra();
-        id.setCantidad(Float.parseFloat(txtCantidad.getText()));
-        id.setItem(itemSeleccionado);
-        id.setPrecioUnitario(Double.parseDouble(txtPrecio.getText()));
-        id.setDescripcion(txtDescripción.getText());
-        
-        Object[] retorno = new Object[1];
-        retorno[0] = id;
-        this.callback.actualizarConObjeto(GenerarNuevaOrdenDeCompra.CALLBACK_SELECCION_ITEMDETALLE,DetalleOrdenDeCompra.class,retorno);
-        
-        this.dispose();
+        if(validar())
+        {       
+            DetalleOrdenDeCompra id = new DetalleOrdenDeCompra();
+            id.setCantidad(Float.parseFloat(txtCantidad.getText()));
+            id.setItem(itemSeleccionado);
+            id.setPrecioUnitario(Double.parseDouble(txtPrecio.getText()));
+            id.setDescripcion(txtDescripción.getText());
+
+            Object[] retorno = new Object[1];
+            retorno[0] = id;
+            this.callback.actualizarConObjeto(GenerarNuevaOrdenDeCompra.CALLBACK_SELECCION_ITEMDETALLE,DetalleOrdenDeCompra.class,retorno);
+
+            this.dispose();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -405,5 +416,58 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
             e.printStackTrace();
         }         
         return null;
+    }
+
+    /**
+     * Valido que todos los datos sean correctos antes de regresar
+     * @return 
+     */
+    private boolean validar() {
+        boolean validado = true;
+        StringBuilder msg = new StringBuilder("<HTML>Para continuar, asegurese que:");
+        
+        // Fecha de la Orden de Compra
+        if(this.itemSeleccionado==null || this.txtItem.getText().isEmpty())
+        {
+            msg.append("<br>- Elegir un <b>Item</b> para el detalle de la orden de compra");
+            validado = false;
+        }
+        // Cantidad no nula
+        if(txtCantidad.getText().isEmpty())
+        {
+            msg.append("<br>- Ingrese la <b>Cantidad</b> del item seleccionado que desee ingresar");
+            validado = false;
+        }
+        // Cantidad Numerica
+        try
+        {
+            double cantidad = Double.parseDouble(txtCantidad.getText());
+        }catch(NumberFormatException ex)
+        {
+            msg.append("<br>- La <b>Cantidad</b> ingresada debe tener un valor numérico");
+            validado = false;
+        }
+        // Precio no nulo
+        if(txtPrecio.getText().isEmpty())
+        {
+            msg.append("<br>- Ingrese el <b>Precio Unitario</b> del item seleccionado");
+            validado = false;
+        }
+        // Precio Numerico
+        try
+        {
+            double precio = Double.parseDouble(txtPrecio.getText());
+        }catch(NumberFormatException ex)
+        {
+            msg.append("<br>- El <b>Precio</b> ingresado debe tener un valor numérico");
+            validado = false;
+        }        
+        
+        
+        if(!validado)
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de Validación!",msg.toString());
+        }
+        return validado;
     }
 }
