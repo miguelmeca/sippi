@@ -399,6 +399,22 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                             // Remuevo de los datos de la clase
                             for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
                                 DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
+                                
+                                if(doc.getId()!=0)
+                                {
+                                    if(ordenDeCompraCargada!=null)
+                                    {
+                                        for (int j = 0; j < this.ordenDeCompraCargada.getDetalle().size(); j++) {
+                                            DetalleOrdenDeCompra detalleOrdenDeCompra =  this.ordenDeCompraCargada.getDetalle().get(j);
+                                            if(detalleOrdenDeCompra.hashCode()==tp.getId())
+                                            {
+                                                this.ordenDeCompraCargada.getDetalle().remove(j);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                
                                 if(doc.hashCode()==tp.getId())
                                 {
                                     listadoDetalleOrdenDeCompra.remove(i);
