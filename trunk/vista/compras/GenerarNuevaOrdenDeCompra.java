@@ -21,6 +21,7 @@ import modelo.*;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 import util.SwingPanel;
+import util.TablaUtil;
 import util.Tupla;
 import vista.comer.pantallaListadoProveedores;
 import vista.interfaces.ICallBackGen;
@@ -75,12 +76,13 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      * el fin de trazabilidad. ( Esto es lo que se va a usar para generar órdenes 
      * desde la ejecución de una Obra)
      */
-    public GenerarNuevaOrdenDeCompra(PedidoObra obra, Proveedor p, List<IDetallable> listaItemsOrden) {
+    public GenerarNuevaOrdenDeCompra(PedidoObra obra, Proveedor p, List<DetalleOrdenDeCompra> listaItemsOrden) {
         listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
         initComponents();
         initComboFormaDePago();  
         initComboFormaDeEntrega();
         initAnchoColumnasTablaDetalles();
+        initDatos(obra, p, listaItemsOrden);
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
         txtFecha.setDate(new Date());
     }    
@@ -372,9 +374,26 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     }//GEN-LAST:event_btnSeleccionarProveedorActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        GenerarNuevaOrdenDeCompraAgregarRecurso win = new GenerarNuevaOrdenDeCompraAgregarRecurso(this);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);
+        
+        boolean validado = true;
+        StringBuilder msg = new StringBuilder("<HTML>Para poder agegar un item seleccione el <b>Proveedor</b> al que se le realizará la compra");
+        
+        // Proveedor
+        if(txtProveedor.getText().isEmpty() || this.proveedorSeleccionado==null)
+        {
+            validado = false;
+        }
+        
+        if(validado)
+        {
+            GenerarNuevaOrdenDeCompraAgregarRecurso win = new GenerarNuevaOrdenDeCompraAgregarRecurso(this,this.proveedorSeleccionado);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de Validación!",msg.toString());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
@@ -562,10 +581,33 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     
                     if(p!=null)
                     {
+                        // Aviso que si cambio el proveedor borro todo el detalle, pero solo si cambie el proveedor
+                        if(this.proveedorSeleccionado!=null && this.proveedorSeleccionado.getId()!=p.getId() && tblDetalle.getRowCount()>0)
+                        {
+                            int seleccion = JOptionPane.showOptionDialog(
+                                            this, // Componente padre
+                                            "Si cambia el Proveedor para esta orden de compra, el detalle se vaciará ya que los items no son consistentes\n¿Desea continuar con el cambio?",
+                                            "Seleccione una opción", // Título
+                                            JOptionPane.YES_NO_CANCEL_OPTION,
+                                            JOptionPane.QUESTION_MESSAGE,
+                                            null,    // null para icono por defecto.
+                                            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                                            "Si");
+                                            if (seleccion != -1)
+                                            {
+                                                if((seleccion + 1)==1)
+                                                {
+                                                    vaciarListaDetalle();
+                                                }
+                                                else
+                                                {
+                                                    return;
+                                                }
+                                            }
+                        }
                         this.proveedorSeleccionado = p;
+                        txtProveedor.setText(p.getRazonSocial());
                     }
-                    
-                    txtProveedor.setText(p.getRazonSocial());
 
                 }catch(Exception e)
                 {
@@ -1013,6 +1055,40 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             columnaTabla.setPreferredWidth(anchoColumna); 
             columnaTabla.setWidth(anchoColumna);
         } 
+    }
+
+    /**
+     * Este metodo llena la ventana, cuando esta ventana, se llama con los datos
+     * para rellenar (se genera una orden de compra, digamos desde una obra)
+     * Así que tiene la obra para asociar  y el detalle !!
+     * @param obra
+     * @param p
+     * @param listaItemsOrden 
+     */
+    private void initDatos(PedidoObra obra, Proveedor p, List<DetalleOrdenDeCompra> listaItemsOrden) {
+        
+        //TODO: Por ahora no hago nada con la obra hasta tener ejecución lista
+        // Proveedor
+        if(p!=null)
+        {
+            txtProveedor.setText(p.toString());
+            this.proveedorSeleccionado = p;
+        }
+        // Fecha .. la actual
+        txtFecha.setDate(new Date());
+        // Detalle
+        for (int i = 0; i < listaItemsOrden.size(); i++) {
+            DetalleOrdenDeCompra item = listaItemsOrden.get(i);
+            agregarDetalleOrdenCompraATabla(item);
+        }
+        
+    }
+
+    /**
+     * Vacia el detalle de la orden de compra
+     */
+    private void vaciarListaDetalle() {
+        TablaUtil.vaciarDefaultTableModel((DefaultTableModel)tblDetalle.getModel());
     }
 
 

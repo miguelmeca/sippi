@@ -72,7 +72,7 @@
                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAgregar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

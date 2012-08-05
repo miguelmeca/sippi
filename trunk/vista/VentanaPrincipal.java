@@ -784,13 +784,13 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_btnMnuRecursosActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        ListadoHerramientas win = new ListadoHerramientas(new FiltroPasivoHerramientas());
+        ListadoHerramientas win = new ListadoHerramientas(new FiltroPasivoHerramientas(null));
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);    
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        ListadoMateriales win = new ListadoMateriales(new FiltroPasivoMateriales());
+        ListadoMateriales win = new ListadoMateriales(new FiltroPasivoMateriales(null));
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);   
     }//GEN-LAST:event_jMenuItem16ActionPerformed

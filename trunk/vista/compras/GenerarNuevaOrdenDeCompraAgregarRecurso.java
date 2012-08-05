@@ -29,12 +29,14 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
     private static final String[] conceptos = {"Materiales","Herramientas", "Alquileres y Compras", "Adicionales"};
     
     private ItemComprable itemSeleccionado;
+    private Proveedor proveedor;
     
     /**
      * Creates new form GenerarNuevaOrdenDeCompraAgregarRecurso
      */
-    public GenerarNuevaOrdenDeCompraAgregarRecurso(ICallBackObject callback) {
+    public GenerarNuevaOrdenDeCompraAgregarRecurso(ICallBackObject callback,Proveedor p) {
         this.callback = callback;
+        this.proveedor = p;
         initComponents();
         initComboConceptos();
     }   
@@ -220,13 +222,13 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
         switch(tp.getId())
         {
             case 0: 
-                 ListadoMateriales win = new ListadoMateriales(new FiltroPasivoMateriales());
+                 ListadoMateriales win = new ListadoMateriales(new FiltroPasivoMateriales(this.proveedor));
                  win.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_MATERIAL);
                  SwingPanel.getInstance().addWindow(win);
                  win.setVisible(true);
                 break;
             case 1: 
-                 ListadoHerramientas winh = new ListadoHerramientas(new FiltroPasivoHerramientas());   
+                 ListadoHerramientas winh = new ListadoHerramientas(new FiltroPasivoHerramientas(this.proveedor));   
                  winh.setSeleccionarEnabled(this,GenerarNuevaOrdenDeCompraAgregarRecurso.CALLBACK_SELECCION_HERRAMIENTA);
                  SwingPanel.getInstance().addWindow(winh);
                  winh.setVisible(true);
