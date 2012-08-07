@@ -90,6 +90,11 @@ public class SubObraXTareaModif extends SubObraXTarea {
     }
     
     @Override
+    public void agreagarDetalle(DetalleSubObraXTarea detalle, int indice) {
+        this.detallesMod.add(indice, (DetalleSubObraXTareaModif)detalle);
+    }
+    
+    @Override
     public DetalleSubObraXTarea getDetalleParticular(int i) {
         return detallesMod.get(i);
     }

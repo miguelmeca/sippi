@@ -169,13 +169,13 @@ public class gestorBDvarios
         TipoEspecialidad esp = null;
         try
         {
-            HibernateUtil.beginTransaction();
+           // HibernateUtil.beginTransaction();
             esp = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,idTipoEspecialidad);
-            HibernateUtil.commitTransaction();
+            //HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
-            HibernateUtil.rollbackTransaction();
+          //  HibernateUtil.rollbackTransaction();
         }
         return esp;
     }
@@ -217,19 +217,36 @@ public class gestorBDvarios
 
             return tuplas;
     }
-
-     public  RangoEspecialidad getRangoEspecialidad(int idRango)
+    public  Especialidad getEspecialidad(int idEspecialidad)
     {
-        RangoEspecialidad rng = null ;
+        Especialidad esp = null ;
+        //esp =(Especialidad)sesion.createQuery("from Especialidad where id = (:id)").setParameter("id", idEspecialidad).uniqueResult();
         try{
+            
             HibernateUtil.beginTransaction();
-            rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);   
+            sesion=HibernateUtil.getSession();
+            esp = (Especialidad)sesion.load(Especialidad.class,idEspecialidad);   
             HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
             HibernateUtil.rollbackTransaction();
         }
+        return esp;
+    }
+
+     public  RangoEspecialidad getRangoEspecialidad(int idRango)
+    {
+        RangoEspecialidad rng = null ;
+        //try{
+          //  HibernateUtil.beginTransaction();
+            rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);   
+         //   HibernateUtil.commitTransaction();
+        //}
+        //catch(Exception e)
+       // {
+       //     HibernateUtil.rollbackTransaction();
+       // }
         return rng;
     }
 
@@ -246,7 +263,7 @@ public class gestorBDvarios
                // listaNombres.add(td.getNombre());
                 Tupla tupla = new Tupla(rng.getId(),rng.getNombre());
                     tuplas.add(tupla);
-            }
+            }            
 
             return tuplas;
     }
@@ -338,7 +355,7 @@ public class gestorBDvarios
 
     public  ArrayList<Tupla> getPlantas(int idEmpresa)
     {
-        // Tengo solo el ID, así que busco el objeto
+        // Tengo solo el ID, asÃ­ que busco el objeto
         EmpresaCliente ec = getEmpresa(idEmpresa);
         return this.getPlantas(ec);
     }
