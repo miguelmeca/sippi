@@ -58,6 +58,9 @@ public class SubObraXTarea implements ISubtotal{
      public void agreagarDetalle(DetalleSubObraXTarea detalle) {
         this.detalles.add(detalle);
     }
+     public void agreagarDetalle(DetalleSubObraXTarea detalle, int indice) {
+        this.detalles.add(indice, (DetalleSubObraXTareaModif)detalle);
+    }
     
     public DetalleSubObraXTarea getDetalleParticular(int i) {
         return detalles.get(i);

@@ -6,8 +6,8 @@
       <generator class="increment"/>
     </id>
     <list cascade="all" name="subtareas" table="TAREAPLAN_X_SUBTAREAS">
-      <key column="ID_TAREAPLANIFICACION"/>
-      <index column="idx"/>
+      <key column="ID_SUB_TAREAPLANIFICACION_KEY"/>
+      <index column="ID_SUB_TAREAPLANIFICACION_INDEX"/>
       <one-to-many class="modelo.TareaPlanificacion"/>
     </list>
     <many-to-one class="modelo.TipoTarea" name="tipoTarea"/>

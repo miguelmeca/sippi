@@ -22,6 +22,7 @@ public class DetalleTareaPlanificacion {
     private double cantHorasAl100;
     private double costoXHoraNormal;
     private Especialidad especialidad;
+    private int contHijos;
     
     
     /**
@@ -42,6 +43,7 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=cotizado.getCostoXHoraNormal();
         this.especialidad=cotizado.getEspecialidad();
         empleados=new ArrayList<Empleado>();
+        contHijos=0;
         
     }
     
@@ -62,6 +64,7 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=aCopiar.getCostoXHoraNormal();
         this.especialidad=aCopiar.getEspecialidad();
         empleados=new ArrayList<Empleado>();
+        contHijos=0;
         
     }
      
@@ -103,7 +106,7 @@ public class DetalleTareaPlanificacion {
      * @param padre the padre to set
      */
     public void setPadre(DetalleTareaPlanificacion padre) {
-        this.padre = padre;
+        this.padre=padre;
     }
 
     /**
