@@ -121,7 +121,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         
             gestorBDvarios gestorBD = new gestorBDvarios();
             List<Especialidad> rangos=gestorBD.getEspecialidades( te);
-            try{
+            /*try{
                 sesion= HibernateUtil.getSession();
                 sesion.beginTransaction();
                 rangos=sesion.createQuery("from Especialidad").list();
@@ -129,7 +129,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             }
             catch (Exception ex)
             {System.out.println("No se ejecutar la consulta en mostrarRangos()");
-            return null;}
+            return null;}*/
             if(rangos==null)
             {return null;}           
             ArrayList<NTupla> tuplas = new ArrayList<NTupla>();
@@ -242,9 +242,34 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         try
         {
             sesion = HibernateUtil.getSession();
+           
+            getSubObraActual().addTarea(tarea);          
             
-            if(tarea.getId()>0)
-            {//Es una tarea modificada
+            
+            refrescarPantallas();
+            //return soxt.getId();
+            return true;
+        }
+        catch (Exception ex)
+            {
+                LogUtil.addError("ERROR abriendo sesion en gestor.agregarTarea: "+ex);
+                System.out.println("ERROR abriendo sesion en gestor.agregarTarea: "+ex);
+                HibernateUtil.rollbackTransaction();
+                //return -1;
+                return false;
+            }
+    }
+    
+    public boolean modificarTarea(SubObraXTarea tarea)
+    {
+        Session sesion;
+        
+       // boolean esTareaNueva;
+        try
+        {
+            sesion = HibernateUtil.getSession();
+            
+            //Es una tarea modificada
               // esTareaNueva=false;
                List<SubObraXTarea> tareas= getSubObraActual().getTareas();        
                
@@ -263,29 +288,8 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                     Exception eCIA=new Exception("ERROR:Id de tarea inexistente");
                     throw eCIA; 
                 }
-            }
-            else
-            {
-               // esTareaNueva=true;
-                /*SubObraXTarea soxt;
-                soxt=new SubObraXTarea();
-                TipoTarea tt=(TipoTarea) sesion.load(TipoTarea.class, ((Tupla)((Object[])((NTupla)datos[0]).getData())[0]).getId()  );
-                soxt.setTipoTarea(tt);
-                soxt.setObservaciones(  (String)(((Object[])((NTupla)datos[0]).getData())[1])  );
-                soxt.setCantOperarios((Integer)datos[1]);
-                RangoEmpleado re = (RangoEmpleado) sesion.load(RangoEmpleado.class, ((NTupla)datos[2]).getId());
-                soxt.setRangoEmpleado(re);
-                soxt.setCantHoras((Double)datos[3]);
-                soxt.setCostoXHora((Double)((NTupla)datos[2]).getData());
-                soxt.setFechaInicio((Date)((NTupla)datos[4]).getData());
-                soxt.setFechaFin((Date)((NTupla)datos[5]).getData());
-                */
-                getSubObraActual().addTarea(tarea);
-            }
-           /** if(esTareaNueva)
-            {
-              getSubObraActual().addTarea(soxt); 
-            }*/
+            
+            
             
             
             refrescarPantallas();

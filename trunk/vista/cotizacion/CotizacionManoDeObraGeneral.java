@@ -79,7 +79,14 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
        if(nueva || modificada )//Si es una tarea nueva o una modificada y no una existente.
        {
            boolean exito;
-           exito=gestor.agregarTarea(tareaActual);
+           if(nueva)
+           {
+            exito=gestor.agregarTarea(tareaActual);
+           }
+           else
+           {
+               exito=gestor.modificarTarea(tareaActual);
+           }
            if( (exito==false))
            { 
                    JOptionPane.showMessageDialog(this.getParent(), "Ocurrió un error guardando tarea", "Eror",JOptionPane.ERROR_MESSAGE);
