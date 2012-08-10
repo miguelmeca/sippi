@@ -169,13 +169,13 @@ public class gestorBDvarios
         TipoEspecialidad esp = null;
         try
         {
-           // HibernateUtil.beginTransaction();
+            HibernateUtil.beginTransaction();
             esp = (TipoEspecialidad)sesion.load(TipoEspecialidad.class,idTipoEspecialidad);
-            //HibernateUtil.commitTransaction();
+            HibernateUtil.commitTransaction();
         }
         catch(Exception e)
         {
-          //  HibernateUtil.rollbackTransaction();
+            HibernateUtil.rollbackTransaction();
         }
         return esp;
     }

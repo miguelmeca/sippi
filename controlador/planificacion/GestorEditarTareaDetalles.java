@@ -468,15 +468,15 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         
         
         int cant_aux;
-        if(copiaDetallePadre_tio==null)
-        {
+        //if(copiaDetallePadre_tio==null)
+        //{
             cant_aux=padreOriginal.getCantidadPersonas();
             
-        }
-        else
+        //}
+        /*else
         {   
             cant_aux=padreOriginal.getCantidadPersonas()+copiaDetallePadre_tio.getCantidadPersonas();
-        }
+        }*/
         if(cant_aux<cantidadPersonas)
         {
                 throw new Exception("La cantidad de personas no puede ser mayor a la actual");
@@ -505,7 +505,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         
         if(altoImpactoMenosPersonas || altoImpactoCosto)
         {
-            //divido al padre en 3:  padre original (puede estar siendo padre de otro detalle)
+            //divido al padre cotizado en 3:  padre original (puede estar siendo padre de otro detalle)
             //                       padre nuevo (el q sera padre de este) - tiene detalle cotizado propio (nuevo)
             //                       tio (division del padre con el sobrante de personas)  - tiene detalle cotizado propio (nuevo)
             
@@ -516,11 +516,11 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             detalleCotizacion.setCantHorasAl100(detalleCotizacion.getCantHorasAl100() - padreOriginal.getCantHorasAl100());
             
             //Creo las 2 divisiones nuevas del detalle cotizado (cot_padre nuevo y cot_tio)    //TODO: SOLO CREAR TIO EN CASO NECESARIO
-            DetalleTareaPlanificacion tio= new DetalleTareaPlanificacion(detalleCotizado);
-            DetalleTareaPlanificacion padreNuevo= new DetalleTareaPlanificacion(detalleCotizado);
-            tio.setCantidadPersonas( tio.getCantidadPersonas() - cantidadPersonas); //tio.cantidadPersonas  -= cantidadPersonas; 
-            padreNuevo.setCantidadPersonas(cantidadPersonas);
-            padreNuevo.setEspecialidad(especialidad);
+            DetalleTareaPlanificacion tio_cot= new DetalleTareaPlanificacion(detalleCotizado);
+            DetalleTareaPlanificacion padreNuevo_cot= new DetalleTareaPlanificacion(detalleCotizado);
+            tio_cot.setCantidadPersonas( tio_cot.getCantidadPersonas() - cantidadPersonas); //tio.cantidadPersonas  -= cantidadPersonas; 
+            padreNuevo_cot.setCantidadPersonas(cantidadPersonas);
+            padreNuevo_cot.setEspecialidad(especialidad);
             
             //Creo las cotizaciones de tio y padre nuevo
             DetalleSubObraXTareaModif tioCotizado= new DetalleSubObraXTareaModif((DetalleSubObraXTareaModif)detalleCotizacion);
@@ -540,20 +540,20 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             {
                 throw new Exception("Error en el indice de tareas - indiceDetalleCotizadoPadre");
             }
-            padreNuevo.setCotizado(padreNuevoCotizado);
-            tio.setCotizado(tioCotizado);
+            padreNuevo_cot.setCotizado(padreNuevoCotizado);
+            tio_cot.setCotizado(tioCotizado);
             
             //Resto las horas sobrantes al padre
-            padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - padreNuevo.getCantHorasNormales());
-            padreOriginal.setCantHorasAl50(padreOriginal.getCantHorasAl50() - padreNuevo.getCantHorasAl50());
-            padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - padreNuevo.getCantHorasAl100());
+            padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - padreNuevo_cot.getCantHorasNormales());
+            padreOriginal.setCantHorasAl50(padreOriginal.getCantHorasAl50() - padreNuevo_cot.getCantHorasAl50());
+            padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - padreNuevo_cot.getCantHorasAl100());
             
-            detalleActual.setPadre(padreNuevo);
+            detalleActual.setPadre(padreNuevo_cot);
             int indiceDetallePadre=tareaConDetallePadre.getDetalles().indexOf(padreOriginal);
             if(indiceDetallePadre!=-1)            
             {
-                tareaConDetallePadre.agreagarDetalle(padreNuevo, indiceDetallePadre);
-                tareaConDetallePadre.agreagarDetalle(tio, indiceDetallePadre);
+                tareaConDetallePadre.agreagarDetalle(padreNuevo_cot, indiceDetallePadre);
+                tareaConDetallePadre.agreagarDetalle(tio_cot, indiceDetallePadre);
             }
             else
             {
@@ -581,8 +581,8 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                 //{
                     for (int i = 0; i < indiceTareaConDetallePadre; i++) 
                     {
-                        DetalleTareaPlanificacion tioAncestro = new DetalleTareaPlanificacion(tio);
-                        DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(padreNuevo);
+                        DetalleTareaPlanificacion tioAncestro = new DetalleTareaPlanificacion(tio_cot);
+                        DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(padreNuevo_cot);
                         tioAncestro.setCantHorasNormales(0.0);
                         tioAncestro.setCantHorasAl50(0.0);
                         tioAncestro.setCantHorasAl100(0.0);
@@ -596,8 +596,8 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                         {
                            // tareaConDetallePadre.agreagarDetalle(padreNuevo, indiceDetallePadreAcestro);
                             //tareaConDetallePadre.agreagarDetalle(tio, indiceDetallePadreAcestro);
-                            tareaConDetallePadre.agreagarDetalle(padreNuevo);
-                            tareaConDetallePadre.agreagarDetalle(tio);
+                            tareaConDetallePadre.agreagarDetalle(padreNuevo_cot);
+                            tareaConDetallePadre.agreagarDetalle(tio_cot);
                         }
                        /// else
                         {
@@ -623,15 +623,15 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                         padreNuevoAncestroViejo = padreNuevoAncestro;
                     }
                 //}
-               tio.setPadre(tioAncestroViejo);
-               padreNuevo.setPadre(padreNuevoAncestroViejo);
+               tio_cot.setPadre(tioAncestroViejo);
+               padreNuevo_cot.setPadre(padreNuevoAncestroViejo);
                
                
                
             }
             
-            copiaDetallePadre_tio=tio;
-            copiaDetallePadre=padreNuevo;
+            copiaDetallePadre_tio=tio_cot;
+            copiaDetallePadre=padreNuevo_cot;
         }
         
          /*       
