@@ -133,9 +133,18 @@ public class gestorBDvarios
 
     public Especialidad getEspecialidad(TipoEspecialidad te,RangoEspecialidad re )
     {
+        Especialidad esp=null;
          //TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
          //RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
-         Especialidad esp=(Especialidad) sesion.createQuery("from Especialidad where tipo = (:tipoEsp) and rango = (:rangoEsp)").setParameter("tipoEsp", te).setParameter("rangoEsp", re).uniqueResult();
+        try{
+         HibernateUtil.beginTransaction();
+          esp=(Especialidad) HibernateUtil.getSession().createQuery("from Especialidad where tipo = (:tipoEsp) and rango = (:rangoEsp)").setParameter("tipoEsp", te).setParameter("rangoEsp", re).uniqueResult();
+          HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }          
          return esp;
     }
     
@@ -144,7 +153,17 @@ public class gestorBDvarios
          //TipoEspecialidad te=(TipoEspecialidad) sesion.createQuery("from TipoEspecialidad where id ="+listaRolTipoEspecialidad.get(i).getId()).uniqueResult();
          //RangoEspecialidad re=(RangoEspecialidad) sesion.createQuery("from RangoEspecialidad where id ="+listaRolRangoEspecialidad.get(i).getId()).uniqueResult();
         //sesion.beginTransaction();
-         List lista = sesion.createQuery("from Especialidad where tipo = (:tipoEsp)").setParameter("tipoEsp", te).list();
+        List lista=null;
+        try{
+         HibernateUtil.beginTransaction();
+           lista = HibernateUtil.getSession().createQuery("from Especialidad where tipo = (:tipoEsp)").setParameter("tipoEsp", te).list();
+          HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        } 
+        
          // sesion.getTransaction().commit();
          ArrayList<Especialidad> especialidades = new ArrayList<Especialidad>();
             for (int i = 0; i < lista.size(); i++) {
@@ -183,7 +202,16 @@ public class gestorBDvarios
      public ArrayList<Tupla> getTuplasTipoEspecialidades()
     {
          //sesion.beginTransaction();
-            List lista = sesion.createQuery("from TipoEspecialidad").list();
+        List lista=null;
+        try{
+         HibernateUtil.beginTransaction();
+            lista = HibernateUtil.getSession().createQuery("from TipoEspecialidad").list();
+          HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }            
            // sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
@@ -201,7 +229,16 @@ public class gestorBDvarios
       public ArrayList<NTupla> getNTuplasTipoEspecialidades()
     {
          //sesion.beginTransaction();
-            List lista = sesion.createQuery("from TipoEspecialidad").list();
+        List lista=null;
+        try{
+         HibernateUtil.beginTransaction();
+            lista = HibernateUtil.getSession().createQuery("from TipoEspecialidad").list();
+          HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }            
            // sesion.getTransaction().commit();
 
             //ArrayList<String> listaNombres = new ArrayList<String>();
@@ -232,30 +269,39 @@ public class gestorBDvarios
         {
             HibernateUtil.rollbackTransaction();
         }
+        
+        System.out.println(esp.getRango().getNombre());
         return esp;
+       
     }
 
      public  RangoEspecialidad getRangoEspecialidad(int idRango)
     {
         RangoEspecialidad rng = null ;
-        //try{
-          //  HibernateUtil.beginTransaction();
-            rng = (RangoEspecialidad)sesion.load(RangoEspecialidad.class,idRango);   
-         //   HibernateUtil.commitTransaction();
-        //}
-        //catch(Exception e)
-       // {
-       //     HibernateUtil.rollbackTransaction();
-       // }
+        try{
+            HibernateUtil.beginTransaction();
+            rng = (RangoEspecialidad)HibernateUtil.getSession().load(RangoEspecialidad.class,idRango);   
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
         return rng;
     }
 
      public ArrayList<Tupla> getRangosEspecialidad()
     {
-         //sesion.beginTransaction();
-            List lista = sesion.createQuery("from RangoEspecialidad").list();
-          //  sesion.getTransaction().commit();
-
+        List lista=null;
+        try{
+         HibernateUtil.beginTransaction();
+            lista = HibernateUtil.getSession().createQuery("from RangoEspecialidad").list();
+          HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
             //ArrayList<String> listaNombres = new ArrayList<String>();
             ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
             for (int i = 0; i < lista.size(); i++) {
