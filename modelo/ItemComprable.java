@@ -14,11 +14,14 @@ public class ItemComprable {
     private int id = 0;
     private Class tipoComprable;
     private int idComprable;
-    private IComprable item;
+    private Object item;
 
     public ItemComprable(Class tipoComprable, int id) {
         this.tipoComprable = tipoComprable;
         this.idComprable = id;
+    }
+
+    public ItemComprable() {
     }
 
     public int getId() {
@@ -62,13 +65,24 @@ public class ItemComprable {
             {
                 String retorno = "";
                 RecursoEspecifico re = (RecursoEspecifico)item;
-                retorno += re.getRecurso().getNombre()+" "+item.getNombre();
+                retorno += re.getRecurso().getNombre()+" "+re.getNombre();
                 return retorno;
             }
-            else
-            {    
-                return item.getNombre();
+            if(item instanceof TipoAlquilerCompra)
+            {
+                String retorno = "";
+                TipoAlquilerCompra tac = (TipoAlquilerCompra)item;
+                retorno += tac.getNombre();
+                return retorno;
             }
+            if(item instanceof TipoAdicional)
+            {
+                String retorno = "";
+                TipoAdicional tad = (TipoAdicional)item;
+                retorno += tad.getNombre();
+                return retorno;                
+            }
+            return "???";
         }
         else
         {
@@ -78,10 +92,9 @@ public class ItemComprable {
 
     private void loadItem() {
         try
-        {
-            
+        {     
             HibernateUtil.beginTransaction();
-            this.item = (IComprable)HibernateUtil.getSession().load(this.tipoComprable, this.idComprable);
+            this.item = HibernateUtil.getSession().load(this.tipoComprable, this.idComprable);
             HibernateUtil.commitTransaction();
             
         }catch(Exception e)
@@ -91,6 +104,26 @@ public class ItemComprable {
             return;
         } 
     }
+
+    public Object getItem() {
+        return item;
+    }
     
+    public String getUnidadDeMedida()
+    {
+        if(this.item==null)
+        {
+            loadItem();
+        }    
+        if(this.item!=null)
+        {
+            if(item instanceof RecursoEspecifico)
+            {
+                RecursoEspecifico re = (RecursoEspecifico)item;
+                return re.getRecurso().getUnidadDeMedida().getAbreviatura();
+            }
+        }
+        return UnidadDeMedida.UNIDAD_BASE_ABREVIATURA;     
+    }
     
 }

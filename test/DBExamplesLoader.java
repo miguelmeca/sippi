@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import modelo.*;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import util.LogUtil;
 import util.RubroUtil;
 //import java.util.Set;
@@ -88,6 +89,8 @@ public class DBExamplesLoader {
           this.cargarRolesContactoResponsable();
           this.cargarCotizacionEjemplo();
           this.cargarPlanificacionEjemplo();
+          
+          this.cargarStock();
     }
 
     public void cargarConfiguraciones()
@@ -1471,5 +1474,41 @@ public class DBExamplesLoader {
         sesion.save(u2);
         sesion.save(u3);
         sesion.getTransaction().commit(); 
+    }
+
+    private void cargarStock() {
+
+        ItemComprable ic1 = new ItemComprable(RecursoEspecifico.class,1);
+        ItemStock is1 = new ItemStock();
+        is1.setCantidad(13);
+        is1.setFechaModificacion(new Date());
+        is1.setItem(ic1);
+
+        ItemComprable ic2 = new ItemComprable(TipoAlquilerCompra.class,1);
+        ItemStock is2 = new ItemStock();
+        is2.setCantidad(2);
+        is2.setFechaModificacion(new Date());
+        is2.setItem(ic2);
+        
+        ItemComprable ic3 = new ItemComprable(TipoAdicional.class,1);
+        ItemStock is3 = new ItemStock();
+        is3.setCantidad(3);
+        is3.setFechaModificacion(new Date());
+        is3.setItem(ic3);        
+        try
+        {
+            sesion.beginTransaction();
+            sesion.save(ic1);
+            sesion.save(is1);
+            sesion.save(ic2);
+            sesion.save(is2);
+            sesion.save(ic3);
+            sesion.save(is3);
+            sesion.getTransaction().commit();         
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
