@@ -16,7 +16,7 @@ import util.Tupla;
  * @todo
  */
 
-public abstract class Recurso {
+public abstract class Recurso implements IComprable {
     
     private int id;
     private String nombre;
@@ -55,6 +55,7 @@ public abstract class Recurso {
         this.id = id;
     }
 
+    @Override
     public String getNombre() {
         return nombre;
     }

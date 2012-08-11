@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="modelo.ItemStock">
+    
+    <id column="ID_ITEM_STOCK" name="id" type="integer">
+      <generator class="increment"/>
+    </id>
+    
+    <many-to-one class="modelo.ItemComprable" cascade="none" column="ITEM_COMPRABLE" name="item"/>
+    
+    <property column="CANTIDAD" name="cantidad" type="double"/>
+    
+    <property column="ULTIMA_MODIFICACION" name="fechaModificacion" type="date"/>
+    
+  </class>
+</hibernate-mapping>

@@ -30,7 +30,6 @@ import modelo.FavoritoBean;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
-import net.sf.cglib.proxy.Factory;
 import test.TestABM;
 import test.TestCallBackListadoGenerico;
 import vista.abms.*;

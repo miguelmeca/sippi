@@ -15,5 +15,5 @@ public interface IComprable {
      * @return 
      */
     public String getNombre();
-    
+     
 }
