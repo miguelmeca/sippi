@@ -30,14 +30,5 @@ public class ListadoAlquileresCompras  extends PantallaConsultarGenerica {
             columnas.add(new String[]{"getNombre","Nombre"});
         
         return columnas;
-    }    
-    
-    @Override
-    protected void abrirEntidad(int id) {
-//        PantallaGestionarRecursos win = new PantallaGestionarRecursos(Herramienta.class,id);
-//        SwingPanel.getInstance().addWindow(win);
-//        win.setVisible(true);
-    }
-    
-    
+    }     
 }
