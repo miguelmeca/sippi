@@ -396,14 +396,24 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void tblListaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaMouseReleased
-    
+       // Si seleccione una Fila...
        if(tblLista.getSelectedRow()!=-1)
        {
+           // y fue con doble click...
            if (evt.getClickCount() == 2)
-            {
-               int id = getIDfromFila(tblLista.getSelectedRow());
-               abrirEntidad(id);
-            }
+           {
+                int id = getIDfromFila(tblLista.getSelectedRow());
+                // Si tiene callback, llamo al seleccionar!
+                if(!this.nombreOrigenCallback.isEmpty() && this.origenCallback!=null)
+                {
+                    seleccionarEntidad(id);
+                }
+                else
+                {
+                    // Llamo al abrir!
+                    abrirEntidad(id);
+                }
+           }
         }
     }//GEN-LAST:event_tblListaMouseReleased
 
@@ -416,15 +426,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
             if(tblLista.getSelectedRow()!=-1)
             {
                 int id = getIDfromFila(tblLista.getSelectedRow());
-                if(id!=-1)
-                {
-                    this.origenCallback.actualizar(id,this.nombreOrigenCallback,this.entidad);
-                    this.dispose();
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
-                }
+                seleccionarEntidad(id);
             }
             else
             {
@@ -445,7 +447,7 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
        }
        else
        {
-        JOptionPane.showMessageDialog(new JInternalFrame(),"Debe seleccionar al menos una Fila!","Atención!",JOptionPane.INFORMATION_MESSAGE);                   
+            JOptionPane.showMessageDialog(new JInternalFrame(),"Debe seleccionar al menos una Fila!","Atención!",JOptionPane.INFORMATION_MESSAGE);                   
        }
     }//GEN-LAST:event_btnVerDetallesActionPerformed
 
@@ -667,9 +669,41 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         btnSeleccionar.setText("Cerrar");
     }
 
+    /**
+     * Comportamiento cuando Abrimos una endidad.
+     * (Ver detalles o Editarlos)
+     * Por defecto llama al call
+     * @param id 
+     */
     protected void abrirEntidad(int id) {
-        JOptionPane.showMessageDialog(new JInternalFrame(),"En Contrucción!","Atención!",JOptionPane.INFORMATION_MESSAGE);        
+        // Veo si hay que seleccionar una fila
+        if(id!=-1)
+        {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"No se definió un Editor por defecto para esta entidad","Error!",JOptionPane.ERROR_MESSAGE);
+            //this.dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
+        }
     }
+    
+    /**
+     * Comportamiento cuando seleccionamos una entidad.
+     * Llama a su callback de origen
+     * @param id 
+     */
+    protected void seleccionarEntidad(int id) {
+        if(id!=-1)
+        {
+            this.origenCallback.actualizar(id,this.nombreOrigenCallback,this.entidad);
+            this.dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
+        }
+    }    
     
     protected String getColumnaId()
     {
