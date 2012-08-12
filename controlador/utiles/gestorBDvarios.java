@@ -261,8 +261,8 @@ public class gestorBDvarios
         try{
             
             HibernateUtil.beginTransaction();
-            sesion=HibernateUtil.getSession();
-            esp = (Especialidad)sesion.load(Especialidad.class,idEspecialidad);   
+            //sesion=HibernateUtil.getSession();
+            esp = (Especialidad)HibernateUtil.getSession().load(Especialidad.class,idEspecialidad);   
             HibernateUtil.commitTransaction();
         }
         catch(Exception e)

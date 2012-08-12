@@ -84,6 +84,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     
     public void cargarCboRangos(TipoEspecialidad tipoEspecialidad)
     {
+        //Combo rango guarda el id de la especialidad, no del rango
         ArrayList<NTupla> listaRangos = gestor.mostrarRangos(tipoEspecialidad);
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         if(listaRangos!=null && !listaRangos.isEmpty())
@@ -980,7 +981,8 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
         }       
         for (int i = 0; i < cboRango.getItemCount(); i++) 
         {
-            if( (((NTupla)cboRango.getItemAt(i)).getId()) == detalleTarea.getEspecialidad().getRango().getId())
+            //Combo rango guarda el id de la especialidad, no del rango
+            if( (((NTupla)cboRango.getItemAt(i)).getId()) == detalleTarea.getEspecialidad().getId())
             {
                 cboRango.setSelectedIndex(i);
                 break;

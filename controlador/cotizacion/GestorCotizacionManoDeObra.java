@@ -136,7 +136,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
             for (int i = 0; i < rangos.size(); i++)
             {
                 Especialidad re = (Especialidad)rangos.get(i);
-                
+                //Combo rango guarda el id de la especialidad, no del rango
                 NTupla nTupla = new NTupla(re.getId());
                 nTupla.setNombre(re.getRango().getNombre());
                 nTupla.setData(re.getPrecioHoraNormal());
