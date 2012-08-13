@@ -455,7 +455,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
      public void impactarDatos( List<TareaPlanificacion> caminoDeTareas, int cantidadPersonas,double cantHorasNormales, double cantHorasAl50, double cantHorasAl100, double costoXHoraNormal, Especialidad especialidad, TareaPlanificacion tareaConCotizacion, DetalleTareaPlanificacion detalleCotizado, TareaPlanificacion tareaConDetallePadre, DetalleTareaPlanificacion detalleActual) throws Exception
     {
         DetalleTareaPlanificacion padreOriginal=detalleActual.getPadre();
-        DetalleSubObraXTarea detalleCotizacion=detalleCotizado.getCotizado();
+        DetalleSubObraXTareaModif detalleCotizacion=detalleCotizado.getCotizado();
         if(tareaConCotizacion.getDetalles().indexOf(detalleCotizado)==-1)
         {
             throw new Exception("El detalle no pertenece a la tarea pasada por parametro");
@@ -492,7 +492,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         
         //Si todos son false, simplemente restar las horas al padre.
         
-        if( (!especialidad.equals(padreOriginal.getEspecialidad())) || (padreOriginal.getCostoXHoraNormal() !=costoXHoraNormal))
+        if( (especialidad.getId()!=(padreOriginal.getEspecialidad().getId())) || (padreOriginal.getCostoXHoraNormal() !=costoXHoraNormal))
         {
             altoImpactoCosto=true;
         }
@@ -510,50 +510,73 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             //                       tio (division del padre con el sobrante de personas)  - tiene detalle cotizado propio (nuevo)
             
             
-            //Resto a lo cotizado las horas usadas
-            detalleCotizacion.setCantHorasNormales(detalleCotizacion.getCantHorasNormales() - padreOriginal.getCantHorasNormales());
-            detalleCotizacion.setCantHorasAl50(detalleCotizacion.getCantHorasAl50() - padreOriginal.getCantHorasAl50());
-            detalleCotizacion.setCantHorasAl100(detalleCotizacion.getCantHorasAl100() - padreOriginal.getCantHorasAl100());
             
+            boolean creaTio=false;
             //Creo las 2 divisiones nuevas del detalle cotizado (cot_padre nuevo y cot_tio)    //TODO: SOLO CREAR TIO EN CASO NECESARIO
-            DetalleTareaPlanificacion tio_cot= new DetalleTareaPlanificacion(detalleCotizado);
-            DetalleTareaPlanificacion padreNuevo_cot= new DetalleTareaPlanificacion(detalleCotizado);
-            tio_cot.setCantidadPersonas( tio_cot.getCantidadPersonas() - cantidadPersonas); //tio.cantidadPersonas  -= cantidadPersonas; 
-            padreNuevo_cot.setCantidadPersonas(cantidadPersonas);
-            padreNuevo_cot.setEspecialidad(especialidad);
             
-            //Creo las cotizaciones de tio y padre nuevo
-            DetalleSubObraXTareaModif tioCotizado= new DetalleSubObraXTareaModif((DetalleSubObraXTareaModif)detalleCotizacion);
-            DetalleSubObraXTareaModif padreNuevoCotizado= new DetalleSubObraXTareaModif((DetalleSubObraXTareaModif)detalleCotizacion);
-            tioCotizado.setCantidadPersonas(padreOriginal.getCotizado().getCantidadPersonas() - cantidadPersonas); 
-            padreNuevoCotizado.setCantidadPersonas(cantidadPersonas);
-            padreNuevoCotizado.setEspecialidad(especialidad);
-            
-            
-            int indiceDetalleCotizadoPadre=tareaConCotizacion.getTareaCotizada().getDetallesMod().indexOf(detalleCotizacion);
-            if(indiceDetalleCotizadoPadre!=-1)            
+            DetalleTareaPlanificacion padreNuevo= new DetalleTareaPlanificacion(padreOriginal);
+            DetalleTareaPlanificacion tio=null;
+            if((cantidadPersonas-detalleCotizacion.getCantidadPersonas())!=0)
             {
-                tareaConCotizacion.getTareaCotizada().agreagarDetalle(tioCotizado, (indiceDetalleCotizadoPadre+1));        
-                tareaConCotizacion.getTareaCotizada().agreagarDetalle(padreNuevoCotizado, (indiceDetalleCotizadoPadre+1) );
+                creaTio=true;
+                tio= new DetalleTareaPlanificacion(padreOriginal);            
+                tio.setCantidadPersonas( tio.getCantidadPersonas() - cantidadPersonas); //tio.cantidadPersonas  -= cantidadPersonas; 
             }
-            else
-            {
-                throw new Exception("Error en el indice de tareas - indiceDetalleCotizadoPadre");
-            }
-            padreNuevo_cot.setCotizado(padreNuevoCotizado);
-            tio_cot.setCotizado(tioCotizado);
             
+            padreNuevo.setCantidadPersonas(cantidadPersonas);
+            padreNuevo.setEspecialidad(especialidad);
+            padreNuevo.setCostoXHoraNormal(costoXHoraNormal);
+            DetalleSubObraXTareaModif tioCotizado= null;
+            DetalleSubObraXTareaModif padreNuevoCotizado=null;
+            if(altoImpactoCosto)
+            {
+                
+                //Creo las cotizaciones de tio y padre nuevo            
+                padreNuevoCotizado= new DetalleSubObraXTareaModif((DetalleSubObraXTareaModif)detalleCotizacion);
+                padreNuevoCotizado.setCantidadPersonas(cantidadPersonas);
+                padreNuevoCotizado.setEspecialidad(especialidad);                
+                padreNuevoCotizado.setCostoXHoraNormal(costoXHoraNormal);
+                        
+                if(creaTio)
+                {
+                    tioCotizado= new DetalleSubObraXTareaModif(detalleCotizacion);
+                    tioCotizado.setCantidadPersonas(tioCotizado.getCantidadPersonas() - cantidadPersonas); 
+                }
+
+                int indiceDetalleCotizadoPadre=tareaConCotizacion.getTareaCotizada().getDetallesMod().indexOf(detalleCotizacion);
+                if(indiceDetalleCotizadoPadre!=-1)            
+                {
+                    if(creaTio)
+                    {
+                        tareaConCotizacion.getTareaCotizada().agreagarDetalle(tioCotizado, (indiceDetalleCotizadoPadre+1));
+                    }       
+                    tareaConCotizacion.getTareaCotizada().agreagarDetalle(padreNuevoCotizado, (indiceDetalleCotizadoPadre+1) );
+                }
+                else
+                {
+                    throw new Exception("Error en el indice de tareas - indiceDetalleCotizadoPadre");
+                }
+                //Resto a lo cotizado las horas usadas para los padres nuevos
+                detalleCotizacion.setCantHorasNormales(detalleCotizacion.getCantHorasNormales() - padreOriginal.getCantHorasNormales());
+                detalleCotizacion.setCantHorasAl50(detalleCotizacion.getCantHorasAl50() - padreOriginal.getCantHorasAl50());
+                detalleCotizacion.setCantHorasAl100(detalleCotizacion.getCantHorasAl100() - padreOriginal.getCantHorasAl100());
+                
+            }
             //Resto las horas sobrantes al padre
-            padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - padreNuevo_cot.getCantHorasNormales());
+            /*padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - padreNuevo_cot.getCantHorasNormales());
             padreOriginal.setCantHorasAl50(padreOriginal.getCantHorasAl50() - padreNuevo_cot.getCantHorasAl50());
-            padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - padreNuevo_cot.getCantHorasAl100());
+            padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - padreNuevo_cot.getCantHorasAl100());*/
             
-            detalleActual.setPadre(padreNuevo_cot);
+            //detalleActual.setPadre(padreNuevo_cot);
             int indiceDetallePadre=tareaConDetallePadre.getDetalles().indexOf(padreOriginal);
             if(indiceDetallePadre!=-1)            
             {
-                tareaConDetallePadre.agreagarDetalle(padreNuevo_cot, indiceDetallePadre);
-                tareaConDetallePadre.agreagarDetalle(tio_cot, indiceDetallePadre);
+                tareaConDetallePadre.agreagarDetalle(padreNuevo, indiceDetallePadre);
+                
+                if(creaTio)
+                {
+                    tareaConDetallePadre.agreagarDetalle(tio, indiceDetallePadre);
+                }
             }
             else
             {
@@ -576,19 +599,24 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             {
                 DetalleTareaPlanificacion tioAncestroViejo= null;
                 DetalleTareaPlanificacion padreNuevoAncestroViejo=null;
-                DetalleTareaPlanificacion padreAncestroViejo=padreOriginal;
+                //DetalleTareaPlanificacion padreAncestroViejo=padreOriginal;
                 //if (caminoTareas.size()>1) 
                 //{
                     for (int i = 0; i < indiceTareaConDetallePadre; i++) 
                     {
-                        DetalleTareaPlanificacion tioAncestro = new DetalleTareaPlanificacion(tio_cot);
-                        DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(padreNuevo_cot);
-                        tioAncestro.setCantHorasNormales(0.0);
-                        tioAncestro.setCantHorasAl50(0.0);
-                        tioAncestro.setCantHorasAl100(0.0);
+                        
+                        DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(padreNuevo);                        
                         padreNuevoAncestro.setCantHorasNormales(0.0);
                         padreNuevoAncestro.setCantHorasAl50(0.0);
                         padreNuevoAncestro.setCantHorasAl100(0.0);
+                        DetalleTareaPlanificacion tioAncestro=null;
+                        if(creaTio)
+                        {
+                              tioAncestro = new DetalleTareaPlanificacion(tio);
+                              tioAncestro.setCantHorasNormales(0.0);
+                              tioAncestro.setCantHorasAl50(0.0);
+                              tioAncestro.setCantHorasAl100(0.0);
+                        }
                         /////////////////////////
                         //TODO:
                        // int indiceDetallePadreAcestro=caminoDeTareas.get(i).getDetalles().indexOf(TODO);
@@ -596,8 +624,8 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                         {
                            // tareaConDetallePadre.agreagarDetalle(padreNuevo, indiceDetallePadreAcestro);
                             //tareaConDetallePadre.agreagarDetalle(tio, indiceDetallePadreAcestro);
-                            tareaConDetallePadre.agreagarDetalle(padreNuevo_cot);
-                            tareaConDetallePadre.agreagarDetalle(tio_cot);
+                           // tareaConDetallePadre.agreagarDetalle(padreNuevo_cot);
+                           // tareaConDetallePadre.agreagarDetalle(tio_cot);
                         }
                        /// else
                         {
@@ -610,28 +638,49 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                         {
                             if(caminoDeTareas.get(i).equals(tareaConCotizacion))
                             {
-                                tioAncestro.setCotizado(tioCotizado);
-                                padreNuevoAncestro.setCotizado(padreNuevoCotizado);
+                                
+                                if(altoImpactoCosto)
+                                {
+                                    padreNuevoAncestro.setCotizado(padreNuevoCotizado);
+                                    if(creaTio)                                    
+                                    {
+                                        tioAncestro.setCotizado(tioCotizado);
+                                    }
+                                }
+                                else
+                                {
+                                    padreNuevoAncestro.setCotizado(detalleCotizacion);
+                                    if(creaTio)
+                                    {
+                                        tioAncestro.setCotizado(detalleCotizacion);
+                                    }
+                                }
                             }
                             else
                             {throw new Exception("Error en el indice de tareas - tareaConCotizacion");}
                         }
-                        tioAncestro.setPadre(tioAncestroViejo);
-                        padreNuevoAncestro.setPadre(padreNuevoAncestroViejo);
                         
-                        tioAncestroViejo = tioAncestro;
+                        padreNuevoAncestro.setPadre(padreNuevoAncestroViejo);                        
                         padreNuevoAncestroViejo = padreNuevoAncestro;
+                        if(creaTio)
+                        {
+                            tioAncestro.setPadre(tioAncestroViejo);
+                            tioAncestroViejo = tioAncestro;
+                        }
                     }
                 //}
-               tio_cot.setPadre(tioAncestroViejo);
-               padreNuevo_cot.setPadre(padreNuevoAncestroViejo);
+               if(creaTio)
+               {
+                    tio.setPadre(tioAncestroViejo);
+               }
+               padreNuevo.setPadre(padreNuevoAncestroViejo);
                
-               
+               detalleActual.setPadre(padreNuevo);
                
             }
             
-            copiaDetallePadre_tio=tio_cot;
-            copiaDetallePadre=padreNuevo_cot;
+            copiaDetallePadre_tio=tio;
+            copiaDetallePadre=padreNuevo;
         }
         
          /*       
@@ -774,7 +823,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             }
             catch (Exception ex)
             {
-                LogUtil.addError("No se pudo realizar la transacción en la actualizacion de precios");
+                LogUtil.addError("No se pudo realizar la transacciÃ³n en la actualizacion de precios");
                 HibernateUtil.rollbackTransaction();
                 return false;
             }
