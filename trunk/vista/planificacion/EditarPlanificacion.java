@@ -1850,10 +1850,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
           else
           {
               path=null;
-              return;
+              //return;
           }
           
-          if(data!=null && !data.isEmpty() && padre!=null)
+          if(data!=null && !data.isEmpty())
           {
               String[] dataTrigger = data.split(";");
               if(dataTrigger.length==3)
@@ -1861,16 +1861,22 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 String tipo=dataTrigger[0];
                 int hash= Integer.parseInt(dataTrigger[1]);
                 String nombre=dataTrigger[2]; 
-                int hashTareaPadre=padre.getId(); 
-                idUltimoNodoArbolTareas=padre.getId();
-                tipoUltimoNodoArbolTareas=padre.getTipo();
+                int hashTareaPadre=-1;
+                if(padre!=null)
+                {
+                    hashTareaPadre=padre.getId(); 
+                    idUltimoNodoArbolTareas=padre.getId();
+                    tipoUltimoNodoArbolTareas=padre.getTipo();
+                }
                 //Si agregamos una tarea
                 if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
                 {
                     //Es una tarea, pero no es una subtarea, o sea el padre es la raiz)
-                    if(padre.getTipo().equals(ArbolDeTareasTipos.TIPO_OBRA))
+                    if(padre==null || padre.getTipo().equals(ArbolDeTareasTipos.TIPO_OBRA) )
                     {
                         hashTareaPadre=0;
+                        idUltimoNodoArbolTareas=0;
+                        tipoUltimoNodoArbolTareas=null;
                     }
                     else
                     {
@@ -1888,9 +1894,15 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                      eventoNuevaAsociacionDeTareaAPlanificacion(tareaPadre, hash);
                     
                                         
-                }
+                }                
                 else //Si agregamos un recurso
                 { 
+                    if(padre==null)
+                    { hashTareaPadre=0;
+                        idUltimoNodoArbolTareas=0;
+                        tipoUltimoNodoArbolTareas=null;
+                        return;
+                    }
                     if(tipo.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
                     {   
 //                        tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERESCOMPRAS;
@@ -1900,7 +1912,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA;
                         if(path==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Está intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo está asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1931,7 +1943,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
 			tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_HERRAMIENTAS;
                         TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
-                        System.out.println("Estas intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+tarea.getNombre());
+                        System.out.println("Está intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+tarea.getNombre());
                         SubObraXHerramientaModif gastosMod     = _gestor.getGastosHerramientaFromHash(dataTrigger[1]);
                         HerramientaDeEmpresa herramienta  = null;
                         PlanificacionXXX plan = _gestor.getPlanificacion();
@@ -1960,7 +1972,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         tipoUltimoNodoArbolTareas=ArbolDeTareasTipos.TIPO_MATERIALES;
                         if(path==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Está intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo está asignando a ninguna Tarea");
                         }
                         else
                         {

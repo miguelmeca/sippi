@@ -67,6 +67,11 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Nueva Tarea");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Nombre de la tarea:");
 
@@ -149,7 +154,7 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
                             .addComponent(btnAceptar)))
                     .addComponent(btnCopyDates)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,6 +184,10 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
             jdcFechaFin.setDate(fini);
         }
     }//GEN-LAST:event_btnCopyDatesActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

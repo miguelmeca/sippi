@@ -783,8 +783,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tabAsignacion.addTab("Esfuerzo", PanelEsfuerzo);
@@ -797,7 +797,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         );
         PanelAsignacionesLayout.setVerticalGroup(
             PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
+            .addGap(0, 520, Short.MAX_VALUE)
         );
 
         tabAsignacion.addTab("Asignaciones", PanelAsignaciones);
@@ -810,7 +810,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAceptar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
@@ -820,12 +819,12 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -918,7 +917,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 
     private void txtCostoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCostoFocusLost
        if(!enProceso)
-       {
+       {        
+           //costoDetalle=Double.parseDouble(txtCosto.getText());
                 mandarCambios(); 
                 intentarActivarAceptar();   
        }
@@ -926,7 +926,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 }//GEN-LAST:event_txtCostoFocusLost
 
     private void txtCostoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyReleased
-        if (Validaciones.validarNumeroPositivo(txtCosto.getText().replace(',', '.'))) {
+        if (Validaciones.validarNumeroPositivo(txtCosto.getText().replace(',', '.'))) 
+        {
             String costo = Double.toString((Double) ((NTupla) cboRango.getModel().getSelectedItem()).getData()).replace(".", ",");
             if (txtCosto.getText().equals(costo)) {
                 btnSetearCostoRango.setEnabled(false);
@@ -935,6 +936,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             }
             if(!enProceso && validar(false))
             {
+                costoDetalle=Double.parseDouble(txtCosto.getText());
                 mandarCambios(); 
                 intentarActivarAceptar();   
             }
@@ -1016,7 +1018,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                gestor.crearNuevoDetalleAcutal(detalleSuperiorSeleccionado);
                SpinnerModel modelPersonas =
                        new SpinnerNumberModel(1, //initial value
-                       0, //min
+                       1, //min
                        detalleSuperiorSeleccionado.getCantidadPersonas(), //max
                        1);//step
                spnPersonas.setModel(modelPersonas);
@@ -1046,13 +1048,14 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                disponiblesHsNormalesEnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasNormales();
                disponiblesHs50EnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasAl50();
                disponiblesHs100EnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasAl100();
-               
+               especialidadDetalleTPadreDisponibles=detalleSuperiorSeleccionado.getEspecialidad().getTipo().getNombre().toString()+"-"+detalleSuperiorSeleccionado.getEspecialidad().getRango().getNombre().toString();
                
                setearDatosDetalleSuperiorEnPantalla();
                   
        }
        else
        {habilitarDespuesDeClickEnTabla(false); }
+       mandarCambios();
         enProceso=false; 
     }
     
@@ -1428,7 +1431,29 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
           {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
           txtCosto.requestFocusInWindow();}
           return false;          
-       }  
+       } 
+        if(!Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
+       {  
+          if(mostrarErrores)
+          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
+          txtCosto.requestFocusInWindow();}
+          return false;          
+       }
+        
+        if (((NTupla) cboTipoEspecialidad.getSelectedItem()).getId() == -1) 
+        {
+            if(mostrarErrores)
+            {JOptionPane.showMessageDialog(this.getParent(), "Debe seleccionar un tipo de especialidad", "Error",JOptionPane.ERROR_MESSAGE);
+            txtCosto.requestFocusInWindow();}
+            return false;          
+        }
+        if (((NTupla) cboRango.getSelectedItem()).getId() == -1) 
+        {
+            if(mostrarErrores)
+            {JOptionPane.showMessageDialog(this.getParent(), "Debe seleccionar un rango de especialidad", "Error",JOptionPane.ERROR_MESSAGE);
+            txtCosto.requestFocusInWindow();}
+            return false;          
+        }
         return true;
     }
     
