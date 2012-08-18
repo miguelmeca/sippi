@@ -8,8 +8,8 @@
     </id>
     
     <property name="cantidad" type="double"/>
-    <property name="fechaDeRecepcion" type="date"/>
-    <property name="estado" type="string"/>
+    
+    <many-to-one class="modelo.DetalleOrdenDeCompra" cascade="none" column="DETALLE_ORDEN_COMPRA" name="detalleOrdenDeCompra"  not-null="true"/>
     
   </class> 
 </hibernate-mapping>

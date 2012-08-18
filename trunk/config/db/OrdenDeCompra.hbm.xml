@@ -24,7 +24,11 @@
       <one-to-many class="modelo.DetalleOrdenDeCompra"/>
     </list>
     
-    <many-to-one  cascade="none" class="modelo.RecepcionOrdenDeCompra" column="FK_RECEPCION" name="recepcion"/>
+    <list name="recepciones" table="ORDENCOMPRA_X_RECEPCIONES">
+      <key column="ID_DETALLEOC2_KEY"/>
+      <index column="ID_RECEPCIONES_INDEX"/>
+      <one-to-many class="modelo.RecepcionOrdenDeCompra"/>
+    </list>    
     
   </class>
 </hibernate-mapping>

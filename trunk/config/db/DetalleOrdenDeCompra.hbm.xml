@@ -13,7 +13,5 @@
     
     <many-to-one class="modelo.ItemComprable" cascade="none" column="ITEM_COMPRABLE" name="item"  not-null="true"/>
     
-    <many-to-one class="modelo.DetalleRecepcionOrdenDeCompra"  cascade="none"  column="DETALLE_RECEPCION" name="recepcion" not-null="false"/>
-    
   </class>
 </hibernate-mapping>

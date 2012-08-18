@@ -14,24 +14,7 @@ public class DetalleRecepcionOrdenDeCompra {
     
     private int id = 0;
     private double cantidad;
-    private Date fechaDeRecepcion;
-    private String estado;
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Date getFechaDeRecepcion() {
-        return fechaDeRecepcion;
-    }
-
-    public void setFechaDeRecepcion(Date fechaDeRecepcion) {
-        this.fechaDeRecepcion = fechaDeRecepcion;
-    }
+    private DetalleOrdenDeCompra detalleOrdenDeCompra;
 
     public int getId() {
         return id;
@@ -49,5 +32,14 @@ public class DetalleRecepcionOrdenDeCompra {
         this.cantidad = cantidad;
     }
 
+    public DetalleOrdenDeCompra getDetalleOrdenDeCompra() {
+        return detalleOrdenDeCompra;
+    }
 
+    public void setDetalleOrdenDeCompra(DetalleOrdenDeCompra detalleOrdenDeCompra) {
+        this.detalleOrdenDeCompra = detalleOrdenDeCompra;
+    }
+
+    
+    
 }

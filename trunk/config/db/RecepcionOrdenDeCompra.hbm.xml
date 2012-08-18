@@ -9,6 +9,7 @@
     
     <property name="estado" type="string"/>
     <property name="observaciones" type="string"/>
+    <property name="fechaRecepcion" type="date"/>
     
     <list cascade="all" name="recepcionesParciales" table="RECEPCION_X_DETALLERECEPCION">
       <key column="ID_RECEPCION"/>

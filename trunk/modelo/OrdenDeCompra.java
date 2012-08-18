@@ -47,10 +47,11 @@ public class OrdenDeCompra {
     
     private List<DetalleOrdenDeCompra> detalle;
     
-    private RecepcionOrdenDeCompra recepcion;
+    private List<RecepcionOrdenDeCompra> recepciones;
 
     public OrdenDeCompra(){
         detalle = new ArrayList<DetalleOrdenDeCompra>();
+        recepciones = new ArrayList<RecepcionOrdenDeCompra>();
     }
 
     public List<DetalleOrdenDeCompra> getDetalle() {
@@ -125,14 +126,13 @@ public class OrdenDeCompra {
         }
         return "";
     }
-            
 
-    public RecepcionOrdenDeCompra getRecepcion() {
-        return recepcion;
+    public List<RecepcionOrdenDeCompra> getRecepciones() {
+        return recepciones;
     }
 
-    public void setRecepcion(RecepcionOrdenDeCompra recepcion) {
-        this.recepcion = recepcion;
+    public void setRecepciones(List<RecepcionOrdenDeCompra> recepciones) {
+        this.recepciones = recepciones;
     }
     
     public void addDetalleOrdenDeCompra(DetalleOrdenDeCompra doc) {
@@ -162,5 +162,30 @@ public class OrdenDeCompra {
         return "$ "+calcularTotal();
     }    
 
+    /**
+     * Para un detalle de esta orden de compra, ve cuantas unidades se recibieron y
+     * están registradas en las recepciones parciales.
+     * Por cada una de las recepciones, recorro su detalle y veo si linkean a la que se 
+     * pasa por parametro, si es asi, sumo a la cantidad.
+     * @param doc
+     * @return 
+     */
+    public double getCantidadTotalRecibida(DetalleOrdenDeCompra doc)
+    {
+        double cantidad = 0;
+        
+        for (int i = 0; i < this.recepciones.size(); i++) {
+            RecepcionOrdenDeCompra roc = this.recepciones.get(i);
+            for (int j = 0; j < roc.getRecepcionesParciales().size(); j++) {
+                DetalleRecepcionOrdenDeCompra droc = roc.getRecepcionesParciales().get(j);
+                if(droc.getDetalleOrdenDeCompra().getId()==doc.getId())
+                {
+                    cantidad += droc.getCantidad();
+                }                    
+            }
+        }
+        
+        return cantidad;
+    }
     
 }

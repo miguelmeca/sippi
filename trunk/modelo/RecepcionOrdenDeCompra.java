@@ -5,6 +5,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class RecepcionOrdenDeCompra {
     private int id = 0;
     private String estado;
     private String observaciones;
+    private Date fechaRecepcion;
     
     private List<DetalleRecepcionOrdenDeCompra> recepcionesParciales;
 
@@ -61,6 +63,15 @@ public class RecepcionOrdenDeCompra {
     
     public void addRecepcionesParciales(DetalleRecepcionOrdenDeCompra recepcionParcial) {
         this.recepcionesParciales.add(recepcionParcial);
-    }    
+    }
+
+    public Date getFechaRecepcion() {
+        return fechaRecepcion;
+    }
+
+    public void setFechaRecepcion(Date fechaRecepcion) {
+        this.fechaRecepcion = fechaRecepcion;
+    }
+    
     
 }
