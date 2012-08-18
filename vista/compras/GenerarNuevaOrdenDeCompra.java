@@ -121,6 +121,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         btnRegistrarRecepcion = new javax.swing.JButton();
         btnEmitir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnAnular = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -267,7 +268,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,7 +281,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -321,6 +322,14 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             }
         });
 
+        btnAnular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnAnular.setText("Anular");
+        btnAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,10 +343,12 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegistrarRecepcion)
+                        .addComponent(btnAnular)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEmitir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(btnRegistrarRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEmitir, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
                 .addContainerGap())
         );
@@ -355,7 +366,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addComponent(btnGuardar)
                     .addComponent(btnRegistrarRecepcion)
                     .addComponent(btnEmitir)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAnular))
                 .addContainerGap())
         );
 
@@ -557,8 +569,47 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         
     }//GEN-LAST:event_btnEmitirActionPerformed
 
+    private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
+        // Si ya tengo el numero !!
+        if(!txtNroOrdenDeCompra.getText().isEmpty())
+        {
+            // Y ya está emitida
+            if(txtEstado.getText().equals(OrdenDeCompra.ESTADO_PENDIENTE) || 
+               txtEstado.getText().equals(OrdenDeCompra.ESTADO_EN_CREACION))
+            {
+               int seleccion = JOptionPane.showOptionDialog(
+                                this, // Componente padre
+                                "¿Desea anular la orden de compra?\nNo podrá modificarla en un futuro.", //Mensaje
+                                "Seleccione una opción", // Título
+                                JOptionPane.YES_NO_CANCEL_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,    // null para icono por defecto.
+                                new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+                                "Si"); 
+                if (seleccion != -1)
+                {
+                    if((seleccion + 1)==1)
+                    {
+                        // PRESIONO SI
+                        int id = Integer.parseInt(txtNroOrdenDeCompra.getText());
+                        anularOrdenDeCompra(id);
+                    }
+                }               
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Esta orden de compra no puede anularse");
+            }
+        }
+        else
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No puede anular una orden de compra que no haya sido guardada");
+        }
+    }//GEN-LAST:event_btnAnularActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEmitir;
     private javax.swing.JButton btnGuardar;
@@ -705,16 +756,33 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             if(OrdenDeCompra.ESTADO_ANULADA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_ANULADA);
+                cambiarComportamientoEdicionDeVentana(false);
             }
             if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_EMITIDA);
+                cambiarComportamientoEdicionDeVentana(false);
             }
             if(OrdenDeCompra.ESTADO_PENDIENTE.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_PENDIENTE);
             }               
         }
+    }
+    
+    private void cambiarComportamientoEdicionDeVentana(boolean enabled)
+    {
+        txtFecha.setEnabled(enabled);
+        cmbFormaDeEntrega.setEnabled(enabled);
+        cmbFormaDePago.setEnabled(enabled);
+        btnSeleccionarProveedor.setEnabled(enabled);
+        btnAgregar.setEnabled(enabled);
+        btnQuitar.setEnabled(enabled);
+        btnGuardar.setEnabled(enabled);
+        btnRegistrarRecepcion.setEnabled(enabled);
+        btnEmitir.setEnabled(enabled);
+        btnAnular.setEnabled(enabled);
+        tblDetalle.setEnabled(enabled);
     }
 
     private void initDatos(int idOrdenDeCompra) {
@@ -1095,6 +1163,36 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         RegistrarRecepcionDeRecursos rrr = new RegistrarRecepcionDeRecursos(id);
         SwingPanel.getInstance().addWindow(rrr);
         rrr.setVisible(true);
+    }
+
+    /**
+     * Anula una orden de Compra!!
+     * @param id 
+     */
+    private void anularOrdenDeCompra(int id) {
+        
+        // Para evitar problemas, cargo la orden y la anulo desde DB
+        try
+        {
+            HibernateUtil.beginTransaction();
+            OrdenDeCompra odc = (OrdenDeCompra) HibernateUtil.getSession().load(OrdenDeCompra.class, id);
+            
+            // Cambio el estado
+            odc.setEstado(OrdenDeCompra.ESTADO_ANULADA);
+            HibernateUtil.getSession().saveOrUpdate(odc);
+            
+            HibernateUtil.commitTransaction();
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la Orden De Compra\n"+e.getMessage());
+            e.printStackTrace();
+            return;
+        } 
+        // Exito !
+        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La orden de compra <b>'"+id+"'</b> se anulo exitosamente!");
+        initEstado();
     }
 
 
