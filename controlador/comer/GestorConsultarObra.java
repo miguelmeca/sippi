@@ -80,8 +80,8 @@ public class GestorConsultarObra {
     public void buscarEmpresaCliente() {
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
-            this.empresaCliente = (EmpresaCliente)HibernateUtil.getSession().load(EmpresaCliente.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select ID_EMPRESA from PLANTA where ID_PLANTA="+this.planta.getId()).uniqueResult();
+            this.empresaCliente = (EmpresaCliente)HibernateUtil.getSession().load(EmpresaCliente.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){
@@ -136,8 +136,8 @@ public class GestorConsultarObra {
         Pais p = null;
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provinciaPlanta.getId()).uniqueResult();
-            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provinciaPlanta.getId()).uniqueResult();
+            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){
@@ -152,8 +152,8 @@ public class GestorConsultarObra {
         Provincia p = null;
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidadPlanta.getId()).uniqueResult();
-            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidadPlanta.getId()).uniqueResult();
+            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){
@@ -169,8 +169,8 @@ public class GestorConsultarObra {
         Localidad l = null;
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.planta.getDomicilio().getBarrio().getId()).uniqueResult();
-            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.planta.getDomicilio().getBarrio().getId()).uniqueResult();
+            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){
@@ -209,8 +209,8 @@ public class GestorConsultarObra {
             //Session sesion = sf.openSession();
             //sesion.beginTransaction();
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.empresaCliente.getDomicilio().getBarrio().getId()).uniqueResult();
-            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select LOCALIDAD_ID from BARRIO where IDBARRIO="+this.empresaCliente.getDomicilio().getBarrio().getId()).uniqueResult();
+            l = (Localidad)HibernateUtil.getSession().load(Localidad.class,idEC);
             //sesion.getTransaction().commit();
             HibernateUtil.commitTransaction();
         }
@@ -227,8 +227,8 @@ public class GestorConsultarObra {
         Provincia p = null;
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
-            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select PROVINCIA_ID from LOCALIDAD where IDLOCALIDAD="+this.localidad.getId()).uniqueResult();
+            p = (Provincia)HibernateUtil.getSession().load(Provincia.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){
@@ -244,8 +244,8 @@ public class GestorConsultarObra {
         Pais p = null;
         try{
             HibernateUtil.beginTransaction();
-            BigDecimal idEC = (BigDecimal)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provincia.getId()).uniqueResult();
-            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC.intValue());
+            Integer idEC = (Integer)HibernateUtil.getSession().createSQLQuery("select PAIS_ID from PROVINCIA where IDPROVINCIA="+this.provincia.getId()).uniqueResult();
+            p = (Pais)HibernateUtil.getSession().load(Pais.class,idEC);
             HibernateUtil.commitTransaction();
         }
         catch(Exception e){

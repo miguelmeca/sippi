@@ -1295,7 +1295,7 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     public void llenarDatosGeneralesObra(String nombre, String planta, String lugar, String monto_max, String fecha_ini, String fecha_fin)
     {
         lbl_obra_nombre.setText(nombre);
-        lbl_obra_planta.setText(title);
+        lbl_obra_planta.setText(planta);
         lbl_obra_lugar.setText(lugar);
         lbl_obra_montomax.setText(monto_max);
         lbl_obra_fechaini.setText(fecha_ini);
