@@ -34,6 +34,7 @@ import test.TestABM;
 import test.TestCallBackListadoGenerico;
 import vista.abms.*;
 import vista.ayuda.VisorDeAyuda;
+import vista.comer.ListadoPedidoDeObras;
 import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.*;
@@ -195,6 +196,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
         btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
         btnMnuRecursos = new javax.swing.JMenuItem();
+        btnMnuObras = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -566,6 +568,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnMnuRecursos);
 
+        btnMnuObras.setText("Obras");
+        btnMnuObras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMnuObrasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnMnuObras);
+
         jMenuBar1.add(jMenu2);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/help.png"))); // NOI18N
@@ -816,6 +826,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true); 
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
+    private void btnMnuObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMnuObrasActionPerformed
+        ListadoPedidoDeObras win = new ListadoPedidoDeObras();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);         
+    }//GEN-LAST:event_btnMnuObrasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -825,6 +841,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem btnMenuListadoOrdenesCompra;
     private javax.swing.JMenuItem btnMenuListadoPlanificaciones;
     private javax.swing.JMenuItem btnMenuListadoProveedores;
+    private javax.swing.JMenuItem btnMnuObras;
     private javax.swing.JMenuItem btnMnuRecursos;
     private javax.swing.JMenuItem cmbSalir;
     private javax.swing.JMenu jMenu1;

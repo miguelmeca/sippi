@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import util.FechaUtil;
 
 public class PedidoObra{
     
@@ -122,6 +123,10 @@ public class PedidoObra{
     public Date getFechaFin() {
         return fechaFin;
     }
+    
+    public String mostrarFechaFin() {
+        return FechaUtil.getFecha(fechaFin);
+    }
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
@@ -129,6 +134,10 @@ public class PedidoObra{
 
     public Date getFechaInicio() {
         return fechaInicio;
+    }
+
+    public String mostrarFechaInicio() {
+        return FechaUtil.getFecha(fechaInicio);
     }
 
     public void setFechaInicio(Date fechaInicio) {
@@ -151,60 +160,13 @@ public class PedidoObra{
         this.presupuestoMaximo = presupuestoMaximo;
     }
 
-    public void mostrarPlanta() {
-
-    }
-
-    public void mostrarNombresObrasPendientes() {
-
-    }
-
-    public void getObra(Object nombre) {
-
-    }
-
-    public void mostrarNombresObrasActivas() {
-
-    }
-
-    public void buscarTipoDeCapacitacion() {
-
-    }
-
-    public void buscarEmpleados() {
-
-    }
-
-    public void esTuTipo() {
-
-    }
-
-    public void getNombreConfirmada() {
-
-    }
-
-    public void mostrarContactoYTelefono() {
-
-    }
-
-    public void calcularPorcentajeCompletado() {
-
-    }
-
-    public void getNumeroPedidoObra() {
-
-    }
-
-    public void crearPlanificacion() {
-
-    }
-
-    public void getObrasActivas() {
-
-    }
-
-    public void getEtapasPrimerNivel() {
-
+    public String mostrarPlanta()
+    {
+        if(this.planta!=null)
+        {
+            return this.planta.getRazonSocial();
+        }
+        return "";
     }
 
 /*************************************************************
