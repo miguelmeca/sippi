@@ -796,10 +796,6 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         return "";
     }
 
-    public void setFiltroActivo(String filtroActivo) {
-        this.filtroActivo = filtroActivo;
-    }
-    
     protected void mostrarFiltrosColumna(boolean flag)
     {
         txtFiltro.setVisible(flag);

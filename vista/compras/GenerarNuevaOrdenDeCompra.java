@@ -218,7 +218,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Orden de Compra"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Orden de Compra (Ingrese la Cantidad Recibida)"));
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,7 +280,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -314,7 +314,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Cerrar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -337,7 +337,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                         .addComponent(btnRegistrarRecepcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEmitir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
                 .addContainerGap())
         );
@@ -457,7 +457,25 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnRegistrarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRecepcionActionPerformed
-
+        // Si ya tengo el numero !!
+        if(!txtNroOrdenDeCompra.getText().isEmpty())
+        {
+            // Y ya está emitida
+            if(txtEstado.getText().equals(OrdenDeCompra.ESTADO_EMITIDA))
+            {
+                int id = Integer.parseInt(txtNroOrdenDeCompra.getText());
+                mostrarRecepcion(id);
+                this.dispose();
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Emita la orden de Compra antes de Registrar su recepción");
+            }
+        }
+        else
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Guarde la Orden de compra antes de Registrar su recepción");
+        }
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -822,19 +840,9 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 return false;
             } 
             
-            // Recepcion
-            RecepcionOrdenDeCompra rodc = new RecepcionOrdenDeCompra();
-            odc.setRecepcion(rodc);
-            
             // Detalle de Orden de Compra
             for (int i = 0; i < listadoDetalleOrdenDeCompra.size(); i++) {
-                DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);
-                
-                    // Creo las recepciones
-                    DetalleRecepcionOrdenDeCompra drodc = new DetalleRecepcionOrdenDeCompra();
-                    doc.setDetalleRecepcion(drodc);
-                    rodc.addRecepcionesParciales(drodc);
-                
+                DetalleOrdenDeCompra doc = listadoDetalleOrdenDeCompra.get(i);       
                 odc.addDetalleOrdenDeCompra(doc);
             }    
 
@@ -864,17 +872,14 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             HibernateUtil.beginTransaction();
             
             HibernateUtil.getSession().saveOrUpdate(odc);
-            HibernateUtil.getSession().saveOrUpdate(odc.getRecepcion());
             
             for (int i = 0; i < odc.getDetalle().size(); i++) {
                 DetalleOrdenDeCompra doc = odc.getDetalle().get(i);
                 HibernateUtil.getSession().saveOrUpdate(doc.getItem());
-                HibernateUtil.getSession().saveOrUpdate(doc.getDetalleRecepcion());
                 HibernateUtil.getSession().saveOrUpdate(doc);
             }
             
             HibernateUtil.getSession().saveOrUpdate(odc);
-            HibernateUtil.getSession().saveOrUpdate(odc.getRecepcion());
             
             HibernateUtil.commitTransaction();
             
@@ -938,11 +943,6 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 {
                     // Lo agrego
                     odc.addDetalleOrdenDeCompra(doc);
-                    
-                    // Creo las recepciones
-                    DetalleRecepcionOrdenDeCompra drodc = new DetalleRecepcionOrdenDeCompra();
-                    doc.setDetalleRecepcion(drodc);
-                    odc.getRecepcion().addRecepcionesParciales(drodc);
                 }
                 else
                 {
@@ -1089,6 +1089,12 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
      */
     private void vaciarListaDetalle() {
         TablaUtil.vaciarDefaultTableModel((DefaultTableModel)tblDetalle.getModel());
+    }
+
+    private void mostrarRecepcion(int id) {
+        RegistrarRecepcionDeRecursos rrr = new RegistrarRecepcionDeRecursos(id);
+        SwingPanel.getInstance().addWindow(rrr);
+        rrr.setVisible(true);
     }
 
 

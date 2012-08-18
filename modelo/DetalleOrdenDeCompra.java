@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 /**
  * Descripción:
  * @version 1.0
@@ -15,8 +17,6 @@ public class DetalleOrdenDeCompra {
     private double precioUnitario;
     private String descripcion;
     private ItemComprable item;
-    
-    private DetalleRecepcionOrdenDeCompra recepcion;
 
     public DetalleOrdenDeCompra() {
     }
@@ -36,22 +36,6 @@ public class DetalleOrdenDeCompra {
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-
-    public DetalleRecepcionOrdenDeCompra getDetalleRecepcion() {
-        return recepcion;
-    }
-
-    public void setDetalleRecepcion(DetalleRecepcionOrdenDeCompra recepcion) {
-        this.recepcion = recepcion;
-    }
-    
-    public DetalleRecepcionOrdenDeCompra getRecepcion() {
-        return recepcion;
-    }
-
-    public void setRecepcion(DetalleRecepcionOrdenDeCompra recepcion) {
-        this.recepcion = recepcion;
-    }    
 
     public ItemComprable getItem() {
         return item;
@@ -81,7 +65,4 @@ public class DetalleOrdenDeCompra {
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
-
-
-    
 }

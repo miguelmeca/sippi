@@ -24,8 +24,11 @@ public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
     }
 
     public PantallaConsultarOrdenesDeCompra() {
-        
         super(OrdenDeCompra.class);
+    }
+
+    public PantallaConsultarOrdenesDeCompra(String filtro) {
+        super(OrdenDeCompra.class, filtro);
     }
     
     @Override
