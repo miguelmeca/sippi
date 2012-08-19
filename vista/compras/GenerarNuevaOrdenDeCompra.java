@@ -43,7 +43,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     private List<DetalleOrdenDeCompra> listadoDetalleOrdenDeCompra;
     
     /**
-     * Permite crear desde cero una orden de compra (por ejemplo si se llama desde el menú principal)
+     * Permite crear desde cero una orden de compra (por ejemplo si se llama desde el menÃº principal)
      */
     public GenerarNuevaOrdenDeCompra() {
         listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
@@ -56,7 +56,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     }
 
     /**
-     * (número orden compra): Carga los datos, y si el estado lo permite, el usuario puede modificarlo.
+     * (nÃºmero orden compra): Carga los datos, y si el estado lo permite, el usuario puede modificarlo.
      * @param idOrdenDeCompra 
      */
     public GenerarNuevaOrdenDeCompra(int idOrdenDeCompra) {
@@ -70,11 +70,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     }
     
     /**
-     * (obra,proveedor,List): Abre en modo de creación, pero ya tiene seleccionado 
+     * (obra,proveedor,List): Abre en modo de creaciÃ³n, pero ya tiene seleccionado 
      * el proveedor y llenado el detalle con lo que se paso por parametro, esto 
-     * permite asociar una orden de compra a una obra específica, pero solo con 
-     * el fin de trazabilidad. ( Esto es lo que se va a usar para generar órdenes 
-     * desde la ejecución de una Obra)
+     * permite asociar una orden de compra a una obra especÃ­fica, pero solo con 
+     * el fin de trazabilidad. ( Esto es lo que se va a usar para generar Ã³rdenes 
+     * desde la ejecuciÃ³n de una Obra)
      */
     public GenerarNuevaOrdenDeCompra(PedidoObra obra, Proveedor p, List<DetalleOrdenDeCompra> listaItemsOrden) {
         listadoDetalleOrdenDeCompra = new ArrayList<DetalleOrdenDeCompra>();
@@ -129,7 +129,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         setResizable(true);
         setTitle("Generar Nueva Orden de Compra");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de la Orden"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("NÃºmero de la Orden"));
 
         txtNroOrdenDeCompra.setBackground(new java.awt.Color(204, 204, 204));
         txtNroOrdenDeCompra.setEditable(false);
@@ -226,7 +226,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
             },
             new String [] {
-                "Nombre y Descripción", "Cantidad", "Precio", "SubTotal"
+                "Nombre y DescripciÃ³n", "Cantidad", "Precio", "SubTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -268,7 +268,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,7 +281,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -299,7 +299,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         });
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
-        btnRegistrarRecepcion.setText("Registrar Recepción");
+        btnRegistrarRecepcion.setText("Registrar RecepciÃ³n");
         btnRegistrarRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarRecepcionActionPerformed(evt);
@@ -343,11 +343,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAnular)
+                        .addComponent(btnAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegistrarRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrarRecepcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEmitir, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEmitir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
                 .addContainerGap())
@@ -388,7 +388,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
         boolean validado = true;
-        StringBuilder msg = new StringBuilder("<HTML>Para poder agegar un item seleccione el <b>Proveedor</b> al que se le realizará la compra");
+        StringBuilder msg = new StringBuilder("<HTML>Para poder agegar un item seleccione el <b>Proveedor</b> al que se le realizarÃ¡ la compra");
         
         // Proveedor
         if(txtProveedor.getText().isEmpty() || this.proveedorSeleccionado==null)
@@ -404,7 +404,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         }
         else
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de Validación!",msg.toString());
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de ValidaciÃ³n!",msg.toString());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -414,8 +414,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             // Esta seguro?
             int seleccion = JOptionPane.showOptionDialog(
                 this, // Componente padre
-                "¿Está seguro que desea elmininar esta fila de la Orden de Compra?", //Mensaje
-                "Seleccione una opción", // Título
+                "Â¿EstÃ¡ seguro que desea elmininar esta fila de la Orden de Compra?", //Mensaje
+                "Seleccione una opciÃ³n", // TÃ­tulo
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,    // null para icono por defecto.
@@ -472,7 +472,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         // Si ya tengo el numero !!
         if(!txtNroOrdenDeCompra.getText().isEmpty())
         {
-            // Y ya está emitida
+            // Y ya estÃ¡ emitida
             if(txtEstado.getText().equals(OrdenDeCompra.ESTADO_EMITIDA))
             {
                 int id = Integer.parseInt(txtNroOrdenDeCompra.getText());
@@ -481,12 +481,12 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Emita la orden de Compra antes de Registrar su recepción");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Emita la orden de Compra antes de Registrar su recepciÃ³n");
             }
         }
         else
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Guarde la Orden de compra antes de Registrar su recepción");
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Guarde la Orden de compra antes de Registrar su recepciÃ³n");
         }
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
 
@@ -494,7 +494,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         
         int n = JOptionPane.showConfirmDialog(
                 new JFrame(),
-                "¿Está seguro que desea guardar la Orden de Compra?",
+                "Â¿EstÃ¡ seguro que desea guardar la Orden de Compra?",
                 "Atencion!",
                 JOptionPane.YES_NO_OPTION);
         
@@ -518,22 +518,22 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
     private void btnEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirActionPerformed
 
-        // Si ya está emitida, la muestro de una
+        // Si ya estÃ¡ emitida, la muestro de una
         if(this.ordenDeCompraCargada!=null && this.ordenDeCompraCargada.getId()!=0)
         {
-            // Si ya está emitida, muestro de una
+            // Si ya estÃ¡ emitida, muestro de una
             if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 emitirOrdenDeCompra();
                 return;
             }
         }
-        String msg = "<HTML>Está por emitir la orden de compra<br>Y una vez que esté emitida NO podrá modificarse<br>¿Desea guardar los cambios y continar?";
+        String msg = "<HTML>EstÃ¡ por emitir la orden de compra<br>Y una vez que estÃ© emitida NO podrÃ¡ modificarse<br>Â¿Desea guardar los cambios y continar?";
         
         int seleccion = JOptionPane.showOptionDialog(
                         this, // Componente padre
                         msg, //Mensaje
-                        "Seleccione una opción", // Título
+                        "Seleccione una opciÃ³n", // TÃ­tulo
                         JOptionPane.YES_NO_CANCEL_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,    // null para icono por defecto.
@@ -573,14 +573,14 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         // Si ya tengo el numero !!
         if(!txtNroOrdenDeCompra.getText().isEmpty())
         {
-            // Y ya está emitida
+            // Y ya estÃ¡ emitida
             if(txtEstado.getText().equals(OrdenDeCompra.ESTADO_PENDIENTE) || 
                txtEstado.getText().equals(OrdenDeCompra.ESTADO_EN_CREACION))
             {
                int seleccion = JOptionPane.showOptionDialog(
                                 this, // Componente padre
-                                "¿Desea anular la orden de compra?\nNo podrá modificarla en un futuro.", //Mensaje
-                                "Seleccione una opción", // Título
+                                "Â¿Desea anular la orden de compra?\nNo podrÃ¡ modificarla en un futuro.", //Mensaje
+                                "Seleccione una opciÃ³n", // TÃ­tulo
                                 JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE,
                                 null,    // null para icono por defecto.
@@ -655,8 +655,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                         {
                             int seleccion = JOptionPane.showOptionDialog(
                                             this, // Componente padre
-                                            "Si cambia el Proveedor para esta orden de compra, el detalle se vaciará ya que los items no son consistentes\n¿Desea continuar con el cambio?",
-                                            "Seleccione una opción", // Título
+                                            "Si cambia el Proveedor para esta orden de compra, el detalle se vaciarÃ¡ ya que los items no son consistentes\nÂ¿Desea continuar con el cambio?",
+                                            "Seleccione una opciÃ³n", // TÃ­tulo
                                             JOptionPane.YES_NO_CANCEL_OPTION,
                                             JOptionPane.QUESTION_MESSAGE,
                                             null,    // null para icono por defecto.
@@ -757,11 +757,13 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_ANULADA);
                 cambiarComportamientoEdicionDeVentana(false);
+                btnRegistrarRecepcion.setEnabled(false);
             }
             if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_EMITIDA);
                 cambiarComportamientoEdicionDeVentana(false);
+                btnRegistrarRecepcion.setEnabled(true);
             }
             if(OrdenDeCompra.ESTADO_PENDIENTE.equals(this.ordenDeCompraCargada.getEstado()))
             {
@@ -779,7 +781,6 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         btnAgregar.setEnabled(enabled);
         btnQuitar.setEnabled(enabled);
         btnGuardar.setEnabled(enabled);
-        btnRegistrarRecepcion.setEnabled(enabled);
         btnEmitir.setEnabled(enabled);
         btnAnular.setEnabled(enabled);
         tblDetalle.setEnabled(enabled);
@@ -918,7 +919,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             {
                 txtNroOrdenDeCompra.setText(""+odc.getId());
                 this.ordenDeCompraCargada = odc;
-                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra se Creo exitosamente<br>y se le asigno el número: <b>"+odc.getId()+"</b>");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra se Creo exitosamente<br>y se le asigno el nÃºmero: <b>"+odc.getId()+"</b>");
                 return true;
             }
             else
@@ -928,7 +929,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     }
     
     /**
-     * Método que persiste la Orden De Compra en la DB
+     * MÃ©todo que persiste la Orden De Compra en la DB
      * @param odc
      * @return 
      */
@@ -1021,7 +1022,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             if(guardar(odc))
             {
                 txtNroOrdenDeCompra.setText(""+odc.getId());
-                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra número <b>"+odc.getId()+"</b> se actualizó exitosamente");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>La Orden de Compra nÃºmero <b>"+odc.getId()+"</b> se actualizÃ³ exitosamente");
                 return true;
             }
             {
@@ -1041,13 +1042,13 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         // Fecha de la Orden de Compra
         if(txtFecha.getDate()==null)
         {
-            msg.append("<br>- La <b>Fecha</b> de la orden de compra no esté vacía");
+            msg.append("<br>- La <b>Fecha</b> de la orden de compra no estÃ© vacÃ­a");
             validado = false;
         }
         // Proveedor
         if(txtProveedor.getText().isEmpty() || this.proveedorSeleccionado==null)
         {
-            msg.append("<br>- Elija el <b>Proveedor</b> al que se le realizarán las compras");
+            msg.append("<br>- Elija el <b>Proveedor</b> al que se le realizarÃ¡n las compras");
             validado = false;
         }
         // Al menor un item en la compra
@@ -1059,7 +1060,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         if(!validado)
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de Validación!",msg.toString());
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error de ValidaciÃ³n!",msg.toString());
         }
         
         return validado;
@@ -1073,7 +1074,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         // Si se guardo exitosamente
         if(this.ordenDeCompraCargada!=null && this.ordenDeCompraCargada.getId()!=0)
         {
-            // Si ya está emitida, no hago nada
+            // Si ya estÃ¡ emitida, no hago nada
             if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 return true;
@@ -1096,7 +1097,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                 return false;
             }  
         }
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se Guardó y Emitió exitosamente la Orden de Compra !");
+        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se GuardÃ³ y EmitiÃ³ exitosamente la Orden de Compra !");
         initEstado();
         return true;
     }
@@ -1128,14 +1129,14 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
     /**
      * Este metodo llena la ventana, cuando esta ventana, se llama con los datos
      * para rellenar (se genera una orden de compra, digamos desde una obra)
-     * Así que tiene la obra para asociar  y el detalle !!
+     * AsÃ­ que tiene la obra para asociar  y el detalle !!
      * @param obra
      * @param p
      * @param listaItemsOrden 
      */
     private void initDatos(PedidoObra obra, Proveedor p, List<DetalleOrdenDeCompra> listaItemsOrden) {
         
-        //TODO: Por ahora no hago nada con la obra hasta tener ejecución lista
+        //TODO: Por ahora no hago nada con la obra hasta tener ejecuciÃ³n lista
         // Proveedor
         if(p!=null)
         {

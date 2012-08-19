@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import modelo.ItemStock;
+import modelo.*;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.TablaUtil;
@@ -44,10 +44,10 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
      * recepción, y no le permite ingresar la cantidad Final, esta se carga desde
      * el detalle de recepción.
      */
-    public AjustarNivelesDeStock(int idOrdenDeCompra) {
-        this.idOrdenDeCompra = idOrdenDeCompra;
+    public AjustarNivelesDeStock(RecepcionOrdenDeCompra roc) {
         initComponents();
         initAnchoColumnasTablaDetalles();
+        initData(roc);
     }    
 
     /**
@@ -121,7 +121,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
+        btnCancelar.setText("Cerrar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -150,7 +150,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeleccionarTodos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,6 +186,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         ajustarStock();
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -224,14 +225,16 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
     /**
      * Carga la tabla pero desde el ajuste manual de Stock
      */
-    private void initData(List<ItemStock> itemsEnStockAActualizar) {
+    private void initData(List<ItemStock> itemsActualizar) {
+        
+        this.itemsEnStockAActualizar = itemsActualizar;
         
         DefaultTableModel modelo = (DefaultTableModel)tblAjuste.getModel();
         
         TablaUtil.vaciarDefaultTableModel(modelo);
         
-        for (int i = 0; i < itemsEnStockAActualizar.size(); i++) {
-            ItemStock is = itemsEnStockAActualizar.get(i);
+        for (int i = 0; i < itemsActualizar.size(); i++) {
+            ItemStock is = itemsActualizar.get(i);
                 if(is.getItem()!=null)
                 {
                     Tupla tp = new Tupla(is.getId(),is.getItem().getNombre());
@@ -383,6 +386,54 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    }    
+    }
+
+    /**
+     * Inicializa los datos de la ventana cuando se ajusta el stock con la 
+     * recepcion de una orden de compra.
+     * @param idOrdenDeCompra 
+     */
+    private void initData(RecepcionOrdenDeCompra roc) {
+        if(roc!=null)
+        {
+            DefaultTableModel modelo = (DefaultTableModel)tblAjuste.getModel();
+            TablaUtil.vaciarDefaultTableModel(modelo);
+            List<ItemStock> items = new ArrayList<ItemStock>();
+            
+            for (int i = 0; i < roc.getRecepcionesParciales().size(); i++) {
+                DetalleRecepcionOrdenDeCompra droc = roc.getRecepcionesParciales().get(i);
+                // Saco el detalle
+                DetalleOrdenDeCompra doc = droc.getDetalleOrdenDeCompra();
+                if(doc!=null)
+                {
+                    ItemComprable ic = doc.getItem();
+                    ItemStock is = ItemStock.getItemStockFromItemComprable(ic);
+                    if(is!=null)
+                    {
+                        items.add(is);
+                        // Lo agrego a la lista directamente
+                        Tupla tp = new Tupla(is.getId(),is.getItem().getNombre());
+
+                            Object[] fila = new Object[5];
+                                fila[0] = true;
+                                fila[1] = tp;
+                                fila[2] = is.getItem().getUnidadDeMedida();
+                                fila[3] = is.getCantidad();
+                                fila[4] = droc.getCantidad();
+
+                            modelo.addRow(fila);   
+                    }
+                    else
+                    {
+                        mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo acceder al elemento del Stock\nAjuste el Stock Manualmente");
+                        return;
+                    }
+                }
+            }
+            // Actualizo el objeto de fondo de la Tabla
+            this.itemsEnStockAActualizar = items;
+        }
+    }
     
+
 }

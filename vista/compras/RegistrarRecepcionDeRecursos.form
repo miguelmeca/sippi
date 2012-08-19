@@ -125,24 +125,26 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblFechaEmision" max="32767" attributes="0"/>
-                              <Component id="lblFormaDePago" pref="95" max="32767" attributes="0"/>
+                      <Component id="lblProveedor" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lblFormaDeEntrega" max="32767" attributes="0"/>
+                              <Component id="lblFechaEmision" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblFormaDePago" alignment="0" pref="95" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel4" pref="139" max="32767" attributes="0"/>
                               <Component id="jLabel8" max="32767" attributes="0"/>
+                              <Component id="jLabel5" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblFechaModificacion" max="32767" attributes="0"/>
+                              <Component id="lblFechaModificacion" pref="161" max="32767" attributes="0"/>
                               <Component id="lblEstado" max="32767" attributes="0"/>
+                              <Component id="lblEstadoRecepcion" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="lblProveedor" max="32767" attributes="0"/>
-                      <Component id="lblFormaDeEntrega" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -166,14 +168,17 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFormaDeEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEstadoRecepcion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblFormaDeEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -223,7 +228,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Estado:"/>
+            <Property name="text" type="java.lang.String" value="Estado de la Orden:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEstado">
@@ -257,6 +262,20 @@
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Estado de la Recepci&#xf3;n:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblEstadoRecepcion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -272,9 +291,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jScrollPane1" pref="576" max="32767" attributes="0"/>
-              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
               <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
               <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+              <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -282,7 +301,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="164" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="165" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -303,11 +322,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="" type="java.lang.Boolean"/>
                     <Column editable="false" title="Descripci&#xf3;n" type="java.lang.Object"/>
                     <Column editable="false" title="Total Ordenados" type="java.lang.Double"/>
                     <Column editable="false" title="Total Recibidos" type="java.lang.Double"/>
                     <Column editable="true" title="Recibidos" type="java.lang.Double"/>
+                    <Column editable="true" title="" type="java.lang.Boolean"/>
                   </Table>
                 </Property>
               </Properties>
@@ -383,6 +402,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Emitir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmitirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
