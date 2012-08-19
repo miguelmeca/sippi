@@ -187,5 +187,35 @@ public class OrdenDeCompra {
         
         return cantidad;
     }
+
+    /**
+     * Recorre las recepciones y calcula el estado de la recepcion en General
+     * @return 
+     */
+    public String getEstadoRecepciones() {
+        
+        if(recepciones.isEmpty())
+        {
+            return RecepcionOrdenDeCompra.ESTADO_PENDIENTE;
+        }
+        
+        boolean esTotal = true;
+        
+        for (int i = 0; i < detalle.size(); i++) {
+            DetalleOrdenDeCompra doc = detalle.get(i);
+            double cantidadRecibida = getCantidadTotalRecibida(doc);
+            double cantitadTotal    = doc.getCantidad();
+            if(cantidadRecibida<cantitadTotal)
+            {
+                esTotal = false;
+            }
+        }
+        
+        if(esTotal)
+        {
+            return RecepcionOrdenDeCompra.ESTADO_RECIBIDA_TOTALMENTE;
+        }
+        return RecepcionOrdenDeCompra.ESTADO_RECIBIDA_PARCIALMENTE;
+    }
     
 }

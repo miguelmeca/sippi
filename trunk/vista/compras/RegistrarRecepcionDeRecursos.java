@@ -4,6 +4,7 @@
  */
 package vista.compras;
 
+import java.awt.Color;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import modelo.*;
+import sun.swing.SwingUtilities2;
 import util.*;
 import vista.comer.pantallaListadoProveedores;
 import vista.interfaces.ICallBackGen;
@@ -25,7 +27,7 @@ import vista.interfaces.ICallBackGen;
  */
 public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame implements ICallBackGen {
 
-    public static final String CALLBACK_SELECCION_ORDENDECOMPRA = "SelecciónOrdenDeCompra";
+    public static final String CALLBACK_SELECCION_ORDENDECOMPRA = "SelecciÃƒÂ³nOrdenDeCompra";
     
     private OrdenDeCompra ordenDeCompra;
     
@@ -73,6 +75,8 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         lblProveedor = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblFormaDeEntrega = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblEstadoRecepcion = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalle = new javax.swing.JTable();
@@ -89,7 +93,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Registrar Recepción de Recursos");
+        setTitle("Registrar RecepciÃ³n de Recursos");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Orden de Compra:");
@@ -107,12 +111,12 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido"));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Fecha de Emisión:");
+        jLabel2.setText("Fecha de EmisiÃ³n:");
 
         lblFechaEmision.setText("...");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Fecha de Modificación:");
+        jLabel4.setText("Fecha de ModificaciÃ³n:");
 
         lblFechaModificacion.setText("...");
 
@@ -122,7 +126,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         lblFormaDePago.setText("...");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Estado:");
+        jLabel8.setText("Estado de la Orden:");
 
         lblEstado.setText("...");
 
@@ -135,6 +139,12 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jLabel12.setText("Forma de Entrega:");
 
         lblFormaDeEntrega.setText("...");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Estado de la RecepciÃ³n:");
+
+        lblEstadoRecepcion.setText("...");
+        lblEstadoRecepcion.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,20 +159,22 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblFechaEmision, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFormaDePago, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblFormaDeEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFechaEmision, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFormaDePago, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFechaModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(lblProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFormaDeEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblFechaModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEstadoRecepcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,12 +193,15 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                     .addComponent(lblEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(lblProveedor))
+                    .addComponent(jLabel12)
+                    .addComponent(lblFormaDeEntrega)
+                    .addComponent(jLabel5)
+                    .addComponent(lblEstadoRecepcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(lblFormaDeEntrega)))
+                    .addComponent(jLabel10)
+                    .addComponent(lblProveedor))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la compra:"));
@@ -196,14 +211,14 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
 
             },
             new String [] {
-                "", "Descripción", "Total Ordenados", "Total Recibidos", "Recibidos"
+                "DescripciÃ³n", "Total Ordenados", "Total Recibidos", "Recibidos", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, true
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -217,14 +232,14 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jScrollPane1.setViewportView(tblDetalle);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Ingrese la cantidad \"Recibida\" en este envío (no la total)");
+        jLabel3.setText("Ingrese la cantidad \"Recibida\" en este envÃ­o (no la total)");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Observaciones:");
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setRows(5);
-        txtObservaciones.setText("Recibido según lo acordado!");
+        txtObservaciones.setText("Recibido segÃºn lo acordado!");
         jScrollPane2.setViewportView(txtObservaciones);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -232,16 +247,16 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane2)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,7 +272,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         });
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnRegistrarRecepcion.setText("Registrar Recepción");
+        btnRegistrarRecepcion.setText("Registrar RecepciÃ³n");
         btnRegistrarRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarRecepcionActionPerformed(evt);
@@ -269,6 +284,11 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
 
         btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitir.setText("Emitir");
+        btnEmitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -337,13 +357,24 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         
         if(this.ordenDeCompra!=null)
         {
-            registrarNuevaRecepcion();
+            if(aceptaRegistracion())
+            {
+                RecepcionOrdenDeCompra roc = registrarNuevaRecepcion();
+                if(roc!=null)
+                {
+                    ajustarNivelesDeStock(roc);
+                }
+            }
         }
         else
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para registrar un recepción, debe cargar una Orden De Compra previamente");
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para registrar un recepciÃ³n, debe cargar una Orden De Compra previamente");
         }
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
+
+    private void btnEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEmitirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -358,6 +389,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -365,6 +397,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblEstadoRecepcion;
     private javax.swing.JLabel lblFechaEmision;
     private javax.swing.JLabel lblFechaModificacion;
     private javax.swing.JLabel lblFormaDeEntrega;
@@ -382,15 +415,15 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         for (int i = 0; i < tblDetalle.getColumnCount(); i++) { 
             columnaTabla = modeloColumna.getColumn(i); 
             switch(i){ 
-                case 0: anchoColumna = 50; 
+                case 0: anchoColumna = 500; 
                         break; 
-                case 1: anchoColumna = 500; 
+                case 1: anchoColumna = 150; 
                         break; 
                 case 2: anchoColumna = 150; 
                         break; 
                 case 3: anchoColumna = 150; 
                         break; 
-                case 4: anchoColumna = 150; 
+                case 4: anchoColumna = 50; 
                         break;                     
             }                      
             columnaTabla.setPreferredWidth(anchoColumna); 
@@ -447,6 +480,9 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
             }
             lblFormaDeEntrega.setText(this.ordenDeCompra.getFormaDeEntrega());
         }
+        
+        actualizarEstadoRecepcion();
+        
     }
 
     private void cargarOrdenDeCompra(int idOrdenDeCompra) {
@@ -487,11 +523,11 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 
                     Tupla tp = new Tupla(doc.getId(),doc.getItem().getNombre()+"-"+doc.getDescripcion());
                 
-                    fila[0] = false;
-                    fila[1] = tp;
-                    fila[2] = doc.getCantidad();
-                    fila[3] = this.ordenDeCompra.getCantidadTotalRecibida(doc);
-                    fila[4] = 0D;
+                    fila[0] = tp;
+                    fila[1] = doc.getCantidad();
+                    fila[2] = this.ordenDeCompra.getCantidadTotalRecibida(doc);
+                    fila[3] = 0D;
+                    fila[4] = false;
                     
                 modelo.addRow(fila);
             }
@@ -505,7 +541,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
      * Actualiza el detalle
      * Actualiza el estado de la orden de compra (si es necesario)
      */
-    private void registrarNuevaRecepcion() {
+    private RecepcionOrdenDeCompra registrarNuevaRecepcion() {
         
         // Creo el objeto Recepcion
         RecepcionOrdenDeCompra roc = new RecepcionOrdenDeCompra();
@@ -515,13 +551,13 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         // lleno el Detalle
         DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
         for (int i = 0; i <  modelo.getRowCount(); i++) {
-            Double cantidadRecibida = (Double) modelo.getValueAt(i,4);
+            Double cantidadRecibida = (Double) modelo.getValueAt(i,3);
             
             // Si la cantidad recibida es mayor a cero
             if(cantidadRecibida>0)
             {
                 // Busco su correspondiente DetalleDeOrdenDeCompra
-                Tupla tp = (Tupla) modelo.getValueAt(i,1);
+                Tupla tp = (Tupla) modelo.getValueAt(i,0);
                 DetalleOrdenDeCompra doc = getDetalleOrdenDeCompraFromId(tp.getId());
                 if(doc!=null)
                 {
@@ -533,7 +569,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 else
                 {
                     mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo cargar uno de los detalles de la Orden de compra");
-                    return;
+                    return null;
                 }
             }
         }
@@ -542,13 +578,13 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         if(roc.getRecepcionesParciales().isEmpty())
         {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML>Debe ingresar las <b>Cantidades Recibidas</b> de cada material <br>en la columna <b>'Recibidos'</b> o bien seleccionar la totalidad <br>de la entrega en la primer columna de cada detalle ");
-            return;
+            return null;
         }
         
         // Veo el Estado que tengo que asignarle
         if(esRecepcionTotal())
         {
-            // Se recibió todo o mas (TOTAL)
+            // Se recibiÃƒÂ³ todo o mas (TOTAL)
             roc.setEstado(RecepcionOrdenDeCompra.ESTADO_RECIBIDA_TOTALMENTE);
         }
         else
@@ -574,15 +610,19 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         }catch(Exception e)
         {
             HibernateUtil.rollbackTransaction();
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Registrar la Recepción Parcial del Pedido\n"+e.getMessage());
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Registrar la RecepciÃƒÂ³n Parcial del Pedido\n"+e.getMessage());
             e.printStackTrace();
-            return;
+            return null;
         } 
         
         // Todo fue excelente !!!
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","La recepción de recursos se registro exitosamente!");
+        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","La recepciÃƒÂ³n de recursos se registro exitosamente!");
         // Actualizo la tabla de detalles
         mostrarDetalleDeCompra();
+        // Actualizo el estado de la Recepcion
+        actualizarEstadoRecepcion();
+        // Se guardo exitosamente!
+        return roc;
     }
 
     private DetalleOrdenDeCompra getDetalleOrdenDeCompraFromId(int id) {
@@ -605,9 +645,9 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     private boolean esRecepcionTotal() {
         DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
         for (int i = 0; i <  modelo.getRowCount(); i++) {
-            double cantidadRecibida = (Double) modelo.getValueAt(i,4);
-            double totalRecibida    = (Double) modelo.getValueAt(i,3);
-            double ordenadas        = (Double) modelo.getValueAt(i,2);
+            double cantidadRecibida = (Double) modelo.getValueAt(i,3);
+            double totalRecibida    = (Double) modelo.getValueAt(i,2);
+            double ordenadas        = (Double) modelo.getValueAt(i,1);
             if((totalRecibida+cantidadRecibida)<ordenadas)
             {
                 return false;
@@ -616,6 +656,9 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         return true; // Si termina es Total
     }
 
+    /**
+     * TODO, el check solo suma si faltan items en la compra !!!
+     */
     private void initCellListener() {
 
         tblDetalle.getModel().addTableModelListener(new TableModelListener() {
@@ -628,26 +671,121 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 System.out.println("E.frow"+e.getFirstRow());
                 System.out.println("E.lrow"+e.getLastRow());
                 // Si cambio la primer fila, altero entre recibido totalmente y cero
-                if(e.getColumn()==0)
+                if(e.getColumn()==4)
                 {
                     // Del modelo, saco el calor actual !!
                     DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
-                    boolean selected = (Boolean)modelo.getValueAt(e.getFirstRow(),0);
+                    boolean selected = (Boolean)modelo.getValueAt(e.getFirstRow(),4);
                     if(selected)
                     {
                         System.out.println("SE SELECCIONO");
-                        double recibidos = (Double)modelo.getValueAt(e.getFirstRow(),2);
-                        modelo.setValueAt(recibidos,e.getFirstRow(),4);
+                        double odenado = (Double)modelo.getValueAt(e.getFirstRow(),1);
+                        double recibido = (Double)modelo.getValueAt(e.getFirstRow(),2);
+                        modelo.setValueAt((odenado-recibido),e.getFirstRow(),3);
                     }
                     else
                     {
                         System.out.println("SE DES-SELECCIONO");
-                        modelo.setValueAt(0D,e.getFirstRow(),4);
+                        modelo.setValueAt(0D,e.getFirstRow(),3);
                     }
                 }
             }
-
         });
+    }
+
+    /**
+     * Actualiza el combo de Estado de la Recepcion.
+     * Tambien pinta con los colores caracteristicos
+     * 
+     */
+    private void actualizarEstadoRecepcion() {
+        // Pongo el Estado
+        if(this.ordenDeCompra.getRecepciones()!=null)
+        {
+            String estado =  this.ordenDeCompra.getEstadoRecepciones();
+            lblEstadoRecepcion.setText(estado);
+            
+            // Switch por color
+            if(RecepcionOrdenDeCompra.ESTADO_PENDIENTE.equals(estado))
+            {
+                lblEstadoRecepcion.setBackground(RecepcionOrdenDeCompra.ESTADO_COLOR_PENDIENTE);
+            }
+            if(RecepcionOrdenDeCompra.ESTADO_RECIBIDA_PARCIALMENTE.equals(estado))
+            {
+                lblEstadoRecepcion.setBackground(RecepcionOrdenDeCompra.ESTADO_COLOR_RECIBIDA_PARCIALMENTE);
+            }
+            if(RecepcionOrdenDeCompra.ESTADO_RECIBIDA_TOTALMENTE.equals(estado))
+            {
+                lblEstadoRecepcion.setBackground(RecepcionOrdenDeCompra.ESTADO_COLOR_RECIBIDA_TOTALMENTE);
+            }            
+        }
+    }
+
+    /**
+     * Un dialogo muy informativo para saber si desea aceptar o no la registracion
+     * @return 
+     */
+    private boolean aceptaRegistracion() {
+        
+        StringBuilder msg = new StringBuilder("<HTML>");
+        msg.append("Esta a punto de registrar la recepción de:<br>");
+        
+            DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
+            for (int i = 0; i <  modelo.getRowCount(); i++) {
+                double total = (Double) modelo.getValueAt(i,1);
+                double recibida = (Double) modelo.getValueAt(i,3);
+                Tupla nombre  = (Tupla)modelo.getValueAt(i,0);
+                
+                if(recibida>0)
+                {
+                    msg.append("- ");
+                    msg.append("<b>");
+                    msg.append(recibida);
+                    msg.append("</b> / ");
+                    msg.append(total);
+                    msg.append(" de ");
+                    msg.append(nombre.getNombre());
+                    msg.append("<br>");
+                }
+            }
+        
+        msg.append("¿Está seguro que desea continuar?");
+        
+        int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            msg.toString(), //Mensaje
+            "Seleccione una opción", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si", "No"},    // null para YES, NO y CANCEL
+            "Si");
+
+            if (seleccion != -1)
+            {
+                if((seleccion + 1)==1)
+                {
+                    // PRESIONO SI
+                    return true;
+                }
+                else
+                {
+                    // PRESIONO NO
+                    return false;
+                }
+            }
+            return false;
+    }
+
+    /**
+     * Con lo que se recibió, ajusta los niveles de Stock de la empresa.
+     */
+    private void ajustarNivelesDeStock(RecepcionOrdenDeCompra roc) {
+        
+        AjustarNivelesDeStock win = new AjustarNivelesDeStock(roc);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true); 
+        
     }
 
 

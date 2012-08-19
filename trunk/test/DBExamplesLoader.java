@@ -91,6 +91,7 @@ public class DBExamplesLoader {
           this.cargarPlanificacionEjemplo();
           
           this.cargarStock();
+          this.cargarOrdenesDeCompra();
     }
 
     public void cargarConfiguraciones()
@@ -1504,6 +1505,76 @@ public class DBExamplesLoader {
             sesion.save(is2);
             sesion.save(ic3);
             sesion.save(is3);
+            sesion.getTransaction().commit();         
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarOrdenesDeCompra() {
+        ItemComprable ic1 = new ItemComprable(RecursoEspecifico.class,3);
+
+        ItemComprable ic2 = new ItemComprable(TipoAlquilerCompra.class,3);
+        
+        ItemComprable ic3 = new ItemComprable(TipoAdicional.class,3);  
+        
+        FormaDePago fdp = null;
+        Proveedor prov = null;
+        try
+        {
+            sesion.beginTransaction();
+            fdp = (FormaDePago)sesion.load(FormaDePago.class,1);
+            prov = (Proveedor)sesion.load(Proveedor.class,3);
+            sesion.getTransaction().commit();         
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        OrdenDeCompra odc = new OrdenDeCompra();
+        odc.setEstado(OrdenDeCompra.ESTADO_PENDIENTE);
+        odc.setFechaDeGeneracion(new Date());
+        odc.setFechaUltimaModificacion(new Date());
+        odc.setFormaDeEntrega(OrdenDeCompra.FORMAS_DE_ENTREGA[0]);
+        odc.setFormaDePago(fdp);
+        odc.setProveedor(prov);
+
+        
+            DetalleOrdenDeCompra doc = new DetalleOrdenDeCompra();
+            doc.setCantidad(20);
+            doc.setDescripcion("Item 1");
+            doc.setItem(ic1);
+            doc.setPrecioUnitario(77);
+        
+            DetalleOrdenDeCompra doc2 = new DetalleOrdenDeCompra();
+            doc2.setCantidad(77);
+            doc2.setDescripcion("Item 2");
+            doc2.setItem(ic2);
+            doc2.setPrecioUnitario(123);
+        
+            DetalleOrdenDeCompra doc3 = new DetalleOrdenDeCompra();
+            doc3.setCantidad(53);
+            doc3.setDescripcion("Item 3");
+            doc3.setItem(ic3);
+            doc3.setPrecioUnitario(20);
+            
+            odc.getDetalle().add(doc);
+            odc.getDetalle().add(doc2);
+            odc.getDetalle().add(doc3);
+        
+        try
+        {
+            sesion.beginTransaction();
+            sesion.save(ic1);
+            sesion.save(ic2);
+            sesion.save(ic3);
+            sesion.save(odc);
+            sesion.save(doc);
+            sesion.save(doc2);
+            sesion.save(doc3);
             sesion.getTransaction().commit();         
         }
         catch(Exception e)
