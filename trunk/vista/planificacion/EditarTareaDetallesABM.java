@@ -194,14 +194,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         hs100EnTareaCotizadaModif=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().obtenerTotalDeHorasAl100();        
         costoEnTareaCotizadaModif=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().calcularSubtotal();
         
-        //////////////////
-        
-        lblHsNormalesTCotizadaActual1.setText(String.valueOf(gestor.getCopiaTareaConConCotizacion().obtenerTotalDeHorasNormalesConSubtareas()));
-        lblHs50TCotizadaActual1.setText(String.valueOf(gestor.getCopiaTareaConConCotizacion().obtenerTotalDeHorasAl50ConSubtareas()));
-        lblHs100TCotizadaActual1.setText(String.valueOf(gestor.getCopiaTareaConConCotizacion().obtenerTotalDeHorasAl100ConSubtareas()));
-        lblCostoTCotizadaActual1.setText(String.valueOf(gestor.getCopiaTareaConConCotizacion().calcularSubtotalConSubtareas()));
-        //////////////////
-        
         lblHsNormalesTCotizadaActual.setText(String.valueOf(hsNormalesEnTareaCotizadaModif));
         lblHs50TCotizadaActual.setText(String.valueOf(hs50EnTareaCotizadaModif));
         lblHs100TCotizadaActual.setText(String.valueOf(hs100EnTareaCotizadaModif));
@@ -322,7 +314,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas disponibles en la tarea de nivel superior:"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Impacto en horas del detalle del mismo tipo en la tarea de nivel superior:"));
         jPanel1.setEnabled(false);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
@@ -814,7 +806,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pack();
@@ -1280,7 +1272,13 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         cantHs50 = detalleAcutal.getCantHorasAl50();
         idEspecialidad = detalleAcutal.getEspecialidad().getId();
         
-
+        SpinnerModel modelPersonas =
+                new SpinnerNumberModel(1, //initial value
+                1, //min
+                detalleSuperiorSeleccionado.getCantidadPersonas(), //max
+                1);//step
+        spnPersonas.setModel(modelPersonas);
+        
         spnPersonas.setValue(cantPersonas);
         spnHsNormales.setValue(cantHsNormales);
         spnHs50.setValue(cantHs50);

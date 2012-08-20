@@ -44,7 +44,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="65" max="32767" attributes="0"/>
+              <EmptySpace pref="69" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,7 +142,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Horas disponibles en la tarea de nivel superior:"/>
+                    <TitledBorder title="Impacto en horas del detalle del mismo tipo en la tarea de nivel superior:"/>
                   </Border>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
