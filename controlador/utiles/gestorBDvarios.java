@@ -270,7 +270,7 @@ public class gestorBDvarios
             HibernateUtil.rollbackTransaction();
         }
         
-        System.out.println(esp.getRango().getNombre());
+        //System.out.println(esp.getRango().getNombre());
         return esp;
        
     }
