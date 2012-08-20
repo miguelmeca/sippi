@@ -344,7 +344,7 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
-      EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, false);
+      EditarTareaDetallesABM_SeleccionDetallePadre at = new EditarTareaDetallesABM_SeleccionDetallePadre(this, gestor);
         SwingPanel.getInstance().addWindow(at);
        at.setVisible(true);
     }//GEN-LAST:event_btnAgregarDetalleActionPerformed
@@ -358,9 +358,10 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     {
          if (tblDetalles.getSelectedRow() != -1) {
             DefaultTableModel modelo = (DefaultTableModel) tblDetalles.getModel();
-            DetalleTareaPlanificacion detalleTarea = (DetalleTareaPlanificacion) ((NTupla) modelo.getValueAt(tblDetalles.getSelectedRow(), 0)).getData();            
-            EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, true);
+            DetalleTareaPlanificacion detalleTarea = (DetalleTareaPlanificacion) ((NTupla) modelo.getValueAt(tblDetalles.getSelectedRow(), 0)).getData();    
             gestor.setDetalleAcutal(detalleTarea);
+            EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, true);
+            
             SwingPanel.getInstance().addWindow(at);
             at.setVisible(true);
             /*txtPersonas.setText(String.valueOf(detalleTarea.getCantidadPersonas()));
@@ -390,7 +391,7 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     }
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
         /*if (tblDetalles.getSelectedRow() != -1) {
-            if (JOptionPane.showConfirmDialog(this.getParent(), "Â¿EstÃ¡ seguro de eliminar este detalle?", "Eliminar fila", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(this.getParent(), "Ã‚Â¿EstÃƒÂ¡ seguro de eliminar este detalle?", "Eliminar fila", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 ((DefaultTableModel) tblDetalles.getModel()).removeRow(tblDetallesTarea.getSelectedRow());
                 mostrarTotalTarea();
                 habilitarBotonesParaTablaDetalle(false);

@@ -714,4 +714,31 @@ public class TareaPlanificacion
         }
         return null;
     }
+    
+    public double calcularSubtotalSinSubtaras() 
+    {        
+        double subT=0.0;
+        for (int i = 0; i < detalles.size(); i++) 
+        {
+            subT+=detalles.get(i).calcularSubtotal();
+            
+        }               
+       return subT; 
+    }
+    
+    public double calcularSubtotalConSubtareas()
+    {
+        double subT=0.0;
+        for (int i = 0; i < detalles.size(); i++) 
+        {
+            subT+=detalles.get(i).calcularSubtotal();
+            
+        } 
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            subT+=subtarea.calcularSubtotalConSubtareas();
+        }
+       return subT; 
+       
+    }
 }
