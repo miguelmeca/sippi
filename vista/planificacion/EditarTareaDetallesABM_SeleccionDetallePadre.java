@@ -394,7 +394,7 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
        {
               detalleSuperiorSeleccionado = (DetalleTareaPlanificacion) ((NTupla) tblDetallesTareaSuperior.getModel().getValueAt(selectedRow, 0)).getData();
               gestor.crearNuevoDetalleAcutal(detalleSuperiorSeleccionado);
-              EditarTareaDetallesABM editarDetalle = new EditarTareaDetallesABM(pantallaPrincipal,gestor,false);
+              EditarTareaDetallesABM editarDetalle = new EditarTareaDetallesABM(pantallaPrincipal,gestor,false, false);
               SwingPanel.getInstance().addWindow(editarDetalle);
               editarDetalle.setVisible(true);
               this.dispose();
