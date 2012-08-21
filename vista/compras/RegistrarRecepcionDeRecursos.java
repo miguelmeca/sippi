@@ -4,8 +4,12 @@
  */
 package vista.compras;
 
+import com.itextpdf.text.DocumentException;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.CellEditorListener;
@@ -20,6 +24,9 @@ import sun.swing.SwingUtilities2;
 import util.*;
 import vista.comer.pantallaListadoProveedores;
 import vista.interfaces.ICallBackGen;
+import vista.reportes.ReportDesigner;
+import vista.reportes.sources.EmitirOrdenDeCompra;
+import vista.reportes.sources.EmitirRecepcionOrdenDeCompra;
 
 /**
  *
@@ -373,7 +380,14 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
 
     private void btnEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirActionPerformed
-        // TODO add your handling code here:
+        if(!this.ordenDeCompra.getRecepciones().isEmpty())
+        {
+            emitirRecepcionesOrdenDeCompra();
+        }
+        else
+        {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Noy hay recepciones registradas");
+        }
     }//GEN-LAST:event_btnEmitirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -787,7 +801,30 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         win.setVisible(true); 
         
     }
+    
+    
+    /**
+     * Emite la recepción de orden de compra en curso
+     */
+    private void emitirRecepcionesOrdenDeCompra() {
+        
+        Iterator<RecepcionOrdenDeCompra> itRecepciones = this.ordenDeCompra.getRecepciones().iterator();
+        while(itRecepciones.hasNext())
+        {
+            RecepcionOrdenDeCompra recepcion = itRecepciones.next();
+            EmitirRecepcionOrdenDeCompra informe = new EmitirRecepcionOrdenDeCompra(ordenDeCompra,recepcion);
+            informe.setNombreReporte("Recepción Orden de Compra : "+recepcion.getId());
+            informe.setNombreArchivo("Recepción Compras-"+recepcion.getId(),ReportDesigner.REPORTE_TIPO_COMPRAS);
 
-
+            try 
+            {
+                informe.makeAndShow(new HashMap<String,Object>());
+            } catch (DocumentException ex) {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+            } catch (FileNotFoundException ex) {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
+            }                   
+        }
+    }
     
 }
