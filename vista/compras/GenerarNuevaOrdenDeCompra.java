@@ -781,7 +781,6 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         btnAgregar.setEnabled(enabled);
         btnQuitar.setEnabled(enabled);
         btnGuardar.setEnabled(enabled);
-        btnEmitir.setEnabled(enabled);
         btnAnular.setEnabled(enabled);
         tblDetalle.setEnabled(enabled);
     }

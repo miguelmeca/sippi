@@ -93,14 +93,13 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         txtObservaciones = new javax.swing.JTextArea();
         btnCerrar = new javax.swing.JButton();
         btnRegistrarRecepcion = new javax.swing.JButton();
-        btnRealizarNuevoPedido = new javax.swing.JButton();
         btnEmitir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Registrar RecepciÃ³n de Recursos");
+        setTitle("Registrar Recepción de Recursos");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Orden de Compra:");
@@ -118,12 +117,12 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Pedido"));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Fecha de EmisiÃ³n:");
+        jLabel2.setText("Fecha de Emisión:");
 
         lblFechaEmision.setText("...");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Fecha de ModificaciÃ³n:");
+        jLabel4.setText("Fecha de Modificación:");
 
         lblFechaModificacion.setText("...");
 
@@ -148,7 +147,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         lblFormaDeEntrega.setText("...");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Estado de la RecepciÃ³n:");
+        jLabel5.setText("Estado de la Recepción:");
 
         lblEstadoRecepcion.setText("...");
         lblEstadoRecepcion.setOpaque(true);
@@ -174,7 +173,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                             .addComponent(lblFormaDePago, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,7 +217,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
 
             },
             new String [] {
-                "DescripciÃ³n", "Total Ordenados", "Total Recibidos", "Recibidos", ""
+                "Descripción", "Total Ordenados", "Total Recibidos", "Recibidos", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -239,14 +238,14 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jScrollPane1.setViewportView(tblDetalle);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Ingrese la cantidad \"Recibida\" en este envÃ­o (no la total)");
+        jLabel3.setText("Ingrese la cantidad \"Recibida\" en este envío (no la total)");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Observaciones:");
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setRows(5);
-        txtObservaciones.setText("Recibido segÃºn lo acordado!");
+        txtObservaciones.setText("Recibido según lo acordado!");
         jScrollPane2.setViewportView(txtObservaciones);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -263,7 +262,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -279,15 +278,12 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         });
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnRegistrarRecepcion.setText("Registrar RecepciÃ³n");
+        btnRegistrarRecepcion.setText("Registrar Recepción");
         btnRegistrarRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarRecepcionActionPerformed(evt);
             }
         });
-
-        btnRealizarNuevoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
-        btnRealizarNuevoPedido.setText("Realizar nuevo Pedido");
 
         btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitir.setText("Emitir");
@@ -316,10 +312,8 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnRegistrarRecepcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRealizarNuevoPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEmitir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar)))
                 .addContainerGap())
         );
@@ -339,7 +333,6 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(btnRegistrarRecepcion)
-                    .addComponent(btnRealizarNuevoPedido)
                     .addComponent(btnEmitir))
                 .addContainerGap())
         );
@@ -393,7 +386,6 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitir;
-    private javax.swing.JButton btnRealizarNuevoPedido;
     private javax.swing.JButton btnRegistrarRecepcion;
     private javax.swing.JButton btnSeleccionarOrdenDeCompra;
     private javax.swing.JLabel jLabel1;
