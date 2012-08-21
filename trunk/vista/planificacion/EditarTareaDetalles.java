@@ -35,6 +35,7 @@ import vista.interfaces.ICallBack_v3;
 public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack_v3 {
 
     private GestorEditarTareaDetalles gestor;
+    boolean tareaHijaDePlanificacion=false; 
     
     public EditarTareaDetalles(GestorEditarTareaDetalles gestor) {
         initComponents();        
@@ -47,7 +48,15 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     {
       tblDetalles.getTableHeader().setPreferredSize(new Dimension(tblDetalles.getColumnModel().getTotalColumnWidth(), 34));
       inicializarTablaDetalles();
-      
+      tareaHijaDePlanificacion=gestor.getTareaActual().esCotizada(); 
+      if(tareaHijaDePlanificacion)
+      {
+          btnAgregarDetalle.setVisible(false);
+      }
+      else
+      {
+          btnAgregarDetalle.setVisible(true);
+      }
       cargarLabelsTotalesTarea();
       cargarLabelsTotalesTareaYSubtareas();
       
@@ -134,6 +143,7 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
         lblTotalHs50 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         lblTotalHs100 = new javax.swing.JLabel();
+        btnAgregarDetalleNoCotizado = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -211,14 +221,15 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalHsNormalesConSubtareas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalHs50ConSubtareas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel28)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalHs100ConSubtareas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblTotalHs100ConSubtareas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +243,7 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
         );
 
         btnAgregarDetalle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnAgregarDetalle.setText("Agregar");
+        btnAgregarDetalle.setText("Agregar detalle desde tarea contenedora");
         btnAgregarDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarDetalleActionPerformed(evt);
@@ -282,14 +293,15 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalHsNormales, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(55, 55, 55)
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotalHs50, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalHs100, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblTotalHs100, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,26 +314,35 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
                 .addComponent(lblTotalHs100))
         );
 
+        btnAgregarDetalleNoCotizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        btnAgregarDetalleNoCotizado.setText("Agregar detalle no cotizado");
+        btnAgregarDetalleNoCotizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarDetalleNoCotizadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregarDetalle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnAgregarDetalleNoCotizado, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEditarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,19 +353,22 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarDetalleNoCotizado)
                     .addComponent(btnQuitarDetalle)
-                    .addComponent(btnAgregarDetalle)
                     .addComponent(btnEditarDetalle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAgregarDetalle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
-      EditarTareaDetallesABM_SeleccionDetallePadre at = new EditarTareaDetallesABM_SeleccionDetallePadre(this, gestor);
+      
+        EditarTareaDetallesABM_SeleccionDetallePadre at = new EditarTareaDetallesABM_SeleccionDetallePadre(this, gestor);
         SwingPanel.getInstance().addWindow(at);
        at.setVisible(true);
     }//GEN-LAST:event_btnAgregarDetalleActionPerformed
@@ -359,34 +383,12 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
          if (tblDetalles.getSelectedRow() != -1) {
             DefaultTableModel modelo = (DefaultTableModel) tblDetalles.getModel();
             DetalleTareaPlanificacion detalleTarea = (DetalleTareaPlanificacion) ((NTupla) modelo.getValueAt(tblDetalles.getSelectedRow(), 0)).getData();    
-            gestor.setDetalleAcutal(detalleTarea);
-            EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, true);
+            gestor.setDetalleAcutal(detalleTarea,gestor.getTareaActual().esCotizada());
+            EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor, true, tareaHijaDePlanificacion);
             
             SwingPanel.getInstance().addWindow(at);
             at.setVisible(true);
-            /*txtPersonas.setText(String.valueOf(detalleTarea.getCantidadPersonas()));
-            txtCosto.setText(String.valueOf(detalleTarea.getCostoXHoraNormal()));
-
-            for (int i = 0; i < cboRango.getItemCount(); i++) {
-                if ((((NTupla) cboRango.getItemAt(i)).getId()) == detalleTarea.getRangoEmpleado().getId()) {
-                    cboRango.setSelectedIndex(i);
-                    break;
-                }
-            }
-            for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) {
-                if ((((Tupla) cboTipoEspecialidad.getItemAt(i)).getId()) == detalleTarea.getTipoEspecialidad().getId()) {
-                    cboTipoEspecialidad.setSelectedIndex(i);
-                    break;
-                }
-            }
-            txtHorasNormales.setText(String.valueOf(detalleTarea.getCantHorasNormales()));
-            txtHoras50.setText(String.valueOf(detalleTarea.getCantHorasAl50()));
-            txtHoras100.setText(String.valueOf(detalleTarea.getCantHorasAl100()));
-            calcularSubtotalDetalle(true);
-            ((DefaultTableModel) tblDetallesTarea.getModel()).removeRow(tblDetallesTarea.getSelectedRow());
-            mostrarTotalTarea();
-            //habilitarBotonesParaTablaDetalle(false);
-*/
+           
         }
     }
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
@@ -412,6 +414,16 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     private void tblDetallesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetallesMouseReleased
         clickEnFilaTablaDetalles(evt);
     }//GEN-LAST:event_tblDetallesMouseReleased
+
+    private void btnAgregarDetalleNoCotizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleNoCotizadoActionPerformed
+        
+        
+        gestor.crearNuevoDetalleNoCotizado();
+        EditarTareaDetallesABM at = new EditarTareaDetallesABM(this, gestor,false, tareaHijaDePlanificacion);
+       
+        SwingPanel.getInstance().addWindow(at);
+       at.setVisible(true);
+    }//GEN-LAST:event_btnAgregarDetalleNoCotizadoActionPerformed
     
     private void clickEnFilaTablaDetalles(java.awt.event.MouseEvent evt)
     {
@@ -463,6 +475,7 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDetalle;
+    private javax.swing.JButton btnAgregarDetalleNoCotizado;
     private javax.swing.JButton btnEditarDetalle;
     private javax.swing.JButton btnQuitarDetalle;
     private javax.swing.JLabel jLabel24;

@@ -581,6 +581,16 @@ public class TareaPlanificacion
         return false;
     }
     
+    public boolean esCotizada()
+    {
+        if (this.getTareaCotizada()!=null)
+        {return true;}
+        else
+        {
+            return false;
+        }
+    }
+    
 
     
     public List<DetalleTareaPlanificacion> getDetalles() {

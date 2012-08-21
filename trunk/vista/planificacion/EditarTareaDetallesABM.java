@@ -37,6 +37,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     double disponiblesHs50EnDetalleSuperior;
     String especialidadDetalleTPadreDisponibles;
     double costoEnDetalleSuperior;
+    boolean tareaHijaDePlanificacion=false; 
     
     int disponiblesPersonasEnDetalleSuperior_nva;
     int disponiblesPersonasAsignadasEnDetalleSuperior_nva;
@@ -66,7 +67,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     
     boolean enProceso=false;
     
-    public EditarTareaDetallesABM(ICallBack_v3 pantalla, GestorEditarTareaDetalles gestor, boolean modificacion) {
+    public EditarTareaDetallesABM(ICallBack_v3 pantalla, GestorEditarTareaDetalles gestor, boolean modificacion, boolean tareaHijaDePlanificacion) {
+        this.tareaHijaDePlanificacion=tareaHijaDePlanificacion;
         initComponents();        
         this.gestor = gestor;
         gestor.setPantallaABM(this);
@@ -80,6 +82,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             costoDetalle=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
             especialidadPadre=gestor.getCopiaDetallePadre().getEspecialidad();
         }
+         
         
         
         
@@ -288,11 +291,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         lblHsNormalesTCotizada = new javax.swing.JLabel();
         lblHsNormalesTCotizadaActual = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        lblCostoTCotizadaActual1 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        lblHs50TCotizadaActual1 = new javax.swing.JLabel();
-        lblHsNormalesTCotizadaActual1 = new javax.swing.JLabel();
-        lblHs100TCotizadaActual1 = new javax.swing.JLabel();
         PanelAsignaciones = new javax.swing.JPanel();
 
         setOpaque(true);
@@ -710,44 +708,16 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15)))
         );
 
-        lblCostoTCotizadaActual1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCostoTCotizadaActual1.setText("---");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel19.setText("Actuales");
-
-        lblHs50TCotizadaActual1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHs50TCotizadaActual1.setText("---");
-
-        lblHsNormalesTCotizadaActual1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHsNormalesTCotizadaActual1.setText("---");
-
-        lblHs100TCotizadaActual1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHs100TCotizadaActual1.setText("---");
-
         javax.swing.GroupLayout PanelEsfuerzoLayout = new javax.swing.GroupLayout(PanelEsfuerzo);
         PanelEsfuerzo.setLayout(PanelEsfuerzoLayout);
         PanelEsfuerzoLayout.setHorizontalGroup(
             PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCostoTCotizadaActual1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblHsNormalesTCotizadaActual1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addComponent(lblHs50TCotizadaActual1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(lblHs100TCotizadaActual1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
-                    .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         PanelEsfuerzoLayout.setVerticalGroup(
@@ -759,14 +729,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHs50TCotizadaActual1)
-                    .addComponent(lblHsNormalesTCotizadaActual1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHs100TCotizadaActual1)
-                    .addComponent(lblCostoTCotizadaActual1)
-                    .addComponent(jLabel19))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         tabAsignacion.addTab("Esfuerzo", PanelEsfuerzo);
@@ -779,7 +742,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         );
         PanelAsignacionesLayout.setVerticalGroup(
             PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 365, Short.MAX_VALUE)
         );
 
         tabAsignacion.addTab("Asignaciones", PanelAsignaciones);
@@ -789,24 +752,24 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
+                .addComponent(tabAsignacion))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addComponent(btnAceptar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabAsignacion))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -934,15 +897,20 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
       
             habilitarDespuesDeClickEnTabla(true); 
            
-            tomarDatosDetalleModificado(gestor.getDetalleActual());   
-               disponiblesPersonasEnDetalleSuperior = detalleSuperiorSeleccionado.getCantidadPersonas();
+            tomarDatosDetalleModificado(gestor.getDetalleActual());  
+            if(detalleSuperiorSeleccionado!=null)
+            { disponiblesPersonasEnDetalleSuperior = detalleSuperiorSeleccionado.getCantidadPersonas();
                disponiblesPersonasAsignadasEnDetalleSuperior = detalleSuperiorSeleccionado.getCantidadPersonasAsignadas();
                disponiblesHsNormalesEnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasNormales();
                disponiblesHs50EnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasAl50();
                disponiblesHs100EnDetalleSuperior = detalleSuperiorSeleccionado.getCantHorasAl100();
                especialidadDetalleTPadreDisponibles=detalleSuperiorSeleccionado.getEspecialidad().getTipo().getNombre().toString()+"-"+detalleSuperiorSeleccionado.getEspecialidad().getRango().getNombre().toString();
                costoEnDetalleSuperior=detalleSuperiorSeleccionado.getCostoXHoraNormal();
-               setearDatosDetalleSuperiorEnPantalla();
+            }
+            if(!tareaHijaDePlanificacion)
+            {    
+                setearDatosDetalleSuperiorEnPantalla();
+            }
                   
        
        mandarCambios();
@@ -986,25 +954,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             lblEspecialidadDetalleTPadreDisponibles.setText(especialidadDetalleTPadreDisponibles);
             lblCostoDetalleTPadreDisponibles.setText(String.valueOf(costoEnDetalleSuperior));
         }
-        /*if(disponiblesPersonasEnDetalleSuperior<0)
-        {lblPersonasDetalleTPadreDisponibles.setForeground(Color.red); } 
-        else
-        {lblPersonasDetalleTPadreDisponibles.setForeground(Color.black);}
         
-        if(disponiblesHsNormalesEnDetalleSuperior<0)
-        {lblHsNormalesDetalleTPadreDisponibles.setForeground(Color.red); } 
-        else
-        {lblHsNormalesDetalleTPadreDisponibles.setForeground(Color.black);}
         
-        if(disponiblesHs50EnDetalleSuperior<0)
-        {lblHs50DetalleTPadreDisponibles.setForeground(Color.red); } 
-        else
-        {lblHs50DetalleTPadreDisponibles.setForeground(Color.black);}
-        
-        if(disponiblesHs100EnDetalleSuperior<0)
-        {lblHs100DetalleTPadreDisponibles.setForeground(Color.red); } 
-        else
-        {lblHs100DetalleTPadreDisponibles.setForeground(Color.black);} */      
         
     }
     
@@ -1042,7 +993,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         lblHs50DetalleTPadreDisponibles_Nvo.setText(" ");
         lblHs100DetalleTPadreDisponibles_Nvo.setText(" ");
         lblEspecialidadDetalleTPadreDisponibles_Nvo.setText(" ");
-        lblCostoDetalleTPadreDisponibles_Nvo.setText("---");
+        lblCostoDetalleTPadreDisponibles_Nvo.setText(" ");
         DefaultComboBoxModel model = new DefaultComboBoxModel();        
         cboRango.setModel(model);
         btnAceptar.setEnabled(false);
@@ -1113,7 +1064,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     }
     private void intentarActivarAceptar()
     {
-        if((cantHsNormales!=0.0 || cantHs50!=0.0 || cantHs100!=0.0) && (((NTupla) cboRango.getSelectedItem()).getId() != -1) && (costoDetalle!=0.0))
+        if((cantHsNormales!=0.0 || cantHs50!=0.0 || cantHs100!=0.0) && cboRango.getSelectedItem()!=null && (((NTupla) cboRango.getSelectedItem()).getId() != -1) && (costoDetalle!=0.0))
         {
             btnAceptar.setEnabled(true);
         }
@@ -1125,42 +1076,49 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     
     public void mandarCambios()
     {
+        if(idEspecialidad>0)
+            
         gestor.tomarCambios(cantPersonas, cantHsNormales,  cantHs50,  cantHs100,  costoDetalle, idEspecialidad);
     }
     
     public void actualizar()
     {
-        disponiblesPersonasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonas();
-        disponiblesPersonasAsignadasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonasAsignadas();
-        disponiblesHsNormalesEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasNormales();
-        disponiblesHs50EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl50();
-        disponiblesHs100EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl100();
-        especialidadDetalleTPadreDisponibles=gestor.getCopiaDetallePadre().getEspecialidad().getTipo().getNombre().toString()+"-"+gestor.getCopiaDetallePadre().getEspecialidad().getRango().getNombre().toString();
-        costoEnDetalleSuperior=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
+        if(!tareaHijaDePlanificacion)
+        {
+            disponiblesPersonasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonas();
+            disponiblesPersonasAsignadasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonasAsignadas();
+            disponiblesHsNormalesEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasNormales();
+            disponiblesHs50EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl50();
+            disponiblesHs100EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl100();
+            especialidadDetalleTPadreDisponibles=gestor.getCopiaDetallePadre().getEspecialidad().getTipo().getNombre().toString()+"-"+gestor.getCopiaDetallePadre().getEspecialidad().getRango().getNombre().toString();
+            costoEnDetalleSuperior=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
         
         
-        if(gestor.getCopiaDetallePadre_nvo()!=null)
-        {disponiblesPersonasEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantidadPersonas();
-        disponiblesPersonasAsignadasEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantidadPersonasAsignadas();
-        disponiblesHsNormalesEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasNormales();
-        disponiblesHs50EnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasAl50();
-        disponiblesHs100EnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasAl100(); 
-        especialidadDetalleTPadreDisponibles_nva=gestor.getCopiaDetallePadre_nvo().getEspecialidad().getTipo().getNombre().toString()+"-"+gestor.getCopiaDetallePadre_nvo().getEspecialidad().getRango().getNombre().toString();
-        costoEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCostoXHoraNormal();} 
-        
-        else
-        {disponiblesPersonasEnDetalleSuperior_nva=0;
-        disponiblesPersonasAsignadasEnDetalleSuperior_nva=0;
-        disponiblesHsNormalesEnDetalleSuperior_nva=0.0;
-        disponiblesHs100EnDetalleSuperior_nva=0.0;
-        disponiblesHs50EnDetalleSuperior_nva=0.0;
-        especialidadDetalleTPadreDisponibles_nva="";
-        costoEnDetalleSuperior_nva=0.0;
-        }        
-       
+            if(gestor.getCopiaDetallePadre_nvo()!=null)
+            {disponiblesPersonasEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantidadPersonas();
+            disponiblesPersonasAsignadasEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantidadPersonasAsignadas();
+            disponiblesHsNormalesEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasNormales();
+            disponiblesHs50EnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasAl50();
+            disponiblesHs100EnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCantHorasAl100(); 
+            especialidadDetalleTPadreDisponibles_nva=gestor.getCopiaDetallePadre_nvo().getEspecialidad().getTipo().getNombre().toString()+"-"+gestor.getCopiaDetallePadre_nvo().getEspecialidad().getRango().getNombre().toString();
+            costoEnDetalleSuperior_nva=gestor.getCopiaDetallePadre_nvo().getCostoXHoraNormal();} 
+
+            else
+            {disponiblesPersonasEnDetalleSuperior_nva=0;
+            disponiblesPersonasAsignadasEnDetalleSuperior_nva=0;
+            disponiblesHsNormalesEnDetalleSuperior_nva=0.0;
+            disponiblesHs100EnDetalleSuperior_nva=0.0;
+            disponiblesHs50EnDetalleSuperior_nva=0.0;
+            especialidadDetalleTPadreDisponibles_nva="";
+            costoEnDetalleSuperior_nva=0.0;
+            }        
+       }
         
         setearValoresTareaCotizadaActual();
-        setearDatosDetalleSuperiorEnPantalla();
+       if(!tareaHijaDePlanificacion)
+       {
+            setearDatosDetalleSuperiorEnPantalla();
+       }
     }
     
     
@@ -1186,7 +1144,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1205,24 +1162,20 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCostoDetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblCostoTCotizada;
     private javax.swing.JLabel lblCostoTCotizadaActual;
-    private javax.swing.JLabel lblCostoTCotizadaActual1;
     private javax.swing.JLabel lblEspecialidadDetalleTPadreDisponibles;
     private javax.swing.JLabel lblEspecialidadDetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblHs100DetalleTPadreDisponibles;
     private javax.swing.JLabel lblHs100DetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblHs100TCotizada;
     private javax.swing.JLabel lblHs100TCotizadaActual;
-    private javax.swing.JLabel lblHs100TCotizadaActual1;
     private javax.swing.JLabel lblHs50DetalleTPadreDisponibles;
     private javax.swing.JLabel lblHs50DetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblHs50TCotizada;
     private javax.swing.JLabel lblHs50TCotizadaActual;
-    private javax.swing.JLabel lblHs50TCotizadaActual1;
     private javax.swing.JLabel lblHsNormalesDetalleTPadreDisponibles;
     private javax.swing.JLabel lblHsNormalesDetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblHsNormalesTCotizada;
     private javax.swing.JLabel lblHsNormalesTCotizadaActual;
-    private javax.swing.JLabel lblHsNormalesTCotizadaActual1;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles_Nvo;
     private javax.swing.JSpinner spnHs100;
@@ -1270,12 +1223,23 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         cantHsNormales = detalleAcutal.getCantHorasNormales();
         cantHs100 = detalleAcutal.getCantHorasAl100();
         cantHs50 = detalleAcutal.getCantHorasAl50();
-        idEspecialidad = detalleAcutal.getEspecialidad().getId();
+        
+        if(cantPersonas==0)
+        {cantPersonas=1;}
+        
+        if(detalleAcutal.getEspecialidad()!=null)
+        {idEspecialidad = detalleAcutal.getEspecialidad().getId();}
+        
+        int maximoPersonas=200;
+        if(detalleSuperiorSeleccionado!=null)
+        {
+            maximoPersonas=detalleSuperiorSeleccionado.getCantidadPersonas();
+        }
         
         SpinnerModel modelPersonas =
                 new SpinnerNumberModel(1, //initial value
                 1, //min
-                detalleSuperiorSeleccionado.getCantidadPersonas(), //max
+                maximoPersonas, //max
                 1);//step
         spnPersonas.setModel(modelPersonas);
         
@@ -1284,16 +1248,19 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         spnHs50.setValue(cantHs50);
         spnHs100.setValue(cantHs100);
 
-        for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) {
-            if ((((NTupla) cboTipoEspecialidad.getItemAt(i)).getId()) == detalleAcutal.getEspecialidad().getTipo().getId()) {
-                cboTipoEspecialidad.setSelectedIndex(i);
-                break;
+        if(detalleAcutal.getEspecialidad()!=null)
+        {
+            for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) {
+                if ((((NTupla) cboTipoEspecialidad.getItemAt(i)).getId()) == detalleAcutal.getEspecialidad().getTipo().getId()) {
+                    cboTipoEspecialidad.setSelectedIndex(i);
+                    break;
+                }
             }
-        }
-        for (int i = 0; i < cboRango.getItemCount(); i++) {
-            if ((((NTupla) cboRango.getItemAt(i)).getId()) == detalleAcutal.getEspecialidad().getId()) {
-                cboRango.setSelectedIndex(i);
-                break;
+            for (int i = 0; i < cboRango.getItemCount(); i++) {
+                if ((((NTupla) cboRango.getItemAt(i)).getId()) == detalleAcutal.getEspecialidad().getId()) {
+                    cboRango.setSelectedIndex(i);
+                    break;
+                }
             }
         }
         costoDetalle = detalleAcutal.getCostoXHoraNormal();
