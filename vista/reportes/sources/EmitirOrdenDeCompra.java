@@ -165,8 +165,13 @@ public class EmitirOrdenDeCompra extends ReportDesigner  {
         tabla.addCell(celdaNumero);
         
         Paragraph paDescripcion = new Paragraph();
-        paDescripcion.add(new Phrase(String.valueOf(detalle.getDescripcion()), ReportDesigner.FUENTE_NORMAL));
+        paDescripcion.add(new Phrase(String.valueOf(detalle.getItem().getNombre()), ReportDesigner.FUENTE_NORMAL_B));
         PdfPCell celdaDescripcion = new PdfPCell(paDescripcion);
+        if(!detalle.getDescripcion().isEmpty())
+        {
+            Phrase phDescripcionD = new Phrase(" ( " + String.valueOf(detalle.getDescripcion())+ " )", ReportDesigner.FUENTE_NORMAL_K);
+            paDescripcion.add(phDescripcionD);
+        }
         celdaDescripcion.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         tabla.addCell(celdaDescripcion);
         
