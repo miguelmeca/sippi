@@ -800,23 +800,52 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
      */
     private void emitirRecepcionesOrdenDeCompra() {
         
-        Iterator<RecepcionOrdenDeCompra> itRecepciones = this.ordenDeCompra.getRecepciones().iterator();
-        while(itRecepciones.hasNext())
+        if(this.ordenDeCompra.getRecepciones().size()>1)
         {
-            RecepcionOrdenDeCompra recepcion = itRecepciones.next();
-            EmitirRecepcionOrdenDeCompra informe = new EmitirRecepcionOrdenDeCompra(ordenDeCompra,recepcion);
-            informe.setNombreReporte("Recepción Orden de Compra : "+recepcion.getId());
-            informe.setNombreArchivo("Recepción Compras-"+recepcion.getId(),ReportDesigner.REPORTE_TIPO_COMPRAS);
-
-            try 
+            int seleccion = JOptionPane.showOptionDialog(this,
+                    "Se registran más de una recepción en el sistema. ¿Desea imprimir todas las recepciones o solo la última?",
+                    "Emitir Recepciones de Compra",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    new Object[] {"Todas las recepciones", "Solo la última"},
+                    "Todas las recepciones");
+            if(seleccion == 0){
+                Iterator<RecepcionOrdenDeCompra> itRecepciones = this.ordenDeCompra.getRecepciones().iterator();
+                while(itRecepciones.hasNext())
+                {
+                    RecepcionOrdenDeCompra recepcion = itRecepciones.next();
+                    this.emitirRecepcionOrdenDeCompra(recepcion);
+                }
+            }
+            else
             {
-                informe.makeAndShow(new HashMap<String,Object>());
-            } catch (DocumentException ex) {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
-            } catch (FileNotFoundException ex) {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
-            }                   
+                RecepcionOrdenDeCompra recepcion = this.ordenDeCompra.getRecepciones().get(this.ordenDeCompra.getRecepciones().size()-1);
+                this.emitirRecepcionOrdenDeCompra(recepcion);    
+            }
+        }
+        else
+        {
+            RecepcionOrdenDeCompra recepcion = this.ordenDeCompra.getRecepciones().get(0);
+            this.emitirRecepcionOrdenDeCompra(recepcion);
         }
     }
     
+    /**
+     *  Método de imprime una sola recepción de orden de compra
+     * @param recepcion 
+     */
+    private void emitirRecepcionOrdenDeCompra(RecepcionOrdenDeCompra recepcion){
+        EmitirRecepcionOrdenDeCompra informe = new EmitirRecepcionOrdenDeCompra(ordenDeCompra,recepcion);
+        informe.setNombreReporte("Recepción Orden de Compra : "+recepcion.getId());
+        informe.setNombreArchivo("Recepción Compras-"+recepcion.getId(),ReportDesigner.REPORTE_TIPO_COMPRAS);
+        try 
+        {
+            informe.makeAndShow(new HashMap<String,Object>());
+        } catch (DocumentException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+        } catch (FileNotFoundException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
+        }
+    }
 }

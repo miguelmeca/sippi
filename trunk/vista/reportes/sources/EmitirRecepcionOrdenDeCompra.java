@@ -95,7 +95,7 @@ public class EmitirRecepcionOrdenDeCompra extends ReportDesigner  {
         tabla.addCell(celdaOrdenado);
         
         Paragraph paCantidad = new Paragraph();
-        paCantidad.add(new Phrase("Recibida", ReportDesigner.FUENTE_NORMAL_B));
+        paCantidad.add(new Phrase("Recibidas", ReportDesigner.FUENTE_NORMAL_B));
         PdfPCell celdaCantidad = new PdfPCell(paCantidad);
         celdaCantidad.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaCantidad.setBackgroundColor(new BaseColor(219,229,241));
@@ -173,8 +173,13 @@ public class EmitirRecepcionOrdenDeCompra extends ReportDesigner  {
         tabla.addCell(celdaNumero);
         
         Paragraph paDescripcion = new Paragraph();
-        paDescripcion.add(new Phrase(String.valueOf(detalle.getDetalleOrdenDeCompra().getDescripcion()), ReportDesigner.FUENTE_NORMAL));
+        paDescripcion.add(new Phrase(String.valueOf(detalle.getDetalleOrdenDeCompra().getItem().getNombre()), ReportDesigner.FUENTE_NORMAL_B));
         PdfPCell celdaDescripcion = new PdfPCell(paDescripcion);
+        if(!detalle.getDetalleOrdenDeCompra().getDescripcion().isEmpty())
+        {
+            Phrase phDescripcionD = new Phrase(" ( " + String.valueOf(detalle.getDetalleOrdenDeCompra().getDescripcion())+ " )", ReportDesigner.FUENTE_NORMAL_K);
+            paDescripcion.add(phDescripcionD);
+        }
         celdaDescripcion.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         tabla.addCell(celdaDescripcion);
         
