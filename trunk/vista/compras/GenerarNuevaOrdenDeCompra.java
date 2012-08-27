@@ -84,6 +84,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         initAnchoColumnasTablaDetalles();
         initDatos(obra, p, listaItemsOrden);
         txtEstado.setText(OrdenDeCompra.ESTADO_EN_CREACION);
+        initEstado();
         txtFecha.setDate(new Date());
     }    
 
@@ -219,7 +220,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Orden de Compra (Ingrese la Cantidad Recibida)"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de la Orden de Compra"));
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -281,7 +282,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
@@ -300,6 +301,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnRegistrarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/new_page.png"))); // NOI18N
         btnRegistrarRecepcion.setText("Registrar Recepción");
+        btnRegistrarRecepcion.setEnabled(false);
         btnRegistrarRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarRecepcionActionPerformed(evt);
@@ -324,6 +326,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
 
         btnAnular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnAnular.setText("Anular");
+        btnAnular.setEnabled(false);
         btnAnular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnularActionPerformed(evt);
@@ -343,11 +346,11 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEmitir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRegistrarRecepcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEmitir)
+                        .addComponent(btnAnular)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
                 .addContainerGap())
@@ -370,6 +373,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     .addComponent(btnAnular))
                 .addContainerGap())
         );
+
+        jPanel3.getAccessibleContext().setAccessibleName("Detalle de la Orden de Compra");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -579,7 +584,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             {
                int seleccion = JOptionPane.showOptionDialog(
                                 this, // Componente padre
-                                "Â¿Desea anular la orden de compra?\nNo podrá modificarla en un futuro.", //Mensaje
+                                "¿Desea anular la orden de compra?\nNo podrá modificarla en un futuro.", //Mensaje
                                 "Seleccione una opción", // Titulo
                                 JOptionPane.YES_NO_CANCEL_OPTION,
                                 JOptionPane.QUESTION_MESSAGE,
@@ -757,17 +762,21 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_ANULADA);
                 cambiarComportamientoEdicionDeVentana(false);
+                btnAnular.setEnabled(false);
                 btnRegistrarRecepcion.setEnabled(false);
             }
             if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_EMITIDA);
                 cambiarComportamientoEdicionDeVentana(false);
+                btnAnular.setEnabled(false);
                 btnRegistrarRecepcion.setEnabled(true);
+                btnEmitir.setEnabled(false);
             }
             if(OrdenDeCompra.ESTADO_PENDIENTE.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 txtEstado.setBackground(OrdenDeCompra.COLOR_ESTADO_PENDIENTE);
+                btnAnular.setEnabled(true);
             }               
         }
     }
@@ -816,8 +825,8 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
                     }
                 }
                 // Estado
-                txtEstado.setText(this.ordenDeCompraCargada.getEstado());   
-                
+                txtEstado.setText(this.ordenDeCompraCargada.getEstado());  
+                               
                 // Detalles
                 for (int i = 0; i < this.ordenDeCompraCargada.getDetalle().size(); i++) 
                 {
@@ -974,7 +983,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
         } catch (FileNotFoundException ex) {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
-        }                   
+        }    
     }
 
     /**
@@ -1097,6 +1106,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
             }  
         }
         mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se Guardó y Emitió exitosamente la Orden de Compra !");
+        btnAnular.setEnabled(true);
         initEstado();
         return true;
     }
