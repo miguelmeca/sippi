@@ -10,6 +10,7 @@
     <property name="cantHorasAl100" type="double"/>
     <property name="costoXHoraNormal" type="double"/>
     <property name="cantidadPersonas" type="integer"/>
+    <property name="cantidadHijos" type="integer"/>
     <many-to-one class="modelo.Especialidad" name="Especialidad"/>
     <list cascade="all" name="empleados" table="EMPLEADOS_X_DETALLE_TAREA_PLANIFICACION">
       <key column="ID_EXDTP"/>

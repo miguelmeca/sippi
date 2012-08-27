@@ -172,7 +172,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         modificacion = false;
         this.detallePadre = detallePadre;
         detalleActual = new DetalleTareaPlanificacion();
-        detalleActual.setPadre(detallePadre);
+        detalleActual.setearPadre(detallePadre);
         
         detalleActual.setCostoXHoraNormal(detallePadre.getCostoXHoraNormal());
         detalleActual.setCantidadPersonas(detallePadre.getCantidadPersonas());
@@ -185,11 +185,13 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     
     public void crearNuevoDetalleNoCotizado()
     {
-        tareaHijaDePlanificacion=true;
         modificacion = false;
         this.detallePadre = null;
         detalleActual = new DetalleTareaPlanificacion();
-        armarCopiaDeEstructuraTareaCotizada(detalleActual);
+        if(this.tareaHijaDePlanificacion)
+        {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
+        else
+        {armarCopiaDeEstructura(detalleActual);}
     }
     
     private void armarCopiaDeEstructura(DetalleTareaPlanificacion detalleActual)
@@ -208,32 +210,34 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         copiaCotizacionTareaCotizada=new SubObraXTareaModif(cotizacionTareaCotizada);
         copiaTareaConCotizacion.setTareaCotizada(copiaCotizacionTareaCotizada);
         ///////////////////////////////////////        
-        copiaDetallePadre= new DetalleTareaPlanificacion(detallePadre);
-        copiaDetallePadre_tio=null;
-        tareaConDetallePadre=gestorPadre.getPlanificacion().getTareaDeDetalle(detallePadre);
-        
-        if(tareaConCotizacion.equals(tareaConDetallePadre))
+        if(detallePadre!=null)
         {
-            copiaTareaConDetallePadre=copiaTareaConCotizacion;
-        }
-        else
-        {
-            this.copiaTareaConDetallePadre= new TareaPlanificacion(tareaConDetallePadre);
-        }
-        
-        int indiceDetalleActual_=tareaConDetallePadre.getDetalles().indexOf(detallePadre);
-            if(indiceDetalleActual_!=-1)
+            copiaDetallePadre= new DetalleTareaPlanificacion(detallePadre);
+            copiaDetallePadre_tio=null;
+            tareaConDetallePadre=gestorPadre.getPlanificacion().getTareaDeDetalle(detallePadre);
+
+            if(tareaConCotizacion.equals(tareaConDetallePadre))
             {
-                //copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual);
-                copiaTareaConDetallePadre.getDetalles().remove(indiceDetalleActual_);
+                copiaTareaConDetallePadre=copiaTareaConCotizacion;
             }
             else
             {
-                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
-                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle padre");
+                this.copiaTareaConDetallePadre= new TareaPlanificacion(tareaConDetallePadre);
             }
-        copiaTareaConDetallePadre.agreagarDetalle(copiaDetallePadre, indiceDetalleActual_);
-        
+
+            int indiceDetalleActual_=tareaConDetallePadre.getDetalles().indexOf(detallePadre);
+                if(indiceDetalleActual_!=-1)
+                {
+                    //copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual);
+                    copiaTareaConDetallePadre.getDetalles().remove(indiceDetalleActual_);
+                }
+                else
+                {
+                    pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                    Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle padre");
+                }
+            copiaTareaConDetallePadre.agreagarDetalle(copiaDetallePadre, indiceDetalleActual_);
+        }
         //////////////////////////////////////
         
         //Reinicio el detalle copia
@@ -254,13 +258,13 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         }
         
         copiaDetalleActual= new DetalleTareaPlanificacion(detalleActual);
-        copiaDetalleActual.setPadre(copiaDetallePadre);
+        copiaDetalleActual.setearPadre(copiaDetallePadre);
         //copiaTareaConCotizacion.agreagarDetalle(copiaDetalleAcutal); 
         copiaTareaActual.agreagarDetalle(copiaDetalleActual); 
         
         //////////////////////////////////////
-        
-        detalleConCotizacion=getDetalleConCotizacion(tareaConCotizacion, detallePadre);
+        if(detallePadre!=null)
+        {detalleConCotizacion=getDetalleConCotizacion(tareaConCotizacion, detallePadre);
         if(detalleConCotizacion.equals(detallePadre))
         {copiaDetalleConCotizacion=copiaDetallePadre;}
         else
@@ -297,7 +301,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         
         copiaDetalleConCotizacion.setCotizado(copiaDetalleCotizacionTareaCotizada);
         
-        
+        }
         //COPIACAMINOTAREAS
         copiaCaminoTareas = new ArrayList<TareaPlanificacion>();
         copiaCaminoTareas.add(copiaTareaConCotizacion);
@@ -333,6 +337,44 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
             }
         
     }
+    
+   /* private List<TareaPlanificacion> obtenerCopiaCaminoDeTareas()
+    {
+        ArrayList<TareaPlanificacion> copiaCaminoTareasX = new ArrayList<TareaPlanificacion>();
+        copiaCaminoTareasX.add(copiaTareaConCotizacion);
+        for (int i = 1; i < caminoTareas.size(); i++) 
+        {
+            copiaCaminoTareasX.add(caminoTareas.get(i));
+        }
+        int indiceTareaConDetallePadre_enCamino;
+        int indiceTareaActual_enCamino;
+        if(tareaConDetallePadre!=null)
+        {
+            indiceTareaConDetallePadre_enCamino=caminoTareas.indexOf(tareaConDetallePadre);
+            if(indiceTareaConDetallePadre_enCamino!=-1)
+            {
+                copiaCaminoTareasX.remove(indiceTareaConDetallePadre_enCamino);
+                copiaCaminoTareasX.add(indiceTareaConDetallePadre_enCamino, copiaTareaConDetallePadre);
+            }
+            else
+            {
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de TareaConDetallePadre en camino de tareas");
+            }
+        }  
+        indiceTareaActual_enCamino=caminoTareas.indexOf(gestorPadre.getTareaActual());
+            if(indiceTareaActual_enCamino!=-1)
+            {
+                copiaCaminoTareasX.remove(indiceTareaActual_enCamino);
+                copiaCaminoTareasX.add(indiceTareaActual_enCamino, copiaTareaActual);
+            }
+            else
+            {
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de tareaActual en camino de tarea");
+            }
+       return copiaCaminoTareas;
+    }*/
     
     private void armarCopiaDeEstructuraTareaCotizada(DetalleTareaPlanificacion detalleActual)
     {
@@ -739,6 +781,11 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             
             
             int indiceDetallePadre=tareaConDetallePadre.getDetalles().indexOf(padreOriginal);
+            
+            if(padreOriginal.getCantidadHijos()==0 && padreOriginal.getCantHorasNormales()==0.0 && padreOriginal.getCantHorasAl50()==0.0 && padreOriginal.getCantHorasAl100()==0.0)
+            {
+                tareaConDetallePadre.getDetalles().remove(padreOriginal);
+            }
             if(indiceDetallePadre!=-1)            
             {
                 tareaConDetallePadre.agreagarDetalle(padreNuevo, indiceDetallePadre);
@@ -808,20 +855,20 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                     }
                 }
 
-                padreNuevoAncestro.setPadre(padreNuevoAncestroViejo);
+                padreNuevoAncestro.setearPadre(padreNuevoAncestroViejo);
                 padreNuevoAncestroViejo = padreNuevoAncestro;
                 if (creaTio) {
-                    tioAncestro.setPadre(tioAncestroViejo);
+                    tioAncestro.setearPadre(tioAncestroViejo);
                     tioAncestroViejo = tioAncestro;
                 }
             }
             //}
             if (creaTio) {
-                tio.setPadre(tioAncestroViejo);
+                tio.setearPadre(tioAncestroViejo);
             }
-            padreNuevo.setPadre(padreNuevoAncestroViejo);
+            padreNuevo.setearPadre(padreNuevoAncestroViejo);
 
-            detalleActual.setPadre(padreNuevo);
+            detalleActual.setearPadre(padreNuevo);
 
 
             //////////////
@@ -889,11 +936,76 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             throw new Exception("La la especialidad no puede ser null");
         }
         DetalleSubObraXTareaModif detalleCotizacion=detalleActual.getCotizado();
+        
+        //Para subtareas
         if(detalleCotizacion==null)
         {
+            detalleCotizacion=new DetalleSubObraXTareaModif();
+            tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
+            45545454
+        }
+        //
+               
+        if(!modificacion || detalleActual.getCantidadHijos()==0)
+        { 
+            if(detalleCotizacion==null)
+            {
+                detalleCotizacion =new DetalleSubObraXTareaModif();
+                tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
+            }
+            int indicedetalle=tareaConCotizacion.getDetalles().indexOf(detalleActual);
+                if(indicedetalle!=-1)
+                {
+                    tareaConCotizacion.getDetalles().remove(indicedetalle);
+                    tareaConCotizacion.getDetalles().add(indicedetalle, detalleActual);
+                }
+                else
+                {
+                    tareaConCotizacion.addDetalle(detalleActual);
+                }
+        }
+        else
+        {
+            //Detalles viejos
+            detalleCotizacion.setCantHorasNormales(detalleCotizacion.getCantHorasNormales() - cantHorasNormales);
+            detalleCotizacion.setCantHorasAl50(detalleCotizacion.getCantHorasAl50()-cantHorasAl50);
+            detalleCotizacion.setCantHorasAl100(detalleCotizacion.getCantHorasAl100()-cantHorasAl100);
+            if(detalleCotizacion.getCantHorasNormales()<0.0)
+            {detalleCotizacion.setCantHorasNormales(0.0);}
+            if(detalleCotizacion.getCantHorasAl50()<0.0)
+            {detalleCotizacion.setCantHorasAl50(0.0);}
+            if(detalleCotizacion.getCantHorasAl100()<0.0)
+            {detalleCotizacion.setCantHorasAl100(0.0);} 
+            
+            detalleActual.setCantHorasNormales(detalleActual.getCantHorasNormales() - cantHorasNormales);
+            detalleActual.setCantHorasAl50(detalleActual.getCantHorasAl50()-cantHorasAl50);
+            detalleActual.setCantHorasAl100(detalleActual.getCantHorasAl100()-cantHorasAl100);
+            if(detalleActual.getCantHorasNormales()<0.0)
+            {detalleActual.setCantHorasNormales(0.0);}
+            if(detalleActual.getCantHorasAl50()<0.0)
+            {detalleActual.setCantHorasAl50(0.0);}
+            if(detalleActual.getCantHorasAl100()<0.0)
+            {detalleActual.setCantHorasAl100(0.0);}
+            
+            
+            //Detalle nuevo
             detalleCotizacion =new DetalleSubObraXTareaModif();
             tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
+            
+            DetalleTareaPlanificacion nuevoDetalleActual=new DetalleTareaPlanificacion(detalleActual);
+            nuevoDetalleActual.setCotizado(detalleCotizacion);
+            int indicedetalle=tareaConCotizacion.getDetalles().indexOf(detalleActual);
+                if(indicedetalle!=-1)
+                {
+                   tareaConCotizacion.getDetalles().add(indicedetalle, nuevoDetalleActual);
+                }
+                else
+                {
+                    tareaConCotizacion.addDetalle(nuevoDetalleActual);
+                }
+                detalleActual=nuevoDetalleActual;                
         }
+        
         
         detalleCotizacion.setCantidadPersonas(cantidadPersonas);
         detalleCotizacion.setEspecialidad(especialidad);                
@@ -901,25 +1013,13 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         detalleCotizacion.setCantHorasNormales(cantHorasNormales);
         detalleCotizacion.setCantHorasAl50(cantHorasAl50);
         detalleCotizacion.setCantHorasAl100(cantHorasAl100); 
-        
+
         detalleActual.setCantHorasNormales(cantHorasNormales);
         detalleActual.setCantHorasAl50(cantHorasAl50);
         detalleActual.setCantHorasAl100(cantHorasAl100);
         detalleActual.setCostoXHoraNormal(costoXHoraNormal);
         detalleActual.setCantidadPersonas(cantidadPersonas);
         detalleActual.setEspecialidad(especialidad);
-        
-        int indicedetalle=tareaConCotizacion.getDetalles().indexOf(detalleActual);
-            if(indicedetalle!=-1)
-            {
-                tareaConCotizacion.getDetalles().remove(indicedetalle);
-                tareaConCotizacion.getDetalles().add(indicedetalle, detalleActual);
-            }
-            else
-            {
-               tareaConCotizacion.addDetalle(detalleActual);
-            }
-        
         
     }
      //////////////////////////////////////////

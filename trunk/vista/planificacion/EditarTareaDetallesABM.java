@@ -57,6 +57,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     double hs50EnTareaCotizadaModif;
     double costoEnTareaCotizadaModif;
     
+    int cantPersonasAsignadas;
     int cantPersonas;
     double cantHsNormales;
     double cantHs100;
@@ -1085,13 +1086,14 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     {
         if(!tareaHijaDePlanificacion)
         {
-            disponiblesPersonasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonas();
+            if(gestor.getCopiaDetallePadre()!=null)
+            {disponiblesPersonasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonas();
             disponiblesPersonasAsignadasEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantidadPersonasAsignadas();
             disponiblesHsNormalesEnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasNormales();
             disponiblesHs50EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl50();
             disponiblesHs100EnDetalleSuperior=gestor.getCopiaDetallePadre().getCantHorasAl100();
             especialidadDetalleTPadreDisponibles=gestor.getCopiaDetallePadre().getEspecialidad().getTipo().getNombre().toString()+"-"+gestor.getCopiaDetallePadre().getEspecialidad().getRango().getNombre().toString();
-            costoEnDetalleSuperior=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
+            costoEnDetalleSuperior=gestor.getCopiaDetallePadre().getCostoXHoraNormal();}
         
         
             if(gestor.getCopiaDetallePadre_nvo()!=null)
@@ -1299,6 +1301,13 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             if(mostrarErrores)
             {JOptionPane.showMessageDialog(this.getParent(), "Debe seleccionar un rango de especialidad", "Error",JOptionPane.ERROR_MESSAGE);
             txtCosto.requestFocusInWindow();}
+            return false;          
+        }
+        if (cantPersonas<cantPersonasAsignadas) 
+        {
+            if(mostrarErrores)
+            {JOptionPane.showMessageDialog(this.getParent(), "La cantidad de personas asignadas no puede ser mayor a la cantidad de personas en el detalle", "Error",JOptionPane.ERROR_MESSAGE);
+            spnPersonas.requestFocusInWindow();}
             return false;          
         }
         return true;

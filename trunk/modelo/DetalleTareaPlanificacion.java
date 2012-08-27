@@ -22,7 +22,7 @@ public class DetalleTareaPlanificacion {
     private double cantHorasAl100;
     private double costoXHoraNormal;
     private Especialidad especialidad;
-    private int contHijos;
+    private int cantidadHijos;
     
     
     /**
@@ -43,8 +43,19 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=cotizado.getCostoXHoraNormal();
         this.especialidad=cotizado.getEspecialidad();
         empleados=new ArrayList<Empleado>();
-        contHijos=0;
+        cantidadHijos=0;
         
+    }
+    
+    public int getCantidadHijos()
+    {
+        return cantidadHijos;
+    }
+    
+    @Deprecated
+    public void setCantidadHijos(int cant)
+    {
+        this.cantidadHijos=cant;
     }
     
      /*public DetalleTareaPlanificacion(DetalleTareaPlanificacion padre)
@@ -56,7 +67,7 @@ public class DetalleTareaPlanificacion {
     public DetalleTareaPlanificacion(DetalleTareaPlanificacion aCopiar)
     {
         this.cotizado=aCopiar.cotizado;
-        this.padre= aCopiar.padre;
+        this.setearPadre(aCopiar.padre);
         this.cantidadPersonas=aCopiar.getCantidadPersonas();
         this.cantHorasNormales=aCopiar.getCantHorasNormales();
         this.cantHorasAl50=aCopiar.getCantHorasAl50();
@@ -64,7 +75,7 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=aCopiar.getCostoXHoraNormal();
         this.especialidad=aCopiar.getEspecialidad();
         empleados=new ArrayList<Empleado>();
-        contHijos=0;
+        cantidadHijos=0;
         
     }
      
@@ -79,6 +90,7 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=0.0;
         this.especialidad=null;
         empleados=new ArrayList<Empleado>();
+        cantidadHijos=0;
     }
 
     /**
@@ -105,9 +117,27 @@ public class DetalleTareaPlanificacion {
     /**
      * @param padre the padre to set
      */
+    public void setearPadre(DetalleTareaPlanificacion padre) {
+        if(this.padre!=null)
+        {
+            this.padre.cantidadHijos--;
+            /*if(this.padre.cantidadHijos<0)
+            {
+                throw new Exception("Cantidad de detalles hijos en detalle padre es negativa");
+            }*/
+                
+        }
+        
+        this.padre=padre;
+        if(this.padre!=null)
+        {this.padre.cantidadHijos++;}
+    }
+    
+    @Deprecated
     public void setPadre(DetalleTareaPlanificacion padre) {
         this.padre=padre;
     }
+        
 
     /**
      * @return the empleado
