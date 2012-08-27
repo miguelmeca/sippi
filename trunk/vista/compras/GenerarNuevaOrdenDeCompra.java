@@ -522,7 +522,7 @@ public class GenerarNuevaOrdenDeCompra extends javax.swing.JInternalFrame implem
         if(this.ordenDeCompraCargada!=null && this.ordenDeCompraCargada.getId()!=0)
         {
             // Si ya esta emitida, muestro de una
-            if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()))
+            if(OrdenDeCompra.ESTADO_EMITIDA.equals(this.ordenDeCompraCargada.getEstado()) || OrdenDeCompra.ESTADO_ANULADA.equals(this.ordenDeCompraCargada.getEstado()))
             {
                 emitirOrdenDeCompra();
                 return;
