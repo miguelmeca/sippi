@@ -127,7 +127,7 @@ public class ResumenPlanificacion extends ReportDesigner{
         String unidad= "";
         
         // Mano de Obra
-        Iterator<DetalleTareaPlanificacion> itDetalles = tarea.getDetalles().iterator();
+        Iterator<DetalleTareaPlanificacion> itDetalles = tarea.getDetallesSinDetallesVacios().iterator();
         while(itDetalles.hasNext())
         {
             DetalleTareaPlanificacion detalle = itDetalles.next();

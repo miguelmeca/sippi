@@ -445,7 +445,7 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
     private void llenarTablaTareaSuperior(TareaPlanificacion tareaSuperior)
     {       
        habilitarDespuesDeClickEnComboTareas(true);
-       for (DetalleTareaPlanificacion detalle:tareaSuperior.getDetalles()) 
+       for (DetalleTareaPlanificacion detalle:tareaSuperior.getDetallesSinDetallesVacios()) 
        {
             agregarDetalleTareaATabla(detalle);
        }       

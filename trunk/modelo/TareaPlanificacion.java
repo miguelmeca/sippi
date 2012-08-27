@@ -597,6 +597,19 @@ public class TareaPlanificacion
         
         return detalles;
     }
+    
+    public List<DetalleTareaPlanificacion> getDetallesSinDetallesVacios() {
+        List<DetalleTareaPlanificacion> sinVacios=new ArrayList<DetalleTareaPlanificacion>();
+        for (int i = 0; i < detalles.size(); i++) {
+            DetalleTareaPlanificacion detalle= detalles.get(i);
+            if(!(detalle.getCantHorasNormales()==0.0 && detalle.getCantHorasAl50()==0.0 && detalle.getCantHorasAl100()==0.0))
+            {
+                sinVacios.add(detalle);
+            }
+        }
+        
+        return sinVacios;
+    }
 
     
     public void setDetalles(List<DetalleTareaPlanificacion> detalles) {
