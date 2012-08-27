@@ -48,7 +48,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="228" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="204" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="chkSeleccionarTodos" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -64,7 +64,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Desde aqu&#xed;, facilmente puede actualizar los niveles de stock de los recursos que recibi&#xf3; y que haz ordenado. Por avor revise los cambios en los niveles de las existencias y seleccione solo los que realmente desee actualizar."/>
+        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Desde aqu&#xed;, f&#xe1;cilmente puede actualizar los niveles de stock de los recursos que recibi&#xf3; y que ha ordenado. Por favor revise los cambios en los niveles de las existencias y seleccione solo los que realmente desee actualizar."/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -102,7 +102,7 @@
     <Component class="javax.swing.JButton" name="btnAceptar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/iconos/var/16x16/accept.png"/>
+          <Image iconType="3" name="/res/iconos/var/16x16/fullscreen.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Ajustar el Stock"/>
       </Properties>
