@@ -35,11 +35,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAnular" min="-2" pref="83" max="-2" attributes="0"/>
+                      <Component id="btnEmitir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnRegistrarRecepcion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnEmitir" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAnular" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -246,10 +246,13 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Detalle de la Orden de Compra (Ingrese la Cantidad Recibida)"/>
+            <TitledBorder title="Detalle de la Orden de Compra"/>
           </Border>
         </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Detalle de la Orden de Compra"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -269,7 +272,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="240" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="244" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -363,6 +366,7 @@
           <Image iconType="3" name="/res/iconos/var/16x16/new_page.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Registrar Recepci&#xf3;n"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarRecepcionActionPerformed"/>
@@ -396,6 +400,7 @@
           <Image iconType="3" name="/res/iconos/var/16x16/delete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Anular"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnularActionPerformed"/>
