@@ -50,5 +50,10 @@ public class ListadoHerramientas  extends PantallaConsultarGenerica {
         win.setVisible(true);
     }
     
+    @Override
+    protected String getNombreVentana() {
+        return "Listado: Herramientas";
+    }
+        
     
 }
