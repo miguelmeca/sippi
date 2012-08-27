@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import modelo.*;
-import util.FechaUtil;
 import util.HibernateUtil;
 import util.TablaUtil;
 import util.Tupla;
@@ -72,7 +71,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Actualizar los Niveles de Stock");
 
-        jLabel2.setText("<HTML>Desde aquí, facilmente puede actualizar los niveles de stock de los recursos que recibió y que haz ordenado. Por avor revise los cambios en los niveles de las existencias y seleccione solo los que realmente desee actualizar.");
+        jLabel2.setText("<HTML>Desde aquí, fácilmente puede actualizar los niveles de stock de los recursos que recibió y que ha ordenado. Por favor revise los cambios en los niveles de las existencias y seleccione solo los que realmente desee actualizar.");
 
         tblAjuste.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,7 +111,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/fullscreen.png"))); // NOI18N
         btnAceptar.setText("Ajustar el Stock");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +149,7 @@ public class AjustarNivelesDeStock extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chkSeleccionarTodos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
