@@ -49,6 +49,11 @@ public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
         PantallaGestionarRecursos win = new PantallaGestionarRecursos(Material.class,id);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
-    }    
+    }
+
+    @Override
+    protected String getNombreVentana() {
+        return "Listado: Recursos de la Empresa";
+    }
     
 }
