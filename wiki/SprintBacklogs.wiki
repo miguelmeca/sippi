@@ -12,3 +12,5 @@ Listado de los backlogs separados por sprints:
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label:Iteracion-6%20label:Sprint-1&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles Iteración 6 - Sprint 1]
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3AIteracion-6+label%3ASprint-1+label%3ADiferido&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimación+Progreso&cells=tiles Iteración 6 - Sprint 1 - Planificacion]
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3AIteracion-6+label%3ASprint-1+-label%3ADiferido&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&mode=grid&cells=tiles Iteración 6 - Sprint 1 - Compras]
+
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=label:Iteracion-7%20label:Sprint-1&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles Iteración 7 - Sprint 1 - Lanzamiento]
