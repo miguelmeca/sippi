@@ -5,27 +5,20 @@
 package vista.compras;
 
 import com.itextpdf.text.DocumentException;
-import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import modelo.*;
-import sun.swing.SwingUtilities2;
 import util.*;
-import vista.comer.pantallaListadoProveedores;
 import vista.interfaces.ICallBackGen;
 import vista.reportes.ReportDesigner;
-import vista.reportes.sources.EmitirOrdenDeCompra;
 import vista.reportes.sources.EmitirRecepcionOrdenDeCompra;
 
 /**
@@ -34,7 +27,7 @@ import vista.reportes.sources.EmitirRecepcionOrdenDeCompra;
  */
 public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame implements ICallBackGen {
 
-    public static final String CALLBACK_SELECCION_ORDENDECOMPRA = "SelecciÃƒÂ³nOrdenDeCompra";
+    public static final String CALLBACK_SELECCION_ORDENDECOMPRA = "SeleccionOrdenDeCompra";
     
     private OrdenDeCompra ordenDeCompra;
     
@@ -45,6 +38,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         initComponents();
         initCellListener();
         initAnchoColumnasTablaDetalles();
+        initTablaRecepcion();
     }
 
     /**
@@ -55,6 +49,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         initAnchoColumnasTablaDetalles();
         initCellListener();
         cargarOrdenDeCompra(idOrdenDeCompra);
+        initTablaRecepcion();
     }    
     
     /**
@@ -847,5 +842,9 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         } catch (FileNotFoundException ex) {
             mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
         }
+    }
+
+    private void initTablaRecepcion() {
+        tblDetalle.setDefaultRenderer(Object.class, new RegistrarRecepcionDeRecursosCellRenderer());
     }
 }
