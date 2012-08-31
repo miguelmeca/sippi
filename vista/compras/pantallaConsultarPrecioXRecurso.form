@@ -203,20 +203,14 @@
                 <Component class="javax.swing.JTable" name="tablaProveedores">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="1">
+                      <Table columnCount="1" rowCount="1">
                         <Column editable="false" title="Proveedor" type="java.lang.Object"/>
-                        <Column editable="false" title="Confianza" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="0"/>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="202" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="270" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -270,7 +264,7 @@
                       <Table columnCount="3" rowCount="1">
                         <Column editable="false" title="Cantidad" type="java.lang.Object"/>
                         <Column editable="false" title="Precio" type="java.lang.Object"/>
-                        <Column editable="false" title="Vigencia hasta" type="java.lang.Object"/>
+                        <Column editable="false" title="Actualizado" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
@@ -313,6 +307,8 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -320,7 +316,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -336,6 +335,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnCancelar">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/iconos/var/16x16/delete.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Cancelar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

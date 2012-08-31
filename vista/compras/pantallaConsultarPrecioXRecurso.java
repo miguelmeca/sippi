@@ -10,14 +10,20 @@
  */
 
 package vista.compras;
-import vista.interfaces.ICallBack;
 import controlador.Compras.GestorConsultarPrecioXRecurso;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
-import vista.interfaces.IAyuda;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import util.Tupla;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import modelo.*;
+import util.HibernateUtil;
 import util.NTupla;
+import util.Tupla;
+import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
 
 /**
  *
@@ -31,14 +37,90 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
         gestor = new GestorConsultarPrecioXRecurso(this);
         initComponents();
         habilitarVentana();
-
-
     }
+
+    public pantallaConsultarPrecioXRecurso(ItemComprable itemComprable, Proveedor proveedor) {
+        gestor = new GestorConsultarPrecioXRecurso(this);
+        initComponents();
+        habilitarVentana();
+        Object item = itemComprable.getItem();
+        try
+        {
+            HibernateUtil.beginTransaction();
+            if(item instanceof RecursoEspecifico)
+            {
+                RecursoEspecifico recursoEsp = (RecursoEspecifico) item;
+                Recurso recurso = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso AS r WHERE :re in elements(r.recursos)").setParameter("re", recursoEsp).uniqueResult();
+                Tupla tRecurso = null;
+                if(recurso instanceof Herramienta)
+                {
+                    Herramienta herramienta = (Herramienta) recurso;
+                    cmbTiposRecurso.setSelectedIndex(1);
+                    tRecurso = new Tupla(herramienta.getId(),herramienta.getNombre());
+                }
+                
+                if(recurso instanceof Material)
+                {
+                    Material material = (Material) recurso;
+                    cmbTiposRecurso.setSelectedIndex(0);
+                    tRecurso = new Tupla(material.getId(),material.getNombre());
+                }
+                seleccionarItemComboBox(tRecurso.getId(),cmbRecursos);
+                Tupla tRecursoEspecifico = new Tupla(recursoEsp.getId(),recursoEsp.getNombre());
+                seleccionarItemComboBox(tRecursoEspecifico.getId(), cmbRecursosEspecificos);
+                
+            }
+            else if (item instanceof TipoAlquilerCompra)
+            {
+                TipoAlquilerCompra tipoAC = (TipoAlquilerCompra) item;
+                cmbTiposRecurso.setSelectedIndex(2);
+                seleccionarItemComboBox(tipoAC.getId(), cmbRecursos);
+            }
+            else if(item instanceof TipoAdicional)
+            {
+                TipoAdicional tipoAdi = (TipoAdicional) item;
+                cmbTiposRecurso.setSelectedIndex(3);
+                seleccionarItemComboBox(tipoAdi.getId(), cmbRecursos);
+            }
+            seleccionarItemTable(proveedor.getId(), tablaProveedores);
+            mostrarPrecios();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+    
+    private void seleccionarItemComboBox(int id, JComboBox cb)
+    {
+        DefaultComboBoxModel cmb = (DefaultComboBoxModel)cb.getModel();
+        for(int i=0; i<cmb.getSize();i++)
+        {
+            Tupla tupla = (Tupla)cmb.getElementAt(i);
+            if(tupla.getId() == id)
+            {
+                cb.setSelectedIndex(i);
+                
+            }
+        }
+    }
+    
+    private void seleccionarItemTable(int id, JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            Tupla tupla = (Tupla) dtm.getValueAt(i, 0);
+            if (tupla.getId() == id) {
+                table.setRowSelectionInterval(i, i);
+
+            }
+        }
+    }
+    
     public void habilitarVentana()
     {
         mostrarTipoRecurso();
-
-}
+    }
     /** Creates new form pantallaConsultar */
     private void mostrarTipoRecurso()
     {
@@ -65,31 +147,27 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
 
     }
 
-    private void mostrarRecursos()
-    {
-        
-       if(cmbTiposRecurso.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+    private void mostrarRecursos() {
 
-        Tupla t = (Tupla) cmbTiposRecurso.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarRecursos(t.getId());
-        for (Tupla nombre : lista)
-        {
-            valores.addElement(nombre);
-        }
+        if (cmbTiposRecurso.getSelectedIndex() != -1) {
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        cmbRecursos.setModel(valores);
-        cmbRecursos.setSelectedIndex(-1);
-        cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
-        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
-        modeloTablaPro.setRowCount(0);
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        cmbRecursos.setEnabled(true);
-        cmbRecursosEspecificos.setEnabled(false);
-        tablaProveedores.setEnabled(false);
+            Tupla t = (Tupla) cmbTiposRecurso.getSelectedItem();
+            ArrayList<Tupla> lista = gestor.mostrarRecursos(t.getId());
+            for (Tupla nombre : lista) {
+                valores.addElement(nombre);
+            }
 
+            cmbRecursos.setModel(valores);
+            cmbRecursos.setSelectedIndex(-1);
+            cmbRecursosEspecificos.setModel(new DefaultComboBoxModel());
+            DefaultTableModel modeloTablaPro = (DefaultTableModel) tablaProveedores.getModel();
+            modeloTablaPro.setRowCount(0);
+            DefaultTableModel modeloTablaPre = (DefaultTableModel) tablaPrecios.getModel();
+            modeloTablaPre.setRowCount(0);
+            cmbRecursos.setEnabled(true);
+            cmbRecursosEspecificos.setEnabled(false);
+            tablaProveedores.setEnabled(false);
         }
     }
 
@@ -97,46 +175,74 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
     {
         
         if(cmbRecursos.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
-
-        Tupla t = (Tupla) cmbRecursos.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos(t.getId());
-        for (Tupla nombre : lista)
         {
-            valores.addElement(nombre);
-        }
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        cmbRecursosEspecificos.setModel(valores);
-        cmbRecursosEspecificos.setSelectedIndex(-1);
-        DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
-        modeloTablaPro.setRowCount(0);
-        DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
-        modeloTablaPre.setRowCount(0);
-        cmbRecursos.setEnabled(true);
-        cmbRecursosEspecificos.setEnabled(true);
-        tablaProveedores.setEnabled(false);
+            Tupla tRubro = (Tupla) cmbTiposRecurso.getSelectedItem();
+            Tupla t = (Tupla) cmbRecursos.getSelectedItem();
+            
+            if(tRubro.getId()< 2) // Sólo Materiales y Herramientas
+            {
+                ArrayList<Tupla> lista = gestor.mostrarRecursosEspecificos(t.getId());
+                for (Tupla nombre : lista)
+                {
+                    valores.addElement(nombre);
+                }
+
+                cmbRecursosEspecificos.setModel(valores);
+                cmbRecursosEspecificos.setSelectedIndex(-1);
+                DefaultTableModel modeloTablaPro=(DefaultTableModel)tablaProveedores.getModel();
+                modeloTablaPro.setRowCount(0);
+                DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
+                modeloTablaPre.setRowCount(0);
+                cmbRecursos.setEnabled(true);
+                cmbRecursosEspecificos.setEnabled(true);
+                tablaProveedores.setEnabled(false);
+            }
+            else
+            {
+                mostrarProveedores();
+            }
 
         }
 
     }
     
+    /**
+     * Método que se encarga de cargar los proveedores en el caso de que:
+     * - Si seleccionaste como tipo de recurso "Material" o "Herramienta" y hayas seleccionado un recurso específico
+     * - SI seleccionaste "Alquileres y Compras" o "Adicionales" y hayas tan solo seleccionado el recurso.
+     */
     private void mostrarProveedores()
     {
        
         if(cmbRecursosEspecificos.getSelectedIndex()!=-1)
        {
-
+            Tupla t = (Tupla) cmbRecursosEspecificos.getSelectedItem() ;
+            List<NTupla> lista = gestor.mostrarProveedores(t.getId()); // Para el caso de Materiales y Herramientas
+            mostrarProveedores(lista);
+        }
+        else
+        {
+            Tupla tRubro = (Tupla) cmbTiposRecurso.getSelectedItem();
+            if(tRubro.getId() > 1)
+            {
+                List<NTupla> lista = gestor.mostrarProveedores(tRubro.getNombre()); // Para el caso de Alquileres/Compras y Adicionales
+                mostrarProveedores(lista);
+            }
+        }
+    }
+    
+    /**
+     * Sobre carga del método mostrarProveedores(). Permite mostrar los proveedores en base a una lista que se
+     * pasa por parámetros
+     * @param listaProveedores 
+     */
+    public void mostrarProveedores(List<NTupla> listaProveedores)
+    {
         DefaultTableModel valores = (DefaultTableModel)tablaProveedores.getModel();
         valores.setRowCount(0);
-        /*int fil=valores.getRowCount();
-        for (int i = 0; i < fil; i++) {
-            valores.removeRow(0);
-        }*/
-        Tupla t = (Tupla) cmbRecursosEspecificos.getSelectedItem() ;
-        ArrayList<NTupla> lista = gestor.mostrarProveedores(t.getId());
-
-        for (NTupla nTuplaP : lista)
+        for (NTupla nTuplaP : listaProveedores)
         {
             //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
             double conf=(Double)nTuplaP.getData();
@@ -155,42 +261,44 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
         DefaultTableModel modeloTablaPre=(DefaultTableModel)tablaPrecios.getModel();
         modeloTablaPre.setRowCount(0);
         tablaProveedores.setEnabled(true);
-        }
-
-
     }
 
     private void mostrarPrecios()
     {
-        if(tablaProveedores.getSelectedRow()!=-1 && cmbRecursosEspecificos.getSelectedIndex()!=-1)
+       DefaultTableModel valores = (DefaultTableModel)tablaPrecios.getModel();
+       valores.setRowCount(0);
+       if(tablaProveedores.getSelectedRow()!=-1 && cmbRecursosEspecificos.getSelectedIndex()!=-1)
        {
+            int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
+            int idRE= ((Tupla) cmbRecursosEspecificos.getSelectedItem()).getId();
+            ArrayList<NTupla> lista = gestor.mostrarPrecios(idProv, idRE);
 
-        DefaultTableModel valores = (DefaultTableModel)tablaPrecios.getModel();
-        valores.setRowCount(0);
-        /*int fil=valores.getRowCount();
-        for (int i = 0; i < fil; i++) {
-            valores.removeRow(0);
-        }*/
-        int idProv=((Tupla)(tablaProveedores.getModel().getValueAt(tablaProveedores.getSelectedRow(), 0))).getId();
-        int idRE= ((Tupla) cmbRecursosEspecificos.getSelectedItem()).getId();
-        ArrayList<NTupla> lista = gestor.mostrarPrecios(idProv, idRE);
+            for (NTupla nTuplaP : lista)
+            {
 
-        for (NTupla nTuplaP : lista)
-        {
-           
-            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
-            Object[] obj=new Object[((Object[])nTuplaP.getData()).length+1];
-            //obj[0]=nTuplaEmpleado.getId();
-            Tupla tup=new Tupla();
-            tup.setId(nTuplaP.getId());
-            tup.setNombre(nTuplaP.getNombre());
-            obj[0]=tup;
+                //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+                Object[] obj=new Object[((Object[])nTuplaP.getData()).length+1];
+                //obj[0]=nTuplaEmpleado.getId();
+                Tupla tup=new Tupla();
+                tup.setId(nTuplaP.getId());
+                tup.setNombre(nTuplaP.getNombre());
+                obj[0]=tup;
 
-            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
-            System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
-            valores.addRow( obj );
+                //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+                System.arraycopy((Object[]) nTuplaP.getData(), 0, obj, 1, ((Object[]) nTuplaP.getData()).length);
+                valores.addRow( obj );
+            } 
         }
-        
+       else // Alquileres/Compra y Adicionales
+        { 
+            Tupla tRubro = (Tupla) cmbTiposRecurso.getSelectedItem();
+            if(tablaProveedores.getSelectedRow()!=-1 && tRubro.getId() > 1)
+            {
+                if(tRubro.getId() > 1)
+                {
+                    JOptionPane.showInternalMessageDialog(this, "No se encuentran precios registrados para este recurso" , "Precio no encontrado", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
 
     }
@@ -220,6 +328,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
         tablaPrecios = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -290,14 +399,14 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
 
         tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+                {null}
             },
             new String [] {
-                "Proveedor", "Confianza"
+                "Proveedor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -311,7 +420,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
             }
         });
         jScrollPane3.setViewportView(tablaProveedores);
-        tablaProveedores.getColumnModel().getColumn(0).setPreferredWidth(202);
+        tablaProveedores.getColumnModel().getColumn(0).setPreferredWidth(270);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -331,7 +440,7 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
                 {null, null, null}
             },
             new String [] {
-                "Cantidad", "Precio", "Vigencia hasta"
+                "Cantidad", "Precio", "Actualizado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -369,6 +478,14 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -376,13 +493,17 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -455,8 +576,13 @@ public class pantallaConsultarPrecioXRecurso extends javax.swing.JInternalFrame 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox cmbRecursos;
     private javax.swing.JComboBox cmbRecursosEspecificos;
     private javax.swing.JComboBox cmbTiposRecurso;

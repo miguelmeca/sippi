@@ -106,6 +106,8 @@ public class ItemComprable {
     }
 
     public Object getItem() {
+        if(item == null)
+            {loadItem();}
         return item;
     }
     
