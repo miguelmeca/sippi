@@ -249,10 +249,15 @@ public class GenerarNuevaOrdenDeCompraAgregarRecurso extends javax.swing.JIntern
     }//GEN-LAST:event_btnExplorarItemsActionPerformed
 
     private void btnConsultarPreciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPreciosActionPerformed
-        // TODO: Hacer que esta pantalla ya este cargada con recurso y proveedor
-        pantallaConsultarPrecioXRecurso win = new pantallaConsultarPrecioXRecurso(itemSeleccionado, this.proveedor);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true); 
+        if(this.itemSeleccionado!=null && this.proveedor!=null){
+            pantallaConsultarPrecioXRecurso win = new pantallaConsultarPrecioXRecurso(itemSeleccionado, this.proveedor);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true); 
+        }else{
+            pantallaConsultarPrecioXRecurso win = new pantallaConsultarPrecioXRecurso();
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
     }//GEN-LAST:event_btnConsultarPreciosActionPerformed
 
     private void cmbConceptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbConceptoActionPerformed

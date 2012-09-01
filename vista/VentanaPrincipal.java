@@ -39,6 +39,7 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.*;
 import vista.cotizacion.ListadoCotizaciones;
+import vista.ejecucion.lanzamiento.VentanaLanzamiento;
 import vista.gen.FactoryABM;
 import vista.gen.PantallaABMGenerica;
 import vista.planificacion.EditarPlanificacion;
@@ -166,6 +167,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem19 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -339,6 +341,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Favourites.png"))); // NOI18N
         jMenu3.setText("Prototipos");
+
+        jMenuItem20.setText("Lanzamiento");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem20);
 
         jMenuItem4.setText("Registrar Empleado");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -832,6 +842,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);         
     }//GEN-LAST:event_btnMnuObrasActionPerformed
 
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        VentanaLanzamiento win = new VentanaLanzamiento(1);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);   
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -865,6 +881,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
