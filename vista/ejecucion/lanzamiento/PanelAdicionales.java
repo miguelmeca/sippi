@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vista.ejecucion.lanzamiento;
 
 import javax.swing.JComboBox;
@@ -8,21 +12,21 @@ import vista.util.MyComboBoxEditor;
 
 /**
  *
- * @author Iuga
+ * @author Administrador
  */
-public class PanelHerramientas extends javax.swing.JPanel {
+public class PanelAdicionales extends javax.swing.JPanel {
 
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_NOTAS = 1;
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_ESTADO = 2;
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_SELECCION = 3;
+    public static final int TABLA_ALQCOMPRA_COLUMNA_NOMBRE = 0;
+    public static final int TABLA_ALQCOMPRA_COLUMNA_CANTIDAD = 1;
+    public static final int TABLA_ALQCOMPRA_COLUMNA_ESTADO = 2;
+    public static final int TABLA_ALQCOMPRA_COLUMNA_SELECCION = 3;
     
-    private static final int TABLA_DEFAULT_ALTO = 25;    
+    private static final int TABLA_DEFAULT_ALTO = 25;        
     
     /**
-     * Creates new form PanelHerramientas
+     * Creates new form PanelAlquileresCompras
      */
-    public PanelHerramientas() {
+    public PanelAdicionales() {
         initComponents();
         initTabla();
         mock();
@@ -37,19 +41,16 @@ public class PanelHerramientas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHerramientas = new javax.swing.JTable();
-        btnGenerarOrdenDeCompra = new javax.swing.JButton();
+        tblAlquilerCompra = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
-        jLabel1.setText("jLabel1");
-
-        tblHerramientas.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlquilerCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Notas", "Estado", ""
+                "Nombre y Descripcion", "Monto", "Estado", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -67,64 +68,61 @@ public class PanelHerramientas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblHerramientas);
+        jScrollPane1.setViewportView(tblAlquilerCompra);
 
-        btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnGenerarOrdenDeCompra.setText("Generar Orden de Compra");
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btnGenerarOrdenDeCompra)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarOrdenDeCompra))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerarOrdenDeCompra;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblHerramientas;
+    private javax.swing.JTable tblAlquilerCompra;
     // End of variables declaration//GEN-END:variables
 
     private void initTabla() {
-        tblHerramientas.setRowHeight(TABLA_DEFAULT_ALTO);
-        DefaultTableModel modelo = (DefaultTableModel) tblHerramientas.getModel();
+        tblAlquilerCompra.setRowHeight(TABLA_DEFAULT_ALTO);
+        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
 
-        TableColumn col = tblHerramientas.getColumnModel().getColumn(TABLA_HERRAMIENTAS_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#009900'>Disponible</span>", 
-                                       "<HTML><span color='#CC7A00'>En Reparación</span>", 
-                                       "<HTML><span color='#CC0000'>No Disponible</span>"};
+        TableColumn col = tblAlquilerCompra.getColumnModel().getColumn(TABLA_ALQCOMPRA_COLUMNA_ESTADO);
+        String[] values = new String[]{"<HTML><span color='#009900'>Abonado</span>", 
+                                       "<HTML><span color='#CC7A00'>En Espera...</span>", 
+                                       "<HTML><span color='#CC0000'>Sin Abonar</span>"};
         col.setCellEditor(new MyComboBoxEditor(values));
         col.setCellRenderer(new PanelHerramientasCellRenderer(values));
 
         // Ancho de Columnas
         int anchoColumna = 0;
-        TableColumnModel modeloColumna = tblHerramientas.getColumnModel();
+        TableColumnModel modeloColumna = tblAlquilerCompra.getColumnModel();
         TableColumn columnaTabla;
-        for (int i = 0; i < tblHerramientas.getColumnCount(); i++) {
+        for (int i = 0; i < tblAlquilerCompra.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
-                case TABLA_HERRAMIENTAS_COLUMNA_ESTADO:
+                case TABLA_ALQCOMPRA_COLUMNA_ESTADO:
                     anchoColumna = 300;
                     break;
-                case TABLA_HERRAMIENTAS_COLUMNA_NOMBRE:
+                case TABLA_ALQCOMPRA_COLUMNA_NOMBRE:
                     anchoColumna = 500;
                     break;
-                case TABLA_HERRAMIENTAS_COLUMNA_NOTAS:
-                    anchoColumna = 500;
+                case TABLA_ALQCOMPRA_COLUMNA_CANTIDAD:
+                    anchoColumna = 150;
                     break;
-                case TABLA_HERRAMIENTAS_COLUMNA_SELECCION:
+                case TABLA_ALQCOMPRA_COLUMNA_SELECCION:
                     anchoColumna = 50;
                     break;
             }
@@ -135,27 +133,20 @@ public class PanelHerramientas extends javax.swing.JPanel {
 
     private void mock() {
         // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblHerramientas.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
         
         Object row[] = new Object[4];
-        row[0] = "Autoelevadora Electrica";
-        row[1] = "<HTML><span color='#CC0000'>Herramienta Rota</span>";
+        row[0] = "Comida - 4 Empelados en la Fabrica";
+        row[1] = "$ 300";
         row[2] = new JComboBox();
         row[3] = false;
         modelo.addRow(row);
         
         Object row2[] = new Object[4];
-        row2[0] = "Fresaadora CNC";
-        row2[1] = "No está en la empresa";
+        row2[0] = "Hospedaje - 4 Empelados en Córdoba";
+        row2[1] = "$ 3250";
         row2[2] = new JComboBox();
         row2[3] = false;
         modelo.addRow(row2);
-        
-        Object row3[] = new Object[4];
-        row3[0] = "Torno Jhon Deer";
-        row3[1] = "";
-        row3[2] = new JComboBox();
-        row3[3] = false;
-        modelo.addRow(row3);
     }
 }
