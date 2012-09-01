@@ -21,8 +21,10 @@ public class PanelMateriales extends javax.swing.JPanel {
     public static final int TABLA_MATERIALES_COLUMNA_NECESARIOS = 1;
     public static final int TABLA_MATERIALES_COLUMNA_DISPONIBLES = 2;
     public static final int TABLA_MATERIALES_COLUMNA_ENSTOCK = 3;
-    public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 4;
-    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 5;
+    public static final int TABLA_MATERIALES_COLUMNA_ORDENCOMPRA = 4;
+    public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 5;
+    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 6;
+    
     private static final int TABLA_DEFAULT_ALTO = 25;
 
     /**
@@ -54,14 +56,14 @@ public class PanelMateriales extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Necesarios", "Disponibles", "Stock", "Estado", "S"
+                "Nombre", "Necesarios", "Disponibles", "Stock", "OC", "Estado", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -72,6 +74,7 @@ public class PanelMateriales extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblMateriales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblMateriales);
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
@@ -179,6 +182,9 @@ public class PanelMateriales extends javax.swing.JPanel {
                 case TABLA_MATERIALES_COLUMNA_SELECCION:
                     anchoColumna = 50;
                     break;
+                case TABLA_MATERIALES_COLUMNA_ORDENCOMPRA:
+                    anchoColumna = 50;
+                    break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
             columnaTabla.setWidth(anchoColumna);
@@ -188,16 +194,26 @@ public class PanelMateriales extends javax.swing.JPanel {
     private void mock() {
         // TODO REMOVE
         DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
-        Object row[] = new Object[6];
-
+        
+        Object row[] = new Object[7];
         row[0] = "Hierro en V 3mm";
         row[1] = "12";
         row[2] = "2";
         row[3] = "2";
-        row[4] = new JComboBox();
-        row[5] = false;
-
+        row[4] = false;
+        row[5] = new JComboBox();
+        row[6] = false;
         modelo.addRow(row);
+        
+        Object row2[] = new Object[7];
+        row2[0] = "Hierro del 8";
+        row2[1] = "50";
+        row2[2] = "0";
+        row2[3] = "0";
+        row2[4] = false;
+        row2[5] = new JComboBox();
+        row2[6] = false;
+        modelo.addRow(row2);        
     }
     
     /**

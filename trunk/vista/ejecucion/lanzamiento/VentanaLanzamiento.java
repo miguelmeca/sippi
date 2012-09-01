@@ -12,15 +12,22 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
 
     protected static final int OPTN_HERRAMIENTAS    = 0;
     protected static final int OPTN_MATERIALES      = 1;    
+    protected static final int OPTN_ALQUILERCOMPRA  = 2;    
+    protected static final int OPTN_RRHH            = 3;    
+    protected static final int OPTN_ADICIONALES     = 4;    
     
     private PanelHerramientas panelHerramientas;
     private PanelMateriales   panelMateriales;
+    private PanelAlquileresCompras panelAlquileresCompras;
+    private PanelRecursosHumanos panelRecursosHumanos;
+    private PanelAdicionales panelAdicionales;
     
     /**
      * Creates new form VentanaLanzamiento
      */
     public VentanaLanzamiento(int i) {
         initComponents();
+        clickMenuLateral();
     }
     
     /**
@@ -82,11 +89,11 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
@@ -114,15 +121,15 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardarCambios)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardarCambios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCerrar)))
+                        .addGap(0, 451, Short.MAX_VALUE)
+                        .addComponent(btnCerrar))
+                    .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -130,7 +137,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -143,10 +150,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
-
-        DefaultTableModel modelo = (DefaultTableModel) tblMenu.getModel();
-        clickMenuLateral(modelo);
-
+        clickMenuLateral();
     }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -169,7 +173,8 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
 
-    private void clickMenuLateral(DefaultTableModel modelo) {
+    private void clickMenuLateral() {
+        DefaultTableModel modelo = (DefaultTableModel) tblMenu.getModel();
         switch(tblMenu.getSelectedRow())
         {
             case OPTN_HERRAMIENTAS:
@@ -193,7 +198,36 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 this.panelMateriales.setVisible(true);  
                 this.updateUI();
                 break;
-
+            case OPTN_ALQUILERCOMPRA:
+                setNombrePanel(modelo.getValueAt(OPTN_ALQUILERCOMPRA,0).toString());
+                if(this.panelAlquileresCompras==null){
+                    this.panelAlquileresCompras =  new PanelAlquileresCompras();
+                }
+                pnlCentral.removeAll();
+                pnlCentral.add(this.panelAlquileresCompras, BorderLayout.CENTER);
+                this.panelAlquileresCompras.setVisible(true);  
+                this.updateUI();
+                break;
+            case OPTN_RRHH:
+                setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
+                if(this.panelRecursosHumanos==null){
+                    this.panelRecursosHumanos =  new PanelRecursosHumanos();
+                }
+                pnlCentral.removeAll();
+                pnlCentral.add(this.panelRecursosHumanos, BorderLayout.CENTER);
+                this.panelRecursosHumanos.setVisible(true);  
+                this.updateUI();
+                break;
+            case OPTN_ADICIONALES:
+                setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
+                if(this.panelAdicionales==null){
+                    this.panelAdicionales =  new PanelAdicionales();
+                }
+                pnlCentral.removeAll();
+                pnlCentral.add(this.panelAdicionales, BorderLayout.CENTER);
+                this.panelAdicionales.setVisible(true);  
+                this.updateUI();
+                break;
         } 
     }
     
