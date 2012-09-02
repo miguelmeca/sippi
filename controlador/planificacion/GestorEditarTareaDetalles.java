@@ -549,7 +549,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         {
             if(tareaHijaDePlanificacion ||  this.detalleNoCotizado)
             {
-                impactarDatosDetalleSinCotizacion(copiaCaminoTareas, cantidadPersonas, cantHorasNormales, cantHorasAl50, cantHorasAl100, costoXHoraNormal, especialidad, copiaTareaConCotizacion, copiaDetalleActual);
+                impactarDatosDetalleNoIncluidosEnCotizacion(copiaCaminoTareas, cantidadPersonas, cantHorasNormales, cantHorasAl50, cantHorasAl100, costoXHoraNormal, especialidad, copiaTareaConCotizacion, copiaDetalleActual);
             }
             else
             {
@@ -903,7 +903,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
        
     }
      
-     public void impactarDatosDetalleSinCotizacion(List<TareaPlanificacion> caminoDeTareas, int cantidadPersonas,double cantHorasNormales, double cantHorasAl50, double cantHorasAl100, double costoXHoraNormal, Especialidad especialidad, TareaPlanificacion tareaConCotizacion, DetalleTareaPlanificacion detalleActual) throws Exception
+     public void impactarDatosDetalleNoIncluidosEnCotizacion(List<TareaPlanificacion> caminoDeTareas, int cantidadPersonas,double cantHorasNormales, double cantHorasAl50, double cantHorasAl100, double costoXHoraNormal, Especialidad especialidad, TareaPlanificacion tareaConCotizacion, DetalleTareaPlanificacion detalleActual) throws Exception
     {
         if(especialidad==null)
         {
@@ -1064,7 +1064,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         {
             if(tareaHijaDePlanificacion ||  this.detalleNoCotizado)
             {
-                impactarDatosDetalleSinCotizacion(caminoTareas, cantPersonas, cantHsNormales, cantHs50, cantHs100, costoDetalle, especialidad, tareaConCotizacion, detalleActual);
+                impactarDatosDetalleNoIncluidosEnCotizacion(caminoTareas, cantPersonas, cantHsNormales, cantHs50, cantHs100, costoDetalle, especialidad, tareaConCotizacion, detalleActual);
             }
             else
             {

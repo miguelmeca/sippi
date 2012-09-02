@@ -158,6 +158,12 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
         ));
         jScrollPane1.setViewportView(jTable2);
 
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+
         tblDetalles.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         tblDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -423,6 +429,10 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
         SwingPanel.getInstance().addWindow(at);
        at.setVisible(true);
     }//GEN-LAST:event_btnAgregarDetalleNoCotizadoActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        inicializarVentana();
+    }//GEN-LAST:event_formFocusGained
     
     private void clickEnFilaTablaDetalles(java.awt.event.MouseEvent evt)
     {
