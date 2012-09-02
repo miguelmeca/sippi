@@ -29,6 +29,8 @@ public class TareaPlanificacion
     private SubObraXTareaModif tareaCotizada;    
     private List<DetalleTareaPlanificacion> detalles;
     
+    private transient TareaPlanificacion tareaCopia;
+    
 
     public TareaPlanificacion() {
         this.subtareas = new ArrayList<TareaPlanificacion>();
@@ -42,6 +44,9 @@ public class TareaPlanificacion
     }
     
     public TareaPlanificacion(TareaPlanificacion aCopiar) {
+        aCopiar.tareaCopia=this;
+        
+        
         this.nombre=aCopiar.nombre;
         this.tipoTarea=aCopiar.tipoTarea;
         this.observaciones=aCopiar.observaciones;
@@ -59,7 +64,9 @@ public class TareaPlanificacion
         
         for (int i = 0; i < aCopiar.getDetalles().size(); i++) 
         {
+           
            DetalleTareaPlanificacion detalleNuevaTarea=new DetalleTareaPlanificacion(aCopiar.getDetalleParticular(i));
+           
            detalles.add(detalleNuevaTarea);            
         }
         
@@ -82,8 +89,12 @@ public class TareaPlanificacion
         * 
         * etc
         */
-        
-       
+        for (int i = 0; i < aCopiar.getSubtareas().size(); i++) 
+        {
+           aCopiar.getSubtareas().get(i).borrarDetallesCopia();
+           aCopiar.getSubtareas().get(i).tareaCopia=null;
+        }
+        //
     }
     
     public TareaPlanificacion(SubObraXTareaModif tareaCotizada) {
@@ -764,4 +775,14 @@ public class TareaPlanificacion
        return subT; 
        
     }
+    
+    private void borrarDetallesCopia()
+    {
+        for (int i = 0; i < detalles.size(); i++) 
+        {
+           detalles.get(i).setDetalleCopia(null);          
+        }
+    }
+    
+    
 }

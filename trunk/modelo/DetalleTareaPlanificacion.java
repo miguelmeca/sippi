@@ -24,6 +24,8 @@ public class DetalleTareaPlanificacion {
     private Especialidad especialidad;
     private int cantidadHijos;
     
+    private transient DetalleTareaPlanificacion detalleCopia;
+    
     
     /**
      * Este constructor es para uso exclusivo de detalles q pertenecen a tareas
@@ -65,9 +67,11 @@ public class DetalleTareaPlanificacion {
     }*/
     
     public DetalleTareaPlanificacion(DetalleTareaPlanificacion aCopiar)
-    {
+    {        
+        aCopiar.setDetalleCopia(this);
         this.cotizado=aCopiar.cotizado;
-        this.setearPadre(aCopiar.padre);
+        if(aCopiar.padre!=null)
+        {this.setearPadre(aCopiar.padre.getDetalleCopia());}
         this.cantidadPersonas=aCopiar.getCantidadPersonas();
         this.cantHorasNormales=aCopiar.getCantHorasNormales();
         this.cantHorasAl50=aCopiar.getCantHorasAl50();
@@ -275,6 +279,20 @@ public class DetalleTareaPlanificacion {
     {        
        double subT=cantidadPersonas*((costoXHoraNormal*cantHorasNormales)+(1.5*costoXHoraNormal*cantHorasAl50)+(2*costoXHoraNormal*cantHorasAl100));          
        return subT; 
+    }
+
+    /**
+     * @return the detalleCopia
+     */
+    public DetalleTareaPlanificacion getDetalleCopia() {
+        return detalleCopia;
+    }
+
+    /**
+     * @param detalleCopia the detalleCopia to set
+     */
+    public void setDetalleCopia(DetalleTareaPlanificacion detalleCopia) {
+        this.detalleCopia = detalleCopia;
     }
     
     

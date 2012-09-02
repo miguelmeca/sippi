@@ -914,7 +914,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             }
                   
        
-       mandarCambios();
+      // mandarCambios();
         enProceso=false; 
     }
     
