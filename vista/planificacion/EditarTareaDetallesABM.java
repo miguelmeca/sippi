@@ -5,19 +5,27 @@
 package vista.planificacion;
 
 import controlador.planificacion.GestorEditarTareaDetalles;
+import controlador.rrhh.GestorConsultarEmpleado;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.*;
 import util.NTupla;
 import util.Tupla;
 import vista.interfaces.ICallBack_v3;
+import vista.rrhh.ExplorarEmpleados_RenderCeldas;
+import vista.rrhh.ExplorarEmpleados_celdaDatos;
+import vista.rrhh.ExplorarEmpleados_celdaFoto;
 import vista.util.Validaciones;
 
 /**
@@ -67,8 +75,15 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     double costoDetalle;
     
     boolean enProceso=false;
+    private boolean filtroBuscarActivado;
+    private GestorConsultarEmpleado gestorConsultarEmpleado;
+    private List<Empleado> listaEmpleadosDisponibles;
+    private List<Empleado> listaEmpleadosAsignados;
+    private DefaultTableModel modeloTablaEmpleadosDisponibles;
+    private DefaultTableModel modeloTablaEmpleadosAsignados;
     
     public EditarTareaDetallesABM(ICallBack_v3 pantalla, GestorEditarTareaDetalles gestor, boolean modificacion, boolean tareaHijaDePlanificacion) {
+        gestorConsultarEmpleado = new GestorConsultarEmpleado();
         this.tareaHijaDePlanificacion=tareaHijaDePlanificacion;
         initComponents();        
         this.gestor = gestor;
@@ -101,8 +116,22 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private void inicializarVentana()
     {
         enProceso=true;
-     
-     
+     filtroBuscarActivado=false;
+     rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
+        ////////////////////////////////////
+        tblEmpleadosDisponibles.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
+        tblEmpleadosDisponibles.setRowHeight(72);
+        tblEmpleadosDisponibles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblEmpleadosDisponibles.getColumnModel().getColumn(0).setPreferredWidth(72);
+        tblEmpleadosDisponibles.getColumnModel().getColumn(1).setPreferredWidth(355);
+        
+        
+        tblEmpleadosAsignados.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
+        tblEmpleadosAsignados.setRowHeight(72);
+        tblEmpleadosAsignados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblEmpleadosAsignados.getColumnModel().getColumn(0).setPreferredWidth(72);
+        tblEmpleadosAsignados.getColumnModel().getColumn(1).setPreferredWidth(355);
       habilitarDespuesDeClickEnTabla(true);
             
       SpinnerModel modelPersonas =
@@ -132,6 +161,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
       setearValoresTareaCotizadaActual();
       setearDatosDetalleActual();
       enProceso=false;
+      cargarEmpleadosDisponibles();
+      cargarEmpleadosAsignados();
+      limpiarSobranteTablaEmpleadosDisponibles();
     }
     
     
@@ -293,8 +325,25 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         lblHsNormalesTCotizadaActual = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         PanelAsignaciones = new javax.swing.JPanel();
+        rbFiltroTodos = new javax.swing.JRadioButton();
+        rbFiltroActivos = new javax.swing.JRadioButton();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEmpleadosDisponibles = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblEmpleadosAsignados = new javax.swing.JTable();
+        btnAgregarEmpleado = new javax.swing.JButton();
+        btnQuitarEmpleado = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setOpaque(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -719,7 +768,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         PanelEsfuerzoLayout.setVerticalGroup(
             PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,15 +784,178 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 
         tabAsignacion.addTab("Esfuerzo", PanelEsfuerzo);
 
+        rbFiltroTodos.setText("Mostrar Todos");
+        rbFiltroTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroTodosActionPerformed(evt);
+            }
+        });
+
+        rbFiltroActivos.setText("Mostrar sólo empleados en estado \"Activo\"");
+        rbFiltroActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFiltroActivosActionPerformed(evt);
+            }
+        });
+
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+
+        tblEmpleadosDisponibles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Foto", "Datos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEmpleadosDisponibles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblEmpleadosDisponibles.setTableHeader(null);
+        tblEmpleadosDisponibles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblEmpleadosDisponiblesMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblEmpleadosDisponibles);
+
+        tblEmpleadosAsignados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Foto", "Datos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEmpleadosAsignados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblEmpleadosAsignados.setTableHeader(null);
+        tblEmpleadosAsignados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblEmpleadosAsignadosMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblEmpleadosAsignados);
+
+        btnAgregarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
+        btnAgregarEmpleado.setText("Agregar");
+        btnAgregarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEmpleadoActionPerformed(evt);
+            }
+        });
+
+        btnQuitarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Erase.png"))); // NOI18N
+        btnQuitarEmpleado.setText("Quitar");
+        btnQuitarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarEmpleadoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Empleados registrados:");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel19.setText("Empleados asignados:");
+
         javax.swing.GroupLayout PanelAsignacionesLayout = new javax.swing.GroupLayout(PanelAsignaciones);
         PanelAsignaciones.setLayout(PanelAsignacionesLayout);
         PanelAsignacionesLayout.setHorizontalGroup(
             PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(PanelAsignacionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
+                    .addGroup(PanelAsignacionesLayout.createSequentialGroup()
+                        .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAsignacionesLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(btnAgregarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnQuitarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addGroup(PanelAsignacionesLayout.createSequentialGroup()
+                                .addComponent(rbFiltroTodos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbFiltroActivos)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel19))
+                        .addGap(0, 7, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         PanelAsignacionesLayout.setVerticalGroup(
             PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(PanelAsignacionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbFiltroTodos)
+                        .addComponent(rbFiltroActivos))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarEmpleado)
+                    .addComponent(btnQuitarEmpleado))
+                .addGap(8, 8, 8)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         tabAsignacion.addTab("Asignaciones", PanelAsignaciones);
@@ -753,14 +965,15 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabAsignacion))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(btnAceptar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabAsignacion)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -770,7 +983,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -885,8 +1098,137 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnSetearCostoRangoActionPerformed
+
+    private void rbFiltroTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroTodosActionPerformed
+        rbFiltroTodos.setSelected(true);
+        rbFiltroActivos.setSelected(false);
+        activarFiltrosTabla();
+    }//GEN-LAST:event_rbFiltroTodosActionPerformed
+
+    private void rbFiltroActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFiltroActivosActionPerformed
+        rbFiltroTodos.setSelected(false);
+        rbFiltroActivos.setSelected(true);
+        activarFiltrosTabla();
+    }//GEN-LAST:event_rbFiltroActivosActionPerformed
+
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+
+        if (txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if (txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado = true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if (txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado = false;
+        } else {
+            filtroBuscarActivado = true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+   }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void btnAgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadoActionPerformed
+        int selectedRow=tblEmpleadosDisponibles.getSelectedRow();
+       if(selectedRow!=-1)
+       {
+           DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
+           DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+           modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
+           modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());           
            
+       }
+       btnAgregarEmpleado.setEnabled(false);
+       calcularListaEmpleadosAsignados();
+       intentarActivarAceptar();  
+    }//GEN-LAST:event_btnAgregarEmpleadoActionPerformed
+
+    private void btnQuitarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarEmpleadoActionPerformed
+      int selectedRow=tblEmpleadosAsignados.getSelectedRow();
+      if(selectedRow!=-1)
+       {
+           /*int id;
+           id=((ExplorarEmpleados_celdaDatos)(tblEmpleadosAsignados.getModel().getValueAt(tblEmpleadosAsignados.getSelectedRow(), 1))).getId();
+           */
+           DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
+           DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+           modeloDisponibles.addRow((Vector)modeloAsignados.getDataVector().elementAt(tblEmpleadosAsignados.getSelectedRow()));
+           modeloAsignados.removeRow(tblEmpleadosAsignados.getSelectedRow()); 
+           
+           
+       }
+      btnQuitarEmpleado.setEnabled(false);
+      calcularListaEmpleadosAsignados();
+      intentarActivarAceptar();  
+    }//GEN-LAST:event_btnQuitarEmpleadoActionPerformed
+
+    private void tblEmpleadosDisponiblesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosDisponiblesMousePressed
+        clicEnTablaEmpleadosDisponibles();
+         evt.consume();
+    }//GEN-LAST:event_tblEmpleadosDisponiblesMousePressed
+
+    private void tblEmpleadosAsignadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosAsignadosMousePressed
+        clicEnTablaEmpleadosAsignados();
+        evt.consume();        
+    }//GEN-LAST:event_tblEmpleadosAsignadosMousePressed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        inicializarVentana();
+    }//GEN-LAST:event_formFocusGained
+           
+    private void clicEnTablaEmpleadosDisponibles()
+    {
+       int selectedRow=tblEmpleadosDisponibles.getSelectedRow();
+       if(selectedRow!=-1)
+       {
+              btnAgregarEmpleado.setEnabled(true);
+              btnQuitarEmpleado.setEnabled(false);
+              tblEmpleadosAsignados.clearSelection();
+       }
+       else
+       {
+           btnAgregarEmpleado.setEnabled(false);
+       }
+         
+    }
     
+     private void clicEnTablaEmpleadosAsignados()
+    {
+       int selectedRow=tblEmpleadosAsignados.getSelectedRow();
+       if(selectedRow!=-1)
+       {
+              btnQuitarEmpleado.setEnabled(true);
+              btnAgregarEmpleado.setEnabled(false);
+              tblEmpleadosDisponibles.clearSelection();
+              
+       }
+       else
+       {
+           btnQuitarEmpleado.setEnabled(false);
+       }     
+         
+    }
     
     
    
@@ -1133,10 +1475,14 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PanelAsignaciones;
     private javax.swing.JPanel PanelEsfuerzo;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnAgregarEmpleado;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnQuitarEmpleado;
+    private javax.swing.JButton btnQuitarTelefono;
     private javax.swing.JButton btnSetearCostoRango;
     private javax.swing.JComboBox cboRango;
     private javax.swing.JComboBox cboTipoEspecialidad;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1146,6 +1492,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1154,12 +1501,15 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCostoDetalleTPadreDisponibles;
     private javax.swing.JLabel lblCostoDetalleTPadreDisponibles_Nvo;
     private javax.swing.JLabel lblCostoTCotizada;
@@ -1180,11 +1530,16 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHsNormalesTCotizadaActual;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles_Nvo;
+    private javax.swing.JRadioButton rbFiltroActivos;
+    private javax.swing.JRadioButton rbFiltroTodos;
     private javax.swing.JSpinner spnHs100;
     private javax.swing.JSpinner spnHs50;
     private javax.swing.JSpinner spnHsNormales;
     private javax.swing.JSpinner spnPersonas;
     private javax.swing.JTabbedPane tabAsignacion;
+    private javax.swing.JTable tblEmpleadosAsignados;
+    private javax.swing.JTable tblEmpleadosDisponibles;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JFormattedTextField txtCosto;
     // End of variables declaration//GEN-END:variables
 
@@ -1313,4 +1668,123 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         return true;
     }
     
+    private void cargarEmpleadosDisponibles()
+    {
+        listaEmpleadosDisponibles=gestorConsultarEmpleado.listaEmpleados();
+       
+        modeloTablaEmpleadosDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();
+        int fil=modeloTablaEmpleadosDisponibles.getRowCount();
+        for (int i = 0; i < fil; i++) {
+            modeloTablaEmpleadosDisponibles.removeRow(0);
+        }
+        
+        for (Empleado empleado : listaEmpleadosDisponibles)
+        {
+             Object[] filaTabla=new Object[2];
+           
+            ExplorarEmpleados_celdaDatos celdaDatos = new ExplorarEmpleados_celdaDatos();            
+            celdaDatos.setEmpleado(empleado);  
+            ExplorarEmpleados_celdaFoto celdaFoto = new ExplorarEmpleados_celdaFoto();
+            celdaFoto.setEmpleado(empleado);
+            
+            filaTabla[0] = celdaFoto;
+            filaTabla[1] = celdaDatos;
+            modeloTablaEmpleadosDisponibles.addRow(filaTabla);
+            ////////////////////////
+        }
+       
+        tblEmpleadosDisponibles.setModel(modeloTablaEmpleadosDisponibles);
+    }
+    
+    private void cargarEmpleadosAsignados()
+    {
+        listaEmpleadosAsignados=gestor.getListaEmpleadosAsignados();
+       
+        modeloTablaEmpleadosAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+        int fil=modeloTablaEmpleadosAsignados.getRowCount();
+        for (int i = 0; i < fil; i++) {
+            modeloTablaEmpleadosAsignados.removeRow(0);
+        }
+        
+        for (Empleado empleado : listaEmpleadosAsignados)
+        {
+             Object[] filaTabla=new Object[2];
+           
+            ExplorarEmpleados_celdaDatos celdaDatos = new ExplorarEmpleados_celdaDatos();            
+            celdaDatos.setEmpleado(empleado);  
+            ExplorarEmpleados_celdaFoto celdaFoto = new ExplorarEmpleados_celdaFoto();
+            celdaFoto.setEmpleado(empleado);
+            
+            filaTabla[0] = celdaFoto;
+            filaTabla[1] = celdaDatos;
+            modeloTablaEmpleadosAsignados.addRow(filaTabla);
+            ////////////////////////
+        }
+       
+        tblEmpleadosAsignados.setModel(modeloTablaEmpleadosAsignados);
+    }
+    
+    private void limpiarSobranteTablaEmpleadosDisponibles()
+    {
+        //DefaultTableModel modeloXTablaEmpleadosAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+        int filAsig=modeloTablaEmpleadosAsignados.getRowCount();
+        
+        //DefaultTableModel modeloXTablaEmpleadosDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();
+       
+        for (int i = filAsig-1; i >=0 ; i--) {
+            for (int j = modeloTablaEmpleadosDisponibles.getRowCount()-1; j >=0 ; j--) 
+            {
+                if(((ExplorarEmpleados_celdaDatos)modeloTablaEmpleadosAsignados.getValueAt(i, 1)).getEmpleado().getLegajo()  ==  ((ExplorarEmpleados_celdaDatos)modeloTablaEmpleadosDisponibles.getValueAt(j, 1)).getEmpleado().getLegajo())
+                {modeloTablaEmpleadosDisponibles.removeRow(j);}
+            }
+            
+        }
+        
+    }
+    
+    private void calcularListaEmpleadosAsignados()
+    {
+        listaEmpleadosAsignados.clear();
+        int filAsig=modeloTablaEmpleadosAsignados.getRowCount();        
+        //DefaultTableModel modeloXTablaEmpleadosDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();       
+        for (int i = filAsig-1; i >=0 ; i--) {
+            
+            listaEmpleadosAsignados.add(((ExplorarEmpleados_celdaDatos)modeloTablaEmpleadosAsignados.getValueAt(i, 1)).getEmpleado());
+        }
+        gestor.setListaEmpleadosAsignados(listaEmpleadosAsignados);
+    }
+    
+    private void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+            modeloOrdenado = new TableRowSorter<TableModel>(modeloTablaEmpleadosDisponibles);
+            tblEmpleadosDisponibles.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i],1));
+           }
+            if(rbFiltroActivos.isSelected())
+           {
+              filters.add(RowFilter.regexFilter(gestorConsultarEmpleado.nombreEstadoEmpleadoActivo(), 3));
+           }
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+        else
+        {
+             if(rbFiltroActivos.isSelected())
+           {
+              modeloOrdenado.setRowFilter(RowFilter.regexFilter(gestorConsultarEmpleado.nombreEstadoEmpleadoActivo(), 3));
+           }
+        }
+
+
+    }
 }

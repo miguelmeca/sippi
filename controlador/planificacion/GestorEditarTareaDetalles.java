@@ -51,6 +51,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     private DetalleSubObraXTareaModif copiaDetalleCotizacionTareaCotizada;
     private TareaPlanificacion copiaTareaConDetallePadre;
     private TareaPlanificacion tareaConDetallePadre;
+    private List<Empleado> listaEmpleadosAsignados;
     //private SubObraXTarea copiaTareaCotizadaOriginal;
     private boolean modificacion=false;
     private boolean tareaHijaDePlanificacion=false;
@@ -154,7 +155,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         cantHs50Original=detalleActual.getCantHorasAl50();
         especialidadOriginal=detalleActual.getEspecialidad();
         costoDetalleOriginal=detalleActual.getCostoXHoraNormal();
-        
+        setListaEmpleadosAsignados(detalleActual.getEmpleados());
         //pantallaABM.tomarDatosDetalleModificado(gestorPadre.getPlanificacion().getTareaDeDetalle(detallePadre), detallePadre, detalleActual);
         if(!tareaHijaDePlanificacion)
         {
@@ -180,8 +181,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         detalleActual.setCostoXHoraNormal(detallePadre.getCostoXHoraNormal());
         detalleActual.setCantidadPersonas(detallePadre.getCantidadPersonas());
         detalleActual.setEspecialidad(detallePadre.getEspecialidad());
-        
-        
+        setListaEmpleadosAsignados(detalleActual.getEmpleados());
         armarCopiaDeEstructura(detalleActual);
         
     } 
@@ -196,6 +196,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
         else
         {armarCopiaDeEstructura(detalleActual);}
+        setListaEmpleadosAsignados(detalleActual.getEmpleados());
     }
     
     private void armarCopiaDeEstructura(DetalleTareaPlanificacion detalleActual)
@@ -1047,6 +1048,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
      
     public void guardarCambios()
     {
+        
         if(!modificacion)
         {
             gestorPadre.getTareaActual().addDetalle(detalleActual);
@@ -1070,6 +1072,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             {
                 impactarDatos(caminoTareas, cantPersonas, cantHsNormales, cantHs50, cantHs100, costoDetalle, especialidad, tareaConCotizacion, detalleConCotizacion, tareaConDetallePadre, detalleActual);
             }
+            detalleActual.setEmpleados(listaEmpleadosAsignados);
         }
         catch(Exception e)
         {
@@ -1105,6 +1108,23 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
     
     
     ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return the listaEmpleadosAsignados
+     */
+    public List<Empleado> getListaEmpleadosAsignados() {
+        return listaEmpleadosAsignados;
+    }
+
+    /**
+     * @param listaEmpleadosAsignados the listaEmpleadosAsignados to set
+     */
+    public void setListaEmpleadosAsignados(List<Empleado> listaEmpleadosAsignados) 
+    {        
+        this.listaEmpleadosAsignados = listaEmpleadosAsignados;
+        this.cantPersonas=listaEmpleadosAsignados.size();
+        
+    }
 
     
 }

@@ -79,6 +79,10 @@ public class DetalleTareaPlanificacion {
         this.costoXHoraNormal=aCopiar.getCostoXHoraNormal();
         this.especialidad=aCopiar.getEspecialidad();
         empleados=new ArrayList<Empleado>();
+        for (int i = 0; i < aCopiar.getEmpleados().size(); i++) {
+            empleados.add(aCopiar.getEmpleados().get(i));
+        }
+        
         cantidadHijos=0;
         
     }

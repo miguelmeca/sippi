@@ -21,7 +21,7 @@ import modelo.EstadoEmpleadoActivo;
 public class GestorConsultarEmpleado
 {
 
-    private PantallaConsultarEmpleado pantalla;
+    //private PantallaConsultarEmpleado pantalla;
     private Session sesion;
     private List lista;
 
@@ -29,9 +29,9 @@ public class GestorConsultarEmpleado
 
 
 
-    public GestorConsultarEmpleado(PantallaConsultarEmpleado pantalla)
+    public GestorConsultarEmpleado()
     {
-        this.pantalla = pantalla;
+       // this.pantalla = pantalla;
         //listaTipoEspecialidades= new ArrayList<TipoEspecialidad>();
        // listaRangoEspecialidades= new ArrayList<RangoEspecialidad>();
        // listaNroTel= new  ArrayList<String>();
