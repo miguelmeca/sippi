@@ -39,7 +39,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     public PantallaConsultarEmpleado()
     {
         initComponents();
-        gestor = new GestorConsultarEmpleado(this);//IMPORTANTE!
+        gestor = new GestorConsultarEmpleado(/*this*/);//IMPORTANTE!
         this.habilitarVentana();
         primeraVez=true;
     }
@@ -349,7 +349,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLicencias)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
