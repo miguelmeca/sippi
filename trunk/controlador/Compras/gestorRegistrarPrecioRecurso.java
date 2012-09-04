@@ -64,7 +64,6 @@ public class gestorRegistrarPrecioRecurso {
                 ex.printStackTrace();
                 pantalla.MostrarMensaje("EG-0003");
            }
-
         return lista;
     }
 
@@ -88,63 +87,66 @@ public class gestorRegistrarPrecioRecurso {
                 {
                    Rubro rub = itrub.next();
                    // CARGO SOLO LOS RECURSOS DE ESE RUBRO
-                   // PODRE?
-                   List<Recurso> listaRec = sesion.createQuery("FROM "+rub.getNombreClase()+" AS re").list();
-                   Iterator<Recurso> itrec = listaRec.iterator();
-                   while (itrec.hasNext())
-                   {
-                        // TENGO LOS RECURSOS, BAJO DE NUEVO A LOS RECURSOS ESPECIFICOS
-                        Recurso rec = itrec.next();
-                        List<RecursoEspecifico> listaRecEsp = rec.getRecursosEspecificos();
-                        Iterator<RecursoEspecifico> itrecesp = listaRecEsp.iterator();
-                        while (itrecesp.hasNext())
-                        {
-                           RecursoEspecifico recesp = itrecesp.next();
+                   // FILTRANDO SOLO LOS QUE ESTAN MAPEADOS EN CLASES 
+                   if(rub.getNombreClase().equals("Material") || rub.getNombreClase().equals("Herramienta"))
+                   { // TODO: Revisar esto porque seguramente está mal!
+                    List<Recurso> listaRec = sesion.createQuery("FROM "+rub.getNombreClase()+" AS re").list();
+                    Iterator<Recurso> itrec = listaRec.iterator();
+                    while (itrec.hasNext())
+                    {
+                            // TENGO LOS RECURSOS, BAJO DE NUEVO A LOS RECURSOS ESPECIFICOS
+                            Recurso rec = itrec.next();
+                            List<RecursoEspecifico> listaRecEsp = rec.getRecursosEspecificos();
+                            Iterator<RecursoEspecifico> itrecesp = listaRecEsp.iterator();
+                            while (itrecesp.hasNext())
+                            {
+                            RecursoEspecifico recesp = itrecesp.next();
 
-                                // YA TENGO EL RECURSO, CARGO
-                                NTupla nt = new NTupla();
-                                nt.setId(recesp.getId());
-                                // RUBRO
-                                nt.setNombre(rub.getNombre());
+                                    // YA TENGO EL RECURSO, CARGO
+                                    NTupla nt = new NTupla();
+                                    nt.setId(recesp.getId());
+                                    // RUBRO
+                                    nt.setNombre(rub.getNombre());
 
-                                    String[] datos = new String[4];
-                                    // NOMBRE DEL RECURSO
-                                    datos[0] = rec.getNombre();
-                                    datos[1] = recesp.getNombre();
-                                    datos[2] = "<HTML><BODY>";
-                                    datos[3] = rec.getUnidadDeMedida().getAbreviatura();
+                                        String[] datos = new String[4];
+                                        // NOMBRE DEL RECURSO
+                                        datos[0] = rec.getNombre();
+                                        datos[1] = recesp.getNombre();
+                                        datos[2] = "<HTML><BODY>";
+                                        datos[3] = rec.getUnidadDeMedida().getAbreviatura();
 
-                                        // BUSCO LOS PRECIOS !!!! Y SI TIENE ALGUNO
-                                        List<RecursoXProveedor> listaRXP  = recesp.getRecursosXProveedor();
-                                        Iterator<RecursoXProveedor> itrxp = listaRXP.iterator();
-                                        while (itrxp.hasNext())
-                                        {
-                                            RecursoXProveedor rxp = itrxp.next();
-                                            // VEO QUE SEA SOLO DE MI PROVEEDOR
-                                            if(rxp.getProveedor().getId() == idProveedor)
+                                            // BUSCO LOS PRECIOS !!!! Y SI TIENE ALGUNO
+                                            List<RecursoXProveedor> listaRXP  = recesp.getRecursosXProveedor();
+                                            Iterator<RecursoXProveedor> itrxp = listaRXP.iterator();
+                                            while (itrxp.hasNext())
                                             {
-                                                // ES MI PROVEEDOR, CARGO EL ULTIMO PRECIO
-                                                List<PrecioSegunCantidad> listaPsc = rxp.getListaUltimosPrecios();
-                                                Iterator<PrecioSegunCantidad> itPsc = listaPsc.iterator();
-                                                while (itPsc.hasNext())
+                                                RecursoXProveedor rxp = itrxp.next();
+                                                // VEO QUE SEA SOLO DE MI PROVEEDOR
+                                                if(rxp.getProveedor().getId() == idProveedor)
                                                 {
-                                                    PrecioSegunCantidad psc = itPsc.next();
-                                                    // CARGO LOS DATOS
-                                                    datos[2] = datos[2] + psc.getCantidad()+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> "+psc.getPrecio()+"<br>";
+                                                    // ES MI PROVEEDOR, CARGO EL ULTIMO PRECIO
+                                                    List<PrecioSegunCantidad> listaPsc = rxp.getListaUltimosPrecios();
+                                                    Iterator<PrecioSegunCantidad> itPsc = listaPsc.iterator();
+                                                    while (itPsc.hasNext())
+                                                    {
+                                                        PrecioSegunCantidad psc = itPsc.next();
+                                                        // CARGO LOS DATOS
+                                                        datos[2] = datos[2] + psc.getCantidad()+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> "+psc.getPrecio()+"<br>";
+                                                    }
+
                                                 }
-
                                             }
-                                        }
-                                  // AGREGO ALA LISTA DE NTUPLA
-                                  if(datos[2].equals("<HTML><BODY>"))
-                                  {
-                                      datos[2] = "";
-                                  }
+                                    // AGREGO ALA LISTA DE NTUPLA
+                                    if(datos[2].equals("<HTML><BODY>"))
+                                    {
+                                        datos[2] = "";
+                                    }
 
-                                  nt.setData(datos);
-                                  lista.add(nt);
+                                    nt.setData(datos);
+                                    lista.add(nt);
+                            }
                         }
-                    }
+                   }
                 }
                 HibernateUtil.commitTransaction();
                }catch(Exception ex)

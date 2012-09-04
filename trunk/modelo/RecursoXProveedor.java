@@ -66,6 +66,7 @@ public class RecursoXProveedor {
         boolean cant=false;
         for (int i = 1; i < listaPrecios.size(); i++) 
         {
+            cant = false;
             for (int j= 0; j < ultimosPrecios.size(); j++)
             {
                if(cant==false && listaPrecios.get(i).getCantidad()==ultimosPrecios.get(j).getCantidad())
