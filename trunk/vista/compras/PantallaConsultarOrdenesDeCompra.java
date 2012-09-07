@@ -38,7 +38,7 @@ public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
         
             columnas.add(new String[]{"getId","Número"});
             columnas.add(new String[]{"getNombreProveedor","Proveedor"});
-            columnas.add(new String[]{"getFechaDeGeneracion","Fecha de Generación"});
+            columnas.add(new String[]{"getFechaDeGeneracionFormateada","Fecha de Generación"});
             columnas.add(new String[]{"getEstado","Estado"});
             columnas.add(new String[]{"mostrarCalcularTotal","Total"});
         

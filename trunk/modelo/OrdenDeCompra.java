@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import util.FechaUtil;
 
 /**
  * Descripción:
@@ -218,4 +219,8 @@ public class OrdenDeCompra {
         return RecepcionOrdenDeCompra.ESTADO_RECIBIDA_PARCIALMENTE;
     }
     
+    public String getFechaDeGeneracionFormateada()
+    { 
+        return FechaUtil.getFecha(this.fechaDeGeneracion);
+    }                       
 }
