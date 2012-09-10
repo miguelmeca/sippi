@@ -181,7 +181,11 @@ public class GestorImagenes
     private static BufferedImage cambiarTamano(BufferedImage img, int newW, int newH) {  
         int w = img.getWidth();  
         int h = img.getHeight();  
-        BufferedImage dimg = dimg = new BufferedImage(newW, newH, img.getType());  
+        
+        
+        int imageType = img.getType();
+        if(imageType == 0) {imageType = 5;}//Workarround para soporte para png
+        BufferedImage dimg = dimg = new BufferedImage(newW, newH, imageType);  
         Graphics2D g = dimg.createGraphics();  
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
         g.drawImage(img, 0, 0, newW, newH, 0, 0, w, h, null);  

@@ -56,6 +56,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     private boolean modificacion=false;
     private boolean tareaHijaDePlanificacion=false;
     private boolean detalleNoCotizado=false;
+    private boolean devolverHorasATareaSuperior=true;
 
    // private List<TareaPlanificacion> caminoTareas; 
     
@@ -142,8 +143,8 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     
     //Solo si se trata de una modificacion de detalle y no una creacion
     public void setDetalleAcutal(DetalleTareaPlanificacion detalleActual, boolean tareaHijaDePlanificacion){
-       this.tareaHijaDePlanificacion=tareaHijaDePlanificacion;      
-               this.detalleNoCotizado=false;
+        this.setTareaHijaDePlanificacion(tareaHijaDePlanificacion);      
+               this.setDetalleNoCotizado(false);
        // copiaTareaActual=new TareaPlanificacion(gestorPadre.getTareaActual());
         modificacion=true;        
         this.detallePadre=detalleActual.getPadre();        
@@ -170,9 +171,9 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     
     public void crearNuevoDetalleAcutal(DetalleTareaPlanificacion detallePadre ) {
         
-        tareaHijaDePlanificacion=false;
+        setTareaHijaDePlanificacion(false);
        // copiaTareaActual=new TareaPlanificacion(gestorPadre.getTareaActual());
-        this.detalleNoCotizado=false;
+        this.setDetalleNoCotizado(false);
         modificacion = false;
         this.detallePadre = detallePadre;
         detalleActual = new DetalleTareaPlanificacion();
@@ -188,11 +189,11 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     
     public void crearNuevoDetalleNoCotizado()
     {
-        this.detalleNoCotizado=true;
+        this.setDetalleNoCotizado(true);
         modificacion = false;
         this.detallePadre = null;
         detalleActual = new DetalleTareaPlanificacion();
-        if(this.tareaHijaDePlanificacion)
+        if(this.isTareaHijaDePlanificacion())
         {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
         else
         {armarCopiaDeEstructura(detalleActual);}
@@ -209,7 +210,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         }
         else
         {
-        copiaTareaConCotizacion=new TareaPlanificacion(tareaConCotizacion);
+            copiaTareaConCotizacion=new TareaPlanificacion(tareaConCotizacion);
         }
         cotizacionTareaCotizada=tareaConCotizacion.getTareaCotizada();
         copiaCotizacionTareaCotizada=new SubObraXTareaModif(cotizacionTareaCotizada);
@@ -246,7 +247,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         //////////////////////////////////////
         
         //Reinicio el detalle copia
-        if(this.copiaDetalleActual !=null && modificacion)
+        if(this.copiaDetalleActual !=null && isModificacion())
         {
             int indiceDetalleActual=gestorPadre.getTareaActual().getDetalles().indexOf(detalleActual);
             if(indiceDetalleActual!=-1)
@@ -322,7 +323,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         }
         int indiceTareaConDetallePadre_enCamino;
         int indiceTareaActual_enCamino;
-        if(tareaConDetallePadre!=null)
+        if(tareaConDetallePadre!=null && detallePadre!=null)
         {
             indiceTareaConDetallePadre_enCamino=caminoTareas.indexOf(tareaConDetallePadre);
             if(indiceTareaConDetallePadre_enCamino!=-1)
@@ -366,7 +367,7 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         //////////////////////////////////////
         
         //Reinicio el detalle copia
-        if(this.copiaDetalleActual !=null && modificacion)
+        if(this.copiaDetalleActual !=null && isModificacion())
         {
             int indiceDetalleActual=gestorPadre.getTareaActual().getDetalles().indexOf(detalleActual);
             if(indiceDetalleActual!=-1)
@@ -539,7 +540,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         detalleActual.setCostoXHoraNormal(costoXHoraNormal);
         detalleActual.setCantidadPersonas(cantidadPersonas);
         detalleActual.setEspecialidad(especialidad);
-        if(tareaHijaDePlanificacion)
+        if(isTareaHijaDePlanificacion())
         {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
         else
         {
@@ -548,7 +549,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         
         try
         {
-            if(tareaHijaDePlanificacion ||  this.detalleNoCotizado)
+            if(isTareaHijaDePlanificacion() ||  this.isDetalleNoCotizado())
             {
                 impactarDatosDetalleNoIncluidosEnCotizacion(copiaCaminoTareas, cantidadPersonas, cantHorasNormales, cantHorasAl50, cantHorasAl100, costoXHoraNormal, especialidad, copiaTareaConCotizacion, copiaDetalleActual);
             }
@@ -559,6 +560,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         }
         catch(Exception e)
         {
+            System.out.println(e);
            pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Error interno");
            return;
         }
@@ -860,38 +862,45 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
            padreOriginal=padreNuevo;
         }
         
-        
-        
-        if( padreOriginal.getCantHorasNormales() <(cantHorasNormales-cantHsNormalesOriginal))
+        if ((!devolverHorasATareaSuperior) && isModificacion())
         {
-            detalleCotizacion.setCantHorasNormales(detalleCotizado.getCantHorasNormales()+((cantHorasNormales-cantHsNormalesOriginal)-padreOriginal.getCantHorasNormales()));
-            padreOriginal.setCantHorasNormales(0.0);
+            detalleCotizacion.setCantHorasNormales(detalleCotizado.getCantHorasNormales()+((cantHorasNormales-cantHsNormalesOriginal)));
+            detalleCotizacion.setCantHorasAl50(detalleCotizado.getCantHorasAl50()+((cantHorasAl50-cantHs50Original)));
+            detalleCotizacion.setCantHorasAl100(detalleCotizado.getCantHorasAl100()+((cantHorasAl100-cantHs100Original)));
         }
         else
         {
-           padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - (cantHorasNormales-cantHsNormalesOriginal)); 
-        }
-        
-        if( padreOriginal.getCantHorasAl50() <(cantHorasAl50-cantHs50Original)) 
-        {
-            detalleCotizacion.setCantHorasAl50(detalleCotizado.getCantHorasAl50()+((cantHorasAl50-cantHs50Original)-padreOriginal.getCantHorasAl50()));
-            padreOriginal.setCantHorasAl50(0.0);
-        }
-        else
-        {
-            padreOriginal.setCantHorasAl50(padreOriginal.getCantHorasAl50() - (cantHorasAl50-cantHs50Original));
-        }
-        
-        if( padreOriginal.getCantHorasAl100() < (cantHorasAl100-cantHs100Original))
-        {
-            detalleCotizacion.setCantHorasAl100(detalleCotizado.getCantHorasAl100()+((cantHorasAl100-cantHs100Original)-padreOriginal.getCantHorasAl100()));
-            padreOriginal.setCantHorasAl100(0.0);
-        }
-        else
-        {
-           padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - (cantHorasAl100-cantHs100Original));
-        }
+            if( padreOriginal.getCantHorasNormales() <(cantHorasNormales-cantHsNormalesOriginal))
+            {
+                detalleCotizacion.setCantHorasNormales(detalleCotizado.getCantHorasNormales()+((cantHorasNormales-cantHsNormalesOriginal)-padreOriginal.getCantHorasNormales()));
+                padreOriginal.setCantHorasNormales(0.0);
+            }
+            else
+            {
+                padreOriginal.setCantHorasNormales(padreOriginal.getCantHorasNormales() - (cantHorasNormales-cantHsNormalesOriginal)); 
+            }
+
+            if( padreOriginal.getCantHorasAl50() <(cantHorasAl50-cantHs50Original)) 
+            {
+                detalleCotizacion.setCantHorasAl50(detalleCotizado.getCantHorasAl50()+((cantHorasAl50-cantHs50Original)-padreOriginal.getCantHorasAl50()));
+                padreOriginal.setCantHorasAl50(0.0);
+            }
+            else
+            {
+                padreOriginal.setCantHorasAl50(padreOriginal.getCantHorasAl50() - (cantHorasAl50-cantHs50Original));
+            }
+
+            if( padreOriginal.getCantHorasAl100() < (cantHorasAl100-cantHs100Original))
+            {
+                detalleCotizacion.setCantHorasAl100(detalleCotizado.getCantHorasAl100()+((cantHorasAl100-cantHs100Original)-padreOriginal.getCantHorasAl100()));
+                padreOriginal.setCantHorasAl100(0.0);
+            }
+            else
+            {
+            padreOriginal.setCantHorasAl100(padreOriginal.getCantHorasAl100() - (cantHorasAl100-cantHs100Original));
+            }
           
+        }
         
         
         
@@ -912,14 +921,16 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         }
         DetalleSubObraXTareaModif detalleCotizacion=detalleActual.getCotizado();
         
-        
-        
         //
                
-        if(!modificacion || detalleActual.getCantidadHijos()==0)
+        if(!isModificacion() || detalleActual.getCantidadHijos()==0)
         { 
-           
-            if(this.tareaHijaDePlanificacion)
+           if(detalleCotizacion==null)
+            {
+                detalleCotizacion=estructuraNuevoDetalleNoCotizadoSubtarea(caminoDeTareas,  detalleActual, tareaConCotizacion);
+                tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
+            }
+            if(this.isTareaHijaDePlanificacion())
             {
             int indicedetalle=tareaConCotizacion.getDetalles().indexOf(detalleActual);
                 if(indicedetalle!=-1)
@@ -942,7 +953,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
                 detalleActual.setCantidadPersonas(cantidadPersonas);
                 detalleActual.setEspecialidad(especialidad);
                 
-                detalleCotizacion=estructuraNuevoDetalleNoCotizadoSubtarea(caminoDeTareas, detalleCotizacion, detalleActual, tareaConCotizacion);
+               // detalleCotizacion=estructuraNuevoDetalleNoCotizadoSubtarea(caminoDeTareas,  detalleActual, tareaConCotizacion);
                
             }
             ////////////////////// 
@@ -1007,11 +1018,11 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
     }
      
      
-     public DetalleSubObraXTareaModif estructuraNuevoDetalleNoCotizadoSubtarea(List<TareaPlanificacion> caminoDeTareas, DetalleSubObraXTareaModif detalleCotizacion, DetalleTareaPlanificacion detalleActual, TareaPlanificacion tareaConCotizacion) throws Exception
+     public DetalleSubObraXTareaModif estructuraNuevoDetalleNoCotizadoSubtarea(List<TareaPlanificacion> caminoDeTareas,  DetalleTareaPlanificacion detalleActual, TareaPlanificacion tareaConCotizacion) throws Exception
      {
          
        
-            detalleCotizacion=new DetalleSubObraXTareaModif();
+            DetalleSubObraXTareaModif detalleCotizacion=new DetalleSubObraXTareaModif();
             tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
             DetalleTareaPlanificacion padreNuevoAncestroViejo=null;
              for (int i = 0; i < caminoDeTareas.size()-1; i++) 
@@ -1049,14 +1060,14 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
     public void guardarCambios()
     {
         
-        if(!modificacion)
+        if(!isModificacion())
         {
             gestorPadre.getTareaActual().addDetalle(detalleActual);
         }
         //
         //TODO:
         //
-        if(tareaHijaDePlanificacion)
+        if(isTareaHijaDePlanificacion())
         {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
         else
         {
@@ -1064,7 +1075,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         }
         try
         {
-            if(tareaHijaDePlanificacion ||  this.detalleNoCotizado)
+            if(isTareaHijaDePlanificacion() ||  this.isDetalleNoCotizado())
             {
                 impactarDatosDetalleNoIncluidosEnCotizacion(caminoTareas, cantPersonas, cantHsNormales, cantHs50, cantHs100, costoDetalle, especialidad, tareaConCotizacion, detalleActual);
             }
@@ -1124,6 +1135,48 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         this.listaEmpleadosAsignados = listaEmpleadosAsignados;
         this.cantPersonas=listaEmpleadosAsignados.size();
         
+    }
+
+    /**
+     * @param devolverHorasATareaSuperior the devolverHorasATareaSuperior to set
+     */
+    public void setDevolverHorasATareaSuperior(boolean devolverHorasATareaSuperior) {
+        this.devolverHorasATareaSuperior = devolverHorasATareaSuperior;
+    }
+
+    /**
+     * @return the modificacion
+     */
+    public boolean isModificacion() {
+        return modificacion;
+    }
+
+    /**
+     * @return the tareaHijaDePlanificacion
+     */
+    public boolean isTareaHijaDePlanificacion() {
+        return tareaHijaDePlanificacion;
+    }
+
+    /**
+     * @param tareaHijaDePlanificacion the tareaHijaDePlanificacion to set
+     */
+    public void setTareaHijaDePlanificacion(boolean tareaHijaDePlanificacion) {
+        this.tareaHijaDePlanificacion = tareaHijaDePlanificacion;
+    }
+
+    /**
+     * @return the detalleNoCotizado
+     */
+    public boolean isDetalleNoCotizado() {
+        return detalleNoCotizado;
+    }
+
+    /**
+     * @param detalleNoCotizado the detalleNoCotizado to set
+     */
+    public void setDetalleNoCotizado(boolean detalleNoCotizado) {
+        this.detalleNoCotizado = detalleNoCotizado;
     }
 
     

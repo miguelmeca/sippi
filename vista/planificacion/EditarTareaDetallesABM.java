@@ -164,8 +164,41 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
       cargarEmpleadosDisponibles();
       cargarEmpleadosAsignados();
       limpiarSobranteTablaEmpleadosDisponibles();
+      
+      seterarRadioButtonsHorasNuevas();
+      
+      /*
+      private boolean modificacion=false;
+    private boolean tareaHijaDePlanificacion=false;
+    private boolean detalleNoCotizado=false;
+    private boolean devolverHorasATareaSuperior=true;*/
     }
     
+    
+    private void seterarRadioButtonsHorasNuevas()
+    {
+      if(!modificacion)
+      {  
+        rbDevolverHoras.setEnabled(false);
+        rbEliminarHoras.setEnabled(false); 
+        if(gestor.isDetalleNoCotizado() || gestor.isTareaHijaDePlanificacion())
+        {
+            rbDevolverHoras.setSelected(false);
+            rbEliminarHoras.setSelected(true);
+
+        }
+        else
+        {
+            rbDevolverHoras.setSelected(true);
+            rbEliminarHoras.setSelected(false);
+        }
+      }
+      else
+      {
+         rbDevolverHoras.setEnabled(true);
+         rbEliminarHoras.setEnabled(true);  
+      }
+    }
     
     
     public void cargarCboRangos(TipoEspecialidad te)
@@ -219,6 +252,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         lblHs50TCotizada.setText(String.valueOf(hs50EnTareaCotizadaOriginal));
         lblHs100TCotizada.setText(String.valueOf(hs100EnTareaCotizadaOriginal));
         lblCostoTCotizada.setText(String.valueOf(costoEnTareaCotizadaOriginal));
+        seterarRadioButtonsHorasNuevas();
     }
     
    
@@ -256,6 +290,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         {lblCostoTCotizadaActual.setForeground(Color.red); } 
         else
         {lblCostoTCotizadaActual.setForeground(Color.black);}
+        seterarRadioButtonsHorasNuevas();
     }
     
     
@@ -269,6 +304,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         tabAsignacion = new javax.swing.JTabbedPane();
@@ -324,6 +360,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         lblHsNormalesTCotizada = new javax.swing.JLabel();
         lblHsNormalesTCotizadaActual = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        rbDevolverHoras = new javax.swing.JRadioButton();
+        rbEliminarHoras = new javax.swing.JRadioButton();
         PanelAsignaciones = new javax.swing.JPanel();
         rbFiltroTodos = new javax.swing.JRadioButton();
         rbFiltroActivos = new javax.swing.JRadioButton();
@@ -758,17 +796,41 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15)))
         );
 
+        buttonGroup1.add(rbDevolverHoras);
+        rbDevolverHoras.setSelected(true);
+        rbDevolverHoras.setText("Usar horas dela tarea superior");
+        rbDevolverHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDevolverHorasActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbEliminarHoras);
+        rbEliminarHoras.setText("Horas nuevas");
+        rbEliminarHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEliminarHorasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelEsfuerzoLayout = new javax.swing.GroupLayout(PanelEsfuerzo);
         PanelEsfuerzo.setLayout(PanelEsfuerzoLayout);
         PanelEsfuerzoLayout.setHorizontalGroup(
             PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(rbDevolverHoras)
+                        .addGap(65, 65, 65)
+                        .addComponent(rbEliminarHoras)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         PanelEsfuerzoLayout.setVerticalGroup(
             PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,9 +839,13 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbDevolverHoras)
+                    .addComponent(rbEliminarHoras))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
 
         tabAsignacion.addTab("Esfuerzo", PanelEsfuerzo);
@@ -930,7 +996,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel19))
-                        .addGap(0, 7, Short.MAX_VALUE)))
+                        .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelAsignacionesLayout.setVerticalGroup(
@@ -946,14 +1012,14 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelAsignacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarEmpleado)
                     .addComponent(btnQuitarEmpleado))
                 .addGap(8, 8, 8)
                 .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -978,12 +1044,12 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -1196,6 +1262,28 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         inicializarVentana();
     }//GEN-LAST:event_formFocusGained
+
+    private void rbDevolverHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDevolverHorasActionPerformed
+        if(rbDevolverHoras.isSelected())
+        {
+            gestor.setDevolverHorasATareaSuperior(true);
+        }
+        else
+        {
+            gestor.setDevolverHorasATareaSuperior(false);
+        }
+    }//GEN-LAST:event_rbDevolverHorasActionPerformed
+
+    private void rbEliminarHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEliminarHorasActionPerformed
+        if(rbEliminarHoras.isSelected())
+        {
+            gestor.setDevolverHorasATareaSuperior(false);
+        }
+        else
+        {
+            gestor.setDevolverHorasATareaSuperior(true);
+        }
+    }//GEN-LAST:event_rbEliminarHorasActionPerformed
            
     private void clicEnTablaEmpleadosDisponibles()
     {
@@ -1478,8 +1566,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAgregarEmpleado;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnQuitarEmpleado;
-    private javax.swing.JButton btnQuitarTelefono;
     private javax.swing.JButton btnSetearCostoRango;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cboRango;
     private javax.swing.JComboBox cboTipoEspecialidad;
     private javax.swing.JLabel jLabel1;
@@ -1530,6 +1618,8 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHsNormalesTCotizadaActual;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles_Nvo;
+    private javax.swing.JRadioButton rbDevolverHoras;
+    private javax.swing.JRadioButton rbEliminarHoras;
     private javax.swing.JRadioButton rbFiltroActivos;
     private javax.swing.JRadioButton rbFiltroTodos;
     private javax.swing.JSpinner spnHs100;
