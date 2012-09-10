@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
+import util.Trazabilidad;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.TreeEntry;
 import vista.planificacion.ArbolDeTareasTipos;
@@ -1007,9 +1008,67 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return modelo;
     }
 
+    public void comenzarEjecucion() {
+        
+        // Ante todo, cambio el estado de la planificación
+        // Y tb cambio el estado del pedido de obra ( atómico )
+        this.planificacion.setEstado("Finalizada");
+        this.pedidoDeObra.setEstadoEnEjecucion();
+        
+       
+        // Ahora... Creo la Ejecución
+        
+
+        // Lanzo el algoritmo para la planificación Intermedia
+        CotizacionModificada copiaCot = null;
+        try
+        {
+            
+        }catch(Exception e)
+        {
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la cotización\nRevise que no falte ningún dato\n"+e.getMessage());
+        }
+        
+        // Asocio la planificacion a la OBRA
+//        this.pedidoDeObra.setPlanificacion(nuevaPlan);
+        
+        // Asocio la copia de la cotizacion a la planificacion
+//        nuevaPlan.setCotizacion(copiaCot);
+        
+        // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
+        try
+        {
+             HibernateUtil.beginTransaction();
+//                // Guardo el cambio de estado de la cotizacion
+//                sesion.saveOrUpdate(this.cot);
+//                // Guardo el cambio de estado de la obra
+//                sesion.saveOrUpdate(this.obra);
+//                // Guardo la cotizacion intermedia
+//                sesion.saveOrUpdate(copiaCot);
+//                // Guardo la nueva Planificacion
+//                sesion.saveOrUpdate(nuevaPlan);
+            HibernateUtil.commitTransaction();
+//            necesita_guardar = false;
+        } 
+        catch (Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva planificación\nPongase en contacto con un administrador\n"+ex.getMessage());
+        }        
+        
+        // Si no exploto hasta ahora, lanzo la nueva ventana
+        _pantalla.lanzarEjecucion(this.pedidoDeObra.getId());
+    }
     
-    
-    
-    
-    
+    public int getIdDeEjecucionDeObra() { // TODO: Arreglar esto para que devuelva el ID de ejecución
+//        if(this.pedidoDeObra.getPlanificacion()!=null)
+//        {
+//            return this.pedidoDeObra.getPlanificacion().getId();
+//        }
+//        else
+//        {
+//            return 0;
+//        }
+        return -1;
+    }
 }
