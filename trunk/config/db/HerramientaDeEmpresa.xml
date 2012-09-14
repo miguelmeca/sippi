@@ -11,6 +11,6 @@
     <property name="estado" not-null="true" type="string"/>
     
     <many-to-one class="modelo.RecursoEspecifico" name="recursoEsp"/>
-    
+    <many-to-one class="modelo.OrdenDeCompra" name="ordenDeCompra"/>
   </class>
 </hibernate-mapping>
