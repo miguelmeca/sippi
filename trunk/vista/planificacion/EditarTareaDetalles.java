@@ -78,8 +78,8 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     private void llenarTablaDetalles(TareaPlanificacion tarea)
     {
        ((DefaultTableModel)tblDetalles.getModel()).setRowCount(0);
-       //for (DetalleTareaPlanificacion detalle:tarea.getDetallesSinDetallesVacios()) {
-        for (DetalleTareaPlanificacion detalle:tarea.getDetalles()) {
+       for (DetalleTareaPlanificacion detalle:tarea.getDetallesSinDetallesVacios()) {
+       //for (DetalleTareaPlanificacion detalle:tarea.getDetalles()) {
             agregarDetalleTareaATabla(detalle);            
         }       
        
