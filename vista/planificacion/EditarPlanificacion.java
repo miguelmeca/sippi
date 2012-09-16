@@ -2218,7 +2218,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private void abrirEditarTarea(TareaPlanificacion tarea)
     {
         // Si no esta abierta, la creo, registro y Muestro
-        if(!ventanasEditarTareasAbiertas.containsKey(tarea.hashCode()))
+        //if(!ventanasEditarTareasAbiertas.containsKey(tarea.hashCode()))
         {
             GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
             gestorEditarTarea.seleccionarTarea(tarea);
@@ -2231,7 +2231,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             // Muestro
             editarTarea.setVisible(true);        
         }
-        else
+       /* else
         {
             PantallaEditarTarea editarTarea = ventanasEditarTareasAbiertas.get(tarea.hashCode());
             if(editarTarea!=null)
@@ -2261,7 +2261,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 // Muestro
                 editarTarea.setVisible(true);                    
             }
-        }   
+        }   */
     }
     
     public void crearNuevaSubObra(String nombre)

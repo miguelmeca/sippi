@@ -652,7 +652,8 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             altoImpactoMenosPersonas=true;
         }       
         
-        
+        int indiceTareaConDetallePadre;
+        indiceTareaConDetallePadre=caminoDeTareas.indexOf(tareaConDetallePadre);
         if(altoImpactoMenosPersonas || altoImpactoCosto)
         {
             //divido al padre cotizado en 3:  padre original (puede estar siendo padre de otro detalle)
@@ -779,7 +780,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             
             
             
-            int indiceTareaConDetallePadre=caminoDeTareas.indexOf(tareaConDetallePadre);
+            //indiceTareaConDetallePadre=caminoDeTareas.indexOf(tareaConDetallePadre);
              
             if (indiceTareaConDetallePadre == -1) {
                 throw new Exception("Error en el indice de tareas - 1");
@@ -902,7 +903,29 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
           
         }
         
+        ////////////////////////////////////////////
+        DetalleTareaPlanificacion padreNuevoAncestroViejo2=padreOriginal;
+        for (int i = indiceTareaConDetallePadre+1; i < caminoDeTareas.size(); i++) 
+        {
+            if(i!=caminoDeTareas.size()-1)
+            {  DetalleTareaPlanificacion padreNuevoAncestro2 = new DetalleTareaPlanificacion(padreOriginal);
+                padreNuevoAncestro2.setCantHorasNormales(0.0);
+                padreNuevoAncestro2.setCantHorasAl50(0.0);
+                padreNuevoAncestro2.setCantHorasAl100(0.0);
+
+                caminoDeTareas.get(i).addDetalle(padreNuevoAncestro2);
+
+
+                padreNuevoAncestro2.setearPadre(padreNuevoAncestroViejo2);
+                padreNuevoAncestroViejo2 = padreNuevoAncestro2;
+            }
+            else
+            {
+               detalleActual.setearPadre(padreNuevoAncestroViejo2); 
+            }
+        }
         
+        ////////////////////////////////////////////
         
         detalleActual.setCantHorasNormales(cantHorasNormales);
         detalleActual.setCantHorasAl50(cantHorasAl50);
