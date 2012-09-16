@@ -723,6 +723,15 @@ public class TareaPlanificacion
         total += obtenerTotalDeHorasAl100ConSubtareas();
         return total;
     }
+    
+    public double obtenerTotalDeHorasSinSubtareas()
+    {
+        double total = 0;
+        total += obtenerTotalDeHorasNormalesSinSubtareas();
+        total += obtenerTotalDeHorasAl50SinSubtareas();
+        total += obtenerTotalDeHorasAl100SinSubtareas();
+        return total;
+    }
     public boolean tieneDetalle(DetalleTareaPlanificacion detalle)
     {
         if(this.detalles.indexOf(detalle)==-1)

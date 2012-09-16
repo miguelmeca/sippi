@@ -107,6 +107,24 @@ public class DetalleTareaPlanificacion {
     public DetalleSubObraXTareaModif getCotizado() {
         return cotizado;
     }
+    
+    public DetalleSubObraXTareaModif buscarCotizado() 
+    {
+        DetalleSubObraXTareaModif detalleCotizado;
+        if(this.cotizado!=null)
+        {
+            return this.cotizado;
+        }
+        else
+        {
+            if(this.padre!=null)
+            {return this.padre.buscarCotizado();}
+            else
+            {return null;}
+           
+        }
+        
+    }
 
     /**
      * @param originalCotizado the original to set
@@ -284,6 +302,12 @@ public class DetalleTareaPlanificacion {
        double subT=cantidadPersonas*((costoXHoraNormal*cantHorasNormales)+(1.5*costoXHoraNormal*cantHorasAl50)+(2*costoXHoraNormal*cantHorasAl100));          
        return subT; 
     }
+     
+    public double calcularTotalHorasPorPersona() 
+    {        
+       double subT=(cantHorasNormales+cantHorasAl50+cantHorasAl100);          
+       return subT; 
+    }
 
     /**
      * @return the detalleCopia
@@ -299,7 +323,33 @@ public class DetalleTareaPlanificacion {
         this.detalleCopia = detalleCopia;
     }
     
-    
+    public void borrar(List<TareaPlanificacion> caminoTareas) throws Exception
+    {
+        if(!caminoTareas.get(caminoTareas.size()-1).getDetalles().contains(this))
+        {
+            throw new Exception("ERROR: DetalleTareaPlanificacion - borrar() Tarea pasada por parametro no contiene al detalle actual");        
+        }
+        
+        if(this.cantidadHijos!=0)
+        {
+            throw new Exception("ERROR: DetalleTareaPlanificacion - borrar() El detalle seleccionado tiene detalles hijos");        
+        }
+        
+        if(this.padre!=null)
+        {this.setearPadre(null);}
+        else if(this.padre.calcularTotalHorasPorPersona()==0.0 && this.padre.getCantidadHijos()==0)
+        {
+            ArrayList<TareaPlanificacion> caminoTareasReducido=new ArrayList<TareaPlanificacion>();
+            for (int i = 0; i < caminoTareas.size()-1; i++) //Agrega hasta la penultima tarea
+            {
+                caminoTareasReducido.add(caminoTareas.get(i));
+            }
+            padre.borrar(caminoTareasReducido);
+        }
+        this.setCotizado(null);
+        caminoTareas.get(caminoTareas.size()-1).getDetalles().remove(this);
+        
+    }
     
     
     

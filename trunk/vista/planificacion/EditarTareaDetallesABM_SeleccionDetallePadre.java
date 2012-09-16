@@ -79,8 +79,8 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
         enProceso=true;
       tblDetallesTareaSuperior.getTableHeader().setPreferredSize(new Dimension(tblDetallesTareaSuperior.getColumnModel().getTotalColumnWidth(), 34));
       
-          cargarCboTareasSuperiores(); 
-      
+      cargarCboTareasSuperiores(); 
+      seleccionarTareaCboTareasSuperiores();
       cambiarTamCabeceraTablas();
       
       
@@ -108,13 +108,13 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
         }
         cmbTareaSuperior.setModel(model);        
         
-        if(!listaTareasSuperiores.isEmpty())        
+        /*if(!listaTareasSuperiores.isEmpty())        
         {
             NTupla t0 = new NTupla(-1);
             if(listaTareasSuperiores.get(0).getId()!=-1)
             t0.setNombre("Seleccione una tarea..."); 
             cmbTareaSuperior.insertItemAt(t0, 0);
-        }
+        }*/
         
         
         cmbTareaSuperior.setSelectedIndex(0); 
@@ -122,7 +122,23 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
         vaciarTablaTareaSuperior();
     }
     
-   
+   public void seleccionarTareaCboTareasSuperiores()
+    {
+        ArrayList<NTupla> listaTareasSuperiores = gestor.mostrarTareasSuperiores();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        if(listaTareasSuperiores!=null && !listaTareasSuperiores.isEmpty())
+        for (int i=listaTareasSuperiores.size()-1;i>0;i--)
+        {
+            if(((TareaPlanificacion)listaTareasSuperiores.get(i).getData()).obtenerTotalDeHorasSinSubtareas()>0.0)
+            {
+                cmbTareaSuperior.setSelectedIndex(i); 
+                break;
+            }
+               
+        }
+        seleccionDeCombo();
+        
+    }
     
     
     
@@ -429,7 +445,11 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
     }//GEN-LAST:event_tblDetallesTareaSuperiorMouseClicked
 
     private void cmbTareaSuperiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTareaSuperiorActionPerformed
-
+        seleccionDeCombo();
+    }//GEN-LAST:event_cmbTareaSuperiorActionPerformed
+        
+    private void seleccionDeCombo()
+    {
         vaciarTablaTareaSuperior();
         if (((NTupla) cmbTareaSuperior.getSelectedItem()).getId() != -1) {
             if (((NTupla) cmbTareaSuperior.getItemAt(0)).getId() == -1) {
@@ -440,8 +460,8 @@ public class EditarTareaDetallesABM_SeleccionDetallePadre extends javax.swing.JI
             btnSiguiente.setEnabled(false);
             limpiarDatosDetalleEnPantalla();
         }
-    }//GEN-LAST:event_cmbTareaSuperiorActionPerformed
-           
+    }
+    
     private void llenarTablaTareaSuperior(TareaPlanificacion tareaSuperior)
     {       
        habilitarDespuesDeClickEnComboTareas(true);

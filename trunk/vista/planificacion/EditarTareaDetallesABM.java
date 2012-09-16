@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
@@ -89,10 +90,11 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         this.gestor = gestor;
         gestor.setPantallaABM(this);
         detalleSuperiorSeleccionado=gestor.getDetallePadre();
+        this.modificacion=modificacion;
         inicializarVentana();
         
         pantallaPrincipal=pantalla;
-        this.modificacion=modificacion;
+        
         if(gestor.getCopiaDetallePadre()!=null)
         {
             costoDetalle=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
@@ -117,8 +119,11 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     {
         enProceso=true;
      filtroBuscarActivado=false;
+     
      rbFiltroTodos.setSelected(true);
-        rbFiltroActivos.setSelected(false);
+     rbFiltroActivos.setSelected(false);
+     ((TitledBorder)panelTareaCotizada.getBorder()).setTitle("Implicaciones en la tarea cotizada '"+gestor.getTareaConCotizacion().getNombre()+"'" );
+     
         ////////////////////////////////////
         tblEmpleadosDisponibles.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
         tblEmpleadosDisponibles.setRowHeight(72);
@@ -198,6 +203,10 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
          rbDevolverHoras.setEnabled(true);
          rbEliminarHoras.setEnabled(true);  
       }
+      
+      
+      
+     
     }
     
     
@@ -290,7 +299,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         {lblCostoTCotizadaActual.setForeground(Color.red); } 
         else
         {lblCostoTCotizadaActual.setForeground(Color.black);}
-        seterarRadioButtonsHorasNuevas();
+        //seterarRadioButtonsHorasNuevas();
     }
     
     
@@ -345,7 +354,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         txtCosto = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
         btnSetearCostoRango = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        panelTareaCotizada = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -550,7 +559,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addComponent(lblCostoDetalleTPadreDisponibles_Nvo))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas a usar de la tarea superior"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas a usar en este detalle"));
         jPanel2.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
@@ -689,7 +698,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Implicaciones en la tarea cotizada"));
+        panelTareaCotizada.setBorder(javax.swing.BorderFactory.createTitledBorder("Implicaciones en la tarea cotizada"));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel15.setText("Actuales");
@@ -737,58 +746,58 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Hs Normales");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelTareaCotizadaLayout = new javax.swing.GroupLayout(panelTareaCotizada);
+        panelTareaCotizada.setLayout(panelTareaCotizadaLayout);
+        panelTareaCotizadaLayout.setHorizontalGroup(
+            panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTareaCotizadaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblCostoTCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblCostoTCotizadaActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHsNormalesTCotizada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHsNormalesTCotizadaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHs50TCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHs50TCotizadaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblHs100TCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblHs100TCotizadaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
                 .addGap(39, 39, 39))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        panelTareaCotizadaLayout.setVerticalGroup(
+            panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTareaCotizadaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(panelTareaCotizadaLayout.createSequentialGroup()
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHsNormalesTCotizada)
                     .addComponent(lblHs50TCotizada)
                     .addComponent(lblHs100TCotizada)
                     .addComponent(lblCostoTCotizada))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelTareaCotizadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHs50TCotizadaActual)
                     .addComponent(lblHsNormalesTCotizadaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHs100TCotizadaActual)
@@ -822,7 +831,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(panelTareaCotizada, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(PanelEsfuerzoLayout.createSequentialGroup()
@@ -844,7 +853,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     .addComponent(rbDevolverHoras)
                     .addComponent(rbEliminarHoras))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTareaCotizada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
         );
 
@@ -1049,7 +1058,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -1060,17 +1069,15 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         {
             gestor.guardarCambios();
         }
-        /*this.actualizarPantallas();
-
-        // Si tiene callback lo activo
-        if (this.tieneCallback != null) {
-            this.tieneCallback.actualizar(gestor.getTareaActual().hashCode(), PlanificacionSubTareas.CALLBACK_NUEVASUBTAREA, TareaPlanificacion.class);
-        }
-
-        this.setVisible(false);*/
+        //this.actualizarPantallas();
+        //this.limpiarDatosDetalleEnPantalla();
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    public void actualizarPantallas()
+    {
+        pantallaPrincipal.actualizar(0, "", true, null);
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -1595,7 +1602,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCostoDetalleTPadreDisponibles;
@@ -1618,6 +1624,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHsNormalesTCotizadaActual;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles;
     private javax.swing.JLabel lblPersonasDetalleTPadreDisponibles_Nvo;
+    private javax.swing.JPanel panelTareaCotizada;
     private javax.swing.JRadioButton rbDevolverHoras;
     private javax.swing.JRadioButton rbEliminarHoras;
     private javax.swing.JRadioButton rbFiltroActivos;
