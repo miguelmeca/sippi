@@ -16,10 +16,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
+import javax.swing.table.*;
 import modelo.*;
 import util.NTupla;
 import util.Tupla;
@@ -127,16 +124,19 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         ////////////////////////////////////
         tblEmpleadosDisponibles.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
         tblEmpleadosDisponibles.setRowHeight(72);
-        tblEmpleadosDisponibles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+         tblEmpleadosDisponibles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEmpleadosDisponibles.getColumnModel().getColumn(0).setPreferredWidth(72);
         tblEmpleadosDisponibles.getColumnModel().getColumn(1).setPreferredWidth(355);
-        
+        TableColumn columnT1 = tblEmpleadosDisponibles.getColumnModel().getColumn(1);
+        columnT1.setPreferredWidth(488);
         
         tblEmpleadosAsignados.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
         tblEmpleadosAsignados.setRowHeight(72);
         tblEmpleadosAsignados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEmpleadosAsignados.getColumnModel().getColumn(0).setPreferredWidth(72);
         tblEmpleadosAsignados.getColumnModel().getColumn(1).setPreferredWidth(355);
+        TableColumn columnT2 = tblEmpleadosAsignados.getColumnModel().getColumn(1);
+        columnT2.setPreferredWidth(488);
       habilitarDespuesDeClickEnTabla(true);
             
       SpinnerModel modelPersonas =
