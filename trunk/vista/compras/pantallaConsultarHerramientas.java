@@ -6,7 +6,10 @@ package vista.compras;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import modelo.HerramientaDeEmpresa;
+import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
@@ -39,4 +42,19 @@ public class pantallaConsultarHerramientas extends PantallaConsultarGenerica{
         return new String[]{"Estado"};
     }    
     
+    @Override
+    protected void abrirEntidad(int id) {
+        // Veo si hay que seleccionar una fila
+        if(id!=-1)
+        {
+            ABMHerramientaDeEmpresa win = new ABMHerramientaDeEmpresa(id);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

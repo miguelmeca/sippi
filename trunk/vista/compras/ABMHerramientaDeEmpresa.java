@@ -7,10 +7,14 @@ package vista.compras;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
+import modelo.OrdenDeCompra;
+import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import util.HibernateUtil;
 import util.Tupla;
@@ -21,14 +25,32 @@ import util.Tupla;
  */
 public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
 
+    private HerramientaDeEmpresa herramientaDeEmpresa;
+    private int idOrdenDeCompra = -1;
     /**
      * Creates new form ABMHerramientaDeEmpresa
      */
     public ABMHerramientaDeEmpresa() {
+        herramientaDeEmpresa = null;
+        initComponents();
+        this.habilitarVentana();
+        
+    }
+
+    public ABMHerramientaDeEmpresa(int idHerramientaDeEmpresa) {
+        try {
+            HibernateUtil.beginTransaction();
+            this.herramientaDeEmpresa = (HerramientaDeEmpresa)HibernateUtil.getSession().get(HerramientaDeEmpresa.class, idHerramientaDeEmpresa);
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"No pudo cargarse la herramienta de Empresa.", "Error al cargar", JOptionPane.ERROR_MESSAGE);
+            HibernateUtil.rollbackTransaction();
+        }
         initComponents();
         this.habilitarVentana();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,9 +65,6 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNroSerie = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDescripcion = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,23 +85,6 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         jLabel2.setText("Número de Serie:");
 
         jLabel3.setText("Estado:");
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
-
-        txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
-        jScrollPane1.setViewportView(txtDescripcion);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-        );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Orden de Compra Asociada"));
 
@@ -145,7 +147,6 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -182,11 +183,8 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -223,19 +221,19 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(btnGuardarHerramienta))
-                .addGap(5, 5, 5))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarHerramientaActionPerformed
-        // TODO add your handling code here:
+        this.guardarCambios();
     }//GEN-LAST:event_btnGuardarHerramientaActionPerformed
 
     private void txtFechaOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaOrdenDeCompraActionPerformed
@@ -268,10 +266,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtFechaOrdenDeCompra;
     private javax.swing.JTextField txtNroOrdenDeCompra;
     private javax.swing.JTextField txtNroSerie;
@@ -280,6 +275,10 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
     private void habilitarVentana() {
         llenarComboHerramientas();
         llenarComboEstadoHerramienta();
+        if(this.herramientaDeEmpresa != null)
+        {
+            this.llenarCamposHerramientaEditada();
+        }
     }
     
     private void llenarComboHerramientas() 
@@ -333,6 +332,73 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         {
             String estado = itEstados.next();
             dcbm.addElement(estado);
+        }
+    }
+
+    private void guardarCambios() {
+        try {
+            HibernateUtil.beginTransaction();
+            if(herramientaDeEmpresa == null)
+            {
+                herramientaDeEmpresa = new HerramientaDeEmpresa();
+            }
+            herramientaDeEmpresa.setEstado((String)this.cmbEstado.getSelectedItem());
+            herramientaDeEmpresa.setNroSerie(this.txtNroSerie.getText());
+            Tupla tupla = (Tupla)cmbHerramienta.getSelectedItem();
+            RecursoEspecifico recursoEspecifico = (RecursoEspecifico)HibernateUtil.getSession().get(RecursoEspecifico.class, tupla.getId());
+            herramientaDeEmpresa.setRecursoEsp(recursoEspecifico);
+            OrdenDeCompra ordenDeCompra = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, this.idOrdenDeCompra);
+            herramientaDeEmpresa.setOrdenDeCompra(ordenDeCompra);
+            HibernateUtil.getSession().saveOrUpdate(herramientaDeEmpresa);
+            HibernateUtil.commitTransaction();
+            JOptionPane.showMessageDialog(this,"Se guardó correctamente la Herramienta de Empresa (Nro Serie: "+this.herramientaDeEmpresa.getNroSerie() +").", "Herramienta de Empresa", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"No pudo guardarse la herramienta de Empresa.", "Error al guardar", JOptionPane.ERROR_MESSAGE);
+            HibernateUtil.rollbackTransaction();
+        }
+    }
+
+    private void llenarCamposHerramientaEditada() {
+        try {
+            HibernateUtil.beginTransaction();
+            Recurso recurso = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso AS r WHERE :re in elements(r.recursos)").setParameter("re", this.herramientaDeEmpresa.getRecursoEsp()).uniqueResult();
+            this.seleccionarEnCombo(this.cmbHerramienta,recurso.getId());
+            this.seleccionarEnCombo(this.cmbTipoHerramienta,this.herramientaDeEmpresa.getRecursoEsp().getId());
+            this.txtNroSerie.setText(this.herramientaDeEmpresa.getNroSerie());
+            this.seleccionarEnComboEstado(this.cmbEstado,this.herramientaDeEmpresa.getEstado());
+            this.txtNroOrdenDeCompra.setText(String.valueOf(this.herramientaDeEmpresa.getOrdenDeCompra().getId()));
+            this.txtFechaOrdenDeCompra.setText(this.herramientaDeEmpresa.getOrdenDeCompra().getFechaDeGeneracionFormateada());            
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+        }
+
+    }
+
+    private void seleccionarEnCombo(JComboBox cb, int id) {
+        DefaultComboBoxModel dcbm = (DefaultComboBoxModel)cb.getModel();
+        for(int i = 0 ; i < dcbm.getSize() ; i++)
+        {
+            Tupla tupla = (Tupla) dcbm.getElementAt(i);
+            if(tupla.getId() == id)
+            {
+                cb.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+    
+    private void seleccionarEnComboEstado(JComboBox cb, String estado) {
+        DefaultComboBoxModel dcbm = (DefaultComboBoxModel)cb.getModel();
+        for(int i = 0 ; i < dcbm.getSize() ; i++)
+        {
+            String e = (String) dcbm.getElementAt(i);
+            if(e.equals(estado))
+            {
+                cb.setSelectedIndex(i);
+                break;
+            }
         }
     }
 }
