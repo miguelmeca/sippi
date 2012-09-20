@@ -198,9 +198,6 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaOrdenDeCompraActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAsociarOrdenDeCompra">
               <Properties>
@@ -209,6 +206,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Asociar Herramienta Comprada"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAsociarOrdenDeCompraActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -7,6 +7,8 @@ package vista.compras;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -17,13 +19,16 @@ import modelo.OrdenDeCompra;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import util.HibernateUtil;
+import util.SwingPanel;
 import util.Tupla;
+import vista.interfaces.ICallBack;
+import vista.interfaces.ICallBackGen;
 
 /**
  *
  * @author Emmanuel
  */
-public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
+public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implements ICallBackGen {
 
     private HerramientaDeEmpresa herramientaDeEmpresa;
     private int idOrdenDeCompra = -1;
@@ -95,14 +100,14 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         txtNroOrdenDeCompra.setEditable(false);
 
         txtFechaOrdenDeCompra.setEditable(false);
-        txtFechaOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaOrdenDeCompraActionPerformed(evt);
-            }
-        });
 
         btnAsociarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Shopping cart.png"))); // NOI18N
         btnAsociarOrdenDeCompra.setToolTipText("Asociar Herramienta Comprada");
+        btnAsociarOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsociarOrdenDeCompraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -236,10 +241,6 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         this.guardarCambios();
     }//GEN-LAST:event_btnGuardarHerramientaActionPerformed
 
-    private void txtFechaOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaOrdenDeCompraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaOrdenDeCompraActionPerformed
-
     private void cmbHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHerramientaActionPerformed
         DefaultComboBoxModel dcbm = (DefaultComboBoxModel) cmbHerramienta.getModel();
         Tupla tupla = (Tupla) dcbm.getSelectedItem();
@@ -251,6 +252,13 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAsociarOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsociarOrdenDeCompraActionPerformed
+        pantallaConsultarOrdenDeCompraConHerramientas consulta = new pantallaConsultarOrdenDeCompraConHerramientas();
+        consulta.setSeleccionarEnabled(this, "ABM Herramienta de Empresa");
+        SwingPanel.getInstance().addWindow(consulta);
+        consulta.show();
+    }//GEN-LAST:event_btnAsociarOrdenDeCompraActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsociarOrdenDeCompra;
@@ -297,8 +305,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         } 
         catch (Exception ex) 
         {
-           ex.printStackTrace();
-           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar las Herramientas",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar las Herramientas: "+ ex.getMessage(),JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -319,8 +326,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
         } 
         catch (Exception ex) 
         {
-           ex.printStackTrace();
-           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar los tipos de Herramienta",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar los tipos de Herramienta: "+ex.getMessage(),JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -344,7 +350,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
             }
             herramientaDeEmpresa.setEstado((String)this.cmbEstado.getSelectedItem());
             herramientaDeEmpresa.setNroSerie(this.txtNroSerie.getText());
-            Tupla tupla = (Tupla)cmbHerramienta.getSelectedItem();
+            Tupla tupla = (Tupla)cmbTipoHerramienta.getSelectedItem();
             RecursoEspecifico recursoEspecifico = (RecursoEspecifico)HibernateUtil.getSession().get(RecursoEspecifico.class, tupla.getId());
             herramientaDeEmpresa.setRecursoEsp(recursoEspecifico);
             OrdenDeCompra ordenDeCompra = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, this.idOrdenDeCompra);
@@ -354,7 +360,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Se guardó correctamente la Herramienta de Empresa (Nro Serie: "+this.herramientaDeEmpresa.getNroSerie() +").", "Herramienta de Empresa", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"No pudo guardarse la herramienta de Empresa.", "Error al guardar", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,"No pudo guardarse la herramienta de Empresa: "+ e.getMessage(), "Error al guardar", JOptionPane.ERROR_MESSAGE);
             HibernateUtil.rollbackTransaction();
         }
     }
@@ -399,6 +405,19 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame {
                 cb.setSelectedIndex(i);
                 break;
             }
+        }
+    }
+
+    @Override
+    public void actualizar(int id, String flag, Class tipo) {
+        OrdenDeCompra orden;
+        try {
+            orden = (OrdenDeCompra) HibernateUtil.getSession().get(tipo, id);
+            this.idOrdenDeCompra = id;
+            this.txtNroOrdenDeCompra.setText(String.valueOf(orden.getId()));
+            this.txtFechaOrdenDeCompra.setText(orden.getFechaDeGeneracionFormateada());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,"No pudo cargarse la Orden de Compra: "+ex.getMessage(), "Error al cargar", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

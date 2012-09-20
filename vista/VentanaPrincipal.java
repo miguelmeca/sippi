@@ -190,12 +190,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
+        btnMenuListHerr = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        btnMenuListHerr = new javax.swing.JMenuItem();
         btnMenuListadoOrdenesCompra = new javax.swing.JMenuItem();
         btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
         btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
@@ -281,7 +281,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 628, Short.MAX_VALUE))
+                .addGap(0, 631, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inicio", jPanel2);
@@ -514,6 +514,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Wrench.png"))); // NOI18N
         jMenu9.setText("Herramienta de Empresa");
 
+        btnMenuListHerr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        btnMenuListHerr.setText("Listado");
+        btnMenuListHerr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListHerrActionPerformed(evt);
+            }
+        });
+        jMenu9.add(btnMenuListHerr);
+
         jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
         jMenuItem22.setText("Nueva");
         jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
@@ -553,14 +562,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
-
-        btnMenuListHerr.setText("Herramientas");
-        btnMenuListHerr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuListHerrActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMenuListHerr);
 
         btnMenuListadoOrdenesCompra.setText("Ordenes de Compra");
         btnMenuListadoOrdenesCompra.addActionListener(new java.awt.event.ActionListener() {
