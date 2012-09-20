@@ -3,8 +3,10 @@ package modelo;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import util.FechaUtil;
+import util.RecursosUtil;
 
 /**
  * Descripción:
@@ -222,5 +224,32 @@ public class OrdenDeCompra {
     public String getFechaDeGeneracionFormateada()
     { 
         return FechaUtil.getFecha(this.fechaDeGeneracion);
-    }                       
+    }  
+    
+    public String getHerramientasRecibidas()
+    {
+        String herramientas = "<HTML>";
+        Iterator<RecepcionOrdenDeCompra> itRecepciones = this.recepciones.iterator();
+        while(itRecepciones.hasNext())
+        {
+            RecepcionOrdenDeCompra recepcion = itRecepciones.next();
+            Iterator<DetalleRecepcionOrdenDeCompra> itDetalleRecepciones = recepcion.getRecepcionesParciales().iterator();
+            while(itDetalleRecepciones.hasNext())
+            {   
+                DetalleRecepcionOrdenDeCompra detalleRecepcion = itDetalleRecepciones.next();
+                DetalleOrdenDeCompra detalleOC = detalleRecepcion.getDetalleOrdenDeCompra();
+                ItemComprable itemComprable = detalleOC.getItem();
+                if(itemComprable.getItem() instanceof RecursoEspecifico)
+                {
+                    RecursoEspecifico recursoEsp = (RecursoEspecifico) itemComprable.getItem();
+                    Herramienta herramienta = RecursosUtil.getHerramienta(recursoEsp);
+                    if(herramienta != null)
+                    {
+                        herramientas += "<b>" +herramienta.getNombre()+ "</b>" + ": "+ detalleRecepcion.getCantidad()+ " " +herramienta.getUnidadDeMedida();
+                    }
+                }
+            }
+        }
+        return herramientas;
+    }
 }
