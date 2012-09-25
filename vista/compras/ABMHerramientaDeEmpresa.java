@@ -13,9 +13,13 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import modelo.DetalleOrdenDeCompra;
+import modelo.DetalleRecepcionOrdenDeCompra;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
+import modelo.ItemComprable;
 import modelo.OrdenDeCompra;
+import modelo.RecepcionOrdenDeCompra;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import util.HibernateUtil;
@@ -32,6 +36,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
 
     private HerramientaDeEmpresa herramientaDeEmpresa;
     private int idOrdenDeCompra = -1;
+    private int idRecursoEsp = -1;
     /**
      * Creates new form ABMHerramientaDeEmpresa
      */
@@ -98,8 +103,10 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
         jLabel5.setText("Fecha:");
 
         txtNroOrdenDeCompra.setEditable(false);
+        txtNroOrdenDeCompra.setEnabled(false);
 
         txtFechaOrdenDeCompra.setEditable(false);
+        txtFechaOrdenDeCompra.setEnabled(false);
 
         btnAsociarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Shopping cart.png"))); // NOI18N
         btnAsociarOrdenDeCompra.setToolTipText("Asociar Herramienta Comprada");
@@ -351,10 +358,12 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
             herramientaDeEmpresa.setEstado((String)this.cmbEstado.getSelectedItem());
             herramientaDeEmpresa.setNroSerie(this.txtNroSerie.getText());
             Tupla tupla = (Tupla)cmbTipoHerramienta.getSelectedItem();
-            RecursoEspecifico recursoEspecifico = (RecursoEspecifico)HibernateUtil.getSession().get(RecursoEspecifico.class, tupla.getId());
-            herramientaDeEmpresa.setRecursoEsp(recursoEspecifico);
+//            RecursoEspecifico recursoEspecifico = (RecursoEspecifico)HibernateUtil.getSession().get(RecursoEspecifico.class, tupla.getId());
+//            herramientaDeEmpresa.setRecursoEsp(recursoEspecifico);
             OrdenDeCompra ordenDeCompra = (OrdenDeCompra)HibernateUtil.getSession().get(OrdenDeCompra.class, this.idOrdenDeCompra);
             herramientaDeEmpresa.setOrdenDeCompra(ordenDeCompra);
+            RecursoEspecifico recursoEspecifico = (RecursoEspecifico)HibernateUtil.getSession().get(RecursoEspecifico.class, this.idRecursoEsp);
+            herramientaDeEmpresa.setRecursoEsp(recursoEspecifico);
             HibernateUtil.getSession().saveOrUpdate(herramientaDeEmpresa);
             HibernateUtil.commitTransaction();
             JOptionPane.showMessageDialog(this,"Se guardó correctamente la Herramienta de Empresa (Nro Serie: "+this.herramientaDeEmpresa.getNroSerie() +").", "Herramienta de Empresa", JOptionPane.INFORMATION_MESSAGE);
@@ -414,10 +423,54 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
         try {
             orden = (OrdenDeCompra) HibernateUtil.getSession().get(tipo, id);
             this.idOrdenDeCompra = id;
+            this.seleccionarHerramientaDeOrdenDeCompra(orden);
             this.txtNroOrdenDeCompra.setText(String.valueOf(orden.getId()));
             this.txtFechaOrdenDeCompra.setText(orden.getFechaDeGeneracionFormateada());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,"No pudo cargarse la Orden de Compra: "+ex.getMessage(), "Error al cargar", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void seleccionarHerramientaDeOrdenDeCompra(OrdenDeCompra ordenDeCompra) {
+        Iterator<RecepcionOrdenDeCompra> itRecepciones = ordenDeCompra.getRecepciones().iterator();
+        while(itRecepciones.hasNext())
+        {
+            RecepcionOrdenDeCompra recepcion = itRecepciones.next();
+            Iterator<DetalleRecepcionOrdenDeCompra> itDetalleRecepciones = recepcion.getRecepcionesParciales().iterator();
+            while(itDetalleRecepciones.hasNext())
+            {
+                DetalleRecepcionOrdenDeCompra detalleRecepcion = itDetalleRecepciones.next();
+                DetalleOrdenDeCompra detalle = detalleRecepcion.getDetalleOrdenDeCompra();
+                ItemComprable itemComprable = detalle.getItem();
+                if(itemComprable!=null && itemComprable.getItem()!=null && itemComprable.getItem() instanceof RecursoEspecifico)
+                {
+                    RecursoEspecifico recursoEsp = (RecursoEspecifico) itemComprable.getItem();
+                    if(!this.yaEstaAsociadaAUnaHerramientaDeEmpresa(recursoEsp))
+                    {
+                        this.idRecursoEsp = recursoEsp.getId();
+                    }
+                }
+            }
+        }
+    }  
+
+    private boolean yaEstaAsociadaAUnaHerramientaDeEmpresa(RecursoEspecifico recursoEsp) {
+        try {
+            HibernateUtil.beginTransaction();
+            Iterator<HerramientaDeEmpresa>  itHerramientaDeEmpresa = (Iterator<HerramientaDeEmpresa>)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa").iterate();
+            while(itHerramientaDeEmpresa.hasNext())
+            {
+                HerramientaDeEmpresa herramientaDeEmpresaAux = itHerramientaDeEmpresa.next();
+                if(recursoEsp.getId() == herramientaDeEmpresaAux.getRecursoEsp().getId())
+                {
+                    return true;
+                }
+            }
+            HibernateUtil.commitTransaction();
+            return false;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            return false;
         }
     }
 }

@@ -11,11 +11,14 @@ import java.util.List;
 import modelo.DetalleOrdenDeCompra;
 import modelo.DetalleRecepcionOrdenDeCompra;
 import modelo.Herramienta;
+import modelo.HerramientaDeEmpresa;
 import modelo.ItemComprable;
 import modelo.OrdenDeCompra;
 import modelo.Proveedor;
 import modelo.RecepcionOrdenDeCompra;
 import modelo.RecursoEspecifico;
+import org.hibernate.Hibernate;
+import util.HibernateUtil;
 import util.RecursosUtil;
 import vista.gen.FiltroPasivo;
 
@@ -53,11 +56,10 @@ public class FiltroPasivoOrdenesDeCompraConHerramienta extends FiltroPasivo{
                         DetalleRecepcionOrdenDeCompra detalleRecepcion = itDetalleRecepciones.next();
                         DetalleOrdenDeCompra detalle = detalleRecepcion.getDetalleOrdenDeCompra();
                         ItemComprable itemComprable = detalle.getItem();
-                        if(itemComprable.getItem() instanceof RecursoEspecifico)
+                        if(itemComprable!=null && itemComprable.getItem()!=null && itemComprable.getItem() instanceof RecursoEspecifico)
                         {
                             RecursoEspecifico recursoEsp = (RecursoEspecifico) itemComprable.getItem();
-                            Herramienta herramienta = RecursosUtil.getHerramienta(recursoEsp);
-                            if(herramienta != null)
+                            if(!this.yaEstaAsociadaAUnaHerramientaDeEmpresa(recursoEsp))
                             {
                                 listaFinal.add(ordenDeCompra);
                             }
@@ -71,5 +73,25 @@ public class FiltroPasivoOrdenesDeCompraConHerramienta extends FiltroPasivo{
         
         return listaFinal;
     }  
+
+    private boolean yaEstaAsociadaAUnaHerramientaDeEmpresa(RecursoEspecifico recursoEsp) {
+        try {
+                HibernateUtil.beginTransaction();
+            Iterator<HerramientaDeEmpresa>  itHerramientaDeEmpresa = (Iterator<HerramientaDeEmpresa>)HibernateUtil.getSession().createQuery("FROM HerramientaDeEmpresa").iterate();
+            while(itHerramientaDeEmpresa.hasNext())
+            {
+                HerramientaDeEmpresa herramientaDeEmpresa = itHerramientaDeEmpresa.next();
+                if(recursoEsp.getId() == herramientaDeEmpresa.getRecursoEsp().getId())
+                {
+                    return true;
+                }
+            }
+            HibernateUtil.commitTransaction();
+            return false;
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
+    }
 }
 
