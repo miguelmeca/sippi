@@ -143,7 +143,7 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
     public void AgregarCompraAlquiler(Tupla tipo, String descripcion, int cantidad, double precio) 
     {
         // Creo el objeto
-        SubObraXAlquilerCompra detalle = new SubObraXAlquilerCompra();    
+        SubObraXAlquilerCompra detalle = this.nuevaSubObraXAlquilerCompra();    
         detalle.setCantidad(cantidad);
         detalle.setDescripcion(descripcion);
         detalle.setPrecioUnitario(precio);        
@@ -203,6 +203,13 @@ public class GestorCotizacionAlquileresCompras implements IGestorCotizacion {
                 refrescarPantallas();
             }
         }
+    }
+    
+    //Tiene que ser publico para que java permita sobreescribirlo
+    public SubObraXAlquilerCompra nuevaSubObraXAlquilerCompra()
+    {
+        SubObraXAlquilerCompra soxac = new SubObraXAlquilerCompra();
+        return soxac;
     }
     
 }

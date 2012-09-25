@@ -2076,7 +2076,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             
                             if(gastosMod!=null)
                             {
-                                tipoAC = gastosMod.getOriginal().getTipoAlquilerCompra();
+                                tipoAC = gastosMod.getTipoAlquilerCompra();
                             }
 
                             if(tarea!=null && gastosMod!=null && tipoAC!=null && plan != null)

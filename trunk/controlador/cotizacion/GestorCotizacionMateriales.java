@@ -192,7 +192,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public void agregarMaterial(int idRXP, int cantidad, String desc,double precio) {
         try {
             HibernateUtil.beginTransaction();
-            SubObraXMaterial soxm = new SubObraXMaterial();
+            SubObraXMaterial soxm = this.nuevaSubObraXMaterial();
             RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
             soxm.setMaterial(rxp);
             soxm.setCantidad(cantidad);
@@ -730,5 +730,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             HibernateUtil.rollbackTransaction();
         }
         return precio;
+    }
+    
+    //Tiene que ser publico para que java permita sobreescribirlo
+    public SubObraXMaterial nuevaSubObraXMaterial()
+    {
+        SubObraXMaterial soxm = new SubObraXMaterial();
+        return soxm;
     }
 }

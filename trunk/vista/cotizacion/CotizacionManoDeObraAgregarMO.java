@@ -49,7 +49,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
         idTarea=-1;
         hashCodeTarea=-1;
         habiliarVentana();   
-        tareaActual=new SubObraXTarea();
+        tareaActual= gestor.nuevaSubObraXTarea();
         this.setTitle("Nueva Tarea");
         //listaDetallesTarea=new ArrayList<DetalleSubObraXTarea>();
         habilitarCamposDatosDetalleTarea(false);
@@ -170,7 +170,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     public boolean validarDatosDetalle(boolean mostrarErrores)
     {
       
-      if(((NTupla)cboRango.getSelectedItem()).getId()<0)
+      if(cboRango.getSelectedItem()!=null&&((NTupla)cboRango.getSelectedItem()).getId()<0)
        {  
          if(mostrarErrores)
          { JOptionPane.showMessageDialog(this.getParent(), "Seleccione un rango", "Error",JOptionPane.ERROR_MESSAGE);
@@ -179,7 +179,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
        }
       if(mostrarErrores)
       {
-        if(((NTupla)cboTipoEspecialidad.getSelectedItem()).getId()<0)
+        if(cboTipoEspecialidad.getSelectedItem()!=null&&((NTupla)cboTipoEspecialidad.getSelectedItem()).getId()<0)
         {  
           JOptionPane.showMessageDialog(this.getParent(), "Seleccione un especialidad", "Error",JOptionPane.ERROR_MESSAGE);
           cboTipoEspecialidad.requestFocusInWindow();

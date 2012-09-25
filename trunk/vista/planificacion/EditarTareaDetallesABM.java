@@ -245,11 +245,20 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     
     private void setearValoresTareaCotizadaOriginal()
     {
-        
-        hsNormalesEnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasNormales();
-        hs50EnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasAl50();
-        hs100EnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasAl100();        
-        costoEnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().calcularSubtotal();
+        if(gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal()!=null)
+        {
+            hsNormalesEnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasNormales();
+            hs50EnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasAl50();
+            hs100EnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().obtenerTotalDeHorasAl100();        
+            costoEnTareaCotizadaOriginal=gestor.getCopiaTareaConConCotizacion().getTareaCotizada().getOriginal().calcularSubtotal();
+        }
+        else
+        {
+           hsNormalesEnTareaCotizadaOriginal=0.0;
+           hs50EnTareaCotizadaOriginal=0.0;
+           hs100EnTareaCotizadaOriginal=0.0;       
+           costoEnTareaCotizadaOriginal=0.0;
+        }
         /*
         hsNormalesEnTareaCotizadaOriginal=gestor.getCopiaTareaCotizadaOriginal().obtenerTotalDeHorasNormales();
         hs50EnTareaCotizadaOriginal=gestor.getCopiaTareaCotizadaOriginal().obtenerTotalDeHorasAl50();

@@ -88,7 +88,7 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
     
     public void AgregarHerramienta(Tupla tph, int cantHoras, double costo, String observaciones)
     {
-        SubObraXHerramienta detalle = new SubObraXHerramienta();
+        SubObraXHerramienta detalle =this.nuevaSubObraXHerramienta();
         
         detalle.setCantHoras(cantHoras);
         detalle.setCostoXHora(costo);
@@ -195,7 +195,12 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
         // Retorna por posicion en el Array, no por el Hash
         return getSubObraActual().getHerramientas().get(ntp.getId());       
     }
-
     
+    //Tiene que ser publico para que java permita sobreescribirlo
+    public SubObraXHerramienta nuevaSubObraXHerramienta()
+    {
+        SubObraXHerramienta soxh = new SubObraXHerramienta();
+        return soxh;
+    }
     
 }
