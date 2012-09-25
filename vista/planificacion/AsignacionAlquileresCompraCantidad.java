@@ -233,7 +233,7 @@ public class AsignacionAlquileresCompraCantidad extends javax.swing.JInternalFra
         int value = model.getNumber().intValue();
         
         int cantidadDisponible = this.gastos.getCantidad();
-        int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
+        //int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
         
         asignarCantidad(value, cantidadDisponible);
     }//GEN-LAST:event_btnAsignarActionPerformed

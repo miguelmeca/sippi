@@ -7,10 +7,7 @@ package controlador.cotizacion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
-import modelo.Cotizacion;
-import modelo.SubObra;
-import modelo.SubObraXAdicional;
-import modelo.TipoAdicional;
+import modelo.*;
 import util.HibernateUtil;
 import util.NTupla;
 import util.Tupla;
@@ -126,7 +123,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
 
     public void AgregarAdicional(Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) 
     {
-        SubObraXAdicional detalle = new SubObraXAdicional();
+        SubObraXAdicional detalle = this.nuevaSubObraXAdicional();
         detalle.setDescripcion(descripcion);
         detalle.setCantDias(cantidadDias);
         detalle.setCantOperarios(cantidadOperarios);
@@ -182,7 +179,11 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         return getSubObraActual().getAdicionales().get(ntp.getId());   
     }
 
-
-    
+//Tiene que ser publico para que java permita sobreescribirlo
+    public SubObraXAdicional nuevaSubObraXAdicional()
+    {
+        SubObraXAdicional soxa = new SubObraXAdicional();
+        return soxa;
+    }
     
 }

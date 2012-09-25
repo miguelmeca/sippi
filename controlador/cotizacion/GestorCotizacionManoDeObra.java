@@ -308,7 +308,7 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
     
     public DetalleSubObraXTarea crearDetalleTarea(double hsNormales, double hs50,double hs100, int cantidadPersonas, double costoNormal, int idEspecialidad)
     {
-       DetalleSubObraXTarea detalleNuevo=crearDetalleVacio();
+       DetalleSubObraXTarea detalleNuevo=this.crearDetalleVacio();
         detalleNuevo.setCantHorasNormales(hsNormales);
         detalleNuevo.setCantHorasAl50(hs50);
         detalleNuevo.setCantHorasAl50(hs50);
@@ -324,7 +324,9 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         
         return detalleNuevo;    
     }
-    private DetalleSubObraXTarea crearDetalleVacio()
+    
+    //Tiene que ser publico para que java permita sobreescribirlo
+    public DetalleSubObraXTarea crearDetalleVacio()
     {
         return new DetalleSubObraXTarea();
     }
@@ -448,5 +450,10 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
         gestorPadre.refrescarPantallas();
     }
     
- 
+    //Tiene que ser publico para que java permita sobreescribirlo
+    public SubObraXTarea nuevaSubObraXTarea()
+    {
+        SubObraXTarea soxt = new SubObraXTarea();
+        return soxt;
+    }
 }

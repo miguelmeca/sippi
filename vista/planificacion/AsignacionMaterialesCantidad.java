@@ -239,7 +239,7 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
         int value = model.getNumber().intValue();
         
         int cantidadDisponible = this.gastos.getCantidadDisponible();
-        int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
+        //int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
         
         asignarCantidad(value, cantidadDisponible);
     }//GEN-LAST:event_btnAsignarActionPerformed

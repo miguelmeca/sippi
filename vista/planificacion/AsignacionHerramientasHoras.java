@@ -211,7 +211,9 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
         
         int horasYaAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(this.plan,this.gastos);
         int horasTotal = this.gastos.getHorasDisponibles();
-        int horasCotizadas = this.gastos.getOriginal().getHorasDisponibles();
+        int horasCotizadas=0;
+        if(this.gastos.getOriginal()!=null)
+        {horasCotizadas = this.gastos.getOriginal().getHorasDisponibles();}
         int horasQueQuedan = horasTotal - horasYaAsignadas;
         
         asignarHoras(value,horasQueQuedan,horasCotizadas,horasTotal);

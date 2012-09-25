@@ -11,6 +11,7 @@ import modelo.*;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import vista.cotizacion.EditarCotizacion;
+import vista.planificacion.cotizacion.*;
 
 /**
  * @author Administrador
@@ -35,10 +36,11 @@ public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
                 break;
             }
         }
-        super.gestorMateriales = new GestorCotizacionMateriales(this);
-        super.gestorHerramientas = new GestorCotizacionHerramientas(this);
-        super.gestorAlquileresCompras = new GestorCotizacionAlquileresCompras(this);
-        super.gestorAdicionales = new GestorCotizacionAdicionales(this);
+        super.gestorMateriales = new GestorCotizacionMaterialesModif(this);
+        super.gestorHerramientas = new GestorCotizacionHerramientasModif(this);
+        super.gestorAlquileresCompras = new GestorCotizacionAlquileresComprasModif(this);
+        super.gestorAdicionales = new GestorCotizacionAdicionalesModif(this);
+        super.gestorManoObra = new GestorCotizacionManoDeObraModif(this);
     }
 
     @Override
