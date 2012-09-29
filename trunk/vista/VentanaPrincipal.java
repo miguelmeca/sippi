@@ -39,6 +39,7 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.compras.*;
 import vista.cotizacion.ListadoCotizaciones;
+import vista.ejecucion.VentanaEjecucion;
 import vista.ejecucion.lanzamiento.VentanaLanzamiento;
 import vista.gen.FactoryABM;
 import vista.gen.PantallaABMGenerica;
@@ -167,6 +168,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem19 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -281,7 +283,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 631, Short.MAX_VALUE))
+                .addGap(0, 629, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inicio", jPanel2);
@@ -343,6 +345,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Favourites.png"))); // NOI18N
         jMenu3.setText("Prototipos");
+
+        jMenuItem21.setText("Ejecución");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem21);
 
         jMenuItem20.setText("Lanzamiento");
         jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
@@ -871,6 +881,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        VentanaEjecucion win = new VentanaEjecucion(1);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -906,6 +922,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

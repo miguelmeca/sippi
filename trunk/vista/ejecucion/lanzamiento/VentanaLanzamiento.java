@@ -1,9 +1,9 @@
 package vista.ejecucion.lanzamiento;
 
+import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.hibernate.event.RefreshEvent;
 
 /**
  * @author Iuga
@@ -22,11 +22,22 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     private PanelRecursosHumanos panelRecursosHumanos;
     private PanelAdicionales panelAdicionales;
     
+    private GestorVentanaLanzamiento gestor;
+    
     /**
-     * Creates new form VentanaLanzamiento
+     * Crea una nueva ventana de Lanzamiento.
+     * @param idObra id de la obra en cuestion
      */
-    public VentanaLanzamiento(int i) {
+    public VentanaLanzamiento(int idObra) {
+        // Inicializo Ventana
         initComponents();
+        // Todas las solapas comparten el mismo gestor, así simplificamos !!
+        this.gestor = new GestorVentanaLanzamiento(this,idObra);
+        // Verifico si la obra esta en ejecucion
+        checkSiObraTieneEjecución(idObra);
+        // Segun el estado de la ejecucion, cambio el comportamiento
+        cambiarSegunEstadoEjecucion();
+        // Comportamiento del menu lateral
         clickMenuLateral();
     }
     
@@ -154,14 +165,15 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Info!","Con éste botón CANCELO todos los cambios realizados y cierro la ventana");
-        this.dispose();
+       
+        // llamo al comportamiento Cancelar de la ventana 
+        cancelar();
+        
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-        // TODO
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Info!","Con éste botón se Guardan los cambios realizados de Todas las 'solapas'");        
+        // Llamo al Guardar Cambios
+        guardar();
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -244,6 +256,70 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    /**
+     * Verifica si la obra tiene ejecucion,si no la tiene esta ventana
+     * debería advertirlo y cerrarse.
+     */
+    private void checkSiObraTieneEjecución(int idObra) {
+        
+    }
+
+    /**
+     * Segun el estado de la ejecucion, cambio el comportamiento.
+     * Si está en alta, o en definicion, dejo todo editable
+     * Si esta en baja o cancelada, no dejo editar nada.
+     */
+    private void cambiarSegunEstadoEjecucion() {
+        
+    }
+
+    /**
+     * Metodo a llamar cuando se quieren guardar los cambios !!
+     * @return 
+     */
+    private boolean guardar() {
+        return true;
+    }
+
+    /**
+     * Cancela los cambios y cierra la ventana.
+     * Antes pregunta si desea guardar los cambios.
+     */
+    private void cancelar() {
+        int seleccion = JOptionPane.showOptionDialog(
+                this, // Componente padre
+                "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
+                + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
+                "Seleccione una opción", // Título
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, // null para icono por defecto.
+                new Object[]{"Guardar y Cerrar","Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
+                "Guardar y Cerrar");
+        
+        if (seleccion != -1) {
+            switch(seleccion+1){
+                case 1:
+                    // PRESIONO Guardar y Cerrar
+                    System.out.println("Guardar y Cerrar:"+(seleccion+1));
+                    if(guardar()){
+                        this.dispose();
+                    }
+                    break;
+                case 2:
+                    // PRESIONO Cerrar
+                    System.out.println("Cerrar:"+(seleccion+1));
+                    this.dispose();
+                    break;
+                case 3:
+                default:
+                    System.out.println("Cancelar:"+(seleccion+1));
+                    // Cancelar - Nadaremos
+                    break;
+            }
+        }
     }
     
 }
