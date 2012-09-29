@@ -188,8 +188,8 @@ public class Loading extends javax.swing.JFrame {
                 UIManager.put("Synthetica.license.key","C1410294-61B64AAC-4B7D3039-834A82A1-37E5D695");
                 try
                 {
-                    //UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");    
+                    UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel");
+                    //UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");    
                     //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");   
                     //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");    
                     //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
