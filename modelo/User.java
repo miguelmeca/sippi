@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class User {
     
+    public final static String ESTADO_ALTA = "Alta";
+    public final static String ESTADO_BAJA = "Baja";    
+    
     private int id;
     private String usuario;
     private String password;
@@ -80,6 +83,11 @@ public class User {
         this.listaFavoritos = listaFavoritos;
     }
     
-    
+    public String isAdmin(){
+        if(this.isAdmin){
+            return "Si";
+        }
+        return "No";
+    }
     
 }

@@ -6,8 +6,7 @@ package controlador.users;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.User;
 import util.HashUtil;
@@ -33,21 +32,21 @@ public class GestorLogin {
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
         try 
         {    
-            Iterator iter = HibernateUtil.getSession().createQuery("from User u WHERE u.estado='ALTA' order by u.usuario ").iterate();
-            while (iter.hasNext())
-            {
-                User u = (User)iter.next();
-
+            HibernateUtil.beginTransaction();
+            List<User> listado = HibernateUtil.getSession().createQuery("from User u WHERE u.estado='"+User.ESTADO_ALTA+"' order by u.usuario").list();
+            HibernateUtil.commitTransaction();
+            
+            for (int i = 0; i < listado.size(); i++) {
+                User u = listado.get(i);
                 NTupla nt = new NTupla(u.getId());
                     nt.setNombre(u.getUsuario());
                     String[] datos = new String[4];
                         datos[0] = u.getUrlFoto();
                     nt.setData(datos);
                 lista.add(nt);
-            }
+            }   
         } 
-        catch (Exception ex) 
-        {
+        catch (Exception ex){
             pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","No se pudieron cargar los usuarios del Sistema");
         }
         

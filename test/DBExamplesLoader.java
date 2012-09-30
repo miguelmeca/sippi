@@ -1453,21 +1453,24 @@ public class DBExamplesLoader {
     private void cargarUsuarios() 
     {
         User u = new User();
-        u.setEstado("ALTA");
-        u.setUsuario("Iuga");
+        u.setEstado(User.ESTADO_BAJA);
+        u.setUsuario("UsuarioAccesoFull");
         u.setPassword("ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e");
+        u.setUrlFoto("/res/imagenes/defaultAvatar.png");
         u.setIsAdmin(true);      
         
         User u2 = new User();
-        u2.setEstado("ALTA");
-        u2.setUsuario("Test");
+        u2.setEstado(User.ESTADO_ALTA);
+        u2.setUsuario("Tester");
         u2.setPassword("532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25");
+        u2.setUrlFoto("/res/imagenes/avatar_001.jpg");
         u2.setIsAdmin(true);      
         
         User u3 = new User();
-        u3.setEstado("ALTA");
-        u3.setUsuario("Dev");
+        u3.setEstado(User.ESTADO_ALTA);
+        u3.setUsuario("Developer");
         u3.setPassword("9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587");
+        u3.setUrlFoto("/res/imagenes/avatar_002.jpg");
         u3.setIsAdmin(true);          
         
         sesion.beginTransaction();
