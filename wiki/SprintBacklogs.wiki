@@ -1,11 +1,14 @@
 #labels Phase-Requirements
 = Product Backlog =
 El backlog de todo el producto:
-  * [https://code.google.com/p/sippi/issues/list?can=2&q=&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&cells=tiles Product Backlog]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=-status:AVerificar%20-status:Verificado&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&groupby=&sort=&x=&y=&cells=tiles]
 
 = Defects Backlogs =
 El Backlog que contiene todos los defectos abiertos:
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto Defects List]
+
+= Tareas & Defects En Progreso =
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=status%3AEnResoluci%C3%B3n&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&cells=tiles Tareas y Defects en Progreso]
 
 = Sprint Backlogs =
 Listado de los backlogs separados por sprints:
@@ -14,3 +17,4 @@ Listado de los backlogs separados por sprints:
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3AIteracion-6+label%3ASprint-1+-label%3ADiferido&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&mode=grid&cells=tiles Iteración 6 - Sprint 1 - Compras]
 
   * [https://code.google.com/p/sippi/issues/list?can=2&q=label:Iteracion-7%20label:Sprint-1&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles Iteración 7 - Sprint 1 - Lanzamiento]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=label:Iteracion-7%20label:Sprint-2&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary+Estimaci%C3%B3n+Progreso&groupby=&sort=&x=&y=&cells=tiles Iteración 7 - Sprint 2 - Lanzamiento]
