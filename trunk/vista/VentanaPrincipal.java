@@ -48,6 +48,8 @@ import vista.planificacion.PantallaConsultarPlanificaciones;
 import vista.rrhh.PantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaRegistrarEmpleado;
+import vista.users.ABMUsers;
+import vista.users.ListadoUsuarios;
 
 
 
@@ -165,6 +167,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblFechaHoy = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
+        cmbUsuarios = new javax.swing.JMenu();
+        cmbNuevoUsuario = new javax.swing.JMenuItem();
+        cmbListadoUsuarios = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -254,11 +259,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Menú", jScrollPane1);
 
-        jPanel4.setBackground(new java.awt.Color(57, 105, 138));
-
-        lblFechaHoy.setBackground(new java.awt.Color(57, 105, 138));
         lblFechaHoy.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        lblFechaHoy.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaHoy.setForeground(new java.awt.Color(57, 105, 138));
         lblFechaHoy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaHoy.setText("Junio 11");
 
@@ -322,6 +324,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/favorite.png"))); // NOI18N
         jMenu8.setText("Sistema");
+
+        cmbUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
+        cmbUsuarios.setText("Usuarios");
+
+        cmbNuevoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/user.png"))); // NOI18N
+        cmbNuevoUsuario.setText("Nuevo Usuario");
+        cmbNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNuevoUsuarioActionPerformed(evt);
+            }
+        });
+        cmbUsuarios.add(cmbNuevoUsuario);
+
+        cmbListadoUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
+        cmbListadoUsuarios.setText("Listado de Usuarios");
+        cmbListadoUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbListadoUsuariosActionPerformed(evt);
+            }
+        });
+        cmbUsuarios.add(cmbListadoUsuarios);
+
+        jMenu8.add(cmbUsuarios);
 
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
         jMenuItem19.setText("Inicio");
@@ -887,6 +912,18 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
+    private void cmbListadoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbListadoUsuariosActionPerformed
+        ListadoUsuarios win = new ListadoUsuarios();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_cmbListadoUsuariosActionPerformed
+
+    private void cmbNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNuevoUsuarioActionPerformed
+        ABMUsers win = new ABMUsers();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_cmbNuevoUsuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -898,7 +935,10 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem btnMenuListadoProveedores;
     private javax.swing.JMenuItem btnMnuObras;
     private javax.swing.JMenuItem btnMnuRecursos;
+    private javax.swing.JMenuItem cmbListadoUsuarios;
+    private javax.swing.JMenuItem cmbNuevoUsuario;
     private javax.swing.JMenuItem cmbSalir;
+    private javax.swing.JMenu cmbUsuarios;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

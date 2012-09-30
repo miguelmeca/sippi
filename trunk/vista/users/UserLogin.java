@@ -235,19 +235,21 @@ private void tablaUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         {
             NTupla nt = it.next();
             
-            Object[] data = (Object[])nt.getData();
+            String[] data = (String[])nt.getData();
             
             Object[] fila = new Object[2];
             ImageIcon icon = null;
-            if(data[1]!=null)
+            if(data[0]!=null)
             {
-                 icon = new ImageIcon(getClass().getResource("/res/imagenes/defaultAvatar.png"));
+                 icon = new ImageIcon(getClass().getResource(data[0]));
             }
             else
             {
                 icon = new ImageIcon(getClass().getResource("/res/imagenes/defaultAvatar.png"));
             }
             fila[0] = new JLabel(icon);
+                // Fix Nombre pegado
+                nt.setNombre("   "+nt.getNombre());
             fila[1] = nt;
             modelo.addRow(fila);
         }

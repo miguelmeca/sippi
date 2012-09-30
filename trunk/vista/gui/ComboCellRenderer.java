@@ -2,6 +2,7 @@ package vista.gui;
 
 import de.javasoft.plaf.synthetica.simple2D.DefaultComboListCellRenderer;
 import java.awt.Component;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
@@ -21,6 +22,9 @@ public class ComboCellRenderer extends DefaultComboListCellRenderer
         {
             JPanel panel = (JPanel)value;
             return panel;
+        }else if(value instanceof JLabel){
+            JLabel label = (JLabel)value;
+            return label;
         }
         else
         {
