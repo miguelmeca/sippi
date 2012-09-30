@@ -1,7 +1,7 @@
 #labels Phase-Requirements
 = Product Backlog =
 El backlog de todo el producto:
-  * [https://code.google.com/p/sippi/issues/list?can=2&q=-status:AVerificar%20-status:Verificado&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&groupby=&sort=&x=&y=&cells=tiles]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=-status:AVerificar%20-status:Verificado&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&groupby=&sort=&x=&y=&cells=tiles Product Backlog]
 
 = Defects Backlogs =
 El Backlog que contiene todos los defectos abiertos:
