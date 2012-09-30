@@ -5,7 +5,7 @@ El backlog de todo el producto:
 
 = Defects Backlogs =
 El Backlog que contiene todos los defectos abiertos:
-  * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto Defects List]
+  * [https://code.google.com/p/sippi/issues/list?can=2&q=label%3ATipo-Defecto+-status%3AAVerificar+&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&cells=tiles Defects List]
 
 = Tareas & Defects En Progreso =
   * [https://code.google.com/p/sippi/issues/list?can=2&q=status%3AEnResoluci%C3%B3n&colspec=ID+Tipo+Status+Prioridad+Iteracion+Sprint+Owner+Summary&cells=tiles Tareas y Defects en Progreso]
