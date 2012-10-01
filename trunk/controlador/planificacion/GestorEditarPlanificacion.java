@@ -619,9 +619,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
     }
     
-    public boolean quitarTarea(int hash, String nombre,int idTareaPadre)
+    public boolean quitarTarea(TareaPlanificacion tarea)
     {
-       boolean eliminada= planificacion.eliminarTareaPorHash(hash, true);
+       boolean eliminada= planificacion.eliminarTareaPorHash(tarea.hashCode(), true);
        return eliminada;
         
     }
