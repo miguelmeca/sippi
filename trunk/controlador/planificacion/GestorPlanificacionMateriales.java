@@ -54,17 +54,18 @@ public class GestorPlanificacionMateriales implements IGestorPlanificacion{
             RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
             Material m = (Material)RecursosUtil.getMaterial(re);
             nt.setNombre(m.getNombre());
-            Object[] o = new Object[3];
+            Object[] o = new Object[4];
             o[0]= re.getNombre();
             o[1]= pxm.getCantidad();
             o[2]= pxm.getMaterialCotizacion().getPrecioUnitario();
+            o[3] = m.getUnidadDeMedida().getAbreviatura();
             nt.setData(o);
             ma.add(nt);
         }
         return ma;
     }
 
-    public boolean quitarMaterial(int id) {
+    public boolean quitarMaterial(int id, boolean eliminarGastos) {
         boolean borrado = false;
         Iterator<PlanificacionXMaterial> it = this.getTareaActual().getMateriales().iterator();
         while(it.hasNext())
@@ -72,6 +73,15 @@ public class GestorPlanificacionMateriales implements IGestorPlanificacion{
             PlanificacionXMaterial pxm = it.next();
             if(pxm.hashCode() == id)
             {
+                // Es mi asignacion
+                if(eliminarGastos)
+                {
+                    // Elimino los gastos
+                    // Esto es un borrador del algoritmo, no se me ocurre otra cosa
+                    int horasBaul = pxm.getMaterialCotizacion().getCantidadDisponible();
+                    horasBaul = horasBaul - pxm.getCantidad();
+                    pxm.getMaterialCotizacion().setCantidad(horasBaul);
+                }
                 this.getTareaActual().getMateriales().remove(pxm);
                 borrado = true;
                 break;
@@ -79,5 +89,4 @@ public class GestorPlanificacionMateriales implements IGestorPlanificacion{
         }
         return borrado;
     }
-
 }
