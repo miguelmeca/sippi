@@ -61,7 +61,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         
         ListSelectionModel selectionModel = tblMenu.getSelectionModel();
         selectionModel.setSelectionInterval(0,0);
-        
+        this.setTitle("Editar tarea '"+gestor.getTareaActual().getNombre()+"'");
         actualizarPantallas();
     }
     
@@ -120,7 +120,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
             new Object [][] {
                 {"Datos Generales"},
                 {"Subtareas"},
-                {"Esfuerzo"},
+                {"Recursos Humanos"},
                 {"Herramientas"},
                 {"Materiales"},
                 {"Alquileres/Compras"}
@@ -156,7 +156,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
 
         btnGuardarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N

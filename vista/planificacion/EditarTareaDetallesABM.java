@@ -79,6 +79,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private List<Empleado> listaEmpleadosAsignados;
     private DefaultTableModel modeloTablaEmpleadosDisponibles;
     private DefaultTableModel modeloTablaEmpleadosAsignados;
+    private boolean huboFocoEnAsignaciones=false;
     
     public EditarTareaDetallesABM(ICallBack_v3 pantalla, GestorEditarTareaDetalles gestor, boolean modificacion, boolean tareaHijaDePlanificacion) {
         gestorConsultarEmpleado = new GestorConsultarEmpleado();
@@ -97,7 +98,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             costoDetalle=gestor.getCopiaDetallePadre().getCostoXHoraNormal();
             especialidadPadre=gestor.getCopiaDetallePadre().getEspecialidad();
         }
-         
+         huboFocoEnAsignaciones=false;
         
         
         
@@ -171,7 +172,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
       limpiarSobranteTablaEmpleadosDisponibles();
       
       seterarRadioButtonsHorasNuevas();
-      
+      this.setTitle("Detalle de Recursos Humanos en tarea '"+gestor.getTareaActual().getNombre()+"'");
       /*
       private boolean modificacion=false;
     private boolean tareaHijaDePlanificacion=false;
@@ -394,6 +395,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
 
+        setTitle("Detalle de Recursos Humanos");
         setOpaque(true);
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -415,6 +417,12 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
+            }
+        });
+
+        tabAsignacion.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabAsignacionStateChanged(evt);
             }
         });
 
@@ -861,12 +869,18 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(PanelEsfuerzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbDevolverHoras)
                     .addComponent(rbEliminarHoras))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(panelTareaCotizada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
+                .addContainerGap())
         );
 
         tabAsignacion.addTab("Esfuerzo", PanelEsfuerzo);
+
+        PanelAsignaciones.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                PanelAsignacionesFocusGained(evt);
+            }
+        });
 
         rbFiltroTodos.setText("Mostrar Todos");
         rbFiltroTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -1049,25 +1063,25 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnAceptar)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabAsignacion)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabAsignacion)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tabAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -1080,6 +1094,17 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         }
         //this.actualizarPantallas();
         //this.limpiarDatosDetalleEnPantalla();
+        if(!huboFocoEnAsignaciones)
+        {
+            int resp = JOptionPane.showConfirmDialog(this.getParent(), "¿Desea asignar empleados a los detalles antes de finalizar?", "Asignar empleados", JOptionPane.YES_NO_OPTION);
+            if (resp == JOptionPane.YES_OPTION) 
+            {
+                tabAsignacion.setSelectedComponent(PanelAsignaciones);
+                return;
+            } 
+            
+        }
+        
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -1300,6 +1325,19 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             gestor.setDevolverHorasATareaSuperior(true);
         }
     }//GEN-LAST:event_rbEliminarHorasActionPerformed
+
+    private void PanelAsignacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PanelAsignacionesFocusGained
+        
+    }//GEN-LAST:event_PanelAsignacionesFocusGained
+
+    private void tabAsignacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabAsignacionStateChanged
+        
+        if(tabAsignacion.getSelectedComponent()==PanelAsignaciones)
+        {
+           huboFocoEnAsignaciones=true; 
+        }
+    
+    }//GEN-LAST:event_tabAsignacionStateChanged
            
     private void clicEnTablaEmpleadosDisponibles()
     {

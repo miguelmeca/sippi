@@ -1745,7 +1745,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
        quitarTarea.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-              //evento_arbol_click(arbolTareas,  mouseEvent, nodo);
+               eventoQuitarTareaArbol(nodoActualArbolTareas);
            }
        });
             
@@ -1847,8 +1847,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         {
             menuArbolTareas.add(agregarTareaPlanificacion);
         }
-        //else{
-            /*//////////////////////////////
+        /*else{
+            //////////////////////////////
             //Agrego el listener para quitar
             JMenuItem quitar=new JMenuItem();
             quitar.setText("Quitar "+tipo.toLowerCase());
@@ -1865,10 +1865,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         quitar.addActionListener(alQuitarTarea);
                     } 
                 }
-            };*/
+            };
 
             /////////////////////////
-        //}
+        }*/
         return false;
     }
     //Llama desde el menu emergente
@@ -1900,15 +1900,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         ventanaAsignacionTarea.setVisible(true);
     
     }
+        
     
-    
-    //TODO: Pendiente
-    private void eventoQuitarTareaArbol(ArbolIconoNodo nodo) 
-    {        
+    private void eventoQuitarTareaArbol(ArbolIconoNodo nodo)
+    {  
        int resp=JOptionPane.showConfirmDialog(this.getParent(), "Esta seguro que desea quitar la tarea '"+nodo.getTitulo()+"'", "Quitar tarea", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
        if(resp==JOptionPane.YES_OPTION)
        {
-           boolean eliminada=_gestor.quitarTarea(nodo.getId(), nodo.getTitulo(),((ArbolIconoNodo)nodo.getParent()).getId());
+           boolean eliminada=_gestor.quitarTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));
            if(eliminada)
            {
               DefaultTreeModel modelo=(DefaultTreeModel)(arbolTareas.getModel());

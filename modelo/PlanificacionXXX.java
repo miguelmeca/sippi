@@ -190,7 +190,11 @@ public class PlanificacionXXX {
             else
             {
                 if(busquedaProfunda)
-                {tareas.get(i).eliminarSubTareaPorHash(hashTarea, busquedaProfunda);}
+                {
+                    eliminada=tareas.get(i).eliminarSubTareaPorHash(hashTarea, busquedaProfunda);
+                    if(eliminada)
+                    {break;}
+                }
             }
         }  
         return eliminada;
