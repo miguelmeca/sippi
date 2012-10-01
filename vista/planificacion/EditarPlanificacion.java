@@ -21,6 +21,8 @@ import vista.interfaces.IPermiteCrearSubObra;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
+import controlador.planificacion.GestorPlanificacionAlquileresCompras;
+import controlador.planificacion.GestorPlanificacionMateriales;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.*;
@@ -56,6 +58,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     JMenuItem agregarSubtarea;
     JMenuItem quitarTarea;
     JMenuItem agregarTareaPlanificacion;
+    JMenuItem quitarAlquilerCompra;
+    JMenuItem quitarHerramienta;
+    JMenuItem quitarMaterial;
+    
     
     private ICallBack_v3 thisWindowWorkArround = this;
     
@@ -1726,13 +1732,27 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         editarTarea.setText("Editar tarea");
         editarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
         
+        javax.swing.ImageIcon iconoQuitar=new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"));
+        
         quitarTarea=new JMenuItem();
         quitarTarea.setText("Quitar tarea");
-        quitarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
+        quitarTarea.setIcon(iconoQuitar);
         
         agregarSubtarea=new JMenuItem();
         agregarSubtarea.setText("Agregar subtarea");
         agregarSubtarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png")));
+        
+        quitarHerramienta=new JMenuItem();
+        quitarHerramienta.setText("Quitar herramienta");
+        quitarHerramienta.setIcon(iconoQuitar);
+        
+        quitarAlquilerCompra=new JMenuItem();
+        quitarAlquilerCompra.setText("Quitar alquiler/compra");
+        quitarAlquilerCompra.setIcon(iconoQuitar);
+        
+        quitarMaterial=new JMenuItem();
+        quitarMaterial.setText("Quitar material");
+        quitarMaterial.setIcon(iconoQuitar);
                   
         editarTarea.addActionListener(new ActionListener() {
             @Override
@@ -1756,6 +1776,31 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                eventoNuevaTarea(_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()));      
                System.out.println("Accion sobre nodo:"+_gestor.getPlanificacion().buscarTareaPorHash(nodoActualArbolTareas.getId()).getNombre());
            }
+       });
+       
+       quitarAlquilerCompra.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                quitarAsociacionAlquilerCompraDeArbol( nodoActualArbolTareas); 
+            }
+       });
+       
+       
+       quitarHerramienta.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                quitarAsociacionHerramientaDeArbol( nodoActualArbolTareas); 
+            }
+       });
+       
+       quitarMaterial.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                quitarAsociacionMaterialDeArbol( nodoActualArbolTareas); 
+            }
        });
        
        //Menus Planificacion
@@ -1846,31 +1891,98 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         else if(tipo.equals(ArbolDeTareasTipos.TIPO_OBRA))
         {
             menuArbolTareas.add(agregarTareaPlanificacion);
+            return true;
         }
-        /*else{
-            //////////////////////////////
-            //Agrego el listener para quitar
-            JMenuItem quitar=new JMenuItem();
-            quitar.setText("Quitar "+tipo.toLowerCase());
-            quitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png")));
-            menuArbolTareas.add(quitar); 
-
-            ActionListener alQuitarTarea=new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) 
-                {
-                if(tipo.equals(ArbolDeTareasTipos.TIPO_TAREA))
-                    {  
-                        eventoQuitarTareaArbol( nodo); 
-                        quitar.addActionListener(alQuitarTarea);
-                    } 
-                }
-            };
-
-            /////////////////////////
-        }*/
+        else{
+            if(tipo.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA) || tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA) || tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+            {//////////////////////////////
+                
+                ActionListener alQuitar=null;
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA))
+                {  
+                   menuArbolTareas.add(quitarAlquilerCompra);
+                } 
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_HERRAMIENTA))
+                {  
+                    menuArbolTareas.add(quitarHerramienta);
+                } 
+                if(tipo.equals(ArbolDeTareasTipos.TIPO_MATERIAL))
+                {  
+                    menuArbolTareas.add(quitarMaterial);
+                } 
+                return true;
+            }
+            
+        }
         return false;
     }
+    
+    private void quitarAsociacionHerramientaDeArbol(ArbolIconoNodo nodo)
+    {
+       /*GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+       gestorEditarTarea.seleccionarTarea(_gestor.tarea);
+       PlanificacionHerramientas h = new PlanificacionHerramientas(gestorEditarTarea.getGestorHerramientas());*/
+    }
+    
+    private void quitarAsociacionAlquilerCompraDeArbol(ArbolIconoNodo nodo)
+    {
+        int resp=JOptionPane.showConfirmDialog(this.getParent(), "Esta seguro que desea quitar la asignacion del alquiler/compra '"+nodo.getTitulo()+"'", "Quitar asignacion de alquiler/compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resp==JOptionPane.YES_OPTION)       
+        {
+            GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+            
+            gestorEditarTarea.seleccionarTarea(_gestor.getPlanificacion().buscarTareaPorHash(((ArbolIconoNodo)nodo.getParent()).getId()));
+            GestorPlanificacionAlquileresCompras gpaa= gestorEditarTarea.getGestorAlquileresCompras();
+            if(gpaa.quitarAlquilerCompra(nodo.getId()))
+            {
+                eliminarNodoRecurso(nodo);
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Eliminacion", "Asignacion de alquiler/compra eliminada exitosamente");
+            }
+            else
+            {
+               mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", "Ocurrio un error, no se pudo borrar la asignacion");              
+            }
+        }
+        
+    }
+    
+    private void quitarAsociacionMaterialDeArbol(ArbolIconoNodo nodo)
+    {
+        int resp=JOptionPane.showConfirmDialog(this.getParent(), "Esta seguro que desea quitar la asignacion del material '"+nodo.getTitulo()+"'", "Quitar asignacion de material", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resp==JOptionPane.YES_OPTION)       
+        {
+            GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
+        
+            gestorEditarTarea.seleccionarTarea(_gestor.getPlanificacion().buscarTareaPorHash(((ArbolIconoNodo)nodo.getParent()).getId()));
+            GestorPlanificacionMateriales gpm=gestorEditarTarea.getGestorMateriales();        
+            if(gpm.quitarMaterial(nodo.getId()))
+            {
+                eliminarNodoRecurso(nodo);
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Eliminacion", "Asignacion de material eliminada exitosamente");
+                
+            }
+            else
+            {
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", "Ocurrio un error, no se pudo borrar la asignacion");
+            }
+        }
+        
+    }
+    
+    private void eliminarNodoRecurso(ArbolIconoNodo nodo)
+    {
+        DefaultTreeModel modelo=(DefaultTreeModel)(arbolTareas.getModel());
+        if(nodo.getParent().getChildCount()==1)
+        {
+            
+            modelo.removeNodeFromParent((ArbolIconoNodo)nodo.getParent());
+        }
+        else
+        {
+            modelo.removeNodeFromParent(nodo);
+        }
+    }
+    
     //Llama desde el menu emergente
     private void eventoNuevaTarea(TareaPlanificacion tareaPadre) 
     {        
