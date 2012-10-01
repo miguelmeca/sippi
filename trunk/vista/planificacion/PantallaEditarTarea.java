@@ -25,9 +25,9 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     private static final int OPTN_SUBTAREAS             = 1;
     private static final int OPTN_ESFUERZO              = 2;
     //private static final int OPTN_ASIG_EMPLEADOS        = 3;
-    private static final int OPTN_HERRAMIENTAS          = 4;
-    private static final int OPTN_MATERIALES            = 5;
-    private static final int OPTN_ALQUILERES_COMPRAS    = 6;
+    private static final int OPTN_HERRAMIENTAS          = 3;
+    private static final int OPTN_MATERIALES            = 4;
+    private static final int OPTN_ALQUILERES_COMPRAS    = 5;
     
     
     private ICallBackGen tieneCallback = null; // Si no es nulo, tiene callback
