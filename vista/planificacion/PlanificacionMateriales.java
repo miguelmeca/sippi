@@ -10,12 +10,11 @@ import controlador.planificacion.GestorPlanificacionMateriales;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.StringUtil;
 import util.TablaUtil;
@@ -139,7 +138,7 @@ public class PlanificacionMateriales extends javax.swing.JPanel {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitarMaterial.setText("Quitar");
         btnQuitarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,9 +213,69 @@ public class PlanificacionMateriales extends javax.swing.JPanel {
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
         if(tbMaterialesAUsar.getSelectedRow()>=0){
             NTupla nt = (NTupla)tbMaterialesAUsar.getModel().getValueAt(tbMaterialesAUsar.getSelectedRow(), 1);
-            if(gestor.quitarMaterial(nt.getId())){
-                this.mostrarMaterialesAsociados();
+            if(nt!=null)
+            {
+                System.out.println("NT:"+nt.getNombre()+"/"+nt.getId());
+                StringBuilder msg = new StringBuilder("<HTML>");
+                msg.append("Está a punto de eliminar la asignación de");
+                msg.append(" <b>");
+                msg.append("<span color=\"#FF0000\">");
+                    Object[] data = (Object[]) nt.getData();
+                msg.append(data[1].toString()).append(" ").append(data[3].toString());
+                msg.append("</span>");
+                msg.append("</b> ");
+                msg.append(" del material:");
+                msg.append("<br/>");
+                msg.append("<b>");
+                msg.append(nt).append("</b> (").append(data[0].toString()).append(")");
+                msg.append("<br/>");
+                msg.append("de la tarea:");
+                msg.append("<br/>");
+                msg.append("<b>");
+                    TareaPlanificacion tarea = gestor.getTareaActual();
+                msg.append(tarea.getNombre());
+                msg.append("</b>");
+                
+                Object[] options = {"Cancelar","Eliminar Asignación + Gastos Asociados","Eliminar Asignación"};
+                int n = JOptionPane.showInternalOptionDialog(this,msg.toString(),"Atencion!",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);            
+                System.out.println("SELECCIONO: "+n);
+
+                switch(n)
+                {
+                    case 0:
+                       // Cancelar ..nadaremos
+                       break;
+                    case 1:
+                        // Elimino asignación + Gastos
+                        if(gestor.quitarMaterial(nt.getId(),true)){
+                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), true);
+                            this.mostrarMaterialesAsociados();
+                        }
+                        else
+                        {
+                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), false);
+                        }
+                        break;
+                    case 2: 
+                        // Elimino solo la asignacion
+                        if(gestor.quitarMaterial(nt.getId(),false)){
+                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), true);
+                            this.mostrarMaterialesAsociados();
+                        }
+                        else
+                        {
+                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), false);
+                        }
+                        break;
+                    default:
+                        // No ocurre
+                }
+                
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(),"Seleccione una fila para eliminar","Atencion!",JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
 
@@ -230,5 +289,40 @@ public class PlanificacionMateriales extends javax.swing.JPanel {
 
     public void actualizar(int id, String msg, boolean pass){
         this.mostrarMaterialesAsociados();
+    }
+    
+    private void mostrarMensajeExitoEliminacion(String cantidad, String material, boolean exito)
+    {
+        StringBuilder msg = new StringBuilder("<HTML>");
+        if(exito)
+        {
+            msg.append("<span color=\"#009900\">");
+            msg.append("Se eliminó correctamente la asignación de");
+            msg.append("</span>");            
+        }
+        else
+        {
+            msg.append("<span color=\"#FF0000\">");
+            msg.append("Se detecto un problema al eliminar la asignación de " );
+            msg.append("</span>");
+        }
+        msg.append("<br/>");
+        msg.append("<b>");
+        msg.append(cantidad);
+        msg.append("</b>");
+        msg.append(" del material ");
+        msg.append("<b>");
+        msg.append(material);
+        msg.append("</b>");
+        
+        if(exito)
+        {
+            JOptionPane.showMessageDialog(new JFrame(),msg.toString(),"Atención!",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(),msg.toString(),"Error!",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 }

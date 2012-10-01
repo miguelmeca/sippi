@@ -1955,7 +1955,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         
             gestorEditarTarea.seleccionarTarea(_gestor.getPlanificacion().buscarTareaPorHash(((ArbolIconoNodo)nodo.getParent()).getId()));
             GestorPlanificacionMateriales gpm=gestorEditarTarea.getGestorMateriales();        
-            if(gpm.quitarMaterial(nodo.getId()))
+            if(gpm.quitarMaterial(nodo.getId(),true))
             {
                 eliminarNodoRecurso(nodo);
                 mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Eliminacion", "Asignacion de material eliminada exitosamente");
