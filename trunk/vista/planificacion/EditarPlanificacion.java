@@ -1933,7 +1933,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             
             gestorEditarTarea.seleccionarTarea(_gestor.getPlanificacion().buscarTareaPorHash(((ArbolIconoNodo)nodo.getParent()).getId()));
             GestorPlanificacionAlquileresCompras gpaa= gestorEditarTarea.getGestorAlquileresCompras();
-            if(gpaa.quitarAlquilerCompra(nodo.getId()))
+            if(gpaa.quitarAlquilerCompra(nodo.getId(),true))
             {
                 eliminarNodoRecurso(nodo);
                 mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Eliminacion", "Asignacion de alquiler/compra eliminada exitosamente");

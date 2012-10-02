@@ -8,6 +8,7 @@ package controlador.planificacion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import modelo.PlanificacionXAlquilerCompra;
+import modelo.PlanificacionXMaterial;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
 import util.NTupla;
@@ -61,7 +62,7 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
         return ma;
     }
 
-    public boolean quitarAlquilerCompra(int id) {
+    public boolean quitarAlquilerCompra(int id, boolean eliminarGastos) {       
         boolean borrado = false;
         Iterator<PlanificacionXAlquilerCompra> it = this.getTareaActual().getAlquilerCompras().iterator();
         while(it.hasNext())
@@ -69,6 +70,15 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
             PlanificacionXAlquilerCompra pxac = it.next();
             if(pxac.hashCode() == id)
             {
+                // Es mi asignacion
+                if(eliminarGastos)
+                {
+                    // Elimino los gastos
+                    // Esto es un borrador del algoritmo, no se me ocurre otra cosa
+                    int horasBaul = pxac.getAlquilerCompraCotizacion().getCantidad();
+                    horasBaul = horasBaul - pxac.getCantidad();
+                    pxac.getAlquilerCompraCotizacion().setCantidad(horasBaul);
+                }
                 this.getTareaActual().getAlquilerCompras().remove(pxac);
                 borrado = true;
                 break;
