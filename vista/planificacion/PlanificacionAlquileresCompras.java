@@ -3,19 +3,17 @@
  *
  * Created on 01/05/2012, 11:20:38
  */
-
 package vista.planificacion;
 
 import controlador.planificacion.GestorPlanificacionAlquileresCompras;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.TareaPlanificacion;
 import util.NTupla;
 import util.StringUtil;
 import util.TablaUtil;
@@ -27,59 +25,56 @@ import util.TablaUtil;
 public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
 
     private GestorPlanificacionAlquileresCompras gestor;
-    
-    /** Creates new form editarCotizacion_Materiales */
-    public PlanificacionAlquileresCompras(GestorPlanificacionAlquileresCompras gestor) 
-    {
+
+    /**
+     * Creates new form editarCotizacion_Materiales
+     */
+    public PlanificacionAlquileresCompras(GestorPlanificacionAlquileresCompras gestor) {
         initComponents();
-        
+
         this.gestor = gestor;
         this.gestor.setPantalla(this);
         mostrarAlquileresComprasAsociadas();
     }
 
-    private void FiltrarTabla(JTable table,JTextField field){
+    private void FiltrarTabla(JTable table, JTextField field) {
 //       if(!field.getText().matches("[\[\*\(\)\?]")){
-           TableRowSorter<TableModel> modeloOrdenado;
-           modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
-           table.setRowSorter(modeloOrdenado);
+        TableRowSorter<TableModel> modeloOrdenado;
+        modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
+        table.setRowSorter(modeloOrdenado);
 
-               String[] cadena=field.getText().trim().split(" ");
-               List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
-               for (int i= 0; i < cadena.length; i++)
-               {
-                 filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
-               }
-               RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);
-               modeloOrdenado.setRowFilter(cadenaFilter);
+        String[] cadena = field.getText().trim().split(" ");
+        List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+        for (int i = 0; i < cadena.length; i++) {
+            filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+        }
+        RowFilter<Object, Object> cadenaFilter = RowFilter.andFilter(filters);
+        modeloOrdenado.setRowFilter(cadenaFilter);
 
-               // CAMBIO LOS TAMAÃƒÆ’Ã¢â‚¬ËœOS DE LAS FILAS
-               DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-               for (int i = 0; i < modelo.getRowCount(); i++)
-               {
-                // REDIMENSIONO LA FILA !!! -----------------------------------
-                    int index = modeloOrdenado.convertRowIndexToView(i);
-                    if(index>-1)
-                    {
-                        // ESTA
-                            String item = ((NTupla) modelo.getValueAt(i,1)).getNombre() ;
-                            int cantItems = StringUtil.cantidadOcurrencias(item,"<b>x</b>");
-                            if(cantItems!=0)
-                            {
-                                table.setRowHeight(index,16*cantItems);
-                            }
+        // CAMBIO LOS TAMAÃƒÆ’Ã¢â‚¬ËœOS DE LAS FILAS
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            // REDIMENSIONO LA FILA !!! -----------------------------------
+            int index = modeloOrdenado.convertRowIndexToView(i);
+            if (index > -1) {
+                // ESTA
+                String item = ((NTupla) modelo.getValueAt(i, 1)).getNombre();
+                int cantItems = StringUtil.cantidadOcurrencias(item, "<b>x</b>");
+                if (cantItems != 0) {
+                    table.setRowHeight(index, 16 * cantItems);
+                }
 //                        }
-                        //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
-                    }
-                    // REDIMENSIONO LA FILA !!! -----------------------------------
-               }
+                //LogUtil.addDebug("ConsultarPreciosXProveedor: Cantidad de Repeticiones: "+cantItems);
+            }
+            // REDIMENSIONO LA FILA !!! -----------------------------------
+        }
 //        }
     }
-   
+
     private void mostrarAlquileresComprasAsociadas() {
         ArrayList<NTupla> alquileresCompras = gestor.getAlquileresComprasAsociadas();
 
-        DefaultTableModel modelo = (DefaultTableModel)tbAlquilerCompraAUsar.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tbAlquilerCompraAUsar.getModel();
 
         TablaUtil.vaciarDefaultTableModel(modelo);
 
@@ -87,26 +82,25 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
 
         int cantidad;
         double precio;
-        while (it.hasNext())
-        {
-            NTupla ntp = (NTupla)it.next();
+        while (it.hasNext()) {
+            NTupla ntp = (NTupla) it.next();
             Object[] fila = new Object[4];
             Object[] o = (Object[]) ntp.getData();
             fila[0] = o[0];
             fila[1] = ntp;
-            cantidad = (Integer)o[0];
-            precio = (Double)o[1];
+            cantidad = (Integer) o[0];
+            precio = (Double) o[1];
             fila[2] = precio;
-            double subtotal = cantidad*precio;
+            double subtotal = cantidad * precio;
             fila[3] = subtotal;
             modelo.addRow(fila);
         }
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -136,7 +130,7 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/up.png"))); // NOI18N
+        btnQuitarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
         btnQuitarMaterial.setText("Quitar");
         btnQuitarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,14 +203,70 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
 }//GEN-LAST:event_txtBuscarMaterialKeyReleased
 
     private void btnQuitarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarMaterialActionPerformed
-        if(tbAlquilerCompraAUsar.getSelectedRow()>=0){
-            NTupla nt = (NTupla)tbAlquilerCompraAUsar.getModel().getValueAt(tbAlquilerCompraAUsar.getSelectedRow(), 1);
-            if(gestor.quitarAlquilerCompra(nt.getId())){
-                this.mostrarAlquileresComprasAsociadas();
+        if (tbAlquilerCompraAUsar.getSelectedRow() >= 0) {
+            NTupla nt = (NTupla) tbAlquilerCompraAUsar.getModel().getValueAt(tbAlquilerCompraAUsar.getSelectedRow(), 1);
+            if (nt != null) {
+                System.out.println("NT:" + nt.getNombre() + "/" + nt.getId());
+                StringBuilder msg = new StringBuilder("<HTML>");
+                msg.append("Está a punto de eliminar la asignación de");
+                msg.append(" <b>");
+                msg.append("<span color=\"#FF0000\">");
+                Object[] data = (Object[]) nt.getData();
+                String cantidad = data[0].toString();
+                if(((Integer)data[0]) > 1 )
+                    cantidad+=" unidades</span>";
+                else
+                    cantidad+=" unidad</span>";
+                msg.append(cantidad);
+                msg.append("</b> ");
+                msg.append(" del Alquiler/Compra:");
+                msg.append("<br/>");
+                msg.append("<b>");
+                msg.append(nt);
+                msg.append("<br/>");
+                msg.append("</b>");
+                msg.append("de la tarea:");
+                msg.append("<br/>");
+                msg.append("<b>");
+                TareaPlanificacion tarea = gestor.getTareaActual();
+                msg.append(tarea.getNombre());
+                msg.append("</b>");
+
+                Object[] options = {"Cancelar", "Eliminar Asignación + Gastos Asociados", "Eliminar Asignación"};
+                int n = JOptionPane.showInternalOptionDialog(this, msg.toString(), "Atencion!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                System.out.println("SELECCIONO: " + n);
+
+                switch (n) {
+                    case 0:
+                        // Cancelar ..nadaremos
+                        break;
+                    case 1:
+                        // Elimino asignación + Gastos
+                        if (gestor.quitarAlquilerCompra(nt.getId(), true)) {
+                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), true);
+                            this.mostrarAlquileresComprasAsociadas();
+                        } else {
+                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), false);
+                        }
+                        break;
+                    case 2:
+                        // Elimino solo la asignacion
+                        if (gestor.quitarAlquilerCompra(nt.getId(), false)) {
+                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), true);
+                            this.mostrarAlquileresComprasAsociadas();
+                        } else {
+                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), false);
+                        }
+                        break;
+                    default:
+                    // No ocurre
+                }
+
             }
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Seleccione una fila para eliminar", "Atencion!", JOptionPane.WARNING_MESSAGE);
         }
 }//GEN-LAST:event_btnQuitarMaterialActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuitarMaterial;
     private javax.swing.JLabel jLabel9;
@@ -225,7 +275,35 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
     private javax.swing.JTextField txtBuscarMaterial;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizar(int id, String msg, boolean pass){
+    public void actualizar(int id, String msg, boolean pass) {
         this.mostrarAlquileresComprasAsociadas();
+    }
+
+    private void mostrarMensajeExitoEliminacion(String cantidad, String alquilerCompra, boolean exito) {
+        StringBuilder msg = new StringBuilder("<HTML>");
+        if (exito) {
+            msg.append("<span color=\"#009900\">");
+            msg.append("Se eliminó correctamente la asignación de");
+            msg.append("</span>");
+        } else {
+            msg.append("<span color=\"#FF0000\">");
+            msg.append("Se detecto un problema al eliminar la asignación de ");
+            msg.append("</span>");
+        }
+        msg.append("<br/>");
+        msg.append("<b>");
+        msg.append(cantidad);
+        msg.append("</b>");
+        msg.append(" del Alquiler/Compra ");
+        msg.append("<b>");
+        msg.append(alquilerCompra);
+        msg.append("</b>");
+
+        if (exito) {
+            JOptionPane.showMessageDialog(new JFrame(), msg.toString(), "Atención!", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), msg.toString(), "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 }
