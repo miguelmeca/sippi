@@ -65,6 +65,24 @@ public class GestorPlanificacionMateriales implements IGestorPlanificacion{
         return ma;
     }
 
+    public boolean quitarMaterial(int id) {
+        boolean borrado = false;
+        Iterator<PlanificacionXMaterial> it = this.getTareaActual().getMateriales().iterator();
+        while(it.hasNext())
+        {
+            PlanificacionXMaterial pxm = it.next();
+            if(pxm.hashCode() == id)
+            {
+                // Es mi asignacion
+                this.getTareaActual().getMateriales().remove(pxm);
+                borrado = true;
+                break;
+            }
+        }
+        return borrado;
+    }
+    
+    @Deprecated
     public boolean quitarMaterial(int id, boolean eliminarGastos) {
         boolean borrado = false;
         Iterator<PlanificacionXMaterial> it = this.getTareaActual().getMateriales().iterator();

@@ -34,9 +34,7 @@ import test.TestABM;
 import test.TestCallBackListadoGenerico;
 import vista.abms.*;
 import vista.ayuda.VisorDeAyuda;
-import vista.comer.ListadoPedidoDeObras;
-import vista.comer.pantallaListadoEmpresaCliente;
-import vista.comer.pantallaListadoProveedores;
+import vista.comer.*;
 import vista.compras.*;
 import vista.cotizacion.ListadoCotizaciones;
 import vista.ejecucion.VentanaEjecucion;
@@ -199,6 +197,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         btnMenuListHerr = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
@@ -285,7 +286,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 629, Short.MAX_VALUE))
+                .addGap(0, 631, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inicio", jPanel2);
@@ -568,6 +569,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu9.add(jMenuItem22);
 
         jMenu5.add(jMenu9);
+
+        jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Boss.png"))); // NOI18N
+        jMenu10.setText("Empresa Cliente");
+
+        jMenuItem23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        jMenuItem23.setText("Listado");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem23);
+
+        jMenuItem24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jMenuItem24.setText("Nuevo");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem24);
+
+        jMenu5.add(jMenu10);
 
         jMenuBar1.add(jMenu5);
 
@@ -924,6 +948,18 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_cmbNuevoUsuarioActionPerformed
 
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        pantallaListadoEmpresaCliente win = new pantallaListadoEmpresaCliente();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        pantallaRegistrarEmpresaCliente pantalla = new pantallaRegistrarEmpresaCliente();
+        SwingPanel.getInstance().addWindow(pantalla);
+        pantalla.setVisible(true);
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -940,6 +976,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem cmbSalir;
     private javax.swing.JMenu cmbUsuarios;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -964,6 +1001,8 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

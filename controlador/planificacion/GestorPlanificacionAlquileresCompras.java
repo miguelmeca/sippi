@@ -62,6 +62,24 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
         return ma;
     }
 
+    public boolean quitarAlquilerCompra(int id) {
+        boolean borrado = false;
+        Iterator<PlanificacionXAlquilerCompra> it = this.getTareaActual().getAlquilerCompras().iterator();
+        while(it.hasNext())
+        {
+            PlanificacionXAlquilerCompra pxac = it.next();
+            if(pxac.hashCode() == id)
+            {
+                // Es mi asignacion
+                this.getTareaActual().getAlquilerCompras().remove(pxac);
+                borrado = true;
+                break;
+            }
+        }
+        return borrado;
+    }
+    
+    @Deprecated
     public boolean quitarAlquilerCompra(int id, boolean eliminarGastos) {       
         boolean borrado = false;
         Iterator<PlanificacionXAlquilerCompra> it = this.getTareaActual().getAlquilerCompras().iterator();
