@@ -236,7 +236,7 @@ public class PlanificacionMateriales extends javax.swing.JPanel {
                 msg.append(tarea.getNombre());
                 msg.append("</b>");
                 
-                Object[] options = {"Cancelar","Eliminar Asignación + Gastos Asociados","Eliminar Asignación"};
+                Object[] options = {"Cancelar","Eliminar Asignación"};
                 int n = JOptionPane.showInternalOptionDialog(this,msg.toString(),"Atencion!",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);            
                 System.out.println("SELECCIONO: "+n);
 
@@ -245,20 +245,9 @@ public class PlanificacionMateriales extends javax.swing.JPanel {
                     case 0:
                        // Cancelar ..nadaremos
                        break;
-                    case 1:
-                        // Elimino asignación + Gastos
-                        if(gestor.quitarMaterial(nt.getId(),true)){
-                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), true);
-                            this.mostrarMaterialesAsociados();
-                        }
-                        else
-                        {
-                            this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), false);
-                        }
-                        break;
-                    case 2: 
+                    case 1: 
                         // Elimino solo la asignacion
-                        if(gestor.quitarMaterial(nt.getId(),false)){
+                        if(gestor.quitarMaterial(nt.getId())){
                             this.mostrarMensajeExitoEliminacion(data[1] + " " +data[3], nt.getNombre(), true);
                             this.mostrarMaterialesAsociados();
                         }

@@ -232,7 +232,7 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
                 msg.append(tarea.getNombre());
                 msg.append("</b>");
 
-                Object[] options = {"Cancelar", "Eliminar Asignación + Gastos Asociados", "Eliminar Asignación"};
+                Object[] options = {"Cancelar", "Eliminar Asignación"};
                 int n = JOptionPane.showInternalOptionDialog(this, msg.toString(), "Atencion!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
                 System.out.println("SELECCIONO: " + n);
 
@@ -241,17 +241,8 @@ public class PlanificacionAlquileresCompras extends javax.swing.JPanel {
                         // Cancelar ..nadaremos
                         break;
                     case 1:
-                        // Elimino asignación + Gastos
-                        if (gestor.quitarAlquilerCompra(nt.getId(), true)) {
-                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), true);
-                            this.mostrarAlquileresComprasAsociadas();
-                        } else {
-                            this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), false);
-                        }
-                        break;
-                    case 2:
                         // Elimino solo la asignacion
-                        if (gestor.quitarAlquilerCompra(nt.getId(), false)) {
+                        if (gestor.quitarAlquilerCompra(nt.getId())) {
                             this.mostrarMensajeExitoEliminacion(cantidad, nt.getNombre(), true);
                             this.mostrarAlquileresComprasAsociadas();
                         } else {
