@@ -4,11 +4,18 @@
  */
 package vista.ejecucion.lanzamiento;
 
+import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import util.NTupla;
+import util.SwingPanel;
+import util.TablaUtil;
+import vista.compras.GestionarStock;
+import vista.compras.RegistrarRecepcionDeRecursos;
 import vista.util.MyComboBoxEditor;
 
 /**
@@ -19,21 +26,22 @@ public class PanelMateriales extends javax.swing.JPanel {
 
     public static final int TABLA_MATERIALES_COLUMNA_NOMBRE = 0;
     public static final int TABLA_MATERIALES_COLUMNA_NECESARIOS = 1;
-    public static final int TABLA_MATERIALES_COLUMNA_DISPONIBLES = 2;
-    public static final int TABLA_MATERIALES_COLUMNA_ENSTOCK = 3;
-    public static final int TABLA_MATERIALES_COLUMNA_ORDENCOMPRA = 4;
-    public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 5;
-    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 6;
+    public static final int TABLA_MATERIALES_COLUMNA_ENSTOCK = 2;
+    public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 3;
+    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 4;
     
     private static final int TABLA_DEFAULT_ALTO = 25;
 
+    private GestorVentanaLanzamiento gestor;
+    
     /**
      * Creates new form PanelMateriales
      */
-    public PanelMateriales() {
+    public PanelMateriales(GestorVentanaLanzamiento gestor) {
+        this.gestor = gestor;
         initComponents();
         initTabla();
-        mock();
+        cargarDatosTablaParaObra();
     }
 
     /**
@@ -47,23 +55,24 @@ public class PanelMateriales extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMateriales = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         btnGenerarOrdenDeCompra = new javax.swing.JButton();
         btnRecepcionCompras = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnConsultarStock = new javax.swing.JButton();
 
         tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Necesarios", "Disponibles", "Stock", "OC", "Estado", ""
+                "Nombre", "Necesarios", "Stock", "Estado", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,6 +85,8 @@ public class PanelMateriales extends javax.swing.JPanel {
         });
         tblMateriales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblMateriales);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre los Materiales:"));
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
         btnGenerarOrdenDeCompra.setText("Generar Orden de Compra");
@@ -93,57 +104,77 @@ public class PanelMateriales extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Wallet.png"))); // NOI18N
-        jButton1.setText("Consultar Stock");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultarStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Wallet.png"))); // NOI18N
+        btnConsultarStock.setText("Consultar Stock");
+        btnConsultarStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConsultarStockActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnGenerarOrdenDeCompra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRecepcionCompras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConsultarStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnGenerarOrdenDeCompra)
+                .addComponent(btnRecepcionCompras)
+                .addComponent(btnConsultarStock))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(btnGenerarOrdenDeCompra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRecepcionCompras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGenerarOrdenDeCompra)
-                    .addComponent(btnRecepcionCompras)
-                    .addComponent(jButton1)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeCompraActionPerformed
-        // TODO
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Info!","Con éste botón Genero una orden de compra de todos los items seleccionados\nHay que ver si usamos una ventana como la diseño emma en su momento\npara poder generar varias ordenes de una o como hacemos...\nLuego asigna la orden de compra a estos items de la Obra/a la obra en si dependiendo el caso para tener trazabilidad !! \n(Ya esta pensado en el HLD de compras)");        
+       DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
+        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_MATERIALES_COLUMNA_SELECCION,true);
+       if(cantidadSeleccionados<=0){
+           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos un Material para emitir su Orden de Compra");
+       }else{
+          // Generar Orden de Compra de Emma !!!
+           
+       }
     }//GEN-LAST:event_btnGenerarOrdenDeCompraActionPerformed
 
     private void btnRecepcionComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionComprasActionPerformed
-        // TODO
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Info!","Solo habre la ventana de Recepcion de Recursos, nada más (Puede no ir) es solo propuesta");        
+        RegistrarRecepcionDeRecursos win = new RegistrarRecepcionDeRecursos();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
     }//GEN-LAST:event_btnRecepcionComprasActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Info!","Abre la ventana para consulta el Stock de la Empresa...solo eso");                // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnConsultarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarStockActionPerformed
+        GestionarStock win = new GestionarStock();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnConsultarStockActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultarStock;
     private javax.swing.JButton btnGenerarOrdenDeCompra;
     private javax.swing.JButton btnRecepcionCompras;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMateriales;
     // End of variables declaration//GEN-END:variables
@@ -151,11 +182,6 @@ public class PanelMateriales extends javax.swing.JPanel {
     private void initTabla() {
         tblMateriales.setRowHeight(TABLA_DEFAULT_ALTO);
         DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
-
-        TableColumn col = tblMateriales.getColumnModel().getColumn(TABLA_MATERIALES_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#CC7A00'>En Espera</span>", "<HTML><span color='#009900'>Disponible</span>", "<HTML><span color='#CC0000'>No Disponible</span>"};
-        col.setCellEditor(new MyComboBoxEditor(values));
-        col.setCellRenderer(new PanelHerramientasCellRenderer(values));
 
         // Ancho de Columnas
         int anchoColumna = 0;
@@ -168,22 +194,16 @@ public class PanelMateriales extends javax.swing.JPanel {
                     anchoColumna = 300;
                     break;
                 case TABLA_MATERIALES_COLUMNA_NOMBRE:
-                    anchoColumna = 500;
+                    anchoColumna = 400;
                     break;
                 case TABLA_MATERIALES_COLUMNA_NECESARIOS:
-                    anchoColumna = 100;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_DISPONIBLES:
                     anchoColumna = 100;
                     break;
                 case TABLA_MATERIALES_COLUMNA_ENSTOCK:
                     anchoColumna = 100;
                     break;
                 case TABLA_MATERIALES_COLUMNA_SELECCION:
-                    anchoColumna = 50;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_ORDENCOMPRA:
-                    anchoColumna = 50;
+                    anchoColumna = 30;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -191,31 +211,6 @@ public class PanelMateriales extends javax.swing.JPanel {
         }
     }
 
-    private void mock() {
-        // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
-        
-        Object row[] = new Object[7];
-        row[0] = "Hierro en V 3mm";
-        row[1] = "12";
-        row[2] = "2";
-        row[3] = "2";
-        row[4] = false;
-        row[5] = new JComboBox();
-        row[6] = false;
-        modelo.addRow(row);
-        
-        Object row2[] = new Object[7];
-        row2[0] = "Hierro del 8";
-        row2[1] = "50";
-        row2[2] = "0";
-        row2[3] = "0";
-        row2[4] = false;
-        row2[5] = new JComboBox();
-        row2[6] = false;
-        modelo.addRow(row2);        
-    }
-    
     /**
      * Muestra un mensaje
      * @param tipo
@@ -225,5 +220,34 @@ public class PanelMateriales extends javax.swing.JPanel {
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    private void cargarDatosTablaParaObra() {
+        
+        List<NTupla> tuplas = gestor.llenarTablaPanelMateriales();
+        DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo);
+        
+        for (int i = 0; i < tuplas.size(); i++) {
+            NTupla nTupla = tuplas.get(i);
+            Object[] fila = new Object[5];
+            fila[TABLA_MATERIALES_COLUMNA_NOMBRE] = nTupla;
+            
+                String[] data = (String[]) nTupla.getData();
+            
+            fila[TABLA_MATERIALES_COLUMNA_NECESARIOS] = data[0];
+            fila[TABLA_MATERIALES_COLUMNA_ENSTOCK] = data[1];
+            fila[TABLA_MATERIALES_COLUMNA_ESTADO] = data[2];
+            fila[TABLA_MATERIALES_COLUMNA_SELECCION] = false;
+            modelo.addRow(fila);
+        }
+        
+    }
+
+    /**
+     * Actualiza los datos de la tabla
+     */
+    void actualizarDatos() {
+        cargarDatosTablaParaObra();
     }
 }

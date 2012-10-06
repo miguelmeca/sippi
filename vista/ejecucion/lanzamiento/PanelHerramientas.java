@@ -82,7 +82,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
         tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblHerramientas);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("O tal vez desee:"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre las Herramientas:"));
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
         btnGenerarOrdenDeCompra.setText("Generar un Orden de Compra");
