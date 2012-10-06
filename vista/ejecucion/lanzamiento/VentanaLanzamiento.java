@@ -55,7 +55,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         tblMenu = new javax.swing.JTable();
         pnlCentral = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JButton();
-        btnGuardarCambios = new javax.swing.JButton();
+        btnActualziar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -104,7 +104,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
@@ -118,11 +118,11 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             }
         });
 
-        btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Save.png"))); // NOI18N
-        btnGuardarCambios.setText("Guardar Cambios");
-        btnGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
+        btnActualziar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/refresh.png"))); // NOI18N
+        btnActualziar.setText("Actualizar");
+        btnActualziar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarCambiosActionPerformed(evt);
+                btnActualziarActionPerformed(evt);
             }
         });
 
@@ -133,8 +133,8 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardarCambios)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualziar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -153,7 +153,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
-                    .addComponent(btnGuardarCambios))
+                    .addComponent(btnActualziar))
                 .addContainerGap())
         );
 
@@ -171,14 +171,15 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-        // Llamo al Guardar Cambios
-        guardar();
-    }//GEN-LAST:event_btnGuardarCambiosActionPerformed
+    private void btnActualziarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualziarActionPerformed
+        if(this.panelHerramientas!=null){
+            this.panelHerramientas.actualizarDatos();
+        }
+    }//GEN-LAST:event_btnActualziarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualziar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnGuardarCambios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCentral;
@@ -247,7 +248,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
          pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
     }    
     
-        /**
+    /**
      * Muestra un mensaje
      * @param tipo
      * @param titulo
