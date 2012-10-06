@@ -77,7 +77,7 @@ public class GestorVentanaLanzamiento {
             nt.setNombre(hde.getNombre());
                 String[] data = new String[2];
                 data[0] = String.valueOf(e.getValue());
-                data[1] = hde.getEstado();
+                data[1] = hde.getEstadoColoreado();
             nt.setData(data);
             ntlst.add(nt);
         }

@@ -112,4 +112,24 @@ public class HerramientaDeEmpresa {
     {
         return this.ordenDeCompra.getId() + " Fecha: " + FechaUtil.getFecha(this.ordenDeCompra.getFechaDeGeneracion());
     }
+    
+    public String getEstadoColoreado(){
+        if(this.estado==null){
+            return "";
+        }
+        String estadoColoreado = "<HTML>";
+        if(ESTADO_DISPONIBLE.equals(this.estado)){
+            estadoColoreado += "<span color='#00A329'>"+this.estado+"</span>";
+        }else if(ESTADO_DE_BAJA.equals(this.estado)){
+            estadoColoreado += "<span color='#FF470A'>"+this.estado+"</span>";
+        }else if(ESTADO_EN_REPARACION.equals(this.estado)){
+            estadoColoreado += "<span color='#0A47FF'>"+this.estado+"</span>";
+        }else if(ESTADO_NECESITA_REPARACION.equals(this.estado)){
+            estadoColoreado += "<span color='#FFBF00'>"+this.estado+"</span>";
+        }else if(ESTADO_NO_DISPONIBLE.equals(this.estado)){
+            estadoColoreado += "<span color='#FF0000'>"+this.estado+"</span>";
+        }
+        
+        return estadoColoreado;
+    }
 }
