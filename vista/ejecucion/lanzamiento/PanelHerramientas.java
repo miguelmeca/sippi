@@ -1,10 +1,12 @@
 package vista.ejecucion.lanzamiento;
 
-import javax.swing.JComboBox;
+import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import vista.util.MyComboBoxEditor;
+import util.NTupla;
+import util.TablaUtil;
 
 /**
  *
@@ -13,19 +15,22 @@ import vista.util.MyComboBoxEditor;
 public class PanelHerramientas extends javax.swing.JPanel {
 
     public static final int TABLA_HERRAMIENTAS_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_NOTAS = 1;
+    public static final int TABLA_HERRAMIENTAS_COLUMNA_HORAS = 1;
     public static final int TABLA_HERRAMIENTAS_COLUMNA_ESTADO = 2;
     public static final int TABLA_HERRAMIENTAS_COLUMNA_SELECCION = 3;
     
     private static final int TABLA_DEFAULT_ALTO = 25;    
+       
+    private GestorVentanaLanzamiento gestor;
     
     /**
      * Creates new form PanelHerramientas
      */
-    public PanelHerramientas() {
+    public PanelHerramientas(GestorVentanaLanzamiento gestor) {
+        this.gestor = gestor;
         initComponents();
         initTabla();
-        mock();
+        cargarDatosTablaParaObra();
     }
 
     /**
@@ -41,6 +46,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHerramientas = new javax.swing.JTable();
         btnGenerarOrdenDeCompra = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -49,7 +55,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Notas", "Estado", ""
+                "Nombre", "Horas Planificadas", "Estado Herramienta", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -71,13 +77,17 @@ public class PanelHerramientas extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblHerramientas);
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnGenerarOrdenDeCompra.setText("Generar Orden de Compra");
+        btnGenerarOrdenDeCompra.setText("Generar un Orden de Compra");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("O tal vez desea:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnGenerarOrdenDeCompra)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -86,13 +96,17 @@ public class PanelHerramientas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarOrdenDeCompra))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGenerarOrdenDeCompra)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarOrdenDeCompra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblHerramientas;
     // End of variables declaration//GEN-END:variables
@@ -100,13 +114,6 @@ public class PanelHerramientas extends javax.swing.JPanel {
     private void initTabla() {
         tblHerramientas.setRowHeight(TABLA_DEFAULT_ALTO);
         DefaultTableModel modelo = (DefaultTableModel) tblHerramientas.getModel();
-
-        TableColumn col = tblHerramientas.getColumnModel().getColumn(TABLA_HERRAMIENTAS_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#009900'>Disponible</span>", 
-                                       "<HTML><span color='#CC7A00'>En Reparación</span>", 
-                                       "<HTML><span color='#CC0000'>No Disponible</span>"};
-        col.setCellEditor(new MyComboBoxEditor(values));
-        col.setCellRenderer(new PanelHerramientasCellRenderer(values));
 
         // Ancho de Columnas
         int anchoColumna = 0;
@@ -116,13 +123,13 @@ public class PanelHerramientas extends javax.swing.JPanel {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
                 case TABLA_HERRAMIENTAS_COLUMNA_ESTADO:
-                    anchoColumna = 300;
+                    anchoColumna = 100;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_NOMBRE:
-                    anchoColumna = 500;
+                    anchoColumna = 300;
                     break;
-                case TABLA_HERRAMIENTAS_COLUMNA_NOTAS:
-                    anchoColumna = 500;
+                case TABLA_HERRAMIENTAS_COLUMNA_HORAS:
+                    anchoColumna = 100;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_SELECCION:
                     anchoColumna = 50;
@@ -133,29 +140,27 @@ public class PanelHerramientas extends javax.swing.JPanel {
         }
     }
 
-    private void mock() {
-        // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblHerramientas.getModel();
+    /**
+     * Pide al gestor que busque todos los datos de las herramietnas que se
+     * van a usar en esta obra.
+     */
+    private void cargarDatosTablaParaObra() {
+        List<NTupla> tuplas = gestor.llenarTablaPanelHerramientas();
+        DefaultTableModel modelo = (DefaultTableModel)tblHerramientas.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo);
         
-        Object row[] = new Object[4];
-        row[0] = "Autoelevadora Electrica";
-        row[1] = "<HTML><span color='#CC0000'>Herramienta Rota</span>";
-        row[2] = new JComboBox();
-        row[3] = false;
-        modelo.addRow(row);
-        
-        Object row2[] = new Object[4];
-        row2[0] = "Fresaadora CNC";
-        row2[1] = "No está en la empresa";
-        row2[2] = new JComboBox();
-        row2[3] = false;
-        modelo.addRow(row2);
-        
-        Object row3[] = new Object[4];
-        row3[0] = "Torno Jhon Deer";
-        row3[1] = "";
-        row3[2] = new JComboBox();
-        row3[3] = false;
-        modelo.addRow(row3);
+        for (int i = 0; i < tuplas.size(); i++) {
+            NTupla nTupla = tuplas.get(i);
+            Object[] fila = new Object[4];
+            fila[0] = nTupla;
+            
+                String[] data = (String[]) nTupla.getData();
+            
+            fila[1] = data[0];
+            fila[2] = data[1];
+            fila[3] = false;
+            modelo.addRow(fila);
+        }
     }
+
 }

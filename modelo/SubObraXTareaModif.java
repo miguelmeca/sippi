@@ -58,9 +58,13 @@ public class SubObraXTareaModif extends SubObraXTarea {
     @Deprecated
     @Override
     public List<DetalleSubObraXTarea> getDetalles() {
-        List<DetalleSubObraXTarea> aux=new ArrayList<DetalleSubObraXTarea>();
-        for (int i = 0; i < detallesMod.size(); i++) {
-            aux.add(detallesMod.get(i));
+        List<DetalleSubObraXTarea> aux = new ArrayList<DetalleSubObraXTarea>();
+        try {
+            for (int i = 0; i < detallesMod.size(); i++) {
+                aux.add(detallesMod.get(i));
+            }
+        } catch (Exception e) {
+            System.err.println("Se produjo un error grave en SubObraXTareaModif:getDetalles()");
         }
         return aux;
     }
@@ -72,11 +76,15 @@ public class SubObraXTareaModif extends SubObraXTarea {
     @Deprecated
     @Override
     public void setDetalles(List<DetalleSubObraXTarea> detalles) {
-        List<DetalleSubObraXTareaModif> aux=new ArrayList<DetalleSubObraXTareaModif>();
-        for (int i = 0; i < detalles.size(); i++) {
-            aux.add((DetalleSubObraXTareaModif)detalles.get(i));
+        try {
+            List<DetalleSubObraXTareaModif> aux = new ArrayList<DetalleSubObraXTareaModif>();
+            for (int i = 0; i < detalles.size(); i++) {
+                aux.add((DetalleSubObraXTareaModif) detalles.get(i));
+            }
+            this.detallesMod = aux;
+        } catch (Exception e) {
+            System.err.println("Se produjo un error grave en SubObraXTareaModif:setDetalles()");
         }
-        this.detallesMod = aux;
     }
     
     public void setDetallesMod(List<DetalleSubObraXTareaModif> detalles) {        

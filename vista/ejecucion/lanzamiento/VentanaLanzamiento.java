@@ -32,7 +32,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         // Inicializo Ventana
         initComponents();
         // Todas las solapas comparten el mismo gestor, así simplificamos !!
-        this.gestor = new GestorVentanaLanzamiento(this,idObra);
+        this.gestor = new GestorVentanaLanzamiento(idObra);
         // Verifico si la obra esta en ejecucion
         checkSiObraTieneEjecución(idObra);
         // Segun el estado de la ejecucion, cambio el comportamiento
@@ -193,7 +193,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             default:
                 setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
                 if(this.panelHerramientas==null){
-                    this.panelHerramientas = new PanelHerramientas();
+                    this.panelHerramientas = new PanelHerramientas(this.gestor);
                 }
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelHerramientas, BorderLayout.CENTER);

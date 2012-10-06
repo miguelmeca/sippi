@@ -79,20 +79,27 @@ public class SubObra implements ISubtotal
 
     public void setGananciaMonto(double gananciaMonto) 
     {
-        this.gananciaMonto = gananciaMonto;
-        //gananciaPorcentaje = (gananciaMonto/calcularSubtotal())*100;
-        gananciaPorcentaje = (double)Math.round((gananciaMonto/calcularSubtotal())*10000)/100;
+        try{
+            this.gananciaMonto = gananciaMonto;
+            //gananciaPorcentaje = (gananciaMonto/calcularSubtotal())*100;
+            gananciaPorcentaje = (double)Math.round((gananciaMonto/calcularSubtotal())*10000)/100;
+        }catch(Exception ex){
+            System.err.println("Se produjo un error grave al Guardar El monto de Ganancia");
+        }
     }
 
     public double getGananciaPorcentaje() {
         return gananciaPorcentaje;
     }
 
-    public void setGananciaPorcentaje(double gananciaPorcentaje) 
-    {
-        this.gananciaPorcentaje = gananciaPorcentaje;
-        //gananciaMonto =(gananciaPorcentaje/100)*calcularSubtotal();
-        gananciaMonto =(double)Math.round(((gananciaPorcentaje/100)*calcularSubtotal())*100)/100;
+    public void setGananciaPorcentaje(double gananciaPorcentaje) {
+        try {
+            this.gananciaPorcentaje = gananciaPorcentaje;
+            //gananciaMonto =(gananciaPorcentaje/100)*calcularSubtotal();
+            gananciaMonto = (double) Math.round(((gananciaPorcentaje / 100) * calcularSubtotal()) * 100) / 100;
+        } catch (Exception ex) {
+            System.err.println("Se produjo un error grave al Guardar El monto de Ganancia");
+        }
     }
 
     public List<SubObraXHerramienta> getHerramientas() {

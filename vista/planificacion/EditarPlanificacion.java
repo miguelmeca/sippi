@@ -39,6 +39,7 @@ import util.TablaUtil;
 import util.Tupla;
 import vista.cotizacion.CotizacionNuevaSubObra;
 import vista.cotizacion.ExplorarSubObras;
+import vista.ejecucion.VentanaEjecucion;
 import vista.gui.dnd.IDropEvent;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.interfaces.ICallBack_v2;
@@ -1511,8 +1512,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         
     }
 
-    public void lanzarEjecucion(int id) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    /**
+     * Lanza la Vetnana de Ejecucion
+     * @param id 
+     */
+    public void lanzarEjecucion(int idObra) {
+        VentanaEjecucion win = new VentanaEjecucion(idObra);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
     }
 
         /**
