@@ -1,5 +1,6 @@
 package controlador.ejecucion.lanzamiento;
 
+import controlador.Compras.StockUtils;
 import controlador.ejecucion.EjecucionUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,12 +9,16 @@ import java.util.List;
 import java.util.Map;
 import modelo.Ejecucion;
 import modelo.EjecucionXHerramienta;
+import modelo.EjecucionXMaterial;
 import modelo.HerramientaDeEmpresa;
 import modelo.PedidoObra;
+import modelo.RecursoEspecifico;
+import modelo.RecursoXProveedor;
 import modelo.TareaEjecucion;
 import org.hibernate.HibernateException;
 import util.HibernateUtil;
 import util.NTupla;
+import util.RecursosUtil;
 
 /**
  * Este gestor no conoce a su venatana, ya que pueden ser varias: Todas los
@@ -100,5 +105,80 @@ public class GestorVentanaLanzamiento {
             throw new HibernateException("Error: Se produjo un error al cargar la Obra");
         }
 
+    }
+
+    /**
+     * Panel Materiales.
+     * Llena la tabla 
+     * @return 
+     */
+    public List<NTupla> llenarTablaPanelMateriales() {
+        //1- Busco los materiales que me hacen falta para la obra. 
+        Map<RecursoEspecifico, Integer> allMateriales = new HashMap<RecursoEspecifico, Integer>(); // <Id Herramienta,CantidadHoras>
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = todasTareas.get(i);
+                    List<EjecucionXMaterial> listaMateriales = tarea.getListaMateriales();
+                    if (listaMateriales != null) {
+                        for (int j = 0; j < listaMateriales.size(); j++) {
+                            EjecucionXMaterial material = listaMateriales.get(j);
+                            RecursoXProveedor rxp = material.getMaterialPlanificado().getMaterialCotizacion().getMaterial();
+                            RecursoEspecifico recesp = RecursosUtil.getRecursoEspecifico(rxp);
+                            if (recesp != null) {
+                                if (allMateriales.containsKey(recesp)) {
+                                    // Sumo las horas solamente
+                                    int cantidad = allMateriales.get(recesp);
+                                    cantidad += material.getMaterialPlanificado().getCantidad();
+                                    allMateriales.put(recesp, cantidad);
+                                } else {
+                                    // Agrego la herramietna y seteo las horas
+                                    allMateriales.put(recesp, material.getMaterialPlanificado().getCantidad());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                // 2- Retorno 
+        List<NTupla> ntlst = new ArrayList<NTupla>();
+        Iterator it = allMateriales.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            //System.out.println(e.getKey() + " " + e.getValue());
+            RecursoEspecifico rec = (RecursoEspecifico) e.getKey();
+            NTupla nt = new NTupla(rec.getId());
+            nt.setNombre(rec.getNombre());
+            
+                int necesarios = (Integer) e.getValue();
+                double enstock = calcularStockDeRecursoespecifico(rec);
+            
+                String[] data = new String[3];
+                data[0] = String.valueOf(necesarios)+" "+rec.getRecurso().mostrarUnidadDeMedida();
+                data[1] = String.valueOf(enstock)+" "+rec.getRecurso().mostrarUnidadDeMedida();
+                
+                if(necesarios<enstock){
+                    data[2] = "<HTML><span color='#009900'>Todo Disponible</span>";
+                }else{
+                    data[2] = "<HTML><span color='#FF0000'>Faltante de "+(necesarios-enstock)+"</span>";
+                }
+                
+            nt.setData(data);
+            ntlst.add(nt);
+        }
+        return ntlst;
+    }
+
+    /**
+     * Veo cuanto Stock tengo de un material
+     * @param rec
+     * @return 
+     */
+    private double calcularStockDeRecursoespecifico(RecursoEspecifico rec) {
+        StockUtils su = new StockUtils();
+        return su.calcularStockDeRecursoespecifico(RecursoEspecifico.class,rec.getId());
     }
 }

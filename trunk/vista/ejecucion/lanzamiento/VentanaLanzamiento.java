@@ -104,7 +104,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
@@ -132,15 +132,16 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualziar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnActualziar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 451, Short.MAX_VALUE)
-                        .addComponent(btnCerrar))
-                    .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(619, 619, 619)
+                        .addComponent(btnCerrar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,6 +176,9 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         if(this.panelHerramientas!=null){
             this.panelHerramientas.actualizarDatos();
         }
+        if(this.panelMateriales!=null){
+            this.panelMateriales.actualizarDatos();
+        }
     }//GEN-LAST:event_btnActualziarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,7 +208,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             case OPTN_MATERIALES:
                 setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
                 if(this.panelMateriales==null){
-                    this.panelMateriales =  new PanelMateriales();
+                    this.panelMateriales =  new PanelMateriales(this.gestor);
                 }
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelMateriales, BorderLayout.CENTER);
