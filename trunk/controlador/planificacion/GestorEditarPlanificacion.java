@@ -1,8 +1,3 @@
-/*            NTupla nt1 = new NTupla(1);
- nt1.setNombre("TestSubTarea1");
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador.planificacion;
 
 import com.hackelare.coolgantt.CoolGanttPhase;
@@ -1017,58 +1012,175 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
        
         // Ahora... Creo la Ejecución
-        
-
-        // Lanzo el algoritmo para la planificación Intermedia
-        CotizacionModificada copiaCot = null;
+ 
+        // Lanzo el algoritmo que crea la ejecucion
+        Ejecucion ejecucion = null;
         try
         {
-            
+            ejecucion = crearEstructuraEjecucionDesdePlanificacion();
         }catch(Exception e)
         {
-            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la cotización\nRevise que no falte ningún dato\n"+e.getMessage());
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la ejecucion\nRevise que no falte ningún dato\n"+e.getMessage());
         }
         
         // Asocio la planificacion a la OBRA
-//        this.pedidoDeObra.setPlanificacion(nuevaPlan);
+        this.pedidoDeObra.setEjecucion(ejecucion);
         
-        // Asocio la copia de la cotizacion a la planificacion
-//        nuevaPlan.setCotizacion(copiaCot);
-        
-        // Guardo la cotizacion con su nuevo estado y posibles cambios sin guardar
+        // Guardo la planificacion con su nuevo estado y posibles cambios sin guardar
         try
         {
              HibernateUtil.beginTransaction();
-//                // Guardo el cambio de estado de la cotizacion
-//                sesion.saveOrUpdate(this.cot);
-//                // Guardo el cambio de estado de la obra
-//                sesion.saveOrUpdate(this.obra);
-//                // Guardo la cotizacion intermedia
-//                sesion.saveOrUpdate(copiaCot);
-//                // Guardo la nueva Planificacion
-//                sesion.saveOrUpdate(nuevaPlan);
+                // Guardo la Planificacion
+                sesion.saveOrUpdate(this.planificacion);        
+                // Guardo los cambiios en el Pedido de Obra
+                sesion.saveOrUpdate(this.pedidoDeObra);              
+                // Guardo los cambiios en la Ejecucion
+                sesion.saveOrUpdate(ejecucion);              
             HibernateUtil.commitTransaction();
-//            necesita_guardar = false;
         } 
         catch (Exception ex)
         {
             HibernateUtil.rollbackTransaction();
-            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva planificación\nPongase en contacto con un administrador\n"+ex.getMessage());
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva Ejecución\nPongase en contacto con un administrador\n"+ex.getMessage());
         }        
         
         // Si no exploto hasta ahora, lanzo la nueva ventana
         _pantalla.lanzarEjecucion(this.pedidoDeObra.getId());
     }
     
-    public int getIdDeEjecucionDeObra() { // TODO: Arreglar esto para que devuelva el ID de ejecución
-//        if(this.pedidoDeObra.getPlanificacion()!=null)
-//        {
-//            return this.pedidoDeObra.getPlanificacion().getId();
-//        }
-//        else
-//        {
-//            return 0;
-//        }
+    /**
+     * Algoritmo que crea la Ejecucion a Partir de la Planificacion.
+     * Pasos:
+     * 1- Creo la Ejecucion
+     * 2- Recursivamente, Por cada Tarea de Planificacion creo una de Ejecucion y la asocio
+     * 3- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
+     * 4- Por cada Material Planificado de una Tarea, agrego una a Ejecucion
+     * 5- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
+     * @return 
+     */
+    private Ejecucion crearEstructuraEjecucionDesdePlanificacion() {
+        // 1- Creo la Ejecucion
+        Ejecucion ejecucion = new Ejecucion();
+        ejecucion.setFechaInicio(new Date());
+        ejecucion.setObservaciones("");
+
+            // 2- Recursivamente, Por cada Tarea de Planificacion creo una de Ejecucion y la asocio
+            List<TareaEjecucion> listaTareasEjecucion = new ArrayList<TareaEjecucion>();
+            
+            for (int i = 0; i < planificacion.getTareas().size(); i++) {
+                TareaPlanificacion tareaPlan =  planificacion.getTareas().get(i);
+                TareaEjecucion tareaEjec = copiaRecursivaTareaXTarea(tareaPlan);
+                listaTareasEjecucion.add(tareaEjec);
+            }
+
+            ejecucion.setListaTareas(listaTareasEjecucion);
+
+        return ejecucion;
+    }
+
+    /**
+     * Atencion! Recursivo !!
+     *
+     * @param tareaPlan
+     * @return
+     */
+    private TareaEjecucion copiaRecursivaTareaXTarea(TareaPlanificacion tareaPlan) {
+
+        TareaEjecucion tareaEjec = new TareaEjecucion();
+        tareaEjec.setTareaPlanificada(tareaPlan);
+
+        // 3- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
+        tareaEjec.setListaHerramientas(crearListadoHerramientasEjecucion(tareaPlan.getHerramientas()));
+
+        // 4- Por cada Material Planificado de una Tarea, agrego una a Ejecucion
+        tareaEjec.setListaMateriales(crearListadoMaterialesEjecucion(tareaPlan.getMateriales()));
+
+        // 5- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
+        tareaEjec.setListaAlquileresCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
+
+        // Mando a Recursividad
+        for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
+            TareaPlanificacion tp = tareaPlan.getSubtareas().get(i);
+            TareaEjecucion te = copiaRecursivaTareaXTarea(tp);
+            tareaEjec.getSubtareas().add(te);
+        }        
+        
+        return tareaEjec;
+    }
+    
+
+    /**
+     * Por cada Herramienta que haya en Planificacion sobre una Tarea, creo las correspondientes
+     * de Ejecucion.
+     * @param herramientas
+     * @return 
+     */
+    private List<EjecucionXHerramienta> crearListadoHerramientasEjecucion(List<PlanificacionXHerramienta> herramientas) {
+        List<EjecucionXHerramienta> listaHerramientas = new ArrayList<EjecucionXHerramienta>();
+        
+            if(herramientas!=null){
+                for (int i = 0; i < herramientas.size(); i++) {
+                    PlanificacionXHerramienta planXHerramienta = herramientas.get(i);
+                    
+                    EjecucionXHerramienta ejcXHerr = new EjecucionXHerramienta();
+                    ejcXHerr.setHerramientaPlanificada(planXHerramienta);
+                    listaHerramientas.add(ejcXHerr);
+                }
+            }
+        
+        return listaHerramientas;
+    }
+
+    /**
+     * Por cada Material que haya en Planificacion sobre una Tarea, creo las correspondientes
+     * de Ejecucion.
+     * @param materiales
+     * @return 
+     */
+    private List<EjecucionXMaterial> crearListadoMaterialesEjecucion(List<PlanificacionXMaterial> materiales) {
+        List<EjecucionXMaterial> listaMateriales = new ArrayList<EjecucionXMaterial>();
+        
+            if(materiales!=null){
+                for (int i = 0; i < materiales.size(); i++) {
+                    PlanificacionXMaterial planXmaterial = materiales.get(i);
+                    
+                    EjecucionXMaterial ejcXmat = new EjecucionXMaterial();
+                    ejcXmat.setMaterialPlanificado(planXmaterial);
+                    listaMateriales.add(ejcXmat);
+                }
+            }
+        
+        return listaMateriales;
+    }
+
+    /**
+     * Por cada Alquiler/Compra que haya en Planificacion sobre una Tarea, creo las correspondientes
+     * de Ejecucion.
+     * @param alquileresCompras
+     * @return 
+     */
+    private List<EjecucionXAlquilerCompra> crearListadoAlquileresComprasEjecucion(List<PlanificacionXAlquilerCompra> alquileresCompras) {
+        List<EjecucionXAlquilerCompra> listaAlquileresCompras = new ArrayList<EjecucionXAlquilerCompra>();
+        
+            if(alquileresCompras!=null){
+                for (int i = 0; i < alquileresCompras.size(); i++) {
+                    PlanificacionXAlquilerCompra planXalqucompra = alquileresCompras.get(i);
+                    
+                    EjecucionXAlquilerCompra ejcXmat = new EjecucionXAlquilerCompra();
+                    ejcXmat.setAlquilerCompraPlanificado(planXalqucompra);
+                    listaAlquileresCompras.add(ejcXmat);
+                }
+            }
+        
+        return listaAlquileresCompras;
+    }
+
+
+    public int getIdDeEjecucionDeObra() {
+        if(this.pedidoDeObra.getEjecucion()!=null)
+        {
+            return this.pedidoDeObra.getEjecucion().getId();
+        }
         return -1;
     }
 }

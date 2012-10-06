@@ -29,6 +29,7 @@ public class PedidoObra{
     private Planta planta;
     private Date fechaDeRegistro;
     private PlanificacionXXX planificacion;
+    private Ejecucion ejecucion;
 
     private String estado;
 
@@ -169,6 +170,14 @@ public class PedidoObra{
         return "";
     }
 
+    public Ejecucion getEjecucion() {
+        return ejecucion;
+    }
+
+    public void setEjecucion(Ejecucion ejecucion) {
+        this.ejecucion = ejecucion;
+    }
+
 /*************************************************************
  *                    MANEJO DE ESTADOS                      *
  * ***********************************************************
@@ -221,12 +230,8 @@ public class PedidoObra{
 
     public boolean setEstadoEnEjecucion()
     {
-        if(this.estado.equals(PedidoObra.ESTADO_PLANIFICADO) || this.estado.equals(PedidoObra.ESTADO_SUSPENDIDO) )
-        {
-            this.estado = PedidoObra.ESTADO_EN_EJECUCION;
-            return true;
-        }
-        return false;         
+        this.estado = PedidoObra.ESTADO_EN_EJECUCION;
+        return true;
     }
 
     public boolean setEstadoSuspendido()

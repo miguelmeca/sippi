@@ -2,6 +2,8 @@ package vista.ejecucion;
 
 import controlador.ejecucion.GestorVentanaEjecucion;
 import javax.swing.JOptionPane;
+import util.SwingPanel;
+import vista.ejecucion.lanzamiento.VentanaLanzamiento;
 
 /**
  * Ventana Principal de Ejecucion !!
@@ -46,6 +48,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        btnLanzamiento = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -80,7 +83,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Línea de Tiempo", jPanel1);
@@ -95,7 +98,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -126,7 +129,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -149,10 +152,18 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(380, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel4);
+
+        btnLanzamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
+        btnLanzamiento.setText("Lanzamiento");
+        btnLanzamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLanzamientoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,6 +175,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                     .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEmitirInformes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLanzamiento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,7 +192,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
                     .addComponent(btnCerrar)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnLanzamiento))
                 .addContainerGap())
         );
 
@@ -196,10 +210,17 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         guardar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnLanzamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzamientoActionPerformed
+        VentanaLanzamiento win = new VentanaLanzamiento(gestor.getIdObraActual());
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnLanzamientoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitirInformes;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLanzamiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

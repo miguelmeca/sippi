@@ -171,7 +171,7 @@ public class HibernateUtil {
 		} catch (HibernateException ex) {
 			throw new HibernateException(ex);
 		} finally {
-			closeSession();
+			// closeSession(); // WTF !!
 		}
 	}
 
