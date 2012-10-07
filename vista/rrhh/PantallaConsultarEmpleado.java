@@ -369,7 +369,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
     }//GEN-LAST:event_btnModificarEmpleadoActionPerformed
 
     private void btnNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpleadoActionPerformed
-        pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(this);
+            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(this);
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
             seleeccionBotones();

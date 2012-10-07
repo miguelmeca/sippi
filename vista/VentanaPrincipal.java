@@ -49,7 +49,11 @@ import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaConsultarPlanificaciones;
 import vista.rrhh.PantallaConsultarEmpleado;
 import vista.rrhh.pantallaConsultarLicenciasEmpleado;
+import vista.rrhh.pantallaConsultarTallerCapacitacion;
+import vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion;
+import vista.rrhh.pantallaRegistrarCapacitador;
 import vista.rrhh.pantallaRegistrarEmpleado;
+import vista.rrhh.pantallaRegistrarTallerCapacitacion;
 import vista.users.ABMUsers;
 import vista.users.ListadoUsuarios;
 import vista.users.UserLogin;
@@ -208,10 +212,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -231,6 +231,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu10 = new javax.swing.JMenu();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem26 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem31 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnMenuListadoEmpresasCliente = new javax.swing.JMenuItem();
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
@@ -463,38 +474,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem2);
 
-        jMenuItem1.setText("Registrar Pedido de Obra");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-
-        jMenuItem7.setText("Ver Orden de Compra");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem7);
-
-        jMenuItem8.setText("Registrar Orden De Compra");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem8);
-
-        jMenuItem9.setText("Recepcion Orden De Compra");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem9);
-
         jMenuItem10.setText("Test Listados gen Callback");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -635,6 +614,93 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu10.add(jMenuItem24);
 
         jMenu5.add(jMenu10);
+
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delivery.png"))); // NOI18N
+        jMenu11.setText("Proveedores");
+
+        jMenuItem26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        jMenuItem26.setText("Listado");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem26);
+
+        jMenuItem27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jMenuItem27.setText("Nuevo");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jMenuItem27);
+
+        jMenu5.add(jMenu11);
+
+        jMenu12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
+        jMenu12.setText("Empleados");
+
+        jMenuItem28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        jMenuItem28.setText("Listado");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem28);
+
+        jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jMenuItem29.setText("Nuevo");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem29);
+
+        jMenu5.add(jMenu12);
+
+        jMenu13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Yellow tag.png"))); // NOI18N
+        jMenu13.setText("Taller de Capacitación");
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        jMenuItem7.setText("Listado");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem7);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jMenuItem8.setText("Nuevo");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem8);
+
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
+        jMenuItem9.setText("Registrar Asistencia");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem9);
+
+        jMenuItem31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/People.png"))); // NOI18N
+        jMenuItem31.setText("Registrar Capacitador");
+        jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem31ActionPerformed(evt);
+            }
+        });
+        jMenu13.add(jMenuItem31);
+
+        jMenu5.add(jMenu13);
 
         jMenuBar1.add(jMenu5);
 
@@ -788,14 +854,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_jPanel1MouseMoved
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-        pantallaRegistrarPedido prp = new pantallaRegistrarPedido();
-        SwingPanel.getInstance().addWindow(prp);
-        prp.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
 private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
     
         ExplorarCotizaciones ec = new ExplorarCotizaciones();
@@ -822,7 +880,7 @@ private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_jMenuItem4ActionPerformed
 
 private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-    PantallaConsultarEmpleado ep = new PantallaConsultarEmpleado();
+       PantallaConsultarEmpleado ep = new PantallaConsultarEmpleado();
        SwingPanel.getInstance().addWindow(ep);
        ep.setVisible(true);
 }//GEN-LAST:event_jMenuItem6ActionPerformed
@@ -845,29 +903,11 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_btnMenuListadoProveedoresActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        OLD_pantallaConsultarOC win = new OLD_pantallaConsultarOC();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);        
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void btnMenuListadoOrdenesCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoOrdenesCompraActionPerformed
         PantallaConsultarOrdenesDeCompra win = new PantallaConsultarOrdenesDeCompra();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);      
     }//GEN-LAST:event_btnMenuListadoOrdenesCompraActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        OLD_pantallaGenerarOrdenCompra win = new OLD_pantallaGenerarOrdenCompra();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);          
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        OLD_pantallaRegistrarRecepcionOrdenCompra win = new OLD_pantallaRegistrarRecepcionOrdenCompra();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);  
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         TestCallBackListadoGenerico win = new TestCallBackListadoGenerico();
@@ -1007,6 +1047,54 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         CambiarDeUsuario();
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        pantallaListadoProveedores win = new pantallaListadoProveedores();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        pantallaRegistrarProveedor win = new pantallaRegistrarProveedor();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+       PantallaConsultarEmpleado ep = new PantallaConsultarEmpleado();
+       SwingPanel.getInstance().addWindow(ep);
+       ep.setVisible(true);
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado();
+        SwingPanel.getInstance().addWindow(pre);
+        pre.setVisible(true);
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        pantallaConsultarTallerCapacitacion win = new pantallaConsultarTallerCapacitacion();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        pantallaRegistrarTallerCapacitacion prtc = new pantallaRegistrarTallerCapacitacion();
+        SwingPanel.getInstance().addWindow(prtc);
+        prtc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        pantallaRegistrarAsistenciaTallerCapacitacion win = new pantallaRegistrarAsistenciaTallerCapacitacion();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
+        pantallaRegistrarCapacitador prc = new pantallaRegistrarCapacitador();
+        SwingPanel.getInstance().addWindow(prc);
+        prc.setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem31ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -1024,6 +1112,9 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu cmbUsuarios;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -1033,7 +1124,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -1051,7 +1141,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
