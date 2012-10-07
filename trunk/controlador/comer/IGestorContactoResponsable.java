@@ -20,8 +20,8 @@ public interface IGestorContactoResponsable
     //public boolean ValidarDocumento(String nroDoc, Tupla td);
    // public boolean ValidarLegajo(String leg);
     //public boolean ValidarCuil(String cuil);
-    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, String cargo, Tupla empr, Tupla plant );
-    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, String cargo);
+    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, int idRol, Tupla empr, Tupla plant );
+    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, int idRol);
     //public void datosDomicilioContacto(String calle, String nro, String depto, String piso, String cp, Tupla tBarrio);
     public ArrayList<Tupla> mostrarTiposDeTelefono();
     public boolean validarPlantaSinContacto();
@@ -30,4 +30,5 @@ public interface IGestorContactoResponsable
      public boolean ValidarCuil(String cuil);
     public ArrayList<Tupla> mostrarEmpresas();
     public ArrayList<Tupla> mostrarPlantas(int idEmpresa);
+    public ArrayList<Tupla> mostrarRolesContactoResponsable();
 }

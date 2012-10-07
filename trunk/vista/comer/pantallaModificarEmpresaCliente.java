@@ -48,6 +48,16 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         mostrarTiposTelefono();
         cargarDatosEmpresaClienteAModificar();
     }
+    
+    pantallaModificarEmpresaCliente(int idEmpresa) {
+        initComponents();
+        this.pBuscar = null;
+        this.idEmpresa = idEmpresa;
+        this.gestor = new GestorABMEmpresaCliente(this);
+
+        mostrarTiposTelefono();
+        cargarDatosEmpresaClienteAModificar();
+    }
 
     private boolean ValidarDatos()
     {

@@ -6,8 +6,14 @@
       <generator class="increment"/>
     </id>
     <property column="NOMBRE" name="nombre" type="string"/>
-    <many-to-one class="modelo.Telefono" column="ID_TELEFONO" name="telefono"/>
+    <property column="APELLIDO" name="apellido" type="string"/>
+    <list cascade="all-delete-orphan" name="telefonos" table="CONTACTO_RESPONSABLE_X_TELEFONO">
+        <key column="ID_CONTACTO"/>
+        <index column="idx"/>
+        <many-to-many class="modelo.Telefono"/>
+    </list>
     <property column="EMAIL" name="email" type="string"/>
+    <property column="CUIL" name="cuil" type="string"/>
     <many-to-one class="modelo.RolContactoResponsable" column="ID_ROL" name="rol"/>
   </class>
 </hibernate-mapping>

@@ -326,9 +326,20 @@ public class GestorConsultarObra {
             ContactoResponsable cr = ic.next();
             NTupla nt = new NTupla();
             nt.setNombre(cr.getNombre());
-            String datos[] = {cr.getRol().getNombre(),cr.getTelefono().getTipo().getNombre()+": "+cr.getTelefono().getNumero()};
-            nt.setData(datos);
-            nc.add(nt);
+            
+            if(cr.getTelefonos().get(0) != null)
+                {
+                    String datos[] = {cr.getRol().getNombre(),cr.getTelefonos().get(0).getTipo().getNombre()+": "+cr.getTelefonos().get(0).getNumero()};
+                    nt.setData(datos);
+                    nc.add(nt);
+                }
+            else
+                {
+                    String datos[] = {cr.getRol().getNombre(),"Sin teléfono registrado"};
+                    nt.setData(datos);
+                    nc.add(nt);
+                }
+            
         }
         return nc;
     }

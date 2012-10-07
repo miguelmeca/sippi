@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.*;
@@ -239,8 +240,12 @@ public class GestorRegistrarPedido {
             Iterator it = contactos.iterator();
             while(it.hasNext()){
                 ContactoResponsable cr = (ContactoResponsable)it.next();
-                Telefono t = cr.getTelefono();
-                HibernateUtil.getSession().save(t);
+                Iterator<Telefono> itTelefonos = cr.getTelefonos().iterator();
+                while(itTelefonos.hasNext())
+                {
+                    Telefono telefono = itTelefonos.next();
+                    HibernateUtil.getSession().save(telefono);
+                }
             }
             HibernateUtil.getSession().saveOrUpdate(nuevo);
             HibernateUtil.commitTransaction();
@@ -571,9 +576,11 @@ public class GestorRegistrarPedido {
         telCR.setNumero(tel);
         try {
             HibernateUtil.beginTransaction();
-            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
+//            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
             telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
-            cr.setTelefono(telCR);
+            List telefonos = new ArrayList<Telefono>();
+            telefonos.add(telCR);
+            cr.setTelefonos(telefonos);
             this.contactos.add(cr);
             HibernateUtil.commitTransaction();
             return cr;
@@ -594,7 +601,7 @@ public class GestorRegistrarPedido {
             ContactoResponsable cr = (ContactoResponsable)iter.next();
             NTupla  nt = new NTupla();
             nt.setNombre(cr.getNombre());
-            Object datos[] = {cr.getRol().getNombre(),cr.getTelefono(),cr};
+            Object datos[] = {cr.getRol().getNombre(),cr.getTelefonos().get(0),cr};
             nt.setData(datos);
             nTuplas.add(nt);
         }

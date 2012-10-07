@@ -1,8 +1,5 @@
 package modelo;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 //
@@ -18,11 +15,21 @@ import java.util.Set;
 public class ContactoResponsable {
 	private int id;
 	private String nombre;
-	private Telefono telefono;
+        private String apellido;
+	private List<Telefono> telefonos;
         private String email;
         private RolContactoResponsable rol;
+        private String cuil;
 
     public ContactoResponsable() {
+    }
+
+    public String getCuil() {
+        return cuil;
+    }
+
+    public void setCuil(String cuil) {
+        this.cuil = cuil;
     }
 
     public String getEmail() {
@@ -57,12 +64,12 @@ public class ContactoResponsable {
         this.rol = rol;
     }
 
-    public Telefono getTelefono() {
-        return telefono;
+    public List<Telefono> getTelefonos() {
+        return telefonos;
     }
 
-    public void setTelefono(Telefono telefono) {
-        this.telefono = telefono;
+    public void setTelefonos(List<Telefono> telefonos) {
+        this.telefonos = telefonos;
     }
 
     public void crear() {
@@ -75,5 +82,13 @@ public class ContactoResponsable {
 
     public void getContacto() {
 
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 }

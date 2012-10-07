@@ -61,30 +61,30 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         txtProvincia.setText(gestor.mostrarNombreProvincia());
         txtPais.setText(gestor.mostrarNombrePais());
 
-//        txtNombreContacto.setText(gestor.mostrarNombreContacto());
+        txtNombreContacto.setText(gestor.mostrarNombreContacto());
         txtEmailContacto.setText(gestor.mostrarEmailContacto());
-//        txtCUILContacto.setText(gestor.mostrarCUILContacto());
-//        txtCargoContacto.setText(gestor.mostrarCargoContacto());
-//        mostrarTelefonosContacto();
+        txtCUILContacto.setText(gestor.mostrarCUILContacto());
+        txtRolContacto.setText(gestor.mostrarRolContacto());
+        mostrarTelefonosContacto();
 
     }
 
-//    private void mostrarTelefonosContacto()
-//    {
-//        ArrayList<NTupla> lista = gestor.mostrarTelefonosContacto();
-//        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonosContacto.getModel();
-//
-//        Iterator it = lista.iterator();
-//        while (it.hasNext())
-//        {
-//            NTupla nt = (NTupla)it.next();
-//            String[] fila = new String[2];
-//            fila[0] = nt.getNombre();
-//            fila[1] = (String)nt.getData();
-//            modelo.addRow(fila);
-//        }
-//
-//    }
+    private void mostrarTelefonosContacto()
+    {
+        ArrayList<NTupla> lista = gestor.mostrarTelefonosContacto();
+        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonosContacto.getModel();
+
+        Iterator it = lista.iterator();
+        while (it.hasNext())
+        {
+            NTupla nt = (NTupla)it.next();
+            String[] fila = new String[2];
+            fila[1] = nt.getNombre();
+            fila[0] = (String)nt.getData();
+            modelo.addRow(fila);
+        }
+
+    }
 
     private void mostrarTelefonosPlanta()
     {
@@ -96,8 +96,8 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         {
             NTupla nt = (NTupla)it.next();
             String[] fila = new String[2];
-            fila[0] = nt.getNombre();
-            fila[1] = (String)nt.getData();
+            fila[1] = nt.getNombre();
+            fila[0] = (String)nt.getData();
             modelo.addRow(fila);
         }
         
@@ -153,7 +153,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCUILContacto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtCargoContacto = new javax.swing.JLabel();
+        txtRolContacto = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaTelefonosContacto = new javax.swing.JTable();
@@ -176,7 +176,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombrePlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(lblNombrePlanta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,15 +192,20 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
 
         tablaTelefonosPlanta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tipo", "Número"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaTelefonosPlanta);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -258,8 +263,8 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                            .addComponent(txtBarrio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblLocalidad)
@@ -269,7 +274,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                             .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                         .addContainerGap())
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,7 +314,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         lblEmailEmp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblEmailEmp.setText("e-mail :");
 
-        txtEmailContacto.setText("arcor@arcor.com.ar");
+        txtEmailContacto.setText("...");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("CUIL:");
@@ -317,9 +322,9 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         txtCUILContacto.setText("...");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Cargo:");
+        jLabel4.setText("Rol:");
 
-        txtCargoContacto.setText("jLabel5");
+        txtRolContacto.setText("...");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefonos del Contacto"));
 
@@ -342,7 +347,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -364,14 +369,14 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEmailEmp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmailContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                            .addComponent(txtNombreContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                            .addComponent(txtCUILContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                            .addComponent(txtCargoContacto, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))))
+                            .addComponent(txtEmailContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombreContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCUILContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtRolContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -391,7 +396,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtCargoContacto))
+                    .addComponent(txtRolContacto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -420,7 +425,7 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -450,13 +455,13 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
     private javax.swing.JTable tablaTelefonosPlanta;
     private javax.swing.JLabel txtBarrio;
     private javax.swing.JLabel txtCUILContacto;
-    private javax.swing.JLabel txtCargoContacto;
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtEmailContacto;
     private javax.swing.JLabel txtLocalidad;
     private javax.swing.JLabel txtNombreContacto;
     private javax.swing.JLabel txtPais;
     private javax.swing.JLabel txtProvincia;
+    private javax.swing.JLabel txtRolContacto;
     // End of variables declaration//GEN-END:variables
 
 }

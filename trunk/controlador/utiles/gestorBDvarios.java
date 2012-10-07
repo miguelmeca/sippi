@@ -475,5 +475,41 @@ public class gestorBDvarios
         }
         return null;
     }        
+    
+    public ArrayList<Tupla> getRolesContactoResponsable()
+    {
+        ArrayList<Tupla> tuplas = new ArrayList<Tupla>();
+        List lista = new ArrayList();
+        try
+        {
+            HibernateUtil.beginTransaction();
+            lista = HibernateUtil.getSession().createQuery("from RolContactoResponsable").list();
+            HibernateUtil.commitTransaction();
+        }catch(Exception e)
+        {
+            return tuplas;
+        }
         
+        for (int i = 0; i < lista.size(); i++) {
+            RolContactoResponsable rolCR = (RolContactoResponsable)lista.get(i);
+            Tupla tupla = new Tupla(rolCR.getId(),rolCR.getNombre());
+            tuplas.add(tupla);
+        }
+        
+        return tuplas;
+    }
+    
+    public RolContactoResponsable getRolContactoResponsable(int idRol)
+    {
+        RolContactoResponsable rol = null;
+        try 
+        {
+            HibernateUtil.beginTransaction();
+            rol = (RolContactoResponsable)sesion.load(RolContactoResponsable.class,idRol);
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
+            HibernateUtil.rollbackTransaction();
+        }
+        return rol;
+    }
 }

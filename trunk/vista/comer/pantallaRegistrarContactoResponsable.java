@@ -8,39 +8,30 @@
  *
  * Created on 09-may-2010, 18:52:12
  */
-
 package vista.comer;
 
-import controlador.comer.GestorRegistrarNuevoContactoResponsable;
 import controlador.comer.GestorModificarContactoResponsable;
+import controlador.comer.GestorRegistrarNuevoContactoResponsable;
+import controlador.comer.IGestorContactoResponsable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-//import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-//import modelo.TipoDocumento;
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.Transaction;
-//import util.HibernateUtil;
-import javax.swing.JOptionPane;
-import util.Tupla;
 import java.util.Iterator;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.LimitadorCaracteres;
+import util.Tupla;
 import vista.interfaces.IAyuda;
 import vista.interfaces.ICallBack;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JComponent;
-import java.util.Date;
-import javax.swing.table.DefaultTableModel;
-import java.util.Vector;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
-import util.LimitadorCaracteres;
-import controlador.comer.IGestorContactoResponsable;
+
 /**
  *
  * @author Fran
  */
-public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda
-{
+public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalFrame implements IAyuda {
+
     private IGestorContactoResponsable gestor;
     private GestorRegistrarNuevoContactoResponsable gestorCrear;
     private GestorModificarContactoResponsable gestorModificar;
@@ -54,107 +45,95 @@ public class pantallaRegistrarContactoResponsable extends javax.swing.JInternalF
     private String planta;
     private int idCon;
     //private Date fechaVencimientoCapActual;
-   
+
     public pantallaRegistrarContactoResponsable() {
         initComponents();
         gestor = new GestorRegistrarNuevoContactoResponsable(this);
-        gestorCrear=(GestorRegistrarNuevoContactoResponsable)gestor;
+        gestorCrear = (GestorRegistrarNuevoContactoResponsable) gestor;
         this.habilitarVentana();
-        listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();
-        modificar=false;
-            
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<Tupla>();
+        modificar = false;
+
     }
-   
+
     public pantallaRegistrarContactoResponsable(ICallBack cuSoli) {
         initComponents();
-        pantallaCUSolicitante=cuSoli;
+        pantallaCUSolicitante = cuSoli;
         gestor = new GestorRegistrarNuevoContactoResponsable(this);
-        gestorCrear=(GestorRegistrarNuevoContactoResponsable)gestor;
+        gestorCrear = (GestorRegistrarNuevoContactoResponsable) gestor;
         this.habilitarVentana();
-        listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();        
-        if (pantallaCUSolicitante!= null)
-        {cmbEmpresas.setEnabled(false);
-        cmbPlantas.setEnabled(false);}
-        modificar=false;
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<Tupla>();
+        if (pantallaCUSolicitante != null) {
+            cmbEmpresas.setEnabled(false);
+            cmbPlantas.setEnabled(false);
+        }
+        modificar = false;
     }
-   public pantallaRegistrarContactoResponsable(int id,ICallBack cuSoli)
-   {
+
+    public pantallaRegistrarContactoResponsable(int id, ICallBack cuSoli) {
         initComponents();
-        pantallaCUSolicitante=cuSoli;
-        idCon=id;
+        pantallaCUSolicitante = cuSoli;
+        idCon = id;
         gestor = new GestorModificarContactoResponsable(this, id);
-        gestorModificar=(GestorModificarContactoResponsable)gestor;
+        gestorModificar = (GestorModificarContactoResponsable) gestor;
         this.habilitarVentana();
-        listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();
-        if (pantallaCUSolicitante!= null)
-        {cmbEmpresas.setEnabled(false);
-        cmbPlantas.setEnabled(false);}
-        modificar=true;
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<Tupla>();
+        if (pantallaCUSolicitante != null) {
+            cmbEmpresas.setEnabled(false);
+            cmbPlantas.setEnabled(false);
+        }
+        modificar = true;
         gestorModificar.levantarContacto(id);
     }
 
-   public void opcionRegistrarEmpleado()
-    {
-
-
+    public void opcionRegistrarEmpleado() {
     }
-   private void habilitarVentana()
-    {
 
+    private void habilitarVentana() {
+        mostrarRoles();
         mostrarTiposDeTelefono();
-        if (pantallaCUSolicitante== null)
-        {
-        mostrarEmpresas();
-        //mostrarPlantas();
+        if (pantallaCUSolicitante == null) {
+            mostrarEmpresas();
+            //mostrarPlantas();
         }
-       
-KeyAdapter kaNuemros=(new KeyAdapter()
-{
+
+        KeyAdapter kaNuemros = (new KeyAdapter() {
 
             @Override
-   public  void keyTyped(KeyEvent e)
-   {
-      char caracter = e.getKeyChar();
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
 
-      // Verificar si la tecla pulsada no es un digito
-      if(((caracter < '0') ||
-         (caracter > '9')) &&
-         (caracter != KeyEvent.VK_BACK_SPACE))
-      {
-         e.consume();  // ignorar el evento de teclado
-      }
-   }
-});
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
         //-----------------------
         txtCUIL.addKeyListener(kaNuemros);
-        
+
         //txtTelefono.addKeyListener(kaNuemros);
 
-        txtApellido.setDocument(new LimitadorCaracteres(txtApellido,50));
-        
-        txtCUIL.setDocument(new LimitadorCaracteres(txtApellido,15));
-        txtEmail.setDocument(new LimitadorCaracteres(txtApellido,50));
-        txtNombre.setDocument(new LimitadorCaracteres(txtApellido,50));
-        txtTelefono.setDocument(new LimitadorCaracteres(txtApellido,15));
-        txtCargo.setDocument(new LimitadorCaracteres(txtApellido,50));
+        txtApellido.setDocument(new LimitadorCaracteres(txtApellido, 50));
 
+        txtCUIL.setDocument(new LimitadorCaracteres(txtApellido, 15));
+        txtEmail.setDocument(new LimitadorCaracteres(txtApellido, 50));
+        txtNombre.setDocument(new LimitadorCaracteres(txtApellido, 50));
+        txtTelefono.setDocument(new LimitadorCaracteres(txtApellido, 15));
+    }
 
-
-   }
-
-
-
-   private void mostrarEmpresas()
-    {
+    private void mostrarEmpresas() {
         DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
         ArrayList<Tupla> lista = gestor.mostrarEmpresas();
 
         Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Tupla tu = it.next();
             valores.addElement(tu);
         }
@@ -164,59 +143,50 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
     }
 
-    private void mostrarPlantas()
-    {
-       if(cmbEmpresas.getSelectedIndex()!=-1)
-       {
-        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+    private void mostrarPlantas() {
+        if (cmbEmpresas.getSelectedIndex() != -1) {
+            DefaultComboBoxModel valores = new DefaultComboBoxModel();
 
-        Tupla t = (Tupla) cmbEmpresas.getSelectedItem() ;
-        ArrayList<Tupla> lista = gestor.mostrarPlantas(t.getId());
-        Iterator<Tupla> it = lista.iterator();
-        while(it.hasNext()){
-            Tupla tu = it.next();
-            valores.addElement(tu);
+            Tupla t = (Tupla) cmbEmpresas.getSelectedItem();
+            ArrayList<Tupla> lista = gestor.mostrarPlantas(t.getId());
+            Iterator<Tupla> it = lista.iterator();
+            while (it.hasNext()) {
+                Tupla tu = it.next();
+                valores.addElement(tu);
+            }
+            cmbPlantas.setModel(valores);
+            cmbPlantas.setSelectedIndex(-1);
         }
-        cmbPlantas.setModel(valores);
-        cmbPlantas.setSelectedIndex(-1);
-       }
     }
-    
-    public void mostrarTiposDeTelefono()
-    {
+
+    public void mostrarTiposDeTelefono() {
         ArrayList<Tupla> listaNombresTipoDeTelefono = gestor.mostrarTiposDeTelefono();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
-        for (Tupla nombre : listaNombresTipoDeTelefono)
-        {
+        for (Tupla nombre : listaNombresTipoDeTelefono) {
             model.addElement(nombre);
         }
         cmbTiposTelefono.setModel(model);
     }
 
-    
-    private void cargarTelefonos()
-    {
-        
+    private void cargarTelefonos() {
+
         DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
         Iterator it = modelo.getDataVector().iterator();
-        listaNroTel= new ArrayList<String>();
-        listaTipoTel= new ArrayList<Tupla>();
-        while (it.hasNext())
-        {
-            Vector fila = (Vector)it.next();
-           // 
-            
-            //System.out.println("HOLA");
-            listaTipoTel.add((Tupla)fila.get(0));
-            listaNroTel.add((String)fila.get(1));
-            
-        }
-       
-    }
-    
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<Tupla>();
+        while (it.hasNext()) {
+            Vector fila = (Vector) it.next();
+            // 
 
-   
+            //System.out.println("HOLA");
+            listaTipoTel.add((Tupla) fila.get(0));
+            listaNroTel.add((String) fila.get(1));
+
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -247,13 +217,13 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtCUIL = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         cmbEmpresas = new javax.swing.JComboBox();
         cmbPlantas = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
+        cmbRolContactoResponsable = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
 
         emAgregarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -280,7 +250,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jpDatosPersonales.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nombre:");
 
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +259,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Apellido: ");
 
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +268,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Email: ");
 
         jLabel25.setText("*");
@@ -314,11 +284,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                        .addComponent(txtNombre))
                     .addGroup(jpDatosPersonalesLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(21, 21, 21)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
+                        .addComponent(txtEmail)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -353,7 +323,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setText("Tipo de Teléfono y Número:");
 
         cmbTiposTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +340,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        tablaTelefonos.setFont(new java.awt.Font("Tahoma", 0, 10));
+        tablaTelefonos.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         tablaTelefonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -406,17 +376,20 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel17)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(btnQuitarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAgregarTelefono))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnQuitarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(1, 1, 1))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -424,16 +397,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbTiposTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGap(23, 23, 23)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnQuitarTelefono)
                             .addComponent(btnAgregarTelefono)))))
@@ -457,14 +428,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Laborales"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel18.setText("Cargo: ");
+        jLabel18.setText("Rol:");
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Empresa: ");
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel20.setText("Planta: ");
 
         txtCUIL.addActionListener(new java.awt.event.ActionListener() {
@@ -473,7 +444,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             }
         });
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("CUIL: ");
 
         cmbEmpresas.addActionListener(new java.awt.event.ActionListener() {
@@ -489,6 +460,12 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         });
 
         jLabel27.setText("*");
+
+        cmbRolContactoResponsable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRolContactoResponsableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -506,11 +483,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel23)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtCUIL)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCUIL, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(cmbRolContactoResponsable, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel27))
         );
@@ -528,8 +505,8 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                             .addComponent(jLabel20)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
+                            .addComponent(jLabel18)
+                            .addComponent(cmbRolContactoResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCUIL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -587,7 +564,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -602,14 +579,14 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
-        if(resp==JOptionPane.YES_OPTION)
-        { if(pantallaCUSolicitante !=null)
-                {
-                   pantallaCUSolicitante.actualizar(-1, false);
-                    
-                }
-       this.dispose();      }       
+        int resp = JOptionPane.showConfirmDialog(this.getParent(), "¿Seguro que desea cancelar?", "Cancelar", JOptionPane.YES_NO_OPTION);
+        if (resp == JOptionPane.YES_OPTION) {
+            if (pantallaCUSolicitante != null) {
+                pantallaCUSolicitante.actualizar(-1, false);
+
+            }
+            this.dispose();
+        }
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -618,91 +595,81 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTelefonoActionPerformed
-        
-        agregarTelefonoTabla((Tupla)cmbTiposTelefono.getSelectedItem(), txtTelefono.getText());
-    
-    
+
+        agregarTelefonoTabla((Tupla) cmbTiposTelefono.getSelectedItem(), txtTelefono.getText());
+
+
     }//GEN-LAST:event_btnAgregarTelefonoActionPerformed
 
-    private void agregarTelefonoTabla(Tupla tipo, String numero)
-    {
-        if(!txtTelefono.getText().isEmpty())
-     {
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        Object[] item = new Object[2];
-        item[0] = tipo;
-        item[1] = numero;
-        modelo.addRow(item);
-        txtTelefono.setText(""); 
+    private void agregarTelefonoTabla(Tupla tipo, String numero) {
+        if (!txtTelefono.getText().isEmpty()) {
+            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+            Object[] item = new Object[2];
+            item[0] = tipo;
+            item[1] = numero;
+            modelo.addRow(item);
+            txtTelefono.setText("");
         }
     }
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-               
-        if(ValidarDatos())
-        {
+
+        if (ValidarDatos()) {
             cargarTelefonos();
 
 
-            if (pantallaCUSolicitante== null)
-            {gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(),txtApellido.getText(),txtEmail.getText(),txtCargo.getText(), (Tupla)cmbEmpresas.getSelectedItem(),(Tupla)cmbPlantas.getSelectedItem());
+            if (pantallaCUSolicitante == null) {
+                gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(), txtApellido.getText(), txtEmail.getText(), ((Tupla) cmbRolContactoResponsable.getSelectedItem()).getId()
+                , (Tupla
+                )cmbEmpresas.getSelectedItem()
+                ,(Tupla
+                )cmbPlantas.getSelectedItem()
+              
+                );
             }
             else
             {
-            gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(),txtApellido.getText(),txtEmail.getText(),txtCargo.getText());
+            gestor.datosPersonalesContactoResponsable(txtCUIL.getText(), txtNombre.getText(), txtApellido.getText(), txtEmail.getText(), ((Tupla) cmbRolContactoResponsable.getSelectedItem()).getId()
+            
+            );
             }
 
             gestor.telefonosContactoResponsable(listaNroTel, listaTipoTel);
-            if(!gestor.validarPlantaSinContacto())
-            {
-                 JOptionPane.showMessageDialog(this.getParent(),"La planta seleccionada ya posee un contato registrado. Si lo desea puede modificarlo modificando la planta","ERROR",JOptionPane.ERROR_MESSAGE);
+            if (!gestor.validarPlantaSinContacto()) {
+                JOptionPane.showMessageDialog(this.getParent(), "La planta seleccionada ya posee un contato registrado. Si lo desea puede modificarlo modificando la planta", "ERROR", JOptionPane.ERROR_MESSAGE);
 
-            }
-            else
-            {
-                if(!modificar)
-                {
-                    if(gestorCrear.capacitadorConfirmado())
-                    {
-                        JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (!modificar) {
+                    if (gestorCrear.capacitadorConfirmado()) {
+                        JOptionPane.showMessageDialog(this.getParent(), "Contacto Responsable de Empresa Registrado correctamente", "Contacto Responsable Registrado", JOptionPane.INFORMATION_MESSAGE);
                         vaciarCampos();
-                        if(pantallaCUSolicitante!=null)
-                        {pantallaCUSolicitante.actualizar(3, true);}
-                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Desea registrar otro contacto?","Cancelar",JOptionPane.YES_NO_OPTION);
-                        if(resp==JOptionPane.NO_OPTION)
-                        {
-                            this.dispose();
+                        if (pantallaCUSolicitante != null) {
+                            pantallaCUSolicitante.actualizar(1, true);
                         }
-                        else
-                        {vaciarCampos();}
-                    }
-                    else
-                    {
-                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
-                       if(pantallaCUSolicitante !=null)
-                        {
-                           pantallaCUSolicitante.actualizar(-1, false);
+                        int resp = JOptionPane.showConfirmDialog(this.getParent(), "¿Desea registrar otro contacto?", "Cancelar", JOptionPane.YES_NO_OPTION);
+                        if (resp == JOptionPane.NO_OPTION) {
+                            this.dispose();
+                        } else {
+                            vaciarCampos();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this.getParent(), "Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        if (pantallaCUSolicitante != null) {
+                            pantallaCUSolicitante.actualizar(-1, false);
                             this.dispose();
                         }
                     }
-                 }
-                else
-                {
-                    if(gestorModificar.contactoModificado())
-                    {
-                        JOptionPane.showMessageDialog(this.getParent(),"Contacto Responsable de Empresa Registrado correctamente","Contacto Responsable Registrado",JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    if (gestorModificar.contactoModificado()) {
+                        JOptionPane.showMessageDialog(this.getParent(), "Contacto Responsable de Empresa Registrado correctamente", "Contacto Responsable Registrado", JOptionPane.INFORMATION_MESSAGE);
                         vaciarCampos();
-                        if(pantallaCUSolicitante !=null)
-                        {
-                           pantallaCUSolicitante.actualizar(idCon, true);
+                        if (pantallaCUSolicitante != null) {
+                            pantallaCUSolicitante.actualizar(idCon, true);
                             this.dispose();
                         }
-                    }
-                    else
-                    {
-                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa","ERROR",JOptionPane.ERROR_MESSAGE);
-                       if(pantallaCUSolicitante !=null)
-                        {
-                           pantallaCUSolicitante.actualizar(-1, false);
+                    } else {
+                        JOptionPane.showMessageDialog(this.getParent(), "Ocurrio un error durante el registro del nuevo Contacto Responsable de empresa", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        if (pantallaCUSolicitante != null) {
+                            pantallaCUSolicitante.actualizar(-1, false);
                             this.dispose();
                         }
                     }
@@ -711,120 +678,117 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
             }
     }//GEN-LAST:event_btnConfirmarActionPerformed
     }
-    private void vaciarCampos()
-    {
-        
+
+    private void vaciarCampos() {
+
         txtApellido.setText("");
         txtCUIL.setText("");
-        txtEmail.setText("");        
+        txtEmail.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
-        txtCargo.setText("");
+        cmbRolContactoResponsable.setSelectedIndex(-1);
         //tablaTelefonos.setModel(new DefaultTableModel()); ERROR
-        ((DefaultTableModel)tablaTelefonos.getModel()).setNumRows(0);
+        ((DefaultTableModel) tablaTelefonos.getModel()).setNumRows(0);
         //((DefaultTableModel)tablaCapacitaciones.getModel()).setNumRows(0);
-        
-        
-        
-        listaNroTel=new ArrayList<String>();
-        listaTipoTel=new ArrayList<Tupla>();
-        
+
+
+
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<Tupla>();
+
     }
-        private boolean ValidarDatos()
-    {
-        
+
+    private boolean ValidarDatos() {
+
         //Validar nro doc unico :TODO:  EN GESTOR
         //Validar cuil doc unico :TODO:  EN GESTOR
         //validar legajo unico :TODO: EN GESTOR
         //validar campos not null: TODO: EN PANTALLA
-        boolean ban=true;
-            
-           
-        if(txtCUIL.getText().equals(""))
-        {JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'CUIL'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-         ban=false;
-         return ban;
-        }
-        else
-        {
-            if(!gestor.ValidarCuil(txtCUIL.getText()))
-            {ban=false;
-             JOptionPane.showMessageDialog(this.getParent(),"El numero de cuil ingresado ya existe para un contacto registrado","ERROR",JOptionPane.ERROR_MESSAGE);
-         return ban;}
+        boolean ban = true;
+
+
+        if (txtCUIL.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.getParent(), "Debe completarse el campo 'CUIL'", "ERROR,Faltan campos requeridos", JOptionPane.ERROR_MESSAGE);
+            ban = false;
+            return ban;
+        } else {
+            if (!gestor.ValidarCuil(txtCUIL.getText())) {
+                ban = false;
+                JOptionPane.showMessageDialog(this.getParent(), "El numero de cuil ingresado ya existe para un contacto registrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return ban;
+            }
 
         }
         /////////////////////////
-        if(txtNombre.getText().equals(""))
-        {
-                JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Nombre'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-                ban=false;
-                return ban;
+        if (txtNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.getParent(), "Debe completarse el campo 'Nombre'", "ERROR,Faltan campos requeridos", JOptionPane.ERROR_MESSAGE);
+            ban = false;
+            return ban;
         }
-        if(txtApellido.getText().equals(""))
-        {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe completarse el campo 'Apellido'","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-                 ban=false;
-                 return ban;
-         }
-       /* if (pantallaCUSolicitante== null)
-        {
-        if(cmbPlantas.getSelectedIndex()==-1)
-        {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionarse una Planta","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-                 ban=false;
-                 return ban;
-         }
-        if(cmbEmpresas.getSelectedIndex()==-1)//Al pedo... pero nunca se sabe...
-        {
-                 JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionarse una Empresa","ERROR,Faltan campos requeridos",JOptionPane.ERROR_MESSAGE);
-                 ban=false;
-                 return ban;
-         }
-
+        if (txtApellido.getText().equals("")) {
+            JOptionPane.showMessageDialog(this.getParent(), "Debe completarse el campo 'Apellido'", "ERROR,Faltan campos requeridos", JOptionPane.ERROR_MESSAGE);
+            ban = false;
+            return ban;
         }
-*/
+        /*
+         * if (pantallaCUSolicitante== null) {
+         * if(cmbPlantas.getSelectedIndex()==-1) {
+         * JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionarse
+         * una Planta","ERROR,Faltan campos
+         * requeridos",JOptionPane.ERROR_MESSAGE); ban=false; return ban; }
+         * if(cmbEmpresas.getSelectedIndex()==-1)//Al pedo... pero nunca se
+         * sabe... { JOptionPane.showMessageDialog(this.getParent(),"Debe
+         * seleccionarse una Empresa","ERROR,Faltan campos
+         * requeridos",JOptionPane.ERROR_MESSAGE); ban=false; return ban; }
+         *
+         * }
+         */
         return ban;
-        
+
     }
 
     //////////Modificar
-     public void telefonosContacto(ArrayList<String> numero,ArrayList<Tupla> tipo)
-        {
+    public void telefonosContacto(ArrayList<String> numero, ArrayList<Tupla> tipo) {
 
-            DefaultTableModel tabTel= (DefaultTableModel)tablaTelefonos.getModel();
+        DefaultTableModel tabTel = (DefaultTableModel) tablaTelefonos.getModel();
 
-            for(int i=0; i<numero.size();i++)
-            {
+        for (int i = 0; i < numero.size(); i++) {
 
-               Object[] obj=new Object[2];
-               obj[1]=numero.get(i);
-               obj[0]=(tipo.get(i));
-              tabTel.addRow(obj);
+            Object[] obj = new Object[2];
+            obj[1] = numero.get(i);
+            obj[0] = (tipo.get(i));
+            tabTel.addRow(obj);
+        }
+        tablaTelefonos.setModel(tabTel);
+
+    }
+
+    public void datosPersonalesContacto(String cuil, String nombre, String apellido, String email, int idRol) {
+        // txtLegajo.setText(leg);
+        this.nombre = nombre;
+        this.apellido = apellido;
+        txtCUIL.setText(cuil);
+        txtNombre.setText(nombre);
+        txtApellido.setText(apellido);
+        txtEmail.setText(email);
+        DefaultComboBoxModel dcbm = (DefaultComboBoxModel) cmbRolContactoResponsable.getModel();
+        for (int i = 0; i < dcbm.getSize(); i++) {
+            Tupla tupla = (Tupla) dcbm.getElementAt(i);
+            if (tupla.getId() == idRol) {
+                cmbRolContactoResponsable.setSelectedIndex(i);
             }
-            tablaTelefonos.setModel(tabTel);
+        }
+        cmbEmpresas.setSelectedIndex(-1);
+        cmbPlantas.setSelectedIndex(-1);
+        cmbEmpresas.setEnabled(false);
+        cmbPlantas.setEnabled(false);
+        /*
+         * cmbEmpresas.setSelectedIndex(empresa.getId()); mostrarPlantas();
+            cmbPlantas.setSelectedIndex(planta.getId());
+         */
 
-	}
-
-        public void datosPersonalesContacto(String cuil, String nombre, String apellido, String email, String cargo )
-        {
-           // txtLegajo.setText(leg);
-            this.nombre=nombre;
-            this.apellido=apellido;
-            txtCUIL.setText(cuil);
-            txtNombre.setText(nombre);
-            txtApellido.setText(apellido);
-            txtEmail.setText(email);
-            txtCargo.setText(cargo);
-            cmbEmpresas.setSelectedIndex(-1);
-            cmbPlantas.setSelectedIndex(-1);
-            cmbEmpresas.setEnabled(false);
-            cmbPlantas.setEnabled(false);
-            /*cmbEmpresas.setSelectedIndex(empresa.getId());
-            mostrarPlantas();
-            cmbPlantas.setSelectedIndex(planta.getId());*/
-
-	}
- ////////Fin modificar
+    }
+    ////////Fin modificar
     private void cmbTiposTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTiposTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTiposTelefonoActionPerformed
@@ -832,24 +796,22 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private void txtCUILActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCUILActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCUILActionPerformed
-    
 
     private void btnQuitarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarTelefonoActionPerformed
-     quitarTelefono();
+        quitarTelefono();
     }//GEN-LAST:event_btnQuitarTelefonoActionPerformed
-    private void quitarTelefono()
-    {   if((tablaTelefonos.getSelectedRowCount())==1)
-        {   
-        DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-        modelo.removeRow(tablaTelefonos.getSelectedRow());
+    private void quitarTelefono() {
+        if ((tablaTelefonos.getSelectedRowCount()) == 1) {
+            DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
+            modelo.removeRow(tablaTelefonos.getSelectedRow());
         }
     }
     private void emAgregarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emAgregarTelefonoActionPerformed
-        agregarTelefonoTabla((Tupla)cmbTiposTelefono.getSelectedItem(), txtTelefono.getText());
+        agregarTelefonoTabla((Tupla) cmbTiposTelefono.getSelectedItem(), txtTelefono.getText());
     }//GEN-LAST:event_emAgregarTelefonoActionPerformed
 
     private void emQuitarTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emQuitarTelefonoActionPerformed
-       quitarTelefono();
+        quitarTelefono();
     }//GEN-LAST:event_emQuitarTelefonoActionPerformed
 
     private void cmbEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpresasActionPerformed
@@ -859,15 +821,19 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private void cmbPlantasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlantasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPlantasActionPerformed
- 
+
+    private void cmbRolContactoResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolContactoResponsableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRolContactoResponsableActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new pantallaRegistrarContactoResponsable().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarTelefono;
     private javax.swing.JButton btnCancelar;
@@ -875,6 +841,7 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private javax.swing.JButton btnQuitarTelefono;
     private javax.swing.JComboBox cmbEmpresas;
     private javax.swing.JComboBox cmbPlantas;
+    private javax.swing.JComboBox cmbRolContactoResponsable;
     private javax.swing.JComboBox cmbTiposTelefono;
     private javax.swing.JMenuItem emAgregarTelefono;
     private javax.swing.JMenuItem emQuitarTelefono;
@@ -899,15 +866,12 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
     private javax.swing.JTable tablaTelefonos;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCUIL;
-    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-
-    public int getIdAyuda()
-    {
+    public int getIdAyuda() {
         return 0;
     }
 
@@ -917,5 +881,20 @@ int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea canc
 
     public String getTituloAyuda() {
         return "Opción: Agruegar Nuevo Contacto Responsable De Empresa";
+    }
+
+    private void mostrarRoles() {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+
+        ArrayList<Tupla> lista = gestor.mostrarRolesContactoResponsable();
+
+        Iterator<Tupla> it = lista.iterator();
+        while (it.hasNext()) {
+            Tupla tu = it.next();
+            valores.addElement(tu);
+        }
+
+        cmbRolContactoResponsable.setModel(valores);
+        cmbEmpresas.setSelectedIndex(-1);
     }
 }

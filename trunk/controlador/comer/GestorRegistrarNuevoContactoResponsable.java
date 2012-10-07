@@ -1,7 +1,6 @@
 package controlador.comer;
 
 //
-
 import java.util.ArrayList;
 import java.util.List;
 //import modelo.TipoDocumento;
@@ -20,6 +19,8 @@ import util.Tupla;
 import java.util.Date;
 //import java.util.HashSet;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
+import modelo.*;
 
 //import java.util.Set;
 //
@@ -31,242 +32,195 @@ import java.util.Iterator;
 //  @ Author : Fran
 //
 //
+public class GestorRegistrarNuevoContactoResponsable implements IGestorContactoResponsable {
 
+    private pantallaRegistrarContactoResponsable pantalla;
+    private String nombreContactoResponsable;
+    private String apellidoContactoResponsable;
+    private String emailContactoResponsable;
+    private String cuilContactoResponsable;
+    private RolContactoResponsable rolContactoResponsable;
+    private ArrayList<String> listaNroTel;
+    private ArrayList<TipoTelefono> listaTipoTel;
+    //private Object listaRangos;
+    private Date fechaActual;
+    private EmpresaCliente empresaCliente;
+    private Planta planta;
 
-
-
-public class GestorRegistrarNuevoContactoResponsable  implements IGestorContactoResponsable{
-
-        private pantallaRegistrarContactoResponsable pantalla;
-        
-        private String nombreContactoResponsable;
-        private String apellidoContactoResponsable;
-        private String emailContactoResponsable;
-        private String cuilContactoResponsable;
-        private String cargoContactoResponsable;
-        private ArrayList<String> listaNroTel;
-        private ArrayList<TipoTelefono> listaTipoTel;
-	//private Object listaRangos;
-	private Date fechaActual;
-        private EmpresaCliente empresaCliente;
-        private Planta planta;
-        
-
-
-    public GestorRegistrarNuevoContactoResponsable(pantallaRegistrarContactoResponsable pantalla)
-    {
+    public GestorRegistrarNuevoContactoResponsable(pantallaRegistrarContactoResponsable pantalla) {
         this.pantalla = pantalla;
-        listaNroTel= new  ArrayList<String>();
-        listaTipoTel= new ArrayList<TipoTelefono>();
-        fechaActual=new Date();
+        listaNroTel = new ArrayList<String>();
+        listaTipoTel = new ArrayList<TipoTelefono>();
+        fechaActual = new Date();
     }
-        
 
-       /* public ArrayList<Tupla> mostrarTiposDeDocumento() {
+    @Override
+    public ArrayList<Tupla> mostrarEmpresas() {
+        gestorBDvarios bdv = new gestorBDvarios();
+        return bdv.getEmpresas();
+    }
 
-           gestorBDvarios bdv = new gestorBDvarios();
-           return bdv.getTiposDeDocumento();
+    @Override
+    public ArrayList<Tupla> mostrarPlantas(int idEmpresa) {
+        gestorBDvarios bdv = new gestorBDvarios();
+        return bdv.getPlantas(idEmpresa);
+    }
 
-	}*/
-        public ArrayList<Tupla> mostrarEmpresas() {
+    @Override
+    public boolean ValidarCuil(String cuil) {
+        boolean aprobado = true;
+        try {
+            HibernateUtil.beginTransaction();
+            Session sesion = HibernateUtil.getSession();
+            List listaNroCuils = new ArrayList();
 
-           gestorBDvarios bdv = new gestorBDvarios();
-           return bdv.getEmpresas();
-
-	}
-
-
-	public ArrayList<Tupla> mostrarPlantas(int idEmpresa)
-        {
-           gestorBDvarios bdv = new gestorBDvarios();
-           return bdv.getPlantas(idEmpresa);
-	}
-	
-        
-	
-        public boolean ValidarCuil(String cuil)
-        {
-            SessionFactory sf = HibernateUtil.getSessionFactory();
-            Session sesion = sf.openSession();
-            List listNroDoc=new ArrayList();
-            boolean aprobado=true;
-            listNroDoc =sesion.createQuery("Select cuil from modelo.ContactoResponsable").list();//
+            listaNroCuils = sesion.createQuery("Select cuil from modelo.ContactoResponsable").list();//
             String n;
-            for(int i=0; i<listNroDoc.size();i++)
-            {
-                n=(String)listNroDoc.get(i);
-                if(n.equals(cuil))
-                {aprobado=false;}
+            for (int i = 0; i < listaNroCuils.size(); i++) {
+                n = (String) listaNroCuils.get(i);
+                if (n != null && n.equals(cuil)) {
+                    aprobado = false;
+                }
             }
-            return aprobado;
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            JOptionPane.showMessageDialog(this.pantalla, "No se pudo verificar el CUIL del Contacto Responsable", "Error", JOptionPane.ERROR_MESSAGE);
         }
-	public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, String cargo)
-        {
-            
-            //gestorBDvarios bdv = new gestorBDvarios();
-            //tipoDocumentoCapacitador=bdv.getTipoDeDocumento(tipoDocumento.getId());
-            nombreContactoResponsable=nombre;
-            apellidoContactoResponsable=apellido;
-            emailContactoResponsable=email;
-            cuilContactoResponsable=cuil;
-            cargoContactoResponsable=cargo;
-	
-	}
-	public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, String cargo, Tupla empr, Tupla plant )
-        {
-            
-            gestorBDvarios bdv = new gestorBDvarios();
-            //tipoDocumentoCapacitador=bdv.getTipoDeDocumento(tipoDocumento.getId());
-            nombreContactoResponsable=nombre;
-            apellidoContactoResponsable=apellido;
-            emailContactoResponsable=email;
-            cuilContactoResponsable=cuil;
-            cargoContactoResponsable=cargo;
-            empresaCliente=bdv.getEmpresa(empr.getId());
-            List plnts=  empresaCliente.getPlantas();
-            boolean todoOK=false;
-            for(int i=0; i<plnts.size(); i++)
-            {
-                Planta p=(Planta)plnts.get(i);
-                if(p.esPlanta(plant.getId()))
-                {planta=p;
-                todoOK=true;}
-            }
-            if(!todoOK)
-            {System.out.println("/n ERROR IMPOSIBLE: PLANTA INEXISTENTE SELECCIONADA POR EL USUARIO /n");}
-	}
-        public ArrayList<Tupla> mostrarTiposDeTelefono() {
+        return aprobado;
+    }
 
-           gestorBDvarios bdv = new gestorBDvarios();
-           return bdv.getTiposDeTelefono();
+    @Override
+    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, int idRol) {
+        gestorBDvarios bdv = new gestorBDvarios();
+        nombreContactoResponsable = nombre;
+        apellidoContactoResponsable = apellido;
+        emailContactoResponsable = email;
+        cuilContactoResponsable = cuil;
+        rolContactoResponsable = bdv.getRolContactoResponsable(idRol);
 
-	}
-	public boolean validarPlantaSinContacto()
-        {
-            if(planta==null)
-            {return true;}
-            else
-            {
-                if(planta.getContacto()==null)
-                {return true;}
-                else
-                {return false;}
+    }
+
+    @Override
+    public void datosPersonalesContactoResponsable(String cuil, String nombre, String apellido, String email, int idRol, Tupla empr, Tupla plant) {
+
+        gestorBDvarios bdv = new gestorBDvarios();
+        nombreContactoResponsable = nombre;
+        apellidoContactoResponsable = apellido;
+        emailContactoResponsable = email;
+        cuilContactoResponsable = cuil;
+        rolContactoResponsable = bdv.getRolContactoResponsable(idRol);
+        empresaCliente = bdv.getEmpresa(empr.getId());
+        List plnts = empresaCliente.getPlantas();
+        boolean todoOK = false;
+        for (int i = 0; i < plnts.size(); i++) {
+            Planta p = (Planta) plnts.get(i);
+            if (p.esPlanta(plant.getId())) {
+                planta = p;
+                todoOK = true;
             }
         }
-	public boolean capacitadorConfirmado()
-        {
-            ContactoResponsable contacto;
-            try{
-//            contacto=crearContactoResponsable();
-//            if(planta!=null)
-//            {
-//                planta.setContacto(contacto);
-//
-//            }
+        if (!todoOK) {
+            System.out.println("/n ERROR IMPOSIBLE: PLANTA INEXISTENTE SELECCIONADA POR EL USUARIO /n");
+        }
+    }
 
-            }
-           catch (Exception ex)
-            {
-               System.out.println("No se pudo crear el contacto responsable");
+    @Override
+    public ArrayList<Tupla> mostrarTiposDeTelefono() {
+
+        gestorBDvarios bdv = new gestorBDvarios();
+        return bdv.getTiposDeTelefono();
+
+    }
+
+    @Override
+    public boolean validarPlantaSinContacto() {
+        if (planta == null) {
+            return true;
+        } else {
+            if (planta.getContacto() == null) {
+                return true;
+            } else {
                 return false;
             }
-            Session sesion;
-            ///////////////////////////////////
-             try {
-                    sesion = HibernateUtil.getSession();
-                     //SessionFactory sf = HibernateUtil.getSessionFactory();
+        }
+    }
 
-            
-                    //sesion = sf.openSession();
-                   } catch (Exception ex)////////////
-            {//////////////////////////////////////////
-                System.out.println("No se pudo abrir la sesion");//////////
-                return false;//////////////
-            }//////////////////////////////////////////////////
-                    try{
-                    HibernateUtil.beginTransaction();
-                    //sesion.beginTransaction();
-            
-//                    Iterator itt=contacto.getTelefonos().iterator();
-//                    while(itt.hasNext())
-//                    {
-//                        Telefono tel=(Telefono)itt.next();
-//                        sesion.save(tel);
-//                    }
-                   
-//                    sesion.save(contacto);
-                    if(planta!=null)
-                    {sesion.saveOrUpdate(planta);}
-                    //sesion.getTransaction().commit();
-                    HibernateUtil.commitTransaction();
-                    
-                    return true;
-                    }catch(Exception e) {
-                        System.out.println("No se pudo realizar la transaccion\n"+e.getMessage());
-                        HibernateUtil.rollbackTransaction();
-                        
-                        return false;
-                }
-           
-            
-	}
-		
-//	public ContactoResponsable crearContactoResponsable()
-//        {
-//
-//            Date fechaAltaActual=fechaActual;
-//           // fecha_Alta=System
-//
-//
-////            ContactoResponsable cr=new ContactoResponsable(nombreContactoResponsable, apellidoContactoResponsable,cargoContactoResponsable, cuilContactoResponsable,  emailContactoResponsable,  listaNroTel, listaTipoTel, fechaAltaActual);
-//
-//            //Empleado emp=new Empleado(legajoEmpleado,nombreEmpleado, apellidoEmpleado,fechaNacimientoEmpleado, tipoDocumentoEmpleado ,nroDocumento, cuilEmpleado,  emailEmpleado,  calleD,  nmroD,  pisoD,  departamentoD,  codigoPostalD,  barrioD , listaTipoEspecialidades, listaRangoEspecialidades ,HlistaNroTel, HlistaTipoTel, fechaAltaActual);
-//
-//            return cr;
-//
-//	}
-	
-	public void finCU() {
-	
-	}
-	
-	public void telefonosContactoResponsable(ArrayList<String> numero,ArrayList<Tupla> tipo )
-        {
-           
-
-            listaNroTel=numero;
-            listaTipoTel=new ArrayList();
-            gestorBDvarios bdv = new gestorBDvarios();
-            for(int i=0; i<tipo.size();i++)
-            {
-               TipoTelefono td= bdv.getTipoDeTelefono(tipo.get(i).getId());
-               listaTipoTel.add(td); 
-            }            
-	}
-
-
-	/*public void telefonosEmpleado(ArrayList<String> numero,ArrayList<Tupla> tipo )
-        {
-            HlistaNroTel=new HashSet();
-            for(int i=0; i<tipo.size();i++)
-            {
-
-               HlistaNroTel.add(numero.get(i));
+    public boolean capacitadorConfirmado() {
+        ContactoResponsable contacto;
+        try {
+            contacto = crearContactoResponsable();
+            if (planta != null) {
+                planta.setContacto(contacto);
             }
-            HlistaTipoTel=new HashSet();
-            gestorBDvarios bdv = new gestorBDvarios();
-            for(int i=0; i<tipo.size();i++)
-            {
-               TipoTelefono td= bdv.getTipoDeTelefono(tipo.get(i).getId());
-               HlistaTipoTel.add(td);
+
+        } catch (Exception ex) {
+            System.out.println("No se pudo crear el contacto responsable");
+            return false;
+        }
+        try {
+            Session sesion = HibernateUtil.getSession();
+            HibernateUtil.beginTransaction();
+
+            // Guardo los teléfonos
+            Iterator itt = contacto.getTelefonos().iterator();
+            while (itt.hasNext()) {
+                Telefono tel = (Telefono) itt.next();
+                sesion.save(tel);
             }
-	}*/
-	public void seleccionTipoDocumento() {
-	
-	}
-	
-	public void documentoEmpleado() {
-	
-	}
-		
+            
+            // Finalmente guardo el contacto
+            sesion.save(contacto);
+            
+            // Guardo los cambios sobre la planta si es que la estoy editando.
+            if (planta != null) {
+                sesion.saveOrUpdate(planta);
+            }
+
+            HibernateUtil.commitTransaction();
+            return true;
+        } catch (Exception e) {
+            System.out.println("No se pudo realizar la transaccion\n" + e.getMessage());
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
+    }
+
+    public ContactoResponsable crearContactoResponsable() {
+
+        ContactoResponsable cr = new ContactoResponsable();
+        cr.setNombre(nombreContactoResponsable);
+        cr.setApellido(apellidoContactoResponsable);
+        cr.setEmail(emailContactoResponsable);
+        cr.setCuil(cuilContactoResponsable);
+        cr.setRol(rolContactoResponsable);
+        
+        List<Telefono> telefonos = new ArrayList<Telefono>();
+        for(int i=0; i<listaNroTel.size();i++)
+        {
+            TipoTelefono tipoTelefono = (TipoTelefono) listaTipoTel.get(i);
+            Telefono telefono = new Telefono(listaNroTel.get(i), tipoTelefono);
+            telefonos.add(telefono);
+        }
+        cr.setTelefonos(telefonos);
+
+        return cr;
+    }
+    
+    @Override
+    public void telefonosContactoResponsable(ArrayList<String> numero, ArrayList<Tupla> tipo) {
+        listaNroTel = numero;
+        listaTipoTel = new ArrayList();
+        gestorBDvarios bdv = new gestorBDvarios();
+        for (int i = 0; i < tipo.size(); i++) {
+            TipoTelefono td = bdv.getTipoDeTelefono(tipo.get(i).getId());
+            listaTipoTel.add(td);
+        }
+    }
+
+    @Override
+    public ArrayList<Tupla> mostrarRolesContactoResponsable() {
+        gestorBDvarios bdv = new gestorBDvarios();
+        return bdv.getRolesContactoResponsable();
+    }
 }
