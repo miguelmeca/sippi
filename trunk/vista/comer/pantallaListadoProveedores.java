@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.EmpresaCliente;
 import modelo.Proveedor;
+import vista.compras.pantallaRegistrarProveedor;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
@@ -42,6 +43,12 @@ public class pantallaListadoProveedores extends PantallaConsultarGenerica{
     @Override
     protected String[] getColumnasFiltro() {
         return new String[]{"Rubros","Estado"};
+    }
+
+    @Override
+    protected void abrirEntidad(int id) {
+        //pantallaRegistrarProveedor win = new pantallaRegistrarProveedor();
+        
     }
     
     
