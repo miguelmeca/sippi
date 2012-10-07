@@ -38,7 +38,11 @@
     
     <itemcat icono="/res/iconos/var/16x16/chart.png" nombre="Planificación">
         <item nombre="Explorar Planificaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.planificacion.PantallaConsultarPlanificaciones"/>
-    </itemcat>    
+    </itemcat>  
+    
+    <itemcat icono="/res/iconos/var/16x16/calendar.png" nombre="Ejecución">
+        <item nombre="Explorar Ejecuciones" icono="/res/iconos/var/16x16/search.png" instance="vista.ejecucion.ConsultarEjecuciones"/>
+    </itemcat>         
 
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
         <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado"/>

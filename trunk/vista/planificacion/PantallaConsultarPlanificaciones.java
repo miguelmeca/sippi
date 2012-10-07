@@ -31,10 +31,10 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     {
         ArrayList<String[]> columnas = new ArrayList<String[]>();
         
-            columnas.add(new String[]{"getNumeroPlanificacion","Número"});
+            columnas.add(new String[]{"mostrarPedidoObra","Obra"});
             columnas.add(new String[]{"getNroCotizacionPlanificada","Cotización"});
-            columnas.add(new String[]{"getFechaInicio","Fecha de Inicio"});
-            columnas.add(new String[]{"getFechaFin","Fecha de Fin"});
+            columnas.add(new String[]{"mostrarFechaInicio","Fecha de Inicio"});
+            columnas.add(new String[]{"mostrarFechaFin","Fecha de Fin"});
             columnas.add(new String[]{"getEstado","Estado"});
         
         return columnas;
@@ -49,8 +49,8 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     protected ArrayList<String[]> getColumnColorCriteria() {
         ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
         
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"102","102","88"});
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_BAJA,"15","200","75"});
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"184","204","240"});
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_BAJA,"229","184","183"});
         
         return colorCriteria;
     }
@@ -61,8 +61,5 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }
-    
-    
-    
     
 }
