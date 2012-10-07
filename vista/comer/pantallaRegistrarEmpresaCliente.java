@@ -228,9 +228,21 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
             mensaje+="- Altura\n";
             ban=false;
         }
+        try{
+            Integer.parseInt(txtAltura.getText());
+        }
+        catch(NumberFormatException e){
+            mensaje+="- Altura (debe ser un número válido)\n";
+        }
         if(txtPiso.getText().equals("")){
             mensaje+="- Piso\n";
             ban=false;
+        }
+        try{
+            Integer.parseInt(txtPiso.getText());
+        }
+        catch(NumberFormatException e){
+            mensaje+="- Piso (debe ser un número válido)\n";
         }
         if(txtPaginaWeb.getText().equals("")){
             mensaje+="- Departamento\n";

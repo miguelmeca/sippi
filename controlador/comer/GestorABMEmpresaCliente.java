@@ -232,8 +232,10 @@ public class GestorABMEmpresaCliente {
                         sesion.saveOrUpdate(tell);
                     }
                     sesion.saveOrUpdate(p.getDomicilio());
-                    sesion.saveOrUpdate(p.getContacto());
-
+                    if(p.getContacto()!=null)
+                    {
+                        sesion.saveOrUpdate(p.getContacto());
+                    }
                     sesion.saveOrUpdate(p);
                 }
                 sesion.saveOrUpdate(nueva);
@@ -335,7 +337,7 @@ public class GestorABMEmpresaCliente {
         while(iPlantas.hasNext()){
             p = iPlantas.next();
             NTupla nt = new NTupla();
-            nt.setId(plantas.indexOf(p));
+            nt.setId(p.getId());
             nt.setNombre(p.getRazonSocial());
             nt.setData(p.getDomicilio().toString());
             listaPlantas.add(nt);

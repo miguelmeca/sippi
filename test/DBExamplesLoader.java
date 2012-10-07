@@ -1063,7 +1063,9 @@ public class DBExamplesLoader {
             Telefono t = new Telefono();
             t.setNumero("(0351) 4564478");
             t.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-            contacto.setTelefono(t);
+            List<Telefono> telefonos1 = new ArrayList<Telefono>();
+            telefonos1.add(t);
+            contacto.setTelefonos(telefonos1);
 
             ContactoResponsable contacto2 = new ContactoResponsable();
             contacto2.setNombre("Julio");
@@ -1072,7 +1074,9 @@ public class DBExamplesLoader {
             Telefono t2 = new Telefono();
             t2.setNumero("(011) 55544566");
             t2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
-            contacto2.setTelefono(t2);
+            List<Telefono> telefonos2 = new ArrayList<Telefono>();
+            telefonos1.add(t2);
+            contacto2.setTelefonos(telefonos2);
 
             po.addContacto(contacto);
             po.addContacto(contacto2);
