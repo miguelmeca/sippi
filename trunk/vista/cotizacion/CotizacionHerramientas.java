@@ -115,8 +115,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel4.setText("Horas Necesarias (*)");
 
-        txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
         txtSubTotalConcepto.setEditable(false);
+        txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
 
         txtCostoHora.setEnabled(false);
         txtCostoHora.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +221,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jLabel20.setText("Subtotal Herramientas   $");
 
         txtSubTotal.setEditable(false);
+        txtSubTotal.setBackground(new java.awt.Color(204, 204, 255));
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
@@ -241,12 +242,11 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addContainerGap())
+                    .addComponent(jLabel20)))
         );
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
@@ -288,8 +288,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addComponent(btnQuitar)
                     .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
