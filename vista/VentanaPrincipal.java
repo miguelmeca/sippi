@@ -16,6 +16,9 @@ package vista;
 import config.SConfig;
 import controlador.users.UserSession;
 import controlador.xml.XMLReaderMenu;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import util.HibernateUtil;
@@ -30,6 +33,7 @@ import modelo.FavoritoBean;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
+import org.jfree.ui.RefineryUtilities;
 import test.TestABM;
 import test.TestCallBackListadoGenerico;
 import vista.abms.*;
@@ -48,6 +52,7 @@ import vista.rrhh.pantallaConsultarLicenciasEmpleado;
 import vista.rrhh.pantallaRegistrarEmpleado;
 import vista.users.ABMUsers;
 import vista.users.ListadoUsuarios;
+import vista.users.UserLogin;
 
 
 
@@ -63,6 +68,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
 
+        initWindowClosing();
+        
         // Mando el Panel a un Singleton para poder accederlo de manera unica
         SwingPanel.getInstance().setPane(panel);
         SwingPanel.getInstance().setVentanaPrincipal(this);
@@ -77,8 +84,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarBarraHoy();
         
         cargarFavoritosGuardados();
-        
-        //cargarHomeScreen();
+
     }
 
     private void cargarMenu()
@@ -128,15 +134,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         {
             e.printStackTrace(); /* do nothing ... */ }
     }
-    
-    private void Salir()
+  
+    private void CambiarDeUsuario()
     {
-        int op = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?");
+        int op = JOptionPane.showConfirmDialog(new JInternalFrame(), "<HTML>¿Está seguro que desea <b>Cerrar su Sesión</b> y <b>Cambiar de Usuario</b>?");
         if(op == JOptionPane.YES_OPTION)
         {
             // Guardo los datos del Usuario
             UserSession.getInstance().updateUser();
+            // Cierro Sesion
+            UserSession.getInstance().setUsuarioLogeado(null);
+            // Cierro Conexion al a DB
             HibernateUtil.closeSession();
+            // Abro ventana de Login
+            UserLogin win = new UserLogin();
+            win.setVisible(true);
+            RefineryUtilities.centerFrameOnScreen(win);
+            // Cierro esta ventana
+            this.dispose();
+        }
+    }    
+    
+    private void CerrarSesion()
+    {
+        int op = JOptionPane.showConfirmDialog(new JInternalFrame(), "<HTML>¿Está seguro que desea <b>Cerrar la Sesión</b> y <b>Salir</b> del Sistema?");
+        if(op == JOptionPane.YES_OPTION)
+        {
+            // Guardo los datos del Usuario
+            UserSession.getInstance().updateUser();
+             // Cierro Sesion
+            UserSession.getInstance().setUsuarioLogeado(null);
+            // Cierro Conexion al a DB
+            HibernateUtil.closeSession();
+            // Cierro el Sistema
             System.exit(0);
         }
     }
@@ -169,6 +199,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbNuevoUsuario = new javax.swing.JMenuItem();
         cmbListadoUsuarios = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem25 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem21 = new javax.swing.JMenuItem();
@@ -213,7 +244,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Acá va el nombre del sistema");
 
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -286,7 +317,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 631, Short.MAX_VALUE))
+                .addGap(0, 629, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inicio", jPanel2);
@@ -349,6 +380,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu8.add(cmbUsuarios);
 
+        jMenuItem19.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
         jMenuItem19.setText("Inicio");
         jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
@@ -358,8 +390,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu8.add(jMenuItem19);
 
+        jMenuItem25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/lock.png"))); // NOI18N
+        jMenuItem25.setText("Cambiar de Usuario");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem25);
+
+        cmbSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         cmbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        cmbSalir.setText("Salir");
+        cmbSalir.setMnemonic('X');
+        cmbSalir.setText("Cerrar Sesion y Salir");
         cmbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSalirActionPerformed(evt);
@@ -903,7 +946,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void cmbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalirActionPerformed
-        Salir();
+        CerrarSesion();
     }//GEN-LAST:event_cmbSalirActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
@@ -960,6 +1003,10 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         pantalla.setVisible(true);
     }//GEN-LAST:event_jMenuItem24ActionPerformed
 
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        CambiarDeUsuario();
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
@@ -1003,6 +1050,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -1056,6 +1104,16 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String msg = "Mayo 23";
         lblFechaHoy.setText(msg);
         
+    }
+
+    private void initWindowClosing() {
+        this.addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        CerrarSesion();
+                    }
+                });
     }
 
 }
