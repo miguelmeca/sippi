@@ -363,7 +363,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         }
         else
         {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para registrar un recepciÃ³n, debe cargar una Orden De Compra previamente");
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Para registrar un recepción, debe cargar una Orden De Compra previamente");
         }
     }//GEN-LAST:event_btnRegistrarRecepcionActionPerformed
 
@@ -611,13 +611,13 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         }catch(Exception e)
         {
             HibernateUtil.rollbackTransaction();
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Registrar la RecepciÃƒÂ³n Parcial del Pedido\n"+e.getMessage());
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Registrar la Recepción Parcial del Pedido\n"+e.getMessage());
             e.printStackTrace();
             return null;
         } 
         
         // Todo fue excelente !!!
-        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","La recepciÃƒÂ³n de recursos se registro exitosamente!");
+        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","La recepción de recursos se registro exitosamente!");
         // Actualizo la tabla de detalles
         mostrarDetalleDeCompra();
         // Actualizo el estado de la Recepcion
