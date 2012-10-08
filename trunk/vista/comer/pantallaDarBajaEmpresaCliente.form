@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <SyntheticProperties>
@@ -24,13 +24,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButton1" min="-2" pref="142" max="-2" attributes="0"/>
-                      <EmptySpace pref="304" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnCerrar" min="-2" pref="114" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" pref="106" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="txtEmpresaCliente" pref="436" max="32767" attributes="0"/>
+                      <Component id="txtEmpresaCliente" max="32767" attributes="0"/>
                   </Group>
                   <Component id="pnlDatosCliente" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -53,7 +53,7 @@
                   <Component id="btnCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -468,6 +468,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/res/iconos/var/16x16/block.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Dar de Baja"/>
       </Properties>
       <Events>

@@ -204,8 +204,17 @@ public class GestorABMEmpresaCliente {
         Domicilio d = new Domicilio();
         d.setCalle(this.calle);
         d.setCodigoPostal(this.cp);
-        d.setNumero(Integer.parseInt(this.altura));
+        // Si no puedo parsear ... clavo un cero
+        try{
+            d.setNumero(Integer.parseInt(this.altura));
+        }catch(NumberFormatException ex){
+            d.setNumero(0);
+        }
+        try{
         d.setPiso(Integer.parseInt(this.piso));
+        }catch(NumberFormatException ex){
+            d.setPiso(0);
+        }
         d.setDepto(this.dpto);
         d.setBarrio(this.barrio);
         nueva.setDomicilio(d);
@@ -391,8 +400,16 @@ public class GestorABMEmpresaCliente {
                 Domicilio d = this.empresa.getDomicilio();
                 d.setCalle(this.calle);
                 d.setCodigoPostal(this.cp);
-                d.setNumero(Integer.parseInt(this.altura));
-                d.setPiso(Integer.parseInt(this.piso));
+                try{
+                    d.setNumero(Integer.parseInt(this.altura));
+                }catch(Exception e){
+                    d.setNumero(0);
+                }
+                try{
+                    d.setPiso(Integer.parseInt(this.piso));
+                }catch(Exception e){
+                    d.setPiso(0);
+                }
                 d.setDepto(this.dpto);
                 d.setBarrio(this.barrio);
 

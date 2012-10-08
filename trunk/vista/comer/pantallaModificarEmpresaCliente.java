@@ -437,19 +437,19 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Empresa"));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Razon Social: ");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Email:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("CUIT");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Página Web:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Estado:");
 
         txtEstado.setEditable(false);
@@ -516,7 +516,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         ));
         jScrollPane3.setViewportView(tablaTelefonos);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setText("Tipo y Número de Teléfono :");
 
         btnNuevoTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/back.png"))); // NOI18N
@@ -571,22 +571,22 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Calle: ");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Nº:");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Piso:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Dpto:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("CP:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Pais: ");
 
         cmbPais.addActionListener(new java.awt.event.ActionListener() {
@@ -595,7 +595,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Provincia:");
 
         btnAgregarProvincia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -605,7 +605,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Localidad: ");
 
         cmbLocalidades.addActionListener(new java.awt.event.ActionListener() {
@@ -621,7 +621,7 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Barrio:");
 
         btnAgregarBarrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
@@ -785,8 +785,8 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
-        btnNuevaEmpresa.setText("Aceptar");
+        btnNuevaEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
+        btnNuevaEmpresa.setText("Guardar");
         btnNuevaEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevaEmpresaActionPerformed(evt);
@@ -806,26 +806,17 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnNuevaEmpresa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(294, Short.MAX_VALUE)
-                .addComponent(btnNuevaEmpresa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -838,11 +829,11 @@ public class pantallaModificarEmpresaCliente extends javax.swing.JInternalFrame 
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnNuevaEmpresa))
-                .addContainerGap())
+                    .addComponent(btnNuevaEmpresa)
+                    .addComponent(btnCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
