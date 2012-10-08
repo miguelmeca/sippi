@@ -8,12 +8,28 @@
 
     <many-to-one class="modelo.TareaPlanificacion" name="tareaPlanificada"/>
     
+    <!--LISTADO DE HERRAMIENTAS-->
     <list cascade="all-delete-orphan" name="listaHerramientas" table="TAREAEJEC_X_HERRAMIENTAS">
       <key column="ID_HERRAMIENTA_KEY"/>
       <index column="ID_SUB_TAREAEJECUCION_HERR_INDEX"/>
       <one-to-many class="modelo.EjecucionXHerramienta"/>
     </list>    
     
+    <!--LISTADO DE MATERIALES-->
+    <list cascade="all-delete-orphan" name="listaMateriales" table="TAREAEJEC_X_MATERIALES">
+      <key column="ID_MATERIALES_KEY"/>
+      <index column="ID_SUB_TAREAEJECUCION_MAT_INDEX"/>
+      <one-to-many class="modelo.EjecucionXMaterial"/>
+    </list>     
+    
+    <!--LISTADO DE ALQUILERES COMPRAS-->
+    <list cascade="all-delete-orphan" name="listaAlquileresCompras" table="TAREAEJEC_X_ALQCOMPRAS">
+      <key column="ID_ALQCOMP_KEY"/>
+      <index column="ID_SUB_TAREAEJECUCION_ALQCOM_INDEX"/>
+      <one-to-many class="modelo.EjecucionXAlquilerCompra"/>
+    </list>    
+    
+    <!--SUBTAREAS-->
     <list cascade="all" name="subtareas" table="TAREAEJEC_X_SUBTAREAS">
       <key column="ID_SUB_TAREAEJECUCION_KEY"/>
       <index column="ID_SUB_TAREAEJECUCION_INDEX"/>

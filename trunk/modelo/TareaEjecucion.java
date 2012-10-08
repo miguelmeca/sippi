@@ -78,5 +78,5 @@ public class TareaEjecucion {
     public void setListaAlquileresCompras(List<EjecucionXAlquilerCompra> listaAlquileresCompras) {
         this.listaAlquileresCompras = listaAlquileresCompras;
     }
-    
+
 }
