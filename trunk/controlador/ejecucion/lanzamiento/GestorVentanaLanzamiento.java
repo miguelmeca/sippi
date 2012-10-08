@@ -8,13 +8,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import modelo.Ejecucion;
+import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXMaterial;
 import modelo.HerramientaDeEmpresa;
 import modelo.PedidoObra;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
+import modelo.SubObraXAlquilerCompraModif;
 import modelo.TareaEjecucion;
+import modelo.TipoAlquilerCompra;
 import org.hibernate.HibernateException;
 import util.HibernateUtil;
 import util.NTupla;
@@ -180,5 +183,84 @@ public class GestorVentanaLanzamiento {
     private double calcularStockDeRecursoespecifico(RecursoEspecifico rec) {
         StockUtils su = new StockUtils();
         return su.calcularStockDeRecursoespecifico(RecursoEspecifico.class,rec.getId());
+    }
+
+    /**
+     * Panel Alquileres/Compras.
+     * Retorna los datos para llenar la tabla.
+     * @return 
+     */
+    public List<NTupla> llenarTablaPanelAlquileresCompras() {
+        //1- Busco los Alq/Comp que me hacen falta para la obra. 
+        Map<SubObraXAlquilerCompraModif, Integer> allAlqCompras = new HashMap<SubObraXAlquilerCompraModif, Integer>(); // <Id Herramienta,CantidadHoras>
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = todasTareas.get(i);
+                    List<EjecucionXAlquilerCompra> listaAlqCompra = tarea.getListaAlquileresCompras();
+                    if (listaAlqCompra != null) {
+                        for (int j = 0; j < listaAlqCompra.size(); j++) {
+                            EjecucionXAlquilerCompra alqCompra = listaAlqCompra.get(j);
+                            SubObraXAlquilerCompraModif tac = alqCompra.getAlquilerCompraPlanificado().getAlquilerCompraCotizacion();
+                            if (tac != null) {
+                                if (allAlqCompras.containsKey(tac)) {
+                                    // Sumo las horas solamente
+                                    int cantidad = allAlqCompras.get(tac);
+                                    cantidad += alqCompra.getAlquilerCompraPlanificado().getCantidad();
+                                    allAlqCompras.put(tac, cantidad);
+                                } else {
+                                    // Agrego la herramietna y seteo las horas
+                                    allAlqCompras.put(tac,alqCompra.getAlquilerCompraPlanificado().getCantidad());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // 2- Retorno 
+        List<NTupla> ntlst = new ArrayList<NTupla>();
+        Iterator it = allAlqCompras.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+
+            SubObraXAlquilerCompraModif tac = (SubObraXAlquilerCompraModif) e.getKey();
+            NTupla nt = new NTupla(tac.getId());
+            nt.setNombre(tac.getTipoAlquilerCompra().getNombre()+" - "+tac.getDescripcion());
+            
+                int necesarios = (Integer) e.getValue();
+                double enstock = calcularStockDeAlquilerCompra(tac.getTipoAlquilerCompra());
+            
+                String[] data = new String[3];
+                data[0] = String.valueOf(necesarios);
+                
+                if(enstock!=0){
+                    if(enstock==1){
+                        data[1] = "<HTML><span color='#009900'>Hay <b>"+enstock+"</b> '"+tac.getTipoAlquilerCompra().getNombre()+"' Disponible</span>";
+                    }else{
+                        data[1] = "<HTML><span color='#009900'>Hay <b>"+enstock+"</b> '"+tac.getTipoAlquilerCompra().getNombre()+"' Disponibles</span>";
+                    }
+                }else{
+                    data[1] = "<HTML><span color='#FF0000'>No Hay Disponibles</span>";
+                }
+                
+            nt.setData(data);
+            ntlst.add(nt);
+        }
+        return ntlst;        
+        
+    }
+
+    /**
+     * Veo cuanto Stock tengo de un Tipo Alquiler/Compra
+     * @param rec
+     * @return 
+     */    
+    private double calcularStockDeAlquilerCompra(TipoAlquilerCompra tac) {
+        StockUtils su = new StockUtils();
+        return su.calcularStockDeRecursoespecifico(TipoAlquilerCompra.class,tac.getId());
     }
 }

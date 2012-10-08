@@ -218,7 +218,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             case OPTN_ALQUILERCOMPRA:
                 setNombrePanel(modelo.getValueAt(OPTN_ALQUILERCOMPRA,0).toString());
                 if(this.panelAlquileresCompras==null){
-                    this.panelAlquileresCompras =  new PanelAlquileresCompras();
+                    this.panelAlquileresCompras =  new PanelAlquileresCompras(this.gestor);
                 }
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelAlquileresCompras, BorderLayout.CENTER);

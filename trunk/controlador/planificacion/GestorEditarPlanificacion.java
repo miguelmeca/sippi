@@ -1095,7 +1095,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // 4- Por cada Material Planificado de una Tarea, agrego una a Ejecucion
         tareaEjec.setListaMateriales(crearListadoMaterialesEjecucion(tareaPlan.getMateriales()));
 
-        // 5- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
+        // 5- Por cada Alquiler/Compra Planificada de una Tarea, agrego una a Ejecucion
         tareaEjec.setListaAlquileresCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
 
         // Mando a Recursividad

@@ -31,7 +31,7 @@ public class StockUtils {
                 ItemComprable ic = is.getItem();
                 if(is.getItem()!=null)
                 {
-                    if(ic.getTipoComprable()==tipo && idItemComprable==ic.getId()){
+                    if(ic.getTipoComprable()==tipo && idItemComprable==ic.getIdComprable()){
                         stock += is.getCantidad();
                     }
                 }
