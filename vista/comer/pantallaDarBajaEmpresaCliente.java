@@ -157,13 +157,13 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
 
         pnlDatosCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cliente"));
 
-        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblCUIT.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCUIT.setText("CUIT : ");
 
-        lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblDireccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDireccion.setText("Dirección:");
 
-        lblLocalidad.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblLocalidad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLocalidad.setText("Localidad: ");
 
         pnlTelefonosContacto.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefonos de Contacto"));
@@ -248,26 +248,26 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
                 .addComponent(btnConsultarPlanta))
         );
 
-        lblEmailEmp.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblEmailEmp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblEmailEmp.setText("e-mail :");
 
-        lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblProvincia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProvincia.setText("Provincia:");
 
-        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPais.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblPais.setText("País:");
 
-        lblPaginaWeb.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblPaginaWeb.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblPaginaWeb.setText("Página Web:");
 
-        lblLocalidad1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        lblLocalidad1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLocalidad1.setText("Barrio:");
 
         txtEstado.setEditable(false);
         txtEstado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEstado.setBorder(null);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Estado:");
 
         javax.swing.GroupLayout pnlDatosClienteLayout = new javax.swing.GroupLayout(pnlDatosCliente);
@@ -385,9 +385,10 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Empresa Cliente:");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         jButton1.setText("Dar de Baja");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,12 +407,12 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtEmpresaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                        .addComponent(txtEmpresaCliente))
                     .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -428,7 +429,7 @@ public class pantallaDarBajaEmpresaCliente extends javax.swing.JInternalFrame im
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
                     .addComponent(jButton1))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
