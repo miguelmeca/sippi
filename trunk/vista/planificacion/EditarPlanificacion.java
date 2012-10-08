@@ -1051,7 +1051,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         {
             case 0: 
                 // Se mostro la ventana del arbol de tareas
-                System.out.println("[DEBUG] Foco en el ÃƒÆ’Ã‚Â¡rbol de Tareas");
+                System.out.println("[DEBUG] Foco en el Árbol de Tareas");
                 break;
             case 1:
                 // Se mostro el Gantt
@@ -1075,7 +1075,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtDescripcionGeneralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionGeneralFocusLost
-        System.out.println("[DEBUG] La descripciÃƒÂ³n de la PlanificaciÃƒÂ³n perdiÃƒÂ³ el foco");
+        System.out.println("[DEBUG] La descripción de la Planificación perdió el foco");
     }//GEN-LAST:event_txtDescripcionGeneralFocusLost
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -1094,7 +1094,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (tblSubObras.getSelectedRow() != -1) {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             
-            int n = JOptionPane.showConfirmDialog(this, "Ã‚Â¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "EstÃƒÂ¡ Seguro?", JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "Está Seguro?", JOptionPane.YES_NO_OPTION);
             
             boolean exito=true;
             if (n == JOptionPane.YES_OPTION) {
@@ -1269,20 +1269,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     @Deprecated
     public void agregarNuevaTareaGantt(int id,String nombre,int idTareaPadre)
     { 
-//        IUGA: Comente este mÃƒÆ’Ã‚Â©todo, no se deberÃƒÆ’Ã‚Â­a usar MAS        
-//        // Create a new Phrase
-//        CoolGanttPhase p5 = new CoolGanttPhase();
-//        p5.setEditable(true);
-//        p5.setId(id);
-//        p5.setNombre(nombre);
-//        p5.setStartDate(fechaMas(new Date(), 10));
-//        p5.setEndDate(fechaMas(new Date(), 20));
-//        
-//        graph.addPhase(p5);
-//
-//        graph.refreshModel();     
-//        updateGantt();
-//        inicializarArbolDeTareas();
+        // No usar
     }
     
     //Se llama desde el gestor
@@ -1423,13 +1410,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             int cantidadDeHoras = (Integer) data[2];
             if(_gestor.asignarHerramientaATarea(soxhm,tarea,cantidadDeHoras))
             {
-                mostrarMensaje(JOptionPane.PLAIN_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Herramienta Asignada!","<HTML>Se asignaron correctamente las <b>"+cantidadDeHoras+"</b> horas de la herramienta a la tarea.");
 
                 inicializarArbolDeTareas();
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignació");
             }
         }
         else if (flag.equals(AsignacionMaterialesCantidad.CALLBACK_FLAG))
@@ -1441,12 +1428,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             Material material = RecursosUtil.getMaterial(re);
             if(_gestor.asignarMaterialATarea(soxmm,tarea,cantidad))
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Material Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+" "+material.getUnidadDeMedida().getAbreviatura()+"</b> del material a la tarea.");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Material Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+" "+material.getUnidadDeMedida().getAbreviatura()+"</b> del material a la tarea.");
                 inicializarArbolDeTareas();
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
             }
         }
         else if (flag.equals(AsignacionAlquileresCompraCantidad.CALLBACK_FLAG))
@@ -1457,12 +1444,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             TipoAlquilerCompra tac = soxac.getTipoAlquilerCompra();
             if(_gestor.asignarAlquilerCompraATarea(soxac,tarea,cantidad))
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Alquiler/Compra Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+"</b> unidades de "+tac.getNombre()+" a la tarea.");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Alquiler/Compra Asignado!","<HTML>Se asignaron correctamente los <b>"+cantidad+"</b> unidades de "+tac.getNombre()+" a la tarea.");
                 inicializarArbolDeTareas();
             }
             else
             {
-                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignaciÃƒÂ³n");
+                mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo realizar la asignación");
             }
         }
         else if(flag.equals(EditarCotizacionModificada.CALLBACK_FLAG))
@@ -1556,7 +1543,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_SUBOBRA))
                     {
                         // Por ahora no hago nada
-                        JOptionPane.showMessageDialog(new JFrame(),"ESTO ES UNA SUBOBRA IDIOTA \n Disparador del Drop > Tipo:"+ dataTrigger[0]+"  ID: "+dataTrigger[1]);
+                        //JOptionPane.showMessageDialog(new JFrame(),"ESTO ES UNA SUBOBRA \n Disparador del Drop > Tipo:"+ dataTrigger[0]+"  ID: "+dataTrigger[1]);
                     }
                     if(dataTrigger[0].equals(ArbolDeTareasTipos.TIPO_TAREA))
                     {
@@ -1578,7 +1565,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nPero no se lo estsa asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1611,7 +1598,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_MATERIAL+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -1643,7 +1630,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     {
                         if(p==null)
                         {
-                            JOptionPane.showMessageDialog(new JFrame(),"EstÃƒÂ¡s intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
+                            JOptionPane.showMessageDialog(new JFrame(),"Estás intentando agregar un "+ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA+"\nPero no se lo esta asignando a ninguna Tarea");
                         }
                         else
                         {
@@ -2275,7 +2262,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }
     
     /**
-     * Este metodo mantiene un registro de que ventanas de "Editar tarea" estÃƒÆ’Ã‚Â¡n abiertas
+     * Este metodo mantiene un registro de que ventanas de "Editar tarea" están abiertas
      * esto es para que no puedan abrir mas de un "Editar Tarea" con la misma Tarea.
      * Manenemos un registro de q ventanas ya estan abiertas !
      * NOTA: Se usa desde el Gantt y desde el Arbol.
