@@ -1098,6 +1098,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // 5- Por cada Alquiler/Compra Planificada de una Tarea, agrego una a Ejecucion
         tareaEjec.setListaAlquileresCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
 
+        // 6- Copio los adicionales ...
+        // Y angora ???? ....
+        
         // Mando a Recursividad
         for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
             TareaPlanificacion tp = tareaPlan.getSubtareas().get(i);
