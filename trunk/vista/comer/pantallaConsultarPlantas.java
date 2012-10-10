@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Planta;
 import util.NTupla;
 
 /**
@@ -49,6 +50,17 @@ public class pantallaConsultarPlantas extends javax.swing.JInternalFrame {
         habilitarVentana();
     }
 
+    public pantallaConsultarPlantas(Planta planta) {
+        initComponents();
+
+        this.gestor = new GestorConsultarPlanta(this);
+        this.idPlanta = planta.getId();
+
+        this.gestor.PlantaSeleccionada(planta);
+
+        habilitarVentana();
+    }
+    
     private void habilitarVentana()
     {
         initTablas();

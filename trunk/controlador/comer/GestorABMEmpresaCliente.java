@@ -262,12 +262,13 @@ public class GestorABMEmpresaCliente {
     }
 
     public ArrayList<NTupla> getPlantas() {
-        ArrayList<NTupla> pls = new ArrayList<NTupla>();
-        NTupla nt = new NTupla();
-        int indice = 0;
+        ArrayList<NTupla> pls = new ArrayList<NTupla>();  
+//        int indice = 0;
         for (Planta p : this.plantas){
-            indice = this.plantas.indexOf(p);
-            nt.setId(indice);
+//            indice = this.plantas.indexOf(p);
+//            nt.setId(indice);
+            NTupla nt = new NTupla();
+            nt.setId(p.getId());
             nt.setNombre(p.getRazonSocial());
             nt.setData(p.getDomicilio().toString());
             pls.add(nt);

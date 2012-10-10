@@ -4,12 +4,7 @@
  */
 package vista.compras;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -25,7 +20,6 @@ import modelo.RecursoEspecifico;
 import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
-import vista.interfaces.ICallBack;
 import vista.interfaces.ICallBackGen;
 
 /**
@@ -142,6 +136,12 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
         );
 
         jLabel7.setText("Tipo de Herramienta:");
+
+        cmbTipoHerramienta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoHerramientaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Herramienta:");
 
@@ -267,6 +267,12 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
         consulta.show();
     }//GEN-LAST:event_btnAsociarOrdenDeCompraActionPerformed
 
+    private void cmbTipoHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoHerramientaActionPerformed
+        Tupla tupla = (Tupla) cmbTipoHerramienta.getSelectedItem();
+        if(tupla != null)
+            this.idRecursoEsp = tupla.getId();
+    }//GEN-LAST:event_cmbTipoHerramientaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsociarOrdenDeCompra;
     private javax.swing.JButton btnCerrar;
@@ -300,6 +306,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
     {   
         try 
         {
+            HibernateUtil.beginTransaction();
             DefaultComboBoxModel dcbm = (DefaultComboBoxModel) cmbHerramienta.getModel();
             dcbm.removeAllElements();
             Iterator<Herramienta> iter = HibernateUtil.getSession().createQuery("from Herramienta h order by h.id").iterate();
@@ -309,10 +316,12 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
                 Tupla tp = new Tupla(h.getId(),h.getNombre());
                 dcbm.addElement(tp);
             }    
+            HibernateUtil.commitTransaction();
         } 
         catch (Exception ex) 
         {
-           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar las Herramientas: "+ ex.getMessage(),JOptionPane.ERROR_MESSAGE);
+            HibernateUtil.rollbackTransaction();
+            JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar las Herramientas: "+ ex.getMessage(),JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -320,6 +329,7 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
     {
         try 
         {
+            HibernateUtil.beginTransaction();
             DefaultComboBoxModel dcbm = (DefaultComboBoxModel) cmbTipoHerramienta.getModel();
             dcbm.removeAllElements();
             Herramienta herramienta = (Herramienta) HibernateUtil.getSession().createQuery("from Herramienta h where h.id=:idHerramienta").setParameter("idHerramienta", idHerramienta).uniqueResult();
@@ -330,10 +340,12 @@ public class ABMHerramientaDeEmpresa extends javax.swing.JInternalFrame implemen
                 Tupla tp = new Tupla(re.getId(),re.getNombre());
                 dcbm.addElement(tp);
             }    
+            HibernateUtil.commitTransaction();
         } 
         catch (Exception ex) 
         {
-           JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar los tipos de Herramienta: "+ex.getMessage(),JOptionPane.ERROR_MESSAGE);
+            HibernateUtil.rollbackTransaction();
+            JOptionPane.showInternalMessageDialog(this,"Error!","Se produjo un error al cargar los tipos de Herramienta: "+ex.getMessage(),JOptionPane.ERROR_MESSAGE);
         }
     }
     
