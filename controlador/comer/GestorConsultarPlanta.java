@@ -59,6 +59,16 @@ public class GestorConsultarPlanta {
         }
         return true;
     }
+    
+    /**
+     * Método que permite ver una planta en memoria que no ha sido guardada
+     * en disco todavía.
+     * @param planta 
+     */
+    public void PlantaSeleccionada(Planta planta)
+    {
+        this.planta = planta;
+    }
 
     public String mostrarRazonSocialPlanta()
     {
