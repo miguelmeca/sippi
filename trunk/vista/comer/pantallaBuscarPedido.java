@@ -27,6 +27,7 @@ import vista.interfaces.ICallBack;
  *
  * @author Administrador
  */
+@Deprecated
 public class pantallaBuscarPedido extends javax.swing.JInternalFrame implements IAyuda, ICallBack{
     private GestorBuscarPedido gestor = null;
     private DefaultTableModel dtm;

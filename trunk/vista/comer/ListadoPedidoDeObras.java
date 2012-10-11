@@ -43,7 +43,8 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
     
     @Override
     protected void abrirEntidad(int id) {
-        pantallaConsultarObra win = new pantallaConsultarObra(id);
+        ABMPedidoObra win = new ABMPedidoObra(id);
+        //        pantallaConsultarObra win = new pantallaConsultarObra(id);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }   
