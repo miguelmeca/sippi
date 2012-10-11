@@ -84,7 +84,6 @@ public class DBExamplesLoader {
 //          this.cargarPresupuestoDeEjemplo();
           this.cargarTiposAdicional();
           this.cargarTipoAlquilerCompra();
-          this.cargarRangosEmpleado();
           this.cargarTipoTarea();
           this.cargarRolesContactoResponsable();
           this.cargarCotizacionEjemplo();
@@ -1335,21 +1334,7 @@ public class DBExamplesLoader {
 
     }
 
-    private void cargarRangosEmpleado() {
-        RangoEspecialidad re1 = new RangoEspecialidad();
-        re1.setNombre("Cadete");        
-        RangoEspecialidad re2 = new RangoEspecialidad();
-        re2.setNombre("Especializado");
-        try{
-            sesion.beginTransaction();
-            sesion.saveOrUpdate(re1);
-            sesion.saveOrUpdate(re2);
-            sesion.getTransaction().commit();
-        }catch(Exception ex) {
-            System.out.println(ex.getCause().toString());
-            HibernateUtil.rollbackTransaction();
-        }
-    }
+   
 
     private void cargarTipoTarea() {
         TipoTarea tt1 = new TipoTarea();
