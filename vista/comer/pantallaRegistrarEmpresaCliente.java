@@ -59,6 +59,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
         gestor = new GestorABMEmpresaCliente(this);
+        this.grp = aThis;
         initComponents();
         habilitarVentana();
     }

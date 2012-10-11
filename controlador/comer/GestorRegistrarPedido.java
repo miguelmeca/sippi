@@ -230,7 +230,8 @@ public class GestorRegistrarPedido {
         nuevo.setFechaInicio(fechaInicio);
         nuevo.setPresupuestoMaximo(montoMaximo);
         nuevo.setFormaPago(formaDePago);
-        nuevo.setContactos(contactos);
+//        nuevo.setContactos(contactos);
+        nuevo.getContactos().clear();
 
         generarNumeroPedido();           // AL PEDO
         buscarUltimoNumeroPedidoObra();  // AL PEDO
@@ -244,8 +245,10 @@ public class GestorRegistrarPedido {
                 while(itTelefonos.hasNext())
                 {
                     Telefono telefono = itTelefonos.next();
-                    HibernateUtil.getSession().save(telefono);
+                    HibernateUtil.getSession().saveOrUpdate(telefono);
                 }
+                nuevo.getContactos().add(cr);
+                HibernateUtil.getSession().saveOrUpdate(cr);
             }
             HibernateUtil.getSession().saveOrUpdate(nuevo);
             HibernateUtil.commitTransaction();
@@ -507,7 +510,6 @@ public class GestorRegistrarPedido {
     public void seleccionPedido(int idPedido) {
         this.buscarDatosPedido(idPedido);
         this.pantalla.setNumeroPedido(String.valueOf(this.pedido.getId()));
-        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado());
         this.pantalla.setNombreObra(this.pedido.getNombre());
         this.pantalla.setDescripcionObra(this.pedido.getDescripcion());
         int idPlanta = this.pedido.getPlanta().getId();
@@ -528,17 +530,14 @@ public class GestorRegistrarPedido {
         this.pantalla.setPlanta(this.pedido.getPlanta().getId());
         this.pantalla.setFechaInicio(this.pedido.getFechaInicio());
         this.pantalla.setFechaFin(this.pedido.getFechaFin());
-//        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
-//        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
-//        this.pantalla.setMontoPedido(String.valueOf(this.pedido.getMonto()));
-//        this.pantalla.setFechaLEP(this.pedido.getFechaLimiteEntregaPresupuesto());
-//        this.pantalla.setFechaLVP(this.pedido.getFechaLimiteValidezPresupuesto());
-//        this.pantalla.setPliegosPedido(this.pedido.getPliego());
-//        this.pantalla.setPlanosPedido(this.pedido.getPlanos());
-//        if(this.pedido.getContacto() != null)
-//            this.pantalla.setContactoResponsable(this.pedido.getContacto().getId());
-//        else
-//            this.pantalla.setContactoResponsable(0);
+        this.pantalla.setFormaDePago(this.pedido.getFormaPago().getId());
+        this.pantalla.setMontoPedido(String.valueOf(this.pedido.getPresupuestoMaximo()));
+        this.contactos =  new ArrayList(pedido.getContactos());
+        this.pantalla.actualizarListaContactosResponsables();
+        
+        // Esto debe ir al final para que se deshabiliten todos los campos cuando
+        // el pedido está cancelado
+        this.pantalla.setEstadoPedidoObra(this.pedido.getEstado());
     }
 
     private void buscarDatosPedido(int idPedido){
@@ -554,21 +553,25 @@ public class GestorRegistrarPedido {
         }
     }
 
-    public void cancelarPedido(int id) {
+    public boolean cancelarPedido(int id) {
         try{
             HibernateUtil.beginTransaction();
             this.pedido = (PedidoObra)HibernateUtil.getSession().load(PedidoObra.class, id);
             this.pedido.setEstadoCancelado();
-            HibernateUtil.getSessionFactory().openSession().update(this.pedido);
+            HibernateUtil.getSession().update(this.pedido);
             HibernateUtil.commitTransaction();
+            return true;
         }
         catch(Exception e){
             HibernateUtil.rollbackTransaction();
             System.out.println("ERROR:"+e.getMessage()+"|");
             e.printStackTrace();
+            return false;
         }
     }
 
+    
+    @Deprecated
     public Object agregarContactoResponsable(String nombreCR, int idRol, int idTipo, String tel) {
         ContactoResponsable cr = new ContactoResponsable();
         cr.setNombre(nombreCR);
@@ -576,7 +579,31 @@ public class GestorRegistrarPedido {
         telCR.setNumero(tel);
         try {
             HibernateUtil.beginTransaction();
-//            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
+            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
+            telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
+            List telefonos = new ArrayList<Telefono>();
+            telefonos.add(telCR);
+            cr.setTelefonos(telefonos);
+            this.contactos.add(cr);
+            HibernateUtil.commitTransaction();
+            return cr;
+
+        } catch (Exception ex) {
+            Logger.getLogger(GestorRegistrarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+            return null;
+        }
+    }
+    
+    public Object agregarContactoResponsable(String nombreCR, String apellidoCR, int idRol, int idTipo, String tel) {
+        ContactoResponsable cr = new ContactoResponsable();
+        cr.setNombre(nombreCR);
+        cr.setApellido(apellidoCR);
+        Telefono telCR = new Telefono();
+        telCR.setNumero(tel);
+        try {
+            HibernateUtil.beginTransaction();
+            cr.setRol((RolContactoResponsable) HibernateUtil.getSession().load(RolContactoResponsable.class,idRol));
             telCR.setTipo((TipoTelefono) HibernateUtil.getSession().load(TipoTelefono.class,idTipo));
             List telefonos = new ArrayList<Telefono>();
             telefonos.add(telCR);
@@ -592,6 +619,14 @@ public class GestorRegistrarPedido {
         }
     }
 
+    /**
+     * 
+     * @return Un ArrayList con NTuplas. Estas contienen un array de objetos 
+     * en el siguiente orden:
+     *      [0] Nombre del Rol
+     *      [1] Primer Teléfono
+     *      [2] El Objeto ContactoResponsable
+     */
     public ArrayList<NTupla> mostrarContactosResponsables(){
         ArrayList<NTupla> nTuplas = new ArrayList<NTupla>();
 
@@ -638,5 +673,18 @@ public class GestorRegistrarPedido {
             HibernateUtil.rollbackTransaction();
             return false;
         }
+    }
+
+    public double getMontoMaximo() {
+        return montoMaximo;
+    }
+
+    public void setMontoMaximo(double montoMaximo) {
+        this.montoMaximo = montoMaximo;
+    }
+    
+    public double getIdFormaDePago()
+    {
+        return this.formaDePago.getId();
     }
 }

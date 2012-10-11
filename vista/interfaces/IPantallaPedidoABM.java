@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public interface IPantallaPedidoABM {
 
+    @Deprecated
     public void setNumeroPedido(String nro);
     
     public void setNombreObra(String nombre);
@@ -29,14 +30,19 @@ public interface IPantallaPedidoABM {
     
     public void setMontoPedido(String monto);
 
+    @Deprecated
     public void setFechaLEP(Date fLEP);
     
+    @Deprecated
     public void setFechaLVP(Date fLVP);
 
+    @Deprecated
     public void setPliegosPedido(String pliegos);
 
+    @Deprecated
     public void setPlanosPedido(String pedidos);
 
+    @Deprecated
     public void setContactoResponsable(int idContacto);
 
     public void mostrarEmpresasCliente();
@@ -44,4 +50,8 @@ public interface IPantallaPedidoABM {
     public void mostrarPlantasEmpresaCliente();
 
     public void setEstadoPedidoObra(String nombre);
+    
+    public void actualizarListaContactosResponsables();
+
+    public void setFormaDePago(int id);
 }

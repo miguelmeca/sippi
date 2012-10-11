@@ -24,6 +24,7 @@ import vista.interfaces.IPantallaPedidoABM;
  *
  * @author Emmanuel
  */
+@Deprecated
 public class pantallaConsultarPedido extends javax.swing.JInternalFrame implements IPantallaPedidoABM {
     private GestorRegistrarPedido gestor;
     private int idPedido;
@@ -498,4 +499,14 @@ public class pantallaConsultarPedido extends javax.swing.JInternalFrame implemen
     private javax.swing.JTextField txtPlanos;
     private javax.swing.JTextField txtPliego;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actualizarListaContactosResponsables() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setFormaDePago(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

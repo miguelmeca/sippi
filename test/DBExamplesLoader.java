@@ -1057,6 +1057,7 @@ public class DBExamplesLoader {
             // -------     CONTACTOS RESPONSABLES     --------
             ContactoResponsable contacto = new ContactoResponsable();
             contacto.setNombre("Andres");
+            contacto.setApellido("Pedraza");
             contacto.setEmail("apedraza@gmail.com");
             contacto.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,1)));
             Telefono t = new Telefono();
@@ -1068,13 +1069,14 @@ public class DBExamplesLoader {
 
             ContactoResponsable contacto2 = new ContactoResponsable();
             contacto2.setNombre("Julio");
+            contacto2.setApellido("Ferreyra");
             contacto2.setEmail("eyjuliooscar@gmail.com");
             contacto2.setRol(((RolContactoResponsable)sesion.load(RolContactoResponsable.class,2)));
             Telefono t2 = new Telefono();
             t2.setNumero("(011) 55544566");
             t2.setTipo(((TipoTelefono)sesion.load(TipoTelefono.class, 1)));
             List<Telefono> telefonos2 = new ArrayList<Telefono>();
-            telefonos1.add(t2);
+            telefonos2.add(t2);
             contacto2.setTelefonos(telefonos2);
 
             po.addContacto(contacto);
