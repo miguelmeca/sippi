@@ -265,7 +265,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Registrar Pedido");
+        setTitle("Administración de Pedidos");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Obra"));
 
