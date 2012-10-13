@@ -49,8 +49,9 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     protected ArrayList<String[]> getColumnColorCriteria() {
         ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
         
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"184","204","240"});
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"214","227","188"});
             colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_BAJA,"229","184","183"});
+            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_FINALIZADA,"184","204","240"});
         
         return colorCriteria;
     }
