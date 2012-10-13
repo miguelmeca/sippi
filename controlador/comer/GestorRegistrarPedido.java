@@ -553,12 +553,40 @@ public class GestorRegistrarPedido {
         }
     }
 
+    /**
+     * El Cancelar Pedido Tiene que Dar de Baja en una Transaccion:
+     * - Pedido de Obra
+     * - Todas las Cotizaciones asociadas (si las tiene)
+     * - La planificacion (si la tiene)
+     * - La Ejecición (si la tiene)
+     * @param id
+     * @return 
+     */
     public boolean cancelarPedido(int id) {
         try{
             HibernateUtil.beginTransaction();
             this.pedido = (PedidoObra)HibernateUtil.getSession().load(PedidoObra.class, id);
             this.pedido.setEstadoCancelado();
+            
+            darDeBajaCotizaciones();
+            darDeBajaPlanificacion();
+            darDeBajaEjecucion();
+            
             HibernateUtil.getSession().update(this.pedido);
+            if(this.pedido.getCotizaciones()!=null){
+                for (int i = 0; i < this.pedido.getCotizaciones().size(); i++) {
+                    Cotizacion cot = this.pedido.getCotizaciones().get(i);
+                    HibernateUtil.getSession().update(cot);
+                }
+            }
+            if(this.pedido.getPlanificacion()!=null){
+                HibernateUtil.getSession().update(this.pedido.getPlanificacion());
+            }
+            
+            if(this.pedido.getEjecucion()!=null){
+                HibernateUtil.getSession().update(this.pedido.getEjecucion());
+            }
+            
             HibernateUtil.commitTransaction();
             return true;
         }
@@ -686,5 +714,43 @@ public class GestorRegistrarPedido {
     public double getIdFormaDePago()
     {
         return this.formaDePago.getId();
+    }
+
+    /**
+     * Descarta todas las cotizaciones del Pedido de Obra.
+     */
+    private void darDeBajaCotizaciones() {
+        if(this.pedido!=null){
+            if(this.pedido.getCotizaciones()!=null){
+                for (int i = 0; i < this.pedido.getCotizaciones().size(); i++) {
+                    Cotizacion cot = this.pedido.getCotizaciones().get(i);
+                    if(cot!=null){
+                        cot.setEstadoDescartado();
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Da de baja la planificacion Asociada al pedido de obra.
+     */
+    private void darDeBajaPlanificacion() {
+        if(this.pedido!=null){
+            if(this.pedido.getPlanificacion()!=null){
+                this.pedido.getPlanificacion().setEstado(PlanificacionXXX.ESTADO_BAJA);
+            }
+        }
+    }
+
+    /**
+     * Da de baja la ejecucion Asociada al pedido de obra.
+     */
+    private void darDeBajaEjecucion() {
+        if(this.pedido!=null){
+            if(this.pedido.getEjecucion()!=null){
+                this.pedido.getEjecucion().setEstado(Ejecucion.ESTADO_BAJA);
+            }
+        }        
     }
 }
