@@ -219,6 +219,8 @@ public class ReportDesigner
                 return URL_DIR_REPORTES+"Listados/";                    
                 
             case ReportDesigner.REPORTE_TIPO_OTROS: 
+                return URL_DIR_REPORTES+"Otros/";
+                
             default:
                 return URL_DIR_REPORTES;             
         }

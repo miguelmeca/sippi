@@ -55,13 +55,22 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         tblMenu = new javax.swing.JTable();
         pnlCentral = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JButton();
-        btnActualziar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Lanzamiento de la Obra");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Menú de Recursos"));
 
@@ -104,25 +113,17 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         pnlCentral.setLayout(new java.awt.BorderLayout());
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnCerrar.setText("Cancelar");
+        btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
-            }
-        });
-
-        btnActualziar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/refresh.png"))); // NOI18N
-        btnActualziar.setText("Actualizar");
-        btnActualziar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualziarActionPerformed(evt);
             }
         });
 
@@ -132,13 +133,11 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnActualziar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(619, 619, 619)
                         .addComponent(btnCerrar)))
@@ -152,9 +151,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                     .addComponent(pnlCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCerrar)
-                    .addComponent(btnActualziar))
+                .addComponent(btnCerrar)
                 .addContainerGap())
         );
 
@@ -168,21 +165,19 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
        
         // llamo al comportamiento Cancelar de la ventana 
-        cancelar();
+        cerrar();
         
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnActualziarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualziarActionPerformed
-        if(this.panelHerramientas!=null){
-            this.panelHerramientas.actualizarDatos();
-        }
-        if(this.panelMateriales!=null){
-            this.panelMateriales.actualizarDatos();
-        }
-    }//GEN-LAST:event_btnActualziarActionPerformed
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualziar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -200,6 +195,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 if(this.panelHerramientas==null){
                     this.panelHerramientas = new PanelHerramientas(this.gestor);
                 }
+                this.panelHerramientas.actualizarDatos();
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelHerramientas, BorderLayout.CENTER);
                 this.panelHerramientas.setVisible(true);  
@@ -210,6 +206,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 if(this.panelMateriales==null){
                     this.panelMateriales =  new PanelMateriales(this.gestor);
                 }
+                this.panelMateriales.actualizarDatos();
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelMateriales, BorderLayout.CENTER);
                 this.panelMateriales.setVisible(true);  
@@ -220,6 +217,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 if(this.panelAlquileresCompras==null){
                     this.panelAlquileresCompras =  new PanelAlquileresCompras(this.gestor);
                 }
+                this.panelAlquileresCompras.actualizarDatos();
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelAlquileresCompras, BorderLayout.CENTER);
                 this.panelAlquileresCompras.setVisible(true);  
@@ -230,6 +228,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 if(this.panelRecursosHumanos==null){
                     this.panelRecursosHumanos =  new PanelRecursosHumanos();
                 }
+                //this.panelRecursosHumanos.actualizarDatos();
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelRecursosHumanos, BorderLayout.CENTER);
                 this.panelRecursosHumanos.setVisible(true);  
@@ -240,6 +239,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 if(this.panelAdicionales==null){
                     this.panelAdicionales =  new PanelAdicionales(this.gestor);
                 }
+                this.panelAdicionales.actualizarDatos();
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelAdicionales, BorderLayout.CENTER);
                 this.panelAdicionales.setVisible(true);  
@@ -292,38 +292,56 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
      * Cancela los cambios y cierra la ventana.
      * Antes pregunta si desea guardar los cambios.
      */
-    private void cancelar() {
-        int seleccion = JOptionPane.showOptionDialog(
-                this, // Componente padre
-                "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
-                + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
-                "Seleccione una opción", // Título
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, // null para icono por defecto.
-                new Object[]{"Guardar y Cerrar","Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
-                "Guardar y Cerrar");
+    private void cerrar() {
+        this.dispose();
         
-        if (seleccion != -1) {
-            switch(seleccion+1){
-                case 1:
-                    // PRESIONO Guardar y Cerrar
-                    System.out.println("Guardar y Cerrar:"+(seleccion+1));
-                    if(guardar()){
-                        this.dispose();
-                    }
-                    break;
-                case 2:
-                    // PRESIONO Cerrar
-                    System.out.println("Cerrar:"+(seleccion+1));
-                    this.dispose();
-                    break;
-                case 3:
-                default:
-                    System.out.println("Cancelar:"+(seleccion+1));
-                    // Cancelar - Nadaremos
-                    break;
-            }
+//        Comentado, ya no sirve ...
+//        int seleccion = JOptionPane.showOptionDialog(
+//                this, // Componente padre
+//                "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
+//                + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
+//                "Seleccione una opción", // Título
+//                JOptionPane.YES_NO_CANCEL_OPTION,
+//                JOptionPane.QUESTION_MESSAGE,
+//                null, // null para icono por defecto.
+//                new Object[]{"Guardar y Cerrar","Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
+//                "Guardar y Cerrar");
+//        
+//        if (seleccion != -1) {
+//            switch(seleccion+1){
+//                case 1:
+//                    // PRESIONO Guardar y Cerrar
+//                    System.out.println("Guardar y Cerrar:"+(seleccion+1));
+//                    if(guardar()){
+//                        this.dispose();
+//                    }
+//                    break;
+//                case 2:
+//                    // PRESIONO Cerrar
+//                    System.out.println("Cerrar:"+(seleccion+1));
+//                    this.dispose();
+//                    break;
+//                case 3:
+//                default:
+//                    System.out.println("Cancelar:"+(seleccion+1));
+//                    // Cancelar - Nadaremos
+//                    break;
+//            }
+//        }
+    }
+
+    private void actualizarPaneles() {
+        if(this.panelHerramientas!=null){
+            this.panelHerramientas.actualizarDatos();
+        }
+        if(this.panelMateriales!=null){
+            this.panelMateriales.actualizarDatos();
+        }
+        if(this.panelAdicionales!=null){
+            this.panelAdicionales.actualizarDatos();
+        }
+        if(this.panelAlquileresCompras!=null){
+            this.panelAlquileresCompras.actualizarDatos();
         }
     }
     

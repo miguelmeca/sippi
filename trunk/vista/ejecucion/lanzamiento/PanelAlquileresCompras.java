@@ -212,4 +212,8 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
         }
     }
 
+    void actualizarDatos() {
+        cargarDatosTablaParaObra();
+    }
+
 }

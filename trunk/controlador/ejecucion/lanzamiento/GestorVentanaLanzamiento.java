@@ -164,7 +164,7 @@ public class GestorVentanaLanzamiento {
             data[0] = String.valueOf(necesarios) + " " + rec.getRecurso().mostrarUnidadDeMedida();
             data[1] = String.valueOf(enstock) + " " + rec.getRecurso().mostrarUnidadDeMedida();
 
-            if (necesarios < enstock) {
+            if (necesarios <= enstock) {
                 data[2] = "<HTML><span color='#009900'>Todo Disponible</span>";
             } else {
                 data[2] = "<HTML><span color='#FF0000'>Faltante de " + (necesarios - enstock) + "</span>";
