@@ -117,6 +117,7 @@
     <mapping package="modelo" resource="config/db/Ejecucion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TareaEjecucion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXHerramienta.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/EjecucionXHerramientaXDia.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXMaterial.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXAlquilerCompra.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXAdicional.hbm.xml"/>
