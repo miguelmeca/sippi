@@ -37,26 +37,15 @@ import vista.interfaces.IPantallaPedidoABM;
 public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM, ICallBack,IFavorito{
 
     private GestorRegistrarPedido gestor;
-    private pantallaBuscarPedido pBuscar;
     private int idPedidoObra = -1;
 
-    /** Creates new form frmRegistrarPedido */
-    public ABMPedidoObra(pantallaBuscarPedido p) {
-        this.pBuscar = p;
-        gestor = new GestorRegistrarPedido(this);
-        initComponents();
-        habilitarVentana();
-    }
-
     public ABMPedidoObra() {
-        this.pBuscar = null;
         gestor = new GestorRegistrarPedido(this);
         initComponents();
         habilitarVentana();
     }
     
     public ABMPedidoObra(int idPedidoObra){
-        this.pBuscar = null;
         gestor = new GestorRegistrarPedido(this);
         this.idPedidoObra = idPedidoObra;
         initComponents();
@@ -187,14 +176,14 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             ban=false;
         }
         if(txtMonto.getText().equals("")){
-            mensaje+="- Presupuesto Máximo\n";
+            mensaje+="- Presupuesto MÃ¡ximo\n";
             ban=false;
         }else{
             try{
                 Double.parseDouble(txtMonto.getText());
             }
             catch(Exception e){
-                mensaje+="- Formato no válido Presupuesto Máximo\n";
+                mensaje+="- Formato no vÃ¡lido Presupuesto MÃ¡ximo\n";
                 ban=false;
             }
         }
@@ -265,7 +254,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Administración de Pedidos");
+        setTitle("AdministraciÃ³n de Pedidos de Obra");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Obra"));
 
@@ -274,7 +263,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Descripción:");
+        jLabel3.setText("DescripciÃ³n:");
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -364,7 +353,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Presupuesto Máximo ($): *");
+        jLabel8.setText("Presupuesto MÃ¡ximo ($): *");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -494,7 +483,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
             },
             new String [] {
-                "Nombre", "Rol", "Teléfono", ""
+                "Nombre", "Rol", "TelÃ©fono", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -697,14 +686,11 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             gestor.presupuestoMaximo(txtMonto.getText());
             gestor.formaDePago((Tupla)cmbFormaDePago.getSelectedItem());
 
-            // Los contactos responsables ya están en el gestor
+            // Los contactos responsables ya estÃ¡n en el gestor
 
             int id = gestor.confirmacionRegistro(this.idPedidoObra);
 
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el pedido número "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-            if(pBuscar != null){
-                pBuscar.actualizar(1, true);
-            }
+            JOptionPane.showMessageDialog(this.getParent(),"Se registro con Ã©xito el pedido nÃºmero "+id,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
 
@@ -736,11 +722,11 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         String msj="Han ocurrido los siguientes errores al momento de la carga:\n";
         boolean b=true;
         if(this.txtNombreCR.getText().equals("")){
-            msj += "- Nombre de Contacto vacío\n";
+            msj += "- Nombre de Contacto vacÃ­o\n";
             b = false;
         }
         if(this.txtApellidoCR.getText().equals("")){
-            msj += "- Apellido de Contacto vacío\n";
+            msj += "- Apellido de Contacto vacÃ­o\n";
             b = false;
         }
         if(this.cmbRolCR.getSelectedIndex()== 0){
@@ -748,11 +734,11 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             b = false;
         }
         if(this.cmbTipoTelefono.getSelectedIndex()== 0){
-            msj += "- No ha seleccionado un Tipo de Teléfono\n";
+            msj += "- No ha seleccionado un Tipo de TelÃ©fono\n";
             b = false;
         }
         if(this.txtTelCR.getText().equals("")){
-            msj += "- Teléfono vacío\n";
+            msj += "- TelÃ©fono vacÃ­o\n";
             b = false;
         }
         if(b){
@@ -802,10 +788,10 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     }//GEN-LAST:event_btnAgregarRolActionPerformed
 
     private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar el pedido?","Dar de Baja el Pedido",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar el pedido?","Dar de Baja el Pedido",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION){
             if(gestor.cancelarPedido(idPedidoObra))
-                JOptionPane.showMessageDialog(this, "El Pedido Nro. "+idPedidoObra+" fue cancelado con éxito.", "Pedido Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El Pedido Nro. "+idPedidoObra+" fue cancelado con Ã©xito.", "Pedido Cancelado", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
     }//GEN-LAST:event_btnDarDeBajaActionPerformed
@@ -860,7 +846,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
     @Override
     public String getTituloAyuda() {
-        return "Opción: Nuevo Pedido";
+        return "OpciÃ³n: Nuevo Pedido";
     }
 
     @Override
