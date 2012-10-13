@@ -19,6 +19,8 @@ public class Ejecucion {
     private String observaciones;
     private String estado;
     
+    private List<EjecucionXAdicional> adicionales;
+    
     public static final String ESTADO_ALTA = "Alta";
     public static final String ESTADO_ENEJECUCION = "En Ejecución";
     public static final String ESTADO_FINALIZADA = "Finalizada";
@@ -27,6 +29,7 @@ public class Ejecucion {
     public Ejecucion() {
         this.estado = Ejecucion.ESTADO_ALTA;
         listaTareas = new ArrayList<TareaEjecucion>();
+        adicionales = new ArrayList<EjecucionXAdicional>();
     }
 
     public int getId() {
@@ -107,5 +110,13 @@ public class Ejecucion {
         }
         return "";
     }        
+
+    public List<EjecucionXAdicional> getAdicionales() {
+        return adicionales;
+    }
+
+    public void setAdicionales(List<EjecucionXAdicional> adicionales) {
+        this.adicionales = adicionales;
+    }
     
 }

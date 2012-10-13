@@ -1072,6 +1072,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 TareaEjecucion tareaEjec = copiaRecursivaTareaXTarea(tareaPlan);
                 listaTareasEjecucion.add(tareaEjec);
             }
+            
+            // 3- Copio los adicionales
+            for(int i =0; i<planificacion.getCotizacion().getSubObras().size();i++){
+                SubObra subObra = planificacion.getCotizacion().getSubObras().get(i);
+                List<EjecucionXAdicional> adicionalesEjecucion = crearListadoAdicionalesEjecucion(subObra.getAdicionales());
+                ejecucion.getAdicionales().addAll(adicionalesEjecucion);
+            }
 
             ejecucion.setListaTareas(listaTareasEjecucion);
 
@@ -1099,7 +1106,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         tareaEjec.setListaAlquileresCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
 
         // 6- Copio los adicionales ...
-        // Y angora ???? ....
+        // Y angora ???? ...., son por subObra (Anda y mira arriba)
         
         // Mando a Recursividad
         for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
@@ -1178,6 +1185,29 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         return listaAlquileresCompras;
     }
 
+    /**
+     * Por cada Alquiler/Compra que haya en Planificacion sobre una Tarea, creo las correspondientes
+     * de Ejecucion.
+     * @param alquileresCompras
+     * @return 
+     */
+    private List<EjecucionXAdicional> crearListadoAdicionalesEjecucion(List<SubObraXAdicional> adicionales) {
+        List<EjecucionXAdicional> listaAdicionales = new ArrayList<EjecucionXAdicional>();
+        
+            if(adicionales!=null){
+                for (int i = 0; i < adicionales.size(); i++) {
+                    SubObraXAdicional subObraXAdicional = adicionales.get(i);
+                    
+                    EjecucionXAdicional ejcXadi = new EjecucionXAdicional();
+                    ejcXadi.setAdicionalPlanificado((SubObraXAdicionalModif)subObraXAdicional);
+                    listaAdicionales.add(ejcXadi);
+                }
+            }
+        
+        return listaAdicionales;
+    }
+    
+    
 
     public int getIdDeEjecucionDeObra() {
         if(this.pedidoDeObra.getEjecucion()!=null)

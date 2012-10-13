@@ -238,7 +238,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             case OPTN_ADICIONALES:
                 setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
                 if(this.panelAdicionales==null){
-                    this.panelAdicionales =  new PanelAdicionales();
+                    this.panelAdicionales =  new PanelAdicionales(this.gestor);
                 }
                 pnlCentral.removeAll();
                 pnlCentral.add(this.panelAdicionales, BorderLayout.CENTER);

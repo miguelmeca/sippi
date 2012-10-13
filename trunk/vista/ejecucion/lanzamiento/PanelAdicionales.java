@@ -4,10 +4,14 @@
  */
 package vista.ejecucion.lanzamiento;
 
+import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import util.NTupla;
+import util.TablaUtil;
 import vista.util.MyComboBoxEditor;
 
 /**
@@ -16,20 +20,23 @@ import vista.util.MyComboBoxEditor;
  */
 public class PanelAdicionales extends javax.swing.JPanel {
 
-    public static final int TABLA_ALQCOMPRA_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_CANTIDAD = 1;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_ESTADO = 2;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_SELECCION = 3;
+    public static final int TABLA_ADICIONAL_COLUMNA_NOMBRE = 0;
+    public static final int TABLA_ADICIONAL_COLUMNA_OPERARIOS = 1;
+    public static final int TABLA_ADICIONAL_COLUMNA_DIAS = 2;
+    public static final int TABLA_ADICIONAL_COLUMNA_SUBTOTAL = 3;
+    
+    private GestorVentanaLanzamiento gestor;
     
     private static final int TABLA_DEFAULT_ALTO = 25;        
     
     /**
      * Creates new form PanelAlquileresCompras
      */
-    public PanelAdicionales() {
+    public PanelAdicionales(GestorVentanaLanzamiento gestor) {
+        this.gestor = gestor;
         initComponents();
         initTabla();
-        mock();
+        cargarDatosTablaParaObra();
     }
 
     /**
@@ -43,26 +50,20 @@ public class PanelAdicionales extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlquilerCompra = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        txtTotal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         tblAlquilerCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre y Descripcion", "Monto", "Estado", ""
+                "Nombre y Descripcion", "Operarios", "Días", "SubTotal"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -70,42 +71,48 @@ public class PanelAdicionales extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblAlquilerCompra);
 
-        jButton1.setText("jButton1");
+        txtTotal.setBackground(new java.awt.Color(204, 204, 255));
+        txtTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Total de Efectivo Necesario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(4, 4, 4))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAlquilerCompra;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
     private void initTabla() {
         tblAlquilerCompra.setRowHeight(TABLA_DEFAULT_ALTO);
         DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
-
-        TableColumn col = tblAlquilerCompra.getColumnModel().getColumn(TABLA_ALQCOMPRA_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#009900'>Abonado</span>", 
-                                       "<HTML><span color='#CC7A00'>En Espera...</span>", 
-                                       "<HTML><span color='#CC0000'>Sin Abonar</span>"};
-        col.setCellEditor(new MyComboBoxEditor(values));
-        col.setCellRenderer(new PanelHerramientasCellRenderer(values));
-
+        
         // Ancho de Columnas
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tblAlquilerCompra.getColumnModel();
@@ -113,17 +120,17 @@ public class PanelAdicionales extends javax.swing.JPanel {
         for (int i = 0; i < tblAlquilerCompra.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
-                case TABLA_ALQCOMPRA_COLUMNA_ESTADO:
+                case TABLA_ADICIONAL_COLUMNA_NOMBRE:
                     anchoColumna = 300;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_NOMBRE:
-                    anchoColumna = 500;
+                case TABLA_ADICIONAL_COLUMNA_DIAS:
+                    anchoColumna = 100;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_CANTIDAD:
-                    anchoColumna = 150;
+                case TABLA_ADICIONAL_COLUMNA_OPERARIOS:
+                    anchoColumna = 100;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_SELECCION:
-                    anchoColumna = 50;
+                case TABLA_ADICIONAL_COLUMNA_SUBTOTAL:
+                    anchoColumna = 100;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -131,22 +138,36 @@ public class PanelAdicionales extends javax.swing.JPanel {
         }
     }
 
-    private void mock() {
-        // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
+    /**
+     * Pide al gestor que busque todos los datos de las adicionales de la 
+     * Ejecucion que se van a usar en esta obra.
+     */
+    private void cargarDatosTablaParaObra() {
         
-        Object row[] = new Object[4];
-        row[0] = "Comida - 4 Empelados en la Fabrica";
-        row[1] = "$ 300";
-        row[2] = new JComboBox();
-        row[3] = false;
-        modelo.addRow(row);
+        double total = 0;
         
-        Object row2[] = new Object[4];
-        row2[0] = "Hospedaje - 4 Empelados en Córdoba";
-        row2[1] = "$ 3250";
-        row2[2] = new JComboBox();
-        row2[3] = false;
-        modelo.addRow(row2);
+        List<NTupla> tuplas = gestor.llenarTablaPanelAdicionales();
+        DefaultTableModel modelo = (DefaultTableModel)tblAlquilerCompra.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo);
+        
+        for (int i = 0; i < tuplas.size(); i++) {
+            NTupla nTupla = tuplas.get(i);
+            Object[] fila = new Object[4];
+            fila[TABLA_ADICIONAL_COLUMNA_NOMBRE] = nTupla;
+            
+                String[] data = (String[]) nTupla.getData();
+            
+            fila[TABLA_ADICIONAL_COLUMNA_OPERARIOS] = data[0];
+            
+            fila[TABLA_ADICIONAL_COLUMNA_DIAS] = data[1];
+                       
+            fila[TABLA_ADICIONAL_COLUMNA_SUBTOTAL] = "$ " + data[2];
+            
+            total += Double.valueOf(data[2]);
+            
+            modelo.addRow(fila);
+        }
+        
+        txtTotal.setText("$"+total);
     }
 }

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import modelo.Ejecucion;
+import modelo.EjecucionXAdicional;
 import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXMaterial;
@@ -81,11 +82,11 @@ public class GestorVentanaLanzamiento {
             Map.Entry e = (Map.Entry) it.next();
             //System.out.println(e.getKey() + " " + e.getValue());
             HerramientaDeEmpresa hde = (HerramientaDeEmpresa) e.getKey();
-            NTupla nt = new NTupla(hde.getId());
+            NTupla nt = new NTupla(hde.hashCode());
             nt.setNombre(hde.getNombre());
-                String[] data = new String[2];
-                data[0] = String.valueOf(e.getValue());
-                data[1] = hde.getEstadoColoreado();
+            String[] data = new String[2];
+            data[0] = String.valueOf(e.getValue());
+            data[1] = hde.getEstadoColoreado();
             nt.setData(data);
             ntlst.add(nt);
         }
@@ -111,9 +112,9 @@ public class GestorVentanaLanzamiento {
     }
 
     /**
-     * Panel Materiales.
-     * Llena la tabla 
-     * @return 
+     * Panel Materiales. Llena la tabla
+     *
+     * @return
      */
     public List<NTupla> llenarTablaPanelMateriales() {
         //1- Busco los materiales que me hacen falta para la obra. 
@@ -146,29 +147,29 @@ public class GestorVentanaLanzamiento {
                 }
             }
         }
-                // 2- Retorno 
+        // 2- Retorno 
         List<NTupla> ntlst = new ArrayList<NTupla>();
         Iterator it = allMateriales.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry) it.next();
             //System.out.println(e.getKey() + " " + e.getValue());
             RecursoEspecifico rec = (RecursoEspecifico) e.getKey();
-            NTupla nt = new NTupla(rec.getId());
+            NTupla nt = new NTupla(rec.hashCode());
             nt.setNombre(rec.getNombre());
-            
-                int necesarios = (Integer) e.getValue();
-                double enstock = calcularStockDeRecursoespecifico(rec);
-            
-                String[] data = new String[3];
-                data[0] = String.valueOf(necesarios)+" "+rec.getRecurso().mostrarUnidadDeMedida();
-                data[1] = String.valueOf(enstock)+" "+rec.getRecurso().mostrarUnidadDeMedida();
-                
-                if(necesarios<enstock){
-                    data[2] = "<HTML><span color='#009900'>Todo Disponible</span>";
-                }else{
-                    data[2] = "<HTML><span color='#FF0000'>Faltante de "+(necesarios-enstock)+"</span>";
-                }
-                
+
+            int necesarios = (Integer) e.getValue();
+            double enstock = calcularStockDeRecursoespecifico(rec);
+
+            String[] data = new String[3];
+            data[0] = String.valueOf(necesarios) + " " + rec.getRecurso().mostrarUnidadDeMedida();
+            data[1] = String.valueOf(enstock) + " " + rec.getRecurso().mostrarUnidadDeMedida();
+
+            if (necesarios < enstock) {
+                data[2] = "<HTML><span color='#009900'>Todo Disponible</span>";
+            } else {
+                data[2] = "<HTML><span color='#FF0000'>Faltante de " + (necesarios - enstock) + "</span>";
+            }
+
             nt.setData(data);
             ntlst.add(nt);
         }
@@ -177,18 +178,19 @@ public class GestorVentanaLanzamiento {
 
     /**
      * Veo cuanto Stock tengo de un material
+     *
      * @param rec
-     * @return 
+     * @return
      */
     private double calcularStockDeRecursoespecifico(RecursoEspecifico rec) {
         StockUtils su = new StockUtils();
-        return su.calcularStockDeRecursoespecifico(RecursoEspecifico.class,rec.getId());
+        return su.calcularStockDeRecursoespecifico(RecursoEspecifico.class, rec.getId());
     }
 
     /**
-     * Panel Alquileres/Compras.
-     * Retorna los datos para llenar la tabla.
-     * @return 
+     * Panel Alquileres/Compras. Retorna los datos para llenar la tabla.
+     *
+     * @return
      */
     public List<NTupla> llenarTablaPanelAlquileresCompras() {
         //1- Busco los Alq/Comp que me hacen falta para la obra. 
@@ -212,7 +214,7 @@ public class GestorVentanaLanzamiento {
                                     allAlqCompras.put(tac, cantidad);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allAlqCompras.put(tac,alqCompra.getAlquilerCompraPlanificado().getCantidad());
+                                    allAlqCompras.put(tac, alqCompra.getAlquilerCompraPlanificado().getCantidad());
                                 }
                             }
                         }
@@ -220,7 +222,7 @@ public class GestorVentanaLanzamiento {
                 }
             }
         }
-        
+
         // 2- Retorno 
         List<NTupla> ntlst = new ArrayList<NTupla>();
         Iterator it = allAlqCompras.entrySet().iterator();
@@ -228,39 +230,65 @@ public class GestorVentanaLanzamiento {
             Map.Entry e = (Map.Entry) it.next();
 
             SubObraXAlquilerCompraModif tac = (SubObraXAlquilerCompraModif) e.getKey();
-            NTupla nt = new NTupla(tac.getId());
-            nt.setNombre(tac.getTipoAlquilerCompra().getNombre()+" - "+tac.getDescripcion());
-            
-                int necesarios = (Integer) e.getValue();
-                double enstock = calcularStockDeAlquilerCompra(tac.getTipoAlquilerCompra());
-            
-                String[] data = new String[3];
-                data[0] = String.valueOf(necesarios);
-                
-                if(enstock!=0){
-                    if(enstock==1){
-                        data[1] = "<HTML><span color='#009900'>Hay <b>"+enstock+"</b> '"+tac.getTipoAlquilerCompra().getNombre()+"' Disponible</span>";
-                    }else{
-                        data[1] = "<HTML><span color='#009900'>Hay <b>"+enstock+"</b> '"+tac.getTipoAlquilerCompra().getNombre()+"' Disponibles</span>";
-                    }
-                }else{
-                    data[1] = "<HTML><span color='#FF0000'>No Hay Disponibles</span>";
+            NTupla nt = new NTupla(tac.hashCode());
+            nt.setNombre(tac.getTipoAlquilerCompra().getNombre() + " - " + tac.getDescripcion());
+
+            int necesarios = (Integer) e.getValue();
+            double enstock = calcularStockDeAlquilerCompra(tac.getTipoAlquilerCompra());
+
+            String[] data = new String[3];
+            data[0] = String.valueOf(necesarios);
+
+            if (enstock != 0) {
+                if (enstock == 1) {
+                    data[1] = "<HTML><span color='#009900'>Hay <b>" + enstock + "</b> '" + tac.getTipoAlquilerCompra().getNombre() + "' Disponible</span>";
+                } else {
+                    data[1] = "<HTML><span color='#009900'>Hay <b>" + enstock + "</b> '" + tac.getTipoAlquilerCompra().getNombre() + "' Disponibles</span>";
                 }
-                
+            } else {
+                data[1] = "<HTML><span color='#FF0000'>No Hay Disponibles</span>";
+            }
+
             nt.setData(data);
             ntlst.add(nt);
         }
-        return ntlst;        
-        
+        return ntlst;
+
     }
 
     /**
      * Veo cuanto Stock tengo de un Tipo Alquiler/Compra
+     *
      * @param rec
-     * @return 
-     */    
+     * @return
+     */
     private double calcularStockDeAlquilerCompra(TipoAlquilerCompra tac) {
         StockUtils su = new StockUtils();
-        return su.calcularStockDeRecursoespecifico(TipoAlquilerCompra.class,tac.getId());
+        return su.calcularStockDeRecursoespecifico(TipoAlquilerCompra.class, tac.getId());
+    }
+
+    public List<NTupla> llenarTablaPanelAdicionales() {
+        List<NTupla> listaFilas = new ArrayList<NTupla>();
+
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                for (int i = 0; i < ejecucion.getAdicionales().size(); i++) {
+                    EjecucionXAdicional ejecXadi = ejecucion.getAdicionales().get(i);
+                    
+                        NTupla fila = new NTupla(ejecXadi.hashCode());
+                        fila.setNombre(ejecXadi.getAdicionalPlanificado().getTipoAdicional().getNombre()+" - "+ejecXadi.getAdicionalPlanificado().getDescripcion());
+                            
+                            String[] data = new String[3];
+                            data[0] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantOperarios());
+                            data[1] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantDias());
+                            data[2] = String.valueOf(ejecXadi.getAdicionalPlanificado().calcularSubtotal());
+                            fila.setData(data);
+                            
+                        listaFilas.add(fila);
+                }
+            }
+        }
+        return listaFilas;
     }
 }
