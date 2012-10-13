@@ -105,6 +105,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         arbolTareasGestor=new ArbolTareasGestor(arbolTareas);
         initGraph();
         inicializarArbolDeTareas();
+        initVentanaSegunEstado();
 
     }    
     
@@ -134,6 +135,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         arbolTareasGestor=new ArbolTareasGestor(arbolTareas);        
         initGraph();
         inicializarArbolDeTareas();
+        initVentanaSegunEstado();
 
     }
 
@@ -157,7 +159,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         grafico = graph.getComponent();
         
         // Soporte para Drop
-        PanelDropTarget target = new PanelDropTarget(grafico, new GanttDropEvent());
+        if(_gestor.esPlanificacionEditable()){
+            PanelDropTarget target = new PanelDropTarget(grafico, new GanttDropEvent());
+        }
         
         panelLineaDeTiempo.add(grafico, BorderLayout.CENTER);
         pack();
@@ -202,7 +206,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private void cargarTareasRecursivas(TareaPlanificacion tplan, int n) {
 
         CoolGanttPhase p1 = new CoolGanttPhase();
-        p1.setEditable(true);
+        
+        // Si no se puede modificar las bloqueo...
+        if(_gestor.esPlanificacionEditable()){
+            p1.setEditable(true);
+        }else{
+            p1.setEditable(false);
+        }
+        
         p1.setId(tplan.getIdTareaGantt());
         p1.setNombre(tplan.getNombre());
         p1.setType(demoTypes.TYPE_NORMAL);
@@ -296,6 +307,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblObraNombre = new javax.swing.JLabel();
@@ -324,9 +337,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         panelOpcionesPlanificacion = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         btnEjecutar = new javax.swing.JButton();
-        btnRechazar = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         panelVerPlanificacion = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         btnAbrirEjecucion = new javax.swing.JButton();
@@ -458,7 +469,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         tblSubObras.setModel(new javax.swing.table.DefaultTableModel(
@@ -592,6 +603,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Fecha de Fin: ");
 
+        txtEstado.setEnabled(false);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Estado: ");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -600,11 +616,13 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(txtFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtEstado)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -616,6 +634,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -842,18 +864,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             }
         });
 
-        btnRechazar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Stop.png"))); // NOI18N
-        btnRechazar.setText("Cancelar planificación");
-        btnRechazar.setActionCommand("Recotizar desde este presupuesto");
-        btnRechazar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRechazarActionPerformed(evt);
-            }
-        });
-
         jLabel17.setText("Terminé de editar la planificación:");
-
-        jLabel18.setText("Deseo cancelar la planificación e iniciar una nueva:");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -863,9 +874,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
-                    .addComponent(btnRechazar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -875,11 +884,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEjecutar)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRechazar)
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelVerPlanificacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Ejecución de esta Planificación "));
@@ -888,6 +893,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
 
         btnAbrirEjecucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Wrench.png"))); // NOI18N
         btnAbrirEjecucion.setText("Abrir Ejecución");
+        btnAbrirEjecucion.setEnabled(false);
         btnAbrirEjecucion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirEjecucionActionPerformed(evt);
@@ -928,10 +934,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             panelOpcionesPlanificacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesPlanificacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelVerPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
         panelVerPlanificacion.getAccessibleContext().setAccessibleName("Ejecución de esta Planificación\n");
@@ -946,7 +952,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(panelCentral)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1199,24 +1205,18 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
     private void btnAbrirEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirEjecucionActionPerformed
-        // TODO: Completar cuando estén creadas las ventanas de ejecución
+
         int idEjecucion = _gestor.getIdDeEjecucionDeObra();
-        if (idEjecucion != 0) {
-//            EditarEjecucion ee = new EditarEjecucion(1, idEjecucion);
-//            SwingPanel.getInstance().addWindow(ee);
-//            ee.setVisible(true);
-//            this.dispose();
+        if (idEjecucion > 0) {
+            VentanaEjecucion win = new VentanaEjecucion(_gestor.getPedidoDeObra().getId());
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+            this.dispose();
         } else {
-            JOptionPane.showMessageDialog(new JInternalFrame(), "No se encontro la planificacion asociada", "Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JInternalFrame(), "No se encontro la Ejecución asociada", "Error!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAbrirEjecucionActionPerformed
-
-    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
-
-        
-        
-    }//GEN-LAST:event_btnRechazarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
@@ -1227,7 +1227,6 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private javax.swing.JButton btnEliminarSubObra;
     private javax.swing.JButton btnEmitirInforme;
     private javax.swing.JButton btnNuevaSubObra;
-    private javax.swing.JButton btnRechazar;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -1237,10 +1236,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -1283,6 +1282,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private javax.swing.JTable tblTareas;
     private javax.swing.JTree treeRecursos;
     private javax.swing.JTextArea txtDescripcionGeneral;
+    private javax.swing.JTextField txtEstado;
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNroCotizacion;
@@ -1608,6 +1608,33 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }
 
     /**
+     * Setea la ventana segun el estado que tenga la planificacion y la Obra
+     */
+    private void initVentanaSegunEstado() {
+        int idEjecucion = _gestor.getIdDeEjecucionDeObra();
+        if (idEjecucion > 0) {
+            // Tengo la ejecucion
+            // Puedo abrirla
+            btnAbrirEjecucion.setEnabled(true);
+            // No puedo comenzar una nueva Ejecucion
+            btnEjecutar.setEnabled(false);
+        }
+        
+        if(!_gestor.esPlanificacionEditable())
+        {
+            // Estado en Baja
+            btnNuevaSubObra.setEnabled(false);
+            btnEliminarSubObra.setEnabled(false);
+            btnEditar.setEnabled(false);
+            btnSave.setEnabled(false);
+            txtDescripcionGeneral.setEnabled(false);
+            txtFechaInicio.setEnabled(false);
+            txtFechaFin.setEnabled(false);
+        }
+
+    }
+
+    /**
      * InnerClass para manerja el disparo de evento Drag&Drop en el Gantt
      */
     public class GanttDropEvent implements IDropEvent{
@@ -1615,6 +1642,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         @Override
         public void dropEvent(String data,Point location) {
 
+            // Si no se puede ejecutar, no hago nada...
+            if(!_gestor.esPlanificacionEditable()){
+                return;
+            }
+            
             // Veo a que apunta location !!!
             CoolGanttPhase p = graph.getPhase(location);
             // p==NULL : El Drop no callo sobre ninguna Tarea
@@ -2138,8 +2170,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     {
 
         @Override
-        public void dropEvent(String data,Point location) 
-        {
+        public void dropEvent(String data, Point location) {
+
+          // Si no se puede ejecutar, no hago nada...
+          if (!_gestor.esPlanificacionEditable()) {
+              return;
+          }
 
           TreePath path = arbolTareas.getPathForLocation(location.x, location.y);
           ArbolIconoNodo padre;
@@ -2432,6 +2468,10 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
        //Este metodo esta aca solamente para poder usar la interfaz "IPermiteCrearSubObra"
        //En realidad el metodo para modificar nombre no se esta usando en
        //ninguna parte del sistema asi q podria volar a la mierda perfectamente
+    }
+    
+    public void setEstadoPlanificacion(String estado){
+        txtEstado.setText(estado);
     }
     
 }
