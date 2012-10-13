@@ -11,7 +11,9 @@
 
 package vista.rrhh;
 
+import com.itextpdf.text.DocumentException;
 import controlador.rrhh.GestorRegistrarAsistenciaTallerCapacitacion;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +29,8 @@ import util.ReporteUtil;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
+import vista.reportes.ReportDesigner;
+import vista.reportes.sources.InformeAsistenciaTallerCapacitacion;
 
 /**
  *
@@ -250,7 +254,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -262,7 +266,7 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/save_upload.png"))); // NOI18N
         btnGuardar.setText("Guardar Cambios");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +407,19 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
+        guardar();
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        this.dispose();
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+      if(SELECTED_DetalleHorario!=0)
+      {
         // Bue, ahora viene la batatola, por suerte no valido
         // Recolecto los datos de la tabla
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
@@ -417,30 +434,41 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
             lista.add(nt);
         }
 
-        gestor.confirmarListaAsistencia(lista);
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
-        this.dispose();
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-
-      if(SELECTED_DetalleHorario!=0)
-      {
-           String urlReporte = "/vista/reportes/ListaAsistencia.jrxml";
-
-           Map params = new HashMap();
-           params.put("HORARIO_TALLER",SELECTED_DetalleHorario);
-
-           ReporteUtil ru = new ReporteUtil();
-           //ru.mostrarReporte(urlReporte,params);
+        // Parametros
+        HashMap<String,Object> params = new HashMap<String, Object>();
+        Tupla tpTitulo = (Tupla) cmbTaller.getSelectedItem();
+        params.put(InformeAsistenciaTallerCapacitacion.KEY_TITULO_CURSO,tpTitulo.getNombre());
+        Tupla tpFecha = (Tupla) cmbFecha.getSelectedItem();
+        params.put(InformeAsistenciaTallerCapacitacion.KEY_FECHA,tpFecha.getNombre());
+        Tupla tpHorario = (Tupla) cmbHora.getSelectedItem();
+        params.put(InformeAsistenciaTallerCapacitacion.KEY_HORARIO,tpHorario.getNombre());
+        
+        InformeAsistenciaTallerCapacitacion informe = new InformeAsistenciaTallerCapacitacion(lista);
+        informe.setNombreReporte("Registro de Asistencia");
+        informe.setNombreArchivo("AsistenciaTaller-"+tpTitulo.getNombre(),ReportDesigner.REPORTE_TIPO_OTROS);
+        
+        try {
+            informe.makeAndShow(params);
+        } catch (DocumentException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
+        } catch (FileNotFoundException ex) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
+        }
+        
       }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
+        
 
     /**
      * EL-0002 : No se pudo cargar el combo de talleres de capacitacion
@@ -497,5 +525,24 @@ public class pantallaRegistrarAsistenciaTallerCapacitacion extends javax.swing.J
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAsistencia;
     // End of variables declaration//GEN-END:variables
+
+    private void guardar() {
+        // Bue, ahora viene la batatola, por suerte no valido
+        // Recolecto los datos de la tabla
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblAsistencia.getModel();
+        int siz = modelo.getRowCount();
+        for (int i = 0; i < siz; i++)
+        {
+            NTupla nt;
+            nt = (NTupla) modelo.getValueAt(i,0);
+            nt.setData(modelo.getValueAt(i,1));
+            lista.add(nt);
+        }
+
+        gestor.confirmarListaAsistencia(lista);
+    }
+
 
 }

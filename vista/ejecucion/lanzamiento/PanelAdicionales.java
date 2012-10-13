@@ -170,4 +170,8 @@ public class PanelAdicionales extends javax.swing.JPanel {
         
         txtTotal.setText("$"+total);
     }
+
+    void actualizarDatos() {
+        cargarDatosTablaParaObra();
+    }
 }
