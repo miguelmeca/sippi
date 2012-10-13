@@ -156,6 +156,13 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         cantHs50Original=detalleActual.getCantHorasAl50();
         especialidadOriginal=detalleActual.getEspecialidad();
         costoDetalleOriginal=detalleActual.getCostoXHoraNormal();
+        
+        cantPersonas=cantPersonasOriginal;
+        cantHsNormales=cantHsNormalesOriginal;
+        cantHs100=cantHs100Original;
+        cantHs50=cantHs50Original;
+        especialidad=especialidadOriginal;
+        costoDetalle=costoDetalleOriginal;
         setListaEmpleadosAsignados(detalleActual.getEmpleados());
         //pantallaABM.tomarDatosDetalleModificado(gestorPadre.getPlanificacion().getTareaDeDetalle(detallePadre), detallePadre, detalleActual);
         if(!tareaHijaDePlanificacion)
@@ -562,6 +569,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         {
             System.out.println(e);
            pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Error interno");
+           Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR en tomar cambios en GestotEditarTareaDetalles");
            return;
         }
         
@@ -1110,7 +1118,9 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         }
         catch(Exception e)
         {
+            System.out.println(e);
            pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Error interno");
+           Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR en guardar cambios en GestotEditarTareaDetalles");
            return;
         }
         pantallaLista.inicializarVentana();
