@@ -181,12 +181,8 @@ public class Cotizacion {
     
     public boolean setEstadoDescartado()
     {
-        if(this.estado.equals(Cotizacion.ESTADO_EN_CREACION))
-        {
-            this.estado = Cotizacion.ESTADO_DESCARTADO;
-            return true;
-        }
-        return false;
+        this.estado = Cotizacion.ESTADO_DESCARTADO;
+        return true;
     }
   
     public boolean setEstadoPendienteAceptacion()

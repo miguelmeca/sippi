@@ -254,7 +254,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("AdministraciÃ³n de Pedidos de Obra");
+        setTitle("Administración de Pedidos de Obra");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Obra"));
 
@@ -263,7 +263,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("DescripciÃ³n:");
+        jLabel3.setText("Descripción:");
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
@@ -353,7 +353,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Presupuesto MÃ¡ximo ($): *");
+        jLabel8.setText("Presupuesto Máximo ($): *");
 
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -401,7 +401,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbPlanta, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(cmbPlanta)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -483,7 +483,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
             },
             new String [] {
-                "Nombre", "Rol", "TelÃ©fono", ""
+                "Nombre", "Rol", "Teléfono", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -579,7 +579,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
                     .addComponent(btnAgregarCR)
                     .addComponent(btnQuitarCR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -666,9 +666,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -788,11 +786,42 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     }//GEN-LAST:event_btnAgregarRolActionPerformed
 
     private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar el pedido?","Dar de Baja el Pedido",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Está seguro que desea cancelar el pedido?","Dar de Baja el Pedido",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION){
-            if(gestor.cancelarPedido(idPedidoObra))
-                JOptionPane.showMessageDialog(this, "El Pedido Nro. "+idPedidoObra+" fue cancelado con Ã©xito.", "Pedido Cancelado", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            
+            String msg = "<HTML><b>Dar de Baja</b> un pedido anulará todas las:<br>"
+                    + "- Cotizaciones asociadas<br>"
+                    + "- Planificación de la Obra<br>"
+                    + "- Ejecución de la Obra<br>"
+                    + "y estos cambios <b>no pueden revertirse</b>.<br>"
+                    + "¿Está seguro que desea dar de Baja el Pedido?";
+            
+            // Otro mensaje (Esta opcion es demoledora)
+            int seleccion = JOptionPane.showOptionDialog(
+                this, // Componente padre
+                msg, //Mensaje
+                "Atencion!", // Título
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,    // null para icono por defecto.
+                new Object[] { "Si, entiendo los riesgos, Dar de Baja", "Cancelar"},    // null para YES, NO y CANCEL
+                "Si");
+
+            if (seleccion != -1)
+            {
+               if((seleccion + 1)==1)
+               {
+                  if(gestor.cancelarPedido(idPedidoObra)){
+                    JOptionPane.showMessageDialog(this, "El Pedido Nro. "+idPedidoObra+" fue dado de Baja con éxito.", "Pedido Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                  }else{
+                    JOptionPane.showMessageDialog(this, "Se produjo un error al intentar dar de baja el pedido\nIntentelo nuevamente más tarde!", "Error!", JOptionPane.ERROR_MESSAGE);
+                  }
+               }
+
+            }
+            
+            
         }
     }//GEN-LAST:event_btnDarDeBajaActionPerformed
 
