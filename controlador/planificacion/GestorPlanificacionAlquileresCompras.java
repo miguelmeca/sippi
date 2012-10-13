@@ -27,14 +27,17 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
         this.gestor = gestor;
     }
 
+    @Override
     public PlanificacionXXX getPlanificacion() {
         return this.gestor.getPlanificacion();
     }
 
+    @Override
     public TareaPlanificacion getTareaActual() {
         return this.gestor.getTareaActual();
     }
 
+    @Override
     public void refrescarPantallas() {
         this.gestor.refrescarPantallas();
     }
@@ -50,14 +53,17 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
         while(itAC.hasNext())
         {
             PlanificacionXAlquilerCompra pxac = itAC.next();           
-            NTupla nt = new NTupla();
-            nt.setId(pxac.hashCode());
-            nt.setNombre(pxac.getAlquilerCompraCotizacion().getOriginal().getTipoAlquilerCompra().getNombre());
-            Object[] o = new Object[2];
-            o[0]= pxac.getCantidad();
-            o[1]= pxac.getAlquilerCompraCotizacion().getOriginal().getPrecioUnitario();
-            nt.setData(o);
-            ma.add(nt);
+            if(pxac.getAlquilerCompraCotizacion() != null && pxac.getAlquilerCompraCotizacion().getTipoAlquilerCompra() != null)
+            {
+                NTupla nt = new NTupla();
+                nt.setId(pxac.hashCode());
+                nt.setNombre(pxac.getAlquilerCompraCotizacion().getTipoAlquilerCompra().getNombre());
+                Object[] o = new Object[2];
+                o[0]= pxac.getCantidad();
+                o[1]= pxac.getAlquilerCompraCotizacion().getPrecioUnitario();
+                nt.setData(o);
+                ma.add(nt);
+            }
         }
         return ma;
     }
