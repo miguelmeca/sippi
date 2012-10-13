@@ -183,6 +183,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         System.err.println("[ERROR] " + msg);
         _pantalla.mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
     }
+    
+    private void mostrarMensajeExito(String msg) {
+        _pantalla.mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Exito!", msg);
+    }    
 
     public void cargarArbolRecursos(int hashSubObra, JTree treeRecursos) {
        
@@ -799,6 +803,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
     }
 
+    /**
+     * Guarda la Planificación !
+     */
     public void guardarPlanificacion() {
         try
         {
@@ -819,6 +826,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             mostrarMensajeError("No se pudo guardar la Planificación.\nDescripción: "+e.getMessage());
             HibernateUtil.rollbackTransaction();
         }
+        mostrarMensajeExito("La Planificación se Guardo exitosamente!");
     }
     
      public void guardarTareaRecursiva(TareaPlanificacion tareaR) throws Exception
