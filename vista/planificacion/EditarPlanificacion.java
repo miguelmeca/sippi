@@ -458,7 +458,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
         );
 
         tblSubObras.setModel(new javax.swing.table.DefaultTableModel(
@@ -728,7 +728,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(txtNroCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                     .addComponent(lblCotMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
@@ -766,7 +766,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         panelCentral.addTab("Datos Generales", panelDatosGenerales);
@@ -779,11 +779,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         panelArbolTareas.setLayout(panelArbolTareasLayout);
         panelArbolTareasLayout.setHorizontalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
         );
         panelArbolTareasLayout.setVerticalGroup(
             panelArbolTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
         );
 
         panelCentral.addTab("Arbol de Tareas", panelArbolTareas);
@@ -816,7 +816,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addGroup(panelDescripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDescripcionLayout.setVerticalGroup(
@@ -825,7 +825,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -845,6 +845,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         btnRechazar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Stop.png"))); // NOI18N
         btnRechazar.setText("Cancelar planificación");
         btnRechazar.setActionCommand("Recotizar desde este presupuesto");
+        btnRechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRechazarActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Terminé de editar la planificación:");
 
@@ -857,7 +862,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                    .addComponent(btnEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                     .addComponent(btnRechazar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -926,7 +931,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelVerPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         panelVerPlanificacion.getAccessibleContext().setAccessibleName("Ejecución de esta Planificación\n");
@@ -941,7 +946,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCentral)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1111,8 +1116,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_btnEliminarSubObraActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        _gestor.guardarPlanificacion();
-        this.dispose();
+
+        guardarPlanificacion();
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void tblSubObrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSubObrasMousePressed
@@ -1139,6 +1145,33 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_tblSubObrasMousePressed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+
+        // Tengo que guardar antes de continuar ... Pregunto
+        String msgSave = "<HTML>"
+                + "Antes de iniciar la <b>Ejecución</b> de ésta obra, necesita guardar los<br>"
+                + "cambios sobre ésta planificación."
+                + "¿Desea Guardar los cambios y Continuar?";
+        int seleccionSave = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            msgSave, //Mensaje
+            "Atención!!", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Guardar y Continuar", "Cancelar"},// null para YES, NO y CANCEL
+            "Cancelar");
+        
+        if (seleccionSave != -1)
+        {
+            if ((seleccionSave + 1) == 1) {
+                // PRESIONO SI
+                _gestor.guardarPlanificacion();
+            }
+            else{
+                return;
+            }
+        }
+        
         // Aviso los posibles cambios irreversibles que se darán...
         String msg = "<HTML>"
                 + "Está por <b>Iniciar la Ejecución</b> de ésta obra. "
@@ -1178,6 +1211,12 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         }
 
     }//GEN-LAST:event_btnAbrirEjecucionActionPerformed
+
+    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
+
+        
+        
+    }//GEN-LAST:event_btnRechazarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
@@ -1542,6 +1581,30 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     public void MostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }
+
+    /**
+     * Mensaje para Guardar la Planificación
+     */
+    private void guardarPlanificacion() {
+
+        int seleccion = JOptionPane.showOptionDialog(
+                this, // Componente padre
+                "¿Desea Guardar los cambios en la Planificación Actual?", //Mensaje
+                "¿Guardar los Cambios?", // Título
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, // null para icono por defecto.
+                new Object[]{"Guardar Cambios", "Cancelar"}, // null para YES, NO y CANCEL
+                "Guardar Cambios");
+
+        if (seleccion != -1) {
+            if ((seleccion + 1) == 1) {
+                // PRESIONO SI
+                _gestor.guardarPlanificacion();
+            } 
+        }
+
     }
 
     /**
@@ -2370,4 +2433,5 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
        //En realidad el metodo para modificar nombre no se esta usando en
        //ninguna parte del sistema asi q podria volar a la mierda perfectamente
     }
+    
 }
