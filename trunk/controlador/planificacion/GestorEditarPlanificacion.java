@@ -1097,7 +1097,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         tareaEjec.setTareaPlanificada(tareaPlan);
 
         // 3- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
-        tareaEjec.setListaHerramientas(crearListadoHerramientasEjecucion(tareaPlan.getHerramientas()));
+        tareaEjec.setListaHerramientas(crearListadoHerramientasEjecucion(tareaPlan.getHerramientas(),tareaEjec));
 
         // 4- Por cada Material Planificado de una Tarea, agrego una a Ejecucion
         tareaEjec.setListaMateriales(crearListadoMaterialesEjecucion(tareaPlan.getMateriales()));
@@ -1125,7 +1125,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param herramientas
      * @return 
      */
-    private List<EjecucionXHerramienta> crearListadoHerramientasEjecucion(List<PlanificacionXHerramienta> herramientas) {
+    private List<EjecucionXHerramienta> crearListadoHerramientasEjecucion(List<PlanificacionXHerramienta> herramientas, TareaEjecucion tarea) {
         List<EjecucionXHerramienta> listaHerramientas = new ArrayList<EjecucionXHerramienta>();
         
             if(herramientas!=null){
@@ -1135,6 +1135,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     EjecucionXHerramienta ejcXHerr = new EjecucionXHerramienta();
                     ejcXHerr.setHerramientaPlanificada(planXHerramienta);
                     listaHerramientas.add(ejcXHerr);
+                    
+                        // Creo las Herramientas X Dia
+                        List<EjecucionXHerramientaXDia> herramientasXdia = crearHerramientasXDia(tarea);
+                        ejcXHerr.setUsoHerramientasXdia(herramientasXdia);
                 }
             }
         
@@ -1215,5 +1219,37 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             return this.pedidoDeObra.getEjecucion().getId();
         }
         return -1;
+    }
+
+    /**
+     * Calculo el uso de las herramientas x día.
+     * - Saco la fecha de inicio y fin de la tarea planificada
+     * - Calculo la cantidad de dias entre ambas
+     * - Por cada una:
+     *   - Creo un objeto EjecucionXHerramientaXDia
+     * @param tarea
+     * @return 
+     */
+    private List<EjecucionXHerramientaXDia> crearHerramientasXDia(TareaEjecucion tarea) {
+        List<EjecucionXHerramientaXDia> lista = new ArrayList<EjecucionXHerramientaXDia>();
+        
+            Date fechaInicio = tarea.getTareaPlanificada().getFechaInicio();
+            Date fechaFin    = tarea.getTareaPlanificada().getFechaFin();
+            
+            System.out.println("Fecha de Inicio: "+FechaUtil.getFecha(fechaInicio));
+            System.out.println("Fecha de Fin: "+FechaUtil.getFecha(fechaFin));
+            
+            int cantidadDias = FechaUtil.diasDiferencia(fechaInicio, fechaFin);
+            
+            for(int i=0; i<=cantidadDias; i++ ){
+                EjecucionXHerramientaXDia herrXdia = new EjecucionXHerramientaXDia();
+                herrXdia.setHorasUtilizadas(0);
+                Date fecha = FechaUtil.fechaMas(fechaInicio, i);
+                herrXdia.setFecha(fecha);
+                System.out.println("Creado una Herramienta X día el: "+FechaUtil.getFecha(fecha));
+                lista.add(herrXdia);
+            }
+            
+        return lista;
     }
 }
