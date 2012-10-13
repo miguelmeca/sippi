@@ -119,6 +119,7 @@
     <mapping package="modelo" resource="config/db/EjecucionXHerramienta.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXMaterial.hbm.xml"/>
     <mapping package="modelo" resource="config/db/EjecucionXAlquilerCompra.hbm.xml"/>
+    <mapping package="modelo" resource="config/db/EjecucionXAdicional.hbm.xml"/>
     
   </session-factory>
 </hibernate-configuration>
