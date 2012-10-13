@@ -22,6 +22,7 @@ import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorEditarTarea;
 import controlador.planificacion.GestorPlanificacionAlquileresCompras;
+import controlador.planificacion.GestorPlanificacionHerramientas;
 import controlador.planificacion.GestorPlanificacionMateriales;
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -1936,9 +1937,28 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     
     private void quitarAsociacionHerramientaDeArbol(ArbolIconoNodo nodo)
     {
-       /*GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
-       gestorEditarTarea.seleccionarTarea(_gestor.tarea);
-       PlanificacionHerramientas h = new PlanificacionHerramientas(gestorEditarTarea.getGestorHerramientas());*/
+        GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);    
+        TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(((ArbolIconoNodo)nodo.getParent()).getId());
+        gestorEditarTarea.seleccionarTarea(tarea);
+        NTupla nt=null;
+        for (int i = 0; i < tarea.getHerramientas().size(); i++) {
+            PlanificacionXHerramienta herr = tarea.getHerramientas().get(i);
+            if(herr.getHerramientaCotizacion()!=null && herr.getHerramientaCotizacion().getHerramienta()!=null && herr.hashCode()==nodo.getId() )
+            {
+                nt = new NTupla(herr.hashCode());
+                nt.setNombre(herr.getHerramientaCotizacion().getHerramienta().getNombre()+"("+herr.getHerramientaCotizacion().getHerramienta().getNroSerie()+")");
+                String[] datos = new String[1];
+                datos[0] = String.valueOf(herr.getHorasAsignadas());
+                nt.setData(datos);
+                break;
+            }
+        }
+        PlanificacionHerramientas h = new PlanificacionHerramientas(gestorEditarTarea.getGestorHerramientas());
+       if(h.eliminarAsignacionHerramienta(nt, this))
+       {
+            eliminarNodoRecurso(nodo);
+       }
+       
     }
     
     private void quitarAsociacionAlquilerCompraDeArbol(ArbolIconoNodo nodo)

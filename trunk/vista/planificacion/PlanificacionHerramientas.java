@@ -6,6 +6,7 @@ package vista.planificacion;
 
 import controlador.planificacion.GestorPlanificacionHerramientas;
 import java.util.ArrayList;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -126,8 +127,19 @@ public class PlanificacionHerramientas extends javax.swing.JPanel {
         if(row>=0 && tarea!=null)
         {
             NTupla nt = (NTupla)tblHerramientas.getModel().getValueAt(row,0); 
-            if(nt!=null)
-            {
+            eliminarAsignacionHerramienta(nt, this);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(),"Seleccione una fila para eliminar","Atencion!",JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    public boolean eliminarAsignacionHerramienta(NTupla nt, JComponent panel)
+    {
+        TareaPlanificacion tarea = gestor.getTareaActual();
+        if(nt!=null) {
                 System.out.println("NT:"+nt.getNombre()+"/"+nt.getId());
                 StringBuilder msg = new StringBuilder("<HTML>");
                 msg.append("Está a punto de eliminar la asignación de");
@@ -150,9 +162,10 @@ public class PlanificacionHerramientas extends javax.swing.JPanel {
                 msg.append("</b>");
                 
                 Object[] options = {"Cancelar","Eliminar Asignación + Gastos Asociados","Eliminar Asignación"};
-                int n = JOptionPane.showInternalOptionDialog(this,msg.toString(),"Atencion!",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);            
+                int n = JOptionPane.showInternalOptionDialog(panel,msg.toString(),"Atencion!",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,null,options,options[1]);            
                 System.out.println("SELECCIONO: "+n);
-
+                boolean exito=false;
+                boolean exito2=false;
                 switch(n)
                 {
                     case 0:
@@ -160,29 +173,27 @@ public class PlanificacionHerramientas extends javax.swing.JPanel {
                        break;
                     case 1:
                         // Elimino asignación + Gastos
-                        boolean exito = gestor.eliminarAsignación(nt.getId(), true);
+                        exito = gestor.eliminarAsignación(nt.getId(), true);
                         mostrarMensajeExitoEliminacion(data[0],nt.getNombre(),exito);
                         cargarDatos();
                         break;
                     case 2: 
                         // Elimino solo la asignacion
-                        boolean exito2 = gestor.eliminarAsignación(nt.getId(), false);
+                        exito2 = gestor.eliminarAsignación(nt.getId(), false);
                         mostrarMensajeExitoEliminacion(data[0],nt.getNombre(),exito2);
                         cargarDatos();
                         break;
                     default:
                         // No ocurre
                 }
+                return (exito||exito2);
                 
             }
+        else {
+            return false;
         }
-        else
-        {
-            JOptionPane.showMessageDialog(new JFrame(),"Seleccione una fila para eliminar","Atencion!",JOptionPane.WARNING_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
+    }
+    
     private void mostrarMensajeExitoEliminacion(String horas, String herramienta, boolean exito)
     {
         StringBuilder msg = new StringBuilder("<HTML>");
