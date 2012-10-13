@@ -158,6 +158,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             if (this.planificacion != null && this.planificacion.getCotizacion() != null) {
                 _pantalla.setFechaInicioPlanif(this.planificacion.getFechaInicio());
                 _pantalla.setFechaFinPlanif(this.planificacion.getFechaFin());
+                _pantalla.setEstadoPlanificacion(this.planificacion.getEstado());
             }
 
             if (this.planificacion != null && this.planificacion.getCotizacion() != null && this.planificacion.getCotizacion().getCotizacionOriginal() != null) {
@@ -1015,10 +1016,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // Ante todo, cambio el estado de la planificación
         // Y tb cambio el estado del pedido de obra ( atómico )
-        this.planificacion.setEstado("Finalizada");
+        this.planificacion.setEstado(PlanificacionXXX.ESTADO_FINALIZADA);
         this.pedidoDeObra.setEstadoEnEjecucion();
         
-       
         // Ahora... Creo la Ejecución
  
         // Lanzo el algoritmo que crea la ejecucion
@@ -1259,5 +1259,25 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             }
             
         return lista;
+    }
+
+    /**
+     * Retorna el estado de la Planificacion
+     * @return 
+     */
+    public String getEstado() {
+        return this.planificacion.getEstado();
+    }
+    
+    /**
+     * True, si se puede modificar segun el estado
+     * False, si no se puede.
+     * @return 
+     */
+    public boolean esPlanificacionEditable(){
+        if(PlanificacionXXX.ESTADO_BAJA.equals(getEstado()) || PlanificacionXXX.ESTADO_FINALIZADA.equals(getEstado())){
+            return false;
+        }
+        return true;
     }
 }

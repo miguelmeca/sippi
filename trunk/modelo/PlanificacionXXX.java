@@ -29,8 +29,9 @@ public class PlanificacionXXX {
     
     private String estado;
     
-    public static final String ESTADO_ALTA = "Alta"; // POR PONER ALGO, NO SON
-    public static final String ESTADO_BAJA = "Baja"; // POR PONER ALGO, NO SON
+    public static final String ESTADO_ALTA = "Alta";
+    public static final String ESTADO_BAJA = "Baja";
+    public static final String ESTADO_FINALIZADA= "Finalizada";
 
     public PlanificacionXXX() {
         this.estado = PlanificacionXXX.ESTADO_ALTA;
