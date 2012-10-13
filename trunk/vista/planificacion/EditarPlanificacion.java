@@ -1138,7 +1138,30 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     }//GEN-LAST:event_tblSubObrasMousePressed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
-        _gestor.comenzarEjecucion();
+        // Aviso los posibles cambios irreversibles que se darán...
+        String msg = "<HTML>"
+                + "Está por <b>Iniciar la Ejecución</b> de ésta obra. "
+                + "Una vez que haga<br> esto la <b><i>Planificación</i></b> concluirá y <b><span color='#FF0000'>no podrá modificarla</span></b>.<br>"
+                + "¿Está seguro de concluir la planificación y comenzar la ejecución?";
+        int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            msg, //Mensaje
+            "Atención!!", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si, Comenzar la Ejecución de la Obra", "Cancelar, y continuar con la Planificación"},// null para YES, NO y CANCEL
+            "Cancelar, y continuar con la Planificación");
+
+        if (seleccion != -1)
+        {
+            if ((seleccion + 1) == 1) {
+                // PRESIONO SI
+                _gestor.comenzarEjecucion();
+                this.dispose();
+            }
+        }
+        
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
     private void btnAbrirEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirEjecucionActionPerformed
