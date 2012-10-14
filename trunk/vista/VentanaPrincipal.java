@@ -29,6 +29,7 @@ import test.TestCallBackListadoGenerico;
 import util.HibernateUtil;
 import util.SwingPanel;
 import vista.abms.*;
+import vista.ayuda.VentanaAcercaDe;
 import vista.ayuda.VisorDeAyuda;
 import vista.comer.ListadoPedidoDeObras;
 import vista.comer.pantallaListadoEmpresaCliente;
@@ -325,7 +326,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 629, Short.MAX_VALUE))
+                .addGap(0, 631, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inicio", jPanel2);
@@ -786,6 +787,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnMenuAcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/users.png"))); // NOI18N
         btnMenuAcercaDe.setText("Acerca De");
+        btnMenuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuAcercaDeActionPerformed(evt);
+            }
+        });
         jMenu1.add(btnMenuAcercaDe);
 
         jMenuBar1.add(jMenu1);
@@ -1091,6 +1097,12 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         SwingPanel.getInstance().addWindow(prc);
         prc.setVisible(true);         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem31ActionPerformed
+
+    private void btnMenuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAcercaDeActionPerformed
+        VentanaAcercaDe ventana = new VentanaAcercaDe();
+        SwingPanel.getInstance().addWindow(ventana);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnMenuAcercaDeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
