@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import modelo.DetalleTareaEjecucion;
 /**
  *
  * @author Iuga
@@ -15,6 +15,7 @@ public class TareaEjecucion {
     private List<EjecucionXHerramienta> listaHerramientas;
     private List<EjecucionXMaterial> listaMateriales;
     private List<EjecucionXAlquilerCompra> listaAlquileresCompras;
+    private List<DetalleTareaEjecucion> listaDetalleTarea;
 
     public TareaEjecucion() {
         subtareas = new ArrayList<TareaEjecucion>();
@@ -77,6 +78,14 @@ public class TareaEjecucion {
 
     public void setListaAlquileresCompras(List<EjecucionXAlquilerCompra> listaAlquileresCompras) {
         this.listaAlquileresCompras = listaAlquileresCompras;
+    }
+
+    public List<DetalleTareaEjecucion> getListaDetalleTarea() {
+        return listaDetalleTarea;
+    }
+
+    public void setListaDetalleTarea(List<DetalleTareaEjecucion> listaDetalleTarea) {
+        this.listaDetalleTarea = listaDetalleTarea;
     }
 
 }
