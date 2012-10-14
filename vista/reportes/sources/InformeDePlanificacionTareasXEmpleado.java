@@ -16,6 +16,7 @@ import modelo.DetalleTareaPlanificacion;
 import modelo.Empleado;
 import modelo.PlanificacionXXX;
 import modelo.TareaPlanificacion;
+import util.FechaUtil;
 import vista.reportes.ReportDesigner;
 
 /**
@@ -26,6 +27,12 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
 
     private PlanificacionXXX plan;
     private HashMap<Integer,EmpleadoInforme> stash;
+    
+    /**
+     * Segun este campo, apareceran o no en el informe las cantidades de horas 
+     * normales, al 50% y al 100%
+     */
+    private boolean conHoras=false;
     
     public InformeDePlanificacionTareasXEmpleado(PlanificacionXXX planificacion) {
         super(planificacion);
@@ -71,16 +78,46 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
                      {
                          // Ya esta agregado
                          EmpleadoInforme empInf = stash.get(empleado.hashCode());
-                         DetalleTareasEmpleado detalle = new DetalleTareasEmpleado();
-                         detalle.setTarea(tareaPlanificacion.getNombre());
-                         detalle.setFechaInicio(tareaPlanificacion.getFechaInicio());
-                         detalle.setFechaFin(tareaPlanificacion.getFechaFin());
-                         empInf.getTareas().add(detalle);
+                         boolean tareaYaAgregada=false;
+                         List<TareaDeEmpleado> tareas=empInf.getTareas();
+                         int indiceTarea=-1;
+                         for (int l = 0; l < tareas.size(); l++) {
+                             if(tareas.get(l).getHash()==tareaPlanificacion.hashCode()){
+                                 tareaYaAgregada=true;
+                                 indiceTarea=l;
+                             }
+                             
+                         }
+                         if(!tareaYaAgregada) {
+                             TareaDeEmpleado detalle = new TareaDeEmpleado();
+                            detalle.setTarea(tareaPlanificacion.getNombre());
+                            detalle.setFechaInicio(tareaPlanificacion.getFechaInicio());
+                            detalle.setFechaFin(tareaPlanificacion.getFechaFin());
+                            detalle.setHash(tareaPlanificacion.hashCode());
+                            detalle.setCantHorasNormales(tareaPlanificacion.obtenerTotalDeHorasNormalesSinSubtareas());
+                            detalle.setCantHorasAl50(tareaPlanificacion.obtenerTotalDeHorasAl50SinSubtareas());
+                            detalle.setCantHorasAl100(tareaPlanificacion.obtenerTotalDeHorasAl100SinSubtareas());
+                            tareas.add(detalle);
+                         }
+                         else {
+                             tareas.get(indiceTarea).setCantHorasNormales(tareas.get(indiceTarea).getCantHorasNormales()+tareaPlanificacion.obtenerTotalDeHorasNormalesSinSubtareas());
+                            tareas.get(indiceTarea).setCantHorasAl50(tareas.get(indiceTarea).getCantHorasAl50()+tareaPlanificacion.obtenerTotalDeHorasAl50SinSubtareas());
+                            tareas.get(indiceTarea).setCantHorasAl100(tareas.get(indiceTarea).getCantHorasAl100()+tareaPlanificacion.obtenerTotalDeHorasAl100SinSubtareas());
+                         }
                      }
                      else
                      {
                          // No esta agregado
-                         EmpleadoInforme emp = new EmpleadoInforme(empleado,new ArrayList<DetalleTareasEmpleado>());
+                         EmpleadoInforme emp = new EmpleadoInforme(empleado,new ArrayList<TareaDeEmpleado>());
+                         TareaDeEmpleado detalle = new TareaDeEmpleado();
+                         detalle.setTarea(tareaPlanificacion.getNombre());
+                         detalle.setFechaInicio(tareaPlanificacion.getFechaInicio());
+                         detalle.setFechaFin(tareaPlanificacion.getFechaFin());
+                         detalle.setHash(tareaPlanificacion.hashCode());
+                         detalle.setCantHorasNormales(tareaPlanificacion.obtenerTotalDeHorasNormalesSinSubtareas());
+                         detalle.setCantHorasAl50(tareaPlanificacion.obtenerTotalDeHorasAl50SinSubtareas());
+                         detalle.setCantHorasAl100(tareaPlanificacion.obtenerTotalDeHorasAl100SinSubtareas());
+                         emp.getTareas().add(detalle);
                          stash.put(empleado.hashCode(), emp);
                      }
                  }
@@ -90,7 +127,12 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
         // Armo y muestro el informe
         
         // Armo la tabla
-        PdfPTable tabla = new PdfPTable(4);
+        PdfPTable tabla;
+        if(isConHoras()) {
+           tabla = new PdfPTable(7);}
+        else {
+           tabla = new PdfPTable(4); 
+        }
         tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
         tabla.setWidthPercentage(99);
         
@@ -99,7 +141,11 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
         tabla.addCell(createHeadCell("Tarea",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
         tabla.addCell(createHeadCell("Fecha de Inicio",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
         tabla.addCell(createHeadCell("Fecha e Fin",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
-        
+        if(isConHoras()) {
+            tabla.addCell(createHeadCell("Cantidad de horas normales",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
+            tabla.addCell(createHeadCell("Cantidad de horas al 50%",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
+            tabla.addCell(createHeadCell("Cantidad de horas al 100%",ReportDesigner.COLOR_HEADINGS, PdfPCell.ALIGN_CENTER));
+        }
         // Por cada Asset, armo su fila
         Iterator it = stash.entrySet().iterator();      
         
@@ -117,18 +163,27 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
                 tabla.addCell("");
             }
             String tareas = "", fechaInicio = "", fechaFin = "";
-            Iterator<DetalleTareasEmpleado> itDetalles =  emp.getTareas().iterator();
+            String cantHorasNormales = "", cantHoras50="", cantHoras100="";
+            Iterator<TareaDeEmpleado> itDetalles =  emp.getTareas().iterator();
             while(itDetalles.hasNext())
             {
-                DetalleTareasEmpleado dte = itDetalles.next();
-                tareas.concat(dte.getTarea()+"\n");
-                fechaInicio.concat(dte.getFechaInicio()+"\n");
-                fechaFin.concat(dte.getFechaFin()+"\n");
+                TareaDeEmpleado dte = itDetalles.next();
+                tareas=tareas.concat(dte.getTarea()+"\n");
+                fechaInicio=fechaInicio.concat(FechaUtil.getFecha(dte.getFechaInicio())+"\n");
+                fechaFin=fechaFin.concat(FechaUtil.getFecha(dte.getFechaFin())+"\n");
+                cantHorasNormales=cantHorasNormales.concat(dte.getCantHorasNormales()+"\n");
+                cantHoras50=cantHoras50.concat(dte.getCantHorasAl50()+"\n");
+                cantHoras100=cantHoras100.concat(dte.getCantHorasAl100()+"\n");
             }
             
             tabla.addCell(createNormalCell(String.valueOf(tareas)));
             tabla.addCell(createNormalCell(String.valueOf(fechaInicio)));
             tabla.addCell(createNormalCell(String.valueOf(fechaFin)));
+            if(isConHoras()) {
+                tabla.addCell(createNormalCell(String.valueOf(cantHorasNormales)));
+                tabla.addCell(createNormalCell(String.valueOf(cantHoras50)));
+                tabla.addCell(createNormalCell(String.valueOf(cantHoras100)));
+            }
         }
         
         if(stash.isEmpty())
@@ -157,14 +212,30 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
     {
         return new PdfPCell(new Paragraph(data,ReportDesigner.FUENTE_NORMAL));
     }
+
+    /**
+     * Segun este campo, apareceran o no en el informe las cantidades de horas 
+     * normales, al 50% y al 100%
+     */
+    public boolean isConHoras() {
+        return conHoras;
+    }
+
+    /**
+     * Segun este campo, apareceran o no en el informe las cantidades de horas 
+     * normales, al 50% y al 100%
+     */
+    public void setConHoras(boolean conHoras) {
+        this.conHoras = conHoras;
+    }
     
     
     public class EmpleadoInforme
     {
         private Empleado empleado;
-        private List<DetalleTareasEmpleado> tareas;
+        private List<TareaDeEmpleado> tareas;
 
-        public EmpleadoInforme(Empleado empleado, List<DetalleTareasEmpleado> tareas) {
+        public EmpleadoInforme(Empleado empleado, List<TareaDeEmpleado> tareas) {
             this.empleado = empleado;
             this.tareas = tareas;
         }
@@ -177,20 +248,32 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
             this.empleado = empleado;
         }
 
-        public List<DetalleTareasEmpleado> getTareas() {
+        public List<TareaDeEmpleado> getTareas() {
             return tareas;
         }
 
-        public void setTareas(List<DetalleTareasEmpleado> tareas) {
+        public void setTareas(List<TareaDeEmpleado> tareas) {
             this.tareas = tareas;
         }
     }
     
-    public class DetalleTareasEmpleado
+    public class TareaDeEmpleado
     {
         private String tarea;
         private Date fechaInicio;
         private Date fechaFin;
+        private int hash;
+        private double cantHorasNormales;
+        private double cantHorasAl50;
+        private double cantHorasAl100;
+        
+        public int getHash() {
+            return hash;
+        }
+
+        public void setHash(int hash) {
+            this.hash = hash;
+        }
 
         public Date getFechaFin() {
             return fechaFin;
@@ -215,5 +298,47 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
         public void setTarea(String tarea) {
             this.tarea = tarea;
         }               
+
+        /**
+         * @return the cantHorasNormales
+         */
+        public double getCantHorasNormales() {
+            return cantHorasNormales;
+        }
+
+        /**
+         * @param cantHorasNormales the cantHorasNormales to set
+         */
+        public void setCantHorasNormales(double cantHorasNormales) {
+            this.cantHorasNormales = cantHorasNormales;
+        }
+
+        /**
+         * @return the cantHorasAl50
+         */
+        public double getCantHorasAl50() {
+            return cantHorasAl50;
+        }
+
+        /**
+         * @param cantHorasAl50 the cantHorasAl50 to set
+         */
+        public void setCantHorasAl50(double cantHorasAl50) {
+            this.cantHorasAl50 = cantHorasAl50;
+        }
+
+        /**
+         * @return the cantHorasAl100
+         */
+        public double getCantHorasAl100() {
+            return cantHorasAl100;
+        }
+
+        /**
+         * @param cantHorasAl100 the cantHorasAl100 to set
+         */
+        public void setCantHorasAl100(double cantHorasAl100) {
+            this.cantHorasAl100 = cantHorasAl100;
+        }
     }
 }
