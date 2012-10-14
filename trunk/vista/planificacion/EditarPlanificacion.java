@@ -1954,7 +1954,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                 idUltimoNodoArbolTareas=nodo.getId();
                 tipoUltimoNodoArbolTareas=nodo.getTipo();
                 setearItemsMenuArbol(nodo); 
-                menuArbolTareas.show(arbolTareas, mouseEvent.getX(), mouseEvent.getY());
+                if(_gestor.esPlanificacionEditable()) {
+                    menuArbolTareas.show(arbolTareas, mouseEvent.getX(), mouseEvent.getY());
+                }
                   mouseEvent.consume();
             }
         }
@@ -1973,7 +1975,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
     private boolean setearItemsMenuArbol(ArbolIconoNodo nodo)
     {
         menuArbolTareas.removeAll(); 
-       
+        
         this.nodoActualArbolTareas=nodo;
         String tipo=nodo.getTipo();
         /////////////////////////////////////
