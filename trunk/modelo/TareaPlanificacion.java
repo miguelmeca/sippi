@@ -609,6 +609,18 @@ public class TareaPlanificacion
         return detalles;
     }
     
+    /**
+     * Devuelve el listado de detalles de la tarea, descartando los que suman
+     * cero horas entre las horas normales, horas al 50% y horas al 100%.
+     * Esto es necesario pq en cuando se crea un detalle en planificacion a partir
+     * de una tarea superior y se usan todas las horas del detalle de la tarea
+     * superior, ese detalle de la tarea superior no se destrulle sino que queda 
+     * con las horas puestas en cero para mantener la estructura de detalles.
+     * A la hora de trabajar con los detalles deberia usarse el metodo getDetalles().
+     * A la hora de mostrar los detalles al usuario en una tabla, este es el metodo
+     * que deberia usarse.
+     * 
+     */
     public List<DetalleTareaPlanificacion> getDetallesSinDetallesVacios() {
         List<DetalleTareaPlanificacion> sinVacios=new ArrayList<DetalleTareaPlanificacion>();
         for (int i = 0; i < detalles.size(); i++) {
