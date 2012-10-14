@@ -5,6 +5,7 @@
 package vista.ejecucion.lanzamiento;
 
 import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -154,7 +155,16 @@ public class PanelMateriales extends javax.swing.JPanel {
            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos un Material para emitir su Orden de Compra");
        }else{
           // Generar Orden de Compra de Emma !!!
-           
+           int filasSeleccionadas[] = tblMateriales.getSelectedRows();
+           ArrayList<NTupla> tuplasSeleccionadas = new ArrayList<NTupla>();
+           for(int i=0; i<filasSeleccionadas.length; i++)
+           {
+               NTupla nTupla = (NTupla) modelo.getValueAt(filasSeleccionadas[i], TABLA_MATERIALES_COLUMNA_NOMBRE);
+               tuplasSeleccionadas.add(nTupla);
+           }
+           ventanaGenerarOrdenesDeCompra ventana = new ventanaGenerarOrdenesDeCompra(tuplasSeleccionadas);
+           SwingPanel.getInstance().addWindow(ventana);
+           ventana.setVisible(true);
        }
     }//GEN-LAST:event_btnGenerarOrdenDeCompraActionPerformed
 
