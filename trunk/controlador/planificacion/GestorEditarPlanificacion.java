@@ -1116,6 +1116,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // 6- Copio los adicionales ...
         // Y angora ???? ...., son por subObra (Anda y mira arriba)
         
+        // 7- Ahora Copio los RRHH o Empleados lo que sea que sean por cada DetalleTareaPlanificacion
+        // agrego una Tarea a Ejecucion
+        tareaEjec.setListaDetalleTarea(crearListadoDetalleListaTareas(tareaPlan.getDetalles(),tareaEjec));
+        
         // Mando a Recursividad
         for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
             TareaPlanificacion tp = tareaPlan.getSubtareas().get(i);
@@ -1280,4 +1284,64 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         return true;
     }
+
+    /**
+     * Por cada DetalleTareaPlanificacion creo un DetalleTareaEjecucion ...
+     * Tambien es la encargada de separar por día y mapear los DetalleTareaEjecucionXDia. 
+     * @param detalles
+     * @return 
+     */
+    private List<DetalleTareaEjecucion> crearListadoDetalleListaTareas(List<DetalleTareaPlanificacion> detalles, TareaEjecucion tarea) {
+        List<DetalleTareaEjecucion> lista = new ArrayList<DetalleTareaEjecucion>();
+        
+            for (int i = 0; i < detalles.size(); i++) {
+                DetalleTareaPlanificacion tareaPlan = detalles.get(i);
+                
+                    DetalleTareaEjecucion tareaEjec = new DetalleTareaEjecucion();
+                    tareaEjec.setDetalleTareaPlanificado(tareaPlan);
+                    
+                    List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
+                    tareaEjec.setListaDetallePorDia(listaPorDía);
+                        
+            }
+        
+        return lista;
+    }
+
+    /**
+     * Calculo el Detalle de Tarea por Día.
+     * - Saco la fecha de inicio y fin de la tarea planificada
+     * - Calculo la cantidad de dias entre ambas
+     * - Por cada una:
+     *   - Creo un objeto DetalleTareaEjecucionXDia
+     * @param tarea
+     * @return 
+     */
+    private List<DetalleTareaEjecucionXDia> crearDetalleTareaXDia(TareaEjecucion tarea) {
+        List<DetalleTareaEjecucionXDia> lista = new ArrayList<DetalleTareaEjecucionXDia>();
+        
+            Date fechaInicio = tarea.getTareaPlanificada().getFechaInicio();
+            Date fechaFin    = tarea.getTareaPlanificada().getFechaFin();
+            
+            System.out.println("Fecha de Inicio: "+FechaUtil.getFecha(fechaInicio));
+            System.out.println("Fecha de Fin: "+FechaUtil.getFecha(fechaFin));
+            
+            int cantidadDias = FechaUtil.diasDiferencia(fechaInicio, fechaFin);
+            System.out.println("Cantidad de días: "+cantidadDias);
+            
+            for(int i=0; i<=cantidadDias; i++ ){
+                Date fecha = FechaUtil.fechaMas(fechaInicio, i);
+                
+                DetalleTareaEjecucionXDia detTareaXdia = new DetalleTareaEjecucionXDia();
+                detTareaXdia.setCantHorasNormales(0);
+                detTareaXdia.setCantHorasAl50(0);
+                detTareaXdia.setCantHorasAl100(0);
+                detTareaXdia.setFecha(fechaFin);
+                System.out.println("Creado un Detalle Tarea X día el: "+FechaUtil.getFecha(fecha));
+                lista.add(detTareaXdia);
+            }
+            
+        return lista;
+    }    
+    
 }

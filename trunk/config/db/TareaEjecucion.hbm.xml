@@ -29,6 +29,13 @@
       <one-to-many class="modelo.EjecucionXAlquilerCompra"/>
     </list>    
     
+    <!--DETALLE TAREAS-->
+    <list cascade="all" name="listaDetalleTarea" table="TAREAEJEC_X_DETALLETAREAS">
+      <key column="ID_DETALLE_TAREAEJECUCION_KEY"/>
+      <index column="ID_DETALLE_TAREAEJECUCION_INDEX"/>
+      <one-to-many class="modelo.DetalleTareaEjecucion"/>
+    </list>        
+    
     <!--SUBTAREAS-->
     <list cascade="all" name="subtareas" table="TAREAEJEC_X_SUBTAREAS">
       <key column="ID_SUB_TAREAEJECUCION_KEY"/>

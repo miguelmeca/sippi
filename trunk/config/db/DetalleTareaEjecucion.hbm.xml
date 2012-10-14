@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.DetalleTareaEjecucion" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    
+        <id column="ID_EJECUCION_DETALLE_TAREA" name="id" type="integer">
+            <generator class="increment"/>
+        </id>
+
+        <many-to-one class="modelo.DetalleTareaPlanificacion" name="detalleTareaPlanificado"/>
+    
+        <!--DETALLE TAREAS-->
+        <list cascade="all" name="listaDetallePorDia" table="DETALLETAREAEJEC_X_DIA">
+            <key column="ID_DETALLETAREAEJEC_XDIA_KEY"/>
+            <index column="ID_DETALLETAREAEJEC_XDIA_INDEX"/>
+            <one-to-many class="modelo.DetalleTareaEjecucionXDia"/>
+        </list>  
+        
+    </class>
+</hibernate-mapping>
