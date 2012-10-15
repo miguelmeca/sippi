@@ -400,32 +400,55 @@ public class EditarTareaDetalles extends javax.swing.JPanel implements ICallBack
     }
     private void btnQuitarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarDetalleActionPerformed
         if (tblDetalles.getSelectedRow() != -1) {
-            int respuesta = JOptionPane.showOptionDialog(this, "¿Mover las horas a la tarea superior?", "Eliminar detalle", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null) ;
+            int respuesta;
             DefaultTableModel modelo = (DefaultTableModel) tblDetalles.getModel();
             DetalleTareaPlanificacion detalleTarea = (DetalleTareaPlanificacion) ((NTupla) modelo.getValueAt(tblDetalles.getSelectedRow(), 0)).getData();    
+
+            if(!tareaHijaDePlanificacion) {
+                respuesta = JOptionPane.showOptionDialog(this, "¿Mover las horas a la tarea superior?", "Eliminar detalle", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null) ;
             
-            boolean pasarHorasAlPadre=false;
-            if ( respuesta== JOptionPane.YES_OPTION)
-            {
-                pasarHorasAlPadre=true;                
-            }
-            else if(respuesta== JOptionPane.NO_OPTION)
-            {
-                pasarHorasAlPadre=false;
-            }
-            
-            if(respuesta!=JOptionPane.CANCEL_OPTION)
-            {
-                try{
-                gestor.eliminarDetalle(detalleTarea, pasarHorasAlPadre);
-                }
-                catch(Exception e)
+                
+                boolean pasarHorasAlPadre=false;
+                if ( respuesta== JOptionPane.YES_OPTION)
                 {
-                    System.out.println(e);
+                    pasarHorasAlPadre=true;                
                 }
-                inicializarTablaDetalles();
-                habilitarBotonesParaTablaDetalle(false);
+                else if(respuesta== JOptionPane.NO_OPTION)
+                {
+                    pasarHorasAlPadre=false;
+                }
+
+                if(respuesta!=JOptionPane.CANCEL_OPTION)
+                {
+                    try{
+                    gestor.eliminarDetalle(detalleTarea, pasarHorasAlPadre);
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println(e);
+                    }
+                    inicializarTablaDetalles();
+                    habilitarBotonesParaTablaDetalle(false);
+                }
             }
+            else 
+            {
+                respuesta = JOptionPane.showOptionDialog(this, "¿Esta seguro de eliminar este detalle?", "Eliminar detalle", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null) ; 
+                if(respuesta==JOptionPane.YES_OPTION)
+                {
+                    try{
+                    gestor.eliminarDetalle(detalleTarea, false);
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println(e);
+                    }
+                    inicializarTablaDetalles();
+                    habilitarBotonesParaTablaDetalle(false);
+                }
+            }
+            
+            
         }
     }//GEN-LAST:event_btnQuitarDetalleActionPerformed
 
