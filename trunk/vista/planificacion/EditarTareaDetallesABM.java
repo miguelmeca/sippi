@@ -729,7 +729,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Hs al 50%");
+        jLabel3.setText("Hs al 100%");
 
         lblHs100TCotizada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHs100TCotizada.setText("---");
@@ -745,7 +745,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Hs al 100%");
+        jLabel4.setText("Hs al 50%");
 
         lblHs50TCotizada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHs50TCotizada.setText("---");
@@ -1081,7 +1081,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -1258,13 +1258,19 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
 
     private void btnAgregarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadoActionPerformed
         int selectedRow=tblEmpleadosDisponibles.getSelectedRow();
-       if(selectedRow!=-1)
+       
+       if(tblEmpleadosAsignados.getRowCount()<cantPersonas)
        {
-           DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
-           DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
-           modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
-           modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());           
-           
+           if(selectedRow!=-1 )
+            {
+                DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
+                DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+                modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
+                modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());  
+            }
+       }
+       else {
+            JOptionPane.showMessageDialog(this.getParent(), "Todos los empleados ya se encuentran asignados a este detalle", "Asignados todos los empelados", JOptionPane.INFORMATION_MESSAGE);          
        }
        btnAgregarEmpleado.setEnabled(false);
        calcularListaEmpleadosAsignados();
@@ -1282,7 +1288,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
            DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
            modeloDisponibles.addRow((Vector)modeloAsignados.getDataVector().elementAt(tblEmpleadosAsignados.getSelectedRow()));
            modeloAsignados.removeRow(tblEmpleadosAsignados.getSelectedRow()); 
-           
            
        }
       btnQuitarEmpleado.setEnabled(false);
@@ -1507,13 +1512,26 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     
     private void setearEscuchasSpinners()
     {
+        
         ChangeListener listenerSpiners = new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                
+               //System.out.println("cantPersonas A: " + cantPersonas);
+               // System.out.println("COMBO PERSONAS A: " + spnPersonas.getModel().getValue());
                 if(e.getSource().equals(spnPersonas) )
                 {
-                    cantPersonas=(Integer)spnPersonas.getModel().getValue();
-                    
+                    int cantPersonasN=(Integer)spnPersonas.getModel().getValue();
+                    if(cantPersonasN<cantPersonasAsignadas)
+                    {
+                        MostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Imposible reducir la cantidad","No se puede reducir la cantidad de personas ya que los puestos ya estan asignados. Por favor, elimine una asignacion de empleado antes de reducir la cantidad");
+                        spnPersonas.getModel().setValue(cantPersonas);
+                        return;
+                    }
+                    else
+                    {
+                        cantPersonas=cantPersonasN;
+                    }
+                //    System.out.println("cantPersonas B: " + cantPersonas);
+                //    System.out.println("COMBO PERSONAS B: " + spnPersonas.getModel().getValue());
                 }
                 if(e.getSource().equals(spnHsNormales))
                 {  
@@ -1537,7 +1555,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                     }       
                 }
                 
-                
+               // System.out.println("cantPersonas C: " + cantPersonas);
+               // System.out.println("COMBO PERSONAS C: " + spnPersonas.getModel().getValue());
+               // System.out.println("--------------------");
                 
             }
        };
@@ -1547,6 +1567,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
        spnHs50.addChangeListener(listenerSpiners);
        spnHs100.addChangeListener(listenerSpiners);
     }
+    
+    
+    
     private void intentarActivarAceptar()
     {
         if((cantHsNormales!=0.0 || cantHs50!=0.0 || cantHs100!=0.0) && cboRango.getSelectedItem()!=null && (((NTupla) cboRango.getSelectedItem()).getId() != -1) && (costoDetalle!=0.0))
@@ -1561,9 +1584,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     
     public void mandarCambios()
     {
-        if(idEspecialidad>0)
-            
-        gestor.tomarCambios(cantPersonas, cantHsNormales,  cantHs50,  cantHs100,  costoDetalle, idEspecialidad);
+        if(idEspecialidad>0) {            
+            gestor.tomarCambios(cantPersonas, cantHsNormales,  cantHs50,  cantHs100,  costoDetalle, idEspecialidad);
+        }
     }
     
     public void actualizar()
@@ -1895,6 +1918,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             
             listaEmpleadosAsignados.add(((ExplorarEmpleados_celdaDatos)modeloTablaEmpleadosAsignados.getValueAt(i, 1)).getEmpleado());
         }
+        cantPersonasAsignadas=listaEmpleadosAsignados.size();
         gestor.setListaEmpleadosAsignados(listaEmpleadosAsignados);
     }
     

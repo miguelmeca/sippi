@@ -1166,7 +1166,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
     public void setListaEmpleadosAsignados(List<Empleado> listaEmpleadosAsignados) 
     {        
         this.listaEmpleadosAsignados = listaEmpleadosAsignados;
-        this.cantPersonas=listaEmpleadosAsignados.size();
+        //this.cantPersonas=listaEmpleadosAsignados.size();sdgdfgdfg
         
     }
 
