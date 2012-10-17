@@ -12,7 +12,7 @@
 package vista.comer;
 
 import controlador.comer.GestorABMEmpresaCliente;
-import controlador.comer.GestorRegistrarPedido;
+import controlador.comer.GestorABMPedido;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,7 +37,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     private GestorABMEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
     private pantallaBuscarEmpresaCliente pBuscar=null;
-    private GestorRegistrarPedido grp;
+    private GestorABMPedido grp;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
@@ -57,7 +57,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }
 
 
-    public pantallaRegistrarEmpresaCliente(GestorRegistrarPedido aThis) {
+    public pantallaRegistrarEmpresaCliente(GestorABMPedido aThis) {
         gestor = new GestorABMEmpresaCliente(this);
         this.grp = aThis;
         initComponents();

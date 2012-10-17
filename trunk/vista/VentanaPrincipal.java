@@ -24,6 +24,7 @@ import modelo.FavoritoBean;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
+import org.hibernate.cache.AbstractJndiBoundCacheProvider;
 import org.jfree.ui.RefineryUtilities;
 import test.TestCallBackListadoGenerico;
 import util.HibernateUtil;
@@ -35,10 +36,7 @@ import vista.comer.ListadoPedidoDeObras;
 import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.comer.pantallaRegistrarEmpresaCliente;
-import vista.compras.ABMHerramientaDeEmpresa;
-import vista.compras.PantallaConsultarOrdenesDeCompra;
-import vista.compras.pantallaConsultarHerramientas;
-import vista.compras.pantallaRegistrarProveedor;
+import vista.compras.*;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ListadoCotizaciones;
@@ -1057,7 +1055,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        pantallaRegistrarProveedor win = new pantallaRegistrarProveedor();
+        ABMProveedor win = new ABMProveedor();
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }//GEN-LAST:event_jMenuItem27ActionPerformed
