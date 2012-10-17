@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import modelo.EmpresaCliente;
 import modelo.Proveedor;
-import vista.compras.pantallaRegistrarProveedor;
+import util.SwingPanel;
+import vista.compras.ABMProveedor;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
@@ -46,9 +47,10 @@ public class pantallaListadoProveedores extends PantallaConsultarGenerica{
     }
 
     @Override
-    protected void abrirEntidad(int id) {
-        //pantallaRegistrarProveedor win = new pantallaRegistrarProveedor();
-        
+    protected void abrirEntidad(int id) {       
+        ABMProveedor ventana = new ABMProveedor(id);
+        SwingPanel.getInstance().addWindow(ventana);
+        ventana.setVisible(true);
     }
     
     

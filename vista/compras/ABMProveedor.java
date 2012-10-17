@@ -12,14 +12,14 @@
 package vista.compras;
 
 import controlador.Compras.GestorABMProveedor;
+import controlador.utiles.gestorGeoLocalicacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import modelo.*;
 import util.NTupla;
 import util.RubroUtil;
 import util.SwingPanel;
@@ -30,17 +30,25 @@ import vista.interfaces.IAyuda;
  *
  * @author Emmanuel
  */
-public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  implements IAyuda{
+public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda{
     private GestorABMProveedor gestor;
     private DefaultTableModel moldeTabla;
-    //private pantallaBuscarProveedor pBuscar=null;
-//    private GestorRegistrarPedido grp;
+    private int idProveedor;
 
     /** Creates new form pantallaRegistrarProveedor */
-    public pantallaRegistrarProveedor() {
+    public ABMProveedor() {
+        this.idProveedor = -1;
         gestor = new GestorABMProveedor(this);
         initComponents();
         habilitarVentana();
+    }
+    
+    public ABMProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+        gestor = new GestorABMProveedor(this, idProveedor);
+        initComponents();
+        habilitarVentana();
+        cargarDatosProveedor();
     }
 
     private void habilitarVentana() {
@@ -196,8 +204,22 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             mensaje+="- Altura\n";
             ban=false;
         }
+        try{
+            Integer.valueOf(txtAltura.getText());
+        }catch(Exception e)
+        {
+            mensaje+= "- Alto válida";
+            ban=false;
+        }
         if(txtPiso.getText().equals("")){
             mensaje+="- Piso\n";
+            ban=false;
+        }
+        try{
+            Integer.valueOf(txtPiso.getText());
+        }catch(Exception e)
+        {
+            mensaje+= "- Piso válida";
             ban=false;
         }
         if(txtPaginaWeb.getText().equals("")){
@@ -224,7 +246,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             mensaje+="- Al menos un rubro\n";
             ban=false;
         }
-        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+        if(gestor.validarExistenciaCUIT(txtCuit.getText(),this.idProveedor)){
             mensaje+="- CUIT duplicado\n";
             ban = false;
         }
@@ -238,8 +260,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     {   if((tablaTelefonos.getSelectedRowCount())==1)
         {
             DefaultTableModel modelo = (DefaultTableModel) tablaTelefonos.getModel();
-            modelo.removeRow(tablaTelefonos.getSelectedRow());
             Tupla t = (Tupla)tablaTelefonos.getValueAt(tablaTelefonos.getSelectedRow(), 0);
+            modelo.removeRow(tablaTelefonos.getSelectedRow());
             this.gestor.borrarTelefono(t.getId());
         }
     }
@@ -346,6 +368,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         jPanel7 = new javax.swing.JPanel();
         btnNuevaEmpresa = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnDarDeBaja = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -669,7 +692,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -756,7 +779,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpCapacitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Rubros", jPanel4);
@@ -769,11 +792,20 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             }
         });
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnDarDeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete.png"))); // NOI18N
+        btnDarDeBaja.setText("Dar de Baja");
+        btnDarDeBaja.setEnabled(false);
+        btnDarDeBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarDeBajaActionPerformed(evt);
             }
         });
 
@@ -782,7 +814,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDarDeBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevaEmpresa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
@@ -793,7 +826,8 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnNuevaEmpresa))
+                    .addComponent(btnNuevaEmpresa)
+                    .addComponent(btnDarDeBaja))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -812,7 +846,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -873,13 +907,10 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
             gestor.seleccionPais(((Tupla)cmbPais.getSelectedItem()).getId());
             gestor.paginaWeb(this.txtPaginaWeb.getText());
             int id = gestor.confirmacionRegistro();
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el nuevo proveedor.\n Número de Proveedor: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
-//            if(grp !=null){
-//                grp.recargarComboBox();
-//            }
-//            if(pBuscar!=null){
-//                pBuscar.actualizar(id, true);
-//            }
+            if(this.idProveedor < 0)
+                JOptionPane.showMessageDialog(this.getParent(),"Se registro con éxito el nuevo proveedor.\n Número de Proveedor: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(this.getParent(),"Se modificó con éxito el proveedor.\n Número de Proveedor: "+id,"Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
 }//GEN-LAST:event_btnNuevaEmpresaActionPerformed
@@ -897,12 +928,22 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
 }//GEN-LAST:event_btnQuitarRubroActionPerformed
 
     private void btnValidarCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarCUITActionPerformed
-        if(gestor.validarExistenciaCUIT(txtCuit.getText())){
+        if(gestor.validarExistenciaCUIT(txtCuit.getText(),this.idProveedor)){
             JOptionPane.showMessageDialog(this.getParent(),"CUIT duplicado: "+txtCuit.getText(),"CUIT no válido",JOptionPane.WARNING_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(this.getParent(),"CUIT Válido: "+txtCuit.getText(),"CUIT no válido",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnValidarCUITActionPerformed
+
+    private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Está seguro que desea cancelar el pedido?","Dar de Baja el Pedido",JOptionPane.YES_NO_OPTION);
+        if(resp==JOptionPane.YES_OPTION){
+            if(gestor.darDeBajaProveedor()){
+                JOptionPane.showMessageDialog(this, "El Proveedor Nro. "+this.idProveedor+" fue dado de Baja con éxito.", "Proveedor Dado de Baja", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_btnDarDeBajaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -911,6 +952,7 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
     private javax.swing.JButton btnAgregarProvincia;
     private javax.swing.JButton btnAgregarRubro;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnDarDeBaja;
     private javax.swing.JButton btnNuevaEmpresa;
     private javax.swing.JButton btnNuevoTelefono;
     private javax.swing.JButton btnQuitarRubro;
@@ -974,5 +1016,76 @@ public class pantallaRegistrarProveedor extends javax.swing.JInternalFrame  impl
 
     public int getIdAyuda() {
         return 0;
+    }
+
+    private void cargarDatosProveedor() {
+        Proveedor proveedor = gestor.getProveedor();
+        
+        // Datos Generales
+        txtRazonSocial.setText(proveedor.getRazonSocial());
+        txtCuit.setText(proveedor.getCuit());
+        txtEmail.setText(proveedor.getEmail());
+        txtPaginaWeb.setText(proveedor.getPaginaWeb());
+        
+        // Telefonos
+        Iterator<Telefono> itTelefonos = proveedor.getTelefonos().iterator();
+        while(itTelefonos.hasNext())
+        {
+            Telefono telefono = itTelefonos.next();
+            Tupla tupla = new Tupla(telefono.getTipo().getId(), telefono.getTipo().getNombre());
+            this.agregarTelefonoTabla(tupla, telefono.getNumero());
+        }
+        
+        // Dirección Completa
+        txtCalle.setText(proveedor.getDomicilio().getCalle());
+        txtAltura.setText(String.valueOf(proveedor.getDomicilio().getNumero()));
+        txtPiso.setText(String.valueOf(proveedor.getDomicilio().getPiso()));
+        txtDpto.setText(proveedor.getDomicilio().getDepto());
+        txtCP.setText(proveedor.getDomicilio().getCodigoPostal());
+        gestorGeoLocalicacion gestorGL = new gestorGeoLocalicacion();
+        Localidad localidad = gestorGL.getLocalidadDeBarrio(proveedor.getDomicilio().getBarrio().getId());
+        Provincia provincia = gestorGL.getProvinciaDeLocalidad(localidad.getId());
+        Pais pais = gestorGL.getPaisDeProvincia(provincia.getId());
+        seleccionarEnCombo(cmbPais, pais.getId());
+        seleccionarEnCombo(cmbProvincias, provincia.getId());
+        seleccionarEnCombo(cmbLocalidades, localidad.getId());
+        seleccionarEnCombo(cmbBarrio, proveedor.getDomicilio().getBarrio().getId());               
+        
+        // Rubros
+        Iterator<Rubro> itRubros = proveedor.getRubros().iterator();
+        while(itRubros.hasNext())
+        {
+            Rubro rubro = itRubros.next();
+            seleccionarEnLista(listaRubrosDisponibles, rubro.getId());
+            agregarRubro();
+        }
+        if(proveedor.getEstado() instanceof EstadoEmpresaAlta)
+            btnDarDeBaja.setEnabled(true);
+    }
+    
+    private void seleccionarEnCombo(JComboBox cb, int id) {
+        DefaultComboBoxModel dcbm = (DefaultComboBoxModel)cb.getModel();
+        for(int i = 0 ; i < dcbm.getSize() ; i++)
+        {
+            Tupla tupla = (Tupla) dcbm.getElementAt(i);
+            if(tupla.getId() == id)
+            {
+                cb.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+    
+    private void seleccionarEnLista(JList lista, int id) {
+        DefaultListModel dlm = (DefaultListModel)lista.getModel();
+        for(int i = 0 ; i < dlm.getSize() ; i++)
+        {
+            Tupla tupla = (Tupla) dlm.getElementAt(i);
+            if(tupla.getId() == id)
+            {
+                lista.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ import modelo.TipoTelefono;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import util.Tupla;
-import vista.compras.pantallaRegistrarProveedor;
+import vista.compras.ABMProveedor;
 
 
 
@@ -33,7 +33,7 @@ import vista.compras.pantallaRegistrarProveedor;
  * @author Emmanuel
  */
 public class GestorABMProveedor {
-    private pantallaRegistrarProveedor pantalla;
+    private ABMProveedor pantalla;
     private ArrayList<Telefono> telefonos;
     private String nombreEmpresaCliente;
     private String cuit;
@@ -49,10 +49,19 @@ public class GestorABMProveedor {
     private Pais pais;
     private String paginaWeb;
     private ArrayList<Tupla> rubros;
+//    private Proveedor proveedor;
+    private int idProveedor;
 
-    public GestorABMProveedor(pantallaRegistrarProveedor p) {
+    public GestorABMProveedor(ABMProveedor p) {
         this.pantalla = p;
         rubros = new ArrayList<Tupla>();
+        this.idProveedor =-1;
+    }
+    
+    public GestorABMProveedor(ABMProveedor p, int idProveedor) {
+        this.pantalla = p;
+        rubros = new ArrayList<Tupla>();
+        this.idProveedor = idProveedor;
     }
 
     public ArrayList<Tupla> mostrarNombrePaises() {
@@ -90,6 +99,7 @@ public class GestorABMProveedor {
     }
 
     public void borrarTelefono(int id) {
+        Telefono telefonoABorrar = this.telefonos.get(id);
         this.telefonos.remove(id);
     }
 
@@ -134,48 +144,104 @@ public class GestorABMProveedor {
     }
 
     public int confirmacionRegistro() {
-        Proveedor nuevo = new Proveedor();
-        nuevo.setRazonSocial(this.nombreEmpresaCliente);
-        nuevo.setCuit(this.cuit);
-        nuevo.setEmail(this.email);
+        //Si es nuevo, lo creo
+        Proveedor proveedor = null;
+        if(this.idProveedor != -1)
+        {
+            try
+            {
+                HibernateUtil.beginTransaction();
+                
+                proveedor = (Proveedor) HibernateUtil.getSession().load(Proveedor.class, this.idProveedor);
+                
+                HibernateUtil.commitTransaction();
+            }catch(Exception ex)
+            {
+                HibernateUtil.rollbackTransaction();
+            }
+        }
+        else
+        {
+            proveedor = new Proveedor();
+        }
+        
+        proveedor.setRazonSocial(this.nombreEmpresaCliente);
+        proveedor.setCuit(this.cuit);
+        proveedor.setEmail(this.email);
 
-        Domicilio d = new Domicilio();
+        Domicilio d = null;
+        if(proveedor.getDomicilio() == null)
+            proveedor.setDomicilio(new Domicilio());
+        d = proveedor.getDomicilio();
         d.setCalle(this.calle);
         d.setCodigoPostal(this.cp);
         d.setNumero(Integer.parseInt(this.altura));
         d.setPiso(Integer.parseInt(this.piso));
         d.setDepto(this.dpto);
         d.setBarrio(this.barrio);
-        nuevo.setDomicilio(d);
+        
+        proveedor.getRubros().clear();
 
-        nuevo.setTelefonos(new HashSet<Telefono>(this.telefonos));
+        proveedor.setPaginaWeb(this.paginaWeb);
 
-        nuevo.setPaginaWeb(this.paginaWeb);
-
-        Session sesion;
+        if(proveedor.getTelefonos() == null)
+            proveedor.setTelefonos(new HashSet<Telefono>());
+        
         try {
-            sesion = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
             try{
-                ArrayList<Rubro> listaRubros = new ArrayList<Rubro>();
                 for(Tupla t : rubros){
-                    Rubro r = (Rubro)sesion.load(Rubro.class, t.getId());
-                    listaRubros.add(r);
+                    Rubro r = (Rubro)HibernateUtil.getSession().load(Rubro.class, t.getId());
+                    proveedor.getRubros().add(r);
                 }
-                nuevo.setRubros(listaRubros);
-                sesion.saveOrUpdate(nuevo.getDomicilio());
-                for (Telefono tell : (HashSet<Telefono>)nuevo.getTelefonos())
+                HibernateUtil.getSession().saveOrUpdate(proveedor.getDomicilio());
+                
+                // Teléfonos!
+                for (Telefono tell : this.telefonos)
                 {
-                    sesion.saveOrUpdate(tell);
+                    if(tell.getId() == 0){
+                        proveedor.getTelefonos().add(tell);
+                        HibernateUtil.getSession().save(tell);
+                    }
                 }
-                sesion.saveOrUpdate(nuevo);
+                ArrayList<Telefono> telefonosBorrados = new ArrayList<Telefono>();
+                Iterator<Telefono> itTelefono = proveedor.getTelefonos().iterator();
+                boolean borrado = false;
+                while(itTelefono.hasNext())
+                {
+                    Telefono tel = itTelefono.next();
+                    Iterator<Telefono> it = this.telefonos.iterator();
+                    borrado = false;
+                    while(it.hasNext())
+                    {
+                        Telefono aux = it.next();
+                        if(aux.getId() == tel.getId())
+                        {
+                            borrado = true;
+                            break;
+                        }
+                    }
+                    if(!borrado)
+                    {
+                        telefonosBorrados.add(tel);
+                    }
+                }
+                Iterator<Telefono> itBorrados = telefonosBorrados.iterator();
+                while(itBorrados.hasNext())
+                {
+                    Telefono telBorrado = itBorrados.next();
+                    proveedor.getTelefonos().remove(telBorrado);
+                    HibernateUtil.getSession().delete(telBorrado);
+                }
+                
+                HibernateUtil.getSession().saveOrUpdate(proveedor);
                 HibernateUtil.commitTransaction();
             }catch(Exception e) {
                 System.out.println("No se pudo inicia la transaccion\n"+e.getMessage());
                 HibernateUtil.rollbackTransaction();
         }
         } catch (Exception ex) { System.out.println("No se pudo abrir la sesion");  }
-        return nuevo.getId();
+        return proveedor.getId();
     }
 
     public void paginaWeb(String text) {
@@ -209,16 +275,58 @@ public class GestorABMProveedor {
         this.rubros.remove(t);
     }
 
-    public boolean validarExistenciaCUIT(String cuit) {
+    public boolean validarExistenciaCUIT(String cuit, int idProveedor) {
         boolean respuesta = true;
         try {
-            List pr = (List) HibernateUtil.getSession().createQuery("FROM Proveedor WHERE cuit =:cuitP").setParameter("cuitP", cuit).list();
-            if(pr.isEmpty())
+            Proveedor pr = (Proveedor) HibernateUtil.getSession().createQuery("FROM Proveedor WHERE cuit =:cuitP").setParameter("cuitP", cuit).uniqueResult();
+            if(pr == null)
                 respuesta = false;
+            else
+            {
+                if(pr.getId() == idProveedor)
+                {
+                    respuesta = false;
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(GestorABMProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
     }
 
+    public Proveedor getProveedor() {
+        Proveedor proveedor = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+
+            proveedor = (Proveedor) HibernateUtil.getSession().load(Proveedor.class, this.idProveedor);
+
+            HibernateUtil.commitTransaction();
+        }catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return proveedor;
+    }
+
+    public boolean darDeBajaProveedor() {
+        Proveedor proveedor = null;
+        boolean dadoDeBaja = false;
+        try
+        {
+            HibernateUtil.beginTransaction();
+
+            proveedor = (Proveedor) HibernateUtil.getSession().load(Proveedor.class, this.idProveedor);
+            proveedor.setEstadoBaja();
+            HibernateUtil.getSession().update(proveedor);
+
+            HibernateUtil.commitTransaction();
+            dadoDeBaja = true;
+        }catch(Exception ex)
+        {
+            HibernateUtil.rollbackTransaction();
+        }
+        return dadoDeBaja;
+    }
 }

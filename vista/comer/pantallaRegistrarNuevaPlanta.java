@@ -13,7 +13,7 @@ package vista.comer;
 
 import controlador.comer.GestorABMEmpresaCliente;
 import controlador.comer.GestorRegistrarNuevaPlanta;
-import controlador.comer.GestorRegistrarPedido;
+import controlador.comer.GestorABMPedido;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     GestorRegistrarNuevaPlanta gestor;
     GestorABMEmpresaCliente gestorEmpresaCliente;
-    private GestorRegistrarPedido gestorRegistrarPedido;
+    private GestorABMPedido gestorRegistrarPedido;
 
     /** Creates new form frmRegistrarNuevaPlanta */
     public pantallaRegistrarNuevaPlanta() {
@@ -70,7 +70,7 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         
     }
 
-    public pantallaRegistrarNuevaPlanta(GestorRegistrarPedido aThis, Tupla empresa) {
+    public pantallaRegistrarNuevaPlanta(GestorABMPedido aThis, Tupla empresa) {
         initComponents();
         this.gestor = new GestorRegistrarNuevaPlanta(this);
         habilitarVentana();

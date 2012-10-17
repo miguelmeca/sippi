@@ -12,7 +12,7 @@
 package vista.comer;
 
 import com.toedter.calendar.JDateChooser;
-import controlador.comer.GestorRegistrarPedido;
+import controlador.comer.GestorABMPedido;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -36,17 +36,17 @@ import vista.interfaces.IPantallaPedidoABM;
  */
 public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda, IPantallaPedidoABM, ICallBack,IFavorito{
 
-    private GestorRegistrarPedido gestor;
+    private GestorABMPedido gestor;
     private int idPedidoObra = -1;
 
     public ABMPedidoObra() {
-        gestor = new GestorRegistrarPedido(this);
+        gestor = new GestorABMPedido(this);
         initComponents();
         habilitarVentana();
     }
     
     public ABMPedidoObra(int idPedidoObra){
-        gestor = new GestorRegistrarPedido(this);
+        gestor = new GestorABMPedido(this);
         this.idPedidoObra = idPedidoObra;
         initComponents();
         habilitarVentana();
