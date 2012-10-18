@@ -7,30 +7,27 @@ import modelo.DetalleTareaEjecucion;
  *
  * @author Iuga
  */
-public class TareaEjecucion {
+public class TareaEjecucion extends TareaPlanificacion{
     
-    private int id;
-    private List<TareaEjecucion> subtareas;
+   
     private TareaPlanificacion tareaPlanificada;
-    private List<EjecucionXHerramienta> listaHerramientas;
-    private List<EjecucionXMaterial> listaMateriales;
-    private List<EjecucionXAlquilerCompra> listaAlquileresCompras;
-    private List<DetalleTareaEjecucion> listaDetalleTarea;
+    
+    
+    // Overrided
+    /*private int id;
+    private List<TareaEjecucion> subtareas;    
+    private List<EjecucionXHerramienta> herramientas;
+    private List<EjecucionXMaterial> materiales;
+    private List<EjecucionXAlquilerCompra> alquilerCompras;
+    private List<DetalleTareaEjecucion> detalle;*/
 
     public TareaEjecucion() {
-        subtareas = new ArrayList<TareaEjecucion>();
-        listaHerramientas = new ArrayList<EjecucionXHerramienta>();
-        listaAlquileresCompras = new ArrayList<EjecucionXAlquilerCompra>();
-        listaMateriales = new ArrayList<EjecucionXMaterial>();
+        super();
+        
+        
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+  
     
     public TareaPlanificacion getTareaPlanificada() {
         return tareaPlanificada;
@@ -40,20 +37,17 @@ public class TareaEjecucion {
         this.tareaPlanificada = tareaPlanificada;
     }
 
-    public List<EjecucionXHerramienta> getListaHerramientas() {
-        return listaHerramientas;
+
+    public TareaEjecucion getSubtarea(int indice) {
+        return (TareaEjecucion)(subtareas.get(indice));
     }
 
-    public void setListaHerramientas(List<EjecucionXHerramienta> listaHerramientas) {
-        this.listaHerramientas = listaHerramientas;
+    public void addSubtarea(TareaEjecucion subtarea) {
+        this.subtareas.add(subtarea);
     }
-
-    public List<TareaEjecucion> getSubtareas() {
-        return subtareas;
-    }
-
-    public void setSubtareas(List<TareaEjecucion> subtareas) {
-        this.subtareas = subtareas;
+    
+    public void addSubtarea(int indice, TareaEjecucion subtarea) {
+        this.subtareas.add(indice, subtarea);
     }
 
     @Override
@@ -64,28 +58,51 @@ public class TareaEjecucion {
         return "";
     }
 
-    public List<EjecucionXMaterial> getListaMateriales() {
-        return listaMateriales;
+    public EjecucionXMaterial getMaterial(int indice) {
+        return (EjecucionXMaterial)(materiales.get(indice));
     }
 
-    public void setListaMateriales(List<EjecucionXMaterial> listaMateriales) {
-        this.listaMateriales = listaMateriales;
+    public void addMaterial(EjecucionXMaterial material) {
+        this.materiales.add(material);
+    }
+    
+    public void addMaterial(int indice, EjecucionXMaterial material) {
+        this.materiales.add(indice,material);
     }
 
-    public List<EjecucionXAlquilerCompra> getListaAlquileresCompras() {
-        return listaAlquileresCompras;
+    public EjecucionXAlquilerCompra getAlquilerCompra(int indice) {
+        return (EjecucionXAlquilerCompra)(alquilerCompras.get(indice));
     }
 
-    public void setListaAlquileresCompras(List<EjecucionXAlquilerCompra> listaAlquileresCompras) {
-        this.listaAlquileresCompras = listaAlquileresCompras;
+    public void addAlquilerCompra(EjecucionXAlquilerCompra alquilerCompra) {
+        this.alquilerCompras.add(alquilerCompra);
+    }
+    
+    public void addAlquilerCompra(int indice, EjecucionXAlquilerCompra alquilerCompra) {
+        this.alquilerCompras.add(indice, alquilerCompra);
     }
 
-    public List<DetalleTareaEjecucion> getListaDetalleTarea() {
-        return listaDetalleTarea;
+    public DetalleTareaEjecucion getDetalleTarea(int indice) {
+        return (DetalleTareaEjecucion)(detalles.get(indice));
     }
 
-    public void setListaDetalleTarea(List<DetalleTareaEjecucion> listaDetalleTarea) {
-        this.listaDetalleTarea = listaDetalleTarea;
+    public void addDetalleTarea(DetalleTareaEjecucion detalleTarea) {
+        this.detalles.add(detalleTarea);
+    }
+    
+    public void addDetalleTarea(int indice, DetalleTareaEjecucion detalleTarea) {
+        this.detalles.add(indice, detalleTarea);
     }
 
+    @Deprecated
+    @Override
+    public SubObraXTareaModif getTareaCotizada() {
+        return null;
+    }
+    
+    @Deprecated
+    @Override
+    public void setTareaCotizada(SubObraXTareaModif tareaCotizada) {
+        
+    }
 }

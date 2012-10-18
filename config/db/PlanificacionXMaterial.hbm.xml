@@ -6,5 +6,10 @@
       <generator class="increment"/>
     </id>
     <many-to-one class="modelo.SubObraXMaterialModif" name="materialCotizacion"/>
+    
+    <joined-subclass name="modelo.EjecucionXMaterial" table="EJECUCION_X_MATERIAL">
+      <key column="ID_EJECUCION_X_MATERIAL"/>
+      <many-to-one class="modelo.PlanificacionXMaterial" name="materialPlanificado"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

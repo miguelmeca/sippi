@@ -14,7 +14,7 @@ package modelo;
 public class PlanificacionXHerramienta {
     private int id;
     private SubObraXHerramientaModif herramientaCotizacion;
-    private int horasAsignadas;
+    protected int horasAsignadas;
 
     public PlanificacionXHerramienta() {
     }

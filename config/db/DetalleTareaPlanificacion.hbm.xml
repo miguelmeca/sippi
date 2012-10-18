@@ -19,5 +19,16 @@
     </list>
     <many-to-one class="modelo.DetalleTareaPlanificacion" name="padre"/>
     <many-to-one class="modelo.DetalleSubObraXTareaModif" name="cotizado"/>
+    
+    <joined-subclass name="modelo.DetalleTareaEjecucion" table="DETALLE_TAREA_EJECUCION">
+      <key column="ID_DETALLE_TAREA_EJECUCION"/>
+      <many-to-one class="modelo.DetalleTareaPlanificacion" name="detalleTareaPlanificado"/>
+      <list cascade="all-delete-orphan" name="listaDetallePorDia" table="DETALLE_TAREA_EJECUCION_X_DIA">
+            <key column="ID_DET_TAREA_EJEC_X_DIA"/>
+            <index column="ID_DETALLE_TAREA_EJECUCION_X_DIA"/>
+            <one-to-many class="modelo.DetalleTareaEjecucionXDia"/>
+      </list>    
+    </joined-subclass>
+
   </class>
 </hibernate-mapping>

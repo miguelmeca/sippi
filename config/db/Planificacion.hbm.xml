@@ -15,5 +15,9 @@
       <index column="ID_TAREAS_X_P"/>
       <one-to-many class="modelo.TareaPlanificacion"/>
     </list>
+    <joined-subclass name="modelo.Ejecucion" table="EJECUCION">
+      <key column="ID_EJECUCION"/>
+      <many-to-one class="modelo.Planificacion" name="planificacionOriginal"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

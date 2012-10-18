@@ -3,20 +3,12 @@ package modelo;
 /**
  * @author Iuga
  */
-public class EjecucionXMaterial {
+public class EjecucionXMaterial extends PlanificacionXMaterial{
         
     private int id;
     private PlanificacionXMaterial materialPlanificado;
 
     public EjecucionXMaterial() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public PlanificacionXMaterial getMaterialPlanificado() {

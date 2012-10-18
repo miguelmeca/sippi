@@ -20,14 +20,14 @@ import util.HibernateUtil;
 //
 
 public class Planificacion {
-    private int id;
-    private Date fechaInicio;
-    private Date fechaFin;
+    protected int id;
+    protected Date fechaInicio;
+    protected Date fechaFin;
     private CotizacionModificada cotizacion;
-    private List<TareaPlanificacion> tareas;
-    private String descripcion;
+    protected List<TareaPlanificacion> tareas;
+    protected String descripcion;
     
-    private String estado;
+    protected String estado;
     
     public static final String ESTADO_ALTA = "Alta";
     public static final String ESTADO_BAJA = "Baja";
