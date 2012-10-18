@@ -27,9 +27,9 @@ public class AsignacionAlquileresCompraCantidad extends javax.swing.JInternalFra
     private TareaPlanificacion tarea;
     private TipoAlquilerCompra tipoAlquilerCompra;
     private SubObraXAlquilerCompraModif gastos;
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     
-    public AsignacionAlquileresCompraCantidad(ICallBack_v3 callback,PlanificacionXXX plan, TareaPlanificacion tarea,SubObraXAlquilerCompraModif gastos, TipoAlquilerCompra tipoAlquilerCompra) {
+    public AsignacionAlquileresCompraCantidad(ICallBack_v3 callback,Planificacion plan, TareaPlanificacion tarea,SubObraXAlquilerCompraModif gastos, TipoAlquilerCompra tipoAlquilerCompra) {
         initComponents();
         this.tarea = tarea;
         this.tipoAlquilerCompra = tipoAlquilerCompra;

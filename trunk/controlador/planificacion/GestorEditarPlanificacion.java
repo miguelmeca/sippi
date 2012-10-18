@@ -37,14 +37,14 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     private EditarPlanificacion _pantalla;
     private Session sesion;
     private PedidoObra pedidoDeObra;
-    private PlanificacionXXX planificacion;
+    private Planificacion planificacion;
 
     @Override
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return planificacion;
     }
 
-    public void setPlanificacion(PlanificacionXXX planificacion) {
+    public void setPlanificacion(Planificacion planificacion) {
         this.planificacion = planificacion;
     }
 
@@ -1016,7 +1016,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // Ante todo, cambio el estado de la planificación
         // Y tb cambio el estado del pedido de obra ( atómico )
-        this.planificacion.setEstado(PlanificacionXXX.ESTADO_FINALIZADA);
+        this.planificacion.setEstado(Planificacion.ESTADO_FINALIZADA);
         this.pedidoDeObra.setEstadoEnEjecucion();
         
         // Ahora... Creo la Ejecución
@@ -1279,7 +1279,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @return 
      */
     public boolean esPlanificacionEditable(){
-        if(PlanificacionXXX.ESTADO_BAJA.equals(getEstado()) || PlanificacionXXX.ESTADO_FINALIZADA.equals(getEstado())){
+        if(Planificacion.ESTADO_BAJA.equals(getEstado()) || Planificacion.ESTADO_FINALIZADA.equals(getEstado())){
             return false;
         }
         return true;
@@ -1295,10 +1295,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         List<DetalleTareaEjecucion> lista = new ArrayList<DetalleTareaEjecucion>();
         
             for (int i = 0; i < detalles.size(); i++) {
-                DetalleTareaPlanificacion tareaPlan = detalles.get(i);
+                DetalleTareaPlanificacion detTareaPlan = detalles.get(i);
                 
                     DetalleTareaEjecucion tareaEjec = new DetalleTareaEjecucion();
-                    tareaEjec.setDetalleTareaPlanificado(tareaPlan);
+                    tareaEjec.setDetalleTareaPlanificado(detTareaPlan);
                     
                     List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
                     tareaEjec.setListaDetallePorDia(listaPorDía);
@@ -1336,7 +1336,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 detTareaXdia.setCantHorasNormales(0);
                 detTareaXdia.setCantHorasAl50(0);
                 detTareaXdia.setCantHorasAl100(0);
-                detTareaXdia.setFecha(fechaFin);
+                detTareaXdia.setFecha(fecha);
                 System.out.println("Creado un Detalle Tarea X día el: "+FechaUtil.getFecha(fecha));
                 lista.add(detTareaXdia);
             }

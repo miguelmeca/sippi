@@ -25,7 +25,7 @@ public class GestorReportesPlanificacion {
         reporteUtil = new ReporteUtil();
     }
     
-    public void emitirResumenPlanificacion(PlanificacionXXX plan)
+    public void emitirResumenPlanificacion(Planificacion plan)
     {
          try
         {                  

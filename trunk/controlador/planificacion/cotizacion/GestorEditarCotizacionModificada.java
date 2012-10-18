@@ -19,10 +19,10 @@ import vista.planificacion.cotizacion.*;
 public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
 
     // DE ACA SACO TODOS LOS DATOS DE LA PLANIFICACION Y DE LA COTIZACION INTERMEDIA
-    private PlanificacionXXX planificacion;
+    private Planificacion planificacion;
     private int hashSubObra = -1;
      
-    public GestorEditarCotizacionModificada(GestorExplorarSubObras gestor, PlanificacionXXX plan, int hashSubObra) {
+    public GestorEditarCotizacionModificada(GestorExplorarSubObras gestor, Planificacion plan, int hashSubObra) {
         super(gestor);
         
         this.planificacion = plan;
@@ -170,7 +170,7 @@ public class GestorEditarCotizacionModificada extends GestorEditarCotizacion{
         }
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return planificacion;
     }
      

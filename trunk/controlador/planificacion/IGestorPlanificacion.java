@@ -4,7 +4,7 @@
  */
 package controlador.planificacion;
 
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 
 /**
@@ -16,7 +16,7 @@ public interface IGestorPlanificacion {
      * Obtiene la cotizacion con la que se esta trabajando
      * @return 
      */
-    public PlanificacionXXX getPlanificacion();
+    public Planificacion getPlanificacion();
     
     
     /**

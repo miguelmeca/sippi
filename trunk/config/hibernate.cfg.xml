@@ -9,18 +9,13 @@
     <property name="connection.username">sa</property>
     <property name="connection.password"/>
     <property name="connection.pool_size">2</property>
-    
     <!--java -cp hsqldb.jar org.hsqldb.Server -database.0 file:data/demo_db -dbname.0 testdb-->
-    
     <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
-    
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.use_sql_comments">true</property>
-    
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.format_sql">false</property>
+    <property name="hibernate.use_sql_comments">false</property>
     <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
     <property name="hibernate.cglib.use_reflection_optimizer">false</property>
-    
     <property name="hbm2ddl.auto">create-drop</property>
     <!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
     <!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
@@ -37,7 +32,7 @@
     <property name="c3p0.max_size">1</property>
     <property name="c3p0.min_size">0</property-->
     <!--.. CLASES DE MAPEO ....................................................-->
-    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.show_sql">false</property>
     <mapping package="modelo" resource="config/db/User.hbm.xml"/>
     <mapping package="modelo" resource="config/db/FavoritoBean.hbm.xml"/>
     <mapping package="modelo" resource="config/db/TipoDocumento.hbm.xml"/>
@@ -77,13 +72,9 @@
     <mapping resource="config/db/TipoIndumentaria.hbm.xml"/>
     <mapping resource="config/db/RolEmpleado.hbm.xml"/>
     <mapping resource="config/db/PropiedadBean.hbm.xml"/>
-    
     <!--mapping resource="config/db/DetalleRemito.hbm.xml"/-->
     <!--mapping resource="config/db/Remito.xml"/-->
-    
-    
     <!--mapping package="modelo" resource="config/db/DetalleOrdenDeCompra.hbm.xml"/-->
-    
     <!--             ::: FOURTH ITERATION :::               -->
     <mapping resource="config/db/Cotizacion.hbm.xml"/>
     <mapping resource="config/db/SubObra.hbm.xml"/>
@@ -99,7 +90,7 @@
     <!--             ::: FIFTH ITERATION :::               -->
     <mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/>
     <mapping resource="config/db/DetalleSubObraXTarea.hbm.xml"/>
-    <mapping resource="config/db/PlanificacionXXX.hbm.xml"/>
+    <mapping resource="config/db/Planificacion.hbm.xml"/>
     <mapping resource="config/db/PlanificacionXAlquilerCompra.hbm.xml"/>
     <mapping resource="config/db/PlanificacionXHerramienta.hbm.xml"/>
     <mapping resource="config/db/PlanificacionXMaterial.hbm.xml"/>
@@ -123,6 +114,5 @@
     <mapping package="modelo" resource="config/db/EjecucionXAdicional.hbm.xml"/>
     <mapping package="modelo" resource="config/db/DetalleTareaEjecucion.hbm.xml"/>
     <mapping package="modelo" resource="config/db/DetalleTareaEjecucionXDia.hbm.xml"/>
-    
   </session-factory>
 </hibernate-configuration>

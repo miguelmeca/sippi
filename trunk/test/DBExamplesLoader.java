@@ -1272,7 +1272,7 @@ public class DBExamplesLoader {
                 // ---------------------------------------------------------
 
                 PedidoObra PO = (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot.getId()).uniqueResult();
-                PlanificacionXXX planificacion = new PlanificacionXXX();
+                Planificacion planificacion = new Planificacion();
                 GregorianCalendar cal = new GregorianCalendar() {};
                 cal.setTime(PO.getFechaInicio());
                 cal.add(Calendar.DAY_OF_MONTH, 5);

@@ -25,7 +25,7 @@ public class GestorPlanificacionMateriales implements IGestorPlanificacion{
         this.gestor = gestor;
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestor.getPlanificacion();
     }
 

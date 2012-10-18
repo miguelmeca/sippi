@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import modelo.TipoTarea;
 import util.HibernateUtil;
@@ -49,7 +49,7 @@ public class GestorPlanificacionDatosGenerales implements IGestorPlanificacion{
         }
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestorPadre.getPlanificacion();
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import modelo.PlanificacionXAlquilerCompra;
 import modelo.PlanificacionXMaterial;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import vista.planificacion.PlanificacionAlquileresCompras;
@@ -28,7 +28,7 @@ public class GestorPlanificacionAlquileresCompras implements IGestorPlanificacio
     }
 
     @Override
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestor.getPlanificacion();
     }
 

@@ -9,7 +9,7 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import modelo.HerramientaDeEmpresa;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.SubObraXHerramientaModif;
 import modelo.TareaPlanificacion;
 import vista.interfaces.ICallBack_v3;
@@ -26,9 +26,9 @@ public class AsignacionHerramientasHoras extends javax.swing.JInternalFrame {
     private TareaPlanificacion tarea;
     private HerramientaDeEmpresa herramienta;
     private SubObraXHerramientaModif gastos;
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     
-    public AsignacionHerramientasHoras(ICallBack_v3 callback,PlanificacionXXX plan, TareaPlanificacion tarea,SubObraXHerramientaModif gastos, HerramientaDeEmpresa herramienta) {
+    public AsignacionHerramientasHoras(ICallBack_v3 callback,Planificacion plan, TareaPlanificacion tarea,SubObraXHerramientaModif gastos, HerramientaDeEmpresa herramienta) {
         initComponents();
         this.tarea = tarea;
         this.herramienta = herramienta;

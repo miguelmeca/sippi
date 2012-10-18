@@ -5,7 +5,7 @@ package vista.planificacion;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import util.FechaUtil;
 import vista.interfaces.ICallBack_v3;
@@ -20,7 +20,7 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
     private ICallBack_v3 callback;
     
     private TareaPlanificacion tareaPadre;
-    private PlanificacionXXX planificacion;
+    private Planificacion planificacion;
     private String nombreTareaNueva;
     private Date inicioTarea;
     private Date finTarea;
@@ -28,7 +28,7 @@ public class NuevaTareaPlanificacion extends javax.swing.JInternalFrame {
     private Date inicioPadre;
     private Date finPadre;
     
-    public NuevaTareaPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre, PlanificacionXXX planificacion) {
+    public NuevaTareaPlanificacion(ICallBack_v3 callback, TareaPlanificacion tareaPadre, Planificacion planificacion) {
         initComponents();
         this.tareaPadre = tareaPadre;
         this.callback = callback;

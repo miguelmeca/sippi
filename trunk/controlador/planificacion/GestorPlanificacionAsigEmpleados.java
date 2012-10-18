@@ -5,7 +5,7 @@
 
 package controlador.planificacion;
 
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 
 /**
@@ -18,7 +18,7 @@ public class GestorPlanificacionAsigEmpleados implements IGestorPlanificacion{
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

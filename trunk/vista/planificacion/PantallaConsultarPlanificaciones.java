@@ -6,7 +6,7 @@ package vista.planificacion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
 import vista.interfaces.ICallBackGen;
@@ -23,7 +23,7 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
 
     public PantallaConsultarPlanificaciones() {
         
-        super(PlanificacionXXX.class);
+        super(Planificacion.class);
     }
     
     @Override
@@ -49,9 +49,9 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
     protected ArrayList<String[]> getColumnColorCriteria() {
         ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
         
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_ALTA,"214","227","188"});
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_BAJA,"229","184","183"});
-            colorCriteria.add(new String[]{"Estado",PlanificacionXXX.ESTADO_FINALIZADA,"184","204","240"});
+            colorCriteria.add(new String[]{"Estado",Planificacion.ESTADO_ALTA,"214","227","188"});
+            colorCriteria.add(new String[]{"Estado",Planificacion.ESTADO_BAJA,"229","184","183"});
+            colorCriteria.add(new String[]{"Estado",Planificacion.ESTADO_FINALIZADA,"184","204","240"});
         
         return colorCriteria;
     }

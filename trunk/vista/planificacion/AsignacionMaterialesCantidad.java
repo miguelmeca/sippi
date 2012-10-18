@@ -30,9 +30,9 @@ public class AsignacionMaterialesCantidad extends javax.swing.JInternalFrame {
     private RecursoEspecifico re;
     private Material material;
     private SubObraXMaterialModif gastos;
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     
-    public AsignacionMaterialesCantidad(ICallBack_v3 callback,PlanificacionXXX plan, TareaPlanificacion tarea,SubObraXMaterialModif gastos, RecursoXProveedor recurso) {
+    public AsignacionMaterialesCantidad(ICallBack_v3 callback,Planificacion plan, TareaPlanificacion tarea,SubObraXMaterialModif gastos, RecursoXProveedor recurso) {
         initComponents();
         this.tarea = tarea;
         this.recurso = recurso;

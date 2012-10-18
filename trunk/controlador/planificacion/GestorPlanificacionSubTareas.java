@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import vista.planificacion.PlanificacionSubTareas;
@@ -28,7 +28,7 @@ public class GestorPlanificacionSubTareas implements IGestorPlanificacion{
         this.gestorPlanificacion = this.gestorPadre.getGestorPadre();
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestorPadre.getPlanificacion();
     }
 

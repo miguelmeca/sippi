@@ -7,7 +7,7 @@ package controlador.planificacion;
 
 
 import java.util.Iterator;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
 
@@ -139,7 +139,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     }
 
     @Override
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestorPadre.getPlanificacion();
     }
 

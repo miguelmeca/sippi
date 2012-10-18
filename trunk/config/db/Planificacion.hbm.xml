@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.PlanificacionXXX" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
-    <id column="ID_PLANIFICACIONXXX" name="id" type="integer">
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="modelo.Planificacion" optimistic-lock="version" polymorphism="implicit" select-before-update="false">
+    <id column="ID_PLANIFICACION" name="id" type="integer">
       <generator class="increment"/>
     </id>
     <property name="fechaInicio" type="date"/>
     <property name="fechaFin" type="date"/>
-    
     <property name="estado" type="string"/>
     <property name="descripcion" type="string"/>
-    
     <many-to-one class="modelo.CotizacionModificada" name="cotizacion"/>
-    <list cascade="all-delete-orphan" name="tareas" table="TAREAS_X_PLANIFICACIONXXX">
+    <list cascade="all-delete-orphan" name="tareas" table="TAREAS_X_PLANIFICACION">
       <key column="ID"/>
-      <index column="ID_TAREAS_X_PXXX"/>
+      <index column="ID_TAREAS_X_P"/>
       <one-to-many class="modelo.TareaPlanificacion"/>
     </list>
   </class>

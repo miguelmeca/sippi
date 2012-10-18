@@ -24,7 +24,7 @@ public class PlanificacionUtils {
      * @param idTareaGantt
      * @return 
      */
-    public static TareaPlanificacion getTareaFromGantt(PlanificacionXXX plan, int idTareaGantt)
+    public static TareaPlanificacion getTareaFromGantt(Planificacion plan, int idTareaGantt)
     {
         return plan.buscarTareaPorIdTareaGantt(idTareaGantt);
     }
@@ -35,7 +35,7 @@ public class PlanificacionUtils {
      * @param hash
      * @return
      */
-    public static TareaPlanificacion getTareaFromHash(PlanificacionXXX plan, int hash)
+    public static TareaPlanificacion getTareaFromHash(Planificacion plan, int hash)
     {
         return plan.buscarTareaPorHash(hash);
     }
@@ -48,7 +48,7 @@ public class PlanificacionUtils {
      * @param tarea
      * @return 
      */
-    public static boolean eliminarTarea(PlanificacionXXX plan, TareaPlanificacion tarea)
+    public static boolean eliminarTarea(Planificacion plan, TareaPlanificacion tarea)
     {
         for (int i = 0; i < plan.getTareas().size(); i++) {
             return eliminarTareaRecursivo(plan.getTareas(),tarea);
@@ -97,7 +97,7 @@ public class PlanificacionUtils {
      * @param plan
      * @return 
      */
-    public static ArrayList<TareaPlanificacion> getTodasTareasPlanificacion(PlanificacionXXX plan)
+    public static ArrayList<TareaPlanificacion> getTodasTareasPlanificacion(Planificacion plan)
     {
         ArrayList<TareaPlanificacion> lista = new ArrayList<TareaPlanificacion>();
         
@@ -123,7 +123,7 @@ public class PlanificacionUtils {
      * @param sxh
      * @return 
      */
-    public static int getHorasTotalesAsignadasAHerramienta(PlanificacionXXX plan, SubObraXHerramientaModif sxh)
+    public static int getHorasTotalesAsignadasAHerramienta(Planificacion plan, SubObraXHerramientaModif sxh)
     {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
@@ -175,7 +175,7 @@ public class PlanificacionUtils {
      * @param sxh
      * @return 
      */
-    public static boolean estaSubObraXHerramientaEnUso(PlanificacionXXX plan, SubObraXHerramienta sxh)
+    public static boolean estaSubObraXHerramientaEnUso(Planificacion plan, SubObraXHerramienta sxh)
     {
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         for (int i = 0; i < listaTareas.size(); i++) {
@@ -200,7 +200,7 @@ public class PlanificacionUtils {
      * @param sxm
      * @return 
      */
-    public static boolean estaSubObraXMaterialEnUso(PlanificacionXXX plan, SubObraXMaterial sxm)
+    public static boolean estaSubObraXMaterialEnUso(Planificacion plan, SubObraXMaterial sxm)
     {
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         for (int i = 0; i < listaTareas.size(); i++) {
@@ -225,7 +225,7 @@ public class PlanificacionUtils {
      * @param sxac
      * @return 
      */
-    public static boolean estaSubObraXAlquilerCompraEnUso(PlanificacionXXX plan, SubObraXAlquilerCompra sxac)
+    public static boolean estaSubObraXAlquilerCompraEnUso(Planificacion plan, SubObraXAlquilerCompra sxac)
     {
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         for (int i = 0; i < listaTareas.size(); i++) {
@@ -244,7 +244,7 @@ public class PlanificacionUtils {
         return false;
     }
     
-    public static List<NTupla> getTareasQuePoseanMaterialAsignado(PlanificacionXXX plan, SubObraXMaterialModif sxm) {
+    public static List<NTupla> getTareasQuePoseanMaterialAsignado(Planificacion plan, SubObraXMaterialModif sxm) {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         List<NTupla> tareas = new ArrayList<NTupla>();
@@ -268,7 +268,7 @@ public class PlanificacionUtils {
         return tareas;
     }
     
-    public static List<NTupla> getTareasQuePoseanAlquilerCompraAsignado(PlanificacionXXX plan, SubObraXAlquilerCompraModif sxac) {
+    public static List<NTupla> getTareasQuePoseanAlquilerCompraAsignado(Planificacion plan, SubObraXAlquilerCompraModif sxac) {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         List<NTupla> tareas = new ArrayList<NTupla>();
@@ -298,7 +298,7 @@ public class PlanificacionUtils {
      * @param soxtm
      * @return 
      */
-    public static boolean estaSubObraXTareaEnUso(PlanificacionXXX plan, SubObraXTareaModif soxtm) {
+    public static boolean estaSubObraXTareaEnUso(Planificacion plan, SubObraXTareaModif soxtm) {
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
         for (int i = 0; i < listaTareas.size(); i++) {
             TareaPlanificacion tarea = listaTareas.get(i);
@@ -311,7 +311,7 @@ public class PlanificacionUtils {
         return false;
     }
     
-    public static TareaPlanificacion getTareaPadre(PlanificacionXXX plan,TareaPlanificacion tareaHija)
+    public static TareaPlanificacion getTareaPadre(Planificacion plan,TareaPlanificacion tareaHija)
     {
         TareaPlanificacion padre = null;
         
@@ -334,7 +334,7 @@ public class PlanificacionUtils {
      * @param tareaHija Tarea a la que se le quiere cambiar la fecha de inicio/fin
      * @return 
      */
-    public static boolean esFechaValidaParaHija(PlanificacionXXX plan,boolean inicio,Date date,TareaPlanificacion tareaHija)
+    public static boolean esFechaValidaParaHija(Planificacion plan,boolean inicio,Date date,TareaPlanificacion tareaHija)
     {
         if(tareaHija!=null)
         {
