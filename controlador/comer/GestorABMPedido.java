@@ -738,7 +738,7 @@ public class GestorABMPedido {
     private void darDeBajaPlanificacion() {
         if(this.pedido!=null){
             if(this.pedido.getPlanificacion()!=null){
-                this.pedido.getPlanificacion().setEstado(PlanificacionXXX.ESTADO_BAJA);
+                this.pedido.getPlanificacion().setEstado(Planificacion.ESTADO_BAJA);
             }
         }
     }

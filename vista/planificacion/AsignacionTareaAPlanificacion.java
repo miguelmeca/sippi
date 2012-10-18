@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import modelo.HerramientaDeEmpresa;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.SubObraXHerramientaModif;
 import modelo.TareaPlanificacion;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -32,7 +32,7 @@ public class AsignacionTareaAPlanificacion extends javax.swing.JInternalFrame {
     private Date inicioPadre;
     private Date finPadre;
     
-    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, int hashTareaCotizacion, TareaPlanificacion tareaPadre, PlanificacionXXX planificacion) {
+    public AsignacionTareaAPlanificacion(ICallBack_v3 callback, int hashTareaCotizacion, TareaPlanificacion tareaPadre, Planificacion planificacion) {
         initComponents();
         this.tareaPadre = tareaPadre;
         this.callback = callback;

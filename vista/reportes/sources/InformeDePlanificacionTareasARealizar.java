@@ -25,7 +25,7 @@ import vista.reportes.ReportDesigner;
 public class InformeDePlanificacionTareasARealizar extends InformeDePlanificacion{
 
     
-    public InformeDePlanificacionTareasARealizar(PlanificacionXXX planificacion) {
+    public InformeDePlanificacionTareasARealizar(Planificacion planificacion) {
         super(planificacion);
         
     }

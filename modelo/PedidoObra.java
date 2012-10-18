@@ -28,7 +28,7 @@ public class PedidoObra{
     private List<ContactoResponsable> contactos;
     private Planta planta;
     private Date fechaDeRegistro;
-    private PlanificacionXXX planificacion;
+    private Planificacion planificacion;
     private Ejecucion ejecucion;
 
     private String estado;
@@ -268,11 +268,11 @@ public class PedidoObra{
         this.estado = estado;
     }
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return planificacion;
     }
 
-    public void setPlanificacion(PlanificacionXXX planificacion) {
+    public void setPlanificacion(Planificacion planificacion) {
         this.planificacion = planificacion;
     }
 }

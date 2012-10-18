@@ -9,7 +9,7 @@ import vista.planificacion.*;
 import java.util.HashMap;
 import modelo.Cotizacion;
 import modelo.OrdenDeCompra;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import util.SwingPanel;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gen.PantallaConsultarGenerica;

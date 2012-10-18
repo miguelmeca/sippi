@@ -517,7 +517,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         return this.detalleAcutal;
     }*/
 
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestorPadre.getPlanificacion();
     }
 
@@ -966,8 +966,8 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             int indicedetalle=tareaConCotizacion.getDetalles().indexOf(detalleActual);
                 if(indicedetalle!=-1)
                 {
-                    tareaConCotizacion.getDetalles().remove(indicedetalle);
-                    tareaConCotizacion.getDetalles().add(indicedetalle, detalleActual);
+                   // tareaConCotizacion.getDetalles().remove(indicedetalle);
+                    //tareaConCotizacion.getDetalles().add(indicedetalle, detalleActual);
                 }
                 else
                 {

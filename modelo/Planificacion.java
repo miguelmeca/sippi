@@ -19,7 +19,7 @@ import util.HibernateUtil;
 //
 //
 
-public class PlanificacionXXX {
+public class Planificacion {
     private int id;
     private Date fechaInicio;
     private Date fechaFin;
@@ -33,8 +33,8 @@ public class PlanificacionXXX {
     public static final String ESTADO_BAJA = "Baja";
     public static final String ESTADO_FINALIZADA= "Finalizada";
 
-    public PlanificacionXXX() {
-        this.estado = PlanificacionXXX.ESTADO_ALTA;
+    public Planificacion() {
+        this.estado = Planificacion.ESTADO_ALTA;
         this.tareas = new ArrayList<TareaPlanificacion>();
         this.descripcion = new String();
     }

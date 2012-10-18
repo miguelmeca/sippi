@@ -9,7 +9,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import java.util.HashMap;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import vista.reportes.ReportDesigner;
 
 /**
@@ -25,9 +25,9 @@ public class InformeDePlanificacion extends ReportDesigner {
     public static final String PARAM_PLAN_FINICIO = "PLANIFICAICON_FECHA_INICIO";
     public static final String PARAM_PLAN_FFIN    = "PLANIFICAICON_FECHA_FIN";
     
-    protected PlanificacionXXX planificacion;
+    protected Planificacion planificacion;
 
-    public InformeDePlanificacion(PlanificacionXXX planificacion) {
+    public InformeDePlanificacion(Planificacion planificacion) {
         this.planificacion = planificacion;
     }
     

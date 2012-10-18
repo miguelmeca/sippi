@@ -516,7 +516,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         
        
         // Ahora... Creo la PlanificacionXXX
-        PlanificacionXXX nuevaPlan = new PlanificacionXXX();
+        Planificacion nuevaPlan = new Planificacion();
         nuevaPlan.setFechaInicio(this.obra.getFechaInicio());
         nuevaPlan.setFechaFin(this.obra.getFechaFin());
 

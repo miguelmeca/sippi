@@ -8,7 +8,7 @@ package controlador.planificacion;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.PlanificacionXHerramienta;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import util.NTupla;
 import vista.planificacion.PlanificacionHerramientas;
@@ -31,7 +31,7 @@ public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
         this.pantalla = pantalla;
     }
     
-    public PlanificacionXXX getPlanificacion() {
+    public Planificacion getPlanificacion() {
         return this.gestorPadre.getPlanificacion();
     }
 

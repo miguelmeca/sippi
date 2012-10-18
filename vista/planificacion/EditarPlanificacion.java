@@ -1692,7 +1692,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
                             SubObraXHerramientaModif gastosMod     = _gestor.getGastosHerramientaFromHash(dataTrigger[1]);
                             HerramientaDeEmpresa herramienta  = null;
-                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            Planificacion plan = _gestor.getPlanificacion();
                             
                             if(gastosMod!=null)
                             {
@@ -1724,7 +1724,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
                             SubObraXMaterialModif gastosMod = _gestor.getGastosMaterialFromHash(dataTrigger[1]);
                             RecursoXProveedor rxp = null;
-                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            Planificacion plan = _gestor.getPlanificacion();
                             
                             if(gastosMod!=null)
                             {
@@ -1755,7 +1755,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         {
                             TareaPlanificacion tarea = _gestor.getTareaPlanificacionFromTareaGantt(p);
                             SubObraXAlquilerCompraModif gastosMod = _gestor.getGastosAlquilerCompraFromHash(dataTrigger[1]);
-                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            Planificacion plan = _gestor.getPlanificacion();
                             TipoAlquilerCompra tipoAlquilerCompra = null;
                             
                             if(gastosMod!=null)
@@ -2268,7 +2268,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         {
                             TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
                             SubObraXAlquilerCompraModif gastosMod = _gestor.getGastosAlquilerCompraFromHash(dataTrigger[1]);
-                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            Planificacion plan = _gestor.getPlanificacion();
                             TipoAlquilerCompra tipoAC = null;
                             
                             if(gastosMod!=null)
@@ -2296,7 +2296,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                         System.out.println("Está intentando agregar un "+ArbolDeTareasTipos.TIPO_HERRAMIENTA+"\nA la Tarea "+tarea.getNombre());
                         SubObraXHerramientaModif gastosMod     = _gestor.getGastosHerramientaFromHash(dataTrigger[1]);
                         HerramientaDeEmpresa herramienta  = null;
-                        PlanificacionXXX plan = _gestor.getPlanificacion();
+                        Planificacion plan = _gestor.getPlanificacion();
                             
                         if(gastosMod!=null)
                         {
@@ -2329,7 +2329,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
                             TareaPlanificacion tarea=_gestor.getPlanificacion().buscarTareaPorHash(hashTareaPadre);
                             SubObraXMaterialModif gastosMod = _gestor.getGastosMaterialFromHash(dataTrigger[1]);
                             RecursoXProveedor rxp = null;
-                            PlanificacionXXX plan = _gestor.getPlanificacion();
+                            Planificacion plan = _gestor.getPlanificacion();
 
                             if(gastosMod!=null)
                             {

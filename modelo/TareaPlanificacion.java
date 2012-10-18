@@ -485,7 +485,7 @@ public class TareaPlanificacion
      * @param cortarEnTareaCotizada
      * @return 
      */
-   public List<TareaPlanificacion> buscarCaminoHastaTareaConCotizacion(PlanificacionXXX planificacion, boolean incluirTareaBuscada, boolean cortarEnTareaCotizada)
+   public List<TareaPlanificacion> buscarCaminoHastaTareaConCotizacion(Planificacion planificacion, boolean incluirTareaBuscada, boolean cortarEnTareaCotizada)
     {
         //Necesario para pasar una boolean como referencia en vez de pasarlo por valor
         boolean[] todaviaNoPasoTareaCotizada= new boolean[1];
@@ -567,7 +567,7 @@ public class TareaPlanificacion
      * IMPORTANTE: Si es hija de una tarea cotizada en la subobra de gastos generales creada en planificacion, el resultado es FALSE
      * SOLAMENTE devuelve TRUE en caso de q sea o q sea hija de una tera cotizada normal y no de gastos generales.
      */
-    public boolean esCotizadaODescendienteDeTareaCotizada(PlanificacionXXX planificacion)
+    public boolean esCotizadaODescendienteDeTareaCotizada(Planificacion planificacion)
     {
         //Este metodo podria optimizarse para q no haga uso de buscarCaminoHastaTareaConCotizacion() ... pero ya fue...
         List<TareaPlanificacion> tareasSuperioresTotales= buscarCaminoHastaTareaConCotizacion(planificacion,true,true);

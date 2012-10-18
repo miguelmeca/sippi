@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import util.FechaUtil;
 import util.SwingPanel;
 import vista.reportes.ReportDesigner;
@@ -30,11 +30,11 @@ import vista.reportes.sources.InformeDePlanificaiconEmpleadosEnObra;
  */
 public class EmitirInformes extends javax.swing.JInternalFrame {
     
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     private PedidoObra obra;
     
     /** Creates new form generarCotizacionExterna */
-    public EmitirInformes(PedidoObra obra,PlanificacionXXX plan) 
+    public EmitirInformes(PedidoObra obra,Planificacion plan) 
     {
         this.plan = plan;
         this.obra = obra;

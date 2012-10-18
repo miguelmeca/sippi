@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.List;
 import modelo.DetalleTareaPlanificacion;
 import modelo.Empleado;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import vista.reportes.ReportDesigner;
 
@@ -22,10 +22,10 @@ import vista.reportes.ReportDesigner;
  */
 public class InformeDePlanificaiconEmpleadosEnObra extends InformeDePlanificacion{
 
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     private HashMap<Integer,AssetInformeEmpleado> stash;
     
-    public InformeDePlanificaiconEmpleadosEnObra(PlanificacionXXX planificacion) {
+    public InformeDePlanificaiconEmpleadosEnObra(Planificacion planificacion) {
         super(planificacion);
         this.plan = planificacion;
         stash = new HashMap<Integer, AssetInformeEmpleado>();

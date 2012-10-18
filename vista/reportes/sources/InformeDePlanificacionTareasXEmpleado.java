@@ -14,7 +14,7 @@ import controlador.planificacion.PlanificacionUtils;
 import java.util.*;
 import modelo.DetalleTareaPlanificacion;
 import modelo.Empleado;
-import modelo.PlanificacionXXX;
+import modelo.Planificacion;
 import modelo.TareaPlanificacion;
 import util.FechaUtil;
 import vista.reportes.ReportDesigner;
@@ -25,7 +25,7 @@ import vista.reportes.ReportDesigner;
  */
 public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacion{
 
-    private PlanificacionXXX plan;
+    private Planificacion plan;
     private HashMap<Integer,EmpleadoInforme> stash;
     
     /**
@@ -34,7 +34,7 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
      */
     private boolean conHoras=false;
     
-    public InformeDePlanificacionTareasXEmpleado(PlanificacionXXX planificacion) {
+    public InformeDePlanificacionTareasXEmpleado(Planificacion planificacion) {
         super(planificacion);
         this.plan = planificacion;
         stash = new HashMap<Integer, EmpleadoInforme>();
