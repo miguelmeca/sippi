@@ -14,6 +14,9 @@ import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXMaterial;
 import modelo.HerramientaDeEmpresa;
 import modelo.PedidoObra;
+import modelo.PlanificacionXAlquilerCompra;
+import modelo.PlanificacionXHerramienta;
+import modelo.PlanificacionXMaterial;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
 import modelo.SubObraXAlquilerCompraModif;
@@ -54,10 +57,10 @@ public class GestorVentanaLanzamiento {
                 List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = todasTareas.get(i);
-                    List<EjecucionXHerramienta> listaHerramientas = tarea.getListaHerramientas();
+                    List<PlanificacionXHerramienta> listaHerramientas = tarea.getHerramientas();
                     if (listaHerramientas != null) {
                         for (int j = 0; j < listaHerramientas.size(); j++) {
-                            EjecucionXHerramienta herramienta = listaHerramientas.get(j);
+                            EjecucionXHerramienta herramienta = (EjecucionXHerramienta)listaHerramientas.get(j);
                             HerramientaDeEmpresa hde = herramienta.getHerramientaPlanificada().getHerramientaCotizacion().getHerramienta();
                             if (hde != null) {
                                 if (allHerramientas.containsKey(hde)) {
@@ -125,10 +128,10 @@ public class GestorVentanaLanzamiento {
                 List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = todasTareas.get(i);
-                    List<EjecucionXMaterial> listaMateriales = tarea.getListaMateriales();
+                    List<PlanificacionXMaterial> listaMateriales = tarea.getMateriales();
                     if (listaMateriales != null) {
                         for (int j = 0; j < listaMateriales.size(); j++) {
-                            EjecucionXMaterial material = listaMateriales.get(j);
+                            EjecucionXMaterial material = (EjecucionXMaterial)listaMateriales.get(j);
                             RecursoXProveedor rxp = material.getMaterialPlanificado().getMaterialCotizacion().getMaterial();
                             RecursoEspecifico recesp = RecursosUtil.getRecursoEspecifico(rxp);
                             if (recesp != null) {
@@ -201,10 +204,10 @@ public class GestorVentanaLanzamiento {
                 List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = todasTareas.get(i);
-                    List<EjecucionXAlquilerCompra> listaAlqCompra = tarea.getListaAlquileresCompras();
+                    List<PlanificacionXAlquilerCompra> listaAlqCompra = tarea.getAlquilerCompras();
                     if (listaAlqCompra != null) {
                         for (int j = 0; j < listaAlqCompra.size(); j++) {
-                            EjecucionXAlquilerCompra alqCompra = listaAlqCompra.get(j);
+                            EjecucionXAlquilerCompra alqCompra = (EjecucionXAlquilerCompra)listaAlqCompra.get(j);
                             SubObraXAlquilerCompraModif tac = alqCompra.getAlquilerCompraPlanificado().getAlquilerCompraCotizacion();
                             if (tac != null) {
                                 if (allAlqCompras.containsKey(tac)) {

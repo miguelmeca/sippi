@@ -44,5 +44,10 @@
       <one-to-many class="modelo.DetalleTareaPlanificacion"/>
     </list>
     
+    
+    <joined-subclass name="modelo.TareaEjecucion" table="TAREA_EJECUCION">
+      <key column="ID_TAREA_EJECUCION"/>
+      <many-to-one class="modelo.TareaPlanificacion" name="tareaPlanificada"/>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

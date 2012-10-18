@@ -14,20 +14,20 @@ import vista.planificacion.ArbolDeTareasTipos;
 public class TareaPlanificacion
 {
 
-    private int id;
-    private List<TareaPlanificacion> subtareas;
-    private String nombre;
-    private TipoTarea tipoTarea;
-    private String observaciones;
-    private List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados;
-    private List<PlanificacionXHerramienta> herramientas;
-    private List<PlanificacionXMaterial> materiales;
-    private List<PlanificacionXAlquilerCompra> alquilerCompras;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private int idTareaGantt;
+    protected int id;
+    protected List<TareaPlanificacion> subtareas;
+    protected String nombre;
+    protected TipoTarea tipoTarea;
+    protected String observaciones;
+    protected List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados;
+    protected List<PlanificacionXHerramienta> herramientas;
+    protected List<PlanificacionXMaterial> materiales;
+    protected List<PlanificacionXAlquilerCompra> alquilerCompras;
+    protected Date fechaInicio;
+    protected Date fechaFin;
+    protected int idTareaGantt;
     private SubObraXTareaModif tareaCotizada;    
-    private List<DetalleTareaPlanificacion> detalles;
+    protected List<DetalleTareaPlanificacion> detalles;
     
     private transient TareaPlanificacion tareaCopia;
     

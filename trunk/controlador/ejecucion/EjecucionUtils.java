@@ -22,8 +22,8 @@ public class EjecucionUtils {
     public static ArrayList<TareaEjecucion> getTodasTareasEjecucion(Ejecucion ejecucion) {
         ArrayList<TareaEjecucion> lista = new ArrayList<TareaEjecucion>();
 
-        for (int i = 0; i < ejecucion.getListaTareas().size(); i++) {
-            TareaEjecucion tarea = ejecucion.getListaTareas().get(i);
+        for (int i = 0; i < ejecucion.getTareas().size(); i++) {
+            TareaEjecucion tarea = ejecucion.getTarea(i);
             getTareasRecursivas(lista, tarea);
         }
 
@@ -33,7 +33,7 @@ public class EjecucionUtils {
     private static void getTareasRecursivas(ArrayList<TareaEjecucion> lista, TareaEjecucion tarea) {
         lista.add(tarea);
         for (int i = 0; i < tarea.getSubtareas().size(); i++) {
-            TareaEjecucion tarearec = tarea.getSubtareas().get(i);
+            TareaEjecucion tarearec = (TareaEjecucion)tarea.getSubtareas().get(i);
             getTareasRecursivas(lista, tarearec);
         }
     }

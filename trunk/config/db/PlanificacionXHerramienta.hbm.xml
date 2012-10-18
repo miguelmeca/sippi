@@ -9,5 +9,15 @@
     <property column="HORAS_ASIGNADAS" name="horasAsignadas" type="integer"/>
     
     <many-to-one class="modelo.SubObraXHerramientaModif" name="herramientaCotizacion"/>
+    
+    <joined-subclass name="modelo.EjecucionXHerramienta" table="EJECUCION_X_HERRMIENTA">
+      <key column="ID_EJECUCION_X_HERRMIENTA"/>
+      <many-to-one class="modelo.PlanificacionXHerramienta" name="herramientaPlanificada"/>
+      <list cascade="all-delete-orphan" name="usoHerramientasXdia" table="EJECUCION_X_HERRAMIENTA_X_DIA">
+            <key column="ID_HERR_X_DIA"/>
+            <index column="ID_EJECUCION_X_HERR_X_DIA"/>
+            <one-to-many class="modelo.EjecucionXHerramientaXDia"/>
+      </list>    
+    </joined-subclass>
   </class>
 </hibernate-mapping>

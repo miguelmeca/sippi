@@ -10,59 +10,48 @@ import util.HibernateUtil;
  *
  * @author Iuga
  */
-public class Ejecucion {
+public class Ejecucion extends Planificacion{
     
-    private int id;
-    private List<TareaEjecucion> listaTareas;
+    // Overrided
+    /*private int id;
+    private List<TareaEjecucion> tareas;
     private Date fechaInicio;
-    private Date fechaFin;
+    private Date fechaFin;    
+    private String estado;*/
+    
     private String observaciones;
-    private String estado;
+    private Planificacion planificacionOriginal;
+    
     
     private List<EjecucionXAdicional> adicionales;
     
-    public static final String ESTADO_ALTA = "Alta";
     public static final String ESTADO_ENEJECUCION = "En Ejecución";
+    // Overrided
+    /*public static final String ESTADO_ALTA = "Alta";
     public static final String ESTADO_FINALIZADA = "Finalizada";
-    public static final String ESTADO_BAJA = "Baja";
+    public static final String ESTADO_BAJA = "Baja";*/
 
     public Ejecucion() {
+        super();
         this.estado = Ejecucion.ESTADO_ALTA;
-        listaTareas = new ArrayList<TareaEjecucion>();
+        //tareas = new ArrayList<TareaEjecucion>();
         adicionales = new ArrayList<EjecucionXAdicional>();
     }
 
-    public int getId() {
-        return id;
+   
+
+    public TareaEjecucion getTarea(int indice) {
+        return (TareaEjecucion) tareas.get(indice);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void addTarea(TareaEjecucion tarea) {
+        this.tareas.add(tarea);
+    }
+    
+    public void addTarea(int indice, TareaEjecucion tarea ) {
+        this.tareas.add(indice, tarea);
     }
 
-    public List<TareaEjecucion> getListaTareas() {
-        return listaTareas;
-    }
-
-    public void setListaTareas(List<TareaEjecucion> listaTareas) {
-        this.listaTareas = listaTareas;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
 
     public String getObservaciones() {
         return observaciones;
@@ -72,14 +61,7 @@ public class Ejecucion {
         this.observaciones = observaciones;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }    
-    
+    @Override
     public String mostrarPedidoObra(){
         try
         {
@@ -96,20 +78,6 @@ public class Ejecucion {
         } 
         return "";
     }    
-    
-    public String mostrarFechaFin(){
-        if(this.fechaFin!=null){
-            return FechaUtil.getFecha(fechaFin);
-        }
-        return "";
-    }
-    
-    public String mostrarFechaInicio(){
-        if(this.fechaInicio!=null){
-            return FechaUtil.getFecha(fechaInicio);
-        }
-        return "";
-    }        
 
     public List<EjecucionXAdicional> getAdicionales() {
         return adicionales;
@@ -117,6 +85,20 @@ public class Ejecucion {
 
     public void setAdicionales(List<EjecucionXAdicional> adicionales) {
         this.adicionales = adicionales;
+    }
+
+    /**
+     * @return the planificacionOriginal
+     */
+    public Planificacion getPlanificacionOriginal() {
+        return planificacionOriginal;
+    }
+
+    /**
+     * @param planificacionOriginal the planificacionOriginal to set
+     */
+    public void setPlanificacionOriginal(Planificacion planificacionOriginal) {
+        this.planificacionOriginal = planificacionOriginal;
     }
     
 }

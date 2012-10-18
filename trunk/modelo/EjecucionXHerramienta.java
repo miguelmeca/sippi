@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Iuga
  */
-public class EjecucionXHerramienta {
+public class EjecucionXHerramienta extends PlanificacionXHerramienta{
     
     private int id;
     private PlanificacionXHerramienta herramientaPlanificada;
@@ -16,14 +16,6 @@ public class EjecucionXHerramienta {
 
     public EjecucionXHerramienta() {
         usoHerramientasXdia = new ArrayList<EjecucionXHerramientaXDia>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public PlanificacionXHerramienta getHerramientaPlanificada() {
@@ -40,6 +32,21 @@ public class EjecucionXHerramienta {
 
     public void setUsoHerramientasXdia(List<EjecucionXHerramientaXDia> usoHerramientasXdia) {
         this.usoHerramientasXdia = usoHerramientasXdia;
+    }
+    
+    @Override
+    public int getHorasAsignadas() {
+        int cantHoras=0;
+        for (int i = 0; i < usoHerramientasXdia.size(); i++) {
+            cantHoras+=usoHerramientasXdia.get(i).getHorasUtilizadas();
+        }
+        return cantHoras;
+    }
+
+    @Deprecated
+    @Override
+    public void setHorasAsignadas(int horasAsignadas) {
+        this.horasAsignadas = horasAsignadas;
     }
     
 }

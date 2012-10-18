@@ -1071,9 +1071,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         Ejecucion ejecucion = new Ejecucion();
         ejecucion.setFechaInicio(new Date());
         ejecucion.setObservaciones("");
+        ejecucion.setPlanificacionOriginal(planificacion);
 
             // 2- Recursivamente, Por cada Tarea de Planificacion creo una de Ejecucion y la asocio
-            List<TareaEjecucion> listaTareasEjecucion = new ArrayList<TareaEjecucion>();
+            List<TareaPlanificacion> listaTareasEjecucion = new ArrayList<TareaPlanificacion>();
             
             for (int i = 0; i < planificacion.getTareas().size(); i++) {
                 TareaPlanificacion tareaPlan =  planificacion.getTareas().get(i);
@@ -1088,7 +1089,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 ejecucion.getAdicionales().addAll(adicionalesEjecucion);
             }
 
-            ejecucion.setListaTareas(listaTareasEjecucion);
+            ejecucion.setTareas(listaTareasEjecucion);
 
         return ejecucion;
     }
@@ -1105,20 +1106,20 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         tareaEjec.setTareaPlanificada(tareaPlan);
 
         // 3- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
-        tareaEjec.setListaHerramientas(crearListadoHerramientasEjecucion(tareaPlan.getHerramientas(),tareaEjec));
+        tareaEjec.setHerramientas(crearListadoHerramientasEjecucion(tareaPlan.getHerramientas(),tareaEjec));
 
         // 4- Por cada Material Planificado de una Tarea, agrego una a Ejecucion
-        tareaEjec.setListaMateriales(crearListadoMaterialesEjecucion(tareaPlan.getMateriales()));
+        tareaEjec.setMateriales(crearListadoMaterialesEjecucion(tareaPlan.getMateriales()));
 
         // 5- Por cada Alquiler/Compra Planificada de una Tarea, agrego una a Ejecucion
-        tareaEjec.setListaAlquileresCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
+        tareaEjec.setAlquilerCompras(crearListadoAlquileresComprasEjecucion(tareaPlan.getAlquilerCompras()));
 
         // 6- Copio los adicionales ...
         // Y angora ???? ...., son por subObra (Anda y mira arriba)
         
         // 7- Ahora Copio los RRHH o Empleados lo que sea que sean por cada DetalleTareaPlanificacion
         // agrego una Tarea a Ejecucion
-        tareaEjec.setListaDetalleTarea(crearListadoDetalleListaTareas(tareaPlan.getDetalles(),tareaEjec));
+        tareaEjec.setDetalles(crearListadoDetalleListaTareas(tareaPlan.getDetalles(),tareaEjec));
         
         // Mando a Recursividad
         for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
@@ -1137,8 +1138,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param herramientas
      * @return 
      */
-    private List<EjecucionXHerramienta> crearListadoHerramientasEjecucion(List<PlanificacionXHerramienta> herramientas, TareaEjecucion tarea) {
-        List<EjecucionXHerramienta> listaHerramientas = new ArrayList<EjecucionXHerramienta>();
+    private List<PlanificacionXHerramienta> crearListadoHerramientasEjecucion(List<PlanificacionXHerramienta> herramientas, TareaEjecucion tarea) {
+        List<PlanificacionXHerramienta> listaHerramientas = new ArrayList<PlanificacionXHerramienta>();
         
             if(herramientas!=null){
                 for (int i = 0; i < herramientas.size(); i++) {
@@ -1163,8 +1164,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param materiales
      * @return 
      */
-    private List<EjecucionXMaterial> crearListadoMaterialesEjecucion(List<PlanificacionXMaterial> materiales) {
-        List<EjecucionXMaterial> listaMateriales = new ArrayList<EjecucionXMaterial>();
+    private List<PlanificacionXMaterial> crearListadoMaterialesEjecucion(List<PlanificacionXMaterial> materiales) {
+        List<PlanificacionXMaterial> listaMateriales = new ArrayList<PlanificacionXMaterial>();
         
             if(materiales!=null){
                 for (int i = 0; i < materiales.size(); i++) {
@@ -1185,8 +1186,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param alquileresCompras
      * @return 
      */
-    private List<EjecucionXAlquilerCompra> crearListadoAlquileresComprasEjecucion(List<PlanificacionXAlquilerCompra> alquileresCompras) {
-        List<EjecucionXAlquilerCompra> listaAlquileresCompras = new ArrayList<EjecucionXAlquilerCompra>();
+    private List<PlanificacionXAlquilerCompra> crearListadoAlquileresComprasEjecucion(List<PlanificacionXAlquilerCompra> alquileresCompras) {
+        List<PlanificacionXAlquilerCompra> listaAlquileresCompras = new ArrayList<PlanificacionXAlquilerCompra>();
         
             if(alquileresCompras!=null){
                 for (int i = 0; i < alquileresCompras.size(); i++) {
@@ -1291,8 +1292,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param detalles
      * @return 
      */
-    private List<DetalleTareaEjecucion> crearListadoDetalleListaTareas(List<DetalleTareaPlanificacion> detalles, TareaEjecucion tarea) {
-        List<DetalleTareaEjecucion> lista = new ArrayList<DetalleTareaEjecucion>();
+    private List<DetalleTareaPlanificacion> crearListadoDetalleListaTareas(List<DetalleTareaPlanificacion> detalles, TareaEjecucion tarea) {
+        List<DetalleTareaPlanificacion> lista = new ArrayList<DetalleTareaPlanificacion>();
         
             for (int i = 0; i < detalles.size(); i++) {
                 DetalleTareaPlanificacion detTareaPlan = detalles.get(i);

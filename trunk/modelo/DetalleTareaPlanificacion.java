@@ -13,16 +13,16 @@ import java.util.ArrayList;
  */
 public class DetalleTareaPlanificacion {
     private DetalleSubObraXTareaModif cotizado;
-    private DetalleTareaPlanificacion padre;
-    private List<Empleado> empleados;
-    private int id;
-    private int cantidadPersonas;
-    private double cantHorasNormales;
-    private double cantHorasAl50;
-    private double cantHorasAl100;
-    private double costoXHoraNormal;
-    private Especialidad especialidad;
-    private int cantidadHijos;
+    protected DetalleTareaPlanificacion padre;
+    protected List<Empleado> empleados;
+    protected int id;
+    protected int cantidadPersonas;
+    protected double cantHorasNormales;
+    protected double cantHorasAl50;
+    protected double cantHorasAl100;
+    protected double costoXHoraNormal;
+    protected Especialidad especialidad;
+    protected int cantidadHijos;
     
     private transient DetalleTareaPlanificacion detalleCopia;
     
