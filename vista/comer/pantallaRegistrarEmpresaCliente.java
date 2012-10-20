@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.SwingPanel;
+import util.TablaUtil;
 import util.Tupla;
 import vista.interfaces.IAyuda;
 import vista.interfaces.ICallBack;
@@ -85,9 +86,10 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
 
     public void plantaAgregada(){
         btnNuevaEmpresa.setEnabled(true);
+        DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo);
         ArrayList<NTupla> pls = gestor.getPlantas();
         for(NTupla nt : pls){
-            DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
             Object[] item = new Object[2];
             item[0] = new Tupla(nt.getId(),nt.getNombre());// GUARDO EL INDICE DEL ARRAYLIST DEL GESTOR DE LAS PLANTAS
             item[1] = (String)nt.getData();
