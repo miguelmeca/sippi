@@ -4,19 +4,27 @@
   <session-factory>
     <!--        Memory Database        -->
     <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-    <property name="connection.url">jdbc:hsqldb:mem:testdb</property>
-    <!--<property name="connection.url">jdbc:hsqldb:hsql://localhost/testdb</property>-->
     <property name="connection.username">sa</property>
     <property name="connection.password"/>
     <property name="connection.pool_size">2</property>
-    <!--java -cp hsqldb.jar org.hsqldb.Server -database.0 file:data/demo_db -dbname.0 testdb-->
     <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+    
+    <!-- CONFIGS PARA BASE DE DATOS EN MEMORIA -->
+    <!--<property name="connection.url">jdbc:hsqldb:mem:testdb</property>-->
+    <!--<property name="hbm2ddl.auto">create-drop</property>-->
+    
+    <!-- CONFIGS PARA BASE DE DATOS EN DISCO -->
+    <property name="connection.url">jdbc:hsqldb:hsql://localhost/acerodb</property>
+        <!-- Lanzador de DB -->
+        <!-- java -cp hsqldb.jar org.hsqldb.Server -database.0 file:data/demo_db -dbname.0 testdb-->
+    
+    
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.use_sql_comments">true</property>
     <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
     <property name="hibernate.cglib.use_reflection_optimizer">false</property>
-    <property name="hbm2ddl.auto">create-drop</property>
+    
     <!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>-->
     <!--    <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/xe</property>-->
     <!--property name="hibernate.connection.url">jdbc:oracle:thin:@//192.168.0.10:1521/xe</property-->

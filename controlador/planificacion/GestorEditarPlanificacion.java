@@ -1297,13 +1297,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
             for (int i = 0; i < detalles.size(); i++) {
                 DetalleTareaPlanificacion detTareaPlan = detalles.get(i);
-                
                     DetalleTareaEjecucion tareaEjec = new DetalleTareaEjecucion();
                     tareaEjec.setDetalleTareaPlanificado(detTareaPlan);
                     
                     List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
                     tareaEjec.setListaDetallePorDia(listaPorDía);
-                        
+                    
+                    lista.add(tareaEjec);
             }
         
         return lista;

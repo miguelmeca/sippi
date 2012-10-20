@@ -4,10 +4,14 @@
  */
 package vista.ejecucion.lanzamiento;
 
+import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import util.NTupla;
+import util.TablaUtil;
 import vista.util.MyComboBoxEditor;
 
 /**
@@ -17,21 +21,24 @@ import vista.util.MyComboBoxEditor;
 public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     public static final int TABLA_RRHH_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_RRHH_COLUMNA_TELEFONO = 1;
-    public static final int TABLA_RRHH_COLUMNA_NOTAS = 2;
-    public static final int TABLA_RRHH_COLUMNA_ESTADO = 3;
-    public static final int TABLA_RRHH_COLUMNA_SELECCION = 4;
+    public static final int TABLA_RRHH_COLUMNA_HSN = 1;
+    public static final int TABLA_RRHH_COLUMNA_HS50 = 2;
+    public static final int TABLA_RRHH_COLUMNA_HS100 = 3;
+    public static final int TABLA_RRHH_COLUMNA_ESTADO = 4;
+    public static final int TABLA_RRHH_COLUMNA_SELECCION = 5;
     
     private static final int TABLA_DEFAULT_ALTO = 25;    
         
+    private GestorVentanaLanzamiento gestor;
     
     /**
      * Creates new form PanelRecursosHumanos
      */
-    public PanelRecursosHumanos() {
+    public PanelRecursosHumanos(GestorVentanaLanzamiento gestor) {
+        this.gestor = gestor;
         initComponents();
         initTabla();
-        mock();
+        cargarDatosTablaParaObra();
     }
 
     /**
@@ -52,14 +59,14 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre del empleado", "Telefonos", "Notas", "Estado", ""
+                "Nombre del empleado", "Horas Normales", "Horas 50%", "Horas 100%", "Estado", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,14 +109,6 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         tblRRHH.setRowHeight(TABLA_DEFAULT_ALTO);
         DefaultTableModel modelo = (DefaultTableModel) tblRRHH.getModel();
 
-        TableColumn col = tblRRHH.getColumnModel().getColumn(TABLA_RRHH_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#009900'>Disponible</span>", 
-                                       "<HTML><span color='#CC7A00'>Con Licencia</span>", 
-                                       "<HTML><span color='#CC7A00'>Enfermo</span>", 
-                                       "<HTML><span color='#CC0000'>No Disponible</span>"};
-        col.setCellEditor(new MyComboBoxEditor(values));
-        col.setCellRenderer(new PanelHerramientasCellRenderer(values));
-
         // Ancho de Columnas
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tblRRHH.getColumnModel();
@@ -117,18 +116,21 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         for (int i = 0; i < tblRRHH.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
-                case TABLA_RRHH_COLUMNA_ESTADO:
-                    anchoColumna = 400;
-                    break;
                 case TABLA_RRHH_COLUMNA_NOMBRE:
-                    anchoColumna = 500;
-                    break;
-                case TABLA_RRHH_COLUMNA_NOTAS:
-                    anchoColumna = 500;
-                    break;
-                case TABLA_RRHH_COLUMNA_TELEFONO:
                     anchoColumna = 300;
                     break;
+                case TABLA_RRHH_COLUMNA_HSN:
+                    anchoColumna = 100;
+                    break;
+                case TABLA_RRHH_COLUMNA_HS50:
+                    anchoColumna = 100;
+                    break;
+                case TABLA_RRHH_COLUMNA_HS100:
+                    anchoColumna = 100;
+                    break; 
+                case TABLA_RRHH_COLUMNA_ESTADO:
+                    anchoColumna = 200;
+                    break;                        
                 case TABLA_RRHH_COLUMNA_SELECCION:
                     anchoColumna = 50;
                     break;
@@ -137,25 +139,31 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             columnaTabla.setWidth(anchoColumna);
         } 
     }
-
-    private void mock() {
-        // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblRRHH.getModel();
+    
+    /**
+     * Pide al gestor que busque todos los datos de los empleados que van a 
+     * trabajar en esta obra y su estado.
+     */
+    private void cargarDatosTablaParaObra() {
+        List<NTupla> tuplas = gestor.llenarTablaPanelRRHH();
+        DefaultTableModel modelo = (DefaultTableModel)tblRRHH.getModel();
+        TablaUtil.vaciarDefaultTableModel(modelo);
         
-        Object row[] = new Object[5];
-        row[0] = "Del Boca, Esteban";
-        row[1] = "03457-1234567";
-        row[2] = "";
-        row[3] = new JComboBox();
-        row[4] = false;
-        modelo.addRow(row);
+        for (int i = 0; i < tuplas.size(); i++) {
+            NTupla nTupla = tuplas.get(i);
+            Object[] fila = new Object[6];
+            fila[TABLA_RRHH_COLUMNA_NOMBRE] = nTupla;
+            
+                String[] data = (String[]) nTupla.getData();
+            
+                fila[TABLA_RRHH_COLUMNA_HSN] = data[0];
+                fila[TABLA_RRHH_COLUMNA_HS50] = data[1];
+                fila[TABLA_RRHH_COLUMNA_HS100] = data[2];
+                fila[TABLA_RRHH_COLUMNA_ESTADO] = data[3];
 
-        Object row2[] = new Object[5];
-        row2[0] = "Simpson, Homero";
-        row2[1] = "4235433";
-        row2[2] = "";
-        row2[3] = new JComboBox();
-        row2[4] = false;
-        modelo.addRow(row2);
-    }
+                fila[TABLA_RRHH_COLUMNA_SELECCION] = false;
+                
+            modelo.addRow(fila);
+        }
+    }    
 }
