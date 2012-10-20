@@ -226,7 +226,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
             case OPTN_RRHH:
                 setNombrePanel(modelo.getValueAt(OPTN_RRHH,0).toString());
                 if(this.panelRecursosHumanos==null){
-                    this.panelRecursosHumanos =  new PanelRecursosHumanos();
+                    this.panelRecursosHumanos =  new PanelRecursosHumanos(this.gestor);
                 }
                 //this.panelRecursosHumanos.actualizarDatos();
                 pnlCentral.removeAll();
