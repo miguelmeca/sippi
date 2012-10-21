@@ -115,6 +115,10 @@ public class FechaUtil {
 
     public static boolean fechaEnRango(Date fecha, Date rangoInicio, Date rangoFin)
     {
+        if(fecha==null || rangoInicio==null || rangoFin==null){
+            return false;
+        }
+        
         System.out.println("Chequeo Rango de Fechas -> Fecha:"+FechaUtil.getFecha(fecha)+" en rango["+FechaUtil.getFecha(rangoInicio)+"/"+FechaUtil.getFecha(rangoFin)+"]");
 
         long f = fecha.getTime();

@@ -16,19 +16,28 @@ package vista;
 import config.SConfig;
 import controlador.users.UserSession;
 import controlador.xml.XMLReaderMenu;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Date;
+import java.util.List;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import modelo.FavoritoBean;
 import modelo.Herramienta;
 import modelo.HerramientaDeEmpresa;
 import modelo.Material;
-import org.hibernate.cache.AbstractJndiBoundCacheProvider;
 import org.jfree.ui.RefineryUtilities;
 import test.TestCallBackListadoGenerico;
 import util.HibernateUtil;
+import util.NTupla;
 import util.SwingPanel;
+import util.Tupla;
 import vista.abms.*;
 import vista.ayuda.VentanaAcercaDe;
 import vista.ayuda.VisorDeAyuda;
@@ -190,9 +199,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         treeMenu = new javax.swing.JTree();
-        jPanel2 = new javax.swing.JPanel();
+        pnlToday = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         lblFechaHoy = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstTareas = new JList() {
+            // This method is called as the cursor moves within the list.
+            public String getToolTipText(MouseEvent evt) {
+                // Get item index
+                int index = locationToIndex(evt.getPoint());
+
+                // Get item
+                NTupla item = (NTupla)getModel().getElementAt(index);
+
+                // Return the tool tip text
+                return getToolTipFromTarea(item);
+            }
+        };
+        jLabel1 = new javax.swing.JLabel();
+        tareasDateChooser = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu8 = new javax.swing.JMenu();
         cmbUsuarios = new javax.swing.JMenu();
@@ -307,27 +332,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFechaHoy, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+            .addComponent(lblFechaHoy, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblFechaHoy)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        lstTareas.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "-" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(lstTareas);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Tareas creadas para la fecha:");
+
+        javax.swing.GroupLayout pnlTodayLayout = new javax.swing.GroupLayout(pnlToday);
+        pnlToday.setLayout(pnlTodayLayout);
+        pnlTodayLayout.setHorizontalGroup(
+            pnlTodayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlTodayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTodayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                    .addComponent(tareasDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlTodayLayout.setVerticalGroup(
+            pnlTodayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTodayLayout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 631, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tareasDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Inicio", jPanel2);
+        jTabbedPane1.addTab("Hoy", pnlToday);
 
         jSplitPane2.setLeftComponent(jTabbedPane1);
 
@@ -1117,6 +1165,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem cmbNuevoUsuario;
     private javax.swing.JMenuItem cmbSalir;
     private javax.swing.JMenu cmbUsuarios;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -1161,17 +1210,20 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblFechaHoy;
+    private javax.swing.JList lstTareas;
     private javax.swing.JDesktopPane panel;
+    private javax.swing.JPanel pnlToday;
+    private com.toedter.calendar.JDateChooser tareasDateChooser;
     private javax.swing.JTree treeMenu;
     // End of variables declaration//GEN-END:variables
 
@@ -1201,13 +1253,87 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
      * Arma y setea los datos de la barra lateral de Hoy !!
      */
     private void cargarBarraHoy() {
-        
-        // Seteo la Fecha !!
-        String msg = "Mayo 23";
+        // Seteo la Fecha de Hoy !!
+        String msg = VentanaPrincipalUtils.getFechaActual();
         lblFechaHoy.setText(msg);
         
+        // Setear Date change listerner
+        tareasDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) {
+                    System.out.println(e.getPropertyName() + ": " + (Date) e.getNewValue());
+                    cargarTareasParaHoy((Date) e.getNewValue());
+                }
+            }
+        });
+ 
+        // Activar listener
+        tareasDateChooser.setDate(new Date());
     }
 
+    /**
+     * Recibe una fecha y carga todas las tareas para hoy.
+     */
+    private void cargarTareasParaHoy(Date date) {
+        if(date!=null){
+            List<NTupla> tpTareas = VentanaPrincipalUtils.getTareasParaFecha(date);
+            
+            lstTareas.removeAll();
+            
+            DefaultListModel modelo = new DefaultListModel();  
+            
+            if(tpTareas.isEmpty()){
+                NTupla empty = new NTupla(-1);
+                empty.setNombre("No hay tareas asignadas para Hoy");
+                modelo.addElement(empty);
+            }
+            else{
+                for (int i = 0; i < tpTareas.size(); i++) {
+                    NTupla tupla = tpTareas.get(i);
+                    modelo.addElement(tupla);
+                }    
+            }
+            
+            lstTareas.setModel(modelo);
+        }
+    }
+
+    /**
+     * Hagarra la NTupla de la lista de tareas para hoy y arma un ToolTip.
+     * @param item
+     * @return 
+     */
+    public String getToolTipFromTarea(NTupla item){
+        String msg = "<HTML>";
+        
+            if(item!=null){
+                msg += "<b>Tarea: </b>"+item.getNombre();
+                
+                // Metadata
+                String[] data = (String[])item.getData();
+                if(data!=null){
+                    
+                    if(data[3]!=null){
+                        msg += "<br>";
+                        msg += "<b>Fecha de Inicio: </b><i>"+data[3]+"</i>";
+                    }
+                    
+                    if(data[4]!=null){
+                        msg += "<br>";
+                        msg += "<b>Fecha de Fin: </b><i>"+data[4]+"</i>";
+                    }
+                    
+                    if(data[2]!=null){
+                        msg += "<br>";
+                        msg += "<span color='#00F53D'><b>Obra: </b><i>"+data[2]+"</i></span>";
+                    }
+                }
+            }
+        
+        return msg;
+    }
+    
     private void initWindowClosing() {
         this.addWindowListener(
                 new WindowAdapter() {

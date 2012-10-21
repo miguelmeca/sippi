@@ -105,4 +105,13 @@ public class TareaEjecucion extends TareaPlanificacion{
     public void setTareaCotizada(SubObraXTareaModif tareaCotizada) {
         
     }
+
+    /**
+     * Este métdo retorna TRUE si la tarea ya Terminó, de lo contrario FALSE
+     * TODO: Implementarla !
+     * @return 
+     */
+    public boolean estaTerminada() {
+        return false;
+    }
 }
