@@ -41,16 +41,16 @@ public class VisorDeAyuda {
    {
        if(hv==null)
        {
-            HelpView hv = new HelpView(indiceFile,helpFile);
+            this.hv = new HelpView(indiceFile,helpFile);
        }
        
-       if(hv==null)
+       if(hv!=null)
        {
             hv.view(1);       
        }
        else
        {
-           System.err.println("La libreria de ayuda anda para el orto, arreglala antes de seguir perdiendo tiempo");
+           System.err.println("No se pudo iniciar la ayuda");
        }
    }
    
