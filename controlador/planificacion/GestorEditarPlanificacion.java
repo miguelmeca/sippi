@@ -1029,6 +1029,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }catch(Exception e)
         {
             _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la ejecucion\nRevise que no falte ningún dato\n"+e.getMessage());
+            return;
         }
         
         // Asocio la planificacion a la OBRA
@@ -1119,7 +1120,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
         // 7- Ahora Copio los RRHH o Empleados lo que sea que sean por cada DetalleTareaPlanificacion
         // agrego una Tarea a Ejecucion
-        tareaEjec.setDetalles(crearListadoDetalleListaTareas(tareaPlan.getDetalles(),tareaEjec));
+        tareaEjec.setDetalles(crearListadoDetalleListaTareas(tareaPlan.getDetallesSinDetallesVacios(),tareaEjec));
         
         // Mando a Recursividad
         for (int i = 0; i < tareaPlan.getSubtareas().size(); i++) {
@@ -1312,8 +1313,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     DetalleTareaEjecucion detTareaEjec = new DetalleTareaEjecucion(detTareaPlan);
                     detTareaEjec.setDetalleTareaPlanificado(detTareaPlan);
                     
-                    detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(i));
                     detTareaEjec.setCantidadPersonas(1);
+                    detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(j));
+                    
                     List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
                     detTareaEjec.setListaDetallePorDia(listaPorDía);
                     lista.add(detTareaEjec);

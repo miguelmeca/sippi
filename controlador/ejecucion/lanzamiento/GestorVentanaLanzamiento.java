@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import modelo.DetalleTareaEjecucion;
+import modelo.DetalleTareaPlanificacion;
 import modelo.Ejecucion;
 import modelo.EjecucionXAdicional;
 import modelo.EjecucionXAlquilerCompra;
@@ -63,16 +64,16 @@ public class GestorVentanaLanzamiento {
                     if (listaHerramientas != null) {
                         for (int j = 0; j < listaHerramientas.size(); j++) {
                             EjecucionXHerramienta herramienta = (EjecucionXHerramienta)listaHerramientas.get(j);
-                            HerramientaDeEmpresa hde = herramienta.getHerramientaPlanificada().getHerramientaCotizacion().getHerramienta();
+                            HerramientaDeEmpresa hde = herramienta.getHerramienta();
                             if (hde != null) {
                                 if (allHerramientas.containsKey(hde)) {
                                     // Sumo las horas solamente
                                     int horas = allHerramientas.get(hde);
-                                    horas += herramienta.getHerramientaPlanificada().getHorasAsignadas();
+                                    horas += herramienta.getHorasAsignadas();
                                     allHerramientas.put(hde, horas);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allHerramientas.put(hde, herramienta.getHerramientaPlanificada().getHorasAsignadas());
+                                    allHerramientas.put(hde, herramienta.getHorasAsignadas());
                                 }
                             }
                         }
@@ -134,17 +135,17 @@ public class GestorVentanaLanzamiento {
                     if (listaMateriales != null) {
                         for (int j = 0; j < listaMateriales.size(); j++) {
                             EjecucionXMaterial material = (EjecucionXMaterial)listaMateriales.get(j);
-                            RecursoXProveedor rxp = material.getMaterialPlanificado().getMaterialCotizacion().getMaterial();
+                            RecursoXProveedor rxp = material.getMaterial();
                             RecursoEspecifico recesp = RecursosUtil.getRecursoEspecifico(rxp);
                             if (recesp != null) {
                                 if (allMateriales.containsKey(recesp)) {
                                     // Sumo las horas solamente
                                     int cantidad = allMateriales.get(recesp);
-                                    cantidad += material.getMaterialPlanificado().getCantidad();
+                                    cantidad += material.getCantidad();
                                     allMateriales.put(recesp, cantidad);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allMateriales.put(recesp, material.getMaterialPlanificado().getCantidad());
+                                    allMateriales.put(recesp, material.getCantidad());
                                 }
                             }
                         }
@@ -210,16 +211,16 @@ public class GestorVentanaLanzamiento {
                     if (listaAlqCompra != null) {
                         for (int j = 0; j < listaAlqCompra.size(); j++) {
                             EjecucionXAlquilerCompra alqCompra = (EjecucionXAlquilerCompra)listaAlqCompra.get(j);
-                            SubObraXAlquilerCompraModif tac = alqCompra.getAlquilerCompraPlanificado().getAlquilerCompraCotizacion();
+                            SubObraXAlquilerCompraModif tac = alqCompra.getAlquilerCompraCotizacion();
                             if (tac != null) {
                                 if (allAlqCompras.containsKey(tac)) {
                                     // Sumo las horas solamente
                                     int cantidad = allAlqCompras.get(tac);
-                                    cantidad += alqCompra.getAlquilerCompraPlanificado().getCantidad();
+                                    cantidad += alqCompra.getCantidad();
                                     allAlqCompras.put(tac, cantidad);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allAlqCompras.put(tac, alqCompra.getAlquilerCompraPlanificado().getCantidad());
+                                    allAlqCompras.put(tac, alqCompra.getCantidad());
                                 }
                             }
                         }
@@ -313,65 +314,65 @@ public class GestorVentanaLanzamiento {
      */    
     public List<NTupla> llenarTablaPanelRRHH() {
         //1- Busco todos los empleados (unica instancia de cada uno)
-//        Map<Empleado, double[]> allEmpleados = new HashMap<Empleado, double[]>();
-//        if (this.pedidoDeObra != null) {
-//            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
-//            if (ejecucion != null) {
-//                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
-//                for (int i = 0; i < todasTareas.size(); i++) {
-//                    TareaEjecucion tarea = todasTareas.get(i);
-//                    List<DetalleTareaEjecucion> listaDetalle = tarea.g
-//                    for (int j = 0; j < listaDetalle.size(); j++) {
-//                        DetalleTareaEjecucion detalleTareaEjecucion = listaDetalle.get(j);
-//                        List<Empleado> listaEmpleados = detalleTareaEjecucion.getDetalleTareaPlanificado().getEmpleados();
-//                        for (int k = 0; k < listaEmpleados.size(); k++) {
-//                            Empleado empleado = listaEmpleados.get(k);
-//                            
-//                            if(allEmpleados.containsKey(empleado))
-//                            {
-//                                // Ya lo tenia, actualizo
-//                                double[] horasYaAsignadas = allEmpleados.get(empleado);
-//                                horasYaAsignadas[0] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasNormales();
-//                                horasYaAsignadas[1] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl50();
-//                                horasYaAsignadas[2] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl100();
-//                                
-//                                allEmpleados.put(empleado, horasYaAsignadas);
-//                            }
-//                            else
-//                            {
-//                                // NO lo tenia, lo creo
-//                                double[] horasAsignadas = new double[3];
-//                                horasAsignadas[0] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasNormales();
-//                                horasAsignadas[1] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl50();
-//                                horasAsignadas[2] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl100();
-//                                
-//                                allEmpleados.put(empleado, horasAsignadas);
-//                            }                                
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        
+        Map<Empleado, double[]> allEmpleados = new HashMap<Empleado, double[]>();
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = todasTareas.get(i);
+                    List<DetalleTareaPlanificacion> listaDetalle = tarea.getDetalles();
+                    for (int j = 0; j < listaDetalle.size(); j++) {
+                        DetalleTareaEjecucion detalleTareaEjecucion = (DetalleTareaEjecucion)listaDetalle.get(j);
+                        List<Empleado> listaEmpleados = detalleTareaEjecucion.getEmpleados();
+                        for (int k = 0; k < listaEmpleados.size(); k++) {
+                            Empleado empleado = listaEmpleados.get(k);
+                            
+                            if(allEmpleados.containsKey(empleado))
+                            {
+                                // Ya lo tenia, actualizo
+                                double[] horasYaAsignadas = allEmpleados.get(empleado);
+                                horasYaAsignadas[0] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasNormales();
+                                horasYaAsignadas[1] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl50();
+                                horasYaAsignadas[2] += detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl100();
+                                
+                                allEmpleados.put(empleado, horasYaAsignadas);
+                            }
+                            else
+                            {
+                                // NO lo tenia, lo creo
+                                double[] horasAsignadas = new double[3];
+                                horasAsignadas[0] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasNormales();
+                                horasAsignadas[1] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl50();
+                                horasAsignadas[2] = detalleTareaEjecucion.getDetalleTareaPlanificado().getCantHorasAl100();
+                                
+                                allEmpleados.put(empleado, horasAsignadas);
+                            }                                
+                        }
+                    }
+                }
+            }
+        }
+        
         List<NTupla> ntlst = new ArrayList<NTupla>();
-//        Iterator it = allEmpleados.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry e = (Map.Entry) it.next();
-//            Empleado empleado = (Empleado) e.getKey();
-//            NTupla nt = new NTupla(empleado.hashCode());
-//            nt.setNombre(empleado.getNombreEmpleado());
-//            
-//                double[] horas = (double[])e.getValue();
-//                
-//                String[] data = new String[4];
-//                data[0] = ""+horas[0];
-//                data[1] = ""+horas[1];
-//                data[2] = ""+horas[2];
-//                data[3] = "Yeah!";
-//            
-//            nt.setData(data);
-//            ntlst.add(nt);
-//        }
+        Iterator it = allEmpleados.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            Empleado empleado = (Empleado) e.getKey();
+            NTupla nt = new NTupla(empleado.hashCode());
+            nt.setNombre(empleado.getNombreEmpleado());
+            
+                double[] horas = (double[])e.getValue();
+                
+                String[] data = new String[4];
+                data[0] = ""+horas[0];
+                data[1] = ""+horas[1];
+                data[2] = ""+horas[2];
+                data[3] = "Yeah!";
+            
+            nt.setData(data);
+            ntlst.add(nt);
+        }
         
         return ntlst;
     }
