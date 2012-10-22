@@ -18,6 +18,9 @@ public class PlanificacionXMaterial {
     private int id;
     private SubObraXMaterialModif materialCotizacion;
     private int cantidad;
+   
+    //private RecursoXProveedor material;
+    //private double precioUnitario;
 
     public PlanificacionXMaterial(SubObraXMaterialModif materialCotizacion) 
     {this.materialCotizacion=materialCotizacion;}
@@ -49,5 +52,35 @@ public class PlanificacionXMaterial {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    /**
+     * @return the material
+     */
+    public RecursoXProveedor getMaterial() {
+        return materialCotizacion.getMaterial();
+        //return material;
+    }
+
+    /**
+     * @param material the material to set
+     */
+    /*public void setMaterial(RecursoXProveedor material) {
+        this.material = material;
+    }*/
+
+    /**
+     * @return the precioUnitario
+     */
+    public double getPrecioUnitario() {
+        return materialCotizacion.getPrecioUnitario();
+        //return precioUnitario;
+    }
+
+    /**
+     * @param precioUnitario the precioUnitario to set
+     */
+    /*public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }*/
 
 }

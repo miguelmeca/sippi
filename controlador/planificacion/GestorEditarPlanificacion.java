@@ -1068,7 +1068,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      */
     private Ejecucion crearEstructuraEjecucionDesdePlanificacion() {
         // 1- Creo la Ejecucion
-        Ejecucion ejecucion = new Ejecucion();
+        Ejecucion ejecucion = new Ejecucion(planificacion);
         ejecucion.setFechaInicio(new Date());
         ejecucion.setObservaciones("");
         ejecucion.setPlanificacionOriginal(planificacion);
@@ -1102,7 +1102,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      */
     private TareaEjecucion copiaRecursivaTareaXTarea(TareaPlanificacion tareaPlan) {
 
-        TareaEjecucion tareaEjec = new TareaEjecucion();
+        TareaEjecucion tareaEjec = new TareaEjecucion(tareaPlan);
         tareaEjec.setTareaPlanificada(tareaPlan);
 
         // 3- Por cada Herramienta Planificada de una Tarea, agrego una a Ejecucion
@@ -1149,6 +1149,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     ejcXHerr.setHerramientaPlanificada(planXHerramienta);
                     listaHerramientas.add(ejcXHerr);
                     
+                    //Workaround TODO: El elemento de planificacion eberia tener datos propios
+                    ejcXHerr.setHerramientaCotizacion(planXHerramienta.getHerramientaCotizacion());
+                    
                         // Creo las Herramientas X Dia
                         List<EjecucionXHerramientaXDia> herramientasXdia = crearHerramientasXDia(tarea);
                         ejcXHerr.setUsoHerramientasXdia(herramientasXdia);
@@ -1173,6 +1176,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     
                     EjecucionXMaterial ejcXmat = new EjecucionXMaterial();
                     ejcXmat.setMaterialPlanificado(planXmaterial);
+                    
+                    //Workaround TODO: El elemento de planificacion eberia tener datos propios
+                    ejcXmat.setMaterialCotizacion(planXmaterial.getMaterialCotizacion());
                     listaMateriales.add(ejcXmat);
                 }
             }
@@ -1195,6 +1201,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     
                     EjecucionXAlquilerCompra ejcXmat = new EjecucionXAlquilerCompra();
                     ejcXmat.setAlquilerCompraPlanificado(planXalqucompra);
+                    
+                    //Workaround  TODO: El elemento de planificacion eberia tener datos propios
+                    ejcXmat.setAlquilerCompraCotizacion(planXalqucompra.getAlquilerCompraCotizacion());
                     listaAlquileresCompras.add(ejcXmat);
                 }
             }
@@ -1297,13 +1306,19 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         
             for (int i = 0; i < detalles.size(); i++) {
                 DetalleTareaPlanificacion detTareaPlan = detalles.get(i);
-                    DetalleTareaEjecucion tareaEjec = new DetalleTareaEjecucion();
-                    tareaEjec.setDetalleTareaPlanificado(detTareaPlan);
+                
+                for (int j = 0; j < detTareaPlan.getEmpleados().size(); j++) {
+                
+                    DetalleTareaEjecucion detTareaEjec = new DetalleTareaEjecucion(detTareaPlan);
+                    detTareaEjec.setDetalleTareaPlanificado(detTareaPlan);
                     
+                    detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(i));
+                    detTareaEjec.setCantidadPersonas(1);
                     List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
-                    tareaEjec.setListaDetallePorDia(listaPorDía);
-                    
-                    lista.add(tareaEjec);
+                    detTareaEjec.setListaDetallePorDia(listaPorDía);
+                    lista.add(detTareaEjec);
+                }
+                
             }
         
         return lista;
@@ -1318,7 +1333,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @param tarea
      * @return 
      */
-    private List<DetalleTareaEjecucionXDia> crearDetalleTareaXDia(TareaEjecucion tarea) {
+    private List<DetalleTareaEjecucionXDia> crearDetalleTareaXDia( TareaEjecucion tarea) {
         List<DetalleTareaEjecucionXDia> lista = new ArrayList<DetalleTareaEjecucionXDia>();
         
             Date fechaInicio = tarea.getTareaPlanificada().getFechaInicio();

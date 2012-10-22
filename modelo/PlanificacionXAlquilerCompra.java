@@ -15,6 +15,9 @@ public class PlanificacionXAlquilerCompra {
     private int id;
     private SubObraXAlquilerCompraModif alquilerCompraCotizacion;
     private int cantidad;
+    //private TipoAlquilerCompra tipoAlquilerCompra;    
+    //private double precioUnitario;
+    //private String descripcion;
 
     public PlanificacionXAlquilerCompra() {
     }
@@ -45,4 +48,31 @@ public class PlanificacionXAlquilerCompra {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+    public TipoAlquilerCompra getTipoAlquilerCompra() {
+        //return tipoAlquilerCompra;
+        return alquilerCompraCotizacion.getTipoAlquilerCompra();
+    }
+
+    /*public void setTipoAlquilerCompra(TipoAlquilerCompra tipoAlquierCompra) {
+        this.tipoAlquilerCompra = tipoAlquierCompra;
+    }*/
+    
+    public String getDescripcion() {
+        //return descripcion;
+       return alquilerCompraCotizacion.getDescripcion();
+    }
+
+    /*public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }*/
+
+    public double getPrecioUnitario() {
+        //return precioUnitario;
+        return alquilerCompraCotizacion.getPrecioUnitario();
+    }
+
+    /*public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }*/
 }
