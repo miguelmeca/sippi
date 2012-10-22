@@ -33,10 +33,21 @@ public class Ejecucion extends Planificacion{
 
     public Ejecucion() {
         super();
-        this.estado = Ejecucion.ESTADO_ALTA;
+        //this.estado = Ejecucion.ESTADO_ALTA;
         //tareas = new ArrayList<TareaEjecucion>();
         adicionales = new ArrayList<EjecucionXAdicional>();
     }
+    
+    public Ejecucion(Planificacion aCopiar) {
+        super();
+        //this.estado = Ejecucion.ESTADO_ALTA;
+        //tareas = new ArrayList<TareaEjecucion>();
+        adicionales = new ArrayList<EjecucionXAdicional>();
+        this.fechaInicio=aCopiar.fechaInicio;
+        //this.fechaFin=aCopiar.fechaFin;
+        this.descripcion=aCopiar.descripcion;
+    }
+    
 
    
 

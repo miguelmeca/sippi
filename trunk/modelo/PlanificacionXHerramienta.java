@@ -15,6 +15,8 @@ public class PlanificacionXHerramienta {
     private int id;
     private SubObraXHerramientaModif herramientaCotizacion;
     protected int horasAsignadas;
+    //private HerramientaDeEmpresa herramienta;
+    //private double costoXHora;
 
     public PlanificacionXHerramienta() {
     }
@@ -46,7 +48,15 @@ public class PlanificacionXHerramienta {
         this.horasAsignadas = horasAsignadas;
     }
     
+    public HerramientaDeEmpresa getHerramienta() {
+        //TODO: Mover estos datos como propios de esta clase
+        return herramientaCotizacion.getHerramienta();
+    }
     
+    public double getCostoXHora() {
+        //TODO: Mover estos datos como propios de esta clase
+        return herramientaCotizacion.getCostoXHora();
+    }
     
     
 }

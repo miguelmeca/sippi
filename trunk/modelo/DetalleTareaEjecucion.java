@@ -13,10 +13,26 @@ public class DetalleTareaEjecucion extends DetalleTareaPlanificacion{
     private List<DetalleTareaEjecucionXDia> listaDetallePorDia;
 
     public DetalleTareaEjecucion() {
+        super();
     }
    
     public DetalleTareaPlanificacion getDetalleTareaPlanificado() {
         return detalleTareaPlanificado;
+    }
+    
+    public DetalleTareaEjecucion(DetalleTareaPlanificacion planificado)
+    {
+        super();
+        this.detalleTareaPlanificado=planificado;
+        this.cantidadPersonas=planificado.getCantidadPersonas();
+        this.cantHorasNormales=planificado.getCantHorasNormales();
+        this.cantHorasAl50=planificado.getCantHorasAl50();
+        this.cantHorasAl100=planificado.getCantHorasAl100();
+        this.costoXHoraNormal=planificado.getCostoXHoraNormal();
+        this.especialidad=planificado.getEspecialidad();
+        
+        cantidadHijos=0;
+        
     }
 
     public void setDetalleTareaPlanificado(DetalleTareaPlanificacion detalleTareaPlanificado) {
