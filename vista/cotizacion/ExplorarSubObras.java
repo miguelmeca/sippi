@@ -9,26 +9,15 @@ import controlador.cotizacion.GestorExplorarSubObras;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.Date;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cotizacion;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.util.Rotation;
 import util.FechaUtil;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
 import vista.comer.pantallaConsultarObra;
-import vista.gui.TortaRotator;
 import vista.interfaces.ICallBack_v2;
 import vista.interfaces.IPermiteCrearSubObra;
 import vista.planificacion.EditarPlanificacion;
@@ -176,9 +165,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMenuMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblMenuMousePressed(evt);
-            }
         });
         jScrollPane1.setViewportView(tblMenu);
 
@@ -221,7 +207,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnNuevaSubObra)
@@ -462,7 +448,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                                     .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(49, 49, 49)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                                    .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                                     .addComponent(lbl_obra_fechaini, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -512,7 +498,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(lbl_obra_fechafin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -525,7 +511,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -534,7 +520,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -562,7 +548,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_est_titulo_barra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(lbl_est_titulo_barra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addComponent(prog_est_max, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -673,7 +659,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             .addGroup(panelContenedorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelGraficos, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -705,14 +691,14 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -777,7 +763,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
-                    .addComponent(btnEnviarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                    .addComponent(btnEnviarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addComponent(btnRechazar, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                     .addComponent(btnRecotizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
@@ -853,7 +839,7 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelVerPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Cotización", jPanel11);
@@ -932,9 +918,6 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
-    }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         cerrarVentana();
@@ -1040,6 +1023,19 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
                 mod.setTitle("Editar Cotización: Default");
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
+        }
+        else if(evt.getClickCount()==1 && this.estadoCotizacion!=null && this.estadoCotizacion.equals("En Creacion"))
+        {
+            if(tblMenu.getSelectedRowCount()!=0)
+            {
+                btnEditarSubObra.setEnabled(true);
+                btnEliminarSubObra.setEnabled(true);
+            }
+            else
+            {
+                btnEditarSubObra.setEnabled(false);
+                btnEliminarSubObra.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_tblMenuMouseClicked
 
@@ -1501,8 +1497,8 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         btnEnviarCliente.setEnabled(true);
         
         btnNuevaSubObra.setEnabled(true);
-        btnEliminarSubObra.setEnabled(true);
-        btnEditarSubObra.setEnabled(true);   
+        btnEliminarSubObra.setEnabled(false);
+        btnEditarSubObra.setEnabled(false);   
         panelVerPlanificacion.setVisible(false);
         
         this.estadoCotizacion = "En Creacion";
