@@ -383,6 +383,7 @@ private double calcularTotalTarea()
         cboTipoEspecialidad = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         txtPersonas = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
         btnAgregarDetalle = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetallesTarea = new javax.swing.JTable();
@@ -581,6 +582,8 @@ private double calcularTotalTarea()
             }
         });
 
+        jLabel1.setText("$ ");
+
         javax.swing.GroupLayout jpDatosDetalleTareaLayout = new javax.swing.GroupLayout(jpDatosDetalleTarea);
         jpDatosDetalleTarea.setLayout(jpDatosDetalleTareaLayout);
         jpDatosDetalleTareaLayout.setHorizontalGroup(
@@ -595,33 +598,37 @@ private double calcularTotalTarea()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSubtotalDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(cboTipoEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtHorasNormales, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel13)
-                                        .addComponent(txtHoras50, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5)
-                                    .addComponent(cboRango, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36)
-                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
-                                        .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtHoras100, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))))
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                            .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11)
+                                .addComponent(cboTipoEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtHorasNormales, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(28, 28, 28)
+                            .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                    .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel13)
+                                            .addComponent(txtHoras50, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel5))
+                                    .addGap(36, 36, 36))
+                                .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                    .addComponent(cboRango, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
+                                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSetearCostoRango, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtHoras100, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addComponent(jLabel3))))
         );
         jpDatosDetalleTareaLayout.setVerticalGroup(
             jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,7 +659,9 @@ private double calcularTotalTarea()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnSetearCostoRango, 0, 0, Short.MAX_VALUE)
-                                .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jpDatosDetalleTareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)))))
                     .addGroup(jpDatosDetalleTareaLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -781,7 +790,7 @@ private double calcularTotalTarea()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -1064,6 +1073,7 @@ else
     private javax.swing.JComboBox cboRango;
     private javax.swing.JComboBox cboTareas;
     private javax.swing.JComboBox cboTipoEspecialidad;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

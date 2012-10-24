@@ -135,6 +135,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="1"/>
                       <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtCostoHora" min="-2" pref="159" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
@@ -164,6 +166,7 @@
                       <Component id="txtSubTotalConcepto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCostoHora" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtHorasDia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -197,10 +200,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtSubTotalConcepto">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCostoHora">
@@ -220,6 +223,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtHorasDiaActionPerformed"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtHorasDiaFocusLost"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="$ "/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -340,10 +348,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtSubTotal">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
+            <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSubTotalActionPerformed"/>

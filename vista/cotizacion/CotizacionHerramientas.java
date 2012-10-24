@@ -65,6 +65,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         txtSubTotalConcepto = new javax.swing.JTextField();
         txtCostoHora = new javax.swing.JTextField();
         txtHorasDia = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnQuitar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -115,8 +116,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel4.setText("Horas Necesarias (*)");
 
-        txtSubTotalConcepto.setEditable(false);
         txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
+        txtSubTotalConcepto.setEditable(false);
 
         txtCostoHora.setEnabled(false);
         txtCostoHora.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +143,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("$ ");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -157,6 +160,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)))
@@ -179,7 +184,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(txtSubTotalConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCostoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtHorasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down2.png"))); // NOI18N
@@ -220,8 +226,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel20.setText("Subtotal Herramientas   $");
 
-        txtSubTotal.setEditable(false);
         txtSubTotal.setBackground(new java.awt.Color(204, 204, 255));
+        txtSubTotal.setEditable(false);
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
@@ -438,6 +444,7 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JComboBox cmbHerramienta;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
