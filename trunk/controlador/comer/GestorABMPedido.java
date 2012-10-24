@@ -52,7 +52,7 @@ public class GestorABMPedido {
     private String lugarEntrega;
 //    private Date fechaLEP;
 //    private Date fechaLVP;
-//    private String pliegoObra;
+    private String pliegoObra;
 //    private String planosObra;
 
     private PedidoObra pedido;
@@ -230,6 +230,7 @@ public class GestorABMPedido {
         nuevo.setFechaInicio(fechaInicio);
         nuevo.setPresupuestoMaximo(montoMaximo);
         nuevo.setFormaPago(formaDePago);
+        nuevo.setPliego(pliegoObra);
 //        nuevo.setContactos(contactos);
         nuevo.getContactos().clear();
 
@@ -538,6 +539,8 @@ public class GestorABMPedido {
         // Esto debe ir al final para que se deshabiliten todos los campos cuando
         // el pedido está cancelado
         this.pantalla.setEstadoPedidoObra(this.pedido.getEstado());
+        
+        this.pantalla.setPliegosPedido(this.pedido.getPliego());
     }
 
     private void buscarDatosPedido(int idPedido){
@@ -752,5 +755,9 @@ public class GestorABMPedido {
                 this.pedido.getEjecucion().setEstado(Ejecucion.ESTADO_BAJA);
             }
         }        
+    }
+
+    public void pliego(String pliego) {
+        this.pliegoObra = pliego;
     }
 }

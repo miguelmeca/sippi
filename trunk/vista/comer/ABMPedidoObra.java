@@ -59,8 +59,6 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         mostrarFormasDePago();
         mostrarRoles();
         mostrarTiposTelefono();
-//        if(idPedidoObra != -1)
-//            llenarDatosPedidoObra();
     }
 
     @Override
@@ -176,19 +174,24 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             ban=false;
         }
         if(txtMonto.getText().equals("")){
-            mensaje+="- Presupuesto MÃ¡ximo\n";
+            mensaje+="- Presupuesto Máximo\n";
             ban=false;
         }else{
             try{
                 Double.parseDouble(txtMonto.getText());
             }
             catch(Exception e){
-                mensaje+="- Formato no vÃ¡lido Presupuesto MÃ¡ximo\n";
+                mensaje+="- Formato no válido Presupuesto Máximo\n";
                 ban=false;
             }
         }
         if(banFechas && !FechaUtil.fechaMayorQue(dpfechaFin.getDate(),dpfechaInicio.getDate())){
             mensaje+="- La Fecha de Fin debe ser posterior a la fecha de Inicio\n";
+            ban=false;
+        }
+        if(txtPliego.getText().equals(""))
+        {
+            mensaje+="- Los datos del Pliego\n";
             ban=false;
         }
         if(!ban){
@@ -232,6 +235,8 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
         txtMonto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         cmbFormaDePago = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        txtPliego = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnAgregarCR = new javax.swing.JButton();
@@ -362,39 +367,48 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
         cmbFormaDePago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contado", "Cheque" }));
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Datos Pliego:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dpfechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cmbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnAgregarEmpresaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dpfechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(cmbPlanta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(cmbPlanta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbFormaDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMonto)
+                            .addComponent(dpfechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregarPlanta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbFormaDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMonto)
-                    .addComponent(dpfechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPliego)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -423,7 +437,11 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbFormaDePago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtPliego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -444,7 +462,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(37, 37, 37))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("General", jPanel5);
@@ -579,7 +597,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
                     .addComponent(btnAgregarCR)
                     .addComponent(btnQuitarCR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -683,6 +701,8 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             gestor.seleccionPlanta((Tupla)cmbPlanta.getSelectedItem());
             gestor.presupuestoMaximo(txtMonto.getText());
             gestor.formaDePago((Tupla)cmbFormaDePago.getSelectedItem());
+            
+            gestor.pliego(txtPliego.getText());
 
             // Los contactos responsables ya estÃ¡n en el gestor
 
@@ -818,10 +838,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
                     JOptionPane.showMessageDialog(this, "Se produjo un error al intentar dar de baja el pedido\nIntentelo nuevamente más tarde!", "Error!", JOptionPane.ERROR_MESSAGE);
                   }
                }
-
             }
-            
-            
         }
     }//GEN-LAST:event_btnDarDeBajaActionPerformed
 
@@ -842,6 +859,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     private com.toedter.calendar.JDateChooser dpfechaFin;
     private com.toedter.calendar.JDateChooser dpfechaInicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -870,6 +888,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombreCR;
     private javax.swing.JTextField txtNombreObra;
+    private javax.swing.JTextField txtPliego;
     private javax.swing.JTextField txtTelCR;
     // End of variables declaration//GEN-END:variables
 
@@ -972,7 +991,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
     @Override
     public void setPliegosPedido(String pliegos) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.txtPliego.setText(pliegos);
     }
 
     @Override
@@ -999,6 +1018,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             dpfechaFin.setEnabled(false);
             txtMonto.setEnabled(false);
             cmbFormaDePago.setEnabled(false);
+            txtPliego.setEnabled(false);
             txtNombreCR.setEnabled(false);
             txtApellidoCR.setEnabled(false);
             cmbRolCR.setEnabled(false);

@@ -26,5 +26,7 @@
     <property column="FECHA_REGISTRO" name="fechaDeRegistro" type="date"/>
     <many-to-one class="modelo.Planificacion" column="ID_PLANIFICACION" name="planificacion"/>
     <many-to-one class="modelo.Ejecucion" column="ID_EJECUCION" name="ejecucion"/>
+    
+    <property column="PLIEGO" name="pliego" type="string"/>
   </class>
 </hibernate-mapping>

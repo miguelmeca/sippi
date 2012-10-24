@@ -108,7 +108,7 @@
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel3" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -235,42 +235,51 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel4" max="32767" attributes="1"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="cmbEmpresa" min="-2" pref="124" max="-2" attributes="1"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel4" max="32767" attributes="1"/>
+                                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="1"/>
+                                              </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnAgregarEmpresaCliente" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="cmbEmpresa" min="-2" pref="124" max="-2" attributes="1"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="btnAgregarEmpresaCliente" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="dpfechaInicio" max="32767" attributes="1"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel7" max="32767" attributes="1"/>
+                                                  <Component id="jLabel5" alignment="0" max="32767" attributes="1"/>
+                                              </Group>
                                           </Group>
-                                          <Component id="dpfechaInicio" max="32767" attributes="1"/>
+                                          <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="1"/>
+                                          <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="1"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel7" max="32767" attributes="1"/>
-                                          <Component id="jLabel5" alignment="0" max="32767" attributes="1"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="cmbPlanta" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnAgregarPlanta" min="-2" pref="29" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="cmbFormaDePago" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="txtMonto" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="dpfechaFin" alignment="1" min="-2" pref="141" max="-2" attributes="1"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="1"/>
-                                  <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="1"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="cmbPlanta" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnAgregarPlanta" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="txtPliego" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="cmbFormaDePago" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="txtMonto" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="dpfechaFin" alignment="1" min="-2" pref="141" max="-2" attributes="1"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -308,7 +317,12 @@
                                   <Component id="cmbFormaDePago" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPliego" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -413,6 +427,16 @@
                           </StringArray>
                         </Property>
                       </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel10">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Datos Pliego:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtPliego">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -530,7 +554,7 @@
                                   <Component id="btnQuitarCR" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="183" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="188" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
