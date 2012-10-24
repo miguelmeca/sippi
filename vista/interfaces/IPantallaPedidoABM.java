@@ -36,7 +36,6 @@ public interface IPantallaPedidoABM {
     @Deprecated
     public void setFechaLVP(Date fLVP);
 
-    @Deprecated
     public void setPliegosPedido(String pliegos);
 
     @Deprecated

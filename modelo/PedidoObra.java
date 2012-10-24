@@ -30,6 +30,8 @@ public class PedidoObra{
     private Date fechaDeRegistro;
     private Planificacion planificacion;
     private Ejecucion ejecucion;
+    
+    private String pliego;
 
     private String estado;
 
@@ -274,5 +276,13 @@ public class PedidoObra{
 
     public void setPlanificacion(Planificacion planificacion) {
         this.planificacion = planificacion;
+    }
+
+    public String getPliego() {
+        return pliego;
+    }
+
+    public void setPliego(String pliego) {
+        this.pliego = pliego;
     }
 }

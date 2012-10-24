@@ -917,6 +917,7 @@ public class DBExamplesLoader {
             po.setFechaFin(new Date(dummy.getTimeInMillis()));
             po.setPresupuestoMaximo(3000);
             po.setFormaPago((FormaDePago) sesion.load(FormaDePago.class,2));
+            po.setPliego("Pliego n° 84834838");
 
             // -------     COTIZACIONES     --------
             Cotizacion cot = new Cotizacion();
