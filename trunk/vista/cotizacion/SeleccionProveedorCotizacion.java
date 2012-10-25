@@ -97,7 +97,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
                     String[] datos = (String[])ntp.getData();
                     fila[0] = ntp;
                     fila[1] = datos[0];
-                    fila[2] = "<HTML><BODY><b>Vigencia:</b> "+datos[1]+"<br><b>Registro:</b> 06/06/2011";
+                    fila[2] = "<HTML><BODY>"+datos[1];
 
                 modelo.addRow(fila);
 
@@ -178,7 +178,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Proveedor", "Precios Por Cantidad", "Fechas"
+                "Proveedor", "Precios Por Cantidad", "Vigencia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
