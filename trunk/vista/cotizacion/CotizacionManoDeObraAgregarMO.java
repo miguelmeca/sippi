@@ -173,7 +173,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
       if(cboRango.getSelectedItem()!=null&&((NTupla)cboRango.getSelectedItem()).getId()<0)
        {  
          if(mostrarErrores)
-         { JOptionPane.showMessageDialog(this.getParent(), "Seleccione un rango", "Error",JOptionPane.ERROR_MESSAGE);
+         { JOptionPane.showMessageDialog(this.getParent(), "Seleccione un rango", "Error",JOptionPane.WARNING_MESSAGE);
           cboRango.requestFocusInWindow();}
           return false;          
        }
@@ -181,33 +181,33 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
       {
         if(cboTipoEspecialidad.getSelectedItem()!=null&&((NTupla)cboTipoEspecialidad.getSelectedItem()).getId()<0)
         {  
-          JOptionPane.showMessageDialog(this.getParent(), "Seleccione un especialidad", "Error",JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(this.getParent(), "Seleccione un especialidad", "Error",JOptionPane.WARNING_MESSAGE);
           cboTipoEspecialidad.requestFocusInWindow();
           return false;          }
        }
        if(!Validaciones.validarNumeroPositivo(txtPersonas.getText().replace( ',','.' )))
        {  
          if(mostrarErrores)
-         { JOptionPane.showMessageDialog(this.getParent(), "La cantidad de personas ingresadas no es válida", "Error",JOptionPane.ERROR_MESSAGE);
+         { JOptionPane.showMessageDialog(this.getParent(), "La cantidad de personas ingresadas no es válida", "Error",JOptionPane.WARNING_MESSAGE);
           txtPersonas.requestFocusInWindow();}
           return false;          
        }
        if(!Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
        {  
           if(mostrarErrores)
-          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
+          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.WARNING_MESSAGE);
           txtCosto.requestFocusInWindow();}
           return false;          
        }  
-       if(txtHorasNormales.getText()=="")
+       if("".equals(txtHorasNormales.getText()))
        {
            txtHorasNormales.setText("0");
        }
-       if(txtHoras50.getText()=="")
+       if("".equals(txtHoras50.getText()))
        {
            txtHoras50.setText("0");
        }
-       if(txtHoras100.getText()=="")
+       if("".equals(txtHoras100.getText()))
        {
            txtHoras100.setText("0");
        }
@@ -215,21 +215,21 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
        if(!Validaciones.validarNumeroPositivoOCero(txtHoras100.getText().replace( ',','.' )))
        {  
            if(mostrarErrores)
-           {JOptionPane.showMessageDialog(this.getParent(), "Las horas al 100% por persona ingresadas no son válidas", "Error",JOptionPane.ERROR_MESSAGE);
+           {JOptionPane.showMessageDialog(this.getParent(), "Las horas al 100% por persona ingresadas no son válidas", "Error",JOptionPane.WARNING_MESSAGE);
           txtHoras100.requestFocusInWindow();}
           return false;          
        }
        if(!Validaciones.validarNumeroPositivoOCero(txtHorasNormales.getText().replace( ',','.' )))
        {  
            if(mostrarErrores)
-           {JOptionPane.showMessageDialog(this.getParent(), "Las horas normales por persona ingresadas no son válidas", "Error",JOptionPane.ERROR_MESSAGE);
+           {JOptionPane.showMessageDialog(this.getParent(), "Las horas normales por persona ingresadas no son válidas", "Error",JOptionPane.WARNING_MESSAGE);
           txtHorasNormales.requestFocusInWindow();}
           return false;          
        }
        if(!Validaciones.validarNumeroPositivoOCero(txtHoras50.getText().replace( ',','.' )))
        {  
            if(mostrarErrores)
-           {JOptionPane.showMessageDialog(this.getParent(), "Las horas al 50% por persona ingresadas no son válidas", "Error",JOptionPane.ERROR_MESSAGE);
+           {JOptionPane.showMessageDialog(this.getParent(), "Las horas al 50% por persona ingresadas no son válidas", "Error",JOptionPane.WARNING_MESSAGE);
           txtHoras50.requestFocusInWindow();}
           return false;          
        }
@@ -237,7 +237,7 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
        if(sumaHoras<=0)
        {  
            if(mostrarErrores)
-           {JOptionPane.showMessageDialog(this.getParent(), "Las suma de horas debe ser mayor a cero", "Error",JOptionPane.ERROR_MESSAGE);
+           {JOptionPane.showMessageDialog(this.getParent(), "Las suma de horas debe ser mayor a cero", "Error",JOptionPane.WARNING_MESSAGE);
           txtHorasNormales.requestFocusInWindow();}
           return false;          
        }
