@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -135,11 +136,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 nt.setNombre(rxp.getProveedor().getRazonSocial());
                 String[] precios= new String[2];
                 precios[0]= "<HTML><BODY>";
+                precios[1]= "<HTML><BODY>";
                 Iterator itPSC = rxp.getListaUltimosPrecios().iterator();
                 while(itPSC.hasNext()){
                     PrecioSegunCantidad psc = (PrecioSegunCantidad)itPSC.next();
-                    precios[0]+= psc.getCantidad()+m.getUnidadDeMedida().getAbreviatura()+" <b>x</b> "+psc.getPrecio()+"<br>";;
-                    precios[1]=psc.getFechaVigencia().toString();
+                    precios[0]+= psc.getCantidad()+m.getUnidadDeMedida().getAbreviatura()+" <b>x</b> "+psc.getPrecio()+"<br>";
+                    precios[1]+=FechaUtil.getFecha(psc.getFechaVigencia())+"<br>";
                 }
                 nt.setData(precios);
                 esps.add(nt);
@@ -495,7 +497,10 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                         if(rxp.getProveedor().getId() == pr.getId())
                         {
                             // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY Y CON ESA CANTIDAD
-                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
+//                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
+                            // http://www.journaldev.com/378/how-to-avoid-concurrentmodificationexception-when-using-an-iterator
+                            CopyOnWriteArrayList<PrecioSegunCantidad> listaSincronizada = new CopyOnWriteArrayList<PrecioSegunCantidad>(rxp.getListaPrecios());
+                            Iterator<PrecioSegunCantidad> itf = listaSincronizada.iterator();
                             while (itf.hasNext())
                             {
                                 PrecioSegunCantidad psc = itf.next();
