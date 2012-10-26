@@ -88,7 +88,10 @@ public class ReportDesigner
      */
     public void makeAndShow(HashMap<String,Object> params)  throws DocumentException, FileNotFoundException
     {
-       
+        // Create Directory if this doesn't exist
+        if(!verificarYCrearDirectorio())
+            throw new FileNotFoundException("No se pudo crear el directorio del reporte");
+        
         // Default Name
         if(this.out_file==null)
         {
@@ -224,6 +227,47 @@ public class ReportDesigner
             default:
                 return URL_DIR_REPORTES;             
         }
+    }
+
+    private boolean verificarYCrearDirectorio() {
+        String path = "";
+        switch(this.tipoReporte)
+        {               
+            case ReportDesigner.REPORTE_TIPO_COTIZACION:
+                path = URL_DIR_REPORTES+"Cotizaciones/";
+                break;
+                
+            case ReportDesigner.REPORTE_TIPO_PLANIFICACION:
+                path = URL_DIR_REPORTES+"Planificaciones/";   
+                break;
+                
+            case ReportDesigner.REPORTE_TIPO_COMPRAS:
+                path = URL_DIR_REPORTES+"Compras/";         
+                break;
+                
+            case ReportDesigner.REPORTE_TIPO_SEGUIMIENTO:
+                path = URL_DIR_REPORTES+"Seguimientos/";    
+                break;
+               
+            case ReportDesigner.REPORTE_TIPO_LISTADOS:
+                path = URL_DIR_REPORTES+"Listados/";        
+                break;
+                
+            case ReportDesigner.REPORTE_TIPO_OTROS: 
+                path = URL_DIR_REPORTES+"Otros/";
+                break;
+                
+            default:
+                path = URL_DIR_REPORTES; 
+                break;
+        }
+        File file = new File(path);
+        
+        // Compruebo si existe el directorio
+        if(!file.exists())
+            return file.mkdirs();
+        
+        return true;
     }
     
 }
