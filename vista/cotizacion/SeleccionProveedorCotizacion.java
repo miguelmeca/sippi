@@ -4,7 +4,7 @@
  */
 
 /*
- * pantallaSeleccionarProveedorPresupuesto.java
+ * SeleccionProveedorCotizacion.java
  *
  * Created on 10-sep-2010, 15:39:00
  */
@@ -35,7 +35,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
     private boolean banHayPreciosMaterial;
     private SubObraXMaterial soxm;
     
-    /** Creates new form pantallaSeleccionarProveedorPresupuesto */
+    /** Creates new form SeleccionProveedorCotizacion */
     public SeleccionProveedorCotizacion() {
         initComponents();
     }

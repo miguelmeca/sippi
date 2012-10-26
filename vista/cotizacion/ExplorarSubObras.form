@@ -99,7 +99,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane1" pref="466" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="474" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnNuevaSubObra" min="-2" max="-2" attributes="0"/>
@@ -302,7 +302,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel9" pref="281" max="32767" attributes="0"/>
+                          <Component id="jPanel9" pref="289" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -322,14 +322,8 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" min="-2" pref="202" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtNroCotizacion" pref="219" max="32767" attributes="1"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel3" alignment="1" max="32767" attributes="1"/>
                                           <Component id="jLabel19" alignment="1" max="32767" attributes="1"/>
@@ -347,15 +341,21 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="txtRevision" alignment="0" pref="219" max="32767" attributes="0"/>
-                                          <Component id="cmbLVP" alignment="1" pref="219" max="32767" attributes="1"/>
-                                          <Component id="cmbLEP" alignment="1" pref="219" max="32767" attributes="1"/>
-                                          <Component id="txtPlazoEntrega" alignment="0" pref="219" max="32767" attributes="0"/>
-                                          <Component id="txtLugarEntrega" alignment="0" pref="219" max="32767" attributes="0"/>
-                                          <Component id="txtEstado" alignment="0" pref="219" max="32767" attributes="0"/>
-                                      </Group>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" min="-2" pref="202" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtNroCotizacion" max="32767" attributes="1"/>
+                                  <Component id="txtRevision" alignment="0" pref="219" max="32767" attributes="0"/>
+                                  <Component id="cmbLVP" alignment="1" pref="225" max="32767" attributes="1"/>
+                                  <Component id="cmbLEP" alignment="1" pref="219" max="32767" attributes="1"/>
+                                  <Component id="txtPlazoEntrega" alignment="0" pref="219" max="32767" attributes="0"/>
+                                  <Component id="txtLugarEntrega" alignment="0" pref="219" max="32767" attributes="0"/>
+                                  <Component id="txtEstado" alignment="0" pref="219" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
@@ -419,7 +419,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel18">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="4"/>
-                        <Property name="text" type="java.lang.String" value="Fecha L&#xed;mite de Entrega del Presupuesto:"/>
+                        <Property name="text" type="java.lang.String" value="Fecha L&#xed;mite de Entrega de la Cotizaci&#xf3;n:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel14">
@@ -602,7 +602,7 @@
                                   <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_obra_fechafin" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="66" max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -974,7 +974,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="491" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="499" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1035,7 +1035,7 @@
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelVerPlanificacion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="179" max="32767" attributes="0"/>
+                          <EmptySpace pref="187" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1104,7 +1104,7 @@
                           <Image iconType="3" name="/res/iconos/var/16x16/Play.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Comenzar una planificaci&#xf3;n sobre esta cotizaci&#xf3;n"/>
-                        <Property name="actionCommand" type="java.lang.String" value="Comenzar una planificaci&#xf3;n desde este presupuesto"/>
+                        <Property name="actionCommand" type="java.lang.String" value="Comenzar una planificaci&#xf3;n desde esta cotizaci&#xf3;n"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -1122,7 +1122,7 @@
                           <Image iconType="3" name="/res/iconos/var/16x16/Previous record.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Recotizar a partir de esta cotizaci&#xf3;n"/>
-                        <Property name="actionCommand" type="java.lang.String" value="Recotizar desde este presupuesto"/>
+                        <Property name="actionCommand" type="java.lang.String" value="Recotizar desde esta cotizaci&#xf3;n"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecotizarActionPerformed"/>
@@ -1134,7 +1134,7 @@
                           <Image iconType="3" name="/res/iconos/var/16x16/Stop.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Rechazar cotizaci&#xf3;n"/>
-                        <Property name="actionCommand" type="java.lang.String" value="Recotizar desde este presupuesto"/>
+                        <Property name="actionCommand" type="java.lang.String" value="Recotizar desde esta cotizaci&#xf3;n"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
