@@ -7,7 +7,9 @@
 package vista.rrhh;
 
 import java.awt.Color;
+import java.util.Iterator;
 import modelo.Empleado;
+import modelo.Especialidad;
 
 /**
  *
@@ -43,7 +45,15 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         lblEstado.setText(emp.getEstado().getNombre());
         lblNombre.setText(emp.getApellido()+", "+emp.getNombre());
         lblEmail.setText(emp.getEmail());
-        lblRango.setText(emp.getRango());//WTF?!?! UN STRING?!?
+//        lblRango.setText(emp.getRango());//WTF?!?! UN STRING?!?
+        String especialidades = "<HTML><BODY>";
+        Iterator<Especialidad> itEspecialidades = emp.getEspecialidades().iterator();
+        while(itEspecialidades.hasNext())
+        {
+            Especialidad especialidad = itEspecialidades.next();
+            especialidades+=especialidad.getTipo().getNombre() + ", " + especialidad.getRango().getNombre() + "<br>";
+        }
+        lblRango.setText(especialidades);
         if(!emp.getTelefonos().isEmpty())
         {lblTelefono.setText(emp.getTelefonos().iterator().next().getNumero());}
     }
