@@ -4,7 +4,7 @@
  */
 
 /*
- * modificarPresupuesto.java
+ * EditarCotizacion.java
  *
  * Created on 24/04/2011, 15:49:18
  */

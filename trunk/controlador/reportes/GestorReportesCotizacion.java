@@ -33,7 +33,7 @@ public class GestorReportesCotizacion {
         reporteUtil = new ReporteUtil();
     }
     
-    public void emitirPresupuestoInterno(int id_presupuesto)
+    public void emitirCotizacionInterna(int id_presupuesto)
     {
          try
         {                  
@@ -99,7 +99,7 @@ public class GestorReportesCotizacion {
         }
     }
 
-        public void emitirPresupuestoExternoGeneral(int id_presupuesto)
+        public void emitirCotizacionExternaGeneral(int id_presupuesto)
     {
          try
         {
@@ -156,7 +156,7 @@ public class GestorReportesCotizacion {
         }
     }
 
-    public void emitirPresupuestoExternoXRecurso(int cotizacionId) {
+    public void emitirCotizacionExternaXRecurso(int cotizacionId) {
          try
         {
             HibernateUtil.beginTransaction();
@@ -221,7 +221,7 @@ public class GestorReportesCotizacion {
             HibernateUtil.rollbackTransaction();
         }
     }
-    public void emitirPresupuestoExternoSubObras(int id_presupuesto)
+    public void emitirCotizacionExternaSubObras(int id_presupuesto)
     {
          try
         {                  
