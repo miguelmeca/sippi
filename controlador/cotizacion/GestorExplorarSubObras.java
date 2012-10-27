@@ -113,14 +113,16 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private void cargarDatosGeneralesObra()
     {
-        String lbl_obra_nombre = this.obra.getNombre();
-        String lbl_obra_planta = this.obra.getPlanta().getRazonSocial();
-        String lbl_obra_lugar  = this.obra.getPlanta().getDomicilio().toString();
-        String lbl_obra_montomax = "$"+String.valueOf(this.obra.getPresupuestoMaximo());
-        String lbl_obra_fechaini = FechaUtil.getFecha(this.obra.getFechaInicio());
-        String lbl_obra_fechafin = FechaUtil.getFecha(this.obra.getFechaFin());
-        
-        pantalla.llenarDatosGeneralesObra(lbl_obra_nombre, lbl_obra_planta, lbl_obra_lugar, lbl_obra_montomax, lbl_obra_fechaini, lbl_obra_fechafin);
+        if(this.obra!=null){
+            String lbl_obra_nombre = this.obra.getNombre();
+            String lbl_obra_planta = this.obra.getPlanta().getRazonSocial();
+            String lbl_obra_lugar  = this.obra.getPlanta().getDomicilio().toString();
+            String lbl_obra_montomax = "$"+String.valueOf(this.obra.getPresupuestoMaximo());
+            String lbl_obra_fechaini = FechaUtil.getFecha(this.obra.getFechaInicio());
+            String lbl_obra_fechafin = FechaUtil.getFecha(this.obra.getFechaFin());
+
+            pantalla.llenarDatosGeneralesObra(lbl_obra_nombre, lbl_obra_planta, lbl_obra_lugar, lbl_obra_montomax, lbl_obra_fechaini, lbl_obra_fechafin);
+        }
     }
     
     private void cargarDatosGeneralesCotizacion()
@@ -130,7 +132,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
     
     private double getMontoMaximo()
     {
-        if(this.cot!=null)
+        if(this.cot!=null && this.obra!=null)
         {
             return this.obra.getPresupuestoMaximo();
         }
@@ -337,6 +339,13 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             // Actualizo la ultima modificacion
             this.cot.setFechaModificacion(new Date());
 
+            // Guardo todos los datos de la Cotización:
+            this.cot.setFechaLimiteEntrega(this.pantalla.getFechaLimiteEntrega());
+            this.cot.setValidezOferta(this.pantalla.getFechaValidezOferta());
+            this.cot.setPlazoEntrega(this.pantalla.getPlazoEntrega());
+            this.cot.setLugarEntrega(this.pantalla.getLugarEntrega());
+            this.cot.setDescripcion(this.pantalla.getDescripcionCotizacion());
+            
             // GUARDO LA COTIZACION EN LA BD
             try
             {

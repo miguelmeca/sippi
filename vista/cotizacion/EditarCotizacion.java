@@ -207,9 +207,8 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        this.gestor.refrescarPantallas();
         this.dispose();
-
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMenuMousePressed
@@ -316,4 +315,5 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     {
         txtSubtotalSubObra.setText("$ "+monto);
     }
+
 }
