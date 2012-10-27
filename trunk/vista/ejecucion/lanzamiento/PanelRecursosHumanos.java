@@ -99,6 +99,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                 .addComponent(jButton1))
         );
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
