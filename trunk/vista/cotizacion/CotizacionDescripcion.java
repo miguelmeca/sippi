@@ -48,7 +48,6 @@ public class CotizacionDescripcion extends javax.swing.JPanel {
         txtDescripcion.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
-        txtDescripcion.setText("mecanizado de conjunto pin & pin locker comprendido por \narandela de Ø exterior 30 mm y Ø interior 15 mm y perno \nde encastre de Ø exterior 25 mm con un perno convexo R0.75. \nEste conjunto será mecanizado en acero SAE 1010.\n");
         txtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDescripcionFocusLost(evt);
@@ -61,7 +60,7 @@ public class CotizacionDescripcion extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Nombre de la SubObra");
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -75,7 +74,7 @@ public class CotizacionDescripcion extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Descripción");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -107,12 +106,11 @@ public class CotizacionDescripcion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-
-        
+        gestor.actualizarNombre(txtNombre.getText());        
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
-       
+       gestor.actualizarDescripcion(txtDescripcion.getText());
     }//GEN-LAST:event_txtDescripcionKeyTyped
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost

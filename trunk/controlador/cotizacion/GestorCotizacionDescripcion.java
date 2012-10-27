@@ -51,13 +51,11 @@ public class GestorCotizacionDescripcion implements IGestorCotizacion{
     public void actualizarNombre(String nombre)
     {
         getSubObraActual().setNombre(nombre);
-        refrescarPantallas();
     }
     
     public void actualizarDescripcion(String descripcion)
     {
         getSubObraActual().setDescripcion(descripcion);
-        refrescarPantallas();
     }
 
     

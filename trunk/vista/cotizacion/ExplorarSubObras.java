@@ -1570,5 +1570,25 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         this.estadoCotizacion = Cotizacion.ESTADO_ACEPTADO;        
     }
+
+    public Date getFechaLimiteEntrega() {
+        return this.cmbLEP.getDate();
+    }
+
+    public Date getFechaValidezOferta() {
+        return this.cmbLVP.getDate();
+    }
+
+    public String getPlazoEntrega() {
+        return txtPlazoEntrega.getText();
+    }
+
+    public String getLugarEntrega() {
+        return txtLugarEntrega.getText();
+    }
+
+    public String getDescripcionCotizacion() {
+        return txtDescripcionObra.getText();
+    }
     
 }
