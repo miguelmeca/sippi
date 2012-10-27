@@ -5,6 +5,7 @@
 package vista.ejecucion.lanzamiento;
 
 import controlador.ejecucion.lanzamiento.GestorVentanaLanzamiento;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -25,11 +26,8 @@ import vista.util.MyComboBoxEditor;
  */
 public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
 
-    public static final int TABLA_MATERIALES_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_MATERIALES_COLUMNA_NECESARIOS = 1;
-    public static final int TABLA_MATERIALES_COLUMNA_ENSTOCK = 2;
-    public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 3;
-    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 4;
+    public static final int TABLA_ODC_COLUMNA_NUNERO = 0;
+    public static final int TABLA_ODC_COLUMNA_NOMBRE = 1;
     
     private static final int TABLA_DEFAULT_ALTO = 25;
 
@@ -42,7 +40,7 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
         this.gestor = gestor;
         initComponents();
         initTabla();
-        cargarDatosTablaParaObra();
+        //cargarDatosTablaParaObra();
     }
 
     /**
@@ -55,61 +53,47 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMateriales = new javax.swing.JTable();
+        tblOrdenesDeTrabajo = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnGenerarOrdenDeCompra = new javax.swing.JButton();
-        btnRecepcionCompras = new javax.swing.JButton();
-        btnConsultarStock = new javax.swing.JButton();
+        btnGenerarOrdenDeCompra1 = new javax.swing.JButton();
 
-        tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrdenesDeTrabajo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"P001-0000-1", "Desconexionado de Tolva"},
+                {"P001-0000-2", "Pintado de Estructura"},
+                {"P001-0000-3", "Entrega al Cliente"}
             },
             new String [] {
-                "Nombre", "Necesarios", "Stock", "Estado", ""
+                "Número de la Orden de Trabajo", "Nombre de la Tarea"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblMateriales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblMateriales);
+        tblOrdenesDeTrabajo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblOrdenesDeTrabajo);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre los Materiales:"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre las Ordenes de Trabajo:"));
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnGenerarOrdenDeCompra.setText("Generar Orden de Compra");
+        btnGenerarOrdenDeCompra.setText("<HTML>Emitir <b>Todas</b> las Ordenes de Trabajo");
         btnGenerarOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarOrdenDeCompraActionPerformed(evt);
             }
         });
 
-        btnRecepcionCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delivery.png"))); // NOI18N
-        btnRecepcionCompras.setText("Recepción de Compras");
-        btnRecepcionCompras.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarOrdenDeCompra1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
+        btnGenerarOrdenDeCompra1.setText("<HTML>Emitir las Ordenes de Trabajo <b>Seleccionadas</b>");
+        btnGenerarOrdenDeCompra1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecepcionComprasActionPerformed(evt);
-            }
-        });
-
-        btnConsultarStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Wallet.png"))); // NOI18N
-        btnConsultarStock.setText("Consultar Stock");
-        btnConsultarStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarStockActionPerformed(evt);
+                btnGenerarOrdenDeCompra1ActionPerformed(evt);
             }
         });
 
@@ -118,18 +102,15 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btnGenerarOrdenDeCompra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRecepcionCompras)
+                .addComponent(btnGenerarOrdenDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnConsultarStock))
+                .addComponent(btnGenerarOrdenDeCompra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnGenerarOrdenDeCompra)
-                .addComponent(btnRecepcionCompras)
-                .addComponent(btnConsultarStock))
+                .addComponent(btnGenerarOrdenDeCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGenerarOrdenDeCompra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -149,71 +130,51 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeCompraActionPerformed
-       DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
-        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_MATERIALES_COLUMNA_SELECCION,true);
-       if(cantidadSeleccionados<=0){
-           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos un Material para emitir su Orden de Compra");
-       }else{
-          // Generar Orden de Compra de Emma !!!
-           int filasSeleccionadas[] = tblMateriales.getSelectedRows();
-           ArrayList<NTupla> tuplasSeleccionadas = new ArrayList<NTupla>();
-           for(int i=0; i<filasSeleccionadas.length; i++)
-           {
-               NTupla nTupla = (NTupla) modelo.getValueAt(filasSeleccionadas[i], TABLA_MATERIALES_COLUMNA_NOMBRE);
-               tuplasSeleccionadas.add(nTupla);
-           }
-           ventanaGenerarOrdenesDeCompra ventana = new ventanaGenerarOrdenesDeCompra(tuplasSeleccionadas);
-           SwingPanel.getInstance().addWindow(ventana);
-           ventana.setVisible(true);
-       }
+
     }//GEN-LAST:event_btnGenerarOrdenDeCompraActionPerformed
 
-    private void btnRecepcionComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionComprasActionPerformed
-        RegistrarRecepcionDeRecursos win = new RegistrarRecepcionDeRecursos();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);
-    }//GEN-LAST:event_btnRecepcionComprasActionPerformed
+    private void btnGenerarOrdenDeCompra1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeCompra1ActionPerformed
+        // Armo una lista con los IDS de las tareas Ejecucion que van a emitirse
+        List<Integer> listaOrdenesTrabajo = new ArrayList<Integer>();
 
-    private void btnConsultarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarStockActionPerformed
-        GestionarStock win = new GestionarStock();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);
-    }//GEN-LAST:event_btnConsultarStockActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel)tblOrdenesDeTrabajo.getModel();
+            if(tblOrdenesDeTrabajo.getSelectedRows().length>0){
+                for (int i = 0; i < tblOrdenesDeTrabajo.getSelectedRows().length; i++) {
+                    int filaSeleccionada = tblOrdenesDeTrabajo.getSelectedRows()[i];
+                    NTupla ntp = (NTupla) modelo.getValueAt(filaSeleccionada,0);
+                    listaOrdenesTrabajo.add(ntp.getId());
+                }
+            }else{
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>Seleccione <b>una o más Ordenes de Trabajo</b> para emitirlas");
+            }
+        
+        // MANDO A LA GENERACION DEL REPORTE CON ESTA LISTA COMO ENTRADA
+    }//GEN-LAST:event_btnGenerarOrdenDeCompra1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultarStock;
     private javax.swing.JButton btnGenerarOrdenDeCompra;
-    private javax.swing.JButton btnRecepcionCompras;
+    private javax.swing.JButton btnGenerarOrdenDeCompra1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblMateriales;
+    private javax.swing.JTable tblOrdenesDeTrabajo;
     // End of variables declaration//GEN-END:variables
 
     private void initTabla() {
-        tblMateriales.setRowHeight(TABLA_DEFAULT_ALTO);
-        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
+        tblOrdenesDeTrabajo.setRowHeight(TABLA_DEFAULT_ALTO);
+        DefaultTableModel modelo = (DefaultTableModel) tblOrdenesDeTrabajo.getModel();
 
         // Ancho de Columnas
         int anchoColumna = 0;
-        TableColumnModel modeloColumna = tblMateriales.getColumnModel();
+        TableColumnModel modeloColumna = tblOrdenesDeTrabajo.getColumnModel();
         TableColumn columnaTabla;
-        for (int i = 0; i < tblMateriales.getColumnCount(); i++) {
+        for (int i = 0; i < tblOrdenesDeTrabajo.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
-                case TABLA_MATERIALES_COLUMNA_ESTADO:
+                case TABLA_ODC_COLUMNA_NUNERO:
                     anchoColumna = 300;
                     break;
-                case TABLA_MATERIALES_COLUMNA_NOMBRE:
+                case TABLA_ODC_COLUMNA_NOMBRE:
                     anchoColumna = 400;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_NECESARIOS:
-                    anchoColumna = 100;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_ENSTOCK:
-                    anchoColumna = 100;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_SELECCION:
-                    anchoColumna = 30;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -235,20 +196,18 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
     private void cargarDatosTablaParaObra() {
         
         List<NTupla> tuplas = gestor.llenarTablaPanelMateriales();
-        DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)tblOrdenesDeTrabajo.getModel();
         TablaUtil.vaciarDefaultTableModel(modelo);
         
+        // El ID de la Tupla es el ID de la Tarea Ejecución !!!
         for (int i = 0; i < tuplas.size(); i++) {
             NTupla nTupla = tuplas.get(i);
             Object[] fila = new Object[5];
-            fila[TABLA_MATERIALES_COLUMNA_NOMBRE] = nTupla;
+            fila[TABLA_ODC_COLUMNA_NUNERO] = nTupla;
             
                 String[] data = (String[]) nTupla.getData();
             
-            fila[TABLA_MATERIALES_COLUMNA_NECESARIOS] = data[0];
-            fila[TABLA_MATERIALES_COLUMNA_ENSTOCK] = data[1];
-            fila[TABLA_MATERIALES_COLUMNA_ESTADO] = data[2];
-            fila[TABLA_MATERIALES_COLUMNA_SELECCION] = false;
+            fila[TABLA_ODC_COLUMNA_NOMBRE] = data[0];
             modelo.addRow(fila);
         }
         
