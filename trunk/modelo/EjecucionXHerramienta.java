@@ -34,8 +34,8 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
         this.usoHerramientasXdia = usoHerramientasXdia;
     }
     
-    @Override
-    public int getHorasAsignadas() {
+    // NO SON HORAS ASIGNADAS, SON NO HORAS UTILIZADAS (Lean los metodos)
+    public int getHorasUtilizadas() {
         int cantHoras=0;
         for (int i = 0; i < usoHerramientasXdia.size(); i++) {
             cantHoras+=usoHerramientasXdia.get(i).getHorasUtilizadas();
@@ -43,7 +43,7 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
         return cantHoras;
     }
 
-    @Deprecated
+    //@Deprecated (En serio? y como se le asignan las horas al objeto? )
     @Override
     public void setHorasAsignadas(int horasAsignadas) {
         this.horasAsignadas = horasAsignadas;

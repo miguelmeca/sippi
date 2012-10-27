@@ -11,6 +11,7 @@ import util.SwingPanel;
 import util.TablaUtil;
 import vista.abms.ListadoHerramientas;
 import vista.compras.ABMHerramientaDeEmpresa;
+import vista.compras.GenerarNuevaOrdenDeCompra;
 
 /**
  *
@@ -21,7 +22,6 @@ public class PanelHerramientas extends javax.swing.JPanel {
     public static final int TABLA_HERRAMIENTAS_COLUMNA_NOMBRE = 0;
     public static final int TABLA_HERRAMIENTAS_COLUMNA_HORAS = 1;
     public static final int TABLA_HERRAMIENTAS_COLUMNA_ESTADO = 2;
-    public static final int TABLA_HERRAMIENTAS_COLUMNA_SELECCION = 3;
     
     private static final int TABLA_DEFAULT_ALTO = 25;    
        
@@ -61,19 +61,12 @@ public class PanelHerramientas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Horas Planificadas", "Estado Herramienta", ""
+                "Nombre", "Horas a Utilizar", "Estado Herramienta"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -85,7 +78,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre las Herramientas:"));
 
         btnGenerarOrdenDeCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnGenerarOrdenDeCompra.setText("Generar un Orden de Compra");
+        btnGenerarOrdenDeCompra.setText("Generar Ordenes de Compra");
         btnGenerarOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarOrdenDeCompraActionPerformed(evt);
@@ -116,7 +109,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
                 .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenerarOrdenDeCompra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(btnVerHerramietnas))
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,25 +143,19 @@ public class PanelHerramientas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVerHerramietnasActionPerformed
 
     private void btnGenerarOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeCompraActionPerformed
-       DefaultTableModel modelo = (DefaultTableModel)tblHerramientas.getModel();
-        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_HERRAMIENTAS_COLUMNA_SELECCION,true);
-       if(cantidadSeleccionados<=0){
-           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos una Herramienta para emitir su Orden de Compra");
-       }else{
-          // Generar Orden de Compra de Emma !!!
-           
-       }
+       GenerarNuevaOrdenDeCompra win = new GenerarNuevaOrdenDeCompra();
+       SwingPanel.getInstance().addWindow(win);
+       win.setVisible(true);
     }//GEN-LAST:event_btnGenerarOrdenDeCompraActionPerformed
 
     private void btnEditarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEstadoActionPerformed
        DefaultTableModel modelo = (DefaultTableModel)tblHerramientas.getModel();
-        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_HERRAMIENTAS_COLUMNA_SELECCION,true);
-       if(cantidadSeleccionados<=0){
-           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos una Herramienta para editar");
-       }else if(cantidadSeleccionados==1){
-           editarHerramienta();
+       int seleccion = tblHerramientas.getSelectedRow();
+       if(seleccion>=0){
+           NTupla nt = (NTupla) modelo.getValueAt(seleccion,TABLA_HERRAMIENTAS_COLUMNA_NOMBRE);
+           editarHerramienta(nt.getId());
        }else{
-           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione una sola Herramienta para editar");
+           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>Seleccione una <b>Herramienta</b> de la tabla para editar");
        }
     }//GEN-LAST:event_btnEditarEstadoActionPerformed
 
@@ -197,12 +184,9 @@ public class PanelHerramientas extends javax.swing.JPanel {
                     anchoColumna = 100;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_NOMBRE:
-                    anchoColumna = 300;
+                    anchoColumna = 350;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_HORAS:
-                    anchoColumna = 100;
-                    break;
-                case TABLA_HERRAMIENTAS_COLUMNA_SELECCION:
                     anchoColumna = 50;
                     break;
             }
@@ -238,7 +222,6 @@ public class PanelHerramientas extends javax.swing.JPanel {
             
             fila[TABLA_HERRAMIENTAS_COLUMNA_ESTADO] = data[1];
                        
-            fila[TABLA_HERRAMIENTAS_COLUMNA_SELECCION] = false;
             modelo.addRow(fila);
         }
     }
@@ -257,18 +240,10 @@ public class PanelHerramientas extends javax.swing.JPanel {
     /**
      * Busca el elemento seleccionado y abre la ventana para editarlo
      */
-    private void editarHerramienta() {
-        DefaultTableModel modelo = (DefaultTableModel)tblHerramientas.getModel();
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            boolean isSelected = (Boolean) modelo.getValueAt(i,TABLA_HERRAMIENTAS_COLUMNA_SELECCION);
-            if(isSelected){
-                // Saco el ID y abro el editar
-                NTupla ntp = (NTupla) modelo.getValueAt(i,TABLA_HERRAMIENTAS_COLUMNA_NOMBRE);
-                ABMHerramientaDeEmpresa abm = new ABMHerramientaDeEmpresa(ntp.getId());
-                SwingPanel.getInstance().addWindow(abm);
-                abm.setVisible(true);
-            }
-        }
+    private void editarHerramienta(int idHerramienta) {
+        ABMHerramientaDeEmpresa abm = new ABMHerramientaDeEmpresa(idHerramienta);
+        SwingPanel.getInstance().addWindow(abm);
+        abm.setVisible(true);
     }
     
 }

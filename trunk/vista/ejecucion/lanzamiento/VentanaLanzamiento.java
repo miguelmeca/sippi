@@ -15,12 +15,14 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     protected static final int OPTN_ALQUILERCOMPRA  = 2;    
     protected static final int OPTN_RRHH            = 3;    
     protected static final int OPTN_ADICIONALES     = 4;    
+    protected static final int OPTN_ORDENESDETRABAJO= 5;    
     
     private PanelHerramientas panelHerramientas;
     private PanelMateriales   panelMateriales;
     private PanelAlquileresCompras panelAlquileresCompras;
     private PanelRecursosHumanos panelRecursosHumanos;
     private PanelAdicionales panelAdicionales;
+    private PanelOrdenesDeTrabajo panelOrdenesDeTrabajo;
     
     private GestorVentanaLanzamiento gestor;
     
@@ -80,7 +82,8 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Recursos Humanos"},
-                {"Adicionales"}
+                {"Adicionales"},
+                {"Ordenes de Trabajo"}
             },
             new String [] {
                 "Title 1"
@@ -113,7 +116,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
@@ -163,10 +166,8 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblMenuMousePressed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-       
-        // llamo al comportamiento Cancelar de la ventana 
-        cerrar();
-        
+       // llamo al comportamiento Cancelar de la ventana 
+        cerrar();       
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -245,6 +246,17 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 this.panelAdicionales.setVisible(true);  
                 this.updateUI();
                 break;
+            case OPTN_ORDENESDETRABAJO:
+                setNombrePanel(modelo.getValueAt(OPTN_ORDENESDETRABAJO,0).toString());
+                if(this.panelOrdenesDeTrabajo==null){
+                    this.panelOrdenesDeTrabajo =  new PanelOrdenesDeTrabajo(this.gestor);
+                }
+                this.panelOrdenesDeTrabajo.actualizarDatos();
+                pnlCentral.removeAll();
+                pnlCentral.add(this.panelOrdenesDeTrabajo, BorderLayout.CENTER);
+                this.panelOrdenesDeTrabajo.setVisible(true);  
+                this.updateUI();
+                break;                
         } 
     }
     
@@ -294,40 +306,6 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
      */
     private void cerrar() {
         this.dispose();
-        
-//        Comentado, ya no sirve ...
-//        int seleccion = JOptionPane.showOptionDialog(
-//                this, // Componente padre
-//                "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
-//                + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
-//                "Seleccione una opción", // Título
-//                JOptionPane.YES_NO_CANCEL_OPTION,
-//                JOptionPane.QUESTION_MESSAGE,
-//                null, // null para icono por defecto.
-//                new Object[]{"Guardar y Cerrar","Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
-//                "Guardar y Cerrar");
-//        
-//        if (seleccion != -1) {
-//            switch(seleccion+1){
-//                case 1:
-//                    // PRESIONO Guardar y Cerrar
-//                    System.out.println("Guardar y Cerrar:"+(seleccion+1));
-//                    if(guardar()){
-//                        this.dispose();
-//                    }
-//                    break;
-//                case 2:
-//                    // PRESIONO Cerrar
-//                    System.out.println("Cerrar:"+(seleccion+1));
-//                    this.dispose();
-//                    break;
-//                case 3:
-//                default:
-//                    System.out.println("Cancelar:"+(seleccion+1));
-//                    // Cancelar - Nadaremos
-//                    break;
-//            }
-//        }
     }
 
     private void actualizarPaneles() {
@@ -342,6 +320,9 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         }
         if(this.panelAlquileresCompras!=null){
             this.panelAlquileresCompras.actualizarDatos();
+        }
+        if(this.panelOrdenesDeTrabajo!=null){
+            this.panelOrdenesDeTrabajo.actualizarDatos();
         }
     }
     
