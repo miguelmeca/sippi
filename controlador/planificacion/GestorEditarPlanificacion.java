@@ -1214,12 +1214,15 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 for (int i = 0; i < alquileresCompras.size(); i++) {
                     PlanificacionXAlquilerCompra planXalqucompra = alquileresCompras.get(i);
                     
-                    EjecucionXAlquilerCompra ejcXmat = new EjecucionXAlquilerCompra();
-                    ejcXmat.setAlquilerCompraPlanificado(planXalqucompra);
+                    EjecucionXAlquilerCompra ejcXalqcom = new EjecucionXAlquilerCompra();
+                    ejcXalqcom.setAlquilerCompraPlanificado(planXalqucompra);
                     
-                    //Workaround  TODO: El elemento de planificacion eberia tener datos propios
-                    ejcXmat.setAlquilerCompraCotizacion(planXalqucompra.getAlquilerCompraCotizacion());
-                    listaAlquileresCompras.add(ejcXmat);
+                    ejcXalqcom.setAlquilerCompraCotizacion(planXalqucompra.getAlquilerCompraCotizacion());
+                    
+                    // Lleno los datos
+                    ejcXalqcom.setCantidad(planXalqucompra.getCantidad());
+                    
+                    listaAlquileresCompras.add(ejcXalqcom);
                 }
             }
         

@@ -12,6 +12,7 @@ import javax.swing.table.TableColumnModel;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
+import vista.compras.GenerarNuevaOrdenDeCompra;
 import vista.compras.GestionarStock;
 import vista.compras.RegistrarRecepcionDeRecursos;
 
@@ -24,7 +25,6 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
     public static final int TABLA_ALQCOMPRA_COLUMNA_NOMBRE = 0;
     public static final int TABLA_ALQCOMPRA_COLUMNA_CANTIDAD = 1;
     public static final int TABLA_ALQCOMPRA_COLUMNA_ESTADO = 2;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_SELECCION = 3;
     
     private static final int TABLA_DEFAULT_ALTO = 25;        
     
@@ -61,19 +61,12 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre y Descripcion", "Necesarios", "Estado", ""
+                "Nombre y Descripcion", "Necesarios", "Estado"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -85,6 +78,11 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
 
         btnOrdenCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
         btnOrdenCompra.setText("Generar Orden de Compra");
+        btnOrdenCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenCompraActionPerformed(evt);
+            }
+        });
 
         btnRecepcionCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delivery.png"))); // NOI18N
         btnRecepcionCompras.setText("Recepción de Compras");
@@ -149,6 +147,12 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
         win.setVisible(true);
     }//GEN-LAST:event_btnConsultarStockActionPerformed
 
+    private void btnOrdenCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenCompraActionPerformed
+        GenerarNuevaOrdenDeCompra win = new GenerarNuevaOrdenDeCompra();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnOrdenCompraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultarStock;
     private javax.swing.JButton btnOrdenCompra;
@@ -160,7 +164,6 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
 
     private void initTabla() {
         tblAlquilerCompra.setRowHeight(TABLA_DEFAULT_ALTO);
-        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
 
         // Ancho de Columnas
         int anchoColumna = 0;
@@ -177,9 +180,6 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
                     break;
                 case TABLA_ALQCOMPRA_COLUMNA_CANTIDAD:
                     anchoColumna = 150;
-                    break;
-                case TABLA_ALQCOMPRA_COLUMNA_SELECCION:
-                    anchoColumna = 50;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -207,7 +207,6 @@ public class PanelAlquileresCompras extends javax.swing.JPanel {
             
             fila[TABLA_ALQCOMPRA_COLUMNA_ESTADO] = data[1];
                        
-            fila[TABLA_ALQCOMPRA_COLUMNA_SELECCION] = false;
             modelo.addRow(fila);
         }
     }
