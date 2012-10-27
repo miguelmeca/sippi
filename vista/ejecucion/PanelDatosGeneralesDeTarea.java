@@ -11,12 +11,9 @@
 
 package vista.ejecucion;
 
-import com.toedter.calendar.JDateChooser;
-import controlador.ejecucion.GestorVentanaEjecucion;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.Calendar;
+import controlador.ejecucion.GestorEjecucion;
 import java.util.Date;
+
 
 /**
  *
@@ -24,10 +21,10 @@ import java.util.Date;
  */
 public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
 
-    private GestorVentanaEjecucion gestor;
+    private GestorEjecucion gestor;
     
     /** Creates new form editarCotizacion_Descripcion */
-    public PanelDatosGeneralesDeTarea(GestorVentanaEjecucion gestor) {
+    public PanelDatosGeneralesDeTarea(GestorEjecucion gestor) {
         initComponents();
         this.gestor = gestor;
         /*gestor.setPantalla(this);
@@ -237,4 +234,8 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
         });
         this.add(chooser);
     }*/
+
+     public void actualizar() {
+      
+    }
 }

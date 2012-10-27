@@ -36,8 +36,10 @@ public class TareaEjecucion extends TareaPlanificacion{
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
-        this.detalles= new ArrayList<DetalleTareaPlanificacion>();        
-        
+        this.detalles= new ArrayList<DetalleTareaPlanificacion>();   
+        this.observaciones=aCopiar.observaciones;
+        this.nombre=aCopiar.nombre;
+        this.tipoTarea=aCopiar.tipoTarea;
     }
   
     

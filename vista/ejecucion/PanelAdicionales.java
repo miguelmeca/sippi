@@ -4,8 +4,7 @@
  */
 package vista.ejecucion;
 
-import vista.ejecucion.lanzamiento.*;
-import javax.swing.JComboBox;
+import controlador.ejecucion.GestorEjecucion;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -22,15 +21,17 @@ public class PanelAdicionales extends javax.swing.JPanel {
     public static final int TABLA_ALQCOMPRA_COLUMNA_ESTADO = 2;
     public static final int TABLA_ALQCOMPRA_COLUMNA_SELECCION = 3;
     
-    private static final int TABLA_DEFAULT_ALTO = 25;        
+    private static final int TABLA_DEFAULT_ALTO = 25;     
+    
+    private GestorEjecucion gestor;
     
     /**
      * Creates new form PanelAlquileresCompras
      */
-    public PanelAdicionales() {
+    public PanelAdicionales(GestorEjecucion gestor) {
+        this.gestor = gestor;
         initComponents();
         initTabla();
-        mock();
     }
 
     /**
@@ -45,6 +46,8 @@ public class PanelAdicionales extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlquilerCompra = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         tblAlquilerCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,26 +76,51 @@ public class PanelAdicionales extends javax.swing.JPanel {
 
         jButton1.setText("jButton1");
 
+        jLabel7.setText("Buscar");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblAlquilerCompra;
     // End of variables declaration//GEN-END:variables
 
@@ -105,7 +133,7 @@ public class PanelAdicionales extends javax.swing.JPanel {
                                        "<HTML><span color='#CC7A00'>En Espera...</span>", 
                                        "<HTML><span color='#CC0000'>Sin Abonar</span>"};
         col.setCellEditor(new MyComboBoxEditor(values));
-        col.setCellRenderer(new PanelHerramientasCellRenderer(values));
+       //col.setCellRenderer(new PanelHerramientasCellRenderer(values));
 
         // Ancho de Columnas
         int anchoColumna = 0;
@@ -132,22 +160,8 @@ public class PanelAdicionales extends javax.swing.JPanel {
         }
     }
 
-    private void mock() {
-        // TODO REMOVE
-        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
+    
+    public void actualizar() {
         
-        Object row[] = new Object[4];
-        row[0] = "Comida - 4 Empelados en la Fabrica";
-        row[1] = "$ 300";
-        row[2] = new JComboBox();
-        row[3] = false;
-        modelo.addRow(row);
-        
-        Object row2[] = new Object[4];
-        row2[0] = "Hospedaje - 4 Empelados en Córdoba";
-        row2[1] = "$ 3250";
-        row2[2] = new JComboBox();
-        row2[3] = false;
-        modelo.addRow(row2);
     }
 }
