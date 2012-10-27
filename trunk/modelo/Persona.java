@@ -179,7 +179,14 @@ public class Persona {
     public String mostrarTelefonos()
     {
        String data = "";
-       return data;
+        if (telefonos != null) {
+            Telefono[] tel = telefonos.toArray(new Telefono[telefonos.size()]);
+            for (int i = 0; i < tel.length; i++) {
+                Telefono telefono = tel[i];
+                data += telefono.getNumero() + "  ";
+            }
+        }
+        return data;
     }
     
     public TipoDocumento getTipoDoc() {
