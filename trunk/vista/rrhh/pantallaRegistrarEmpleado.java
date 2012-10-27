@@ -126,7 +126,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
         {
             JOptionPane.showMessageDialog(this.getParent(),"Error levantando el empleado de la Base de Datos","ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        this.setTitle("Modificar datos de empleado - Legajo NÂº"+legajo+" - "+ nombre+" "+apellido);
+        this.setTitle("Modificar datos de empleado - Legajo Nº:"+legajo+" - "+ nombre+" "+apellido);
     }
    private void setGestor(IGestorEmpleado gest)
    {gestor=gest;}
@@ -1410,7 +1410,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {       this.dispose();}
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -1479,7 +1479,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                         JOptionPane.showMessageDialog(this.getParent(),"Empleado Registrado correctamente","Empleado Registrado",JOptionPane.INFORMATION_MESSAGE);
                         if(pantallaConsultar!=null)
                         {pantallaConsultar.actualizar(3, true);}
-                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Desea registrar otro emplado?","Cancelar",JOptionPane.YES_NO_OPTION);
+                        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Desea registrar otro emplado?","Cancelar",JOptionPane.YES_NO_OPTION);
                         if(resp==JOptionPane.NO_OPTION)
                         {       
                             this.dispose();
@@ -1506,7 +1506,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     }
                     else
                     {
-                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante la modificaciÃ³n del empleado","ERROR",JOptionPane.ERROR_MESSAGE);
+                       JOptionPane.showMessageDialog(this.getParent(),"Ocurrio un error durante la modificación del empleado","ERROR",JOptionPane.ERROR_MESSAGE);
                        pantallaConsultar.actualizar(3, false);
                        this.dispose();
                     }
@@ -2184,9 +2184,9 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
 
     public String getTituloAyuda() {
         if(modificar)
-        {return "OpciÃ³n: Modificar Empleado";}
+        {return "Opción: Modificar Empleado";}
         else
-        {return "OpciÃ³n: Nuevo Empleado";}
+        {return "Opción: Nuevo Empleado";}
     }
     
     
