@@ -38,15 +38,20 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tblMateriales">
+        <Component class="javax.swing.JTable" name="tblOrdenesDeTrabajo">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="0">
-                <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                <Column editable="false" title="Necesarios" type="java.lang.Object"/>
-                <Column editable="false" title="Stock" type="java.lang.Object"/>
-                <Column editable="false" title="Estado" type="java.lang.Object"/>
-                <Column editable="true" title="" type="java.lang.Boolean"/>
+              <Table columnCount="2" rowCount="3">
+                <Column editable="false" title="N&#xfa;mero de la Orden de Trabajo" type="java.lang.Object">
+                  <Data value="P001-0000-1"/>
+                  <Data value="P001-0000-2"/>
+                  <Data value="P001-0000-3"/>
+                </Column>
+                <Column editable="false" title="Nombre de la Tarea" type="java.lang.Object">
+                  <Data value="Desconexionado de Tolva"/>
+                  <Data value="Pintado de Estructura"/>
+                  <Data value="Entrega al Cliente"/>
+                </Column>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -102,7 +107,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Acciones sobre los Materiales:"/>
+            <TitledBorder title="Acciones sobre las Ordenes de Trabajo:"/>
           </Border>
         </Property>
       </Properties>
@@ -112,10 +117,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="btnGenerarOrdenDeCompra" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnRecepcionCompras" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnConsultarStock" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGenerarOrdenDeCompra1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,8 +126,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGenerarOrdenDeCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRecepcionCompras" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnConsultarStock" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGenerarOrdenDeCompra1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -135,32 +137,21 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/res/iconos/var/16x16/List.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Generar Orden de Compra"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Emitir &lt;b&gt;Todas&lt;/b&gt; las Ordenes de Trabajo"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarOrdenDeCompraActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRecepcionCompras">
+        <Component class="javax.swing.JButton" name="btnGenerarOrdenDeCompra1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/iconos/var/16x16/delivery.png"/>
+              <Image iconType="3" name="/res/iconos/var/16x16/List.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Recepci&#xf3;n de Compras"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Emitir las Ordenes de Trabajo &lt;b&gt;Seleccionadas&lt;/b&gt;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecepcionComprasActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnConsultarStock">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/iconos/var/16x16/Wallet.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Consultar Stock"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarStockActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarOrdenDeCompra1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
