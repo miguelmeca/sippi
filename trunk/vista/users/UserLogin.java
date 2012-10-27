@@ -88,6 +88,7 @@ public class UserLogin extends javax.swing.JFrame {
             }
         });
         tablaUsers.setAutoscrolls(false);
+        tablaUsers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaUsers.setTableHeader(null);
         tablaUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -5,6 +5,9 @@
     <id column="ID_PLAN_X_MATERIAL" name="id" type="integer">
       <generator class="increment"/>
     </id>
+    
+    <property column="CANTIDAD" name="cantidad" type="integer"/>
+    
     <many-to-one class="modelo.SubObraXMaterialModif" name="materialCotizacion"/>
     
     <joined-subclass name="modelo.EjecucionXMaterial" table="EJECUCION_X_MATERIAL">
