@@ -63,17 +63,19 @@ public class GestorVentanaLanzamiento {
                     List<PlanificacionXHerramienta> listaHerramientas = tarea.getHerramientas();
                     if (listaHerramientas != null) {
                         for (int j = 0; j < listaHerramientas.size(); j++) {
-                            EjecucionXHerramienta herramienta = (EjecucionXHerramienta)listaHerramientas.get(j);
-                            HerramientaDeEmpresa hde = herramienta.getHerramienta();
-                            if (hde != null) {
-                                if (allHerramientas.containsKey(hde)) {
-                                    // Sumo las horas solamente
-                                    int horas = allHerramientas.get(hde);
-                                    horas += herramienta.getHorasAsignadas();
-                                    allHerramientas.put(hde, horas);
-                                } else {
-                                    // Agrego la herramietna y seteo las horas
-                                    allHerramientas.put(hde, herramienta.getHorasAsignadas());
+                            if(listaHerramientas.get(j) instanceof EjecucionXHerramienta){
+                                EjecucionXHerramienta herramienta = (EjecucionXHerramienta)listaHerramientas.get(j);
+                                HerramientaDeEmpresa hde = herramienta.getHerramienta();
+                                if (hde != null) {
+                                    if (allHerramientas.containsKey(hde)) {
+                                        // Sumo las horas solamente
+                                        int horas = allHerramientas.get(hde);
+                                        horas += herramienta.getHorasAsignadas();
+                                        allHerramientas.put(hde, horas);
+                                    } else {
+                                        // Agrego la herramietna y seteo las horas
+                                        allHerramientas.put(hde, herramienta.getHorasAsignadas());
+                                    }
                                 }
                             }
                         }

@@ -80,7 +80,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="468" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="472" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -95,13 +95,14 @@
             <Component class="javax.swing.JTable" name="tblMenu">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="1" rowCount="5">
+                  <Table columnCount="1" rowCount="6">
                     <Column editable="false" title="Title 1" type="java.lang.Object">
                       <Data value="Herramientas"/>
                       <Data value="Materiales"/>
                       <Data value="Alquileres/Compras"/>
                       <Data value="Recursos Humanos"/>
                       <Data value="Adicionales"/>
+                      <Data value="Ordenes de Trabajo"/>
                     </Column>
                   </Table>
                 </Property>

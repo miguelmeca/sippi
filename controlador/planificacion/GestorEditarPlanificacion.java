@@ -1153,6 +1153,9 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     //Workaround TODO: El elemento de planificacion eberia tener datos propios
                     ejcXHerr.setHerramientaCotizacion(planXHerramienta.getHerramientaCotizacion());
                     
+                    // Lleno los datos del objeto
+                    ejcXHerr.setHorasAsignadas(planXHerramienta.getHorasAsignadas());
+                    
                         // Creo las Herramientas X Dia
                         List<EjecucionXHerramientaXDia> herramientasXdia = crearHerramientasXDia(tarea);
                         ejcXHerr.setUsoHerramientasXdia(herramientasXdia);
