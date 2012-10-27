@@ -4,25 +4,21 @@ import com.hackelare.coolgantt.CoolGanttPhase;
 import config.Iconos;
 import controlador.GestorAbstracto;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
-import java.awt.Point;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import modelo.*;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
-import util.Trazabilidad;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.TreeEntry;
 import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.EditarPlanificacion;
-import vista.planificacion.NuevaTareaPlanificacion;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
@@ -1044,7 +1040,20 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 // Guardo los cambiios en el Pedido de Obra
                 sesion.saveOrUpdate(this.pedidoDeObra);              
                 // Guardo los cambiios en la Ejecucion
-                sesion.saveOrUpdate(ejecucion);              
+                sesion.saveOrUpdate(ejecucion);        
+                
+                    // Tengo que guardar mejor la Ejecucion, no toma todos los cambios
+                    for (int i = 0; i < ejecucion.getTareas().size(); i++) {
+                        TareaEjecucion tarea = ejecucion.getTarea(i);
+                        sesion.saveOrUpdate(tarea);
+                        
+                            // Guardo los Materiales
+                            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+                                PlanificacionXMaterial mat = tarea.getMateriales().get(j);
+                                 sesion.saveOrUpdate(mat);
+                            }
+                    }
+                
             HibernateUtil.commitTransaction();
         } 
         catch (Exception ex)
@@ -1150,7 +1159,6 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     ejcXHerr.setHerramientaPlanificada(planXHerramienta);
                     listaHerramientas.add(ejcXHerr);
                     
-                    //Workaround TODO: El elemento de planificacion eberia tener datos propios
                     ejcXHerr.setHerramientaCotizacion(planXHerramienta.getHerramientaCotizacion());
                     
                     // Lleno los datos del objeto
@@ -1181,8 +1189,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     EjecucionXMaterial ejcXmat = new EjecucionXMaterial();
                     ejcXmat.setMaterialPlanificado(planXmaterial);
                     
-                    //Workaround TODO: El elemento de planificacion eberia tener datos propios
                     ejcXmat.setMaterialCotizacion(planXmaterial.getMaterialCotizacion());
+                    
+                    // Lleno los datos del Objeto
+                    ejcXmat.setCantidad(planXmaterial.getCantidad());
+                    
                     listaMateriales.add(ejcXmat);
                 }
             }

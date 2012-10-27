@@ -15,6 +15,7 @@ import javax.swing.table.TableColumnModel;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
+import vista.compras.GenerarNuevaOrdenDeCompra;
 import vista.compras.GestionarStock;
 import vista.compras.RegistrarRecepcionDeRecursos;
 import vista.util.MyComboBoxEditor;
@@ -29,7 +30,6 @@ public class PanelMateriales extends javax.swing.JPanel {
     public static final int TABLA_MATERIALES_COLUMNA_NECESARIOS = 1;
     public static final int TABLA_MATERIALES_COLUMNA_ENSTOCK = 2;
     public static final int TABLA_MATERIALES_COLUMNA_ESTADO = 3;
-    public static final int TABLA_MATERIALES_COLUMNA_SELECCION = 4;
     
     private static final int TABLA_DEFAULT_ALTO = 25;
 
@@ -66,19 +66,12 @@ public class PanelMateriales extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Necesarios", "Stock", "Estado", ""
+                "Nombre", "Necesarios", "Stock", "Estado"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -149,23 +142,29 @@ public class PanelMateriales extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarOrdenDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeCompraActionPerformed
-       DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
-        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_MATERIALES_COLUMNA_SELECCION,true);
-       if(cantidadSeleccionados<=0){
-           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos un Material para emitir su Orden de Compra");
-       }else{
-          // Generar Orden de Compra de Emma !!!
-           int filasSeleccionadas[] = tblMateriales.getSelectedRows();
-           ArrayList<NTupla> tuplasSeleccionadas = new ArrayList<NTupla>();
-           for(int i=0; i<filasSeleccionadas.length; i++)
-           {
-               NTupla nTupla = (NTupla) modelo.getValueAt(filasSeleccionadas[i], TABLA_MATERIALES_COLUMNA_NOMBRE);
-               tuplasSeleccionadas.add(nTupla);
-           }
-           ventanaGenerarOrdenesDeCompra ventana = new ventanaGenerarOrdenesDeCompra(tuplasSeleccionadas);
-           SwingPanel.getInstance().addWindow(ventana);
-           ventana.setVisible(true);
-       }
+
+        GenerarNuevaOrdenDeCompra ventana = new GenerarNuevaOrdenDeCompra();
+        SwingPanel.getInstance().addWindow(ventana);
+        ventana.setVisible(true);        
+        
+// Tiene lo del emma, si se hace hay que cambiar esto        
+//       DefaultTableModel modelo = (DefaultTableModel)tblMateriales.getModel();
+//        int cantidadSeleccionados = TablaUtil.getCantidadSeleccionados(modelo,TABLA_MATERIALES_COLUMNA_SELECCION,true);
+//       if(cantidadSeleccionados<=0){
+//           mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","Seleccione al menos un Material para emitir su Orden de Compra");
+//       }else{
+//          // Generar Orden de Compra de Emma !!!
+//           int filasSeleccionadas[] = tblMateriales.getSelectedRows();
+//           ArrayList<NTupla> tuplasSeleccionadas = new ArrayList<NTupla>();
+//           for(int i=0; i<filasSeleccionadas.length; i++)
+//           {
+//               NTupla nTupla = (NTupla) modelo.getValueAt(filasSeleccionadas[i], TABLA_MATERIALES_COLUMNA_NOMBRE);
+//               tuplasSeleccionadas.add(nTupla);
+//           }
+//           ventanaGenerarOrdenesDeCompra ventana = new ventanaGenerarOrdenesDeCompra(tuplasSeleccionadas);
+//           SwingPanel.getInstance().addWindow(ventana);
+//           ventana.setVisible(true);
+//       }
     }//GEN-LAST:event_btnGenerarOrdenDeCompraActionPerformed
 
     private void btnRecepcionComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionComprasActionPerformed
@@ -191,7 +190,6 @@ public class PanelMateriales extends javax.swing.JPanel {
 
     private void initTabla() {
         tblMateriales.setRowHeight(TABLA_DEFAULT_ALTO);
-        DefaultTableModel modelo = (DefaultTableModel) tblMateriales.getModel();
 
         // Ancho de Columnas
         int anchoColumna = 0;
@@ -201,19 +199,16 @@ public class PanelMateriales extends javax.swing.JPanel {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
                 case TABLA_MATERIALES_COLUMNA_ESTADO:
-                    anchoColumna = 300;
+                    anchoColumna = 200;
                     break;
                 case TABLA_MATERIALES_COLUMNA_NOMBRE:
-                    anchoColumna = 400;
+                    anchoColumna = 300;
                     break;
                 case TABLA_MATERIALES_COLUMNA_NECESARIOS:
-                    anchoColumna = 100;
+                    anchoColumna = 200;
                     break;
                 case TABLA_MATERIALES_COLUMNA_ENSTOCK:
-                    anchoColumna = 100;
-                    break;
-                case TABLA_MATERIALES_COLUMNA_SELECCION:
-                    anchoColumna = 30;
+                    anchoColumna = 200;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
@@ -248,7 +243,6 @@ public class PanelMateriales extends javax.swing.JPanel {
             fila[TABLA_MATERIALES_COLUMNA_NECESARIOS] = data[0];
             fila[TABLA_MATERIALES_COLUMNA_ENSTOCK] = data[1];
             fila[TABLA_MATERIALES_COLUMNA_ESTADO] = data[2];
-            fila[TABLA_MATERIALES_COLUMNA_SELECCION] = false;
             modelo.addRow(fila);
         }
         
