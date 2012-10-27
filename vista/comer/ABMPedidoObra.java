@@ -704,11 +704,11 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             
             gestor.pliego(txtPliego.getText());
 
-            // Los contactos responsables ya estÃ¡n en el gestor
+            // Los contactos responsables ya estan en el gestor
 
             int id = gestor.confirmacionRegistro(this.idPedidoObra);
 
-            JOptionPane.showMessageDialog(this.getParent(),"Se registro con Ã©xito el pedido nÃºmero "+id,"RegistraciÃ³n Exitosa",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),"<HTML>Se registró con <b>éxito</b> el pedido número : <b>"+id+"</b>","Registración Exitosa",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
 
@@ -737,26 +737,26 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     }//GEN-LAST:event_btnAgregarPlantaActionPerformed
 
     private void btnAgregarCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCRActionPerformed
-        String msj="Han ocurrido los siguientes errores al momento de la carga:\n";
+        String msj="<HTML>Han ocurrido los siguientes errores al momento de la carga:\n";
         boolean b=true;
         if(this.txtNombreCR.getText().equals("")){
-            msj += "- Nombre de Contacto vacÃ­o\n";
+            msj += "- El <b>Nombre</b> de Contacto no puede ser vacio\n";
             b = false;
         }
         if(this.txtApellidoCR.getText().equals("")){
-            msj += "- Apellido de Contacto vacÃ­o\n";
+            msj += "- El <b>Apellido</b> de Contacto no puede ser vacio\n";
             b = false;
         }
         if(this.cmbRolCR.getSelectedIndex()== 0){
-            msj += "- No ha seleccionado un Rol para el contacto\n";
+            msj += "- No ha seleccionado un <b>Rol</b> para el contacto\n";
             b = false;
         }
         if(this.cmbTipoTelefono.getSelectedIndex()== 0){
-            msj += "- No ha seleccionado un Tipo de TelÃ©fono\n";
+            msj += "- No ha seleccionado un <b>Tipo de Teléfono</b>\n";
             b = false;
         }
         if(this.txtTelCR.getText().equals("")){
-            msj += "- TelÃ©fono vacÃ­o\n";
+            msj += "- <b>Teléfono</b> vacio\n";
             b = false;
         }
         if(b){
@@ -893,26 +893,6 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public String getTituloAyuda() {
-        return "OpciÃ³n: Nuevo Pedido";
-    }
-
-    @Override
-    public String getResumenAyuda() {
-        return "Ingrese los datos del Pedido a cargar.";
-    }
-
-    @Override
-    public int getIdAyuda() {
-        return 0;
-    }
-
-    @Override
-    public void actualizar(int flag, boolean exito) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public boolean isFavorito() {
         return true;
     }
@@ -981,12 +961,12 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
     @Override
     public void setFechaLEP(Date fLEP) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
     public void setFechaLVP(Date fLVP) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
@@ -996,7 +976,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
     @Override
     public void setPlanosPedido(String pedidos) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
@@ -1055,6 +1035,26 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
 
     @Override
     public void setContactoResponsable(int idContacto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+    }
+
+    @Override
+    public String getTituloAyuda() {
+        return "";
+    }
+
+    @Override
+    public String getResumenAyuda() {
+        return "";
+    }
+
+    @Override
+    public int getIdAyuda() {
+        return 0;
+    }
+
+    @Override
+    public void actualizar(int flag, boolean exito) {
+        
     }
 }
