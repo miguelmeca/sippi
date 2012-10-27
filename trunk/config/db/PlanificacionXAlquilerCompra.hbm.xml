@@ -5,7 +5,11 @@
     <id column="ID_PLAN_X_ALQCOMPRA" name="id" type="integer">
       <generator class="increment"/>
     </id>
+    
+    <property column="CANTIDAD" name="cantidad" type="integer"/>
+    
     <many-to-one class="modelo.SubObraXAlquilerCompraModif" name="AlquilerCompraCotizacion"/>
+    
     <joined-subclass name="modelo.EjecucionXAlquilerCompra" table="EJECUCION_X_ALQUILERCOMPRA">
       <key column="ID_EJECUCION_X_ALQUILERCOMPRA"/>
       <many-to-one class="modelo.PlanificacionXAlquilerCompra" name="alquilerCompraPlanificado"/>
