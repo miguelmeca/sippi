@@ -1,13 +1,18 @@
 package controlador.ejecucion;
-
+ 
 import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultTreeModel;
+import modelo.DetalleTareaEjecucion;
+import modelo.DetalleTareaEjecucionXDia;
+import modelo.DetalleTareaPlanificacion;
 import modelo.Ejecucion;
+import modelo.Empleado;
 import modelo.PedidoObra;
 import modelo.PlanificacionXAlquilerCompra;
 import modelo.PlanificacionXHerramienta;
@@ -162,6 +167,24 @@ public class GestorEjecucion {
         tareaSeleccionada=(TareaEjecucion)ejecucion.buscarTareaPorHash(hash);
         
         return tareaSeleccionada;
+    }
+    
+    public List<DetalleTareaEjecucionXDia> getListaRRHH(){
+        
+            EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+            ArrayList<TareaEjecucion> listaTareas =EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+            ArrayList<DetalleTareaEjecucionXDia> listaRRHH= new ArrayList<DetalleTareaEjecucionXDia>();
+            for (int i = 0; i < listaTareas.size(); i++) {
+                TareaEjecucion tarea = listaTareas.get(i);   
+                List<DetalleTareaPlanificacion> listaDetalles= tarea.getDetalles();
+                for (int j = 0; j < listaDetalles.size(); j++) {
+                    DetalleTareaEjecucion detalle=(DetalleTareaEjecucion)listaDetalles.get(j);
+                    listaRRHH.addAll(detalle.getListaDetallePorDia());
+                }
+            }
+            return listaRRHH;
+
+   
     }
     
     
