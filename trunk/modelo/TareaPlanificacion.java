@@ -578,13 +578,14 @@ public class TareaPlanificacion
             if (tareasSuperioresTotales.get(i).getTareaCotizada()!=null) 
             {//Esta tarea padre tiene una tarea cotizada
                 
-                //Es una tarea cotizada en cotizacion o es una tarea cotizada para gastos generales de planificacion)?
-                for (int j = 0; j < planificacion.getCotizacion().getSubObraGeneral().getTareas().size(); j++) {
-                    if(planificacion.getCotizacion().getSubObraGeneral().getTareas().get(j).equals(tareasSuperioresTotales.get(i).getTareaCotizada()))
-                    {return false;}
-                    
+                if(planificacion.getCotizacion().getSubObraGeneral()!=null)
+                {//Es una tarea cotizada en cotizacion o es una tarea cotizada para gastos generales de planificacion)?
+                    for (int j = 0; j < planificacion.getCotizacion().getSubObraGeneral().getTareas().size(); j++) {
+                        if(planificacion.getCotizacion().getSubObraGeneral().getTareas().get(j).equals(tareasSuperioresTotales.get(i).getTareaCotizada()))
+                        {return false;}
+
+                    }
                 }
-                
                 //Es una tarea cotizada en cotizacion
                 return true;
             }

@@ -154,6 +154,17 @@ public class CotizacionModificada extends Cotizacion{
             if(subObras.get(i).esSubObraGeneralALaPlanificacion())
             {   return subObras.get(i);}
         }
+        return null;
+        
+    }
+    
+    public SubObra devolverOCrearSubObraGeneral() {
+        //Si la subOtra existe la devuelvo
+        for(int i=0;i<subObras.size();i++)
+        {
+            if(subObras.get(i).esSubObraGeneralALaPlanificacion())
+            {   return subObras.get(i);}
+        }
         
         //Si la subobra todavia no existe la creo y la devuelvo
         SubObraModificada general=new SubObraModificada();

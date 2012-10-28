@@ -76,7 +76,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         } catch (Exception e) {
             e.printStackTrace();
             HibernateUtil.rollbackTransaction();
-            mostrarMensajeError("No se pudo cargar el Pedido ni la planificaciÃ³n asociada");
+            mostrarMensajeError("No se pudo cargar el Pedido ni la planificacion asociada");
             
         }
 
@@ -288,7 +288,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         else
         {
-            mostrarMensajeError("No se pudo cargar la planificaciÃ³n, por lo tanto no se mostrarÃ¡ el Gantt");
+            mostrarMensajeError("No se pudo cargar la planificacio³n, por lo tanto no se mostrará el Gantt");
         }
         return listaTareas;
     }
@@ -801,7 +801,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     }
 
     /**
-     * Guarda la Planificación !
+     * Guarda la Planificacion !
      */
     public void guardarPlanificacion() {
         try
@@ -940,7 +940,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 tareaCotizacionNueva.setNombre(subTarea.getNombre());
                 tareaCotizacionNueva.setTipoTarea(subTarea.getTipoTarea());
                 tareaCotizacionNueva.setObservaciones(CotizacionModificada.obsevacionSubObraXTareaDeSubObraGeneral);                
-                planificacion.getCotizacion().getSubObraGeneral().addTarea(tareaCotizacionNueva);
+                planificacion.getCotizacion().devolverOCrearSubObraGeneral().addTarea(tareaCotizacionNueva);
                 
                 subTarea.setTareaCotizada(tareaCotizacionNueva);
                 this.planificacion.addTarea(subTarea);
@@ -1015,7 +1015,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         this.planificacion.setEstado(Planificacion.ESTADO_FINALIZADA);
         this.pedidoDeObra.setEstadoEnEjecucion();
         
-        // Ahora... Creo la Ejecución
+        // Ahora... Creo la Ejecucion
  
         // Lanzo el algoritmo que crea la ejecucion
         Ejecucion ejecucion = null;
@@ -1059,7 +1059,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         catch (Exception ex)
         {
             HibernateUtil.rollbackTransaction();
-            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva Ejecución\nPongase en contacto con un administrador\n"+ex.getMessage());
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo generar una nueva Ejecucion\nPongase en contacto con un administrador\n"+ex.getMessage());
         }        
         
         // Si no exploto hasta ahora, lanzo la nueva ventana
@@ -1333,8 +1333,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     detTareaEjec.setCantidadPersonas(1);
                     detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(j));
                     
-                    List<DetalleTareaEjecucionXDia> listaPorDía = crearDetalleTareaXDia(tarea);
-                    detTareaEjec.setListaDetallePorDia(listaPorDía);
+                    List<DetalleTareaEjecucionXDia> listaPorDia = crearDetalleTareaXDia(tarea);
+                    detTareaEjec.setListaDetallePorDia(listaPorDia);
                     lista.add(detTareaEjec);
                 }
                 
@@ -1362,7 +1362,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             System.out.println("Fecha de Fin: "+FechaUtil.getFecha(fechaFin));
             
             int cantidadDias = FechaUtil.diasDiferencia(fechaInicio, fechaFin);
-            System.out.println("Cantidad de días: "+cantidadDias);
+            System.out.println("Cantidad de díass: "+cantidadDias);
             
             for(int i=0; i<=cantidadDias; i++ ){
                 Date fecha = FechaUtil.fechaMas(fechaInicio, i);
