@@ -5,9 +5,17 @@
 package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import util.NTupla;
+import util.Tupla;
 
 /**
  *
@@ -20,9 +28,13 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     public static final int TABLA_RRHH_COLUMNA_FECHA = 2;
     public static final int TABLA_RRHH_COLUMNA_HS_NORMALES = 3;
     public static final int TABLA_RRHH_COLUMNA_HS_50 = 4;
-    public static final int TABLA_RRHH_COLUMNA_HS_100 = 5;
+    public static final int TABLA_RRHH_COLUMNA_HS_100 = 5;    
+    private static final int TABLA_DEFAULT_ALTO = 25;  
     
-    private static final int TABLA_DEFAULT_ALTO = 25;    
+    private List<NTupla> listaRRHH;
+    private DefaultTableModel model;
+    private boolean primeraVez;
+    private boolean filtroBuscarActivado;
     
     private GestorEjecucion gestor;
         
@@ -30,8 +42,40 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         this.gestor=gestor;
         initComponents();
         initTabla();
+        habilitarVentana();
     }
- 
+  private void habilitarVentana()
+    {
+        filtroBuscarActivado=false;
+        cargarRRHH();
+        activarFiltrosTabla();  
+    }
+  
+  
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tblRRHH.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+       
+
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,8 +92,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         dcFechaInicio1 = new com.toedter.calendar.JDateChooser();
-        jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
 
         tblRRHH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,13 +127,39 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
         jLabel6.setText("Fecha Hasta");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jLabel7.setText("Buscar");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
             }
         });
-
-        jLabel7.setText("Buscar");
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -106,45 +177,84 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(197, 197, 197))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dcFechaInicio;
     private com.toedter.calendar.JDateChooser dcFechaInicio1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblRRHH;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
     private void initTabla() {
@@ -181,8 +291,38 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         } 
     }
     
+    
+    private void cargarRRHH()
+    {
+      /*  listaRRHH=gestor.getListaRRHH();
+       
+        model = (DefaultTableModel) tblRRHH.getModel();
+        int fil=model.getRowCount();
+        //for (int i = 0; i < fil; i++) {
+         //   model.removeRow(0);
+        //}
+        model.setRowCount(0);
+        for (NTupla nTuplaEmpleado : listaRRHH)
+        {
+            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
+            Object[] obj=new Object[((Object[])nTuplaEmpleado.getData()).length+1];
+            Tupla tup=new Tupla();
+            tup.setId(nTuplaEmpleado.getId());
+            tup.setNombre(nTuplaEmpleado.getNombre());
+            obj[0]=tup;
+
+            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
+            System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
+            model.addRow( obj );
+        }
+       
+        tblRRHH.setModel(model);
+    */
+
+    }
+    
     public void actualizar() {
-        
+        cargarRRHH();
     }
 
 }
