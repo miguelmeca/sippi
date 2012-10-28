@@ -15,6 +15,7 @@ import modelo.PlanificacionXMaterial;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
+import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
 import org.hibernate.HibernateException;
 import util.HibernateUtil;
@@ -32,6 +33,7 @@ public class GestorEjecucion {
     private int idObra;
     private PedidoObra pedidoDeObra;
     private Ejecucion ejecucion;
+    private TareaEjecucion tareaSeleccionada;
 
     public GestorEjecucion(VentanaEjecucion vista, int idObra) {
         this.pantalla = vista;
@@ -152,6 +154,14 @@ public class GestorEjecucion {
                 }
            }
        } 
+    }
+    
+    
+    public TareaEjecucion setearTareaEjecucionSeleccionada(int hash) {    
+        
+        tareaSeleccionada=(TareaEjecucion)ejecucion.buscarTareaPorHash(hash);
+        
+        return tareaSeleccionada;
     }
     
     
