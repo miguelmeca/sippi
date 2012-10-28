@@ -370,7 +370,7 @@ public class GestorVentanaLanzamiento {
                 data[0] = ""+horas[0];
                 data[1] = ""+horas[1];
                 data[2] = ""+horas[2];
-                data[3] = "Yeah!";
+                data[3] = empleado.getEstado().getNombre();
             
             nt.setData(data);
             ntlst.add(nt);
