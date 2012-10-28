@@ -23,6 +23,7 @@ public class DetalleTareaPlanificacion {
     protected double costoXHoraNormal;
     protected Especialidad especialidad;
     protected int cantidadHijos;
+    private boolean auxiliar;
     
     private transient DetalleTareaPlanificacion detalleCopia;
     
@@ -349,6 +350,20 @@ public class DetalleTareaPlanificacion {
         this.setCotizado(null);
         caminoTareas.get(caminoTareas.size()-1).getDetalles().remove(this);
         
+    }
+
+    /**
+     * @return the auxiliar
+     */
+    public boolean isAuxiliar() {
+        return auxiliar;
+    }
+
+    /**
+     * @param auxiliar the auxiliar to set
+     */
+    public void setAuxiliar(boolean auxiliar) {
+        this.auxiliar = auxiliar;
     }
     
     
