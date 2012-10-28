@@ -2,19 +2,22 @@ package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import modelo.TareaEjecucion;
 import util.SwingPanel;
 import util.Tupla;
 import vista.ejecucion.lanzamiento.VentanaLanzamiento;
-import vista.gui.dnd.PanelDropTarget;
-import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.ArbolTareasGestor;
-import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
@@ -45,6 +48,9 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     
     private ArbolIconoNodo nodoActualArbolTareas;
     private int idUltimoNodoArbolTareas=0;
+    private TareaEjecucion tareaSeleccionada;
+    private String nombreTipoRecursoEnPanel;
+    
     
     /**
      * Ventana Principal de Ejecucion !!
@@ -61,6 +67,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         cargarComboTipoRecurso();
         arbolTareasGestor=new ArbolTareasGestor(arbolTareas);
         inicializarArbolDeTareas();
+        inicializarEventosArbol();
+        
         
     }
     
@@ -484,13 +492,13 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 contenido=panelAdicionales;
                 break;
         }
-        
-        setearPanelCentral(tipoRecurso.toString(), contenido);
+        nombreTipoRecursoEnPanel=tipoRecurso.toString();
+        setearPanelCentral(contenido);
         
         
     }
-    protected void setearPanelCentral(String nombre, JPanel panel){
-         panelCentral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombre));
+    protected void setearPanelCentral(JPanel panel){
+        setearNombrePanelCentral();
          panelCentral.removeAll();
         // panelCentral.setViewportView(panel);
          panelCentral.add(panel, BorderLayout.CENTER);
@@ -498,7 +506,16 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
          this.updateUI();
     }  
     
-    public void inicializarArbolDeTareas()
+    private void setearNombrePanelCentral()
+    {
+        String nombreCompletoPanel=nombreTipoRecursoEnPanel.toString();
+        if(tareaSeleccionada!=null){
+        nombreCompletoPanel=nombreCompletoPanel + " - Tarea "+tareaSeleccionada.getNombre();
+        }
+         panelCentral.setBorder(javax.swing.BorderFactory.createTitledBorder(nombreCompletoPanel));
+    }
+    
+    private void inicializarArbolDeTareas()
     {
         DefaultTreeModel modelo=gestor.cargarModeloArbolTareas();
         arbolTareas.setModel(modelo);
@@ -519,6 +536,54 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         }
     }
     
+    private void inicializarEventosArbol()
+    {
+       //Listener del arbol
+        arbolTareas.addMouseListener(new MouseAdapter() {
+                
+            private void clickEnArbol(MouseEvent mouseEvent) {
+              TreePath tp = arbolTareas.getPathForLocation(mouseEvent.getX(), mouseEvent.getY());
+                if(tp==null)
+                   {
+                     mouseEvent.consume();
+                     idUltimoNodoArbolTareas=0;
+                     return;
+                   }
+                final ArbolIconoNodo nodo  = ArbolTareasGestor.getNodoDeTreeNodePath(tp);
+                if(nodo==null)
+                { 
+                    idUltimoNodoArbolTareas=0;
+                    return;
+                }
+                
+                idUltimoNodoArbolTareas=nodo.getId();
+                
+                  
+            
+                tareaSeleccionada = setearTareaEjecucionSeleccionada(idUltimoNodoArbolTareas );
+                mouseEvent.consume();
+            }
+ 
+            @Override
+        public void mousePressed(MouseEvent e)  { clickEnArbol(e); }
+            @Override
+        public void mouseReleased(MouseEvent e) { clickEnArbol(e); }
+            @Override
+        public void mouseClicked(MouseEvent e)  { clickEnArbol(e); }
+            });
+        
+        
+    }
+    
+    private TareaEjecucion setearTareaEjecucionSeleccionada(int hash)    {
+        TareaEjecucion tarea= gestor.setearTareaEjecucionSeleccionada(hash);
+        actualizarPaneles();
+        
+        return tarea;
+    }
+    
+    
+    
     /**
      * Muestra un mensaje
      * @param tipo
@@ -529,4 +594,23 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
     } 
+    
+    public void actualizarPaneles(){
+    
+        if(this.panelDatosTarea!=null)
+        {this.panelDatosTarea.actualizar();}
+        if(this.panelRecursosHumanos!=null)
+        {this.panelRecursosHumanos.actualizar();}
+        if(this.panelHerramientas!=null)
+        {this.panelHerramientas.actualizar();}
+        if(this.panelMateriales!=null)
+        {this.panelMateriales.actualizar();}
+        if(this.panelAlquileresCompras!=null)
+        {this.panelAlquileresCompras.actualizar();}
+        if(this.panelAdicionales!=null)
+        {this.panelAdicionales.actualizar();}
+        
+        setearNombrePanelCentral();
+    }
+            
 }
