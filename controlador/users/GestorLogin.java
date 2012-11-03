@@ -47,7 +47,7 @@ public class GestorLogin {
             }   
         } 
         catch (Exception ex){
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","No se pudieron cargar los usuarios del Sistema");
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error","<HTML>No se pudo establecer conexión con el <b>Servidor de Datos</b><br><i>¿Tiene acceso a la red?</i>");
         }
         
         return lista;        

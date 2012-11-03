@@ -8,19 +8,17 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JInternalFrame;
@@ -42,12 +40,20 @@ public class ReportDesigner
     public static final int REPORTE_TIPO_LISTADOS      = 4;
     public static final int REPORTE_TIPO_COMPRAS       = 5;
     
-    public static final Font FUENTE_TITULO_1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
-    public static final Font FUENTE_TITULO_2 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC);
-    public static final Font FUENTE_NORMAL   = new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL);
-    public static final Font FUENTE_NORMAL_B   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLD);
-    public static final Font FUENTE_NORMAL_K   = new Font(Font.FontFamily.HELVETICA,10,Font.ITALIC);
-    public static final Font FUENTE_NORMAL_BK   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC);
+    //public static final Font FUENTE_TITULO_1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
+    //public static final Font FUENTE_TITULO_2 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC);
+    //public static final Font FUENTE_NORMAL   = new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL);
+    //public static final Font FUENTE_NORMAL_B   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLD);
+    //public static final Font FUENTE_NORMAL_K   = new Font(Font.FontFamily.HELVETICA,10,Font.ITALIC);
+    //public static final Font FUENTE_NORMAL_BK   = new Font(Font.FontFamily.HELVETICA,10,Font.BOLDITALIC);
+    
+    public static final Font FUENTE_TITULO_1 = FontFactory.getFont("Calibri",14,Font.BOLD);
+    public static final Font FUENTE_TITULO_2 = FontFactory.getFont("Calibri",12,Font.BOLDITALIC);
+    public static final Font FUENTE_NORMAL   = FontFactory.getFont("Calibri",10,Font.NORMAL);
+    public static final Font FUENTE_NORMAL_CHICA   = FontFactory.getFont("Calibri",9,Font.NORMAL);
+    public static final Font FUENTE_NORMAL_B   = FontFactory.getFont("Calibri",10,Font.BOLD);
+    public static final Font FUENTE_NORMAL_K   = FontFactory.getFont("Calibri",10,Font.ITALIC);
+    public static final Font FUENTE_NORMAL_BK   = FontFactory.getFont("Calibri",10,Font.BOLDITALIC);
     
     public static final BaseColor COLOR_HEADINGS = new BaseColor(219,229,241);
     
@@ -168,15 +174,7 @@ public class ReportDesigner
             encabezado.add(locEmpresa);        
         this.doc.add(encabezado);
         
-        // TITULO
-        PdfPTable titulo = new PdfPTable(1);
-            titulo.setWidthPercentage(100);
-            PdfPCell celda = new PdfPCell(new Paragraph(this.nombre.toUpperCase(),new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
-            celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            celda.setBorder(PdfPCell.NO_BORDER);
-            titulo.addCell(celda);
-        this.doc.add(titulo);
+        insertarTitulo(this.nombre.toUpperCase());
         
     }
     
@@ -268,6 +266,31 @@ public class ReportDesigner
             return file.mkdirs();
         
         return true;
+    }
+
+    protected void insertarTitulo(String nombretitulo) throws DocumentException {
+        // TITULO
+        PdfPTable titulo = new PdfPTable(1);
+            titulo.setWidthPercentage(100);
+            PdfPCell celda = new PdfPCell(new Paragraph(nombretitulo,new Font(Font.FontFamily.HELVETICA,12,Font.BOLD)));
+            celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            celda.setBorder(PdfPCell.NO_BORDER);
+            titulo.addCell(celda);
+        this.doc.add(titulo);
+    }
+    
+    protected void insertarSubTitulo(String nombretitulo) throws DocumentException {
+        // TITULO
+        PdfPTable titulo = new PdfPTable(1);
+            titulo.setWidthPercentage(100);
+            titulo.setSpacingBefore(5f);
+            PdfPCell celda = new PdfPCell(new Paragraph(nombretitulo,new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+            celda.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+            celda.setBackgroundColor(new BaseColor(200,200,200));
+            celda.setBorder(PdfPCell.NO_BORDER);
+            titulo.addCell(celda);
+        this.doc.add(titulo);
     }
     
 }

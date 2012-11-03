@@ -41,7 +41,7 @@
         <Component class="javax.swing.JTable" name="tblOrdenesDeTrabajo">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="3">
+              <Table columnCount="4" rowCount="3">
                 <Column editable="false" title="N&#xfa;mero de la Orden de Trabajo" type="java.lang.Object">
                   <Data value="P001-0000-1"/>
                   <Data value="P001-0000-2"/>
@@ -52,6 +52,8 @@
                   <Data value="Pintado de Estructura"/>
                   <Data value="Entrega al Cliente"/>
                 </Column>
+                <Column editable="false" title="Fecha Inicio" type="java.lang.Object"/>
+                <Column editable="false" title="Fecha Fin" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -116,39 +118,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="btnGenerarOrdenDeCompra" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="359" max="32767" attributes="0"/>
                   <Component id="btnGenerarOrdenDeCompra1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnGenerarOrdenDeCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnGenerarOrdenDeCompra1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnGenerarOrdenDeCompra1" min="-2" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnGenerarOrdenDeCompra">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/res/iconos/var/16x16/List.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Emitir &lt;b&gt;Todas&lt;/b&gt; las Ordenes de Trabajo"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarOrdenDeCompraActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnGenerarOrdenDeCompra1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/res/iconos/var/16x16/List.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Emitir las Ordenes de Trabajo &lt;b&gt;Seleccionadas&lt;/b&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Emitir la Orden de Trabajo &lt;b&gt;Seleccionada&lt;/b&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarOrdenDeCompra1ActionPerformed"/>
