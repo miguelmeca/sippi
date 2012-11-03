@@ -409,7 +409,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     btnAgregarNuevoPrecio.setEnabled(false);
                     modificando = false;
                 } else{
-                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. ¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,r.getId(),re.getId());
                         SwingPanel.getInstance().addWindow(anp);
                         anp.setVisible(true);
@@ -486,7 +486,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     psp.setVisible(true);
                     btnAgregarNuevoPrecio.setEnabled(false);
                 } else{
-                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. ¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                         AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
                         SwingPanel.getInstance().addWindow(anp);
                         anp.setVisible(true);
@@ -513,7 +513,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 btnAgregarNuevoPrecio.setEnabled(false);
                 modificando=true;
             } else{
-                if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. Â¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                if(JOptionPane.showConfirmDialog(this.getParent(), "No se encontraron precios registrados para este material. ¿Desea agregarle uno?", "Material", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
                     AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestor,soxm.getMaterial().getId(),re.getId());
                     SwingPanel.getInstance().addWindow(anp);
                     anp.setVisible(true);
