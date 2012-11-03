@@ -1,867 +1,6 @@
-/*C4*/SET SCHEMA PUBLIC
-alter table AsignacionEmpleadoPlanificacion drop constraint FK3B2AA6F33FA03576
-alter table AsignacionEmpleadoPlanificacion drop constraint FK3B2AA6F3F38122A2
-alter table AsistenciaTallerCapacitacion drop constraint FKB58570BBDC73F2E2
-alter table Barrio drop constraint FK762C4C45E28DC372
-alter table CAPACITACION drop constraint FKA6837467DC73F2E2
-alter table CAPACITACION drop constraint FKA6837467324A99D1
-alter table CAPACITADOR drop constraint FKDA12945CB244C45
-alter table CONTACTO_RESPONSABLE_X_TELEFONO drop constraint FK43EA3BEC964C8F7A
-alter table CONTACTO_RESPONSABLE_X_TELEFONO drop constraint FK43EA3BEC793F3249
-alter table COT_MODIFICADA drop constraint FKE2E6D83CFE482329
-alter table COT_MODIFICADA drop constraint FKE2E6D83CF7B16093
-alter table ContactoResponsable drop constraint FK8DC3BC0F2647BA7
-alter table ContactoResponsable drop constraint FK8DC3BC0FA132333
-alter table Cotizacion drop constraint FKD3101BAD2647BA7
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF drop constraint FKCA280E359D91FA25
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF drop constraint FKCA280E35DCA8D9ED
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF drop constraint FKCA280E35FC7BFACD
-alter table DETALLE_TAREA_EJECUCION drop constraint FK408251B14E659E96
-alter table DETALLE_TAREA_EJECUCION drop constraint FK408251B1565D98A1
-alter table Det_Horario_TallerXTaller drop constraint FKE8DC440FD790F90
-alter table Det_Horario_TallerXTaller drop constraint FKE8DC440FBC033607
-alter table DetalleOrdenDeCompra drop constraint FKB2D34AB2229A2A8
-alter table DetalleOrdenDeCompra drop constraint FKB2D34AB2FD92EC93
-alter table DetalleRecepcionOrdenDeCompra drop constraint FKB9AEBC6057D4A52D
-alter table DetalleRecepcionOrdenDeCompra drop constraint FKB9AEBC605193A315
-alter table DetalleSubObraXTarea drop constraint FK61D70194EA56F9C
-alter table DetalleSubObraXTarea drop constraint FK61D70194B5051D0C
-alter table DetalleTareaEjecucionXDia drop constraint FKEE52F251FA8B8E8C
-alter table DetalleTareaPlanificacion drop constraint FK982F1B3C2F0F3236
-alter table DetalleTareaPlanificacion drop constraint FK982F1B3C3FA03576
-alter table DetalleTareaPlanificacion drop constraint FK982F1B3C35B87BA
-alter table DetalleTareaPlanificacion drop constraint FK982F1B3CB5051D0C
-alter table Detalle_AsisXAsis_Taller drop constraint FK365F64691657BBBE
-alter table Detalle_AsisXAsis_Taller drop constraint FK365F6469D790F90
-alter table Domicilio drop constraint FKABA87945EF3E15CD
-alter table EJECUCION drop constraint FKB6B8EC774ADAC35
-alter table EJECUCION drop constraint FKB6B8EC77E62C17D1
-alter table EJECUCION_X_ALQUILERCOMPRA drop constraint FK5B0604EC2155B27
-alter table EJECUCION_X_ALQUILERCOMPRA drop constraint FK5B0604EC53893066
-alter table EJECUCION_X_HERRMIENTA drop constraint FK3B5163BE6BAA9624
-alter table EJECUCION_X_HERRMIENTA drop constraint FK3B5163BE738D397E
-alter table EJECUCION_X_MATERIAL drop constraint FK3E4B31F6DA57AD86
-alter table EJECUCION_X_MATERIAL drop constraint FK3E4B31F692B2005B
-alter table EMPLEADO drop constraint FK75C3F0CBEA31E9DD
-alter table EMPLEADO drop constraint FK75C3F0CB5EC4CF73
-alter table EMPLEADO drop constraint FK75C3F0CBD70C19FC
-alter table EMPRESACLIENTE drop constraint FK5F342D515B6999FC
-alter table EjecucionXAdicional drop constraint FK3C582152CC1141D
-alter table EjecucionXHerramientaXDia drop constraint FK29951E798826984
-alter table Empresa drop constraint FK26DD869673CCA67
-alter table EmpresaXTelefono drop constraint FK3C0D8523A4093646
-alter table EmpresaXTelefono drop constraint FK3C0D8523AC08C734
-alter table Especialidad drop constraint FKDEEB0D52F5399EAF
-alter table Especialidad drop constraint FKDEEB0D52DC73F2E2
-alter table Especialidad drop constraint FKDEEB0D528D46FEAF
-alter table FavoritoBean drop constraint FK29A36296BD0B39BE
-alter table HerramientaDeEmpresa drop constraint FKECEEF0128E886FAA
-alter table HerramientaDeEmpresa drop constraint FKECEEF0121A776AD2
-alter table Herramientas drop constraint FK52A7F1DD98A652F3
-alter table ITEM_INDUMENTARIA drop constraint FK66F84B89FF2D9706
-alter table Indumentarias drop constraint FKC3FE5616C59334E4
-alter table Indumentarias drop constraint FKC3FE5616C3127D22
-alter table Indumentarias drop constraint FKC3FE5616DC73F2E2
-alter table ItemStock drop constraint FKF7299FA3FD92EC93
-alter table Localidad drop constraint FK2FA5904953D4CCF2
-alter table LugardeCapacitacion drop constraint FK501845D7E132EAFE
-alter table Materiales drop constraint FK6160A03592743E6C
-alter table OrdenDeCompra drop constraint FK368B3AA9323BC11A
-alter table OrdenDeCompra drop constraint FK368B3AA94DD6EEC4
-alter table PROVEEDOR drop constraint FK853CDABE3301F99B
-alter table PROVEEDOR_X_RECURSOESPECIFICO drop constraint FKD96572794D5B760E
-alter table PROVEEDOR_X_RECURSOESPECIFICO drop constraint FKD9657279B06654E6
-alter table PROVEEDOR_X_RUBRO drop constraint FK3D08D1B4370FCDF0
-alter table PROVEEDOR_X_RUBRO drop constraint FK3D08D1B4D78A3001
-alter table PedidoObra drop constraint FKCD3D3047F0B71AE0
-alter table PedidoObra drop constraint FKCD3D3047E058BAF8
-alter table PedidoObra drop constraint FKCD3D3047DC16DC40
-alter table PedidoObra drop constraint FKCD3D30479A07F162
-alter table Persona drop constraint FK3AC8678CE132EAFE
-alter table Persona drop constraint FK3AC8678C56822489
-alter table PersonaXTelefono drop constraint FK352E4D60AC08C734
-alter table PersonaXTelefono drop constraint FK352E4D6014BE548C
-alter table Planificacion drop constraint FKBEC71EE63F801EA7
-alter table PlanificacionXAlquilerCompra drop constraint FKCB59124F3FA03576
-alter table PlanificacionXAlquilerCompra drop constraint FKCB59124F4B60BE4E
-alter table PlanificacionXHerramienta drop constraint FK6B1207E472E01F0A
-alter table PlanificacionXHerramienta drop constraint FK6B1207E43FA03576
-alter table PlanificacionXMaterial drop constraint FK138A35793FA03576
-alter table PlanificacionXMaterial drop constraint FK138A35799C4339AE
-alter table Planta drop constraint FK8EA35F76FD0D2B3E
-alter table Planta drop constraint FK8EA35F76964C8F7A
-alter table Planta drop constraint FK8EA35F76E8BF4922
-alter table PlantaXTelefono drop constraint FKBDDA9CB6AC08C734
-alter table PlantaXTelefono drop constraint FKBDDA9CB6E058BAF8
-alter table PrecioSegunCantidad drop constraint FK44CD792A464BD08D
-alter table Provincia drop constraint FK56D35B8D19409282
-alter table RECURSOS drop constraint FKFF575F4A53D83578
-alter table RecepcionOrdenDeCompra drop constraint FKB74FD2494ECBF6EC
-alter table RecursoEspecifico drop constraint FK7C464DC1B599160D
-alter table RecursoXProveedor drop constraint FK5952604F9DBBC44B
-alter table RecursoXProveedor drop constraint FK5952604F370FCDF0
-alter table SO_MODIFICADA drop constraint FK596EF2C8BFC4289E
-alter table SO_MODIFICADA drop constraint FK596EF2C8CE83DC8C
-alter table SO_X_ADICIONALMOD drop constraint FKB52824363E7201CA
-alter table SO_X_ADICIONALMOD drop constraint FKB5282436985899A9
-alter table SO_X_MATERIALMOD drop constraint FK6DE2965117A5DE1A
-alter table SO_X_MATERIALMOD drop constraint FK6DE296512B57C2B6
-alter table SUBOBRA_X_ALQUILERCOMPRA_MODIF drop constraint FK36C901211E018560
-alter table SUBOBRA_X_ALQUILERCOMPRA_MODIF drop constraint FK36C901216B95E8C
-alter table SUBOBRA_X_HERRAMIENTA_MODIF drop constraint FK31685CD28F492526
-alter table SUBOBRA_X_HERRAMIENTA_MODIF drop constraint FK31685CD24F57C6C9
-alter table SUBOBRA_X_TAREA_MODIF drop constraint FKA804EF1D5AC0F77C
-alter table SUBOBRA_X_TAREA_MODIF drop constraint FKA804EF1D5611F5D4
-alter table SubObra drop constraint FKF3D69D82587D4D66
-alter table SubObraXAdicional drop constraint FK12079160A271AD89
-alter table SubObraXAdicional drop constraint FK1207916086E94C58
-alter table SubObraXAlquilerCompra drop constraint FK36810833B2592EB0
-alter table SubObraXAlquilerCompra drop constraint FK3681083386E94C58
-alter table SubObraXHerramienta drop constraint FK56AC7C8086E94C58
-alter table SubObraXHerramienta drop constraint FK56AC7C80B1766AEC
-alter table SubObraXMaterial drop constraint FK21C9665D2326F692
-alter table SubObraXMaterial drop constraint FK21C9665D86E94C58
-alter table SubObraXTarea drop constraint FKE58EF18BD3FF3A5F
-alter table SubObraXTarea drop constraint FKE58EF18B86E94C58
-alter table TALLERES drop constraint FKA57A848305BC50D
-alter table TALLERES drop constraint FKA57A84899AD14B0
-alter table TALLERES drop constraint FKA57A848F5929D
-alter table TAREA_EJECUCION drop constraint FK7A3400992002EBE2
-alter table TAREA_EJECUCION drop constraint FK7A340099DF6FAB8A
-alter table TIPOSCAPACITACIONxCAPACITADOR drop constraint FK8974AE53747A9CA2
-alter table TIPOSCAPACITACIONxCAPACITADOR drop constraint FK8974AE537AB425FE
-alter table TareaPlanificacion drop constraint FK4A918DA5DD17A679
-alter table TareaPlanificacion drop constraint FK4A918DA5A6BC54A2
-alter table TareaPlanificacion drop constraint FK4A918DA56EAFDD75
-alter table TareaPlanificacion drop constraint FK4A918DA5E4B3AED2
-alter table Telefono drop constraint FKB2C2CF147519B81A
-drop table AsignacionEmpleadoPlanificacion if exists
-drop table AsistenciaTallerCapacitacion if exists
-drop table Barrio if exists
-drop table CAPACITACION if exists
-drop table CAPACITADOR if exists
-drop table CONTACTO_RESPONSABLE_X_TELEFONO if exists
-drop table COT_MODIFICADA if exists
-drop table ContactoResponsable if exists
-drop table Cotizacion if exists
-drop table DETALLE_SUBOBRA_X_TAREA_MODIF if exists
-drop table DETALLE_TAREA_EJECUCION if exists
-drop table Det_Horario_TallerXTaller if exists
-drop table DetalleHorarioTaller if exists
-drop table DetalleOrdenDeCompra if exists
-drop table DetalleRecepcionOrdenDeCompra if exists
-drop table DetalleSubObraXTarea if exists
-drop table DetalleTareaEjecucionXDia if exists
-drop table DetalleTareaPlanificacion if exists
-drop table Detalle_AsisXAsis_Taller if exists
-drop table Domicilio if exists
-drop table EJECUCION if exists
-drop table EJECUCION_X_ALQUILERCOMPRA if exists
-drop table EJECUCION_X_HERRMIENTA if exists
-drop table EJECUCION_X_MATERIAL if exists
-drop table EMPLEADO if exists
-drop table EMPRESACLIENTE if exists
-drop table EjecucionXAdicional if exists
-drop table EjecucionXHerramientaXDia if exists
-drop table Empresa if exists
-drop table EmpresaXTelefono if exists
-drop table Especialidad if exists
-drop table FavoritoBean if exists
-drop table FormaDePago if exists
-drop table HerramientaDeEmpresa if exists
-drop table Herramientas if exists
-drop table ITEM_INDUMENTARIA if exists
-drop table Indumentarias if exists
-drop table ItemComprable if exists
-drop table ItemStock if exists
-drop table Localidad if exists
-drop table LugardeCapacitacion if exists
-drop table Materiales if exists
-drop table OrdenDeCompra if exists
-drop table PROPIEDADES_SISTEMA if exists
-drop table PROVEEDOR if exists
-drop table PROVEEDOR_X_RECURSOESPECIFICO if exists
-drop table PROVEEDOR_X_RUBRO if exists
-drop table Pais if exists
-drop table PedidoObra if exists
-drop table Persona if exists
-drop table PersonaXTelefono if exists
-drop table Planificacion if exists
-drop table PlanificacionXAlquilerCompra if exists
-drop table PlanificacionXHerramienta if exists
-drop table PlanificacionXMaterial if exists
-drop table Planta if exists
-drop table PlantaXTelefono if exists
-drop table PrecioSegunCantidad if exists
-drop table Provincia if exists
-drop table RECURSOS if exists
-drop table RangoEspecialidad if exists
-drop table RecepcionOrdenDeCompra if exists
-drop table RecursoEspecifico if exists
-drop table RecursoXProveedor if exists
-drop table RolContactoResponsable if exists
-drop table RolEmpleado if exists
-drop table Rubro if exists
-drop table SO_MODIFICADA if exists
-drop table SO_X_ADICIONALMOD if exists
-drop table SO_X_MATERIALMOD if exists
-drop table SUBOBRA_X_ALQUILERCOMPRA_MODIF if exists
-drop table SUBOBRA_X_HERRAMIENTA_MODIF if exists
-drop table SUBOBRA_X_TAREA_MODIF if exists
-drop table SubObra if exists
-drop table SubObraXAdicional if exists
-drop table SubObraXAlquilerCompra if exists
-drop table SubObraXHerramienta if exists
-drop table SubObraXMaterial if exists
-drop table SubObraXTarea if exists
-drop table TALLERES if exists
-drop table TAREA_EJECUCION if exists
-drop table TIPOSCAPACITACIONxCAPACITADOR if exists
-drop table Talle if exists
-drop table TareaPlanificacion if exists
-drop table Telefono if exists
-drop table TipoAdicional if exists
-drop table TipoAlquilerCompra if exists
-drop table TipoCapacitacion if exists
-drop table TipoDocumento if exists
-drop table TipoEspecialidad if exists
-drop table TipoIndumentaria if exists
-drop table TipoTarea if exists
-drop table TipoTelefono if exists
-drop table USUARIOS if exists
-drop table UnidadDeMedida if exists
-create table AsignacionEmpleadoPlanificacion (ID_ASIGEMPPLA integer not null, asignacionTareaCotizacion integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_ASIGEMPPLA))
-create table AsistenciaTallerCapacitacion (ID_ASISTENCIA_TALLER integer not null, ASISTIO bit, ID_EMPLEADO integer, primary key (ID_ASISTENCIA_TALLER))
-create table Barrio (IDBARRIO integer not null, NOMBRE varchar(255), DESCRIPCION varchar(255), localidad_id integer, IDLOCALIDAD integer, primary key (IDBARRIO))
-create table CAPACITACION (ID_CAPACITACION integer not null, FECHA_VENCIMIENTO date, ID_TIPO_CAPACITACION integer, ID_EMPLEADO integer, primary key (ID_CAPACITACION))
-create table CAPACITADOR (ID_CAPACITADOR integer not null, ESTADO varchar(255), primary key (ID_CAPACITADOR))
-create table CONTACTO_RESPONSABLE_X_TELEFONO (ID_CONTACTO integer not null, elt integer not null, idx integer not null, primary key (ID_CONTACTO, idx))
-create table COT_MODIFICADA (ID_COTIZACION_MOD integer not null, cotizacionOriginal integer, primary key (ID_COTIZACION_MOD))
-create table ContactoResponsable (ID_CONTACTO integer not null, NOMBRE varchar(255), APELLIDO varchar(255), EMAIL varchar(255), CUIL varchar(255), ID_ROL integer, ID_PEDIDO_OBRA integer, idx integer, primary key (ID_CONTACTO))
-create table Cotizacion (ID_COTIZACION integer not null, NRO_COTIZACION varchar(255), NRO_REVISION integer, FECHA_CREACION date, FECHA_MODIFICACION date, PLAZO_ENTREGA varchar(255), LUGAR_ENTREGA varchar(255), VALIDEZ_OFERTA date, DESCRIPCION varchar(255), FECHA_LIMITE_ENTREGA date, ESTADO varchar(255), ID_PEDIDO_OBRA integer, idx integer, primary key (ID_COTIZACION))
-create table DETALLE_SUBOBRA_X_TAREA_MODIF (ID_DETALLE_SUBOBRA_X_TAREA_MODIF integer not null, original integer, ID_SUBOBRA_X_TAREAMOD integer, idx integer, primary key (ID_DETALLE_SUBOBRA_X_TAREA_MODIF))
-create table DETALLE_TAREA_EJECUCION (ID_DETALLE_TAREA_EJECUCION integer not null, detalleTareaPlanificado integer, primary key (ID_DETALLE_TAREA_EJECUCION))
-create table Det_Horario_TallerXTaller (ID_TALLER integer not null, ID_DETALLE_HORARIO_TALLER integer not null, primary key (ID_TALLER, ID_DETALLE_HORARIO_TALLER))
-create table DetalleHorarioTaller (ID_DETALLE_HORARIO_TALLER integer not null, FECHA date, HORA_INICIO varchar(255), HORA_FIN varchar(255), primary key (ID_DETALLE_HORARIO_TALLER))
-create table DetalleOrdenDeCompra (ID_DETALLEOC integer not null, cantidad double, precioUnitario double, descripcion varchar(255), ITEM_COMPRABLE integer not null, ID_DETALLEOC_KEY integer, ID_DETALLE_INDEX integer, primary key (ID_DETALLEOC))
-create table DetalleRecepcionOrdenDeCompra (ID_DETALLERECOC integer not null, cantidad double, DETALLE_ORDEN_COMPRA integer not null, ID_RECEPCION integer, idx integer, primary key (ID_DETALLERECOC))
-create table DetalleSubObraXTarea (ID_COTIZACION_MOD integer not null, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, costoXHoraNormal double, cantidadPersonas integer, Especialidad integer, ID_SUBOBRA_X_TAREA integer, idx integer, primary key (ID_COTIZACION_MOD))
-create table DetalleTareaEjecucionXDia (ID_DETALLETAREAEJECXDIA integer not null, fecha date, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, ID_DET_TAREA_EJEC_X_DIA integer, ID_DETALLE_TAREA_EJECUCION_X_DIA integer, primary key (ID_DETALLETAREAEJECXDIA))
-create table DetalleTareaPlanificacion (ID_DetalleTareaPlanificacion integer not null, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, costoXHoraNormal double, cantidadPersonas integer, cantidadHijos integer, Especialidad integer, padre integer, cotizado integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_DetalleTareaPlanificacion))
-create table Detalle_AsisXAsis_Taller (ID_DETALLE_HORARIO_TALLER integer not null, ID_ASISTENCIA_TALLER integer not null, primary key (ID_DETALLE_HORARIO_TALLER, ID_ASISTENCIA_TALLER))
-create table Domicilio (ID_DOMICILIO integer not null, CALLE varchar(255), DEPTO varchar(255), COD_POSTAL varchar(255), NUMERO integer, PISO integer, IDBARRIO integer, primary key (ID_DOMICILIO))
-create table EJECUCION (ID_EJECUCION integer not null, planificacionOriginal integer, primary key (ID_EJECUCION))
-create table EJECUCION_X_ALQUILERCOMPRA (ID_EJECUCION_X_ALQUILERCOMPRA integer not null, alquilerCompraPlanificado integer, primary key (ID_EJECUCION_X_ALQUILERCOMPRA))
-create table EJECUCION_X_HERRMIENTA (ID_EJECUCION_X_HERRMIENTA integer not null, herramientaPlanificada integer, primary key (ID_EJECUCION_X_HERRMIENTA))
-create table EJECUCION_X_MATERIAL (ID_EJECUCION_X_MATERIAL integer not null, materialPlanificado integer, primary key (ID_EJECUCION_X_MATERIAL))
-create table EMPLEADO (ID_EMPLEADO integer not null, LEGAJO integer not null, FECHA_INGRESO date, RANGO varchar(255), ESTADO varchar(255), ID_ASIGEMPPLA integer, idx integer, ID_EXDTP integer, primary key (ID_EMPLEADO))
-create table EMPRESACLIENTE (ID integer not null, primary key (ID))
-create table EjecucionXAdicional (ID_EJECUCION_ADICIONAL integer not null, adicionalPlanificado integer, primary key (ID_EJECUCION_ADICIONAL))
-create table EjecucionXHerramientaXDia (ID_EJECUCION_HERAMIENTA_DIA integer not null, FECHA date, HORAS_UTILIZADAS integer, ID_HERR_X_DIA integer, ID_EJECUCION_X_HERR_X_DIA integer, primary key (ID_EJECUCION_HERAMIENTA_DIA))
-create table Empresa (ID integer not null, RAZONSOCIAL varchar(255), CUIT varchar(255), EMAIL varchar(255), PAGINAWEB varchar(255), IDDOMICILIO integer, hib_flag_estado varchar(255) not null, primary key (ID))
-create table EmpresaXTelefono (ID_EMPRESA integer not null, ID_TELEFONO integer not null, primary key (ID_EMPRESA, ID_TELEFONO))
-create table Especialidad (ID_ESP integer not null, precioHoraNormal double not null, IDTIPOESPECIALIDAD integer, IDRANGOESPECIALIDAD integer, ID_Empleado integer, primary key (ID_ESP))
-create table FavoritoBean (ID_FAVORITO integer not null, NOMBRE varchar(255) not null, INSTANCE varchar(255) not null, ICONO varchar(255) not null, COUNTS bigint not null, ID_USER_FAV integer, idx integer, primary key (ID_FAVORITO))
-create table FormaDePago (ID_FORMA_PAGO integer not null, NOMBRE varchar(255) not null, primary key (ID_FORMA_PAGO))
-create table HerramientaDeEmpresa (IDHE integer not null, NROSERIE varchar(255), estado varchar(255) not null, recursoEsp integer, ordenDeCompra integer, primary key (IDHE))
-create table Herramientas (ID_HERRAMIENTA integer not null, primary key (ID_HERRAMIENTA))
-create table ITEM_INDUMENTARIA (ID_ITEM_INDUMENTARIA integer not null, ID_INDUMENTARIA integer, primary key (ID_ITEM_INDUMENTARIA))
-create table Indumentarias (ID_INDUMENTARIA integer not null, ID_TALLE integer, ESTADO varchar(255), ID_EMPLEADO integer, primary key (ID_INDUMENTARIA))
-create table ItemComprable (ID_ITEMCOMPRABLE integer not null, tipoComprable varchar(255), idComprable integer, primary key (ID_ITEMCOMPRABLE))
-create table ItemStock (ID_ITEM_STOCK integer not null, ITEM_COMPRABLE integer, CANTIDAD double, ULTIMA_MODIFICACION date, primary key (ID_ITEM_STOCK))
-create table Localidad (IDLOCALIDAD integer not null, NOMBRE varchar(255), provincia_id integer, IDPROVINCIA integer, primary key (IDLOCALIDAD))
-create table LugardeCapacitacion (ID_LUGAR integer not null, NOMBRE varchar(255), hib_flag_estado varchar(255) not null, ID_DOMICILIO integer, primary key (ID_LUGAR))
-create table Materiales (ID_MATERIAL integer not null, primary key (ID_MATERIAL))
-create table OrdenDeCompra (ID_ORDEN_COMPRA integer not null, fechaDeGeneracion date, fechaUltimaModificacion date, FK_PROVEEDOR integer, FK_FORMA_PAGO integer, estado varchar(255), formaDeEntrega varchar(255), primary key (ID_ORDEN_COMPRA))
-create table PROPIEDADES_SISTEMA (ID integer not null, KEY varchar(255), VALUE varchar(255), primary key (ID))
-create table PROVEEDOR (ID_PROVEEDOR integer not null, CONFIABILIDAD double, primary key (ID_PROVEEDOR))
-create table PROVEEDOR_X_RECURSOESPECIFICO (ID_RUBRO integer not null, elt integer not null, idx integer not null, primary key (ID_RUBRO, idx))
-create table PROVEEDOR_X_RUBRO (ID_PROVEEDOR integer not null, elt integer not null, idx integer not null, primary key (ID_PROVEEDOR, idx))
-create table Pais (ID integer not null, NOMBRE varchar(255), primary key (ID))
-create table PedidoObra (ID_PEDIDO_OBRA integer not null, NOMBRE varchar(255), DESCRIPCION varchar(255), FECHA_INICIO date, FECHA_FIN date, PRESUPUESTO_MAXIMO double, ESTADO varchar(255), ID_FORMA_DE_PAGO integer, ID_PLANTA integer, FECHA_REGISTRO date, ID_PLANIFICACION integer, ID_EJECUCION integer, PLIEGO varchar(255), primary key (ID_PEDIDO_OBRA))
-create table Persona (ID_PERSONA integer not null, NOMBRE varchar(255) not null, APELLIDO varchar(255) not null, FECH_NAC date, NRO_DOC varchar(255), EMAIL varchar(255), CUIL varchar(255), FECH_ALTA date not null, FECH_BAJA date, FOTOGRAFIA longvarbinary, ID_TIPO_DOC integer, ID_DOMICILIO integer, primary key (ID_PERSONA))
-create table PersonaXTelefono (ID_PERSONA integer not null, ID_TELEFONO integer not null, primary key (ID_PERSONA, ID_TELEFONO))
-create table Planificacion (ID_PLANIFICACION integer not null, fechaInicio date, fechaFin date, estado varchar(255), descripcion varchar(255), cotizacion integer, primary key (ID_PLANIFICACION))
-create table PlanificacionXAlquilerCompra (ID_PLAN_X_ALQCOMPRA integer not null, CANTIDAD integer, AlquilerCompraCotizacion integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_PLAN_X_ALQCOMPRA))
-create table PlanificacionXHerramienta (ID_PLAN_X_HERRAMIENTA integer not null, HORAS_ASIGNADAS integer, herramientaCotizacion integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_PLAN_X_HERRAMIENTA))
-create table PlanificacionXMaterial (ID_PLAN_X_MATERIAL integer not null, CANTIDAD integer, materialCotizacion integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_PLAN_X_MATERIAL))
-create table Planta (ID_PLANTA integer not null, RAZONSOCIAL varchar(255), domicilio integer, ID_CONTACTO integer, ID_EMPRESA integer, ID integer, primary key (ID_PLANTA))
-create table PlantaXTelefono (ID_PLANTA integer not null, ID_TELEFONO integer not null, primary key (ID_PLANTA, ID_TELEFONO))
-create table PrecioSegunCantidad (ID_PSC integer not null, fecha date not null, cantidad double not null, precio double not null, fechaVigencia date, ID_RXP integer, idx integer, primary key (ID_PSC))
-create table Provincia (IDPROVINCIA integer not null, NOMBRE varchar(255), pais_id integer, ID integer, primary key (IDPROVINCIA))
-create table RECURSOS (ID_REC integer not null, NOMBRE varchar(255), ESTADO varchar(255), ES_COMPRABLE bit, ES_STOCKEABLE bit, ID_UNIDAD_MEDIDA integer, primary key (ID_REC))
-create table RangoEspecialidad (ID_RANGO_Especialidad integer not null, NOMBRE varchar(255), primary key (ID_RANGO_Especialidad))
-create table RecepcionOrdenDeCompra (ID_RECEPCION integer not null, estado varchar(255), observaciones varchar(255), fechaRecepcion date, ID_DETALLEOC2_KEY integer, ID_RECEPCIONES_INDEX integer, primary key (ID_RECEPCION))
-create table RecursoEspecifico (ID_RECURSO_ESPECIFICO integer not null, NOMBRE varchar(255), DESCRIPCION varchar(255), ID_REC integer, idx integer, primary key (ID_RECURSO_ESPECIFICO))
-create table RecursoXProveedor (ID_RXP integer not null, ID_PROVEEDOR integer, ID_RECURSO_ESPECIFICO integer, idx integer, primary key (ID_RXP))
-create table RolContactoResponsable (ID_ROL integer not null, NOMBRE varchar(255), primary key (ID_ROL))
-create table RolEmpleado (ID_ROL_EMPLEADO integer not null, NOMBRE varchar(255), primary key (ID_ROL_EMPLEADO))
-create table Rubro (ID_RUBRO integer not null, NOMBRE varchar(255), NOMBRECLASE varchar(255), primary key (ID_RUBRO))
-create table SO_MODIFICADA (ID_SO_MODIFICADA integer not null, ID_SUBOBRA_ORIGINAL integer, primary key (ID_SO_MODIFICADA))
-create table SO_X_ADICIONALMOD (ID_SO_X_ADICIONALMOD integer not null, original integer, primary key (ID_SO_X_ADICIONALMOD))
-create table SO_X_MATERIALMOD (ID_SO_X_MATERIALMOD integer not null, original integer, primary key (ID_SO_X_MATERIALMOD))
-create table SUBOBRA_X_ALQUILERCOMPRA_MODIF (ID_SUBOBRA_X_ALQUILERCOMPRA_MODIF integer not null, original integer, primary key (ID_SUBOBRA_X_ALQUILERCOMPRA_MODIF))
-create table SUBOBRA_X_HERRAMIENTA_MODIF (ID_SUBOBRA_X_HERRAMIENTA_MODIF integer not null, original integer, primary key (ID_SUBOBRA_X_HERRAMIENTA_MODIF))
-create table SUBOBRA_X_TAREA_MODIF (ID_SUBOBRA_X_TAREA_MODIF integer not null, original integer, primary key (ID_SUBOBRA_X_TAREA_MODIF))
-create table SubObra (ID_SUBOBRA integer not null, NOMBRE varchar(255), GANANCIA_MONTO double, GANANCIA_PORCENTAJE double, FLAG_GANANCIA_PORCENTAJE bit, DESCRIPCION varchar(255), ID_COTIZACION integer, idx integer, primary key (ID_SUBOBRA))
-create table SubObraXAdicional (ID_SUBOBRA_X_ADICIONAL integer not null, ID_TIPO_ADICIONAL integer, DESCRIPCION varchar(255), CANT_OPERARIOS integer, CANT_DIAS integer, PRECIO_UNITARIO double, ID_SUBOBRA integer, idx integer, primary key (ID_SUBOBRA_X_ADICIONAL))
-create table SubObraXAlquilerCompra (ID_SUBOBRA_X_AC integer not null, ID_TIPO_ALQUILER_COMPRA integer, DESCRIPCION varchar(255), CANTIDAD integer, PRECIO_UNITARIO double, ID_SUBOBRA integer, idx integer, primary key (ID_SUBOBRA_X_AC))
-create table SubObraXHerramienta (ID_SUBOBRA_X_HERRAMIENTA integer not null, ID_HERRAMIENTA integer, OBSERVACIONES varchar(255), CANT_HORAS integer, COSTO_X_HORA double, ID_SUBOBRA integer, idx integer, primary key (ID_SUBOBRA_X_HERRAMIENTA))
-create table SubObraXMaterial (ID_SUBOBRA_X_MATERIAL integer not null, CANTIDAD integer, DESCRIPCION varchar(255), ID_MATERIAL integer, PRECIOUNITARIO double, ID_SUBOBRA integer, idx integer, primary key (ID_SUBOBRA_X_MATERIAL))
-create table SubObraXTarea (ID_SUBOBRA_X_TAREA integer not null, OBSERVACIONES varchar(255), NOMBRE varchar(255), ID_TIPO_TAREA integer, ID_SUBOBRA integer, idx integer, primary key (ID_SUBOBRA_X_TAREA))
-create table TALLERES (ID_TALLER integer not null, descripcion varchar(255), hib_flag_estado varchar(255) not null, ID_LUGAR_TALLER integer, ID_TIPO_CAPAC integer, ID_CAPAC integer, primary key (ID_TALLER))
-create table TAREA_EJECUCION (ID_TAREA_EJECUCION integer not null, tareaPlanificada integer, primary key (ID_TAREA_EJECUCION))
-create table TIPOSCAPACITACIONxCAPACITADOR (ID_CAPACITADOR integer not null, ID_TIPOCAPACITACION integer not null, primary key (ID_CAPACITADOR, ID_TIPOCAPACITACION))
-create table Talle (ID_TALLE integer not null, NOMBRE varchar(255), primary key (ID_TALLE))
-create table TareaPlanificacion (ID_TAREAPLANIFICACION integer not null, tipoTarea integer, observaciones varchar(255), fechaInicio date, fechaFin date, idTareaGantt integer, tareaCotizada integer, ID integer, ID_TAREAS_X_P integer, ID_SUB_TAREAPLANIFICACION_KEY integer, ID_SUB_TAREAPLANIFICACION_INDEX integer, primary key (ID_TAREAPLANIFICACION))
-create table Telefono (ID_TEL integer not null, NUMERO varchar(255), TIPO_TEL_ID integer, primary key (ID_TEL))
-create table TipoAdicional (ID_TIPO_ADICIONAL integer not null, NOMBRE varchar(255), primary key (ID_TIPO_ADICIONAL))
-create table TipoAlquilerCompra (ID_TIPO_ALQUILER_COMPRA integer not null, NOMBRE varchar(255), primary key (ID_TIPO_ALQUILER_COMPRA))
-create table TipoCapacitacion (ID integer not null, NOMBRE varchar(255) not null, DESCRIPCION varchar(255), primary key (ID))
-create table TipoDocumento (ID integer not null, NOMBRE varchar(255), DESCRIPCION varchar(255), primary key (ID))
-create table TipoEspecialidad (ID_TIPOESP integer not null, NOMBRE varchar(255), DESCRIPCION varchar(255), primary key (ID_TIPOESP))
-create table TipoIndumentaria (IDTIPOINDUMENTARIA integer not null, nombre varchar(255), primary key (IDTIPOINDUMENTARIA))
-create table TipoTarea (ID_TIPO_TAREA integer not null, NOMBRE varchar(255), primary key (ID_TIPO_TAREA))
-create table TipoTelefono (ID integer not null, NOMBRE varchar(255), primary key (ID))
-create table USUARIOS (IDUSER integer not null, USUARIO varchar(255), PASS varchar(255), ESTADO varchar(255), URL_FOTO varchar(255), IS_ADMIN bit, primary key (IDUSER))
-create table UnidadDeMedida (ID_UNIDAD_MEDIDA integer not null, nombre varchar(255), abreviatura varchar(255), primary key (ID_UNIDAD_MEDIDA))
-alter table AsignacionEmpleadoPlanificacion add constraint FK3B2AA6F33FA03576 foreign key (ID_TAREAPLANIFICACION) references TareaPlanificacion
-alter table AsignacionEmpleadoPlanificacion add constraint FK3B2AA6F3F38122A2 foreign key (asignacionTareaCotizacion) references DetalleSubObraXTarea
-alter table AsistenciaTallerCapacitacion add constraint FKB58570BBDC73F2E2 foreign key (ID_EMPLEADO) references EMPLEADO
-alter table Barrio add constraint FK762C4C45E28DC372 foreign key (localidad_id) references Localidad
-alter table CAPACITACION add constraint FKA6837467DC73F2E2 foreign key (ID_EMPLEADO) references EMPLEADO
-alter table CAPACITACION add constraint FKA6837467324A99D1 foreign key (ID_TIPO_CAPACITACION) references TipoCapacitacion
-alter table CAPACITADOR add constraint FKDA12945CB244C45 foreign key (ID_CAPACITADOR) references Persona
-alter table CONTACTO_RESPONSABLE_X_TELEFONO add constraint FK43EA3BEC964C8F7A foreign key (ID_CONTACTO) references ContactoResponsable
-alter table CONTACTO_RESPONSABLE_X_TELEFONO add constraint FK43EA3BEC793F3249 foreign key (elt) references Telefono
-alter table COT_MODIFICADA add constraint FKE2E6D83CFE482329 foreign key (ID_COTIZACION_MOD) references Cotizacion
-alter table COT_MODIFICADA add constraint FKE2E6D83CF7B16093 foreign key (cotizacionOriginal) references Cotizacion
-alter table ContactoResponsable add constraint FK8DC3BC0F2647BA7 foreign key (ID_PEDIDO_OBRA) references PedidoObra
-alter table ContactoResponsable add constraint FK8DC3BC0FA132333 foreign key (ID_ROL) references RolContactoResponsable
-alter table Cotizacion add constraint FKD3101BAD2647BA7 foreign key (ID_PEDIDO_OBRA) references PedidoObra
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF add constraint FKCA280E359D91FA25 foreign key (ID_SUBOBRA_X_TAREAMOD) references SUBOBRA_X_TAREA_MODIF
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF add constraint FKCA280E35DCA8D9ED foreign key (original) references DetalleSubObraXTarea
-alter table DETALLE_SUBOBRA_X_TAREA_MODIF add constraint FKCA280E35FC7BFACD foreign key (ID_DETALLE_SUBOBRA_X_TAREA_MODIF) references DetalleSubObraXTarea
-alter table DETALLE_TAREA_EJECUCION add constraint FK408251B14E659E96 foreign key (detalleTareaPlanificado) references DetalleTareaPlanificacion
-alter table DETALLE_TAREA_EJECUCION add constraint FK408251B1565D98A1 foreign key (ID_DETALLE_TAREA_EJECUCION) references DetalleTareaPlanificacion
-alter table Det_Horario_TallerXTaller add constraint FKE8DC440FD790F90 foreign key (ID_DETALLE_HORARIO_TALLER) references DetalleHorarioTaller
-alter table Det_Horario_TallerXTaller add constraint FKE8DC440FBC033607 foreign key (ID_TALLER) references TALLERES
-alter table DetalleOrdenDeCompra add constraint FKB2D34AB2229A2A8 foreign key (ID_DETALLEOC_KEY) references OrdenDeCompra
-alter table DetalleOrdenDeCompra add constraint FKB2D34AB2FD92EC93 foreign key (ITEM_COMPRABLE) references ItemComprable
-alter table DetalleRecepcionOrdenDeCompra add constraint FKB9AEBC6057D4A52D foreign key (ID_RECEPCION) references RecepcionOrdenDeCompra
-alter table DetalleRecepcionOrdenDeCompra add constraint FKB9AEBC605193A315 foreign key (DETALLE_ORDEN_COMPRA) references DetalleOrdenDeCompra
-alter table DetalleSubObraXTarea add constraint FK61D70194EA56F9C foreign key (ID_SUBOBRA_X_TAREA) references SubObraXTarea
-alter table DetalleSubObraXTarea add constraint FK61D70194B5051D0C foreign key (Especialidad) references Especialidad
-alter table DetalleTareaEjecucionXDia add constraint FKEE52F251FA8B8E8C foreign key (ID_DET_TAREA_EJEC_X_DIA) references DETALLE_TAREA_EJECUCION
-alter table DetalleTareaPlanificacion add constraint FK982F1B3C2F0F3236 foreign key (cotizado) references DETALLE_SUBOBRA_X_TAREA_MODIF
-alter table DetalleTareaPlanificacion add constraint FK982F1B3C3FA03576 foreign key (ID_TAREAPLANIFICACION) references TareaPlanificacion
-alter table DetalleTareaPlanificacion add constraint FK982F1B3C35B87BA foreign key (padre) references DetalleTareaPlanificacion
-alter table DetalleTareaPlanificacion add constraint FK982F1B3CB5051D0C foreign key (Especialidad) references Especialidad
-alter table Detalle_AsisXAsis_Taller add constraint FK365F64691657BBBE foreign key (ID_ASISTENCIA_TALLER) references AsistenciaTallerCapacitacion
-alter table Detalle_AsisXAsis_Taller add constraint FK365F6469D790F90 foreign key (ID_DETALLE_HORARIO_TALLER) references DetalleHorarioTaller
-alter table Domicilio add constraint FKABA87945EF3E15CD foreign key (IDBARRIO) references Barrio
-alter table EJECUCION add constraint FKB6B8EC774ADAC35 foreign key (planificacionOriginal) references Planificacion
-alter table EJECUCION add constraint FKB6B8EC77E62C17D1 foreign key (ID_EJECUCION) references Planificacion
-alter table EJECUCION_X_ALQUILERCOMPRA add constraint FK5B0604EC2155B27 foreign key (ID_EJECUCION_X_ALQUILERCOMPRA) references PlanificacionXAlquilerCompra
-alter table EJECUCION_X_ALQUILERCOMPRA add constraint FK5B0604EC53893066 foreign key (alquilerCompraPlanificado) references PlanificacionXAlquilerCompra
-alter table EJECUCION_X_HERRMIENTA add constraint FK3B5163BE6BAA9624 foreign key (herramientaPlanificada) references PlanificacionXHerramienta
-alter table EJECUCION_X_HERRMIENTA add constraint FK3B5163BE738D397E foreign key (ID_EJECUCION_X_HERRMIENTA) references PlanificacionXHerramienta
-alter table EJECUCION_X_MATERIAL add constraint FK3E4B31F6DA57AD86 foreign key (materialPlanificado) references PlanificacionXMaterial
-alter table EJECUCION_X_MATERIAL add constraint FK3E4B31F692B2005B foreign key (ID_EJECUCION_X_MATERIAL) references PlanificacionXMaterial
-alter table EMPLEADO add constraint FK75C3F0CBEA31E9DD foreign key (ID_EXDTP) references DetalleTareaPlanificacion
-alter table EMPLEADO add constraint FK75C3F0CB5EC4CF73 foreign key (ID_EMPLEADO) references Persona
-alter table EMPLEADO add constraint FK75C3F0CBD70C19FC foreign key (ID_ASIGEMPPLA) references AsignacionEmpleadoPlanificacion
-alter table EMPRESACLIENTE add constraint FK5F342D515B6999FC foreign key (ID) references Empresa
-alter table EjecucionXAdicional add constraint FK3C582152CC1141D foreign key (adicionalPlanificado) references SO_X_ADICIONALMOD
-alter table EjecucionXHerramientaXDia add constraint FK29951E798826984 foreign key (ID_HERR_X_DIA) references EJECUCION_X_HERRMIENTA
-alter table Empresa add constraint FK26DD869673CCA67 foreign key (IDDOMICILIO) references Domicilio
-alter table EmpresaXTelefono add constraint FK3C0D8523A4093646 foreign key (ID_EMPRESA) references Empresa
-alter table EmpresaXTelefono add constraint FK3C0D8523AC08C734 foreign key (ID_TELEFONO) references Telefono
-alter table Especialidad add constraint FKDEEB0D52F5399EAF foreign key (IDTIPOESPECIALIDAD) references TipoEspecialidad
-alter table Especialidad add constraint FKDEEB0D52DC73F2E2 foreign key (ID_Empleado) references EMPLEADO
-alter table Especialidad add constraint FKDEEB0D528D46FEAF foreign key (IDRANGOESPECIALIDAD) references RangoEspecialidad
-alter table FavoritoBean add constraint FK29A36296BD0B39BE foreign key (ID_USER_FAV) references USUARIOS
-alter table HerramientaDeEmpresa add constraint FKECEEF0128E886FAA foreign key (ordenDeCompra) references OrdenDeCompra
-alter table HerramientaDeEmpresa add constraint FKECEEF0121A776AD2 foreign key (recursoEsp) references RecursoEspecifico
-alter table Herramientas add constraint FK52A7F1DD98A652F3 foreign key (ID_HERRAMIENTA) references RECURSOS
-alter table ITEM_INDUMENTARIA add constraint FK66F84B89FF2D9706 foreign key (ID_INDUMENTARIA) references Indumentarias
-alter table Indumentarias add constraint FKC3FE5616C59334E4 foreign key (ID_TALLE) references Talle
-alter table Indumentarias add constraint FKC3FE5616C3127D22 foreign key (ID_INDUMENTARIA) references RECURSOS
-alter table Indumentarias add constraint FKC3FE5616DC73F2E2 foreign key (ID_EMPLEADO) references EMPLEADO
-alter table ItemStock add constraint FKF7299FA3FD92EC93 foreign key (ITEM_COMPRABLE) references ItemComprable
-alter table Localidad add constraint FK2FA5904953D4CCF2 foreign key (provincia_id) references Provincia
-alter table LugardeCapacitacion add constraint FK501845D7E132EAFE foreign key (ID_DOMICILIO) references Domicilio
-alter table Materiales add constraint FK6160A03592743E6C foreign key (ID_MATERIAL) references RECURSOS
-alter table OrdenDeCompra add constraint FK368B3AA9323BC11A foreign key (FK_PROVEEDOR) references PROVEEDOR
-alter table OrdenDeCompra add constraint FK368B3AA94DD6EEC4 foreign key (FK_FORMA_PAGO) references FormaDePago
-alter table PROVEEDOR add constraint FK853CDABE3301F99B foreign key (ID_PROVEEDOR) references Empresa
-alter table PROVEEDOR_X_RECURSOESPECIFICO add constraint FKD96572794D5B760E foreign key (ID_RUBRO) references PROVEEDOR
-alter table PROVEEDOR_X_RECURSOESPECIFICO add constraint FKD9657279B06654E6 foreign key (elt) references RecursoEspecifico
-alter table PROVEEDOR_X_RUBRO add constraint FK3D08D1B4370FCDF0 foreign key (ID_PROVEEDOR) references PROVEEDOR
-alter table PROVEEDOR_X_RUBRO add constraint FK3D08D1B4D78A3001 foreign key (elt) references Rubro
-alter table PedidoObra add constraint FKCD3D3047F0B71AE0 foreign key (ID_FORMA_DE_PAGO) references FormaDePago
-alter table PedidoObra add constraint FKCD3D3047E058BAF8 foreign key (ID_PLANTA) references Planta
-alter table PedidoObra add constraint FKCD3D3047DC16DC40 foreign key (ID_PLANIFICACION) references Planificacion
-alter table PedidoObra add constraint FKCD3D30479A07F162 foreign key (ID_EJECUCION) references EJECUCION
-alter table Persona add constraint FK3AC8678CE132EAFE foreign key (ID_DOMICILIO) references Domicilio
-alter table Persona add constraint FK3AC8678C56822489 foreign key (ID_TIPO_DOC) references TipoDocumento
-alter table PersonaXTelefono add constraint FK352E4D60AC08C734 foreign key (ID_TELEFONO) references Telefono
-alter table PersonaXTelefono add constraint FK352E4D6014BE548C foreign key (ID_PERSONA) references Persona
-alter table Planificacion add constraint FKBEC71EE63F801EA7 foreign key (cotizacion) references COT_MODIFICADA
-alter table PlanificacionXAlquilerCompra add constraint FKCB59124F3FA03576 foreign key (ID_TAREAPLANIFICACION) references TareaPlanificacion
-alter table PlanificacionXAlquilerCompra add constraint FKCB59124F4B60BE4E foreign key (AlquilerCompraCotizacion) references SUBOBRA_X_ALQUILERCOMPRA_MODIF
-alter table PlanificacionXHerramienta add constraint FK6B1207E472E01F0A foreign key (herramientaCotizacion) references SUBOBRA_X_HERRAMIENTA_MODIF
-alter table PlanificacionXHerramienta add constraint FK6B1207E43FA03576 foreign key (ID_TAREAPLANIFICACION) references TareaPlanificacion
-alter table PlanificacionXMaterial add constraint FK138A35793FA03576 foreign key (ID_TAREAPLANIFICACION) references TareaPlanificacion
-alter table PlanificacionXMaterial add constraint FK138A35799C4339AE foreign key (materialCotizacion) references SO_X_MATERIALMOD
-alter table Planta add constraint FK8EA35F76FD0D2B3E foreign key (ID_EMPRESA) references EMPRESACLIENTE
-alter table Planta add constraint FK8EA35F76964C8F7A foreign key (ID_CONTACTO) references ContactoResponsable
-alter table Planta add constraint FK8EA35F76E8BF4922 foreign key (domicilio) references Domicilio
-alter table PlantaXTelefono add constraint FKBDDA9CB6AC08C734 foreign key (ID_TELEFONO) references Telefono
-alter table PlantaXTelefono add constraint FKBDDA9CB6E058BAF8 foreign key (ID_PLANTA) references Planta
-alter table PrecioSegunCantidad add constraint FK44CD792A464BD08D foreign key (ID_RXP) references RecursoXProveedor
-alter table Provincia add constraint FK56D35B8D19409282 foreign key (pais_id) references Pais
-alter table RECURSOS add constraint FKFF575F4A53D83578 foreign key (ID_UNIDAD_MEDIDA) references UnidadDeMedida
-alter table RecepcionOrdenDeCompra add constraint FKB74FD2494ECBF6EC foreign key (ID_DETALLEOC2_KEY) references OrdenDeCompra
-alter table RecursoEspecifico add constraint FK7C464DC1B599160D foreign key (ID_REC) references RECURSOS
-alter table RecursoXProveedor add constraint FK5952604F9DBBC44B foreign key (ID_RECURSO_ESPECIFICO) references RecursoEspecifico
-alter table RecursoXProveedor add constraint FK5952604F370FCDF0 foreign key (ID_PROVEEDOR) references PROVEEDOR
-alter table SO_MODIFICADA add constraint FK596EF2C8BFC4289E foreign key (ID_SO_MODIFICADA) references SubObra
-alter table SO_MODIFICADA add constraint FK596EF2C8CE83DC8C foreign key (ID_SUBOBRA_ORIGINAL) references SubObra
-alter table SO_X_ADICIONALMOD add constraint FKB52824363E7201CA foreign key (ID_SO_X_ADICIONALMOD) references SubObraXAdicional
-alter table SO_X_ADICIONALMOD add constraint FKB5282436985899A9 foreign key (original) references SubObraXAdicional
-alter table SO_X_MATERIALMOD add constraint FK6DE2965117A5DE1A foreign key (ID_SO_X_MATERIALMOD) references SubObraXMaterial
-alter table SO_X_MATERIALMOD add constraint FK6DE296512B57C2B6 foreign key (original) references SubObraXMaterial
-alter table SUBOBRA_X_ALQUILERCOMPRA_MODIF add constraint FK36C901211E018560 foreign key (ID_SUBOBRA_X_ALQUILERCOMPRA_MODIF) references SubObraXAlquilerCompra
-alter table SUBOBRA_X_ALQUILERCOMPRA_MODIF add constraint FK36C901216B95E8C foreign key (original) references SubObraXAlquilerCompra
-alter table SUBOBRA_X_HERRAMIENTA_MODIF add constraint FK31685CD28F492526 foreign key (ID_SUBOBRA_X_HERRAMIENTA_MODIF) references SubObraXHerramienta
-alter table SUBOBRA_X_HERRAMIENTA_MODIF add constraint FK31685CD24F57C6C9 foreign key (original) references SubObraXHerramienta
-alter table SUBOBRA_X_TAREA_MODIF add constraint FKA804EF1D5AC0F77C foreign key (ID_SUBOBRA_X_TAREA_MODIF) references SubObraXTarea
-alter table SUBOBRA_X_TAREA_MODIF add constraint FKA804EF1D5611F5D4 foreign key (original) references SubObraXTarea
-alter table SubObra add constraint FKF3D69D82587D4D66 foreign key (ID_COTIZACION) references Cotizacion
-alter table SubObraXAdicional add constraint FK12079160A271AD89 foreign key (ID_TIPO_ADICIONAL) references TipoAdicional
-alter table SubObraXAdicional add constraint FK1207916086E94C58 foreign key (ID_SUBOBRA) references SubObra
-alter table SubObraXAlquilerCompra add constraint FK36810833B2592EB0 foreign key (ID_TIPO_ALQUILER_COMPRA) references TipoAlquilerCompra
-alter table SubObraXAlquilerCompra add constraint FK3681083386E94C58 foreign key (ID_SUBOBRA) references SubObra
-alter table SubObraXHerramienta add constraint FK56AC7C8086E94C58 foreign key (ID_SUBOBRA) references SubObra
-alter table SubObraXHerramienta add constraint FK56AC7C80B1766AEC foreign key (ID_HERRAMIENTA) references HerramientaDeEmpresa
-alter table SubObraXMaterial add constraint FK21C9665D2326F692 foreign key (ID_MATERIAL) references RecursoXProveedor
-alter table SubObraXMaterial add constraint FK21C9665D86E94C58 foreign key (ID_SUBOBRA) references SubObra
-alter table SubObraXTarea add constraint FKE58EF18BD3FF3A5F foreign key (ID_TIPO_TAREA) references TipoTarea
-alter table SubObraXTarea add constraint FKE58EF18B86E94C58 foreign key (ID_SUBOBRA) references SubObra
-alter table TALLERES add constraint FKA57A848305BC50D foreign key (ID_CAPAC) references CAPACITADOR
-alter table TALLERES add constraint FKA57A84899AD14B0 foreign key (ID_TIPO_CAPAC) references TipoCapacitacion
-alter table TALLERES add constraint FKA57A848F5929D foreign key (ID_LUGAR_TALLER) references LugardeCapacitacion
-alter table TAREA_EJECUCION add constraint FK7A3400992002EBE2 foreign key (ID_TAREA_EJECUCION) references TareaPlanificacion
-alter table TAREA_EJECUCION add constraint FK7A340099DF6FAB8A foreign key (tareaPlanificada) references TareaPlanificacion
-alter table TIPOSCAPACITACIONxCAPACITADOR add constraint FK8974AE53747A9CA2 foreign key (ID_TIPOCAPACITACION) references TipoCapacitacion
-alter table TIPOSCAPACITACIONxCAPACITADOR add constraint FK8974AE537AB425FE foreign key (ID_CAPACITADOR) references CAPACITADOR
-alter table TareaPlanificacion add constraint FK4A918DA5DD17A679 foreign key (ID) references Planificacion
-alter table TareaPlanificacion add constraint FK4A918DA5A6BC54A2 foreign key (tareaCotizada) references SUBOBRA_X_TAREA_MODIF
-alter table TareaPlanificacion add constraint FK4A918DA56EAFDD75 foreign key (ID_SUB_TAREAPLANIFICACION_KEY) references TareaPlanificacion
-alter table TareaPlanificacion add constraint FK4A918DA5E4B3AED2 foreign key (tipoTarea) references TipoTarea
-alter table Telefono add constraint FKB2C2CF147519B81A foreign key (TIPO_TEL_ID) references TipoTelefono
-INSERT INTO PROPIEDADES_SISTEMA VALUES(1,'SISTEMA_IVA','21')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(2,'EMPRESA_NOMBRE','MetAr S.R.L.')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(3,'EMPRESA_DIRECCION','Dr. Dominguez 283')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(4,'EMPRESA_TELFAX','(02657)431599')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(5,'EMPRESA_CUIT','30-70936605-6')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(6,'EMPRESA_IIBB','01-30709366056')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(7,'SISTEMA_NOMBRE','ACERO')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(8,'MULTIPLICADOR_HORAS_50','1.5')
-INSERT INTO PROPIEDADES_SISTEMA VALUES(9,'MULTIPLICADOR_HORAS_100','2.0')
-COMMIT
-INSERT INTO USUARIOS VALUES(1,'UsuarioAccesoFull','ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e','Baja','/res/imagenes/defaultAvatar.png','1')
-INSERT INTO USUARIOS VALUES(2,'Tester','532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25','Alta','/res/imagenes/avatar_001.jpg','1')
-INSERT INTO USUARIOS VALUES(3,'Developer','9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587','Alta','/res/imagenes/avatar_002.jpg','1')
-COMMIT
-INSERT INTO UNIDADDEMEDIDA VALUES(1,'Unidad','UM.')
-INSERT INTO UNIDADDEMEDIDA VALUES(2,'Kilogramo','Kg.')
-COMMIT
-INSERT INTO FORMADEPAGO VALUES(1,'Cheque')
-INSERT INTO FORMADEPAGO VALUES(2,'Efectivo')
-INSERT INTO FORMADEPAGO VALUES(3,'Transferencia Bancaria')
-INSERT INTO FORMADEPAGO VALUES(4,'Deposito Bancario')
-COMMIT
-INSERT INTO RUBRO VALUES(1,'Material','Material')
-INSERT INTO RUBRO VALUES(2,'Herramienta','Herramienta')
-INSERT INTO RUBRO VALUES(3,'Consumible','Consumible')
-INSERT INTO RUBRO VALUES(4,'Indumentaria','Indumentaria')
-INSERT INTO RUBRO VALUES(5,'Transporte De Materiales y Herramientas','TransporteDeMaterialesYHerramientas')
-INSERT INTO RUBRO VALUES(6,'Transporte De Pasajeros','TransporteDePasajeros')
-INSERT INTO RUBRO VALUES(7,'Alojamiento','Alojamiento')
-COMMIT
-INSERT INTO BARRIO VALUES(1,'Carlos Pellegrini',NULL,NULL,NULL)
-INSERT INTO BARRIO VALUES(2,'Las Flores',NULL,NULL,NULL)
-INSERT INTO BARRIO VALUES(3,'Norte',NULL,NULL,NULL)
-INSERT INTO BARRIO VALUES(4,'Sarmiento',NULL,NULL,NULL)
-INSERT INTO LOCALIDAD VALUES(1,'Alta Gracia',NULL,NULL)
-INSERT INTO LOCALIDAD VALUES(2,'Cordoba',NULL,NULL)
-INSERT INTO LOCALIDAD VALUES(3,'Villa Mercedes',NULL,NULL)
-INSERT INTO PROVINCIA VALUES(1,'Cordoba',NULL,NULL)
-INSERT INTO PROVINCIA VALUES(2,'San Luis',NULL,NULL)
-INSERT INTO PAIS VALUES(1,'Argentina')
-INSERT INTO PAIS VALUES(2,'Brazil')
-INSERT INTO PROVINCIA VALUES(3,'Ceara',NULL,NULL)
-INSERT INTO LOCALIDAD VALUES(4,'Fortaleza',NULL,NULL)
-DELETE FROM BARRIO WHERE IDBARRIO=1
-INSERT INTO BARRIO VALUES(1,'Carlos Pellegrini',NULL,1,0)
-DELETE FROM BARRIO WHERE IDBARRIO=2
-INSERT INTO BARRIO VALUES(2,'Las Flores',NULL,2,0)
-DELETE FROM BARRIO WHERE IDBARRIO=3
-INSERT INTO BARRIO VALUES(3,'Norte',NULL,3,0)
-DELETE FROM BARRIO WHERE IDBARRIO=4
-INSERT INTO BARRIO VALUES(4,'Sarmiento',NULL,3,1)
-DELETE FROM LOCALIDAD WHERE IDLOCALIDAD=1
-INSERT INTO LOCALIDAD VALUES(1,'Alta Gracia',1,0)
-DELETE FROM LOCALIDAD WHERE IDLOCALIDAD=2
-INSERT INTO LOCALIDAD VALUES(2,'Cordoba',1,1)
-DELETE FROM LOCALIDAD WHERE IDLOCALIDAD=3
-INSERT INTO LOCALIDAD VALUES(3,'Villa Mercedes',2,0)
-DELETE FROM PROVINCIA WHERE IDPROVINCIA=1
-INSERT INTO PROVINCIA VALUES(1,'Cordoba',1,0)
-DELETE FROM PROVINCIA WHERE IDPROVINCIA=2
-INSERT INTO PROVINCIA VALUES(2,'San Luis',1,1)
-DELETE FROM PROVINCIA WHERE IDPROVINCIA=3
-INSERT INTO PROVINCIA VALUES(3,'Ceara',2,0)
-DELETE FROM LOCALIDAD WHERE IDLOCALIDAD=4
-INSERT INTO LOCALIDAD VALUES(4,'Fortaleza',3,0)
-COMMIT
-INSERT INTO TIPOTELEFONO VALUES(1,'TEL. PARTICULAR')
-INSERT INTO TIPOTELEFONO VALUES(2,'FAX')
-INSERT INTO TIPOTELEFONO VALUES(3,'CELULAR')
-COMMIT
-INSERT INTO TELEFONO VALUES(1,'4567888',1)
-INSERT INTO TELEFONO VALUES(2,'420708',2)
-INSERT INTO DOMICILIO VALUES(1,'Chacabucoxios','A','X5000UGT',123,9,1)
-INSERT INTO PLANTA VALUES(1,'Bagleysita SA',1,NULL,NULL,NULL)
-INSERT INTO DOMICILIO VALUES(2,'Av. Chacabuco','G','X5000UGT',4545,4,1)
-INSERT INTO EMPRESA VALUES(1,'ARCOR SRL','66688990-5','contacto@arcor.com.ar','http://www.arcor.com.ar',2,'modelo.EstadoEmpresaAlta')
-INSERT INTO EMPRESACLIENTE VALUES(1)
-INSERT INTO PLANTAXTELEFONO VALUES(1,2)
-INSERT INTO EMPRESAXTELEFONO VALUES(1,1)
-DELETE FROM PLANTA WHERE ID_PLANTA=1
-INSERT INTO PLANTA VALUES(1,'Bagleysita SA',1,NULL,1,0)
-COMMIT
-INSERT INTO TELEFONO VALUES(3,'424-5654',1)
-INSERT INTO TELEFONO VALUES(4,'(0237) 485-9000',2)
-INSERT INTO DOMICILIO VALUES(3,'Alte. Brown',NULL,'B1748KFS',957,0,1)
-INSERT INTO PLANTA VALUES(2,'Planta Gral. Rodr\u00c3\u00adguez',3,NULL,NULL,NULL)
-INSERT INTO DOMICILIO VALUES(4,'C\u00c3\u00a1rcanos','','X5115PDK',388,0,1)
-INSERT INTO EMPRESA VALUES(2,'DANONE ARGENTINA S.A.','66555670-5','atcliente@danone.com.ar','http://www.danone.com.ar',4,'modelo.EstadoEmpresaAlta')
-INSERT INTO EMPRESACLIENTE VALUES(2)
-INSERT INTO PLANTAXTELEFONO VALUES(2,4)
-INSERT INTO EMPRESAXTELEFONO VALUES(2,3)
-DELETE FROM PLANTA WHERE ID_PLANTA=2
-INSERT INTO PLANTA VALUES(2,'Planta Gral. Rodr\u00c3\u00adguez',3,NULL,2,0)
-COMMIT
-INSERT INTO TIPODOCUMENTO VALUES(1,'D.N.I.','Documento Nacional de Identidad')
-INSERT INTO TIPODOCUMENTO VALUES(2,'L.E.','Libreta de Enrolamiento')
-INSERT INTO TIPODOCUMENTO VALUES(3,'L.C.','Libreta Civica')
-COMMIT
-INSERT INTO TIPODOCUMENTO VALUES(4,'LPQLP','')
-INSERT INTO TIPOESPECIALIDAD VALUES(1,'Soldador',NULL)
-INSERT INTO TIPOESPECIALIDAD VALUES(2,'Chapista',NULL)
-INSERT INTO TIPOCAPACITACION VALUES(1,'Seguridad 1',NULL)
-INSERT INTO TIPOCAPACITACION VALUES(2,'Manejo de Herramienta',NULL)
-INSERT INTO RANGOESPECIALIDAD VALUES(1,'Principiante')
-INSERT INTO RANGOESPECIALIDAD VALUES(2,'Medio')
-INSERT INTO RANGOESPECIALIDAD VALUES(3,'Experto')
-INSERT INTO ESPECIALIDAD VALUES(1,10.0E0,1,1,NULL)
-INSERT INTO ESPECIALIDAD VALUES(2,12.0E0,1,2,NULL)
-INSERT INTO ESPECIALIDAD VALUES(3,14.0E0,1,3,NULL)
-INSERT INTO ESPECIALIDAD VALUES(4,11.0E0,2,1,NULL)
-INSERT INTO ESPECIALIDAD VALUES(5,13.0E0,2,2,NULL)
-INSERT INTO ESPECIALIDAD VALUES(6,15.0E0,2,3,NULL)
-INSERT INTO DOMICILIO VALUES(5,'Av. MeImportaUnCarajo',NULL,NULL,0,0,NULL)
-INSERT INTO PERSONA VALUES(1,'pedro','sorongo','1969-12-31','12345678',NULL,'3212155','1969-12-31',NULL,NULL,4,5)
-INSERT INTO EMPLEADO VALUES(1,53,NULL,NULL,'modelo.EstadoEmpleadoActivo',NULL,NULL,NULL)
-COMMIT
-INSERT INTO TELEFONO VALUES(5,'(0351) 4564478',1)
-INSERT INTO CONTACTORESPONSABLE VALUES(1,'Andr\u00c3\u00a9s',NULL,'apedraza@gmail.com',NULL,NULL,NULL,NULL)
-COMMIT
-INSERT INTO EMPRESA VALUES(3,'Transportes GORDON','34368455-5','tgorodn@tg.com.ar','http://www.tg.com.ar',NULL,'modelo.EstadoEmpresaAlta')
-INSERT INTO PROVEEDOR VALUES(3,0.5E0)
-INSERT INTO EMPRESA VALUES(4,'La veloz del norte','34378455-5','laveloz@lvdn.com.ar','http://www.laveloz.com.ar',NULL,'modelo.EstadoEmpresaAlta')
-INSERT INTO PROVEEDOR VALUES(4,0.5E0)
-INSERT INTO EMPRESA VALUES(5,'Hotel Hilton','31378455-5','hilton@lvdn.com.ar','http://www.hilton.com',NULL,'modelo.EstadoEmpresaAlta')
-INSERT INTO PROVEEDOR VALUES(5,0.5E0)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(3,5,0)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(4,6,0)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(5,7,0)
-COMMIT
-INSERT INTO TELEFONO VALUES(6,'4456834',2)
-INSERT INTO DOMICILIO VALUES(6,'Av. Los Pl\u00c3\u00a1tanos','X','X3000UOO',204,0,1)
-INSERT INTO EMPRESA VALUES(6,'SIDERUGIA SAN LUIS S.R.L.','34345555-5','atclientes@ssl.com.ar','http://www.ssl.com.ar',6,'modelo.EstadoEmpresaAlta')
-INSERT INTO PROVEEDOR VALUES(6,0.5E0)
-INSERT INTO EMPRESAXTELEFONO VALUES(6,6)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(6,1,0)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(6,2,1)
-INSERT INTO PROVEEDOR_X_RUBRO VALUES(6,3,2)
-COMMIT
-INSERT INTO UNIDADDEMEDIDA VALUES(3,'Pack','Pk.')
-INSERT INTO RECURSOS VALUES(1,'Chapa','Alta','0','0',3)
-INSERT INTO MATERIALES VALUES(1)
-INSERT INTO RECURSOESPECIFICO VALUES(1,'Perfil IPN 200','IPN 200 de 2x7m.',NULL,NULL)
-INSERT INTO RECURSOXPROVEEDOR VALUES(1,6,NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-10-27',1.0E0,0.5E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-10-27',10.0E0,0.4E0,'2012-10-27',NULL,NULL)
-INSERT INTO RECURSOESPECIFICO VALUES(2,'Perfil IPN 450','IPN 450 de 3x4m.',NULL,NULL)
-INSERT INTO RECURSOXPROVEEDOR VALUES(2,6,NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-10-27',10.0E0,0.1E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-10-27',1.0E0,10.0E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-10-27',10.0E0,70.0E0,'2012-10-27',NULL,NULL)
-INSERT INTO RECURSOESPECIFICO VALUES(3,'Perfil IPN 750','IPN 750 de 2x3m.',NULL,NULL)
-INSERT INTO PROVEEDOR_X_RECURSOESPECIFICO VALUES(6,1,0)
-INSERT INTO PROVEEDOR_X_RECURSOESPECIFICO VALUES(6,2,1)
-DELETE FROM RECURSOESPECIFICO WHERE ID_RECURSO_ESPECIFICO=1
-INSERT INTO RECURSOESPECIFICO VALUES(1,'Perfil IPN 200','IPN 200 de 2x7m.',1,0)
-DELETE FROM RECURSOESPECIFICO WHERE ID_RECURSO_ESPECIFICO=2
-INSERT INTO RECURSOESPECIFICO VALUES(2,'Perfil IPN 450','IPN 450 de 3x4m.',1,1)
-DELETE FROM RECURSOESPECIFICO WHERE ID_RECURSO_ESPECIFICO=3
-INSERT INTO RECURSOESPECIFICO VALUES(3,'Perfil IPN 750','IPN 750 de 2x3m.',1,2)
-DELETE FROM RECURSOXPROVEEDOR WHERE ID_RXP=1
-INSERT INTO RECURSOXPROVEEDOR VALUES(1,6,1,0)
-DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=1
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-10-27',1.0E0,0.5E0,'2012-10-27',1,0)
-DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=2
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-10-27',10.0E0,0.4E0,'2012-10-27',1,1)
-DELETE FROM RECURSOXPROVEEDOR WHERE ID_RXP=2
-INSERT INTO RECURSOXPROVEEDOR VALUES(2,6,2,0)
-DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=3
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-10-27',10.0E0,0.1E0,'2012-10-27',2,0)
-DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=4
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-10-27',1.0E0,10.0E0,'2012-10-27',2,1)
-DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=5
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-10-27',10.0E0,70.0E0,'2012-10-27',2,2)
-COMMIT
-INSERT INTO RECURSOESPECIFICO VALUES(4,'15 Mm.','',NULL,NULL)
-INSERT INTO RECURSOS VALUES(2,'TORNO','Alta','0','0',1)
-INSERT INTO HERRAMIENTAS VALUES(2)
-INSERT INTO HERRAMIENTADEEMPRESA VALUES(1,'000-KR4113654560/3A','Disponible',4,NULL)
-INSERT INTO RECURSOESPECIFICO VALUES(5,'CNC','',NULL,NULL)
-INSERT INTO RECURSOS VALUES(3,'FRESADORA','Alta','0','0',1)
-INSERT INTO HERRAMIENTAS VALUES(3)
-INSERT INTO HERRAMIENTADEEMPRESA VALUES(2,'AK900094343','Disponible',5,NULL)
-DELETE FROM RECURSOESPECIFICO WHERE ID_RECURSO_ESPECIFICO=4
-INSERT INTO RECURSOESPECIFICO VALUES(4,'15 Mm.','',2,0)
-DELETE FROM RECURSOESPECIFICO WHERE ID_RECURSO_ESPECIFICO=5
-INSERT INTO RECURSOESPECIFICO VALUES(5,'CNC','',3,0)
-COMMIT
-INSERT INTO TIPOADICIONAL VALUES(1,'Hospedaje')
-INSERT INTO TIPOADICIONAL VALUES(2,'Comida')
-INSERT INTO TIPOADICIONAL VALUES(3,'Viaticos')
-INSERT INTO TIPOADICIONAL VALUES(4,'Viajes')
-COMMIT
-INSERT INTO TIPOALQUILERCOMPRA VALUES(1,'Galpon')
-INSERT INTO TIPOALQUILERCOMPRA VALUES(2,'Grua')
-INSERT INTO TIPOALQUILERCOMPRA VALUES(3,'Fletes')
-INSERT INTO TIPOALQUILERCOMPRA VALUES(4,'Camiones')
-INSERT INTO TIPOALQUILERCOMPRA VALUES(5,'Transporte')
-COMMIT
-INSERT INTO TIPOTAREA VALUES(1,'Desarme')
-INSERT INTO TIPOTAREA VALUES(2,'Calibracion')
-INSERT INTO TIPOTAREA VALUES(3,'Mecanizado')
-COMMIT
-INSERT INTO ROLCONTACTORESPONSABLE VALUES(1,'Administrador')
-INSERT INTO ROLCONTACTORESPONSABLE VALUES(2,'Guardia')
-INSERT INTO ROLCONTACTORESPONSABLE VALUES(3,'Gerente')
-INSERT INTO ROLCONTACTORESPONSABLE VALUES(4,'Abogado')
-INSERT INTO ROLCONTACTORESPONSABLE VALUES(5,'Contratista')
-COMMIT
-INSERT INTO TELEFONO VALUES(7,'(0351) 4564478',1)
-INSERT INTO CONTACTORESPONSABLE VALUES(2,'Andres','Pedraza','apedraza@gmail.com',NULL,1,NULL,NULL)
-INSERT INTO TELEFONO VALUES(8,'(011) 55544566',1)
-INSERT INTO CONTACTORESPONSABLE VALUES(3,'Julio','Ferreyra','eyjuliooscar@gmail.com',NULL,2,NULL,NULL)
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(1,1,'Llevar repuestos',8,30.0E0,NULL,NULL)
-INSERT INTO SUBOBRAXTAREA VALUES(1,NULL,'Armado estructura',1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(1,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(2,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-INSERT INTO SUBOBRAXTAREA VALUES(2,NULL,'Preparacion de la base',2,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(3,17.0E0,5.0E0,4.0E0,10.0E0,3,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(4,14.0E0,3.0E0,1.0E0,12.0E0,2,2,NULL,NULL)
-INSERT INTO SUBOBRAXMATERIAL VALUES(1,44,'PROBANDO',1,0.4E0,NULL,NULL)
-INSERT INTO SUBOBRA VALUES(1,'Desconexionado de la tolva',500.0E0,27.18E0,'0','',NULL,NULL)
-INSERT INTO SUBOBRAXTAREA VALUES(3,NULL,'Pintado de la Estructura',2,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(5,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-INSERT INTO SUBOBRAXADICIONAL VALUES(1,1,'Hospedaje en hotel 2 estrellas',1,1,120.0E0,NULL,NULL)
-INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(1,3,'Flete desde Cordoba',1,300.0E0,NULL,NULL)
-INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',21.0E0,5.0E0,'0','',NULL,NULL)
-INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
-INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-10-27',NULL,NULL,'Pliego n\u00b0 84834838')
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=2
-INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',22.05E0,5.0E0,'0','',NULL,NULL)
-INSERT INTO CONTACTO_RESPONSABLE_X_TELEFONO VALUES(2,7,0)
-INSERT INTO CONTACTO_RESPONSABLE_X_TELEFONO VALUES(3,8,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=1
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(1,17.0E0,5.0E0,4.0E0,10.0E0,2,1,1,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=2
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(2,15.0E0,3.0E0,2.0E0,12.0E0,1,2,1,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=3
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(3,17.0E0,5.0E0,4.0E0,10.0E0,3,1,2,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=4
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(4,14.0E0,3.0E0,1.0E0,12.0E0,2,2,2,1)
-DELETE FROM SUBOBRAXTAREA WHERE ID_SUBOBRA_X_TAREA=1
-INSERT INTO SUBOBRAXTAREA VALUES(1,NULL,'Armado estructura',1,1,0)
-DELETE FROM SUBOBRAXTAREA WHERE ID_SUBOBRA_X_TAREA=3
-INSERT INTO SUBOBRAXTAREA VALUES(3,NULL,'Pintado de la Estructura',2,1,1)
-DELETE FROM SUBOBRAXHERRAMIENTA WHERE ID_SUBOBRA_X_HERRAMIENTA=1
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(1,1,'Llevar repuestos',8,30.0E0,1,0)
-DELETE FROM SUBOBRAXMATERIAL WHERE ID_SUBOBRA_X_MATERIAL=1
-INSERT INTO SUBOBRAXMATERIAL VALUES(1,44,'PROBANDO',1,0.4E0,1,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=5
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(5,10.0E0,2.0E0,1.0E0,10.0E0,1,1,3,0)
-DELETE FROM SUBOBRAXADICIONAL WHERE ID_SUBOBRA_X_ADICIONAL=1
-INSERT INTO SUBOBRAXADICIONAL VALUES(1,1,'Hospedaje en hotel 2 estrellas',1,1,120.0E0,2,0)
-DELETE FROM SUBOBRAXALQUILERCOMPRA WHERE ID_SUBOBRA_X_AC=1
-INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(1,3,'Flete desde Cordoba',1,300.0E0,2,0)
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=1
-INSERT INTO SUBOBRA VALUES(1,'Desconexionado de la tolva',500.0E0,27.18E0,'0','',1,0)
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=2
-INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',22.05E0,5.0E0,'0','',1,1)
-DELETE FROM COTIZACION WHERE ID_COTIZACION=1
-INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',1,0)
-DELETE FROM CONTACTORESPONSABLE WHERE ID_CONTACTO=2
-INSERT INTO CONTACTORESPONSABLE VALUES(2,'Andres','Pedraza','apedraza@gmail.com',NULL,1,1,0)
-DELETE FROM CONTACTORESPONSABLE WHERE ID_CONTACTO=3
-INSERT INTO CONTACTORESPONSABLE VALUES(3,'Julio','Ferreyra','eyjuliooscar@gmail.com',NULL,2,1,1)
-COMMIT
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',11,0.0E0,NULL,NULL)
-INSERT INTO SUBOBRA_X_HERRAMIENTA_MODIF VALUES(2,1)
-INSERT INTO SUBOBRAXMATERIAL VALUES(2,25,NULL,1,3.0E0,NULL,NULL)
-INSERT INTO SO_X_MATERIALMOD VALUES(2,1)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(6,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(7,2,NULL,NULL)
-INSERT INTO SUBOBRAXTAREA VALUES(4,NULL,'Armado estructura',1,NULL,NULL)
-INSERT INTO SUBOBRA_X_TAREA_MODIF VALUES(4,1)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(8,5,NULL,NULL)
-INSERT INTO SUBOBRAXTAREA VALUES(5,NULL,'Pintado de la Estructura',2,NULL,NULL)
-INSERT INTO SUBOBRA_X_TAREA_MODIF VALUES(5,3)
-INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',135.9E0,27.18E0,'0','',NULL,NULL)
-INSERT INTO SO_MODIFICADA VALUES(3,1)
-INSERT INTO SUBOBRAXADICIONAL VALUES(2,1,'Hospedaje en hotel 2 estrellas',3,2,1.0E0,NULL,NULL)
-INSERT INTO SO_X_ADICIONALMOD VALUES(2,1)
-INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(2,3,'Flete desde Cordoba',10,10.0E0,NULL,NULL)
-INSERT INTO SUBOBRA_X_ALQUILERCOMPRA_MODIF VALUES(2,1)
-INSERT INTO SUBOBRA VALUES(4,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',1.1E0,5.0E0,'0','',NULL,NULL)
-INSERT INTO SO_MODIFICADA VALUES(4,2)
-INSERT INTO COTIZACION VALUES(2,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
-INSERT INTO COT_MODIFICADA VALUES(2,1)
+/*C7*/SET SCHEMA PUBLIC
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=3
-INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',351.41E0,27.18E0,'0','',NULL,NULL)
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=4
-INSERT INTO SUBOBRA VALUES(4,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',5.36E0,5.0E0,'0','',NULL,NULL)
-DELETE FROM DETALLE_SUBOBRA_X_TAREA_MODIF WHERE ID_DETALLE_SUBOBRA_X_TAREA_MODIF=6
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(6,1,4,0)
-DELETE FROM DETALLE_SUBOBRA_X_TAREA_MODIF WHERE ID_DETALLE_SUBOBRA_X_TAREA_MODIF=7
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(7,2,4,1)
-DELETE FROM DETALLE_SUBOBRA_X_TAREA_MODIF WHERE ID_DETALLE_SUBOBRA_X_TAREA_MODIF=8
-INSERT INTO DETALLE_SUBOBRA_X_TAREA_MODIF VALUES(8,5,5,0)
-DELETE FROM SUBOBRAXTAREA WHERE ID_SUBOBRA_X_TAREA=4
-INSERT INTO SUBOBRAXTAREA VALUES(4,NULL,'Armado estructura',1,3,0)
-DELETE FROM SUBOBRAXTAREA WHERE ID_SUBOBRA_X_TAREA=5
-INSERT INTO SUBOBRAXTAREA VALUES(5,NULL,'Pintado de la Estructura',2,3,1)
-DELETE FROM SUBOBRAXHERRAMIENTA WHERE ID_SUBOBRA_X_HERRAMIENTA=2
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',11,0.0E0,3,0)
-DELETE FROM SUBOBRAXMATERIAL WHERE ID_SUBOBRA_X_MATERIAL=2
-INSERT INTO SUBOBRAXMATERIAL VALUES(2,25,NULL,1,3.0E0,3,0)
-DELETE FROM SUBOBRAXADICIONAL WHERE ID_SUBOBRA_X_ADICIONAL=2
-INSERT INTO SUBOBRAXADICIONAL VALUES(2,1,'Hospedaje en hotel 2 estrellas',3,2,1.0E0,4,0)
-DELETE FROM SUBOBRAXALQUILERCOMPRA WHERE ID_SUBOBRA_X_AC=2
-INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(2,3,'Flete desde Cordoba',10,10.0E0,4,0)
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=3
-INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',351.41E0,27.18E0,'0','',2,0)
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=4
-INSERT INTO SUBOBRA VALUES(4,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',5.36E0,5.0E0,'0','',2,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-INSERT INTO PLANIFICACION VALUES(1,'2011-04-20','2011-10-20','Alta','',2)
-DELETE FROM PEDIDOOBRA WHERE ID_PEDIDO_OBRA=1
-INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-10-27',1,NULL,'Pliego n\u00b0 84834838')
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-INSERT INTO ITEMCOMPRABLE VALUES(1,'modelo.RecursoEspecifico',1)
-INSERT INTO ITEMSTOCK VALUES(1,1,13.0E0,'2012-10-27')
-INSERT INTO ITEMCOMPRABLE VALUES(2,'modelo.TipoAlquilerCompra',1)
-INSERT INTO ITEMSTOCK VALUES(2,2,2.0E0,'2012-10-27')
-INSERT INTO ITEMCOMPRABLE VALUES(3,'modelo.TipoAdicional',1)
-INSERT INTO ITEMSTOCK VALUES(3,3,3.0E0,'2012-10-27')
-COMMIT
-INSERT INTO ITEMCOMPRABLE VALUES(4,'modelo.RecursoEspecifico',3)
-INSERT INTO ITEMCOMPRABLE VALUES(5,'modelo.TipoAlquilerCompra',3)
-INSERT INTO ITEMCOMPRABLE VALUES(6,'modelo.TipoAdicional',3)
-INSERT INTO ORDENDECOMPRA VALUES(1,'2012-10-27','2012-10-27',3,1,'Pendiente','En la empresa')
-INSERT INTO DETALLEORDENDECOMPRA VALUES(1,20.0E0,77.0E0,'Item 1',4,NULL,NULL)
-INSERT INTO DETALLEORDENDECOMPRA VALUES(2,77.0E0,123.0E0,'Item 2',5,NULL,NULL)
-INSERT INTO DETALLEORDENDECOMPRA VALUES(3,53.0E0,20.0E0,'Item 3',6,NULL,NULL)
-DELETE FROM DETALLEORDENDECOMPRA WHERE ID_DETALLEOC=1
-INSERT INTO DETALLEORDENDECOMPRA VALUES(1,20.0E0,77.0E0,'Item 1',4,1,0)
-DELETE FROM DETALLEORDENDECOMPRA WHERE ID_DETALLEOC=2
-INSERT INTO DETALLEORDENDECOMPRA VALUES(2,77.0E0,123.0E0,'Item 2',5,1,1)
-DELETE FROM DETALLEORDENDECOMPRA WHERE ID_DETALLEOC=3
-INSERT INTO DETALLEORDENDECOMPRA VALUES(3,53.0E0,20.0E0,'Item 3',6,1,2)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DISCONNECT
-/*C6*/SET SCHEMA PUBLIC
-DELETE FROM SUBOBRA WHERE ID_SUBOBRA=3
-INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',95.51E0,27.18E0,'0','',2,0)
+INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',101.5E0,27.18E0,'0','',2,0)
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=4
 INSERT INTO SUBOBRA VALUES(4,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',0.27E0,5.0E0,'0','',2,1)
 DELETE FROM DOMICILIO WHERE ID_DOMICILIO=3
@@ -871,133 +10,13 @@ INSERT INTO SUBOBRA VALUES(1,'Desconexionado de la tolva',135.9E0,27.18E0,'0',''
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=2
 INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',1.1E0,5.0E0,'0','',1,1)
 COMMIT
-INSERT INTO TAREAPLANIFICACION VALUES(1,1,NULL,'2011-04-20','2011-04-20',1,4,NULL,NULL,NULL,NULL)
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(1,3,2,NULL,NULL)
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(1,17.0E0,5.0E0,4.0E0,10.0E0,2,0,1,NULL,6,NULL,NULL)
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(2,15.0E0,3.0E0,2.0E0,12.0E0,1,0,2,NULL,7,NULL,NULL)
-INSERT INTO TAREAPLANIFICACION VALUES(2,2,NULL,'2011-04-20','2011-04-20',2,5,NULL,NULL,NULL,NULL)
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(2,4,2,NULL,NULL)
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(3,10.0E0,2.0E0,1.0E0,10.0E0,1,0,1,NULL,8,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM TAREAPLANIFICACION WHERE ID_TAREAPLANIFICACION=1
-INSERT INTO TAREAPLANIFICACION VALUES(1,1,NULL,'2011-04-20','2011-04-20',1,4,1,0,NULL,NULL)
-DELETE FROM TAREAPLANIFICACION WHERE ID_TAREAPLANIFICACION=2
-INSERT INTO TAREAPLANIFICACION VALUES(2,2,NULL,'2011-04-20','2011-04-20',2,5,1,1,NULL,NULL)
-DELETE FROM PLANIFICACIONXALQUILERCOMPRA WHERE ID_PLAN_X_ALQCOMPRA=1
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(1,3,2,1,0)
-DELETE FROM DETALLETAREAPLANIFICACION WHERE ID_DETALLETAREAPLANIFICACION=1
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(1,17.0E0,5.0E0,4.0E0,10.0E0,2,0,1,NULL,6,1,0)
-DELETE FROM DETALLETAREAPLANIFICACION WHERE ID_DETALLETAREAPLANIFICACION=2
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(2,15.0E0,3.0E0,2.0E0,12.0E0,1,0,2,NULL,7,1,1)
-DELETE FROM PLANIFICACIONXALQUILERCOMPRA WHERE ID_PLAN_X_ALQCOMPRA=2
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(2,4,2,2,0)
-DELETE FROM DETALLETAREAPLANIFICACION WHERE ID_DETALLETAREAPLANIFICACION=3
-INSERT INTO DETALLETAREAPLANIFICACION VALUES(3,10.0E0,2.0E0,1.0E0,10.0E0,1,0,1,NULL,8,2,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-INSERT INTO PLANIFICACION VALUES(2,'2012-10-27',NULL,'Alta','',NULL)
-INSERT INTO EJECUCION VALUES(2,1)
-INSERT INTO TAREAPLANIFICACION VALUES(3,NULL,'','2011-04-20','2011-04-20',1,NULL,NULL,NULL,NULL,NULL)
-INSERT INTO TAREA_EJECUCION VALUES(3,1)
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(3,3,2,NULL,NULL)
-INSERT INTO EJECUCION_X_ALQUILERCOMPRA VALUES(3,1)
-INSERT INTO TAREAPLANIFICACION VALUES(4,NULL,'','2011-04-20','2011-04-20',2,NULL,NULL,NULL,NULL,NULL)
-INSERT INTO TAREA_EJECUCION VALUES(4,2)
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(4,4,2,NULL,NULL)
-INSERT INTO EJECUCION_X_ALQUILERCOMPRA VALUES(4,2)
-DELETE FROM PEDIDOOBRA WHERE ID_PEDIDO_OBRA=1
-INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'En Ejecuci\u00f3n',2,2,'2012-10-27',1,2,'Pliego n\u00b0 84834838')
-DELETE FROM PLANIFICACION WHERE ID_PLANIFICACION=1
-INSERT INTO PLANIFICACION VALUES(1,'2011-04-20','2011-10-20','Finalizada','',2)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM TAREAPLANIFICACION WHERE ID_TAREAPLANIFICACION=3
-INSERT INTO TAREAPLANIFICACION VALUES(3,NULL,'','2011-04-20','2011-04-20',1,NULL,2,0,NULL,NULL)
-DELETE FROM TAREAPLANIFICACION WHERE ID_TAREAPLANIFICACION=4
-INSERT INTO TAREAPLANIFICACION VALUES(4,NULL,'','2011-04-20','2011-04-20',2,NULL,2,1,NULL,NULL)
-DELETE FROM PLANIFICACIONXALQUILERCOMPRA WHERE ID_PLAN_X_ALQCOMPRA=3
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(3,3,2,3,0)
-DELETE FROM PLANIFICACIONXALQUILERCOMPRA WHERE ID_PLAN_X_ALQCOMPRA=4
-INSERT INTO PLANIFICACIONXALQUILERCOMPRA VALUES(4,4,2,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NULL)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,4,0)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(7,15.0E0,3.0E0,2.0E0,12.0E0,1,2,4,1)
-DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
-INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
-COMMIT
-DISCONNECT
-/*C5*/SET SCHEMA PUBLIC
-DISCONNECT
-/*C7*/SET SCHEMA PUBLIC
-DISCONNECT
 /*C8*/SET SCHEMA PUBLIC
+DELETE FROM USUARIOS WHERE IDUSER=3
+INSERT INTO USUARIOS VALUES(3,'Developer','9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587','Alta','/res/imagenes/avatar_002.jpg','1')
+COMMIT
+/*C7*/DISCONNECT
+/*C8*/DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
 alter table AsignacionEmpleadoPlanificacion drop constraint FK3B2AA6F33FA03576
 alter table AsignacionEmpleadoPlanificacion drop constraint FK3B2AA6F3F38122A2
 alter table AsistenciaTallerCapacitacion drop constraint FKB58570BBDC73F2E2
@@ -1246,7 +265,7 @@ create table DetalleOrdenDeCompra (ID_DETALLEOC integer not null, cantidad doubl
 create table DetalleRecepcionOrdenDeCompra (ID_DETALLERECOC integer not null, cantidad double, DETALLE_ORDEN_COMPRA integer not null, ID_RECEPCION integer, idx integer, primary key (ID_DETALLERECOC))
 create table DetalleSubObraXTarea (ID_COTIZACION_MOD integer not null, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, costoXHoraNormal double, cantidadPersonas integer, Especialidad integer, ID_SUBOBRA_X_TAREA integer, idx integer, primary key (ID_COTIZACION_MOD))
 create table DetalleTareaEjecucionXDia (ID_DETALLETAREAEJECXDIA integer not null, fecha date, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, ID_DET_TAREA_EJEC_X_DIA integer, ID_DETALLE_TAREA_EJECUCION_X_DIA integer, primary key (ID_DETALLETAREAEJECXDIA))
-create table DetalleTareaPlanificacion (ID_DetalleTareaPlanificacion integer not null, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, costoXHoraNormal double, cantidadPersonas integer, cantidadHijos integer, Especialidad integer, padre integer, cotizado integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_DetalleTareaPlanificacion))
+create table DetalleTareaPlanificacion (ID_DetalleTareaPlanificacion integer not null, cantHorasNormales double, cantHorasAl50 double, cantHorasAl100 double, costoXHoraNormal double, cantidadPersonas integer, cantidadHijos integer, auxiliar bit, Especialidad integer, padre integer, cotizado integer, ID_TAREAPLANIFICACION integer, idx integer, primary key (ID_DetalleTareaPlanificacion))
 create table Detalle_AsisXAsis_Taller (ID_DETALLE_HORARIO_TALLER integer not null, ID_ASISTENCIA_TALLER integer not null, primary key (ID_DETALLE_HORARIO_TALLER, ID_ASISTENCIA_TALLER))
 create table Domicilio (ID_DOMICILIO integer not null, CALLE varchar(255), DEPTO varchar(255), COD_POSTAL varchar(255), NUMERO integer, PISO integer, IDBARRIO integer, primary key (ID_DOMICILIO))
 create table EJECUCION (ID_EJECUCION integer not null, planificacionOriginal integer, primary key (ID_EJECUCION))
@@ -1312,7 +331,7 @@ create table TALLERES (ID_TALLER integer not null, descripcion varchar(255), hib
 create table TAREA_EJECUCION (ID_TAREA_EJECUCION integer not null, tareaPlanificada integer, primary key (ID_TAREA_EJECUCION))
 create table TIPOSCAPACITACIONxCAPACITADOR (ID_CAPACITADOR integer not null, ID_TIPOCAPACITACION integer not null, primary key (ID_CAPACITADOR, ID_TIPOCAPACITACION))
 create table Talle (ID_TALLE integer not null, NOMBRE varchar(255), primary key (ID_TALLE))
-create table TareaPlanificacion (ID_TAREAPLANIFICACION integer not null, tipoTarea integer, observaciones varchar(255), fechaInicio date, fechaFin date, idTareaGantt integer, tareaCotizada integer, ID integer, ID_TAREAS_X_P integer, ID_SUB_TAREAPLANIFICACION_KEY integer, ID_SUB_TAREAPLANIFICACION_INDEX integer, primary key (ID_TAREAPLANIFICACION))
+create table TareaPlanificacion (ID_TAREAPLANIFICACION integer not null, nombre varchar(255), tipoTarea integer, observaciones varchar(255), fechaInicio date, fechaFin date, idTareaGantt integer, tareaCotizada integer, ID integer, ID_TAREAS_X_P integer, ID_SUB_TAREAPLANIFICACION_KEY integer, ID_SUB_TAREAPLANIFICACION_INDEX integer, primary key (ID_TAREAPLANIFICACION))
 create table Telefono (ID_TEL integer not null, NUMERO varchar(255), TIPO_TEL_ID integer, primary key (ID_TEL))
 create table TipoAdicional (ID_TIPO_ADICIONAL integer not null, NOMBRE varchar(255), primary key (ID_TIPO_ADICIONAL))
 create table TipoAlquilerCompra (ID_TIPO_ALQUILER_COMPRA integer not null, NOMBRE varchar(255), primary key (ID_TIPO_ALQUILER_COMPRA))
@@ -1603,13 +622,13 @@ INSERT INTO RECURSOS VALUES(1,'Chapa','Alta','0','0',3)
 INSERT INTO MATERIALES VALUES(1)
 INSERT INTO RECURSOESPECIFICO VALUES(1,'Perfil IPN 200','IPN 200 de 2x7m.',NULL,NULL)
 INSERT INTO RECURSOXPROVEEDOR VALUES(1,6,NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-10-27',1.0E0,0.5E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-10-27',10.0E0,0.4E0,'2012-10-27',NULL,NULL)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-11-03',1.0E0,0.5E0,'2012-11-03',NULL,NULL)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-11-03',10.0E0,0.4E0,'2012-11-03',NULL,NULL)
 INSERT INTO RECURSOESPECIFICO VALUES(2,'Perfil IPN 450','IPN 450 de 3x4m.',NULL,NULL)
 INSERT INTO RECURSOXPROVEEDOR VALUES(2,6,NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-10-27',10.0E0,0.1E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-10-27',1.0E0,10.0E0,'2012-10-27',NULL,NULL)
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-10-27',10.0E0,70.0E0,'2012-10-27',NULL,NULL)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-11-03',10.0E0,0.1E0,'2012-11-03',NULL,NULL)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-11-03',1.0E0,10.0E0,'2012-11-03',NULL,NULL)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-11-03',10.0E0,70.0E0,'2012-11-03',NULL,NULL)
 INSERT INTO RECURSOESPECIFICO VALUES(3,'Perfil IPN 750','IPN 750 de 2x3m.',NULL,NULL)
 INSERT INTO PROVEEDOR_X_RECURSOESPECIFICO VALUES(6,1,0)
 INSERT INTO PROVEEDOR_X_RECURSOESPECIFICO VALUES(6,2,1)
@@ -1622,17 +641,17 @@ INSERT INTO RECURSOESPECIFICO VALUES(3,'Perfil IPN 750','IPN 750 de 2x3m.',1,2)
 DELETE FROM RECURSOXPROVEEDOR WHERE ID_RXP=1
 INSERT INTO RECURSOXPROVEEDOR VALUES(1,6,1,0)
 DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=1
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-10-27',1.0E0,0.5E0,'2012-10-27',1,0)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(1,'2012-11-03',1.0E0,0.5E0,'2012-11-03',1,0)
 DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=2
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-10-27',10.0E0,0.4E0,'2012-10-27',1,1)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(2,'2012-11-03',10.0E0,0.4E0,'2012-11-03',1,1)
 DELETE FROM RECURSOXPROVEEDOR WHERE ID_RXP=2
 INSERT INTO RECURSOXPROVEEDOR VALUES(2,6,2,0)
 DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=3
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-10-27',10.0E0,0.1E0,'2012-10-27',2,0)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(3,'2012-11-03',10.0E0,0.1E0,'2012-11-03',2,0)
 DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=4
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-10-27',1.0E0,10.0E0,'2012-10-27',2,1)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(4,'2012-11-03',1.0E0,10.0E0,'2012-11-03',2,1)
 DELETE FROM PRECIOSEGUNCANTIDAD WHERE ID_PSC=5
-INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-10-27',10.0E0,70.0E0,'2012-10-27',2,2)
+INSERT INTO PRECIOSEGUNCANTIDAD VALUES(5,'2012-11-03',10.0E0,70.0E0,'2012-11-03',2,2)
 COMMIT
 INSERT INTO RECURSOESPECIFICO VALUES(4,'15 Mm.','',NULL,NULL)
 INSERT INTO RECURSOS VALUES(2,'TORNO','Alta','0','0',1)
@@ -1686,8 +705,8 @@ INSERT INTO DETALLESUBOBRAXTAREA VALUES(5,10.0E0,2.0E0,1.0E0,10.0E0,1,1,NULL,NUL
 INSERT INTO SUBOBRAXADICIONAL VALUES(1,1,'Hospedaje en hotel 2 estrellas',1,1,120.0E0,NULL,NULL)
 INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(1,3,'Flete desde Cordoba',1,300.0E0,NULL,NULL)
 INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',21.0E0,5.0E0,'0','',NULL,NULL)
-INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
-INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-10-27',NULL,NULL,'Pliego n\u00b0 84834838')
+INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-11-03',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
+INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-11-03',NULL,NULL,'Pliego n\u00b0 84834838')
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=2
 INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',22.05E0,5.0E0,'0','',NULL,NULL)
 INSERT INTO CONTACTO_RESPONSABLE_X_TELEFONO VALUES(2,7,0)
@@ -1719,13 +738,13 @@ INSERT INTO SUBOBRA VALUES(1,'Desconexionado de la tolva',500.0E0,27.18E0,'0',''
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=2
 INSERT INTO SUBOBRA VALUES(2,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',22.05E0,5.0E0,'0','',1,1)
 DELETE FROM COTIZACION WHERE ID_COTIZACION=1
-INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',1,0)
+INSERT INTO COTIZACION VALUES(1,'P0000-0000000A',1,'2012-11-03',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',1,0)
 DELETE FROM CONTACTORESPONSABLE WHERE ID_CONTACTO=2
 INSERT INTO CONTACTORESPONSABLE VALUES(2,'Andres','Pedraza','apedraza@gmail.com',NULL,1,1,0)
 DELETE FROM CONTACTORESPONSABLE WHERE ID_CONTACTO=3
 INSERT INTO CONTACTORESPONSABLE VALUES(3,'Julio','Ferreyra','eyjuliooscar@gmail.com',NULL,2,1,1)
 COMMIT
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',11,0.0E0,NULL,NULL)
+INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',14,0.0E0,NULL,NULL)
 INSERT INTO SUBOBRA_X_HERRAMIENTA_MODIF VALUES(2,1)
 INSERT INTO SUBOBRAXMATERIAL VALUES(2,52,NULL,1,3.0E0,NULL,NULL)
 INSERT INTO SO_X_MATERIALMOD VALUES(2,1)
@@ -1747,7 +766,7 @@ INSERT INTO SUBOBRAXALQUILERCOMPRA VALUES(2,3,'Flete desde Cordoba',10,10.0E0,NU
 INSERT INTO SUBOBRA_X_ALQUILERCOMPRA_MODIF VALUES(2,1)
 INSERT INTO SUBOBRA VALUES(4,'Desmontaje electrico de Molino y posterior montaje de cernidor con sus respectivas seguridades.',1.1E0,5.0E0,'0','',NULL,NULL)
 INSERT INTO SO_MODIFICADA VALUES(4,2)
-INSERT INTO COTIZACION VALUES(2,'P0000-0000000A',1,'2012-10-27',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
+INSERT INTO COTIZACION VALUES(2,'P0000-0000000A',1,'2012-11-03',NULL,'15 d\u00c3\u00adas','Planta. Seccion Amazadoras','2011-03-20','Primer cotizacion que se le entrega al cliente. No tiene en cuenta descuentos','2011-03-13','En Creaci\u00f3n',NULL,NULL)
 INSERT INTO COT_MODIFICADA VALUES(2,1)
 DELETE FROM SUBOBRA WHERE ID_SUBOBRA=3
 INSERT INTO SUBOBRA VALUES(3,'Desconexionado de la tolva',373.43E0,27.18E0,'0','',NULL,NULL)
@@ -1764,7 +783,7 @@ INSERT INTO SUBOBRAXTAREA VALUES(4,NULL,'Armado estructura',1,3,0)
 DELETE FROM SUBOBRAXTAREA WHERE ID_SUBOBRA_X_TAREA=5
 INSERT INTO SUBOBRAXTAREA VALUES(5,NULL,'Pintado de la Estructura',2,3,1)
 DELETE FROM SUBOBRAXHERRAMIENTA WHERE ID_SUBOBRA_X_HERRAMIENTA=2
-INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',11,0.0E0,3,0)
+INSERT INTO SUBOBRAXHERRAMIENTA VALUES(2,1,'Llevar repuestos',14,0.0E0,3,0)
 DELETE FROM SUBOBRAXMATERIAL WHERE ID_SUBOBRA_X_MATERIAL=2
 INSERT INTO SUBOBRAXMATERIAL VALUES(2,52,NULL,1,3.0E0,3,0)
 DELETE FROM SUBOBRAXADICIONAL WHERE ID_SUBOBRA_X_ADICIONAL=2
@@ -1783,7 +802,7 @@ DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
 INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
 INSERT INTO PLANIFICACION VALUES(1,'2011-04-20','2011-10-20','Alta','',2)
 DELETE FROM PEDIDOOBRA WHERE ID_PEDIDO_OBRA=1
-INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-10-27',1,NULL,'Pliego n\u00b0 84834838')
+INSERT INTO PEDIDOOBRA VALUES(1,'Provision de Mano de Obra y Materiales para adecuacion electrica del sistema de envio de salvado a amasadora horizontal 5. ','Todas las tareas a desarrollar se haran de acuerdo a las normas de higiene y seguridad imperantes en la planta y proveera de un cerramiento para aislar el Area de trabajo.','2011-04-15','2011-10-15',3000.0E0,'Solicitado',2,2,'2012-11-03',1,NULL,'Pliego n\u00b0 84834838')
 DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=6
 DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=7
 INSERT INTO DETALLESUBOBRAXTAREA VALUES(6,17.0E0,5.0E0,4.0E0,10.0E0,2,1,NULL,NULL)
@@ -1798,16 +817,16 @@ DELETE FROM DETALLESUBOBRAXTAREA WHERE ID_COTIZACION_MOD=8
 INSERT INTO DETALLESUBOBRAXTAREA VALUES(8,10.0E0,2.0E0,1.0E0,10.0E0,1,1,5,0)
 COMMIT
 INSERT INTO ITEMCOMPRABLE VALUES(1,'modelo.RecursoEspecifico',1)
-INSERT INTO ITEMSTOCK VALUES(1,1,13.0E0,'2012-10-27')
+INSERT INTO ITEMSTOCK VALUES(1,1,13.0E0,'2012-11-03')
 INSERT INTO ITEMCOMPRABLE VALUES(2,'modelo.TipoAlquilerCompra',1)
-INSERT INTO ITEMSTOCK VALUES(2,2,2.0E0,'2012-10-27')
+INSERT INTO ITEMSTOCK VALUES(2,2,2.0E0,'2012-11-03')
 INSERT INTO ITEMCOMPRABLE VALUES(3,'modelo.TipoAdicional',1)
-INSERT INTO ITEMSTOCK VALUES(3,3,3.0E0,'2012-10-27')
+INSERT INTO ITEMSTOCK VALUES(3,3,3.0E0,'2012-11-03')
 COMMIT
 INSERT INTO ITEMCOMPRABLE VALUES(4,'modelo.RecursoEspecifico',3)
 INSERT INTO ITEMCOMPRABLE VALUES(5,'modelo.TipoAlquilerCompra',3)
 INSERT INTO ITEMCOMPRABLE VALUES(6,'modelo.TipoAdicional',3)
-INSERT INTO ORDENDECOMPRA VALUES(1,'2012-10-27','2012-10-27',3,1,'Pendiente','En la empresa')
+INSERT INTO ORDENDECOMPRA VALUES(1,'2012-11-03','2012-11-03',3,1,'Pendiente','En la empresa')
 INSERT INTO DETALLEORDENDECOMPRA VALUES(1,20.0E0,77.0E0,'Item 1',4,NULL,NULL)
 INSERT INTO DETALLEORDENDECOMPRA VALUES(2,77.0E0,123.0E0,'Item 2',5,NULL,NULL)
 INSERT INTO DETALLEORDENDECOMPRA VALUES(3,53.0E0,20.0E0,'Item 3',6,NULL,NULL)
