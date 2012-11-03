@@ -24,6 +24,7 @@ public class ExplorarEmpleados_celdaFoto extends javax.swing.JPanel {
     /** Creates new form explorarCotizaciones_celda */
     public ExplorarEmpleados_celdaFoto() {
         initComponents();
+        
         gestorImagenes=new GestorImagenes(); 
     }
     public void setEmpleado(Empleado emp)
@@ -60,6 +61,7 @@ public void paint(Graphics page)
         panelFoto = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(72, 72));
+        setLayout(new java.awt.BorderLayout());
 
         panelFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelFoto.setPreferredSize(new java.awt.Dimension(52, 52));
@@ -68,29 +70,14 @@ public void paint(Graphics page)
         panelFoto.setLayout(panelFotoLayout);
         panelFotoLayout.setHorizontalGroup(
             panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
+            .addGap(0, 68, Short.MAX_VALUE)
         );
         panelFotoLayout.setVerticalGroup(
             panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 46, Short.MAX_VALUE)
+            .addGap(0, 68, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        add(panelFoto, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     
