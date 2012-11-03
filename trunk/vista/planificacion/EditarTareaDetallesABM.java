@@ -7,8 +7,6 @@ package vista.planificacion;
 import controlador.planificacion.GestorEditarTareaDetalles;
 import controlador.rrhh.GestorConsultarEmpleado;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -19,7 +17,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 import modelo.*;
 import util.NTupla;
-import util.Tupla;
 import vista.interfaces.ICallBack_v3;
 import vista.rrhh.ExplorarEmpleados_RenderCeldas;
 import vista.rrhh.ExplorarEmpleados_celdaDatos;
@@ -125,19 +122,16 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         ////////////////////////////////////
         tblEmpleadosDisponibles.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
         tblEmpleadosDisponibles.setRowHeight(72);
-         tblEmpleadosDisponibles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tblEmpleadosDisponibles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEmpleadosDisponibles.getColumnModel().getColumn(0).setPreferredWidth(72);
-        tblEmpleadosDisponibles.getColumnModel().getColumn(1).setPreferredWidth(355);
-        TableColumn columnT1 = tblEmpleadosDisponibles.getColumnModel().getColumn(1);
-        columnT1.setPreferredWidth(488);
+        tblEmpleadosDisponibles.getColumnModel().getColumn(1).setPreferredWidth(465);
         
         tblEmpleadosAsignados.setDefaultRenderer(Object.class,new ExplorarEmpleados_RenderCeldas());
         tblEmpleadosAsignados.setRowHeight(72);
         tblEmpleadosAsignados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tblEmpleadosAsignados.getColumnModel().getColumn(0).setPreferredWidth(72);
-        tblEmpleadosAsignados.getColumnModel().getColumn(1).setPreferredWidth(355);
-        TableColumn columnT2 = tblEmpleadosAsignados.getColumnModel().getColumn(1);
-        columnT2.setPreferredWidth(488);
+        tblEmpleadosAsignados.getColumnModel().getColumn(1).setPreferredWidth(465);
+        
       habilitarDespuesDeClickEnTabla(true);
             
       SpinnerModel modelPersonas =
@@ -945,7 +939,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             }
         });
         tblEmpleadosDisponibles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblEmpleadosDisponibles.setTableHeader(null);
         tblEmpleadosDisponibles.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblEmpleadosDisponiblesMousePressed(evt);
@@ -1081,7 +1074,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnAceptar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -1265,7 +1258,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             {
                 DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
                 DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+                int altura = tblEmpleadosDisponibles.getRowHeight(tblEmpleadosDisponibles.getSelectedRow());
                 modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
+                tblEmpleadosAsignados.setRowHeight(tblEmpleadosAsignados.getRowCount()-1, altura);
                 modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());  
             }
        }
@@ -1286,7 +1281,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
            */
            DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
            DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+           int altura = tblEmpleadosAsignados.getRowHeight(tblEmpleadosAsignados.getSelectedRow());
            modeloDisponibles.addRow((Vector)modeloAsignados.getDataVector().elementAt(tblEmpleadosAsignados.getSelectedRow()));
+           tblEmpleadosDisponibles.setRowHeight(tblEmpleadosDisponibles.getRowCount()-1, altura);
            modeloAsignados.removeRow(tblEmpleadosAsignados.getSelectedRow()); 
            
        }
@@ -1845,6 +1842,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             modeloTablaEmpleadosDisponibles.removeRow(0);
         }
         
+        
+        
+        int rowNumber = 0;
         for (Empleado empleado : listaEmpleadosDisponibles)
         {
              Object[] filaTabla=new Object[2];
@@ -1857,6 +1857,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             filaTabla[0] = celdaFoto;
             filaTabla[1] = celdaDatos;
             modeloTablaEmpleadosDisponibles.addRow(filaTabla);
+            tblEmpleadosDisponibles.setRowHeight(rowNumber, celdaDatos.getAltura());
+            
+            rowNumber++;
             ////////////////////////
         }
        
@@ -1873,6 +1876,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             modeloTablaEmpleadosAsignados.removeRow(0);
         }
         
+        int rowNumber = 0;
         for (Empleado empleado : listaEmpleadosAsignados)
         {
              Object[] filaTabla=new Object[2];
@@ -1885,6 +1889,9 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
             filaTabla[0] = celdaFoto;
             filaTabla[1] = celdaDatos;
             modeloTablaEmpleadosAsignados.addRow(filaTabla);
+            tblEmpleadosAsignados.setRowHeight(rowNumber, celdaDatos.getAltura());
+            
+            rowNumber++;
             ////////////////////////
         }
        

@@ -6,6 +6,7 @@
 
 package vista.rrhh;
 
+import java.awt.Rectangle;
 import java.awt.Color;
 import java.util.Iterator;
 import modelo.Empleado;
@@ -19,11 +20,13 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
 
     private int id;
     private Empleado empleado;
+    private int altura;
     
     
     /** Creates new form explorarCotizaciones_celda */
     public ExplorarEmpleados_celdaDatos() {
         initComponents();
+        altura = this.getPreferredSize().height;
     }
 
     public int getId() {
@@ -45,13 +48,21 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         lblEstado.setText(emp.getEstado().getNombre());
         lblNombre.setText(emp.getApellido()+", "+emp.getNombre());
         lblEmail.setText(emp.getEmail());
-//        lblRango.setText(emp.getRango());//WTF?!?! UN STRING?!?
-        String especialidades = "<HTML><BODY>";
+        String especialidades = "<HTML><BODY style='text-align: center;'>";
         Iterator<Especialidad> itEspecialidades = emp.getEspecialidades().iterator();
+        int alturaAux = 0;
         while(itEspecialidades.hasNext())
         {
             Especialidad especialidad = itEspecialidades.next();
-            especialidades+=especialidad.getTipo().getNombre() + ", " + especialidad.getRango().getNombre() + "<br>";
+            especialidades+=especialidad.getTipo().getNombre() + " (" + especialidad.getRango().getNombre() + ")<br>";
+
+            Rectangle celdaBounds = this.getBounds();
+            celdaBounds.height+=alturaAux;
+            this.setBounds(celdaBounds);
+            altura+=alturaAux;
+            
+            alturaAux+=16;
+            
         }
         lblRango.setText(especialidades);
         if(!emp.getTelefonos().isEmpty())
@@ -76,8 +87,11 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         lblasdASD1 = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(375, 74));
+
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombre.setText("Serj Tankian");
 
         lblRango.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -119,15 +133,15 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblasdASD)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRango, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                    .addComponent(lblTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                    .addComponent(lblRango, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,7 +150,7 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
-                    .addComponent(lblRango))
+                    .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLegajo)
@@ -146,7 +160,7 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstado)
                     .addComponent(lblasdASD1)
-                    .addComponent(lblEmail))
+                    .addComponent(lblRango))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -171,9 +185,13 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         }
     }
 
-   
+    public int getAltura() {
+        return altura;
+    }
 
-
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblEmail;
