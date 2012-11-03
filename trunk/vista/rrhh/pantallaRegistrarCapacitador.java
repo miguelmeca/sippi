@@ -1025,7 +1025,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
     }//GEN-LAST:event_txtCalleDomicilioActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        int resp=JOptionPane.showConfirmDialog(this.getParent(),"Â¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
+        int resp=JOptionPane.showConfirmDialog(this.getParent(),"¿Seguro que desea cancelar?","Cancelar",JOptionPane.YES_NO_OPTION);
         if(resp==JOptionPane.YES_OPTION)
         {       this.dispose();}
     }//GEN-LAST:event_btnCancelarActionPerformed
