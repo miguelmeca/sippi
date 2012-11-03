@@ -2,6 +2,7 @@ package controlador.ejecucion.lanzamiento;
 
 import controlador.Compras.StockUtils;
 import controlador.ejecucion.EjecucionUtils;
+import controlador.ejecucion.GestorGenerarOrdenesDeTrabajo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +27,7 @@ import modelo.SubObraXAlquilerCompraModif;
 import modelo.TareaEjecucion;
 import modelo.TipoAlquilerCompra;
 import org.hibernate.HibernateException;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
 import util.RecursosUtil;
@@ -378,4 +380,57 @@ public class GestorVentanaLanzamiento {
         
         return ntlst;
     }
+    
+    
+    /**
+     * Panel Ordenes de Trabajo. Retorna los datos para llenar la tabla.
+     * El ID es el HASH de la Tarea
+     * @return
+     */    
+    public List<NTupla> llenarTablaPanelOrdenesDeTrabajo() {
+        List<NTupla> ordenes = new ArrayList<NTupla>();
+        
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                 ArrayList<TareaEjecucion> listaTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                 for (int i = 0; i < listaTareas.size(); i++) {
+                    TareaEjecucion tarea = listaTareas.get(i);
+                        NTupla ntp = new NTupla(tarea.hashCode());
+                        
+                            String numero = EjecucionUtils.getNumeroOrdenDeTrabajo(this.pedidoDeObra.getNumero(),tarea.getId());
+                            ntp.setNombre(numero);
+                            
+                                String[] data = new String[3];
+                                data[0] = tarea.getNombre();
+                                data[1] = FechaUtil.getFecha(tarea.getFechaInicio());
+                                data[2] = FechaUtil.getFecha(tarea.getFechaFin());
+                                ntp.setData(data);
+                                
+                        ordenes.add(ntp);
+                }
+            }
+        }
+        
+        return ordenes;
+    }
+    
+    /**
+     * Arma los datso necesarios para la emisión de una orden de trabajo.
+     * Recibe el HASH de la Tarea a Emitir
+     */
+    public void emitirOrdenDeTrabajo(int tareaHash){
+        if (this.pedidoDeObra != null) {
+            Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
+            if (ejecucion != null) {
+                
+                TareaEjecucion te = EjecucionUtils.getTareaFromHash(ejecucion,tareaHash);
+                
+                GestorGenerarOrdenesDeTrabajo emisor = new GestorGenerarOrdenesDeTrabajo();
+                emisor.emitirOrdenDeTrabajo(this.pedidoDeObra,te);
+                
+            }
+        }
+    }
+    
 }

@@ -58,4 +58,33 @@ public class EjecucionUtils {
         }
         return null;
     }
+    
+    /**
+     * Retorna el número de Orden de Trabajo, lo separe en otro método por las dudas
+     * que lo querramos cambiar así está centralizado.
+     * @param nroPedidoObra
+     * @param nroTarea
+     * @return 
+     */
+    public static String getNumeroOrdenDeTrabajo(int nroPedidoObra, int nroTarea){
+        return nroPedidoObra+"-"+nroTarea;
+    }
+
+    /**
+     * Se le pasa un hash de cualquier tarea y lo retorna esa tarea.
+     * Retorna NULL si no la encuentra.
+     * @param tareaHash
+     * @return 
+     */
+    public static TareaEjecucion getTareaFromHash(Ejecucion ejecucion,int tareaHash) {
+         ArrayList<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+         for (int i = 0; i < tareas.size(); i++) {
+            TareaEjecucion tareaEjecucion = tareas.get(i);
+            if(tareaEjecucion.hashCode()==tareaHash){
+                return tareaEjecucion;
+            }
+        }
+        return null;
+    }
+    
 }
