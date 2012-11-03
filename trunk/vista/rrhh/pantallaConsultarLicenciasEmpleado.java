@@ -40,6 +40,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
         gestor = new gestorConsultarLicenciasEmpleado(this);
 
         habilitarVentana();
+        this.setTitle("Consultar Licencias");
 
     }
 
@@ -85,6 +86,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
     {
         this.ID_EMPLEADO = id;
         mostrarLicencias();
+        this.setTitle("Consultar Licencias - "+gestor.getNombreEmpleado(id));
         // TODOS LAS LICENCIAS MOSTRADAS SON PARA UN EMPLEADO
     }
 
@@ -238,6 +240,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
 
         pantallaGestionLicenciasEmpleado pgle = new pantallaGestionLicenciasEmpleado();
+        pgle.seleccionarEmpleadoLicencia(ID_EMPLEADO);
         SwingPanel.getInstance().addWindow(pgle);
         pgle.setCallBack(this);
         pgle.setVisible(true);

@@ -162,6 +162,7 @@ public class gestorGestionarLicenciasEmpleado {
                     HibernateUtil.beginTransaction();
                     sesion.save(le);
                     HibernateUtil.commitTransaction();
+                    pantalla.MostrarMensaje("MI-0004");
                     
                 }catch(Exception ex)
                 {
@@ -170,7 +171,7 @@ public class gestorGestionarLicenciasEmpleado {
                     pantalla.MostrarMensaje("EG-0012");
                 }
 
-                pantalla.MostrarMensaje("MI-0004");
+                
 
             }
             else

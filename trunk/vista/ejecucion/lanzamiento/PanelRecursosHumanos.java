@@ -14,14 +14,19 @@ import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
+import vista.interfaces.ICallBack;
 import vista.rrhh.pantallaConsultarDatosEmpleado;
+import vista.rrhh.pantallaConsultarLicenciasEmpleado;
+import vista.rrhh.pantallaRegistrarAltaEmpleado;
+import vista.rrhh.pantallaRegistrarBajaEmpleado;
+import vista.rrhh.pantallaRegistrarEmpleado;
 import vista.util.MyComboBoxEditor;
 
 /**
  *
  * @author Administrador
  */
-public class PanelRecursosHumanos extends javax.swing.JPanel {
+public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBack {
 
     public static final int TABLA_RRHH_COLUMNA_NOMBRE = 0;
     public static final int TABLA_RRHH_COLUMNA_HSN = 1;
@@ -43,6 +48,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         initTabla();
         cargarDatosTablaParaObra();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,11 +164,12 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(btnBajaEmpleado)
-                    .addComponent(btnConsultarEmpleado)
-                    .addComponent(btnLicencias))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBajaEmpleado)
+                        .addComponent(btnConsultarEmpleado)
+                        .addComponent(btnLicencias)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarEmpleado)
@@ -172,23 +179,23 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
-        {/*
+        {
             int id;
-            id=((Tupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
+            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
             pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);*/
+            pre.setVisible(true);
         }
     }//GEN-LAST:event_btnModificarEmpleadoActionPerformed
 
     private void btnBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaEmpleadoActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
-        {/*
+        {
             int id;
-            id=((Tupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
+            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
             pantallaRegistrarBajaEmpleado pre = new pantallaRegistrarBajaEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);*/
+            pre.setVisible(true);
             //pre.opcionRegistrarEmpleado();
         }
     }//GEN-LAST:event_btnBajaEmpleadoActionPerformed
@@ -196,11 +203,11 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     private void btnAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaEmpleadoActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
         {
-           /* int id;
-            id=((Tupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
+            int id;
+            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
             pantallaRegistrarAltaEmpleado pre = new pantallaRegistrarAltaEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);*/
+            pre.setVisible(true);
 
         }
     }//GEN-LAST:event_btnAltaEmpleadoActionPerformed
@@ -208,13 +215,13 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     private void btnLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciasActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
         {
-           /* int id;
-            id=((Tupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
+            int id;
+            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
 
             pantallaConsultarLicenciasEmpleado pcle = new pantallaConsultarLicenciasEmpleado();
             SwingPanel.getInstance().addWindow(pcle);
             pcle.filtrarPorEmpleado(id);
-            pcle.setVisible(true);*/
+            pcle.setVisible(true);
         }
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
@@ -222,16 +229,16 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         if(tblRRHH.getSelectedRow()!=-1)
        {
            int id;
-           //id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+           id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
            btnModificarEmpleado.setEnabled(true);
            btnConsultarEmpleado.setEnabled(true);
            btnLicencias.setEnabled(true);
-          /* if(!gestor.esBaja(id))
+           if(!gestor.esEmpleadoEnBaja(id))
            {btnBajaEmpleado.setEnabled(true);}
            else
            {btnBajaEmpleado.setEnabled(false);}
 
-           if(gestor.esBaja(id))
+           if(gestor.esEmpleadoEnBaja(id))
            {btnAltaEmpleado.setEnabled(true);}
            else
            {btnAltaEmpleado.setEnabled(false);}
@@ -242,7 +249,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             SwingPanel.getInstance().addWindow(pre);
             pre.setVisible(true);
                
-            }*/
+            }
         }
        else
        {
@@ -257,11 +264,11 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     private void btnConsultarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarEmpleadoActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
         {
-           /* int id;
-            id=((Tupla)(tablaEmpleados.getModel().getValueAt(tablaEmpleados.getSelectedRow(), 0))).getId();
+            int id;
+            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
             pantallaConsultarDatosEmpleado pre = new pantallaConsultarDatosEmpleado(id, this);
             SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);*/
+            pre.setVisible(true);
 
         }
     }//GEN-LAST:event_btnConsultarEmpleadoActionPerformed
@@ -338,4 +345,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             modelo.addRow(fila);
         }
     }    
+
+    @Override
+    public void actualizar(int flag, boolean exito) {
+        cargarDatosTablaParaObra();
+    }
 }

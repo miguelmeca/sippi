@@ -42,6 +42,8 @@ import util.RecursosUtil;
 public class GestorVentanaLanzamiento {
 
     private PedidoObra pedidoDeObra;
+    private List<NTupla> ntlst;
+    Map<Empleado, double[]> allEmpleados;
 
     public GestorVentanaLanzamiento(int idObra) {
         cargarObra(idObra);
@@ -318,7 +320,7 @@ public class GestorVentanaLanzamiento {
      */    
     public List<NTupla> llenarTablaPanelRRHH() {
         //1- Busco todos los empleados (unica instancia de cada uno)
-        Map<Empleado, double[]> allEmpleados = new HashMap<Empleado, double[]>();
+        allEmpleados = new HashMap<Empleado, double[]>();
         if (this.pedidoDeObra != null) {
             Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
             if (ejecucion != null) {
@@ -358,12 +360,12 @@ public class GestorVentanaLanzamiento {
             }
         }
         
-        List<NTupla> ntlst = new ArrayList<NTupla>();
+        ntlst = new ArrayList<NTupla>();
         Iterator it = allEmpleados.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry) it.next();
             Empleado empleado = (Empleado) e.getKey();
-            NTupla nt = new NTupla(empleado.hashCode());
+            NTupla nt = new NTupla(empleado.getOID());
             nt.setNombre(empleado.getNombreEmpleado());
             
                 double[] horas = (double[])e.getValue();
@@ -431,6 +433,20 @@ public class GestorVentanaLanzamiento {
                 
             }
         }
+    }
+    
+  
+    public boolean esEmpleadoEnBaja(int id)
+    {
+        Iterator it = allEmpleados.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+            Empleado empleado = (Empleado) e.getKey();
+            if(empleado.getOID()==id)
+            {return empleado.estaBaja();}
+            
+        }      
+         return false;
     }
     
 }
