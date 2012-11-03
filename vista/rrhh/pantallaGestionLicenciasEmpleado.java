@@ -11,6 +11,7 @@
 
 package vista.rrhh;
 
+import com.toedter.calendar.JDateChooser;
 import controlador.rrhh.gestorGestionarLicenciasEmpleado;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -60,7 +61,6 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         mostrarTiposLicencia();
         // CARGO LA LICENCIA Y MUESTRO LOS DATOS
         mostrarLicencia();
-
 
     }
 
@@ -220,6 +220,12 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Licencia"));
 
+        cmbEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEmpleadoActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Empleado:");
 
         jLabel2.setText("Fecha Inicio:");
@@ -238,9 +244,35 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
 
         jLabel5.setText("Tipo de Licencia:");
 
+        cmbTipoLicencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoLicenciaActionPerformed(evt);
+            }
+        });
+
         txtFechaInicio.setDateFormatString("dd-MM-yyyy");
+        txtFechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtFechaInicioMouseReleased(evt);
+            }
+        });
+        txtFechaInicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFechaInicioKeyReleased(evt);
+            }
+        });
 
         txtFechaFin.setDateFormatString("dd-MM-yyyy");
+        txtFechaFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtFechaFinMouseReleased(evt);
+            }
+        });
+        txtFechaFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFechaFinKeyReleased(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         jButton1.setText("Cancelar");
@@ -273,7 +305,7 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
@@ -324,7 +356,7 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,8 +369,9 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
     private void btnGuardarMofidificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMofidificarActionPerformed
 
         // Mínimo 1 día de licencia
-        if(FechaUtil.diasDiferencia(txtFechaInicio.getDate(),txtFechaFin.getDate())>=0)
-        {
+        /*if(FechaUtil.diasDiferencia(txtFechaInicio.getDate(),txtFechaFin.getDate())>=0)
+        {*/
+        if(validarDatos()){
             if(SELECCION_oid==0)
             {
                 // GUARDO UNO NUEVO
@@ -362,12 +395,37 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                 gestor.modificarLicencia(SELECCION_oid);
             }
         }
+       /* }
         else
         {
             this.MostrarMensaje("MI-0003");
-        }
+        }*/
 
     }//GEN-LAST:event_btnGuardarMofidificarActionPerformed
+
+    private void cmbEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpleadoActionPerformed
+      
+    }//GEN-LAST:event_cmbEmpleadoActionPerformed
+
+    private void cmbTipoLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoLicenciaActionPerformed
+     
+    }//GEN-LAST:event_cmbTipoLicenciaActionPerformed
+
+    private void txtFechaInicioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaInicioKeyReleased
+      
+    }//GEN-LAST:event_txtFechaInicioKeyReleased
+
+    private void txtFechaFinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaFinKeyReleased
+      
+    }//GEN-LAST:event_txtFechaFinKeyReleased
+
+    private void txtFechaInicioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaInicioMouseReleased
+       
+    }//GEN-LAST:event_txtFechaInicioMouseReleased
+
+    private void txtFechaFinMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaFinMouseReleased
+        
+    }//GEN-LAST:event_txtFechaFinMouseReleased
 
     public void setCallBack(ICallBack win)
     {
@@ -418,5 +476,72 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
             }
         }
     }
+     
+    
+    private boolean validarDatos()
+    {
+        
+        boolean ban=true;
+            Date fechaAct=new Date();
+            
+            //El siguiente codigo comentado es para validar que el usuario ingrese una fecha de nacimiento
+            if(  (((JDateChooser) txtFechaInicio).getDate()== null ) )
+           {
+                JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de inicio valida","ERROR",JOptionPane.ERROR_MESSAGE);
+              return false;
+           }
+           else
+            {
+                  if(  (((JDateChooser) txtFechaFin).getDate()== null ) )
+                  {
+                         JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de fin valida","ERROR",JOptionPane.ERROR_MESSAGE);
+                       return false;
+                  }
+                  else if(( ((JDateChooser) txtFechaInicio).getDate().compareTo(txtFechaFin.getDate()) )>0 )
+                  {
+                       JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar una fecha de inicio menor a la fecha de fin","ERROR",JOptionPane.ERROR_MESSAGE);
+                      return false;          
+                   
+                  }
+            }    
+            Tupla td=new Tupla();
+            try{
+                td=(Tupla)cmbEmpleado.getItemAt(cmbEmpleado.getSelectedIndex());
+                if(td.getId()<=0)
+                {
+                  ban=false;
+                  JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un empleado","ERROR",JOptionPane.ERROR_MESSAGE);
+                  return ban;
+                }
+            }
+            catch(Exception e)
+            {
+               ban=false;
+                  JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un empleado","ERROR",JOptionPane.ERROR_MESSAGE);
+                  return ban; 
+            }
+            
+            try{
+                td=(Tupla)cmbTipoLicencia.getItemAt(cmbTipoLicencia.getSelectedIndex());
+                if(td.getId()<=0)
+                {
+                  ban=false;
+                  JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un tipo de licencia","ERROR",JOptionPane.ERROR_MESSAGE);
+                  return ban;
+                }
+            }
+            catch(Exception e)
+            {
+               ban=false;
+                  JOptionPane.showMessageDialog(this.getParent(),"Debe seleccionar un tipo de licencia","ERROR",JOptionPane.ERROR_MESSAGE);
+                  return ban; 
+            }
+       
+        
 
+        return ban;
+        
+    }
+    
+    
 }

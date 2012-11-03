@@ -71,7 +71,7 @@ public class DBExamplesLoader {
           this.cargarTipoTelefono();
           this.cargarEmpresasYPlantas();
           this.cargarTipoDocumento();
-          //this.cargarTipoLicencias();
+          this.cargarTipoLicencias();
           this.cargarEmplados();
           this.cargarContactoResponsable(); //TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
 

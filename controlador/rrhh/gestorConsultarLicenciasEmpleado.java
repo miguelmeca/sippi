@@ -36,6 +36,8 @@ public class gestorConsultarLicenciasEmpleado {
     private Date                 n_fechaFin;
     private TipoLicenciaEmpleado n_tipoLicencia;
     private String               n_motivo;
+    
+    private String  nombreEmpleado;
 
     public gestorConsultarLicenciasEmpleado(pantallaConsultarLicenciasEmpleado pantalla) {
         this.pantalla = pantalla;
@@ -81,6 +83,11 @@ public class gestorConsultarLicenciasEmpleado {
                     nt.setData(datos);
 
                   lista.add(nt);
+                  if(id!=0)
+                  {
+                      setNombreEmpleado(le.getEmpleado().getApellido()+", "+le.getEmpleado().getNombre()+ " Legajo Nº:"+String.valueOf(le.getEmpleado().getLegajo()));
+                        sesion.enableFilter("filtroLicenciaEmpleado").setParameter("idEmpleado",id);
+                  }
                 }
 
                }
@@ -91,6 +98,31 @@ public class gestorConsultarLicenciasEmpleado {
                }
 
         return lista;
+    }
+
+    /**
+     * @return the nombreEmpleado
+     */
+    public String getNombreEmpleado(int id) {
+        Session sesion;
+            ///////////////////////////////////
+             try {
+                    sesion = HibernateUtil.getSession();
+            //sesion.beginTransaction();
+            Empleado empleado = (Empleado) sesion.createQuery("from Empleado where id ="+id).uniqueResult();
+            return empleado.getApellido()+", "+empleado.getNombre()+ " Legajo Nº:"+String.valueOf(empleado.getLegajo());
+              } catch (Exception ex)
+            {
+                System.out.println("Error levantando el empleado");
+                return null;
+            }        
+    }
+
+    /**
+     * @param nombreEmpleado the nombreEmpleado to set
+     */
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
 }
