@@ -73,6 +73,11 @@ public class PanelHerramientas extends javax.swing.JPanel {
             }
         });
         tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblHerramientas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblHerramientasMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHerramientas);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre las Herramientas:"));
@@ -95,6 +100,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
 
         btnEditarEstado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
         btnEditarEstado.setText("Editar Estado");
+        btnEditarEstado.setEnabled(false);
         btnEditarEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarEstadoActionPerformed(evt);
@@ -159,6 +165,19 @@ public class PanelHerramientas extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_btnEditarEstadoActionPerformed
 
+    private void tblHerramientasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHerramientasMouseReleased
+       if(tblHerramientas.getSelectedRow()!=-1){
+           cambiarComportamientoBotones(true);
+       }
+       else{
+           cambiarComportamientoBotones(false);
+       }
+    }//GEN-LAST:event_tblHerramientasMouseReleased
+
+   private void cambiarComportamientoBotones(boolean b) {
+        btnEditarEstado.setEnabled(b);
+    }      
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarEstado;
     private javax.swing.JButton btnGenerarOrdenDeCompra;
