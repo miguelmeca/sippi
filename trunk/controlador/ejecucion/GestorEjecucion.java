@@ -12,6 +12,8 @@ import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
 import modelo.DetalleTareaPlanificacion;
 import modelo.Ejecucion;
+import modelo.EjecucionXHerramienta;
+import modelo.EjecucionXHerramientaXDia;
 import modelo.Empleado;
 import modelo.PedidoObra;
 import modelo.PlanificacionXAlquilerCompra;
@@ -23,7 +25,10 @@ import modelo.RecursoXProveedor;
 import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
 import org.hibernate.HibernateException;
+import util.FechaUtil;
 import util.HibernateUtil;
+import util.NTupla;
+import util.Tupla;
 import vista.ejecucion.VentanaEjecucion;
 import vista.planificacion.ArbolDeTareasTipos;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
@@ -169,7 +174,7 @@ public class GestorEjecucion {
         return tareaSeleccionada;
     }
     
-    public List<DetalleTareaEjecucionXDia> getListaRRHH(){
+   /* public List<DetalleTareaEjecucionXDia> getListaRRHH(){
         
             EjecucionUtils.getTodasTareasEjecucion(ejecucion);
             ArrayList<TareaEjecucion> listaTareas =EjecucionUtils.getTodasTareasEjecucion(ejecucion);
@@ -185,7 +190,99 @@ public class GestorEjecucion {
             return listaRRHH;
 
    
+    }*/
+    
+     
+    public List<NTupla> getListaRRHH() {
+        List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
+        
+            if (ejecucion != null) {
+                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = todasTareas.get(i);
+                    List<DetalleTareaPlanificacion> listaDetalle = tarea.getDetalles();
+                    for (int j = 0; j < listaDetalle.size(); j++) {
+                        DetalleTareaEjecucion detalleTareaEjecucion = (DetalleTareaEjecucion)listaDetalle.get(j);
+                        List<DetalleTareaEjecucionXDia> listaDetallesXDia = detalleTareaEjecucion.getListaDetallePorDia();
+                        Empleado empleado=null;
+                        if(detalleTareaEjecucion.getEmpleados().size()>0) {
+                            empleado = detalleTareaEjecucion.getEmpleados().get(0);
+                        }
+                        
+                        
+                        for (DetalleTareaEjecucionXDia detalleXDia: listaDetallesXDia) {
+                            
+                            
+                           NTupla nt = new NTupla(detalleTareaEjecucion.hashCode());
+                           String nombreyLegajo;                           
+                           if(empleado!=null)
+                           {
+                             nombreyLegajo = empleado.getNombreEmpleadoYLegajo();
+                           }
+                           else
+                           {
+                              nombreyLegajo = "SIN ASIGNAR"; 
+                           }
+                           
+                           nt.setNombre(nombreyLegajo);
+
+                                Object[] data = new Object[6];
+                                //Interasante chanchada esta... :D
+                                data[0] = nt;
+                                data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                data[2] = FechaUtil.getFecha(detalleXDia.getFecha());
+                                data[3] = detalleXDia.getCantHorasNormales();
+                                data[4] = detalleXDia.getCantHorasAl50();
+                                data[5] = detalleXDia.getCantHorasAl100();
+
+                            nt.setData(data); 
+                            listaTuplasDetallesXDia.add(nt);
+                        }
+                    }
+                }            
+        }
+        return listaTuplasDetallesXDia;        
     }
+    
+    
+    public List<NTupla> getListaHerramientas() {
+        List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
+        
+            if (ejecucion != null) {
+                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = todasTareas.get(i);
+                    List<PlanificacionXHerramienta> listaHerramientas = tarea.getHerramientas();
+                    for (int j = 0; j < listaHerramientas.size(); j++) {
+                        EjecucionXHerramienta herramientaEjecucion = (EjecucionXHerramienta)listaHerramientas.get(j);
+                        List<EjecucionXHerramientaXDia> listaEjecucionXHerramientaXDia = herramientaEjecucion.getUsoHerramientasXdia();
+                        
+                        
+                        for (EjecucionXHerramientaXDia herramientaXDia: listaEjecucionXHerramientaXDia) {
+                            
+                            
+                           NTupla nt = new NTupla(herramientaEjecucion.hashCode());
+                           
+                           
+                           nt.setNombre(herramientaEjecucion.getHerramienta().getNombre());
+
+                                Object[] data = new Object[4];
+                                //Interasante chanchada esta... :D
+                                data[0] = nt;
+                                data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                data[2] = FechaUtil.getFecha(herramientaXDia.getFecha());
+                                data[3] = herramientaXDia.getHorasUtilizadas();
+
+                            nt.setData(data); 
+                            listaTuplasDetallesXDia.add(nt);
+                        }
+                    }
+                }            
+        }
+        return listaTuplasDetallesXDia;        
+    }
+    
+    
     
     
 }

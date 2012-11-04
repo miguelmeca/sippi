@@ -1325,13 +1325,23 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             for (int i = 0; i < detalles.size(); i++) {
                 DetalleTareaPlanificacion detTareaPlan = detalles.get(i);
                 
-                for (int j = 0; j < detTareaPlan.getEmpleados().size(); j++) {
+                for (int j = 0; j < detTareaPlan.getCantidadPersonas(); j++) {
                 
                     DetalleTareaEjecucion detTareaEjec = new DetalleTareaEjecucion(detTareaPlan);
                     detTareaEjec.setDetalleTareaPlanificado(detTareaPlan);
                     
                     detTareaEjec.setCantidadPersonas(1);
-                    detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(j));
+                    Empleado emp=null;
+                    if(detTareaPlan.getEmpleados().size()>j)
+                    {
+                        detTareaEjec.addEmpleados(detTareaPlan.getEmpleados().get(j));
+                    }
+                    else
+                    {
+                        //ALARMA ACA
+                    }
+                        
+                    
                     
                     List<DetalleTareaEjecucionXDia> listaPorDia = crearDetalleTareaXDia(tarea);
                     detTareaEjec.setListaDetallePorDia(listaPorDia);
