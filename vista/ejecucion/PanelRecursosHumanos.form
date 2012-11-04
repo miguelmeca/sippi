@@ -177,16 +177,8 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaInicio">
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaInicioFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaInicioFocusLost"/>
-      </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaFin">
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaFinFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dcFechaFinFocusLost"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

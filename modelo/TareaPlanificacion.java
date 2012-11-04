@@ -806,5 +806,27 @@ public class TareaPlanificacion
         }
     }
     
+    public List<TareaPlanificacion> obtenerTodaslasSubtareasRecursivamente(boolean incluirTareaRaiz)
+    {
+        List<TareaPlanificacion> listaTareas=new ArrayList<TareaPlanificacion>(); 
+        if(incluirTareaRaiz)
+        {
+            listaTareas.add(this);
+        }
+        obtenerTodaslasSubtareasRecursivamenteMetodoRecursivo(listaTareas);
+        return listaTareas;
+        
+    }
+    private List<TareaPlanificacion> obtenerTodaslasSubtareasRecursivamenteMetodoRecursivo(List<TareaPlanificacion> listaTareas)
+    {
+               
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            listaTareas.add(subtarea);
+            subtarea.obtenerTodaslasSubtareasRecursivamenteMetodoRecursivo(listaTareas);
+        }
+        return listaTareas;
+    }
+    
     
 }

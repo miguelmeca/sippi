@@ -1,17 +1,24 @@
 package vista.ejecucion;
 
+import com.toedter.calendar.JDateChooser;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.Color;
+import java.awt.Font;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import util.NTupla;
+import vista.util.EditableCellTableRenderer;
 
 /**
  *
@@ -28,8 +35,8 @@ public class PanelHerramientas extends javax.swing.JPanel{
     private List<NTupla> listaHerramientas;
     private DefaultTableModel model;
     boolean filtroBuscarActivado;
-    boolean filtroFechaInicioActivado;
-    boolean filtroFechaFinActivado;
+    boolean filtroFechaDesdeActivado;
+    boolean filtroFechaHastaActivado;
     
     /**
      * Creates new form PanelHerramientas
@@ -37,9 +44,12 @@ public class PanelHerramientas extends javax.swing.JPanel{
     public PanelHerramientas(GestorEjecucion gestor) {
         this.gestor = gestor;
         initComponents();
+        seterListenerPropertyChangedAJDateChooser(dcFechaInicio);
+        seterListenerPropertyChangedAJDateChooser(dcFechaFin);
+        initTabla();
         filtroBuscarActivado=false;
-        filtroFechaInicioActivado=false;
-        filtroFechaFinActivado=false;
+        filtroFechaDesdeActivado=false;
+        filtroFechaHastaActivado=false;
         habilitarVentana();
     }
     
@@ -99,7 +109,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
             },
             new String [] {
-                "Herramienta", "Tarea", "Fecha", "Horas a cargar"
+                "Herramienta", "Tarea", "Fecha", "Horas de uso"
             }
         ) {
             Class[] types = new Class [] {
@@ -120,27 +130,9 @@ public class PanelHerramientas extends javax.swing.JPanel{
         tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblHerramientas);
 
-        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dcFechaInicioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaInicioFocusLost(evt);
-            }
-        });
-
         jLabel5.setText("Fecha Desde");
 
         jLabel6.setText("Fecha Hasta");
-
-        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dcFechaFinFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaFinFocusLost(evt);
-            }
-        });
 
         txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -216,7 +208,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -261,28 +253,6 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-    private void dcFechaInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusGained
-       filtroFechaInicioActivado=true;
-    }//GEN-LAST:event_dcFechaInicioFocusGained
-
-    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
-        if(dcFechaInicio.getDate() != null) {            
-            filtroFechaInicioActivado=false;
-        } else {
-            filtroFechaInicioActivado=true;}
-    }//GEN-LAST:event_dcFechaInicioFocusLost
-
-    private void dcFechaFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusGained
-        filtroFechaFinActivado=true;
-    }//GEN-LAST:event_dcFechaFinFocusGained
-
-    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
-        if(dcFechaFin.getDate() != null) {            
-            filtroFechaFinActivado=false;
-        } else {
-            filtroFechaFinActivado=true;}
-    }//GEN-LAST:event_dcFechaFinFocusLost
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -314,7 +284,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
     
      private void initTabla() {
         tblHerramientas.setRowHeight(TABLA_DEFAULT_ALTO);
-       
+       tblHerramientas.setDefaultRenderer(Object.class,new EditableCellTableRenderer());
         // Ancho de Columnas
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tblHerramientas.getColumnModel();
@@ -329,22 +299,27 @@ public class PanelHerramientas extends javax.swing.JPanel{
                     anchoColumna = 230;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_FECHA:
-                    anchoColumna = 50;
+                    anchoColumna = 110;
                     break;
                 case TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR:
-                    anchoColumna = 50;
+                    anchoColumna = 110;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
             columnaTabla.setWidth(anchoColumna);
         } 
+        cambiarTamCabeceraTablas();
     }
 
     
     
     private void cargarHerramientas()
     {
-        listaHerramientas=gestor.getListaHerramientas();
+        Date fechaDesde;
+        Date fechaHasta;
+        fechaDesde= dcFechaInicio.getDate();
+        fechaHasta= dcFechaFin.getDate();
+        listaHerramientas=gestor.getListaHerramientas( fechaDesde,fechaHasta);
        
         model = (DefaultTableModel) tblHerramientas.getModel();
         
@@ -360,8 +335,31 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
     }
     
+    private void cambiarTamCabeceraTablas()
+    {
+        Font fuente = new Font("Verdana", Font.PLAIN, 9);
+        JTableHeader th1;
+        th1 = tblHerramientas.getTableHeader();
+        th1.setFont(fuente); 
+        
+              
+    }
+    
     public void actualizar() {
         cargarHerramientas();
+    }
+    
+    private void seterListenerPropertyChangedAJDateChooser(JDateChooser chooser){
+    
+        chooser.getDateEditor().addPropertyChangeListener(
+        new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) {
+                    actualizar();
+                }
+            }
+        });
     }
     
 }
