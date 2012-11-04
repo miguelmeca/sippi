@@ -482,13 +482,13 @@ public class DBExamplesLoader {
     public void cargarEmplados()
     {
         Empleado emp=new Empleado();//
-        emp.setApellido("sorongo");//
-        emp.setNombre("pedro");//
+        emp.setApellido("Pizarro");//
+        emp.setNombre("Nestor Fabian");//
         emp.setLegajo(53);//
-        emp.setNroDoc("12345678");//
-        emp.setCuil("3212155");
+        emp.setNroDoc("22697030");//
+        emp.setCuil("20-22697030-5");
         TipoDocumento td=new TipoDocumento();
-        td.setNombre("LPQLP");
+        td.setNombre("DNI");
         td.setDescripcion("");
         emp.setTipoDoc(td);
         Date d=new Date();
@@ -498,7 +498,8 @@ public class DBExamplesLoader {
         Domicilio dom=new Domicilio();
         //Barrio b=new Barrio();
        // b.setNombre("la concha d tu vieja");
-        dom.setCalle("Av. MeImportaUnCarajo");
+        dom.setCalle("Av. Salvador");
+        dom.setNumero(372);
         emp.setDomicilio(dom);
 ////////////////////////////////////////////
         TipoEspecialidad te= new TipoEspecialidad();
