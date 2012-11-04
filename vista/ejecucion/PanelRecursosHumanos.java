@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.DetalleTareaEjecucionXDia;
 import util.NTupla;
 import util.Tupla;
 
@@ -35,6 +36,8 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     private DefaultTableModel model;
     private boolean primeraVez;
     private boolean filtroBuscarActivado;
+    boolean filtroFechaInicioActivado;
+    boolean filtroFechaFinActivado;
     
     private GestorEjecucion gestor;
         
@@ -47,6 +50,8 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
   private void habilitarVentana()
     {
         filtroBuscarActivado=false;
+        filtroFechaInicioActivado=false;
+        filtroFechaFinActivado=false;
         cargarRRHH();
         activarFiltrosTabla();  
     }
@@ -88,20 +93,20 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRRHH = new javax.swing.JTable();
-        dcFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        dcFechaInicio1 = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
+        dcFechaInicio = new com.toedter.calendar.JDateChooser();
+        dcFechaFin = new com.toedter.calendar.JDateChooser();
 
         tblRRHH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre del empleado", "Tarea", "Fecha", "Hs Normales", "Hs al 50%", "Hs al 100%"
+                "Empleado", "Tarea", "Fecha", "Hs Normales", "Hs al 50%", "Hs al 100%"
             }
         ) {
             Class[] types = new Class [] {
@@ -119,7 +124,6 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblRRHH.setPreferredSize(null);
         tblRRHH.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblRRHH);
 
@@ -161,6 +165,24 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             }
         });
 
+        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dcFechaInicioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaInicioFocusLost(evt);
+            }
+        });
+
+        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dcFechaFinFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaFinFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,12 +191,14 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -190,10 +214,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -201,8 +222,11 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
         );
@@ -245,9 +269,31 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
+    private void dcFechaInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusGained
+        filtroFechaInicioActivado=true;
+    }//GEN-LAST:event_dcFechaInicioFocusGained
+
+    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
+        if(dcFechaInicio.getDate() != null) {
+            filtroFechaInicioActivado=false;
+        } else {
+            filtroFechaInicioActivado=true;}
+    }//GEN-LAST:event_dcFechaInicioFocusLost
+
+    private void dcFechaFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusGained
+        filtroFechaFinActivado=true;
+    }//GEN-LAST:event_dcFechaFinFocusGained
+
+    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
+        if(dcFechaFin.getDate() != null) {
+            filtroFechaFinActivado=false;
+        } else {
+            filtroFechaFinActivado=true;}
+    }//GEN-LAST:event_dcFechaFinFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
-    private com.toedter.calendar.JDateChooser dcFechaInicio1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -294,30 +340,19 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     
     private void cargarRRHH()
     {
-      /*  listaRRHH=gestor.getListaRRHH();
+        listaRRHH=gestor.getListaRRHH();
        
         model = (DefaultTableModel) tblRRHH.getModel();
-        int fil=model.getRowCount();
-        //for (int i = 0; i < fil; i++) {
-         //   model.removeRow(0);
-        //}
+        
         model.setRowCount(0);
-        for (NTupla nTuplaEmpleado : listaRRHH)
+        for (NTupla detalle : listaRRHH)
         {
-            //Creo un nuevo array con una unidad mas d largo que el devuelto en el Data de la NTupla(Para agregar el id)
-            Object[] obj=new Object[((Object[])nTuplaEmpleado.getData()).length+1];
-            Tupla tup=new Tupla();
-            tup.setId(nTuplaEmpleado.getId());
-            tup.setNombre(nTuplaEmpleado.getNombre());
-            obj[0]=tup;
-
-            //Este metodo d aca abajo copia el contenido del array de Data al nuevo array obj, poniendo los datos a partir d la posicion 1
-            System.arraycopy((Object[]) nTuplaEmpleado.getData(), 0, obj, 1, ((Object[]) nTuplaEmpleado.getData()).length);
+            Object[] obj=(Object[])detalle.getData();
             model.addRow( obj );
         }
        
         tblRRHH.setModel(model);
-    */
+    
 
     }
     

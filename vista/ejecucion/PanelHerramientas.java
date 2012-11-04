@@ -1,7 +1,17 @@
 package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import util.NTupla;
 
 /**
  *
@@ -9,8 +19,17 @@ import javax.swing.JOptionPane;
  */
 public class PanelHerramientas extends javax.swing.JPanel{
 
-          
+    public static final int TABLA_HERRAMIENTAS_COLUMNA_EMPLEADO = 0;
+    public static final int TABLA_HERRAMIENTAS_COLUMNA_TAREA = 1;
+    public static final int TABLA_HERRAMIENTAS_COLUMNA_FECHA = 2;
+    public static final int TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR = 3;
+    private static final int TABLA_DEFAULT_ALTO = 25;      
     private GestorEjecucion gestor;
+    private List<NTupla> listaHerramientas;
+    private DefaultTableModel model;
+    boolean filtroBuscarActivado;
+    boolean filtroFechaInicioActivado;
+    boolean filtroFechaFinActivado;
     
     /**
      * Creates new form PanelHerramientas
@@ -18,6 +37,39 @@ public class PanelHerramientas extends javax.swing.JPanel{
     public PanelHerramientas(GestorEjecucion gestor) {
         this.gestor = gestor;
         initComponents();
+        filtroBuscarActivado=false;
+        filtroFechaInicioActivado=false;
+        filtroFechaFinActivado=false;
+        habilitarVentana();
+    }
+    
+    private void habilitarVentana() {
+        cargarHerramientas();
+        activarFiltrosTabla();
+    }
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tblHerramientas.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+       
+
+
     }
 
     /**
@@ -35,9 +87,10 @@ public class PanelHerramientas extends javax.swing.JPanel{
         dcFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        dcFechaInicio1 = new com.toedter.calendar.JDateChooser();
+        dcFechaFin = new com.toedter.calendar.JDateChooser();
+        txtBuscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -46,14 +99,14 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
             },
             new String [] {
-                "Herramienta", "Tarea", "Fecha", "Horas Planificadas", "Horas a cargar"
+                "Herramienta", "Tarea", "Fecha", "Horas a cargar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -67,17 +120,61 @@ public class PanelHerramientas extends javax.swing.JPanel{
         tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblHerramientas);
 
+        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dcFechaInicioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaInicioFocusLost(evt);
+            }
+        });
+
         jLabel5.setText("Fecha Desde");
 
         jLabel6.setText("Fecha Hasta");
 
-        jLabel7.setText("Buscar");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dcFechaFinFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dcFechaFinFocusLost(evt);
             }
         });
+
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+
+        jLabel7.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,50 +188,112 @@ public class PanelHerramientas extends javax.swing.JPanel{
                     .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(187, 187, 187))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void dcFechaInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusGained
+       filtroFechaInicioActivado=true;
+    }//GEN-LAST:event_dcFechaInicioFocusGained
+
+    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
+        if(dcFechaInicio.getDate() != null) {            
+            filtroFechaInicioActivado=false;
+        } else {
+            filtroFechaInicioActivado=true;}
+    }//GEN-LAST:event_dcFechaInicioFocusLost
+
+    private void dcFechaFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusGained
+        filtroFechaFinActivado=true;
+    }//GEN-LAST:event_dcFechaFinFocusGained
+
+    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
+        if(dcFechaFin.getDate() != null) {            
+            filtroFechaFinActivado=false;
+        } else {
+            filtroFechaFinActivado=true;}
+    }//GEN-LAST:event_dcFechaFinFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
-    private com.toedter.calendar.JDateChooser dcFechaInicio1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblHerramientas;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
     
@@ -151,10 +310,58 @@ public class PanelHerramientas extends javax.swing.JPanel{
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    }    
+    } 
+    
+     private void initTabla() {
+        tblHerramientas.setRowHeight(TABLA_DEFAULT_ALTO);
+       
+        // Ancho de Columnas
+        int anchoColumna = 0;
+        TableColumnModel modeloColumna = tblHerramientas.getColumnModel();
+        TableColumn columnaTabla;
+        for (int i = 0; i < tblHerramientas.getColumnCount(); i++) {
+            columnaTabla = modeloColumna.getColumn(i);
+            switch (i) {
+                case TABLA_HERRAMIENTAS_COLUMNA_EMPLEADO:
+                    anchoColumna = 230;
+                    break;
+                case TABLA_HERRAMIENTAS_COLUMNA_TAREA:
+                    anchoColumna = 230;
+                    break;
+                case TABLA_HERRAMIENTAS_COLUMNA_FECHA:
+                    anchoColumna = 50;
+                    break;
+                case TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR:
+                    anchoColumna = 50;
+                    break;
+            }
+            columnaTabla.setPreferredWidth(anchoColumna);
+            columnaTabla.setWidth(anchoColumna);
+        } 
+    }
 
-    public void actualizar() {
+    
+    
+    private void cargarHerramientas()
+    {
+        listaHerramientas=gestor.getListaHerramientas();
+       
+        model = (DefaultTableModel) tblHerramientas.getModel();
         
+        model.setRowCount(0);
+        for (NTupla detalle : listaHerramientas)
+        {
+            Object[] obj=(Object[])detalle.getData();
+            model.addRow( obj );
+        }
+       
+        tblHerramientas.setModel(model);
+    
+
+    }
+    
+    public void actualizar() {
+        cargarHerramientas();
     }
     
 }

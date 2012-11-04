@@ -285,81 +285,13 @@ public Empleado(int leg,String nom,String apell,Date fechadeNac,Date fechaIng,Ti
         public String getMotivoBaja()
         { return motivoBaja;
         }
-
-
-        public void crear() {
-	
-	}
 	
 	public String getNombreEmpleado() {
             return super.getApellido()+", "+super.getNombre();
 	}
-	
-	public void mostrarRangoEmpleado() {
-	
+        
+        public String getNombreEmpleadoYLegajo() {
+            return super.getApellido()+", "+super.getNombre()+" - Legajo Nº: "+legajo;
 	}
 	
-	public void mostrarEspecialidades() {
-	
-	}
-	
-	public void mostrarCapacitacion() {
-	
-	}
-	
-	public void crearEspecialidades() {
-	
-	}
-	
-	public void crearDomicilio() {
-	
-	}
-	
-	public void crearTelefonos() {
-	
-	}
-	
-	public void esEmpleado() {
-	
-	}
-	
-	public void buscarLegajoEmpleado() {
-	
-	}
-	
-	public void mostrarApellidoYNombre() {
-	
-	}
-	
-	public void getEmpleado() {
-	
-	}
-	
-	public void esTuTipo() {
-	
-	}
-	
-	public void buscarNombresEmpleadosActivos() {
-	
-	}
-	
-	public void buscarEmpleadosActivosConFechaDeVencimiento() {
-	
-	}
-	
-	public void mostrarEmpleadosDeEseTipoYMaximaFechaDeVencimiento() {
-	
-	}
-	
-	public void mostrarEmpleadoActivo() {
-	
-	}
-	
-	public void estaAsignado() {
-	
-	}
-	
-	public void fechaVencimientoCapacitacion() {
-	
-	}
 }
