@@ -4,19 +4,24 @@
  */
 package vista.ejecucion;
 
+import com.toedter.calendar.JDateChooser;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.Color;
+import java.awt.Font;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import modelo.DetalleTareaEjecucionXDia;
 import util.NTupla;
-import util.Tupla;
+import vista.util.EditableCellTableRenderer;
 
 /**
  *
@@ -36,22 +41,24 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     private DefaultTableModel model;
     private boolean primeraVez;
     private boolean filtroBuscarActivado;
-    boolean filtroFechaInicioActivado;
-    boolean filtroFechaFinActivado;
+    boolean filtroFechaDesdeActivado;
+    boolean filtroFechaHastaActivado;
     
     private GestorEjecucion gestor;
         
     public PanelRecursosHumanos(GestorEjecucion gestor) {
         this.gestor=gestor;
         initComponents();
+        seterListenerPropertyChangedAJDateChooser(dcFechaInicio);
+        seterListenerPropertyChangedAJDateChooser(dcFechaFin);
         initTabla();
         habilitarVentana();
     }
   private void habilitarVentana()
     {
         filtroBuscarActivado=false;
-        filtroFechaInicioActivado=false;
-        filtroFechaFinActivado=false;
+        filtroFechaDesdeActivado=false;
+        filtroFechaHastaActivado=false;
         cargarRRHH();
         activarFiltrosTabla();  
     }
@@ -165,24 +172,6 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             }
         });
 
-        dcFechaInicio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dcFechaInicioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaInicioFocusLost(evt);
-            }
-        });
-
-        dcFechaFin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dcFechaFinFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dcFechaFinFocusLost(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,28 +258,6 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-    private void dcFechaInicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusGained
-        filtroFechaInicioActivado=true;
-    }//GEN-LAST:event_dcFechaInicioFocusGained
-
-    private void dcFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaInicioFocusLost
-        if(dcFechaInicio.getDate() != null) {
-            filtroFechaInicioActivado=false;
-        } else {
-            filtroFechaInicioActivado=true;}
-    }//GEN-LAST:event_dcFechaInicioFocusLost
-
-    private void dcFechaFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusGained
-        filtroFechaFinActivado=true;
-    }//GEN-LAST:event_dcFechaFinFocusGained
-
-    private void dcFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dcFechaFinFocusLost
-        if(dcFechaFin.getDate() != null) {
-            filtroFechaFinActivado=false;
-        } else {
-            filtroFechaFinActivado=true;}
-    }//GEN-LAST:event_dcFechaFinFocusLost
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -305,7 +272,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     private void initTabla() {
         tblRRHH.setRowHeight(TABLA_DEFAULT_ALTO);
-       
+       tblRRHH.setDefaultRenderer(Object.class,new EditableCellTableRenderer());
         // Ancho de Columnas
         int anchoColumna = 0;
         TableColumnModel modeloColumna = tblRRHH.getColumnModel();
@@ -320,27 +287,34 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                     anchoColumna = 230;
                     break;
                 case TABLA_RRHH_COLUMNA_FECHA:
-                    anchoColumna = 50;
+                    anchoColumna = 90;
                     break;
                 case TABLA_RRHH_COLUMNA_HS_NORMALES:
-                    anchoColumna = 50;
+                    anchoColumna = 110;
                     break;
                 case TABLA_RRHH_COLUMNA_HS_50:
-                    anchoColumna = 50;
+                    anchoColumna = 110;
                     break;
                 case TABLA_RRHH_COLUMNA_HS_100:
-                    anchoColumna = 50;
+                    anchoColumna = 110;
                     break;    
             }
             columnaTabla.setPreferredWidth(anchoColumna);
             columnaTabla.setWidth(anchoColumna);
-        } 
+        }
+        cambiarTamCabeceraTablas();
     }
     
     
     private void cargarRRHH()
     {
-        listaRRHH=gestor.getListaRRHH();
+        Date fechaDesde;
+        Date fechaHasta;
+        fechaDesde= dcFechaInicio.getDate();
+        fechaHasta= dcFechaFin.getDate();
+        
+        
+        listaRRHH=gestor.getListaRRHH( fechaDesde,fechaHasta);
        
         model = (DefaultTableModel) tblRRHH.getModel();
         
@@ -358,6 +332,29 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     
     public void actualizar() {
         cargarRRHH();
+    }
+    
+    private void cambiarTamCabeceraTablas()
+    {
+        Font fuente = new Font("Verdana", Font.PLAIN, 9);
+        JTableHeader th1;
+        th1 = tblRRHH.getTableHeader();
+        th1.setFont(fuente); 
+        
+              
+    }
+    
+    private void seterListenerPropertyChangedAJDateChooser(JDateChooser chooser){
+    
+        chooser.getDateEditor().addPropertyChangeListener(
+        new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) {
+                    actualizar();
+                }
+            }
+        });
     }
 
 }

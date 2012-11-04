@@ -560,26 +560,26 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 
                   
             
-                tareaSeleccionada = setearTareaEjecucionSeleccionada(idUltimoNodoArbolTareas );
+                setearTareaEjecucionSeleccionada(idUltimoNodoArbolTareas );
                 mouseEvent.consume();
             }
  
             @Override
         public void mousePressed(MouseEvent e)  { clickEnArbol(e); }
             @Override
-        public void mouseReleased(MouseEvent e) { clickEnArbol(e); }
+        public void mouseReleased(MouseEvent e) {/* clickEnArbol(e);*/ }
             @Override
-        public void mouseClicked(MouseEvent e)  { clickEnArbol(e); }
+        public void mouseClicked(MouseEvent e)  { /*clickEnArbol(e);*/ }
             });
         
         
     }
     
     private TareaEjecucion setearTareaEjecucionSeleccionada(int hash)    {
-        TareaEjecucion tarea= gestor.setearTareaEjecucionSeleccionada(hash);
+       tareaSeleccionada= gestor.setearTareaEjecucionSeleccionada(hash);
         actualizarPaneles();
         
-        return tarea;
+        return tareaSeleccionada;
     }
     
     
@@ -597,6 +597,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     
     public void actualizarPaneles(){
     
+        setearNombrePanelCentral();
         if(this.panelDatosTarea!=null)
         {this.panelDatosTarea.actualizar();}
         if(this.panelRecursosHumanos!=null)
@@ -610,7 +611,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         if(this.panelAdicionales!=null)
         {this.panelAdicionales.actualizar();}
         
-        setearNombrePanelCentral();
+        
     }
             
 }

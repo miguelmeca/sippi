@@ -2,7 +2,9 @@ package controlador.ejecucion;
  
 import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
+import controlador.planificacion.PlanificacionUtils;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +46,7 @@ public class GestorEjecucion {
     private PedidoObra pedidoDeObra;
     private Ejecucion ejecucion;
     private TareaEjecucion tareaSeleccionada;
+    private int hashTarea;
 
     public GestorEjecucion(VentanaEjecucion vista, int idObra) {
         this.pantalla = vista;
@@ -170,7 +173,12 @@ public class GestorEjecucion {
     public TareaEjecucion setearTareaEjecucionSeleccionada(int hash) {    
         
         tareaSeleccionada=(TareaEjecucion)ejecucion.buscarTareaPorHash(hash);
-        
+        if(tareaSeleccionada!=null){
+            hashTarea=hash;
+        }
+        else {
+            hashTarea=0;
+        }
         return tareaSeleccionada;
     }
     
@@ -193,13 +201,19 @@ public class GestorEjecucion {
     }*/
     
      
-    public List<NTupla> getListaRRHH() {
+    public List<NTupla> getListaRRHH(Date fechaDesde, Date fechaHasta) {
         List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
         
             if (ejecucion != null) {
-                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                List<TareaPlanificacion> todasTareas;
+                if(hashTarea>0) {
+                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
+                }
+                else {
+                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
+                }
                 for (int i = 0; i < todasTareas.size(); i++) {
-                    TareaEjecucion tarea = todasTareas.get(i);
+                    TareaEjecucion tarea = (TareaEjecucion) todasTareas.get(i);
                     List<DetalleTareaPlanificacion> listaDetalle = tarea.getDetalles();
                     for (int j = 0; j < listaDetalle.size(); j++) {
                         DetalleTareaEjecucion detalleTareaEjecucion = (DetalleTareaEjecucion)listaDetalle.get(j);
@@ -212,31 +226,40 @@ public class GestorEjecucion {
                         
                         for (DetalleTareaEjecucionXDia detalleXDia: listaDetallesXDia) {
                             
+                            if(fechaDesde==null || FechaUtil.fechaMayorOIgualQue( detalleXDia.getFecha(), fechaDesde))
+                            {
+                                if(fechaHasta==null || FechaUtil.fechaMayorQue(FechaUtil.fechaMas(fechaHasta, 1),detalleXDia.getFecha()))
+                                {
                             
-                           NTupla nt = new NTupla(detalleTareaEjecucion.hashCode());
-                           String nombreyLegajo;                           
-                           if(empleado!=null)
-                           {
-                             nombreyLegajo = empleado.getNombreEmpleadoYLegajo();
-                           }
-                           else
-                           {
-                              nombreyLegajo = "SIN ASIGNAR"; 
-                           }
-                           
-                           nt.setNombre(nombreyLegajo);
+                                    NTupla nt = new NTupla(detalleTareaEjecucion.hashCode());
+                                    String nombreyLegajo;                           
+                                    if(empleado!=null)
+                                    {
+                                      nombreyLegajo = empleado.getNombreEmpleadoYLegajo();
+                                    }
+                                    else
+                                    {
+                                       nombreyLegajo = "SIN ASIGNAR"; 
+                                    }
 
-                                Object[] data = new Object[6];
-                                //Interasante chanchada esta... :D
-                                data[0] = nt;
-                                data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
-                                data[2] = FechaUtil.getFecha(detalleXDia.getFecha());
-                                data[3] = detalleXDia.getCantHorasNormales();
-                                data[4] = detalleXDia.getCantHorasAl50();
-                                data[5] = detalleXDia.getCantHorasAl100();
+                                    nt.setNombre(nombreyLegajo);
+                                    NTupla fecha=new NTupla();
+                                    fecha.setNombre(FechaUtil.getFecha(detalleXDia.getFecha()));
+                                    fecha.setData(detalleXDia.getFecha());
 
-                            nt.setData(data); 
-                            listaTuplasDetallesXDia.add(nt);
+                                         Object[] data = new Object[6];
+                                         //Interasante chanchada esta... :D
+                                         data[0] = nt;
+                                         data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                         data[2] = fecha;
+                                         data[3] = detalleXDia.getCantHorasNormales();
+                                         data[4] = detalleXDia.getCantHorasAl50();
+                                         data[5] = detalleXDia.getCantHorasAl100();
+
+                                     nt.setData(data); 
+                                     listaTuplasDetallesXDia.add(nt);
+                                 }
+                             }
                         }
                     }
                 }            
@@ -245,13 +268,19 @@ public class GestorEjecucion {
     }
     
     
-    public List<NTupla> getListaHerramientas() {
+    public List<NTupla> getListaHerramientas( Date fechaDesde, Date fechaHasta) {
         List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
         
             if (ejecucion != null) {
-                List<TareaEjecucion> todasTareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+                List<TareaPlanificacion> todasTareas;
+                if(hashTarea>0) {
+                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
+                }
+                else {
+                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
+                }
                 for (int i = 0; i < todasTareas.size(); i++) {
-                    TareaEjecucion tarea = todasTareas.get(i);
+                    TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
                     List<PlanificacionXHerramienta> listaHerramientas = tarea.getHerramientas();
                     for (int j = 0; j < listaHerramientas.size(); j++) {
                         EjecucionXHerramienta herramientaEjecucion = (EjecucionXHerramienta)listaHerramientas.get(j);
@@ -260,21 +289,28 @@ public class GestorEjecucion {
                         
                         for (EjecucionXHerramientaXDia herramientaXDia: listaEjecucionXHerramientaXDia) {
                             
-                            
-                           NTupla nt = new NTupla(herramientaEjecucion.hashCode());
-                           
-                           
-                           nt.setNombre(herramientaEjecucion.getHerramienta().getNombre());
+                           if(fechaDesde==null || FechaUtil.fechaMayorOIgualQue( herramientaXDia.getFecha(), fechaDesde))
+                            {
+                                if(fechaHasta==null || FechaUtil.fechaMayorQue(FechaUtil.fechaMas(fechaHasta, 1),herramientaXDia.getFecha()))
+                                {
+                                    NTupla nt = new NTupla(herramientaEjecucion.hashCode());
+                                    nt.setNombre(herramientaEjecucion.getHerramienta().getNombre());
 
-                                Object[] data = new Object[4];
-                                //Interasante chanchada esta... :D
-                                data[0] = nt;
-                                data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
-                                data[2] = FechaUtil.getFecha(herramientaXDia.getFecha());
-                                data[3] = herramientaXDia.getHorasUtilizadas();
+                                    NTupla fecha=new NTupla();
+                                    fecha.setNombre(FechaUtil.getFecha(herramientaXDia.getFecha()));
+                                    fecha.setData(herramientaXDia.getFecha());
 
-                            nt.setData(data); 
-                            listaTuplasDetallesXDia.add(nt);
+                                    Object[] data = new Object[4];
+                                    //Interasante chanchada esta... :D
+                                    data[0] = nt;
+                                    data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                    data[2] = fecha;
+                                    data[3] = herramientaXDia.getHorasUtilizadas();
+
+                                    nt.setData(data); 
+                                    listaTuplasDetallesXDia.add(nt);
+                                }
+                           }
                         }
                     }
                 }            
