@@ -61,12 +61,11 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRRHH = new javax.swing.JTable();
-        btnModificarEmpleado = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnConsultarEmpleado = new javax.swing.JButton();
+        btnLicencias = new javax.swing.JButton();
         btnBajaEmpleado = new javax.swing.JButton();
         btnAltaEmpleado = new javax.swing.JButton();
-        btnLicencias = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        btnConsultarEmpleado = new javax.swing.JButton();
 
         tblRRHH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,12 +91,23 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
         });
         jScrollPane1.setViewportView(tblRRHH);
 
-        btnModificarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        btnModificarEmpleado.setText("Editar Empleado");
-        btnModificarEmpleado.setEnabled(false);
-        btnModificarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre el Empleado:"));
+
+        btnConsultarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
+        btnConsultarEmpleado.setText("ConsultarEmpleado");
+        btnConsultarEmpleado.setEnabled(false);
+        btnConsultarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarEmpleadoActionPerformed(evt);
+                btnConsultarEmpleadoActionPerformed(evt);
+            }
+        });
+
+        btnLicencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
+        btnLicencias.setText("Licencias");
+        btnLicencias.setEnabled(false);
+        btnLicencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLicenciasActionPerformed(evt);
             }
         });
 
@@ -119,74 +129,43 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
             }
         });
 
-        btnLicencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/text_page.png"))); // NOI18N
-        btnLicencias.setText("Licencias");
-        btnLicencias.setEnabled(false);
-        btnLicencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLicenciasActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Acciones sobre el empleado:");
-
-        btnConsultarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
-        btnConsultarEmpleado.setText("ConsultarEmpleado");
-        btnConsultarEmpleado.setEnabled(false);
-        btnConsultarEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarEmpleadoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnConsultarEmpleado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLicencias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAltaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBajaEmpleado))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnConsultarEmpleado)
+                .addComponent(btnLicencias)
+                .addComponent(btnBajaEmpleado)
+                .addComponent(btnAltaEmpleado))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnConsultarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnModificarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAltaEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBajaEmpleado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLicencias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBajaEmpleado)
-                        .addComponent(btnConsultarEmpleado)
-                        .addComponent(btnLicencias)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificarEmpleado)
-                    .addComponent(btnAltaEmpleado)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpleadoActionPerformed
-        if(tblRRHH.getSelectedRow()!=-1)
-        {
-            int id;
-            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
-            pantallaRegistrarEmpleado pre = new pantallaRegistrarEmpleado(id, this);
-            SwingPanel.getInstance().addWindow(pre);
-            pre.setVisible(true);
-        }
-    }//GEN-LAST:event_btnModificarEmpleadoActionPerformed
 
     private void btnBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaEmpleadoActionPerformed
         if(tblRRHH.getSelectedRow()!=-1)
@@ -226,11 +205,10 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
     private void tblRRHHMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRRHHMouseReleased
-        if(tblRRHH.getSelectedRow()!=-1)
+       if(tblRRHH.getSelectedRow()!=-1)
        {
            int id;
            id=((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getId();
-           btnModificarEmpleado.setEnabled(true);
            btnConsultarEmpleado.setEnabled(true);
            btnLicencias.setEnabled(true);
            if(!gestor.esEmpleadoEnBaja(id))
@@ -253,7 +231,6 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
         }
        else
        {
-           btnModificarEmpleado.setEnabled(false);
            btnConsultarEmpleado.setEnabled(false);
            btnLicencias.setEnabled(false);
            btnBajaEmpleado.setEnabled(false);
@@ -278,8 +255,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
     private javax.swing.JButton btnBajaEmpleado;
     private javax.swing.JButton btnConsultarEmpleado;
     private javax.swing.JButton btnLicencias;
-    private javax.swing.JButton btnModificarEmpleado;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRRHH;
     // End of variables declaration//GEN-END:variables

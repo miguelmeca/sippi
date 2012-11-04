@@ -85,6 +85,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblHerramientasMouseReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -148,6 +151,7 @@
               <Image iconType="3" name="/res/iconos/var/16x16/Modify.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Editar Estado"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarEstadoActionPerformed"/>
