@@ -765,19 +765,103 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     
     public boolean eliminarSubObraPorHash(int hash_subObra)
     {
-        // Recorro, encuentro la subobra y la elimino
+        boolean tieneRecursosEnPlanificacion = false;
+        int indiceSubObra = 0;
+        SubObra so = null;
+        
+        // Recorro y encuentro la subobra
         for (int i = 0; i < this.planificacion.getCotizacion().getSubObras().size(); i++) 
         {
-            SubObra so = this.planificacion.getCotizacion().getSubObras().get(i);
+            so = this.planificacion.getCotizacion().getSubObras().get(i);
             if(so.hashCode()==hash_subObra)
             {
-                this.planificacion.getCotizacion().getSubObras().remove(i);
-                _pantalla.actualizar(0, EditarCotizacionModificada.CALLBACK_FLAG, true,null);
-                return true;
+                indiceSubObra= i;
+                break;
             }
         }
-        return false;
+        
+        // Verifico si no tiene recursos asociados ya a la planificación
+        Iterator<TareaPlanificacion> itTareas = planificacion.getTareas().iterator();
+        while(itTareas.hasNext())
+        {
+            TareaPlanificacion tarea = itTareas.next();
+            tieneRecursosEnPlanificacion = this.verificarRecursosEnPlanificación(tarea, so);
+            if(tieneRecursosEnPlanificacion)
+            {
+                _pantalla.MostrarMensaje(JOptionPane.WARNING_MESSAGE,"No se pudo borrar la subobra","Existen recursos asociados a tareas de Planificación.\nPara eliminar primero debe desasociar dichos recursos.\n");
+                return false;
+            }
+        }
+        
+        // Elimino si no se encontraron recursos asociados
+        this.planificacion.getCotizacion().getSubObras().remove(indiceSubObra);
+        _pantalla.actualizar(0, EditarCotizacionModificada.CALLBACK_FLAG, true,null);
+        return true;
     }
+    
+    /**
+     * Este método verifica en una tarea de planificación si los recursos de la subobra
+     * pasada por parámetros están asignados a esta y lo informa.
+     * @param tarea tarea a verificar
+     * @param so subobra a verificar
+     * @return si están asociados los recursos de la subobra a la tarea de planificación
+     */
+    public boolean verificarRecursosEnPlanificación(TareaPlanificacion tarea, SubObra so)
+    {
+        boolean tieneRecursosEnPlanificacion = false;
+        
+        Iterator<SubObraXTarea> itT = so.getTareas().iterator();
+        while(itT.hasNext())
+        {
+            SubObraXTarea tareaCotizada = itT.next();
+            if(tarea.getTareaCotizada().getId() == tareaCotizada.getId())
+            {
+                tieneRecursosEnPlanificacion = true;
+                break;
+            }
+        }
+            
+        Iterator<SubObraXAlquilerCompra> itAC = so.getAlquileresCompras().iterator();
+        while(itAC.hasNext())
+        {
+            SubObraXAlquilerCompra alquileresCompras = itAC.next();
+            if(tarea.tieneAlquilerCompraCotizacion(alquileresCompras.getId()))
+            {
+                tieneRecursosEnPlanificacion = true;
+                break;
+            }
+        }
+        Iterator<SubObraXHerramienta> itH = so.getHerramientas().iterator();
+        while(itH.hasNext())
+        {
+            SubObraXHerramienta herramientas = itH.next();
+            if(tarea.tieneHerramientaCotizacion(herramientas.getId()))
+            {
+                tieneRecursosEnPlanificacion = true;
+                break;
+            }
+        }
+        Iterator<SubObraXMaterial> itM = so.getMateriales().iterator();
+        while(itM.hasNext())
+        {
+            SubObraXMaterial materiales = itM.next();
+            if(tarea.tieneMaterialCotizacion(materiales.getId()))
+            {
+                tieneRecursosEnPlanificacion = true;
+                break;
+            }
+        }
+        
+        Iterator<TareaPlanificacion> itSubTareas = tarea.getSubtareas().iterator();
+        while(itSubTareas.hasNext())
+        {
+            TareaPlanificacion subTarea = itSubTareas.next();
+            tieneRecursosEnPlanificacion = this.verificarRecursosEnPlanificación(subTarea, so);
+        }
+        
+        return tieneRecursosEnPlanificacion;
+    }
+    
     public void crearSubObra(String nombre)
     {
         // VEO QUE NO REPITA EL NOMBRE
