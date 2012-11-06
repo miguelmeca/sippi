@@ -74,6 +74,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             model.removeRow(0);
         }
         
+        int rowNumber = 0;
         for (Empleado empleado : listaEmpleados)
         {
              Object[] filaTabla=new Object[2];
@@ -86,6 +87,9 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             filaTabla[0] = celdaFoto;
             filaTabla[1] = celdaDatos;
             model.addRow(filaTabla);
+            tablaEmpleados.setRowHeight(rowNumber, celdaDatos.getAltura());
+            
+            rowNumber++;
             ////////////////////////
         }
        
@@ -176,7 +180,6 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
             }
         });
         tablaEmpleados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tablaEmpleados.setTableHeader(null);
         tablaEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaEmpleadosMouseClicked(evt);
@@ -349,7 +352,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLicencias)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 

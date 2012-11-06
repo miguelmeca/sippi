@@ -1135,9 +1135,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             if (n == JOptionPane.YES_OPTION) {
                 exito=_gestor.eliminarSubObraPorHash(Integer.parseInt(tpSelected.getId()));
             }
-            if(!exito)
-            {JOptionPane.showMessageDialog(this, "Ocurrio un error eliminando la subobra", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+//            if(!exito)
+//            {JOptionPane.showMessageDialog(this, "Ocurrio un error eliminando la subobra", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
             
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una SubObra para eliminar", "Atencion!", JOptionPane.QUESTION_MESSAGE);
