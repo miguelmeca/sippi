@@ -35,7 +35,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel8" min="-2" max="-2" attributes="1"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAgregarNuevoPrecio" pref="127" max="32767" attributes="0"/>
+                      <Component id="btnAgregarNuevoPrecio" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -282,7 +282,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/res/iconos/var/16x16/down.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Agregar Precio"/>
+        <Property name="text" type="java.lang.String" value="Administrar Precios"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

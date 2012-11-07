@@ -16,13 +16,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.*;
 import org.hibernate.Session;
-import util.FechaUtil;
-import util.HibernateUtil;
-import util.LogUtil;
-import util.NTupla;
-import util.RecursosUtil;
-import util.Tupla;
+import util.*;
+import vista.cotizacion.AgregarNuevoPrecio;
 import vista.cotizacion.CotizacionMateriales;
+import vista.cotizacion.SeleccionProveedorCotizacion;
 import vista.planificacion.cotizacion.EditarCotizacionModificada;
 
 /**
@@ -34,19 +31,28 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     private GestorEditarCotizacion gestorPadre;
     private SubObra subObra;
     private CotizacionMateriales pantalla;
+    private SeleccionProveedorCotizacion pantallaSeleccion;
 
+    
+    
     public GestorCotizacionMateriales(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;
         this.subObra = gestorPadre.getSubObraActual();
+        pantallaSeleccion = null;
     }
 
     public GestorCotizacionMateriales() {
         this.gestorPadre = null;
         this.subObra = null;
+        pantallaSeleccion = null;
     }
 
     public void setPantalla(CotizacionMateriales pantalla) {
         this.pantalla = pantalla;
+    }
+
+    public void setPantallaSeleccion(SeleccionProveedorCotizacion pantallaSeleccion) {
+        this.pantallaSeleccion = pantallaSeleccion;
     }
 
     @Override
@@ -191,42 +197,80 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         return subtotal;
     }
 
-    public void agregarMaterial(int idRXP, int cantidad, String desc,double precio) {
+    public boolean agregarMaterial(int idRXP, int cantidad, String desc,double precio) {
+        boolean hayPrecio = true;
         try {
-            HibernateUtil.beginTransaction();
-            SubObraXMaterial soxm = this.nuevaSubObraXMaterial();
-            RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
-            soxm.setMaterial(rxp);
-            soxm.setCantidad(cantidad);
-            soxm.setDescripcion(desc);
-            soxm.setPrecioUnitario(precio);
-            subObra.getMateriales().add(soxm);
-            refrescarPantallas();
-            HibernateUtil.commitTransaction();
+            if(precio == 0)
+            {
+                hayPrecio = false;
+                int respuesta = JOptionPane.showOptionDialog(pantalla, "¿Desea registrar un nuevo precio para dicha cantidad?", "No existe precio para la cantidad requerida", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,  null,new Object[]{"Registrar", "Cancelar"}, "Registrar");
+                if(respuesta == 0)
+                {
+                    RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+                    RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                    Material r = RecursosUtil.getMaterial(re);
+                    AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestorPadre.getGestorMateriales(),r.getId(),re.getId());
+                    SwingPanel.getInstance().addWindow(anp);
+                    anp.setVisible(true);
+                }
+            }
+            else
+            {
+                HibernateUtil.beginTransaction();
+                SubObraXMaterial soxm = this.nuevaSubObraXMaterial();
+                RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+                soxm.setMaterial(rxp);
+                soxm.setCantidad(cantidad);
+                soxm.setDescripcion(desc);
+                soxm.setPrecioUnitario(precio);
+                subObra.getMateriales().add(soxm);
+                refrescarPantallas();
+                HibernateUtil.commitTransaction();
+            }
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar agregar un material: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         pantalla.actualizar(1, "...", true);
+        return hayPrecio;
     }
 
-    public void modificarMaterial(int idRXP, int cantidad, String desc,double precio, SubObraXMaterial soxm) {
+    public boolean modificarMaterial(int idRXP, int cantidad, String desc,double precio, SubObraXMaterial soxm) {
+        boolean hayPrecio = true;
         try {
-            HibernateUtil.beginTransaction();
-            RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
-            soxm.setMaterial(rxp);
-            soxm.setCantidad(cantidad);
-            soxm.setDescripcion(desc);
-            soxm.setPrecioUnitario(precio);
-            refrescarPantallas();
-            HibernateUtil.commitTransaction();
+            if(precio == 0)
+            {
+                hayPrecio = false;
+                int respuesta = JOptionPane.showOptionDialog(pantalla, "¿Desea registrar un nuevo precio para dicha cantidad?", "No existe precio para la cantidad requerida", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,  null,new Object[]{"Registrar", "Cancelar"}, "Registrar");
+                if(respuesta == 0)
+                {
+                    RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+                    RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(rxp);
+                    Material r = RecursosUtil.getMaterial(re);
+                    AgregarNuevoPrecio anp = new AgregarNuevoPrecio(this.gestorPadre.getGestorMateriales(),r.getId(),re.getId());
+                    SwingPanel.getInstance().addWindow(anp);
+                    anp.setVisible(true);
+                }
+            }
+            else
+            {
+                HibernateUtil.beginTransaction();
+                RecursoXProveedor rxp = (RecursoXProveedor) HibernateUtil.getSession().load(RecursoXProveedor.class, idRXP);
+                soxm.setMaterial(rxp);
+                soxm.setCantidad(cantidad);
+                soxm.setDescripcion(desc);
+                soxm.setPrecioUnitario(precio);
+                refrescarPantallas();
+                HibernateUtil.commitTransaction();
+            }
 
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar agregar un material: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         pantalla.actualizar(1, "...", true);
+        return hayPrecio;
     }
     
     public boolean quitarMaterial(int idDM) {
@@ -742,5 +786,12 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     {
         SubObraXMaterial soxm = new SubObraXMaterial();
         return soxm;
+    }
+
+    public void actualizarPantallaSeleccion() {
+        if(pantallaSeleccion != null)
+        {
+            pantallaSeleccion.mostrarRecursosEspecificosXProveedor();
+        }
     }
 }

@@ -269,6 +269,10 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
             try{
                 String prc = txtPrecio.getText().replace(",", ".");
                 precio = Double.parseDouble(prc);
+                if(precio <= 0)
+                {
+                    msg+="- Debe ingresar un precio mayor igual a cero\n";
+                }
             }
             catch(Exception ex){msg+="- Debe ingresar un precio válido\n";}
         }
@@ -296,6 +300,7 @@ public class AgregarNuevoPrecio extends javax.swing.JInternalFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
+        this.gestor.actualizarPantallaSeleccion();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

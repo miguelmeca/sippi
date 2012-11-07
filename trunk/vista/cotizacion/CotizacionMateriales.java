@@ -300,7 +300,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         txtSubtotalMateriales.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         btnAgregarNuevoPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/down.png"))); // NOI18N
-        btnAgregarNuevoPrecio.setText("Agregar Precio");
+        btnAgregarNuevoPrecio.setText("Administrar Precios");
         btnAgregarNuevoPrecio.setEnabled(false);
         btnAgregarNuevoPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,7 +333,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(btnAgregarNuevoPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -404,6 +404,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 NTupla r = (NTupla)(tbMateriales.getModel()).getValueAt(tbMateriales.getSelectedRow(), 0);
                 SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,r.getId(),re.getId());
                 if(psp.isBanHayPreciosMaterial()){
+                    this.gestor.setPantallaSeleccion(psp);
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
                     btnAgregarNuevoPrecio.setEnabled(false);
