@@ -75,7 +75,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
         }
     }
 
-    private void mostrarRecursosEspecificosXProveedor()
+    public void mostrarRecursosEspecificosXProveedor()
     {
 
         DefaultTableModel modelo = (DefaultTableModel)tbProveedores.getModel();
@@ -329,25 +329,41 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
             cantidad=Integer.parseInt(this.txtCantidad.getText());
         }catch(NumberFormatException ex)
         {
-            msg+="\n- Debe ingresar una cantidad válida";;
+            msg+="\n- Debe ingresar una cantidad válida";
             ban=false;
         }
         if(tbProveedores.getSelectedRow()<0){
             msg+="\n- Debe seleccionar un proveedor para este material";
             ban=false;
         }
+        int subtotal = 0;
+        try{
+            subtotal=Integer.parseInt(this.txtSubtotal.getText());
+            if(subtotal == 0)
+            {
+                
+            }
+        }catch(NumberFormatException ex){}
         if(ban){
             NTupla nt = (NTupla)this.tbProveedores.getValueAt(tbProveedores.getSelectedRow(), 0);
             double precio = gestor.getPrecioMaterial(nt.getId(),cantidad);
             if(soxm == null) // Una nueva SubObraXMaterial
             {
-                gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio);
+                // Si hay precio registrado para este recurso
+                if(gestor.agregarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio))
+                {
+                    this.dispose();
+                }
             }
             else // Se trata de una edición de la SubObraXMaterial
             {
-                gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm);
+                // Si hay precio registrado para este recurso
+                if(gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm))
+                {
+                    this.dispose();
+                }
             }
-            this.dispose();
+            
         }else{
             JOptionPane.showMessageDialog(this.getParent(),"No se ha podido agregar el material debido a: "+msg,"Advertencia",JOptionPane.WARNING_MESSAGE);
         }
