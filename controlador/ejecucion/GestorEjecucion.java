@@ -2,9 +2,11 @@ package controlador.ejecucion;
  
 import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
+import controlador.planificacion.GestorPlanificacionDatosGenerales;
 import controlador.planificacion.PlanificacionUtils;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
 import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
+import modelo.TipoTarea;
 import org.hibernate.HibernateException;
 import util.FechaUtil;
 import util.HibernateUtil;
@@ -171,17 +174,55 @@ public class GestorEjecucion {
     
     
     public TareaEjecucion setearTareaEjecucionSeleccionada(int hash) {    
-        
         tareaSeleccionada=(TareaEjecucion)ejecucion.buscarTareaPorHash(hash);
+        
+        // No entiendo que hace este IF
         if(tareaSeleccionada!=null){
             hashTarea=hash;
         }
         else {
             hashTarea=0;
         }
+        
         return tareaSeleccionada;
     }
-    
+
+    public TareaEjecucion getTareaSeleccionada() {
+        return tareaSeleccionada;
+    }
+
+    /**
+     * Retorna los datos de la tarea (Desacople del Control y modelo)
+     * 0 > Id Tipo Tarea (int)
+     * 1 > Estado (String)
+     * 2 > Fecha Inicio (Date)
+     * 3 > Fecha Fin (Date)
+     * 4 > Observaciones (String)
+     * @return 
+     */
+    public NTupla getDatosTareaSeleccionada() {
+        if(tareaSeleccionada!=null){
+            NTupla datos = new NTupla();
+                datos.setId(tareaSeleccionada.hashCode());
+                datos.setNombre(tareaSeleccionada.getNombre());
+                
+                    Object[] data = new Object[5];
+                    if(tareaSeleccionada.getTipoTarea()!=null){
+                        data[0] = tareaSeleccionada.getTipoTarea().getId();
+                    }else{
+                        data[0] = 0;
+                    }
+                    
+                    data[1] = tareaSeleccionada.getEstado();
+                    data[2] = tareaSeleccionada.getFechaInicio();
+                    data[3] = tareaSeleccionada.getFechaFin();
+                    data[4] = tareaSeleccionada.getObservaciones();
+                    datos.setData(data);
+                    
+            return datos;
+        }
+        return null;
+    }
    /* public List<DetalleTareaEjecucionXDia> getListaRRHH(){
         
             EjecucionUtils.getTodasTareasEjecucion(ejecucion);
@@ -317,7 +358,45 @@ public class GestorEjecucion {
         }
         return listaTuplasDetallesXDia;        
     }
-    
+
+    /**
+     * Retorna la lista de los tipos de tarea
+     * @return 
+     */
+    public List<Tupla> cargarTiposDeTarea() {
+        List<Tupla> res = new ArrayList<Tupla>();
+        try {
+            Iterator<TipoTarea> tipoTareas = HibernateUtil.getSession().createQuery("FROM TipoTarea").iterate();
+            while(tipoTareas.hasNext()){
+                TipoTarea tipoTarea = tipoTareas.next();
+                res.add(new Tupla(tipoTarea.getId(),tipoTarea.getNombre()));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(GestorPlanificacionDatosGenerales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+
+    /**
+     * MMMMMMMmmmmm....
+     * @return 
+     */
+    public List<TareaPlanificacion> getTareasPadres() {
+        if(this.ejecucion!=null)
+        {
+            return ejecucion.getTareas();
+        }
+        return new ArrayList<TareaPlanificacion>();
+    }
+
+    /**
+     * True si se puede modificar la Ejecucion, False sino.
+     * TODO: Agregarle LOGICA !!!
+     * @return 
+     */
+    public boolean esEjecucionEditable() {
+        return true;
+    }
     
     
     

@@ -12,7 +12,14 @@
 package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
+import java.awt.Color;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.TareaEjecucion;
+import util.ColorUtil;
+import util.NTupla;
+import util.Tupla;
 
 
 /**
@@ -25,14 +32,11 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
     
     /** Creates new form editarCotizacion_Descripcion */
     public PanelDatosGeneralesDeTarea(GestorEjecucion gestor) {
-        initComponents();
         this.gestor = gestor;
-        /*gestor.setPantalla(this);
-        gestor.cargarTiposDeTarea();
-        gestor.cargarDatosTarea();
-        
-        this.addListenerToDateChooser(this.dcFechaInicio);
-        this.addListenerToDateChooser(this.dcFechaFin);*/
+        initComponents();
+        initComboEstado();
+        initComboTipoTarea();
+        initDatosTarea();
     }
 
     /** This method is called from within the constructor to
@@ -55,6 +59,8 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         dcFechaFin = new com.toedter.calendar.JDateChooser();
         cmbTipoTarea = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        cmbEstado = new javax.swing.JComboBox();
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
@@ -94,6 +100,9 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Estado:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,24 +110,26 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                            .addComponent(cmbTipoTarea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                            .addComponent(cmbTipoTarea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,15 +144,19 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(cmbTipoTarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -160,6 +175,7 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbTipoTarea;
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -168,34 +184,35 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
 
-    public void mostrarDatos(String nombre, String tipoTarea, Date fechaInicio, Date fechaFin, String observaciones)
-    {
-        if(nombre!=null)
-        {
-            txtNombre.setText(nombre);
-        }
-        if(tipoTarea!=null)
-        {
-            cmbTipoTarea.setSelectedItem(tipoTarea);
-        }
-        if(fechaInicio != null)
-        {
-            dcFechaInicio.setDate(fechaInicio);
-        }
-        if(fechaFin != null)
-        {
-            dcFechaFin.setDate(fechaFin);
-        }
-        if(observaciones!=null)
-        {
-            txtObservaciones.setText(observaciones);
-        }            
-    }
+//    public void mostrarDatos(String nombre, String tipoTarea, Date fechaInicio, Date fechaFin, String observaciones)
+//    {
+//        if(nombre!=null)
+//        {
+//            txtNombre.setText(nombre);
+//        }
+//        if(tipoTarea!=null)
+//        {
+//            cmbTipoTarea.setSelectedItem(tipoTarea);
+//        }
+//        if(fechaInicio != null)
+//        {
+//            dcFechaInicio.setDate(fechaInicio);
+//        }
+//        if(fechaFin != null)
+//        {
+//            dcFechaFin.setDate(fechaFin);
+//        }
+//        if(observaciones!=null)
+//        {
+//            txtObservaciones.setText(observaciones);
+//        }            
+//    }
 
     public void agregarElementoAlCombo(String nombre) {
         this.cmbTipoTarea.addItem(nombre);
@@ -235,7 +252,98 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
         this.add(chooser);
     }*/
 
-     public void actualizar() {
-      
+    public void actualizar() {
+        initDatosTarea();
+    }
+
+    private void initDatosTarea() {
+        NTupla datos = gestor.getDatosTareaSeleccionada();
+        if(datos==null){
+            // Desactivo los componentes
+            cambiarComponentesDeLaVentana(false);
+        }else{
+            // Activo los componentes
+            cambiarComponentesDeLaVentana(true);
+            txtNombre.setText(datos.getNombre());
+            
+                Object[] data = (Object[])datos.getData();
+                
+                    String observaciones = (String)data[4];
+                    txtObservaciones.setText(observaciones);
+                    
+                    Date fechaIni = (Date)data[2];
+                    dcFechaInicio.setDate(fechaIni);
+                    Date fechaFin = (Date)data[3];
+                    dcFechaFin.setDate(fechaFin);
+                    
+                    int idTipoTarea = (Integer)data[0];
+                    for (int i = 0; i < cmbTipoTarea.getItemCount(); i++) {
+                        Tupla tp = (Tupla) cmbTipoTarea.getItemAt(i);
+                        if(tp.getId()==idTipoTarea){
+                            cmbTipoTarea.setSelectedIndex(i);
+                        }
+                    }
+
+                    String estado = (String)data[1];
+                    for (int i = 0; i < cmbEstado.getItemCount(); i++) {
+                        Tupla tp = (Tupla) cmbEstado.getItemAt(i);
+                        if(tp.getId()==TareaEjecucion.getIdEstadoSegunNombre(estado)){
+                            cmbEstado.setSelectedIndex(i);
+                        }
+                    }                    
+        }
+    }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
+
+    /**
+     * Inicializa el Combo de Estado
+     */
+    private void initComboEstado() {
+        cmbEstado.removeAllItems();
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_NUEVA,getNombreEstadoTarea(TareaEjecucion.ESTADO_NUEVA,TareaEjecucion.ESTADO_COLOR_NUEVA)));
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_CANCELADA,getNombreEstadoTarea(TareaEjecucion.ESTADO_CANCELADA,TareaEjecucion.ESTADO_COLOR_CANCELADA)));
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_COMPLETA,getNombreEstadoTarea(TareaEjecucion.ESTADO_COMPLETA,TareaEjecucion.ESTADO_COLOR_COMPLETA)));
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_ENESPERA,getNombreEstadoTarea(TareaEjecucion.ESTADO_ENESPERA,TareaEjecucion.ESTADO_COLOR_ENESPERA)));
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_ENPROGRESO,getNombreEstadoTarea(TareaEjecucion.ESTADO_ENPROGRESO,TareaEjecucion.ESTADO_COLOR_ENPROGRESO)));
+        cmbEstado.addItem(new Tupla(TareaEjecucion.ESTADO_ID_IMPEDIMENTO,getNombreEstadoTarea(TareaEjecucion.ESTADO_IMPEDIMENTO,TareaEjecucion.ESTADO_COLOR_IMPEDIMENTO)));
+    }
+
+    /**
+     * Retorna la cadena formateada y coloreada lista para mostrar
+     * @param estado
+     * @param color
+     * @return 
+     */
+    private String getNombreEstadoTarea(String estado, Color color) {
+        String texto = "<HTML><span color='"+ColorUtil.encodeRGB(color) +"'>"+estado+"</span>";  
+        return texto;
+    }
+
+    private void initComboTipoTarea() {
+        cmbTipoTarea.removeAllItems();
+        List<Tupla> tipos = gestor.cargarTiposDeTarea();
+        for (int i = 0; i < tipos.size(); i++) {
+            Tupla tp = tipos.get(i);
+            cmbTipoTarea.addItem(tp);
+        }
+    }
+
+    private void cambiarComponentesDeLaVentana(boolean flag) {
+        txtNombre.setEnabled(flag);
+        cmbTipoTarea.setEnabled(flag);
+        cmbEstado.setEnabled(flag);
+        dcFechaInicio.setEnabled(flag);
+        dcFechaFin.setEnabled(flag);
+        txtObservaciones.setEnabled(flag);
     }
 }

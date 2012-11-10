@@ -8,6 +8,13 @@
 
     <many-to-one class="modelo.TareaPlanificacion" name="tareaPlanificada"/>
     
+    <property name="nombre" type="string"/>
+    <property name="observaciones" type="string"/>
+    <property name="estado" type="string"/>
+    <property name="fechaInicio" type="date"/>
+    <property name="fechaFin" type="date"/>
+    <many-to-one class="modelo.TipoTarea" name="tipoTarea"/>
+    
     <!--LISTADO DE HERRAMIENTAS-->
     <list cascade="all-delete-orphan" name="listaHerramientas" table="TAREAEJEC_X_HERRAMIENTAS">
       <key column="ID_HERRAMIENTA_KEY"/>
