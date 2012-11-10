@@ -1,5 +1,12 @@
 package vista.ejecucion;
 
+import com.hackelare.coolgantt.CoolGanttFactory;
+import com.hackelare.coolgantt.CoolGanttPhase;
+import com.hackelare.coolgantt.CoolGanttTypeModel;
+import com.hackelare.coolgantt.ICoolGantt;
+import com.hackelare.coolgantt.demo.demoEvents;
+import com.hackelare.coolgantt.demo.demoTypes;
+import com.hackelare.coolgantt.legacy.model.ColorLabel;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -7,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,10 +23,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import modelo.TareaEjecucion;
+import modelo.TareaPlanificacion;
 import util.SwingPanel;
 import util.Tupla;
 import vista.ejecucion.lanzamiento.VentanaLanzamiento;
+import vista.gui.dnd.PanelDropTarget;
 import vista.planificacion.ArbolTareasGestor;
+import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
 import vista.planificacion.arbolTareas.ArbolIconoNodo;
 import vista.planificacion.arbolTareas.ArbolIconoRenderer;
@@ -40,6 +52,9 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private PanelAlquileresCompras panelAlquileresCompras;
     private PanelRecursosHumanos panelRecursosHumanos;
     private PanelAdicionales panelAdicionales;
+    
+    private ICoolGantt graph;
+    private JComponent grafico;
     
     private GestorEjecucion gestor;
     
@@ -68,7 +83,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         arbolTareasGestor=new ArbolTareasGestor(arbolTareas);
         inicializarArbolDeTareas();
         inicializarEventosArbol();
-        
+        inicializarGantt();
         
     }
     
@@ -117,7 +132,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRecursos = new javax.swing.JTable();
         panelCentral = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        panelGantt = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -174,7 +189,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblRecursos.setColumnSelectionAllowed(false);
         tblRecursos.setIntercellSpacing(new java.awt.Dimension(10, 5));
         tblRecursos.setMaximumSize(new java.awt.Dimension(300, 300));
         tblRecursos.setRowHeight(25);
@@ -206,24 +220,14 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
             .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Gestion de Tareas", jPanel5);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 965, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Línea de Tiempo", jPanel1);
+        panelGantt.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Línea de Tiempo", panelGantt);
 
         jPanel2.setToolTipText("Datos Generales");
 
@@ -231,11 +235,11 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 965, Short.MAX_VALUE)
+            .addGap(0, 971, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGap(0, 534, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -257,7 +261,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 945, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -266,7 +270,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -281,7 +285,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 945, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -289,7 +293,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(497, Short.MAX_VALUE))
+                .addContainerGap(509, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel4);
@@ -362,7 +366,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLanzamiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -373,6 +376,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel panelCentral;
+    private javax.swing.JPanel panelGantt;
     private javax.swing.JTable tblRecursos;
     // End of variables declaration//GEN-END:variables
 
@@ -613,5 +617,88 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         
         
     }
-            
+
+    private void inicializarGantt() {
+        graph = CoolGanttFactory.create();
+        graph.setEventHandler(new demoEvents());
+
+        initTypeModel();
+        initModel();
+
+        grafico = graph.getComponent();
+               
+        panelGantt.add(grafico, BorderLayout.CENTER);
+        pack();
+        setVisible(true);
+        
+        // Agrego el menu del boton derecho
+        //grafico.setComponentPopupMenu(jpm);
+        
+        // Le doy el zoom que quiero
+         graph.setZoomOut();
+          graph.setZoomOut();
+           graph.setZoomOut();
+            graph.setZoomOut();
+             graph.setZoomOut();
+         
+        //graph.setEventHandler(new EditarPlanificacion.GanttEventMouse());
+    }
+       
+    /**
+     * Inicializa los tipos de tarea
+     */
+    private void initTypeModel() {
+        CoolGanttTypeModel typeModel = new CoolGanttTypeModel();
+        typeModel.addType(TareaEjecucion.ESTADO_CANCELADA, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_CANCELADA, 0));
+        typeModel.addType(TareaEjecucion.ESTADO_COMPLETA, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_COMPLETA, 0));
+        typeModel.addType(TareaEjecucion.ESTADO_ENESPERA, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_ENESPERA, 0));
+        typeModel.addType(TareaEjecucion.ESTADO_ENPROGRESO, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_ENPROGRESO, 0));
+        typeModel.addType(TareaEjecucion.ESTADO_IMPEDIMENTO, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_IMPEDIMENTO, 0));
+        typeModel.addType(TareaEjecucion.ESTADO_NUEVA, new ColorLabel("", TareaEjecucion.ESTADO_COLORFONDO_NUEVA, 0));
+        graph.getModel().setTypeModel(typeModel);
+    }
+
+    private void initModel() {
+        int n = 0;
+        // TODO: Llenar el Gantt
+        List<TareaPlanificacion> lista = gestor.getTareasPadres();
+        for (int i = 0; i < lista.size(); i++) {
+            TareaEjecucion tplan = (TareaEjecucion) lista.get(i);
+            cargarTareasRecursivas(tplan, n);
+        }
+        graph.refreshModel();
+    }
+
+    private void cargarTareasRecursivas(TareaEjecucion tplan, int n) {
+
+        CoolGanttPhase p1 = new CoolGanttPhase();
+
+        // Si no se puede modificar las bloqueo...
+        if (gestor.esEjecucionEditable()) {
+            p1.setEditable(true);
+        } else {
+            p1.setEditable(false);
+        }
+
+        p1.setId(tplan.getIdTareaGantt());
+        p1.setNombre(tplan.getNombre());
+        p1.setType(tplan.getEstado());
+        p1.setStartDate(tplan.getFechaInicio());
+        p1.setEndDate(tplan.getFechaFin());
+
+        // Agrego el nivel de tarea al gantt
+        for (int j = 0; j < n; j++) {
+            p1.setNombre(p1.getNombre() + " @");
+        }
+
+        graph.addPhase(p1);
+
+        if (tplan.getSubtareas() != null) {
+            for (int i = 0; i < tplan.getSubtareas().size(); i++) {
+                TareaEjecucion tp = (TareaEjecucion)tplan.getSubtareas().get(i);
+                int nuevoNivel = n + 1;
+                cargarTareasRecursivas(tp, nuevoNivel);
+            }
+        }
+    }
 }

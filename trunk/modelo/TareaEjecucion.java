@@ -1,5 +1,6 @@
 package modelo;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.DetalleTareaEjecucion;
@@ -9,25 +10,44 @@ import modelo.DetalleTareaEjecucion;
  */
 public class TareaEjecucion extends TareaPlanificacion{
     
-   
+    public static final int ESTADO_ID_NUEVA       = 0;
+    public static final int ESTADO_ID_ENPROGRESO  = 1;
+    public static final int ESTADO_ID_COMPLETA    = 2;
+    public static final int ESTADO_ID_CANCELADA   = 3;
+    public static final int ESTADO_ID_ENESPERA    = 4;
+    public static final int ESTADO_ID_IMPEDIMENTO = 5;
+    
+    public static final String ESTADO_NUEVA       = "Nueva";
+    public static final String ESTADO_ENPROGRESO  = "En Progreso";
+    public static final String ESTADO_COMPLETA    = "Completa";
+    public static final String ESTADO_CANCELADA   = "Cancelada";
+    public static final String ESTADO_ENESPERA    = "En Espera";
+    public static final String ESTADO_IMPEDIMENTO = "Con Impedimento";
+    
+    public static final Color ESTADO_COLOR_NUEVA       = new Color(0x000000);
+    public static final Color ESTADO_COLOR_ENPROGRESO  = new Color(0xFFB31A);
+    public static final Color ESTADO_COLOR_COMPLETA    = new Color(0x009900);
+    public static final Color ESTADO_COLOR_CANCELADA   = new Color(0xFF0000);
+    public static final Color ESTADO_COLOR_ENESPERA    = new Color(0x6666FF);
+    public static final Color ESTADO_COLOR_IMPEDIMENTO = new Color(0xFF6666);
+
+    public static final Color ESTADO_COLORFONDO_NUEVA       = new Color(0xCCCCCC);
+    public static final Color ESTADO_COLORFONDO_ENPROGRESO  = new Color(0xFFD480);
+    public static final Color ESTADO_COLORFONDO_COMPLETA    = new Color(0x99FF66);
+    public static final Color ESTADO_COLORFONDO_CANCELADA   = new Color(0xD4D4D4);
+    public static final Color ESTADO_COLORFONDO_ENESPERA    = new Color(0xB3B3FF);
+    public static final Color ESTADO_COLORFONDO_IMPEDIMENTO = new Color(0xFFB3B3);    
+    
+    private String estado;
     private TareaPlanificacion tareaPlanificada;
-    
-    
-    // Overrided
-    /*private int id;
-    private List<TareaEjecucion> subtareas;    
-    private List<EjecucionXHerramienta> herramientas;
-    private List<EjecucionXMaterial> materiales;
-    private List<EjecucionXAlquilerCompra> alquilerCompras;
-    private List<DetalleTareaEjecucion> detalle;*/
 
     public TareaEjecucion() {
         super();
-        
-        
+        this.estado = TareaEjecucion.ESTADO_NUEVA;
     }
 
     public TareaEjecucion(TareaPlanificacion aCopiar) {
+        this.estado = TareaEjecucion.ESTADO_NUEVA;
         this.fechaInicio=aCopiar.fechaInicio;
         this.fechaFin=aCopiar.fechaFin;
         this.idTareaGantt=aCopiar.idTareaGantt;   
@@ -41,7 +61,6 @@ public class TareaEjecucion extends TareaPlanificacion{
         this.nombre=aCopiar.nombre;
         this.tipoTarea=aCopiar.tipoTarea;
     }
-  
     
     public TareaPlanificacion getTareaPlanificada() {
         return tareaPlanificada;
@@ -126,6 +145,34 @@ public class TareaEjecucion extends TareaPlanificacion{
      * @return 
      */
     public boolean estaTerminada() {
+        if(this.estado==null) {return false;}
+        if(this.estado.equals(ESTADO_COMPLETA)){ return true; }
+        if(this.estado.equals(ESTADO_CANCELADA)){ return true; }
         return false;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    /**
+     * Segun el nombre de la tarea retorna su ID 
+     * (Asco Asco, pero es rápido y efectivo )
+     * @param nombre
+     * @return 
+     */
+    public static int getIdEstadoSegunNombre(String nombre){
+        if(nombre.equals(ESTADO_CANCELADA)) { return ESTADO_ID_CANCELADA; }
+        if(nombre.equals(ESTADO_COMPLETA)) { return ESTADO_ID_COMPLETA;}
+        if(nombre.equals(ESTADO_ENESPERA)) { return ESTADO_ID_ENESPERA;}
+        if(nombre.equals(ESTADO_ENPROGRESO)) { return ESTADO_ID_ENPROGRESO;}
+        if(nombre.equals(ESTADO_IMPEDIMENTO)) { return ESTADO_ID_IMPEDIMENTO;}
+        if(nombre.equals(ESTADO_NUEVA)) { return ESTADO_ID_NUEVA ; }
+        return ESTADO_ID_NUEVA;
+    }
+    
 }
