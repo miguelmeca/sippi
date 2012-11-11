@@ -71,7 +71,7 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblOrdenesDeTrabajo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblOrdenesDeTrabajo.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tblOrdenesDeTrabajo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tblOrdenesDeTrabajoMouseReleased(evt);
@@ -82,7 +82,7 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones sobre las Ordenes de Trabajo:"));
 
         btnGenerarOrdenDeTrabajo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/List.png"))); // NOI18N
-        btnGenerarOrdenDeTrabajo.setText("<HTML>Emitir la Orden de Trabajo <b>Seleccionada</b>");
+        btnGenerarOrdenDeTrabajo.setText("<HTML>Emitir las Ordenes de Trabajo <b>Seleccionadas</b>");
         btnGenerarOrdenDeTrabajo.setEnabled(false);
         btnGenerarOrdenDeTrabajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,12 +95,14 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(359, Short.MAX_VALUE)
+                .addContainerGap(337, Short.MAX_VALUE)
                 .addComponent(btnGenerarOrdenDeTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnGenerarOrdenDeTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnGenerarOrdenDeTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -121,14 +123,14 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
 
     private void btnGenerarOrdenDeTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarOrdenDeTrabajoActionPerformed
         DefaultTableModel modelo = (DefaultTableModel)tblOrdenesDeTrabajo.getModel();
-            if(tblOrdenesDeTrabajo.getSelectedRows().length==1){
+            if(tblOrdenesDeTrabajo.getSelectedRows().length>=1){
                 for (int i = 0; i < tblOrdenesDeTrabajo.getSelectedRows().length; i++) {
                     int filaSeleccionada = tblOrdenesDeTrabajo.getSelectedRows()[i];
                     NTupla ntp = (NTupla) modelo.getValueAt(filaSeleccionada,0);
                     gestor.emitirOrdenDeTrabajo(ntp.getId());
                 }
             }else{
-                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>Seleccione <b>una Orden de Trabajo</b> para emitir");
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>Seleccione la menos <b>una Orden de Trabajo</b> para emitir");
             }
     }//GEN-LAST:event_btnGenerarOrdenDeTrabajoActionPerformed
 
@@ -219,6 +221,5 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
     void actualizarDatos() {
         cargarDatosTablaParaObra();
     }
-
 
 }
