@@ -421,16 +421,19 @@ public class GestorVentanaLanzamiento {
      * Arma los datso necesarios para la emisión de una orden de trabajo.
      * Recibe el HASH de la Tarea a Emitir
      */
-    public void emitirOrdenDeTrabajo(int tareaHash){       
+    public void emitirOrdenDeTrabajo(int tareaHash) throws Exception{       
         if (this.pedidoDeObra != null) {
             Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
             if (ejecucion != null) {
                 
                 TareaEjecucion te = EjecucionUtils.getTareaFromHash(ejecucion,tareaHash);
                 
-                GestorGenerarOrdenesDeTrabajo emisor = new GestorGenerarOrdenesDeTrabajo();
-                emisor.emitirOrdenDeTrabajo(this.pedidoDeObra,te);
-                
+                try{
+                    GestorGenerarOrdenesDeTrabajo emisor = new GestorGenerarOrdenesDeTrabajo();
+                    emisor.emitirOrdenDeTrabajo(this.pedidoDeObra,te);
+                }catch(Exception ex){
+                    throw ex;
+                }
             }
         }
     }
