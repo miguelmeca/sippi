@@ -242,8 +242,8 @@ public class GestorEjecucion {
     }*/
     
      
-    public List<NTupla> getListaRRHH(Date fechaDesde, Date fechaHasta) {
-        List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
+    public List<Object> getListaRRHH(Date fechaDesde, Date fechaHasta) {
+        List<Object> listaTuplasDetallesXDia = new ArrayList<Object>();
         
             if (ejecucion != null) {
                 List<TareaPlanificacion> todasTareas;
@@ -284,6 +284,7 @@ public class GestorEjecucion {
                                     }
 
                                     nt.setNombre(nombreyLegajo);
+                                    nt.setData(detalleXDia);
                                     NTupla fecha=new NTupla();
                                     fecha.setNombre(FechaUtil.getFecha(detalleXDia.getFecha()));
                                     fecha.setData(detalleXDia.getFecha());
@@ -297,8 +298,8 @@ public class GestorEjecucion {
                                          data[4] = detalleXDia.getCantHorasAl50();
                                          data[5] = detalleXDia.getCantHorasAl100();
 
-                                     nt.setData(data); 
-                                     listaTuplasDetallesXDia.add(nt);
+                                      
+                                     listaTuplasDetallesXDia.add(data);
                                  }
                              }
                         }
@@ -309,8 +310,8 @@ public class GestorEjecucion {
     }
     
     
-    public List<NTupla> getListaHerramientas( Date fechaDesde, Date fechaHasta) {
-        List<NTupla> listaTuplasDetallesXDia = new ArrayList<NTupla>();
+    public List<Object> getListaHerramientas( Date fechaDesde, Date fechaHasta) {
+        List<Object> listaTuplasDetallesXDia = new ArrayList<Object>();
         
             if (ejecucion != null) {
                 List<TareaPlanificacion> todasTareas;
@@ -336,7 +337,7 @@ public class GestorEjecucion {
                                 {
                                     NTupla nt = new NTupla(herramientaEjecucion.hashCode());
                                     nt.setNombre(herramientaEjecucion.getHerramienta().getNombre());
-
+                                    nt.setData(herramientaXDia); 
                                     NTupla fecha=new NTupla();
                                     fecha.setNombre(FechaUtil.getFecha(herramientaXDia.getFecha()));
                                     fecha.setData(herramientaXDia.getFecha());
@@ -348,8 +349,8 @@ public class GestorEjecucion {
                                     data[2] = fecha;
                                     data[3] = herramientaXDia.getHorasUtilizadas();
 
-                                    nt.setData(data); 
-                                    listaTuplasDetallesXDia.add(nt);
+                                    
+                                    listaTuplasDetallesXDia.add(data);
                                 }
                            }
                         }
