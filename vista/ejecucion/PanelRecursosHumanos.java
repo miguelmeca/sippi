@@ -8,11 +8,17 @@ import com.toedter.calendar.JDateChooser;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -20,8 +26,11 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.DetalleTareaEjecucionXDia;
+import sun.rmi.runtime.Log;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
+import vista.util.TableCellListener;
 
 /**
  *
@@ -37,7 +46,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     public static final int TABLA_RRHH_COLUMNA_HS_100 = 5;    
     private static final int TABLA_DEFAULT_ALTO = 25;  
     
-    private List<NTupla> listaRRHH;
+    private List<Object> listaRRHH;
     private DefaultTableModel model;
     private boolean primeraVez;
     private boolean filtroBuscarActivado;
@@ -258,6 +267,40 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
+    
+    //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
+    Action accionSobreCelda = new AbstractAction()
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            TableCellListener tcl = (TableCellListener)e.getSource();
+            int fila = tcl.getRow();
+            int columna = tcl.getColumn();
+            Float valor = (Float) tcl.getNewValue();
+            DefaultTableModel modeloTabla = (DefaultTableModel)tblRRHH.getModel();
+            DetalleTareaEjecucionXDia detalle = (DetalleTareaEjecucionXDia)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
+            
+            switch(columna)
+            {
+                case TABLA_RRHH_COLUMNA_HS_NORMALES:
+                    detalle.setCantHorasNormales(Double.valueOf(valor));
+                    break;
+                case TABLA_RRHH_COLUMNA_HS_50:
+                    detalle.setCantHorasAl50(Double.valueOf(valor));
+                    break;
+                case TABLA_RRHH_COLUMNA_HS_100:
+                    detalle.setCantHorasAl100(Double.valueOf(valor));
+                    break;
+                default:
+                    Logger.getLogger(PanelRecursosHumanos.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                    break;
+                        
+            }  
+        }
+    };
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -303,6 +346,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             columnaTabla.setWidth(anchoColumna);
         }
         cambiarTamCabeceraTablas();
+        TableCellListener tcl = new TableCellListener(tblRRHH, accionSobreCelda);
     }
     
     
@@ -319,9 +363,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         model = (DefaultTableModel) tblRRHH.getModel();
         
         model.setRowCount(0);
-        for (NTupla detalle : listaRRHH)
+        for (Object detalle : listaRRHH)
         {
-            Object[] obj=(Object[])detalle.getData();
+            Object[] obj=(Object[])detalle;
             model.addRow( obj );
         }
        
@@ -356,5 +400,16 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             }
         });
     }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
 
 }

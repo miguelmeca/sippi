@@ -4,11 +4,16 @@ import com.toedter.calendar.JDateChooser;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -17,8 +22,10 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.EjecucionXHerramientaXDia;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
+import vista.util.TableCellListener;
 
 /**
  *
@@ -32,7 +39,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
     public static final int TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR = 3;
     private static final int TABLA_DEFAULT_ALTO = 25;      
     private GestorEjecucion gestor;
-    private List<NTupla> listaHerramientas;
+    private List<Object> listaHerramientas;
     private DefaultTableModel model;
     boolean filtroBuscarActivado;
     boolean filtroFechaDesdeActivado;
@@ -172,7 +179,6 @@ public class PanelHerramientas extends javax.swing.JPanel{
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +188,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -192,6 +198,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,6 +260,27 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
+    //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
+    Action accionSobreCelda = new AbstractAction()
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            TableCellListener tcl = (TableCellListener)e.getSource();
+            int fila = tcl.getRow();
+            int columna = tcl.getColumn();
+            String valor = (String) tcl.getNewValue();
+            DefaultTableModel modeloTabla = (DefaultTableModel)tblHerramientas.getModel();
+            EjecucionXHerramientaXDia detalle = (EjecucionXHerramientaXDia)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
+            
+            detalle.setHorasUtilizadas(Integer.valueOf(valor));
+             
+            if(columna!=TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR)
+            {       Logger.getLogger(PanelHerramientas.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                        
+            }  
+        }
+    };
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -324,9 +352,9 @@ public class PanelHerramientas extends javax.swing.JPanel{
         model = (DefaultTableModel) tblHerramientas.getModel();
         
         model.setRowCount(0);
-        for (NTupla detalle : listaHerramientas)
+        for (Object detalle : listaHerramientas)
         {
-            Object[] obj=(Object[])detalle.getData();
+            Object[] obj=(Object[])detalle;
             model.addRow( obj );
         }
        
