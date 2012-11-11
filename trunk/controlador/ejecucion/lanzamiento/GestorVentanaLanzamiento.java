@@ -421,7 +421,7 @@ public class GestorVentanaLanzamiento {
      * Arma los datso necesarios para la emisión de una orden de trabajo.
      * Recibe el HASH de la Tarea a Emitir
      */
-    public void emitirOrdenDeTrabajo(int tareaHash){
+    public void emitirOrdenDeTrabajo(int tareaHash){       
         if (this.pedidoDeObra != null) {
             Ejecucion ejecucion = this.pedidoDeObra.getEjecucion();
             if (ejecucion != null) {
