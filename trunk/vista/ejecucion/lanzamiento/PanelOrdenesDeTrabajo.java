@@ -127,7 +127,11 @@ public class PanelOrdenesDeTrabajo extends javax.swing.JPanel {
                 for (int i = 0; i < tblOrdenesDeTrabajo.getSelectedRows().length; i++) {
                     int filaSeleccionada = tblOrdenesDeTrabajo.getSelectedRows()[i];
                     NTupla ntp = (NTupla) modelo.getValueAt(filaSeleccionada,0);
+                    try{
                     gestor.emitirOrdenDeTrabajo(ntp.getId());
+                    }catch(Exception e){
+                        mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML>Se produjo un <b>error grave</b> al generar la orden de compra\nAsegurese que todos los datos ingresados son correctos.");
+                    }
                 }
             }else{
                 mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>Seleccione la menos <b>una Orden de Trabajo</b> para emitir");

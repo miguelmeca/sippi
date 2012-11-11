@@ -14,7 +14,10 @@ import controlador.ejecucion.EjecucionUtils;
 import java.util.HashMap;
 import java.util.List;
 import modelo.DetalleTareaEjecucion;
+import modelo.DetalleTareaEjecucionXDia;
 import modelo.DetalleTareaPlanificacion;
+import modelo.EjecucionXHerramienta;
+import modelo.EjecucionXHerramientaXDia;
 import modelo.Empleado;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
@@ -143,10 +146,10 @@ public class OrdenDeTrabajo extends ReportDesigner {
     private void mostrarPersonalDesignado() throws DocumentException {
         mostrarTitulo("PERSONAL DESIGNADO");
         
-        PdfPTable tabla = new PdfPTable(7);
+        PdfPTable tabla = new PdfPTable(8);
         tabla.setSpacingBefore(5f);
         tabla.setWidthPercentage(100);
-        float[] anchos = {9f,1f,1f,1f,3f,3f,3f};
+        float[] anchos = {9f,1f,1f,1f,3f,3f,3f,3f};
         tabla.setWidths(anchos);
         
         Paragraph paNumero = new Paragraph();
@@ -163,6 +166,13 @@ public class OrdenDeTrabajo extends ReportDesigner {
         celdaDescripcion.setBackgroundColor(TABLE_HEADER_BASE_COLOR);
         celdaDescripcion.setColspan(3);
         tabla.addCell(celdaDescripcion);
+        
+        Paragraph paFecha = new Paragraph();
+        paFecha.add(new Phrase("Fecha", ReportDesigner.FUENTE_NORMAL_B));
+        PdfPCell celdaFecha = new PdfPCell(paFecha);
+        celdaFecha.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        celdaFecha.setBackgroundColor(TABLE_HEADER_BASE_COLOR);
+        tabla.addCell(celdaFecha);        
 
         Paragraph paUtilizadas = new Paragraph();
         paUtilizadas.add(new Phrase("Utilizadas (Normales)", ReportDesigner.FUENTE_NORMAL_B));
@@ -187,36 +197,56 @@ public class OrdenDeTrabajo extends ReportDesigner {
         
         List<DetalleTareaPlanificacion> lista = tarea.getDetalles();
         for (int i = 0; i < lista.size(); i++) {
+            // Por cada Tarea
             DetalleTareaEjecucion detalleTareaPlanificacion = (DetalleTareaEjecucion)lista.get(i);
             List<Empleado> empleados = detalleTareaPlanificacion.getEmpleados();
             for (int j = 0; j < empleados.size(); j++) {
+                // Por cada Empleado
                 Empleado empleado = empleados.get(j);
                 
-                String nombreCompleto = empleado.getNombreEmpleado();
-                if(detalleTareaPlanificacion.getEspecialidad()!=null && detalleTareaPlanificacion.getEspecialidad().getTipo()!=null
-                        && detalleTareaPlanificacion.getEspecialidad().getRango()!=null){
-                    nombreCompleto += " ["+detalleTareaPlanificacion.getEspecialidad().getTipo().getNombre()+" "+detalleTareaPlanificacion.getEspecialidad().getRango().getNombre()+"]";
-                }
-                PdfPCell celdaC1 = new PdfPCell(new Phrase(nombreCompleto,FUENTE_NORMAL_CHICA));
-                
-                PdfPCell celdaC2 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasNormales()),FUENTE_NORMAL_CHICA));
-                    celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                PdfPCell celdaC3 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl50()),FUENTE_NORMAL_CHICA));
-                    celdaC3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                PdfPCell celdaC4 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl100()),FUENTE_NORMAL_CHICA));
-                    celdaC4.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                
-                PdfPCell celdaC5 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
-                PdfPCell celdaC6 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
-                PdfPCell celdaC7 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
-
-                tabla.addCell(celdaC1);
-                tabla.addCell(celdaC2);
-                tabla.addCell(celdaC3);
-                tabla.addCell(celdaC4);
-                tabla.addCell(celdaC5);
-                tabla.addCell(celdaC6);
-                tabla.addCell(celdaC7);
+                    // Por cada día de la Tarea
+                    int cantidadDias = detalleTareaPlanificacion.getListaDetallePorDia().size();
+                    for (int k = 0; k < cantidadDias; k++) {
+                        DetalleTareaEjecucionXDia tareaXdia = detalleTareaPlanificacion.getListaDetallePorDia().get(k);
+                        
+                           String nombreCompleto = empleado.getNombreEmpleado();
+                           if(detalleTareaPlanificacion.getEspecialidad()!=null && detalleTareaPlanificacion.getEspecialidad().getTipo()!=null
+                                   && detalleTareaPlanificacion.getEspecialidad().getRango()!=null){
+                               nombreCompleto += " ["+detalleTareaPlanificacion.getEspecialidad().getTipo().getNombre()+" "+detalleTareaPlanificacion.getEspecialidad().getRango().getNombre()+"]";
+                           }
+                           
+                           if(k==0){
+                                PdfPCell celdaC1 = new PdfPCell(new Phrase(nombreCompleto,FUENTE_NORMAL_CHICA));
+                                celdaC1.setRowspan(cantidadDias-1);
+                                tabla.addCell(celdaC1);
+                           
+                                PdfPCell celdaC2 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasNormales()),FUENTE_NORMAL_CHICA));
+                                    celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                                    celdaC2.setRowspan(cantidadDias-1);
+                                    tabla.addCell(celdaC2);
+                                PdfPCell celdaC3 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl50()),FUENTE_NORMAL_CHICA));
+                                    celdaC3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                                    celdaC3.setRowspan(cantidadDias-1);
+                                    tabla.addCell(celdaC3);
+                                PdfPCell celdaC4 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl100()),FUENTE_NORMAL_CHICA));
+                                    celdaC4.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                                    celdaC4.setRowspan(cantidadDias-1);
+                                    tabla.addCell(celdaC4);
+                           }
+                           
+                           PdfPCell celdaC5 = new PdfPCell(new Phrase(FechaUtil.getFecha(tareaXdia.getFecha()),FUENTE_NORMAL_CHICA));
+                                celdaC5.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                               
+                           PdfPCell celdaC6 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
+                           PdfPCell celdaC7 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
+                           PdfPCell celdaC8 = new PdfPCell(new Phrase(" ",FUENTE_NORMAL_CHICA));
+                           
+                           tabla.addCell(celdaC5);
+                           tabla.addCell(celdaC6);
+                           tabla.addCell(celdaC7);                       
+                           tabla.addCell(celdaC8);                       
+                        
+                    }
                 
             }
         }
@@ -297,10 +327,10 @@ public class OrdenDeTrabajo extends ReportDesigner {
     }
     
     private void mostrarTablaHerramientas() throws DocumentException {
-        PdfPTable tabla = new PdfPTable(3);
+        PdfPTable tabla = new PdfPTable(4);
         tabla.setSpacingBefore(5f);
         tabla.setWidthPercentage(100);
-        float[] anchos = {9f,4f,4f};
+        float[] anchos = {9f,4f,4f,4f};
         tabla.setWidths(anchos);
         
         Paragraph paHeader = new Paragraph();
@@ -308,7 +338,7 @@ public class OrdenDeTrabajo extends ReportDesigner {
         PdfPCell celdaHeader = new PdfPCell(paHeader);
         celdaHeader.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaHeader.setBackgroundColor(TABLE_HEADER_BASE_COLOR);
-        celdaHeader.setColspan(3);
+        celdaHeader.setColspan(4);
         tabla.addCell(celdaHeader);
         
         Paragraph paNumero = new Paragraph();
@@ -324,6 +354,13 @@ public class OrdenDeTrabajo extends ReportDesigner {
         celdaDescripcion.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaDescripcion.setBackgroundColor(TABLE_SUBHEADER_BASE_COLOR);
         tabla.addCell(celdaDescripcion);
+        
+        Paragraph paFecha = new Paragraph();
+        paFecha.add(new Phrase("Fecha", ReportDesigner.FUENTE_NORMAL_B));
+        PdfPCell celdaFecha = new PdfPCell(paFecha);
+        celdaFecha.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        celdaFecha.setBackgroundColor(TABLE_SUBHEADER_BASE_COLOR);
+        tabla.addCell(celdaFecha);        
 
         Paragraph paUtilizadas = new Paragraph();
         paUtilizadas.add(new Phrase("Utilizadas", ReportDesigner.FUENTE_NORMAL_B));
@@ -334,28 +371,41 @@ public class OrdenDeTrabajo extends ReportDesigner {
         
           List<PlanificacionXHerramienta> lista = tarea.getHerramientas();
           for (int i = 0; i < lista.size(); i++) {
-            PlanificacionXHerramienta herr = lista.get(i);
+            EjecucionXHerramienta herr = (EjecucionXHerramienta)lista.get(i);
             
-            Paragraph paC1 = new Paragraph();
-            paC1.add(new Phrase(herr.getHerramienta().getNombre(), ReportDesigner.FUENTE_NORMAL_CHICA));
-            PdfPCell celdaC1 = new PdfPCell(paC1);
-            celdaC1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            tabla.addCell(celdaC1);
+                int cantDias = herr.getUsoHerramientasXdia().size();
+                for (int j = 0; j < cantDias; j++) {
+                    EjecucionXHerramientaXDia herrXdia = herr.getUsoHerramientasXdia().get(j);
+                 
+                    if(j==0){
+                        Paragraph paC1 = new Paragraph();
+                        paC1.add(new Phrase(herr.getHerramienta().getNombre(), ReportDesigner.FUENTE_NORMAL_CHICA));
+                        PdfPCell celdaC1 = new PdfPCell(paC1);
+                        celdaC1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+                        celdaC1.setRowspan(cantDias-1);
+                        tabla.addCell(celdaC1);
 
-            Paragraph paC2 = new Paragraph();
-            paC2.add(new Phrase(String.valueOf(herr.getHorasAsignadas()), ReportDesigner.FUENTE_NORMAL_CHICA));
-            PdfPCell celdaC2 = new PdfPCell(paC2);
-            celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-            tabla.addCell(celdaC2);
-
-            Paragraph paC3 = new Paragraph();
-            paC3.add(new Phrase(" ", ReportDesigner.FUENTE_NORMAL_CHICA));
-            PdfPCell celdaC3 = new PdfPCell(paC3);
-            celdaC3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-            tabla.addCell(celdaC3);    
-            
+                        Paragraph paC2 = new Paragraph();
+                        paC2.add(new Phrase(String.valueOf(herr.getHorasAsignadas()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                        PdfPCell celdaC2 = new PdfPCell(paC2);
+                        celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                        celdaC2.setRowspan(cantDias-1);
+                        tabla.addCell(celdaC2);
+                    }
+                    
+                    Paragraph pa2Fecha = new Paragraph();
+                    pa2Fecha.add(new Phrase(FechaUtil.getFecha(herrXdia.getFecha()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                    PdfPCell celdaFecha2 = new PdfPCell(pa2Fecha);
+                    celdaFecha2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                    tabla.addCell(celdaFecha2);  
+                    
+                    Paragraph paC3 = new Paragraph();
+                    paC3.add(new Phrase(" ", ReportDesigner.FUENTE_NORMAL_CHICA));
+                    PdfPCell celdaC3 = new PdfPCell(paC3);
+                    celdaC3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+                    tabla.addCell(celdaC3);  
+                }  
           }
-        
         super.doc.add(tabla);
     }
 

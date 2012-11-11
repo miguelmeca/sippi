@@ -39,6 +39,7 @@ public class ReportDesigner
     public static final int REPORTE_TIPO_SEGUIMIENTO   = 3;
     public static final int REPORTE_TIPO_LISTADOS      = 4;
     public static final int REPORTE_TIPO_COMPRAS       = 5;
+    public static final int REPORTE_TIPO_ORDENESTRABAJO= 6;
     
     //public static final Font FUENTE_TITULO_1 = new Font(Font.FontFamily.HELVETICA,14,Font.BOLD);
     //public static final Font FUENTE_TITULO_2 = new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC);
@@ -218,6 +219,9 @@ public class ReportDesigner
                
             case ReportDesigner.REPORTE_TIPO_LISTADOS:
                 return URL_DIR_REPORTES+"Listados/";                    
+
+            case ReportDesigner.REPORTE_TIPO_ORDENESTRABAJO:
+                return URL_DIR_REPORTES+"OrdenesDeTrabajo/";                    
                 
             case ReportDesigner.REPORTE_TIPO_OTROS: 
                 return URL_DIR_REPORTES+"Otros/";
@@ -241,6 +245,10 @@ public class ReportDesigner
                 
             case ReportDesigner.REPORTE_TIPO_COMPRAS:
                 path = URL_DIR_REPORTES+"Compras/";         
+                break;
+
+            case ReportDesigner.REPORTE_TIPO_ORDENESTRABAJO:
+                path = URL_DIR_REPORTES+"OrdenesDeTrabajo/";         
                 break;
                 
             case ReportDesigner.REPORTE_TIPO_SEGUIMIENTO:

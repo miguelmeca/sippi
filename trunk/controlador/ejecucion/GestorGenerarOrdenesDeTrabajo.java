@@ -21,14 +21,15 @@ public class GestorGenerarOrdenesDeTrabajo {
      * @param po
      * @param te 
      */
-    public void emitirOrdenDeTrabajo(PedidoObra po, TareaEjecucion te) {
+    public void emitirOrdenDeTrabajo(PedidoObra po, TareaEjecucion te) throws Exception {
         try {
             OrdenDeTrabajo re = new OrdenDeTrabajo(po,te);
             re.setNombreReporte("Orden de Trabajo");
-            re.setNombreArchivo("OrdenDeTrabajo-"+EjecucionUtils.getNumeroOrdenDeTrabajo(po.getNumero(),te.getId()),ReportDesigner.REPORTE_TIPO_OTROS);
+            re.setNombreArchivo("OrdenDeTrabajo-"+EjecucionUtils.getNumeroOrdenDeTrabajo(po.getNumero(),te.getId()),ReportDesigner.REPORTE_TIPO_ORDENESTRABAJO);
             re.makeAndShow(new HashMap<String,Object>());
         } catch (Exception ex) {
             System.err.println("Error al generar el reporte");
+            throw ex;
         }
     }
     
