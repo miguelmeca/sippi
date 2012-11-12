@@ -108,6 +108,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
         txtBuscar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        btnHoy = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -175,6 +176,13 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
         jLabel7.setText("Buscar");
 
+        btnHoy.setText("Hoy");
+        btnHoy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,9 +194,12 @@ public class PanelHerramientas extends javax.swing.JPanel{
                     .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHoy))
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -217,7 +228,8 @@ public class PanelHerramientas extends javax.swing.JPanel{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
+                            .addComponent(jLabel2)))
+                    .addComponent(btnHoy, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
         );
@@ -260,6 +272,11 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
     }//GEN-LAST:event_txtBuscarKeyTyped
 
+    private void btnHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoyActionPerformed
+        dcFechaInicio.setDate(new Date());
+        dcFechaFin.setDate(new Date());
+    }//GEN-LAST:event_btnHoyActionPerformed
+
     //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
     Action accionSobreCelda = new AbstractAction()
     {
@@ -282,6 +299,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
         }
     };
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHoy;
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
     private javax.swing.JLabel jLabel1;

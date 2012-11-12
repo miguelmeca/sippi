@@ -16,8 +16,10 @@ import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
 import modelo.DetalleTareaPlanificacion;
 import modelo.Ejecucion;
+import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXHerramientaXDia;
+import modelo.EjecucionXMaterial;
 import modelo.Empleado;
 import modelo.PedidoObra;
 import modelo.PlanificacionXAlquilerCompra;
@@ -33,6 +35,7 @@ import org.hibernate.HibernateException;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
+import util.RecursosUtil;
 import util.Tupla;
 import vista.ejecucion.VentanaEjecucion;
 import vista.planificacion.ArbolDeTareasTipos;
@@ -358,6 +361,90 @@ public class GestorEjecucion {
                 }            
         }
         return listaTuplasDetallesXDia;        
+    }
+    
+    public List<Object> getListaMateriales() {
+        List<Object> listaTuplasMateriales = new ArrayList<Object>();
+        
+            if (ejecucion != null) {
+                List<TareaPlanificacion> todasTareas;
+                if(hashTarea>0) {
+                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
+                }
+                else {
+                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
+                }
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
+                    List<PlanificacionXMaterial> listaMateriales = tarea.getMateriales();
+                    for (int j = 0; j < listaMateriales.size(); j++) {
+                        EjecucionXMaterial materialEjecucion = (EjecucionXMaterial)listaMateriales.get(j);
+                        RecursoXProveedor rxp = materialEjecucion.getMaterial();
+                            RecursoEspecifico recesp = RecursosUtil.getRecursoEspecifico(rxp);
+                       
+                          
+                                    NTupla nt = new NTupla(materialEjecucion.hashCode());
+                                    nt.setNombre(recesp.getNombre());
+                                    nt.setData(materialEjecucion); 
+                                    
+                                    Object[] data = new Object[5];
+                                    //Interasante chanchada esta... :D
+                                    data[0] = nt;
+                                    data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                    data[2] = materialEjecucion.getMaterialPlanificado().getCantidad();
+                                    data[3] = materialEjecucion.getCantidad();
+                                    data[4] = materialEjecucion.getPrecioUnitario();
+                                    
+                                    listaTuplasMateriales.add(data);
+                                
+                           
+                        
+                    }
+                }            
+        }
+        return listaTuplasMateriales;        
+    }
+    
+     public List<Object> getListaAlquileresCompras() {
+        List<Object> listaTuplasAlquileresCompras = new ArrayList<Object>();
+        
+            if (ejecucion != null) {
+                List<TareaPlanificacion> todasTareas;
+                if(hashTarea>0) {
+                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
+                }
+                else {
+                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
+                }
+                for (int i = 0; i < todasTareas.size(); i++) {
+                    TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
+                    List<PlanificacionXAlquilerCompra> listaAlquileresCompras = tarea.getAlquilerCompras();
+                    for (int j = 0; j < listaAlquileresCompras.size(); j++) {
+                        EjecucionXAlquilerCompra alquilerEjecucion = (EjecucionXAlquilerCompra)listaAlquileresCompras.get(j);                       
+                           
+                       
+                          
+                                    NTupla nt = new NTupla(alquilerEjecucion.hashCode());
+                                    nt.setNombre(alquilerEjecucion.getDescripcion());
+                                    nt.setData(alquilerEjecucion); 
+                                    
+                                    Object[] data = new Object[5];
+                                    //Interasante chanchada esta... :D
+                                    data[0] = nt;
+                                    data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                    data[2] = alquilerEjecucion.getAlquilerCompraPlanificado().getCantidad();
+                                    data[3] = alquilerEjecucion.getCantidad();
+                                    data[4] = alquilerEjecucion.getPrecioUnitario();
+
+                                    
+                                    listaTuplasAlquileresCompras.add(data);
+                                
+                           
+                        
+                    }
+                }            
+        }
+        return listaTuplasAlquileresCompras;        
     }
 
     /**
