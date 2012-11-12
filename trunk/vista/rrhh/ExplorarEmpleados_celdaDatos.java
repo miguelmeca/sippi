@@ -192,6 +192,11 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
     public void setAltura(int altura) {
         this.altura = altura;
     }
+    
+    public String getEstado()
+    {
+        return this.lblEstado.getText();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblEmail;
