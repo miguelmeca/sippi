@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
@@ -234,18 +235,19 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
             TableCellListener tcl = (TableCellListener)e.getSource();
             int fila = tcl.getRow();
             int columna = tcl.getColumn();
-            String valor = (String) tcl.getNewValue();
             DefaultTableModel modeloTabla = (DefaultTableModel)tblAlquileresCompras.getModel();
-            EjecucionXMaterial material = (EjecucionXMaterial)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
+            EjecucionXAlquilerCompra material = (EjecucionXAlquilerCompra)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
             
-            material.setCantidad(Integer.valueOf(valor));
             switch(columna)
             {
                 case TABLA_ALQUILERSCOMPRAS_CANTIDAD_USADA:
-                    material.getMaterialCotizacion().setCantidad(Integer.valueOf(valor));
+                    Integer valorCant = (Integer) tcl.getNewValue();
+                    material.getAlquilerCompraCotizacion().setCantidad(Integer.valueOf(valorCant));
+                    material.setCantidad(valorCant);
                     break;
-                case TABLA_ALQUILERSCOMPRAS_PRECIO_REAL:
-                    material.getMaterialCotizacion().setPrecioUnitario(Double.valueOf(valor));
+                case TABLA_ALQUILERSCOMPRAS_PRECIO_REAL:                    
+                    Float valor = (Float) tcl.getNewValue();
+                    material.getAlquilerCompraCotizacion().setPrecioUnitario(Double.valueOf(valor));
                     break;                
                 default:
                     Logger.getLogger(PanelRecursosHumanos.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
@@ -308,6 +310,7 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
             columnaTabla.setWidth(anchoColumna);
         } 
         cambiarTamCabeceraTablas();
+        TableCellListener tcl = new TableCellListener(tblAlquileresCompras, accionSobreCelda);
     }
      
      private void cambiarTamCabeceraTablas()

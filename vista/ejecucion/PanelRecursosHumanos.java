@@ -296,6 +296,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             DefaultTableModel modeloTabla = (DefaultTableModel)tblRRHH.getModel();
             DetalleTareaEjecucionXDia detalle = (DetalleTareaEjecucionXDia)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
             
+            
             switch(columna)
             {
                 case TABLA_RRHH_COLUMNA_HS_NORMALES:

@@ -121,7 +121,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, true
@@ -285,11 +285,11 @@ public class PanelHerramientas extends javax.swing.JPanel{
             TableCellListener tcl = (TableCellListener)e.getSource();
             int fila = tcl.getRow();
             int columna = tcl.getColumn();
-            String valor = (String) tcl.getNewValue();
+            Integer valor = (Integer) tcl.getNewValue();
             DefaultTableModel modeloTabla = (DefaultTableModel)tblHerramientas.getModel();
             EjecucionXHerramientaXDia detalle = (EjecucionXHerramientaXDia)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
             
-            detalle.setHorasUtilizadas(Integer.valueOf(valor));
+            detalle.setHorasUtilizadas(valor);
              
             if(columna!=TABLA_HERRAMIENTAS_COLUMNA_HS_A_USAR)
             {       Logger.getLogger(PanelHerramientas.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
@@ -355,6 +355,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
             columnaTabla.setWidth(anchoColumna);
         } 
         cambiarTamCabeceraTablas();
+        TableCellListener tcl = new TableCellListener(tblHerramientas, accionSobreCelda);
     }
 
     
