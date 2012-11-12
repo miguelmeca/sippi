@@ -906,6 +906,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         {
             mostrarMensajeError("No se pudo guardar la Planificación.\nDescripción: "+e.getMessage());
             HibernateUtil.rollbackTransaction();
+            return;
         }
         mostrarMensajeExito("La Planificación se Guardo exitosamente!");
     }
@@ -942,13 +943,18 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 HibernateUtil.getSession().saveOrUpdate(pm);
             }
         }
-        if(tareaR.getAsignacionesEmpleados() != null)
+        if(tareaR.getDetalles() != null)
         {
-            Iterator<AsignacionEmpleadoPlanificacion> itAsignaciones = tareaR.getAsignacionesEmpleados().iterator();
-            while(itAsignaciones.hasNext())
+            Iterator<DetalleTareaPlanificacion> itDetalles = tareaR.getDetalles().iterator();
+            while(itDetalles.hasNext())
             {
-                AsignacionEmpleadoPlanificacion aep = itAsignaciones.next();
-                HibernateUtil.getSession().saveOrUpdate(aep.getAsignacionTareaCotizacion());
+                DetalleTareaPlanificacion aep = itDetalles.next();
+                if(aep.getCotizado()!=null) {
+                    HibernateUtil.getSession().saveOrUpdate(aep.getCotizado());
+                    }
+                if(aep.getPadre()!=null) {
+                    HibernateUtil.getSession().saveOrUpdate(aep.getPadre());
+                }
                 HibernateUtil.getSession().saveOrUpdate(aep);
             }
         }
@@ -963,6 +969,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         HibernateUtil.getSession().saveOrUpdate(tareaR);  
     }
+     
 
     void cerrarVentanaEditarTarea(Object key) {
         this._pantalla.cerrarVentanaEditarTarea(key);
@@ -1246,7 +1253,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     ejcXHerr.setHerramientaCotizacion(planXHerramienta.getHerramientaCotizacion());
                     
                     // Lleno los datos del objeto
-                    ejcXHerr.setHorasAsignadas(planXHerramienta.getHorasAsignadas());
+                    //ejcXHerr.setHorasAsignadas(planXHerramienta.getHorasAsignadas());
                     
                         // Creo las Herramientas X Dia
                         List<EjecucionXHerramientaXDia> herramientasXdia = crearHerramientasXDia(tarea);
@@ -1276,7 +1283,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     ejcXmat.setMaterialCotizacion(planXmaterial.getMaterialCotizacion());
                     
                     // Lleno los datos del Objeto
-                    ejcXmat.setCantidad(planXmaterial.getCantidad());
+                   // ejcXmat.setCantidad(planXmaterial.getCantidad());
                     
                     listaMateriales.add(ejcXmat);
                 }
@@ -1304,7 +1311,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     ejcXalqcom.setAlquilerCompraCotizacion(planXalqucompra.getAlquilerCompraCotizacion());
                     
                     // Lleno los datos
-                    ejcXalqcom.setCantidad(planXalqucompra.getCantidad());
+                   // ejcXalqcom.setCantidad(planXalqucompra.getCantidad());
                     
                     listaAlquileresCompras.add(ejcXalqcom);
                 }

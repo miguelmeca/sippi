@@ -1,7 +1,28 @@
 package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import modelo.EjecucionXMaterial;
+import util.NTupla;
+import vista.util.EditableCellTableRenderer;
+import vista.util.TableCellListener;
 
 
 /**
@@ -10,16 +31,55 @@ import javax.swing.JOptionPane;
  */
 public class PanelMateriales extends javax.swing.JPanel{
 
-          
+    public static final int TABLA_MATERIALES_COLUMNA_MATERIAL = 0;
+    public static final int TABLA_MATERIALES_COLUMNA_TAREA = 1;
+    public static final int TABLA_MATERIALES_CANTIDAD_PLANIFICADA = 2;
+    public static final int TABLA_MATERIALES_CANTIDAD_USADA = 3;
+    public static final int TABLA_MATERIALES_PRECIO_REAL = 4;
+    private static final int TABLA_DEFAULT_ALTO = 25;      
     private GestorEjecucion gestor;
+    private DefaultTableModel model;
+    private List<Object> listaMateriales;
+    boolean filtroBuscarActivado;
     
-    /**
-     * Creates new form PanelHerramientas
-     */
+    
     public PanelMateriales(GestorEjecucion gestor) {
         this.gestor = gestor;
         initComponents();
+        initTabla();
+        filtroBuscarActivado=false;
+        habilitarVentana();
     }
+    
+    private void habilitarVentana() {
+        cargarMateriales();
+        activarFiltrosTabla();
+    }
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tblMateriales.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+       
+
+
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,29 +92,26 @@ public class PanelMateriales extends javax.swing.JPanel{
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHerramientas = new javax.swing.JTable();
-        dcFechaInicio = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        dcFechaInicio1 = new com.toedter.calendar.JDateChooser();
+        tblMateriales = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
-        tblHerramientas.setModel(new javax.swing.table.DefaultTableModel(
+        tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Herramienta", "Tarea", "Fecha", "Horas Planificadas", "Horas a cargar"
+                "Nombre", "Tarea", "Cantidad planificada", "Cantidad a usar", "Precio Unitario"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -65,87 +122,153 @@ public class PanelMateriales extends javax.swing.JPanel{
                 return canEdit [columnIndex];
             }
         });
-        tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblHerramientas);
+        tblMateriales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblMateriales);
 
-        jLabel5.setText("Fecha Desde");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jLabel6.setText("Fecha Hasta");
-
-        jLabel7.setText("Buscar");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
             }
         });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(187, 187, 187))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
 
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
+    Action accionSobreCelda = new AbstractAction()
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            TableCellListener tcl = (TableCellListener)e.getSource();
+            int fila = tcl.getRow();
+            int columna = tcl.getColumn();
+            String valor = (String) tcl.getNewValue();
+            DefaultTableModel modeloTabla = (DefaultTableModel)tblMateriales.getModel();
+            EjecucionXMaterial material = (EjecucionXMaterial)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
+            
+            material.setCantidad(Integer.valueOf(valor));
+            switch(columna)
+            {
+                case TABLA_MATERIALES_CANTIDAD_USADA:
+                    material.getMaterialCotizacion().setCantidad(Integer.valueOf(valor));
+                    break;
+                case TABLA_MATERIALES_PRECIO_REAL:
+                    material.getMaterialCotizacion().setPrecioUnitario(Double.valueOf(valor));
+                    break;                
+                default:
+                    Logger.getLogger(PanelRecursosHumanos.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                    break;
+                        
+            }  
+            if(columna!=TABLA_MATERIALES_CANTIDAD_USADA && columna!=TABLA_MATERIALES_PRECIO_REAL)
+            {       Logger.getLogger(PanelMateriales.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                        
+            }  
+        }
+    };
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser dcFechaInicio;
-    private com.toedter.calendar.JDateChooser dcFechaInicio1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblHerramientas;
+    private javax.swing.JTable tblMateriales;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-    
-
-    
-    
     
     /**
      * Muestra un mensaje
@@ -156,11 +279,69 @@ public class PanelMateriales extends javax.swing.JPanel{
     public void mostrarMensaje(int tipo,String titulo,String mensaje)
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    }    
+    } 
+    
+     private void initTabla() {
+        tblMateriales.setRowHeight(TABLA_DEFAULT_ALTO);
+       tblMateriales.setDefaultRenderer(Object.class,new EditableCellTableRenderer());
+        // Ancho de Columnas
+        int anchoColumna = 0;
+        TableColumnModel modeloColumna = tblMateriales.getColumnModel();
+        TableColumn columnaTabla;
+        for (int i = 0; i < tblMateriales.getColumnCount(); i++) {
+            columnaTabla = modeloColumna.getColumn(i);
+            switch (i) {
+                case TABLA_MATERIALES_COLUMNA_MATERIAL:
+                    anchoColumna = 230;
+                    break;
+                case TABLA_MATERIALES_COLUMNA_TAREA:
+                    anchoColumna = 230;
+                    break;
+                case TABLA_MATERIALES_CANTIDAD_PLANIFICADA:
+                    anchoColumna = 130;
+                    break;
+                case TABLA_MATERIALES_CANTIDAD_USADA:
+                    anchoColumna = 130;
+                    break;
+            }
+            columnaTabla.setPreferredWidth(anchoColumna);
+            columnaTabla.setWidth(anchoColumna);
+        } 
+        cambiarTamCabeceraTablas();
+    }
+     
+     private void cambiarTamCabeceraTablas()
+    {
+        Font fuente = new Font("Verdana", Font.PLAIN, 9);
+        JTableHeader th1;
+        th1 = tblMateriales.getTableHeader();
+        th1.setFont(fuente); 
+        
+              
+    }
+    
+     
+    private void cargarMateriales()
+    {
+        
+        listaMateriales=gestor.getListaMateriales();
+       
+        model = (DefaultTableModel) tblMateriales.getModel();
+        
+        model.setRowCount(0);
+        for (Object detalle : listaMateriales)
+        {
+            Object[] obj=(Object[])detalle;
+            model.addRow( obj );
+        }
+       
+        tblMateriales.setModel(model);
     
 
+    }
+
     public void actualizar() {
-        
+        cargarMateriales();
     }
 
     
