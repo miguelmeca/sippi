@@ -234,17 +234,19 @@ public class PanelMateriales extends javax.swing.JPanel{
             TableCellListener tcl = (TableCellListener)e.getSource();
             int fila = tcl.getRow();
             int columna = tcl.getColumn();
-            String valor = (String) tcl.getNewValue();
+            
             DefaultTableModel modeloTabla = (DefaultTableModel)tblMateriales.getModel();
             EjecucionXMaterial material = (EjecucionXMaterial)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
             
-            material.setCantidad(Integer.valueOf(valor));
             switch(columna)
             {
                 case TABLA_MATERIALES_CANTIDAD_USADA:
-                    material.getMaterialCotizacion().setCantidad(Integer.valueOf(valor));
+                    Integer valorCant = (Integer) tcl.getNewValue();
+                    material.getMaterialCotizacion().setCantidad(valorCant);
+                    material.setCantidad(valorCant);
                     break;
                 case TABLA_MATERIALES_PRECIO_REAL:
+                    Float valor = (Float) tcl.getNewValue();
                     material.getMaterialCotizacion().setPrecioUnitario(Double.valueOf(valor));
                     break;                
                 default:
@@ -308,6 +310,7 @@ public class PanelMateriales extends javax.swing.JPanel{
             columnaTabla.setWidth(anchoColumna);
         } 
         cambiarTamCabeceraTablas();
+        TableCellListener tcl = new TableCellListener(tblMateriales, accionSobreCelda);
     }
      
      private void cambiarTamCabeceraTablas()
