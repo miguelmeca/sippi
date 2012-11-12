@@ -18,6 +18,7 @@ import javax.swing.table.*;
 import modelo.*;
 import util.NTupla;
 import vista.interfaces.ICallBack_v3;
+import vista.rrhh.EmpleadoActivoRowFilter;
 import vista.rrhh.ExplorarEmpleados_RenderCeldas;
 import vista.rrhh.ExplorarEmpleados_celdaDatos;
 import vista.rrhh.ExplorarEmpleados_celdaFoto;
@@ -1956,7 +1957,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         {
              if(rbFiltroActivos.isSelected())
            {
-              modeloOrdenado.setRowFilter(RowFilter.regexFilter(gestorConsultarEmpleado.nombreEstadoEmpleadoActivo(), 3));
+              modeloOrdenado.setRowFilter(new EmpleadoActivoRowFilter());
            }
         }
 

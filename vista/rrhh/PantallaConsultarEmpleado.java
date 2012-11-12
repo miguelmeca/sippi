@@ -126,7 +126,7 @@ public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implem
         {
              if(rbFiltroActivos.isSelected())
            {
-              modeloOrdenado.setRowFilter(RowFilter.regexFilter(gestor.nombreEstadoEmpleadoActivo(), 3));
+               modeloOrdenado.setRowFilter(new EmpleadoActivoRowFilter());
            }
         }
 
