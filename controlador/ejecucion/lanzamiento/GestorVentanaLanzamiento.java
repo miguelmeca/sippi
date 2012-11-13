@@ -95,6 +95,7 @@ public class GestorVentanaLanzamiento {
             //System.out.println(e.getKey() + " " + e.getValue());
             HerramientaDeEmpresa hde = (HerramientaDeEmpresa) e.getKey();
             NTupla nt = new NTupla(hde.hashCode());
+            nt.setId(hde.getId());
             nt.setNombre(hde.getNombre());
             String[] data = new String[2];
             data[0] = String.valueOf(e.getValue());
