@@ -162,8 +162,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         lblCotMontoTotal = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        txtNroPlanificacion = new javax.swing.JTextField();
         btnAbrirPlanificacion = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         lblPlanificacionMontoTotal = new javax.swing.JLabel();
@@ -458,12 +456,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de la Planificación"));
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setText("Planificación:");
-
-        txtNroPlanificacion.setEditable(false);
-        txtNroPlanificacion.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-
         btnAbrirPlanificacion.setText("Abrir Planificación");
         btnAbrirPlanificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,13 +489,11 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(77, 77, 77)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(txtNroPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(316, 316, 316)
                         .addComponent(btnAbrirPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblPlanificacionMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -516,10 +506,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(txtNroPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAbrirPlanificacion))
+                .addComponent(btnAbrirPlanificacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
@@ -716,7 +703,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -758,7 +744,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNroCotizacion;
     private javax.swing.JTextField txtNroCotizacion1;
-    private javax.swing.JTextField txtNroPlanificacion;
     // End of variables declaration//GEN-END:variables
 
     
@@ -818,6 +803,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     public void setPlanificacionMontoTotal(String monto) {
         this.lblPlanificacionMontoTotal.setText("$ "+monto);
     }
+    
     
 
     /**
