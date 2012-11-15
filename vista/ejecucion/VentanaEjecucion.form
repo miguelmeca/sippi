@@ -590,13 +590,11 @@
                               <Component id="jLabel9" max="32767" attributes="0"/>
                               <Component id="jLabel7" max="32767" attributes="0"/>
                               <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel18" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="txtNroPlanificacion" min="-2" pref="310" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="316" max="-2" attributes="0"/>
                                   <Component id="btnAbrirPlanificacion" min="-2" pref="398" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -615,11 +613,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNroPlanificacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnAbrirPlanificacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnAbrirPlanificacion" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -640,20 +634,6 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel18">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Planificaci&#xf3;n:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtNroPlanificacion">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="horizontalAlignment" type="int" value="11"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JButton" name="btnAbrirPlanificacion">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Abrir Planificaci&#xf3;n"/>
