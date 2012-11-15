@@ -1585,6 +1585,14 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             updateGantt();
             inicializarArbolDeTareas();
         }
+        else if(flag.equals(PantallaEditarTarea.CALLBACK_FLAG))
+        {
+            // Esto debe ejecutarse cuando se estan modificando los datos de una tarea
+            graph.refreshModel();     
+            updateGantt();
+            initArbolRecursos();
+            inicializarArbolDeTareas();
+        }
         
     }
 
@@ -2446,7 +2454,9 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             GestorEditarTarea gestorEditarTarea = new GestorEditarTarea(_gestor);
             gestorEditarTarea.seleccionarTarea(tarea);
             PantallaEditarTarea editarTarea = new PantallaEditarTarea(gestorEditarTarea);
+            editarTarea.setOtroCallback(this);
             SwingPanel.getInstance().addWindow(editarTarea);
+            
             
             // Registro
             ventanasEditarTareasAbiertas.put(tarea.hashCode(),editarTarea);
