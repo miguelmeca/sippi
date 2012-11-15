@@ -10,6 +10,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.TareaPlanificacion;
 import vista.interfaces.ICallBackGen;
+import vista.interfaces.ICallBack_v3;
 
 /**
  *
@@ -31,6 +32,9 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     
     
     private ICallBackGen tieneCallback = null; // Si no es nulo, tiene callback
+    private ICallBack_v3 tieneOtroCallback = null; // Si no es nulo, tiene callback
+    
+    public static final String CALLBACK_FLAG = "Callback_DatosDeTareaCambiadosONuevaSubtarea";
     
     public PantallaEditarTarea(GestorEditarTarea gestor)
     {
@@ -269,7 +273,12 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
             {
                 this.tieneCallback.actualizar(gestor.getTareaActual().hashCode(),PlanificacionSubTareas.CALLBACK_NUEVASUBTAREA,TareaPlanificacion.class);
             }
-        
+            // Si tiene otro callback lo actualizo
+            if(this.tieneOtroCallback!=null)
+            {
+                this.tieneOtroCallback.actualizar(gestor.getTareaActual().hashCode(),CALLBACK_FLAG,true,null);
+            }
+            
         this.setVisible(false);
     }//GEN-LAST:event_btnGuardarTareaActionPerformed
     
@@ -297,6 +306,9 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         this.tieneCallback = tieneCallback;
     }
 
+    public void setOtroCallback(ICallBack_v3 tieneCallback) {
+        this.tieneOtroCallback = tieneCallback;
+    }    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
