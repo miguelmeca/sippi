@@ -58,15 +58,69 @@ public class GestorEjecucion {
         this.pantalla = vista;
         this.idObra = idObra;        
         cargarObra(idObra);
+        mostrarDatosGenerales();
     }
     
     public int getIdObraActual(){
         return idObra;
     }
     
+    public int getIdCotizacionPlanificada() {
+        return pedidoDeObra.getPlanificacion().getCotizacion().getCotizacionOriginal().getId();
+    }
+    
     private void mostrarMensajeError(String msg) {
         System.err.println("[ERROR] " + msg);
         pantalla.mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
+    }
+    
+    public void mostrarDatosGenerales() {
+
+        try {
+            if(pedidoDeObra.getNombre()!=null && pedidoDeObra.getNombre().length()>60)
+            {
+                pantalla.setLblObraNombre(pedidoDeObra.getNombre().substring(0, 60) + "...");
+            }
+            else
+            {
+                pantalla.setLblObraNombre(pedidoDeObra.getNombre());
+            }
+            
+            pantalla.setLblObraFechaFin(FechaUtil.getFecha(pedidoDeObra.getFechaFin()));
+            pantalla.setLblObraFechaInicio(FechaUtil.getFecha(pedidoDeObra.getFechaInicio()));
+            pantalla.setLblObraLugar(pedidoDeObra.getPlanta().getDomicilio().toString());
+            pantalla.setLblObraPlanta(pedidoDeObra.getPlanta().getRazonSocial());
+
+            if (this.ejecucion != null) {
+                pantalla.setFechaInicioEjecucion(this.ejecucion.getFechaInicio());
+                pantalla.setFechaFinEjecucion(this.ejecucion.getFechaFin());
+                pantalla.setEstadoEjecucion(this.ejecucion.getEstado());
+            }
+            
+            if (this.ejecucion.getPlanificacionOriginal() != null) {
+                pantalla.setFechaInicioPlanificacion(this.ejecucion.getPlanificacionOriginal().getFechaInicio());
+                pantalla.setFechaFinPlanificacion(this.ejecucion.getPlanificacionOriginal().getFechaFin());
+                //pantalla.setPlanificacionMontoTotal(this.ejecucion.getPlanificacionOriginal().)
+                //TODO!!!!! WTF? NO TENEMOS MONTO TOTAL DE PLANIFICACION, ni si quiera calculado
+            }
+
+            if (this.ejecucion != null && this.ejecucion.getPlanificacionOriginal().getCotizacion() != null && this.ejecucion.getPlanificacionOriginal().getCotizacion().getCotizacionOriginal() != null) {
+                pantalla.setTxtNroCotizacion(this.ejecucion.getPlanificacionOriginal().getCotizacion().getCotizacionOriginal().getNroCotizacion());
+                pantalla.setCotizacionMontoTotal(String.valueOf(this.ejecucion.getPlanificacionOriginal().getCotizacion().getCotizacionOriginal().CalcularTotal()));
+            }
+            
+            if (this.ejecucion != null)
+            {
+                pantalla.setDescripcionPlanificacion(this.ejecucion.getDescripcion());
+            }
+            HibernateUtil.commitTransaction();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            HibernateUtil.rollbackTransaction();
+            mostrarMensajeError("No se pudo cargar los datos generales de la cotizacion");
+        }
+
     }
     
     public DefaultTreeModel cargarModeloArbolTareas()
