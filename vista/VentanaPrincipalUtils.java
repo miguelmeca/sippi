@@ -84,7 +84,7 @@ public class VentanaPrincipalUtils {
                                     String[] data = new String[5];
                                     data[0] = String.valueOf(ejec.getId());
                                         // Busco la Obra:
-                                        PedidoObra obra = EjecucionUtils.getNumeroObraFromNumeroEjecucion(ejec.getId());
+                                        PedidoObra obra = EjecucionUtils.getPedidoObraFromNumeroEjecucion(ejec.getId());
                                         if(obra!=null){
                                             data[1] = String.valueOf(obra.getId());
                                             data[2] = obra.getNombre();

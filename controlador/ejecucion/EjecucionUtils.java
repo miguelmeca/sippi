@@ -44,7 +44,7 @@ public class EjecucionUtils {
      * @param id
      * @return
      */
-    public static PedidoObra getNumeroObraFromNumeroEjecucion(int idEjecucion) {
+    public static PedidoObra getPedidoObraFromNumeroEjecucion(int idEjecucion) {
         try {
             HibernateUtil.beginTransaction();
             PedidoObra po = (PedidoObra) HibernateUtil.getSession().createQuery("FROM PedidoObra po WHERE :cID = po.ejecucion.id").setParameter("cID", idEjecucion).uniqueResult();

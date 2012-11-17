@@ -54,7 +54,7 @@ public class ConsultarEjecuciones extends PantallaConsultarGenerica{
 
     @Override
     protected void abrirEntidad(int id) {
-        PedidoObra pobra = EjecucionUtils.getNumeroObraFromNumeroEjecucion(id);
+        PedidoObra pobra = EjecucionUtils.getPedidoObraFromNumeroEjecucion(id);
         if(pobra!=null){
             VentanaEjecucion win = new VentanaEjecucion(pobra.getId());
             SwingPanel.getInstance().addWindow(win);

@@ -1,5 +1,6 @@
 package controlador.ejecucion;
  
+import com.toedter.calendar.DateUtil;
 import config.Iconos;
 import controlador.planificacion.GestorEditarPlanificacion;
 import controlador.planificacion.GestorPlanificacionDatosGenerales;
@@ -21,6 +22,7 @@ import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXHerramientaXDia;
 import modelo.EjecucionXMaterial;
 import modelo.Empleado;
+import modelo.Especialidad;
 import modelo.PedidoObra;
 import modelo.PlanificacionXAlquilerCompra;
 import modelo.PlanificacionXHerramienta;
@@ -72,6 +74,10 @@ public class GestorEjecucion {
     private void mostrarMensajeError(String msg) {
         System.err.println("[ERROR] " + msg);
         pantalla.mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error!", msg);
+    }
+    
+    public Ejecucion getEjecucionActual(){
+        return ejecucion;
     }
     
     public void mostrarDatosGenerales() {
@@ -539,7 +545,212 @@ public class GestorEjecucion {
     public boolean esEjecucionEditable() {
         return true;
     }
+
+    /**
+     * Actualiza el "Nombre" de la tarea cuando pierde foco el componente.
+     * @param nombre 
+     */
+    public void actualizarNombreTarea(String nombre) {
+        TareaEjecucion t = getTareaSeleccionada();
+        if(t!=null){
+            t.setNombre(nombre);
+        }
+    }
+
+    /**
+     * Actualiza las "Observaciones" de la tarea cuando pierde foco el componente.
+     * @param nombre 
+     */    
+    public void actualizarObservacionesTarea(String observaciones) {
+        TareaEjecucion t = getTareaSeleccionada();
+        if(t!=null){
+            t.setObservaciones(observaciones);
+        }
+    }
+
+    /**
+     * Actualiza el "Tipo" de la tarea cuando pierde foco el componente.
+     * @param nombre 
+     */        
+    public void actualizarTipoTarea(Tupla tp) {
+        // Busco el tipo de Tarea
+        TipoTarea tt = buscarTipoTareaPorId(tp.getId());
+        
+        TareaEjecucion t = getTareaSeleccionada();
+        if(t!=null && tt!=null){
+            t.setTipoTarea(tt);
+        } 
+    }
     
+    /**
+     * Retorna el Tipo Tarea segun el ID del Objeto
+     * @param id
+     * @return 
+     */
+    private TipoTarea buscarTipoTareaPorId(int id) {
+        TipoTarea tt = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            tt = (TipoTarea)HibernateUtil.getSession().load(TipoTarea.class,id);   
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:"+e.getMessage());
+        } 
+        return tt;
+    }
+
+    /**
+     * Actualiza el "Estado" de la tarea cuando pierde foco el componente.
+     * @param nombre 
+     */  
+    public void actualizarEstadoTarea(Tupla tpe) {
+        if(tpe!=null){
+            TareaEjecucion t = getTareaSeleccionada();
+            if(t!=null){
+                String nombreEstado = TareaEjecucion.getNombreEstadoSegunID(tpe.getId());
+                t.setEstado(nombreEstado);
+            }
+        }
+    }
+
+    /**
+     * Actualiza la "Fecha de Inicio" de la tarea cuando pierde foco el componente.
+     */      
+    public void actualizarFechaInicioTarea(Date fechaInicio) throws IllegalArgumentException{
+        TareaEjecucion t = getTareaSeleccionada();
+        if(t!=null){
+            
+            // Valido
+            if(FechaUtil.fechaMayorQue(fechaInicio, t.getFechaFin())){
+                throw new IllegalArgumentException("La Fecha de Inicio no puede ser superior a la de Fin");
+            }
+            
+            if (PlanificacionUtils.esFechaValidaParaHija(ejecucion, true, fechaInicio, t)) {
+                if (PlanificacionUtils.esFechaValidaParaSusHijas(true, fechaInicio, t)) {
+                    t.setFechaInicio(fechaInicio);
+                } else {
+                    pantalla.refreshGanttAndData();
+                }
+            } else {
+                // La fecha que se paso es invalida, calculo la del padre y se la seteo
+                TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(ejecucion, t);
+                if (padre != null) {
+                    t.setFechaInicio(padre.getFechaInicio());
+                }
+                // Ahora al Gantt ???
+                pantalla.refreshGanttAndData();
+            }
+            t.setFechaInicio(fechaInicio);
+        }
+    }
+
+    /**
+     * Actualiza la "Fecha de Fin" de la tarea cuando pierde foco el componente.
+     */        
+    public void actualizarFechaFinTarea(Date fechaFin)  throws IllegalArgumentException{
+        TareaEjecucion t = getTareaSeleccionada();
+        if(t!=null){
+            
+            // Valido
+            if(FechaUtil.fechaMayorQue(t.getFechaInicio(),fechaFin)){
+                throw new IllegalArgumentException("La Fecha de Fin no puede ser menor a la de Inicio");
+            }
+            
+            if(PlanificacionUtils.esFechaValidaParaHija(ejecucion,false,fechaFin,t))
+            {
+                if(PlanificacionUtils.esFechaValidaParaSusHijas(false,fechaFin,t))
+                {
+                    t.setFechaFin(fechaFin);
+                }
+                else
+                {
+                    pantalla.refreshGanttAndData();
+                }
+            }
+            else
+            {
+                // La fecha que se paso es invalida, calculo la del padre y se la seteo
+                TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(ejecucion, t);
+                if(padre!=null)
+                {
+                    t.setFechaFin(padre.getFechaFin());
+                }
+                // Ahora al Gantt ???
+                pantalla.refreshGanttAndData();
+            }            
+            
+            t.setFechaFin(fechaFin);
+        }
+    }
+
+    public void setTareaGanttSeleccionada(int id) {
+        System.out.println("Tarea del gantt Seleccionada:"+id);
+        setearTareaEjecucionSeleccionada(id);
+    }
     
-    
+    /**
+     * Cambio de Fecha la Tarea Entera
+     * @param date 
+     */
+    public void tareaCambioFecha(Date date) {
+        // Muevo Toda la tarea
+        TareaEjecucion nuevaTarea = getTareaSeleccionada();  
+        if(nuevaTarea!=null)
+        {
+            // Calculo la duracion:
+            int dias = FechaUtil.diasDiferencia(nuevaTarea.getFechaInicio(),date);
+            
+            // x dias para la izquierda o derecha?
+            Date res = FechaUtil.fechaMas(nuevaTarea.getFechaFin(),dias);
+            
+            if(PlanificacionUtils.esFechaValidaParaHija(ejecucion,true,date,nuevaTarea) &&
+               PlanificacionUtils.esFechaValidaParaHija(ejecucion,false,res,nuevaTarea)  )
+            {
+                if(PlanificacionUtils.esFechaValidaParaSusHijas(true,date,nuevaTarea) && 
+                   PlanificacionUtils.esFechaValidaParaSusHijas(false,res,nuevaTarea))
+                {
+                    nuevaTarea.setFechaInicio(date);
+
+                    if(nuevaTarea.getFechaInicio().after(date))
+                    {
+                        // Derecha
+                        nuevaTarea.setFechaFin(res);
+                    }
+                    else
+                    {
+                        // Izquierda
+                        nuevaTarea.setFechaFin(res);
+                    }
+                }
+                else
+                {
+                    pantalla.refreshGanttAndData();
+                }
+            }
+            else
+            {
+                // Ahora al Gantt ???
+                pantalla.refreshGanttAndData();
+            }
+        }
+    }    
+
+    public Date getFechaInicioObra() {
+        if(this.pedidoDeObra!=null){
+            return this.pedidoDeObra.getFechaInicio();
+        }
+        return new Date();
+    }
+
+    public Date getFechaFinObra() {
+        if(this.pedidoDeObra!=null){
+            return this.pedidoDeObra.getFechaFin();
+        }
+        return new Date();
+    }
+
 }
