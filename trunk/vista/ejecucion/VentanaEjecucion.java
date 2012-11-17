@@ -4,9 +4,11 @@ import com.hackelare.coolgantt.CoolGanttFactory;
 import com.hackelare.coolgantt.CoolGanttPhase;
 import com.hackelare.coolgantt.CoolGanttTypeModel;
 import com.hackelare.coolgantt.ICoolGantt;
+import com.hackelare.coolgantt.ICoolGanttEvent;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
+import controlador.ejecucion.EjecucionUtils;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -17,9 +19,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -68,8 +72,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private int idUltimoNodoArbolTareas=0;
     private TareaEjecucion tareaSeleccionada;
     private String nombreTipoRecursoEnPanel;
-    
-    
+       
     /**
      * Ventana Principal de Ejecucion !!
      */
@@ -82,7 +85,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         checkSiObraTieneEjecución(idObra);
         // Segun el estado de la ejecucion, cambio el comportamiento
         cambiarSegunEstadoEjecucion();
-        cargarComboTipoRecurso();
+        cargarComboTipoRecurso();      
         arbolTareasGestor=new ArbolTareasGestor(arbolTareas);
         inicializarArbolDeTareas();
         inicializarEventosArbol();
@@ -202,6 +205,17 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             }
         });
 
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusGained(evt);
+            }
+        });
+
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         arbolTareas.setModel(null);
@@ -255,7 +269,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
             .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -545,7 +559,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -567,7 +581,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -576,7 +590,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -591,7 +605,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -599,7 +613,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addContainerGap(541, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel4);
@@ -631,7 +645,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
@@ -686,6 +700,29 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         eso.setVisible(true);
     }//GEN-LAST:event_btnAbrirPlanificacionActionPerformed
 
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+    }//GEN-LAST:event_jTabbedPane1FocusGained
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        System.out.println("Gano foco");
+        JTabbedPane pan = (JTabbedPane)evt.getSource();
+        switch(pan.getSelectedIndex())
+        {
+            case 0:
+                // Ojo, vuelvo el foco al panel principal
+                // Selecciono "Datos generales"
+                if(tblRecursos.getRowCount()>0){
+                    tblRecursos.setRowSelectionInterval(0, 0);
+                }
+                break;
+            case 1:
+                // Actualizo el Gantt
+                System.out.println("[DEBUG] Foco en el Gantt");
+                refreshGanttAndData();
+                break;
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnAbrirCotizacion;
@@ -694,15 +731,12 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEmitirInformes;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLanzamiento;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -720,14 +754,12 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblCotMontoTotal;
-    private javax.swing.JLabel lblCotMontoTotal1;
     private javax.swing.JLabel lblFechaFinPlanificacion;
     private javax.swing.JLabel lblFechaInicioPlanificacion;
     private javax.swing.JLabel lblObraFechaFin;
@@ -743,7 +775,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNroCotizacion;
-    private javax.swing.JTextField txtNroCotizacion1;
     // End of variables declaration//GEN-END:variables
 
     
@@ -1067,7 +1098,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             graph.setZoomOut();
              graph.setZoomOut();
          
-        //graph.setEventHandler(new EditarPlanificacion.GanttEventMouse());
+        graph.setEventHandler(new GanttEventMouse());
     }
        
     /**
@@ -1106,7 +1137,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             p1.setEditable(false);
         }
 
-        p1.setId(tplan.getIdTareaGantt());
+        p1.setId(tplan.hashCode());
         p1.setNombre(tplan.getNombre());
         p1.setType(tplan.getEstado());
         p1.setStartDate(tplan.getFechaInicio());
@@ -1125,6 +1156,71 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 int nuevoNivel = n + 1;
                 cargarTareasRecursivas(tp, nuevoNivel);
             }
+        }
+    }
+    
+    public void refreshGanttAndData()
+    {
+        // Limpio las tareas anteriores
+        graph.getModel().getPhaseList().clear();
+        graph.refreshModel();
+        
+        // Cargo de nuevo todas las tareas
+        int n = 0;
+        // TODO: Llenar el Gantt
+        List<TareaPlanificacion> lista = gestor.getTareasPadres();
+        for (int i = 0; i < lista.size(); i++) {
+            TareaEjecucion tplan = (TareaEjecucion)lista.get(i);
+            cargarTareasRecursivas(tplan,n);
+        }
+        
+        // refresco el modelo
+        graph.refreshModel();
+        updateGantt();
+    }    
+    
+    private void updateGantt()
+    {
+        panelGantt.remove(grafico);
+        pack();
+        grafico = graph.getComponent();
+        panelGantt.add(grafico, BorderLayout.CENTER);
+        pack();
+    }    
+    
+    public class GanttEventMouse implements ICoolGanttEvent {
+
+        @Override
+        public Date inGetProjectStartDate() {
+            return gestor.getFechaInicioObra();
+        }
+
+        @Override
+        public Date inGetProjectEndDate() {
+            return gestor.getFechaFinObra();
+        }
+
+        @Override
+        public void outClickPhase(int i) {
+            // ue hacemos cuando se hace click en la tarea ??
+        }
+
+        @Override
+        public void outMovePhase(int i, Date date) {
+            gestor.setTareaGanttSeleccionada(i);
+            gestor.tareaCambioFecha(date);
+        }
+
+        @Override
+        public void outExtendPhaseBackward(int i, Date date) {
+            gestor.setTareaGanttSeleccionada(i);
+            gestor.actualizarFechaInicioTarea(date);
+        }
+
+        @Override
+        public void outExtendPhaseForward(int i, Date date) {
+            gestor.setTareaGanttSeleccionada(i);
+            gestor.actualizarFechaFinTarea(date);
         }
     }
 }

@@ -34,7 +34,7 @@ public class TareaEjecucion extends TareaPlanificacion{
     public static final Color ESTADO_COLORFONDO_NUEVA       = new Color(0xCCCCCC);
     public static final Color ESTADO_COLORFONDO_ENPROGRESO  = new Color(0xFFD480);
     public static final Color ESTADO_COLORFONDO_COMPLETA    = new Color(0x99FF66);
-    public static final Color ESTADO_COLORFONDO_CANCELADA   = new Color(0xD4D4D4);
+    public static final Color ESTADO_COLORFONDO_CANCELADA   = new Color(0xFF0000);
     public static final Color ESTADO_COLORFONDO_ENESPERA    = new Color(0xB3B3FF);
     public static final Color ESTADO_COLORFONDO_IMPEDIMENTO = new Color(0xFFB3B3);    
     
@@ -174,5 +174,23 @@ public class TareaEjecucion extends TareaPlanificacion{
         if(nombre.equals(ESTADO_NUEVA)) { return ESTADO_ID_NUEVA ; }
         return ESTADO_ID_NUEVA;
     }
+    
+    /**
+     * Segun el nombre de la tarea retorna su ID 
+     * (Asco Asco, pero es rápido y efectivo )
+     * @param nombre
+     * @return 
+     */
+    public static String getNombreEstadoSegunID(int id){
+        switch(id){
+            case ESTADO_ID_CANCELADA: return ESTADO_CANCELADA;
+            case ESTADO_ID_COMPLETA: return ESTADO_COMPLETA;
+            case ESTADO_ID_ENESPERA: return ESTADO_ENESPERA;
+            case ESTADO_ID_ENPROGRESO: return ESTADO_ENPROGRESO;
+            case ESTADO_ID_IMPEDIMENTO: return ESTADO_IMPEDIMENTO;
+            case ESTADO_ID_NUEVA: return ESTADO_NUEVA;  
+            default: return ESTADO_NUEVA;
+        }
+    }    
     
 }
