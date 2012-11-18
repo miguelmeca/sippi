@@ -76,7 +76,7 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
         PdfPTable tablaMateriales = new PdfPTable(5);
         PdfPTable tablaHerramientas = new PdfPTable(4);
         PdfPTable tablaCompras = new PdfPTable(4);
-        PdfPTable tablaAdicionales = new PdfPTable(5);
+        PdfPTable tablaAdicionales = new PdfPTable(4);
 
         tablaManoDeObra.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
         tablaManoDeObra.setWidthPercentage(95);
@@ -138,18 +138,15 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
 
         tablaAdicionales.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
         tablaAdicionales.setWidthPercentage(95);
-        PdfPCell celdaAdi = new PdfPCell(new Paragraph("Adicionales",ReportDesigner.FUENTE_NORMAL_BK));
+        PdfPCell celdaAdi = new PdfPCell(new Paragraph("Gastos Generales",ReportDesigner.FUENTE_NORMAL_BK));
         celdaAdi.setPaddingLeft(0);
         celdaAdi.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaAdi.setBackgroundColor(new BaseColor(219,229,241));
-        celdaAdi.setColspan(5);
+        celdaAdi.setColspan(4);
         tablaAdicionales.addCell(celdaAdi);
-        tablaAdicionales.addCell(new Paragraph("Nombre",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Tipo de tarea",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Cantidad de Operarios",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas Normales",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas al 50%",ReportDesigner.FUENTE_NORMAL_BK));
-        tablaAdicionales.addCell(new Paragraph("Cantidad de Horas al 100%",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Descripción",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Cantidad",ReportDesigner.FUENTE_NORMAL_BK));
+        tablaAdicionales.addCell(new Paragraph("Precio Unitario",ReportDesigner.FUENTE_NORMAL_BK));
         tablaAdicionales.addCell(new Paragraph("Subtotal",ReportDesigner.FUENTE_NORMAL_BK));
 
         // ARMADO DE TABLAS
@@ -168,13 +165,13 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasNormales()),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl50()),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl100()),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxt.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxt.calcularSubtotal();
             }
             if(subtotal != 0){
                 tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");
                 tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");
-                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
+                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));
                 tablaManoDeObra.addCell(celdaSubTotal);
@@ -190,14 +187,14 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 Material m = (Material)RecursosUtil.getMaterial(re);
                 tablaMateriales.addCell(new PdfPCell(new Paragraph(m.getNombre(),ReportDesigner.FUENTE_NORMAL)));
                 tablaMateriales.addCell(new PdfPCell(new Paragraph(re.getNombre(),ReportDesigner.FUENTE_NORMAL)));
-                tablaMateriales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxm.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaMateriales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxm.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaMateriales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxm.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
+                tablaMateriales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxm.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxm.calcularSubtotal();
             }
             if(subtotal != 0){
                 tablaMateriales.addCell("");tablaMateriales.addCell("");tablaMateriales.addCell("");
                 tablaMateriales.addCell("");
-                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
+                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));
                 tablaMateriales.addCell(celdaSubTotal);
@@ -212,13 +209,13 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(nombreH,ReportDesigner.FUENTE_NORMAL)));
 //                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantDias()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantHoras()),ReportDesigner.FUENTE_NORMAL)));
-                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCostoXHora()),ReportDesigner.FUENTE_NORMAL)));
-                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaHerramientas.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxh.getCostoXHora()),ReportDesigner.FUENTE_NORMAL)));
+                tablaHerramientas.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxh.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxh.calcularSubtotal();
             }
             if(subtotal != 0){
                 tablaHerramientas.addCell("");tablaHerramientas.addCell("");tablaHerramientas.addCell("");
-                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
+                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));
                 tablaHerramientas.addCell(celdaSubTotal);
@@ -231,13 +228,13 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 SubObraXAlquilerCompra soxac = itAC.next();
                 tablaCompras.addCell(new PdfPCell(new Paragraph(String.valueOf(soxac.getCantidad()),ReportDesigner.FUENTE_NORMAL)));
                 tablaCompras.addCell(new PdfPCell(new Paragraph(soxac.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
-                tablaCompras.addCell(new PdfPCell(new Paragraph(String.valueOf(soxac.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaCompras.addCell(new PdfPCell(new Paragraph(String.valueOf(soxac.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaCompras.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxac.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
+                tablaCompras.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxac.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxac.calcularSubtotal();
             }
             if(subtotal != 0){
                 tablaCompras.addCell("");tablaCompras.addCell("");tablaCompras.addCell("");
-                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
+                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));
                 tablaCompras.addCell(celdaSubTotal);
@@ -249,17 +246,16 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
             Iterator<SubObraXAdicional> itA = so.getAdicionales().iterator();
             while(itA.hasNext()){
                 SubObraXAdicional soxa = itA.next();
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph(soxa.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
+                tablaAdicionales.addCell(new PdfPCell(new Paragraph(soxa.getTipoAdicional().getNombre()+" - "+soxa.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getCantOperarios()),ReportDesigner.FUENTE_NORMAL)));
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getCantDias()),ReportDesigner.FUENTE_NORMAL)));
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
+                tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxa.calcularSubtotal();
             }
+            
             if(subtotal != 0){
                 tablaAdicionales.addCell("");tablaAdicionales.addCell("");tablaAdicionales.addCell("");
-                tablaAdicionales.addCell("");
-                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph(String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
+                PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 celdaSubTotal.setBackgroundColor(new BaseColor(194,214,155));
                 tablaAdicionales.addCell(celdaSubTotal);
