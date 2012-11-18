@@ -62,8 +62,8 @@ public class CotizacionExternaGeneral extends ReportDesigner{
         // TOTAL
         Paragraph pTotal = new Paragraph();
         pTotal.setAlignment(Paragraph.ALIGN_RIGHT);
-        pTotal.add(new Phrase((String)params.get("COTIZACION_TOTAL"),ReportDesigner.FUENTE_NORMAL_B));
-        pTotal.add(new Phrase("\n",ReportDesigner.FUENTE_NORMAL_B)+"\n");
+        pTotal.add(new Phrase("Monto Total: "+(String)params.get("COTIZACION_TOTAL"),ReportDesigner.FUENTE_NORMAL_B));
+        //pTotal.add(new Phrase("\n",ReportDesigner.FUENTE_NORMAL_B)+"\n");
         super.doc.add(pTotal);
 
         // CUERPO
