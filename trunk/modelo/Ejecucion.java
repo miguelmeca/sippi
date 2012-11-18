@@ -44,7 +44,7 @@ public class Ejecucion extends Planificacion{
         //tareas = new ArrayList<TareaEjecucion>();
         adicionales = new ArrayList<EjecucionXAdicional>();
         this.fechaInicio=aCopiar.fechaInicio;
-        //this.fechaFin=aCopiar.fechaFin;
+        this.fechaFin=aCopiar.fechaFin;
         this.descripcion=aCopiar.descripcion;
     }
     

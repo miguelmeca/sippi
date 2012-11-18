@@ -129,6 +129,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         return lista;
     }
+    
+    public double getMontoTotal() {
+        return this.planificacion.calcularMontoTotal();
+    }
 
     public void mostrarDatosGenerales(int idPedidoDeObra) {
 
@@ -155,6 +159,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 _pantalla.setFechaInicioPlanif(this.planificacion.getFechaInicio());
                 _pantalla.setFechaFinPlanif(this.planificacion.getFechaFin());
                 _pantalla.setEstadoPlanificacion(this.planificacion.getEstado());
+                _pantalla.setMontoPlanif(String.valueOf(this.planificacion.calcularMontoTotal()));
             }
 
             if (this.planificacion != null && this.planificacion.getCotizacion() != null && this.planificacion.getCotizacion().getCotizacionOriginal() != null) {
@@ -1170,7 +1175,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     private Ejecucion crearEstructuraEjecucionDesdePlanificacion() {
         // 1- Creo la Ejecucion
         Ejecucion ejecucion = new Ejecucion(planificacion);
-        ejecucion.setFechaInicio(new Date());
+        ejecucion.setFechaFin(null);
         ejecucion.setObservaciones("");
         ejecucion.setPlanificacionOriginal(planificacion);
 

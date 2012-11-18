@@ -106,7 +106,7 @@ public class GestorEjecucion {
             if (this.ejecucion.getPlanificacionOriginal() != null) {
                 pantalla.setFechaInicioPlanificacion(this.ejecucion.getPlanificacionOriginal().getFechaInicio());
                 pantalla.setFechaFinPlanificacion(this.ejecucion.getPlanificacionOriginal().getFechaFin());
-                //pantalla.setPlanificacionMontoTotal(this.ejecucion.getPlanificacionOriginal().)
+                pantalla.setPlanificacionMontoTotal(String.valueOf(this.ejecucion.getPlanificacionOriginal().calcularMontoTotal()));
                 //TODO!!!!! WTF? NO TENEMOS MONTO TOTAL DE PLANIFICACION, ni si quiera calculado
             }
 

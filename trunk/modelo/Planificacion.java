@@ -302,6 +302,22 @@ public class Planificacion {
         return null;
     }
     
+    public double calcularMontoTotal() {
+        double total=0.0;
+        for (int i = 0; i < this.tareas.size(); i++) {
+            total+=tareas.get(i).calcularSubtotalConSubtareas();
+        }
+        
+        for (int i = 0; i < this.getCotizacion().getSubObras().size(); i++) {
+            SubObra subO=this.getCotizacion().getSubObras().get(i);
+            for (int j = 0; j < subO.getAdicionales().size(); j++) {
+                total+=subO.getAdicionales().get(j).calcularSubtotal();
+            }
+          
+        }
+        return total;
+    }
+    
     
      
 }
