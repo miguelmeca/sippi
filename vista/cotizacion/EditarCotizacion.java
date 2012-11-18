@@ -135,7 +135,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Recursos Humanos"},
-                {"Gastos Generales"},
+                {"Gastos Varios"},
                 {"Beneficios"}
             },
             new String [] {
@@ -169,7 +169,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -81,7 +81,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         } 
         catch (Exception ex) 
         {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista de Gastos Generales");
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista de Gastos Varios");
         }
     }
     

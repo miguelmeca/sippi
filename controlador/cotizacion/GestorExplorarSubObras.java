@@ -252,7 +252,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         lista.add(bean2); 
         CotizacionGraficoBean bean3 = new CotizacionGraficoBean("[$"+subtotales[2]+"] Herramientas",subtotales[2]);
         lista.add(bean3); 
-        CotizacionGraficoBean bean4 = new CotizacionGraficoBean("[$"+subtotales[3]+"] Gastos Generales",subtotales[3]);
+        CotizacionGraficoBean bean4 = new CotizacionGraficoBean("[$"+subtotales[3]+"] Gastos Varios",subtotales[3]);
         lista.add(bean4); 
         CotizacionGraficoBean bean5 = new CotizacionGraficoBean("[$"+subtotales[4]+"] Compras",subtotales[4]);
         lista.add(bean5);         
