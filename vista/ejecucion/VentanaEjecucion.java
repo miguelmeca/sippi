@@ -714,6 +714,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 if(tblRecursos.getRowCount()>0){
                     tblRecursos.setRowSelectionInterval(0, 0);
                 }
+                refreshGanttAndData();
                 break;
             case 1:
                 // Actualizo el Gantt
@@ -1072,7 +1073,6 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         if(this.panelAdicionales!=null)
         {this.panelAdicionales.actualizar();}
         
-        
     }
 
     private void inicializarGantt() {
@@ -1161,22 +1161,24 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     
     public void refreshGanttAndData()
     {
-        // Limpio las tareas anteriores
-        graph.getModel().getPhaseList().clear();
-        graph.refreshModel();
-        
-        // Cargo de nuevo todas las tareas
-        int n = 0;
-        // TODO: Llenar el Gantt
-        List<TareaPlanificacion> lista = gestor.getTareasPadres();
-        for (int i = 0; i < lista.size(); i++) {
-            TareaEjecucion tplan = (TareaEjecucion)lista.get(i);
-            cargarTareasRecursivas(tplan,n);
+        if(graph!=null){
+            // Limpio las tareas anteriores
+            graph.getModel().getPhaseList().clear();
+            graph.refreshModel();
+
+            // Cargo de nuevo todas las tareas
+            int n = 0;
+            // TODO: Llenar el Gantt
+            List<TareaPlanificacion> lista = gestor.getTareasPadres();
+            for (int i = 0; i < lista.size(); i++) {
+                TareaEjecucion tplan = (TareaEjecucion)lista.get(i);
+                cargarTareasRecursivas(tplan,n);
+            }
+
+            // refresco el modelo
+            graph.refreshModel();
+            updateGantt();
         }
-        
-        // refresco el modelo
-        graph.refreshModel();
-        updateGantt();
     }    
     
     private void updateGantt()

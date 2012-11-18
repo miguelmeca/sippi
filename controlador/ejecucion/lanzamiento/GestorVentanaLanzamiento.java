@@ -298,8 +298,11 @@ public class GestorVentanaLanzamiento {
                         fila.setNombre(ejecXadi.getAdicionalPlanificado().getTipoAdicional().getNombre()+" - "+ejecXadi.getAdicionalPlanificado().getDescripcion());
                             
                             String[] data = new String[3];
+                            // Cantidad
                             data[0] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantOperarios());
-                            data[1] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantDias());
+                            // Precio
+                            data[1] = String.valueOf(ejecXadi.getAdicionalPlanificado().getPrecioUnitario());
+                            // SubTotal
                             data[2] = String.valueOf(ejecXadi.getAdicionalPlanificado().calcularSubtotal());
                             fila.setData(data);
                             

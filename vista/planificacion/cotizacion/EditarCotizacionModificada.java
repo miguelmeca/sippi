@@ -73,7 +73,7 @@ public class EditarCotizacionModificada extends EditarCotizacion{
         fila[0] = "Alquileres / Compras";
         modelo.addRow(fila);
         
-        fila[0] = "Adicionales";
+        fila[0] = "Gastos Generales";
         modelo.addRow(fila);
         
         fila[0] = "Tareas";

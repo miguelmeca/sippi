@@ -21,8 +21,8 @@ import vista.util.MyComboBoxEditor;
 public class PanelAdicionales extends javax.swing.JPanel {
 
     public static final int TABLA_ADICIONAL_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_ADICIONAL_COLUMNA_OPERARIOS = 1;
-    public static final int TABLA_ADICIONAL_COLUMNA_DIAS = 2;
+    public static final int TABLA_ADICIONAL_COLUMNA_CANTIDAD = 1;
+    public static final int TABLA_ADICIONAL_COLUMNA_PRECIO = 2;
     public static final int TABLA_ADICIONAL_COLUMNA_SUBTOTAL = 3;
     
     private GestorVentanaLanzamiento gestor;
@@ -58,7 +58,7 @@ public class PanelAdicionales extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre y Descripcion", "Operarios", "Días", "SubTotal"
+                "Nombre y Descripcion", "Cantidad", "Precio", "SubTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -123,12 +123,12 @@ public class PanelAdicionales extends javax.swing.JPanel {
                 case TABLA_ADICIONAL_COLUMNA_NOMBRE:
                     anchoColumna = 300;
                     break;
-                case TABLA_ADICIONAL_COLUMNA_DIAS:
+                case TABLA_ADICIONAL_COLUMNA_CANTIDAD:
                     anchoColumna = 100;
                     break;
-                case TABLA_ADICIONAL_COLUMNA_OPERARIOS:
+                case TABLA_ADICIONAL_COLUMNA_PRECIO:
                     anchoColumna = 100;
-                    break;
+                    break;                    
                 case TABLA_ADICIONAL_COLUMNA_SUBTOTAL:
                     anchoColumna = 100;
                     break;
@@ -157,10 +157,10 @@ public class PanelAdicionales extends javax.swing.JPanel {
             
                 String[] data = (String[]) nTupla.getData();
             
-            fila[TABLA_ADICIONAL_COLUMNA_OPERARIOS] = data[0];
-            
-            fila[TABLA_ADICIONAL_COLUMNA_DIAS] = data[1];
+            fila[TABLA_ADICIONAL_COLUMNA_CANTIDAD] = data[0];
                        
+            fila[TABLA_ADICIONAL_COLUMNA_PRECIO] = "$ " + data[1];
+            
             fila[TABLA_ADICIONAL_COLUMNA_SUBTOTAL] = "$ " + data[2];
             
             total += Double.valueOf(data[2]);

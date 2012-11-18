@@ -62,15 +62,12 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         txtConcepto = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtSubtotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCantidadPersonas = new javax.swing.JTextField();
-        txtCantidadDias = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         txtPrecioUnitario = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         btnAgregarAdicional = new javax.swing.JButton();
@@ -83,7 +80,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(440, 380));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo (*)/Observación"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Gasto (*)/Descripción"));
 
         cmbTipoAdicional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,14 +111,10 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Concepto"));
 
-        jLabel1.setText("Cantidad de Operarios (*)");
-
-        jLabel2.setText("Cantidad Días (*)");
+        jLabel1.setText("Cantidad (*)");
 
         jLabel3.setText("Precio Unitario (*)");
         jLabel3.setToolTipText("");
-
-        jLabel4.setText("x");
 
         jLabel5.setText("x");
 
@@ -132,27 +125,15 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
 
         jLabel7.setText("Subtotal");
 
-        txtCantidadPersonas.setEnabled(false);
-        txtCantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
+        txtCantidad.setEnabled(false);
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadPersonasActionPerformed(evt);
+                txtCantidadActionPerformed(evt);
             }
         });
-        txtCantidadPersonas.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCantidadPersonasFocusLost(evt);
-            }
-        });
-
-        txtCantidadDias.setEnabled(false);
-        txtCantidadDias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadDiasActionPerformed(evt);
-            }
-        });
-        txtCantidadDias.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCantidadDiasFocusLost(evt);
+                txtCantidadFocusLost(evt);
             }
         });
 
@@ -177,48 +158,34 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCantidadPersonas)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCantidadDias)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(txtCantidad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecioUnitario))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPrecioUnitario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSubtotal))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addComponent(txtSubtotal))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(txtCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,18 +214,18 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
         });
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Adicionales"));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gastos Generales"));
 
         tbAdicionales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Descripción", "Cantidad Operarios", "Cantidad Días", "Precio Unitario", "SubTotal"
+                "Tipo - Descripción", "Cantidad", "Precio Unitario", "SubTotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -267,7 +234,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tbAdicionales);
 
-        jLabel8.setText("Subtotal Adicionales $");
+        jLabel8.setText("Subtotal Gestos Generales $");
 
         txtSubtotalAdicionales.setEditable(false);
         txtSubtotalAdicionales.setBackground(new java.awt.Color(204, 204, 255));
@@ -297,7 +264,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +288,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                     .addComponent(btnAgregarAdicional)
                     .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,38 +302,21 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         String descripcion = txtConcepto.getText();
         
         if(tipo.getId()!=0)
-        {
-            int cantidadDias = 0;
+        {   
+            int cantidad = 0;
             try
             {
-                cantidadDias = Integer.parseInt(txtCantidadDias.getText());
-            }
-            catch(Exception e)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada no es válida");
-                return;            
-            }
-
-            if(cantidadDias<=0)
-            {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de días ingresada debe ser positiva");
-                return;
-            }        
-
-            int cantidadOperarios = 0;
-            try
-            {
-                cantidadOperarios = Integer.parseInt(txtCantidadPersonas.getText());
+                cantidad = Integer.parseInt(txtCantidad.getText());
             } 
             catch(Exception e)
             {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada no es válida");
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad ingresada no es válida");
                 return;            
             }        
 
-            if(cantidadOperarios<=0)
+            if(cantidad<=0)
             {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad de operarios ingresada debe ser positiva");
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La cantidad ingresada debe ser positiva");
                 return;
             }          
 
@@ -387,17 +337,17 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 return;
             }  
             
-            if(cantidadOperarios>0 && cantidadDias>0)
+            if(cantidad>0 )
             {
                 if(precio>0)
                 {
                     if(this.adicionalEditando==null)
                     {
-                        AgregarAdicional(tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+                        AgregarAdicional(tipo,descripcion,cantidad,precio);
                     }
                     else
                     {
-                        AgregarAdicional(this.adicionalEditando,tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+                        AgregarAdicional(this.adicionalEditando,tipo,descripcion,cantidad,precio);
                         
                     }
                     cargarModificacionAdicional(null);
@@ -411,7 +361,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
             else
             {
-                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad positiva de Operarios y días");
+                MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Debe ingresar una Cantidad positiva");
             }
         }
         else
@@ -432,7 +382,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un Adicional","Advertencia",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Gasto General","Advertencia",JOptionPane.WARNING_MESSAGE);
             }
         }
         else
@@ -450,40 +400,30 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         Tupla tipo = (Tupla)cmbTipoAdicional.getSelectedItem();
         if(tipo.getId()==0)
         {
-            txtCantidadPersonas.setEnabled(false);
-            txtCantidadDias.setEnabled(false);
+            txtCantidad.setEnabled(false);
             txtPrecioUnitario.setEnabled(false);
             txtConcepto.setEnabled(false);
         }
         else
         {
-            txtCantidadPersonas.setEnabled(true);
-            txtCantidadDias.setEnabled(true);
+            txtCantidad.setEnabled(true);
             txtPrecioUnitario.setEnabled(true);
             txtConcepto.setEnabled(true);            
         }
         
     }//GEN-LAST:event_cmbTipoAdicionalActionPerformed
 
-    private void txtCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadPersonasActionPerformed
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         MostrarSubtotalConcepto();
-    }//GEN-LAST:event_txtCantidadPersonasActionPerformed
-
-    private void txtCantidadDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadDiasActionPerformed
-        MostrarSubtotalConcepto();
-    }//GEN-LAST:event_txtCantidadDiasActionPerformed
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
     private void txtPrecioUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioActionPerformed
         MostrarSubtotalConcepto();
     }//GEN-LAST:event_txtPrecioUnitarioActionPerformed
 
-    private void txtCantidadPersonasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadPersonasFocusLost
+    private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
         MostrarSubtotalConcepto();  
-    }//GEN-LAST:event_txtCantidadPersonasFocusLost
-
-    private void txtCantidadDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadDiasFocusLost
-        MostrarSubtotalConcepto();
-    }//GEN-LAST:event_txtCantidadDiasFocusLost
+    }//GEN-LAST:event_txtCantidadFocusLost
 
     private void txtPrecioUnitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioFocusLost
         MostrarSubtotalConcepto();
@@ -504,7 +444,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una Adicional agregado para Editarlo","Advertencia",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un Gasto General agregado para poder editarlo","Advertencia",JOptionPane.WARNING_MESSAGE);
             }
         }else if(btnEditar.getText().equals(TEXTO_BTN_CANCELAR))
         {
@@ -521,9 +461,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     private javax.swing.JButton btnQuitarAdicional;
     private javax.swing.JComboBox cmbTipoAdicional;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -534,8 +472,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbAdicionales;
-    private javax.swing.JTextField txtCantidadDias;
-    private javax.swing.JTextField txtCantidadPersonas;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtConcepto;
     private javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtSubtotal;
@@ -586,9 +523,8 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                 fila[1] = data[0];
                 fila[2] = data[1];
                 fila[3] = data[2];
-                fila[4] = data[3];
                 
-                total += Double.valueOf(data[3]);
+                total += Double.valueOf(data[2]);
                 
             modelo.addRow(fila);
         }
@@ -599,14 +535,12 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
     
     private void MostrarSubtotalConcepto()
     {
-        double cantPersonas = 0;
-        double cantDías = 0;
+        double cantidad = 0;
         double precioUnitario = 0;
         
         try
         {
-            cantPersonas = Double.parseDouble(txtCantidadPersonas.getText());
-            cantDías = Double.parseDouble(txtCantidadDias.getText());
+            cantidad = Double.parseDouble(txtCantidad.getText());
             precioUnitario = Double.parseDouble(txtPrecioUnitario.getText());        
         }
         catch(Exception e)
@@ -614,13 +548,13 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             return;
         }
         
-        txtSubtotal.setText("$"+cantDías*cantPersonas*precioUnitario);
+        txtSubtotal.setText("$"+cantidad*precioUnitario);
         
     }
 
-    private void AgregarAdicional(Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) 
+    private void AgregarAdicional(Tupla tipo, String descripcion, int cantidad, double precio) 
     {
-        gestor.AgregarAdicional(tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+        gestor.AgregarAdicional(tipo,descripcion,cantidad,precio);
     }  
     
     private void cargarModificacionAdicional(SubObraXAdicional h) {
@@ -645,13 +579,9 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             txtConcepto.setEditable(true);
             
             // Costos
-            txtCantidadPersonas.setText(String.valueOf(this.adicionalEditando.getCantOperarios()));
-            txtCantidadPersonas.setEnabled(true);
-            txtCantidadPersonas.setEditable(true);
-            
-            txtCantidadDias.setText(String.valueOf(this.adicionalEditando.getCantDias()));
-            txtCantidadDias.setEnabled(true);
-            txtCantidadDias.setEditable(true);
+            txtCantidad.setText(String.valueOf(this.adicionalEditando.getCantOperarios()));
+            txtCantidad.setEnabled(true);
+            txtCantidad.setEditable(true);
             
             txtPrecioUnitario.setText(String.valueOf(this.adicionalEditando.getPrecioUnitario()));
             txtPrecioUnitario.setEnabled(true);
@@ -664,16 +594,15 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             btnEditar.setText(TEXTO_BTN_EDITAR);
             btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png")));
             txtConcepto.setText("");
-            txtCantidadPersonas.setText("");
-            txtCantidadDias.setText("");
+            txtCantidad.setText("");
             txtPrecioUnitario.setText("");
             txtSubtotal.setText("");
             cmbTipoAdicional.setSelectedIndex(0);
         }
     }
 
-    private void AgregarAdicional(SubObraXAdicional editando, Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) {
-        gestor.AgregarAdicional(editando,tipo,descripcion,cantidadOperarios,cantidadDias,precio);
+    private void AgregarAdicional(SubObraXAdicional editando, Tupla tipo, String descripcion, int cantidad, double precio) {
+        gestor.AgregarAdicional(editando,tipo,descripcion,cantidad,precio);
     }
     
     
