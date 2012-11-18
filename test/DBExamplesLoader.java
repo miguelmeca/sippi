@@ -1369,13 +1369,19 @@ public class DBExamplesLoader {
 
     private void cargarTiposAdicional() {
         TipoAdicional ta1 = new TipoAdicional();
-        ta1.setNombre("Hospedaje");
+        ta1.setNombre("Impuestos");
         TipoAdicional ta2 = new TipoAdicional();
-        ta2.setNombre("Comida");
+        ta2.setNombre("Viáticos");
         TipoAdicional ta3 = new TipoAdicional();
-        ta3.setNombre("Viaticos");
+        ta3.setNombre("Transportes");
         TipoAdicional ta4 = new TipoAdicional();
-        ta4.setNombre("Viajes");
+        ta4.setNombre("Combustibles");
+        TipoAdicional ta5 = new TipoAdicional();
+        ta5.setNombre("Servicios");
+        TipoAdicional ta6 = new TipoAdicional();
+        ta6.setNombre("Consumibles");
+        TipoAdicional ta7 = new TipoAdicional();
+        ta7.setNombre("Otros");
 
         try{
             sesion.beginTransaction();
@@ -1383,6 +1389,9 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(ta2);
             sesion.saveOrUpdate(ta3);
             sesion.saveOrUpdate(ta4);
+            sesion.saveOrUpdate(ta5);
+            sesion.saveOrUpdate(ta6);
+            sesion.saveOrUpdate(ta7);
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());
