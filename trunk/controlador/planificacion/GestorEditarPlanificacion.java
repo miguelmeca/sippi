@@ -1120,7 +1120,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             ejecucion = crearEstructuraEjecucionDesdePlanificacion();
         }catch(Exception e)
         {
-            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la ejecucion\nRevise que no falte ningún dato\n"+e.getMessage());
+            _pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo hacer una copia de la ejecucion\nRevise que no falte ningún dato\n");
+            e.printStackTrace();
             return;
         }
         

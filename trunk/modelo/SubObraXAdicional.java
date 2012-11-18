@@ -21,11 +21,11 @@ public class SubObraXAdicional implements ISubtotal{
     }
 
     public int getCantDias() {
-        return cantDias;
+        return 1;
     }
 
     public void setCantDias(int cantDias) {
-        this.cantDias = cantDias;
+        this.cantDias = 1;
     }
 
     public int getCantOperarios() {
@@ -71,6 +71,6 @@ public class SubObraXAdicional implements ISubtotal{
     @Override
     public double calcularSubtotal() 
     {
-        return cantDias*cantOperarios*precioUnitario;
+        return cantOperarios*precioUnitario;
     }
 }

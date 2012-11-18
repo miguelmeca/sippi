@@ -29,7 +29,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     protected static final int OPTN_MATERIALES            = 2;
     protected static final int OPTN_ALQUILERES_COMPRAS    = 3;
     protected static final int OPTN_RRHH                  = 4;    
-    protected static final int OPTN_ADICIONALES           = 5;
+    protected static final int OPTN_GASTOSGENERALES       = 5;
     protected static final int OPTN_BENEFICIOS            = 6;
     
     public EditarCotizacion(GestorEditarCotizacion gestor)
@@ -135,7 +135,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Recursos Humanos"},
-                {"Adicionales"},
+                {"Gastos Generales"},
                 {"Beneficios"}
             },
             new String [] {
@@ -169,7 +169,7 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,8 +279,8 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
                 panel.setViewportView(cc);
                 cc.setVisible(true);
                 break;
-            case OPTN_ADICIONALES:
-                setNombrePanel(modelo.getValueAt(OPTN_ADICIONALES,0).toString());
+            case OPTN_GASTOSGENERALES:
+                setNombrePanel(modelo.getValueAt(OPTN_GASTOSGENERALES,0).toString());
                 CotizacionAdicionales ca = new CotizacionAdicionales(gestor.getGestorAdicionales());
                 panel.setViewportView(ca);
                 ca.setVisible(true);

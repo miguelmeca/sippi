@@ -229,6 +229,7 @@ public class GestorReportesCotizacion {
             // Listado de SubObras
             Cotizacion cot =(Cotizacion) HibernateUtil.getSession().load(Cotizacion.class,id_presupuesto);
             PedidoObra po= (PedidoObra)HibernateUtil.getSession().createQuery("from PedidoObra PO where :cID in elements(PO.cotizaciones)").setParameter("cID", cot).uniqueResult();
+            
             List listaSubObras = new ArrayList();
             for (int i = 0; i < cot.getSubObras().size(); i++) 
             {

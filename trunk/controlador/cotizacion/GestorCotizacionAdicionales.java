@@ -81,7 +81,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         } 
         catch (Exception ex) 
         {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista de Tipos de Alquileres / Compras");
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al cargar la lista de Gastos Generales");
         }
     }
     
@@ -95,11 +95,10 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
             
                 NTupla tp = new NTupla(i);
                 tp.setNombre(detalle.getTipoAdicional().getNombre()+"-"+detalle.getDescripcion());
-                String[] data = new String[4];
+                String[] data = new String[3];
                     data[0] =  String.valueOf(detalle.getCantOperarios());
-                    data[1] =  String.valueOf(detalle.getCantDias());
-                    data[2] =  String.valueOf(detalle.getPrecioUnitario());
-                    data[3] =  String.valueOf(detalle.calcularSubtotal());
+                    data[1] =  String.valueOf(detalle.getPrecioUnitario());
+                    data[2] =  String.valueOf(detalle.calcularSubtotal());
                 tp.setData(data);
                 listaFilas.add(tp);
         }
@@ -118,15 +117,14 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
                 return;
             }
         }
-        pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo eliminar de la lista el Alquiler/Compra");
+        pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo eliminar de la lista el Gasto General");
     }
 
-    public void AgregarAdicional(Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) 
+    public void AgregarAdicional(Tupla tipo, String descripcion, int cantidad, double precio) 
     {
         SubObraXAdicional detalle = this.nuevaSubObraXAdicional();
         detalle.setDescripcion(descripcion);
-        detalle.setCantDias(cantidadDias);
-        detalle.setCantOperarios(cantidadOperarios);
+        detalle.setCantOperarios(cantidad);
         detalle.setPrecioUnitario(precio);
         
         // Busco el Tipo Alquiler Compra
@@ -147,17 +145,16 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
         }
         else
         {
-            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo agregar el Adicional");
+            pantalla.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo agregar el Gasto General");
         }        
     }
     
-    public void AgregarAdicional(SubObraXAdicional editando, Tupla tipo, String descripcion, int cantidadOperarios, int cantidadDias, double precio) {
+    public void AgregarAdicional(SubObraXAdicional editando, Tupla tipo, String descripcion, int cantidad, double precio) {
         for (int i = 0; i < getSubObraActual().getAdicionales().size(); i++) {
             SubObraXAdicional soxhde = getSubObraActual().getAdicionales().get(i);
             if(soxhde.hashCode()==editando.hashCode())
             {
-                soxhde.setCantDias(cantidadDias);
-                soxhde.setCantOperarios(cantidadOperarios);
+                soxhde.setCantOperarios(cantidad);
                 soxhde.setDescripcion(descripcion);
                 soxhde.setPrecioUnitario(precio);
 
