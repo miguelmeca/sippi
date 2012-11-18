@@ -82,7 +82,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
                 {"Materiales"},
                 {"Alquileres/Compras"},
                 {"Recursos Humanos"},
-                {"Gastos Generales"},
+                {"Gastos Varios"},
                 {"Ordenes de Trabajo"}
             },
             new String [] {
@@ -116,7 +116,7 @@ public class VentanaLanzamiento extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pnlCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));

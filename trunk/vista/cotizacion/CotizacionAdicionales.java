@@ -214,7 +214,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             }
         });
 
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gastos Generales"));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Gastos Varios"));
 
         tbAdicionales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -234,7 +234,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tbAdicionales);
 
-        jLabel8.setText("Subtotal Gestos Generales $");
+        jLabel8.setText("Subtotal Gestos Varios $");
 
         txtSubtotalAdicionales.setEditable(false);
         txtSubtotalAdicionales.setBackground(new java.awt.Color(204, 204, 255));
@@ -264,7 +264,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAgregarAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,7 +288,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
                     .addComponent(btnAgregarAdicional)
                     .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSubtotalAdicionales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

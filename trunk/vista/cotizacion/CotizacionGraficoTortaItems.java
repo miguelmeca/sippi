@@ -32,7 +32,7 @@ public class CotizacionGraficoTortaItems extends JPanel {
         data.setValue("Mano de Obra [$750]", new Double(30));
         data.setValue("Herramientas [$125]", new Double(5));
         data.setValue("Materiales [$1250]", new Double(50));
-        data.setValue("Gastos Generales [$125]", new Double(5));
+        data.setValue("Gastos Varios [$125]", new Double(5));
         data.setValue("Alquileres / Compras [$250]", new Double(10));
 
         final JFreeChart chart = ChartFactory.createPieChart3D(
