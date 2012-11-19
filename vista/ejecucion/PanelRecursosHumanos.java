@@ -26,9 +26,12 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
 import sun.rmi.runtime.Log;
 import util.NTupla;
+import util.SwingPanel;
+import vista.interfaces.ICallBack_v3;
 import vista.util.EditableCellTableRenderer;
 import vista.util.TableCellListener;
 
@@ -36,7 +39,7 @@ import vista.util.TableCellListener;
  *
  * @author Administrador
  */
-public class PanelRecursosHumanos extends javax.swing.JPanel {
+public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBack_v3{
 
     public static final int TABLA_RRHH_COLUMNA_EMPLEADO = 0;
     public static final int TABLA_RRHH_COLUMNA_TAREA = 1;
@@ -63,6 +66,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         initTabla();
         habilitarVentana();
     }
+    
+    
+    
   private void habilitarVentana()
     {
         filtroBuscarActivado=false;
@@ -116,6 +122,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         dcFechaInicio = new com.toedter.calendar.JDateChooser();
         dcFechaFin = new com.toedter.calendar.JDateChooser();
         btnHoy = new javax.swing.JButton();
+        btnAsignacion = new javax.swing.JButton();
 
         tblRRHH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,11 +193,19 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
             }
         });
 
+        btnAsignacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Modify.png"))); // NOI18N
+        btnAsignacion.setText("Cambiar Asingacion de empleado");
+        btnAsignacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignacionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
@@ -207,6 +222,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnAsignacion)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +239,10 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAsignacion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,6 +288,20 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
         dcFechaFin.setDate(new Date());
     }//GEN-LAST:event_btnHoyActionPerformed
 
+    private void btnAsignacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignacionActionPerformed
+        if(tblRRHH.getSelectedRow()!=-1)
+        {
+            DetalleTareaEjecucionXDia detalleXDia=(DetalleTareaEjecucionXDia)((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 0))).getData();
+            DetalleTareaEjecucion detalle=(DetalleTareaEjecucion)((NTupla)(tblRRHH.getModel().getValueAt(tblRRHH.getSelectedRow(), 1))).getData();
+            gestor.setDetalleRRHHSeleccionado(detalle);
+            gestor.setDetalleRRHHXDiaSeleccionado(detalleXDia);
+            EdicionDetalleRRHH edrh = new EdicionDetalleRRHH(this, gestor);
+            SwingPanel.getInstance().addWindow(edrh);
+            edrh.setVisible(true);
+
+        }
+    }//GEN-LAST:event_btnAsignacionActionPerformed
+
     
     //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
     Action accionSobreCelda = new AbstractAction()
@@ -303,6 +338,7 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignacion;
     private javax.swing.JButton btnHoy;
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
@@ -412,5 +448,10 @@ public class PanelRecursosHumanos extends javax.swing.JPanel {
     {
          JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
     } 
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
+    }
 
 }

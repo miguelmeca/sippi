@@ -55,6 +55,10 @@ public class GestorEjecucion {
     private Ejecucion ejecucion;
     private TareaEjecucion tareaSeleccionada;
     private int hashTarea;
+    DetalleTareaEjecucionXDia detalleRRHHXDiaSeleccionado;
+    DetalleTareaEjecucion detalleRRHHSeleccionado;
+    
+    
 
     public GestorEjecucion(VentanaEjecucion vista, int idObra) {
         this.pantalla = vista;
@@ -70,6 +74,8 @@ public class GestorEjecucion {
     public int getIdCotizacionPlanificada() {
         return pedidoDeObra.getPlanificacion().getCotizacion().getCotizacionOriginal().getId();
     }
+    
+    
     
     private void mostrarMensajeError(String msg) {
         System.err.println("[ERROR] " + msg);
@@ -119,7 +125,6 @@ public class GestorEjecucion {
             {
                 pantalla.setDescripcionPlanificacion(this.ejecucion.getDescripcion());
             }
-            HibernateUtil.commitTransaction();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -351,11 +356,16 @@ public class GestorEjecucion {
                                     NTupla fecha=new NTupla();
                                     fecha.setNombre(FechaUtil.getFecha(detalleXDia.getFecha()));
                                     fecha.setData(detalleXDia.getFecha());
+                                    
+                                    NTupla tuplaTarea = new NTupla(tarea.hashCode());
+                                    tuplaTarea.setNombre(tarea.getNombre());
+                                    tuplaTarea.setData(detalleTareaEjecucion);
+                                    
 
                                          Object[] data = new Object[6];
                                          //Interasante chanchada esta... :D
                                          data[0] = nt;
-                                         data[1] = new Tupla(tarea.hashCode(),tarea.getNombre());
+                                         data[1] = tuplaTarea;
                                          data[2] = fecha;
                                          data[3] = detalleXDia.getCantHorasNormales();
                                          data[4] = detalleXDia.getCantHorasAl50();
@@ -751,6 +761,22 @@ public class GestorEjecucion {
             return this.pedidoDeObra.getFechaFin();
         }
         return new Date();
+    }
+    
+    public void setDetalleRRHHXDiaSeleccionado(DetalleTareaEjecucionXDia detalleXDiaSeleccionado) {
+        this.detalleRRHHXDiaSeleccionado=detalleXDiaSeleccionado;
+    }
+    
+    public DetalleTareaEjecucionXDia getDetalleRRHHXDiaSeleccionado() {
+        return this.detalleRRHHXDiaSeleccionado;
+    }
+    
+    public void setDetalleRRHHSeleccionado(DetalleTareaEjecucion detalleSeleccionado) {
+        this.detalleRRHHSeleccionado=detalleSeleccionado;
+    }
+    
+    public DetalleTareaEjecucion getDetalleRRHHSeleccionado() {
+        return this.detalleRRHHSeleccionado;
     }
 
 }
