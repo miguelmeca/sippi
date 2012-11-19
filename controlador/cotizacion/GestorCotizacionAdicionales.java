@@ -96,7 +96,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
                 NTupla tp = new NTupla(i);
                 tp.setNombre(detalle.getTipoAdicional().getNombre()+"-"+detalle.getDescripcion());
                 String[] data = new String[3];
-                    data[0] =  String.valueOf(detalle.getCantOperarios());
+                    data[0] =  String.valueOf(detalle.getCantidad());
                     data[1] =  String.valueOf(detalle.getPrecioUnitario());
                     data[2] =  String.valueOf(detalle.calcularSubtotal());
                 tp.setData(data);
@@ -124,7 +124,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
     {
         SubObraXAdicional detalle = this.nuevaSubObraXAdicional();
         detalle.setDescripcion(descripcion);
-        detalle.setCantOperarios(cantidad);
+        detalle.setCantidad(cantidad);
         detalle.setPrecioUnitario(precio);
         
         // Busco el Tipo Alquiler Compra
@@ -154,7 +154,7 @@ public class GestorCotizacionAdicionales implements IGestorCotizacion {
             SubObraXAdicional soxhde = getSubObraActual().getAdicionales().get(i);
             if(soxhde.hashCode()==editando.hashCode())
             {
-                soxhde.setCantOperarios(cantidad);
+                soxhde.setCantidad(cantidad);
                 soxhde.setDescripcion(descripcion);
                 soxhde.setPrecioUnitario(precio);
 

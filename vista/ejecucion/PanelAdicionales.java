@@ -1,38 +1,84 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.ejecucion;
 
 import controlador.ejecucion.GestorEjecucion;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import vista.util.MyComboBoxEditor;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import modelo.EjecucionXAdicional;
+import util.NTupla;
+import vista.util.EditableCellTableRenderer;
+import vista.util.TableCellListener;
+
 
 /**
  *
- * @author Administrador
+ * @author Iuga
  */
-public class PanelAdicionales extends javax.swing.JPanel {
+public class PanelAdicionales extends javax.swing.JPanel{
 
-    public static final int TABLA_ALQCOMPRA_COLUMNA_NOMBRE = 0;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_CANTIDAD = 1;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_ESTADO = 2;
-    public static final int TABLA_ALQCOMPRA_COLUMNA_SELECCION = 3;
-    
-    private static final int TABLA_DEFAULT_ALTO = 25;     
-    
+    public static final int TABLA_ADICIONALES_COLUMNA_ADICIONAL = 0;
+    public static final int TABLA_ADICIONALES_CANTIDAD_PLANIFICADA = 1;
+    public static final int TABLA_ADICIONALES_CANTIDAD_USADA = 2;
+    public static final int TABLA_ADICIONALES_PRECIO_REAL = 3;
+    private static final int TABLA_DEFAULT_ALTO = 25;      
     private GestorEjecucion gestor;
+    private DefaultTableModel model;
+    private List<Object> listaAdicionales;
+    boolean filtroBuscarActivado;
     
-    /**
-     * Creates new form PanelAlquileresCompras
-     */
+    
     public PanelAdicionales(GestorEjecucion gestor) {
         this.gestor = gestor;
         initComponents();
         initTabla();
+        filtroBuscarActivado=false;
+        habilitarVentana();
     }
+    
+    private void habilitarVentana() {
+        cargarAdicionales();
+        activarFiltrosTabla();
+    }
+    public void activarFiltrosTabla()
+    {
+         TableRowSorter<TableModel> modeloOrdenado;
+            modeloOrdenado = new TableRowSorter<TableModel>(model);
+            tblAdicionales.setRowSorter(modeloOrdenado);
+        
+
+        if(filtroBuscarActivado)
+        {
+           String[] cadena=txtBuscar.getText().split(" ");
+           List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>();
+           for (int i= 0; i < cadena.length; i++)
+           {
+             filters.add(RowFilter.regexFilter("(?i)" + cadena[i]));
+           }
+            
+           RowFilter<Object,Object> cadenaFilter = RowFilter.andFilter(filters);           
+           modeloOrdenado.setRowFilter(cadenaFilter);
+
+        }
+       
+
+
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,21 +89,24 @@ public class PanelAdicionales extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAlquilerCompra = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tblAdicionales = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
 
-        tblAlquilerCompra.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel1.setText("jLabel1");
+
+        tblAdicionales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre y Descripcion", "Monto", "Estado", ""
+                "Nombre", "Cantidad planificada", "Cantidad a usar", "Precio Unitario"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, true
@@ -71,16 +120,38 @@ public class PanelAdicionales extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblAlquilerCompra);
+        tblAdicionales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblAdicionales);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField1.setText("Buscar ...");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        txtBuscar.setForeground(new java.awt.Color(102, 102, 102));
+        txtBuscar.setText("Buscar...");
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarFocusLost(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -88,75 +159,181 @@ public class PanelAdicionales extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
 
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
+
+        if(txtBuscar.getText().equals("Buscar...")) {
+            txtBuscar.setText("");
+            txtBuscar.setForeground(Color.BLACK);
+            filtroBuscarActivado=true;
+        }
+    }//GEN-LAST:event_txtBuscarFocusGained
+
+    private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
+        if(txtBuscar.getText().equals("")) {
+            txtBuscar.setText("Buscar...");
+            txtBuscar.setForeground(Color.GRAY);
+            filtroBuscarActivado=false;
+        } else {
+            filtroBuscarActivado=true;}
+    }//GEN-LAST:event_txtBuscarFocusLost
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        activarFiltrosTabla();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    //Sale una bendicion al tipo q implemento la clase q solciono muchos problemas
+    Action accionSobreCelda = new AbstractAction()
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            TableCellListener tcl = (TableCellListener)e.getSource();
+            int fila = tcl.getRow();
+            int columna = tcl.getColumn();
+            DefaultTableModel modeloTabla = (DefaultTableModel)tblAdicionales.getModel();
+            EjecucionXAdicional adicional = (EjecucionXAdicional)((NTupla)modeloTabla.getValueAt(fila, 0)).getData();
+            
+            switch(columna)
+            {
+                case TABLA_ADICIONALES_CANTIDAD_USADA:
+                    Integer valorCant = (Integer) tcl.getNewValue();
+                    adicional.setCantidad(Integer.valueOf(valorCant));
+                    adicional.setCantidad(valorCant);
+                    break;
+                case TABLA_ADICIONALES_PRECIO_REAL:                    
+                    Float valor = (Float) tcl.getNewValue();
+                    adicional.setPrecioUnitario(Double.valueOf(valor));
+                    break;                
+                default:
+                    Logger.getLogger(PanelAdicionales.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                    break;
+                        
+            }  
+            if(columna!=TABLA_ADICIONALES_CANTIDAD_USADA && columna!=TABLA_ADICIONALES_PRECIO_REAL)
+            {       Logger.getLogger(PanelAdicionales.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
+                        
+            }  
+        }
+    };
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblAlquilerCompra;
+    private javax.swing.JTable tblAdicionales;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-    private void initTabla() {
-        tblAlquilerCompra.setRowHeight(TABLA_DEFAULT_ALTO);
-        DefaultTableModel modelo = (DefaultTableModel) tblAlquilerCompra.getModel();
-
-        TableColumn col = tblAlquilerCompra.getColumnModel().getColumn(TABLA_ALQCOMPRA_COLUMNA_ESTADO);
-        String[] values = new String[]{"<HTML><span color='#009900'>Abonado</span>", 
-                                       "<HTML><span color='#CC7A00'>En Espera...</span>", 
-                                       "<HTML><span color='#CC0000'>Sin Abonar</span>"};
-        col.setCellEditor(new MyComboBoxEditor(values));
-       //col.setCellRenderer(new PanelHerramientasCellRenderer(values));
-
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
+    
+     private void initTabla() {
+        tblAdicionales.setRowHeight(TABLA_DEFAULT_ALTO);
+       tblAdicionales.setDefaultRenderer(Object.class,new EditableCellTableRenderer());
         // Ancho de Columnas
         int anchoColumna = 0;
-        TableColumnModel modeloColumna = tblAlquilerCompra.getColumnModel();
+        TableColumnModel modeloColumna = tblAdicionales.getColumnModel();
         TableColumn columnaTabla;
-        for (int i = 0; i < tblAlquilerCompra.getColumnCount(); i++) {
+        for (int i = 0; i < tblAdicionales.getColumnCount(); i++) {
             columnaTabla = modeloColumna.getColumn(i);
             switch (i) {
-                case TABLA_ALQCOMPRA_COLUMNA_ESTADO:
-                    anchoColumna = 300;
+                case TABLA_ADICIONALES_COLUMNA_ADICIONAL:
+                    anchoColumna = 250;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_NOMBRE:
-                    anchoColumna = 500;
+                case TABLA_ADICIONALES_CANTIDAD_PLANIFICADA:
+                    anchoColumna = 100;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_CANTIDAD:
-                    anchoColumna = 150;
+                case TABLA_ADICIONALES_CANTIDAD_USADA:
+                    anchoColumna = 100;
                     break;
-                case TABLA_ALQCOMPRA_COLUMNA_SELECCION:
-                    anchoColumna = 50;
+                case TABLA_ADICIONALES_PRECIO_REAL:
+                    anchoColumna = 130;
                     break;
             }
             columnaTabla.setPreferredWidth(anchoColumna);
             columnaTabla.setWidth(anchoColumna);
+        } 
+        cambiarTamCabeceraTablas();
+        TableCellListener tcl = new TableCellListener(tblAdicionales, accionSobreCelda);
+    }
+     
+     private void cambiarTamCabeceraTablas()
+    {
+        Font fuente = new Font("Verdana", Font.PLAIN, 9);
+        JTableHeader th1;
+        th1 = tblAdicionales.getTableHeader();
+        th1.setFont(fuente); 
+        
+              
+    }
+    
+     
+    private void cargarAdicionales()
+    {
+        
+        listaAdicionales=gestor.getListaAdicionales();
+       
+        model = (DefaultTableModel) tblAdicionales.getModel();
+        
+        model.setRowCount(0);
+        for (Object detalle : listaAdicionales)
+        {
+            Object[] obj=(Object[])detalle;
+            model.addRow( obj );
         }
+       
+        tblAdicionales.setModel(model);
+    
+
+    }
+
+    public void actualizar() {
+        cargarAdicionales();
     }
 
     
-    public void actualizar() {
-        
-    }
 }

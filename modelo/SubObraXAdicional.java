@@ -13,27 +13,29 @@ public class SubObraXAdicional implements ISubtotal{
     private int id;
     private TipoAdicional tipoAdicional;
     private String descripcion;
-    private int cantOperarios;
+    private int cantidad;
     private int cantDias;
     private double precioUnitario;
 
     public SubObraXAdicional() {
     }
 
+    @Deprecated
     public int getCantDias() {
         return 1;
     }
 
+    @Deprecated
     public void setCantDias(int cantDias) {
         this.cantDias = 1;
     }
 
-    public int getCantOperarios() {
-        return cantOperarios;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setCantOperarios(int cantOperarios) {
-        this.cantOperarios = cantOperarios;
+    public void setCantidad(int cantOperarios) {
+        this.cantidad = cantOperarios;
     }
 
     public String getDescripcion() {
@@ -71,6 +73,10 @@ public class SubObraXAdicional implements ISubtotal{
     @Override
     public double calcularSubtotal() 
     {
-        return cantOperarios*precioUnitario;
+        return cantidad*precioUnitario;
+    }
+    
+    public String getTipoYDescripcion() {
+        return tipoAdicional.getNombre()+"-"+descripcion;
     }
 }

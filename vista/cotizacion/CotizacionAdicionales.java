@@ -579,7 +579,7 @@ public class CotizacionAdicionales extends javax.swing.JPanel {
             txtConcepto.setEditable(true);
             
             // Costos
-            txtCantidad.setText(String.valueOf(this.adicionalEditando.getCantOperarios()));
+            txtCantidad.setText(String.valueOf(this.adicionalEditando.getCantidad()));
             txtCantidad.setEnabled(true);
             txtCantidad.setEditable(true);
             

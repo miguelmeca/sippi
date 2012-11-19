@@ -210,7 +210,7 @@ public class GestorRegistrarCotizacion {
            // {
                 SubObraXAdicional nuevaSoxa =new SubObraXAdicional();
                 nuevaSoxa.setCantDias(soxa.getCantDias());
-                nuevaSoxa.setCantOperarios(soxa.getCantOperarios());
+                nuevaSoxa.setCantidad(soxa.getCantidad());
                 nuevaSoxa.setDescripcion(soxa.getDescripcion());
                 nuevaSoxa.setPrecioUnitario(soxa.getPrecioUnitario());
                 nuevaSoxa.setTipoAdicional(soxa.getTipoAdicional());

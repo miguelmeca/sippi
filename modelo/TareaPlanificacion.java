@@ -19,7 +19,6 @@ public class TareaPlanificacion
     protected String nombre;
     protected TipoTarea tipoTarea;
     protected String observaciones;
-    protected List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados;
     protected List<PlanificacionXHerramienta> herramientas;
     protected List<PlanificacionXMaterial> materiales;
     protected List<PlanificacionXAlquilerCompra> alquilerCompras;
@@ -34,7 +33,6 @@ public class TareaPlanificacion
 
     public TareaPlanificacion() {
         this.subtareas = new ArrayList<TareaPlanificacion>();
-        this.asignacionesEmpleados = new ArrayList<AsignacionEmpleadoPlanificacion>();
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
@@ -56,7 +54,6 @@ public class TareaPlanificacion
         this.idTareaGantt=aCopiar.idTareaGantt;
         this.tareaCotizada=aCopiar.tareaCotizada;    
         this.subtareas = new ArrayList<TareaPlanificacion>();
-        this.asignacionesEmpleados = new ArrayList<AsignacionEmpleadoPlanificacion>();
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
@@ -99,7 +96,6 @@ public class TareaPlanificacion
     
     public TareaPlanificacion(SubObraXTareaModif tareaCotizada) {
         this.subtareas = new ArrayList<TareaPlanificacion>();
-        this.asignacionesEmpleados = new ArrayList<AsignacionEmpleadoPlanificacion>();
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();
@@ -139,13 +135,7 @@ public class TareaPlanificacion
     }
 
 
-    public List<AsignacionEmpleadoPlanificacion> getAsignacionesEmpleados() {
-        return asignacionesEmpleados;
-    }
-
-    public void setAsignacionesEmpleados(List<AsignacionEmpleadoPlanificacion> asignacionesEmpleados) {
-        this.asignacionesEmpleados = asignacionesEmpleados;
-    }
+    
 
     public List<PlanificacionXHerramienta> getHerramientas() {
         return herramientas;

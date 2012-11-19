@@ -954,6 +954,14 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 contenido=panelAdicionales;
                 break;
         }
+        
+        if(idTipoRecurso==OPTN_ADICIONALES){
+            arbolTareas.setVisible(false);
+        }
+        else {
+            arbolTareas.setVisible(true);
+        }
+        
         nombreTipoRecursoEnPanel=tipoRecurso.toString();
         setearPanelCentral(contenido);
         

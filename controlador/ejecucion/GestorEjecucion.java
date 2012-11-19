@@ -17,6 +17,7 @@ import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
 import modelo.DetalleTareaPlanificacion;
 import modelo.Ejecucion;
+import modelo.EjecucionXAdicional;
 import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXHerramienta;
 import modelo.EjecucionXHerramientaXDia;
@@ -30,6 +31,7 @@ import modelo.PlanificacionXMaterial;
 import modelo.Recurso;
 import modelo.RecursoEspecifico;
 import modelo.RecursoXProveedor;
+import modelo.SubObraXAdicionalModif;
 import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
 import modelo.TipoTarea;
@@ -515,6 +517,36 @@ public class GestorEjecucion {
                 }            
         }
         return listaTuplasAlquileresCompras;        
+    }
+     
+   public List<Object> getListaAdicionales() {
+        List<Object> listaTuplasAdicionales = new ArrayList<Object>();
+        
+            if (ejecucion != null) {
+                
+              List<EjecucionXAdicional> listaMateriales = ejecucion.getAdicionales();
+              for (int j = 0; j < listaMateriales.size(); j++) {
+                   EjecucionXAdicional adicionalEjecucion = listaMateriales.get(j);
+                   SubObraXAdicionalModif soxad = adicionalEjecucion.getAdicionalPlanificado();
+                       
+                          
+                   NTupla nt = new NTupla(adicionalEjecucion.hashCode());
+                   nt.setNombre(soxad.getTipoYDescripcion());
+                   nt.setData(adicionalEjecucion); 
+                                    
+                   Object[] data = new Object[4];
+                   //Interasante chanchada esta... :D
+                   data[0] = nt;
+                   data[1] = soxad.getCantidad();
+                   data[2] = adicionalEjecucion.getCantidad();
+                   data[3] = adicionalEjecucion.getPrecioUnitario();
+                                    
+                   listaTuplasAdicionales.add(data);
+                                
+                   
+                }            
+        }
+        return listaTuplasAdicionales;        
     }
 
     /**
