@@ -241,7 +241,7 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
                     material.getAlquilerCompraCotizacion().setPrecioUnitario(Double.valueOf(valor));
                     break;                
                 default:
-                    Logger.getLogger(PanelRecursosHumanos.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
+                    Logger.getLogger(PanelAlquileresCompras.class.getName()).log(Level.SEVERE, "ERROR EN LOS INDICES DE LAS COLUMAS DE LA TABLA");
                     mostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "ALGO SALIO MAL");
                     break;
                         
@@ -293,6 +293,9 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
                     anchoColumna = 130;
                     break;
                 case TABLA_ALQUILERSCOMPRAS_CANTIDAD_USADA:
+                    anchoColumna = 130;
+                    break;
+                case TABLA_ALQUILERSCOMPRAS_PRECIO_REAL:
                     anchoColumna = 130;
                     break;
             }

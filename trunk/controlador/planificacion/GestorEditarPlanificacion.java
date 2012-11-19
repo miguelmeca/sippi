@@ -1340,6 +1340,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     SubObraXAdicional subObraXAdicional = adicionales.get(i);
                     
                     EjecucionXAdicional ejcXadi = new EjecucionXAdicional();
+                    ejcXadi.setCantidad(subObraXAdicional.getCantidad());
+                    ejcXadi.setPrecioUnitario(subObraXAdicional.getPrecioUnitario());
                     ejcXadi.setAdicionalPlanificado((SubObraXAdicionalModif)subObraXAdicional);
                     listaAdicionales.add(ejcXadi);
                 }

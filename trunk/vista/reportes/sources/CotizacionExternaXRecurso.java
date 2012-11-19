@@ -247,7 +247,7 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
             while(itA.hasNext()){
                 SubObraXAdicional soxa = itA.next();
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph(soxa.getTipoAdicional().getNombre()+" - "+soxa.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getCantOperarios()),ReportDesigner.FUENTE_NORMAL)));
+                tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getCantidad()),ReportDesigner.FUENTE_NORMAL)));
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxa.calcularSubtotal();

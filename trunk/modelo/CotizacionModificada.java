@@ -41,8 +41,8 @@ public class CotizacionModificada extends Cotizacion{
                     soXAdicionalModif.setOriginal(subObraXAdicional);
                     int aleaCantDias = (int) (Math.random()*subObraXAdicional.getCantDias() + 2);
                     soXAdicionalModif.setCantDias(aleaCantDias);
-                    int aleaCantOperarios = (int) (Math.random()*subObraXAdicional.getCantOperarios() + 3);
-                    soXAdicionalModif.setCantOperarios(aleaCantOperarios);
+                    int aleaCantOperarios = (int) (Math.random()*subObraXAdicional.getCantidad() + 3);
+                    soXAdicionalModif.setCantidad(aleaCantOperarios);
                     soXAdicionalModif.setDescripcion(subObraXAdicional.getDescripcion());
                     double aleaPrecioUnit = (int) Math.random()*subObraXAdicional.getPrecioUnitario() + 1;
                     soXAdicionalModif.setPrecioUnitario(aleaPrecioUnit);

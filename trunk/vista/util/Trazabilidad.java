@@ -68,7 +68,7 @@ public class Trazabilidad {
                 SubObraXAdicionalModif soXAdicionalModif = new SubObraXAdicionalModif();
                 soXAdicionalModif.setOriginal(subObraXAdicional);
                 soXAdicionalModif.setCantDias(subObraXAdicional.getCantDias());
-                soXAdicionalModif.setCantOperarios(subObraXAdicional.getCantOperarios());
+                soXAdicionalModif.setCantidad(subObraXAdicional.getCantidad());
                 soXAdicionalModif.setDescripcion(subObraXAdicional.getDescripcion());
                 soXAdicionalModif.setPrecioUnitario(subObraXAdicional.getPrecioUnitario());
                 soXAdicionalModif.setTipoAdicional(subObraXAdicional.getTipoAdicional());

@@ -18,6 +18,11 @@
     <joined-subclass name="modelo.Ejecucion" table="EJECUCION">
       <key column="ID_EJECUCION"/>
       <many-to-one class="modelo.Planificacion" name="planificacionOriginal"/>
+      <list cascade="all-delete-orphan" name="adicionales" table="EJECUCION_X_ADICIONALES">
+        <key column="ID_Adicionales_E"/>
+        <index column="ID_ADICIONALES_EJ"/>
+        <one-to-many class="modelo.EjecucionXAdicional"/>
+      </list>
     </joined-subclass>
   </class>
 </hibernate-mapping>

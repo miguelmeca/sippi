@@ -32,7 +32,7 @@
     <!--    <property name="hibernate.connection.username">administradornn</property>-->
     <!--    <property name="hibernate.connection.password">administradornn</property>-->
     <!--    <property name="hibernate.current_session_context_class">thread</property>-->
-    <!--    <property name="hibernate.hbm2ddl.auto">create-drop</property>-->
+    <!--property name="hibernate.hbm2ddl.auto">create-drop</property-->
     <!-- esta cosita borra toda las tablas que se usan cuando para por aca -->
     <!--    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
     <!--property name="connection.pool_size">1</property>
@@ -96,7 +96,7 @@
     <mapping resource="config/db/HerramientaDeEmpresa.xml"/>
     <mapping resource="config/db/TipoAdicional.hbm.xml"/>
     <!--             ::: FIFTH ITERATION :::               -->
-    <mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/>
+    <!--mapping resource="config/db/AsignacionEmpleadoPlanificacion.hbm.xml"/-->
     <mapping resource="config/db/DetalleSubObraXTarea.hbm.xml"/>
     <mapping resource="config/db/Planificacion.hbm.xml"/>
     <mapping resource="config/db/PlanificacionXAlquilerCompra.hbm.xml"/>

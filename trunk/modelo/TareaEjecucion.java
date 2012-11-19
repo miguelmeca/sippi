@@ -52,7 +52,6 @@ public class TareaEjecucion extends TareaPlanificacion{
         this.fechaFin=aCopiar.fechaFin;
         this.idTareaGantt=aCopiar.idTareaGantt;   
         this.subtareas = new ArrayList<TareaPlanificacion>();
-        this.asignacionesEmpleados = new ArrayList<AsignacionEmpleadoPlanificacion>();
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
         this.alquilerCompras = new ArrayList<PlanificacionXAlquilerCompra>();

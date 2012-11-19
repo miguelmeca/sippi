@@ -1040,7 +1040,7 @@ public class DBExamplesLoader {
 
                 SubObraXAdicional soxa = new SubObraXAdicional();
                 soxa.setCantDias(1);
-                soxa.setCantOperarios(1);
+                soxa.setCantidad(1);
                 soxa.setDescripcion("Hospedaje en hotel 2 estrellas");
                 soxa.setPrecioUnitario(120);
                 soxa.setTipoAdicional((TipoAdicional)sesion.load(TipoAdicional.class,1));
@@ -1167,8 +1167,8 @@ public class DBExamplesLoader {
                     soXAdicionalModif.setOriginal(subObraXAdicional);
                     int aleaCantDias = (int) (Math.random()*subObraXAdicional.getCantDias() + 2);
                     soXAdicionalModif.setCantDias(aleaCantDias);
-                    int aleaCantOperarios = (int) (Math.random()*subObraXAdicional.getCantOperarios() + 3);
-                    soXAdicionalModif.setCantOperarios(aleaCantOperarios);
+                    int aleaCantOperarios = (int) (Math.random()*subObraXAdicional.getCantidad() + 3);
+                    soXAdicionalModif.setCantidad(aleaCantOperarios);
                     soXAdicionalModif.setDescripcion(subObraXAdicional.getDescripcion());
                     double aleaPrecioUnit = (int) Math.random()*subObraXAdicional.getPrecioUnitario() + 1;
                     soXAdicionalModif.setPrecioUnitario(aleaPrecioUnit);

@@ -299,7 +299,7 @@ public class GestorVentanaLanzamiento {
                             
                             String[] data = new String[3];
                             // Cantidad
-                            data[0] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantOperarios());
+                            data[0] = String.valueOf(ejecXadi.getAdicionalPlanificado().getCantidad());
                             // Precio
                             data[1] = String.valueOf(ejecXadi.getAdicionalPlanificado().getPrecioUnitario());
                             // SubTotal
