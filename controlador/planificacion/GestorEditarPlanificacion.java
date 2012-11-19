@@ -229,13 +229,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                                  try
                                  {
                                     RecursoXProveedor rxp = mat.getMaterial();
-                                    RecursoEspecifico RE= (RecursoEspecifico)HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();  
+                                    RecursoEspecifico RE= (RecursoEspecifico)sesion.createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();  
                                     if(RE!=null)
                                     {
                                         nombre += RE.getNombre();
                                     }
                                     
-                                    Recurso R = (Recurso)HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();  
+                                    Recurso R = (Recurso)sesion.createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();  
                                     if(R!=null)
                                     {
                                         nombre = R.getNombre()+" "+nombre;
@@ -495,13 +495,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         RecursoXProveedor rxp = material.getMaterialCotizacion().getMaterial();
                         RecursoEspecifico RE=null;
                         try {
-                            RE = (RecursoEspecifico) HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
+                            RE = (RecursoEspecifico) sesion.createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
 
                             if (RE != null) {
                                 nombre += RE.getNombre();
                             }
 
-                            Recurso R = (Recurso) HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();
+                            Recurso R = (Recurso) sesion.createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", RE).uniqueResult();
                             if (R != null) {
                                 nombre = R.getNombre() + " " + nombre;
                             }
@@ -924,8 +924,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             while(itAlquilerCompra.hasNext())
             {
                 PlanificacionXAlquilerCompra pac = itAlquilerCompra.next();
-                HibernateUtil.getSession().saveOrUpdate(pac.getAlquilerCompraCotizacion());
-                HibernateUtil.getSession().saveOrUpdate(pac);
+                sesion.saveOrUpdate(pac.getAlquilerCompraCotizacion());
+                sesion.saveOrUpdate(pac);
             }
         }
         if(tareaR.getHerramientas() != null)
@@ -934,8 +934,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             while(itHerramienta.hasNext())
             {
                 PlanificacionXHerramienta ph = itHerramienta.next();
-                HibernateUtil.getSession().saveOrUpdate(ph.getHerramientaCotizacion());
-                HibernateUtil.getSession().saveOrUpdate(ph);
+                sesion.saveOrUpdate(ph.getHerramientaCotizacion());
+                sesion.saveOrUpdate(ph);
             }
         }
         if(tareaR.getMateriales() != null)
@@ -944,8 +944,8 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             while(itMaterial.hasNext())
             {
                 PlanificacionXMaterial pm = itMaterial.next();
-                HibernateUtil.getSession().saveOrUpdate(pm.getMaterialCotizacion());
-                HibernateUtil.getSession().saveOrUpdate(pm);
+                sesion.saveOrUpdate(pm.getMaterialCotizacion());
+                sesion.saveOrUpdate(pm);
             }
         }
         if(tareaR.getDetalles() != null)
@@ -955,12 +955,12 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             {
                 DetalleTareaPlanificacion aep = itDetalles.next();
                 if(aep.getCotizado()!=null) {
-                    HibernateUtil.getSession().saveOrUpdate(aep.getCotizado());
+                    sesion.saveOrUpdate(aep.getCotizado());
                     }
                 if(aep.getPadre()!=null) {
-                    HibernateUtil.getSession().saveOrUpdate(aep.getPadre());
+                    sesion.saveOrUpdate(aep.getPadre());
                 }
-                HibernateUtil.getSession().saveOrUpdate(aep);
+                sesion.saveOrUpdate(aep);
             }
         }
         if(tareaR.getSubtareas() != null)
@@ -972,7 +972,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                 this.guardarTareaRecursiva(tp);
             }
         }
-        HibernateUtil.getSession().saveOrUpdate(tareaR);  
+        sesion.saveOrUpdate(tareaR);  
     }
      
 
