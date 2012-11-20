@@ -153,16 +153,16 @@ public class GestorEjecucion {
             HibernateUtil.beginTransaction();
             this.pedidoDeObra = (PedidoObra) HibernateUtil.getSession().load(PedidoObra.class, idObra);
             ejecucion = this.pedidoDeObra.getEjecucion();
-            if(ejecucion==null)
-            {mostrarMensajeError("La obra no contiene una ejecucion");}
             HibernateUtil.commitTransaction();
-
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction();
             System.err.println("Error: Se produjo un error al cargar la Obra:\n" + e.getMessage());
             throw new HibernateException("Error: Se produjo un error al cargar la Obra");
         }
-
+        
+        if (ejecucion == null) {
+            mostrarMensajeError("La obra no contiene una ejecucion");
+        }
     }
     
     //Metodo recursivo
@@ -809,6 +809,30 @@ public class GestorEjecucion {
     
     public DetalleTareaEjecucion getDetalleRRHHSeleccionado() {
         return this.detalleRRHHSeleccionado;
+    }
+
+    /**
+     * Guarda en DB los cambios de la ejecución
+     * @return 
+     */
+    public boolean guardar() {
+        try
+        {
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(this.ejecucion);
+                for (int i = 0; i < this.ejecucion.getTareas().size(); i++) {
+                    TareaPlanificacion tarea = this.ejecucion.getTareas().get(i);
+                    HibernateUtil.getSession().saveOrUpdate(tarea);
+                }
+            HibernateUtil.commitTransaction();
+
+        }catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error: "+e.getMessage());
+            return false;
+        }   
+        return true;
     }
 
 }
