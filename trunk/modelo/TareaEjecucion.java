@@ -38,12 +38,11 @@ public class TareaEjecucion extends TareaPlanificacion{
     public static final Color ESTADO_COLORFONDO_ENESPERA    = new Color(0xB3B3FF);
     public static final Color ESTADO_COLORFONDO_IMPEDIMENTO = new Color(0xFFB3B3);    
     
-    private String estado;
+    protected String estado;
     private TareaPlanificacion tareaPlanificada;
 
     public TareaEjecucion() {
         super();
-        this.estado = TareaEjecucion.ESTADO_NUEVA;
     }
 
     public TareaEjecucion(TareaPlanificacion aCopiar) {
@@ -165,6 +164,9 @@ public class TareaEjecucion extends TareaPlanificacion{
      * @return 
      */
     public static int getIdEstadoSegunNombre(String nombre){
+        if(nombre==null){
+            return ESTADO_ID_NUEVA;
+        }
         if(nombre.equals(ESTADO_CANCELADA)) { return ESTADO_ID_CANCELADA; }
         if(nombre.equals(ESTADO_COMPLETA)) { return ESTADO_ID_COMPLETA;}
         if(nombre.equals(ESTADO_ENESPERA)) { return ESTADO_ID_ENESPERA;}

@@ -6,21 +6,15 @@ import com.hackelare.coolgantt.CoolGanttTypeModel;
 import com.hackelare.coolgantt.ICoolGantt;
 import com.hackelare.coolgantt.ICoolGanttEvent;
 import com.hackelare.coolgantt.demo.demoEvents;
-import com.hackelare.coolgantt.demo.demoTypes;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
-import controlador.ejecucion.EjecucionUtils;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -30,11 +24,11 @@ import javax.swing.tree.TreePath;
 import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
 import util.FechaUtil;
+import util.HibernateUtil;
 import util.SwingPanel;
 import util.Tupla;
 import vista.cotizacion.ExplorarSubObras;
 import vista.ejecucion.lanzamiento.VentanaLanzamiento;
-import vista.gui.dnd.PanelDropTarget;
 import vista.planificacion.ArbolTareasGestor;
 import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
@@ -900,6 +894,31 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
      * @return 
      */
     private boolean guardar() {
+        
+        int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            "<HTML>¿Desea <b>guardar</b> los cambios realizados sobre la Ejecución?", //Mensaje
+            "Atencion!", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Guardar", "Cancelar"},    // null para YES, NO y CANCEL
+            "Guardar");
+
+        if (seleccion != -1)
+        {
+           if((seleccion + 1)==1)
+           {
+              // Guardo los cambios !!
+              if(gestor.guardar()){
+                  // Guardado exitoso
+                  mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","<HTML>Se guardaron con <b>éxito</b> los cambios sobre la ejecución");
+              }else{
+                  // Guardado Fallido
+                  mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Error!","<HTML>Se produjo un <b>error</b> al guardar los cambios\nInténtelo nuevamente");
+              }
+           }
+        }
         return true;
     }    
     

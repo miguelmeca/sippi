@@ -777,15 +777,17 @@ public class TareaPlanificacion
         double subT=0.0;
         for (int i = 0; i < detalles.size(); i++) 
         {
-            subT+=detalles.get(i).calcularSubtotal();
-            
+            if(detalles.get(i)!=null){
+                subT+=detalles.get(i).calcularSubtotal();
+            }
         } 
         for (TareaPlanificacion subtarea: subtareas) 
         {
-            subT+=subtarea.calcularSubtotalConSubtareas();
+            if(subtarea!=null){
+                subT+=subtarea.calcularSubtotalConSubtareas();
+            }
         }
        return subT; 
-       
     }
     
     private void borrarDetallesCopia()
