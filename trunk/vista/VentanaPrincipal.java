@@ -46,6 +46,7 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.compras.*;
+import vista.control.VentanaControl;
 import vista.cotizacion.ExplorarCotizacionObra;
 import vista.cotizacion.ExplorarCotizaciones;
 import vista.cotizacion.ListadoCotizaciones;
@@ -227,18 +228,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuItem25 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -470,6 +463,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Favourites.png"))); // NOI18N
         jMenu3.setText("Prototipos");
 
+        jMenuItem3.setText("Planificacion");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
         jMenuItem21.setText("Ejecución");
         jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,81 +487,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem20);
 
-        jMenuItem4.setText("Registrar Empleado");
+        jMenuItem4.setText("Control");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem4);
-
-        jMenuItem3.setText("Editar Planificacion");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuItem5.setText("Cotizaciones");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem5);
-
-        jMenuItem2.setText("Explorar Cotizaciones");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem2);
-
-        jMenuItem10.setText("Test Listados gen Callback");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem10);
-
-        jMenu4.setText("ABMs");
-
-        jMenuItem11.setText("TestABM ALTA");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem11);
-
-        jMenuItem12.setText("TestABM BAJA");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem12);
-
-        jMenuItem13.setText("TestABM MODIFICACION");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem13);
-
-        jMenuItem14.setText("TestABM VER DETALLES");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem14);
-
-        jMenu3.add(jMenu4);
 
         jMenuBar1.add(jMenu3);
 
@@ -874,13 +807,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
-        ExplorarCotizacionObra mod =  new ExplorarCotizacionObra();
-        SwingPanel.getInstance().addWindow(mod);
-        mod.setVisible(true);
-}//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void panelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseMoved
 
       
@@ -903,13 +829,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_jPanel1MouseMoved
 
-private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-    
-        ExplorarCotizaciones ec = new ExplorarCotizaciones();
-        SwingPanel.getInstance().addWindow(ec);
-        ec.setVisible(true);
-}//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
        EditarPlanificacion ep = new EditarPlanificacion(1,1);
        SwingPanel.getInstance().addWindow(ep);
@@ -923,7 +842,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }//GEN-LAST:event_btnMenuAyudaActionPerformed
 
 private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    pantallaRegistrarEmpleado ep = new pantallaRegistrarEmpleado();
+       VentanaControl ep = new VentanaControl(1);
        SwingPanel.getInstance().addWindow(ep);
        ep.setVisible(true);
 }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -958,12 +877,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);      
     }//GEN-LAST:event_btnMenuListadoOrdenesCompraActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        TestCallBackListadoGenerico win = new TestCallBackListadoGenerico();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true); 
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
-
     private void btnMenuListadoPlanificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoPlanificacionesActionPerformed
         PantallaConsultarPlanificaciones win = new PantallaConsultarPlanificaciones();
         SwingPanel.getInstance().addWindow(win);
@@ -975,34 +888,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true); 
     }//GEN-LAST:event_btnMenuListadoCotizacionesActionPerformed
-
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        FactoryABM factory = new FactoryABM();
-        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_ALTA);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);         
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
-
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        FactoryABM factory = new FactoryABM();
-        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_BAJA);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);     
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
-
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        FactoryABM factory = new FactoryABM();
-        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_VER);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);     
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
-
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        FactoryABM factory = new FactoryABM();
-        PantallaABMGenerica win = factory.create(HerramientaDeEmpresa.class,PantallaABMGenerica.COMPORTAMIENTO_MODIFICACION,1);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);     
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void btnMnuRecursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMnuRecursosActionPerformed
         ListadoRecursosEmpresa win = new ListadoRecursosEmpresa();
@@ -1173,24 +1058,17 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
@@ -1204,7 +1082,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
