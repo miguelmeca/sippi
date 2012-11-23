@@ -835,4 +835,8 @@ public class GestorEjecucion {
         return true;
     }
 
+    public void actualizarDescripcionEjecucion(String text) {
+        this.ejecucion.setDescripcion(text);
+    }
+
 }

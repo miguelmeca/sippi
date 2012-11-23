@@ -1177,7 +1177,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         // 1- Creo la Ejecucion
         Ejecucion ejecucion = new Ejecucion(planificacion);
         ejecucion.setFechaFin(null);
-        ejecucion.setObservaciones("");
+        ejecucion.setDescripcion("");
         ejecucion.setPlanificacionOriginal(planificacion);
 
             // 2- Recursivamente, Por cada Tarea de Planificacion creo una de Ejecucion y la asocio
