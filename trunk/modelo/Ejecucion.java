@@ -19,7 +19,7 @@ public class Ejecucion extends Planificacion{
     private Date fechaFin;    
     private String estado;*/
     
-    private String observaciones;
+//    private String observaciones;
     private Planificacion planificacionOriginal;
     
     
@@ -62,15 +62,15 @@ public class Ejecucion extends Planificacion{
     public void addTarea(int indice, TareaEjecucion tarea ) {
         this.tareas.add(indice, tarea);
     }
-
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
+//
+//
+//    public String getObservaciones() {
+//        return observaciones;
+//    }
+//
+//    public void setObservaciones(String observaciones) {
+//        this.observaciones = observaciones;
+//    }
 
     @Override
     public String mostrarPedidoObra(){
