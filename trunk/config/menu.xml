@@ -32,7 +32,7 @@
     </itemcat>    
 
     <itemcat icono="/res/iconos/var/16x16/chart_pie.png" nombre="Cotización">
-        <item nombre="Explorar Cotizaciones de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.cotizacion.ExplorarCotizacionObra"/>
+        <item nombre="Nueva Cotización de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.cotizacion.ExplorarCotizacionObra"/>
         <item nombre="Explorar Cotizaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.cotizacion.ListadoCotizaciones"/>
     </itemcat>
     
@@ -42,7 +42,11 @@
     
     <itemcat icono="/res/iconos/var/16x16/calendar.png" nombre="Ejecución">
         <item nombre="Explorar Ejecuciones" icono="/res/iconos/var/16x16/search.png" instance="vista.ejecucion.ConsultarEjecuciones"/>
-    </itemcat>         
+    </itemcat>  
+    
+    <itemcat icono="/res/iconos/var/16x16/Yes.png" nombre="Control">
+        <item nombre="Explorar Controles de Obra" icono="/res/iconos/var/16x16/search.png" instance="vista.control.ConsultarControles"/>
+    </itemcat>                   
 
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
         <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado"/>
