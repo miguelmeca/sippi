@@ -1,8 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.control;
+
+import controlador.control.GestorControl;
+import java.awt.Color;
+import modelo.Cotizacion;
+import modelo.Ejecucion;
+import modelo.PedidoObra;
+import modelo.Planificacion;
+import util.SwingPanel;
+import vista.comer.pantallaConsultarObra;
 
 /**
  *
@@ -10,11 +15,19 @@ package vista.control;
  */
 public class VentanaControl extends javax.swing.JInternalFrame {
 
+    private GestorControl gestor;
+    
+    public static final String MENSAJE_NO_ESTA_COTIZADO = "No está Cotizado";
+    public static final String MENSAJE_NO_ESTA_PLANIFICADO = "No está Planificado";
+    public static final String MENSAJE_NO_ESTA_EJECUTADO = "No está Ejecutado";
     /**
      * Creates new form VentanaControl
      */
     public VentanaControl(int idPedidoObra) {
+        gestor = new GestorControl(idPedidoObra);
         initComponents();
+        initDatosObra();
+        initEstados();
     }
 
     /**
@@ -29,18 +42,20 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lblNombreObra = new javax.swing.JLabel();
+        lblNombreClienteObra = new javax.swing.JLabel();
+        btnVerDatosObra = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblNumeroObra = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblEstadoPedidoObra = new javax.swing.JLabel();
+        lblEstadoCotizacion = new javax.swing.JLabel();
+        lblEstadoPlanificacion = new javax.swing.JLabel();
+        lblEstadoEjecucion = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
@@ -84,42 +99,61 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Cliente:");
 
-        jLabel3.setText("Montaje Horno Galletitas");
+        lblNombreObra.setText("Montaje Horno Galletitas .................................................................................");
 
-        jLabel4.setText("ARCOR S.A - Planta San Luis");
+        lblNombreClienteObra.setText("ARCOR S.A - Planta San Luis .........................................................................");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
-        jButton1.setText("Ver datos de la Obra");
+        btnVerDatosObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
+        btnVerDatosObra.setText("Ver datos de la Obra");
+        btnVerDatosObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDatosObraActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Número:");
+
+        lblNumeroObra.setText("1 .................................................................................");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerDatosObra, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNumeroObra, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreClienteObra, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(lblNombreObra, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblNumeroObra))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(lblNombreObra))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                    .addComponent(lblNombreClienteObra)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVerDatosObra))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Estado de la Obra"));
@@ -136,25 +170,25 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Lanzamiento y Ejecución:");
 
-        jLabel9.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Aceptado");
-        jLabel9.setOpaque(true);
+        lblEstadoPedidoObra.setBackground(new java.awt.Color(153, 255, 153));
+        lblEstadoPedidoObra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEstadoPedidoObra.setText("Aceptado");
+        lblEstadoPedidoObra.setOpaque(true);
 
-        jLabel10.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Cotizado (Rev:2)");
-        jLabel10.setOpaque(true);
+        lblEstadoCotizacion.setBackground(new java.awt.Color(153, 255, 153));
+        lblEstadoCotizacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEstadoCotizacion.setText("Cotizado (Rev:2)");
+        lblEstadoCotizacion.setOpaque(true);
 
-        jLabel11.setBackground(new java.awt.Color(255, 204, 102));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Planificando");
-        jLabel11.setOpaque(true);
+        lblEstadoPlanificacion.setBackground(new java.awt.Color(255, 204, 102));
+        lblEstadoPlanificacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEstadoPlanificacion.setText("Planificando");
+        lblEstadoPlanificacion.setOpaque(true);
 
-        jLabel12.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("No Lanzado o ejecutado");
-        jLabel12.setOpaque(true);
+        lblEstadoEjecucion.setBackground(new java.awt.Color(204, 204, 204));
+        lblEstadoEjecucion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEstadoEjecucion.setText("No Lanzado o ejecutado");
+        lblEstadoEjecucion.setOpaque(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -169,31 +203,30 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                    .addComponent(lblEstadoCotizacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEstadoPedidoObra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEstadoPlanificacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEstadoEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEstadoPedidoObra, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblEstadoCotizacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel11))
+                    .addComponent(lblEstadoPlanificacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel12))
-                .addContainerGap())
+                    .addComponent(lblEstadoEjecucion)))
         );
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
@@ -238,7 +271,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10))
         );
@@ -325,7 +358,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cotizaciones", jPanel5);
@@ -372,7 +405,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -430,12 +463,12 @@ public class VentanaControl extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Informes de Planificación", jPanel6);
@@ -444,11 +477,11 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 645, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 368, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Informes de ejecución", jPanel7);
@@ -457,11 +490,11 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 645, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 368, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes de Control</b>", jPanel8);
@@ -473,7 +506,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -499,9 +532,16 @@ public class VentanaControl extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVerDatosObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDatosObraActionPerformed
+        pantallaConsultarObra win = new pantallaConsultarObra(gestor.getIDObra());
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnVerDatosObraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVerDatosObra;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -511,9 +551,6 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -523,12 +560,10 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -543,5 +578,93 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblEstadoCotizacion;
+    private javax.swing.JLabel lblEstadoEjecucion;
+    private javax.swing.JLabel lblEstadoPedidoObra;
+    private javax.swing.JLabel lblEstadoPlanificacion;
+    private javax.swing.JLabel lblNombreClienteObra;
+    private javax.swing.JLabel lblNombreObra;
+    private javax.swing.JLabel lblNumeroObra;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Busca y llena los datos generales de la obra
+     */
+    private void initDatosObra() {
+        // Número
+        String numero = gestor.getNumeroObra();
+        lblNumeroObra.setText(numero);
+        // Nombre
+        String nombre = gestor.getNombreObra();
+        lblNombreObra.setText(nombre);
+        lblNombreObra.setToolTipText(nombre);
+        // Cliente
+        String cliente = gestor.getNombreClienteObra();
+        lblNombreClienteObra.setText(cliente);
+        lblNombreClienteObra.setToolTipText(cliente);
+    }
+
+    /**
+     * Carga los estados y sus colores
+     */
+    private void initEstados() {
+        initEstadoPedidoObra();
+        initEstadoCotizacion();
+        initEstadoPlanificacion();
+        initEstadoEjecucion();
+    }
+
+    private void initEstadoPedidoObra() {
+        String estado = gestor.getEstadoPedidoObra();
+        lblEstadoPedidoObra.setText(estado);
+        
+        // Cambio el Color
+        if(estado.equals(PedidoObra.ESTADO_CANCELADO)){ lblEstadoPedidoObra.setBackground(new Color(229,184,183)); }
+        if(estado.equals(PedidoObra.ESTADO_CONFIRMADO)){ lblEstadoPedidoObra.setBackground(new Color(214,227,188)); }
+        if(estado.equals(PedidoObra.ESTADO_PENDIENTE)){ lblEstadoPedidoObra.setBackground(new Color(214,227,188)); }
+        if(estado.equals(PedidoObra.ESTADO_SUSPENDIDO)){ lblEstadoPedidoObra.setBackground(new Color(229,184,183)); }
+        if(estado.equals(PedidoObra.ESTADO_EN_EJECUCION)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
+        if(estado.equals(PedidoObra.ESTADO_PLANIFICADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
+        if(estado.equals(PedidoObra.ESTADO_PRESUPUESTADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
+        if(estado.equals(PedidoObra.ESTADO_SOLICITADO)){ lblEstadoPedidoObra.setBackground(new Color(132,230,147)); }
+            
+    }
+
+    private void initEstadoCotizacion() {
+        String estado = gestor.getEstadoCotizacionObra();
+        lblEstadoCotizacion.setText(estado);
+        
+        // Cambio el Color
+        if(estado.equals(Cotizacion.ESTADO_ACEPTADO)){ lblEstadoCotizacion.setBackground(new Color(214,227,188)); }        
+        if(estado.equals(Cotizacion.ESTADO_DESCARTADO)){ lblEstadoCotizacion.setBackground(new Color(229,184,183)); }        
+        if(estado.equals(Cotizacion.ESTADO_EN_CREACION)){ lblEstadoCotizacion.setBackground(new Color(196,188,150)); }        
+        if(estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION)){ lblEstadoCotizacion.setBackground(new Color(184,204,240)); }        
+        if(estado.equals(Cotizacion.ESTADO_RECHAZADO)){ lblEstadoCotizacion.setBackground(new Color(224,184,183)); }        
+        
+        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_COTIZADO)){ lblEstadoCotizacion.setBackground(new Color(204,204,204)); }        
+    }
+
+    private void initEstadoPlanificacion() {
+        String estado = gestor.getEstadoPlanificacionObra();
+        lblEstadoPlanificacion.setText(estado);
+        
+        if(estado.equals(Planificacion.ESTADO_ALTA)){ lblEstadoPlanificacion.setBackground(new Color(214,227,188)); } 
+        if(estado.equals(Planificacion.ESTADO_BAJA)){ lblEstadoPlanificacion.setBackground(new Color(229,184,183)); } 
+        if(estado.equals(Planificacion.ESTADO_FINALIZADA)){ lblEstadoPlanificacion.setBackground(new Color(184,204,240)); } 
+        
+        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_PLANIFICADO)){ lblEstadoPlanificacion.setBackground(new Color(204,204,204)); } 
+        
+    }
+
+    private void initEstadoEjecucion() {
+        String estado = gestor.getEstadoEjecucionObra();
+        lblEstadoEjecucion.setText(estado);
+        
+        if(estado.equals(Ejecucion.ESTADO_ALTA)){ lblEstadoEjecucion.setBackground(new Color(184,204,240)); } 
+        if(estado.equals(Ejecucion.ESTADO_BAJA)){ lblEstadoEjecucion.setBackground(new Color(229,184,183)); } 
+        if(estado.equals(Ejecucion.ESTADO_ENEJECUCION)){ lblEstadoEjecucion.setBackground(new Color(255,255,153)); } 
+        if(estado.equals(Ejecucion.ESTADO_FINALIZADA)){ lblEstadoEjecucion.setBackground(new Color(204,255,153)); } 
+        
+        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_EJECUTADO)){ lblEstadoEjecucion.setBackground(new Color(204,204,204)); } 
+    }
 }

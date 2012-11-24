@@ -35,6 +35,8 @@ public class Cotizacion {
         estado = Cotizacion.ESTADO_EN_CREACION;
         // nro de Cotizacion por default EMPTY
         nroCotizacion = new String();
+        fechaCreacion = new Date();
+        fechaModificacion = new Date();
     }
 
     public int getId() {

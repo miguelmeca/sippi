@@ -1,30 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package vista.comer;
+package vista.control;
 
+import vista.ejecucion.*;
+import controlador.ejecucion.EjecucionUtils;
 import java.util.ArrayList;
-import modelo.Cotizacion;
-import modelo.Herramienta;
+import modelo.Ejecucion;
 import modelo.PedidoObra;
 import util.SwingPanel;
-import vista.abms.PantallaGestionarRecursos;
 import vista.gen.PantallaConsultarGenerica;
 
 /**
+ *
  * @author Iuga
  */
-public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
+public class ConsultarControles extends PantallaConsultarGenerica{
 
-    public ListadoPedidoDeObras(Class entidad) {
+    public ConsultarControles(Class entidad) {
         super(entidad);
     }
 
-    public ListadoPedidoDeObras() {
+    public ConsultarControles() {
+        
         super(PedidoObra.class);
     }
- 
+    
     @Override
     protected ArrayList<String[]> getColumnas()
     {
@@ -35,19 +33,22 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
             columnas.add(new String[]{"mostrarFechaInicio","Inicio"});
             columnas.add(new String[]{"mostrarFechaFin","Fin"});
             columnas.add(new String[]{"mostrarPlanta","Planta"});
-            
             columnas.add(new String[]{"getEstado","Estado"});
         
         return columnas;
-    }    
-    
+    }
+
+    @Override
+    protected String getNombreVentana() {
+        return "Listado de todas las Ejecuciones";
+    }
+
     @Override
     protected void abrirEntidad(int id) {
-        ABMPedidoObra win = new ABMPedidoObra(id);
-        //        pantallaConsultarObra win = new pantallaConsultarObra(id);
+        VentanaControl win = new VentanaControl(id);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
-    }   
+    }
     
     @Override
     protected ArrayList<String[]> getColumnColorCriteria() 
@@ -64,16 +65,16 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PLANIFICADO,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PRESUPUESTADO,"196","188","150"});
             
-            //colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"184","204","240"});
+            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"184","204","240"});
             
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"132","230","147"});
             
         return colorCriteria;
-    }    
- 
+    }
+
     @Override
     protected String[] getColumnasFiltro() {
         return new String[]{"Estado"};
     }   
-   
+    
 }
