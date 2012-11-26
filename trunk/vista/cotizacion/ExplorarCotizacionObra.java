@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.NTupla;
 import util.SwingPanel;
+import util.TablaUtil;
 import vista.gui.IFavorito;
 import vista.interfaces.IAyuda;
 
@@ -341,10 +342,7 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     {
         DefaultTableModel modelo = (DefaultTableModel) tablaCotizaciones.getModel();
         // Vacio la tabla
-        for (int i = 0; i < modelo.getRowCount(); i++) 
-        {
-            modelo.removeRow(i);
-        }
+        TablaUtil.vaciarDefaultTableModel(modelo);
         
         // Activo - Desactivo el boton modificar
         if(lista.isEmpty())

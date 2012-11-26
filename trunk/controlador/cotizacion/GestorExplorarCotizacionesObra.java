@@ -45,7 +45,8 @@ public class GestorExplorarCotizacionesObra {
             while (iter.hasNext())
             {
                 PedidoObra p = (PedidoObra)iter.next();
-                if(p.getEstado().equals(PedidoObra.ESTADO_SOLICITADO))
+                if(p.getEstado().equals(PedidoObra.ESTADO_SOLICITADO) ||
+                   p.getEstado().equals(PedidoObra.ESTADO_COTIZADO) )
                 {
                     NTupla nt = new NTupla(p.getId());
                         String[] datos = new String[4];

@@ -7,15 +7,12 @@ import util.FechaUtil;
 
 public class PedidoObra{
     
-    public final static String ESTADO_CANCELADO              = "Cancelado";
-    public final static String ESTADO_CONFIRMADO             = "Confirmado";
-    public final static String ESTADO_EN_EJECUCION           = "En Ejecución";
-    public final static String ESTADO_PENDIENTE              = "Pendiente";
-    public final static String ESTADO_PLANIFICADO            = "Planificado";
-    public final static String ESTADO_PRESUPUESTADO          = "Presupuestado";
     public final static String ESTADO_SOLICITADO             = "Solicitado";
-    public final static String ESTADO_SUSPENDIDO             = "Suspendido";
-    public final static String ESTADO_TERMINADO              = "Terminado";
+    public final static String ESTADO_COTIZADO               = "Cotizado";
+    public final static String ESTADO_PLANIFICADO            = "Planificado";
+    public final static String ESTADO_EN_EJECUCION           = "En Ejecución";
+    public final static String ESTADO_FINALIZADO             = "Finalizado";
+    public final static String ESTADO_CANCELADO              = "Cancelado";   
     
     private int id; // Tb guarda el numero del pedido
     private String nombre;
@@ -190,44 +187,10 @@ public class PedidoObra{
         return this.estado;
     }
 
-    public boolean setEstadoPresupuestado()
-    {
-        if(this.estado.equals(PedidoObra.ESTADO_SOLICITADO))
-        {
-            this.estado = PedidoObra.ESTADO_PRESUPUESTADO;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setEstadoPendiente()
-    {
-        if(this.estado.equals(PedidoObra.ESTADO_PRESUPUESTADO))
-        {
-            this.estado = PedidoObra.ESTADO_PENDIENTE;
-            return true;
-        }
-        return false;           
-    }
-
-    public boolean setEstadoConfirmado()
-    {
-        if(this.estado.equals(PedidoObra.ESTADO_PENDIENTE))
-        {
-            this.estado = PedidoObra.ESTADO_CONFIRMADO;
-            return true;
-        }
-        return false;           
-    }
-
     public boolean setEstadoPlanificado()
     {
-        if(this.estado.equals(PedidoObra.ESTADO_CONFIRMADO))
-        {
-            this.estado = PedidoObra.ESTADO_PLANIFICADO;
-            return true;
-        }
-        return false;               
+        this.estado = PedidoObra.ESTADO_PLANIFICADO;
+        return true;             
     }
 
     public boolean setEstadoEnEjecucion()
@@ -236,34 +199,16 @@ public class PedidoObra{
         return true;
     }
 
-    public boolean setEstadoSuspendido()
-    {
-        if(this.estado.equals(PedidoObra.ESTADO_EN_EJECUCION))
-        {
-            this.estado = PedidoObra.ESTADO_SUSPENDIDO;
-            return true;
-        }
-        return false;  
-    }
-
     public boolean setEstadoTerminado()
     {
-        if(this.estado.equals(PedidoObra.ESTADO_EN_EJECUCION))
-        {
-            this.estado = PedidoObra.ESTADO_TERMINADO;
-            return true;
-        }
-        return false;          
+        this.estado = PedidoObra.ESTADO_FINALIZADO;
+        return true;        
     }
 
     public boolean setEstadoCancelado()
     {
-        if(!this.estado.equals(PedidoObra.ESTADO_TERMINADO))
-        {
-            this.estado = PedidoObra.ESTADO_CANCELADO;
-            return true;
-        }
-        return false;           
+        this.estado = PedidoObra.ESTADO_CANCELADO;
+        return true;          
     }
 
     public void setEstado(String estado) {

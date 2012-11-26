@@ -620,12 +620,9 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         
         // Cambio el Color
         if(estado.equals(PedidoObra.ESTADO_CANCELADO)){ lblEstadoPedidoObra.setBackground(new Color(229,184,183)); }
-        if(estado.equals(PedidoObra.ESTADO_CONFIRMADO)){ lblEstadoPedidoObra.setBackground(new Color(214,227,188)); }
-        if(estado.equals(PedidoObra.ESTADO_PENDIENTE)){ lblEstadoPedidoObra.setBackground(new Color(214,227,188)); }
-        if(estado.equals(PedidoObra.ESTADO_SUSPENDIDO)){ lblEstadoPedidoObra.setBackground(new Color(229,184,183)); }
         if(estado.equals(PedidoObra.ESTADO_EN_EJECUCION)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
         if(estado.equals(PedidoObra.ESTADO_PLANIFICADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
-        if(estado.equals(PedidoObra.ESTADO_PRESUPUESTADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
+        if(estado.equals(PedidoObra.ESTADO_COTIZADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
         if(estado.equals(PedidoObra.ESTADO_SOLICITADO)){ lblEstadoPedidoObra.setBackground(new Color(132,230,147)); }
             
     }

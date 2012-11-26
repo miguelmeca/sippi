@@ -166,10 +166,16 @@ public class Cotizacion {
         return 0;
     }    
     
+    @Override
     public String toString()
     {
-       String aux= buscarPedidoObra().getNombre()+" Cotizacion N° "+nroCotizacion+"-Revisión N°"+nroRevision;
-    
+        String aux = "";
+        PedidoObra po = buscarPedidoObra();
+        if(po!=null){
+            aux= po.getNombre()+" Cotizacion N°:"+nroCotizacion+" - Revisión N°:"+nroRevision;
+        }else{
+            aux=" Cotizacion N°:"+nroCotizacion+" - Revisión N°:"+nroRevision;
+        }
         return aux;
     }
 
