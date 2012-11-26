@@ -17,6 +17,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.Ejecucion;
 import modelo.TareaEjecucion;
 import util.ColorUtil;
 import util.NTupla;
@@ -42,6 +43,7 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
         initComboTipoTarea();
         initDatosTarea();
         initCombosFechas();
+        cambiarSegunEstadoEjecucion();
         FLAG_ESTA_EDITANDO = true;
     }
 
@@ -318,6 +320,7 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
      }*/
     public void actualizar() {
         initDatosTarea();
+        cambiarSegunEstadoEjecucion();
     }
 
     private void initDatosTarea() {
@@ -447,5 +450,25 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
                 }                
             }
         });
+    }
+
+    private void cambiarSegunEstadoEjecucion() {
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+    }
+
+    private void enablearComponentes(boolean b) {
+        txtNombre.setEnabled(b);
+        cmbTipoTarea.setEnabled(b);
+        cmbEstado.setEnabled(b);
+        dcFechaInicio.setEnabled(b);
+        dcFechaFin.setEnabled(b);
+        txtObservaciones.setEnabled(b);
     }
 }

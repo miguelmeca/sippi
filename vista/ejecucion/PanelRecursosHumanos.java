@@ -28,6 +28,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
+import modelo.Ejecucion;
 import sun.rmi.runtime.Log;
 import util.NTupla;
 import util.SwingPanel;
@@ -66,11 +67,21 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
         seterListenerPropertyChangedAJDateChooser(dcFechaFin);
         initTabla();
         habilitarVentana();
+        cambiarSegunEstadoEjecucion();
     }
     
+    private void cambiarSegunEstadoEjecucion() {
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+    }    
     
-    
-  private void habilitarVentana()
+    private void habilitarVentana()
     {
         filtroBuscarActivado=false;
         filtroFechaDesdeActivado=false;
@@ -455,6 +466,11 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
     @Override
     public void actualizar(int id, String flag, boolean exito, Object[] data) {
         actualizar();
+    }
+
+    private void enablearComponentes(boolean b) {
+        btnAsignacion.setEnabled(b);
+        tblRRHH.setEnabled(b);
     }
 
 }

@@ -22,6 +22,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.Ejecucion;
 import modelo.EjecucionXHerramientaXDia;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
@@ -59,7 +60,19 @@ public class PanelHerramientas extends javax.swing.JPanel{
         filtroFechaDesdeActivado=false;
         filtroFechaHastaActivado=false;
         habilitarVentana();
+        cambiarSegunEstadoEjecucion();
     }
+    
+    private void cambiarSegunEstadoEjecucion() {
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+    }     
     
     private void habilitarVentana() {
         cargarHerramientas();
@@ -397,6 +410,10 @@ public class PanelHerramientas extends javax.swing.JPanel{
                 }
             }
         });
+    }
+
+    private void enablearComponentes(boolean b) {
+        tblHerramientas.setEnabled(b);
     }
     
 }
