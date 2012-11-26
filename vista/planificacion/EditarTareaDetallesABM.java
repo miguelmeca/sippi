@@ -85,10 +85,10 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         initComponents();        
         this.gestor = gestor;
         gestor.setPantallaABM(this);
+        detalleSuperiorSeleccionado=null;
         detalleSuperiorSeleccionado=gestor.getDetallePadre();
         this.modificacion=modificacion;
         inicializarVentana();
-        
         pantallaPrincipal=pantalla;
         
         if(gestor.getCopiaDetallePadre()!=null)
@@ -115,7 +115,6 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     {
         enProceso=true;
      filtroBuscarActivado=false;
-     
      rbFiltroTodos.setSelected(true);
      rbFiltroActivos.setSelected(false);
      ((TitledBorder)panelTareaCotizada.getBorder()).setTitle("Implicaciones en la tarea cotizada '"+gestor.getTareaConCotizacion().getNombre()+"'" );
@@ -157,7 +156,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
       setearEscuchasSpinners();
       
       cargarCboTipoEspecialidad();
-      //vaciarDatosDetalle();      
+      vaciarDatosDetalle();      
       setearValoresTareaCotizadaOriginal();
       setearValoresTareaCotizadaActual();
       setearDatosDetalleActual();
@@ -200,7 +199,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
          rbEliminarHoras.setEnabled(true);  
       }
       
-      
+      setearDevolverHoras();
       
      
     }
@@ -1309,6 +1308,10 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formFocusGained
 
     private void rbDevolverHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDevolverHorasActionPerformed
+        setearDevolverHoras();
+    }//GEN-LAST:event_rbDevolverHorasActionPerformed
+
+    private void setearDevolverHoras() {
         if(rbDevolverHoras.isSelected())
         {
             gestor.setDevolverHorasATareaSuperior(true);
@@ -1317,17 +1320,11 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         {
             gestor.setDevolverHorasATareaSuperior(false);
         }
-    }//GEN-LAST:event_rbDevolverHorasActionPerformed
-
+    }
+    
     private void rbEliminarHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEliminarHorasActionPerformed
-        if(rbEliminarHoras.isSelected())
-        {
-            gestor.setDevolverHorasATareaSuperior(false);
-        }
-        else
-        {
-            gestor.setDevolverHorasATareaSuperior(true);
-        }
+        
+        setearDevolverHoras();
     }//GEN-LAST:event_rbEliminarHorasActionPerformed
 
     private void PanelAsignacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PanelAsignacionesFocusGained
