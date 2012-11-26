@@ -37,4 +37,8 @@ public class SubObraXAlquilerCompraModif extends SubObraXAlquilerCompra {
     public void setOriginal(SubObraXAlquilerCompra original) {
         this.original = original;
     }
+    
+    public int getCantidadDisponible() {
+        return super.getCantidad();
+    }
 }
