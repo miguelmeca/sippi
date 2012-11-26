@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ContactoResponsable;
+import modelo.PedidoObra;
 import util.FechaUtil;
 import util.NTupla;
 import util.TablaUtil;
@@ -982,11 +983,7 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
     @Override
     public void setEstadoPedidoObra(String nombre) {
         this.txtEstadoPedido.setText(nombre);
-        if(nombre.equals("Solicitado"))
-        {
-            btnDarDeBaja.setEnabled(true);
-        }
-        if(nombre.equals("Cancelado"))
+        if(nombre.equals(PedidoObra.ESTADO_CANCELADO))
         {
             txtNombreObra.setEnabled(false);
             txtDescripcion.setEnabled(false);
@@ -1010,6 +1007,10 @@ public class ABMPedidoObra extends javax.swing.JInternalFrame implements IAyuda,
             tablaCR.setEnabled(false);
             btnGuardar.setEnabled(false);
             btnDarDeBaja.setEnabled(false);
+        }
+        else
+        {
+            btnDarDeBaja.setEnabled(true);
         }
     }
 

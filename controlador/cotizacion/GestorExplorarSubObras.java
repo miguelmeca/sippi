@@ -466,7 +466,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
 
     private void refrescarVentanaSegunEstado() 
     {
-        if(cot.getEstado().equals(Cotizacion.ESTADO_DESCARTADO) || cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO))
+        if(cot.getEstado().equals(Cotizacion.ESTADO_CANCELADO) || cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO))
         {
             pantalla.refrescarVentanaEstadoRechazado();
         }

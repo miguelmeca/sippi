@@ -47,7 +47,7 @@ public class ListadoCotizaciones extends PantallaConsultarGenerica{
         ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
 
             colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_ACEPTADO,"214","227","188"});
-            colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_DESCARTADO,"229","184","183"});
+            colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_CANCELADO,"229","184","183"});
             colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_EN_CREACION,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_PENDIENTE_ACEPTACION,"184","204","240"});
             colorCriteria.add(new String[]{"Estado",Cotizacion.ESTADO_RECHAZADO,"224","184","183"});

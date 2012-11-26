@@ -633,7 +633,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         
         // Cambio el Color
         if(estado.equals(Cotizacion.ESTADO_ACEPTADO)){ lblEstadoCotizacion.setBackground(new Color(214,227,188)); }        
-        if(estado.equals(Cotizacion.ESTADO_DESCARTADO)){ lblEstadoCotizacion.setBackground(new Color(229,184,183)); }        
+        if(estado.equals(Cotizacion.ESTADO_CANCELADO)){ lblEstadoCotizacion.setBackground(new Color(229,184,183)); }        
         if(estado.equals(Cotizacion.ESTADO_EN_CREACION)){ lblEstadoCotizacion.setBackground(new Color(196,188,150)); }        
         if(estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION)){ lblEstadoCotizacion.setBackground(new Color(184,204,240)); }        
         if(estado.equals(Cotizacion.ESTADO_RECHAZADO)){ lblEstadoCotizacion.setBackground(new Color(224,184,183)); }        
