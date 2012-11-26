@@ -517,7 +517,12 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
 
     
     public void datosEnDetalleActual(DetalleTareaPlanificacion detalle, double cantHorasNormales, double cantHorasAl50, double cantHorasAl100, double costoXHoraNormal, int cantidadPersonas, Especialidad especialidad){
-    
+        detalle.setCantHorasNormales(cantHorasNormales);
+        detalle.setCantHorasAl50(cantHorasAl50);
+        detalle.setCantHorasAl100(cantHorasAl100);
+        detalle.setCostoXHoraNormal(costoXHoraNormal);
+        detalle.setCantidadPersonas(cantidadPersonas);
+        detalle.setEspecialidad(especialidad);
     }
 
    /* private void guardar()
