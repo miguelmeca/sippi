@@ -22,6 +22,8 @@ import javax.swing.table.TableRowSorter;
 import modelo.EjecucionXAdicional;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
+import vista.util.FloatEditor;
+import vista.util.IntegerEditor;
 import vista.util.TableCellListener;
 
 
@@ -122,6 +124,8 @@ public class PanelAdicionales extends javax.swing.JPanel{
         });
         tblAdicionales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblAdicionales);
+        tblAdicionales.getColumnModel().getColumn(2).setCellEditor(new IntegerEditor(0,2147483647));
+        tblAdicionales.getColumnModel().getColumn(3).setCellEditor(new FloatEditor(0f,2147483647f));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 

@@ -21,8 +21,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
-import vista.util.EditableCellTableRenderer;
-import vista.util.TableCellListener;
+import vista.util.*;
 
 
 /**
@@ -123,6 +122,8 @@ public class PanelMateriales extends javax.swing.JPanel{
         });
         tblMateriales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblMateriales);
+        tblMateriales.getColumnModel().getColumn(3).setCellEditor(new IntegerEditor(0,2147483647));
+        tblMateriales.getColumnModel().getColumn(4).setCellEditor(new FloatEditor(0f,2147483647f));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 

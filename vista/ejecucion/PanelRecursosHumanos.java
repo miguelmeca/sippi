@@ -33,6 +33,7 @@ import util.NTupla;
 import util.SwingPanel;
 import vista.interfaces.ICallBack_v3;
 import vista.util.EditableCellTableRenderer;
+import vista.util.FloatEditor;
 import vista.util.TableCellListener;
 
 /**
@@ -149,6 +150,9 @@ public class PanelRecursosHumanos extends javax.swing.JPanel implements ICallBac
         });
         tblRRHH.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblRRHH);
+        tblRRHH.getColumnModel().getColumn(3).setCellEditor(new FloatEditor(0f,2147483647f));
+        tblRRHH.getColumnModel().getColumn(4).setCellEditor(new FloatEditor(0f,2147483647f));
+        tblRRHH.getColumnModel().getColumn(5).setCellEditor(new FloatEditor(0f,2147483647f));
 
         jLabel5.setText("Desde:");
 
