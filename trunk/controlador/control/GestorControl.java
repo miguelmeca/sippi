@@ -88,8 +88,10 @@ public class GestorControl {
                 // Si tengo planificacion, una esta aceptada, sino, solo las cuento
                 if (this.pedidoObra.getPlanificacion() != null) {
                     // Tengo planificacion, una Cot es la que vale
-                    if (this.pedidoObra.getPlanificacion().getCotizacion() != null) {
-                        return this.pedidoObra.getPlanificacion().getCotizacion().getEstado();
+                    if (this.pedidoObra.getPlanificacion().getCotizacion() != null 
+                        && 
+                        this.pedidoObra.getPlanificacion().getCotizacion().getCotizacionOriginal()!=null) {
+                        return this.pedidoObra.getPlanificacion().getCotizacion().getCotizacionOriginal().getEstado();
                     }
                 }
             }
