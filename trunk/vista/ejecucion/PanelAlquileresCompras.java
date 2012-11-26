@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.Ejecucion;
 import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
@@ -52,7 +53,19 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
         initTabla();
         filtroBuscarActivado=false;
         habilitarVentana();
+        cambiarSegunEstadoEjecucion();
     }
+    
+    private void cambiarSegunEstadoEjecucion() {
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+    }     
     
     private void habilitarVentana() {
         cargarAlquileresCompras();
@@ -342,6 +355,10 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
 
     public void actualizar() {
         cargarAlquileresCompras();
+    }
+
+    private void enablearComponentes(boolean b) {
+        tblAlquileresCompras.setEnabled(b);
     }
 
     

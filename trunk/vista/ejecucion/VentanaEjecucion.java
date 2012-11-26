@@ -22,6 +22,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import modelo.Ejecucion;
+import modelo.Planificacion;
 import modelo.TareaEjecucion;
 import modelo.TareaPlanificacion;
 import util.FechaUtil;
@@ -171,8 +173,12 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         taDescripcionEjecucion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        btnFinalizarObra = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
         btnLanzamiento = new javax.swing.JButton();
 
         setClosable(true);
@@ -264,7 +270,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
             .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -554,7 +560,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -581,7 +587,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -590,33 +596,86 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Observaciones", jPanel3);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Ayuda sobre la utilización de esta ventana:");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Ayuda sobre la utilización de esta ventana:");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(557, Short.MAX_VALUE))
+                .addComponent(jLabel11)
+                .addContainerGap(569, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel4);
+        jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel9);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones con la Ejecución"));
+
+        btnFinalizarObra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/Stop.png"))); // NOI18N
+        btnFinalizarObra.setText("<HTML>Dar por <b>Finalizada</b> la Obra");
+        btnFinalizarObra.setActionCommand("Comenzar una planificación desde este presupuesto");
+        btnFinalizarObra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarObraActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("<HTML>Dar por <b>Concluida o Finalizada</b> la ejecución de esta obra:");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFinalizarObra)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFinalizarObra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(489, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Opciones de la Ejecución", jPanel1);
 
         btnLanzamiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept_page.png"))); // NOI18N
         btnLanzamiento.setText("Lanzamiento");
@@ -645,7 +704,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
@@ -674,33 +733,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         win.setVisible(true);
     }//GEN-LAST:event_btnLanzamientoActionPerformed
 
-    private void tblRecursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRecursosMousePressed
-        mostrarPanelCargaDeDatos(((Tupla)tblRecursos.getModel().getValueAt(tblRecursos.getSelectedRow(), 0)));
-    }//GEN-LAST:event_tblRecursosMousePressed
-
-    private void txtFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaFinFocusLost
-
-    }//GEN-LAST:event_txtFechaFinFocusLost
-
-    private void txtFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaInicioFocusLost
-
-    }//GEN-LAST:event_txtFechaInicioFocusLost
-
-    private void btnAbrirCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCotizacionActionPerformed
-
-        ExplorarSubObras eso = new ExplorarSubObras(gestor.getIdCotizacionPlanificada());
-        SwingPanel.getInstance().addWindow(eso);
-        eso.setVisible(true);
-
-    }//GEN-LAST:event_btnAbrirCotizacionActionPerformed
-
-    private void btnAbrirPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPlanificacionActionPerformed
-        EditarPlanificacion eso = new EditarPlanificacion(gestor.getIdObraActual());
-        SwingPanel.getInstance().addWindow(eso);
-        eso.setVisible(true);
-    }//GEN-LAST:event_btnAbrirPlanificacionActionPerformed
-
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -709,18 +743,18 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         switch(pan.getSelectedIndex())
         {
             case 0:
-                // Ojo, vuelvo el foco al panel principal
-                // Selecciono "Datos generales"
-                if(tblRecursos.getRowCount()>0){
-                    tblRecursos.setRowSelectionInterval(0, 0);
-                }
-                refreshGanttAndData();
-                break;
+            // Ojo, vuelvo el foco al panel principal
+            // Selecciono "Datos generales"
+            if(tblRecursos.getRowCount()>0){
+                tblRecursos.setRowSelectionInterval(0, 0);
+            }
+            refreshGanttAndData();
+            break;
             case 1:
-                // Actualizo el Gantt
-                System.out.println("[DEBUG] Foco en el Gantt");
-                refreshGanttAndData();
-                break;
+            // Actualizo el Gantt
+            System.out.println("[DEBUG] Foco en el Gantt");
+            refreshGanttAndData();
+            break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -728,22 +762,111 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         gestor.actualizarDescripcionEjecucion(taDescripcionEjecucion.getText());
     }//GEN-LAST:event_taDescripcionEjecucionFocusLost
 
+    private void btnAbrirPlanificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirPlanificacionActionPerformed
+        EditarPlanificacion eso = new EditarPlanificacion(gestor.getIdObraActual());
+        SwingPanel.getInstance().addWindow(eso);
+        eso.setVisible(true);
+    }//GEN-LAST:event_btnAbrirPlanificacionActionPerformed
+
+    private void btnAbrirCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirCotizacionActionPerformed
+
+        ExplorarSubObras eso = new ExplorarSubObras(gestor.getIdCotizacionPlanificada());
+        SwingPanel.getInstance().addWindow(eso);
+        eso.setVisible(true);
+    }//GEN-LAST:event_btnAbrirCotizacionActionPerformed
+
+    private void txtFechaInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaInicioFocusLost
+
+    }//GEN-LAST:event_txtFechaInicioFocusLost
+
+    private void txtFechaFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaFinFocusLost
+
+    }//GEN-LAST:event_txtFechaFinFocusLost
+
+    private void tblRecursosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRecursosMousePressed
+        mostrarPanelCargaDeDatos(((Tupla)tblRecursos.getModel().getValueAt(tblRecursos.getSelectedRow(), 0)));
+    }//GEN-LAST:event_tblRecursosMousePressed
+
+    private void btnFinalizarObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarObraActionPerformed
+
+        // Tengo que guardar antes de continuar ... Pregunto
+        String msgSave = "<HTML>"
+        + "Antes de finalizar la <b>Ejecución</b> de ésta obra, necesita guardar los<br>"
+        + "cambios sobre ésta ejecución."
+        + "¿Desea Guardar los cambios y Continuar?";
+        int seleccionSave = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            msgSave, //Mensaje
+            "Atención!!", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Guardar y Continuar", "Cancelar"},// null para YES, NO y CANCEL
+            "Cancelar");
+
+        if (seleccionSave != -1)
+        {
+            if ((seleccionSave + 1) == 1) {
+                // PRESIONO SI
+                gestor.guardar();
+            }
+            else{
+                return;
+            }
+        }
+
+        // Aviso los posibles cambios irreversibles que se darán...
+        String msg = "<HTML>"
+        + "Está por <b>Finalizar</b> ésta obra. "
+        + "Una vez que lo haga<br> la <b><i>Ejecución</i></b> concluirá y <b><span color='#FF0000'>no podrá modificarla</span></b>.<br>"
+        + "¿Está seguro de concluir la planificación y comenzar la ejecución?";
+        int seleccion = JOptionPane.showOptionDialog(
+            this, // Componente padre
+            msg, //Mensaje
+            "Atención!!", // Título
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,    // null para icono por defecto.
+            new Object[] { "Si, Finalizar la Ejecución de la Obra", "Cancelar"},// null para YES, NO y CANCEL
+            "Cancelar");
+
+        if (seleccion != -1)
+        {
+            if ((seleccion + 1) == 1) {
+                // PRESIONO SI
+                try
+                {
+                    gestor.finalizarEjecucion();
+                    mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Se finalizó la obra correctamente!");
+                    this.dispose();
+                }
+                catch(Exception e){
+                    mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!",e.getMessage());
+                }
+                
+            }
+        }
+
+    }//GEN-LAST:event_btnFinalizarObraActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnAbrirCotizacion;
     private javax.swing.JButton btnAbrirPlanificacion;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitirInformes;
+    private javax.swing.JButton btnFinalizarObra;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLanzamiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -751,14 +874,16 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
@@ -856,7 +981,16 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
      * Si esta en baja o cancelada, no dejo editar nada.
      */
     private void cambiarSegunEstadoEjecucion() {
-
+        
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+        
     }
     
     /**
@@ -864,37 +998,42 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
      * Antes pregunta si desea guardar los cambios.
      */
     private void cancelar() {
-        int seleccion = JOptionPane.showOptionDialog(
-                this, // Componente padre
-                "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
-                + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
-                "Seleccione una opción", // Título
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, // null para icono por defecto.
-                new Object[]{"Guardar y Cerrar","Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
-                "Guardar y Cerrar");
-        
-        if (seleccion != -1) {
-            switch(seleccion+1){
-                case 1:
-                    // PRESIONO Guardar y Cerrar
-                    System.out.println("Guardar y Cerrar:"+(seleccion+1));
-                    if(guardar()){
+
+        if (gestor.esEjecucionEditable()) {
+            int seleccion = JOptionPane.showOptionDialog(
+                    this, // Componente padre
+                    "<HTML>Si <b>cancela</b> todos los cambios realizados se <b><span color='#FF0000'>pederán</span></b> \n"
+                    + "¿Desea guardar los cambios antes de cerrar?", //Mensaje
+                    "Seleccione una opción", // Título
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, // null para icono por defecto.
+                    new Object[]{"Guardar y Cerrar", "Cerrar", "Cancelar"}, // null para YES, NO y CANCEL
+                    "Guardar y Cerrar");
+
+            if (seleccion != -1) {
+                switch (seleccion + 1) {
+                    case 1:
+                        // PRESIONO Guardar y Cerrar
+                        System.out.println("Guardar y Cerrar:" + (seleccion + 1));
+                        if (guardar()) {
+                            this.dispose();
+                        }
+                        break;
+                    case 2:
+                        // PRESIONO Cerrar
+                        System.out.println("Cerrar:" + (seleccion + 1));
                         this.dispose();
-                    }
-                    break;
-                case 2:
-                    // PRESIONO Cerrar
-                    System.out.println("Cerrar:"+(seleccion+1));
-                    this.dispose();
-                    break;
-                case 3:
-                default:
-                    System.out.println("Cancelar:"+(seleccion+1));
-                    // Cancelar - Nadaremos
-                    break;
+                        break;
+                    case 3:
+                    default:
+                        System.out.println("Cancelar:" + (seleccion + 1));
+                        // Cancelar - Nadaremos
+                        break;
+                }
             }
+        }else{
+            this.dispose();
         }
     }
     
@@ -1241,6 +1380,19 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         panelGantt.add(grafico, BorderLayout.CENTER);
         pack();
     }    
+
+    private void enablearComponentes(boolean anulo) {
+        btnFinalizarObra.setEnabled(anulo);
+        btnGuardar.setEnabled(anulo);
+        if(anulo){
+            btnCerrar.setText("Cerrar");
+        }else{
+            btnCerrar.setText("Cancelar");
+        }
+        txtFechaInicio.setEnabled(anulo);
+        txtFechaFin.setEnabled(anulo);
+        taDescripcionEjecucion.setEnabled(anulo);
+    }
     
     public class GanttEventMouse implements ICoolGanttEvent {
 

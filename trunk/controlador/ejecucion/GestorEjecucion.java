@@ -585,7 +585,11 @@ public class GestorEjecucion {
      * @return 
      */
     public boolean esEjecucionEditable() {
-        return true;
+        if(getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -837,6 +841,45 @@ public class GestorEjecucion {
 
     public void actualizarDescripcionEjecucion(String text) {
         this.ejecucion.setDescripcion(text);
+    }
+
+    /**
+     * Da por finalizada la ejecución de la Obra
+     * - Paso su estado a Finalizada
+     * - Paso el estado del PedidoDeObra a Finalizado
+     */
+    public void finalizarEjecucion() throws Exception{
+
+        if(this.pedidoDeObra!=null && this.ejecucion!=null){
+            
+            // Cambio los estados
+            this.pedidoDeObra.setEstadoTerminado();
+            this.ejecucion.setEstado(Ejecucion.ESTADO_FINALIZADA);
+            
+            // Guardo los cambios
+            try
+            {
+                HibernateUtil.beginTransaction();
+                HibernateUtil.getSession().update(this.pedidoDeObra);
+                HibernateUtil.getSession().update(this.ejecucion);
+                HibernateUtil.commitTransaction();
+
+            }catch(Exception e)
+            {
+                HibernateUtil.rollbackTransaction();
+                throw new Exception("Se produjo un error al guardar el cambio de estado para finalizar la obra.",e);
+            } 
+            
+        }else{
+            throw new Exception("Se produjo un error al finalizar la obra.");
+        }
+    }
+
+    public String getEstadoEjecucion() {
+        if(this.ejecucion!=null){
+            return this.ejecucion.getEstado();
+        }
+        return Ejecucion.ESTADO_CANCELADA;
     }
 
 }

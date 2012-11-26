@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.Ejecucion;
 import modelo.EjecucionXAdicional;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
@@ -50,7 +51,19 @@ public class PanelAdicionales extends javax.swing.JPanel{
         initTabla();
         filtroBuscarActivado=false;
         habilitarVentana();
+        cambiarSegunEstadoEjecucion();
     }
+    
+    private void cambiarSegunEstadoEjecucion() {
+        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+            // CREADA
+            enablearComponentes(true);
+            
+        }else{
+            // CANCELADA y FINALIZADA
+            enablearComponentes(false);
+        }
+    }         
     
     private void habilitarVentana() {
         cargarAdicionales();
@@ -337,6 +350,10 @@ public class PanelAdicionales extends javax.swing.JPanel{
 
     public void actualizar() {
         cargarAdicionales();
+    }
+
+    private void enablearComponentes(boolean b) {
+        tblAdicionales.setEnabled(b);
     }
 
     
