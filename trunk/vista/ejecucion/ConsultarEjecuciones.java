@@ -46,7 +46,6 @@ public class ConsultarEjecuciones extends PantallaConsultarGenerica{
         
             colorCriteria.add(new String[]{"Estado",Ejecucion.ESTADO_CREADA,"184","204","240"});
             colorCriteria.add(new String[]{"Estado",Ejecucion.ESTADO_CANCELADA,"229","184","183"});
-            colorCriteria.add(new String[]{"Estado",Ejecucion.ESTADO_ENEJECUCION,"255","255","153"});
             colorCriteria.add(new String[]{"Estado",Ejecucion.ESTADO_FINALIZADA,"204","255","153"});
             
         return colorCriteria;
