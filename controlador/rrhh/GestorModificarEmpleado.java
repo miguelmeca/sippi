@@ -346,7 +346,7 @@ public class GestorModificarEmpleado   implements IGestorEmpleado {
             {nmroD=0;}
             else{
             nmroD=Integer.parseInt(nro);}
-            if(nro.equals(""))
+            if(piso.equals(""))
             {pisoD=0;}
             else{
             pisoD =Integer.parseInt(piso);}

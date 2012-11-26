@@ -7,13 +7,15 @@ package modelo;
 public class DetalleSubObraXTareaModif extends DetalleSubObraXTarea {
     private int id;
     private DetalleSubObraXTarea original;
+    
+    private transient DetalleSubObraXTareaModif detalleCopia;
 
     public DetalleSubObraXTareaModif() {
     }
     
     public DetalleSubObraXTareaModif(DetalleSubObraXTareaModif aCopiar) 
     {
-        
+        aCopiar.detalleCopia=this;
         id=-1;
         super.setCantidadPersonas(aCopiar.getCantidadPersonas());
         super.setCantHorasNormales(aCopiar.getCantHorasNormales());
@@ -31,5 +33,16 @@ public class DetalleSubObraXTareaModif extends DetalleSubObraXTarea {
 
     public void setOriginal(DetalleSubObraXTarea original) {
         this.original = original;
+    }
+
+    /**
+     * @return the detalleCopia
+     */
+    public DetalleSubObraXTareaModif getDetalleCopia() {
+        return detalleCopia;
+    }
+    
+    public void setDetalleCopia(DetalleSubObraXTareaModif e) {
+        detalleCopia=e;
     }
 }

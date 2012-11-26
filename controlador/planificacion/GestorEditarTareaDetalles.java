@@ -7,7 +7,6 @@ package controlador.planificacion;
 
 import controlador.utiles.gestorBDvarios;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +16,6 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
-import util.Tupla;
 import vista.planificacion.EditarTareaDetalles;
 import vista.planificacion.EditarTareaDetallesABM;
 import vista.planificacion.EditarTareaDetallesABM_SeleccionDetallePadre;
@@ -43,6 +41,8 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
     private TareaPlanificacion copiaTareaConCotizacion;
     private TareaPlanificacion tareaConCotizacion;
     
+    
+    private TareaPlanificacion tareaActual;
     private TareaPlanificacion copiaTareaActual;
     private SubObraXTareaModif cotizacionTareaCotizada;
     private SubObraXTareaModif copiaCotizacionTareaCotizada;
@@ -80,23 +80,23 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
 
     public GestorEditarTareaDetalles(GestorEditarTarea gestorPadre){
         this.gestorPadre = gestorPadre;
-        
+        tareaActual=gestorPadre.getTareaActual();
         ///Para la parte que muestra el impacto en la tarea de cotizacion
-        caminoTareas=gestorPadre.getTareaActual().buscarCaminoHastaTareaConCotizacion(gestorPadre.getPlanificacion(), true, true);
+        caminoTareas=tareaActual.buscarCaminoHastaTareaConCotizacion(gestorPadre.getPlanificacion(), true, true);
         tareaConCotizacion=caminoTareas.get(0);
-        if(tareaConCotizacion.equals(gestorPadre.getTareaActual()))
+        if(tareaConCotizacion.equals(tareaActual))
         {tareaHijaDePlanificacion=true;}
         else
         {tareaHijaDePlanificacion=false;}
         
-        
+        /*
        //Realizo las copias de trabajo de la tarea que tiene cotizacion (puede ser la que tenemos o una superior)
         copiaTareaConCotizacion=new TareaPlanificacion(getTareaConCotizacion());
         cotizacionTareaCotizada=tareaConCotizacion.getTareaCotizada();
         copiaCotizacionTareaCotizada=new SubObraXTareaModif(cotizacionTareaCotizada);
         copiaTareaConCotizacion.setTareaCotizada(copiaCotizacionTareaCotizada);
        
-       
+       */
        
         
     }
@@ -191,7 +191,6 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         detalleActual.setEspecialidad(detallePadre.getEspecialidad());
         setListaEmpleadosAsignados(detalleActual.getEmpleados());
         armarCopiaDeEstructura(detalleActual);
-        
     } 
     
     public void crearNuevoDetalleNoCotizado()
@@ -207,6 +206,99 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         setListaEmpleadosAsignados(detalleActual.getEmpleados());
     }
     
+    
+     private void armarCopiaDeEstructura(DetalleTareaPlanificacion detalleActual)
+    {
+        
+        copiaTareaConCotizacion=new TareaPlanificacion(tareaConCotizacion);
+        tareaActual=gestorPadre.getTareaActual();
+        copiaTareaActual=tareaActual.getTareaCopia();
+        if(gestorPadre.getTareaActual().equals(getTareaConCotizacion()))
+        {
+            copiaTareaConCotizacion=copiaTareaActual;
+        }
+        else
+        {
+            copiaTareaConCotizacion=getTareaConCotizacion().getTareaCopia();
+        }
+        cotizacionTareaCotizada=getTareaConCotizacion().getTareaCotizada();
+        copiaCotizacionTareaCotizada=cotizacionTareaCotizada.getTareaCopia();
+        
+        if(detallePadre!=null)
+        {
+            copiaDetallePadre= detallePadre.getDetalleCopia();
+            copiaDetallePadre_tio=null;
+            tareaConDetallePadre=gestorPadre.getPlanificacion().getTareaDeDetalle(detallePadre);
+            
+            this.copiaTareaConDetallePadre= tareaConDetallePadre.getTareaCopia();
+            
+            /*
+            int indiceDetalleActual_=tareaConDetallePadre.getDetalles().indexOf(detallePadre);
+                if(indiceDetalleActual_!=-1)
+                {
+                    //copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual);
+                    copiaTareaConDetallePadre.getDetalles().remove(indiceDetalleActual_);
+                }
+                else
+                {
+                    pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                    Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle padre");
+                }
+            copiaTareaConDetallePadre.agreagarDetalle(copiaDetallePadre, indiceDetalleActual_);*/
+        }
+        //////////////////////////////////////
+        
+        //Reinicio el detalle copia
+        if(this.copiaDetalleActual !=null && isModificacion())
+        {
+            int indiceDetalleActual=gestorPadre.getTareaActual().getDetalles().indexOf(detalleActual);
+            if(indiceDetalleActual!=-1)
+            {
+                //copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual);
+                copiaTareaActual.getDetalles().remove(indiceDetalleActual);
+            }
+            else
+            {
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle actual en tarea");
+            }
+         //   this.copiaDetalleActual = null;
+        }
+        
+        copiaDetalleActual= new DetalleTareaPlanificacion(detalleActual);
+        copiaDetalleActual.setearPadre(copiaDetallePadre);
+        //copiaTareaConCotizacion.agreagarDetalle(copiaDetalleAcutal); 
+        copiaTareaActual.agreagarDetalle(copiaDetalleActual); 
+        
+        //////////////////////////////////////
+        if(detallePadre!=null)
+        {detalleConCotizacion=getDetalleConCotizacion(getTareaConCotizacion(), detallePadre);
+        
+        copiaDetalleConCotizacion=detalleConCotizacion.getDetalleCopia();
+        
+        int indiceDetalleActual_1=getTareaConCotizacion().getDetalles().indexOf(detalleConCotizacion);
+            if(indiceDetalleActual_1!=-1)
+            {
+               copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual_1);
+               copiaTareaConCotizacion.agreagarDetalle(copiaDetalleConCotizacion, indiceDetalleActual_1);
+            }
+            else
+            {
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle de tarea con cotizacion");
+            }        
+        
+        //////////////FALTA REVISAR
+        ///////////////////////////////////////////////////////////////
+        detalleCotizacionTareaCotizada=detalleConCotizacion.getCotizado();
+        
+        
+        }
+        //COPIACAMINOTAREAS
+        copiaCaminoTareas = obtenerCopiaCaminoDeTareas();
+        
+    }
+    /*
     private void armarCopiaDeEstructura(DetalleTareaPlanificacion detalleActual)
     {
         /////////////////////////////TODO: Verificar si esta bien esto aca
@@ -318,9 +410,18 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         //COPIACAMINOTAREAS
         copiaCaminoTareas = obtenerCopiaCaminoDeTareas();
         
-    }
-    
+    }*/
     private List<TareaPlanificacion> obtenerCopiaCaminoDeTareas()
+    {
+        ArrayList<TareaPlanificacion> copiaCaminoTareasX = new ArrayList<TareaPlanificacion>();
+       
+        for (int i = 0; i < caminoTareas.size(); i++) 
+        {
+            copiaCaminoTareasX.add(caminoTareas.get(i).getTareaCopia());
+        }
+       return copiaCaminoTareasX;
+    }
+    /*private List<TareaPlanificacion> obtenerCopiaCaminoDeTareas()
     {
         ArrayList<TareaPlanificacion> copiaCaminoTareasX = new ArrayList<TareaPlanificacion>();
         copiaCaminoTareasX.add(copiaTareaConCotizacion);
@@ -357,9 +458,8 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
             }
         
        return copiaCaminoTareasX;
-    }
-    
-    private void armarCopiaDeEstructuraTareaCotizada(DetalleTareaPlanificacion detalleActual)
+    }*/
+     /*private void armarCopiaDeEstructuraTareaCotizada(DetalleTareaPlanificacion detalleActual)
     {
         /////////////////////////////TODO: Verificar si esta bien esto aca
         copiaTareaActual=new TareaPlanificacion(gestorPadre.getTareaActual());
@@ -392,10 +492,75 @@ public class GestorEditarTareaDetalles implements IGestorPlanificacion{
         copiaDetalleActual= new DetalleTareaPlanificacion(detalleActual);        
         copiaTareaActual.agreagarDetalle(copiaDetalleActual); 
         copiaCaminoTareas = obtenerCopiaCaminoDeTareas();
-         
+    }*/
+    private void armarCopiaDeEstructuraTareaCotizada(DetalleTareaPlanificacion detalleActual)
+    {
+        /////////////////////////////TODO: Verificar si esta bien esto aca
+        copiaTareaActual=new TareaPlanificacion(gestorPadre.getTareaActual());
         
-                
+        copiaTareaConCotizacion=copiaTareaActual;
+       
+        
+        cotizacionTareaCotizada=getTareaConCotizacion().getTareaCotizada();
+        copiaCotizacionTareaCotizada=cotizacionTareaCotizada.getTareaCopia();
+        
+        //Reinicio el detalle copia
+        if(this.copiaDetalleActual !=null && isModificacion())
+        {
+            int indiceDetalleActual=gestorPadre.getTareaActual().getDetalles().indexOf(detalleActual);
+            if(indiceDetalleActual!=-1)
+            {
+                //copiaTareaConCotizacion.getDetalles().remove(indiceDetalleActual);
+                copiaTareaActual.getDetalles().remove(indiceDetalleActual);
+            }
+            else
+            {
+                pantallaABM.MostrarMensaje(JOptionPane.ERROR_MESSAGE, "Error", "Ocurrio un error interno");
+                Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, "ERROR obteniendo indice de detalle actual en tarea");
+            }
+         //   this.copiaDetalleActual = null;
+        }        
+        copiaDetalleActual= new DetalleTareaPlanificacion(detalleActual);        
+        copiaTareaActual.agreagarDetalle(copiaDetalleActual); 
+        copiaCaminoTareas = obtenerCopiaCaminoDeTareas();
     }
+    
+    /*private void armarCopiaDeEstructuraTareaCotizada()
+    {
+        /////////////////////////////TODO: Verificar si esta bien esto aca
+        copiaTareaConCotizacion=new TareaPlanificacion(tareaConCotizacion);
+        
+        copiaTareaActual=tareaActual.getTareaCopia();
+       
+        
+        cotizacionTareaCotizada=getTareaConCotizacion().getTareaCotizada();
+        copiaCotizacionTareaCotizada=cotizacionTareaCotizada.getTareaCopia();
+        copiaDetalleActual=detalleActual.getDetalleCopia();            
+        copiaCaminoTareas = obtenerCopiaCaminoDeTareas();
+        
+        if(detallePadre!=null) {
+            copiaDetallePadre=detallePadre.getDetalleCopia();
+        }
+        
+        if(detalleConCotizacion!=null) {
+            copiaDetalleConCotizacion=detalleConCotizacion.getDetalleCopia();
+        }
+        
+        if(tareaConDetallePadre!=null) {
+            copiaTareaConDetallePadre=tareaConDetallePadre.getTareaCopia();
+        }
+        
+        if(tareaConDetallePadre!=null) {
+            copiaTareaConDetallePadre=tareaConDetallePadre.getTareaCopia();
+        }
+        
+        if(detalleCotizacionTareaCotizada!=null) {
+            copiaDetalleCotizacionTareaCotizada=detalleCotizacionTareaCotizada.getDetalleCopia();
+        }
+        copiaDetallePadre_tio=null;
+        
+    
+    }*/
     
     private DetalleTareaPlanificacion getDetalleConCotizacion(TareaPlanificacion tareaCotizada, DetalleTareaPlanificacion detalleDescendiente)
     {
@@ -548,7 +713,9 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         detalleActual.setCantidadPersonas(cantidadPersonas);
         detalleActual.setEspecialidad(especialidad);
         if(isTareaHijaDePlanificacion())
-        {armarCopiaDeEstructuraTareaCotizada(detalleActual);}
+        {
+            armarCopiaDeEstructuraTareaCotizada(detalleActual);
+        }
         else
         {
           armarCopiaDeEstructura(detalleActual);
