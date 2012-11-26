@@ -67,7 +67,7 @@ public class VentanaPrincipalUtils {
         try
         {
             HibernateUtil.beginTransaction();
-            List<Ejecucion> ejecuciones = HibernateUtil.getSession().createQuery("FROM Ejecucion WHERE estado=:cEst").setParameter("cEst",Ejecucion.ESTADO_ALTA).list();
+            List<Ejecucion> ejecuciones = HibernateUtil.getSession().createQuery("FROM Ejecucion WHERE estado=:cEst").setParameter("cEst",Ejecucion.ESTADO_CREADA).list();
             
                 for (int i = 0; i < ejecuciones.size(); i++) {
                     Ejecucion ejec = ejecuciones.get(i);

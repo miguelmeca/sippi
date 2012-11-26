@@ -1406,7 +1406,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
      * @return 
      */
     public boolean esPlanificacionEditable(){
-        if(Planificacion.ESTADO_BAJA.equals(getEstado()) || Planificacion.ESTADO_FINALIZADA.equals(getEstado())){
+        if(Planificacion.ESTADO_CANCELADA.equals(getEstado()) || Planificacion.ESTADO_FINALIZADA.equals(getEstado())){
             return false;
         }
         return true;
