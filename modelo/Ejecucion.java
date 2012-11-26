@@ -24,12 +24,6 @@ public class Ejecucion extends Planificacion{
     
     
     private List<EjecucionXAdicional> adicionales;
-    
-    public static final String ESTADO_ENEJECUCION = "En Ejecución";
-    // Overrided
-    /*public static final String ESTADO_ALTA = "Alta";
-    public static final String ESTADO_FINALIZADA = "Finalizada";
-    public static final String ESTADO_BAJA = "Baja";*/
 
     public Ejecucion() {
         super();

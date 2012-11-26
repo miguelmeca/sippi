@@ -659,7 +659,6 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         
         if(estado.equals(Ejecucion.ESTADO_CREADA)){ lblEstadoEjecucion.setBackground(new Color(184,204,240)); } 
         if(estado.equals(Ejecucion.ESTADO_CANCELADA)){ lblEstadoEjecucion.setBackground(new Color(229,184,183)); } 
-        if(estado.equals(Ejecucion.ESTADO_ENEJECUCION)){ lblEstadoEjecucion.setBackground(new Color(255,255,153)); } 
         if(estado.equals(Ejecucion.ESTADO_FINALIZADA)){ lblEstadoEjecucion.setBackground(new Color(204,255,153)); } 
         
         if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_EJECUTADO)){ lblEstadoEjecucion.setBackground(new Color(204,204,204)); } 
