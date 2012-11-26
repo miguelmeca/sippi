@@ -25,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 import modelo.EjecucionXHerramientaXDia;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
+import vista.util.IntegerEditor;
 import vista.util.TableCellListener;
 
 /**
@@ -136,6 +137,7 @@ public class PanelHerramientas extends javax.swing.JPanel{
         });
         tblHerramientas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblHerramientas);
+        tblHerramientas.getColumnModel().getColumn(3).setCellEditor(new IntegerEditor(0,2147483647));
 
         dcFechaInicio.setToolTipText("Filtro (Fecha Desde)::");
 

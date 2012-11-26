@@ -23,6 +23,8 @@ import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
 import vista.util.EditableCellTableRenderer;
+import vista.util.FloatEditor;
+import vista.util.IntegerEditor;
 import vista.util.TableCellListener;
 
 
@@ -124,6 +126,8 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
         });
         tblAlquileresCompras.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblAlquileresCompras);
+        tblAlquileresCompras.getColumnModel().getColumn(3).setCellEditor(new IntegerEditor(0,2147483647));
+        tblAlquileresCompras.getColumnModel().getColumn(4).setCellEditor(new FloatEditor(0f,2147483647f));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search.png"))); // NOI18N
 
