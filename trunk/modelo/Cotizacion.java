@@ -8,11 +8,11 @@ import util.HibernateUtil;
 
 public class Cotizacion {
     
-    public final static String ESTADO_EN_CREACION          = "En Creación";
+    public final static String ESTADO_EN_CREACION          = "Creado";
     public final static String ESTADO_PENDIENTE_ACEPTACION = "Pendiente de Aceptación";
     public final static String ESTADO_ACEPTADO             = "Aceptado";
     public final static String ESTADO_RECHAZADO            = "Rechazado";
-    public final static String ESTADO_DESCARTADO           = "Descartado";
+    public final static String ESTADO_CANCELADO            = "Cancelado";
     
     private int id;
     private String nroCotizacion;
@@ -189,42 +189,26 @@ public class Cotizacion {
     
     public boolean setEstadoDescartado()
     {
-        this.estado = Cotizacion.ESTADO_DESCARTADO;
+        this.estado = Cotizacion.ESTADO_CANCELADO;
         return true;
     }
   
     public boolean setEstadoPendienteAceptacion()
     {
-        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
-        {
-            return true;
-        }       
-        if(this.estado.equals(Cotizacion.ESTADO_EN_CREACION))
-        {
-            this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
-            return true;
-        }
-        return false;        
+        this.estado = Cotizacion.ESTADO_PENDIENTE_ACEPTACION;
+        return true;    
     }    
     
     public boolean setEstadoAceptado()
     {
-        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
-        {
-            this.estado = Cotizacion.ESTADO_ACEPTADO;
-            return true;
-        }
-        return false;         
+        this.estado = Cotizacion.ESTADO_ACEPTADO;
+        return true;      
     }
     
     public boolean setEstadoRechazado()
     {
-        if(this.estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION))
-        {
-            this.estado = Cotizacion.ESTADO_RECHAZADO;
-            return true;
-        }
-        return false;         
+        this.estado = Cotizacion.ESTADO_RECHAZADO;
+        return true;        
     }    
     
     
