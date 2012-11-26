@@ -645,8 +645,8 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         String estado = gestor.getEstadoPlanificacionObra();
         lblEstadoPlanificacion.setText(estado);
         
-        if(estado.equals(Planificacion.ESTADO_ALTA)){ lblEstadoPlanificacion.setBackground(new Color(214,227,188)); } 
-        if(estado.equals(Planificacion.ESTADO_BAJA)){ lblEstadoPlanificacion.setBackground(new Color(229,184,183)); } 
+        if(estado.equals(Planificacion.ESTADO_CREADA)){ lblEstadoPlanificacion.setBackground(new Color(214,227,188)); } 
+        if(estado.equals(Planificacion.ESTADO_CANCELADA)){ lblEstadoPlanificacion.setBackground(new Color(229,184,183)); } 
         if(estado.equals(Planificacion.ESTADO_FINALIZADA)){ lblEstadoPlanificacion.setBackground(new Color(184,204,240)); } 
         
         if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_PLANIFICADO)){ lblEstadoPlanificacion.setBackground(new Color(204,204,204)); } 
@@ -657,8 +657,8 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         String estado = gestor.getEstadoEjecucionObra();
         lblEstadoEjecucion.setText(estado);
         
-        if(estado.equals(Ejecucion.ESTADO_ALTA)){ lblEstadoEjecucion.setBackground(new Color(184,204,240)); } 
-        if(estado.equals(Ejecucion.ESTADO_BAJA)){ lblEstadoEjecucion.setBackground(new Color(229,184,183)); } 
+        if(estado.equals(Ejecucion.ESTADO_CREADA)){ lblEstadoEjecucion.setBackground(new Color(184,204,240)); } 
+        if(estado.equals(Ejecucion.ESTADO_CANCELADA)){ lblEstadoEjecucion.setBackground(new Color(229,184,183)); } 
         if(estado.equals(Ejecucion.ESTADO_ENEJECUCION)){ lblEstadoEjecucion.setBackground(new Color(255,255,153)); } 
         if(estado.equals(Ejecucion.ESTADO_FINALIZADA)){ lblEstadoEjecucion.setBackground(new Color(204,255,153)); } 
         

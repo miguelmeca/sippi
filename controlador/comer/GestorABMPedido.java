@@ -741,7 +741,7 @@ public class GestorABMPedido {
     private void darDeBajaPlanificacion() {
         if(this.pedido!=null){
             if(this.pedido.getPlanificacion()!=null){
-                this.pedido.getPlanificacion().setEstado(Planificacion.ESTADO_BAJA);
+                this.pedido.getPlanificacion().setEstado(Planificacion.ESTADO_CANCELADA);
             }
         }
     }
@@ -752,7 +752,7 @@ public class GestorABMPedido {
     private void darDeBajaEjecucion() {
         if(this.pedido!=null){
             if(this.pedido.getEjecucion()!=null){
-                this.pedido.getEjecucion().setEstado(Ejecucion.ESTADO_BAJA);
+                this.pedido.getEjecucion().setEstado(Ejecucion.ESTADO_CANCELADA);
             }
         }        
     }
