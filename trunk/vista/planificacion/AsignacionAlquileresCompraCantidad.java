@@ -232,7 +232,7 @@ public class AsignacionAlquileresCompraCantidad extends javax.swing.JInternalFra
         SpinnerNumberModel model = (SpinnerNumberModel)txtCantidad.getModel();
         int value = model.getNumber().intValue();
         
-        int cantidadDisponible = this.gastos.getCantidad();
+        int cantidadDisponible = this.gastos.getCantidadDisponible();
         //int cantidadCotizadas = this.gastos.getOriginal().getCantidad();
         
         asignarCantidad(value, cantidadDisponible);

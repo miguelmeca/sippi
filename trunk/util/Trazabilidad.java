@@ -86,9 +86,9 @@ public class Trazabilidad {
                     SubObraXAlquilerCompra subObraXAlquilerCompra = itSubObraXAlquilerCompra.next();
                     SubObraXAlquilerCompraModif subObraXAlquilerCompraModif = new SubObraXAlquilerCompraModif();
                     subObraXAlquilerCompraModif.setOriginal(subObraXAlquilerCompra);
-                    subObraXAlquilerCompraModif.setCantidad(subObraXAlquilerCompraModif.getCantidad());
+                    subObraXAlquilerCompraModif.setCantidad(subObraXAlquilerCompra.getCantidad());
                     subObraXAlquilerCompraModif.setDescripcion(subObraXAlquilerCompra.getDescripcion());
-                    subObraXAlquilerCompraModif.setPrecioUnitario(subObraXAlquilerCompraModif.getPrecioUnitario());
+                    subObraXAlquilerCompraModif.setPrecioUnitario(subObraXAlquilerCompra.getPrecioUnitario());
                     subObraXAlquilerCompraModif.setTipoAlquilerCompra(subObraXAlquilerCompra.getTipoAlquilerCompra());
                     subObraXAlquilerCompraModifs.add(subObraXAlquilerCompraModif);
                     HibernateUtil.getSession().save(subObraXAlquilerCompraModif);
