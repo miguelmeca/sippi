@@ -1,14 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * pantallaConsultar.java
- *
- * Created on 06-ago-2010, 15:44:11
- */
-
 package vista.gen;
 
 import java.awt.Dimension;
@@ -23,6 +12,9 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import modelo.Cotizacion;
+import modelo.CotizacionModificada;
+import modelo.Ejecucion;
 import org.hibernate.Session;
 import util.HibernateUtil;
 import util.Tupla;
@@ -120,6 +112,41 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                 {
                     lista = this.filtoPasivo.Excecute(lista);
                 }
+                
+                
+                // INICIO DEL WORKARROUND ================================================================
+                boolean aplicoWorkArround = false;
+                List filtroWorkArround = new ArrayList<Object>();
+                // WORKARROUND COTIZACION
+                if(this.entidad.getSimpleName().equals("Cotizacion")){
+                    aplicoWorkArround = true;
+                    System.out.println("Aplicando el workarround para Cotizacion");
+                    for (int i = 0; i < lista.size(); i++) {
+                        if(lista.get(i) instanceof CotizacionModificada){
+                            System.out.println("Este item NO es una Cotizacion, lo filtro");
+                        }else{
+                            System.out.println("Este item es es una Cotizacion");
+                            filtroWorkArround.add(lista.get(i));
+                        }                        
+                    }
+                }
+                // WORKARROUND PLANIFICACION
+                if(this.entidad.getSimpleName().equals("Planificacion")){
+                    System.out.println("Aplicando el workarround para Planificacion");
+                    aplicoWorkArround = true;
+                    for (int i = 0; i < lista.size(); i++) {
+                        if(lista.get(i) instanceof Ejecucion){
+                            System.out.println("Este item NO es una Planificacion, lo filtro");
+                        }else{
+                            System.out.println("Este item es es una Planificacion");
+                            filtroWorkArround.add(lista.get(i));
+                        }                        
+                    } 
+                }
+                if(aplicoWorkArround){
+                    lista = filtroWorkArround;
+                }
+                // FIN DEL WORKARROUND ===================================================================
                 
                 for (int i = 0; i < lista.size(); i++) 
                 {
