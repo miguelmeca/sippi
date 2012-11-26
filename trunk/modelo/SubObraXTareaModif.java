@@ -17,12 +17,16 @@ public class SubObraXTareaModif extends SubObraXTarea {
     private int id;
 	private List<DetalleSubObraXTareaModif> detallesMod;
 	private SubObraXTarea original;
+        
+        private transient SubObraXTareaModif tareaCopia;
 
     public SubObraXTareaModif() {
     }
 
     public SubObraXTareaModif(SubObraXTareaModif aCopiar) 
     {
+        
+        aCopiar.tareaCopia=this;
         id=-1;
         super.setNombre(aCopiar.getNombre());
         super.setObservaciones(aCopiar.getObservaciones());
@@ -170,6 +174,29 @@ public class SubObraXTareaModif extends SubObraXTarea {
             
         }               
        return subT; 
+    }
+    
+    
+    
+    public void borrarCopias(){        
+        
+        tareaCopia=null;
+        borrarDetallesCopia();
+    }
+    
+    public void borrarDetallesCopia()
+    {
+        for (int i = 0; i < detallesMod.size(); i++) 
+        {
+           detallesMod.get(i).setDetalleCopia(null);          
+        }
+    }
+
+    /**
+     * @return the tareaCopia
+     */
+    public SubObraXTareaModif getTareaCopia() {
+        return tareaCopia;
     }
     
 }

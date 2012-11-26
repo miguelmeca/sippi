@@ -1082,10 +1082,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if(validar( true))
-        {
-            gestor.guardarCambios();
-        }
+        
         //this.actualizarPantallas();
         //this.limpiarDatosDetalleEnPantalla();
         if(!huboFocoEnAsignaciones)
@@ -1097,6 +1094,10 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
                 return;
             } 
             
+        }
+        if(validar( true))
+        {
+            gestor.guardarCambios();
         }
         
         this.dispose();

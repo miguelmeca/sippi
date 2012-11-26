@@ -52,7 +52,9 @@ public class TareaPlanificacion
         this.fechaInicio=aCopiar.fechaInicio;
         this.fechaFin=aCopiar.fechaFin;
         this.idTareaGantt=aCopiar.idTareaGantt;
-        this.tareaCotizada=aCopiar.tareaCotizada;    
+        if(aCopiar.tareaCotizada!=null){
+            this.tareaCotizada=new SubObraXTareaModif(aCopiar.tareaCotizada); 
+        }
         this.subtareas = new ArrayList<TareaPlanificacion>();
         this.herramientas = new ArrayList<PlanificacionXHerramienta>();
         this.materiales = new ArrayList<PlanificacionXMaterial>();
@@ -86,12 +88,20 @@ public class TareaPlanificacion
         * 
         * etc
         */
-        for (int i = 0; i < aCopiar.getSubtareas().size(); i++) 
-        {
-           aCopiar.getSubtareas().get(i).borrarDetallesCopia();
-           aCopiar.getSubtareas().get(i).tareaCopia=null;
-        }
+        
         //
+    }
+    
+    public void borrarCopias(){
+        if(getTareaCopia()!=null)
+        {for (int i = 0; i < getTareaCopia().getSubtareas().size(); i++) 
+            {
+                getTareaCopia().getSubtareas().get(i).borrarDetallesCopia();
+                getTareaCopia().getSubtareas().get(i).borrarCopias();
+            }
+        
+            getTareaCopia().tareaCotizada.borrarCopias();
+        }
     }
     
     public TareaPlanificacion(SubObraXTareaModif tareaCotizada) {
@@ -818,6 +828,20 @@ public class TareaPlanificacion
             subtarea.obtenerTodaslasSubtareasRecursivamenteMetodoRecursivo(listaTareas);
         }
         return listaTareas;
+    }
+
+    /**
+     * @return the tareaCopia
+     */
+    public TareaPlanificacion getTareaCopia() {
+        return tareaCopia;
+    }
+
+    /**
+     * @param tareaCopia the tareaCopia to set
+     */
+    public void setTareaCopia(TareaPlanificacion tareaCopia) {
+        this.tareaCopia = tareaCopia;
     }
     
     

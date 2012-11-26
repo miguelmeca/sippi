@@ -70,9 +70,13 @@ public class DetalleTareaPlanificacion {
     public DetalleTareaPlanificacion(DetalleTareaPlanificacion aCopiar)
     {        
         aCopiar.setDetalleCopia(this);
-        this.cotizado=aCopiar.cotizado;
+        if(aCopiar.cotizado!=null) {
+            this.cotizado=aCopiar.cotizado.getDetalleCopia();
+        }
         if(aCopiar.padre!=null)
-        {this.setearPadre(aCopiar.padre.getDetalleCopia());}
+        {
+            this.setearPadre(aCopiar.padre.getDetalleCopia());
+        }
         this.cantidadPersonas=aCopiar.getCantidadPersonas();
         this.cantHorasNormales=aCopiar.getCantHorasNormales();
         this.cantHorasAl50=aCopiar.getCantHorasAl50();
