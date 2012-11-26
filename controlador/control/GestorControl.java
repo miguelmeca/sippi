@@ -77,7 +77,7 @@ public class GestorControl {
         if (this.pedidoObra != null) {
             return this.pedidoObra.getEstado();
         }
-        return PedidoObra.ESTADO_PENDIENTE;
+        return PedidoObra.ESTADO_SOLICITADO;
     }
 
     public String getEstadoCotizacionObra() {

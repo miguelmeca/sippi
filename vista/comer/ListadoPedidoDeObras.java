@@ -53,19 +53,11 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
     protected ArrayList<String[]> getColumnColorCriteria() 
     {    
         ArrayList<String[]> colorCriteria = new ArrayList<String[]>();
-
-            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_CONFIRMADO,"214","227","188"});
-            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PENDIENTE,"214","227","188"});
             
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_CANCELADO,"229","184","183"});
-            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SUSPENDIDO,"229","184","183"});
-            
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_EN_EJECUCION,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PLANIFICADO,"196","188","150"});
-            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PRESUPUESTADO,"196","188","150"});
-            
-            //colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"184","204","240"});
-            
+            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_COTIZADO,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"132","230","147"});
             
         return colorCriteria;

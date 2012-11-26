@@ -1,16 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador.cotizacion;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
+import java.util.List;
 import modelo.Cotizacion;
-import modelo.DetalleSubObraXTarea;
 import modelo.PedidoObra;
 import modelo.SubObra;
 import modelo.SubObraXAdicional;
@@ -21,7 +15,6 @@ import modelo.SubObraXTarea;
 import org.hibernate.Session;
 import util.FechaUtil;
 import util.HibernateUtil;
-
 import vista.interfaces.ICallBack_v2;
 
 /**
@@ -85,6 +78,7 @@ public class GestorRegistrarCotizacion {
         }
         
         obra.addCotizaciones(cot);
+        obra.setEstado(PedidoObra.ESTADO_COTIZADO);
         
         
         try 
@@ -140,7 +134,10 @@ public class GestorRegistrarCotizacion {
              cot.setNroRevision(maxNroRevision+1);
         }        
         cot.setDescripcion("");
+        
         obra.addCotizaciones(cot);
+        obra.setEstado(PedidoObra.ESTADO_COTIZADO);
+        
         if(fechasFueraDeRango)
         {
             pantalla.actualizar(0, "CopiaCotizacionCambioFechas", false);

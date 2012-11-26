@@ -11,6 +11,7 @@ import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1172,11 +1173,27 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             p1.setEditable(false);
         }
 
+        // WORKARROUND DE HORAS DE TAREAS
+        Calendar fInicio = Calendar.getInstance();
+        fInicio.setTime(tplan.getFechaInicio());
+        fInicio.set(Calendar.HOUR,21);
+        fInicio.set(Calendar.MINUTE,0);
+        fInicio.set(Calendar.SECOND,0);
+        fInicio.set(Calendar.MILLISECOND,0);
+        
+        Calendar fFin = Calendar.getInstance();
+        fFin.setTime(tplan.getFechaFin());
+        fFin.set(Calendar.HOUR,21);
+        fFin.set(Calendar.MINUTE,0);
+        fFin.set(Calendar.SECOND,0);
+        fFin.set(Calendar.MILLISECOND,0);        
+        
+        
         p1.setId(tplan.hashCode());
         p1.setNombre(tplan.getNombre());
         p1.setType(tplan.getEstado());
-        p1.setStartDate(tplan.getFechaInicio());
-        p1.setEndDate(tplan.getFechaFin());
+        p1.setStartDate(fInicio.getTime());
+        p1.setEndDate(fFin.getTime());
 
         // Agrego el nivel de tarea al gantt
         for (int j = 0; j < n; j++) {

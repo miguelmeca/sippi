@@ -521,7 +521,7 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
         // Ante todo, cambio el estado de la cotizacion
         // Y tb cambio el estado del pedido de obra ( atomico )
         this.cot.setEstadoAceptado();
-        this.obra.setEstadoPresupuestado();
+        this.obra.setEstadoPlanificado();
         
        
         // Ahora... Creo la PlanificacionXXX
