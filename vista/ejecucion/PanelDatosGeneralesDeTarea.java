@@ -22,12 +22,13 @@ import modelo.TareaEjecucion;
 import util.ColorUtil;
 import util.NTupla;
 import util.Tupla;
+import vista.interfaces.ICallBack_v3;
 
 /**
  *
  * @author Administrador
  */
-public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
+public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements ICallBack_v3{
 
     private boolean FLAG_ESTA_EDITANDO;
     private GestorEjecucion gestor;
@@ -470,5 +471,10 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel {
         dcFechaInicio.setEnabled(b);
         dcFechaFin.setEnabled(b);
         txtObservaciones.setEnabled(b);
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
     }
 }

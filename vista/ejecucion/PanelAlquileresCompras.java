@@ -23,6 +23,7 @@ import modelo.Ejecucion;
 import modelo.EjecucionXAlquilerCompra;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
+import vista.interfaces.ICallBack_v3;
 import vista.util.EditableCellTableRenderer;
 import vista.util.FloatEditor;
 import vista.util.IntegerEditor;
@@ -33,7 +34,7 @@ import vista.util.TableCellListener;
  *
  * @author Iuga
  */
-public class PanelAlquileresCompras extends javax.swing.JPanel{
+public class PanelAlquileresCompras extends javax.swing.JPanel  implements ICallBack_v3{
 
     public static final int TABLA_ALQUILERSCOMPRAS_COLUMNA_MATERIAL = 0;
     public static final int TABLA_ALQUILERSCOMPRAS_COLUMNA_TAREA = 1;
@@ -359,6 +360,11 @@ public class PanelAlquileresCompras extends javax.swing.JPanel{
 
     private void enablearComponentes(boolean b) {
         tblAlquileresCompras.setEnabled(b);
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
     }
 
     

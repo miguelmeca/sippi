@@ -25,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 import modelo.Ejecucion;
 import modelo.EjecucionXHerramientaXDia;
 import util.NTupla;
+import vista.interfaces.ICallBack_v3;
 import vista.util.EditableCellTableRenderer;
 import vista.util.IntegerEditor;
 import vista.util.TableCellListener;
@@ -33,7 +34,7 @@ import vista.util.TableCellListener;
  *
  * @author Iuga
  */
-public class PanelHerramientas extends javax.swing.JPanel{
+public class PanelHerramientas extends javax.swing.JPanel implements ICallBack_v3{
 
     public static final int TABLA_HERRAMIENTAS_COLUMNA_EMPLEADO = 0;
     public static final int TABLA_HERRAMIENTAS_COLUMNA_TAREA = 1;
@@ -414,6 +415,11 @@ public class PanelHerramientas extends javax.swing.JPanel{
 
     private void enablearComponentes(boolean b) {
         tblHerramientas.setEnabled(b);
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
     }
     
 }

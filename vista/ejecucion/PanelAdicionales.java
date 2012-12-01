@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 import modelo.Ejecucion;
 import modelo.EjecucionXAdicional;
 import util.NTupla;
+import vista.interfaces.ICallBack_v3;
 import vista.util.EditableCellTableRenderer;
 import vista.util.FloatEditor;
 import vista.util.IntegerEditor;
@@ -32,7 +33,7 @@ import vista.util.TableCellListener;
  *
  * @author Iuga
  */
-public class PanelAdicionales extends javax.swing.JPanel{
+public class PanelAdicionales extends javax.swing.JPanel  implements ICallBack_v3{
 
     public static final int TABLA_ADICIONALES_COLUMNA_ADICIONAL = 0;
     public static final int TABLA_ADICIONALES_CANTIDAD_PLANIFICADA = 1;
@@ -354,6 +355,11 @@ public class PanelAdicionales extends javax.swing.JPanel{
 
     private void enablearComponentes(boolean b) {
         tblAdicionales.setEnabled(b);
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
     }
 
     

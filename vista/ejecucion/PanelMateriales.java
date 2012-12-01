@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 import modelo.Ejecucion;
 import modelo.EjecucionXMaterial;
 import util.NTupla;
+import vista.interfaces.ICallBack_v3;
 import vista.util.*;
 
 
@@ -29,7 +30,7 @@ import vista.util.*;
  *
  * @author Iuga
  */
-public class PanelMateriales extends javax.swing.JPanel{
+public class PanelMateriales extends javax.swing.JPanel implements ICallBack_v3{
 
     public static final int TABLA_MATERIALES_COLUMNA_MATERIAL = 0;
     public static final int TABLA_MATERIALES_COLUMNA_TAREA = 1;
@@ -353,6 +354,11 @@ public class PanelMateriales extends javax.swing.JPanel{
 
     private void enablearComponentes(boolean b) {
         tblMateriales.setEnabled(b);
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito, Object[] data) {
+        actualizar();
     }
 
     
