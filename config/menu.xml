@@ -25,6 +25,13 @@
         <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.pantallaRegistrarProveedor"/>
         <item nombre="Registrar Precios de Recursos" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.pantallaRegistrarPrecioRecursoNueva"/>
     </itemcat>  
+    
+    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
+        <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado"/>
+        <item nombre="Nuevo Empleado" icono="/res/iconos/var/16x16/add.png" instance="vista.rrhh.pantallaRegistrarEmpleado"/>
+        <item nombre="Talleres de Capacitación" icono="/res/iconos/var/16x16/Yellow tag.png" instance="vista.rrhh.pantallaConsultarTallerCapacitacion"/>
+        <item nombre="Asistencia a Talleres" icono="/res/iconos/var/16x16/accept_page.png" instance="vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion"/>
+    </itemcat>     
 
     <itemcat icono="/res/iconos/var/16x16/Equipment.png" nombre="Obras">
         <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.ListadoPedidoDeObras"/>
@@ -44,16 +51,13 @@
         <item nombre="Explorar Ejecuciones" icono="/res/iconos/var/16x16/search.png" instance="vista.ejecucion.ConsultarEjecuciones"/>
     </itemcat>  
     
-    <itemcat icono="/res/iconos/var/16x16/Yes.png" nombre="Control">
+    <itemcat icono="/res/iconos/var/16x16/Diagram.png" nombre="Control">
         <item nombre="Explorar Controles de Obra" icono="/res/iconos/var/16x16/search.png" instance="vista.control.ConsultarControles"/>
     </itemcat>                   
 
-    <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
-        <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado"/>
-        <item nombre="Nuevo Empleado" icono="/res/iconos/var/16x16/add.png" instance="vista.rrhh.pantallaRegistrarEmpleado"/>
-        <item nombre="Talleres de Capacitación" icono="/res/iconos/var/16x16/Yellow tag.png" instance="vista.rrhh.pantallaConsultarTallerCapacitacion"/>
-        <item nombre="Asistencia a Talleres" icono="/res/iconos/var/16x16/accept_page.png" instance="vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion"/>
-    </itemcat> 
+    <itemcat icono="/res/iconos/var/16x16/3d bar chart.png" nombre="Informes">
+        <item nombre="Informes Generales" icono="/res/iconos/var/16x16/new_page.png" instance="vista.informes.EmitirInformesGenerales"/>
+    </itemcat>          
 
     <!--itemcat icono="/res/iconos/var/16x16/process.png" nombre="Configuración">       
     </itemcat-->
