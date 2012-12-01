@@ -56,41 +56,36 @@ public class DBExamplesLoader {
      */
     public void cargarEjemplos()
     {
-          this.cargarConfiguraciones();
-
-          this.cargarUsuarios();
-
-          this.cargarUnidadesMedida();
-          this.cargarFormasDePago();
-
-          this.cargarRubros();
-
-          this.cargarPaises();
+        // EN Duda, debería volar:
+        this.cargarRubros(); // ???? Sigue existiendo ???
+        
+        // LA PRIMERA VEZ
+        // Cosas que se tienen que cargar si o si y no son ejemplos:
+        this.cargarConfiguraciones();
+        this.cargarUsuarios();
+        this.cargarUnidadesMedida(); 
+        this.cargarFormasDePago();
+        this.cargarLocalidades();
+        this.cargarTipoTelefono();
+        this.cargarTipoDocumento();
+        this.cargarTipoLicencias();
+        this.cargarTiposGastosVarios();
+        this.cargarTipoAlquilerCompra();
+        this.cargarTipoTarea();
+        this.cargarRolesContactoResponsable();
           
-          
-          this.cargarTipoTelefono();
-          this.cargarEmpresasYPlantas();
-          this.cargarTipoDocumento();
-          this.cargarTipoLicencias();
-          this.cargarEmplados();
-          this.cargarContactoResponsable(); //TODO: Debemos reveer este mÃ©todo para poder cargar contactos responsables
-
-          this.cargarCompras();
-
-          this.cargarOrdenDeCompra();
-
-          this.cargarHerramientasDeEmpresa();
-
-//          this.cargarPresupuestoDeEjemplo();
-          this.cargarTiposAdicional();
-          this.cargarTipoAlquilerCompra();
-          this.cargarTipoTarea();
-          this.cargarRolesContactoResponsable();
-          this.cargarCotizacionEjemplo();
-          this.cargarPlanificacionEjemplo();
-          
-          this.cargarStock();
-          this.cargarOrdenesDeCompra();
+        // EJEMPLOS PARA DEVELOPMENT
+        this.cargarEmpresasYPlantas();
+        this.cargarEmplados();
+        this.cargarContactoResponsable();
+        this.cargarCompras(); 
+        this.cargarOrdenDeCompra();
+        this.cargarHerramientasDeEmpresa();
+        this.cargarCotizacionEjemplo();
+        this.cargarPlanificacionEjemplo();
+        this.cargarStock();
+        this.cargarOrdenesDeCompra();
+        
     }
 
     public void cargarConfiguraciones()
@@ -155,16 +150,15 @@ public class DBExamplesLoader {
         fp3.setNombre("Transferencia Bancaria");
         FormaDePago fp4 = new FormaDePago();
         fp4.setNombre("Deposito Bancario");
+        
         try
         {
-
             sesion.beginTransaction();
             sesion.save(fp1);
             sesion.save(fp2);
             sesion.save(fp3);
             sesion.save(fp4);
             sesion.getTransaction().commit();
-
         } catch (Exception ex)
         {
             LogUtil.addError("ERROR CARGANDO LOS DATOS INICIALES DE UNIDAD DE MEDIDA");
@@ -177,16 +171,57 @@ public class DBExamplesLoader {
     {
         UnidadDeMedida um1 = new UnidadDeMedida();
         um1.setNombre("Unidad");
-        um1.setAbreviatura("UM.");
+        um1.setAbreviatura("Un");
+        
         UnidadDeMedida um2 = new UnidadDeMedida();
         um2.setNombre("Kilogramo");
-        um2.setAbreviatura("Kg.");
+        um2.setAbreviatura("Kg");
+        
+        UnidadDeMedida um3 = new UnidadDeMedida();
+        um3.setNombre("Metros");
+        um3.setAbreviatura("m");
+        
+        UnidadDeMedida um4 = new UnidadDeMedida();
+        um4.setNombre("Gramos");
+        um4.setAbreviatura("g");   
+        
+        UnidadDeMedida um5 = new UnidadDeMedida();
+        um5.setNombre("Bolsas");
+        um5.setAbreviatura("bo");           
+
+        UnidadDeMedida um6 = new UnidadDeMedida();
+        um6.setNombre("Centimetros");
+        um6.setAbreviatura("cm");     
+        
+        UnidadDeMedida um7 = new UnidadDeMedida();
+        um7.setNombre("Litros");
+        um7.setAbreviatura("l");
+        
+        UnidadDeMedida um8 = new UnidadDeMedida();
+        um8.setNombre("Metros Cuadrados");
+        um8.setAbreviatura("m2");            
+
+        UnidadDeMedida um9 = new UnidadDeMedida();
+        um9.setNombre("Pulgadas");
+        um9.setAbreviatura("pul");                    
+        
+        UnidadDeMedida um10 = new UnidadDeMedida();
+        um10.setNombre("Onza");
+        um10.setAbreviatura("oz");          
+        
         try
         {
-
             sesion.beginTransaction();
             sesion.saveOrUpdate(um1);
             sesion.saveOrUpdate(um2);
+            sesion.saveOrUpdate(um3);
+            sesion.saveOrUpdate(um4);
+            sesion.saveOrUpdate(um5);
+            sesion.saveOrUpdate(um6);
+            sesion.saveOrUpdate(um7);
+            sesion.saveOrUpdate(um8);
+            sesion.saveOrUpdate(um9);
+            sesion.saveOrUpdate(um10);
             sesion.getTransaction().commit();
 
         } catch (Exception ex)
@@ -194,7 +229,6 @@ public class DBExamplesLoader {
             LogUtil.addError("ERROR CARGANDO LOS DATOS INICIALES DE UNIDAD DE MEDIDA");
             ex.printStackTrace();
         }
-
     }
 
     private void cargarCompras()
@@ -402,6 +436,8 @@ public class DBExamplesLoader {
         tle5.setNombre("Matrimonio");
         TipoLicenciaEmpleado tle6 = new TipoLicenciaEmpleado();
         tle6.setNombre("Licencias Especiales");
+        TipoLicenciaEmpleado tle7 = new TipoLicenciaEmpleado();
+        tle7.setNombre("Varios");        
 
         sesion.beginTransaction();
         sesion.save(tle);
@@ -409,30 +445,98 @@ public class DBExamplesLoader {
         sesion.save(tle3);
         sesion.save(tle4);
         sesion.save(tle5);
+        sesion.save(tle6);
+        sesion.save(tle7);
         sesion.getTransaction().commit();
     }
 
-    private void cargarPaises()
+    private void cargarLocalidades()
     {
         Pais p1 = new Pais();
         p1.setNombre("Argentina");
 
             Provincia prov1 = new Provincia();
-            prov1.setNombre("Cordoba");
+            prov1.setNombre("Buenos Aires");
             Provincia prov2 = new Provincia();
-            prov2.setNombre("San Luis");
+            prov2.setNombre("Catamarca");
+            Provincia prov3 = new Provincia();
+            prov3.setNombre("Chacho");
+            Provincia prov4 = new Provincia();
+            prov4.setNombre("Chubut");
+            Provincia prov5 = new Provincia();
+            prov5.setNombre("Córdoba");
+            Provincia prov6 = new Provincia();
+            prov6.setNombre("Corrientes");
+            Provincia prov7 = new Provincia();
+            prov7.setNombre("Entre Ríos");
+            Provincia prov8 = new Provincia();
+            prov8.setNombre("Formosa");
+            Provincia prov9 = new Provincia();
+            prov9.setNombre("Jujuy");
+            Provincia prov10 = new Provincia();
+            prov10.setNombre("La Rioja");
+            Provincia prov11 = new Provincia();
+            prov11.setNombre("Mendoza");
+            Provincia prov12 = new Provincia();
+            prov12.setNombre("Misiones");
+            Provincia prov13 = new Provincia();
+            prov13.setNombre("Neuquén");
+            Provincia prov14 = new Provincia();
+            prov14.setNombre("Río Negro");
+            Provincia prov15 = new Provincia();
+            prov15.setNombre("Salta");
+            Provincia prov16 = new Provincia();
+            prov16.setNombre("San Juan");
+            Provincia prov17 = new Provincia();
+            prov17.setNombre("San Luis");
+            Provincia prov18 = new Provincia();
+            prov18.setNombre("Santa Cruz");
+            Provincia prov19 = new Provincia();
+            prov19.setNombre("Santa Fe");
+            Provincia prov20 = new Provincia();
+            prov20.setNombre("Santiago del Estero");
+            Provincia prov21 = new Provincia();
+            prov21.setNombre("Tierra del Fuego");
+            Provincia prov22 = new Provincia();
+            prov22.setNombre("Tucumán");
+            
+            
             p1.addProvincia(prov1);
             p1.addProvincia(prov2);
+            p1.addProvincia(prov3);
+            p1.addProvincia(prov4);
+            p1.addProvincia(prov5);
+            p1.addProvincia(prov6);
+            p1.addProvincia(prov7);
+            p1.addProvincia(prov8);
+            p1.addProvincia(prov9);
+            p1.addProvincia(prov10);
+            p1.addProvincia(prov11);
+            p1.addProvincia(prov12);
+            p1.addProvincia(prov13);
+            p1.addProvincia(prov14);
+            p1.addProvincia(prov15);
+            p1.addProvincia(prov16);
+            p1.addProvincia(prov17);
+            p1.addProvincia(prov18);
+            p1.addProvincia(prov19);
+            p1.addProvincia(prov20);
+            p1.addProvincia(prov21);
+            p1.addProvincia(prov22);
 
+                // Algunas Localidades (Ver bien las de SanLuis)
+                // Cordoba
                 Localidad l1 = new Localidad();
                 l1.setNombre("Alta Gracia");
+                prov5.addLocalidad(l1);
                 Localidad l2 = new Localidad();
                 l2.setNombre("Cordoba");
-                prov1.addLocalidad(l1);
-                prov1.addLocalidad(l2);
+                prov5.addLocalidad(l1);
+                
+                // San Luis
                 Localidad l3 = new Localidad();
                 l3.setNombre("Villa Mercedes");
-                prov2.addLocalidad(l3);
+                prov17.addLocalidad(l3);
 
                     Barrio b1 = new Barrio();
                     b1.setNombre("Carlos Pellegrini");
@@ -446,37 +550,49 @@ public class DBExamplesLoader {
                     l2.addBarrio(b2);
                     l3.addBarrio(b3);
                     l3.addBarrio(b4);
-
-        Pais p2 = new Pais();
-        p2.setNombre("Brazil");
-
-            Provincia prov3 = new Provincia();
-            prov3.setNombre("Ceara");
-            p2.addProvincia(prov3);
-
-                Localidad l9 = new Localidad();
-                l9.setNombre("Fortaleza");
-                prov3.addLocalidad(l9);
-
-///////////////////////////////////////////
        
 
         sesion.beginTransaction();
-        sesion.save(b1);
-        sesion.save(b2);
-        sesion.save(b3);
-        sesion.save(b4);
-        sesion.save(l1);
-        sesion.save(l2);
-        sesion.save(l3);
-        sesion.save(prov1);
-        sesion.save(prov2);
-        sesion.save(p1);
-        sesion.save(p2);
-        sesion.save(prov3);
-        sesion.save(l9);
-        sesion.getTransaction().commit();
         
+            // Barrios
+            sesion.save(b1);
+            sesion.save(b2);
+            sesion.save(b3);
+            sesion.save(b4);
+
+            // Localidades
+            sesion.save(l1);
+            sesion.save(l2);
+            sesion.save(l3);
+
+            // Provincias
+            sesion.save(prov1);
+            sesion.save(prov2);
+            sesion.save(prov3);
+            sesion.save(prov4);
+            sesion.save(prov5);
+            sesion.save(prov6);
+            sesion.save(prov7);
+            sesion.save(prov8);
+            sesion.save(prov9);
+            sesion.save(prov10);
+            sesion.save(prov11);
+            sesion.save(prov12);
+            sesion.save(prov13);
+            sesion.save(prov14);
+            sesion.save(prov15);
+            sesion.save(prov16);
+            sesion.save(prov17);
+            sesion.save(prov18);
+            sesion.save(prov19);
+            sesion.save(prov20);
+            sesion.save(prov21);
+            sesion.save(prov22);
+
+            // Pais (Argentina)
+            sesion.save(p1);
+
+        sesion.getTransaction().commit();
     }
     
     public void cargarEmplados()
@@ -563,15 +679,18 @@ public class DBExamplesLoader {
     public void cargarTipoTelefono()
     {
         TipoTelefono tt1 = new TipoTelefono();
-        tt1.setNombre("TEL. PARTICULAR");
+        tt1.setNombre("Particular");
         TipoTelefono tt2 = new TipoTelefono();
-        tt2.setNombre("FAX");
+        tt2.setNombre("Fax");
         TipoTelefono tt3 = new TipoTelefono();
-        tt3.setNombre("CELULAR");
+        tt3.setNombre("Celular");
+        TipoTelefono tt4 = new TipoTelefono();
+        tt4.setNombre("Empresa");        
         sesion.beginTransaction();
         sesion.save(tt1);
         sesion.save(tt2);
         sesion.save(tt3);
+        sesion.save(tt4);
         sesion.getTransaction().commit();
     }
 
@@ -1338,28 +1457,46 @@ public class DBExamplesLoader {
 
     }
 
-   
-
     private void cargarTipoTarea() {
         TipoTarea tt1 = new TipoTarea();
-        tt1.setNombre("Desarme");
-        //TODO: Fran, debes arreglar esto
-        //tt1.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
-        
+        tt1.setNombre("Limpieza y pintura");
         TipoTarea tt2 = new TipoTarea();
         tt2.setNombre("Calibracion");
-        //TODO: Fran, debes arreglar esto
-        //tt2.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
-        
         TipoTarea tt3 = new TipoTarea();
         tt3.setNombre("Mecanizado");
-        //TODO: Fran, debes arreglar esto
-        //tt3.setRangoEmpleadoPredeterminado((RangoEmpleado)sesion.load(RangoEmpleado.class,1));
+        TipoTarea tt4 = new TipoTarea();
+        tt4.setNombre("Protección de equipo");
+        TipoTarea tt5 = new TipoTarea();
+        tt5.setNombre("Ensamble");
+        TipoTarea tt6 = new TipoTarea();
+        tt6.setNombre("Traslado");
+        TipoTarea tt7 = new TipoTarea();
+        tt7.setNombre("Desarme");
+        TipoTarea tt8 = new TipoTarea();
+        tt8.setNombre("Mejoras en equipo");
+        TipoTarea tt9 = new TipoTarea();
+        tt9.setNombre("Armado");
+        TipoTarea tt10 = new TipoTarea();
+        tt10.setNombre("Prueba");        
+        TipoTarea tt11 = new TipoTarea();
+        tt11.setNombre("Montaje"); 
+        TipoTarea tt12 = new TipoTarea();
+        tt12.setNombre("Desmontaje"); 
+        
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(tt1);
             sesion.saveOrUpdate(tt2);
             sesion.saveOrUpdate(tt3);
+            sesion.saveOrUpdate(tt4);
+            sesion.saveOrUpdate(tt5);
+            sesion.saveOrUpdate(tt6);
+            sesion.saveOrUpdate(tt7);
+            sesion.saveOrUpdate(tt8);
+            sesion.saveOrUpdate(tt9);
+            sesion.saveOrUpdate(tt10);
+            sesion.saveOrUpdate(tt11);
+            sesion.saveOrUpdate(tt12);
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());
@@ -1367,7 +1504,7 @@ public class DBExamplesLoader {
         }
     }
 
-    private void cargarTiposAdicional() {
+    private void cargarTiposGastosVarios() {
         TipoAdicional ta1 = new TipoAdicional();
         ta1.setNombre("Impuestos");
         TipoAdicional ta2 = new TipoAdicional();
@@ -1401,16 +1538,30 @@ public class DBExamplesLoader {
 
     private void cargarTipoAlquilerCompra() {
         TipoAlquilerCompra tac1 = new TipoAlquilerCompra();
-        tac1.setNombre("Galpon");
+        tac1.setNombre("Galpones");
         TipoAlquilerCompra tac2 = new TipoAlquilerCompra();
-        tac2.setNombre("Grua");
+        tac2.setNombre("Gruas");
         TipoAlquilerCompra tac3 = new TipoAlquilerCompra();
         tac3.setNombre("Fletes");
         TipoAlquilerCompra tac4 = new TipoAlquilerCompra();
         tac4.setNombre("Camiones");
         TipoAlquilerCompra tac5 = new TipoAlquilerCompra();
-        tac5.setNombre("Transporte");
-
+        tac5.setNombre("Transportes");
+        TipoAlquilerCompra tac6 = new TipoAlquilerCompra();
+        tac6.setNombre("Alquiler de casas");        
+        TipoAlquilerCompra tac7 = new TipoAlquilerCompra();
+        tac7.setNombre("Hospedaje");        
+        TipoAlquilerCompra tac8 = new TipoAlquilerCompra();
+        tac8.setNombre("Alojamiento");        
+        TipoAlquilerCompra tac9 = new TipoAlquilerCompra();
+        tac9.setNombre("Boletos de transporte de pasajeros");
+        TipoAlquilerCompra tac10 = new TipoAlquilerCompra();
+        tac10.setNombre("Montacargas");
+        TipoAlquilerCompra tac11 = new TipoAlquilerCompra();
+        tac11.setNombre("Tickets de Comida");        
+        TipoAlquilerCompra tac12 = new TipoAlquilerCompra();
+        tac12.setNombre("Otros");      
+        
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(tac1);
@@ -1418,6 +1569,14 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(tac3);
             sesion.saveOrUpdate(tac4);
             sesion.saveOrUpdate(tac5);
+            sesion.saveOrUpdate(tac6);
+            sesion.saveOrUpdate(tac7);
+            sesion.saveOrUpdate(tac8);
+            sesion.saveOrUpdate(tac9);
+            sesion.saveOrUpdate(tac10);
+            sesion.saveOrUpdate(tac11);
+            sesion.saveOrUpdate(tac12);
+
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());
@@ -1425,8 +1584,8 @@ public class DBExamplesLoader {
         }
     }
 
-    //Administrador, Guardia, Gerente, Abogado, Contratista
     private void cargarRolesContactoResponsable() {
+        
         RolContactoResponsable rcr1 = new RolContactoResponsable();
         rcr1.setNombre("Administrador");
         RolContactoResponsable rcr2 = new RolContactoResponsable();
@@ -1437,7 +1596,11 @@ public class DBExamplesLoader {
         rcr4.setNombre("Abogado");
         RolContactoResponsable rcr5 = new RolContactoResponsable();
         rcr5.setNombre("Contratista");
-
+        RolContactoResponsable rcr6 = new RolContactoResponsable();
+        rcr6.setNombre("Vendedor");  
+        RolContactoResponsable rcr8 = new RolContactoResponsable();
+        rcr8.setNombre("Contacto Responsable");     
+        
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(rcr1);
@@ -1445,6 +1608,8 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(rcr3);
             sesion.saveOrUpdate(rcr4);
             sesion.saveOrUpdate(rcr5);
+            sesion.saveOrUpdate(rcr6);
+            sesion.saveOrUpdate(rcr8);
             sesion.getTransaction().commit();
         }catch(Exception ex) {
             System.out.println(ex.getCause().toString());
