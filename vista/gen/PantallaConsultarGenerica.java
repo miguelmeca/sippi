@@ -171,7 +171,17 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                                     java.lang.reflect.Method methodGetId = obj.getClass().getMethod("getId");
                                     String id = (String) String.valueOf(methodGetId.invoke(obj));
                                     
-                                    fila.add(new Tupla(Integer.parseInt(id), result));
+                                    String content = "";
+                                    if(content!=null){
+                                        content = result;
+                                    }
+                                    
+                                    String idContent = "0";
+                                    if(id!=null){
+                                        idContent = id;
+                                    }
+                                    
+                                    fila.add(new Tupla(Integer.parseInt(idContent), content ));
                                     
                                 }  catch (Exception ex) 
                                 {
@@ -347,7 +357,8 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         txtFiltroColumna.setText("  Columna:  ");
         jToolBar2.add(txtFiltroColumna);
 
-        cmbColumna.setMinimumSize(new java.awt.Dimension(150, 18));
+        cmbColumna.setMinimumSize(new java.awt.Dimension(150, 25));
+        cmbColumna.setPreferredSize(new java.awt.Dimension(28, 25));
         cmbColumna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbColumnaActionPerformed(evt);
@@ -358,7 +369,8 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         txtFiltroValor.setText("  Valor:  ");
         jToolBar2.add(txtFiltroValor);
 
-        cmbColumnavalor.setMinimumSize(new java.awt.Dimension(150, 18));
+        cmbColumnavalor.setMinimumSize(new java.awt.Dimension(150, 25));
+        cmbColumnavalor.setPreferredSize(new java.awt.Dimension(28, 25));
         cmbColumnavalor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbColumnavalorActionPerformed(evt);
@@ -390,9 +402,9 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantResultados)
