@@ -58,6 +58,11 @@ public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
     }
 
     @Override
+    protected String[] getColumnasFiltro() {
+        return new String[]{"Estado","Proveedor","Fecha de Generación"};
+    }       
+    
+    @Override
     protected void abrirEntidad(int id) {
         GenerarNuevaOrdenDeCompra win = new GenerarNuevaOrdenDeCompra(id);
         SwingPanel.getInstance().addWindow(win);
