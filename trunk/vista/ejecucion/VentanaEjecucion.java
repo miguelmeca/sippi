@@ -32,6 +32,7 @@ import util.SwingPanel;
 import util.Tupla;
 import vista.cotizacion.ExplorarSubObras;
 import vista.ejecucion.lanzamiento.VentanaLanzamiento;
+import vista.interfaces.ICallBack_v3;
 import vista.planificacion.ArbolTareasGestor;
 import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaEditarTarea;
@@ -56,6 +57,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private PanelAlquileresCompras panelAlquileresCompras;
     private PanelRecursosHumanos panelRecursosHumanos;
     private PanelAdicionales panelAdicionales;
+    private ICallBack_v3 panelSeleccionado;
     
     private ICoolGantt graph;
     private JComponent grafico;
@@ -78,6 +80,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         initComponents();
         // Inicializo el Gestor de a Ejecucion
         this.gestor = new GestorEjecucion(this,idObra);
+         gestor.setIncluirSubtareas(cbIncluirSubtareas.isSelected());
         // Verifico si la obra esta en ejecucion
         checkSiObraTieneEjecución(idObra);
         // Segun el estado de la ejecucion, cambio el comportamiento
@@ -135,6 +138,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRecursos = new javax.swing.JTable();
         panelCentral = new javax.swing.JPanel();
+        cbIncluirSubtareas = new javax.swing.JCheckBox();
         panelGantt = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -254,6 +258,14 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         panelCentral.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
         panelCentral.setLayout(new java.awt.BorderLayout());
 
+        cbIncluirSubtareas.setSelected(true);
+        cbIncluirSubtareas.setText("IncluirSubtareas");
+        cbIncluirSubtareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbIncluirSubtareasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -261,16 +273,20 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(cbIncluirSubtareas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
+                .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbIncluirSubtareas)
+                .addContainerGap())
             .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -510,7 +526,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(316, 316, 316)
                         .addComponent(btnAbrirPlanificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addGap(0, 18, Short.MAX_VALUE))
                     .addComponent(lblPlanificacionMontoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,7 +576,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -596,7 +612,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -619,7 +635,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addContainerGap(573, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel9);
@@ -645,7 +661,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnFinalizarObra)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -672,7 +688,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(498, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Ejecución", jPanel1);
@@ -849,6 +865,11 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnFinalizarObraActionPerformed
 
+    private void cbIncluirSubtareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbIncluirSubtareasActionPerformed
+        gestor.setIncluirSubtareas(cbIncluirSubtareas.isSelected());
+        this.panelSeleccionado.actualizar(0, "", true,null);
+    }//GEN-LAST:event_cbIncluirSubtareasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnAbrirCotizacion;
@@ -858,6 +879,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnFinalizarObra;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLanzamiento;
+    private javax.swing.JCheckBox cbIncluirSubtareas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1075,20 +1097,25 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     {
         int idTipoRecurso=tipoRecurso.getId();
         JPanel contenido=null;
+        arbolTareas.setVisible(true);
+        cbIncluirSubtareas.setVisible(true);
         switch(idTipoRecurso)
         {
             case OPTN_DATOS_GENERALES:
                 if(this.panelDatosTarea==null){
                     this.panelDatosTarea =  new PanelDatosGeneralesDeTarea(this.gestor);
                 }
+                panelSeleccionado=this.panelDatosTarea;
                 this.panelDatosTarea.actualizar();
                 contenido=panelDatosTarea;
+                cbIncluirSubtareas.setEnabled(false);
                 break;
             
             case OPTN_RRHH:
                 if(this.panelRecursosHumanos==null){
                     this.panelRecursosHumanos =  new PanelRecursosHumanos(this.gestor);
                 }
+                panelSeleccionado=this.panelRecursosHumanos;
                 this.panelRecursosHumanos.actualizar();
                 contenido=panelRecursosHumanos;
                 break;
@@ -1096,6 +1123,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 if(this.panelHerramientas==null){
                     this.panelHerramientas =  new PanelHerramientas(this.gestor);
                 }
+                panelSeleccionado=this.panelHerramientas;
                 this.panelHerramientas.actualizar();
                 contenido=panelHerramientas;
                 break;                
@@ -1103,6 +1131,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 if(this.panelMateriales==null){
                     this.panelMateriales =  new PanelMateriales(this.gestor);
                 }
+                panelSeleccionado=this.panelMateriales;
                 this.panelMateriales.actualizar();
                 contenido=panelMateriales;
                 break;
@@ -1110,6 +1139,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 if(this.panelAlquileresCompras==null){
                     this.panelAlquileresCompras =  new PanelAlquileresCompras(this.gestor);
                 }
+                panelSeleccionado=this.panelAlquileresCompras;
                 this.panelAlquileresCompras.actualizar();
                 contenido=panelAlquileresCompras;
                 break;
@@ -1117,17 +1147,22 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 if(this.panelAdicionales==null){
                     this.panelAdicionales =  new PanelAdicionales(this.gestor);
                 }
+                panelSeleccionado=this.panelAdicionales;
+                cbIncluirSubtareas.setEnabled(false);
                 this.panelAdicionales.actualizar(); 
                 contenido=panelAdicionales;
+                arbolTareas.setVisible(false);                
                 break;
         }
         
-        if(idTipoRecurso==OPTN_ADICIONALES){
+        /*if(idTipoRecurso==OPTN_ADICIONALES){
             arbolTareas.setVisible(false);
+            cbIncluirSubtareas.setVisible(false);
         }
         else {
             arbolTareas.setVisible(true);
-        }
+            cbIncluirSubtareas.setVisible(true);
+        }*/
         
         nombreTipoRecursoEnPanel=tipoRecurso.toString();
         setearPanelCentral(contenido);

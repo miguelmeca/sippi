@@ -59,6 +59,7 @@ public class GestorEjecucion {
     private int hashTarea;
     DetalleTareaEjecucionXDia detalleRRHHXDiaSeleccionado;
     DetalleTareaEjecucion detalleRRHHSeleccionado;
+    private boolean incluirSubtareas;
     
     
 
@@ -316,13 +317,7 @@ public class GestorEjecucion {
         List<Object> listaTuplasDetallesXDia = new ArrayList<Object>();
         
             if (ejecucion != null) {
-                List<TareaPlanificacion> todasTareas;
-                if(hashTarea>0) {
-                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
-                }
-                else {
-                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
-                }
+                List<TareaPlanificacion> todasTareas=getListadoDeTareasAMostrar(tareaSeleccionada,incluirSubtareas);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = (TareaEjecucion) todasTareas.get(i);
                     List<DetalleTareaPlanificacion> listaDetalle = tarea.getDetalles();
@@ -389,13 +384,7 @@ public class GestorEjecucion {
         List<Object> listaTuplasDetallesXDia = new ArrayList<Object>();
         
             if (ejecucion != null) {
-                List<TareaPlanificacion> todasTareas;
-                if(hashTarea>0) {
-                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
-                }
-                else {
-                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
-                }
+                List<TareaPlanificacion> todasTareas=getListadoDeTareasAMostrar(tareaSeleccionada,incluirSubtareas);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
                     List<PlanificacionXHerramienta> listaHerramientas = tarea.getHerramientas();
@@ -439,13 +428,7 @@ public class GestorEjecucion {
         List<Object> listaTuplasMateriales = new ArrayList<Object>();
         
             if (ejecucion != null) {
-                List<TareaPlanificacion> todasTareas;
-                if(hashTarea>0) {
-                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
-                }
-                else {
-                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
-                }
+                List<TareaPlanificacion> todasTareas=getListadoDeTareasAMostrar(tareaSeleccionada,incluirSubtareas);
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
                     List<PlanificacionXMaterial> listaMateriales = tarea.getMateriales();
@@ -481,13 +464,8 @@ public class GestorEjecucion {
         List<Object> listaTuplasAlquileresCompras = new ArrayList<Object>();
         
             if (ejecucion != null) {
-                List<TareaPlanificacion> todasTareas;
-                if(hashTarea>0) {
-                    todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
-                }
-                else {
-                   todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
-                }
+                List<TareaPlanificacion> todasTareas=getListadoDeTareasAMostrar(tareaSeleccionada,incluirSubtareas);
+                
                 for (int i = 0; i < todasTareas.size(); i++) {
                     TareaEjecucion tarea = (TareaEjecucion)todasTareas.get(i);
                     List<PlanificacionXAlquilerCompra> listaAlquileresCompras = tarea.getAlquilerCompras();
@@ -548,6 +526,24 @@ public class GestorEjecucion {
         }
         return listaTuplasAdicionales;        
     }
+   
+   private List<TareaPlanificacion> getListadoDeTareasAMostrar(TareaEjecucion tareaSeleccionada, boolean incluirSubtareas) {
+       List<TareaPlanificacion> todasTareas=new ArrayList<TareaPlanificacion>();
+       if(tareaSeleccionada!=null) {
+          if(incluirSubtareas) {
+             todasTareas = tareaSeleccionada.obtenerTodaslasSubtareasRecursivamente(true);
+          }
+          else
+          {
+              todasTareas.add(tareaSeleccionada);
+          }
+       }
+       else {
+          todasTareas = PlanificacionUtils.getTodasTareasPlanificacion(ejecucion);
+       }
+       
+       return todasTareas;
+   }
 
     /**
      * Retorna la lista de los tipos de tarea
@@ -880,6 +876,13 @@ public class GestorEjecucion {
             return this.ejecucion.getEstado();
         }
         return Ejecucion.ESTADO_CANCELADA;
+    }
+
+    /**
+     * @param incluirSubtareas the incluirSubtareas to set
+     */
+    public void setIncluirSubtareas(boolean incluirSubtareas) {
+        this.incluirSubtareas = incluirSubtareas;
     }
 
 }
