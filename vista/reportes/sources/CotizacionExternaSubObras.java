@@ -48,14 +48,14 @@ public class CotizacionExternaSubObras extends ReportDesigner{
         // Cotización Nro
         Paragraph PNroCotizacion = new Paragraph();
             PNroCotizacion.setAlignment(Paragraph.ALIGN_RIGHT);
-            Phrase nroCot = new Phrase("Presupuesto Nº: "+(String)params.get("COTIZACION_NRO"),new Font(Font.FontFamily.HELVETICA,11,Font.BOLD));
+            Phrase nroCot = new Phrase("Cotización Nº: "+(String)params.get("COTIZACION_NRO"),new Font(Font.FontFamily.HELVETICA,11,Font.BOLD));
             PNroCotizacion.add(nroCot);    
         super.doc.add(PNroCotizacion);
         
         // Titulos e Introducción
         Paragraph PTitulo = new Paragraph();
             PTitulo.setAlignment(Paragraph.ALIGN_LEFT);
-            Phrase nPre = new Phrase("Presupuesto",new Font(Font.FontFamily.HELVETICA,14,Font.BOLD));
+            Phrase nPre = new Phrase("Cotización",new Font(Font.FontFamily.HELVETICA,14,Font.BOLD));
             PTitulo.add(nPre);    
             
             Phrase nMD = new Phrase("\nMemoria Descriptiva:\n",new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC));
@@ -67,7 +67,7 @@ public class CotizacionExternaSubObras extends ReportDesigner{
             Phrase nIO = new Phrase("\nItems de la Obra:\n",new Font(Font.FontFamily.HELVETICA,12,Font.BOLDITALIC));
             PTitulo.add(nIO);       
             
-            Phrase nIOIntro = new Phrase("A continuación se listan los items de la obra presupuestados con sus subtotales.\n\n",new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL));
+            Phrase nIOIntro = new Phrase("A continuación se listan los items de la obra cotizados con sus subtotales.\n\n",new Font(Font.FontFamily.HELVETICA,10,Font.NORMAL));
             PTitulo.add(nIOIntro); 
         super.doc.add(PTitulo);
         

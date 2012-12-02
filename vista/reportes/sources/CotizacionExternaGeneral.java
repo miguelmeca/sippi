@@ -41,14 +41,14 @@ public class CotizacionExternaGeneral extends ReportDesigner{
         // Cotización Nro
         Paragraph PNroCotizacion = new Paragraph();
         PNroCotizacion.setAlignment(Paragraph.ALIGN_RIGHT);
-        Phrase nroCot = new Phrase("Presupuesto Nº: "+(String)params.get("COTIZACION_NRO"),new Font(Font.FontFamily.HELVETICA,11,Font.BOLD));
+        Phrase nroCot = new Phrase("Cotización Nº: "+(String)params.get("COTIZACION_NRO"),new Font(Font.FontFamily.HELVETICA,11,Font.BOLD));
         PNroCotizacion.add(nroCot);
         super.doc.add(PNroCotizacion);
         
         // Titulos e Introducción
         Paragraph PTitulo = new Paragraph();
         PTitulo.setAlignment(Paragraph.ALIGN_LEFT);
-        Phrase nPre = new Phrase("Presupuesto",ReportDesigner.FUENTE_TITULO_1);
+        Phrase nPre = new Phrase("Cotización",ReportDesigner.FUENTE_TITULO_1);
         PTitulo.add(nPre);
             
         Phrase nMD = new Phrase("\nMemoria Descriptiva:\n",ReportDesigner.FUENTE_TITULO_2);
