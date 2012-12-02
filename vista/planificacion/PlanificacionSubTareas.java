@@ -55,7 +55,6 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnCambiarPadre = new javax.swing.JButton();
         lblTareaContenedora = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,13 +67,6 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
 
         jLabel2.setText("La tarea actual está siendo contenida por la tarea:");
 
-        btnCambiarPadre.setText("Cambiar");
-        btnCambiarPadre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarPadreActionPerformed(evt);
-            }
-        });
-
         lblTareaContenedora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblTareaContenedora.setText("Ninguna, no tiene padre");
 
@@ -82,26 +74,20 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTareaContenedora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCambiarPadre))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTareaContenedora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCambiarPadre)
-                    .addComponent(lblTareaContenedora))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(lblTareaContenedora)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de SbuTareas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -167,7 +153,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevaSubTarea)
@@ -239,14 +225,7 @@ public class PlanificacionSubTareas extends javax.swing.JPanel implements ICallB
        cargarSubTareas();
     }//GEN-LAST:event_btnEliminarSubTareaActionPerformed
 
-    private void btnCambiarPadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPadreActionPerformed
-        PlanificacionSubTareasArbolHerencias arbolChange = new PlanificacionSubTareasArbolHerencias(gestor.getGestorPlanificacion(),this.gestor.getTareaActual());
-        SwingPanel.getInstance().addWindow(arbolChange);
-        arbolChange.setVisible(true);
-    }//GEN-LAST:event_btnCambiarPadreActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCambiarPadre;
     private javax.swing.JButton btnEditarSubTarea;
     private javax.swing.JButton btnEliminarSubTarea;
     private javax.swing.JButton btnNuevaSubTarea;
