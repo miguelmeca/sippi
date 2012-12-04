@@ -22,6 +22,7 @@ public class RecursoEspecifico implements IComprable {
     private String nombre;
     private String descipcion;
     private List<RecursoXProveedor> proveedores;
+    private transient Recurso recurso;
 
     public RecursoEspecifico() {
     }
@@ -127,30 +128,22 @@ public class RecursoEspecifico implements IComprable {
      */
     public Recurso getRecurso()
     {
+        if(recurso==null){
            Session sesion;
            try {
                 sesion = HibernateUtil.getSession();
 
-                List<Recurso> listaRec = sesion.createQuery("FROM Recurso").list();
-                Iterator<Recurso> itRec = listaRec.iterator();
-                while (itRec.hasNext())
-                {
-                   Recurso rec = itRec.next();
-                   Iterator<RecursoEspecifico> itRecEsp = rec.getRecursosEspecificos().iterator();
-                    while (itRecEsp.hasNext())
-                    {
-                        RecursoEspecifico recEsp = itRecEsp.next();
-                        if(recEsp.getId() == this.id)
-                        {
-                            return rec;
-                        }
-                    }
-                }
+                Recurso RE= (Recurso)HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", this).uniqueResult(); 
+                recurso=RE;
                }catch(Exception ex)
                {
                     return null;
                }
-           return null;
+          // return null;
+        }
+        
+        return recurso;
+        
     }
     
     public String getNombreRecurso()

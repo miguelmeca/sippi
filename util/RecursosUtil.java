@@ -23,7 +23,8 @@ public class RecursosUtil {
         RecursoEspecifico reEncontrado=null;
         RecursoEspecifico re=null;
         try {
-            Iterator it = HibernateUtil.getSession().createQuery("FROM RecursoEspecifico").iterate();
+            reEncontrado= (RecursoEspecifico)HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
+            /*Iterator it = HibernateUtil.getSession().createQuery("FROM RecursoEspecifico").iterate();
             while(it.hasNext()){
                 re=(RecursoEspecifico)it.next();
                 Iterator<RecursoXProveedor> itre = re.getRecursosXProveedor().iterator();
@@ -35,7 +36,7 @@ public class RecursosUtil {
                         break;
                     }
                 }
-            }
+            }*/
         } catch (Exception ex) {
             Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,7 +72,8 @@ public class RecursosUtil {
         Material r=null;
         try {
             //r = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso r WHERE re.recursos IN(:re)").setParameter("%re%", re);
-            Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
+            rEncontrado= (Material)HibernateUtil.getSession().createQuery("from Material MA where :cID in elements(MA.recursos)").setParameter("cID", re).uniqueResult();
+            /*Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
             while(it.hasNext()){
                 r=(Material)it.next();
                 Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
@@ -83,7 +85,7 @@ public class RecursosUtil {
                         break;
                     }
                 }
-            }
+            }*/
         } catch (Exception ex) {
             Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,8 +101,8 @@ public class RecursosUtil {
         Material rEncontrado = null;
         Material r=null;
         try {
-            //r = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso r WHERE re.recursos IN(:re)").setParameter("%re%", re);
-            Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
+            rEncontrado= (Material)HibernateUtil.getSession().createQuery("from Material RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
+            /*Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
             while(it.hasNext()){
                 r=(Material)it.next();
                 Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
@@ -119,7 +121,7 @@ public class RecursosUtil {
                         }
                     }
                 }
-            }
+            }*/
         } catch (Exception ex) {
             Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,8 +132,8 @@ public class RecursosUtil {
         Herramienta rEncontrado = null;
         Herramienta r=null;
         try {
-            //r = (Recurso) HibernateUtil.getSession().createQuery("FROM Recurso r WHERE re.recursos IN(:re)").setParameter("%re%", re);
-            Iterator it = HibernateUtil.getSession().createQuery("FROM Herramienta").iterate();
+            rEncontrado= (Herramienta)HibernateUtil.getSession().createQuery("from Herramienta HE where :cID in elements(HE.recursos)").setParameter("cID", re).uniqueResult();
+            /*Iterator it = HibernateUtil.getSession().createQuery("FROM Herramienta").iterate();
             while(it.hasNext()){
                 r=(Herramienta)it.next();
                 Iterator<RecursoEspecifico> itr = r.getRecursos().iterator();
@@ -143,7 +145,7 @@ public class RecursosUtil {
                         break;
                     }
                 }
-            }
+            }*/
         } catch (Exception ex) {
             Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
