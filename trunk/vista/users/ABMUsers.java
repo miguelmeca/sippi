@@ -25,9 +25,23 @@ public class ABMUsers extends javax.swing.JInternalFrame {
 
     private int idUser;
     private User updateUser;
-    private static final String[] urlAvatars = {"/res/imagenes/defaultAvatar.png",
-        "/res/imagenes/avatar_001.jpg",
-        "/res/imagenes/avatar_002.jpg"};
+    private static final String[] urlAvatars = {
+        "/res/avatares/1.png",
+        "/res/avatares/2.png",
+        "/res/avatares/3.png",
+        "/res/avatares/4.png",
+        "/res/avatares/5.png",
+        "/res/avatares/6.png",
+        "/res/avatares/7.png", 
+        "/res/avatares/8.png", 
+        "/res/avatares/9.png", 
+        "/res/avatares/10.png", 
+        "/res/avatares/11.png", 
+        "/res/avatares/12.png", 
+        "/res/avatares/13.png", 
+        "/res/avatares/14.png", 
+        "/res/avatares/15.png" 
+    };
 
     /**
      * Modificacion de un usuario, SOLO YO MISMO PUEDO MODIFICARME. Un ADMIN,
@@ -130,14 +144,14 @@ public class ABMUsers extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtUserName)
                             .addComponent(lblTituloPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtPass)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                             .addComponent(optAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(optSimpleUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,7 +175,7 @@ public class ABMUsers extends javax.swing.JInternalFrame {
                         .addComponent(lblTituloPass)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,7 +186,7 @@ public class ABMUsers extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
@@ -261,17 +275,12 @@ public class ABMUsers extends javax.swing.JInternalFrame {
         cmbImagen.removeAllItems();
         cmbImagen.setRenderer(new ComboCellRenderer());
 
-        JLabel avatar1 = new JLabel();
-        avatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource(urlAvatars[0])));
-        cmbImagen.addItem(avatar1);
-
-        JLabel avatar2 = new JLabel();
-        avatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource(urlAvatars[1])));
-        cmbImagen.addItem(avatar2);
-
-        JLabel avatarDefault = new JLabel();
-        avatarDefault.setIcon(new javax.swing.ImageIcon(getClass().getResource(urlAvatars[2])));
-        cmbImagen.addItem(avatarDefault);
+        for (int i = 0; i < urlAvatars.length; i++) {
+            String urlImagen = urlAvatars[i];
+            JLabel avatar = new JLabel();
+            avatar.setIcon(new javax.swing.ImageIcon(getClass().getResource(urlImagen)));
+            cmbImagen.addItem(avatar);
+        }
 
         // If modificacion, selecciono
         if (this.updateUser != null) {

@@ -49,14 +49,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="cmbImagen" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="cmbImagen" min="-2" pref="75" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" max="32767" attributes="0"/>
                           <Component id="txtUserName" max="32767" attributes="0"/>
                           <Component id="lblTituloPass" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtPass" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" pref="312" max="32767" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" pref="322" max="32767" attributes="0"/>
                           <Component id="optAdmin" alignment="0" max="32767" attributes="0"/>
                           <Component id="optSimpleUser" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
@@ -87,7 +87,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtPass" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="cmbImagen" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="cmbImagen" min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cmbEstado" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
