@@ -208,6 +208,10 @@ public class DBExamplesLoader {
         UnidadDeMedida um10 = new UnidadDeMedida();
         um10.setNombre("Onza");
         um10.setAbreviatura("oz");          
+
+        UnidadDeMedida um11 = new UnidadDeMedida();
+        um11.setNombre("Tonelada");
+        um11.setAbreviatura("Tm");        
         
         try
         {
@@ -222,6 +226,7 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(um8);
             sesion.saveOrUpdate(um9);
             sesion.saveOrUpdate(um10);
+            sesion.saveOrUpdate(um11);
             sesion.getTransaction().commit();
 
         } catch (Exception ex)
@@ -532,12 +537,76 @@ public class DBExamplesLoader {
                 Localidad l2 = new Localidad();
                 l2.setNombre("Cordoba");
                 prov5.addLocalidad(l1);
+                Localidad l10 = new Localidad();
+                l10.setNombre("Villa del Totoral");
+                prov5.addLocalidad(l10);
+                Localidad l11 = new Localidad();
+                l11.setNombre("Rio Cuarto");
+                prov5.addLocalidad(l11);
                 
                 // San Luis
                 Localidad l3 = new Localidad();
                 l3.setNombre("Villa Mercedes");
+                Localidad l4 = new Localidad();
+                l4.setNombre("San Luis (Capital)");
+                Localidad l5 = new Localidad();
+                l5.setNombre("Justo Daract");
                 prov17.addLocalidad(l3);
-
+                prov17.addLocalidad(l4);
+                prov17.addLocalidad(l5);
+                
+                    // Barrios de Villa Mercedes
+                    Barrio b5 = new Barrio();
+                    b5.setNombre("Pimpollo");
+                    Barrio b6 = new Barrio();
+                    b6.setNombre("Centro");
+                    Barrio b7 = new Barrio();
+                    b7.setNombre("Las Mirandas");
+                    Barrio b8 = new Barrio();
+                    b8.setNombre("San Antonio");
+                    Barrio b9 = new Barrio();
+                    b9.setNombre("Policlínico");
+                    Barrio b10 = new Barrio();
+                    b10.setNombre("Güemes");
+                    Barrio b11 = new Barrio();
+                    b11.setNombre("La Ribera");
+                    Barrio b12 = new Barrio();
+                    b12.setNombre("Atte 2");
+                    Barrio b13 = new Barrio();
+                    b13.setNombre("Jardín del Sur");
+                    l3.addBarrio(b5);
+                    l3.addBarrio(b6);
+                    l3.addBarrio(b7);
+                    l3.addBarrio(b8);
+                    l3.addBarrio(b9);
+                    l3.addBarrio(b10);
+                    l3.addBarrio(b11);
+                    l3.addBarrio(b12);
+                    l3.addBarrio(b13);
+                
+                
+                // Buenos Aires
+                Localidad l6 = new Localidad();
+                l6.setNombre("Salto");
+                Localidad l7 = new Localidad();
+                l7.setNombre("9 de Julio");
+                Localidad l8 = new Localidad();
+                l8.setNombre("Ciudad Autonoma de Buenos Aires");
+                Localidad l9 = new Localidad();
+                l9.setNombre("Bahía Blanca ");
+                prov1.addLocalidad(l6);
+                prov1.addLocalidad(l7);
+                prov1.addLocalidad(l8);
+                prov1.addLocalidad(l9);
+                
+                // Santa Fe
+                Localidad l12 = new Localidad();
+                l12.setNombre("Rosario");
+                Localidad l13 = new Localidad();
+                l13.setNombre("Santa Fe");
+                prov19.addLocalidad(l13);
+                        
+                        
                     Barrio b1 = new Barrio();
                     b1.setNombre("Carlos Pellegrini");
                     Barrio b2 = new Barrio();
@@ -559,11 +628,30 @@ public class DBExamplesLoader {
             sesion.save(b2);
             sesion.save(b3);
             sesion.save(b4);
+            sesion.save(b5);
+            sesion.save(b6);
+            sesion.save(b7);
+            sesion.save(b8);
+            sesion.save(b9);
+            sesion.save(b10);
+            sesion.save(b11);
+            sesion.save(b12);
+            sesion.save(b13);
 
             // Localidades
             sesion.save(l1);
             sesion.save(l2);
             sesion.save(l3);
+            sesion.save(l4);
+            sesion.save(l5);
+            sesion.save(l6);
+            sesion.save(l7);
+            sesion.save(l8);
+            sesion.save(l9);
+            sesion.save(l10);
+            sesion.save(l11);
+            sesion.save(l12);
+            sesion.save(l13);
 
             // Provincias
             sesion.save(prov1);
@@ -1482,6 +1570,8 @@ public class DBExamplesLoader {
         tt11.setNombre("Montaje"); 
         TipoTarea tt12 = new TipoTarea();
         tt12.setNombre("Desmontaje"); 
+        TipoTarea tt13 = new TipoTarea();
+        tt13.setNombre("General");         
         
         try{
             sesion.beginTransaction();
@@ -1506,25 +1596,25 @@ public class DBExamplesLoader {
 
     private void cargarTiposGastosVarios() {
         TipoAdicional ta1 = new TipoAdicional();
-        ta1.setNombre("Impuestos");
+        ta1.setNombre("Impuesto");
         TipoAdicional ta2 = new TipoAdicional();
-        ta2.setNombre("Viáticos");
-        TipoAdicional ta3 = new TipoAdicional();
-        ta3.setNombre("Transportes");
+        ta2.setNombre("Viático");
+//        TipoAdicional ta3 = new TipoAdicional();
+//        ta3.setNombre("Transporte");
         TipoAdicional ta4 = new TipoAdicional();
-        ta4.setNombre("Combustibles");
+        ta4.setNombre("Combustible");
         TipoAdicional ta5 = new TipoAdicional();
-        ta5.setNombre("Servicios");
+        ta5.setNombre("Servicio");
         TipoAdicional ta6 = new TipoAdicional();
-        ta6.setNombre("Consumibles");
+        ta6.setNombre("Consumible");
         TipoAdicional ta7 = new TipoAdicional();
-        ta7.setNombre("Otros");
+        ta7.setNombre("Otro");
 
         try{
             sesion.beginTransaction();
             sesion.saveOrUpdate(ta1);
             sesion.saveOrUpdate(ta2);
-            sesion.saveOrUpdate(ta3);
+//            sesion.saveOrUpdate(ta3);
             sesion.saveOrUpdate(ta4);
             sesion.saveOrUpdate(ta5);
             sesion.saveOrUpdate(ta6);
@@ -1538,29 +1628,29 @@ public class DBExamplesLoader {
 
     private void cargarTipoAlquilerCompra() {
         TipoAlquilerCompra tac1 = new TipoAlquilerCompra();
-        tac1.setNombre("Galpones");
+        tac1.setNombre("Galpón");
         TipoAlquilerCompra tac2 = new TipoAlquilerCompra();
-        tac2.setNombre("Gruas");
+        tac2.setNombre("Grua");
         TipoAlquilerCompra tac3 = new TipoAlquilerCompra();
-        tac3.setNombre("Fletes");
+        tac3.setNombre("Flete");
         TipoAlquilerCompra tac4 = new TipoAlquilerCompra();
-        tac4.setNombre("Camiones");
+        tac4.setNombre("Camión");
         TipoAlquilerCompra tac5 = new TipoAlquilerCompra();
-        tac5.setNombre("Transportes");
+        tac5.setNombre("Transporte");
         TipoAlquilerCompra tac6 = new TipoAlquilerCompra();
-        tac6.setNombre("Alquiler de casas");        
+        tac6.setNombre("Alquiler de casa");        
         TipoAlquilerCompra tac7 = new TipoAlquilerCompra();
         tac7.setNombre("Hospedaje");        
-        TipoAlquilerCompra tac8 = new TipoAlquilerCompra();
-        tac8.setNombre("Alojamiento");        
+//        TipoAlquilerCompra tac8 = new TipoAlquilerCompra();
+//        tac8.setNombre("Alojamiento");        
         TipoAlquilerCompra tac9 = new TipoAlquilerCompra();
-        tac9.setNombre("Boletos de transporte de pasajeros");
+        tac9.setNombre("Boleto de transporte de pasajeros");
         TipoAlquilerCompra tac10 = new TipoAlquilerCompra();
-        tac10.setNombre("Montacargas");
+        tac10.setNombre("Montacarga");
         TipoAlquilerCompra tac11 = new TipoAlquilerCompra();
-        tac11.setNombre("Tickets de Comida");        
+        tac11.setNombre("Ticket de Comida");        
         TipoAlquilerCompra tac12 = new TipoAlquilerCompra();
-        tac12.setNombre("Otros");      
+        tac12.setNombre("Otro");      
         
         try{
             sesion.beginTransaction();
@@ -1571,7 +1661,7 @@ public class DBExamplesLoader {
             sesion.saveOrUpdate(tac5);
             sesion.saveOrUpdate(tac6);
             sesion.saveOrUpdate(tac7);
-            sesion.saveOrUpdate(tac8);
+//            sesion.saveOrUpdate(tac8);
             sesion.saveOrUpdate(tac9);
             sesion.saveOrUpdate(tac10);
             sesion.saveOrUpdate(tac11);
@@ -1598,8 +1688,12 @@ public class DBExamplesLoader {
         rcr5.setNombre("Contratista");
         RolContactoResponsable rcr6 = new RolContactoResponsable();
         rcr6.setNombre("Vendedor");  
+        RolContactoResponsable rcr7 = new RolContactoResponsable();
+        rcr7.setNombre("Ingeniero");          
         RolContactoResponsable rcr8 = new RolContactoResponsable();
-        rcr8.setNombre("Contacto Responsable");     
+        rcr8.setNombre("Jefe de Área");          
+        RolContactoResponsable rcr9 = new RolContactoResponsable();
+        rcr9.setNombre("Otro");     
         
         try{
             sesion.beginTransaction();
@@ -1623,21 +1717,21 @@ public class DBExamplesLoader {
         u.setEstado(User.ESTADO_BAJA);
         u.setUsuario("UsuarioAccesoFull");
         u.setPassword("ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e");
-        u.setUrlFoto("/res/imagenes/defaultAvatar.png");
+        u.setUrlFoto("/res/avatares/1.png");
         u.setIsAdmin(true);      
         
         User u2 = new User();
         u2.setEstado(User.ESTADO_ALTA);
-        u2.setUsuario("Tester");
+        u2.setUsuario("Javier Romero");
         u2.setPassword("532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25");
-        u2.setUrlFoto("/res/imagenes/avatar_001.jpg");
+        u2.setUrlFoto("/res/avatares/6.png");
         u2.setIsAdmin(true);      
         
         User u3 = new User();
         u3.setEstado(User.ESTADO_ALTA);
-        u3.setUsuario("Developer");
+        u3.setUsuario("Aldo Romero");
         u3.setPassword("9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587");
-        u3.setUrlFoto("/res/imagenes/avatar_002.jpg");
+        u3.setUrlFoto("/res/avatares/13.png");
         u3.setIsAdmin(true);          
         
         sesion.beginTransaction();
