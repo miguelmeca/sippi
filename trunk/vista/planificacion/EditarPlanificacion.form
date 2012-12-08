@@ -144,7 +144,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="btnEmitirInforme" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="406" max="32767" attributes="0"/>
                       <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
@@ -238,7 +238,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="133" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" pref="204" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="251" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -393,12 +393,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelCentral" alignment="0" max="32767" attributes="0"/>
+              <Component id="panelCentral" alignment="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelCentral" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="panelCentral" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -442,7 +442,7 @@
                           <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace pref="65" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -464,7 +464,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" pref="634" max="32767" attributes="0"/>
+                                  <Component id="jLabel9" alignment="0" pref="652" max="32767" attributes="0"/>
                                   <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -612,11 +612,11 @@
                               </Group>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblObraFechaInicio" alignment="0" pref="489" max="32767" attributes="0"/>
-                                  <Component id="lblObraFechaFin" alignment="0" pref="489" max="32767" attributes="0"/>
-                                  <Component id="lblObraNombre" alignment="1" pref="489" max="32767" attributes="0"/>
-                                  <Component id="lblObraPlanta" alignment="0" pref="489" max="32767" attributes="0"/>
-                                  <Component id="lblObraLugar" alignment="1" pref="489" max="32767" attributes="0"/>
+                                  <Component id="lblObraFechaInicio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblObraFechaFin" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblObraNombre" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblObraPlanta" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblObraLugar" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -749,9 +749,9 @@
                                   <Group type="102" attributes="0">
                                       <Component id="txtNroCotizacion" min="-2" pref="210" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton1" pref="203" max="32767" attributes="0"/>
+                                      <Component id="jButton1" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="lblCotMontoTotal" pref="413" max="32767" attributes="0"/>
+                                  <Component id="lblCotMontoTotal" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -826,12 +826,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="676" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" alignment="0" pref="700" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="469" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" alignment="0" pref="521" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -886,8 +886,8 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jScrollPane6" pref="650" max="32767" attributes="0"/>
-                              <Component id="jLabel1" pref="656" max="32767" attributes="0"/>
+                              <Component id="jScrollPane6" pref="680" max="32767" attributes="0"/>
+                              <Component id="jLabel1" pref="680" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -899,7 +899,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane6" pref="427" max="32767" attributes="0"/>
+                          <Component id="jScrollPane6" pref="479" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -963,7 +963,7 @@
                           <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelVerPlanificacion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="291" max="32767" attributes="0"/>
+                          <EmptySpace pref="333" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -984,7 +984,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnEjecutar" pref="624" max="32767" attributes="0"/>
+                                  <Component id="btnEjecutar" pref="642" max="32767" attributes="0"/>
                                   <Component id="jLabel17" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1078,6 +1078,67 @@
                     </Component>
                   </SubComponents>
                 </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel2">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="&lt;HTML&gt;&lt;span color=&apos;002EB8&apos;&gt;&lt;b&gt;Ayuda?&lt;/b&gt;&lt;/span&gt;">
+                    <Property name="tabTitle" type="java.lang.String" value="&lt;HTML&gt;&lt;span color=&apos;002EB8&apos;&gt;&lt;b&gt;Ayuda?&lt;/b&gt;&lt;/span&gt;"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel18" max="32767" attributes="0"/>
+                              <Component id="jLabel19" pref="0" max="32767" attributes="0"/>
+                              <Component id="jLabel21" alignment="0" pref="680" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="233" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel18">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Planificaci&#xf3;n:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel19">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;HTML&gt; El objetivo de &#xe9;ste m&#xf3;dulo es crear, modificar o dar de baja una planificaci&#xf3;n para la realizaci&#xf3;n de una obra. Permite crear y administrar tareas de manera simple e intuitiva asignando los recursos cotizados que se necesiten para completar las mismas. Otro aspecto importante es que ya permite asignar empleados para que realicen las distintas actividades, manteniendo un mayor control de lo que se pretende realizar."/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel21">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/workflow/Workflow-Planificacion.png"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
