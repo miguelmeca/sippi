@@ -42,7 +42,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane1" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane1" alignment="1" pref="599" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnDarDeBaja" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
@@ -242,7 +242,7 @@
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel4" max="32767" attributes="1"/>
+                                                  <Component id="jLabel4" pref="110" max="32767" attributes="1"/>
                                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="1"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel7" max="32767" attributes="1"/>
+                                                  <Component id="jLabel7" pref="88" max="32767" attributes="1"/>
                                                   <Component id="jLabel5" alignment="0" max="32767" attributes="1"/>
                                               </Group>
                                           </Group>
@@ -270,7 +270,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="btnAgregarPlanta" min="-2" pref="29" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="cmbFormaDePago" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="cmbFormaDePago" alignment="0" pref="154" max="32767" attributes="1"/>
                                           <Component id="txtMonto" alignment="0" max="32767" attributes="1"/>
                                           <Component id="dpfechaFin" alignment="1" min="-2" pref="141" max="-2" attributes="1"/>
                                       </Group>
@@ -488,7 +488,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane2" pref="511" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane2" pref="536" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -496,7 +496,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="btnAgregarCR" min="-2" pref="328" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnQuitarCR" pref="177" max="32767" attributes="0"/>
+                                              <Component id="btnQuitarCR" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -521,7 +521,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="cmbTipoTelefono" min="-2" pref="94" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtTelCR" pref="177" max="32767" attributes="0"/>
+                                      <Component id="txtTelCR" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -717,7 +717,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel11" max="32767" attributes="0"/>
                               <Component id="jLabel16" pref="0" max="32767" attributes="0"/>
-                              <Component id="jLabel17" alignment="0" pref="549" max="32767" attributes="0"/>
+                              <Component id="jLabel17" alignment="0" pref="574" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -732,7 +732,7 @@
                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="86" max="32767" attributes="0"/>
+                          <EmptySpace pref="58" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
