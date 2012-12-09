@@ -65,20 +65,20 @@ public class gestorConsultarLicenciasEmpleado {
                     nt.setNombre(String.valueOf(le.getEmpleado().getLegajo()));
 
                         Object[] datos = new Object[4];
-                        datos[0] = le.getEmpleado().getApellido()+", "+le.getEmpleado().getNombre();
+                        datos[0] = le.getEmpleado().getLegajo();
+                        datos[1] = le.getEmpleado().getApellido()+", "+le.getEmpleado().getNombre();
 
                             String fechaIni = FechaUtil.getFecha(le.getFechaInicio());
                             String fechaFin = FechaUtil.getFecha(le.getFechaFin());
 
                             if(fechaFin.equals(fechaIni))
                             {
-                                datos[1] = fechaIni;
+                                datos[2] = fechaIni;
                             }
                             else
                             {
-                                datos[1] = fechaIni+" - "+fechaFin;
+                                datos[2] = fechaIni+" - "+fechaFin;
                             }
-                        datos[2] = le.getEstado();
                         datos[3] = le.getTipoLicencia().getNombre();
                     nt.setData(datos);
 
@@ -98,6 +98,32 @@ public class gestorConsultarLicenciasEmpleado {
                }
 
         return lista;
+    }
+    
+    public boolean eliminarLicencia(NTupla tupla)
+    {
+        
+            int id=tupla.getId();
+           Session sesion;
+           try {
+               HibernateUtil.beginTransaction();
+                sesion = HibernateUtil.getSession();
+                
+                if(id!=0)
+                {
+                    LicenciaEmpleado le = (LicenciaEmpleado) sesion.load(LicenciaEmpleado.class, id);
+                    sesion.delete(le);                
+                }
+                HibernateUtil.commitTransaction();
+               }
+               catch(Exception ex)
+               {
+                   HibernateUtil.rollbackTransaction();
+                    System.out.println("Error eliminando: "+ex.getMessage());
+                    pantalla.MostrarMensaje("EG-0013");
+                    return false;
+               }
+           return true;
     }
 
     /**

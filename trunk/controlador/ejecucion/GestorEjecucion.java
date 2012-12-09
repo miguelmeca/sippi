@@ -132,7 +132,7 @@ public class GestorEjecucion {
         } catch (Exception e) {
             e.printStackTrace();
             HibernateUtil.rollbackTransaction();
-            mostrarMensajeError("No se pudo cargar los datos generales de la cotizacion");
+            mostrarMensajeError("No se pudo cargar los datos generales de la ejecucion");
         }
 
     }

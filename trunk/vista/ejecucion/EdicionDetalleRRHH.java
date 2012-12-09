@@ -111,8 +111,13 @@ public class EdicionDetalleRRHH extends javax.swing.JInternalFrame {
       cargarEmpleadosDisponibles();
       cargarEmpleadosAsignados();
       limpiarSobranteTablaEmpleadosDisponibles();
-      
-       this.setTitle("Detalle de Recursos Humanos en tarea '"+gestor.getTareaSeleccionada().getNombre()+"'");
+      if(gestor.getTareaSeleccionada()!=null) {
+        this.setTitle("Detalle de Recursos Humanos en tarea '"+gestor.getTareaSeleccionada().getNombre()+"'");
+      }
+      else
+      {
+          //gestor.getDetalleRRHHSeleccionado().//TODO
+      }
       
     }
     
