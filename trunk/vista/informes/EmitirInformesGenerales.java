@@ -4,7 +4,9 @@
  */
 package vista.informes;
 
+import controlador.informes.GestorInformesGenerales;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -85,9 +87,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnEmitirGanancias))
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnEmitirGanancias, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -104,7 +105,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(351, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -191,7 +192,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -205,6 +206,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         });
 
         pb.setIndeterminate(true);
+        pb.setString("Generando el Informe (Por favor Aguarde) ...");
+        pb.setStringPainted(true);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Generales:"));
 
@@ -270,13 +273,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnEmitirGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGananciasActionPerformed
-        emitirInforme(INFORME_GANANCIAS_EMPRESA);
-    }//GEN-LAST:event_btnEmitirGananciasActionPerformed
-
     private void btnEmitirGanancias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGanancias1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEmitirGanancias1ActionPerformed
+
+    private void btnEmitirGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGananciasActionPerformed
+        emitirInforme(INFORME_GANANCIAS_EMPRESA);
+    }//GEN-LAST:event_btnEmitirGananciasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -304,16 +307,38 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private void emitirInforme(int informe) {
         prepararEmision();
         // Atencion, lanzar todos los informes como Threads
-        switch(informe){
-            case INFORME_GANANCIAS_EMPRESA:
-                
-                break;
-        }
+            switch(informe){
+                case INFORME_GANANCIAS_EMPRESA:
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformeGanancias();
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                }catch(Exception e){
+                                    System.err.println("MOSTRAR UN MENSAJE DE ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread.start();
+                        
+                    break;
+            }
+        
     }
 
-    private void prepararEmision() {
+    protected void prepararEmision() {
         pb.setVisible(true);
+        bloquearOtrosInformes(true);
     }
+    
+    protected void concluirEmision(int tipoMensaje,String mensaje) {
+        pb.setVisible(false);
+        bloquearOtrosInformes(false);
+        mostrarMensaje(tipoMensaje,"Atencion!", mensaje);
+    }    
 
     private void initFiltros() {
         initFiltrosGananciasEmpresa();
@@ -322,5 +347,22 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private void initFiltrosGananciasEmpresa() {
         filtroFechaInicio.setDate(new Date());
         filtroFechaFin.setDate(new Date());
+    }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    }    
+
+    private void bloquearOtrosInformes(boolean bloquear) {
+        btnEmitirGanancias.setEnabled(!bloquear);
+        filtroFechaInicio.setEnabled(!bloquear);
+        filtroFechaFin.setEnabled(!bloquear);
     }
 }
