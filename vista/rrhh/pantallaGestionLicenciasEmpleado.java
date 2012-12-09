@@ -35,11 +35,12 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
     private gestorGestionarLicenciasEmpleado gestor;
     private int SELECCION_oid = 0;
     private ICallBack winLlamada;
+    private boolean modificar;
 
     /** Creates new form pantallaGestionLicenciasEmpleado */
     public pantallaGestionLicenciasEmpleado() {
         initComponents();
-
+        modificar=true;
         gestor = new gestorGestionarLicenciasEmpleado(this);
 
         habilitarVentana();
@@ -54,18 +55,29 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
 
     public void modificarLicencia(int oid)
     {
+        modificar=true;
         this.SELECCION_oid = oid;
         btnGuardarMofidificar.setText("Guardar Modificaciones");
 
-        mostrarEmpleados();
-        mostrarTiposLicencia();
+        //mostrarEmpleados();
+        //mostrarTiposLicencia();
         // CARGO LA LICENCIA Y MUESTRO LOS DATOS
-        mostrarLicencia();
-
+        gestor.mostrarLicencia(this.SELECCION_oid);
+        //mostrarLicencia();
     }
+   
 
-    private void mostrarLicencia()
+    public void mostrarLicencia(int oid)
     {
+        modificar=false;
+        this.SELECCION_oid = oid;
+        btnGuardarMofidificar.setText("Aceptar");
+        btnCancelar.setVisible(false);
+        cmbEmpleado.setEnabled(false);
+        txtFechaInicio.setEnabled(false);
+        txtFechaFin.setEnabled(false);
+        cmbTipoLicencia.setEnabled(false);
+        txtMotivo.setEnabled(false);
         gestor.mostrarLicencia(this.SELECCION_oid);
     }
 
@@ -206,14 +218,15 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMotivo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        btnGuardarMofidificar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         cmbTipoLicencia = new javax.swing.JComboBox();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
         txtFechaFin = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtMotivo = new javax.swing.JTextArea();
+        btnGuardarMofidificar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Gestionar Licencias y Vacaciones");
@@ -233,14 +246,6 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         jLabel3.setText("Fecha de Fin:");
 
         jLabel4.setText("Motivo:");
-
-        btnGuardarMofidificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
-        btnGuardarMofidificar.setText("Guardar");
-        btnGuardarMofidificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarMofidificarActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Tipo de Licencia:");
 
@@ -274,13 +279,9 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        txtMotivo.setColumns(20);
+        txtMotivo.setRows(5);
+        jScrollPane1.setViewportView(txtMotivo);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -289,6 +290,10 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,24 +301,16 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(txtFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addGap(12, 12, 12)
                                 .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.Alignment.LEADING, 0, 349, Short.MAX_VALUE)))
+                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                            .addComponent(cmbTipoLicencia, 0, 349, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnGuardarMofidificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(cmbTipoLicencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -334,13 +331,27 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                     .addComponent(cmbTipoLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnGuardarMofidificar)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
+
+        btnGuardarMofidificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        btnGuardarMofidificar.setText("Guardar");
+        btnGuardarMofidificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarMofidificarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -350,28 +361,41 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardarMofidificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardarMofidificar))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
       this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarMofidificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMofidificarActionPerformed
 
         // Mínimo 1 día de licencia
         /*if(FechaUtil.diasDiferencia(txtFechaInicio.getDate(),txtFechaFin.getDate())>=0)
         {*/
-        if(validarDatos()){
+        if(modificar==true)
+        {this.dispose();}
+        
+        if(validarDatos() && modificar==true){
             if(SELECCION_oid==0)
             {
                 // GUARDO UNO NUEVO
@@ -395,11 +419,7 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
                 gestor.modificarLicencia(SELECCION_oid);
             }
         }
-       /* }
-        else
-        {
-            this.MostrarMensaje("MI-0003");
-        }*/
+       
 
     }//GEN-LAST:event_btnGuardarMofidificarActionPerformed
 
@@ -434,19 +454,20 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardarMofidificar;
     private javax.swing.JComboBox cmbEmpleado;
     private javax.swing.JComboBox cmbTipoLicencia;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser txtFechaFin;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
-    private javax.swing.JTextField txtMotivo;
+    private javax.swing.JTextArea txtMotivo;
     // End of variables declaration//GEN-END:variables
 
     public void seleccionarEmpleadoLicencia(int oId)

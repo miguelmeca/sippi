@@ -68,14 +68,13 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
         {
             NTupla nt = (NTupla) it.next();
 
-            Object[] fila = new Object[5];
+            Object[] fila = new Object[4];
             fila[0] = nt;
 
                 Object[] aux = (Object[])nt.getData();
-                fila[1] = aux[0];
-                fila[2] = aux[1];
-                fila[3] = aux[2];
-                fila[4] = aux[3];
+                fila[1] = aux[1];
+                fila[2] = aux[2];
+                fila[3] = aux[3];
 
             modelo.addRow(fila);
         }
@@ -153,7 +152,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
 
             },
             new String [] {
-                "Legajo", "Nombre Completo", "Fecha de Licencia", "Estado", "Tipo"
+                "Legajo", "Nombre Completo", "Fecha de Licencia", "Tipo"
             }
         ));
         jScrollPane1.setViewportView(tblLista);
@@ -184,6 +183,11 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/search_page.png"))); // NOI18N
         jButton4.setText("Ver Detalles");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,17 +198,20 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNuevo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -215,7 +222,7 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
@@ -249,13 +256,18 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
-        if(tblLista.getSelectedRow()>0)
+        if(tblLista.getSelectedRow()>-1)
         {
             DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
             NTupla nt = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+            int resp=JOptionPane.showConfirmDialog(this.getParent(), "Esta seguro que desea eliminar la licencia", "Eliminar licencia", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resp==JOptionPane.YES_OPTION)       
+            {
+                gestor.eliminarLicencia(nt);
+                refrescarTabla();
+                System.out.println("Se va a eliminar la Licencia: "+nt.getId());
 
-            System.out.println("Se va a eliminar la Licencia: "+nt.getId());
-
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -287,6 +299,22 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if(tblLista.getSelectedRow()>-1)
+        {
+            DefaultTableModel modelo = (DefaultTableModel)tblLista.getModel();
+            NTupla nt = (NTupla) modelo.getValueAt(tblLista.getSelectedRow(),0);
+
+            pantallaGestionLicenciasEmpleado pgle = new pantallaGestionLicenciasEmpleado();
+            
+            SwingPanel.getInstance().addWindow(pgle);
+            pgle.setCallBack(this);
+            pgle.mostrarLicencia(nt.getId());
+            pgle.setVisible(true);
+
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
@@ -299,17 +327,8 @@ public class pantallaConsultarLicenciasEmpleado extends javax.swing.JInternalFra
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
-    public void actualizar(int flag, boolean exito) {
-
-        if(flag==1 && exito==true)
-        {
+    public void actualizar(int flag, boolean exito) {       
             refrescarTabla();
-        }
-        if(flag==2 && exito==true)
-        {
-            refrescarTabla();
-        }
-        
     }
 
 }
