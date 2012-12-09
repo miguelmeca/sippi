@@ -58,6 +58,9 @@ public class ReportDesigner
     
     public static final BaseColor COLOR_HEADINGS = new BaseColor(219,229,241);
     
+    public static final BaseColor TABLE_HEADER_BASE_COLOR = new BaseColor(230,230,230);
+    public static final BaseColor TABLE_SUBHEADER_BASE_COLOR = new BaseColor(240,240,240);
+    
     private String nombre;
     protected Document doc;
     private PdfWriter out;
@@ -299,6 +302,23 @@ public class ReportDesigner
             celda.setBorder(PdfPCell.NO_BORDER);
             titulo.addCell(celda);
         this.doc.add(titulo);
+    }
+    
+    protected void insertarCeldaHeaderEnTabla(PdfPTable tabla,String texto,Font fuente, int align) {
+        Paragraph paMontoCotizado = new Paragraph();
+        paMontoCotizado.add(new Phrase(texto,fuente));
+        PdfPCell celdaMontoCotizado = new PdfPCell(paMontoCotizado);
+        celdaMontoCotizado.setHorizontalAlignment(align);
+        celdaMontoCotizado.setBackgroundColor(ReportDesigner.TABLE_HEADER_BASE_COLOR);
+        tabla.addCell(celdaMontoCotizado);
+    }
+    
+    protected void insertarCeldaEnTabla(PdfPTable tabla,String texto,Font fuente, int align) {
+        Paragraph paMontoCotizado = new Paragraph();
+        paMontoCotizado.add(new Phrase(texto,fuente));
+        PdfPCell celdaMontoCotizado = new PdfPCell(paMontoCotizado);
+        celdaMontoCotizado.setHorizontalAlignment(align);
+        tabla.addCell(celdaMontoCotizado);
     }
     
 }

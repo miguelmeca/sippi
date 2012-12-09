@@ -295,12 +295,13 @@ public class Planificacion {
             total+=tareas.get(i).calcularSubtotalConSubtareas();
         }
         
-        for (int i = 0; i < this.getCotizacion().getSubObras().size(); i++) {
-            SubObra subO=this.getCotizacion().getSubObras().get(i);
-            for (int j = 0; j < subO.getAdicionales().size(); j++) {
-                total+=subO.getAdicionales().get(j).calcularSubtotal();
+        if(this.getCotizacion()!=null && this.getCotizacion().getSubObras()!=null){
+            for (int i = 0; i < this.getCotizacion().getSubObras().size(); i++) {
+                SubObra subO=this.getCotizacion().getSubObras().get(i);
+                for (int j = 0; j < subO.getAdicionales().size(); j++) {
+                    total+=subO.getAdicionales().get(j).calcularSubtotal();
+                }
             }
-          
         }
         return total;
     }
