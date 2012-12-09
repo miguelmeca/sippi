@@ -17,6 +17,7 @@ import util.FechaUtil;
 public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
 
     private static final int INFORME_GANANCIAS_EMPRESA = 0;
+    private static final int INFORME_COTIZACIONES_RECHAZADAS = 1;
     
     /**
      * Creates new form EmitirInformesGenerales
@@ -43,6 +44,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         btnEmitirGanancias = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        btnEmitirCotizacionesRechazadas = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btnEmitirGanancias1 = new javax.swing.JButton();
@@ -93,13 +97,43 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addComponent(btnEmitirGanancias, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad de Cotizaciones Rechazadas por los clientes"));
+
+        btnEmitirCotizacionesRechazadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitirCotizacionesRechazadas.setText("Emitir");
+        btnEmitirCotizacionesRechazadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirCotizacionesRechazadasActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("<HTML>Cantidad de Cotizaciones que fueron Rechazadas por un cliente.");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEmitirCotizacionesRechazadas))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnEmitirCotizacionesRechazadas, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -107,7 +141,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(304, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -194,7 +230,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -283,8 +319,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         emitirInforme(INFORME_GANANCIAS_EMPRESA);
     }//GEN-LAST:event_btnEmitirGananciasActionPerformed
 
+    private void btnEmitirCotizacionesRechazadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirCotizacionesRechazadasActionPerformed
+        emitirInforme(INFORME_COTIZACIONES_RECHAZADAS);
+    }//GEN-LAST:event_btnEmitirCotizacionesRechazadasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEmitirCotizacionesRechazadas;
     private javax.swing.JButton btnEmitirGanancias;
     private javax.swing.JButton btnEmitirGanancias1;
     private com.toedter.calendar.JDateChooser filtroFechaFin;
@@ -292,6 +333,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -301,6 +343,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JProgressBar pb;
@@ -310,6 +353,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         prepararEmision();
         // Atencion, lanzar todos los informes como Threads
             switch(informe){
+                // ============================================================
                 case INFORME_GANANCIAS_EMPRESA:
                         Thread thread = new Thread(new Runnable() {
                             @Override
@@ -319,14 +363,30 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                                     gestor.generarInformeGanancias();
                                     concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
                                 }catch(Exception e){
-                                    System.err.println("MOSTRAR UN MENSAJE DE ERROR:" + e.getMessage());
+                                    System.err.println("ERROR:" + e.getMessage());
                                     concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
                                 }
                             }
                         });
                         thread.start();
-                        
                     break;
+                // ============================================================
+                case INFORME_COTIZACIONES_RECHAZADAS:
+                        Thread thread2 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformeCantidadCotizacionesRechazadas();
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread2.start();
+                    break;                    
             }
         
     }
