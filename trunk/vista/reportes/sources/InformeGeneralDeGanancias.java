@@ -32,6 +32,7 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         fechaFin = (Date) params.get("INFORME_FECHA_FIN");
         
         mostrarObjetivoDelInforme();
+        mostrarFechasFiltro();
         mostrarTablaObas();
     }
 
@@ -41,6 +42,16 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         PTitulo.add( new Phrase("Ingresos de la empresa por obras concluidas en el rango de tiempo seleccionado:",ReportDesigner.FUENTE_NORMAL));
         super.doc.add(PTitulo);
     }
+    
+    private void mostrarFechasFiltro() throws DocumentException {
+        Paragraph PTitulo = new Paragraph();
+        PTitulo.setAlignment(Paragraph.ALIGN_LEFT);      
+        PTitulo.add( new Phrase("Fecha de Inicio: ",ReportDesigner.FUENTE_NORMAL_B));
+        PTitulo.add( new Phrase(FechaUtil.getFecha(fechaInicio),ReportDesigner.FUENTE_NORMAL));
+        PTitulo.add( new Phrase(" - Fecha de Fin: ",ReportDesigner.FUENTE_NORMAL_B));
+        PTitulo.add( new Phrase(FechaUtil.getFecha(fechaFin),ReportDesigner.FUENTE_NORMAL));
+        super.doc.add(PTitulo);
+    }      
 
     private void mostrarTablaObas() throws DocumentException {
         PdfPTable tabla = new PdfPTable(4);

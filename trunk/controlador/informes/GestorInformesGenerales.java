@@ -9,6 +9,7 @@ import modelo.PedidoObra;
 import util.FechaUtil;
 import util.HibernateUtil;
 import vista.reportes.ReportDesigner;
+import vista.reportes.sources.InformeCantidadCotizacionesRechazadas;
 import vista.reportes.sources.InformeGeneralDeGanancias;
 
 /**
@@ -70,5 +71,50 @@ public class GestorInformesGenerales{
             throw new Exception("Se produjo un error al generar el Reporte",ex);
         }
     }
+    
+    public void generarInformeCantidadCotizacionesRechazadas()throws Exception{
+        List<PedidoObra> listaObras = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            listaObras = (List)HibernateUtil.getSession().createQuery("FROM PedidoObra").list();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:"+e.getMessage());
+            throw new Exception("No se pudo cargar correctamente el listado de Obras",e);
+        }
+        
+        // Valido que haya obras
+        List<PedidoObra> listaObrasFiltradas = new ArrayList<PedidoObra>();
+        for (int i = 0; i < listaObras.size(); i++) {
+            PedidoObra po = listaObras.get(i);
+            
+            if(FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin) 
+                    && !po.getEstado().equals(PedidoObra.ESTADO_CANCELADO))
+            {
+                listaObrasFiltradas.add(po);
+            }
+        }
+        datos.put("LISTA_PEDIDOS_OBRA", listaObrasFiltradas);
+        
+        if(listaObrasFiltradas.isEmpty()){
+            throw new Exception("No hay obras finalizadas en el período de tiempo ingresado");
+        }
+        
+        InformeCantidadCotizacionesRechazadas reporte = new InformeCantidadCotizacionesRechazadas();
+        try {
+            reporte.setNombreReporte("Cantidad de Cotizaciones rechazadas.");
+            reporte.setNombreArchivo("CantidadCotizacionesRechazadas",ReportDesigner.REPORTE_TIPO_OTROS);
+            reporte.makeAndShow(datos);
+        } catch (Exception ex) {
+            System.err.println("Error al generar el reporte");
+            throw new Exception("Se produjo un error al generar el Reporte",ex);
+        }
+        
+    }
+
     
 }
