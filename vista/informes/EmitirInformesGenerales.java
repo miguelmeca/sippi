@@ -5,8 +5,10 @@
 package vista.informes;
 
 import controlador.informes.GestorInformesGenerales;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import util.FechaUtil;
 
 /**
  *
@@ -345,8 +347,16 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     }
 
     private void initFiltrosGananciasEmpresa() {
-        filtroFechaInicio.setDate(new Date());
-        filtroFechaFin.setDate(new Date());
+        
+        Date inicio = new Date();
+        inicio.setMonth(Calendar.JANUARY);
+        inicio.setDate(1);
+        Date fin = new Date();
+        fin.setMonth(Calendar.DECEMBER);
+        fin.setDate(31);
+        
+        filtroFechaInicio.setDate(inicio);
+        filtroFechaFin.setDate(fin);
     }
     
     /**
