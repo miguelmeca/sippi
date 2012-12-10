@@ -78,20 +78,24 @@ public class InformeCantidadCotizacionesRechazadas extends ReportDesigner{
         for (int i = 0; i < obras.size(); i++) {
             PedidoObra po = obras.get(i);
             
-                // Nombre
-                insertarCeldaEnTabla(tabla,po.getNombre(),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_LEFT);
-                // Cliente
-                gestorBDvarios gbd = new gestorBDvarios();
-                EmpresaCliente ec = gbd.buscarEmpresaCliente(po.getPlanta());
-                String cliente = "";
-                if(ec!=null){
-                    cliente = ec.getRazonSocial();
-                }
-                insertarCeldaEnTabla(tabla,cliente,ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_LEFT);
-                
-                // Monto SubTotal
-                insertarCeldaEnTabla(tabla,""+calcularCantidadCotizacionesRechazadas(po),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
+                int cantidadRechazados = calcularCantidadCotizacionesRechazadas(po);
+            
+                if(cantidadRechazados>0){
+                    
+                    // Nombre
+                    insertarCeldaEnTabla(tabla,po.getNombre(),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_LEFT);
+                    // Cliente
+                    gestorBDvarios gbd = new gestorBDvarios();
+                    EmpresaCliente ec = gbd.buscarEmpresaCliente(po.getPlanta());
+                    String cliente = "";
+                    if(ec!=null){
+                        cliente = ec.getRazonSocial();
+                    }
+                    insertarCeldaEnTabla(tabla,cliente,ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_LEFT);
 
+                    // Monto SubTotal
+                    insertarCeldaEnTabla(tabla,""+cantidadRechazados,ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
+                }
         }
         
         super.doc.add(tabla);

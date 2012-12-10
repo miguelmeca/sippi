@@ -350,7 +350,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void emitirInforme(int informe) {
+        
+        // Valido los filtros Generales
+        if(!validarFiltros()){ return; }
+        
+        // Inicio el Reporte
         prepararEmision();
+        
         // Atencion, lanzar todos los informes como Threads
             switch(informe){
                 // ============================================================
@@ -434,5 +440,34 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         btnEmitirGanancias.setEnabled(!bloquear);
         filtroFechaInicio.setEnabled(!bloquear);
         filtroFechaFin.setEnabled(!bloquear);
+    }
+
+    private boolean validarFiltros() {
+        
+        boolean res = true;
+        StringBuilder msg = new StringBuilder("<HTML>");
+        
+        if(filtroFechaInicio.getDate()==null){
+            msg.append("- Ingrese en los filtros una <b>Fecha de Inicio</b><br>");
+            res = false;
+        }
+        
+        if(filtroFechaFin.getDate()==null){
+            msg.append("- Ingrese en los filtros una <b>Fecha de Fin</b><br>");
+            res = false;
+        }
+        
+        if(filtroFechaFin.getDate()!=null && filtroFechaInicio.getDate()!=null){
+            if(FechaUtil.fechaMayorQue(filtroFechaInicio.getDate(),filtroFechaFin.getDate())){
+                msg.append("- La Fecha de Inicio no puede ser Mayor a la Fecha de Fin<br>");
+                res = false;   
+            }
+        }
+        
+        if(!res){
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!",msg.toString());
+        }
+        
+        return res;
     }
 }
