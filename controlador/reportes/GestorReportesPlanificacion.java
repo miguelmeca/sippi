@@ -38,6 +38,18 @@ public class GestorReportesPlanificacion {
                TareaPlanificacion tp = plan.getTareas().get(i);
                listaTareas.add(tp);
             }
+            
+            List listaAdicionales = new ArrayList();
+            List<SubObra>  subobras= plan.getCotizacion().getSubObras();
+            for (int i = 0; i < subobras.size(); i++)
+            {
+                List<SubObraXAdicional>  adicionales= subobras.get(i).getAdicionales();
+                for (int j = 0; j < adicionales.size(); j++)
+                {
+                    SubObraXAdicional tp = adicionales.get(j);
+                    listaAdicionales.add(tp);
+                }
+            }
             HashMap<String,Object> params = new HashMap<String, Object>();
 
                 params.put("PLANIFICACION_NRO",plan.getId());
@@ -46,6 +58,7 @@ public class GestorReportesPlanificacion {
                 params.put("PLANIFICACION_FECHA_INICIO", FechaUtil.getFecha(plan.getFechaInicio()) );
                 params.put("PLANIFICACION_FECHA_FIN", FechaUtil.getFecha(plan.getFechaFin()) );
                 params.put("PLANIFICACION_TAREAS", listaTareas );
+                params.put("PLANIFICACION_ADICIONALES", listaAdicionales );
 
             ResumenPlanificacion re = new ResumenPlanificacion(plan.getId());
             re.setNombreReporte("Resumen Planificación");

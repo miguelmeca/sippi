@@ -82,5 +82,10 @@ public class PlanificacionXMaterial {
     /*public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }*/
+    
+    public double calcularSubtotal() {
+        //return precioUnitario;
+        return materialCotizacion.getPrecioUnitario()*cantidad;
+    }
 
 }
