@@ -49,4 +49,10 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
         this.horasAsignadas = horasAsignadas;
     }
     
+    
+    @Override
+    public double calcularSubtotal(){
+        return (getHorasUtilizadas()*getCostoXHora());
+    }
+    
 }

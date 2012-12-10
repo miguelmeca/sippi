@@ -56,7 +56,7 @@ public class InformeDePlanificaiconEmpleadosEnObra extends InformeDePlanificacio
             
             // Recorrer cada detalle (Fran)
             // getAsignacionEmpleadoPlanificacion() y para cada una de estas preguntar:
-             List<DetalleTareaPlanificacion> listadoDetalles = tareaPlanificacion.getDetallesSinDetallesVacios();
+             List<DetalleTareaPlanificacion> listadoDetalles = tareaPlanificacion.getDetalles();
              for (int j = 0; j < listadoDetalles.size(); j++) {
                 DetalleTareaPlanificacion detalleTareaPlanificacion = listadoDetalles.get(j);
                 

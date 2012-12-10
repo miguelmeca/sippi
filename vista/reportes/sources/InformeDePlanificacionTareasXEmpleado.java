@@ -64,7 +64,7 @@ public class InformeDePlanificacionTareasXEmpleado extends InformeDePlanificacio
             TareaPlanificacion tareaPlanificacion = listado.get(i);
             
             // Recorrer cada detalle (Fran)
-             List<DetalleTareaPlanificacion> listadoDetalles = tareaPlanificacion.getDetallesSinDetallesVacios();
+             List<DetalleTareaPlanificacion> listadoDetalles = tareaPlanificacion.getDetalles();
              for (int j = 0; j < listadoDetalles.size(); j++) {
                 DetalleTareaPlanificacion detalleTareaPlanificacion = listadoDetalles.get(j);
                 
