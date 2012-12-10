@@ -74,6 +74,10 @@ public class GestorEjecucion {
         return idObra;
     }
     
+    public PedidoObra getPedidoDeObra(){
+        return pedidoDeObra;
+    }
+    
     public int getIdCotizacionPlanificada() {
         return pedidoDeObra.getPlanificacion().getCotizacion().getCotizacionOriginal().getId();
     }
