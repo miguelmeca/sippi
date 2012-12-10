@@ -20,6 +20,9 @@ import modelo.PedidoObra;
 import util.FechaUtil;
 import util.SwingPanel;
 import vista.reportes.ReportDesigner;
+import vista.reportes.sources.InformeDeEjecucionEmpleadosEnObra;
+import vista.reportes.sources.InformeDeEjecucionTareasARealizar;
+import vista.reportes.sources.InformeDeEjecucionTareasXEmpleado;
 import vista.reportes.sources.InformeDePlanificacion;
 import vista.reportes.sources.InformeDePlanificacionTareasARealizar;
 import vista.reportes.sources.InformeDePlanificacionTareasXEmpleado;
@@ -253,7 +256,7 @@ private void btnInformeTareasXEmpleadoActionPerformed(java.awt.event.ActionEvent
 //    SwingPanel.getInstance().addWindow(win);
 //    win.setVisible(true);
     
-    InformeDePlanificacionTareasXEmpleado iptxe = new InformeDePlanificacionTareasXEmpleado(this.plan);
+    InformeDeEjecucionTareasXEmpleado iptxe = new InformeDeEjecucionTareasXEmpleado(this.plan);
     iptxe.setNombreReporte("Listado de Tareas por Empleado");
     iptxe.setNombreArchivo("Planificacion-TareasPorEmpleado-"+this.plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
 
@@ -288,7 +291,7 @@ private void btnListadoTareasPlanificadasActionPerformed(java.awt.event.ActionEv
     esperarWorkArround();
     // Acá tu código ...
         
-        InformeDePlanificacionTareasARealizar informe = new InformeDePlanificacionTareasARealizar(plan);
+        InformeDeEjecucionTareasARealizar informe = new InformeDeEjecucionTareasARealizar(plan);
         informe.setNombreReporte("Listado de Tareas Planificadas");
         informe.setNombreArchivo("Planificacion-Tareas-"+this.plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
         
@@ -316,7 +319,7 @@ private void btnListadoEmpleadosAsignadosActionPerformed(java.awt.event.ActionEv
     esperarWorkArround();
     // Acá tu código ...
         
-        InformeDePlanificaiconEmpleadosEnObra ceg = new InformeDePlanificaiconEmpleadosEnObra(this.plan);
+        InformeDeEjecucionEmpleadosEnObra ceg = new InformeDeEjecucionEmpleadosEnObra(this.plan);
         ceg.setNombreReporte("Listado de Empleados Asignados a la Obra");
         ceg.setNombreArchivo("Planificacion-EmpleadosAsignadosEnObra-"+this.plan.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
         

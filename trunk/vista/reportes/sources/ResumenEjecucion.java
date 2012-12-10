@@ -33,13 +33,7 @@ public class ResumenEjecucion extends ReportDesigner{
     @Override
     protected void makeCuerpo(HashMap<String,Object> params) throws DocumentException
     {
-        // Cotización Nro
-        Paragraph PNroPlanificacion = new Paragraph();
-        PNroPlanificacion.setAlignment(Paragraph.ALIGN_RIGHT);
-        Phrase nroPlan = new Phrase("Planificación Nº: "+(Integer)params.get("PLANIFICACION_NRO"),new Font(Font.FontFamily.HELVETICA,11,Font.BOLD));
-        PNroPlanificacion.add(nroPlan);    
-        super.doc.add(PNroPlanificacion);
-        
+       
         // Titulos e Introducción
         Paragraph PTitulo = new Paragraph();
         PTitulo.setAlignment(Paragraph.ALIGN_LEFT);      
@@ -48,11 +42,11 @@ public class ResumenEjecucion extends ReportDesigner{
         PTitulo.add( new Phrase((String)params.get("PLANIFICACION_EMPRESA_CLIENTE"),ReportDesigner.FUENTE_NORMAL));
         PTitulo.add( new Phrase("\nPedido de Obra: ",ReportDesigner.FUENTE_NORMAL_B));
         PTitulo.add( new Phrase((String)params.get("PLANIFICACION_PEDIDO_OBRA"),ReportDesigner.FUENTE_NORMAL));
-        PTitulo.add( new Phrase("\nFecha de Inicio Planificada: ",ReportDesigner.FUENTE_NORMAL_B));
+        PTitulo.add( new Phrase("\nFecha de Inicio: ",ReportDesigner.FUENTE_NORMAL_B));
         PTitulo.add( new Phrase((String)params.get("PLANIFICACION_FECHA_INICIO"),ReportDesigner.FUENTE_NORMAL));
-        PTitulo.add( new Phrase("\nFecha de Fin Planificada: ",ReportDesigner.FUENTE_NORMAL_B));
+        PTitulo.add( new Phrase("\nFecha de Fin: ",ReportDesigner.FUENTE_NORMAL_B));
         PTitulo.add( new Phrase((String)params.get("PLANIFICACION_FECHA_FIN"),ReportDesigner.FUENTE_NORMAL));
-        PTitulo.add( new Phrase("\n\nA continuación se listan en detalle los items de la obra presupuestados con sus subtotales.\n\n",ReportDesigner.FUENTE_NORMAL));
+        PTitulo.add( new Phrase("\n\nA continuación se listan en detalle los items usados en la obra con sus subtotales.\n\n",ReportDesigner.FUENTE_NORMAL));
 
         super.doc.add(PTitulo);
         
