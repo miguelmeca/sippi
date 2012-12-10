@@ -57,6 +57,9 @@ public class PlanificacionXHerramienta {
         //TODO: Mover estos datos como propios de esta clase
         return herramientaCotizacion.getCostoXHora();
     }
-    
+    public double calcularSubtotal() {
+        //return precioUnitario;
+        return herramientaCotizacion.getCostoXHora()*horasAsignadas;
+    }
     
 }

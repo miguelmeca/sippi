@@ -65,7 +65,7 @@ public class ResumenPlanificacion extends ReportDesigner{
         int orden = 0;
         while(itTareas.hasNext())
         {
-            PdfPTable tabla = new PdfPTable(2);
+            PdfPTable tabla = new PdfPTable(3);
             TareaPlanificacion tarea = itTareas.next();
             this.pintarTarea(tarea, orden, "Tarea", tabla);
             super.doc.add(tabla);
@@ -73,8 +73,53 @@ public class ResumenPlanificacion extends ReportDesigner{
             super.doc.add(pnl);
             orden++;
         }
+        
+        PdfPTable tablaAd = new PdfPTable(2);
+        List adicionales = (List) params.get("PLANIFICACION_ADICIONALES");
+        agregarTablaAdicionales(tablaAd, adicionales);
+       super.doc.add(tablaAd);
+       Paragraph pnl = new Paragraph(new Phrase("\n"));
+       super.doc.add(pnl);
+        
+       
     }
     
+    private void agregarTablaAdicionales( PdfPTable tablaAd, List adicionales ){
+      // Adicionales
+        
+        tablaAd.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
+        tablaAd.setWidthPercentage(95);
+        
+        PdfPCell celdaNombre = new PdfPCell(new Paragraph("Adicionales"));
+        celdaNombre.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        celdaNombre.setBackgroundColor(new BaseColor(219,229,241));
+        celdaNombre.setColspan(2);
+        tablaAd.addCell(celdaNombre);
+         PdfPCell celdaDescripcion = new PdfPCell(new Paragraph("Descripción",ReportDesigner.FUENTE_NORMAL_BK));
+        celdaDescripcion.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaDescripcion.setBackgroundColor(new BaseColor(219,229,241));
+        tablaAd.addCell(celdaDescripcion);
+        
+        PdfPCell celdaSubtotal = new PdfPCell(new Paragraph("Subtotal",ReportDesigner.FUENTE_NORMAL_BK));
+        celdaSubtotal.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaSubtotal.setBackgroundColor(new BaseColor(219,229,241));
+        tablaAd.addCell(celdaSubtotal);
+        
+        
+        
+        Iterator<SubObraXAdicional> Adicionales = adicionales.iterator();
+        while(Adicionales.hasNext())
+        {
+            SubObraXAdicional soxad = Adicionales.next();
+            
+            PdfPCell celdaDesc = new PdfPCell(new Paragraph(soxad.getDescripcion(),ReportDesigner.FUENTE_NORMAL));
+            tablaAd.addCell(celdaDesc);
+            celdaSubtotal = new PdfPCell(new Paragraph("$"+soxad.calcularSubtotal()));
+            tablaAd.addCell(celdaSubtotal);
+
+        }
+        
+    }
     private void pintarTarea(TareaPlanificacion tarea, int orden, String tipoTarea,PdfPTable tabla)  throws DocumentException
     {
         tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
@@ -83,7 +128,7 @@ public class ResumenPlanificacion extends ReportDesigner{
         PdfPCell celdaNombre = new PdfPCell(new Paragraph(tipoTarea+": "+(orden+1)+"-"+tarea.getNombre(),ReportDesigner.FUENTE_NORMAL_B));
         celdaNombre.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         celdaNombre.setBackgroundColor(new BaseColor(219,229,241));
-        celdaNombre.setColspan(2);
+        celdaNombre.setColspan(3);
         tabla.addCell(celdaNombre);
 
         Paragraph paFechaInicio = new Paragraph();
@@ -101,18 +146,24 @@ public class ResumenPlanificacion extends ReportDesigner{
         celdaFechaFin.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         celdaFechaFin.setBackgroundColor(new BaseColor(219,229,241));
         tabla.addCell(celdaFechaFin);
+        Paragraph pax = new Paragraph();
+        paFechaFin.add(new Phrase("", ReportDesigner.FUENTE_NORMAL_B));
+        PdfPCell celdaX = new PdfPCell(pax);
+        celdaX.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaX.setBackgroundColor(new BaseColor(219,229,241));
+        tabla.addCell(celdaX);
         
         Paragraph paObservaciones = new Paragraph();
         paObservaciones.add(new Phrase("Observaciones: \n\n", ReportDesigner.FUENTE_NORMAL_B));
         paObservaciones.add(new Phrase(tarea.getObservaciones(), ReportDesigner.FUENTE_NORMAL));
         PdfPCell celdaDesc = new PdfPCell(paObservaciones);
         celdaDesc.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-        celdaDesc.setColspan(2);
+        celdaDesc.setColspan(3);
         tabla.addCell(celdaDesc);
 
 
         //Recursos
-        PdfPCell celdaRecurso = new PdfPCell(new Paragraph("Recurso",ReportDesigner.FUENTE_NORMAL_BK));
+        PdfPCell celdaRecurso = new PdfPCell(new Paragraph("Tipo de Recurso",ReportDesigner.FUENTE_NORMAL_BK));
         celdaRecurso.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         celdaRecurso.setBackgroundColor(new BaseColor(219,229,241));
         celdaNombre.setColspan(1);
@@ -123,6 +174,11 @@ public class ResumenPlanificacion extends ReportDesigner{
         celdaDescripcion.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         celdaDescripcion.setBackgroundColor(new BaseColor(219,229,241));
         tabla.addCell(celdaDescripcion);
+        
+        PdfPCell celdaSubtotal = new PdfPCell(new Paragraph("Subtotal",ReportDesigner.FUENTE_NORMAL_BK));
+        celdaSubtotal.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaSubtotal.setBackgroundColor(new BaseColor(219,229,241));
+        tabla.addCell(celdaSubtotal);
 
         String unidad= "";
         
@@ -142,6 +198,10 @@ public class ResumenPlanificacion extends ReportDesigner{
                 detalle.getCantHorasAl100() + " HED."
                     ));
             tabla.addCell(celdaDescripcion);
+            ////////////
+            celdaSubtotal = new PdfPCell(new Paragraph("$"+detalle.calcularSubtotal()));
+            tabla.addCell(celdaSubtotal);
+                    
         }
 
         // Materiales
@@ -160,6 +220,8 @@ public class ResumenPlanificacion extends ReportDesigner{
                     pxm.getCantidad() + " " +
                     material.getUnidadDeMedida().getAbreviatura(),ReportDesigner.FUENTE_NORMAL));
             tabla.addCell(celdaDescripcion);
+            celdaSubtotal = new PdfPCell(new Paragraph("$"+pxm.calcularSubtotal()));
+            tabla.addCell(celdaSubtotal);
 
         }
 
@@ -176,6 +238,8 @@ public class ResumenPlanificacion extends ReportDesigner{
                     pxh.getHerramientaCotizacion().getHerramienta().getNombre() + ": " +
                     pxh.getHorasAsignadas() + unidad , ReportDesigner.FUENTE_NORMAL));
             tabla.addCell(celdaDescripcion);
+            celdaSubtotal = new PdfPCell(new Paragraph("$"+pxh.calcularSubtotal()));
+            tabla.addCell(celdaSubtotal);
         }
 
         // Alquileres Compras
@@ -191,6 +255,8 @@ public class ResumenPlanificacion extends ReportDesigner{
                     pxac.getAlquilerCompraCotizacion().getTipoAlquilerCompra().getNombre() + ": " +
                     pxac.getCantidad() + unidad , ReportDesigner.FUENTE_NORMAL));
             tabla.addCell(celdaDescripcion);
+            celdaSubtotal = new PdfPCell(new Paragraph("$"+pxac.calcularSubtotal()));
+            tabla.addCell(celdaSubtotal);
         }    
         
         // Subtareas
@@ -200,7 +266,7 @@ public class ResumenPlanificacion extends ReportDesigner{
         {
             TareaPlanificacion subtarea = itSubTareas.next();
             celdaRecurso = new PdfPCell(new Paragraph("",ReportDesigner.FUENTE_NORMAL));
-            celdaRecurso.setColspan(2);
+            celdaRecurso.setColspan(3);
             tabla.addCell(celdaRecurso);
             this.pintarTarea(subtarea, orden1, "Subtarea", tabla);
             orden1++;

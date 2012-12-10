@@ -71,6 +71,11 @@ public class PlanificacionXAlquilerCompra {
         //return precioUnitario;
         return alquilerCompraCotizacion.getPrecioUnitario();
     }
+    
+    public double calcularSubtotal() {
+        //return precioUnitario;
+        return alquilerCompraCotizacion.getPrecioUnitario()*cantidad;
+    }
 
     /*public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
