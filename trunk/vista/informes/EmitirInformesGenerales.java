@@ -5,6 +5,7 @@
 package vista.informes;
 
 import controlador.informes.GestorInformesGenerales;
+import controlador.reportes.GestorReportesCompras;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -18,12 +19,19 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
 
     private static final int INFORME_GANANCIAS_EMPRESA = 0;
     private static final int INFORME_COTIZACIONES_RECHAZADAS = 1;
+    private static final int INFORME_RANKING_PROVEEDORES = 2;
     
     /**
      * Creates new form EmitirInformesGenerales
      */
     public EmitirInformesGenerales() {
         initComponents();
+        grupoFiltroProveedor.add(filtroProveedorPorCantidad);
+        grupoFiltroProveedor.add(filtroProveedorPorMonto);
+        grupoFiltroProducto.add(filtroProductoPorCantidad);
+        grupoFiltroProducto.add(filtroProductoPorMonto);
+        filtroProveedorPorCantidad.setSelected(true);
+        filtroProductoPorCantidad.setSelected(true);
         initFiltros();
         pb.setVisible(false);
     }
@@ -37,6 +45,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoFiltroProveedor = new javax.swing.ButtonGroup();
+        grupoFiltroProducto = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -53,6 +63,16 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        filtroProveedorPorCantidad = new javax.swing.JRadioButton();
+        filtroProveedorPorMonto = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        filtroProductoPorCantidad = new javax.swing.JRadioButton();
+        filtroProductoPorMonto = new javax.swing.JRadioButton();
+        jPanel9 = new javax.swing.JPanel();
+        btnEmitirGanancias2 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         pb = new javax.swing.JProgressBar();
         jPanel5 = new javax.swing.JPanel();
@@ -134,7 +154,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +163,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -161,7 +181,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del Informe"));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Ranking de Proveedores"));
 
         btnEmitirGanancias1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitirGanancias1.setText("Emitir");
@@ -171,11 +191,23 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel15.setText("<HTML>Resumen y objetivo del informe (Que es y para que se usaria)");
+        jLabel15.setText("<HTML>Listado de los Proveedores de los cuales se recibió más cantidad o se pagó más<br> en un periodo de tiempo. Además se incluyo un ranking de los tres productos más<br>solicitados.");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
 
-        jLabel3.setText("Acá van los filtros particulares para este informe (los que no esten en Filtros Generales)");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Ordenar Proveedores por:");
+
+        filtroProveedorPorCantidad.setText("Cantidad");
+
+        filtroProveedorPorMonto.setText("Monto");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Ordenar Productos por:");
+
+        filtroProductoPorCantidad.setText("Cantidad");
+
+        filtroProductoPorMonto.setText("Monto");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -183,13 +215,31 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filtroProveedorPorCantidad)
+                    .addComponent(filtroProductoPorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filtroProductoPorMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filtroProveedorPorMonto))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(filtroProveedorPorCantidad)
+                    .addComponent(filtroProveedorPorMonto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(filtroProductoPorCantidad)
+                    .addComponent(filtroProductoPorMonto)))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -213,7 +263,63 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEmitirGanancias1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del Informe"));
+
+        btnEmitirGanancias2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitirGanancias2.setText("Emitir");
+        btnEmitirGanancias2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirGanancias2ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("<HTML>Resumen y objetivo del informe (Que es y para que se usaria)");
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
+
+        jLabel4.setText("Acá van los filtros particulares para este informe (los que no esten en Filtros Generales)");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addGap(0, 32, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEmitirGanancias2)))
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmitirGanancias2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -222,7 +328,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -230,7 +338,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -312,7 +422,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnEmitirGanancias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGanancias1ActionPerformed
-        // TODO add your handling code here:
+        emitirInforme(INFORME_RANKING_PROVEEDORES);
     }//GEN-LAST:event_btnEmitirGanancias1ActionPerformed
 
     private void btnEmitirGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGananciasActionPerformed
@@ -323,20 +433,35 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         emitirInforme(INFORME_COTIZACIONES_RECHAZADAS);
     }//GEN-LAST:event_btnEmitirCotizacionesRechazadasActionPerformed
 
+    private void btnEmitirGanancias2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGanancias2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEmitirGanancias2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitirCotizacionesRechazadas;
     private javax.swing.JButton btnEmitirGanancias;
     private javax.swing.JButton btnEmitirGanancias1;
+    private javax.swing.JButton btnEmitirGanancias2;
     private com.toedter.calendar.JDateChooser filtroFechaFin;
     private com.toedter.calendar.JDateChooser filtroFechaInicio;
+    private javax.swing.JRadioButton filtroProductoPorCantidad;
+    private javax.swing.JRadioButton filtroProductoPorMonto;
+    private javax.swing.JRadioButton filtroProveedorPorCantidad;
+    private javax.swing.JRadioButton filtroProveedorPorMonto;
+    private javax.swing.ButtonGroup grupoFiltroProducto;
+    private javax.swing.ButtonGroup grupoFiltroProveedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -344,6 +469,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JProgressBar pb;
@@ -393,6 +519,42 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                         });
                         thread2.start();
                     break;                    
+                    
+                 case INFORME_RANKING_PROVEEDORES:
+                        Thread thread3 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    String filtroProveedor;
+                                    if(filtroProveedorPorCantidad.isSelected()) {
+                                        filtroProveedor = "Por Cantidad";
+                                    }
+                                    else {
+                                        filtroProveedor = "Por Monto";
+                                    }
+                                    
+                                    String filtroProducto;
+                                    if(filtroProveedorPorCantidad.isSelected()) {
+                                        filtroProducto = "Por Cantidad";
+                                    }
+                                    else {
+                                        filtroProducto = "Por Monto";
+                                    }
+                                    
+                                    GestorReportesCompras gestor = new GestorReportesCompras();
+                                    gestor.emitirRankingProveedores(filtroFechaInicio.getDate(),
+                                            filtroFechaFin.getDate(),
+                                            filtroProveedor,
+                                            filtroProducto,
+                                            3);
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread3.start();
+                    break;                                         
             }
         
     }
