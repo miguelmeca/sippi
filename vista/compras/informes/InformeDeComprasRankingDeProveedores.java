@@ -42,6 +42,8 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
     public static final String PARAM_FILTRO_PRODUCTOS = "Ordenar Productos";
     public static final String FILTRO_PRODUCTOS_MONTO = "Por Monto";
     public static final String FILTRO_PRODUCTOS_CANTIDAD = "Por Cantidad";
+    public static final String FILTRO_PROVEEDOR_MONTO = "Por Monto";
+    public static final String FILTRO_PROVEEDOR_CANTIDAD = "Por Cantidad";
     
     private HashMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>> proveedores;
     private Map<Object, Double> map;
@@ -58,8 +60,39 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
     {
         makeCabecera(params);
         String filtroProducto = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PRODUCTOS);
+        String filtroProveedor = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PROVEEDOR);
         Paragraph pnEspacio = new Paragraph(new Phrase("\n"));
         super.doc.add(pnEspacio);
+        
+        String descripcion = "A continuación se listan los proveedores, ordenados por "; 
+        PdfPCell celdaMonto = new PdfPCell();
+        if(filtroProveedor.equals(this.FILTRO_PROVEEDOR_CANTIDAD))
+        {
+            descripcion = descripcion.concat("la cantidad de veces que se le realizaron compras ");
+        }
+        else
+        {
+            if(filtroProducto.equals(this.FILTRO_PROVEEDOR_MONTO))
+            {
+                descripcion = descripcion.concat("el monto de las compras que se le realizaron ");
+            }
+        }
+        descripcion = descripcion.concat("y se incluye un detalle de los productos ");
+        if(filtroProducto.equals(this.FILTRO_PRODUCTOS_CANTIDAD))
+        {
+            celdaMonto.addElement(new Paragraph(" Cantidad de Compras Realizadas",ReportDesigner.FUENTE_NORMAL_B));
+            descripcion = descripcion.concat("con más cantidades compradas al mismo. ");
+        }
+        else
+        {
+            if(filtroProducto.equals(this.FILTRO_PRODUCTOS_MONTO))
+            {
+                celdaMonto.addElement(new Paragraph(" Monto Comprado",ReportDesigner.FUENTE_NORMAL_B));
+                descripcion = descripcion.concat("que fueron más solicitados a este proveedor. ");
+            }
+        }
+        Paragraph descripcionInforme = new Paragraph(new Phrase(descripcion+"\n"));
+        super.doc.add(descripcionInforme);
         
         PdfPTable tabla = new PdfPTable(2);
         
@@ -70,18 +103,6 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
         celdaNombre.setBackgroundColor(new BaseColor(219,229,241));
         tabla.addCell(celdaNombre);
         
-        PdfPCell celdaMonto = new PdfPCell();
-        if(filtroProducto.equals(this.FILTRO_PRODUCTOS_CANTIDAD))
-        {
-            celdaMonto.addElement(new Paragraph(" Cantidad de Compras Realizadas",ReportDesigner.FUENTE_NORMAL_B));
-        }
-        else
-        {
-            if(filtroProducto.equals(this.FILTRO_PRODUCTOS_MONTO))
-            {
-                celdaMonto.addElement(new Paragraph(" Monto Comprado",ReportDesigner.FUENTE_NORMAL_B));
-            }
-        }
         celdaMonto.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
         celdaMonto.setVerticalAlignment(Element.ALIGN_MIDDLE);
         celdaMonto.setBackgroundColor(new BaseColor(219,229,241));
@@ -114,7 +135,14 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
             tabla.addCell(celdaMontoProveedor);
             
             // Detalle del Proveedor
-            PdfPCell celdaTituloProductos = new PdfPCell(new Paragraph("Detalle Productos",ReportDesigner.FUENTE_NORMAL_B));
+            PdfPCell celdaTituloProductos = null;
+            if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD)) {
+                celdaTituloProductos = new PdfPCell(new Paragraph("Productos más comprados",ReportDesigner.FUENTE_NORMAL_B));
+            }
+            else
+                if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO)) {
+                    celdaTituloProductos = new PdfPCell(new Paragraph("Productos pedidos que en los que más se invirtió",ReportDesigner.FUENTE_NORMAL));
+            }   
             celdaTituloProductos.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             celdaTituloProductos.setBackgroundColor(new BaseColor(214,227,188));
             celdaTituloProductos.setColspan(2);
