@@ -7,6 +7,7 @@ package vista.compras.informes;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
@@ -56,21 +57,36 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
     protected void makeCuerpo(HashMap<String,Object> params) throws DocumentException
     {
         makeCabecera(params);
+        String filtroProducto = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PRODUCTOS);
         Paragraph pnEspacio = new Paragraph(new Phrase("\n"));
         super.doc.add(pnEspacio);
         
         PdfPTable tabla = new PdfPTable(2);
-        PdfPCell celdaNombre = new PdfPCell(new Paragraph("Proveedor",ReportDesigner.FUENTE_NORMAL_B));
+        
+        PdfPCell celdaNombre = new PdfPCell();
+        celdaNombre.addElement(new Paragraph("Proveedor",ReportDesigner.FUENTE_NORMAL_B));
         celdaNombre.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaNombre.setVerticalAlignment(Element.ALIGN_MIDDLE);
         celdaNombre.setBackgroundColor(new BaseColor(219,229,241));
         tabla.addCell(celdaNombre);
-
-        PdfPCell celdaMonto = new PdfPCell(new Paragraph("Monto Comprado",ReportDesigner.FUENTE_NORMAL_B));
+        
+        PdfPCell celdaMonto = new PdfPCell();
+        if(filtroProducto.equals(this.FILTRO_PRODUCTOS_CANTIDAD))
+        {
+            celdaMonto.addElement(new Paragraph(" Cantidad de Compras Realizadas",ReportDesigner.FUENTE_NORMAL_B));
+        }
+        else
+        {
+            if(filtroProducto.equals(this.FILTRO_PRODUCTOS_MONTO))
+            {
+                celdaMonto.addElement(new Paragraph(" Monto Comprado",ReportDesigner.FUENTE_NORMAL_B));
+            }
+        }
         celdaMonto.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
+        celdaMonto.setVerticalAlignment(Element.ALIGN_MIDDLE);
         celdaMonto.setBackgroundColor(new BaseColor(219,229,241));
         tabla.addCell(celdaMonto);
         
-//        Iterator<GenericFilaConDetalles<Proveedor, Number , HashMap>> itProveedores = (Iterator<GenericFilaConDetalles<Proveedor, Number , HashMap>>)this.proveedores.values().iterator();
         SupplierValueComparator sbvc =  new SupplierValueComparator(this.proveedores);
         TreeMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>> supplier_sorted_map = new TreeMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>>(sbvc);
         supplier_sorted_map.putAll(this.proveedores);
@@ -78,29 +94,29 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
         while(itProveedoresOrdenados.hasNext())
         {
             Map.Entry entrySupplier = (Map.Entry) itProveedoresOrdenados.next();
-//            GenericFilaConDetalles<Proveedor, Number , HashMap> proveedor = itProveedores.next();
             GenericFilaConDetalles<Proveedor, Number , HashMap> proveedor = (GenericFilaConDetalles<Proveedor, Number , HashMap>) entrySupplier.getValue();
             
             PdfPCell celdaNombreProveedor = new PdfPCell(new Paragraph(proveedor.getEntidad().getRazonSocial(),ReportDesigner.FUENTE_NORMAL));
+            celdaNombreProveedor.setBackgroundColor(new BaseColor(194,214,155));
             celdaNombreProveedor.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
             tabla.addCell(celdaNombreProveedor);
             
             PdfPCell celdaMontoProveedor = null;
-            String filtroProducto = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PRODUCTOS);
             if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD)) {
-                celdaMontoProveedor = new PdfPCell(new Paragraph(proveedor.getDato()+" un.",ReportDesigner.FUENTE_NORMAL));
+                celdaMontoProveedor = new PdfPCell(new Paragraph(proveedor.getDato().toString(),ReportDesigner.FUENTE_NORMAL));
             }
             else
                 if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO)) {
                     celdaMontoProveedor = new PdfPCell(new Paragraph("$ " + proveedor.getDato(),ReportDesigner.FUENTE_NORMAL));
             }
+            celdaMontoProveedor.setBackgroundColor(new BaseColor(194,214,155));
             celdaMontoProveedor.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
             tabla.addCell(celdaMontoProveedor);
             
             // Detalle del Proveedor
             PdfPCell celdaTituloProductos = new PdfPCell(new Paragraph("Detalle Productos",ReportDesigner.FUENTE_NORMAL_B));
             celdaTituloProductos.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-            celdaTituloProductos.setBackgroundColor(new BaseColor(219,229,241));
+            celdaTituloProductos.setBackgroundColor(new BaseColor(214,227,188));
             celdaTituloProductos.setColspan(2);
             tabla.addCell(celdaTituloProductos);
             

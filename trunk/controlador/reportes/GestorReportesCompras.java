@@ -134,7 +134,7 @@ public class GestorReportesCompras {
                                     filaProveedor.agregarDetalle(
                                             item,
                                             (Double)itemCosto + detalleRecep.getCantidad());
-                                    filaProveedor.setDato((Double)filaProveedor.getDato() + detalleRecep.getCantidad());
+                                    filaProveedor.setDato((Double)filaProveedor.getDato() + 1d);
                                 }
                                 else
                                 {
@@ -160,7 +160,7 @@ public class GestorReportesCompras {
                                     filaProveedor.agregarDetalle(
                                             item,
                                             detalleRecep.getCantidad());
-                                    filaProveedor.setDato((Double)filaProveedor.getDato() + detalleRecep.getCantidad());
+                                    filaProveedor.setDato((Double)filaProveedor.getDato() + 1d);
                                 }
                                 else
                                 {
