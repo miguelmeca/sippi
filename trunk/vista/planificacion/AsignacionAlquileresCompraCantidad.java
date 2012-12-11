@@ -69,7 +69,7 @@ public class AsignacionAlquileresCompraCantidad extends javax.swing.JInternalFra
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Está asignando");
 
-        txtCantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        txtCantidad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 
         lblAlquilerCompraNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAlquilerCompraNombre.setText("...");
