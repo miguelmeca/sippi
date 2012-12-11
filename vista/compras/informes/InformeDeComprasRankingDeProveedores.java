@@ -95,6 +95,7 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
         super.doc.add(descripcionInforme);
         
         PdfPTable tabla = new PdfPTable(2);
+        tabla.setSpacingBefore(15);
         
         PdfPCell celdaNombre = new PdfPCell();
         celdaNombre.addElement(new Paragraph("Proveedor",ReportDesigner.FUENTE_NORMAL_B));
