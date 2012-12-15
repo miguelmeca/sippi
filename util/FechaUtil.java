@@ -205,5 +205,14 @@ public class FechaUtil {
         return ddateday.getTime();       
     }
    
-
+    public static int getYearFromDate(Date date) {
+        int result = -1;
+        if (date != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            result = cal.get(Calendar.YEAR);
+        }
+        return result;
+    }
+   
 }

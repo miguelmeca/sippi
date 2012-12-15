@@ -59,7 +59,6 @@ public class EjecucionXAdicional {
     }
     
     public double calcularSubtotal() {
-        //return precioUnitario;
         return precioUnitario*cantidad;
     }
     

@@ -7,11 +7,16 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import modelo.Cotizacion;
 import modelo.PedidoObra;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import util.FechaUtil;
 import vista.reportes.ReportDesigner;
+import vista.reportes.sources.graficos.GraficoDeAreas;
 
 /**
  *
@@ -22,6 +27,7 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
     private List<PedidoObra> obras;
     private Date fechaInicio;
     private Date fechaFin;
+    private DefaultCategoryDataset gananciasHistoricas;
     
     @Override
     protected void makeCuerpo(HashMap<String,Object> params) throws DocumentException
@@ -30,10 +36,16 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         
         fechaInicio = (Date) params.get("INFORME_FECHA_INICIO");
         fechaFin = (Date) params.get("INFORME_FECHA_FIN");
+        gananciasHistoricas = (DefaultCategoryDataset)params.get("GANANCIAS_HISTORICAS");
         
         mostrarObjetivoDelInforme();
         mostrarFechasFiltro();
         mostrarTablaObas();
+        try{
+            mostrarHistoricoDeGanancias();
+        }catch(Exception e){
+            throw new DocumentException(e);
+        }
     }
 
     private void mostrarObjetivoDelInforme() throws DocumentException {
@@ -56,6 +68,7 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
     private void mostrarTablaObas() throws DocumentException {
         PdfPTable tabla = new PdfPTable(4);
         tabla.setSpacingBefore(5f);
+        tabla.setSpacingAfter(5f);
         tabla.setWidthPercentage(100);
         float[] anchos = {6f,2f,2f,2f};
         tabla.setWidths(anchos);
@@ -115,6 +128,15 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
             }
         }
         return 0D;
+    }
+
+    private void mostrarHistoricoDeGanancias() throws DocumentException, Exception {
+        
+        insertarTitulo("Historico de Montos Anuales");
+        GraficoDeAreas gd = new GraficoDeAreas("", this.gananciasHistoricas);
+        JFreeChart chart = gd.createGraph();
+        super.insertarGraficoCentrado(chart,500,180);
+        
     }
 
 

@@ -230,4 +230,20 @@ public class PedidoObra{
     public void setPliego(String pliego) {
         this.pliego = pliego;
     }
+
+    public double calcularGanancia() {
+        
+        if(this.estado.equals(ESTADO_FINALIZADO)){
+            if(getPlanificacion()!=null){
+                if(getPlanificacion().getCotizacion()!=null){
+                    if(getPlanificacion().getCotizacion().getCotizacionOriginal()!=null){
+                        double cotizado = getPlanificacion().getCotizacion().getCotizacionOriginal().CalcularTotal();
+                        double ejecutado = getEjecucion().calcularMontoTotal();
+                        return cotizado-ejecutado;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
 }
