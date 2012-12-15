@@ -193,5 +193,55 @@ public class TareaEjecucion extends TareaPlanificacion{
             default: return ESTADO_NUEVA;
         }
     }    
+
+    @Override
+    public double calcularSubtotalConSubtareas() {
+        double subtotal = 0;
+        
+        // SubTareas
+        for (TareaPlanificacion subtarea: subtareas) 
+        {
+            if(subtarea!=null){
+                subtotal+=subtarea.calcularSubtotalConSubtareas();
+            }
+        }
+        
+        // Esta Tarea
+        // Herramientas
+        for (int i = 0; i < super.herramientas.size(); i++) {
+            PlanificacionXHerramienta herr = super.herramientas.get(i);
+            if(herr!=null){
+                subtotal += herr.calcularSubtotal();
+            }
+        }
+        
+        // Materiales
+        for (int i = 0; i < super.materiales.size(); i++) {
+            PlanificacionXMaterial mate = super.materiales.get(i);
+            if(mate!=null){
+                subtotal += mate.calcularSubtotal();
+            }
+        }
+        
+        // Alquiler compras
+        for (int i = 0; i < super.alquilerCompras.size(); i++) {
+            PlanificacionXAlquilerCompra alqcomp = super.alquilerCompras.get(i);
+            if(alqcomp!=null){
+                subtotal += alqcomp.calcularSubtotal();
+            }
+        }
+        
+        // RRHH
+        for (int i = 0; i < super.detalles.size(); i++) {
+            DetalleTareaPlanificacion rrhh = super.detalles.get(i);
+            if(rrhh!=null){
+                subtotal += rrhh.calcularSubtotal();
+            }
+        }
+        
+        return subtotal;
+    }
+    
+    
     
 }

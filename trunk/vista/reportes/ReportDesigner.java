@@ -4,6 +4,7 @@
  */
 package vista.reportes;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -16,13 +17,19 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartRenderingInfo;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.entity.StandardEntityCollection;
 import util.FechaUtil;
 
 /**
@@ -31,6 +38,8 @@ import util.FechaUtil;
  */
 public class ReportDesigner 
 {
+    private static final int GRAFICO_DEFAULT_DPI_ANCHO = 1000;
+    private static final int GRAFICO_DEFAULT_DPI_ALTO = 500;
     private final String URL_DIR_REPORTES = "Reportes/";
     
     public static final int REPORTE_TIPO_OTROS         = 0;
@@ -58,6 +67,9 @@ public class ReportDesigner
     public static final Font FUENTE_NORMAL_K   = FontFactory.getFont("Calibri",10,Font.ITALIC);
     public static final Font FUENTE_NORMAL_BK   = FontFactory.getFont("Calibri",10,Font.BOLDITALIC);
     
+    public static final Font FUENTE_INFORMES_NORMAL   = FontFactory.getFont("Calibri",8,Font.NORMAL);
+    public static final Font FUENTE_INFORMES_NORMAL_B   = FontFactory.getFont("Calibri",8,Font.BOLD);
+    
     public static final BaseColor COLOR_HEADINGS = new BaseColor(219,229,241);
     
     public static final BaseColor TABLE_HEADER_BASE_COLOR = new BaseColor(230,230,230);
@@ -65,7 +77,7 @@ public class ReportDesigner
     
     private String nombre;
     protected Document doc;
-    private PdfWriter out;
+    protected PdfWriter out;
     private File out_file;
     private int tipoReporte;
     
@@ -114,7 +126,7 @@ public class ReportDesigner
         doc = new Document(PageSize.A4, 36,36,36,108);
         doc.addCreationDate();
         doc.addAuthor("ACERO");
-        PdfWriter.getInstance(this.doc, new FileOutputStream(this.out_file));
+        this.out = PdfWriter.getInstance(this.doc, new FileOutputStream(this.out_file));
         
         // Open Doc
         this.doc.open();
@@ -335,5 +347,65 @@ public class ReportDesigner
         celdaMontoCotizado.setHorizontalAlignment(align);
         tabla.addCell(celdaMontoCotizado);
     }
+    
+    protected void insertarImagenCentrada(BufferedImage bimage) throws BadElementException, IOException, DocumentException{
+        
+        Image image = Image.getInstance(this.out, bimage, 1.0f);
+        
+        PdfPTable tablaImagen = new PdfPTable(1);
+            tablaImagen.setWidthPercentage(100);
+            tablaImagen.setSpacingBefore(3f);
+            PdfPCell celda = new PdfPCell(image);
+            celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            celda.setBorder(PdfPCell.NO_BORDER);
+            tablaImagen.addCell(celda);
+        this.doc.add(tablaImagen);
+        
+    }
+    
+    protected void insertarGraficoCentrado(JFreeChart grafico, int ancho, int alto) throws Exception{
+     
+        BufferedImage bufferedImage = grafico.createBufferedImage(GRAFICO_DEFAULT_DPI_ANCHO, 
+                GRAFICO_DEFAULT_DPI_ALTO,new ChartRenderingInfo(new StandardEntityCollection()));
+            
+        File tmpImage = generarRandomTempFile(".png");
+        
+        FileOutputStream out = new FileOutputStream(tmpImage);
+        ChartUtilities.writeBufferedImageAsPNG(out, bufferedImage, true,0);
+        out.close();
+          
+        Image img = Image.getInstance(tmpImage.getAbsolutePath());
+        img.scaleToFit(ancho,alto);
+
+        PdfPTable tablaImagen = new PdfPTable(1);
+            tablaImagen.setWidthPercentage(100);
+            tablaImagen.setSpacingBefore(3f);
+            PdfPCell celda = new PdfPCell(img);
+            celda.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            celda.setBorder(PdfPCell.NO_BORDER);
+            tablaImagen.addCell(celda);
+        this.doc.add(tablaImagen);
+    }
+    
+    /**
+     * Genera un 
+     * @return 
+     */
+    private File generarRandomTempFile(String ext){
+        String url = System.getProperty("java.io.tmpdir");
+        int x = ((int) Math.random() * 1000);  
+        
+        url+= String.valueOf(x);
+        url += "-";
+        url += ""+System.currentTimeMillis();
+        url += ext;
+        return new File(url);
+    }
+    
+    
+    
+    
+    
+    
     
 }

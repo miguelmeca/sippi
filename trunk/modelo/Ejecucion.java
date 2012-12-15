@@ -105,5 +105,25 @@ public class Ejecucion extends Planificacion{
     public void setPlanificacionOriginal(Planificacion planificacionOriginal) {
         this.planificacionOriginal = planificacionOriginal;
     }
+
+    @Override
+    public double calcularMontoTotal() {
+        double total = 0;
+        
+        // Adicionales / Gastos Varios
+        for (int i = 0; i < adicionales.size(); i++) {
+            EjecucionXAdicional adicional = adicionales.get(i);
+            total += adicional.calcularSubtotal();
+        }
+        
+        for (int i = 0; i < tareas.size(); i++) {
+            TareaPlanificacion tarea = tareas.get(i);
+            total += tarea.calcularSubtotalConSubtareas();
+        }
+        
+        return total;
+    }
+    
+    
     
 }
