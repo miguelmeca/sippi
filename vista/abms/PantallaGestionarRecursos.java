@@ -99,7 +99,6 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Recurso"));
 
-        cmbRecursos.setEditable(true);
         cmbRecursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRecursosActionPerformed(evt);
@@ -320,7 +319,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNuevoModificar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

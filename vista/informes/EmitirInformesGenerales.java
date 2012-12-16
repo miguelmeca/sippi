@@ -20,6 +20,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private static final int INFORME_GANANCIAS_EMPRESA = 0;
     private static final int INFORME_COTIZACIONES_RECHAZADAS = 1;
     private static final int INFORME_RANKING_PROVEEDORES = 2;
+    private static final int INFORME_OBRAS_POR_YEAR = 3;
     
     /**
      * Creates new form EmitirInformesGenerales
@@ -64,6 +65,12 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtHistoricoCotRech = new javax.swing.JFormattedTextField();
+        jPanel14 = new javax.swing.JPanel();
+        btnObrasPorYear = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        txtHistoricoObrasPorYear = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btnEmitirGanancias1 = new javax.swing.JButton();
@@ -143,7 +150,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmitirGanancias))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -206,7 +213,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                        .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEmitirCotizacionesRechazadas))
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -221,6 +228,70 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad de Obras Tomadas por año"));
+
+        btnObrasPorYear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnObrasPorYear.setText("Emitir");
+        btnObrasPorYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrasPorYearActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("<HTML>Cantidad de Obras terminadas por año.");
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
+
+        jLabel10.setText("Cantidad de años a considerar en el Historico:");
+
+        txtHistoricoObrasPorYear.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtHistoricoObrasPorYear.setText("5");
+        txtHistoricoObrasPorYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHistoricoObrasPorYearActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtHistoricoObrasPorYear, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel10)
+                .addComponent(txtHistoricoObrasPorYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnObrasPorYear))
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnObrasPorYear)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -228,9 +299,10 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +311,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -248,11 +322,11 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
@@ -429,7 +503,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -534,12 +608,21 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHistoricoGananciasActionPerformed
 
+    private void btnObrasPorYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasPorYearActionPerformed
+        emitirInforme(INFORME_OBRAS_POR_YEAR);
+    }//GEN-LAST:event_btnObrasPorYearActionPerformed
+
+    private void txtHistoricoObrasPorYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHistoricoObrasPorYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHistoricoObrasPorYearActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitirCotizacionesRechazadas;
     private javax.swing.JButton btnEmitirGanancias;
     private javax.swing.JButton btnEmitirGanancias1;
     private javax.swing.JButton btnEmitirGanancias2;
+    private javax.swing.JButton btnObrasPorYear;
     private com.toedter.calendar.JDateChooser filtroFechaFin;
     private com.toedter.calendar.JDateChooser filtroFechaInicio;
     private javax.swing.JRadioButton filtroProductoPorCantidad;
@@ -549,10 +632,12 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup grupoFiltroProducto;
     private javax.swing.ButtonGroup grupoFiltroProveedor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -564,6 +649,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -578,6 +665,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner spinnerProdXProv;
     private javax.swing.JFormattedTextField txtHistoricoCotRech;
     private javax.swing.JFormattedTextField txtHistoricoGanancias;
+    private javax.swing.JFormattedTextField txtHistoricoObrasPorYear;
     // End of variables declaration//GEN-END:variables
 
     private void emitirInforme(int informe) {
@@ -677,7 +765,33 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                             }
                         });
                         thread3.start();
-                    break;                                         
+                    break;    
+                // ============================================================
+                case INFORME_OBRAS_POR_YEAR:
+                        Thread thread4 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+
+                                    Integer anios = 5;
+                                    if(!txtHistoricoObrasPorYear.getText().isEmpty()){
+                                        anios = Integer.valueOf(txtHistoricoObrasPorYear.getText());
+                                        if(anios<0){
+                                            anios = 0;
+                                        }
+                                    }
+                                    
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformeObrasPorYear(anios);
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread4.start();
+                    break;                     
             }
         
     }

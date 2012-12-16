@@ -760,7 +760,7 @@ public class GestorEjecucion {
                    PlanificacionUtils.esFechaValidaParaSusHijas(false,res,nuevaTarea))
                 {
                     nuevaTarea.setFechaInicio(date);
-
+                    
                     if(nuevaTarea.getFechaInicio().after(date))
                     {
                         // Derecha
@@ -771,6 +771,7 @@ public class GestorEjecucion {
                         // Izquierda
                         nuevaTarea.setFechaFin(res);
                     }
+                    
                 }
                 else
                 {
@@ -904,6 +905,54 @@ public class GestorEjecucion {
             }
         }
         return cantidad;
+    }
+
+    /**
+     * Cambio la fecha de fin de una tarea
+     * @param fecha 
+     */
+    private void cambiarFechaDeFinDeTareaActual(TareaEjecucion tarea,Date fecha) {
+    
+        // Si la fecha nueva, es mayor, tengo que crear
+        if(FechaUtil.fechaMayorQue(tarea.getFechaFin(), fecha)){
+            // Creo detalles y seteo la fecha de Fin
+            int nuevosDetallesCant = FechaUtil.diasDiferencia(tarea.getFechaFin(), fecha);
+            for (int i = 0; i <= nuevosDetallesCant; i++) {
+                Date fechaDelNuevo = FechaUtil.fechaMas(tarea.getFechaFin(),i);
+                crearDetalleHerramientaParaFecha(tarea,fechaDelNuevo);
+                
+            }
+            
+            tarea.setFechaFin(fecha);
+        }else{
+            // Es menor, capaz que pueda borrar
+            tarea.setFechaFin(fecha);
+        }
+        
+        
+    }
+
+    /**
+     * Cambio la fecha de inicio de una tarea
+     * @param res 
+     */    
+    private void cambiarFechaDeInicioDeTareaActual(TareaEjecucion nuevaTarea, Date fecha) {
+        nuevaTarea.setFechaInicio(fecha);
+    }
+
+    private void crearDetalleHerramientaParaFecha(TareaEjecucion tarea, Date fechaDelNuevo) {
+        
+        
+        for (int i = 0; i < tarea.getHerramientas().size(); i++) {
+            EjecucionXHerramienta eph = (EjecucionXHerramienta)tarea.getHerramientas().get(i);
+            
+            EjecucionXHerramientaXDia nuevo = new EjecucionXHerramientaXDia();
+            nuevo.setFecha(fechaDelNuevo);
+            nuevo.setHorasUtilizadas(0);
+            
+            eph.getUsoHerramientasXdia().add(nuevo);
+        }
+        
     }
 
 }

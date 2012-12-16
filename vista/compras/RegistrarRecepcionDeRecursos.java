@@ -9,13 +9,16 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import modelo.*;
+import org.hibernate.tool.hbm2x.StringUtils;
 import util.*;
 import vista.interfaces.ICallBackGen;
 import vista.reportes.ReportDesigner;
@@ -28,6 +31,7 @@ import vista.reportes.sources.EmitirRecepcionOrdenDeCompra;
 public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame implements ICallBackGen {
 
     public static final String CALLBACK_SELECCION_ORDENDECOMPRA = "SeleccionOrdenDeCompra";
+    private static final String SEPARADOR_CADENA_REMITOS = ";;";
     
     private OrdenDeCompra ordenDeCompra;
     
@@ -39,6 +43,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         initCellListener();
         initAnchoColumnasTablaDetalles();
         initTablaRecepcion();
+        initRemitos();
     }
 
     /**
@@ -50,6 +55,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         initCellListener();
         cargarOrdenDeCompra(idOrdenDeCompra);
         initTablaRecepcion();
+        initRemitos();
     }    
     
     /**
@@ -89,6 +95,11 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         btnCerrar = new javax.swing.JButton();
         btnRegistrarRecepcion = new javax.swing.JButton();
         btnEmitir = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstRemitos = new javax.swing.JList();
+        btnCrearRemito = new javax.swing.JButton();
+        btnEliminarRemito = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -99,8 +110,8 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Orden de Compra:");
 
-        txtOrdenDeCompra.setBackground(new java.awt.Color(204, 204, 204));
         txtOrdenDeCompra.setEditable(false);
+        txtOrdenDeCompra.setBackground(new java.awt.Color(204, 204, 204));
 
         btnSeleccionarOrdenDeCompra.setText("...");
         btnSeleccionarOrdenDeCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +268,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -288,6 +299,45 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Remitos:"));
+
+        lstRemitos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(lstRemitos);
+
+        btnCrearRemito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add_page.png"))); // NOI18N
+        btnCrearRemito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearRemitoActionPerformed(evt);
+            }
+        });
+
+        btnEliminarRemito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/delete_page.png"))); // NOI18N
+        btnEliminarRemito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRemitoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCrearRemito, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarRemito, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(btnCrearRemito)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarRemito))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -295,6 +345,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -323,7 +374,9 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrar)
@@ -378,8 +431,28 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         }
     }//GEN-LAST:event_btnEmitirActionPerformed
 
+    private void btnCrearRemitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRemitoActionPerformed
+        String str = JOptionPane.showInputDialog(null, "<HTML>Ingrese el <b>Número</b> del remito recibido:","Nuevo Remito", JOptionPane.QUESTION_MESSAGE);
+        if(str != null){
+            agregarRemito(str);
+        }
+    }//GEN-LAST:event_btnCrearRemitoActionPerformed
+
+    private void btnEliminarRemitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRemitoActionPerformed
+        
+        DefaultListModel modelo = (DefaultListModel) lstRemitos.getModel();
+        if(lstRemitos.getSelectedIndex()>=0){
+            modelo.removeElementAt(lstRemitos.getSelectedIndex());
+        }else{
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!","Seleccione de la lista el remito que desee eliminar");
+        }
+        
+    }//GEN-LAST:event_btnEliminarRemitoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCrearRemito;
+    private javax.swing.JButton btnEliminarRemito;
     private javax.swing.JButton btnEmitir;
     private javax.swing.JButton btnRegistrarRecepcion;
     private javax.swing.JButton btnSeleccionarOrdenDeCompra;
@@ -395,8 +468,10 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblEstadoRecepcion;
     private javax.swing.JLabel lblFechaEmision;
@@ -404,6 +479,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
     private javax.swing.JLabel lblFormaDeEntrega;
     private javax.swing.JLabel lblFormaDePago;
     private javax.swing.JLabel lblProveedor;
+    private javax.swing.JList lstRemitos;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTextArea txtObservaciones;
     private javax.swing.JTextField txtOrdenDeCompra;
@@ -499,6 +575,8 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
                 mostrarDatosOrdenDeCompra();
                 // Lleno la tabla de Detalles
                 mostrarDetalleDeCompra();
+                // Lleno los remitos
+                initRemitos();
             }
             
         }catch(Exception e)
@@ -549,6 +627,11 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         roc.setFechaRecepcion(new Date());
         roc.setObservaciones(txtObservaciones.getText());
         
+        // Remitos
+        String[] todosRemitos = getRemitosCargados();
+        String dbRemitos = StringUtils.join(todosRemitos, SEPARADOR_CADENA_REMITOS);
+        roc.setRemitos(dbRemitos);
+        
         // lleno el Detalle
         DefaultTableModel modelo = (DefaultTableModel)tblDetalle.getModel();
         for (int i = 0; i <  modelo.getRowCount(); i++) {
@@ -585,7 +668,7 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
         // Veo el Estado que tengo que asignarle
         if(esRecepcionTotal())
         {
-            // Se recibiÃƒÂ³ todo o mas (TOTAL)
+            // Se recibi todo o mas (TOTAL)
             roc.setEstado(RecepcionOrdenDeCompra.ESTADO_RECIBIDA_TOTALMENTE);
         }
         else
@@ -846,5 +929,60 @@ public class RegistrarRecepcionDeRecursos extends javax.swing.JInternalFrame imp
 
     private void initTablaRecepcion() {
         tblDetalle.setDefaultRenderer(Object.class, new RegistrarRecepcionDeRecursosCellRenderer());
+    }
+
+    private void agregarRemito(String str) {
+        
+        DefaultListModel modelo = (DefaultListModel) lstRemitos.getModel();
+        
+        if(str==null || str.isEmpty()){
+            return;
+        }
+        
+        if(!remitoEstaAgregado(str)){
+            modelo.addElement(str);
+        }else{
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!","<HTML>El remito <b>"+str+"</b> ya se encuentra agregado en la lista");
+        }
+    }
+
+    private boolean remitoEstaAgregado(String str) {
+        DefaultListModel modelo = (DefaultListModel) lstRemitos.getModel();
+        for (int i = 0; i < modelo.size(); i++) {
+            String nroRemito = (String)modelo.get(i);
+            if(str.equals(nroRemito)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void initRemitos() {
+        DefaultListModel modelo = new DefaultListModel();
+        if (this.ordenDeCompra != null) {
+            if (this.ordenDeCompra.getRecepciones() != null && this.ordenDeCompra.getRecepciones().size() > 0) {
+                RecepcionOrdenDeCompra roc = this.ordenDeCompra.getRecepciones().get(this.ordenDeCompra.getRecepciones().size() - 1);
+                if (roc != null) {
+                    String[] values = roc.getRemitos().split(SEPARADOR_CADENA_REMITOS);
+                    for (int i = 0; i < values.length; i++) {
+                        String nroRemito = values[i];
+                        modelo.addElement(nroRemito);
+                    }
+                }
+            }
+        }
+        lstRemitos.setModel(modelo);
+    }
+
+    private String[] getRemitosCargados() {
+        DefaultListModel modelo = (DefaultListModel) lstRemitos.getModel();
+        String[] todos = new String[modelo.size()];
+        
+            for (int i = 0; i < modelo.size(); i++) {
+                String nroRemito = (String)modelo.get(i);
+                todos[i] = nroRemito;
+            }
+        
+        return todos;
     }
 }

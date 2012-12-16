@@ -11,7 +11,7 @@
     
     <!-- CONFIGS PARA BASE DE DATOS EN MEMORIA -->
     <!--<property name="connection.url">jdbc:hsqldb:mem:testdb</property>-->
-    <!--<property name="hbm2ddl.auto">create-drop</property>-->
+    <property name="hbm2ddl.auto">create-drop</property>
     
     <!-- CONFIGS PARA BASE DE DATOS EN DISCO -->
     <property name="connection.url">jdbc:hsqldb:hsql://localhost/acerodb</property>
