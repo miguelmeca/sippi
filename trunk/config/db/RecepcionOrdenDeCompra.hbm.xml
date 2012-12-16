@@ -11,6 +11,8 @@
     <property name="observaciones" type="string"/>
     <property name="fechaRecepcion" type="date"/>
     
+    <property name="remitos" type="string"/>
+    
     <list cascade="all" name="recepcionesParciales" table="RECEPCION_X_DETALLERECEPCION">
       <key column="ID_RECEPCION"/>
       <index column="idx"/>

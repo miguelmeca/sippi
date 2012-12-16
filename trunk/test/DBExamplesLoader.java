@@ -75,16 +75,16 @@ public class DBExamplesLoader {
         this.cargarRolesContactoResponsable();
           
         // EJEMPLOS PARA DEVELOPMENT
-        this.cargarEmpresasYPlantas();
-        this.cargarEmplados();
-        this.cargarContactoResponsable();
-        this.cargarCompras(); 
-        this.cargarOrdenDeCompra();
-        this.cargarHerramientasDeEmpresa();
-        this.cargarCotizacionEjemplo();
-        this.cargarPlanificacionEjemplo();
-        this.cargarStock();
-        this.cargarOrdenesDeCompra();
+//        this.cargarEmpresasYPlantas();
+//        this.cargarEmplados();
+//        this.cargarContactoResponsable();
+//        this.cargarCompras(); 
+//        this.cargarOrdenDeCompra();
+//        this.cargarHerramientasDeEmpresa();
+//        this.cargarCotizacionEjemplo();
+//        this.cargarPlanificacionEjemplo();
+//        this.cargarStock();
+//        this.cargarOrdenesDeCompra();
         
     }
 

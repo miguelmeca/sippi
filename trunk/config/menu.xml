@@ -22,7 +22,7 @@
         <item nombre="Recepcion de Compras" icono="/res/iconos/var/16x16/delivery.png" instance="vista.compras.RegistrarRecepcionDeRecursos"/>
         <item nombre="Gestionar Stock" icono="/res/iconos/var/16x16/Wallet.png" instance="vista.compras.GestionarStock"/>
         <item nombre="Consultar Precios" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.ConsultarPrecios"/>
-        <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.pantallaRegistrarProveedor"/>
+        <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.ABMProveedor"/>
         <item nombre="Registrar Precios de Recursos" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.pantallaRegistrarPrecioRecursoNueva"/>
     </itemcat>  
     

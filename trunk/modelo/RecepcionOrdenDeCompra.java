@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.awt.Color;
@@ -28,6 +24,8 @@ public class RecepcionOrdenDeCompra {
     private String estado;
     private String observaciones;
     private Date fechaRecepcion;
+    
+    private String remitos;
     
     private List<DetalleRecepcionOrdenDeCompra> recepcionesParciales;
 
@@ -78,6 +76,13 @@ public class RecepcionOrdenDeCompra {
     public void setFechaRecepcion(Date fechaRecepcion) {
         this.fechaRecepcion = fechaRecepcion;
     }
-    
+
+    public String getRemitos() {
+        return remitos;
+    }
+
+    public void setRemitos(String remitos) {
+        this.remitos = remitos;
+    }
     
 }

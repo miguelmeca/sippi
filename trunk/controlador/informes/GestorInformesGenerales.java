@@ -16,6 +16,7 @@ import util.HibernateUtil;
 import vista.reportes.ReportDesigner;
 import vista.reportes.sources.InformeCantidadCotizacionesRechazadas;
 import vista.reportes.sources.InformeGeneralDeGanancias;
+import vista.reportes.sources.InformeObrasPorAnio;
 
 /**
  *
@@ -238,5 +239,58 @@ public class GestorInformesGenerales{
         }
         return cantidadTotal;
     }    
+
+    public void generarInformeObrasPorYear(Integer years) throws Exception {
+        datos.put("YEARS_HISTORICO", years);
+        
+        // Cotizaciones comunes
+        List<PedidoObra> listaObras = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            listaObras = (List)HibernateUtil.getSession().createQuery("FROM PedidoObra").list();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:"+e.getMessage());
+            throw new Exception("No se pudo cargar correctamente el listado de Obras",e);
+        }  
+
+        // Historico
+        Date fechaInicioHistoricos = getFechaDesdeHistoricos(fechaFin,years);
+        HashMap<String,Integer> listaObrasHistorico = new HashMap<String,Integer>();
+        
+        for (int i = 0; i < listaObras.size(); i++) {
+                PedidoObra po = listaObras.get(i);
+
+                if(FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicioHistoricos, fechaFin) 
+                        && po.getEstado().equals(PedidoObra.ESTADO_FINALIZADO))
+                {
+                    String yearPo = ""+FechaUtil.getYearFromDate(po.getFechaInicio());
+                    if(listaObrasHistorico.containsKey(yearPo)){
+                        int cantidad = listaObrasHistorico.get(yearPo);
+                        cantidad ++;
+                        listaObrasHistorico.put(yearPo,cantidad);
+                    }else{
+                        listaObrasHistorico.put(yearPo,1);
+                    }
+                }
+        }
+        
+        datos.put("DATOS_HISTORICOS", listaObrasHistorico);
+        
+        InformeObrasPorAnio reporte = new InformeObrasPorAnio();
+        try {
+            reporte.setNombreReporte("Cantidad de Obras Finalizadas por año.");
+            reporte.setNombreArchivo("CantidadObrasPorAnio",ReportDesigner.REPORTE_TIPO_OTROS);
+            reporte.makeAndShow(datos);
+        } catch (Exception ex) {
+            System.err.println("Error al generar el reporte");
+            throw new Exception("Se produjo un error al generar el Reporte",ex);
+        }        
+        
+    }
     
 }
