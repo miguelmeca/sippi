@@ -90,6 +90,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         inicializarArbolDeTareas();
         inicializarEventosArbol();
         inicializarGantt();
+        initDetalleTareas();
         
     }
     
@@ -140,6 +141,20 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         panelCentral = new javax.swing.JPanel();
         cbIncluirSubtareas = new javax.swing.JCheckBox();
         panelGantt = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        lblNuevaTitulo = new javax.swing.JLabel();
+        lblNuevaValor = new javax.swing.JLabel();
+        lblEnProgresoTitulo = new javax.swing.JLabel();
+        lblEnProgresoValor = new javax.swing.JLabel();
+        lblCompletaTitulo = new javax.swing.JLabel();
+        lblCompletaValor = new javax.swing.JLabel();
+        lblCanceladaTitulo = new javax.swing.JLabel();
+        lblCanceladaValor = new javax.swing.JLabel();
+        lblEnEsperaTitulo = new javax.swing.JLabel();
+        lblEnEsperaValor = new javax.swing.JLabel();
+        lblImpedimentoTitulo = new javax.swing.JLabel();
+        lblImpedimentoValor = new javax.swing.JLabel();
+        btnDetalles = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         txtFechaFin = new com.toedter.calendar.JDateChooser();
@@ -288,18 +303,106 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbIncluirSubtareas)
                 .addContainerGap())
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Gestion de Tareas", jPanel5);
 
         panelGantt.setLayout(new java.awt.BorderLayout());
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Tareas por estado:"));
+
+        lblNuevaTitulo.setText("Nuevas:");
+
+        lblNuevaValor.setText("0");
+
+        lblEnProgresoTitulo.setText("En Progreso:");
+
+        lblEnProgresoValor.setText("0");
+
+        lblCompletaTitulo.setText("Completa:");
+
+        lblCompletaValor.setText("0");
+
+        lblCanceladaTitulo.setText("Cancelada:");
+
+        lblCanceladaValor.setText("0");
+
+        lblEnEsperaTitulo.setText("En Espera:");
+
+        lblEnEsperaValor.setText("0");
+
+        lblImpedimentoTitulo.setText("Con Impedimento:");
+
+        lblImpedimentoValor.setText("0");
+
+        btnDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/chart.png"))); // NOI18N
+        btnDetalles.setText("Detalles");
+        btnDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetallesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNuevaTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNuevaValor)
+                .addGap(18, 18, 18)
+                .addComponent(lblEnProgresoTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEnProgresoValor)
+                .addGap(18, 18, 18)
+                .addComponent(lblCompletaTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCompletaValor)
+                .addGap(18, 18, 18)
+                .addComponent(lblCanceladaTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCanceladaValor)
+                .addGap(18, 18, 18)
+                .addComponent(lblEnEsperaTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEnEsperaValor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblImpedimentoTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImpedimentoValor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 373, Short.MAX_VALUE)
+                .addComponent(btnDetalles)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblNuevaTitulo)
+                .addComponent(lblNuevaValor)
+                .addComponent(lblEnProgresoTitulo)
+                .addComponent(lblEnProgresoValor)
+                .addComponent(lblCompletaTitulo)
+                .addComponent(lblCompletaValor)
+                .addComponent(lblCanceladaTitulo)
+                .addComponent(lblCanceladaValor)
+                .addComponent(lblEnEsperaTitulo)
+                .addComponent(lblEnEsperaValor)
+                .addComponent(lblImpedimentoTitulo)
+                .addComponent(lblImpedimentoValor)
+                .addComponent(btnDetalles))
+        );
+
+        panelGantt.add(jPanel4, java.awt.BorderLayout.SOUTH);
+
         jTabbedPane1.addTab("Línea de Tiempo", panelGantt);
 
         jPanel2.setToolTipText("Datos Generales");
@@ -583,7 +686,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -619,7 +722,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -673,7 +776,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(503, Short.MAX_VALUE))
+                .addContainerGap(515, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Ejecución", jPanel1);
@@ -707,7 +810,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel9);
@@ -739,7 +842,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
@@ -789,6 +892,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             // Actualizo el Gantt
             System.out.println("[DEBUG] Foco en el Gantt");
             refreshGanttAndData();
+            refreshDetalleTareaDatos();
             break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -895,11 +999,28 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
        informesWin.setVisible(true);
     }//GEN-LAST:event_btnEmitirInformesActionPerformed
 
+    private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
+        GraficoCantidadDeTareasPorEstado gcte = new GraficoCantidadDeTareasPorEstado();
+        
+        final double[][] data = new double[1][6];
+        
+        data[0][0] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_NUEVA);
+        data[0][1] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_ENPROGRESO);
+        data[0][2] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_COMPLETA);
+        data[0][3] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_CANCELADA);
+        data[0][4] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_ENESPERA);
+        data[0][5] = gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_IMPEDIMENTO);
+        
+        gcte.showGraph(data);
+             
+    }//GEN-LAST:event_btnDetallesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTree arbolTareas;
     private javax.swing.JButton btnAbrirCotizacion;
     private javax.swing.JButton btnAbrirPlanificacion;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnDetalles;
     private javax.swing.JButton btnEmitirInformes;
     private javax.swing.JButton btnFinalizarObra;
     private javax.swing.JButton btnGuardar;
@@ -928,6 +1049,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -937,9 +1059,21 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblCanceladaTitulo;
+    private javax.swing.JLabel lblCanceladaValor;
+    private javax.swing.JLabel lblCompletaTitulo;
+    private javax.swing.JLabel lblCompletaValor;
     private javax.swing.JLabel lblCotMontoTotal;
+    private javax.swing.JLabel lblEnEsperaTitulo;
+    private javax.swing.JLabel lblEnEsperaValor;
+    private javax.swing.JLabel lblEnProgresoTitulo;
+    private javax.swing.JLabel lblEnProgresoValor;
     private javax.swing.JLabel lblFechaFinPlanificacion;
     private javax.swing.JLabel lblFechaInicioPlanificacion;
+    private javax.swing.JLabel lblImpedimentoTitulo;
+    private javax.swing.JLabel lblImpedimentoValor;
+    private javax.swing.JLabel lblNuevaTitulo;
+    private javax.swing.JLabel lblNuevaValor;
     private javax.swing.JLabel lblObraFechaFin;
     private javax.swing.JLabel lblObraFechaInicio;
     private javax.swing.JLabel lblObraLugar;
@@ -1454,6 +1588,26 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         txtFechaInicio.setEnabled(anulo);
         txtFechaFin.setEnabled(anulo);
         taDescripcionEjecucion.setEnabled(anulo);
+    }
+
+    private void initDetalleTareas() {
+        lblNuevaTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_NUEVA);
+        lblEnProgresoTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_ENPROGRESO);
+        lblCompletaTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_COMPLETA);
+        lblCanceladaTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_CANCELADA);
+        lblEnEsperaTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_ENESPERA);
+        lblImpedimentoTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_IMPEDIMENTO);
+        
+        refreshDetalleTareaDatos();
+    }
+
+    private void refreshDetalleTareaDatos() {
+        lblNuevaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_NUEVA));
+        lblEnProgresoValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_ENPROGRESO));
+        lblCompletaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_COMPLETA));
+        lblCanceladaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_CANCELADA));
+        lblEnEsperaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_ENESPERA));
+        lblImpedimentoValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_IMPEDIMENTO));
     }
     
     public class GanttEventMouse implements ICoolGanttEvent {

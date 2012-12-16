@@ -28,7 +28,7 @@ import vista.interfaces.ICallBack_v3;
  *
  * @author Administrador
  */
-public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements ICallBack_v3{
+public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel implements ICallBack_v3 {
 
     private boolean FLAG_ESTA_EDITANDO;
     private GestorEjecucion gestor;
@@ -70,6 +70,7 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
         cmbTipoTarea = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
@@ -146,6 +147,15 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        jButton1.setText("Aceptar Cambios");
+        jButton1.setToolTipText("Confirmar Cambios");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,8 +163,8 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -162,7 +172,7 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
                             .addComponent(cmbTipoTarea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
@@ -172,7 +182,10 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(dcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -199,7 +212,9 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -211,24 +226,19 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
     }//GEN-LAST:event_txtObservacionesFocusLost
 
     private void cmbTipoTareaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbTipoTareaFocusLost
-        if (FLAG_ESTA_EDITANDO) {
-            Tupla tp = (Tupla) cmbTipoTarea.getModel().getSelectedItem();
-            gestor.actualizarTipoTarea(tp);
-        }
     }//GEN-LAST:event_cmbTipoTareaFocusLost
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        gestor.actualizarNombreTarea(txtNombre.getText());
+        
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void cmbTipoTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoTareaActionPerformed
     }//GEN-LAST:event_cmbTipoTareaActionPerformed
 
     private void txtObservacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacionesKeyReleased
-        gestor.actualizarObservacionesTarea(txtObservaciones.getText());
     }//GEN-LAST:event_txtObservacionesKeyReleased
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
@@ -238,16 +248,41 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
     }//GEN-LAST:event_cmbTipoTareaItemStateChanged
 
     private void cmbEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbEstadoFocusLost
-        if (FLAG_ESTA_EDITANDO) {
-            Tupla tpe = (Tupla) cmbEstado.getModel().getSelectedItem();
-            gestor.actualizarEstadoTarea(tpe);
-        }
     }//GEN-LAST:event_cmbEstadoFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        try{
+            
+            if (FLAG_ESTA_EDITANDO) {
+                Tupla tp = (Tupla) cmbTipoTarea.getModel().getSelectedItem();
+                gestor.actualizarTipoTarea(tp);
+            }
+
+            gestor.actualizarObservacionesTarea(txtObservaciones.getText());
+            gestor.actualizarNombreTarea(txtNombre.getText());
+
+            gestor.actualizarFechaInicioTarea(dcFechaInicio.getDate());
+            gestor.actualizarFechaFinTarea(dcFechaFin.getDate());
+
+            if (FLAG_ESTA_EDITANDO) {
+                Tupla tpe = (Tupla) cmbEstado.getModel().getSelectedItem();
+                gestor.actualizarEstadoTarea(tpe);
+            }
+            
+            mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Exito!","Cambios aplicados correctamente");
+            
+        }catch(Exception e){
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Se produjo un error al Aplicar los cambios");
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbTipoTarea;
     private com.toedter.calendar.JDateChooser dcFechaFin;
     private com.toedter.calendar.JDateChooser dcFechaInicio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -418,47 +453,43 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel  implements I
 
     private void initCombosFechas() {
 
-        // Trigger para la Fecha de Inicio
-        dcFechaInicio.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                if (FLAG_ESTA_EDITANDO && "date".equals(e.getPropertyName())) {
-                    try
-                    {
-                        gestor.actualizarFechaInicioTarea((Date) e.getNewValue());
-                    }
-                    catch(IllegalArgumentException ex){
-                        dcFechaInicio.setDate((Date)e.getOldValue());
-                        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!",ex.getMessage());
-                    }
-                }
-            }
-        });
+//        // Trigger para la Fecha de Inicio
+//        dcFechaInicio.addPropertyChangeListener(new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent e) {
+//                if (FLAG_ESTA_EDITANDO && "date".equals(e.getPropertyName())) {
+//                    try {
+//                        gestor.actualizarFechaInicioTarea((Date) e.getNewValue());
+//                    } catch (IllegalArgumentException ex) {
+//                        dcFechaInicio.setDate((Date) e.getOldValue());
+//                        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Atención!", ex.getMessage());
+//                    }
+//                }
+//            }
+//        });
 
-        // Trigger para la Fecha de Fin
-        dcFechaFin.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                if (FLAG_ESTA_EDITANDO && "date".equals(e.getPropertyName())) {
-                    try
-                    {
-                        gestor.actualizarFechaFinTarea((Date) e.getNewValue());
-                    }
-                    catch(IllegalArgumentException ex){
-                        dcFechaFin.setDate((Date)e.getOldValue());
-                        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atención!",ex.getMessage());
-                    }
-                }                
-            }
-        });
+//        // Trigger para la Fecha de Fin
+//        dcFechaFin.addPropertyChangeListener(new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent e) {
+//                if (FLAG_ESTA_EDITANDO && "date".equals(e.getPropertyName())) {
+//                    try {
+//                        gestor.actualizarFechaFinTarea((Date) e.getNewValue());
+//                    } catch (IllegalArgumentException ex) {
+//                        dcFechaFin.setDate((Date) e.getOldValue());
+//                        mostrarMensaje(JOptionPane.INFORMATION_MESSAGE, "Atención!", ex.getMessage());
+//                    }
+//                }
+//            }
+//        });
     }
 
     private void cambiarSegunEstadoEjecucion() {
-        if(gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)){
+        if (gestor.getEstadoEjecucion().equals(Ejecucion.ESTADO_CREADA)) {
             // CREADA
             enablearComponentes(true);
-            
-        }else{
+
+        } else {
             // CANCELADA y FINALIZADA
             enablearComponentes(false);
         }

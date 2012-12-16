@@ -889,4 +889,21 @@ public class GestorEjecucion {
         this.incluirSubtareas = incluirSubtareas;
     }
 
+    /**
+     * Retorna la cantidad de Tareas con ese estado
+     * @param ESTADO
+     * @return 
+     */
+    public int getCantidadTareasPorEstado(String ESTADO) {
+        int cantidad = 0;
+        List<TareaEjecucion> lista = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+        for (int i = 0; i < lista.size(); i++) {
+            TareaEjecucion tarea = lista.get(i);
+            if(tarea.getEstado().equals(ESTADO)){
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
 }

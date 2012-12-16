@@ -43,7 +43,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="648" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnEmitirInformes" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -131,14 +131,14 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="192" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="367" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="cbIncluirSubtareas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="panelCentral" pref="590" max="32767" attributes="0"/>
+                  <Component id="panelCentral" pref="602" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -228,6 +228,150 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel4">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="Tareas por estado:"/>
+                  </Border>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="South"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblNuevaTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblNuevaValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblEnProgresoTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblEnProgresoValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblCompletaTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblCompletaValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblCanceladaTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblCanceladaValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblEnEsperaTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblEnEsperaValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblImpedimentoTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblImpedimentoValor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="373" max="32767" attributes="0"/>
+                          <Component id="btnDetalles" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblNuevaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNuevaValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnProgresoTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnProgresoValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCompletaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCompletaValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCanceladaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCanceladaValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnEsperaTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEnEsperaValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblImpedimentoTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblImpedimentoValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDetalles" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblNuevaTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nuevas:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblNuevaValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblEnProgresoTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="En Progreso:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblEnProgresoValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCompletaTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Completa:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCompletaValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCanceladaTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cancelada:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCanceladaValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblEnEsperaTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="En Espera:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblEnEsperaValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblImpedimentoTitulo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Con Impedimento:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblImpedimentoValor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnDetalles">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/res/iconos/var/16x16/chart.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Detalles"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetallesActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
@@ -267,7 +411,7 @@
                       <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="91" max="32767" attributes="0"/>
+                      <EmptySpace pref="103" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -738,7 +882,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="566" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="578" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -797,7 +941,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="503" max="32767" attributes="0"/>
+                      <EmptySpace pref="515" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -891,7 +1035,7 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="348" max="32767" attributes="0"/>
+                      <EmptySpace pref="374" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
