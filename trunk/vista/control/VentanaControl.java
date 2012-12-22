@@ -1,26 +1,25 @@
 package vista.control;
 
-import com.itextpdf.text.DocumentException;
 import controlador.control.GestorControl;
-import controlador.reportes.GestorReportesEjecucion;
-import controlador.utiles.gestorBDvarios;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.FileNotFoundException;
+import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.Ejecucion;
-import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planificacion;
-import util.FechaUtil;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import util.SwingPanel;
 import vista.comer.pantallaConsultarObra;
-import vista.reportes.ReportDesigner;
-import vista.reportes.sources.InformeDePlanificacion;
-import vista.reportes.sources.InformeDePlanificacionTareasARealizar;
-import vista.reportes.sources.InformeDePlanificacionTareasXEmpleado;
-import vista.reportes.sources.InformeDePlanificaiconEmpleadosEnObra;
+import vista.control.graficos.GraficoAlquileresComprasControlObra;
+import vista.control.graficos.GraficoGastosVariosControlObra;
+import vista.control.graficos.GraficoHerramientasControlObra;
+import vista.control.graficos.GraficoMontosControlObra;
 
 /**
  *
@@ -29,10 +28,10 @@ import vista.reportes.sources.InformeDePlanificaiconEmpleadosEnObra;
 public class VentanaControl extends javax.swing.JInternalFrame {
 
     private GestorControl gestor;
-    
     public static final String MENSAJE_NO_ESTA_COTIZADO = "No está Cotizado";
     public static final String MENSAJE_NO_ESTA_PLANIFICADO = "No está Planificado";
     public static final String MENSAJE_NO_ESTA_EJECUTADO = "No está Ejecutado";
+
     /**
      * Creates new form VentanaControl
      */
@@ -41,6 +40,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         initComponents();
         initDatosObra();
         initEstados();
+        initGraficos();
     }
 
     /**
@@ -71,46 +71,25 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         lblEstadoEjecucion = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        panelGraficoControlMontos = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        panelGraficoHerramientas = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        panelGraficoGastosVarios = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        panelGraficoAlquileresCompras = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        btnEmitir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -258,121 +237,16 @@ public class VentanaControl extends javax.swing.JInternalFrame {
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
-        );
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Montos Cotizados Vs. Planificados Vs. Ejecutados:");
 
-        jTabbedPane1.addTab("<HTML><b>Informes de Control</b>", jPanel8);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Cotización Discriminada por Sub-Obras"));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton3.setText("Emitir");
-
-        jLabel14.setText("Cotización que está dividida por las Sub-Obras que realizadas.");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jButton3))
-                .addGap(4, 4, 4))
-        );
-
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Cotización Sin Detalle"));
-
-        jLabel21.setText("Cotización que solo muestra la descripción de la obra y el monto final.");
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton10.setText("Emitir");
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(jButton10))
-                .addGap(4, 4, 4))
-        );
-
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Cotización Discriminada por Recursos"));
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton4.setText("Emitir");
-
-        jLabel15.setText("Cotización que está dividida por el tipo de recursos que se utilizaron.");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jButton4))
-                .addGap(4, 4, 4))
-        );
-
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Cotización de Uso Interno"));
-
-        jLabel16.setText("Descripción completa del presupuesto y la obra a realizar.");
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton5.setText("Emitir");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel16)
-                .addComponent(jButton5))
-        );
+        panelGraficoControlMontos.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -381,272 +255,85 @@ public class VentanaControl extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                    .addComponent(panelGraficoControlMontos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addComponent(panelGraficoControlMontos, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Cotizaciones", jPanel5);
+        jTabbedPane1.addTab("Montos", jPanel5);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Resumen de la Planificación"));
+        jLabel13.setText("<HTML>Uso de <b>Herramientas</b> Cotizadas Vs. Planificadas Vs. Ejecutadas");
 
-        jLabel17.setText("<HTML>Este informe pretende detallar los datos de la planificación realizada sobre la obra. En el se listan tareas  y subtareas con los diferentes recursos asociados. Además se adicionan fechas de inicio y fin de cada una  de ellas, descripciones, esfuerzo requerido y un breve listado con los empleados asociados a la obra.");
+        panelGraficoHerramientas.setLayout(new java.awt.BorderLayout());
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton6.setText("Emitir");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
+        jLabel14.setText("<HTML><b>Gastos Varios</b> Cotizados Vs. Ejecutados.");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panelGraficoGastosVarios.setLayout(new java.awt.BorderLayout());
+
+        jLabel15.setText("<HTML>Uso de <b>Alquileres/Compras</b> Cotizados Vs. Planificados Vs. Ejecutados");
+
+        panelGraficoAlquileresCompras.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelGraficoAlquileresCompras, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelGraficoHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelGraficoGastosVarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton6)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jLabel17)
-        );
-
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Informes de Empleados en la Planificación"));
-
-        jLabel18.setText("<HTML>Muestra una lista simple \"con los nombres, telefonos y mails\" de los empleados que van a participar en una obra según lo que se planificó, o puede agruparlos por las tareas que realizarán.");
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton7.setText("Emitir x Obra");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton2.setText("Emitir x Tarea");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                .addComponent(panelGraficoHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelGraficoGastosVarios, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelGraficoAlquileresCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Tareas Planificadas"));
-
-        jLabel19.setText("<HTML>Muestra una lista simple \"con los nombres\" de las tareas a realizar y los tiempos estimados para cada una y algunos datos extras de interés.");
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton8.setText("Emitir");
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+        jScrollPane1.setViewportView(jPanel4);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Informes de Planificación", jPanel6);
-
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Resumen de la Planificación"));
-
-        jLabel20.setText("<HTML>Este informe pretende detallar los datos de la  ejecucion realizada sobre la obra. En el se listan tareas  y subtareas con los diferentes recursos asociados. Además se adicionan fechas de inicio y fin de cada una  de ellas, descripciones, esfuerzo requerido y un breve listado con los empleados asociados a la obra.");
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton9.setText("Emitir");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton9)
-            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Informes de Empleados en la Ejecución"));
-
-        jLabel22.setText("<HTML>Muestra una lista simple \"con los nombres, telefonos y mails\" de los empleados que participan en la obra. Los mismos pueden ser agrupados por tareas");
-
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton11.setText("Emitir x Obra");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton12.setText("Emitir x Tarea");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Tareas"));
-
-        jLabel23.setText("<HTML>Muestra una lista simple \"con los nombres\" de las tareas a realizar y las horas de esfuerzo invertidos en cada una y algunos datos extras de interés.");
-
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
-        jButton13.setText("Emitir");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton13))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton13)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Informes de ejecución", jPanel7);
+        jTabbedPane1.addTab("Recursos", jPanel6);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Control de la Obra:");
@@ -665,7 +352,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -677,10 +364,39 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel13);
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder("Emitir Informe"));
+
+        jLabel11.setText("Emitir un informe completo para el análisis y control de la Obra.");
+
+        btnEmitir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitir.setText("Emitir");
+        btnEmitir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEmitir))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel11)
+                .addComponent(btnEmitir))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -696,7 +412,8 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCerrar)))
+                        .addComponent(btnCerrar))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -706,11 +423,13 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(1, 1, 1)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCerrar)
-                .addGap(6, 6, 6))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -722,97 +441,26 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         win.setVisible(true);
     }//GEN-LAST:event_btnVerDatosObraActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        /* GestorReportesEjecucion gestorReportes = new GestorReportesEjecucion();
-        gestorReportes.emitirResumenEjecucion(this.eje);*/
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void btnEmitirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirActionPerformed
+        emitirInforme();
+    }//GEN-LAST:event_btnEmitirActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-      /*  InformeDePlanificacionTareasXEmpleado iptxe = new InformeDePlanificacionTareasXEmpleado(this.eje);
-    iptxe.setNombreReporte("Listado de Tareas por Empleado");
-    iptxe.setNombreArchivo("Planificacion-TareasPorEmpleado-"+this.eje.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
-
-        HashMap<String,Object> params = new HashMap<String, Object>();
-        // Carga los datos comunes a todos los informes
-        cargarDatosCabecera(params);
-
-    try {
-        iptxe.makeAndShow(params);
-    } catch (DocumentException ex) {
-        mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
-    } catch (FileNotFoundException ex) {
-        mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
-    }*/
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        /*InformeDePlanificaiconEmpleadosEnObra ceg = new InformeDePlanificaiconEmpleadosEnObra(this.eje);
-        ceg.setNombreReporte("Listado de Empleados Asignados a la Obra");
-        ceg.setNombreArchivo("Planificacion-EmpleadosAsignadosEnObra-"+this.eje.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
-        
-            HashMap<String,Object> params = new HashMap<String, Object>();
-            // Carga los datos comunes a todos los informes
-            cargarDatosCabecera(params);
-        
-        try {
-            ceg.makeAndShow(params);
-        } catch (DocumentException ex) {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
-        } catch (FileNotFoundException ex) {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
-        }*/
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        /*InformeDePlanificacionTareasARealizar informe = new InformeDePlanificacionTareasARealizar(eje);
-        informe.setNombreReporte("Listado de Tareas Planificadas");
-        informe.setNombreArchivo("Planificacion-Tareas-"+this.eje.getId(),ReportDesigner.REPORTE_TIPO_PLANIFICACION);
-        
-            HashMap<String,Object> params = new HashMap<String, Object>();
-            // Carga los datos comunes a todos los informes
-            cargarDatosCabecera(params);
-        
-        try {
-            informe.makeAndShow(params);
-        } catch (DocumentException ex) {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el informe\nVerifique los datos e intentelo nuevamente");
-        } catch (FileNotFoundException ex) {
-            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","No se pudo crear el archivo donde guardar el informe");
-        }*/
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEmitir;
     private javax.swing.JButton btnVerDatosObra;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -821,22 +469,13 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblEstadoCotizacion;
     private javax.swing.JLabel lblEstadoEjecucion;
@@ -845,43 +484,47 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNombreClienteObra;
     private javax.swing.JLabel lblNombreObra;
     private javax.swing.JLabel lblNumeroObra;
+    private javax.swing.JPanel panelGraficoAlquileresCompras;
+    private javax.swing.JPanel panelGraficoControlMontos;
+    private javax.swing.JPanel panelGraficoGastosVarios;
+    private javax.swing.JPanel panelGraficoHerramientas;
     // End of variables declaration//GEN-END:variables
 
-    
     /**
      * Carga los datos que son comunes a todos los informes de planificacion
-     * @param params 
+     *
+     * @param params
      */
-    private void cargarDatosCabecera(HashMap<String,Object> params)
-    {
+    private void cargarDatosCabecera(HashMap<String, Object> params) {
         /*params.put(InformeDePlanificacion.PARAM_PLAN_NRO,this.eje.getNroCotizacionPlanificada());
             
-        gestorBDvarios utils = new gestorBDvarios();
-        EmpresaCliente ec = utils.buscarEmpresaCliente(this.obra.getPlanta());
+         gestorBDvarios utils = new gestorBDvarios();
+         EmpresaCliente ec = utils.buscarEmpresaCliente(this.obra.getPlanta());
 
-        if(ec==null)
-        {
-            params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,"");
-        }
-        else
-        {
-            params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,ec.toString());
-        }
-        if(this.obra.getPlanta()!=null)
-        {
-            params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,this.obra.getPlanta().toString());
-        }
-        else
-        {
-            params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,"");
-        }
+         if(ec==null)
+         {
+         params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,"");
+         }
+         else
+         {
+         params.put(InformeDePlanificacion.PARAM_PLAN_EMPRESA,ec.toString());
+         }
+         if(this.obra.getPlanta()!=null)
+         {
+         params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,this.obra.getPlanta().toString());
+         }
+         else
+         {
+         params.put(InformeDePlanificacion.PARAM_PLAN_PLANTA,"");
+         }
         
-        params.put(InformeDePlanificacion.PARAM_PLAN_OBRA,this.obra.getNombre());
+         params.put(InformeDePlanificacion.PARAM_PLAN_OBRA,this.obra.getNombre());
         
-        params.put(InformeDePlanificacion.PARAM_PLAN_FINICIO,FechaUtil.getFecha(this.eje.getFechaInicio()));
+         params.put(InformeDePlanificacion.PARAM_PLAN_FINICIO,FechaUtil.getFecha(this.eje.getFechaInicio()));
         
-        params.put(InformeDePlanificacion.PARAM_PLAN_FFIN,FechaUtil.getFecha(this.eje.getFechaInicio()));*/
+         params.put(InformeDePlanificacion.PARAM_PLAN_FFIN,FechaUtil.getFecha(this.eje.getFechaInicio()));*/
     }
+
     /**
      * Busca y llena los datos generales de la obra
      */
@@ -912,62 +555,168 @@ public class VentanaControl extends javax.swing.JInternalFrame {
     private void initEstadoPedidoObra() {
         String estado = gestor.getEstadoPedidoObra();
         lblEstadoPedidoObra.setText(estado);
-        
+
         // Cambio el Color
-        if(estado.equals(PedidoObra.ESTADO_CANCELADO)){ lblEstadoPedidoObra.setBackground(new Color(229,184,183)); }
-        if(estado.equals(PedidoObra.ESTADO_EN_EJECUCION)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
-        if(estado.equals(PedidoObra.ESTADO_PLANIFICADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
-        if(estado.equals(PedidoObra.ESTADO_COTIZADO)){ lblEstadoPedidoObra.setBackground(new Color(196,188,150)); }
-        if(estado.equals(PedidoObra.ESTADO_SOLICITADO)){ lblEstadoPedidoObra.setBackground(new Color(132,230,147)); }
-            
+        if (estado.equals(PedidoObra.ESTADO_CANCELADO)) {
+            lblEstadoPedidoObra.setBackground(new Color(229, 184, 183));
+        }
+        if (estado.equals(PedidoObra.ESTADO_EN_EJECUCION)) {
+            lblEstadoPedidoObra.setBackground(new Color(196, 188, 150));
+        }
+        if (estado.equals(PedidoObra.ESTADO_PLANIFICADO)) {
+            lblEstadoPedidoObra.setBackground(new Color(196, 188, 150));
+        }
+        if (estado.equals(PedidoObra.ESTADO_COTIZADO)) {
+            lblEstadoPedidoObra.setBackground(new Color(196, 188, 150));
+        }
+        if (estado.equals(PedidoObra.ESTADO_SOLICITADO)) {
+            lblEstadoPedidoObra.setBackground(new Color(132, 230, 147));
+        }
+
     }
 
     private void initEstadoCotizacion() {
         String estado = gestor.getEstadoCotizacionObra();
         lblEstadoCotizacion.setText(estado);
-        
+
         // Cambio el Color
-        if(estado.equals(Cotizacion.ESTADO_ACEPTADO)){ lblEstadoCotizacion.setBackground(new Color(214,227,188)); }        
-        if(estado.equals(Cotizacion.ESTADO_CANCELADO)){ lblEstadoCotizacion.setBackground(new Color(229,184,183)); }        
-        if(estado.equals(Cotizacion.ESTADO_EN_CREACION)){ lblEstadoCotizacion.setBackground(new Color(196,188,150)); }        
-        if(estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION)){ lblEstadoCotizacion.setBackground(new Color(184,204,240)); }        
-        if(estado.equals(Cotizacion.ESTADO_RECHAZADO)){ lblEstadoCotizacion.setBackground(new Color(224,184,183)); }        
-        
-        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_COTIZADO)){ lblEstadoCotizacion.setBackground(new Color(204,204,204)); }        
+        if (estado.equals(Cotizacion.ESTADO_ACEPTADO)) {
+            lblEstadoCotizacion.setBackground(new Color(214, 227, 188));
+        }
+        if (estado.equals(Cotizacion.ESTADO_CANCELADO)) {
+            lblEstadoCotizacion.setBackground(new Color(229, 184, 183));
+        }
+        if (estado.equals(Cotizacion.ESTADO_EN_CREACION)) {
+            lblEstadoCotizacion.setBackground(new Color(196, 188, 150));
+        }
+        if (estado.equals(Cotizacion.ESTADO_PENDIENTE_ACEPTACION)) {
+            lblEstadoCotizacion.setBackground(new Color(184, 204, 240));
+        }
+        if (estado.equals(Cotizacion.ESTADO_RECHAZADO)) {
+            lblEstadoCotizacion.setBackground(new Color(224, 184, 183));
+        }
+
+        if (estado.equals(VentanaControl.MENSAJE_NO_ESTA_COTIZADO)) {
+            lblEstadoCotizacion.setBackground(new Color(204, 204, 204));
+        }
     }
 
     private void initEstadoPlanificacion() {
         String estado = gestor.getEstadoPlanificacionObra();
         lblEstadoPlanificacion.setText(estado);
-        
-        if(estado.equals(Planificacion.ESTADO_CREADA)){ lblEstadoPlanificacion.setBackground(new Color(214,227,188)); } 
-        if(estado.equals(Planificacion.ESTADO_CANCELADA)){ lblEstadoPlanificacion.setBackground(new Color(229,184,183)); } 
-        if(estado.equals(Planificacion.ESTADO_FINALIZADA)){ lblEstadoPlanificacion.setBackground(new Color(184,204,240)); } 
-        
-        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_PLANIFICADO)){ lblEstadoPlanificacion.setBackground(new Color(204,204,204)); } 
-        
+
+        if (estado.equals(Planificacion.ESTADO_CREADA)) {
+            lblEstadoPlanificacion.setBackground(new Color(214, 227, 188));
+        }
+        if (estado.equals(Planificacion.ESTADO_CANCELADA)) {
+            lblEstadoPlanificacion.setBackground(new Color(229, 184, 183));
+        }
+        if (estado.equals(Planificacion.ESTADO_FINALIZADA)) {
+            lblEstadoPlanificacion.setBackground(new Color(184, 204, 240));
+        }
+
+        if (estado.equals(VentanaControl.MENSAJE_NO_ESTA_PLANIFICADO)) {
+            lblEstadoPlanificacion.setBackground(new Color(204, 204, 204));
+        }
+
     }
 
     private void initEstadoEjecucion() {
         String estado = gestor.getEstadoEjecucionObra();
         lblEstadoEjecucion.setText(estado);
-        
-        if(estado.equals(Ejecucion.ESTADO_CREADA)){ lblEstadoEjecucion.setBackground(new Color(184,204,240)); } 
-        if(estado.equals(Ejecucion.ESTADO_CANCELADA)){ lblEstadoEjecucion.setBackground(new Color(229,184,183)); } 
-        if(estado.equals(Ejecucion.ESTADO_FINALIZADA)){ lblEstadoEjecucion.setBackground(new Color(204,255,153)); } 
-        
-        if(estado.equals(VentanaControl.MENSAJE_NO_ESTA_EJECUTADO)){ lblEstadoEjecucion.setBackground(new Color(204,204,204)); } 
+
+        if (estado.equals(Ejecucion.ESTADO_CREADA)) {
+            lblEstadoEjecucion.setBackground(new Color(184, 204, 240));
+        }
+        if (estado.equals(Ejecucion.ESTADO_CANCELADA)) {
+            lblEstadoEjecucion.setBackground(new Color(229, 184, 183));
+        }
+        if (estado.equals(Ejecucion.ESTADO_FINALIZADA)) {
+            lblEstadoEjecucion.setBackground(new Color(204, 255, 153));
+        }
+
+        if (estado.equals(VentanaControl.MENSAJE_NO_ESTA_EJECUTADO)) {
+            lblEstadoEjecucion.setBackground(new Color(204, 204, 204));
+        }
     }
-    
+
     /**
      * Muestra un mensaje
+     *
      * @param tipo
      * @param titulo
-     * @param mensaje 
+     * @param mensaje
      */
-    public void mostrarMensaje(int tipo,String titulo,String mensaje)
-    {
-         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
-    } 
+    public void mostrarMensaje(int tipo, String titulo, String mensaje) {
+        JOptionPane.showMessageDialog(this.getParent(), mensaje, titulo, tipo);
+    }
+
+    private void emitirInforme() {
+        prepararEmision();
+        try{
+            gestor.emitirInformeControl();
+        }catch(Exception e){
+            concluirEmision(JOptionPane.ERROR_MESSAGE, "<HTML><b>Error al generar el informe:</b>\n" + e.getMessage());
+        }
+        concluirEmision(JOptionPane.INFORMATION_MESSAGE, "<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+    }
+    
+    protected void prepararEmision() {
+        btnEmitir.setEnabled(false);
+    }
+    
+    protected void concluirEmision(int tipoMensaje,String mensaje) {
+        btnEmitir.setEnabled(true);
+        mostrarMensaje(tipoMensaje,"Atencion!", mensaje);
+    }   
+
+    private void initGraficos() {
+        
+        initGraficoControlMontos();
+        initGraficoControlHerramientas();
+        initGraficoGastosVarios();
+        initGraficoAlquileresCompras();
+        
+    }
+
+    private void initGraficoControlMontos() {
+        List<PedidoObra> pos = new ArrayList<PedidoObra>();
+        pos.add(gestor.getPedidoObraActual());
+        GraficoMontosControlObra graficoComparativaCostos = new GraficoMontosControlObra(pos);
+        JFreeChart chart = graficoComparativaCostos.createGraph();
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(200, 100));
+        panelGraficoControlMontos.add(chartPanel, BorderLayout.CENTER);
+    }
+    
+    private void initGraficoControlHerramientas() {
+        List<PedidoObra> pos = new ArrayList<PedidoObra>();
+        pos.add(gestor.getPedidoObraActual());
+        GraficoHerramientasControlObra graficoHerramienta = new GraficoHerramientasControlObra(pos);
+        JFreeChart chart = graficoHerramienta.createGraph();
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(200, 100));
+        panelGraficoHerramientas.add(chartPanel, BorderLayout.CENTER);
+    }    
+
+    private void initGraficoGastosVarios() {
+        List<PedidoObra> pos = new ArrayList<PedidoObra>();
+        pos.add(gestor.getPedidoObraActual());
+        GraficoGastosVariosControlObra grafico = new GraficoGastosVariosControlObra(pos);
+        JFreeChart chart = grafico.createGraph();
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(200, 100));
+        panelGraficoGastosVarios.add(chartPanel, BorderLayout.CENTER);
+    }
+
+    private void initGraficoAlquileresCompras() {
+        List<PedidoObra> pos = new ArrayList<PedidoObra>();
+        pos.add(gestor.getPedidoObraActual());
+        GraficoAlquileresComprasControlObra grafico = new GraficoAlquileresComprasControlObra(pos);
+        JFreeChart chart = grafico.createGraph();
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(200, 100));
+        panelGraficoAlquileresCompras.add(chartPanel, BorderLayout.CENTER);
+    }
     
 }

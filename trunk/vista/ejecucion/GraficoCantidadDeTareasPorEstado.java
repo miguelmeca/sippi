@@ -61,7 +61,7 @@ public class GraficoCantidadDeTareasPorEstado{
         frame.setVisible(true);
     }
     
-    class CustomRenderer extends BarRenderer {
+    public class CustomRenderer extends BarRenderer {
 
         /** The colors. */
         private Paint[] colors;

@@ -1,6 +1,11 @@
 package controlador.control;
 
+import controlador.informes.GestorInformesGenerales;
 import controlador.utiles.gestorBDvarios;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Cotizacion;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
@@ -88,9 +93,8 @@ public class GestorControl {
                 // Si tengo planificacion, una esta aceptada, sino, solo las cuento
                 if (this.pedidoObra.getPlanificacion() != null) {
                     // Tengo planificacion, una Cot es la que vale
-                    if (this.pedidoObra.getPlanificacion().getCotizacion() != null 
-                        && 
-                        this.pedidoObra.getPlanificacion().getCotizacion().getCotizacionOriginal()!=null) {
+                    if (this.pedidoObra.getPlanificacion().getCotizacion() != null
+                            && this.pedidoObra.getPlanificacion().getCotizacion().getCotizacionOriginal() != null) {
                         return this.pedidoObra.getPlanificacion().getCotizacion().getCotizacionOriginal().getEstado();
                     }
                 }
@@ -121,6 +125,27 @@ public class GestorControl {
                 return this.pedidoObra.getEjecucion().getEstado();
             }
         }
-        return VentanaControl.MENSAJE_NO_ESTA_EJECUTADO;        
+        return VentanaControl.MENSAJE_NO_ESTA_EJECUTADO;
+    }
+
+    public void emitirInformeControl() throws Exception {
+        Thread thread5 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    GestorInformesGenerales gestorInformes = new GestorInformesGenerales(new Date(), new Date());
+                    gestorInformes.generarInformeControlObras(pedidoObra);
+
+                } catch (Exception e) {
+                    System.err.println("ERROR:" + e.getMessage());
+                }
+            }
+        });
+        thread5.start();
+    }
+
+    public PedidoObra getPedidoObraActual() {
+        return pedidoObra;
     }
 }
