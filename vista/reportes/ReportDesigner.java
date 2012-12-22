@@ -68,6 +68,7 @@ public class ReportDesigner
     public static final Font FUENTE_NORMAL_BK   = FontFactory.getFont("Calibri",10,Font.BOLDITALIC);
     
     public static final Font FUENTE_INFORMES_NORMAL   = FontFactory.getFont("Calibri",8,Font.NORMAL);
+    public static final Font FUENTE_INFORMES_NORMAL_I   = FontFactory.getFont("Calibri",8,Font.ITALIC);
     public static final Font FUENTE_INFORMES_NORMAL_B   = FontFactory.getFont("Calibri",8,Font.BOLD);
     
     public static final BaseColor COLOR_HEADINGS = new BaseColor(219,229,241);
