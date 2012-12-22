@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.tree.DefaultTreeModel;
 import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
@@ -952,6 +953,25 @@ public class GestorEjecucion {
             
             eph.getUsoHerramientasXdia().add(nuevo);
         }
+        
+    }
+
+    public void setAvanceDeLaObra(JProgressBar bar) {
+        
+        int countListas = 0;
+        List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+        int countTotal = tareas.size();
+        
+        for (int i = 0; i < tareas.size(); i++) {
+            TareaEjecucion tarea = tareas.get(i);
+            if(tarea.getEstado().equals(TareaEjecucion.ESTADO_CANCELADA) ||
+                    tarea.getEstado().equals(TareaEjecucion.ESTADO_COMPLETA)){
+                countListas++;
+            }
+        }
+        
+        bar.setMaximum(countTotal);
+        bar.setValue(countListas);
         
     }
 
