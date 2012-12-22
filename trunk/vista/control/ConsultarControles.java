@@ -60,6 +60,7 @@ public class ConsultarControles extends PantallaConsultarGenerica{
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_PLANIFICADO,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_COTIZADO,"196","188","150"});
             colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_SOLICITADO,"132","230","147"});
+            colorCriteria.add(new String[]{"Estado",PedidoObra.ESTADO_FINALIZADO,"204","255","153"});
             
         return colorCriteria;
     }
