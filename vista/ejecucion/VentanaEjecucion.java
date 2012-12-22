@@ -7,6 +7,7 @@ import com.hackelare.coolgantt.ICoolGantt;
 import com.hackelare.coolgantt.ICoolGanttEvent;
 import com.hackelare.coolgantt.demo.demoEvents;
 import com.hackelare.coolgantt.legacy.model.ColorLabel;
+import controlador.ejecucion.EjecucionUtils;
 import controlador.ejecucion.GestorEjecucion;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
@@ -155,6 +156,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         lblImpedimentoTitulo = new javax.swing.JLabel();
         lblImpedimentoValor = new javax.swing.JLabel();
         btnDetalles = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        pbAvance = new javax.swing.JProgressBar();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         txtFechaFin = new com.toedter.calendar.JDateChooser();
@@ -303,13 +306,13 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbIncluirSubtareas)
                 .addContainerGap())
-            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(panelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Gestion de Tareas", jPanel5);
@@ -402,6 +405,25 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         );
 
         panelGantt.add(jPanel4, java.awt.BorderLayout.SOUTH);
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Avance de la Obra:"));
+
+        pbAvance.setStringPainted(true);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(pbAvance, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pbAvance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        panelGantt.add(jPanel11, java.awt.BorderLayout.NORTH);
 
         jTabbedPane1.addTab("Línea de Tiempo", panelGantt);
 
@@ -686,7 +708,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos Generales", jPanel2);
@@ -722,7 +744,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -776,7 +798,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(515, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Opciones de la Ejecución", jPanel1);
@@ -810,7 +832,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel9);
@@ -842,7 +864,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
@@ -893,6 +915,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
             System.out.println("[DEBUG] Foco en el Gantt");
             refreshGanttAndData();
             refreshDetalleTareaDatos();
+            refreshAvanceDeLaObra();
             break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -1046,6 +1069,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1082,6 +1106,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPlanificacionMontoTotal;
     private javax.swing.JPanel panelCentral;
     private javax.swing.JPanel panelGantt;
+    private javax.swing.JProgressBar pbAvance;
     private javax.swing.JTextArea taDescripcionEjecucion;
     private javax.swing.JTable tblRecursos;
     private javax.swing.JTextField txtEstado;
@@ -1599,6 +1624,8 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         lblImpedimentoTitulo.setForeground(TareaEjecucion.ESTADO_COLOR_IMPEDIMENTO);
         
         refreshDetalleTareaDatos();
+        refreshAvanceDeLaObra();
+        
     }
 
     private void refreshDetalleTareaDatos() {
@@ -1608,6 +1635,10 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         lblCanceladaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_CANCELADA));
         lblEnEsperaValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_ENESPERA));
         lblImpedimentoValor.setText(""+gestor.getCantidadTareasPorEstado(TareaEjecucion.ESTADO_IMPEDIMENTO));
+    }
+    
+    private void refreshAvanceDeLaObra(){
+        gestor.setAvanceDeLaObra(pbAvance);
     }
     
     public class GanttEventMouse implements ICoolGanttEvent {

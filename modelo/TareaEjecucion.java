@@ -27,16 +27,16 @@ public class TareaEjecucion extends TareaPlanificacion{
     public static final Color ESTADO_COLOR_NUEVA       = new Color(0x000000);
     public static final Color ESTADO_COLOR_ENPROGRESO  = new Color(0xFFB31A);
     public static final Color ESTADO_COLOR_COMPLETA    = new Color(0x009900);
-    public static final Color ESTADO_COLOR_CANCELADA   = new Color(0xFF0000);
+    public static final Color ESTADO_COLOR_CANCELADA   = new Color(0xFF6666);
     public static final Color ESTADO_COLOR_ENESPERA    = new Color(0x6666FF);
-    public static final Color ESTADO_COLOR_IMPEDIMENTO = new Color(0xFF6666);
+    public static final Color ESTADO_COLOR_IMPEDIMENTO = new Color(0x303030);
 
-    public static final Color ESTADO_COLORFONDO_NUEVA       = new Color(0xCCCCCC);
+    public static final Color ESTADO_COLORFONDO_NUEVA       = new Color(0xFFFFFF);
     public static final Color ESTADO_COLORFONDO_ENPROGRESO  = new Color(0xFFD480);
     public static final Color ESTADO_COLORFONDO_COMPLETA    = new Color(0x99FF66);
-    public static final Color ESTADO_COLORFONDO_CANCELADA   = new Color(0xFF0000);
+    public static final Color ESTADO_COLORFONDO_CANCELADA   = new Color(0xFFB3B3);
     public static final Color ESTADO_COLORFONDO_ENESPERA    = new Color(0xB3B3FF);
-    public static final Color ESTADO_COLORFONDO_IMPEDIMENTO = new Color(0xFFB3B3);    
+    public static final Color ESTADO_COLORFONDO_IMPEDIMENTO = new Color(0x7A7A7A);    
     
     protected String estado;
     private TareaPlanificacion tareaPlanificada;
