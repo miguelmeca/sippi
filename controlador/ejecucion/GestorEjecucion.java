@@ -975,4 +975,19 @@ public class GestorEjecucion {
         
     }
 
+    public int getCantidadDeTareasNoCerradas() {
+        int cantidad = 0;
+        List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejecucion);
+        for (int i = 0; i < tareas.size(); i++) {
+            TareaEjecucion tarea = tareas.get(i);
+            if(tarea.getEstado().equals(TareaEjecucion.ESTADO_CANCELADA) || tarea.getEstado().equals(TareaEjecucion.ESTADO_COMPLETA)  ){
+                
+            }else{
+                cantidad++;
+            }
+        }
+        
+        return cantidad;
+    }
+
 }

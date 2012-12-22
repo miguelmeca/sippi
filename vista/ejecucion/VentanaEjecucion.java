@@ -408,6 +408,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Avance de la Obra:"));
 
+        pbAvance.setToolTipText("<HTML><b><u>Avance de la Obra:</u></b><br/>\nMuestra el progreso de la obra calculado con el estado de las tareas.<br>\n<b>Agregan Avance:</b><br>\nTareas en estado <b>Cancelada</b> o <b>Completa</b><br>\n<b>No modifican:</b><br>\nTareas en estado <b>En Progreso</b>,<b>En Espera</b>,<b>Impedimento</b> o <b>Nuevas</b><br>");
         pbAvance.setStringPainted(true);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -832,7 +833,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("<HTML><span color='002EB8'><b>Ayuda?</b></span>", jPanel9);
@@ -864,7 +865,7 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmitirInformes)
@@ -976,7 +977,18 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
                 return;
             }
         }
-
+        
+        // Veo si cerro/finalizo todas las tareas.
+        int cantidadTareasNoCerradas = gestor.getCantidadDeTareasNoCerradas();
+        if(cantidadTareasNoCerradas>0){
+            String msgTareas = "<HTML><b>Estado de las Tareas:</b><br>Para poder finalizar la obra todas las tareas deben estár </b>concluidas</b><br>"
+                    + " - Si su tarea esta completa, cambiela al estado <b>"+TareaEjecucion.ESTADO_COMPLETA+"</b><br>"
+                    + " - En cambio, si la tarea no es requerida, cambiela al estado <b>"+TareaEjecucion.ESTADO_CANCELADA+"</b><br>"
+                    + "<br><b>Cantidad de tareas no concluidas: </b>"+cantidadTareasNoCerradas+"<br>";
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Atencion!",msgTareas);
+            return;
+        }
+        
         // Aviso los posibles cambios irreversibles que se darán...
         String msg = "<HTML>"
         + "Está por <b>Finalizar</b> ésta obra. "
