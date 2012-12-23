@@ -63,4 +63,23 @@ public class Especialidad {
     public void setPrecioHoraNormal(double precioHoraNormal) {
         this.precioHoraNormal = precioHoraNormal;
     }
+    
+    public String mostrarTipoEspecialidad(){
+        if(this.tipo!=null){
+            return this.tipo.getNombre();
+        }
+        return "";
+    }
+    
+    public String mostrarRangoEspecialidad(){
+        if(this.rango!=null){
+            return this.rango.getNombre();
+        }
+        return "";
+    }    
+    
+    public String mostrarPrecioPorHora(){
+        return "$"+this.precioHoraNormal;
+    }        
+    
 }
