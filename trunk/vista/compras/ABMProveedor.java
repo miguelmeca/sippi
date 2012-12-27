@@ -20,20 +20,27 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
+import util.ComboUtil;
 import util.NTupla;
 import util.RubroUtil;
 import util.SwingPanel;
 import util.Tupla;
+import vista.abms.ABMDomicilio;
 import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
  * @author Emmanuel
  */
-public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda{
+public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda, ICallBack_v2{
     private GestorABMProveedor gestor;
     private DefaultTableModel moldeTabla;
     private int idProveedor;
+    
+    private int idPaisSeleccionado;
+    private int idProvinciaSeleccionada;
+    private int idLocalidadSeleccionada;
 
     /** Creates new form pantallaRegistrarProveedor */
     public ABMProveedor() {
@@ -862,7 +869,18 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda{
 }//GEN-LAST:event_cmbPaisActionPerformed
 
     private void btnAgregarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProvinciaActionPerformed
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbPais.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idPaisSeleccionado = tupla.getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar un país", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
 }//GEN-LAST:event_btnAgregarProvinciaActionPerformed
 
     private void cmbLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadesActionPerformed
@@ -871,11 +889,36 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda{
 }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void btnAgregarLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLocalidadActionPerformed
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idProvinciaSeleccionada = tupla.getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una provincia", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }    
 }//GEN-LAST:event_btnAgregarLocalidadActionPerformed
 
     private void btnAgregarBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBarrioActionPerformed
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tupla != null)
+        {
+            this.idLocalidadSeleccionada = tupla.getId();
+            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una localidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
 }//GEN-LAST:event_btnAgregarBarrioActionPerformed
 
     private void cmbProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciasActionPerformed
@@ -1087,5 +1130,12 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda{
                 break;
             }
         }
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito) {
+        if(idPaisSeleccionado > 0) ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);
+        if(idProvinciaSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);
+        if(idLocalidadSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);
     }
 }

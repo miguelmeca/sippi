@@ -330,4 +330,146 @@ public class gestorGeoLocalicacion {
           return p;
     }
 
+    /**
+     * Este método me permite verificar si el Barrio con id = idBarrio
+     * está siendo utilizado en algun domicilio.
+     * @param idBarrio El id del barrio a analizar
+     * @return true si el barrio es utilizado por algun domicilio y
+     * false si no lo es.
+     */
+    public static boolean verificarExistenciaBarrioEnDomicilios(int idBarrio)
+    {
+        boolean existe = false;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            
+            List domicilios = HibernateUtil.getSession()
+                    .createQuery("From Domicilio d where d.barrio.id=:idBarrio")
+                    .setInteger("idBarrio", idBarrio)
+                    .list();
+
+            if(domicilios!= null && domicilios.size() >0)
+            {
+                existe = true;
+            }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            existe = false;
+        }
+        return existe;
+    }
+    
+    /**
+     * Este método me permite verificar si la localidad con id = idLocalidad
+     * está siendo utilizada en algun domicilio.
+     * 
+     * * Lugar de Capacitación
+     * @param idLocalidad El id de la localidad a analizar
+     * @return true si el barrio es utilizado por algun domicilio y
+     * false si no lo es.
+     */
+    public static boolean verificarExistenciaLocalidadEnDomicilios(int idLocalidad)
+    {
+        boolean existe = false;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            
+            List domicilios = HibernateUtil.getSession()
+            .createQuery("From Domicilio d where d.barrio.id in"
+            + " (select b.id FROM Localidad as l left join l.barrios as b WHERE l.id =:idLocalidad)")
+            .setInteger("idLocalidad", idLocalidad)
+            .list();
+            
+            if(domicilios!= null && domicilios.size() >0)
+            {
+                existe = true;
+            }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            existe = false;
+            HibernateUtil.rollbackTransaction();
+        }
+        return existe;
+    }
+    
+    
+    /**
+     * Este método me permite verificar si la provincia con id = idProvincia
+     * está siendo utilizada en algun domicilio.
+     * 
+     * @param idProvincia El id de la provincia a analizar
+     * @return true si el barrio es utilizado por algun domicilio y
+     * false si no lo es.
+     */
+    public static boolean verificarExistenciaProvinciaEnDomicilios(int idProvincia)
+    {
+        boolean existe = false;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            
+            List domicilios = HibernateUtil.getSession()
+            .createQuery("From Domicilio d where d.barrio.id in"
+            + " (select b.id FROM Localidad as l left join l.barrios as b WHERE l.id in"
+            + " (select locs.id from Provincia as pr left join pr.localidades as locs where pr.id=:idProvincia))")
+            .setInteger("idProvincia", idProvincia)
+            .list();
+            
+            if(domicilios!= null && domicilios.size() >0)
+            {
+                existe = true;
+            }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            existe = false;
+            HibernateUtil.rollbackTransaction();
+        }
+        return existe;
+    }
+    
+    /**
+     * Este método me permite verificar si el pais con id = idPais
+     * está siendo utilizado en algun domicilio.
+     * 
+     * @param idPais El id del pais a analizar
+     * @return true si el barrio es utilizado por algun domicilio y
+     * false si no lo es.
+     */
+    public static boolean verificarExistenciaPaisEnDomicilios(int idPais)
+    {
+        boolean existe = false;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            
+            List domicilios = HibernateUtil.getSession()
+                    .createQuery("From Domicilio d where d.barrio.id in"
+                    + " (select b.id FROM Localidad as l left join l.barrios as b WHERE l.id in"
+                    + " (select locs.id from Provincia as pr left join pr.localidades as locs where pr.id in"
+                    + " (select provs.id from Pais as pa left join pa.provincias as provs where pa.id=:idPais)))")
+                    .setInteger("idPais", idPais)
+                    .list();
+            
+            if(domicilios!= null && domicilios.size() >0)
+            {
+                existe = true;
+            }
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            existe = false;
+            HibernateUtil.rollbackTransaction();
+        }
+        return existe;
+    }
 }

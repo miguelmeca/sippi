@@ -12,24 +12,33 @@
 package vista.rrhh;
 
 import controlador.rrhh.GestorModificarLugarCapacitacion;
-import controlador.rrhh.GestorRegistrarLugarCapacitacion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import modelo.Barrio;
+import modelo.Localidad;
+import modelo.Provincia;
+import util.ComboUtil;
 import util.SwingPanel;
 import util.Tupla;
+import vista.abms.ABMDomicilio;
 import vista.interfaces.ICallBack;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFrame {
+public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFrame implements ICallBack_v2{
 
     private GestorModificarLugarCapacitacion gestor;
     private ICallBack win;
     private int idLugar = 0;
+    
+    private int idPaisSeleccionado;
+    private int idProvinciaSeleccionada;
+    private int idLocalidadSeleccionada;
 
     /** Creates new form pantallaNuevoLugarCapacitacion */
     public pantallaModificarLugarCapacitacion(int id) {
@@ -170,10 +179,10 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Domicilio"));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Calle:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Código Postal:");
 
         txtCodPostal.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +191,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("País: ");
 
         cmbPais.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +200,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Provincia:");
 
         cmbProvincias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Pais ..." }));
@@ -208,7 +217,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Localidad: ");
 
         cmbLocalidades.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Provincia ..." }));
@@ -225,7 +234,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Barrio:");
 
         cmbBarrio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione una Localidad ..." }));
@@ -242,7 +251,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Altura:");
 
         txtAltura.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +260,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Piso:");
 
         txtPiso.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +269,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Depto.:");
 
         txtDepto.addActionListener(new java.awt.event.ActionListener() {
@@ -363,7 +372,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Nombre del Establecimiento :");
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -404,7 +413,7 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -426,8 +435,18 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_cmbProvinciasActionPerformed
 
     private void btnNuevaProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaProvinciaActionPerformed
-
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbPais.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idPaisSeleccionado = tupla.getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar un país", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnNuevaProvinciaActionPerformed
 
@@ -437,8 +456,19 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idProvinciaSeleccionada = tupla.getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una provincia", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cmbBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarrioActionPerformed
@@ -446,8 +476,20 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
 }//GEN-LAST:event_cmbBarrioActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tupla != null)
+        {
+            this.idLocalidadSeleccionada = tupla.getId();
+            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una localidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void txtAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlturaActionPerformed
@@ -627,6 +669,13 @@ public class pantallaModificarLugarCapacitacion extends javax.swing.JInternalFra
         }
 
 
+    }
+
+    @Override
+    public void actualizar(int id, String flag, boolean exito) {
+        if(idPaisSeleccionado > 0) ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);
+        if(idProvinciaSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);
+        if(idLocalidadSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);
     }
 
 

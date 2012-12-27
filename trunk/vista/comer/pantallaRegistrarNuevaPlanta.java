@@ -616,7 +616,6 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
         pantallaRegistrarContactoResponsable rcr = new pantallaRegistrarContactoResponsable(this);
         SwingPanel.getInstance().addWindow(rcr);
         rcr.setVisible(true);
-        //SwingPanel.getInstance().mensajeEnConstruccion();
 
     }//GEN-LAST:event_btnNuevoContactoActionPerformed
 

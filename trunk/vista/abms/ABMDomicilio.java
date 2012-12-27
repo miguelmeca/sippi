@@ -5,23 +5,19 @@
 package vista.abms;
 
 import controlador.utiles.gestorGeoLocalicacion;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.JTextComponent;
 import modelo.Barrio;
 import modelo.Localidad;
 import modelo.Pais;
 import modelo.Provincia;
+import util.ComboUtil;
 import util.HibernateUtil;
 import util.Tupla;
+import vista.interfaces.ICallBack;
+import vista.interfaces.ICallBack_v2;
 
 /**
  *
@@ -38,13 +34,52 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     private static final String NUEVA_LOCALIDAD = "<Nueva Localidad>";
     private static final String NUEVO_BARRIO = "<Nuevo Barrio>";
     
+    private ICallBack_v2 callback;
+    
     /**
      * Creates new form ABMDomicilio
      */
     public ABMDomicilio() {
         initComponents();
         llenarComboPais();
+        callback = null;
     }
+    
+    /**
+     * Constructor que permite abrir la ventana de ABMDomicilio con los combos
+     * seleccionados de acuerdo al id de la entidad padre a la que se le desee
+     * agregar una hija, junto con la clase de la hija. Ejemplo;
+     *  - Si deseo agregar un nuevo barrio a una localidad, debo enviar el id
+     *    de la localidad y la clase barrio (Barrio.class).
+     * @param id id de la entidad padre
+     * @param entidad clase de la entidad hija
+     */
+    public ABMDomicilio(ICallBack_v2 callback, int id, Class entidad)
+    {
+        this();
+        this.callback = callback;
+        gestorGeoLocalicacion geo = new gestorGeoLocalicacion();
+        if(entidad.getName().equals(Barrio.class.getName()))
+        {
+            Localidad l = geo.getLocalidad(id);
+            Provincia pr = geo.getProvinciaDeLocalidad(l.getId());
+            Pais pa = geo.getPaisDeProvincia(pr.getId());
+            ComboUtil.seleccionarEnCombo(cmbPais, pa.getId());
+            ComboUtil.seleccionarEnCombo(cmbProvincia, pr.getId());
+            ComboUtil.seleccionarEnCombo(cmbLocalidad, l.getId());
+        }else if(entidad.getName().equals(Localidad.class.getName()))
+        {
+            Provincia pr = geo.getProvincia(id);
+            Pais pa = geo.getPaisDeProvincia(pr.getId());
+            ComboUtil.seleccionarEnCombo(cmbPais, pa.getId());
+            ComboUtil.seleccionarEnCombo(cmbProvincia, pr.getId());
+        }else if(entidad.getName().equals(Provincia.class.getName()))
+        {
+            Pais pa = geo.getPais(id);
+            ComboUtil.seleccionarEnCombo(cmbPais, pa.getId());
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,6 +113,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         btnEditarBarrio = new javax.swing.JButton();
         btnEliminarBarrio = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -321,6 +357,14 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
+        jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,7 +378,10 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1))
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -351,8 +398,10 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -463,8 +512,9 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarBarrioActionPerformed
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
-//        habilitarCombos(true, false, false, false);
-//        habilitarEdicion(false, false, false, false);
+        habilitarCombos(true, false, false, false);
+        limpiarCombos(false,true,true,true);
+        habilitarEdicion(false, false, false, false);
         Tupla t = (Tupla) cmbPais.getSelectedItem();
         if(cmbPais.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_PAIS))
         {
@@ -494,8 +544,9 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbPaisActionPerformed
 
     private void cmbProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciaActionPerformed
-//        habilitarCombos(true, true, false, false);
-//        habilitarEdicion(true, false, false, false);
+        habilitarCombos(true, true, false, false);
+        limpiarCombos(false,false,true,true);
+        habilitarEdicion(true, false, false, false);
         Tupla t = (Tupla) cmbProvincia.getSelectedItem();
         Tupla tPais = (Tupla) cmbPais.getSelectedItem();
         if(cmbProvincia.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_PROVINCIA))
@@ -529,8 +580,9 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbProvinciaActionPerformed
 
     private void cmbLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocalidadActionPerformed
-//        habilitarCombos(true, true, true, false);
-//        habilitarEdicion(true, true, false, false);
+        habilitarCombos(true, true, true, false);
+        limpiarCombos(false,false,false,true);
+        habilitarEdicion(true, true, false, false);
         Tupla t = (Tupla) cmbLocalidad.getSelectedItem();
         Tupla tProvincia = (Tupla) cmbProvincia.getSelectedItem();
         if(cmbLocalidad.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_LOCALIDAD))
@@ -564,7 +616,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbLocalidadActionPerformed
 
     private void cmbBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBarrioActionPerformed
-//        habilitarEdicion(true, true, true, false);
+        habilitarEdicion(true, true, true, false);
         Tupla t = (Tupla) cmbBarrio.getSelectedItem();
         Tupla tLocalidad = (Tupla) cmbLocalidad.getSelectedItem();
         if(cmbBarrio.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_BARRIO))
@@ -606,15 +658,22 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         Tupla t = (Tupla) cmbPais.getSelectedItem();
         if(cmbPais.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_PAIS))
         {
-            try {
-                HibernateUtil.beginTransaction();
-                Pais pais = (Pais) HibernateUtil.getSession().get(Pais.class,t.getId());
-                HibernateUtil.getSession().delete(pais);
-                HibernateUtil.commitTransaction();
-                llenarComboPais();
-            } catch (Exception ex) {
-                HibernateUtil.rollbackTransaction();
-                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el país seleccionado.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            if(!gestorGeoLocalicacion.verificarExistenciaPaisEnDomicilios(t.getId()))
+            {
+                try {
+                    HibernateUtil.beginTransaction();
+                    Pais pais = (Pais) HibernateUtil.getSession().get(Pais.class,t.getId());
+                    HibernateUtil.getSession().delete(pais);
+                    HibernateUtil.commitTransaction();
+                    llenarComboPais();
+                } catch (Exception ex) {
+                    HibernateUtil.rollbackTransaction();
+                    JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el país seleccionado.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el pais seleccionado<br>ya que está siendo utilizado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
     }//GEN-LAST:event_btnEliminarPaisActionPerformed
@@ -624,18 +683,25 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         Tupla tPais = (Tupla) cmbPais.getSelectedItem();
         if(cmbProvincia.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_PROVINCIA))
         {
-            try {
-                HibernateUtil.beginTransaction();
-                Provincia provincia = (Provincia) HibernateUtil.getSession().get(Provincia.class,t.getId());
-                Pais pais = (Pais) HibernateUtil.getSession().get(Pais.class,tPais.getId());
-                pais.getProvincias().remove(provincia);
-                HibernateUtil.getSession().update(pais);
-                HibernateUtil.getSession().delete(provincia);
-                HibernateUtil.commitTransaction();
-                llenarComboProvincia(tPais.getId());
-            } catch (Exception ex) {
-                HibernateUtil.rollbackTransaction();
-                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la provincia seleccionada.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            if(!gestorGeoLocalicacion.verificarExistenciaProvinciaEnDomicilios(t.getId()))
+            {
+                try {
+                    HibernateUtil.beginTransaction();
+                    Provincia provincia = (Provincia) HibernateUtil.getSession().get(Provincia.class,t.getId());
+                    Pais pais = (Pais) HibernateUtil.getSession().get(Pais.class,tPais.getId());
+                    pais.getProvincias().remove(provincia);
+                    HibernateUtil.getSession().update(pais);
+                    HibernateUtil.getSession().delete(provincia);
+                    HibernateUtil.commitTransaction();
+                    llenarComboProvincia(tPais.getId());
+                } catch (Exception ex) {
+                    HibernateUtil.rollbackTransaction();
+                    JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la provincia seleccionada.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la provincia seleccionada<br>ya que está siendo utilizada.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnEliminarProvinciaActionPerformed
@@ -645,18 +711,25 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         Tupla tProvincia = (Tupla) cmbProvincia.getSelectedItem();
         if(cmbLocalidad.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_LOCALIDAD))
         {
-            try {
-                HibernateUtil.beginTransaction();
-                Localidad localidad = (Localidad) HibernateUtil.getSession().get(Localidad.class,t.getId());
-                Provincia provincia = (Provincia) HibernateUtil.getSession().get(Provincia.class,tProvincia.getId());
-                provincia.getLocalidades().remove(localidad);
-                HibernateUtil.getSession().update(provincia);
-                HibernateUtil.getSession().delete(localidad);
-                HibernateUtil.commitTransaction();
-                llenarComboLocalidad(tProvincia.getId());
-            } catch (Exception ex) {
-                HibernateUtil.rollbackTransaction();
-                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la localidad seleccionada.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            if(!gestorGeoLocalicacion.verificarExistenciaLocalidadEnDomicilios(t.getId()))
+            {
+                try {
+                    HibernateUtil.beginTransaction();
+                    Localidad localidad = (Localidad) HibernateUtil.getSession().get(Localidad.class,t.getId());
+                    Provincia provincia = (Provincia) HibernateUtil.getSession().get(Provincia.class,tProvincia.getId());
+                    provincia.getLocalidades().remove(localidad);
+                    HibernateUtil.getSession().update(provincia);
+                    HibernateUtil.getSession().delete(localidad);
+                    HibernateUtil.commitTransaction();
+                    llenarComboLocalidad(tProvincia.getId());
+                } catch (Exception ex) {
+                    HibernateUtil.rollbackTransaction();
+                    JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la localidad seleccionada.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar la localidad seleccionado<br>ya que está siendo utilizada.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnEliminarLocalidadActionPerformed
@@ -666,21 +739,36 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         Tupla tLocalidad = (Tupla) cmbLocalidad.getSelectedItem();
         if(cmbLocalidad.getSelectedIndex() >= 0 && t!= null && !t.getNombre().equals(ABMDomicilio.SELECCIONE_BARRIO))
         {
-            try {
-                HibernateUtil.beginTransaction();
-                Barrio barrio = (Barrio) HibernateUtil.getSession().get(Barrio.class,t.getId());
-                Localidad localidad = (Localidad) HibernateUtil.getSession().get(Localidad.class, tLocalidad.getId());
-                localidad.getBarrios().remove(barrio);
-                HibernateUtil.getSession().update(localidad);
-                HibernateUtil.getSession().delete(barrio);
-                HibernateUtil.commitTransaction();
-                llenarComboBarrio(tLocalidad.getId());
-            } catch (Exception ex) {
-                HibernateUtil.rollbackTransaction();
-                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el barrio seleccionado.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            if(!gestorGeoLocalicacion.verificarExistenciaBarrioEnDomicilios(t.getId()))
+            {
+                try {
+                    HibernateUtil.beginTransaction();
+                    Barrio barrio = (Barrio) HibernateUtil.getSession().get(Barrio.class,t.getId());
+                    Localidad localidad = (Localidad) HibernateUtil.getSession().get(Localidad.class, tLocalidad.getId());
+                    localidad.getBarrios().remove(barrio);
+                    HibernateUtil.getSession().update(localidad);
+                    HibernateUtil.getSession().delete(barrio);
+                    HibernateUtil.commitTransaction();
+                    llenarComboBarrio(tLocalidad.getId());
+                } catch (Exception ex) {
+                    HibernateUtil.rollbackTransaction();
+                    JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el barrio seleccionado.<br>Consulte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "<html><body>No se pudo borrar el barrio seleccionado<br>ya que está siendo utilizado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnEliminarBarrioActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(callback != null)
+        {
+            callback.actualizar(0,"", true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarBarrio;
@@ -696,6 +784,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cmbPais;
     private javax.swing.JComboBox cmbProvincia;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -708,16 +797,15 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 
-    public void llenarComboPais()
+    private void llenarComboPais()
     {
         try {
             cmbPais.removeAllItems();
             cmbPais.setEnabled(true);
             HibernateUtil.beginTransaction();
             List lista = HibernateUtil.getSession().createQuery("from Pais").list();
-            cmbPais.setModel(new DefaultComboBoxModel());
-            cmbPais.addItem(new Tupla(0,this.SELECCIONE_PAIS));
-            cmbPais.addItem(new Tupla(0,this.NUEVO_PAIS));
+            cmbPais.addItem(new Tupla(0,ABMDomicilio.SELECCIONE_PAIS));
+            cmbPais.addItem(new Tupla(0,ABMDomicilio.NUEVO_PAIS));
             for(int i = 0; i<lista.size(); i++)
             {
                 Pais pais = (Pais) lista.get(i);
@@ -740,7 +828,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         }
     }
     
-    public void llenarComboProvincia(int idPais)
+    private void llenarComboProvincia(int idPais)
     {
         try 
         {
@@ -749,8 +837,8 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
             Pais pais = (Pais) HibernateUtil.getSession().get(Pais.class, idPais);
             gestorGeoLocalicacion geo = new gestorGeoLocalicacion();
             List<Tupla> lista = geo.getProvincias(pais);
-            cmbProvincia.addItem(new Tupla(0,this.SELECCIONE_PROVINCIA));
-            cmbProvincia.addItem(new Tupla(0,this.NUEVA_PROVINCIA));
+            cmbProvincia.addItem(new Tupla(0,ABMDomicilio.SELECCIONE_PROVINCIA));
+            cmbProvincia.addItem(new Tupla(0,ABMDomicilio.NUEVA_PROVINCIA));
             for(int i = 0; i<lista.size(); i++)
             {
                 Tupla t = lista.get(i);
@@ -766,7 +854,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         }
     }
     
-    public void llenarComboLocalidad(int idProvincia)
+    private void llenarComboLocalidad(int idProvincia)
     {
         try 
         {
@@ -775,8 +863,8 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
             Provincia provincia = (Provincia) HibernateUtil.getSession().get(Provincia.class, idProvincia);
             gestorGeoLocalicacion geo = new gestorGeoLocalicacion();
             List<Tupla> lista = geo.getLocalidades(provincia);
-            cmbLocalidad.addItem(new Tupla(0,this.SELECCIONE_LOCALIDAD));
-            cmbLocalidad.addItem(new Tupla(0,this.NUEVA_LOCALIDAD));
+            cmbLocalidad.addItem(new Tupla(0,ABMDomicilio.SELECCIONE_LOCALIDAD));
+            cmbLocalidad.addItem(new Tupla(0,ABMDomicilio.NUEVA_LOCALIDAD));
             for(int i = 0; i<lista.size(); i++)
             {
                 Tupla t = lista.get(i);
@@ -790,7 +878,7 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
         }
     }
 
-    public void llenarComboBarrio(int idLocalidad)
+    private void llenarComboBarrio(int idLocalidad)
     {
         try {
             cmbBarrio.removeAllItems();
@@ -798,8 +886,8 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
             Localidad localidad = (Localidad) HibernateUtil.getSession().get(Localidad.class, idLocalidad);
             gestorGeoLocalicacion geo = new gestorGeoLocalicacion();
             List<Tupla> lista = geo.getBarrios(localidad);
-            cmbBarrio.addItem(new Tupla(0,this.SELECCIONE_BARRIO));
-            cmbBarrio.addItem(new Tupla(0,this.NUEVO_BARRIO));
+            cmbBarrio.addItem(new Tupla(0,ABMDomicilio.SELECCIONE_BARRIO));
+            cmbBarrio.addItem(new Tupla(0,ABMDomicilio.NUEVO_BARRIO));
             for(int i = 0; i<lista.size(); i++)
             {
                 Tupla t = lista.get(i);
@@ -826,13 +914,17 @@ public class ABMDomicilio extends javax.swing.JInternalFrame {
     
     private void habilitarCombos(boolean comboPais, boolean comboProvincia, boolean comboLocalidad, boolean comboBarrio)
     {
-        if(comboPais) cmbPais.removeAllItems();
         cmbPais.setEnabled(comboPais);
-        if(comboProvincia) cmbProvincia.removeAllItems();
         cmbProvincia.setEnabled(comboProvincia);
-        if(comboLocalidad) cmbLocalidad.removeAllItems();
         cmbLocalidad.setEnabled(comboLocalidad);
-        if(comboBarrio) cmbBarrio.removeAllItems();
         cmbBarrio.setEnabled(comboBarrio);
+    }
+    
+    private void limpiarCombos(boolean comboPais, boolean comboProvincia, boolean comboLocalidad, boolean comboBarrio)
+    {
+        if(comboPais) cmbPais.removeAllItems();
+        if(comboProvincia) cmbProvincia.removeAllItems();
+        if(comboLocalidad) cmbLocalidad.removeAllItems();
+        if(comboBarrio) cmbBarrio.removeAllItems();
     }
 }
