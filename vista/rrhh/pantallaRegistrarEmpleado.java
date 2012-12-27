@@ -37,10 +37,14 @@ import util.LimitadorCaracteres;
 import vista.interfaces.ICallBack;
 import vista.interfaces.ICallBack_v2;
 import controlador.rrhh.IGestorEmpleado;
+import modelo.Barrio;
+import modelo.Localidad;
+import modelo.Provincia;
 
 
 import util.imagenes.GestorImagenes;
 import util.SwingPanel;
+import vista.abms.ABMDomicilio;
 /**
  *
  * @author Fran
@@ -77,6 +81,10 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     private String apellido;
     private int idEmp;
     GestorImagenes gestorImagenes;
+    
+    private int idPaisSeleccionado;
+    private int idProvinciaSeleccionada;
+    private int idLocalidadSeleccionada;
     
     public pantallaRegistrarEmpleado()
     {
@@ -900,11 +908,21 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Localidad: ");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Barrio:");
@@ -912,6 +930,11 @@ KeyAdapter kaNuemros=(new KeyAdapter()
         cmbBarrios.setEnabled(false);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/add.png"))); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         cmbLocalidades.setEnabled(false);
         cmbLocalidades.addActionListener(new java.awt.event.ActionListener() {
@@ -1380,7 +1403,7 @@ KeyAdapter kaNuemros=(new KeyAdapter()
                     .addComponent(btnConfirmar)
                     .addComponent(jButton6)
                     .addComponent(jLabel2))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -1815,6 +1838,54 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
     gestorImagenes.cargarImagenEnPanelAjustandoTamano(panelFotografia,false);
 }
 }//GEN-LAST:event_btnAjustarAnchoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Tupla tupla = (Tupla) cmbPaises.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idPaisSeleccionado = tupla.getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar un país", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idProvinciaSeleccionada = tupla.getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPaises.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una provincia", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tupla != null)
+        {
+            this.idLocalidadSeleccionada = tupla.getId();
+            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPaises.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una localidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
  private void agregarEspecialidad()
     {
         if(!lstTiposEspecialidad.isSelectionEmpty())

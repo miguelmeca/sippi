@@ -19,26 +19,34 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Barrio;
+import modelo.Localidad;
+import modelo.Provincia;
+import util.ComboUtil;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
 import util.Tupla;
+import vista.abms.ABMDomicilio;
 import vista.interfaces.IAyuda;
-import vista.interfaces.ICallBack;
+import vista.interfaces.ICallBack_v2;
 import vista.interfaces.IPantallaEmpresaClienteABM;
 
 /**
  *
  * @author iuga
  */
-public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda, IPantallaEmpresaClienteABM, ICallBack{
+public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame  implements IAyuda, IPantallaEmpresaClienteABM, ICallBack_v2{
     private GestorABMEmpresaCliente gestor;
     private DefaultTableModel moldeTabla;
     private pantallaBuscarEmpresaCliente pBuscar=null;
     private GestorABMPedido grp;
+    
+    private int idPaisSeleccionado;
+    private int idProvinciaSeleccionada;
+    private int idLocalidadSeleccionada;
 
     /** Creates new form frmRegistrarEmpresaCliente */
     public pantallaRegistrarEmpresaCliente() {
@@ -65,7 +73,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         habilitarVentana();
     }
 
-    public void habilitarVentana(){
+    private void habilitarVentana(){
         txtCuit.setBackground(Color.white);
         mostrarPaises();
         formatearTablaTelefonos();
@@ -84,6 +92,7 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         cmbTipoTelefono.setModel(valores);
     }
 
+    @Override
     public void plantaAgregada(){
         btnNuevaEmpresa.setEnabled(true);
         DefaultTableModel modelo = (DefaultTableModel) tablaPlantas.getModel();
@@ -825,15 +834,51 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_btnNuevaPlantaActionPerformed
 
     private void btnAgregarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProvinciaActionPerformed
-           SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbPais.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idPaisSeleccionado = tupla.getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar un país", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarProvinciaActionPerformed
 
     private void btnAgregarLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLocalidadActionPerformed
-           SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
+        if(tupla != null)
+        {
+            this.idProvinciaSeleccionada = tupla.getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una provincia", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }         
     }//GEN-LAST:event_btnAgregarLocalidadActionPerformed
 
     private void btnAgregarBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBarrioActionPerformed
-           SwingPanel.getInstance().mensajeEnConstruccion();
+        Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tupla != null)
+        {
+            this.idLocalidadSeleccionada = tupla.getId();
+            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
+            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
+            ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showInternalMessageDialog(this, "Debe seleccionar una localidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarBarrioActionPerformed
 
     private void cmbProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProvinciasActionPerformed
@@ -1021,8 +1066,11 @@ public class pantallaRegistrarEmpresaCliente extends javax.swing.JInternalFrame 
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void actualizar(int flag, boolean exito) {
+    public void actualizar(int id, String flag, boolean exito) {
         plantaAgregada();
+        if(idPaisSeleccionado > 0) ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);
+        if(idProvinciaSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);
+        if(idLocalidadSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);
     }
 
 }
