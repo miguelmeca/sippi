@@ -41,6 +41,7 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda,
     private int idPaisSeleccionado;
     private int idProvinciaSeleccionada;
     private int idLocalidadSeleccionada;
+    private int idBarrioSeleccionado;
 
     /** Creates new form pantallaRegistrarProveedor */
     public ABMProveedor() {
@@ -869,10 +870,10 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda,
 }//GEN-LAST:event_cmbPaisActionPerformed
 
     private void btnAgregarProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProvinciaActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbPais.getSelectedItem();   
         if(tupla != null)
         {
-            this.idPaisSeleccionado = tupla.getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -889,11 +890,10 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda,
 }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void btnAgregarLocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLocalidadActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
         if(tupla != null)
         {
-            this.idProvinciaSeleccionada = tupla.getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -905,12 +905,10 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda,
 }//GEN-LAST:event_btnAgregarLocalidadActionPerformed
 
     private void btnAgregarBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBarrioActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
         if(tupla != null)
         {
-            this.idLocalidadSeleccionada = tupla.getId();
-            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -1137,5 +1135,18 @@ public class ABMProveedor extends javax.swing.JInternalFrame  implements IAyuda,
         if(idPaisSeleccionado > 0) ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);
         if(idProvinciaSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);
         if(idLocalidadSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);
+        if(idBarrioSeleccionado > -1) { ComboUtil.seleccionarEnCombo(cmbBarrio, idBarrioSeleccionado);}
+    }
+    
+    private void actualizarIdSeleccionados()
+    {   
+        Tupla tBarrio = (Tupla) cmbBarrio.getSelectedItem();
+        if(tBarrio != null) { idBarrioSeleccionado = tBarrio.getId(); }
+        Tupla tLocalidad = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tLocalidad != null) { idLocalidadSeleccionada = tLocalidad.getId(); }
+        Tupla tProvincia = (Tupla) cmbProvincias.getSelectedItem();
+        if(tProvincia != null) { idProvinciaSeleccionada = tProvincia.getId(); }
+        Tupla tPais = (Tupla) cmbPais.getSelectedItem();
+        if(tPais != null) { idPaisSeleccionado = tPais.getId(); }
     }
 }
