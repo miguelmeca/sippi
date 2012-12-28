@@ -10,41 +10,34 @@
  */
 
 package vista.rrhh;
-import controlador.rrhh.GestorRegistrarNuevoEmpleado;
-import controlador.rrhh.GestorModificarEmpleado;
-import java.util.ArrayList;
-//import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-//import modelo.TipoDocumento;
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.Transaction;
-//import util.HibernateUtil;
-import javax.swing.JOptionPane;
-import util.Tupla;
-import util.NTupla;
-import util.FechaUtil;
-import java.util.Iterator;
-import vista.interfaces.IAyuda;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JComponent;
-import java.util.Date;
-import javax.swing.table.DefaultTableModel;
-import java.util.Vector;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
-import util.LimitadorCaracteres;
-import vista.interfaces.ICallBack;
-import vista.interfaces.ICallBack_v2;
+import controlador.rrhh.GestorModificarEmpleado;
+import controlador.rrhh.GestorRegistrarNuevoEmpleado;
 import controlador.rrhh.IGestorEmpleado;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.Barrio;
 import modelo.Localidad;
 import modelo.Provincia;
-
-
-import util.imagenes.GestorImagenes;
+import util.ComboUtil;
+import util.FechaUtil;
+import util.LimitadorCaracteres;
+import util.NTupla;
 import util.SwingPanel;
+import util.Tupla;
+import util.imagenes.GestorImagenes;
 import vista.abms.ABMDomicilio;
+import vista.interfaces.IAyuda;
+import vista.interfaces.ICallBack;
+import vista.interfaces.ICallBack_v2;
 /**
  *
  * @author Fran
@@ -85,6 +78,7 @@ public class pantallaRegistrarEmpleado extends javax.swing.JInternalFrame implem
     private int idPaisSeleccionado;
     private int idProvinciaSeleccionada;
     private int idLocalidadSeleccionada;
+    private int idBarrioSeleccionado;
     
     public pantallaRegistrarEmpleado()
     {
@@ -1840,10 +1834,10 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
 }//GEN-LAST:event_btnAjustarAnchoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbPaises.getSelectedItem();   
         if(tupla != null)
         {
-            this.idPaisSeleccionado = tupla.getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -1855,11 +1849,10 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
         if(tupla != null)
         {
-            this.idProvinciaSeleccionada = tupla.getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPaises.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -1871,12 +1864,10 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
         if(tupla != null)
         {
-            this.idLocalidadSeleccionada = tupla.getId();
-            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPaises.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -2234,6 +2225,22 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
             mostrarTiposEspecialidad();
         }
 
+        if(idPaisSeleccionado > -1) { ComboUtil.seleccionarEnCombo(cmbPaises, idPaisSeleccionado);}
+        if(idProvinciaSeleccionada > -1) { ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);}
+        if(idLocalidadSeleccionada > -1) { ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);}
+        if(idBarrioSeleccionado > -1) { ComboUtil.seleccionarEnCombo(cmbBarrios, idBarrioSeleccionado);}
+    }
+    
+    private void actualizarIdSeleccionados()
+    {   
+        Tupla tBarrio = (Tupla) cmbBarrios.getSelectedItem();
+        if(tBarrio != null) { idBarrioSeleccionado = tBarrio.getId(); }
+        Tupla tLocalidad = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tLocalidad != null) { idLocalidadSeleccionada = tLocalidad.getId(); }
+        Tupla tProvincia = (Tupla) cmbProvincias.getSelectedItem();
+        if(tProvincia != null) { idProvinciaSeleccionada = tProvincia.getId(); }
+        Tupla tPais = (Tupla) cmbPaises.getSelectedItem();
+        if(tPais != null) { idPaisSeleccionado = tPais.getId(); }
     }
 
     public int getIdAyuda()

@@ -38,6 +38,7 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
     private int idPaisSeleccionado;
     private int idProvinciaSeleccionada;
     private int idLocalidadSeleccionada;
+    private int idBarrioSeleccionado;
 
     /** Creates new form pantallaNuevoLugarCapacitacion */
     public pantallaRegistrarLugarCapacitacion() {
@@ -429,10 +430,10 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_cmbProvinciasActionPerformed
 
     private void btnNuevaProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaProvinciaActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbPais.getSelectedItem();   
         if(tupla != null)
         {
-            this.idPaisSeleccionado = tupla.getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Provincia.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -449,11 +450,10 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
     }//GEN-LAST:event_cmbLocalidadesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbProvincias.getSelectedItem();   
         if(tupla != null)
         {
-            this.idProvinciaSeleccionada = tupla.getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Localidad.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -469,12 +469,10 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
 }//GEN-LAST:event_cmbBarrioActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        actualizarIdSeleccionados();
         Tupla tupla = (Tupla) cmbLocalidades.getSelectedItem();
         if(tupla != null)
         {
-            this.idLocalidadSeleccionada = tupla.getId();
-            this.idProvinciaSeleccionada = ((Tupla) cmbProvincias.getSelectedItem()).getId();
-            this.idPaisSeleccionado = ((Tupla) cmbPais.getSelectedItem()).getId();
             ABMDomicilio win = new ABMDomicilio(this, tupla.getId(), Barrio.class);
             SwingPanel.getInstance().addWindow(win);
             win.setVisible(true);
@@ -611,9 +609,22 @@ public class pantallaRegistrarLugarCapacitacion extends javax.swing.JInternalFra
 
     @Override
     public void actualizar(int id, String flag, boolean exito) {
-        if(idPaisSeleccionado > 0) ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);
-        if(idProvinciaSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);
-        if(idLocalidadSeleccionada > 0) ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);
+        if(idPaisSeleccionado > -1) { ComboUtil.seleccionarEnCombo(cmbPais, idPaisSeleccionado);}
+        if(idProvinciaSeleccionada > -1) { ComboUtil.seleccionarEnCombo(cmbProvincias, idProvinciaSeleccionada);}
+        if(idLocalidadSeleccionada > -1) { ComboUtil.seleccionarEnCombo(cmbLocalidades, idLocalidadSeleccionada);}
+        if(idBarrioSeleccionado > -1) { ComboUtil.seleccionarEnCombo(cmbBarrio, idBarrioSeleccionado);}
+    }
+
+    private void actualizarIdSeleccionados()
+    {   
+        Tupla tBarrio = (Tupla) cmbBarrio.getSelectedItem();
+        if(tBarrio != null) { idBarrioSeleccionado = tBarrio.getId(); }
+        Tupla tLocalidad = (Tupla) cmbLocalidades.getSelectedItem();
+        if(tLocalidad != null) { idLocalidadSeleccionada = tLocalidad.getId(); }
+        Tupla tProvincia = (Tupla) cmbProvincias.getSelectedItem();
+        if(tProvincia != null) { idProvinciaSeleccionada = tProvincia.getId(); }
+        Tupla tPais = (Tupla) cmbPais.getSelectedItem();
+        if(tPais != null) { idPaisSeleccionado = tPais.getId(); }
     }
 
 }
