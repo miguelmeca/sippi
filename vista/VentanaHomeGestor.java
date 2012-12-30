@@ -4,8 +4,9 @@
  */
 package vista;
 
-import modelo.ContactoResponsable;
 import modelo.Cotizacion;
+import modelo.Ejecucion;
+import modelo.Planificacion;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
@@ -32,7 +33,7 @@ public class VentanaHomeGestor {
     
     private static int getHSQL(String hsql)
     {
-        int res = -1;
+        int res = 0;
         try
         {
             Session ses = HibernateUtil.getSession();
@@ -43,6 +44,22 @@ public class VentanaHomeGestor {
             System.err.println("No se pudo hacer la consulta para la HomeScreen");
         }
         return res;
+    }
+
+    public static int getPlanificacionesEnCreacion() {
+        return getHSQL("SELECT P.id FROM Planificacion P WHERE P.estado LIKE '"+Planificacion.ESTADO_CREADA+"'");
+    }
+
+    static int getPlanificacionesFinalizadas() {
+        return getHSQL("SELECT P.id FROM Planificacion P WHERE P.estado LIKE '"+Planificacion.ESTADO_FINALIZADA+"'");
+    }
+
+    static int getEjecucionEnEjecucion() {
+        return getHSQL("SELECT E.id FROM Ejecucion E WHERE E.estado LIKE '"+Ejecucion.ESTADO_CREADA+"'");
+    }
+
+    static int getEjecucionFinalizada() {
+        return getHSQL("SELECT E.id FROM Ejecucion E WHERE E.estado LIKE '"+Ejecucion.ESTADO_FINALIZADA+"'");
     }
     
 }
