@@ -428,7 +428,7 @@ public class GestorABMEmpresaCliente {
                             sesion.save(tell);
                         }
                         sesion.save(pAux.getDomicilio());
-                        sesion.save(pAux.getContacto());
+                        if(pAux.getContacto() != null) { sesion.save(pAux.getContacto()); }
 
                         this.empresa.getPlantas().add(pAux);
                         sesion.save(pAux);
