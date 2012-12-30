@@ -6,12 +6,13 @@ import modelo.Ejecucion;
 import modelo.PedidoObra;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Iuga
  */
-public class ConsultarEjecuciones extends PantallaConsultarGenerica{
+public class ConsultarEjecuciones extends PantallaConsultarGenerica implements IFavorito{
 
     public ConsultarEjecuciones(Class entidad) {
         super(entidad);
@@ -37,7 +38,7 @@ public class ConsultarEjecuciones extends PantallaConsultarGenerica{
 
     @Override
     protected String getNombreVentana() {
-        return "Listado de todas las Ejecuciones";
+        return "Listado: Ejecuciones de Obra";
     }
 
     @Override
@@ -60,5 +61,15 @@ public class ConsultarEjecuciones extends PantallaConsultarGenerica{
             win.setVisible(true);
         }
     }
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }    
     
 }

@@ -12,12 +12,13 @@ import modelo.EmpresaCliente;
 import util.SwingPanel;
 import vista.compras.ABMHerramientaDeEmpresa;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaListadoEmpresaCliente extends PantallaConsultarGenerica{
+public class pantallaListadoEmpresaCliente extends PantallaConsultarGenerica implements IFavorito{
 
     public pantallaListadoEmpresaCliente(Class entidad) {
         super(entidad);
@@ -76,4 +77,15 @@ public class pantallaListadoEmpresaCliente extends PantallaConsultarGenerica{
             JOptionPane.showMessageDialog(new JInternalFrame(),"No se pudo encontrar el ID de la Fila","Error!",JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }       
+    
 }

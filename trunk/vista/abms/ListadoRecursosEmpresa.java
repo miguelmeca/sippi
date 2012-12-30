@@ -11,12 +11,13 @@ import modelo.RecursoEspecifico;
 import util.SwingPanel;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Administrador
  */
-public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
+public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica implements IFavorito{
 
     public ListadoRecursosEmpresa(Class entidad) {
         super(entidad);
@@ -55,5 +56,15 @@ public class ListadoRecursosEmpresa  extends PantallaConsultarGenerica {
     protected String getNombreVentana() {
         return "Listado: Recursos de la Empresa";
     }
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }       
     
 }

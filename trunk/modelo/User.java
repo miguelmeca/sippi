@@ -13,7 +13,16 @@ import java.util.List;
 public class User {
     
     public final static String ESTADO_ALTA = "Alta";
-    public final static String ESTADO_BAJA = "Baja";    
+    public final static String ESTADO_BAJA = "Baja";   
+    
+    public final static String PERMISO_SEPARADOR = ", ";   
+    public final static String PERMISO_MODULO_COMPRAS = "Compras";   
+    public final static String PERMISO_MODULO_RRHH = "Recursos Humanos";   
+    public final static String PERMISO_MODULO_COMERCIALIZACION = "Comercialización";   
+    public final static String PERMISO_MODULO_COTIZACION = "Cotización";   
+    public final static String PERMISO_MODULO_PLANIFICACION = "Planificación";   
+    public final static String PERMISO_MODULO_EJECUCION = "Ejecución";   
+    public final static String PERMISO_MODULO_CONTROL = "Control";   
     
     private int id;
     private String usuario;
@@ -21,10 +30,12 @@ public class User {
     private boolean isAdmin;
     private String estado;
     private String urlFoto;
+    private String permisos;
     
     private List<FavoritoBean> listaFavoritos;
 
     public User() {
+        this.permisos = "";
     }
 
     public String getEstado() {
@@ -88,6 +99,27 @@ public class User {
             return "Si";
         }
         return "No";
+    }
+
+    public String getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(String permisos) {
+        this.permisos = permisos;
+    }
+    
+    public boolean tienePermisos(String permiso){
+        if(this.isAdmin){
+            return true;
+        }
+        if(this.permisos==null){
+            return false;
+        }
+        if(this.permisos.contains(permiso)){
+            return true;
+        }
+        return false;
     }
     
 }

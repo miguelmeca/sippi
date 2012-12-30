@@ -18,41 +18,41 @@
     </itemcat>
 
     <itemcat icono="/res/iconos/var/16x16/Shopping cart.png" nombre="Compras">
-        <item nombre="Generar una Orden De Compra" icono="/res/iconos/var/16x16/List.png" instance="vista.compras.GenerarNuevaOrdenDeCompra"/>
-        <item nombre="Recepcion de Compras" icono="/res/iconos/var/16x16/delivery.png" instance="vista.compras.RegistrarRecepcionDeRecursos"/>
-        <item nombre="Gestionar Stock" icono="/res/iconos/var/16x16/Wallet.png" instance="vista.compras.GestionarStock"/>
-        <item nombre="Consultar Precios" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.ConsultarPrecios"/>
-        <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.ABMProveedor"/>
-        <item nombre="Registrar Precios de Recursos" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.pantallaRegistrarPrecioRecursoNueva"/>
+        <item nombre="Generar una Orden De Compra" icono="/res/iconos/var/16x16/List.png" instance="vista.compras.GenerarNuevaOrdenDeCompra" permisos="Compras"/>
+        <item nombre="Recepcion de Compras" icono="/res/iconos/var/16x16/delivery.png" instance="vista.compras.RegistrarRecepcionDeRecursos" permisos="Compras"/>
+        <item nombre="Gestionar Stock" icono="/res/iconos/var/16x16/Wallet.png" instance="vista.compras.GestionarStock" permisos="Compras"/>
+        <item nombre="Consultar Precios" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.ConsultarPrecios" permisos="Compras"/>
+        <item nombre="Registrar un Proveedor" icono="/res/iconos/var/16x16/user.png" instance="vista.compras.ABMProveedor" permisos="Compras"/>
+        <item nombre="Registrar Precios de Recursos" icono="/res/iconos/var/16x16/Accounting.png" instance="vista.compras.pantallaRegistrarPrecioRecursoNueva" permisos="Compras"/>
     </itemcat>  
     
     <itemcat icono="/res/iconos/var/16x16/users.png" nombre="Recursos Humanos">
-        <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado"/>
-        <item nombre="Nuevo Empleado" icono="/res/iconos/var/16x16/add.png" instance="vista.rrhh.pantallaRegistrarEmpleado"/>
-        <item nombre="Talleres de Capacitación" icono="/res/iconos/var/16x16/Yellow tag.png" instance="vista.rrhh.pantallaConsultarTallerCapacitacion"/>
-        <item nombre="Asistencia a Talleres" icono="/res/iconos/var/16x16/accept_page.png" instance="vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion"/>
+        <item nombre="Listado de Empleados" icono="/res/iconos/var/16x16/search_page.png" instance="vista.rrhh.PantallaConsultarEmpleado" permisos="Recursos Humanos"/>
+        <item nombre="Nuevo Empleado" icono="/res/iconos/var/16x16/add.png" instance="vista.rrhh.pantallaRegistrarEmpleado" permisos="Recursos Humanos"/>
+        <item nombre="Talleres de Capacitación" icono="/res/iconos/var/16x16/Yellow tag.png" instance="vista.rrhh.pantallaConsultarTallerCapacitacion" permisos="Recursos Humanos"/>
+        <item nombre="Asistencia a Talleres" icono="/res/iconos/var/16x16/accept_page.png" instance="vista.rrhh.pantallaRegistrarAsistenciaTallerCapacitacion" permisos="Recursos Humanos"/>
     </itemcat>     
 
     <itemcat icono="/res/iconos/var/16x16/Equipment.png" nombre="Obras">
-        <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.ListadoPedidoDeObras"/>
-        <item nombre="Nuevo Pedido de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.ABMPedidoObra"/>
+        <item nombre="Explorar Pedidos de Obra" icono="/res/iconos/var/16x16/search_page.png" instance="vista.comer.ListadoPedidoDeObras"  permisos="Comercialización"/>
+        <item nombre="Nuevo Pedido de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.comer.ABMPedidoObra"  permisos="Comercialización"/>
     </itemcat>    
 
     <itemcat icono="/res/iconos/var/16x16/chart_pie.png" nombre="Cotización">
-        <item nombre="Nueva Cotización de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.cotizacion.ExplorarCotizacionObra"/>
-        <item nombre="Explorar Cotizaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.cotizacion.ListadoCotizaciones"/>
+        <item nombre="Nueva Cotización de Obra" icono="/res/iconos/var/16x16/add.png" instance="vista.cotizacion.ExplorarCotizacionObra" permisos="Cotización"/>
+        <item nombre="Explorar Cotizaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.cotizacion.ListadoCotizaciones" permisos="Cotización"/>
     </itemcat>
     
     <itemcat icono="/res/iconos/var/16x16/chart.png" nombre="Planificación">
-        <item nombre="Explorar Planificaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.planificacion.PantallaConsultarPlanificaciones"/>
+        <item nombre="Explorar Planificaciones" icono="/res/iconos/var/16x16/search.png" instance="vista.planificacion.PantallaConsultarPlanificaciones"  permisos="Planificación"/>
     </itemcat>  
     
     <itemcat icono="/res/iconos/var/16x16/calendar.png" nombre="Ejecución">
-        <item nombre="Explorar Ejecuciones" icono="/res/iconos/var/16x16/search.png" instance="vista.ejecucion.ConsultarEjecuciones"/>
+        <item nombre="Explorar Ejecuciones" icono="/res/iconos/var/16x16/search.png" instance="vista.ejecucion.ConsultarEjecuciones" permisos="Ejecución"/>
     </itemcat>  
     
     <itemcat icono="/res/iconos/var/16x16/Diagram.png" nombre="Control">
-        <item nombre="Explorar Controles de Obra" icono="/res/iconos/var/16x16/search.png" instance="vista.control.ConsultarControles"/>
+        <item nombre="Explorar Controles de Obra" icono="/res/iconos/var/16x16/search.png" instance="vista.control.ConsultarControles" permisos="Control"/>
     </itemcat>                   
 
     <itemcat icono="/res/iconos/var/16x16/3d bar chart.png" nombre="Informes">

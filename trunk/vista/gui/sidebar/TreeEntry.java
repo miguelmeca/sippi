@@ -5,9 +5,12 @@
 
 package vista.gui.sidebar;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import util.SwingPanel;
 
 /**
@@ -20,6 +23,7 @@ public class TreeEntry
     private ImageIcon icono;
     private ArrayList<TreeEntry> hijos;
     private String _instance;
+    private boolean permiso;
 
     private int id;
     private String tipo;
@@ -85,20 +89,37 @@ public class TreeEntry
     {
         if(this._instance!=null && !this._instance.isEmpty())
         {
-            try
-            {
-                Class win = Class.forName(_instance);
-                JInternalFrame frame = (JInternalFrame)win.newInstance();
-                SwingPanel.getInstance().addWindow(frame);
-                frame.setVisible(true);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
+            if(permiso){
+                try
+                {
+                    Class win = Class.forName(_instance);
+                    JInternalFrame frame = (JInternalFrame)win.newInstance();
+                    SwingPanel.getInstance().addWindow(frame);
+                    frame.setVisible(true);
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }else{
+                mostrarMensaje(JOptionPane.INFORMATION_MESSAGE,"Atencion!",
+                        "No tiene permisos para acceder a este módulo"
+                        + "\nPongase en contacto con el Administrador del Sistema.");
             }
             
         }
     }
+    
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    private void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(new JFrame(),mensaje,titulo,tipo);
+    }    
 
     @Override
     public String toString() {
@@ -120,8 +141,15 @@ public class TreeEntry
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-            
-    
-    
+
+    public boolean isPermiso() {
+        return permiso;
+    }
+
+    public void setPermiso(boolean permiso) {
+        this.permiso = permiso;
+    }
+
+
     
 }

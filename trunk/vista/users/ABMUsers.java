@@ -83,14 +83,22 @@ public class ABMUsers extends javax.swing.JInternalFrame {
         txtUserName = new javax.swing.JTextField();
         lblTituloPass = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
-        optAdmin = new javax.swing.JRadioButton();
-        optSimpleUser = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         cmbEstado = new javax.swing.JComboBox();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         cmbImagen = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        optAdmin = new javax.swing.JRadioButton();
+        optSimpleUser = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        ck1 = new javax.swing.JCheckBox();
+        ck2 = new javax.swing.JCheckBox();
+        ck3 = new javax.swing.JCheckBox();
+        ck4 = new javax.swing.JCheckBox();
+        ck5 = new javax.swing.JCheckBox();
+        ck6 = new javax.swing.JCheckBox();
+        ck7 = new javax.swing.JCheckBox();
 
         jButton4.setText("jButton4");
 
@@ -106,16 +114,6 @@ public class ABMUsers extends javax.swing.JInternalFrame {
 
         lblTituloPass.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblTituloPass.setText("Contraseña:");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Permisos del Usuario:");
-
-        buttonGroup1.add(optAdmin);
-        optAdmin.setSelected(true);
-        optAdmin.setText("Administrador");
-
-        buttonGroup1.add(optSimpleUser);
-        optSimpleUser.setText("Usuario Simple");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Estado:");
@@ -136,6 +134,100 @@ public class ABMUsers extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Permisos del Usuario"));
+
+        buttonGroup1.add(optAdmin);
+        optAdmin.setText("Administrador");
+        optAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optAdminActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(optSimpleUser);
+        optSimpleUser.setSelected(true);
+        optSimpleUser.setText("Usuario Simple");
+        optSimpleUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optSimpleUserActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle de los permisos"));
+
+        ck1.setText("Módulo de Compras");
+
+        ck2.setText("Módulo de Recursos Humanos");
+
+        ck3.setText("Módulo de Comercialización");
+
+        ck4.setText("Módulo de Cotización de Obra");
+
+        ck5.setText("Módulo de Planificación de Obra");
+
+        ck6.setText("Módulo de Ejecución de Obra");
+        ck6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ck6ActionPerformed(evt);
+            }
+        });
+
+        ck7.setText("Módulo de Control de Obra");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ck2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ck3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ck4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ck5, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ck7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ck6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ck1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(ck1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ck7))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(optAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(optSimpleUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(optAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(optSimpleUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,12 +243,10 @@ public class ABMUsers extends javax.swing.JInternalFrame {
                             .addComponent(txtUserName)
                             .addComponent(lblTituloPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtPass)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                            .addComponent(optAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(optSimpleUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar)))
@@ -176,17 +266,13 @@ public class ABMUsers extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmbImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(optAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(optSimpleUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar))
@@ -234,17 +320,40 @@ public class ABMUsers extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void ck6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ck6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ck6ActionPerformed
+
+    private void optSimpleUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optSimpleUserActionPerformed
+        System.out.println("Selecciono Simple");
+        activarChecksDePermisos(true);
+    }//GEN-LAST:event_optSimpleUserActionPerformed
+
+    private void optAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optAdminActionPerformed
+        System.out.println("Selecciono Administrador");
+        activarChecksDePermisos(false);
+    }//GEN-LAST:event_optAdminActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox ck1;
+    private javax.swing.JCheckBox ck2;
+    private javax.swing.JCheckBox ck3;
+    private javax.swing.JCheckBox ck4;
+    private javax.swing.JCheckBox ck5;
+    private javax.swing.JCheckBox ck6;
+    private javax.swing.JCheckBox ck7;
     private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbImagen;
     private javax.swing.JButton jButton4;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTituloPass;
     private javax.swing.JRadioButton optAdmin;
@@ -391,6 +500,36 @@ public class ABMUsers extends javax.swing.JInternalFrame {
             usuario.setIsAdmin(true);
         } else {
             usuario.setIsAdmin(false);
+            // Cargo los permisos
+            String permisos = "";
+            if(ck1.isSelected()){
+                permisos += User.PERMISO_MODULO_COMPRAS;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck2.isSelected()){
+                permisos += User.PERMISO_MODULO_RRHH;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck3.isSelected()){
+                permisos += User.PERMISO_MODULO_COMERCIALIZACION;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck4.isSelected()){
+                permisos += User.PERMISO_MODULO_COTIZACION;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck5.isSelected()){
+                permisos += User.PERMISO_MODULO_PLANIFICACION;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck6.isSelected()){
+                permisos += User.PERMISO_MODULO_EJECUCION;
+                permisos += User.PERMISO_SEPARADOR;
+            }
+            if(ck7.isSelected()){
+                permisos += User.PERMISO_MODULO_CONTROL;
+            } 
+            usuario.setPermisos(permisos);
         }
 
         if (usuario != null) {
@@ -432,12 +571,63 @@ public class ABMUsers extends javax.swing.JInternalFrame {
         if (this.updateUser != null) {
             txtUserName.setText(this.updateUser.getUsuario());
             txtPass.setText("");
+                       
+            // Veo si puedo modificar al usuario
+            if(!UserSession.getInstance().isAdmin()){
+                optAdmin.setEnabled(false);
+                optSimpleUser.setEnabled(false);
+                activarChecksDePermisos(false);
+                cmbEstado.setEnabled(false);
+                
+                // Solo dejo cambiar la contraseña al propio usuario
+                int idUserLoged = UserSession.getInstance().getUsuarioLogeado().getId();
+                if(idUserLoged!=this.updateUser.getId()){
+                    txtPass.setEnabled(false);
+                    txtUserName.setEnabled(false);
+                    btnGuardar.setEnabled(false);
+                }
+                
+            }
+            
             if (this.updateUser.isIsAdmin()) {
                 optAdmin.setSelected(true);
+                activarChecksDePermisos(false);
             } else {
                 optSimpleUser.setSelected(true);
+                // Lleno los permisos que tiene
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_COMPRAS)){
+                    ck1.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_RRHH)){
+                    ck2.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_COMERCIALIZACION)){
+                    ck3.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_COTIZACION)){
+                    ck4.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_PLANIFICACION)){
+                    ck5.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_EJECUCION)){
+                    ck6.setSelected(true);
+                }
+                if(this.updateUser.tienePermisos(User.PERMISO_MODULO_CONTROL)){
+                    ck7.setSelected(true);
+                }                
             }
             lblTituloPass.setText("Cambiar Contraseña:");
         }
+    }
+
+    private void activarChecksDePermisos(boolean b) {
+        ck1.setEnabled(b);
+        ck2.setEnabled(b);
+        ck3.setEnabled(b);
+        ck4.setEnabled(b);
+        ck5.setEnabled(b);
+        ck6.setEnabled(b);
+        ck7.setEnabled(b);
     }
 }

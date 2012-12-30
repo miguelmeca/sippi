@@ -5,17 +5,15 @@
 package vista.comer;
 
 import java.util.ArrayList;
-import modelo.Cotizacion;
-import modelo.Herramienta;
 import modelo.PedidoObra;
 import util.SwingPanel;
-import vista.abms.PantallaGestionarRecursos;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  * @author Iuga
  */
-public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
+public class ListadoPedidoDeObras extends PantallaConsultarGenerica implements IFavorito{
 
     public ListadoPedidoDeObras(Class entidad) {
         super(entidad);
@@ -24,6 +22,11 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
     public ListadoPedidoDeObras() {
         super(PedidoObra.class);
     }
+    
+    @Override
+    protected String getNombreVentana() {
+        return "Listado: Pedidos de Obra";
+    }    
  
     @Override
     protected ArrayList<String[]> getColumnas()
@@ -67,5 +70,15 @@ public class ListadoPedidoDeObras extends PantallaConsultarGenerica{
     protected String[] getColumnasFiltro() {
         return new String[]{"Estado"};
     }   
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }    
    
 }

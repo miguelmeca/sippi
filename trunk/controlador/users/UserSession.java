@@ -56,6 +56,14 @@ public class UserSession {
             return usuarioLogeado.isIsAdmin();
         }
     }
+    
+    public boolean tienePermisos(String permisos){
+        if(this.usuarioLogeado==null){
+            return false;
+        }else{
+            return this.usuarioLogeado.tienePermisos(permisos);
+        }
+    }
 
     public void setUsuarioLogeado(User usuarioLogeado) 
     {

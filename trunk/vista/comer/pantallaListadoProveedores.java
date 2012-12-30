@@ -11,12 +11,13 @@ import modelo.Proveedor;
 import util.SwingPanel;
 import vista.compras.ABMProveedor;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Administrador
  */
-public class pantallaListadoProveedores extends PantallaConsultarGenerica{
+public class pantallaListadoProveedores extends PantallaConsultarGenerica implements IFavorito{
 
     public pantallaListadoProveedores(Class entidad) {
         super(entidad);
@@ -53,6 +54,14 @@ public class pantallaListadoProveedores extends PantallaConsultarGenerica{
         ventana.setVisible(true);
     }
     
-    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }       
     
 }

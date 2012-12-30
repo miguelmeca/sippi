@@ -31,6 +31,7 @@ public class ListadoUsuarios  extends PantallaConsultarGenerica {
             columnas.add(new String[]{"getId","#"});
             columnas.add(new String[]{"getUsuario","Usuario"});
             columnas.add(new String[]{"isAdmin","¿Administrador?"});
+            columnas.add(new String[]{"getPermisos","Permisos"});
             columnas.add(new String[]{"getEstado","Estado"});
         
         return columnas;

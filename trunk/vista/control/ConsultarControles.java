@@ -1,18 +1,16 @@
 package vista.control;
 
-import vista.ejecucion.*;
-import controlador.ejecucion.EjecucionUtils;
 import java.util.ArrayList;
-import modelo.Ejecucion;
 import modelo.PedidoObra;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Iuga
  */
-public class ConsultarControles extends PantallaConsultarGenerica{
+public class ConsultarControles extends PantallaConsultarGenerica implements IFavorito{
 
     public ConsultarControles(Class entidad) {
         super(entidad);
@@ -40,7 +38,7 @@ public class ConsultarControles extends PantallaConsultarGenerica{
 
     @Override
     protected String getNombreVentana() {
-        return "Listado de todas las Ejecuciones";
+        return "Listado: Controles de Obra";
     }
 
     @Override
@@ -69,5 +67,15 @@ public class ConsultarControles extends PantallaConsultarGenerica{
     protected String[] getColumnasFiltro() {
         return new String[]{"Estado"};
     }   
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }    
     
 }
