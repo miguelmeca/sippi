@@ -5,11 +5,13 @@
 
 package controlador.xml;
 
+import controlador.users.UserSession;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import org.jdom.Element;
 import vista.gui.sidebar.TreeEntry;
+import vista.users.UserLogin;
 
 /**
  *
@@ -41,26 +43,36 @@ public class XMLReaderMenu extends XMLReader {
                     root.add(nuevo);
 
                         List items=e.getChildren("item");
-                        if(items.size()!=0)
+                        if(!items.isEmpty())
                           {
-                             Iterator i = items.iterator();
+                            Iterator i = items.iterator();
                             while (i.hasNext())
                             {
                                 Element ex = (Element)i.next();
                                 TreeEntry item = new TreeEntry(ex.getAttributeValue("nombre"),ex.getAttributeValue("icono"));
                                 item.setClassInstance(ex.getAttributeValue("instance"));
+                                if(ex.getAttributeValue("permisos")!=null && !ex.getAttributeValue("permisos").isEmpty()){
+                                    String permisosNecesarios = ex.getAttributeValue("permisos");
+                                    
+                                    if(UserSession.getInstance().tienePermisos(permisosNecesarios)){
+                                        item.setPermiso(true);
+                                    }else{
+                                        item.setPermiso(false);
+                                    }         
+                                }
+                                else{
+                                    item.setPermiso(true);
+                                }
                                 nuevo.add(item);
                             }
                            }
-
                 }
               }
 
-
-
         }catch (Exception e){
-               e.printStackTrace();
-            }
+            System.err.println("Error al cargar el menú...");
+            e.printStackTrace();
+        }
 
         return root;
     }

@@ -107,23 +107,7 @@ public class VentanaPrincipalUtils {
             HibernateUtil.rollbackTransaction();
             System.err.println("Error:"+e.getMessage());
         } 
-        
-        // Tarea Mock 
-        NTupla mock = new NTupla(1);
-        mock.setNombre("Borrar esta tarea Mock");
-        
-        String[] datamock = new String[5];
-            
-            datamock[0] = "1";
-            datamock[1] = "1";
-            datamock[2] = "Provisionamiento de Mano de Obra";
-            datamock[3] = "11/06/2012";
-            datamock[4] = "13/06/2012";
-        
-        mock.setData(datamock);
-        
-        tareas.add(mock);
-        
+               
         return tareas;
     }
     

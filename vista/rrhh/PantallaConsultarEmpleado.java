@@ -23,11 +23,12 @@ import javax.swing.table.TableRowSorter;
 import java.awt.Color;
 import javax.swing.JTable;
 import modelo.Empleado;
+import vista.gui.IFavorito;
 /**
  *
  * @author Administrador
  */
-public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implements ICallBack,   IAyuda {
+public class PantallaConsultarEmpleado extends javax.swing.JInternalFrame implements ICallBack, IFavorito {
 
     private GestorConsultarEmpleado gestor;
     private List<Empleado> listaEmpleados;
@@ -550,18 +551,14 @@ public void actualizar(int flag,boolean exito) {
         
         habilitarVentana();
     }
-public int getIdAyuda()
-    {
-        return 0;
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
     }
 
-    public String getResumenAyuda() {
-        return "Registre un nuevo empleado o seleccione uno existente y consulte o modifique sus datos";
-    }
-
-    public String getTituloAyuda()
-    {
-        return "Opción: Consultar Empleados";
-
-    }
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }       
 }

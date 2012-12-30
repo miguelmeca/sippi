@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import modelo.Cotizacion;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  *
  * @author Administrador
  */
-public class ListadoCotizaciones extends PantallaConsultarGenerica{
+public class ListadoCotizaciones extends PantallaConsultarGenerica implements IFavorito{
 
     public ListadoCotizaciones(Class entidad) {
         super(entidad);
@@ -26,6 +27,11 @@ public class ListadoCotizaciones extends PantallaConsultarGenerica{
     public ListadoCotizaciones(String filtro) {
         super(Cotizacion.class,filtro);
     }    
+    
+    @Override
+    protected String getNombreVentana() {
+        return "Listado: Cotizaciones de Obra";
+    }
     
     @Override
     protected ArrayList<String[]> getColumnas()
@@ -65,6 +71,16 @@ public class ListadoCotizaciones extends PantallaConsultarGenerica{
     @Override
     protected String[] getColumnasFiltro() {
         return new String[]{"Estado"};
+    }
+
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
     }
     
     

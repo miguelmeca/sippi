@@ -13,11 +13,12 @@ import modelo.Planificacion;
 import util.SwingPanel;
 import vista.cotizacion.ExplorarSubObras;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 
 /**
  * @author Iuga
  */
-public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
+public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica implements IFavorito{
 
     public PantallaConsultarOrdenesDeCompra(Class entidad) {
         super(entidad);
@@ -68,5 +69,15 @@ public class PantallaConsultarOrdenesDeCompra extends PantallaConsultarGenerica{
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }    
+    
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
+    }       
    
 }

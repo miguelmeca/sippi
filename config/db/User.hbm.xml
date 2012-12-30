@@ -9,6 +9,7 @@
     <property column="PASS" name="password" type="string"/>
     <property column="ESTADO" name="estado" type="string"/>
     <property column="URL_FOTO" name="urlFoto" type="string"/>
+    <property column="PERMISOS" name="permisos" type="string"/>
     <property column="IS_ADMIN" name="isAdmin" type="boolean"/>
     <list cascade="all" name="listaFavoritos" table="USER_X_FAVORITO">
       <key column="ID_USER_FAV"/>

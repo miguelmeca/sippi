@@ -23,21 +23,18 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.List;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import modelo.FavoritoBean;
 import modelo.Herramienta;
-import modelo.HerramientaDeEmpresa;
 import modelo.Material;
+import modelo.User;
 import org.jfree.ui.RefineryUtilities;
-import test.TestCallBackListadoGenerico;
 import util.HibernateUtil;
 import util.NTupla;
 import util.SwingPanel;
-import util.Tupla;
 import vista.abms.*;
 import vista.ayuda.VentanaAcercaDe;
 import vista.ayuda.VisorDeAyuda;
@@ -46,18 +43,12 @@ import vista.comer.pantallaListadoEmpresaCliente;
 import vista.comer.pantallaListadoProveedores;
 import vista.comer.pantallaRegistrarEmpresaCliente;
 import vista.compras.*;
-import vista.control.VentanaControl;
-import vista.cotizacion.ExplorarCotizacionObra;
-import vista.cotizacion.ExplorarCotizaciones;
+import vista.control.ConsultarControles;
 import vista.cotizacion.ListadoCotizaciones;
-import vista.ejecucion.VentanaEjecucion;
-import vista.ejecucion.lanzamiento.VentanaLanzamiento;
-import vista.gen.FactoryABM;
-import vista.gen.PantallaABMGenerica;
+import vista.ejecucion.ConsultarEjecuciones;
 import vista.gui.sidebar.IconTreeModel;
 import vista.gui.sidebar.IconTreeRenderer;
 import vista.gui.sidebar.TreeEntry;
-import vista.planificacion.EditarPlanificacion;
 import vista.planificacion.PantallaConsultarPlanificaciones;
 import vista.rrhh.*;
 import vista.users.ABMUsers;
@@ -90,6 +81,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.setTitle(SConfig.getInstance().getNombreSistema() + " | "+ SConfig.getInstance().getNombreEmpresa() + " - " + SConfig.getInstance().getDireccionEmpresa());
         
         cargarMenu();
+        
+        cargarPermisosDelUsuario();
         
         cargarBarraHoy();
         
@@ -132,6 +125,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     if(fb!=null)
                     {
                         TreeEntry nuevo = new TreeEntry(fb.getNombre(),fb.getIcono());
+                        nuevo.setPermiso(true);
                         nuevo.setClassInstance(fb.getInstance());
                         leafFavoritos.add(nuevo);
                     }
@@ -260,10 +254,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnMenuListadoProveedores = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         btnMenuListadoOrdenesCompra = new javax.swing.JMenuItem();
-        btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
-        btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
         btnMnuRecursos = new javax.swing.JMenuItem();
         btnMnuObras = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        btnMenuListadoCotizaciones = new javax.swing.JMenuItem();
+        btnMenuListadoPlanificaciones = new javax.swing.JMenuItem();
+        btnMenuListadoEjecuciones = new javax.swing.JMenuItem();
+        btnMenuListadoControles = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnMenuAyuda = new javax.swing.JMenuItem();
         btnMenuAcercaDe = new javax.swing.JMenuItem();
@@ -363,7 +360,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tareasDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -710,22 +707,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnMenuListadoOrdenesCompra);
 
-        btnMenuListadoPlanificaciones.setText("Planificaciones");
-        btnMenuListadoPlanificaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuListadoPlanificacionesActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMenuListadoPlanificaciones);
-
-        btnMenuListadoCotizaciones.setText("Cotizaciones");
-        btnMenuListadoCotizaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuListadoCotizacionesActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnMenuListadoCotizaciones);
-
         btnMnuRecursos.setText("Recursos");
         btnMnuRecursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -741,6 +722,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(btnMnuObras);
+
+        jMenu4.setText("Fases de una Obra");
+
+        btnMenuListadoCotizaciones.setText("Cotizaciones");
+        btnMenuListadoCotizaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoCotizacionesActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuListadoCotizaciones);
+
+        btnMenuListadoPlanificaciones.setText("Planificaciones");
+        btnMenuListadoPlanificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoPlanificacionesActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuListadoPlanificaciones);
+
+        btnMenuListadoEjecuciones.setText("Ejecuciones");
+        btnMenuListadoEjecuciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoEjecucionesActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuListadoEjecuciones);
+
+        btnMenuListadoControles.setText("Controles");
+        btnMenuListadoControles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuListadoControlesActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuListadoControles);
+
+        jMenu2.add(jMenu4);
 
         jMenuBar1.add(jMenu2);
 
@@ -1023,11 +1040,25 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         win.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void btnMenuListadoEjecucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoEjecucionesActionPerformed
+        ConsultarEjecuciones win = new ConsultarEjecuciones();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnMenuListadoEjecucionesActionPerformed
+
+    private void btnMenuListadoControlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuListadoControlesActionPerformed
+        ConsultarControles win = new ConsultarControles();
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_btnMenuListadoControlesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
     private javax.swing.JMenuItem btnMenuAyuda;
     private javax.swing.JMenuItem btnMenuListHerr;
+    private javax.swing.JMenuItem btnMenuListadoControles;
     private javax.swing.JMenuItem btnMenuListadoCotizaciones;
+    private javax.swing.JMenuItem btnMenuListadoEjecuciones;
     private javax.swing.JMenuItem btnMenuListadoEmpresasCliente;
     private javax.swing.JMenuItem btnMenuListadoOrdenesCompra;
     private javax.swing.JMenuItem btnMenuListadoPlanificaciones;
@@ -1046,6 +1077,7 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
@@ -1206,6 +1238,72 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         CerrarSesion();
                     }
                 });
+    }
+
+    private void cargarPermisosDelUsuario() {
+        // Si no es administrador (Los admin pueden ver todo)
+        if(!UserSession.getInstance().isAdmin()){
+            // Escondo los componentes para los que no tiene permisos
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_COMERCIALIZACION)){
+                anularModuloComercializacion();
+            }
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_COMPRAS)){
+                anularModuloCompras();
+            }    
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_CONTROL)){
+                anularModuloControl();
+            }      
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_COTIZACION)){
+                anularModuloCotizacion();
+            }          
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_EJECUCION)){
+                anularModuloEjecucion();
+            }      
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_PLANIFICACION)){
+                anularModuloPlanificacion();
+            }            
+            if(!UserSession.getInstance().tienePermisos(User.PERMISO_MODULO_RRHH)){
+                anularModuloRRHH();
+            }         
+        }
+    }
+
+    private void anularModuloComercializacion() {
+        btnMnuObras.setEnabled(false);
+        btnMenuListadoEmpresasCliente.setEnabled(false);
+        jMenu10.setEnabled(false);
+    }
+
+    private void anularModuloCompras() {
+        jMenu6.setEnabled(false);
+        jMenu7.setEnabled(false);
+        jMenu9.setEnabled(false);
+        jMenu11.setEnabled(false);
+        btnMenuListadoProveedores.setEnabled(false);
+        btnMenuListadoOrdenesCompra.setEnabled(false);
+        btnMnuRecursos.setEnabled(false);
+    }
+
+    private void anularModuloControl() {
+        btnMenuListadoControles.setEnabled(false);
+    }
+
+    private void anularModuloCotizacion() {
+        btnMenuListadoCotizaciones.setEnabled(false);
+    }
+
+    private void anularModuloEjecucion() {
+        btnMenuListadoEjecuciones.setEnabled(false);
+    }
+
+    private void anularModuloPlanificacion() {
+        btnMenuListadoPlanificaciones.setEnabled(false);
+    }
+
+    private void anularModuloRRHH() {
+        jMenu13.setEnabled(false);
+        jMenu12.setEnabled(false);
+        jMenuItem6.setEnabled(false);
     }
 
 }

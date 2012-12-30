@@ -46,7 +46,7 @@ public class IconTreeModel implements TreeModel {
     }
 
     public void valueForPathChanged(TreePath path, Object newValue) {
-        throw new UnsupportedOperationException("Not supported");
+        
     }
 
     public int getIndexOfChild(Object parent, Object child) {

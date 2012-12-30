@@ -5,6 +5,7 @@
 
 package vista.gui.sidebar;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -47,7 +48,21 @@ public class IconTreeRenderer extends DefaultTreeCellRenderer {
         {
             label.setFont(orgFont);
             label.setIcon(te.getIcono());
+        }      
+        
+        // TIENE PERMISO PERMISOS
+        if(!te.isPermiso()){
+            label.setForeground(Color.LIGHT_GRAY);
+        }else{
+            label.setForeground(Color.DARK_GRAY);
         }
+        
+        // Si tiene hijos es un padre
+        if(te.getEntries()!=null && !te.getEntries().isEmpty()){
+            label.setForeground(Color.BLACK);
+        }  
+       
+        
         label.setPreferredSize(new Dimension(200, 20));
         return label;
     }

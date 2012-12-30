@@ -9,13 +9,14 @@ import java.util.HashMap;
 import modelo.Planificacion;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
+import vista.gui.IFavorito;
 import vista.interfaces.ICallBackGen;
 
 /**
  *
  * @author Administrador
  */
-public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
+public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica implements IFavorito{
 
     public PantallaConsultarPlanificaciones(Class entidad) {
         super(entidad);
@@ -42,7 +43,7 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
 
     @Override
     protected String getNombreVentana() {
-        return "Listado de todas las Planificaciones Realizadas";
+        return "Listado: Planificaciones de Obra";
     }
 
     @Override
@@ -61,6 +62,16 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica{
         EditarPlanificacion win = new EditarPlanificacion(id);
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
+    }
+
+    @Override
+    public boolean isFavorito() {
+        return true;
+    }
+
+    @Override
+    public String getIconoFavorito() {
+        return "/res/iconos/var/16x16/List.png";
     }
     
 }

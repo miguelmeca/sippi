@@ -1,4 +1,4 @@
-/*C62*/SET SCHEMA PUBLIC
+/*C4*/SET SCHEMA PUBLIC
 alter table AsistenciaTallerCapacitacion drop constraint FKB58570BBDC73F2E2
 alter table Barrio drop constraint FK762C4C45E28DC372
 alter table CAPACITACION drop constraint FKA6837467DC73F2E2
@@ -321,7 +321,7 @@ create table TipoIndumentaria (IDTIPOINDUMENTARIA integer not null, nombre varch
 create table TipoLicenciaEmpleado (ID_TIPO_LICENCIA integer not null, NOMBRE varchar(255), primary key (ID_TIPO_LICENCIA))
 create table TipoTarea (ID_TIPO_TAREA integer not null, NOMBRE varchar(255), primary key (ID_TIPO_TAREA))
 create table TipoTelefono (ID integer not null, NOMBRE varchar(255), primary key (ID))
-create table USUARIOS (IDUSER integer not null, USUARIO varchar(255), PASS varchar(255), ESTADO varchar(255), URL_FOTO varchar(255), IS_ADMIN bit, primary key (IDUSER))
+create table USUARIOS (IDUSER integer not null, USUARIO varchar(255), PASS varchar(255), ESTADO varchar(255), URL_FOTO varchar(255), PERMISOS varchar(255), IS_ADMIN bit, primary key (IDUSER))
 create table UnidadDeMedida (ID_UNIDAD_MEDIDA integer not null, nombre varchar(255), abreviatura varchar(255), primary key (ID_UNIDAD_MEDIDA))
 alter table AsistenciaTallerCapacitacion add constraint FKB58570BBDC73F2E2 foreign key (ID_EMPLEADO) references EMPLEADO
 alter table Barrio add constraint FK762C4C45E28DC372 foreign key (localidad_id) references Localidad
@@ -477,9 +477,9 @@ INSERT INTO PROPIEDADES_SISTEMA VALUES(7,'SISTEMA_NOMBRE','ACERO')
 INSERT INTO PROPIEDADES_SISTEMA VALUES(8,'MULTIPLICADOR_HORAS_50','1.5')
 INSERT INTO PROPIEDADES_SISTEMA VALUES(9,'MULTIPLICADOR_HORAS_100','2.0')
 COMMIT
-INSERT INTO USUARIOS VALUES(1,'UsuarioAccesoFull','ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e','Baja','/res/avatares/1.png','1')
-INSERT INTO USUARIOS VALUES(2,'Javier Romero','532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25','Alta','/res/avatares/6.png','1')
-INSERT INTO USUARIOS VALUES(3,'Aldo Romero','9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587','Alta','/res/avatares/13.png','1')
+INSERT INTO USUARIOS VALUES(1,'UsuarioAccesoFull','ece48e107580b03bcef00f85781846191e6be5a2c34aa5191fef78932a39936e','Baja','/res/avatares/1.png','','1')
+INSERT INTO USUARIOS VALUES(2,'Javier Romero','532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25','Alta','/res/avatares/6.png','','1')
+INSERT INTO USUARIOS VALUES(3,'Aldo Romero','9c24f45a7ea9e4668ee31dc18bd0a9153f1413ceb3fad18b0a07e16e6a9bc587','Alta','/res/avatares/13.png','','1')
 COMMIT
 INSERT INTO UNIDADDEMEDIDA VALUES(1,'Unidad','Un')
 INSERT INTO UNIDADDEMEDIDA VALUES(2,'Kilogramo','Kg')
@@ -699,4 +699,6 @@ INSERT INTO ROLCONTACTORESPONSABLE VALUES(5,'Contratista')
 INSERT INTO ROLCONTACTORESPONSABLE VALUES(6,'Vendedor')
 INSERT INTO ROLCONTACTORESPONSABLE VALUES(7,'Jefe de \u00c1rea')
 COMMIT
+DISCONNECT
+/*C5*/SET SCHEMA PUBLIC
 DISCONNECT
