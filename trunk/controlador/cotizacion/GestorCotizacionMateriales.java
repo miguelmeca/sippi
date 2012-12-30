@@ -544,77 +544,106 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 //                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
                             // http://www.journaldev.com/378/how-to-avoid-concurrentmodificationexception-when-using-an-iterator
                             CopyOnWriteArrayList<PrecioSegunCantidad> listaSincronizada = new CopyOnWriteArrayList<PrecioSegunCantidad>(rxp.getListaPrecios());
-                            Iterator<PrecioSegunCantidad> itf = listaSincronizada.iterator();
-                            while (itf.hasNext())
+                            
+                            // CON EL NUEVO GESTOR DE RECURSOS, SE CREA UN RXP CON UNA LISTA DE PRECIOS VACIA
+                            // POR TAL MOTIVO, TUVE QUE AGREGAR ESTA OPCION NO CONTEMPLADA.
+                            if(listaSincronizada.size() > 0 )
                             {
-                                PrecioSegunCantidad psc = itf.next();
-                                Date hoy = new Date();
-                                if(FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha())))
+                                Iterator<PrecioSegunCantidad> itf = listaSincronizada.iterator();
+                                while (itf.hasNext())
                                 {
-                                    // ES DE HOY !! ENTONCES ACTUALIZO EL PRECIO
-                                    // SE DA SI CARGA EN UN MISMO DÍA DOS VECES UN
-                                    // PRECIO PARA UN REC y PROV
-                                    if(psc.getCantidad()==cantidad)
+                                    PrecioSegunCantidad psc = itf.next();
+                                    Date hoy = new Date();
+                                    if(FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha())))
                                     {
-                                        // TIENE LA MISMA CANTIDAD, ACTUALIZO
-                                        psc.setPrecio(precio);
-                                        psc.setFechaVigencia(vigencia);
-
-                                        HibernateUtil.beginTransaction();
-                                        sesion.update(psc);
-                                        HibernateUtil.commitTransaction();
-
-                                        //pantalla.MostrarMensaje("MI-0001");return;
-
-                                    }
-                                    else
-                                    {
-                                        // NO ES LA MISMA CANTIDAD, CREO OTRO PSC
-                                        // TENGO QUE BUSCAR SI ESA CANTIDAD NO ESTA YA CARGADA
-                                         Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
-                                         boolean esta = false;
-                                         while (itf2.hasNext())
-                                         {
-                                            PrecioSegunCantidad pscAux = itf2.next();
-                                            if(pscAux.getCantidad()==cantidad)
-                                            {
-                                                // ES LA MISMA CANTIDAD !!!
-                                                // ENTONCES ESTA MAS ADELANTE
-                                                esta = true;
-                                                // SE LA DEJO A LA ITER DE ARRIBA
-                                            }
-                                         }
-                                         // NO ESTA ESA CANTIDAD CARGADA, LA CREO
-                                        if(!esta)
+                                        // ES DE HOY !! ENTONCES ACTUALIZO EL PRECIO
+                                        // SE DA SI CARGA EN UN MISMO DÍA DOS VECES UN
+                                        // PRECIO PARA UN REC y PROV
+                                        if(psc.getCantidad()==cantidad)
                                         {
-                                            PrecioSegunCantidad pscNuevo = new PrecioSegunCantidad();
-                                            pscNuevo.setCantidad(cantidad);
-                                            pscNuevo.setFecha(hoy);
-                                            pscNuevo.setFechaVigencia(vigencia);
-                                            pscNuevo.setPrecio(precio);
-                                            // Y AGREGO EL PSC AL RECURSOESPECIFICO
-                                            rxp.addPrecioSegunCantidad(pscNuevo);
-                                            //re.getProveedores().add(rxp);
+                                            // TIENE LA MISMA CANTIDAD, ACTUALIZO
+                                            psc.setPrecio(precio);
+                                            psc.setFechaVigencia(vigencia);
 
                                             HibernateUtil.beginTransaction();
-                                            sesion.save(pscNuevo);
-                                            sesion.update(rxp);
-                                            sesion.update(re);
+                                            sesion.update(psc);
                                             HibernateUtil.commitTransaction();
 
                                             //pantalla.MostrarMensaje("MI-0001");return;
+
                                         }
-                                         else
+                                        else
                                         {
-                                             // SE USARA, NO, LA AGARRA EL IF DE ARRIBA
-                                             LogUtil.addDebug("ATENCION ATENCION: LA CANTIDAD YA ESTA CARGADA !! (ESTO NO DEBERIA VERSE)");
+                                            // NO ES LA MISMA CANTIDAD, CREO OTRO PSC
+                                            // TENGO QUE BUSCAR SI ESA CANTIDAD NO ESTA YA CARGADA
+                                             Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
+                                             boolean esta = false;
+                                             while (itf2.hasNext())
+                                             {
+                                                PrecioSegunCantidad pscAux = itf2.next();
+                                                if(pscAux.getCantidad()==cantidad)
+                                                {
+                                                    // ES LA MISMA CANTIDAD !!!
+                                                    // ENTONCES ESTA MAS ADELANTE
+                                                    esta = true;
+                                                    // SE LA DEJO A LA ITER DE ARRIBA
+                                                }
+                                             }
+                                             // NO ESTA ESA CANTIDAD CARGADA, LA CREO
+                                            if(!esta)
+                                            {
+                                                PrecioSegunCantidad pscNuevo = new PrecioSegunCantidad();
+                                                pscNuevo.setCantidad(cantidad);
+                                                pscNuevo.setFecha(hoy);
+                                                pscNuevo.setFechaVigencia(vigencia);
+                                                pscNuevo.setPrecio(precio);
+                                                // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                                                rxp.addPrecioSegunCantidad(pscNuevo);
+                                                //re.getProveedores().add(rxp);
+
+                                                HibernateUtil.beginTransaction();
+                                                sesion.save(pscNuevo);
+                                                sesion.update(rxp);
+                                                sesion.update(re);
+                                                HibernateUtil.commitTransaction();
+
+                                                //pantalla.MostrarMensaje("MI-0001");return;
+                                            }
+                                             else
+                                            {
+                                                 // SE USARA, NO, LA AGARRA EL IF DE ARRIBA
+                                                 LogUtil.addDebug("ATENCION ATENCION: LA CANTIDAD YA ESTA CARGADA !! (ESTO NO DEBERIA VERSE)");
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        // NO ES DE HOY , ES UNO VIEJO, NO HAGO NADA
+                                    }
                                 }
-                                else
-                                {
-                                    // NO ES DE HOY , ES UNO VIEJO, NO HAGO NADA
-                                }
+                            }
+                            else
+                            {
+                                // TENGO UN RXP CARGADO SIN LISTA DE PRECIOS
+                                // LA CREO Y GUARDO DE UNA
+                                PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                                psc.setCantidad(cantidad);
+                                psc.setFecha(new Date());
+                                psc.setPrecio(precio);
+                                psc.setFechaVigencia(vigencia);
+                                rxp.addPrecioSegunCantidad(psc);
+
+                                // AHORA AGREGO EL RE AL PROVEEDOR
+//                                pr.getListaArticulos().add(re);
+                                // Y AGREGO EL PSC AL RECURSOESPECIFICO
+//                                re.getProveedores().add(rxp);
+
+                                HibernateUtil.beginTransaction();
+                                sesion.save(psc);
+                                sesion.save(rxp);
+//                                sesion.update(pr);
+//                                sesion.update(re);
+                                HibernateUtil.commitTransaction();
                             }
                         }
                         else
@@ -700,7 +729,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     }
 
     public ArrayList<NTupla> mostrarPreciosVigentes(int idProv, int idRe) {
-        ArrayList<NTupla> provs = new ArrayList<NTupla>();
+            ArrayList<NTupla> provs = new ArrayList<NTupla>();
         try {
             HibernateUtil.beginTransaction();
             RecursoEspecifico re = (RecursoEspecifico) HibernateUtil.getSession().load(RecursoEspecifico.class, idRe);
