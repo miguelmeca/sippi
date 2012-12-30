@@ -15,7 +15,9 @@ import modelo.TareaEjecucion;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
+import util.SwingPanel;
 import util.Tupla;
+import vista.ejecucion.VentanaEjecucion;
 
 /**
  * @author iuga
@@ -109,6 +111,48 @@ public class VentanaPrincipalUtils {
         } 
                
         return tareas;
+    }
+
+    /**
+     * Se le pasa el ID de una Tarea Ejecución y Abre su Ejecución.
+     * @param id 
+     */
+    public static void abrirDetalleDeTarea(int id) {
+        // Lo primero que hago es buscar a Que ejecución pertenece.
+        // Tare a MUY Costosa...
+        // 1- Traigo todas las Ejecuciones Activas
+        List<PedidoObra> obrasConEjecucionesActivas = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            obrasConEjecucionesActivas = (List<PedidoObra>)HibernateUtil.getSession().createQuery(
+                                     "FROM PedidoObra PO WHERE PO.ejecucion.estado LIKE '"+Ejecucion.ESTADO_CREADA+"'").list();
+            HibernateUtil.commitTransaction();
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:"+e.getMessage());
+        } 
+        if(obrasConEjecucionesActivas!=null){
+            for (int i = 0; i < obrasConEjecucionesActivas.size(); i++) {
+                PedidoObra pedidoObra = obrasConEjecucionesActivas.get(i);
+                if(pedidoObra.getEjecucion()!=null){
+                    
+                    // Tengo la ejecución, Busco en todas sus tareas
+                    List<TareaEjecucion> tareasEjecucion = EjecucionUtils.getTodasTareasEjecucion(pedidoObra.getEjecucion());
+                    for (int j = 0; j < tareasEjecucion.size(); j++) {
+                        TareaEjecucion tarea = tareasEjecucion.get(j);
+                        if(tarea.getId()==id){
+                            // El mismo ID, este es el Pedido de Obra
+                            VentanaEjecucion win = new VentanaEjecucion(pedidoObra.getId());
+                            SwingPanel.getInstance().addWindow(win);
+                            win.setVisible(true);
+                        }
+                    }   
+                }
+            }
+        }
     }
     
 }

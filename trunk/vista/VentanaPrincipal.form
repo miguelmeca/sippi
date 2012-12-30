@@ -757,6 +757,9 @@
                                   </StringArray>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lstTareasMouseClicked"/>
+                              </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JList() {&#xd;&#xa;    // This method is called as the cursor moves within the list.&#xd;&#xa;    public String getToolTipText(MouseEvent evt) {&#xd;&#xa;        // Get item index&#xd;&#xa;        int index = locationToIndex(evt.getPoint());&#xd;&#xa;&#xd;&#xa;        // Get item&#xd;&#xa;        NTupla item = (NTupla)getModel().getElementAt(index);&#xd;&#xa;&#xd;&#xa;        // Return the tool tip text&#xd;&#xa;        return getToolTipFromTarea(item);&#xd;&#xa;    }&#xd;&#xa;}"/>
                               </AuxValues>
