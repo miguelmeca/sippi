@@ -332,6 +332,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lstTareas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTareasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(lstTareas);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1034,6 +1039,17 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
     }//GEN-LAST:event_btnMenuListadoControlesActionPerformed
+
+    private void lstTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTareasMouseClicked
+        if (evt.getClickCount() >= 2) {
+            if (lstTareas.getSelectedValue() != null) {
+                NTupla ntp = (NTupla) lstTareas.getSelectedValue();
+                if (ntp != null) {
+                    VentanaPrincipalUtils.abrirDetalleDeTarea(ntp.getId());
+                }
+            }
+        }
+    }//GEN-LAST:event_lstTareasMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnMenuAcercaDe;
