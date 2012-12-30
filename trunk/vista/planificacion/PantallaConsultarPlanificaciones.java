@@ -23,9 +23,12 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica 
     }
 
     public PantallaConsultarPlanificaciones() {
-        
         super(Planificacion.class);
     }
+    
+    public PantallaConsultarPlanificaciones(String filtro) {
+        super(Planificacion.class,filtro);
+    }        
     
     @Override
     protected ArrayList<String[]> getColumnas()

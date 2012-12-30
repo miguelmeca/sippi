@@ -5,15 +5,13 @@
 package vista;
 
 import java.awt.Cursor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import modelo.Cotizacion;
+import modelo.Planificacion;
 import util.FechaUtil;
 import util.SwingPanel;
 import vista.cotizacion.ListadoCotizaciones;
+import vista.planificacion.PantallaConsultarPlanificaciones;
 
 /**
  *
@@ -40,10 +38,14 @@ public class VentanaHome extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCotPendiente = new javax.swing.JLabel();
+        lblPlanFinalizada = new javax.swing.JLabel();
         lblCotAceptadas = new javax.swing.JLabel();
         lblCotCreacion = new javax.swing.JLabel();
         lblTareasFecha = new javax.swing.JLabel();
+        lblCotPendiente1 = new javax.swing.JLabel();
+        lblPlanCreacion = new javax.swing.JLabel();
+        lblEjecEjecucion = new javax.swing.JLabel();
+        lblEjecFinalizada = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -92,23 +94,23 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         });
         getContentPane().setLayout(null);
 
-        lblCotPendiente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblCotPendiente.setForeground(new java.awt.Color(0, 153, 153));
-        lblCotPendiente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCotPendiente.setText("(3)");
-        lblCotPendiente.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblPlanFinalizada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPlanFinalizada.setForeground(new java.awt.Color(0, 153, 153));
+        lblPlanFinalizada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPlanFinalizada.setText("(3)");
+        lblPlanFinalizada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCotPendienteMouseClicked(evt);
+                lblPlanFinalizadaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCotPendienteMouseEntered(evt);
+                lblPlanFinalizadaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCotPendienteMouseExited(evt);
+                lblPlanFinalizadaMouseExited(evt);
             }
         });
-        getContentPane().add(lblCotPendiente);
-        lblCotPendiente.setBounds(24, 113, 190, 15);
+        getContentPane().add(lblPlanFinalizada);
+        lblPlanFinalizada.setBounds(20, 250, 190, 20);
 
         lblCotAceptadas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCotAceptadas.setForeground(new java.awt.Color(0, 153, 153));
@@ -164,6 +166,78 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         getContentPane().add(lblTareasFecha);
         lblTareasFecha.setBounds(500, 83, 190, 15);
 
+        lblCotPendiente1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCotPendiente1.setForeground(new java.awt.Color(0, 153, 153));
+        lblCotPendiente1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCotPendiente1.setText("(3)");
+        lblCotPendiente1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCotPendiente1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCotPendiente1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCotPendiente1MouseExited(evt);
+            }
+        });
+        getContentPane().add(lblCotPendiente1);
+        lblCotPendiente1.setBounds(24, 113, 190, 15);
+
+        lblPlanCreacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPlanCreacion.setForeground(new java.awt.Color(0, 153, 153));
+        lblPlanCreacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPlanCreacion.setText("(3)");
+        lblPlanCreacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPlanCreacionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblPlanCreacionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblPlanCreacionMouseExited(evt);
+            }
+        });
+        getContentPane().add(lblPlanCreacion);
+        lblPlanCreacion.setBounds(20, 220, 190, 20);
+
+        lblEjecEjecucion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblEjecEjecucion.setForeground(new java.awt.Color(0, 153, 153));
+        lblEjecEjecucion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEjecEjecucion.setText("(3)");
+        lblEjecEjecucion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEjecEjecucionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEjecEjecucionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblEjecEjecucionMouseExited(evt);
+            }
+        });
+        getContentPane().add(lblEjecEjecucion);
+        lblEjecEjecucion.setBounds(10, 330, 200, 30);
+
+        lblEjecFinalizada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblEjecFinalizada.setForeground(new java.awt.Color(0, 153, 153));
+        lblEjecFinalizada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblEjecFinalizada.setText("(3)");
+        lblEjecFinalizada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEjecFinalizadaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblEjecFinalizadaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblEjecFinalizadaMouseExited(evt);
+            }
+        });
+        getContentPane().add(lblEjecFinalizada);
+        lblEjecFinalizada.setBounds(10, 360, 200, 40);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/imagenes/HomeScreen.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 720, 450);
@@ -172,20 +246,20 @@ public class VentanaHome extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void lblCotPendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendienteMouseClicked
-        String filtro = "estado LIKE '"+Cotizacion.ESTADO_PENDIENTE_ACEPTACION+"'";
-        ListadoCotizaciones win = new ListadoCotizaciones(filtro);
+    private void lblPlanFinalizadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanFinalizadaMouseClicked
+        String filtro = "estado LIKE '"+Planificacion.ESTADO_FINALIZADA+"'";
+        PantallaConsultarPlanificaciones win = new PantallaConsultarPlanificaciones(filtro);
         SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true); 
-    }//GEN-LAST:event_lblCotPendienteMouseClicked
+        win.setVisible(true);
+    }//GEN-LAST:event_lblPlanFinalizadaMouseClicked
 
-    private void lblCotPendienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendienteMouseEntered
+    private void lblPlanFinalizadaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanFinalizadaMouseEntered
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblCotPendienteMouseEntered
+    }//GEN-LAST:event_lblPlanFinalizadaMouseEntered
 
-    private void lblCotPendienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendienteMouseExited
+    private void lblPlanFinalizadaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanFinalizadaMouseExited
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_lblCotPendienteMouseExited
+    }//GEN-LAST:event_lblPlanFinalizadaMouseExited
 
     private void lblCotAceptadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotAceptadasMouseClicked
         String filtro = "estado LIKE '"+Cotizacion.ESTADO_ACEPTADO+"'";
@@ -256,18 +330,78 @@ public class VentanaHome extends javax.swing.JInternalFrame {
         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblCotCreacionMouseExited
 
+    private void lblCotPendiente1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendiente1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCotPendiente1MouseClicked
+
+    private void lblCotPendiente1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendiente1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCotPendiente1MouseEntered
+
+    private void lblCotPendiente1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCotPendiente1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCotPendiente1MouseExited
+
+    private void lblPlanCreacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanCreacionMouseClicked
+        String filtro = "estado LIKE '"+Planificacion.ESTADO_CREADA+"'";
+        PantallaConsultarPlanificaciones win = new PantallaConsultarPlanificaciones(filtro);
+        SwingPanel.getInstance().addWindow(win);
+        win.setVisible(true);
+    }//GEN-LAST:event_lblPlanCreacionMouseClicked
+
+    private void lblPlanCreacionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanCreacionMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPlanCreacionMouseEntered
+
+    private void lblPlanCreacionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlanCreacionMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPlanCreacionMouseExited
+
+    private void lblEjecEjecucionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecEjecucionMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecEjecucionMouseClicked
+
+    private void lblEjecEjecucionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecEjecucionMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecEjecucionMouseEntered
+
+    private void lblEjecEjecucionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecEjecucionMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecEjecucionMouseExited
+
+    private void lblEjecFinalizadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecFinalizadaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecFinalizadaMouseClicked
+
+    private void lblEjecFinalizadaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecFinalizadaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecFinalizadaMouseEntered
+
+    private void lblEjecFinalizadaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEjecFinalizadaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEjecFinalizadaMouseExited
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCotAceptadas;
     private javax.swing.JLabel lblCotCreacion;
-    private javax.swing.JLabel lblCotPendiente;
+    private javax.swing.JLabel lblCotPendiente1;
+    private javax.swing.JLabel lblEjecEjecucion;
+    private javax.swing.JLabel lblEjecFinalizada;
+    private javax.swing.JLabel lblPlanCreacion;
+    private javax.swing.JLabel lblPlanFinalizada;
     private javax.swing.JLabel lblTareasFecha;
     // End of variables declaration//GEN-END:variables
 
     private void initData() {
         setDataToLabel(lblTareasFecha,VentanaHomeGestor.getCotizacionesEnCreacion());
-        setDataToLabel(lblCotPendiente,VentanaHomeGestor.getCotizacionesPendientes());
+        setDataToLabel(lblPlanFinalizada,VentanaHomeGestor.getCotizacionesPendientes());
         setDataToLabel(lblCotAceptadas,VentanaHomeGestor.getCotizacionesAceptadas());
+        setDataToLabel(lblPlanCreacion,VentanaHomeGestor.getPlanificacionesEnCreacion());
+        setDataToLabel(lblPlanFinalizada,VentanaHomeGestor.getPlanificacionesFinalizadas());
+        setDataToLabel(lblEjecEjecucion,VentanaHomeGestor.getEjecucionEnEjecucion());
+        setDataToLabel(lblEjecFinalizada,VentanaHomeGestor.getEjecucionFinalizada());
+        
         lblTareasFecha.setText(FechaUtil.getFechaActual());
     }
     

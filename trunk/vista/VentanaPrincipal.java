@@ -218,7 +218,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbUsuarios = new javax.swing.JMenu();
         cmbNuevoUsuario = new javax.swing.JMenuItem();
         cmbListadoUsuarios = new javax.swing.JMenuItem();
-        jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem25 = new javax.swing.JMenuItem();
         cmbSalir = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -423,16 +422,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbUsuarios.add(cmbListadoUsuarios);
 
         jMenu8.add(cmbUsuarios);
-
-        jMenuItem19.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/warning.png"))); // NOI18N
-        jMenuItem19.setText("Inicio");
-        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem19ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem19);
 
         jMenuItem25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/lock.png"))); // NOI18N
         jMenuItem25.setText("Cambiar de Usuario");
@@ -922,12 +911,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         CerrarSesion();
     }//GEN-LAST:event_cmbSalirActionPerformed
 
-    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        VentanaHome win = new VentanaHome();
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true); 
-    }//GEN-LAST:event_jMenuItem19ActionPerformed
-
     private void btnMnuObrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMnuObrasActionPerformed
         ListadoPedidoDeObras win = new ListadoPedidoDeObras();
         SwingPanel.getInstance().addWindow(win);
@@ -1089,7 +1072,6 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
