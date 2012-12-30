@@ -109,7 +109,9 @@ public class SwingPanel {
         for (int i = 0; i < lista.size(); i++) 
         {
             FavoritoBean fb = (FavoritoBean)lista.get(i);
-            FAV_ALLOWED_WINS.put(fb.getInstance(), fb);
+            if(FAV_ALLOWED_WINS!=null && fb!=null){
+                FAV_ALLOWED_WINS.put(fb.getInstance(), fb);
+            }
         }  
     }
     
