@@ -268,6 +268,30 @@ public class PlanificacionUtils {
         return tareas;
     }
     
+    public static List<NTupla> getTareasQuePoseanHerramientaAsignado(Planificacion plan, SubObraXHerramientaModif sxh) {
+        int count = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        List<NTupla> tareas = new ArrayList<NTupla>();
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getHerramientas().size(); j++) {
+                PlanificacionXHerramienta pxh = tarea.getHerramientas().get(j);
+                if(pxh!=null && pxh.getHerramientaCotizacion()!=null)
+                {
+                    if(sxh.hashCode() == pxh.getHerramientaCotizacion().hashCode())
+                    {
+                        NTupla nt = new NTupla();
+                        nt.setId(tarea.hashCode());
+                        nt.setNombre(tarea.getNombre());
+                        nt.setData(pxh.getHorasAsignadas());
+                        tareas.add(nt);
+                    }
+                }
+            }
+        }
+        return tareas;
+    }
+    
     public static List<NTupla> getTareasQuePoseanAlquilerCompraAsignado(Planificacion plan, SubObraXAlquilerCompraModif sxac) {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);

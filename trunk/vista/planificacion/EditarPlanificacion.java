@@ -1180,12 +1180,20 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (tblSubObras.getSelectedRow() != -1) {
             ListaDeTareasCelda tpSelected = (ListaDeTareasCelda) tblSubObras.getModel().getValueAt(tblSubObras.getSelectedRow(),0);
             
-            int n = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "Está Seguro?", JOptionPane.YES_NO_OPTION);
-            
-            boolean exito=true;
-            if (n == JOptionPane.YES_OPTION) {
-                exito=_gestor.eliminarSubObraPorHash(Integer.parseInt(tpSelected.getId()));
+            if(!_gestor.verificarRecursosNoAsignados(Integer.parseInt(tpSelected.getId())))
+            {
+                int n = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar la SubObra '" + tpSelected.getLabel().getText() + "' y todo su contenido?", "Está Seguro?", JOptionPane.YES_NO_OPTION);
+
+                boolean exito=true;
+                if (n == JOptionPane.YES_OPTION) {
+                    exito=_gestor.eliminarSubObraPorHash(Integer.parseInt(tpSelected.getId()));
+                }
             }
+            else
+            {
+                JOptionPane.showMessageDialog(this,"No se puede eliminar la subobra porque tiene recursos Asignados a la planificación.<br> Elimine las asignaciones para poder eliminar esta subobra.","Atencion!",JOptionPane.ERROR_MESSAGE);
+            }
+            
 //            if(!exito)
 //            {JOptionPane.showMessageDialog(this, "Ocurrio un error eliminando la subobra", "Error", JOptionPane.ERROR_MESSAGE);
 //            }
