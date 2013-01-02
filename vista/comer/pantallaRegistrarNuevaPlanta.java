@@ -90,8 +90,8 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
     private void habilitarVentana()
     {
-        txtPiso.setValue(new Integer(0));
-        txtAltura.setValue(new Integer(100));
+//        txtPiso.setValue(new Integer(0));
+//        txtAltura.setValue(new Integer(100));
         mostrarEmpresasCliente();
         mostrarPaises();
         formatearTablaTelefonos();

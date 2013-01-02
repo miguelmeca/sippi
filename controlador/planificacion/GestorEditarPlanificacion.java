@@ -1487,5 +1487,41 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
             
         return lista;
     }    
+
+    public boolean verificarRecursosNoAsignados(int hash_subObra) {
+        boolean tieneRecursosEnPlanificacion = false;
+        SubObra subObra = null;
+        
+        // Recorro y encuentro la subobra
+        for (int i = 0; i < this.planificacion.getCotizacion().getSubObras().size(); i++) 
+        {
+            subObra = this.planificacion.getCotizacion().getSubObras().get(i);
+            if(subObra.hashCode()==hash_subObra)
+            {
+                break;
+            }
+        }
+        
+        if(subObra !=null)
+        {
+            for(int j=0; j < subObra.getMateriales().size();j++)
+            {
+                if(PlanificacionUtils.getTareasQuePoseanMaterialAsignado(planificacion, (SubObraXMaterialModif)subObra.getMateriales().get(j)).size() > 0)
+                    { return true; }
+            }
+            for(int j=0; j < subObra.getHerramientas().size();j++)
+            {
+                if(PlanificacionUtils.getTareasQuePoseanHerramientaAsignado(planificacion, (SubObraXHerramientaModif)subObra.getHerramientas().get(j)).size() > 0)
+                    { return true; }
+            }
+            for(int j=0; j < subObra.getMateriales().size();j++)
+            {
+                if(PlanificacionUtils.getTareasQuePoseanAlquilerCompraAsignado(planificacion, (SubObraXAlquilerCompraModif)subObra.getAlquileresCompras().get(j)).size() > 0)
+                    { return true; }
+            }
+        }
+        
+        return false;
+    }
     
 }
