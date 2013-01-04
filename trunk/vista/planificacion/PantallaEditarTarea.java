@@ -6,9 +6,18 @@
 package vista.planificacion;
 
 import controlador.planificacion.GestorEditarTarea;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import modelo.DetalleTareaPlanificacion;
+import modelo.PlanificacionXAlquilerCompra;
+import modelo.PlanificacionXHerramienta;
+import modelo.PlanificacionXMaterial;
 import modelo.TareaPlanificacion;
+import util.HibernateUtil;
 import vista.interfaces.ICallBackGen;
 import vista.interfaces.ICallBack_v3;
 
@@ -65,7 +74,14 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         
         ListSelectionModel selectionModel = tblMenu.getSelectionModel();
         selectionModel.setSelectionInterval(0,0);
-        this.setTitle("Editar tarea '"+gestor.getTareaActual().getNombre()+"'");
+        if(gestor.getTareaActual() != null && gestor.getTareaActual().getId() > 0)
+        {
+            this.setTitle("Editar tarea '"+gestor.getTareaActual().getNombre()+"'");
+        }
+        else
+        {
+            this.setTitle("Editar nueva tarea");
+        }
         actualizarPantallas();
     }
     
@@ -110,7 +126,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         );
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
-        btnCancelar.setText("Cerrar");
+        btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -160,7 +176,7 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
         );
 
         btnGuardarTarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/accept.png"))); // NOI18N
@@ -205,6 +221,11 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        try {
+            gestor.cancelarModificacionTareaActual();
+        } catch (Exception ex) {
+            JOptionPane.showInternalMessageDialog(this, "<HTML><BODY>No se ha podido cancelar los cambios de la tarea actual.<BR> Por favor, contacte al administrador.", "Error al cancelar", JOptionPane.ERROR_MESSAGE);
+        }
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -321,7 +342,4 @@ public class PantallaEditarTarea extends javax.swing.JInternalFrame{
     private javax.swing.JTable tblMenu;
     // End of variables declaration//GEN-END:variables
 
-
-   
-    
 }
