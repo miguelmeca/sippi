@@ -7,8 +7,13 @@ package controlador.planificacion;
 
 
 import java.util.Iterator;
+import modelo.DetalleTareaPlanificacion;
 import modelo.Planificacion;
+import modelo.PlanificacionXAlquilerCompra;
+import modelo.PlanificacionXHerramienta;
+import modelo.PlanificacionXMaterial;
 import modelo.TareaPlanificacion;
+import util.HibernateUtil;
 import vista.planificacion.PantallaEditarTarea;
 
 /**
@@ -18,6 +23,7 @@ import vista.planificacion.PantallaEditarTarea;
 public class GestorEditarTarea implements IGestorPlanificacion{
     private PantallaEditarTarea pantalla;
     private TareaPlanificacion tarea;
+    private TareaPlanificacion tareaMemoria;
 
     // GESTORES
     private GestorEditarPlanificacion gestorPadre;
@@ -35,6 +41,7 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     public GestorEditarTarea(GestorEditarPlanificacion gestor)
     {
         this.gestorPadre = gestor;
+        this.tareaMemoria = new TareaPlanificacion();
     }
 
     public GestorEditarTarea getGestorTareaPadre() {
@@ -67,6 +74,12 @@ public class GestorEditarTarea implements IGestorPlanificacion{
 
     public void seleccionarTarea(TareaPlanificacion tarea){
         this.tarea = tarea;
+        tareaMemoria.setNombre(tarea.getNombre());
+        tareaMemoria.setObservaciones(tarea.getObservaciones());
+        tareaMemoria.setTipoTarea(tarea.getTipoTarea());
+        tareaMemoria.setFechaInicio(tarea.getFechaInicio());
+        tareaMemoria.setFechaFin(tarea.getFechaFin());
+        copiarEstadoTarea(tarea, tareaMemoria);
     }
 
     public GestorPlanificacionDatosGenerales getGestorDatosGenerales()
@@ -211,5 +224,149 @@ public class GestorEditarTarea implements IGestorPlanificacion{
     
     public void actualizarPantallaPadre(){
         this.gestorPadre.refrescarPantallas();
+    }
+
+    public void setTareaActual(TareaPlanificacion tarea) {
+        this.tarea = tarea;
+    }
+
+    public TareaPlanificacion getTareaMemoria() {
+        return tareaMemoria;
+    }
+    
+    /**
+     * Método que copia el estado de los item de las colecciones que no han sido
+     * persistidos provenientes de la tareaOrigen a la tareaDestino.
+     * Las colecciones contempladas son: Materiales, Herramientas, Alquileres/
+     * Compras, SubTareas y DetalleTareaPlanificacion.
+     * @param tareaOrigen Tarea desde la cual se copiaran los items no persisti-
+     * dos
+     * @param tareaDestino Tarea a la cual se copiaran los items no persistidos
+     * en la tareaOrigen.
+     */
+    public void copiarEstadoTarea(TareaPlanificacion tareaOrigen, TareaPlanificacion tareaDestino)
+    {
+        if(tareaDestino == null) { tareaDestino = new TareaPlanificacion(); }
+
+        for(int i=0; i<tareaOrigen.getMateriales().size(); i++)
+        {
+            PlanificacionXMaterial material = tareaOrigen.getMateriales().get(i);
+            if(material.getId() == 0)
+            {
+                tareaDestino.getMateriales().add(material);
+            }
+        }
+        for(int i=0; i<tareaOrigen.getHerramientas().size(); i++)
+        {
+            PlanificacionXHerramienta herramienta = tareaOrigen.getHerramientas().get(i);
+            if(herramienta.getId() == 0)
+            {
+                tareaDestino.getHerramientas().add(herramienta);
+            }
+        }
+        for(int i=0; i<tareaOrigen.getAlquilerCompras().size(); i++)
+        {
+            PlanificacionXAlquilerCompra alquilerCompra = tareaOrigen.getAlquilerCompras().get(i);
+            if(alquilerCompra.getId() == 0)
+            {
+                tareaDestino.getAlquilerCompras().add(alquilerCompra);
+            }
+        }
+        for(int i=0; i<tareaOrigen.getSubtareas().size(); i++)
+        {
+            TareaPlanificacion subTarea = tareaOrigen.getSubtareas().get(i);
+            if(subTarea.getId() == 0)
+            {
+                tareaDestino.getSubtareas().add(subTarea);
+            }
+        }
+        for(int i=0; i<tareaOrigen.getDetalles().size(); i++)
+        {
+            DetalleTareaPlanificacion detalle = tareaOrigen.getDetalles().get(i);
+            if(detalle.getId() == 0)
+            {
+                tareaDestino.getDetalles().add(detalle);
+            }
+        }
+    }
+    
+    /**
+     * Método que quita todo aquel objeto no persistido de la colecciones de
+     * la tareaALimpiar. Las colecciones analizadas son Materiales, Herramien-
+     * tas, Alquileres/Compras, SubTareas y DetallesTareaPlanificación. 
+     * Esta función es necesaria ya que el método HibernateUtil.getSession().
+     * refresh(Object object) larga una excepción al encontrarse con un compo-
+     * nente no persistido dentro de la tarea que se quiere refrescar.
+     * @param tareaALimpiar La tarea a limpiar.
+     */
+    public void removerNoPersistidos(TareaPlanificacion tareaALimpiar)
+    {
+        if(tareaALimpiar != null)
+        {
+            for(int i=0; i<tareaALimpiar.getMateriales().size(); i++)
+            {
+                PlanificacionXMaterial material = tareaALimpiar.getMateriales().get(i);
+                if(material.getId() == 0)
+                {
+                    tareaALimpiar.getMateriales().remove(material);
+                }
+            }
+            for(int i=0; i<tareaALimpiar.getHerramientas().size(); i++)
+            {
+                PlanificacionXHerramienta herramienta = tareaALimpiar.getHerramientas().get(i);
+                if(herramienta.getId() == 0)
+                {
+                    tareaALimpiar.getHerramientas().remove(herramienta);
+                }
+            }
+            for(int i=0; i<tareaALimpiar.getAlquilerCompras().size(); i++)
+            {
+                PlanificacionXAlquilerCompra alquilerCompra = tareaALimpiar.getAlquilerCompras().get(i);
+                if(alquilerCompra.getId() == 0)
+                {
+                    tareaALimpiar.getAlquilerCompras().remove(alquilerCompra);
+                }
+            }
+            for(int i=0; i<tareaALimpiar.getSubtareas().size(); i++)
+            {
+                TareaPlanificacion subTarea = tareaALimpiar.getSubtareas().get(i);
+                if(subTarea.getId() == 0)
+                {
+                    tareaALimpiar.getSubtareas().remove(subTarea);
+                }
+            }
+            for(int i=0; i<tareaALimpiar.getDetalles().size(); i++)
+            {
+                DetalleTareaPlanificacion detalle = tareaALimpiar.getDetalles().get(i);
+                if(detalle.getId() == 0)
+                {
+                    tareaALimpiar.getDetalles().remove(detalle);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Método que permite cancelar los cambios realizados sobre la tarea actual
+     * @throws Exception Provoca una excepción cuando se aplica el refresco
+     * de la instancia de la tarea a ser restaurada.
+     */
+    public void cancelarModificacionTareaActual() throws Exception
+    {
+        if(tarea != null && tarea.getId() > 0)
+        {
+            removerNoPersistidos(tarea);
+
+            // Refresco la entidad habiendo quitado todos los componentes no 
+            // persistidos
+            HibernateUtil.getSession().refresh(this.tarea);
+
+            tarea.setNombre(tareaMemoria.getNombre());
+            tarea.setObservaciones(tareaMemoria.getObservaciones());
+            tarea.setTipoTarea(tareaMemoria.getTipoTarea());
+            tarea.setFechaInicio(tareaMemoria.getFechaInicio());
+            tarea.setFechaFin(tareaMemoria.getFechaFin());
+            copiarEstadoTarea(tareaMemoria, tarea);
+        }
     }
 }

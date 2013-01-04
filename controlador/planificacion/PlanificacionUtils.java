@@ -57,6 +57,7 @@ public class PlanificacionUtils {
     }
     private static boolean eliminarTareaRecursivo(List<TareaPlanificacion> tareas, TareaPlanificacion tarea)
     {
+        boolean eliminada = false;
         for (int i = 0; i < tareas.size(); i++) {
             TareaPlanificacion t = tareas.get(i);
             if(tarea.hashCode()==t.hashCode() && puedeEliminarseTarea(tarea))
@@ -64,11 +65,13 @@ public class PlanificacionUtils {
                 // Es la mima tarea y puedo eliminarla
                 System.out.println("[DEBUG] Se elimino la tarea "+tarea);
                 tareas.remove(i);
-                return true;
+                eliminada = true;
+                break;
             }
-            return eliminarTareaRecursivo(t.getSubtareas(),tarea);
+            eliminada = eliminarTareaRecursivo(t.getSubtareas(),tarea);
+            if(eliminada) { break;}
         }
-        return false;        
+        return eliminada;
     }
     
     /**
