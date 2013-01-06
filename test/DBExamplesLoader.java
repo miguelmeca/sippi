@@ -536,7 +536,7 @@ public class DBExamplesLoader {
                 prov5.addLocalidad(l1);
                 Localidad l2 = new Localidad();
                 l2.setNombre("Cordoba");
-                prov5.addLocalidad(l1);
+                prov5.addLocalidad(l2);
                 Localidad l10 = new Localidad();
                 l10.setNombre("Villa del Totoral");
                 prov5.addLocalidad(l10);
@@ -602,6 +602,7 @@ public class DBExamplesLoader {
                 // Santa Fe
                 Localidad l12 = new Localidad();
                 l12.setNombre("Rosario");
+                prov19.addLocalidad(l12);
                 Localidad l13 = new Localidad();
                 l13.setNombre("Santa Fe");
                 prov19.addLocalidad(l13);
