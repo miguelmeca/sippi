@@ -1154,7 +1154,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
             return;
         }
         GestorEditarCotizacionModificada gestor = new GestorEditarCotizacionModificada(null,_gestor.getPlanificacion(),this.hashSubObraSeleccionada);
-        EditarCotizacionModificada win = new EditarCotizacionModificada(gestor, this);
+        EditarCotizacionModificada win = new EditarCotizacionModificada(gestor, this,_gestor.getPlanificacion());
         SwingPanel.getInstance().addWindow(win);
         win.setVisible(true);
         

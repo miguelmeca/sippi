@@ -12,10 +12,13 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionAlquileresCompras;
+import controlador.planificacion.PlanificacionUtils;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Planificacion;
 import modelo.SubObraXAlquilerCompra;
+import modelo.SubObraXAlquilerCompraModif;
 import util.NTupla;
 import util.TablaUtil;
 import util.Tupla;
@@ -33,6 +36,7 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
     
     private GestorCotizacionAlquileresCompras gestor;
     private SubObraXAlquilerCompra alqcompraEditando;
+    private Planificacion plan;
     
     private boolean modificando;
     
@@ -46,6 +50,12 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
         modificando=false;
     }
 
+    public CotizacionAlquileresCompras(GestorCotizacionAlquileresCompras gestor, int idSubObra, Planificacion plan) 
+    {
+        this(gestor, idSubObra);
+        this.plan = plan;
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -344,7 +354,21 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         }
                         else
                         {
-                            AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
+                            int cantidadAsignada = PlanificacionUtils.getCantidadAsignadaAAlquilerCompra(plan, (SubObraXAlquilerCompraModif)alqcompraEditando);
+                            if(cantidadAsignada > 0 && cantidad < cantidadAsignada)
+                            {
+                                JOptionPane.showMessageDialog(this, "<HTML><BODY>El alquiler/compra seleccionado "
+                                        + "se encuentra asignado a la planificación.<BR>"
+                                        + "Cómo mínimo puede ingresar <STRONG>"
+                                        + cantidadAsignada + " unidades.</STRONG>",
+                                        "Alquiler/Compra "+alqcompraEditando.getTipoAlquilerCompra()
+                                        +" - "+ alqcompraEditando.getDescripcion()
+                                        + " ya asignado", JOptionPane.WARNING_MESSAGE);
+                            }
+                            else
+                            {
+                                AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
+                            }         
                             cargarModificacionAlquilerCompra(null);
                             modificando=false;
                         } 

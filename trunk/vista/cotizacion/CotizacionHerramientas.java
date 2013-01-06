@@ -12,11 +12,16 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionHerramientas;
+import controlador.planificacion.PlanificacionUtils;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Herramienta;
+import modelo.Planificacion;
 import modelo.SubObraXHerramienta;
+import modelo.SubObraXHerramientaModif;
 import util.NTupla;
+import util.RecursosUtil;
 import util.TablaUtil;
 import util.Tupla;
 
@@ -33,6 +38,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
     
     private GestorCotizacionHerramientas gestor;
     private SubObraXHerramienta herramientaEditando;
+    private Planificacion plan;
     
     private boolean modificando = false;
     
@@ -42,6 +48,14 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
         this.gestor = gestor;
         this.gestor.setPantalla(this);
     }
+    
+    public CotizacionHerramientas(GestorCotizacionHerramientas gestor, Planificacion plan) {
+        initComponents();
+        this.gestor = gestor;
+        this.gestor.setPantalla(this);
+        this.plan = plan;
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -347,7 +361,22 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
                 else
                 {
-                    gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
+                    int horasAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(plan, (SubObraXHerramientaModif)herramientaEditando);
+                    if(horasAsignadas > 0 && cantHoras < horasAsignadas)
+                    {
+                        JOptionPane.showMessageDialog(this, "<HTML><BODY>La herramienta seleccionada "
+                                + "se encuentra asignada a la planificación.<BR>"
+                                + "Cómo mínimo puede ingresar <STRONG>"
+                                + horasAsignadas + " hs.</STRONG>",
+                                "Herramienta "+herramientaEditando.getHerramienta().getNombre() 
+                                +" - "+ herramientaEditando.getHerramienta().getNroSerie() 
+                                + " ya asignada", JOptionPane.WARNING_MESSAGE);
+                    }
+                    else
+                    {
+                        gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
+                    }
+                    
                 }
                 cargarModificacionHerramienta(null);
                 modificando= false;
@@ -423,8 +452,10 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 NTupla ntp = (NTupla) dtm.getValueAt(tblHeramientas.getSelectedRow(), 0);
 
                 SubObraXHerramienta h = gestor.getHerramientaAgregada(ntp);
+
                 cargarModificacionHerramienta(h);
                 modificando = true;
+
             }
             else
             {

@@ -6,6 +6,7 @@
 package util;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Herramienta;
@@ -101,7 +102,13 @@ public class RecursosUtil {
         Material rEncontrado = null;
         Material r=null;
         try {
-            rEncontrado= (Material)HibernateUtil.getSession().createQuery("from Material RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
+            rEncontrado= (Material)HibernateUtil.getSession().createQuery(
+                    "select m from Material m inner join "
+                    + "m.recursos re where re.id in "
+                    + "( from RecursoEspecifico re where "
+                    + ":rxp in elements(re.proveedores))")
+                    .setParameter("rxp", rxp).uniqueResult();
+            
             /*Iterator it = HibernateUtil.getSession().createQuery("FROM Material").iterate();
             while(it.hasNext()){
                 r=(Material)it.next();

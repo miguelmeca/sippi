@@ -121,7 +121,8 @@ public class PlanificacionUtils {
     }
     
     /**
-     * Busco en todas las tareas planificadas la cantidad de horas asignadas a cierta Herramienta (SubObraxHerramienta)
+     * Busco en todas las tareas planificadas la cantidad de horas asignadas
+     * a cierta Herramienta (SubObraxHerramienta)
      * @param plan
      * @param sxh
      * @return 
@@ -136,6 +137,7 @@ public class PlanificacionUtils {
                 PlanificacionXHerramienta pxh = tarea.getHerramientas().get(j);
                 if(pxh!=null && pxh.getHerramientaCotizacion()!=null)
                 {
+                    SubObraXHerramientaModif sxh1 = pxh.getHerramientaCotizacion(); 
                     if(sxh.hashCode() == pxh.getHerramientaCotizacion().hashCode())
                     {
                         count += pxh.getHorasAsignadas();
@@ -146,31 +148,103 @@ public class PlanificacionUtils {
         return count;
     }
     
-//    /**
-//     * Busco en todas las tareas planificadas la cantidad del Material asignado (SubObraxMaterial)
-//     * @param plan
-//     * @param sxh
-//     * @return 
-//     */
-//    public static int getCantidadAsignadaAMaterial(PlanificacionXXX plan, SubObraXMaterialModif sxm)
-//    {
-//        int count = 0;
-//        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
-//        for (int i = 0; i < listaTareas.size(); i++) {
-//            TareaPlanificacion tarea = listaTareas.get(i);
-//            for (int j = 0; j < tarea.getMateriales().size(); j++) {
-//                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
-//                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
-//                {
-//                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
-//                    {
-//                        count += pxm.getCantidad();
-//                    }
-//                }
-//            }
-//        }
-//        return count;
-//    }
+    /**
+     * Busco en todas las tareas planificadas la cantidad del Material 
+     * asignado y te devuelve la mayor asignación. (SubObraxMaterial)
+     * Recordemos que los materiales pueden estar asignados a más de una tarea
+     * y ser compartidos por las mismas.
+     * @param plan
+     * @param sxm
+     * @return 
+     */
+    public static int getCantidadAsignadaAMaterial(Planificacion plan, SubObraXMaterial sxm)
+    {
+        int MaxCount = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getMateriales().size(); j++) {
+                PlanificacionXMaterial pxm = tarea.getMateriales().get(j);
+                if(pxm!=null && pxm.getMaterialCotizacion()!=null)
+                {
+                    if(sxm.hashCode() == pxm.getMaterialCotizacion().hashCode())
+//                    if(sxm.getId() == pxm.getMaterialCotizacion().getId())
+                    {
+                        if(pxm.getCantidad() > MaxCount)
+                        {
+                            MaxCount = pxm.getCantidad();
+                        }
+                    }
+                }
+            }
+        }
+        return MaxCount;
+    }
+    
+    /**
+     * Busco en todas las tareas planificadas la cantidad del AlquilerCompra 
+     * asignado (SubObraxAlquilerCompra)
+     * @param plan
+     * @param sxac
+     * @return 
+     */
+    public static int getCantidadAsignadaAAlquilerCompra(Planificacion plan, SubObraXAlquilerCompra sxac)
+    {
+        int MaxCount = 0;
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getAlquilerCompras().size(); j++) {
+                PlanificacionXAlquilerCompra pxac = tarea.getAlquilerCompras().get(j);
+                if(pxac!=null && pxac.getAlquilerCompraCotizacion()!=null)
+                {
+                    if(sxac.hashCode() == pxac.getAlquilerCompraCotizacion().hashCode())
+//                    if(sxac.getId() == pxac.getAlquilerCompraCotizacion().getId())
+                    {
+                        if(pxac.getCantidad() > MaxCount)
+                        {
+                            MaxCount = pxac.getCantidad();
+                        }
+                    }
+                }
+            }
+        }
+        return MaxCount;
+    }
+    
+        /**
+     * Busco en todas las tareas planificadas la cantidad de horas normales, 
+     * extras50, extras 100 y cantidad de personas asignadas al detalle de la
+     * tarea seleccionada (SubObraxTarea)
+     * @param plan
+     * @param sxt
+     * @return Un arreglo de contadores que contienen información de; 
+     * {CantHorasNormales, CantHoras50, CantHoras100, CantPersonas} asignadas.
+     */
+    public static int[] getCantidadesAsignadasADetalleTarea(Planificacion plan, SubObraXTarea sxt)
+    {
+        // CantHorasNormales, CantHoras50, CantHoras100, CantPersonas
+        int[] count = {0,0,0,0};
+        ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);
+        for (int i = 0; i < listaTareas.size(); i++) {
+            TareaPlanificacion tarea = listaTareas.get(i);
+            for (int j = 0; j < tarea.getDetalles().size(); j++) {
+                DetalleTareaPlanificacion pxt = tarea.getDetalles().get(j);
+                if(pxt!=null && pxt.getCotizado()!=null)
+                {
+//                    if(sxt.hashCode() == pxt.getCotizado().hashCode())
+                    if(sxt.getId() == pxt.getCotizado().getId())
+                    {
+                        count[0] += pxt.getCantHorasNormales();
+                        count[1] += pxt.getCantHorasAl50();
+                        count[2] += pxt.getCantHorasAl100();
+                        count[3] += pxt.getCantidadPersonas();
+                    }
+                }
+            }
+        }
+        return count;
+    }
     
     /**
      * Busco en todas las tareas planificadas si la (SubObraxHerramienta) esta usandose

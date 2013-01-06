@@ -5,12 +5,10 @@
 package vista.planificacion.cotizacion;
 
 import controlador.cotizacion.GestorEditarCotizacion;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Planificacion;
 import util.TablaUtil;
 import vista.cotizacion.*;
-import vista.interfaces.ICallBack_v2;
 import vista.interfaces.ICallBack_v3;
 
 
@@ -33,11 +31,13 @@ public class EditarCotizacionModificada extends EditarCotizacion{
     protected static final int OPTN_RRHH                  = 4;
     public static final String CALLBACK_FLAG="Callback_EdicionDeCotizacionModificadaEnPlanificacion";
     private ICallBack_v3 pantallaPadre;
+    private Planificacion plan;
     
     
-    public EditarCotizacionModificada(GestorEditarCotizacion gestor, ICallBack_v3 pantallaP) {
+    public EditarCotizacionModificada(GestorEditarCotizacion gestor, ICallBack_v3 pantallaP, Planificacion plan) {
         super(gestor);
         pantallaPadre= pantallaP;
+        this.plan = plan;
         editarMenuLateral();
         
     }
@@ -99,14 +99,14 @@ public class EditarCotizacionModificada extends EditarCotizacion{
             case OPTN_MATERIALES:
                  // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_MATERIALES,0).toString());
-                  CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales());
+                  CotizacionMateriales cm = new CotizacionMateriales(gestor.getGestorMateriales(),plan);
                   getPanel().setViewportView(cm);
                   cm.setVisible(true);
                 break;
             case OPTN_ALQUILERES_COMPRAS:
                  // JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_ALQUILERES_COMPRAS,0).toString());
-                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0);
+                CotizacionAlquileresCompras cc = new CotizacionAlquileresCompras(gestor.getGestorAlquileresCompras(),0,plan);
                 getPanel().setViewportView(cc);
                 cc.setVisible(true);
                 break;
@@ -121,7 +121,7 @@ public class EditarCotizacionModificada extends EditarCotizacion{
             case OPTN_HERRAMIENTAS:
                   //JOptionPane.showMessageDialog(new JFrame(),"En construcción ...","Atencion!",JOptionPane.INFORMATION_MESSAGE);
                   setNombrePanel(modelo.getValueAt(OPTN_HERRAMIENTAS, 0).toString());
-                  CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas());
+                  CotizacionHerramientas h = new CotizacionHerramientas(gestor.getGestorHerramientas(),plan);
                   getPanel().setViewportView(h);
                   h.setVisible(true);
                 break;
