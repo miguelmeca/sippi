@@ -12,15 +12,19 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionMateriales;
+import controlador.planificacion.PlanificacionUtils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import modelo.Material;
+import modelo.Planificacion;
 import modelo.SubObraXMaterial;
 import util.LogUtil;
 import util.NTupla;
+import util.RecursosUtil;
 import util.StringUtil;
 import util.TablaUtil;
 
@@ -34,6 +38,7 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
     private int idRE;
     private boolean banHayPreciosMaterial;
     private SubObraXMaterial soxm;
+    private Planificacion planificacion;
     
     /** Creates new form SeleccionProveedorCotizacion */
     public SeleccionProveedorCotizacion() {
@@ -50,13 +55,14 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
     }
     
     // Constructor para cuando se pretende editar un material
-    SeleccionProveedorCotizacion(GestorCotizacionMateriales gestor,int idR, int idRE, SubObraXMaterial soxm) {
+    SeleccionProveedorCotizacion(GestorCotizacionMateriales gestor,int idR, int idRE, SubObraXMaterial soxm, Planificacion planificacion) {
         initComponents();
         this.gestor = gestor;
         this.idR=idR;
         this.idRE=idRE;
         this.banHayPreciosMaterial = true;
         this.soxm = soxm;
+        this.planificacion = planificacion;
         mostrarRecursosEspecificosXProveedor();
         this.txtCantidad.setText(String.valueOf(soxm.getCantidad()));
         double subtotal = Math.rint((soxm.getCantidad()* soxm.getPrecioUnitario())*100)/100;
@@ -357,10 +363,35 @@ public class SeleccionProveedorCotizacion extends javax.swing.JInternalFrame {
             }
             else // Se trata de una edición de la SubObraXMaterial
             {
-                // Si hay precio registrado para este recurso
-                if(gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm))
+                if(planificacion != null)
                 {
-                    this.dispose();
+                    int cantAsignada = PlanificacionUtils.getCantidadAsignadaAMaterial(planificacion, soxm);
+                    if(cantAsignada > 0 )
+                    {
+                        Material m = RecursosUtil.getMaterial(soxm.getMaterial());
+                        JOptionPane.showMessageDialog(this, "<HTML><BODY>El material seleccionado "
+                                + "se encuentra asignado a la planificación.<BR>"
+                                + "Cómo mínimo puede ingresar <STRONG>"
+                                + cantAsignada + " " + m.getUnidadDeMedida().getAbreviatura()+ "</STRONG>",
+                                "Material "+m.getNombre() + "ya asignado", JOptionPane.WARNING_MESSAGE);
+                        txtCantidad.setText(String.valueOf(cantAsignada));
+                    }
+                    else
+                    {
+                        // Si hay precio registrado para este recurso
+                        if(gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm))
+                        {
+                            this.dispose();
+                        }
+                    }
+                }
+                else
+                {
+                    // Si hay precio registrado para este recurso
+                    if(gestor.modificarMaterial(nt.getId(),cantidad,this.taDescripcion.getText(),precio,soxm))
+                    {
+                        this.dispose();
+                    }
                 }
             }
             

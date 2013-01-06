@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import modelo.Material;
+import modelo.Planificacion;
 import modelo.RecursoEspecifico;
 import modelo.SubObraXMaterial;
 import util.*;
@@ -35,6 +36,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
 
     private GestorCotizacionMateriales gestor;
     private boolean modificando;
+    private Planificacion plan;
     
     /** Creates new form editarCotizacion_Materiales */
     public CotizacionMateriales(GestorCotizacionMateriales gestor) 
@@ -46,6 +48,12 @@ public class CotizacionMateriales extends javax.swing.JPanel {
         cargarTabMateriales();
         mostrarMaterialesAUtilizar();
         modificando = false;
+    }
+    
+    public CotizacionMateriales(GestorCotizacionMateriales gestor, Planificacion plan) 
+    {
+        this(gestor);
+        this.plan = plan;
     }
 
     private void FiltrarTabla(JTable table,JTextField field){
@@ -481,7 +489,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
                 SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
                 RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
                 Material material = RecursosUtil.getMaterial(soxm.getMaterial());
-                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm);
+                SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm,plan);
                 if(psp.isBanHayPreciosMaterial()){
                     SwingPanel.getInstance().addWindow(psp);
                     psp.setVisible(true);
@@ -507,7 +515,7 @@ public class CotizacionMateriales extends javax.swing.JPanel {
             SubObraXMaterial soxm = gestor.getSubObraXMaterialByHash(nt.getId());
             RecursoEspecifico re = RecursosUtil.getRecursoEspecifico(soxm.getMaterial());
             Material material = RecursosUtil.getMaterial(soxm.getMaterial());
-            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm);
+            SeleccionProveedorCotizacion psp = new SeleccionProveedorCotizacion(this.gestor,material.getId(),re.getId(),soxm,plan);
             if(psp.isBanHayPreciosMaterial()){
                 SwingPanel.getInstance().addWindow(psp);
                 psp.setVisible(true);
