@@ -9,6 +9,7 @@ import javax.swing.table.TableColumnModel;
 import util.NTupla;
 import util.SwingPanel;
 import util.TablaUtil;
+import vista.abms.FiltroPasivoHerramientas;
 import vista.abms.ListadoHerramientas;
 import vista.compras.ABMHerramientaDeEmpresa;
 import vista.compras.GenerarNuevaOrdenDeCompra;
@@ -143,7 +144,7 @@ public class PanelHerramientas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerHerramietnasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHerramietnasActionPerformed
-        ListadoHerramientas lde = new ListadoHerramientas();
+        ListadoHerramientas lde = new ListadoHerramientas(new FiltroPasivoHerramientas(null));
         SwingPanel.getInstance().addWindow(lde);
         lde.setVisible(true);
     }//GEN-LAST:event_btnVerHerramietnasActionPerformed
