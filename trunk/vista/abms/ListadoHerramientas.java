@@ -23,7 +23,7 @@ public class ListadoHerramientas  extends PantallaConsultarGenerica {
     }
 
     public ListadoHerramientas() {
-        super(RecursoEspecifico.class);
+        super(Herramienta.class);
     }
     
     public ListadoHerramientas(FiltroPasivo filtro) {
@@ -42,6 +42,11 @@ public class ListadoHerramientas  extends PantallaConsultarGenerica {
         
         return columnas;
     }    
+    
+    @Override
+    protected String[] getColumnasFiltro() {
+        return new String[]{"Tipo"};
+    }
     
     @Override
     protected void abrirEntidad(int id) {
