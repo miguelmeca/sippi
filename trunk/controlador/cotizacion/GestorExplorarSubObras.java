@@ -65,6 +65,8 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             this.cot  = (Cotizacion) sesion.load(Cotizacion.class,id_cot);
             this.obra = cot.buscarPedidoObra();   
 
+            this.pantalla.setTitle("Cotización Obra: "+obra.getNombre());
+            
             // Cargo la descripcion de la Obra
             cargarDescripcionObra();
             // Cargo lso datos de la cotizacion

@@ -28,7 +28,7 @@ public class SubObraXTarea implements ISubtotal{
     public SubObraXTarea(SubObraXTarea aCopiar) 
     {
         id=-1;
-        this.nombre=aCopiar.getNombre();;
+        this.nombre=aCopiar.getNombre();
         this.observaciones=aCopiar.getObservaciones();
         this.tipoTarea=aCopiar.getTipoTarea();
         List<DetalleSubObraXTarea> detallesAux=aCopiar.getDetalles();

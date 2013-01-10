@@ -35,6 +35,7 @@ public class DetalleSubObraXTarea implements ISubtotal{
         this.cantHorasAl50=aCopiar.cantHorasAl50;
         this.cantHorasAl100=aCopiar.cantHorasAl100;
         this.especialidad=aCopiar.especialidad;
+        this.costoXHoraNormal = aCopiar.costoXHoraNormal;
         /*this.rangoEmpleado=aCopiar.rangoEmpleado;
         this.costoXHoraNormal=aCopiar.costoXHoraNormal;
         this.tipoEspecialidad=aCopiar.tipoEspecialidad;*/
