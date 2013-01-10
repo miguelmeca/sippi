@@ -19,7 +19,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
 
     private static final int INFORME_GANANCIAS_EMPRESA = 0;
     private static final int INFORME_COTIZACIONES_RECHAZADAS = 1;
-    private static final int INFORME_RANKING_PROVEEDORES = 2;
+    private static final int INFORME_LISTADO_PROVEEDORES_MAS_SOLICITADOS = 2;
     private static final int INFORME_OBRAS_POR_YEAR = 3;
     private static final int INFORME_CONTROL_OBRAS = 4;
     
@@ -326,12 +326,12 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Ranking de Proveedores"));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Proveedores"));
 
         btnEmitirGanancias1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
         btnEmitirGanancias1.setText("Emitir");
@@ -341,7 +341,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel15.setText("<HTML>Listado de los Proveedores de los cuales se recibió más cantidad o se pagó más<br> en un periodo de tiempo. Además se incluyo un ranking de los tres productos más<br>solicitados.");
+        jLabel15.setText("<HTML>Listado de los Proveedores de los cuales se recibió más cantidad  de productos o se pagó más en el periodo de tiempo seleccionado. Se incluye un listado de los productos más solicitados pudiendo determinar la cantidad a mostrar de los mismos por proveedor.");
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
 
@@ -423,7 +423,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEmitirGanancias1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,7 +444,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -497,7 +497,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addContainerGap(429, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("De las Obras", jPanel13);
@@ -579,7 +579,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnEmitirGanancias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGanancias1ActionPerformed
-        emitirInforme(INFORME_RANKING_PROVEEDORES);
+        emitirInforme(INFORME_LISTADO_PROVEEDORES_MAS_SOLICITADOS);
     }//GEN-LAST:event_btnEmitirGanancias1ActionPerformed
 
     private void btnEmitirGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirGananciasActionPerformed
@@ -723,7 +723,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                         thread2.start();
                     break;                    
                     
-                 case INFORME_RANKING_PROVEEDORES:
+                 case INFORME_LISTADO_PROVEEDORES_MAS_SOLICITADOS:
                         Thread thread3 = new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -745,7 +745,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                                     }
                                     
                                     GestorReportesCompras gestor = new GestorReportesCompras();
-                                    gestor.emitirRankingProveedores(filtroFechaInicio.getDate(),
+                                    gestor.emitirListadoProveedoresMasSolicitados(filtroFechaInicio.getDate(),
                                             filtroFechaFin.getDate(),
                                             filtroProveedor,
                                             filtroProducto,

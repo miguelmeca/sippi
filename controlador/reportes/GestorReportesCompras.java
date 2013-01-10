@@ -13,7 +13,7 @@ import modelo.*;
 import util.FechaUtil;
 import util.GenericFilaConDetalles;
 import util.HibernateUtil;
-import vista.compras.informes.InformeDeComprasRankingDeProveedores;
+import vista.compras.informes.InformeDeComprasListadoDeProveedoresMasSolicitados;
 import vista.reportes.ReportDesigner;
 
 /**
@@ -40,7 +40,7 @@ public class GestorReportesCompras {
     * @param filtroProveedores Puede ser "Por Monto" o "Por Cantidad"
     * @param filtroProductos Puede ser "Por Monto" o "Por Cantidad"
     */
-    public void emitirRankingProveedores(Date fechaInicio, Date fechaFin, String filtroProveedores, String filtroProductos, int cantProductosXProveedor) throws Exception
+    public void emitirListadoProveedoresMasSolicitados(Date fechaInicio, Date fechaFin, String filtroProveedores, String filtroProductos, int cantProductosXProveedor) throws Exception
     {    
         HashMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>> filas = this.getProveedoresRankeados(fechaInicio, fechaFin, filtroProveedores, filtroProductos, cantProductosXProveedor);
         
@@ -48,14 +48,14 @@ public class GestorReportesCompras {
         {
             HashMap<String,Object> params = new HashMap<String, Object>();
 
-            params.put(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_FECHAINICIO,FechaUtil.getFecha(fechaInicio));
-            params.put(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_FECHAFIN, FechaUtil.getFecha(fechaFin));
-            params.put(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PROVEEDOR, filtroProveedores);
-            params.put(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PRODUCTOS, filtroProductos);
+            params.put(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_FECHAINICIO,FechaUtil.getFecha(fechaInicio));
+            params.put(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_FECHAFIN, FechaUtil.getFecha(fechaFin));
+            params.put(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_PROVEEDOR, filtroProveedores);
+            params.put(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_PRODUCTOS, filtroProductos);
 
-            InformeDeComprasRankingDeProveedores informe = new InformeDeComprasRankingDeProveedores(filas);
-            informe.setNombreReporte("Informe Ranking de Proveedores");
-            informe.setNombreArchivo("InformeRankingProveedores-",
+            InformeDeComprasListadoDeProveedoresMasSolicitados informe = new InformeDeComprasListadoDeProveedoresMasSolicitados(filas);
+            informe.setNombreReporte("Informe de Proveedores Más Solicitados");
+            informe.setNombreArchivo("InformeProveedoresMasSolicitados-",
     //                FechaUtil.getFecha(fechaInicio) +
     //                "-" +
     //                FechaUtil.getFecha(fechaFin),
@@ -129,7 +129,7 @@ public class GestorReportesCompras {
                                 Number itemCosto = (Number) obj;
                                 // Dependiendo si el filtro era Cantidad o Monto 
                                 // determino como hacer el cálculo
-                                if(filtroProductos.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD))
+                                if(filtroProductos.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_CANTIDAD))
                                 {
                                     filaProveedor.agregarDetalle(
                                             item,
@@ -138,7 +138,7 @@ public class GestorReportesCompras {
                                 }
                                 else
                                 {
-                                    if(filtroProductos.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO))
+                                    if(filtroProductos.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_MONTO))
                                     {
                                         filaProveedor.agregarDetalle(
                                             item,
@@ -155,7 +155,7 @@ public class GestorReportesCompras {
                             {
                                 // Dependiendo si el filtro era Cantidad o Monto 
                                 // determino como hacer el cálculo
-                                if(filtroProductos.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD))
+                                if(filtroProductos.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_CANTIDAD))
                                 {
                                     filaProveedor.agregarDetalle(
                                             item,
@@ -164,7 +164,7 @@ public class GestorReportesCompras {
                                 }
                                 else
                                 {
-                                    if(filtroProductos.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO))
+                                    if(filtroProductos.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_MONTO))
                                     {
                                         filaProveedor.agregarDetalle(
                                             item,
