@@ -32,11 +32,12 @@ import vista.reportes.ReportDesigner;
 
 
 
+
 /**
  *
  * @author Administrador
  */
-public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
+public class InformeDeComprasListadoDeProveedoresMasSolicitados extends InformeDeCompras{
 
     public static final String PARAM_FILTRO_PROVEEDOR = "Ordenar Proveedores";
     public static final String PARAM_FILTRO_PRODUCTOS = "Ordenar Productos";
@@ -50,7 +51,7 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
     
 
     
-    public InformeDeComprasRankingDeProveedores(HashMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>> filas) {
+    public InformeDeComprasListadoDeProveedoresMasSolicitados(HashMap<Proveedor,GenericFilaConDetalles<Proveedor, Number , HashMap>> filas) {
         super();
         this.proveedores = filas;
     }
@@ -59,8 +60,8 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
     protected void makeCuerpo(HashMap<String,Object> params) throws DocumentException
     {
         makeCabecera(params);
-        String filtroProducto = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PRODUCTOS);
-        String filtroProveedor = (String)params.get(InformeDeComprasRankingDeProveedores.PARAM_FILTRO_PROVEEDOR);
+        String filtroProducto = (String)params.get(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_PRODUCTOS);
+        String filtroProveedor = (String)params.get(InformeDeComprasListadoDeProveedoresMasSolicitados.PARAM_FILTRO_PROVEEDOR);
         Paragraph pnEspacio = new Paragraph(new Phrase("\n"));
         super.doc.add(pnEspacio);
         
@@ -124,11 +125,11 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
             tabla.addCell(celdaNombreProveedor);
             
             PdfPCell celdaMontoProveedor = null;
-            if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD)) {
+            if(filtroProducto.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_CANTIDAD)) {
                 celdaMontoProveedor = new PdfPCell(new Paragraph(proveedor.getDato().toString(),ReportDesigner.FUENTE_NORMAL));
             }
             else
-                if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO)) {
+                if(filtroProducto.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_MONTO)) {
                     celdaMontoProveedor = new PdfPCell(new Paragraph("$ " + proveedor.getDato(),ReportDesigner.FUENTE_NORMAL));
             }
             celdaMontoProveedor.setBackgroundColor(new BaseColor(194,214,155));
@@ -137,11 +138,11 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
             
             // Detalle del Proveedor
             PdfPCell celdaTituloProductos = null;
-            if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_CANTIDAD)) {
+            if(filtroProducto.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_CANTIDAD)) {
                 celdaTituloProductos = new PdfPCell(new Paragraph("Productos más comprados",ReportDesigner.FUENTE_NORMAL_B));
             }
             else
-                if(filtroProducto.equals(InformeDeComprasRankingDeProveedores.FILTRO_PRODUCTOS_MONTO)) {
+                if(filtroProducto.equals(InformeDeComprasListadoDeProveedoresMasSolicitados.FILTRO_PRODUCTOS_MONTO)) {
                     celdaTituloProductos = new PdfPCell(new Paragraph("Productos pedidos que en los que más se invirtió",ReportDesigner.FUENTE_NORMAL));
             }   
             celdaTituloProductos.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
@@ -203,7 +204,6 @@ public class InformeDeComprasRankingDeProveedores extends InformeDeCompras{
         super.doc.add(tabla);
     }
 }
-
 class SupplierValueComparator implements Comparator<Object> {
 
     Map<Proveedor, GenericFilaConDetalles<Proveedor, Number , HashMap>> base;

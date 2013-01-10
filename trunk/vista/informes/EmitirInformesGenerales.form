@@ -87,7 +87,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="507" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="511" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -479,7 +479,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="302" max="32767" attributes="0"/>
+                      <EmptySpace pref="283" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -489,7 +489,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Ranking de Proveedores"/>
+                    <TitledBorder title="Listado de Proveedores"/>
                   </Border>
                 </Property>
               </Properties>
@@ -515,7 +515,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel15" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                               <Component id="btnEmitirGanancias1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -539,7 +539,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Listado de los Proveedores de los cuales se recibi&#xf3; m&#xe1;s cantidad o se pag&#xf3; m&#xe1;s&lt;br&gt; en un periodo de tiempo. Adem&#xe1;s se incluyo un ranking de los tres productos m&#xe1;s&lt;br&gt;solicitados."/>
+                    <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Listado de los Proveedores de los cuales se recibi&#xf3; m&#xe1;s cantidad  de productos o se pag&#xf3; m&#xe1;s en el periodo de tiempo seleccionado. Se incluye un listado de los productos m&#xe1;s solicitados pudiendo determinar la cantidad a mostrar de los mismos por proveedor."/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel7">
@@ -687,7 +687,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="425" max="32767" attributes="0"/>
+                      <EmptySpace pref="429" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
