@@ -359,12 +359,12 @@ public class GestorRegistrarNuevoEmpleado  implements IGestorEmpleado {
                         Telefono tel=(Telefono)itt.next();
                         sesion.save(tel);
                     }
-                    /*Iterator itEsp=empleado.getEspecialidades().iterator();
+                    Iterator itEsp=empleado.getEspecialidades().iterator();
                     while(itEsp.hasNext())
                     {
                         Especialidad esp=(Especialidad)itEsp.next();
                         sesion.save(esp);
-                    }*/
+                    }
                    // Set CaPP=empleado.getCapacitaciones();
 
                    // Iterator itCap=CaPP.iterator();

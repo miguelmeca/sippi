@@ -136,7 +136,7 @@ public class GestorRegistrarCotizacion {
         cot.setDescripcion("");
         
         obra.addCotizaciones(cot);
-        obra.setEstado(PedidoObra.ESTADO_COTIZADO);
+//        obra.setEstado(PedidoObra.ESTADO_COTIZADO);
         
         if(fechasFueraDeRango)
         {
@@ -193,6 +193,7 @@ public class GestorRegistrarCotizacion {
                SubObraXMaterial soxm = im.next();
                SubObraXMaterial nuevaSoxm =new SubObraXMaterial();
                nuevaSoxm.setCantidad(soxm.getCantidad());
+               nuevaSoxm.setPrecioUnitario(soxm.getPrecioUnitario());
                nuevaSoxm.setDescripcion(soxm.getDescripcion());
                nuevaSoxm.setMaterial(soxm.getMaterial());//TODO: El modelo estÃ¡ mal, acÃ¡ no se esta teniendo en cuetna el precio histÃ³rico
                nuevaSO.addMaterial(nuevaSoxm);
