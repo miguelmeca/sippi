@@ -12,6 +12,7 @@
 package vista.rrhh;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import controlador.rrhh.gestorGestionarLicenciasEmpleado;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,7 +21,10 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import util.FechaUtil;
 import util.NTupla;
 import util.Tupla;
@@ -73,11 +77,14 @@ public class pantallaGestionLicenciasEmpleado extends javax.swing.JInternalFrame
         this.SELECCION_oid = oid;
         btnGuardarMofidificar.setText("Aceptar");
         btnCancelar.setVisible(false);
-        cmbEmpleado.setEnabled(false);
-        txtFechaInicio.setEnabled(false);
-        txtFechaFin.setEnabled(false);
+        
+        (txtFechaInicio.getCalendarButton()).setEnabled(false);
+        (txtFechaFin.getCalendarButton()).setEnabled(false);
+        ((JTextFieldDateEditor)txtFechaInicio.getDateEditor()).setEditable(false);
+        ((JTextFieldDateEditor)txtFechaFin.getDateEditor()).setEditable(false);        
         cmbTipoLicencia.setEnabled(false);
-        txtMotivo.setEnabled(false);
+        cmbEmpleado.setEnabled(false);
+        txtMotivo.setEditable(false);
         gestor.mostrarLicencia(this.SELECCION_oid);
     }
 
