@@ -18,6 +18,7 @@ public class RecursoXProveedor {
 
 
     public RecursoXProveedor() {
+        listaPrecios = new ArrayList<PrecioSegunCantidad>();
     }
 
     public int getId() {
@@ -59,12 +60,12 @@ public class RecursoXProveedor {
     
     public ArrayList<PrecioSegunCantidad> getListaUltimosPrecios() {
         ArrayList<PrecioSegunCantidad> ultimosPrecios=new ArrayList<PrecioSegunCantidad>();
-        if(listaPrecios.size()>0)
+        if(listaPrecios!=null && listaPrecios.size()>0)
         {
             ultimosPrecios.add(listaPrecios.get(0));
         }
         boolean cant=false;
-        for (int i = 1; i < listaPrecios.size(); i++) 
+        for (int i = 1; listaPrecios != null && i < listaPrecios.size(); i++) 
         {
             cant = false;
             for (int j= 0; j < ultimosPrecios.size(); j++)

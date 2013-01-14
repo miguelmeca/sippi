@@ -339,7 +339,8 @@ public class pantallaRegistrarPrecioRecursoNueva extends javax.swing.JInternalFr
         // VACIO LA TABLA
         TablaUtil.vaciarDefaultTableModel(modelo);
 
-        ArrayList<NTupla> listaRecEsp = gestor.mostrarRecursosEspecificos(idProveedor);
+//        ArrayList<NTupla> listaRecEsp = gestor.mostrarRecursosEspecificos(idProveedor);
+        ArrayList<NTupla> listaRecEsp = gestor.mostrarRecursosEspecificosPorProveedor(idProveedor);
         Iterator<NTupla> itp = listaRecEsp.iterator();
 
         int i = 0;

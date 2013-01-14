@@ -5,6 +5,7 @@
 package vista.abms;
 
 import controlador.utiles.gestorBDvarios;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -31,6 +32,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
     private RecursoEspecifico recursoEspecifico;
     private Recurso           recurso;
     private int id = -1;
+    private List<Integer> idProveedoresBorrados;
     
     private static final String QUERY_LIST_RECURSOS_MATERIAL = "FROM Material";
     private static final String QUERY_LIST_RECURSOS_HERRAMIENTA = "FROM Herramienta";
@@ -45,6 +47,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         initTituloVentana();
         initNombres();
         initComboRecursos();
+        idProveedoresBorrados = new ArrayList<Integer>();
     }    
     
     public PantallaGestionarRecursos(Class claseBase,int id) {
@@ -55,6 +58,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
         initComboRecursos();
         initNombres();
         initLoadComponent();
+        idProveedoresBorrados = new ArrayList<Integer>();
     }
     
     
@@ -353,6 +357,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
             if(n==JOptionPane.YES_OPTION)
             {
+                idProveedoresBorrados.add(t.getId());
                 modelo.removeRow(fila);
             }
         }
@@ -393,12 +398,35 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             Proveedor p = getProveedor(fila.getId());
             if(p!=null)
             {
+                boolean yaEsta = false;
+//                for(int k=0;k<this.recursoEspecifico.getProveedores().size();k++)
+//                {
+//                    RecursoXProveedor rxp1 = this.recursoEspecifico.getProveedores().get(k);
+//                    if(rxp1.getProveedor().getId() == p.getId())
+//                    {
+//                        yaEsta = true;
+//                    }
+//                }
+                
                 RecursoXProveedor rxp = new RecursoXProveedor();
                 rxp.setProveedor(p);
                 proveedores.add(rxp);
-
-                // A su vez ese proveedor tiene la lista de RecursosEspecificos
-                p.getListaArticulos().add(this.recursoEspecifico);
+                
+                // Compruebo que no esté asociado el recurso específico con el
+                // proveedor
+                for(int k=0; k< p.getListaArticulos().size();k++)
+                {
+                    RecursoEspecifico rEsp = p.getListaArticulos().get(k);
+                    if(rEsp.getId() == this.recursoEspecifico.getId())
+                    {
+                        yaEsta=true;
+                    }
+                }
+                if(!yaEsta)
+                {
+                    // A su vez ese proveedor tiene la lista de RecursosEspecificos
+                    p.getListaArticulos().add(this.recursoEspecifico);
+                }
             }
             else
             {
@@ -456,6 +484,28 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
 
                         Proveedor p = rxp.getProveedor();
                         HibernateUtil.getSession().update(p);
+                    }
+                    
+                    // Borrando los proveedores
+                    for (int j = 0; j < this.idProveedoresBorrados.size(); j++) {
+
+                        int idProveedorBorrado = this.idProveedoresBorrados.get(j);
+                        RecursoXProveedor rxpBorrado = null;
+                        for(int k=0; k < this.recursoEspecifico.getRecursosXProveedor().size() ; k++)
+                        {
+                            RecursoXProveedor rxp = this.recursoEspecifico.getRecursosXProveedor().get(k);
+                            if(rxp.getProveedor().getId() == idProveedorBorrado)
+                            {
+                                rxpBorrado = this.recursoEspecifico.getRecursosXProveedor().remove(k);
+                            }
+                        }
+                        if(rxpBorrado!=null)
+                        {
+                            HibernateUtil.getSession().delete(rxpBorrado);
+
+                            Proveedor p = rxpBorrado.getProveedor();
+                            HibernateUtil.getSession().update(p);
+                        }
                     }
 
                     HibernateUtil.getSession().update(this.recursoEspecifico);
@@ -688,6 +738,12 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
                     fila[1] = p.getCuit();
                     
                 modelo.addRow(fila);
+                
+                if(idProveedoresBorrados.contains(p.getId()))
+                {
+                    int indiceBorrado = idProveedoresBorrados.indexOf(p.getId());
+                    idProveedoresBorrados.remove(indiceBorrado);
+                }
                 
             }catch(Exception e)
             {

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ public class RecursoEspecifico implements IComprable {
     private transient Recurso recurso;
 
     public RecursoEspecifico() {
+        proveedores = new ArrayList<RecursoXProveedor>();
     }
 
     public int getId() {
@@ -169,6 +171,49 @@ public class RecursoEspecifico implements IComprable {
         }
         return "";
     }
+    
+    /**
+     * Método que permite agregar un proveedor para este recurso específico
+     * SIN Lista de Precios. Si no está repetido el proveedor se agregar y 
+     * devuelve true, sino devuelve false;
+     * @param prov
+     * @return 
+     */
+    public boolean agregarProveedorNoRepetido(Proveedor prov)
+    {
+        if(proveedores != null)
+        {
+            for(int i=0; i < proveedores.size(); i++)
+            {
+                if(prov.getId() == proveedores.get(i).getProveedor().getId())
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            proveedores = new ArrayList<RecursoXProveedor>();
+        }
+        RecursoXProveedor rxp = new RecursoXProveedor();
+        rxp.setProveedor(prov);
+        proveedores.add(rxp);
+        return true;  
+    }
 
-
+    public boolean quitarProveedor(Proveedor prov)
+    {
+        if(proveedores != null)
+        {
+            for(int i=0; i < proveedores.size(); i++)
+            {
+                if(prov.getId() == proveedores.get(i).getProveedor().getId())
+                {
+                    proveedores.remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
