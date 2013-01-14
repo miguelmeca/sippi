@@ -111,6 +111,11 @@ public class CotizacionBeneficios extends javax.swing.JPanel {
         rbtnPorcentajeGanancia = new javax.swing.JRadioButton();
 
         ftxtPorcentaje.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.##"))));
+        ftxtPorcentaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ftxtPorcentajeActionPerformed(evt);
+            }
+        });
         ftxtPorcentaje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ftxtPorcentajeFocusLost(evt);
@@ -228,6 +233,10 @@ private void ftxtMontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
 private void ftxtPorcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxtPorcentajeKeyReleased
  actualizarMonto();
 }//GEN-LAST:event_ftxtPorcentajeKeyReleased
+
+    private void ftxtPorcentajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxtPorcentajeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ftxtPorcentajeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

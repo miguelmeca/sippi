@@ -163,7 +163,13 @@ public class Cotizacion {
     
     public double CalcularMontoBase()
     {
-        return 0;
+        double monto = 0;
+        for (int i = 0; i < subObras.size(); i++) 
+        {
+            SubObra so = subObras.get(i);
+            monto += so.calcularSubtotalSinBeneficio();
+        }
+        return Math.rint(monto*100)/100; // Redondeo
     }    
     
     @Override

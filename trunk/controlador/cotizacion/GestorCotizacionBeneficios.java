@@ -47,7 +47,7 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
     public double calcularGananciaSubObra(boolean flagGananciaPorcentaj,double ganancia)
     {
         
-        reiniciarGestor();
+        
         subObraActual=getSubObraActual();
         flagGananciaPorcentaje=flagGananciaPorcentaj;
        // subObraActual.setFlagGananciaPorcentaje(flagGananciaPorcentaje);

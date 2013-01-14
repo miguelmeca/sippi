@@ -210,8 +210,9 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
            pantallaGeneral.agregarTareaTabla(datos, false, false); */
         }
     }
-    public void eliminarTarea(int id)
+    public boolean eliminarTarea(int id)
     {
+        boolean resultado=false;
         if(gestorPadre.pantalla.getClass().equals(EditarCotizacionModificada.class))
         {
             GestorEditarCotizacionModificada gestor = (GestorEditarCotizacionModificada)gestorPadre;
@@ -225,13 +226,21 @@ public class GestorCotizacionManoDeObra implements IGestorCotizacion
                 boolean estaEnUso = PlanificacionUtils.estaSubObraXTareaEnUso(gestor.getPlanificacion(),soxtm);
                 if(estaEnUso){
                     pantallaGeneral.MostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","<HTML><b>No</b> se puede eliminar la Tarea, está asignada a una tarea de la planificacion"); 
+                    resultado= false;
                 }
                 else{
                     getSubObraActual().eliminarTarea(id);
                     refrescarPantallas();
+                    resultado= true;
                 }
             }
-        } 
+        }
+        else{
+            getSubObraActual().eliminarTarea(id);
+            refrescarPantallas();
+            resultado= true;
+        }
+        return resultado;
     }
     
     public boolean agregarTarea(SubObraXTarea tarea)
