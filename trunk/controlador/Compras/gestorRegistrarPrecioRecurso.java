@@ -66,7 +66,15 @@ public class gestorRegistrarPrecioRecurso {
            }
         return lista;
     }
-
+    
+    /**
+     * 
+     * @param idProveedor
+     * @return
+     * @deprecated Deprecado porque no cumple con la nueva funcionalidad de asociar
+     * los recurso con los proveedores por medio de la Lista de artículos
+     */
+    @Deprecated
     public ArrayList<NTupla> mostrarRecursosEspecificos(int idProveedor)
     {
         ArrayList<NTupla> lista = new ArrayList<NTupla>();
@@ -161,6 +169,88 @@ public class gestorRegistrarPrecioRecurso {
         return lista;
     }
 
+    /**
+     * Método que permite obtener los recursos específicos del proveedor seleccionado
+     * en base a la nueva concepción de asociación entre los recursos y los 
+     * proveedores por medio de los precios!
+     * @param idProveedor ID del proveedor seleccionado
+     * @return Una lista de recursos asociados al proveedor.
+     */
+    public ArrayList<NTupla> mostrarRecursosEspecificosPorProveedor(int idProveedor)
+    {
+        ArrayList<NTupla> lista = new ArrayList<NTupla>();
+
+           Session sesion;
+           try {
+                sesion = HibernateUtil.getSession();
+                HibernateUtil.beginTransaction();
+
+                // OBTENGO EL PROVEEDOR
+                Proveedor pv = (Proveedor) sesion.load(Proveedor.class,idProveedor);
+
+                Iterator<RecursoEspecifico> recEsps = pv.getListaArticulos().iterator();
+                while (recEsps.hasNext())
+                {
+                    RecursoEspecifico recesp = recEsps.next();
+                    Recurso rec = recesp.getRecurso();
+
+                    // YA TENGO EL RECURSO, CARGO
+                    NTupla nt = new NTupla();
+                    nt.setId(recesp.getId());
+                    // RUBRO
+                    nt.setNombre(recesp.getTipoRecursoespecifico());
+
+                    String[] datos = new String[4];
+                    // NOMBRE DEL RECURSO
+                    datos[0] = rec.getNombre();
+                    datos[1] = recesp.getNombre();
+                    datos[2] = "<HTML><BODY>";
+                    datos[3] = rec.getUnidadDeMedida().getAbreviatura();
+
+                        // BUSCO LOS PRECIOS !!!! Y SI TIENE ALGUNO
+                        List<RecursoXProveedor> listaRXP  = recesp.getRecursosXProveedor();
+                        Iterator<RecursoXProveedor> itrxp = listaRXP.iterator();
+                        while (itrxp.hasNext())
+                        {
+                            RecursoXProveedor rxp = itrxp.next();
+                            // VEO QUE SEA SOLO DE MI PROVEEDOR
+                            if(rxp.getProveedor().getId() == idProveedor)
+                            {
+                                // ES MI PROVEEDOR, CARGO EL ULTIMO PRECIO
+                                List<PrecioSegunCantidad> listaPsc = rxp.getListaUltimosPrecios();
+                                Iterator<PrecioSegunCantidad> itPsc = listaPsc.iterator();
+                                while (itPsc.hasNext())
+                                {
+                                    PrecioSegunCantidad psc = itPsc.next();
+                                    // CARGO LOS DATOS
+                                    datos[2] = datos[2] + psc.getCantidad()+rec.getUnidadDeMedida().getAbreviatura()+" <b>x</b> "+psc.getPrecio()+"<br>";
+                                }
+
+                            }
+                        }
+                            
+                    // AGREGO ALA LISTA DE NTUPLA
+                    if(datos[2].equals("<HTML><BODY>"))
+                    {
+                        datos[2] = "";
+                    }
+
+                    nt.setData(datos);
+                    lista.add(nt);
+                }
+
+                HibernateUtil.commitTransaction();
+           }catch(Exception ex)
+           {
+                System.out.println("No se pudo cargar el objeto: "+ex.getMessage());
+                HibernateUtil.rollbackTransaction();
+                pantalla.MostrarMensaje("EG-0002");
+           }
+
+
+        return lista;
+    }
+    
     public String mostrarUnidadDeMedida(int idRecEsp)
     {
            Session sesion;
@@ -572,8 +662,7 @@ public class gestorRegistrarPrecioRecurso {
         return lista;
     }
 
-    public void registrarPrecio(double cantidad, double precio, int idProv, int idRecEsp, Date vigencia)
-    {
+    public void registrarPrecio(double cantidad, double precio, int idProv, int idRecEsp, Date vigencia) {
 
         // TENGO QUE:
         // VERIFICAR SI NO EXISTE LA CARGA DE ESTE PRECIO (HOY), CON ESTA CANTIDAD, CON ESTE PRECIO
@@ -585,67 +674,60 @@ public class gestorRegistrarPrecioRecurso {
 
         //1) VEO SI NO CARGO EL PRECIO
         Session sesion;
-        try
-        {
+        try {
             sesion = HibernateUtil.getSession();
             HibernateUtil.beginTransaction();
 
             // CARGO LOS DATOS
-            RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class,idRecEsp);
-            Proveedor pr         = (Proveedor)sesion.load(Proveedor.class,idProv);
+            RecursoEspecifico re = (RecursoEspecifico) sesion.load(RecursoEspecifico.class, idRecEsp);
+            Proveedor pr = (Proveedor) sesion.load(Proveedor.class, idProv);
 
-                // CARGO LOS PRECIOS QUE YA TENGO, SI ES QUE TENGO ALGUNO
-                if(re.getProveedores().isEmpty())
-                {
-                    //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTA DUPLA
-                    // LA CREO Y GUARDO DE UNA
-                    PrecioSegunCantidad psc = new PrecioSegunCantidad();
-                    psc.setCantidad(cantidad);
-                    psc.setFecha(new Date());
-                    psc.setPrecio(precio);
-                    psc.setFechaVigencia(vigencia);
-                    RecursoXProveedor rxp = new RecursoXProveedor();
-                    rxp.setProveedor(pr);
-                    rxp.addPrecioSegunCantidad(psc);
+            // CARGO LOS PRECIOS QUE YA TENGO, SI ES QUE TENGO ALGUNO
+            if (re.getProveedores().isEmpty()) {
+                //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTA DUPLA
+                // LA CREO Y GUARDO DE UNA
+                PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                psc.setCantidad(cantidad);
+                psc.setFecha(new Date());
+                psc.setPrecio(precio);
+                psc.setFechaVigencia(vigencia);
+                RecursoXProveedor rxp = new RecursoXProveedor();
+                rxp.setProveedor(pr);
+                rxp.addPrecioSegunCantidad(psc);
 
-                    // AHORA AGREGO EL RE AL PROVEEDOR
-                    pr.getListaArticulos().add(re);
-                    // Y AGREGO EL PSC AL RECURSOESPECIFICO
-                    re.getProveedores().add(rxp);
+                // AHORA AGREGO EL RE AL PROVEEDOR
+                pr.getListaArticulos().add(re);
+                // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                re.getProveedores().add(rxp);
 
-                    HibernateUtil.beginTransaction();
-                    sesion.save(psc);
-                    sesion.save(rxp);
-                    sesion.update(pr);
-                    sesion.update(re);
-                    HibernateUtil.commitTransaction();
+                HibernateUtil.beginTransaction();
+                sesion.save(psc);
+                sesion.save(rxp);
+                sesion.update(pr);
+                sesion.update(re);
+                HibernateUtil.commitTransaction();
 
-                    pantalla.MostrarMensaje("MI-0001");return;
+                pantalla.MostrarMensaje("MI-0001");
+                return;
 
-                }
-                else
-                {
-                    // TENGO CARGADO UN RXP, LOS ANALIZO
-                    Iterator<RecursoXProveedor> itp = re.getProveedores().iterator();
-                    while (itp.hasNext())
-                    {
-                        RecursoXProveedor rxp = itp.next();
-                        // ES DEL PROVEEDOR AL QUE LE ESTOY CARGANDO ?
-                        if(rxp.getProveedor().getId() == pr.getId())
-                        {
-                            // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY Y CON ESA CANTIDAD
-                            Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
-                            while (itf.hasNext())
-                            {
+            } else {
+                // TENGO CARGADO UN RXP, LOS ANALIZO
+                Iterator<RecursoXProveedor> itp = re.getProveedores().iterator();
+                while (itp.hasNext()) {
+                    RecursoXProveedor rxp = itp.next();
+                    // ES DEL PROVEEDOR AL QUE LE ESTOY CARGANDO ?
+                    if (rxp.getProveedor().getId() == pr.getId()) {
+                        // ES EL PROVEEDOR ME FIJO EN LAS FECHAS SI HAY ALGUNA DE HOY Y CON ESA CANTIDAD
+                        Iterator<PrecioSegunCantidad> itf = rxp.getListaPrecios().iterator();
+                        if (rxp.getListaPrecios().size() > 0) {
+                            while (itf.hasNext()) {
                                 PrecioSegunCantidad psc = itf.next();
                                 Date hoy = new Date();
-                                if(FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha())))
-                                {
+                                if (FechaUtil.getFecha(hoy).equals(FechaUtil.getFecha(psc.getFecha()))) {
                                     // ES DE HOY !! ENTONCES ACTUALIZO EL PRECIO
                                     // SE DA SI CARGA EN UN MISMO DÍA DOS VECES UN
                                     // PRECIO PARA UN REC y PROV
-                                    if(psc.getCantidad()==cantidad)
-                                    {
+                                    if (psc.getCantidad() == cantidad) {
                                         // TIENE LA MISMA CANTIDAD, ACTUALIZO
                                         psc.setPrecio(precio);
                                         psc.setFechaVigencia(vigencia);
@@ -654,29 +736,25 @@ public class gestorRegistrarPrecioRecurso {
                                         sesion.update(psc);
                                         HibernateUtil.commitTransaction();
 
-                                        pantalla.MostrarMensaje("MI-0001");return;
+                                        pantalla.MostrarMensaje("MI-0001");
+                                        return;
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         // NO ES LA MISMA CANTIDAD, CREO OTRO PSC
                                         // TENGO QUE BUSCAR SI ESA CANTIDAD NO ESTA YA CARGADA
-                                         Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
-                                         boolean esta = false;
-                                         while (itf2.hasNext())
-                                         {
+                                        Iterator<PrecioSegunCantidad> itf2 = rxp.getListaPrecios().iterator();
+                                        boolean esta = false;
+                                        while (itf2.hasNext()) {
                                             PrecioSegunCantidad pscAux = itf2.next();
-                                            if(pscAux.getCantidad()==cantidad)
-                                            {
+                                            if (pscAux.getCantidad() == cantidad) {
                                                 // ES LA MISMA CANTIDAD !!!
                                                 // ENTONCES ESTA MAS ADELANTE
                                                 esta = true;
                                                 // SE LA DEJO A LA ITER DE ARRIBA
                                             }
-                                         }
-                                         // NO ESTA ESA CANTIDAD CARGADA, LA CREO
-                                        if(!esta)
-                                        {
+                                        }
+                                        // NO ESTA ESA CANTIDAD CARGADA, LA CREO
+                                        if (!esta) {
                                             PrecioSegunCantidad pscNuevo = new PrecioSegunCantidad();
                                             pscNuevo.setCantidad(cantidad);
                                             pscNuevo.setFecha(hoy);
@@ -692,74 +770,84 @@ public class gestorRegistrarPrecioRecurso {
                                             sesion.update(re);
                                             HibernateUtil.commitTransaction();
 
-                                            pantalla.MostrarMensaje("MI-0001");return;
-                                        }
-                                         else
-                                        {
-                                             // SE USARA, NO, LA AGARRA EL IF DE ARRIBA
-                                             LogUtil.addDebug("ATENCION ATENCION: LA CANTIDAD YA ESTA CARGADA !! (ESTO NO DEBERIA VERSE)");
+                                            pantalla.MostrarMensaje("MI-0001");
+                                            return;
+                                        } else {
+                                            // SE USARA, NO, LA AGARRA EL IF DE ARRIBA
+                                            LogUtil.addDebug("ATENCION ATENCION: LA CANTIDAD YA ESTA CARGADA !! (ESTO NO DEBERIA VERSE)");
                                         }
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     // NO ES DE HOY , ES UNO VIEJO, NO HAGO NADA
                                 }
                             }
+                        } else {
+                            //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTE PROVEEDOR
+                            // LA CREO Y GUARDO DE UNA
+                            PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                            psc.setCantidad(cantidad);
+                            psc.setFecha(new Date());
+                            psc.setPrecio(precio);
+                            psc.setFechaVigencia(vigencia);
+                            rxp.getListaPrecios().add(psc);
+
+                            HibernateUtil.beginTransaction();
+                            sesion.save(psc);
+                            sesion.update(rxp);
+                            sesion.update(pr);
+                            sesion.update(re);
+                            HibernateUtil.commitTransaction();
+                            
+                            pantalla.MostrarMensaje("MI-0001");
+                            return;
                         }
-                        else
-                        {
-                            // NO ES DE ESTE PROVEEDOR - VEO SI NO ES MAS ADELANTE
-                            Iterator<RecursoXProveedor> itp2 = re.getProveedores().iterator();
-                            boolean esta = false;
-                            while (itp2.hasNext())
-                            {
-                                RecursoXProveedor rxp2 = itp2.next();
-                                if(pr.getId()==rxp2.getProveedor().getId())
-                                {
-                                    esta = true;
-                                }
+                    } else {
+                        // NO ES DE ESTE PROVEEDOR - VEO SI NO ES MAS ADELANTE
+                        Iterator<RecursoXProveedor> itp2 = re.getProveedores().iterator();
+                        boolean esta = false;
+                        while (itp2.hasNext()) {
+                            RecursoXProveedor rxp2 = itp2.next();
+                            if (pr.getId() == rxp2.getProveedor().getId()) {
+                                esta = true;
                             }
-                            // Si no esta mas adelante creo
-                            if(!esta) 
-                            {
-                                //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTE PROVEEDOR
-                                // LA CREO Y GUARDO DE UNA
-                                PrecioSegunCantidad psc = new PrecioSegunCantidad();
-                                psc.setCantidad(cantidad);
-                                psc.setFecha(new Date());
-                                psc.setPrecio(precio);
-                                psc.setFechaVigencia(vigencia);
-                                RecursoXProveedor rxpn = new RecursoXProveedor();
-                                rxpn.setProveedor(pr);
-                                rxpn.addPrecioSegunCantidad(psc);
+                        }
+                        // Si no esta mas adelante creo
+                        if (!esta) {
+                            //NO TENGO CARGADO NINGUN RXP con PRECIOS PARA ESTE PROVEEDOR
+                            // LA CREO Y GUARDO DE UNA
+                            PrecioSegunCantidad psc = new PrecioSegunCantidad();
+                            psc.setCantidad(cantidad);
+                            psc.setFecha(new Date());
+                            psc.setPrecio(precio);
+                            psc.setFechaVigencia(vigencia);
+                            RecursoXProveedor rxpn = new RecursoXProveedor();
+                            rxpn.setProveedor(pr);
+                            rxpn.addPrecioSegunCantidad(psc);
 
-                                // SI AGREGO EL RE AL PROVEEDOR (CREO)
-                                 pr.getListaArticulos().add(re);
-                                // Y AGREGO EL PSC AL RECURSOESPECIFICO
-                                re.getProveedores().add(rxpn);
+                            // SI AGREGO EL RE AL PROVEEDOR (CREO)
+                            pr.getListaArticulos().add(re);
+                            // Y AGREGO EL PSC AL RECURSOESPECIFICO
+                            re.getProveedores().add(rxpn);
 
-                                HibernateUtil.beginTransaction();
-                                sesion.save(psc);
-                                sesion.save(rxpn);
-                                sesion.update(pr);
-                                sesion.update(re);
-                                HibernateUtil.commitTransaction();
+                            HibernateUtil.beginTransaction();
+                            sesion.save(psc);
+                            sesion.save(rxpn);
+                            sesion.update(pr);
+                            sesion.update(re);
+                            HibernateUtil.commitTransaction();
 
-                                pantalla.MostrarMensaje("MI-0001");return;
-                            }
+                            pantalla.MostrarMensaje("MI-0001");
+                            return;
                         }
                     }
                 }
-                HibernateUtil.commitTransaction();
-        }
-        catch (Exception ex)
-        {
+            }
+            HibernateUtil.commitTransaction();
+        } catch (Exception ex) {
             LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
             HibernateUtil.rollbackTransaction();
-            pantalla.MostrarMensaje("EG-0001");return;
+            pantalla.MostrarMensaje("EG-0001");
+            return;
         }
-
     }
-
 }
