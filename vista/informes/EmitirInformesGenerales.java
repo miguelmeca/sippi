@@ -6,10 +6,16 @@ package vista.informes;
 
 import controlador.informes.GestorInformesGenerales;
 import controlador.reportes.GestorReportesCompras;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import util.FechaUtil;
+import util.NTupla;
+import util.Tupla;
 
 /**
  *
@@ -22,6 +28,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private static final int INFORME_LISTADO_PROVEEDORES_MAS_SOLICITADOS = 2;
     private static final int INFORME_OBRAS_POR_YEAR = 3;
     private static final int INFORME_CONTROL_OBRAS = 4;
+    private static final int INFORME_BENEFICIOS_OBRAS = 5;
+    GestorInformesGenerales _gestor;
     
     /**
      * Creates new form EmitirInformesGenerales
@@ -37,6 +45,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         spinnerProdXProv.setValue(3);
         initFiltros();
         pb.setVisible(false);
+        _gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+        mostrarClientes();
     }
 
     /**
@@ -72,6 +82,12 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel15 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtHistoricoObrasPorYear = new javax.swing.JFormattedTextField();
+        jPanel19 = new javax.swing.JPanel();
+        btnObrasPorYear1 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        cboClientesInformeBeneficios = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btnEmitirGanancias1 = new javax.swing.JButton();
@@ -292,6 +308,65 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Beneficios de cotizaciones según aceptación"));
+
+        btnObrasPorYear1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnObrasPorYear1.setText("Emitir");
+        btnObrasPorYear1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrasPorYear1ActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("<HTML>Promedio y rango maximo y minimo de ganancias por cotizaciones </br>históricas, clasificados según si las cotizaciones fueron rechazadas o aceptadas");
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
+
+        jLabel11.setText("Clientes:");
+
+        cboClientesInformeBeneficios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboClientesInformeBeneficios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel11)
+                .addComponent(cboClientesInformeBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnObrasPorYear1))
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnObrasPorYear1)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -301,7 +376,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -313,7 +389,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -326,7 +404,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
@@ -444,7 +522,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -497,7 +575,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(429, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("De las Obras", jPanel13);
@@ -610,6 +688,14 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         emitirInforme(INFORME_CONTROL_OBRAS);
     }//GEN-LAST:event_btnEmitirGanancias3ActionPerformed
 
+    private void btnEmitirCotizacionesRechazadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirCotizacionesRechazadas1ActionPerformed
+        emitirInforme(INFORME_BENEFICIOS_OBRAS);
+    }//GEN-LAST:event_btnEmitirCotizacionesRechazadas1ActionPerformed
+
+    private void btnObrasPorYear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasPorYear1ActionPerformed
+         emitirInforme(INFORME_BENEFICIOS_OBRAS);
+    }//GEN-LAST:event_btnObrasPorYear1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEmitirCotizacionesRechazadas;
@@ -617,6 +703,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEmitirGanancias1;
     private javax.swing.JButton btnEmitirGanancias3;
     private javax.swing.JButton btnObrasPorYear;
+    private javax.swing.JButton btnObrasPorYear1;
+    private javax.swing.JComboBox cboClientesInformeBeneficios;
     private com.toedter.calendar.JDateChooser filtroFechaFin;
     private com.toedter.calendar.JDateChooser filtroFechaInicio;
     private javax.swing.JRadioButton filtroProductoPorCantidad;
@@ -627,12 +715,14 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup grupoFiltroProveedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -645,7 +735,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -721,8 +813,26 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                             }
                         });
                         thread2.start();
+                    break; 
+                // ============================================================
+                case INFORME_BENEFICIOS_OBRAS:
+                        Thread thread6 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    NTupla cli = (NTupla)cboClientesInformeBeneficios.getSelectedItem();
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformePorcentajeDeBeneficiosSegunAceptacionDeCotizacion(cli);
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread6.start();
                     break;                    
-                    
+                 // ============================================================  
                  case INFORME_LISTADO_PROVEEDORES_MAS_SOLICITADOS:
                         Thread thread3 = new Thread(new Runnable() {
                             @Override
@@ -835,6 +945,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         Date inicio = new Date();
         inicio.setMonth(Calendar.JANUARY);
         inicio.setDate(1);
+        inicio.setYear(inicio.getYear()-5);
         Date fin = new Date();
         fin.setMonth(Calendar.DECEMBER);
         fin.setDate(31);
@@ -887,5 +998,27 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         }
         
         return res;
+    }
+    private void mostrarClientes()
+    {
+        
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        
+        NTupla tuplaTodos = new NTupla(0);
+        tuplaTodos.setNombre("Todas");
+        valores.addElement(tuplaTodos);
+        List<NTupla> lista = new ArrayList<NTupla>();
+        try{
+            lista = _gestor.mostrarClientes();
+        } catch(Exception e){
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Ocurrio un error cargando el listado de empresas cliente");
+        }
+        Iterator<NTupla> it = lista.iterator();
+        while(it.hasNext()){
+            NTupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cboClientesInformeBeneficios.setModel(valores);
+
     }
 }

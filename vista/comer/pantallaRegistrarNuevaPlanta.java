@@ -14,10 +14,13 @@ package vista.comer;
 import controlador.comer.GestorABMEmpresaCliente;
 import controlador.comer.GestorRegistrarNuevaPlanta;
 import controlador.comer.GestorABMPedido;
+import controlador.planificacion.GestorEditarPlanificacion;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -691,9 +694,18 @@ public class pantallaRegistrarNuevaPlanta extends javax.swing.JInternalFrame imp
 
             // PASO LOS TELEFONOS
             gestor.telefonoPlanta(cargarTelefonos());
-
+                
+            int piso=0;
+            if(txtPiso.getText()!=""){
+                try{
+                 piso=Integer.parseInt(txtPiso.getText());
+                }
+                catch(NumberFormatException e){
+                    Logger.getLogger(pantallaRegistrarNuevaPlanta.class.getName()).log(Level.WARNING, null, e);
+                }
+            }
             // PASO LOS DATOS DEL DOMICILIO
-            gestor.DomicilioPlanta(txtCalle.getText(),Integer.parseInt(txtAltura.getText()),Integer.parseInt(txtPiso.getText()),txtDepto.getText(),txtCodPostal.getText());
+            gestor.DomicilioPlanta(txtCalle.getText(),Integer.parseInt(txtAltura.getText()),piso,txtDepto.getText(),txtCodPostal.getText());
 
             // PASO EL CONTACTO RESPONSABLE
             if(cmbContactos.getSelectedItem() instanceof Tupla)

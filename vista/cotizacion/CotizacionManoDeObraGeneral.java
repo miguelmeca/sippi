@@ -365,8 +365,9 @@ public class CotizacionManoDeObraGeneral extends javax.swing.JPanel implements I
             if(JOptionPane.showConfirmDialog(this.getParent(), "¿Está seguro de eliminar la tarea "+((NTupla)((DefaultTableModel)tblTareas.getModel()).getValueAt(tblTareas.getSelectedRow(), 0)).getNombre()+"?", "Eliminar tarea", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
             {
               int idT=((NTupla)((DefaultTableModel)tblTareas.getModel()).getValueAt(tblTareas.getSelectedRow(), 0)).getId();
-            gestor.eliminarTarea(idT);
-            ((DefaultTableModel)tblTareas.getModel()).removeRow(tblTareas.getSelectedRow());
+              boolean exito=gestor.eliminarTarea(idT);
+              if(exito){
+            ((DefaultTableModel)tblTareas.getModel()).removeRow(tblTareas.getSelectedRow());}
             //initGrafico();
             mostrarTotal();
             }

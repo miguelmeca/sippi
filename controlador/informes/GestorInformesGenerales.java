@@ -10,10 +10,17 @@ import java.util.List;
 import modelo.Cotizacion;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
+import modelo.Planta;
+import modelo.SubObra;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.jfree.data.category.DefaultCategoryDataset;
 import util.FechaUtil;
 import util.HibernateUtil;
+import util.NTupla;
+import util.Tupla;
 import vista.reportes.ReportDesigner;
+import vista.reportes.sources.InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones;
 import vista.reportes.sources.InformeCantidadCotizacionesRechazadas;
 import vista.reportes.sources.InformeCompletoControl;
 import vista.reportes.sources.InformeGeneralDeGanancias;
@@ -202,7 +209,156 @@ public class GestorInformesGenerales {
             System.err.println("Error al generar el reporte");
             throw new Exception("Se produjo un error al generar el Reporte", ex);
         }
+    }
+     public void generarInformePorcentajeDeBeneficiosSegunAceptacionDeCotizacion(NTupla empresaCliente) throws Exception {
 
+        // Cotizaciones comunes
+        List<PedidoObra> listaObras = null;
+        List<Planta> listaPlantas = null;
+        try {
+            HibernateUtil.beginTransaction();
+            int idEmpresaCliente=empresaCliente.getId();
+            if(idEmpresaCliente>0) {
+                listaPlantas =  ((EmpresaCliente)empresaCliente.getData()).getPlantas();
+                /*
+                listaObras = (List) HibernateUtil.getSession().createQuery("FROM PedidoObra AS po WHERE po.planta IN elements(:plants)").setParameter("plants", ((EmpresaCliente)empresaCliente.getData()).getPlantas()).list();
+                */
+                //SELECT ClinicId,Name from Clinic where :ClinicIds is NULL OR ClinicId IN :ClinicIds
+                Criteria criteria = HibernateUtil.getSession().createCriteria(PedidoObra.class);
+                
+                criteria.add(Restrictions.in("planta", ((EmpresaCliente)empresaCliente.getData()).getPlantas()));
+                
+                listaObras = criteria.list();
+            }
+            else {
+                listaObras = (List) HibernateUtil.getSession().createQuery("FROM PedidoObra").list();
+            }
+            
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:" + e.getMessage());
+            e.printStackTrace();
+            throw new Exception("No se pudo cargar correctamente el listado de Obras", e);
+        }
+
+        // Valido que haya obras
+        List<PedidoObra> listaObrasFiltradas = new ArrayList<PedidoObra>();
+        for (int i = 0; i < listaObras.size(); i++) {
+            PedidoObra po = listaObras.get(i);
+
+            if (FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin)
+                    && !po.getEstado().equals(PedidoObra.ESTADO_SOLICITADO)) {
+                listaObrasFiltradas.add(po);
+            }
+        }
+
+        if (listaObrasFiltradas.isEmpty()) {
+            throw new Exception("No hay obras en el período de tiempo ingresado");
+        }
+
+        datos.put("LISTA_PEDIDOS_OBRA", listaObrasFiltradas);
+        datos.put("Cliente", empresaCliente);
+        
+
+        HashMap<String, Integer> listaObrasHistorico = new HashMap<String, Integer>();
+        HashMap<String, Double> listaRechazadoCliente = new HashMap<String, Double>();
+
+        boolean ban=false;
+        for (int i = 0; i < listaObras.size(); i++) {
+            PedidoObra po = listaObras.get(i);
+
+            if (FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin)
+                    && !po.getEstado().equals(PedidoObra.ESTADO_SOLICITADO)) {
+                ban=true;
+                List<Cotizacion> listaCotizacionesAceptadas = obtenerCotizacionesAceptadas(listaObrasFiltradas);
+                List<Cotizacion> listaCotizacionesRechazadas = obtenerCotizacionesRechazadas(listaObrasFiltradas);
+                boolean primeraVez;
+                
+                double porcentAceptadasMaximo = 0.0;
+                double porcentAceptadasMinimo = 9999.0;
+                double porcentAceptadasSumatoria = 0.0;
+                int porcentAceptadasCantidad = 0;
+                double porcentAceptadasPromedio = 0.0;
+                                
+                for (Cotizacion co: listaCotizacionesAceptadas) {
+                    double montoBase=co.CalcularMontoBase();
+                    double montoTotal=co.CalcularTotal();
+                    double ganancia = montoTotal - montoBase;
+                    double gananciaPorcentajeTotal = (double)Math.round((ganancia/montoTotal)*10000)/100;
+                   
+                    if(montoTotal>0)
+                    {
+                        if(porcentAceptadasMaximo < gananciaPorcentajeTotal){
+                            porcentAceptadasMaximo = gananciaPorcentajeTotal;
+                        }
+                        if(porcentAceptadasMinimo > gananciaPorcentajeTotal){
+                            porcentAceptadasMinimo = gananciaPorcentajeTotal;
+                        }
+                        porcentAceptadasCantidad++;
+                        porcentAceptadasSumatoria+=gananciaPorcentajeTotal;
+                    }
+                }
+                if(porcentAceptadasCantidad > 0){
+                    porcentAceptadasPromedio=porcentAceptadasSumatoria / porcentAceptadasCantidad;
+                }
+                
+                double porcentRechazadasMaximo = 0.0;
+                double porcentRechazadasMinimo = 999.0;
+                double porcentRechazadasSumatoria = 0.0;
+                int porcentRechazadasCantidad = 0;
+                double porcentRechazadasPromedio = 0.0;
+                
+                for (Cotizacion co: listaCotizacionesRechazadas) {
+                    double montoBase=co.CalcularMontoBase();
+                    double montoTotal=co.CalcularTotal();
+                    double ganancia = montoTotal - montoBase;
+                    double gananciaPorcentajeTotal = (double)Math.round((ganancia/montoTotal)*10000)/100;
+                   
+                    if(montoTotal>0)
+                    {
+                        if(porcentRechazadasMaximo < gananciaPorcentajeTotal){
+                            porcentRechazadasMaximo = gananciaPorcentajeTotal;
+                        }
+                        if(porcentRechazadasMinimo > gananciaPorcentajeTotal){
+                            porcentRechazadasMinimo = gananciaPorcentajeTotal;
+                        }
+                        porcentRechazadasCantidad++;
+                        porcentRechazadasSumatoria+=gananciaPorcentajeTotal;
+                    }
+                }
+                if(porcentRechazadasCantidad > 0){
+                    porcentRechazadasPromedio=porcentRechazadasSumatoria / porcentRechazadasCantidad;
+                }
+                
+                if(porcentAceptadasMinimo<=100) {
+                    datos.put("porcentajeAceptadasMaximo", porcentAceptadasMaximo);
+                    datos.put("porcentajeAceptadasMinimo", porcentAceptadasMinimo);
+                    datos.put("porcentajeAceptadasPromedio", porcentAceptadasPromedio);
+                }
+                if(porcentRechazadasMinimo<=100) {
+                    datos.put("porcentajeRechazadasMaximo", porcentRechazadasMaximo);
+                    datos.put("porcentajeRechazadasMinimo", porcentRechazadasMinimo);
+                    datos.put("porcentajeRechazadasPromedio", porcentRechazadasPromedio);
+                }
+                
+            }
+            
+        }
+        
+        if(!ban){
+                throw new Exception("No hay cotizaciones rechazadas o aceptadas dentro del rango d fechas seleccionado");
+            }
+        
+        InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones reporte = new InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones();
+        try {
+            reporte.setNombreReporte("Beneficios de obras anteriores segun aceptacion o rechazo de cotizaciones.");
+            reporte.setNombreArchivo("Beneficios_obras_anteriores_segun_aceptacion", ReportDesigner.REPORTE_TIPO_OTROS);
+            reporte.makeAndShow(datos);
+        } catch (Exception ex) {
+            System.err.println("Error al generar el reporte");
+            throw new Exception("Se produjo un error al generar el Reporte", ex);
+        }
     }
 
     private Date getFechaDesdeHistoricos(Date fechaFin, int cantidadYears) {
@@ -331,5 +487,61 @@ public class GestorInformesGenerales {
             throw new Exception("Se produjo un error al generar el Reporte", ex);
         }
         
+    }
+    
+    public List<NTupla> mostrarClientes() throws Exception{
+       
+        List<EmpresaCliente> listaEmpresas = new ArrayList<EmpresaCliente>();
+        List<NTupla> listaTuplasEmpresas = new ArrayList<NTupla>();
+        try {
+            HibernateUtil.beginTransaction();
+            listaEmpresas = (List) HibernateUtil.getSession().createQuery("FROM EmpresaCliente").list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:" + e.getMessage());
+            throw new Exception("No se pudo cargar correctamente el listado de EmpresaCliente", e);
+        }
+        
+        for (EmpresaCliente empC : listaEmpresas) {
+            NTupla t= new NTupla(empC.getId());
+            t.setNombre(empC.getRazonSocial());
+            t.setData(empC);
+            listaTuplasEmpresas.add(t);
+        }
+        
+        return listaTuplasEmpresas;
+
+    }
+    
+    private List<Cotizacion> obtenerCotizacionesAceptadas(List<PedidoObra> lpo) {
+        List<Cotizacion> listaCotizacionesAceptadas = new ArrayList<Cotizacion>();
+        for (PedidoObra po:lpo) {        
+        
+            if ( po.getCotizaciones() != null) {
+                for (int j = 0; j < po.getCotizaciones().size(); j++) {
+                    Cotizacion cot = po.getCotizaciones().get(j);
+                    if (cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO)) {
+                        listaCotizacionesAceptadas.add(cot);
+                    }
+                }
+            }
+        }
+        return listaCotizacionesAceptadas;
+    }
+    private List<Cotizacion> obtenerCotizacionesRechazadas(List<PedidoObra> lpo) {
+        List<Cotizacion> listaCotizacionesRechazadas = new ArrayList<Cotizacion>();
+        for (PedidoObra po:lpo) {        
+        
+            if ( po.getCotizaciones() != null) {
+                for (int j = 0; j < po.getCotizaciones().size(); j++) {
+                    Cotizacion cot = po.getCotizaciones().get(j);
+                    if (cot.getEstado().equals(Cotizacion.ESTADO_ACEPTADO)) {
+                        listaCotizacionesRechazadas.add(cot);
+                    }
+                }
+            }
+        }
+        return listaCotizacionesRechazadas;
     }
 }

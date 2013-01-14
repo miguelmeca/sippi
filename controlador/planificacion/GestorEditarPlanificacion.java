@@ -293,7 +293,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
         }
         else
         {
-            mostrarMensajeError("No se pudo cargar la planificacio³n, por lo tanto no se mostrará el Gantt");
+            mostrarMensajeError("No se pudo cargar la planificación, por lo tanto no se mostrará el Gantt");
         }
         return listaTareas;
     }

@@ -978,7 +978,7 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
        DefaultTableModel modelo=(DefaultTableModel)tblDetallesTarea.getModel();
        DetalleSubObraXTarea detalleTarea=(DetalleSubObraXTarea)((NTupla)modelo.getValueAt(tblDetallesTarea.getSelectedRow(), 0)).getData();
        txtPersonas.setText(String.valueOf(detalleTarea.getCantidadPersonas()));
-       txtCosto.setText(String.valueOf(detalleTarea.getCostoXHoraNormal()));
+       
        
        for (int i = 0; i < cboTipoEspecialidad.getItemCount(); i++) 
         {
@@ -997,6 +997,7 @@ if(tblDetallesTarea.getSelectedRow()!=-1)
                 break;
             }            
         }
+       txtCosto.setText(String.valueOf(detalleTarea.getCostoXHoraNormal()));
        txtHorasNormales.setText(String.valueOf(detalleTarea.getCantHorasNormales()));
        txtHoras50.setText(String.valueOf(detalleTarea.getCantHorasAl50()));
        txtHoras100.setText(String.valueOf(detalleTarea.getCantHorasAl100())); 
