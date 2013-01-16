@@ -361,22 +361,28 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
                 else
                 {
-                    int horasAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(plan, (SubObraXHerramientaModif)herramientaEditando);
-                    if(horasAsignadas > 0 && cantHoras < horasAsignadas)
+                    if(this.plan !=null)
                     {
-                        JOptionPane.showMessageDialog(this, "<HTML><BODY>La herramienta seleccionada "
-                                + "se encuentra asignada a la planificación.<BR>"
-                                + "Cómo mínimo puede ingresar <STRONG>"
-                                + horasAsignadas + " hs.</STRONG>",
-                                "Herramienta "+herramientaEditando.getHerramienta().getNombre() 
-                                +" - "+ herramientaEditando.getHerramienta().getNroSerie() 
-                                + " ya asignada", JOptionPane.WARNING_MESSAGE);
+                        int horasAsignadas = PlanificacionUtils.getHorasTotalesAsignadasAHerramienta(plan,herramientaEditando);
+                        if(horasAsignadas > 0 && cantHoras < horasAsignadas)
+                        {
+                            JOptionPane.showMessageDialog(this, "<HTML><BODY>La herramienta seleccionada "
+                                    + "se encuentra asignada a la planificación.<BR>"
+                                    + "Cómo mínimo puede ingresar <STRONG>"
+                                    + horasAsignadas + " hs.</STRONG>",
+                                    "Herramienta "+herramientaEditando.getHerramienta().getNombre() 
+                                    +" - "+ herramientaEditando.getHerramienta().getNroSerie() 
+                                    + " ya asignada", JOptionPane.WARNING_MESSAGE);
+                        }
+                        else
+                        {
+                            gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
+                        }
                     }
                     else
                     {
                         gestor.AgregarHerramienta(this.herramientaEditando,tpitem,cantHoras, costoHora,txtDescripcion.getText());
                     }
-                    
                 }
                 cargarModificacionHerramienta(null);
                 modificando= false;
