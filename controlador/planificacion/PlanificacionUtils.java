@@ -127,7 +127,7 @@ public class PlanificacionUtils {
      * @param sxh
      * @return 
      */
-    public static int getHorasTotalesAsignadasAHerramienta(Planificacion plan, SubObraXHerramientaModif sxh)
+    public static int getHorasTotalesAsignadasAHerramienta(Planificacion plan, SubObraXHerramienta sxh)
     {
         int count = 0;
         ArrayList<TareaPlanificacion> listaTareas = getTodasTareasPlanificacion(plan);

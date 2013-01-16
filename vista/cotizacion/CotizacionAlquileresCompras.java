@@ -354,21 +354,28 @@ public class CotizacionAlquileresCompras extends javax.swing.JPanel {
                         }
                         else
                         {
-                            int cantidadAsignada = PlanificacionUtils.getCantidadAsignadaAAlquilerCompra(plan, (SubObraXAlquilerCompraModif)alqcompraEditando);
-                            if(cantidadAsignada > 0 && cantidad < cantidadAsignada)
+                            if(this.plan != null)
                             {
-                                JOptionPane.showMessageDialog(this, "<HTML><BODY>El alquiler/compra seleccionado "
-                                        + "se encuentra asignado a la planificación.<BR>"
-                                        + "Cómo mínimo puede ingresar <STRONG>"
-                                        + cantidadAsignada + " unidades.</STRONG>",
-                                        "Alquiler/Compra "+alqcompraEditando.getTipoAlquilerCompra()
-                                        +" - "+ alqcompraEditando.getDescripcion()
-                                        + " ya asignado", JOptionPane.WARNING_MESSAGE);
+                                int cantidadAsignada = PlanificacionUtils.getCantidadAsignadaAAlquilerCompra(plan, (SubObraXAlquilerCompraModif)alqcompraEditando);
+                                if(cantidadAsignada > 0 && cantidad < cantidadAsignada)
+                                {
+                                    JOptionPane.showMessageDialog(this, "<HTML><BODY>El alquiler/compra seleccionado "
+                                            + "se encuentra asignado a la planificación.<BR>"
+                                            + "Cómo mínimo puede ingresar <STRONG>"
+                                            + cantidadAsignada + " unidades.</STRONG>",
+                                            "Alquiler/Compra "+alqcompraEditando.getTipoAlquilerCompra()
+                                            +" - "+ alqcompraEditando.getDescripcion()
+                                            + " ya asignado", JOptionPane.WARNING_MESSAGE);
+                                }
+                                else
+                                {
+                                    AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
+                                }
                             }
                             else
                             {
                                 AgregarCompraAlquiler(this.alqcompraEditando,tipo,descripcion,cantidad,precio);
-                            }         
+                            }
                             cargarModificacionAlquilerCompra(null);
                             modificando=false;
                         } 
