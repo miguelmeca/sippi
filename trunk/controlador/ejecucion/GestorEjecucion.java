@@ -857,6 +857,7 @@ public class GestorEjecucion {
             // Cambio los estados
             this.pedidoDeObra.setEstadoTerminado();
             this.ejecucion.setEstado(Ejecucion.ESTADO_FINALIZADA);
+            this.ejecucion.setFechaFin(new Date());
             
             // Guardo los cambios
             try

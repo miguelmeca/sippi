@@ -217,20 +217,20 @@ public class OrdenDeTrabajo extends ReportDesigner {
                            
                            if(k==0){
                                 PdfPCell celdaC1 = new PdfPCell(new Phrase(nombreCompleto,FUENTE_NORMAL_CHICA));
-                                celdaC1.setRowspan(cantidadDias-1);
+                                celdaC1.setRowspan(cantidadDias);
                                 tabla.addCell(celdaC1);
                            
                                 PdfPCell celdaC2 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasNormales()),FUENTE_NORMAL_CHICA));
                                     celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                                    celdaC2.setRowspan(cantidadDias-1);
+                                    celdaC2.setRowspan(cantidadDias);
                                     tabla.addCell(celdaC2);
                                 PdfPCell celdaC3 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl50()),FUENTE_NORMAL_CHICA));
                                     celdaC3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                                    celdaC3.setRowspan(cantidadDias-1);
+                                    celdaC3.setRowspan(cantidadDias);
                                     tabla.addCell(celdaC3);
                                 PdfPCell celdaC4 = new PdfPCell(new Phrase(PdfPCell.ALIGN_CENTER,String.valueOf(detalleTareaPlanificacion.getDetalleTareaPlanificado().getCantHorasAl100()),FUENTE_NORMAL_CHICA));
                                     celdaC4.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                                    celdaC4.setRowspan(cantidadDias-1);
+                                    celdaC4.setRowspan(cantidadDias);
                                     tabla.addCell(celdaC4);
                            }
                            
@@ -382,14 +382,14 @@ public class OrdenDeTrabajo extends ReportDesigner {
                         paC1.add(new Phrase(herr.getHerramienta().getNombre(), ReportDesigner.FUENTE_NORMAL_CHICA));
                         PdfPCell celdaC1 = new PdfPCell(paC1);
                         celdaC1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
-                        celdaC1.setRowspan(cantDias-1);
+                        celdaC1.setRowspan(cantDias);
                         tabla.addCell(celdaC1);
 
                         Paragraph paC2 = new Paragraph();
                         paC2.add(new Phrase(String.valueOf(herr.getHorasAsignadas()), ReportDesigner.FUENTE_NORMAL_CHICA));
                         PdfPCell celdaC2 = new PdfPCell(paC2);
                         celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
-                        celdaC2.setRowspan(cantDias-1);
+                        celdaC2.setRowspan(cantDias);
                         tabla.addCell(celdaC2);
                     }
                     
