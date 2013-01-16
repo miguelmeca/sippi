@@ -1444,17 +1444,18 @@ private void btnRecotizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
     private boolean guardarCotizacion()
     {
-        if(cmbLVP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLVP.getDate(),new Date()))
-        {
-            JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha de validez de la Oferta\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        if(cmbLEP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLEP.getDate(),new Date()))
-        {
-            JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha límite de Entrega de la Cotización\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
-            return false;
-        }        
+        // TODO: RECORDAR RECOMENTAR ESTAS LINEAS para tener validaciones de líneas
+//        if(cmbLVP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLVP.getDate(),new Date()))
+//        {
+//            JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha de validez de la Oferta\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }
+//        
+//        if(cmbLEP.getDate()!=null && !FechaUtil.fechaMayorQue(cmbLEP.getDate(),new Date()))
+//        {
+//            JOptionPane.showMessageDialog(new JInternalFrame(),"La \"Fecha límite de Entrega de la Cotización\" debe ser mayor a la fecha actual", "Error!",JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        }        
         
         if(txtNroCotizacion.isEnabled())
         {
