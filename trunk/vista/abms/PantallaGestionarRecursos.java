@@ -679,7 +679,7 @@ public class PantallaGestionarRecursos extends javax.swing.JInternalFrame  imple
             this.setTitle("Gestión de los Materiales de la Empresa");
         }
         else if(claseBase == Herramienta.class){
-            this.setTitle("Gestión de las Herramientas de la Empresa");
+            this.setTitle("Gestión de Herramientas");
         }
         else{
             this.setTitle("Gestión de los Recursos de la Empresa");
