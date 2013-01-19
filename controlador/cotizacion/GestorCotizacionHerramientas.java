@@ -71,7 +71,7 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
                     // Lo agrego al buffer
                     bufferHerramientas.add(hde);
                     
-                    String nombreAmostrar = hde.getRecursoEsp().getNombre()+" "+hde.getRecursoEsp().getRecurso().getNombre()+" ("+hde.getNroSerie()+")";
+                    String nombreAmostrar = hde.getRecursoEsp().getRecurso().getNombre()+ " " + hde.getRecursoEsp().getNombre()+" (Nro. "+hde.getNroSerie()+")";
                     
                     // lo agrego a la lista
                     Tupla tp = new Tupla(hde.getId(),nombreAmostrar);
