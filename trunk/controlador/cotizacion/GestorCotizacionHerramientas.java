@@ -179,7 +179,7 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
             SubObraXHerramienta detalle = getSubObraActual().getHerramientas().get(i);
             
                 NTupla tp = new NTupla(i);
-                tp.setNombre(detalle.getHerramienta().getRecursoEsp().getNombre()+" "+detalle.getHerramienta().getRecursoEsp().getRecurso().getNombre()+" ("+detalle.getHerramienta().getNroSerie()+")");
+                tp.setNombre(detalle.getHerramienta().getRecursoEsp().getRecurso().getNombre() + " " + detalle.getHerramienta().getRecursoEsp().getNombre()+" (Nro. "+detalle.getHerramienta().getNroSerie()+")");
                 String[] data = new String[3];
 //                    data[0] =  String.valueOf(detalle.getCantDias());
                     data[0] =  String.valueOf(detalle.getCantHoras());
