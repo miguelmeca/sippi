@@ -5,12 +5,15 @@
 package vista.planificacion;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.PedidoObra;
 import modelo.Planificacion;
+import modelo.TipoTarea;
+import util.HibernateUtil;
 import util.SwingPanel;
 import vista.gen.PantallaConsultarGenerica;
 import vista.gui.IFavorito;
-import vista.interfaces.ICallBackGen;
 
 /**
  *
@@ -62,10 +65,39 @@ public class PantallaConsultarPlanificaciones extends PantallaConsultarGenerica 
 
     @Override
     protected void abrirEntidad(int id) {
-        EditarPlanificacion win = new EditarPlanificacion(id);
-        SwingPanel.getInstance().addWindow(win);
-        win.setVisible(true);
+        
+        // Necesita el ID de la Obra, no el de la Ejecución
+        PedidoObra obra = null;
+        try
+        {
+            HibernateUtil.beginTransaction();
+            List<PedidoObra> obras = HibernateUtil.getSession().createQuery("FROM PedidoObra").list();
+            HibernateUtil.commitTransaction();
+            
+            for (int i = 0; i < obras.size(); i++) {
+                PedidoObra po = obras.get(i);
+                if(po.getPlanificacion()!=null && po.getPlanificacion().getId()==id){
+                    obra = po;
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:"+e.getMessage());
+        } 
+        
+        if(obra!=null){
+            EditarPlanificacion win = new EditarPlanificacion(obra.getId());
+            SwingPanel.getInstance().addWindow(win);
+            win.setVisible(true);
+        }else{
+            super.mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La Ejecución no está asociada a ninguna Obra");
+        }
+        
     }
+    
+    
 
     @Override
     public boolean isFavorito() {

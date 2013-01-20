@@ -73,6 +73,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 materiales.add(t);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this.pantalla, "Ha ocurrido un error al intentar cargar los materiales disponibles: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return materiales;
@@ -341,9 +342,9 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                    lista.add(tp);
                 }
 
-               }catch(Exception ex)
-           {
-                JOptionPane.showMessageDialog(this.pantalla, "No se pudo cargar el objeto: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+           }catch(Exception ex){
+               ex.printStackTrace();
+               JOptionPane.showMessageDialog(this.pantalla, "No se pudo cargar el objeto: \n"+ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
            }
 
         return lista;
@@ -447,6 +448,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
 //            HibernateUtil.getSession().createQuery("select * from Provedor")
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(pantalla.getParent(), "A ocurrido un error al intentar mostrar los proveedores del material seleccionado: \n"+ ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
         return provs;
@@ -694,6 +696,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         }
         catch (Exception ex)
         {
+            ex.printStackTrace();
             LogUtil.addError("No se pudo comenzar la transacción en la actualizacion de precios");
             HibernateUtil.rollbackTransaction();
             //pantalla.MostrarMensaje("EG-0001");return;
@@ -723,6 +726,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
+            ex.printStackTrace();
             LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
         }
         return name;
@@ -753,6 +757,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
+            ex.printStackTrace();
             Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
         }
         return provs;
@@ -767,6 +772,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
             HibernateUtil.commitTransaction();
         } catch (Exception ex) {
             HibernateUtil.rollbackTransaction();
+            ex.printStackTrace();
             LogUtil.addError("No se pudo mostrar el material: "+ex.getMessage());
         }
         return name;
@@ -806,6 +812,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
         } catch (Exception ex) {
             Logger.getLogger(GestorCotizacionMateriales.class.getName()).log(Level.SEVERE, null, ex);
             HibernateUtil.rollbackTransaction();
+            ex.printStackTrace();
         }
         return precio;
     }
