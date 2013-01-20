@@ -54,7 +54,28 @@ public class DetalleTareaEjecucionXDia {
     }
 
     public void setCantHorasAl100(double cantHorasAl100) {
-        this.cantHorasAl100 = cantHorasAl100;
+        this.cantHorasAl50 = cantHorasAl100;
+    }
+    
+    public double getCantidadDeHorasTotales(){
+        return this.cantHorasNormales+this.cantHorasAl50+this.cantHorasAl100;
+    }
+    
+    public boolean esFecha(Date fechaX){
+        Date thisFecha = (Date)this.fecha.clone();
+        thisFecha.setHours(0);
+        thisFecha.setMinutes(0);
+        thisFecha.setSeconds(0);
+        fechaX.setHours(0);
+        fechaX.setMinutes(0);
+        fechaX.setSeconds(0);
+        
+        if(thisFecha.compareTo(fechaX)==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
    
 }

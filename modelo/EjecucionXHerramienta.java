@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,40 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
     @Override
     public double calcularSubtotal(){
         return (getHorasUtilizadas()*getCostoXHora());
+    }
+    
+    public boolean esDiaVacio(Date fechaDelNuevo) throws Exception{
+        boolean encontroFecha=false;
+        for (int i = 0; i < usoHerramientasXdia.size(); i++) {
+            EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
+            
+            if(dia.esFecha(fechaDelNuevo)){
+                if(dia.getHorasUtilizadas()!=0) {
+                    return true;
+                }
+                encontroFecha=true;
+                break;
+            }
+        }
+        if(encontroFecha){
+            return false;
+        }
+        else{
+            throw new Exception("Fecha inexistente");
+        }
+    }
+    
+    
+    public void crearHerramientaXDia(Date fechaDelNuevo, boolean alFinal) {
+        EjecucionXHerramientaXDia nuevo = new EjecucionXHerramientaXDia();
+        nuevo.setFecha(fechaDelNuevo);
+        nuevo.setHorasUtilizadas(0);
+
+        if(alFinal) {
+            usoHerramientasXdia.add(nuevo);
+        } else {
+            usoHerramientasXdia.add(0, nuevo);
+        }
     }
     
 }

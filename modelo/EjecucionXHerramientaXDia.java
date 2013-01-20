@@ -39,4 +39,21 @@ public class EjecucionXHerramientaXDia {
         this.horasUtilizadas = horasUtilizadas;
     }
     
+    public boolean esFecha(Date fechaX){
+        Date thisFecha = (Date)this.fecha.clone();
+        thisFecha.setHours(0);
+        thisFecha.setMinutes(0);
+        thisFecha.setSeconds(0);
+        fechaX.setHours(0);
+        fechaX.setMinutes(0);
+        fechaX.setSeconds(0);
+        
+        if(thisFecha.compareTo(fechaX)==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
 }

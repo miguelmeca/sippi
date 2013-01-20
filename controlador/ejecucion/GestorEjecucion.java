@@ -711,6 +711,7 @@ public class GestorEjecucion {
             {
                 if(PlanificacionUtils.esFechaValidaParaSusHijas(false,fechaFin,t))
                 {
+                    
                     t.setFechaFin(fechaFin);
                 }
                 else
@@ -915,6 +916,7 @@ public class GestorEjecucion {
      */
     private void cambiarFechaDeFinDeTareaActual(TareaEjecucion tarea,Date fecha) {
     
+        
         // Si la fecha nueva, es mayor, tengo que crear
         if(FechaUtil.fechaMayorQue(tarea.getFechaFin(), fecha)){
             // Creo detalles y seteo la fecha de Fin
@@ -953,6 +955,23 @@ public class GestorEjecucion {
             nuevo.setHorasUtilizadas(0);
             
             eph.getUsoHerramientasXdia().add(nuevo);
+        }
+        
+    }
+    
+    private void crearDetalleTareaEjecucionXDiaParaFecha(TareaEjecucion tarea, Date fechaDelNuevo) {
+        
+        
+        for (int i = 0; i < tarea.getHerramientas().size(); i++) {
+            DetalleTareaEjecucion dte = (DetalleTareaEjecucion)tarea.getDetalles().get(i);
+            
+            DetalleTareaEjecucionXDia nuevo = new DetalleTareaEjecucionXDia();
+            nuevo.setFecha(fechaDelNuevo);
+            nuevo.setCantHorasNormales(0.0);
+            nuevo.setCantHorasAl50(0.0);
+            nuevo.setCantHorasAl100(0.0);
+            
+            dte.getListaDetallePorDia().add(nuevo);
         }
         
     }

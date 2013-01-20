@@ -439,10 +439,10 @@ public class PlanificacionUtils {
     {
         if(tareaHija!=null)
         {
-            List<TareaPlanificacion> padres = tareaHija.buscarCaminoHastaTareaConCotizacion(plan,true,true);
-            if(padres.size()>=2)
+            List<TareaPlanificacion> padres = tareaHija.buscarCaminoHastaTareaConCotizacion(plan,false,false);
+            if(padres.size()>=1)
             {
-                TareaPlanificacion padre = padres.get(padres.size()-2);
+                TareaPlanificacion padre = padres.get(padres.size()-1);
                 if(inicio)
                 {
                     // Chequeo la fecha de inicio
