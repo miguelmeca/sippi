@@ -904,5 +904,16 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
         }   
         cmbColumnavalor.setMinimumSize(new Dimension(150,18));
     }
+ 
+    /**
+     * Muestra un mensaje
+     * @param tipo
+     * @param titulo
+     * @param mensaje 
+     */
+    public void mostrarMensaje(int tipo,String titulo,String mensaje)
+    {
+         JOptionPane.showMessageDialog(this.getParent(),mensaje,titulo,tipo);
+    } 
     
 }
