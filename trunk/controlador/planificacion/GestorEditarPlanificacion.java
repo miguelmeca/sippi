@@ -204,6 +204,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         // CARGO LOS RECURSOS !!
                         // HERRAMIENTAS
                         TreeEntry nodoHerramientas = new TreeEntry("Herramientas",Iconos.ICONO_HERRAMIENTAS);
+                        nodoHerramientas.setPermiso(true);
                         nodoRoot.add(nodoHerramientas);
                         
                         List<SubObraXHerramienta> listaHerramientas = som.getHerramientas();
@@ -213,12 +214,14 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                             //subNodoHerramientas.setId(herr.getId());
                             subNodoHerramientas.setId(herr.hashCode());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
+                            subNodoHerramientas.setPermiso(true);
                             nodoHerramientas.add(subNodoHerramientas);
                         }
                         
                         // MATERIALES
                         // NECESITO idRecursoEspecifico y idMaterial
                         TreeEntry nodoMateriales = new TreeEntry("Materiales",Iconos.ICONO_MATERIALES);
+                        nodoMateriales.setPermiso(true);
                         nodoRoot.add(nodoMateriales);
                         
                         List<SubObraXMaterial> listaMateriales =  som.getMateriales();
@@ -252,11 +255,13 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                             //subNodoMaterial.setId(mat.getId());
                             subNodoMaterial.setId(mat.hashCode());
                             subNodoMaterial.setTipo(ArbolDeTareasTipos.TIPO_MATERIAL);
+                            subNodoMaterial.setPermiso(true);
                             nodoMateriales.add(subNodoMaterial);
                         }
                         
                         // ALQUILERES / COMPRAS
                         TreeEntry nodoAlqComps = new TreeEntry("Alquileres / Compras",Iconos.ICONO_ALQUILERESCOMPRAS);
+                        nodoAlqComps.setPermiso(true);
                         nodoRoot.add(nodoAlqComps);
                         
                         List<SubObraXAlquilerCompra> listaAlquileres = som.getAlquileresCompras();
@@ -266,6 +271,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                             //subNodoAlquComp.setId(alqcomp.getId());
                             subNodoAlquComp.setId(alqcomp.hashCode());
                             subNodoAlquComp.setTipo(ArbolDeTareasTipos.TIPO_ALQUILERCOMPRA);
+                            subNodoAlquComp.setPermiso(true);
                             nodoAlqComps.add(subNodoAlquComp);
                         }
                         
