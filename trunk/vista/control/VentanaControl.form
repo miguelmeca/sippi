@@ -54,7 +54,7 @@
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" pref="386" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -492,7 +492,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" alignment="0" pref="593" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -529,11 +529,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelGraficoTortaCotizacion" min="-2" max="-2" attributes="0"/>
+                              <Component id="panelGraficoTortaCotizacion" min="-2" pref="282" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelGraficoTortaEjecucion" pref="288" max="32767" attributes="0"/>
+                              <Component id="panelGraficoTortaEjecucion" pref="258" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -542,7 +542,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel16">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Tipo de Recursos &lt;b&gt;Cotizados&lt;/b&gt;:"/>
+                        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Contribuci&#xf3;n de cada &apos;Tipo de Recurso&apos; al monto total &lt;b&gt;Cotizado&lt;/b&gt;"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JPanel" name="panelGraficoTortaCotizacion">
@@ -551,7 +551,7 @@
                     </Container>
                     <Component class="javax.swing.JLabel" name="jLabel17">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Tipo de Recursos &lt;b&gt;Ejecutados&lt;/b&gt;:"/>
+                        <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Contribuci&#xf3;n de cada &apos;Tipo de Recurso&apos; al monto total &lt;b&gt;Ejecutado&lt;/b&gt;"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JPanel" name="panelGraficoTortaEjecucion">

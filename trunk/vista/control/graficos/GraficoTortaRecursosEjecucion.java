@@ -57,12 +57,12 @@ public class GraficoTortaRecursosEjecucion {
             double montoGastosVarios = calcularMontoGastosVarios(ejec);
             dataset.setValue("Gastos Varios [$"+montoGastosVarios+"]", montoGastosVarios);
         }
-        
-        GraficoDeTorta graph = new GraficoDeTorta("Recursos Utilizados en Ejecución", dataset);
-        return graph.createGraph();
+        return createGraphObject(dataset);
     }
+    
+    
 
-    private double calcularMontoHerramientas(Ejecucion ejec) {
+    protected double calcularMontoHerramientas(Ejecucion ejec) {
         double subTotal = 0;
         List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejec);
         for (int i = 0; i < tareas.size(); i++) {
@@ -76,7 +76,7 @@ public class GraficoTortaRecursosEjecucion {
         return subTotal;
     }
 
-    private double calcularMontoManoObra(Ejecucion ejec) {
+    protected double calcularMontoManoObra(Ejecucion ejec) {
         double subTotal = 0;
             List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejec);
             for (int i = 0; i < tareas.size(); i++) {
@@ -90,7 +90,7 @@ public class GraficoTortaRecursosEjecucion {
         return subTotal;
     }
 
-    private double calcularMontoMateriales(Ejecucion ejec) {
+    protected double calcularMontoMateriales(Ejecucion ejec) {
         double subTotal = 0;
             List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejec);
             for (int i = 0; i < tareas.size(); i++) {
@@ -104,7 +104,7 @@ public class GraficoTortaRecursosEjecucion {
         return subTotal;        
     }
 
-    private double calcularMontoAlqComp(Ejecucion ejec) {
+    protected double calcularMontoAlqComp(Ejecucion ejec) {
         double subTotal = 0;
             List<TareaEjecucion> tareas = EjecucionUtils.getTodasTareasEjecucion(ejec);
             for (int i = 0; i < tareas.size(); i++) {
@@ -118,7 +118,7 @@ public class GraficoTortaRecursosEjecucion {
         return subTotal; 
     }
 
-    private double calcularMontoGastosVarios(Ejecucion ejec) {
+    protected double calcularMontoGastosVarios(Ejecucion ejec) {
         double subTotal = 0; 
         List<EjecucionXAdicional> adicionales = ejec.getAdicionales();
         for (int i = 0; i < adicionales.size(); i++) {
@@ -126,6 +126,11 @@ public class GraficoTortaRecursosEjecucion {
             subTotal += exa.calcularSubtotal();
         }
         return subTotal; 
+    }
+
+    protected JFreeChart createGraphObject(DefaultPieDataset dataset) {
+        GraficoDeTorta graph = new GraficoDeTorta("", dataset);
+        return graph.createGraph();
     }
     
 }
