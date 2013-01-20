@@ -20,6 +20,7 @@ import vista.control.graficos.GraficoAlquileresComprasControlObra;
 import vista.control.graficos.GraficoGastosVariosControlObra;
 import vista.control.graficos.GraficoHerramientasControlObra;
 import vista.control.graficos.GraficoMontosControlObra;
+import vista.control.graficos.GraficoTortaRecursosCotizacion;
 import vista.control.graficos.GraficoTortaRecursosEjecucion;
 
 /**
@@ -343,11 +344,11 @@ public class VentanaControl extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Recursos", jPanel6);
 
-        jLabel16.setText("<HTML>Tipo de Recursos <b>Cotizados</b>:");
+        jLabel16.setText("<HTML>Contribución de cada 'Tipo de Recurso' al monto total <b>Cotizado</b>");
 
         panelGraficoTortaCotizacion.setLayout(new java.awt.BorderLayout());
 
-        jLabel17.setText("<HTML>Tipo de Recursos <b>Ejecutados</b>:");
+        jLabel17.setText("<HTML>Contribución de cada 'Tipo de Recurso' al monto total <b>Ejecutado</b>");
 
         panelGraficoTortaEjecucion.setLayout(new java.awt.BorderLayout());
 
@@ -370,11 +371,11 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGraficoTortaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelGraficoTortaCotizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGraficoTortaEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(panelGraficoTortaEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -384,7 +385,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,7 +483,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -742,7 +743,8 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         initGraficoGastosVarios();
         initGraficoAlquileresCompras();
         
-        initGraficoTortas();
+        initGraficoTortaCotizacion();
+        initGraficoTortaEjecucion();
         
     }
 
@@ -786,7 +788,7 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         panelGraficoAlquileresCompras.add(chartPanel, BorderLayout.CENTER);
     }
 
-    private void initGraficoTortas() {
+    private void initGraficoTortaEjecucion() {
         
         GraficoTortaRecursosEjecucion tortaEjec = new GraficoTortaRecursosEjecucion(gestor.getPedidoObraActual());
         JFreeChart chart = tortaEjec.createGraph();
@@ -795,5 +797,15 @@ public class VentanaControl extends javax.swing.JInternalFrame {
         panelGraficoTortaEjecucion.add(chartPanel,BorderLayout.CENTER);
         
     }
+    
+    private void initGraficoTortaCotizacion() {
+        
+        GraficoTortaRecursosCotizacion tortaEjec = new GraficoTortaRecursosCotizacion(gestor.getPedidoObraActual());
+        JFreeChart chart = tortaEjec.createGraph();
+        final ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(200, 100));
+        panelGraficoTortaCotizacion.add(chartPanel,BorderLayout.CENTER);
+        
+    }    
     
 }
