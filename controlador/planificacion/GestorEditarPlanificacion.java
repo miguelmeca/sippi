@@ -898,7 +898,11 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
     /**
      * Guarda la Planificacion !
      */
-    public void guardarPlanificacion() {
+    public void guardarPlanificacion(Date inicio, Date fin) {
+        
+        planificacion.setFechaInicio(inicio);
+        planificacion.setFechaFin(fin);
+        
         try
         {
             HibernateUtil.beginTransaction();
