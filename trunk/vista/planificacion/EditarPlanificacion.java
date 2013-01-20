@@ -1253,7 +1253,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         {
             if ((seleccionSave + 1) == 1) {
                 // PRESIONO SI
-                _gestor.guardarPlanificacion();
+                _gestor.guardarPlanificacion(txtFechaInicio.getDate(),txtFechaFin.getDate());
             }
             else{
                 return;
@@ -1711,7 +1711,7 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         if (seleccion != -1) {
             if ((seleccion + 1) == 1) {
                 // PRESIONO SI
-                _gestor.guardarPlanificacion();
+                _gestor.guardarPlanificacion(txtFechaInicio.getDate(),txtFechaFin.getDate());
             } 
         }
 
