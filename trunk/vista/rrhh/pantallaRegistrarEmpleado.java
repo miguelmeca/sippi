@@ -1992,7 +1992,10 @@ if(btnAjustarAncho.isSelected()&&!btnAjustarAltura.isSelected())
                 }
                Object[] obj=new Object[2];
                obj[0]=lstTipoCapacitaciones.get(i);
-               obj[1]=FechaUtil.getFecha(lstVencimientosCapacitaciones.get(i));
+               NTupla fecha=new NTupla(lstTipoCapacitaciones.get(i).getId());
+               fecha.setData(lstVencimientosCapacitaciones.get(i));
+               fecha.setNombre(FechaUtil.getFecha(lstVencimientosCapacitaciones.get(i)));
+               obj[1]=fecha;
               tabCap.addRow(obj);                      
             }
             tablaCapacitaciones.setModel(tabCap);

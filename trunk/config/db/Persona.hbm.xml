@@ -33,10 +33,10 @@
       <!--property column="FECH_BAJA" name="fechaBaja" type="date"/-->
       <property column="FECHA_INGRESO" name="fechaIngreso" type="date"/>
       <property column="RANGO" name="rango" type="string"/>
-      <property column="ESTADO" name="hib_flag_estado" type="string"/>
-      <set name="especialidades">
-        <key column="ID_Empleado"/>
-        <one-to-many class="modelo.Especialidad"/>
+      <property column="ESTADO" name="hib_flag_estado" type="string"/>      
+      <set name="especialidades" table="ESPECIALIDAD_X_EMPLEADO">
+        <key column="ID_Empleado_Especialidad"/>
+        <many-to-many class="modelo.Especialidad"/>
       </set>
       <!--
       <list cascade="all-delete-orphan" name="indumentaria" table="ITEM_INDUMENTARIA">

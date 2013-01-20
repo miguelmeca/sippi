@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -107,4 +108,40 @@ public class DetalleTareaEjecucion extends DetalleTareaPlanificacion{
        double subT=(getCantHorasNormales()+getCantHorasAl50()+getCantHorasAl100());          
        return subT; 
     }
+    
+    public boolean esDiaVacio(Date fechaDelNuevo) throws Exception{
+        boolean encontroFecha=false;
+        for (int i = 0; i < listaDetallePorDia.size(); i++) {
+            DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
+            
+            if(dia.esFecha(fechaDelNuevo)){
+                if(dia.getCantidadDeHorasTotales()!=0.0) {
+                    return true;
+                }
+                encontroFecha=true;
+                break;
+            }
+        }
+        if(encontroFecha){
+            return false;
+        }
+        else{
+            throw new Exception("Fecha inexistente");
+        }
+    }
+    
+    public void crearDetalleTareaXDia(Date fechaDelNuevo, boolean alFinal) {
+        DetalleTareaEjecucionXDia nuevo = new DetalleTareaEjecucionXDia();
+        nuevo.setFecha(fechaDelNuevo);
+        nuevo.setCantHorasNormales(0.0);
+        nuevo.setCantHorasAl50(0.0);
+        nuevo.setCantHorasAl100(0.0);
+
+        if(alFinal) {
+            listaDetallePorDia.add(nuevo);
+        } else {
+            listaDetallePorDia.add(0, nuevo);
+        }
+    }
+    
 }

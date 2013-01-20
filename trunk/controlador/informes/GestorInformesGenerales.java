@@ -521,7 +521,7 @@ public class GestorInformesGenerales {
             if ( po.getCotizaciones() != null) {
                 for (int j = 0; j < po.getCotizaciones().size(); j++) {
                     Cotizacion cot = po.getCotizaciones().get(j);
-                    if (cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO)) {
+                    if (cot.getEstado().equals(Cotizacion.ESTADO_ACEPTADO)) {
                         listaCotizacionesAceptadas.add(cot);
                     }
                 }
@@ -536,7 +536,7 @@ public class GestorInformesGenerales {
             if ( po.getCotizaciones() != null) {
                 for (int j = 0; j < po.getCotizaciones().size(); j++) {
                     Cotizacion cot = po.getCotizaciones().get(j);
-                    if (cot.getEstado().equals(Cotizacion.ESTADO_ACEPTADO)) {
+                    if (cot.getEstado().equals(Cotizacion.ESTADO_RECHAZADO)) {
                         listaCotizacionesRechazadas.add(cot);
                     }
                 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import util.FechaUtil;
 import vista.planificacion.ArbolDeTareasTipos;
 
 //
@@ -199,6 +200,8 @@ public class TareaPlanificacion
         return fechaFin;
     }
 
+    //Solo para hibernate
+    @Deprecated
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
@@ -207,9 +210,12 @@ public class TareaPlanificacion
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    //Solo para hibernate
+    @Deprecated
+    public void setFechaInicio(Date fechaInicio) {        
         this.fechaInicio = fechaInicio;
     }
+    
 
     public int getOrden() {
         return idTareaGantt;
@@ -844,5 +850,71 @@ public class TareaPlanificacion
         this.tareaCopia = tareaCopia;
     }
     
+    
+    public void setearFechaFin(Date fechaFin) {
+        // Si la fecha nueva, es mayor, tengo que crear
+       /* if(FechaUtil.fechaMayorQue(this.getFechaFin(), fechaFin)){
+            // Creo detalles y seteo la fecha de Fin
+            int nuevosDetallesCant = FechaUtil.diasDiferencia(this.getFechaFin(), fechaFin);
+            for (int i = 0; i <= nuevosDetallesCant; i++) {
+                Date fechaDelNuevo = FechaUtil.fechaMas(this.getFechaFin(),i);
+                crearHerramientasXDiaParaFecha(this,fechaDelNuevo);
+                crearDetallesXDiaParaFecha(this,fechaDelNuevo);
+                
+            }
+            
+            this.fechaFin = fechaFin;
+        }else{
+            // Es menor, capaz que pueda borrar
+            this.fechaFin = fechaFin;
+        }
+        this.fechaFin = fechaFin;*/
+    }
+
+    public void setearFechaInicio(Date fechaInicio) { 
+        // Si la fecha nueva, es mayor, tengo que crear
+        if(FechaUtil.fechaMayorQue(this.getFechaFin(), fechaFin)){
+            // Creo detalles y seteo la fecha de Fin
+            int nuevosDetallesCant = FechaUtil.diasDiferencia(this.getFechaFin(), fechaFin);
+            for (int i = 0; i <= nuevosDetallesCant; i++) {
+                Date fechaDelNuevo = FechaUtil.fechaMas(this.getFechaFin(),i);
+                crearHerramientaEjecucionXDiaParaFecha(fechaDelNuevo, false);
+                crearDetalleTareaEjecucionXDiaParaFecha(fechaDelNuevo, false);
+                
+            }
+            
+            this.fechaInicio = fechaInicio;
+        }else{
+            // Es menor, capaz que pueda borrar
+            this.fechaInicio = fechaInicio;
+        }
+    }
+    
+     private void crearDetalleTareaEjecucionXDiaParaFecha(Date fechaDelNuevo, boolean alFinal) {
+        
+        if(alFinal){
+            for (int i = 0; i < this.getDetalles().size(); i++) {
+                DetalleTareaEjecucion dte = (DetalleTareaEjecucion)this.getDetalles().get(i);
+
+                dte.crearDetalleTareaXDia(fechaDelNuevo, alFinal);
+            }
+        }
+    }
+     
+     
+     
+     private void crearHerramientaEjecucionXDiaParaFecha(Date fechaDelNuevo, boolean alFinal) {
+         
+        if(alFinal){
+            for (int i = 0; i < this.getHerramientas().size(); i++) {
+                EjecucionXHerramienta hxe = (EjecucionXHerramienta)this.getHerramientas().get(i);
+
+                hxe.crearHerramientaXDia(fechaDelNuevo, alFinal);
+            }
+        }
+        
+    }
+     
+     
     
 }
