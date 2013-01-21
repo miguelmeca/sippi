@@ -1,11 +1,14 @@
 package vista.gen;
 
 import java.awt.Dimension;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -488,6 +491,11 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
        {
           int id = getIDfromFila(tblLista.getSelectedRow());
           abrirEntidad(id);
+            try {
+                setIcon(true);
+            } catch (PropertyVetoException ex) {
+                System.err.println("No se puede minimizar la ventana..."+ex.getMessage());
+            }
        }
        else
        {
