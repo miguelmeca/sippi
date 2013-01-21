@@ -74,11 +74,15 @@ public class GestorVentanaLanzamiento {
                                     if (allHerramientas.containsKey(hde)) {
                                         // Sumo las horas solamente
                                         int horas = allHerramientas.get(hde);
-                                        horas += herramienta.getHorasAsignadas();
+                                        if(herramienta.getHerramientaPlanificada()!=null){
+                                            horas += herramienta.getHerramientaPlanificada().getHorasAsignadas();
+                                        }
                                         allHerramientas.put(hde, horas);
                                     } else {
                                         // Agrego la herramietna y seteo las horas
-                                        allHerramientas.put(hde, herramienta.getHorasAsignadas());
+                                        if(herramienta.getHerramientaPlanificada()!=null){
+                                            allHerramientas.put(hde, herramienta.getHerramientaPlanificada().getHorasAsignadas());
+                                        }
                                     }
                                 }
                             }
@@ -148,11 +152,15 @@ public class GestorVentanaLanzamiento {
                                 if (allMateriales.containsKey(recesp)) {
                                     // Sumo las horas solamente
                                     int cantidad = allMateriales.get(recesp);
-                                    cantidad += material.getCantidad();
+                                    if(material.getMaterialPlanificado()!=null){
+                                        cantidad += material.getMaterialPlanificado().getCantidad();
+                                    }
                                     allMateriales.put(recesp, cantidad);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allMateriales.put(recesp, material.getCantidad());
+                                    if(material.getMaterialPlanificado()!=null){
+                                        allMateriales.put(recesp, material.getMaterialPlanificado().getCantidad());
+                                    }
                                 }
                             }
                         }
@@ -223,11 +231,15 @@ public class GestorVentanaLanzamiento {
                                 if (allAlqCompras.containsKey(tac)) {
                                     // Sumo las horas solamente
                                     int cantidad = allAlqCompras.get(tac);
-                                    cantidad += alqCompra.getCantidad();
+                                    if(alqCompra.getAlquilerCompraPlanificado()!=null){
+                                        cantidad +=alqCompra.getAlquilerCompraPlanificado().getCantidad();
+                                    }
                                     allAlqCompras.put(tac, cantidad);
                                 } else {
                                     // Agrego la herramietna y seteo las horas
-                                    allAlqCompras.put(tac, alqCompra.getCantidad());
+                                    if(alqCompra.getAlquilerCompraPlanificado()!=null){
+                                        allAlqCompras.put(tac, alqCompra.getAlquilerCompraPlanificado().getCantidad());
+                                    }
                                 }
                             }
                         }
