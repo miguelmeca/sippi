@@ -175,8 +175,14 @@ public class GestorVentanaLanzamiento {
             Map.Entry e = (Map.Entry) it.next();
             //System.out.println(e.getKey() + " " + e.getValue());
             RecursoEspecifico rec = (RecursoEspecifico) e.getKey();
+            
             NTupla nt = new NTupla(rec.hashCode());
-            nt.setNombre(rec.getNombre());
+            String nombreRecurso = rec.getNombreRecurso();
+            if(nombreRecurso.isEmpty()){
+                nt.setNombre(rec.getNombre());
+            }else{
+                nt.setNombre(nombreRecurso +" "+ rec.getNombre());
+            }
 
             int necesarios = (Integer) e.getValue();
             double enstock = calcularStockDeRecursoespecifico(rec);

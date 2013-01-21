@@ -24,6 +24,8 @@ public class RecursoEspecifico implements IComprable {
     private String descipcion;
     private List<RecursoXProveedor> proveedores;
     private transient Recurso recurso;
+    
+    private String nombreDelRecurso;
 
     public RecursoEspecifico() {
         proveedores = new ArrayList<RecursoXProveedor>();
@@ -128,33 +130,37 @@ public class RecursoEspecifico implements IComprable {
      * @author: Iuga
      * @return
      */
-    public Recurso getRecurso()
-    {
-        if(recurso==null){
-           Session sesion;
-           try {
+    public Recurso getRecurso() {
+        if (recurso == null) {
+            Session sesion;
+            try {
                 sesion = HibernateUtil.getSession();
-
-                Recurso RE= (Recurso)HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", this).uniqueResult(); 
-                recurso=RE;
-               }catch(Exception ex)
-               {
-                    return null;
-               }
-          // return null;
+                Recurso RE = (Recurso) HibernateUtil.getSession().createQuery("from Recurso RE where :cID in elements(RE.recursos)").setParameter("cID", this).uniqueResult();
+                recurso = RE;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.err.println("ERROR MUY GRAVE: RecursoEspecifico.getRecurso()");
+                return null;
+            }
         }
-        
+
         return recurso;
-        
+
     }
     
     public String getNombreRecurso()
     {
+        if(nombreDelRecurso!=null){
+            return nombreDelRecurso;
+        }
+        
         Recurso r = getRecurso();
         if(r!=null)
         {
+            this.nombreDelRecurso = r.getNombre();
             return r.getNombre();
         }
+        
         return "";
     }
     
