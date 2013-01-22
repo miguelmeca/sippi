@@ -303,13 +303,18 @@ public class OrdenDeTrabajo extends ReportDesigner {
             RecursoEspecifico recesp = RecursosUtil.getRecursoEspecifico(mat.getMaterial());
             
             if(recesp!=null){
-                paC1.add(new Phrase(recesp.getNombre(), ReportDesigner.FUENTE_NORMAL_CHICA));
+                paC1.add(new Phrase(recesp.getNombreRecurso()+" "+recesp.getNombre(), ReportDesigner.FUENTE_NORMAL_CHICA));
                 PdfPCell celdaC1 = new PdfPCell(paC1);
                 celdaC1.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
                 tabla.addCell(celdaC1);
 
                 Paragraph paC2 = new Paragraph();
-                paC2.add(new Phrase(String.valueOf(mat.getCantidad()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                if(mat.getMaterialCotizacion()!=null){
+                    paC2.add(new Phrase(String.valueOf(mat.getMaterialCotizacion().getCantidad()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                }else{
+                    paC2.add(new Phrase("-", ReportDesigner.FUENTE_NORMAL_CHICA));
+                }
+                
                 PdfPCell celdaC2 = new PdfPCell(paC2);
                 celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                 tabla.addCell(celdaC2);
@@ -386,7 +391,12 @@ public class OrdenDeTrabajo extends ReportDesigner {
                         tabla.addCell(celdaC1);
 
                         Paragraph paC2 = new Paragraph();
-                        paC2.add(new Phrase(String.valueOf(herr.getHorasAsignadas()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                        if(herr.getHerramientaPlanificada()!=null){
+                            paC2.add(new Phrase(String.valueOf(herr.getHerramientaPlanificada().getHorasAsignadas()), ReportDesigner.FUENTE_NORMAL_CHICA));
+                        }else{
+                            paC2.add(new Phrase("-", ReportDesigner.FUENTE_NORMAL_CHICA));
+                        }
+                        
                         PdfPCell celdaC2 = new PdfPCell(paC2);
                         celdaC2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                         celdaC2.setRowspan(cantDias);
