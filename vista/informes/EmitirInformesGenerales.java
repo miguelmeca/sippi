@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import util.FechaUtil;
 import util.NTupla;
 import util.Tupla;
@@ -29,6 +30,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private static final int INFORME_OBRAS_POR_YEAR = 3;
     private static final int INFORME_CONTROL_OBRAS = 4;
     private static final int INFORME_BENEFICIOS_OBRAS = 5;
+    private static final int INFORME_CARGAHORARIA_EMPLEADOS = 6;
     GestorInformesGenerales _gestor;
     
     /**
@@ -47,6 +49,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         pb.setVisible(false);
         _gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
         mostrarClientes();
+        mostrarEmpleados();
     }
 
     /**
@@ -105,6 +108,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel16 = new javax.swing.JPanel();
         btnEmitirGanancias3 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        btnEmitirHorasEmpleado = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        cmbEmpleados = new javax.swing.JComboBox();
         btnCerrar = new javax.swing.JButton();
         pb = new javax.swing.JProgressBar();
         jPanel5 = new javax.swing.JPanel();
@@ -113,10 +123,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         filtroFechaFin = new com.toedter.calendar.JDateChooser();
 
-        setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Informes");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -166,7 +173,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel14)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmitirGanancias))
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -400,11 +407,11 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
@@ -492,7 +499,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEmitirGanancias1)))
                 .addContainerGap())
@@ -522,7 +529,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -545,7 +552,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmitirGanancias3)
                 .addContainerGap())
@@ -575,10 +582,80 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addContainerGap(461, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("De las Obras", jPanel13);
+
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas asignadas a empleados por mes"));
+
+        btnEmitirHorasEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitirHorasEmpleado.setText("Emitir");
+        btnEmitirHorasEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirHorasEmpleadoActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("<HTML><BODY>El informe analiza mes por mes, la carga horaria por mes de los empleados que se encuentran asignados a las obras.");
+
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Filtros Particulares:")));
+
+        jLabel23.setText("Empleados:");
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbEmpleados, 0, 190, Short.MAX_VALUE)
+                .addGap(247, 247, 247))
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel23)
+                .addComponent(cmbEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEmitirHorasEmpleado))
+            .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEmitirHorasEmpleado)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 427, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Recursos Humanos", jPanel10);
 
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/block.png"))); // NOI18N
         btnCerrar.setText("Cerrar");
@@ -688,13 +765,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         emitirInforme(INFORME_CONTROL_OBRAS);
     }//GEN-LAST:event_btnEmitirGanancias3ActionPerformed
 
-    private void btnEmitirCotizacionesRechazadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirCotizacionesRechazadas1ActionPerformed
-        emitirInforme(INFORME_BENEFICIOS_OBRAS);
-    }//GEN-LAST:event_btnEmitirCotizacionesRechazadas1ActionPerformed
-
     private void btnObrasPorYear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasPorYear1ActionPerformed
          emitirInforme(INFORME_BENEFICIOS_OBRAS);
     }//GEN-LAST:event_btnObrasPorYear1ActionPerformed
+
+    private void btnEmitirHorasEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirHorasEmpleadoActionPerformed
+        emitirInforme(INFORME_CARGAHORARIA_EMPLEADOS);
+    }//GEN-LAST:event_btnEmitirHorasEmpleadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
@@ -702,9 +779,11 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEmitirGanancias;
     private javax.swing.JButton btnEmitirGanancias1;
     private javax.swing.JButton btnEmitirGanancias3;
+    private javax.swing.JButton btnEmitirHorasEmpleado;
     private javax.swing.JButton btnObrasPorYear;
     private javax.swing.JButton btnObrasPorYear1;
     private javax.swing.JComboBox cboClientesInformeBeneficios;
+    private javax.swing.JComboBox cmbEmpleados;
     private com.toedter.calendar.JDateChooser filtroFechaFin;
     private com.toedter.calendar.JDateChooser filtroFechaInicio;
     private javax.swing.JRadioButton filtroProductoPorCantidad;
@@ -723,12 +802,15 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -738,6 +820,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -921,6 +1005,31 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                         });
                         thread5.start();
                     break;                       
+                    
+                case INFORME_CARGAHORARIA_EMPLEADOS:
+                        Thread thread7 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+
+                                    NTupla tEmpleado = (NTupla)cmbEmpleados.getSelectedItem();
+                                    
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformeCargaHorariaEmpleados(tEmpleado.getId());
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                
+                                }catch(HibernateException e){   
+                                    System.err.println("ERROR HIBERNATE:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><BODY><b>Error al generar el informe. "
+                                                                                + "Contacte al administrador</b>\n");
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread7.start();
+                    break;   
             }
         
     }
@@ -1020,5 +1129,26 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         }
         cboClientesInformeBeneficios.setModel(valores);
 
+    }
+    
+    private void mostrarEmpleados()
+    {
+        DefaultComboBoxModel valores = new DefaultComboBoxModel();
+        
+        NTupla tuplaTodos = new NTupla(0);
+        tuplaTodos.setNombre("Todos");
+        valores.addElement(tuplaTodos);
+        List<NTupla> lista = new ArrayList<NTupla>();
+        try{
+            lista = _gestor.mostrarEmpleados();
+        } catch(Exception e){
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","Ocurrio un error cargando el listado de empleados");
+        }
+        Iterator<NTupla> it = lista.iterator();
+        while(it.hasNext()){
+            NTupla tu = it.next();
+            valores.addElement(tu);
+        }
+        cmbEmpleados.setModel(valores);
     }
 }

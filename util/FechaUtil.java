@@ -66,6 +66,30 @@ public class FechaUtil {
         return DATE_FORMAT.format(fechaDate);
     }
     
+    public static String getYear(Date fecha)
+    {
+        DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+
+        return DATE_FORMAT.format(fecha);
+    }
+    
+    public static String getMonth(Date fecha)
+    {
+        DATE_FORMAT = new SimpleDateFormat("MM", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+
+        return DATE_FORMAT.format(fecha);
+    }
+    
+    public static String getDay(Date fecha)
+    {
+        DATE_FORMAT = new SimpleDateFormat("dd", new Locale("es_ES"));
+        DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
+
+        return DATE_FORMAT.format(fecha);
+    }
+    
     public static String getFecha(Date d)
     {
         if(d!=null)
