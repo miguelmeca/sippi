@@ -58,10 +58,8 @@ public class InformeHorasEjecutadasPorEmpleado extends ReportDesigner{
     private void mostrarObjetivoDelInforme() throws DocumentException {
         Paragraph PTitulo = new Paragraph();
         PTitulo.setAlignment(Paragraph.ALIGN_LEFT);      
-        PTitulo.add( new Phrase("El presente informe "
-                + "pretende realizar un gráfico comparativo "
-                + "de las horas trabajadas de los empleados "
-                + "seleccionados por mes.",ReportDesigner.FUENTE_INFORMES_NORMAL));
+        PTitulo.add( new Phrase("Gráfico comparativo de las horas "
+                + "trabajadas por los empleados por mes.",ReportDesigner.FUENTE_INFORMES_NORMAL));
         super.doc.add(PTitulo);
     }    
 
