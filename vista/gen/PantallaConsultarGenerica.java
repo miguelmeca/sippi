@@ -460,6 +460,12 @@ public abstract class PantallaConsultarGenerica extends javax.swing.JInternalFra
                     // Llamo al abrir!
                     abrirEntidad(id);
                 }
+                
+                try {
+                    setIcon(true);
+                } catch (PropertyVetoException ex) {
+                    System.err.println("No se puede minimizar la ventana..."+ex.getMessage());
+                }
            }
         }
     }//GEN-LAST:event_tblListaMouseReleased

@@ -54,7 +54,7 @@ public class GestorPlanificacionHerramientas implements IGestorPlanificacion{
             if(herr.getHerramientaCotizacion()!=null && herr.getHerramientaCotizacion().getHerramienta()!=null)
             {
                 NTupla nt = new NTupla(herr.hashCode());
-                nt.setNombre(herr.getHerramientaCotizacion().getHerramienta().getNombre()+"("+herr.getHerramientaCotizacion().getHerramienta().getNroSerie()+")");
+                nt.setNombre(herr.getHerramientaCotizacion().getHerramienta().getNombre()+": "+herr.getHerramientaCotizacion().getHerramienta().getNroSerie());
                 String[] datos = new String[1];
                 datos[0] = String.valueOf(herr.getHorasAsignadas());
                 nt.setData(datos);

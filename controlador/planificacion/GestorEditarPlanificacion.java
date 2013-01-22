@@ -210,7 +210,10 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                         List<SubObraXHerramienta> listaHerramientas = som.getHerramientas();
                         for (int j = 0; j < listaHerramientas.size(); j++) {
                             SubObraXHerramienta herr = (SubObraXHerramienta)listaHerramientas.get(j);
-                            TreeEntry subNodoHerramientas = new TreeEntry(herr.getHerramienta().getRecursoEsp().getNombre() + ":" +herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
+                            TreeEntry subNodoHerramientas = new TreeEntry(
+                                    herr.getHerramienta().getNombre()
+                                    + ": " 
+                                    + herr.getHerramienta().getNroSerie(),Iconos.ICONO_HERRAMIENTA);
                             //subNodoHerramientas.setId(herr.getId());
                             subNodoHerramientas.setId(herr.hashCode());
                             subNodoHerramientas.setTipo(ArbolDeTareasTipos.TIPO_HERRAMIENTA);
@@ -528,7 +531,7 @@ public class GestorEditarPlanificacion extends GestorAbstracto implements IGesto
                     for (int j = 0; j < cantHeramientas; j++) 
                     {
                         PlanificacionXHerramienta herramienta=tarea.getHerramientas().get(j);
-                        ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,(herramienta.getHerramientaCotizacion().getHerramienta().getRecursoEsp().getNombre() + ":" +herramienta.getHerramientaCotizacion().getHerramienta().getNroSerie())/*herramienta.toString()*/,Iconos.ICONO_HERRAMIENTA);
+                        ArbolIconoNodo nodoHerramienta = new ArbolIconoNodo(herramienta.hashCode(),ArbolDeTareasTipos.TIPO_HERRAMIENTA,(herramienta.getHerramientaCotizacion().getHerramienta().getNombre() + ": " +herramienta.getHerramientaCotizacion().getHerramienta().getNroSerie())/*herramienta.toString()*/,Iconos.ICONO_HERRAMIENTA);
                         modelo.insertNodeInto(nodoHerramienta, nodoHerramientas, j);
                     }
                     contadorTipoRecursosCargados++;
