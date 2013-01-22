@@ -13,6 +13,7 @@ package vista.cotizacion;
 
 import controlador.cotizacion.GestorCotizacionHerramientas;
 import controlador.planificacion.PlanificacionUtils;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -130,8 +131,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel4.setText("Horas Necesarias (*)");
 
-        txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
         txtSubTotalConcepto.setEditable(false);
+        txtSubTotalConcepto.setBackground(new java.awt.Color(204, 204, 255));
 
         txtCostoHora.setEnabled(false);
         txtCostoHora.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +226,7 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Herramienta", "Horas", "Costo x Hora", "Subtotal"
+                "Herramienta", "Horas", "Costo x Hora ($)", "Subtotal ($)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -240,8 +241,8 @@ public class CotizacionHerramientas extends javax.swing.JPanel {
 
         jLabel20.setText("Subtotal Herramientas   $");
 
-        txtSubTotal.setBackground(new java.awt.Color(204, 204, 255));
         txtSubTotal.setEditable(false);
+        txtSubTotal.setBackground(new java.awt.Color(204, 204, 255));
         txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubTotalActionPerformed(evt);
@@ -574,7 +575,12 @@ private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         
         // muestro el total calculado
-        txtSubTotal.setText(String.valueOf(total));
+        if(total!=0){
+            DecimalFormat df = new DecimalFormat("#.00");
+            txtSubTotal.setText(df.format(total).replaceAll(",","."));
+        }else{
+            txtSubTotal.setText("0"); 
+        }
     
     }
 

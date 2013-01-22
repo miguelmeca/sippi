@@ -6,6 +6,7 @@ package controlador.cotizacion;
 
 import controlador.planificacion.PlanificacionUtils;
 import controlador.planificacion.cotizacion.GestorEditarCotizacionModificada;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -184,7 +185,9 @@ public class GestorCotizacionHerramientas implements IGestorCotizacion{
 //                    data[0] =  String.valueOf(detalle.getCantDias());
                     data[0] =  String.valueOf(detalle.getCantHoras());
                     data[1] =  String.valueOf(detalle.getCostoXHora());
-                    data[2] =  String.valueOf(detalle.calcularSubtotal());
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    data[2] =  df.format(detalle.calcularSubtotal()).replaceAll(",",".");
+                    
                 tp.setData(data);
                 listaFilas.add(tp);
         }

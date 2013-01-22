@@ -200,10 +200,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtSubTotalConcepto">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCostoHora">
@@ -301,8 +301,8 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="Herramienta" type="java.lang.Object"/>
                     <Column editable="false" title="Horas" type="java.lang.Object"/>
-                    <Column editable="false" title="Costo x Hora" type="java.lang.Object"/>
-                    <Column editable="false" title="Subtotal" type="java.lang.Object"/>
+                    <Column editable="false" title="Costo x Hora ($)" type="java.lang.Object"/>
+                    <Column editable="false" title="Subtotal ($)" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -348,10 +348,10 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtSubTotal">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSubTotalActionPerformed"/>
