@@ -6,12 +6,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import modelo.Cotizacion;
+import modelo.DetalleTareaEjecucion;
+import modelo.DetalleTareaEjecucionXDia;
+import modelo.DetalleTareaPlanificacion;
+import modelo.Ejecucion;
+import modelo.Empleado;
 import modelo.EmpresaCliente;
 import modelo.PedidoObra;
 import modelo.Planta;
 import modelo.SubObra;
+import modelo.TareaEjecucion;
+import modelo.TareaPlanificacion;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -23,6 +31,7 @@ import vista.reportes.ReportDesigner;
 import vista.reportes.sources.InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones;
 import vista.reportes.sources.InformeCantidadCotizacionesRechazadas;
 import vista.reportes.sources.InformeCompletoControl;
+import vista.reportes.sources.InformeHorasEjecutadasPorEmpleado;
 import vista.reportes.sources.InformeGeneralDeGanancias;
 import vista.reportes.sources.InformeObrasPorAnio;
 
@@ -514,6 +523,33 @@ public class GestorInformesGenerales {
 
     }
     
+    public List<NTupla> mostrarEmpleados() throws Exception{
+       
+        List<Empleado> listaEmpleados = new ArrayList<Empleado>();
+        List<NTupla> listaTuplasEmpleados = new ArrayList<NTupla>();
+        try {
+            HibernateUtil.beginTransaction();
+            listaEmpleados = (List) HibernateUtil.getSession().createQuery("FROM Empleado").list();
+            HibernateUtil.commitTransaction();
+        } catch (Exception e) {
+            HibernateUtil.rollbackTransaction();
+            System.err.println("Error:" + e.getMessage());
+            throw new Exception("No se pudo cargar correctamente el listado de empleados", e);
+        }
+        
+        for (Empleado empleado : listaEmpleados) {
+//            if(empleado.estaActivo())
+//            {
+                NTupla t= new NTupla(empleado.getoId());
+                t.setNombre(empleado.getNombreEmpleado());
+                t.setData(empleado);
+                listaTuplasEmpleados.add(t);
+//            }
+        }
+        
+        return listaTuplasEmpleados;
+    }
+    
     private List<Cotizacion> obtenerCotizacionesAceptadas(List<PedidoObra> lpo) {
         List<Cotizacion> listaCotizacionesAceptadas = new ArrayList<Cotizacion>();
         for (PedidoObra po:lpo) {        
@@ -543,5 +579,110 @@ public class GestorInformesGenerales {
             }
         }
         return listaCotizacionesRechazadas;
+    }
+    
+    /**
+     * Método que permite dibujar el informe de Carga Horaria de Empleados
+     * Por mes en base al id del empleado seleccionado. Si el id es = 0 entonces
+     * se muestran la información de todos los empleados que hayan trabajado en
+     * el periodo determinado por fechaInicio y fechaFin
+     * @param id del Empleado seleccionado
+     * @throws Exception Mensajes al usuario de fallas o ausencia de errores
+     */
+    public void generarInformeCargaHorariaEmpleados(int id) throws Exception{
+        
+        HashMap<Integer,HashMap<String,Integer>> empleados = new HashMap<Integer,HashMap<String,Integer>>();
+        List detallesEjecucion = null;
+
+        HibernateUtil.beginTransaction();
+        HibernateUtil.getSession().get(Empleado.class, id);
+        if(id == 0) // Mostrar Todos
+        {   
+            detallesEjecucion = (List) HibernateUtil.getSession()
+                    .createQuery("SELECT dte FROM DetalleTareaEjecucion AS dte INNER JOIN "
+                    + "dte.listaDetallePorDia AS dteXDia "
+                    + "WHERE dteXDia.fecha BETWEEN :fechaInicio AND :fechaFin "
+                    + "AND dte.empleados IS NOT EMPTY")
+                    .setParameter("fechaInicio", fechaInicio)
+                    .setParameter("fechaFin", fechaFin)
+                    .list();                
+        }
+        else // Mostrar sólo el seleccionado
+        { 
+            detallesEjecucion = (List) HibernateUtil.getSession()
+                    .createQuery("FROM DetalleTareaEjecucion "
+                    + "WHERE :empleado in elements (empleados) "
+                    + "AND empleados IS NOT EMPTY")
+                    .setParameter("empleado", id)
+                    .list();
+        }
+        HibernateUtil.commitTransaction();
+
+        // Si no hay ningún dato en ejecución me evito el procesamiento.
+        if(detallesEjecucion == null || detallesEjecucion.isEmpty()) 
+        {
+            throw new Exception("<HTML><BODY>No se encontraron datos "
+                + "de asignaciones de empleados en la fechas seleccionadas.");
+        }
+        
+        ArrayList<Integer> detallesXDiaYaVisitados = new ArrayList<Integer>();
+        for( int i = 0 ; i < detallesEjecucion.size() ; i++)
+        {
+            DetalleTareaEjecucion detalle = (DetalleTareaEjecucion) detallesEjecucion.get(i);
+            
+            // Obtenemos el id del empleado asociado
+            int idEmpleado = 0;
+            for(int m = 0; m < detalle.getEmpleados().size() ; m++)
+            {
+                if(m > 0) {throw new Exception("Existe más de un empleado asociado a una detalleTareaEjecución");}
+
+                Empleado emp = detalle.getEmpleados().get(m);
+                idEmpleado = emp.getoId();
+            }
+
+            // Sumamos las horas de trabajo del empleado
+            HashMap<String,Integer> prevHorasEmpleado = (HashMap<String,Integer>)empleados.get(idEmpleado);
+            if(prevHorasEmpleado == null)
+            {
+                prevHorasEmpleado = new HashMap<String, Integer>();
+            }
+            for(int j=0 ; j < detalle.getListaDetallePorDia().size() ; j++ )
+            {
+                DetalleTareaEjecucionXDia detalleXDia = detalle.getListaDetallePorDia().get(j);
+
+                if(!detallesXDiaYaVisitados.contains(detalleXDia.getId()))
+                {
+                    int horas = 0;
+                    horas += detalleXDia.getCantHorasNormales();
+                    horas += detalleXDia.getCantHorasAl50();
+                    horas += detalleXDia.getCantHorasAl100();
+
+                    Integer cantHorasPrev = prevHorasEmpleado.get(FechaUtil.getMaskedDate("MM-yyyy",detalleXDia.getFecha()));
+
+                    // Si fuera la primera vez que se trabaja con esta fecha
+                    // se la crea desde 0
+                    if(cantHorasPrev == null)
+                    {
+                        cantHorasPrev = new Integer(0);
+                    }
+                    prevHorasEmpleado.put(FechaUtil.getMaskedDate("MM-yyyy",detalleXDia.getFecha()), cantHorasPrev + horas);
+                    
+                    detallesXDiaYaVisitados.add(detalleXDia.getId());
+                }
+            }
+            empleados.put(idEmpleado, prevHorasEmpleado);
+        }
+
+        datos.put("EMPLEADOS", empleados);
+
+        InformeHorasEjecutadasPorEmpleado reporte = new InformeHorasEjecutadasPorEmpleado(InformeHorasEjecutadasPorEmpleado.INFORME_MENSUAL);
+        try {
+            reporte.setNombreReporte("Horas Ejecutadas de Empleados por Mes");
+            reporte.setNombreArchivo("HorasEjecutadasDeEmpleadosPorMes", ReportDesigner.REPORTE_TIPO_OTROS);
+            reporte.makeAndShow(datos);
+        } catch (Exception ex) {
+            System.err.println("Error al generar el reporte");
+            throw new Exception("Se produjo un error al generar el Reporte", ex);
+        }
     }
 }
