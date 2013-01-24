@@ -480,7 +480,18 @@ public class GestorEjecucion {
                        
                           
                                     NTupla nt = new NTupla(alquilerEjecucion.hashCode());
-                                    nt.setNombre(alquilerEjecucion.getDescripcion());
+                                    String nombre;
+                                    if(!alquilerEjecucion.getAlquilerCompraPlanificado().getDescripcion().equals(""))
+                                    {
+                                        nombre = alquilerEjecucion.getTipoAlquilerCompra().getNombre() 
+                                            + " - " 
+                                            + alquilerEjecucion.getAlquilerCompraPlanificado().getDescripcion();
+                                    }
+                                    else
+                                    {
+                                        nombre = alquilerEjecucion.getTipoAlquilerCompra().getNombre(); 
+                                    }
+                                    nt.setNombre(nombre);
                                     nt.setData(alquilerEjecucion); 
                                     
                                     Object[] data = new Object[5];
