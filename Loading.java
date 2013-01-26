@@ -37,7 +37,7 @@ public class Loading extends javax.swing.JFrame {
         // Tienen que sumar 100
         CargarLibrerias(10,"Cargando Librerías...");
         CargarHibernate(50,"Cargando Hibernate...");
-        CargarEjemplos(40,"Cargando Datos iniciales...");
+        CargarEjemplos(40,"Verificando Datos Necesarios...");
 
         // Termino
         LanzarSistema();
@@ -59,49 +59,52 @@ public class Loading extends javax.swing.JFrame {
 
     private void CargarEjemplos(int i, String txt)
     {
-       int seleccion = -1;
-        
-       String conn = HibernateUtil.getCadenaConexion();
-       
-       // Si la base de datos es en memoria, siempre tengo que cargar los datos
-       // asi que ni pregunto, los cargo de una
-       if(conn.equals("jdbc:hsqldb:mem:testdb"))
-       {
-           seleccion = 0;
-       }
-       else
-       {
-            seleccion = JOptionPane.showOptionDialog(
-                       this,
-                       "¿Desea cargar los datos de prueba / Inicialización?",
-                       "Seleccione una opción",
-                       JOptionPane.YES_NO_CANCEL_OPTION,
-                       JOptionPane.QUESTION_MESSAGE,
-                       null,    // null para icono por defecto.
-                       new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
-                       "Si");
-       }
-        if (seleccion != -1)
-        {
-            if((seleccion + 1)==1)
-            {
-                lblMsg.setText(txt);
-                this.update(this.getGraphics());
-
-                test.DBExamplesLoader load = new DBExamplesLoader();
-                load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
-                jpb.setValue(jpb.getValue()+i);
-
-                setProgress(jpb.getValue()+i);
-                this.update(this.getGraphics());
-            }
-            else
-            {
-                // PRESIONO NO
-            }
-        }
-
-
+        lblMsg.setText(txt);
+        jpb.setValue(jpb.getValue()+i);
+        setProgress(jpb.getValue()+i);
+        this.update(this.getGraphics());
+           
+//       int seleccion = -1;
+//        
+//       String conn = HibernateUtil.getCadenaConexion();
+//       
+//       // Si la base de datos es en memoria, siempre tengo que cargar los datos
+//       // asi que ni pregunto, los cargo de una
+//       if(conn.equals("jdbc:hsqldb:mem:testdb"))
+//       {
+//           seleccion = 0;
+//       }
+//       else
+//       {
+//            seleccion = JOptionPane.showOptionDialog(
+//                       this,
+//                       "¿Desea cargar los datos de prueba / Inicialización?",
+//                       "Seleccione una opción",
+//                       JOptionPane.YES_NO_CANCEL_OPTION,
+//                       JOptionPane.QUESTION_MESSAGE,
+//                       null,    // null para icono por defecto.
+//                       new Object[] { "Si", "No"},   // null para YES, NO y CANCEL
+//                       "Si");
+//       }
+//        if (seleccion != -1)
+//        {
+//            if((seleccion + 1)==1)
+//            {
+//                lblMsg.setText(txt);
+//                this.update(this.getGraphics());
+//
+//                test.DBExamplesLoader load = new DBExamplesLoader();
+//                load.cargarEjemplos(); // AHORA CARGA TODOS LOS EJEMPLOS
+//                jpb.setValue(jpb.getValue()+i);
+//
+//                setProgress(jpb.getValue()+i);
+//                this.update(this.getGraphics());
+//            }
+//            else
+//            {
+//                // PRESIONO NO
+//            }
+//        }
     }
 
     private void habilitarVentana()
