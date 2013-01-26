@@ -12,6 +12,7 @@
 package vista.cotizacion;
 
 import controlador.cotizacion.GestorEditarCotizacion;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -226,7 +227,12 @@ public class EditarCotizacion extends javax.swing.JInternalFrame {
     
     public void actualizar()
     {
-        setMontoTotal(Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
+        DecimalFormat df = new DecimalFormat("#.00");
+        
+        double subTotal = gestor.calcularSubtotalSubObra();
+        String montoSubTotal = df.format(subTotal).replaceAll(",",".");
+        setMontoTotal(montoSubTotal.replaceAll(",","."));
+        //setMontoTotal(Double.toString(gestor.calcularSubtotalSubObra()).replace(".", ","));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
