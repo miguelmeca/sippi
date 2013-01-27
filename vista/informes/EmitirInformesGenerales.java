@@ -17,6 +17,7 @@ import org.hibernate.HibernateException;
 import util.FechaUtil;
 import util.NTupla;
 import util.Tupla;
+import vista.reportes.sources.InformeComprasPorMes;
 
 /**
  *
@@ -31,6 +32,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private static final int INFORME_CONTROL_OBRAS = 4;
     private static final int INFORME_BENEFICIOS_OBRAS = 5;
     private static final int INFORME_CARGAHORARIA_EMPLEADOS = 6;
+    private static final int INFORME_COMPRAS_POR_MES = 7;
     GestorInformesGenerales _gestor;
     
     /**
@@ -104,6 +106,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         filtroProductoPorMonto = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         spinnerProdXProv = new javax.swing.JSpinner();
+        jPanel24 = new javax.swing.JPanel();
+        btnEmitirComprasPorMes = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         btnEmitirGanancias3 = new javax.swing.JButton();
@@ -411,7 +416,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("<HTML><b>Informes Generales</b>", jPanel1);
@@ -515,13 +520,45 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder("Compras Mensuales"));
+
+        btnEmitirComprasPorMes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/iconos/var/16x16/print.png"))); // NOI18N
+        btnEmitirComprasPorMes.setText("Emitir");
+        btnEmitirComprasPorMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmitirComprasPorMesActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("<HTML><BODY>El informe muestra una serie de gráficos con las compras realizadas durante el periodo seleccionado, discriminando luego de un cálculo de compras mensuales totales a cada uno de los recursos.");
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEmitirComprasPorMes))
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEmitirComprasPorMes)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -529,7 +566,9 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Compras", jPanel3);
@@ -582,7 +621,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addContainerGap(469, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("De las Obras", jPanel13);
@@ -651,8 +690,8 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 427, Short.MAX_VALUE))
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 438, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Recursos Humanos", jPanel10);
@@ -773,8 +812,13 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
         emitirInforme(INFORME_CARGAHORARIA_EMPLEADOS);
     }//GEN-LAST:event_btnEmitirHorasEmpleadoActionPerformed
 
+    private void btnEmitirComprasPorMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmitirComprasPorMesActionPerformed
+        emitirInforme(INFORME_COMPRAS_POR_MES);
+    }//GEN-LAST:event_btnEmitirComprasPorMesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEmitirComprasPorMes;
     private javax.swing.JButton btnEmitirCotizacionesRechazadas;
     private javax.swing.JButton btnEmitirGanancias;
     private javax.swing.JButton btnEmitirGanancias1;
@@ -804,6 +848,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -822,6 +867,7 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1029,6 +1075,29 @@ public class EmitirInformesGenerales extends javax.swing.JInternalFrame {
                             }
                         });
                         thread7.start();
+                    break;   
+                    
+                    case INFORME_COMPRAS_POR_MES:
+                        Thread thread8 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    
+                                    GestorInformesGenerales gestor = new GestorInformesGenerales(filtroFechaInicio.getDate(),filtroFechaFin.getDate());
+                                    gestor.generarInformeComprasPorMes();
+                                    concluirEmision(JOptionPane.INFORMATION_MESSAGE,"<HTML>Se concluyo con <b>éxito</b> la generación del Informe");
+                                
+                                }catch(HibernateException e){   
+                                    System.err.println("ERROR HIBERNATE:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><BODY><b>Error al generar el informe. "
+                                                                                + "Contacte al administrador</b>\n");
+                                }catch(Exception e){
+                                    System.err.println("ERROR:" + e.getMessage());
+                                    concluirEmision(JOptionPane.ERROR_MESSAGE,"<HTML><b>Error al generar el informe:</b>\n"+e.getMessage());
+                                }
+                            }
+                        });
+                        thread8.start();
                     break;   
             }
         

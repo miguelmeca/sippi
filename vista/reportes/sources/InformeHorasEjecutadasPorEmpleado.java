@@ -134,7 +134,11 @@ public class InformeHorasEjecutadasPorEmpleado extends ReportDesigner{
                     dataset.addSeries(timeSerie);
                 }
 
-                GraficoDeLineasSerieDeTiempo gl = new GraficoDeLineasSerieDeTiempo("", dataset);
+                GraficoDeLineasSerieDeTiempo gl =
+                        new GraficoDeLineasSerieDeTiempo(
+                        "",
+                        dataset,
+                        GraficoDeLineasSerieDeTiempo.ETIQUETA_HORAS);
                 JFreeChart chart = gl.createGraph();
 
                 super.insertarGraficoCentrado(chart,500,180);
