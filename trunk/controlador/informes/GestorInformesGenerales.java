@@ -6,33 +6,32 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import modelo.Cotizacion;
 import modelo.DetalleTareaEjecucion;
 import modelo.DetalleTareaEjecucionXDia;
-import modelo.DetalleTareaPlanificacion;
-import modelo.Ejecucion;
 import modelo.Empleado;
 import modelo.EmpresaCliente;
+import modelo.Herramienta;
+import modelo.ItemComprable;
+import modelo.Material;
 import modelo.PedidoObra;
 import modelo.Planta;
-import modelo.SubObra;
-import modelo.TareaEjecucion;
-import modelo.TareaPlanificacion;
+import modelo.Recurso;
+import modelo.RecursoEspecifico;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.jfree.data.category.DefaultCategoryDataset;
 import util.FechaUtil;
 import util.HibernateUtil;
 import util.NTupla;
-import util.Tupla;
 import vista.reportes.ReportDesigner;
 import vista.reportes.sources.InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones;
 import vista.reportes.sources.InformeCantidadCotizacionesRechazadas;
 import vista.reportes.sources.InformeCompletoControl;
-import vista.reportes.sources.InformeHorasEjecutadasPorEmpleado;
+import vista.reportes.sources.InformeComprasPorMes;
 import vista.reportes.sources.InformeGeneralDeGanancias;
+import vista.reportes.sources.InformeHorasEjecutadasPorEmpleado;
 import vista.reportes.sources.InformeObrasPorAnio;
 
 /**
@@ -44,6 +43,8 @@ public class GestorInformesGenerales {
     private Date fechaInicio;
     private Date fechaFin;
     private HashMap<String, Object> datos;
+    
+    public final static String SELECCIONE_UN_TIPO_RECURSO = "Seleccione un tipo de recurso...";
 
     public GestorInformesGenerales(Date fechaInicio, Date fechaFin) {
         this.datos = new HashMap<String, Object>();
@@ -595,7 +596,7 @@ public class GestorInformesGenerales {
         List detallesEjecucion = null;
 
         HibernateUtil.beginTransaction();
-        HibernateUtil.getSession().get(Empleado.class, id);
+//        HibernateUtil.getSession().get(Empleado.class, id);
         if(id == 0) // Mostrar Todos
         {   
             detallesEjecucion = (List) HibernateUtil.getSession()
@@ -679,6 +680,87 @@ public class GestorInformesGenerales {
         try {
             reporte.setNombreReporte("Horas Ejecutadas de Empleados por Mes");
             reporte.setNombreArchivo("HorasEjecutadasDeEmpleadosPorMes", ReportDesigner.REPORTE_TIPO_OTROS);
+            reporte.makeAndShow(datos);
+        } catch (Exception ex) {
+            System.err.println("Error al generar el reporte");
+            throw new Exception("Se produjo un error al generar el Reporte", ex);
+        }
+    }
+    
+    /**
+     * Método que permite crear el informe de Compras por Mes en base al tipo
+     * de recurso seleccionado. Entre ellos encontramos; Materiales, Herramientas
+     * Alquileres/Compras y Gastos Varios.
+     * @param tipoRecurso EL tipo de Recurso a Asociar
+     * @throws Exception 
+     */
+    public void generarInformeComprasPorMes() throws Exception{
+        
+        HashMap<String,HashMap<String,Double>> compras = new HashMap<String,HashMap<String,Double>>();
+                     
+        HibernateUtil.beginTransaction(); 
+        List<Object> recepciones = (List) HibernateUtil.getSession()
+                .createQuery("SELECT (droc.cantidad * doc.precioUnitario) "
+                + "AS precio, roc.fechaRecepcion, ic.id "
+                + "FROM RecepcionOrdenDeCompra AS roc "
+                + "INNER JOIN roc.recepcionesParciales AS droc "
+                + "INNER JOIN droc.detalleOrdenDeCompra AS doc "
+                + "INNER JOIN doc.item AS ic "
+                + "WHERE roc.fechaRecepcion BETWEEN :fechaInicio AND :fechaFin")
+                .setParameter("fechaInicio", fechaInicio)
+                .setParameter("fechaFin", fechaFin)
+                .list();   
+
+        HibernateUtil.commitTransaction();
+       
+        for(int i=0; i < recepciones.size(); i++)
+        {
+            Object[] object = (Object[])recepciones.get(i);
+            Double precio = (Double) object[0];
+            Date fechaRecepcion = (Date) object[1];
+            int idItemComprable = (Integer) object[2];
+            
+            ItemComprable itemComprable = (ItemComprable) HibernateUtil.getSession().get(ItemComprable.class, idItemComprable);
+            Object item = itemComprable.getItem();
+            
+            Class itemClass = item.getClass();
+            
+            if(item instanceof RecursoEspecifico)
+            {
+                RecursoEspecifico re = (RecursoEspecifico) item;
+                Recurso r = re.getRecurso();
+                
+                if(r instanceof Herramienta)
+                {
+                    itemClass = Herramienta.class;
+                }
+                if(r instanceof Material)
+                {
+                    itemClass = Material.class;
+                }
+            }
+            
+            HashMap<String,Double> compra = compras.get(FechaUtil.getMaskedDate("MM-yyyy",fechaRecepcion));
+            if(compra == null)
+            {
+                compra = new HashMap<String, Double>();
+            }
+            Double precioAnterior = compra.get(itemClass.getName());
+            if(precioAnterior == null)
+            {
+                precioAnterior = new Double(0d);
+            }
+            
+            compra.put(itemClass.getName(), precioAnterior + precio);
+            compras.put(FechaUtil.getMaskedDate("MM-yyyy",fechaRecepcion), compra);
+        }
+
+        datos.put("COMPRAS", compras);
+
+        InformeComprasPorMes reporte = new InformeComprasPorMes();
+        try {
+            reporte.setNombreReporte("Compras Mensuales");
+            reporte.setNombreArchivo("ComprasMensuales", ReportDesigner.REPORTE_TIPO_OTROS);
             reporte.makeAndShow(datos);
         } catch (Exception ex) {
             System.err.println("Error al generar el reporte");
