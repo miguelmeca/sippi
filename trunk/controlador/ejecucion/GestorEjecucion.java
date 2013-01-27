@@ -444,7 +444,7 @@ public class GestorEjecucion {
                        
                           
                                     NTupla nt = new NTupla(materialEjecucion.hashCode());
-                                    nt.setNombre(recesp.getNombre());
+                                    nt.setNombre(recesp.getNombreRecurso() + " " + recesp.getNombre());
                                     nt.setData(materialEjecucion); 
                                     
                                     Object[] data = new Object[5];
