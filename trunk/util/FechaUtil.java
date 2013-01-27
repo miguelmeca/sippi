@@ -51,7 +51,7 @@ public class FechaUtil {
 
     public static String getMaskedDate(String mascara,Date fecha)
     {
-        DATE_FORMAT = new SimpleDateFormat(mascara, new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat(mascara, new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
 
         return DATE_FORMAT.format(fecha);
@@ -59,7 +59,7 @@ public class FechaUtil {
     
     public static String getYear()
     {
-        DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
 
         Date fechaDate = new Date();
@@ -68,7 +68,7 @@ public class FechaUtil {
     
     public static String getYear(Date fecha)
     {
-        DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("yyyy", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
 
         return DATE_FORMAT.format(fecha);
@@ -76,7 +76,7 @@ public class FechaUtil {
     
     public static String getMonth(Date fecha)
     {
-        DATE_FORMAT = new SimpleDateFormat("MM", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("MM", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
 
         return DATE_FORMAT.format(fecha);
@@ -84,7 +84,7 @@ public class FechaUtil {
     
     public static String getDay(Date fecha)
     {
-        DATE_FORMAT = new SimpleDateFormat("dd", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("dd", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
 
         return DATE_FORMAT.format(fecha);
@@ -94,7 +94,7 @@ public class FechaUtil {
     {
         if(d!=null)
         {
-            DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+            DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_AR"));
             DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
             return DATE_FORMAT.format(d);
         }
@@ -103,7 +103,7 @@ public class FechaUtil {
 
     public static String getFechaActual()
     {
-        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
         Date fechaDate = new Date();
         return DATE_FORMAT.format(fechaDate);
@@ -111,7 +111,7 @@ public class FechaUtil {
 
     public static Date getDate(String fecha) throws ParseException
     {
-        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
         return DATE_FORMAT.parse(fecha);
     }
@@ -182,7 +182,7 @@ public class FechaUtil {
     
     public static boolean horaEnRango(String hora, String horaInicio, String horaFin) throws ParseException
     {
-        DATE_FORMAT = new SimpleDateFormat("H:m", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("H:m", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT"));
         
         Long horaAux = DATE_FORMAT.parse(hora).getTime();
@@ -198,7 +198,7 @@ public class FechaUtil {
 
     public static String getFechaYHoraActual()
     {
-        DATE_FORMAT = new SimpleDateFormat("H:m:s dd/MM/yyyy", new Locale("es_ES"));
+        DATE_FORMAT = new SimpleDateFormat("H:m:s dd/MM/yyyy", new Locale("es_AR"));
         DATE_FORMAT.setTimeZone(new SimpleTimeZone(-3, "GMT")); //TODO: Ver despues como hacer para no hardcodear esto
         Date fecha = new Date();
         return DATE_FORMAT.format(fecha);
@@ -237,6 +237,22 @@ public class FechaUtil {
             result = cal.get(Calendar.YEAR);
         }
         return result;
+    }
+    
+    public static Date getLimpiarHorasYMinutos(Date date) {        
+        // Get Calendar object set to the date and time of the given Date object  
+        Calendar cal = Calendar.getInstance();  
+        cal.setTime(date);  
+
+        // Set time fields to zero  
+        cal.set(Calendar.HOUR_OF_DAY, 0);  
+        cal.set(Calendar.MINUTE, 0);  
+        cal.set(Calendar.SECOND, 0);  
+        cal.set(Calendar.MILLISECOND, 0);  
+
+        // Put it back in the Date object  
+        date = cal.getTime();  
+        return date;
     }
    
 }

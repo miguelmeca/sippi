@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import modelo.Ejecucion;
 import modelo.TareaEjecucion;
 import util.ColorUtil;
+import util.FechaUtil;
 import util.NTupla;
 import util.Tupla;
 import vista.interfaces.ICallBack_v3;
@@ -254,10 +255,17 @@ public class PanelDatosGeneralesDeTarea extends javax.swing.JPanel implements IC
 
         try{
             
+            if(FechaUtil.fechaMayorQue(dcFechaInicio.getDate(), dcFechaFin.getDate())) {
+            mostrarMensaje(JOptionPane.ERROR_MESSAGE,"Error!","La fecha de inicio de la tarea no puede ser mayor a la fecha de finalizacion");
+            return;
+            }
+            
             if (FLAG_ESTA_EDITANDO) {
                 Tupla tp = (Tupla) cmbTipoTarea.getModel().getSelectedItem();
                 gestor.actualizarTipoTarea(tp);
             }
+            
+            
 
             gestor.actualizarObservacionesTarea(txtObservaciones.getText());
             gestor.actualizarNombreTarea(txtNombre.getText());

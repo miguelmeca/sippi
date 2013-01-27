@@ -16,6 +16,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -1679,13 +1681,23 @@ public class VentanaEjecucion extends javax.swing.JInternalFrame {
         @Override
         public void outExtendPhaseBackward(int i, Date date) {
             gestor.setTareaGanttSeleccionada(i);
+            try{
             gestor.actualizarFechaInicioTarea(date);
+            }
+            catch(Exception e){
+               Logger.getLogger(VentanaEjecucion.class.getName()).log(Level.SEVERE, null, e); ;
+            }
         }
 
         @Override
         public void outExtendPhaseForward(int i, Date date) {
             gestor.setTareaGanttSeleccionada(i);
+            try{
             gestor.actualizarFechaFinTarea(date);
+            }
+            catch(Exception e){
+               Logger.getLogger(VentanaEjecucion.class.getName()).log(Level.SEVERE, null, e); ;
+            }
         }
     }
 }

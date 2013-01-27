@@ -678,7 +678,7 @@ public class GestorEjecucion {
     /**
      * Actualiza la "Fecha de Inicio" de la tarea cuando pierde foco el componente.
      */      
-    public void actualizarFechaInicioTarea(Date fechaInicio) throws IllegalArgumentException{
+    public void actualizarFechaInicioTarea(Date fechaInicio) throws Exception{
         TareaEjecucion t = getTareaSeleccionada();
         if(t!=null){
             
@@ -687,29 +687,42 @@ public class GestorEjecucion {
                 throw new IllegalArgumentException("La Fecha de Inicio no puede ser superior a la de Fin");
             }
             
+            boolean exito=false;
+            boolean intento= false;
             if (PlanificacionUtils.esFechaValidaParaHija(ejecucion, true, fechaInicio, t)) {
                 if (PlanificacionUtils.esFechaValidaParaSusHijas(true, fechaInicio, t)) {
-                    t.setFechaInicio(fechaInicio);
+                    exito = t.setearFechaInicio(fechaInicio);
+                    intento= true;
                 } else {
+                    //TODO:
+                    //Mover las hijas si se puede??
+                    //Avisar mensaje al usuario
                     pantalla.refreshGanttAndData();
                 }
             } else {
                 // La fecha que se paso es invalida, calculo la del padre y se la seteo
                 TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(ejecucion, t);
                 if (padre != null) {
-                    t.setFechaInicio(padre.getFechaInicio());
+                    exito = t.setearFechaInicio(padre.getFechaInicio());
+                    intento= true;
                 }
-                // Ahora al Gantt ???
+                else{
+                    
+                    exito = t.setearFechaInicio(fechaInicio);
+                    intento= true;
+                }  
                 pantalla.refreshGanttAndData();
             }
-            t.setFechaInicio(fechaInicio);
+            if(intento && !exito){
+            mostrarMensajeError("La fecha de inicio no puede ser cambiada ya que actualmente ya exiten datos cargados los cuales se ven afectados");
+          }
         }
     }
 
     /**
      * Actualiza la "Fecha de Fin" de la tarea cuando pierde foco el componente.
      */        
-    public void actualizarFechaFinTarea(Date fechaFin)  throws IllegalArgumentException{
+    public void actualizarFechaFinTarea(Date fechaFin)  throws Exception{
         TareaEjecucion t = getTareaSeleccionada();
         if(t!=null){
             
@@ -717,16 +730,20 @@ public class GestorEjecucion {
             if(FechaUtil.fechaMayorQue(t.getFechaInicio(),fechaFin)){
                 throw new IllegalArgumentException("La Fecha de Fin no puede ser menor a la de Inicio");
             }
-            
+            boolean exito=false;
+            boolean intento= false;
             if(PlanificacionUtils.esFechaValidaParaHija(ejecucion,false,fechaFin,t))
             {
                 if(PlanificacionUtils.esFechaValidaParaSusHijas(false,fechaFin,t))
-                {
-                    
-                    t.setFechaFin(fechaFin);
+                {                    
+                    exito = t.setearFechaFin(fechaFin);
+                    intento= true;
                 }
                 else
                 {
+                    //TODO:
+                    //Mover las hijas si se puede??
+                    //Avisar mensaje al usuario
                     pantalla.refreshGanttAndData();
                 }
             }
@@ -736,16 +753,24 @@ public class GestorEjecucion {
                 TareaPlanificacion padre = PlanificacionUtils.getTareaPadre(ejecucion, t);
                 if(padre!=null)
                 {
-                    t.setFechaFin(padre.getFechaFin());
+                    exito = t.setearFechaFin(padre.getFechaFin());
+                    intento= true;
                 }
-                // Ahora al Gantt ???
+                else{
+                    
+                    exito = t.setearFechaFin(fechaFin);
+                    intento= true;
+                }                
                 pantalla.refreshGanttAndData();
-            }            
+            } 
+          if(intento && !exito){
+          mostrarMensajeError("La fecha de fin no puede ser cambiada ya que actualmente ya exiten datos cargados los cuales se ven afectados");
+          }
             
-            t.setFechaFin(fechaFin);
+            
         }
     }
-
+    
     public void setTareaGanttSeleccionada(int id) {
         System.out.println("Tarea del gantt Seleccionada:"+id);
         setearTareaEjecucionSeleccionada(id);

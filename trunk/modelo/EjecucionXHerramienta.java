@@ -56,9 +56,11 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
         return (getHorasUtilizadas()*getCostoXHora());
     }
     
-    public boolean esDiaVacio(Date fechaDelNuevo) throws Exception{
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    public boolean esDiaVacioEnFecha(Date fechaDelNuevo, boolean alFinal) throws Exception{
         boolean encontroFecha=false;
-        for (int i = 0; i < usoHerramientasXdia.size(); i++) {
+        if(alFinal) {
+            for (int i = usoHerramientasXdia.size()-1; i >=0 ; i--) {
             EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
             
             if(dia.esFecha(fechaDelNuevo)){
@@ -68,9 +70,58 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
                 encontroFecha=true;
                 break;
             }
+            }
+        }
+        else {
+            for (int i = 0; i < usoHerramientasXdia.size(); i++) {
+                EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
+
+                if(dia.esFecha(fechaDelNuevo)){
+                    if(dia.getHorasUtilizadas()!=0) {
+                        return true;
+                    }
+                    encontroFecha=true;
+                    break;
+                }
+            }
         }
         if(encontroFecha){
             return false;
+        }
+        else{
+            throw new Exception("Fecha inexistente");
+        }
+    }
+    
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    public boolean borrarDia(Date fecha, boolean alFinal) throws Exception{
+        boolean encontroFecha=false;
+        
+        if(alFinal) {
+           for (int i = usoHerramientasXdia.size()-1; i >=0; i--) {
+                EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    usoHerramientasXdia.remove(i);
+                    encontroFecha=true;
+                    break;
+                }
+            } 
+        }
+        else {
+            for (int i = 0; i < usoHerramientasXdia.size(); i++) {
+                EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    usoHerramientasXdia.remove(i);
+                    encontroFecha=true;
+                    break;
+                }
+            }
+        }
+        
+        if(encontroFecha){
+            return true;
         }
         else{
             throw new Exception("Fecha inexistente");
@@ -89,5 +140,6 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
             usoHerramientasXdia.add(0, nuevo);
         }
     }
+    
     
 }

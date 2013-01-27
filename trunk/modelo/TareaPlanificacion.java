@@ -203,6 +203,7 @@ public class TareaPlanificacion
     }
 
     
+    @Deprecated
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
@@ -211,9 +212,25 @@ public class TareaPlanificacion
         return fechaInicio;
     }
 
-    
+    @Deprecated
     public void setFechaInicio(Date fechaInicio) {        
         this.fechaInicio = fechaInicio;
+    }
+    
+    /**
+     *Metodo a usar, Se redefine en Tarea Ejecucion.
+     */
+    public boolean setearFechaFin(Date fechaFin)  throws Exception{
+        this.fechaFin = fechaFin;
+        return true;
+    }
+    
+    /**
+     *Metodo a usar, Se redefine en Tarea Ejecucion.
+     */
+    public boolean setearFechaInicio(Date fechaInicio) throws Exception{
+        this.fechaInicio = fechaInicio;
+        return true;
     }
     
 

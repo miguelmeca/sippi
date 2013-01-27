@@ -2,8 +2,12 @@ package modelo;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.DetalleTareaEjecucion;
+import util.FechaUtil;
 /**
  *
  * @author Iuga
@@ -242,6 +246,189 @@ public class TareaEjecucion extends TareaPlanificacion{
         return subtotal;
     }
     
+    ////////////////////////////////////////////////
+    @Override
+    public boolean setearFechaInicio(Date fechaInicio) throws Exception { 
+        
+        if(FechaUtil.fechaMayorQue(fechaInicio, this.getFechaFin())) {
+            throw  new Exception("Error: Fecha inicio seteada es menor que la fecha de inicio");
+        }
+        if(FechaUtil.getFecha(fechaInicio).equals(
+            FechaUtil.getFecha(this.getFechaInicio()))){
+            return true;
+        }
+        
+        
+        // Si la fecha nueva, es mayor, tengo que crear
+        if(FechaUtil.fechaMayorQue(this.getFechaInicio(), fechaInicio)){
+            // Creo detalles y seteo la fecha de Inicio
+            int nuevosDetallesCant = FechaUtil.diasDiferencia( fechaInicio, this.getFechaInicio());
+            for (int i = 1; i <= nuevosDetallesCant; i++) {
+                Date fechaDelNuevo = FechaUtil.fechaMenos(this.getFechaInicio(),i);
+                crearHerramientaEjecucionXDiaParaFecha(fechaDelNuevo, false);
+                crearDetallesTareaEjecucionXDiaParaFecha(fechaDelNuevo, false);
+                
+            }
+            this.fechaInicio = fechaInicio;
+            return true;
+            
+           
+        }
+        // Es menor, capaz que pueda borrar
+        else {
+            int cantABorrar = FechaUtil.diasDiferencia(this.getFechaInicio(), fechaInicio);
+            
+            //Veco q todos los detalles tengan esa fecha vacia en RRHH
+            try{
+                for (int i = 0; i < cantABorrar; i++) {
+                    Date fechaDelDifunto = FechaUtil.fechaMas(this.getFechaInicio(),i);                
+                    if(!validarDiaVacio(fechaDelDifunto, false)  ){                        
+                        return false;
+                    }                
+                }
+                for (int i = 0; i < cantABorrar; i++) {
+                    Date fechaDelDifunto = FechaUtil.fechaMas(this.getFechaInicio(),i);                
+                    borrarDia(fechaDelDifunto, false);               
+                }
+                this.fechaInicio = fechaInicio;
+                return true;            
+
+            
+            }
+            catch(Exception ex)
+            {
+               Logger.getLogger(DetalleTareaEjecucion.class.getName()).log(Level.SEVERE, null, ex);
+               throw  new Exception("Error de inconsistencia en fechas mientras se validaba fecha para eliminacion en seteo fecha inicio");
+            }           
+        }
+    }
+    //////////////////////////////
+
+    @Override
+    public boolean setearFechaFin(Date fechaFin) throws Exception { 
+        
+        if(FechaUtil.fechaMayorQue(this.getFechaInicio(), fechaFin)) {
+            throw  new Exception("Error: Fecha fin seteada es menor que la fecha de inicio");
+        }
+        if(FechaUtil.getFecha(fechaFin).equals(
+            FechaUtil.getFecha(this.getFechaFin()))){
+            return true;
+        }
+        
+        
+        // Si la fecha nueva, es mayor, tengo que crear
+        if(FechaUtil.fechaMayorQue(fechaFin, this.getFechaFin())){
+            // Creo detalles y seteo la fecha de Fin
+            int nuevosDetallesCant = FechaUtil.diasDiferencia(this.getFechaFin(), fechaFin);
+            for (int i = 1; i <= nuevosDetallesCant; i++) {
+                Date fechaDelNuevo = FechaUtil.fechaMas(this.getFechaFin(),i);
+                crearHerramientaEjecucionXDiaParaFecha(fechaDelNuevo, true);
+                crearDetallesTareaEjecucionXDiaParaFecha(fechaDelNuevo, true);
+                
+            }
+            this.fechaFin = fechaFin;
+            return true;
+            
+           
+        }
+        // Es menor, capaz que pueda borrar
+        else {
+            int cantABorrar = FechaUtil.diasDiferencia(fechaFin, this.getFechaFin());
+            
+            //Veco q todos los detalles tengan esa fecha vacia en RRHH
+            try{
+                for (int i = 0; i < cantABorrar; i++) {
+                    Date fechaDelDifunto = FechaUtil.fechaMenos(this.getFechaFin(),i);                
+                    if(!validarDiaVacio(fechaDelDifunto, true)  ){                        
+                        return false;
+                    }                
+                }
+                for (int i = 0; i < cantABorrar; i++) {
+                    Date fechaDelDifunto = FechaUtil.fechaMenos(this.getFechaFin(),i);                
+                    borrarDia(fechaDelDifunto, true);               
+                }
+                this.fechaFin = fechaFin;
+                return true;            
+
+            
+            }
+            catch(Exception ex)
+            {
+               Logger.getLogger(DetalleTareaEjecucion.class.getName()).log(Level.SEVERE, null, ex);
+               throw  new Exception("Error de inconsistencia en fechas mientras se validaba fecha para eliminacion en seteo fecha fin");
+            }           
+        }
+    }
     
+    
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    private void borrarDia(Date fechaDelDifunto, boolean alFinal) throws Exception{
+        
+      try{
+        for (int i = 0; i < this.detalles.size(); i++){
+            ((DetalleTareaEjecucion)(this.detalles.get(i))).borrarDia(fechaDelDifunto,alFinal);
+        }
+        for (int i = 0; i < this.herramientas.size(); i++){
+            ((EjecucionXHerramienta)this.herramientas.get(i)).borrarDia(fechaDelDifunto,alFinal);
+        }          
+      }
+      catch(Exception ex)
+      {
+               Logger.getLogger(DetalleTareaEjecucion.class.getName()).log(Level.SEVERE, null, ex);
+               throw  new Exception("Error de inconsistencia en fechas mientras se validaba fecha para eliminacion en seteo fecha fin");
+      }
+        
+    }
+    
+    
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    private boolean validarDiaVacio(Date fechaDelNuevo, boolean alFinal) throws Exception{
+        
+      try{
+        for (int i = 0; i < this.detalles.size(); i++){
+            if(!((DetalleTareaEjecucion)(this.detalles.get(i))).esDiaVacioEnFecha(fechaDelNuevo, alFinal)){
+                return false;
+            }
+        }
+        for (int i = 0; i < this.herramientas.size(); i++){
+            if(((EjecucionXHerramienta)(this.herramientas.get(i))).esDiaVacioEnFecha(fechaDelNuevo, alFinal)){
+                return false;
+            }
+        } 
+        
+        return true;
+      }
+      catch(Exception ex)
+      {
+               Logger.getLogger(DetalleTareaEjecucion.class.getName()).log(Level.SEVERE, null, ex);
+               throw  new Exception("Error de inconsistencia en fechas mientras se validaba fecha para eliminacion en seteo fecha fin");
+      }
+        
+    }
+    
+    
+     private void crearDetallesTareaEjecucionXDiaParaFecha(Date fechaDelNuevo, boolean alFinal) {
+        
+         for (int i = 0; i < this.detalles.size(); i++) {
+                DetalleTareaEjecucion dte = (DetalleTareaEjecucion)this.detalles.get(i);
+
+                dte.crearDetalleTareaXDia(fechaDelNuevo, alFinal);
+            }
+        
+    }
+     
+     
+     
+     private void crearHerramientaEjecucionXDiaParaFecha(Date fechaDelNuevo, boolean alFinal) {
+         
+        
+            for (int i = 0; i < this.herramientas.size(); i++) {
+                EjecucionXHerramienta hxe = (EjecucionXHerramienta)this.herramientas.get(i);
+
+                hxe.crearHerramientaXDia(fechaDelNuevo, alFinal);
+            }
+        
+        
+    }
     
 }
