@@ -109,11 +109,88 @@ public class DetalleTareaEjecucion extends DetalleTareaPlanificacion{
        return subT; 
     }
     
-    public boolean esDiaVacio(Date fechaDelNuevo) throws Exception{
+    
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    public boolean esDiaVacioEnFecha(Date fecha, boolean alFinal) throws Exception{
+        boolean encontroFecha=false;
+        
+        if(alFinal) {
+           for (int i = listaDetallePorDia.size()-1; i >=0; i--) {
+                DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    if(dia.getCantidadDeHorasTotales()==0.0) {
+                        return true;
+                    }
+                    encontroFecha=true;
+                    break;
+                }
+            } 
+        }
+        else {
+            for (int i = 0; i < listaDetallePorDia.size(); i++) {
+                DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    if(dia.getCantidadDeHorasTotales()!=0.0) {
+                        return true;
+                    }
+                    encontroFecha=true;
+                    break;
+                }
+            }
+        }
+        
+        if(encontroFecha){
+            return false;
+        }
+        else{
+            throw new Exception("Fecha inexistente");
+        }
+    }
+    
+    
+    //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
+    public boolean borrarDia(Date fecha, boolean alFinal) throws Exception{
+        boolean encontroFecha=false;
+        
+        if(alFinal) {
+           for (int i = listaDetallePorDia.size()-1; i >=0; i--) {
+                DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    encontroFecha=true;
+                    listaDetallePorDia.remove(i);
+                    break;
+                }
+            } 
+        }
+        else {
+            for (int i = 0; i < listaDetallePorDia.size(); i++) {
+                DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
+
+                if(dia.esFecha(fecha)){
+                    encontroFecha=true;
+                    listaDetallePorDia.remove(i);
+                    break;
+                }
+            }
+        }
+        
+        if(encontroFecha){
+            return true;
+        }
+        else{
+            throw new Exception("Fecha inexistente");
+        }
+    }
+    
+    /*public boolean sonDiasVaciosEntreFechas(Date fechainicio, Date fechafin) throws Exception{
         boolean encontroFecha=false;
         for (int i = 0; i < listaDetallePorDia.size(); i++) {
             DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
             
+            for()
             if(dia.esFecha(fechaDelNuevo)){
                 if(dia.getCantidadDeHorasTotales()!=0.0) {
                     return true;
@@ -128,7 +205,7 @@ public class DetalleTareaEjecucion extends DetalleTareaPlanificacion{
         else{
             throw new Exception("Fecha inexistente");
         }
-    }
+    }*/
     
     public void crearDetalleTareaXDia(Date fechaDelNuevo, boolean alFinal) {
         DetalleTareaEjecucionXDia nuevo = new DetalleTareaEjecucionXDia();

@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import modelo.*;
+import util.FechaUtil;
 import util.NTupla;
 import util.RecursosUtil;
 import util.SwingPanel;
@@ -197,6 +198,8 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         List<TareaPlanificacion> lista = _gestor.getListaTareasPlanificadas();
         for (int i = 0; i < lista.size(); i++) {
             TareaPlanificacion tplan = lista.get(i);
+            tplan.setFechaInicio(FechaUtil.getLimpiarHorasYMinutos(tplan.getFechaInicio()));
+            tplan.setFechaFin(FechaUtil.getLimpiarHorasYMinutos(tplan.getFechaFin()));
             cargarTareasRecursivas(tplan,n);
         }
         
