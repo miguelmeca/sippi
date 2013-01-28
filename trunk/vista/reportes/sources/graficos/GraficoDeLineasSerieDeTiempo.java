@@ -5,14 +5,19 @@
  */
 package vista.reportes.sources.graficos;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Paint;
+import java.awt.Stroke;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.DateTickUnit;
+import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.TickUnitSource;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.labels.XYItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
@@ -65,29 +70,60 @@ public class GraficoDeLineasSerieDeTiempo {
             false,                     // tooltips
             false                     // urls
         );
+//        
+//        // Setting the chart properties 
+//        chart.setBackgroundPaint(Color.white);
+//        // Setting the plot properties 
+//        XYPlot plot = (XYPlot) chart.getPlot(); 
+//        plot.setBackgroundPaint(Color.lightGray); 
+//        plot.setDomainGridlinePaint(Color.white); 
+//        plot.setRangeGridlinePaint(Color.white); 
+//        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0)); 
+//        plot.setDomainCrosshairVisible(true); 
+//        plot.setRangeCrosshairVisible(true); 
+//        XYItemRenderer renderer = plot.getRenderer();
+//        
+//        NumberFormat format = NumberFormat.getNumberInstance();
+//        format.setMaximumFractionDigits(2); // etc.
+//        XYItemLabelGenerator generator = new StandardXYItemLabelGenerator(etiqueta, format, format);
+//        renderer.setBaseItemLabelGenerator(generator);
+//        renderer.setBaseItemLabelsVisible(true);
+//
+//        DateAxis axis = (DateAxis) plot.getDomainAxis();
+//        axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy")); 
+//        axis.setAutoRange(true);
+//        
+//        return (chart);
         
-        // Setting the chart properties 
+        // ------------------------------------------------------
         chart.setBackgroundPaint(Color.white);
-        // Setting the plot properties 
-        XYPlot plot = (XYPlot) chart.getPlot(); 
-        plot.setBackgroundPaint(Color.lightGray); 
-        plot.setDomainGridlinePaint(Color.white); 
-        plot.setRangeGridlinePaint(Color.white); 
-        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0)); 
-        plot.setDomainCrosshairVisible(true); 
-        plot.setRangeCrosshairVisible(true); 
-        XYItemRenderer renderer = plot.getRenderer();
-        
+
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
+
+        XYItemRenderer r = plot.getRenderer();
+        if (r instanceof XYLineAndShapeRenderer) {
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+            renderer.setBaseShapesVisible(true);
+            renderer.setBaseShapesFilled(true);
+            renderer.setDrawSeriesLineAsPath(true);
+        }
         NumberFormat format = NumberFormat.getNumberInstance();
         format.setMaximumFractionDigits(2); // etc.
         XYItemLabelGenerator generator = new StandardXYItemLabelGenerator(etiqueta, format, format);
-        renderer.setBaseItemLabelGenerator(generator);
-        renderer.setBaseItemLabelsVisible(true);
+        r.setBaseItemLabelGenerator(generator);
+        r.setBaseItemLabelsVisible(true);
 
         DateAxis axis = (DateAxis) plot.getDomainAxis();
-        axis.setDateFormatOverride(new SimpleDateFormat("dd-MMM-yyyy")); 
-        axis.setAutoRange(true);
-        return (chart);
+        axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
+        axis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1));
+
+        return chart;   
     }
     
    
