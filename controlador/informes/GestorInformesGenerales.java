@@ -274,28 +274,37 @@ public class GestorInformesGenerales {
         HashMap<String, Integer> listaObrasHistorico = new HashMap<String, Integer>();
         HashMap<String, Double> listaRechazadoCliente = new HashMap<String, Double>();
 
+        double porcentAceptadasMaximo = 0.0;
+        double porcentAceptadasMinimo = 9999.0;
+        double porcentAceptadasSumatoria = 0.0;
+        int porcentAceptadasCantidad = 0;
+        double porcentAceptadasPromedio = 0.0;
+                
+        double porcentRechazadasMaximo = 0.0;
+        double porcentRechazadasMinimo = 999.0;
+        double porcentRechazadasSumatoria = 0.0;
+        int porcentRechazadasCantidad = 0;
+        double porcentRechazadasPromedio = 0.0;
+                
+                
         boolean ban=false;
-        for (int i = 0; i < listaObras.size(); i++) {
-            PedidoObra po = listaObras.get(i);
+      //  for (int i = 0; i < listaObrasFiltradas.size(); i++) {
+      //      PedidoObra po = listaObrasFiltradas.get(i);
 
-            if (FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin)
-                    && !po.getEstado().equals(PedidoObra.ESTADO_SOLICITADO)) {
+        //    if (FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin)
+      //              && !po.getEstado().equals(PedidoObra.ESTADO_SOLICITADO)) {
                 ban=true;
                 List<Cotizacion> listaCotizacionesAceptadas = obtenerCotizacionesAceptadas(listaObrasFiltradas);
                 List<Cotizacion> listaCotizacionesRechazadas = obtenerCotizacionesRechazadas(listaObrasFiltradas);
                 boolean primeraVez;
                 
-                double porcentAceptadasMaximo = 0.0;
-                double porcentAceptadasMinimo = 9999.0;
-                double porcentAceptadasSumatoria = 0.0;
-                int porcentAceptadasCantidad = 0;
-                double porcentAceptadasPromedio = 0.0;
+                
                                 
                 for (Cotizacion co: listaCotizacionesAceptadas) {
                     double montoBase=co.CalcularMontoBase();
                     double montoTotal=co.CalcularTotal();
                     double ganancia = montoTotal - montoBase;
-                    double gananciaPorcentajeTotal = (double)Math.round((ganancia/montoTotal)*10000)/100;
+                    double gananciaPorcentajeTotal = (double)Math.round(((ganancia*100)/montoBase));
                    
                     if(montoTotal>0)
                     {
@@ -309,15 +318,7 @@ public class GestorInformesGenerales {
                         porcentAceptadasSumatoria+=gananciaPorcentajeTotal;
                     }
                 }
-                if(porcentAceptadasCantidad > 0){
-                    porcentAceptadasPromedio=porcentAceptadasSumatoria / porcentAceptadasCantidad;
-                }
                 
-                double porcentRechazadasMaximo = 0.0;
-                double porcentRechazadasMinimo = 999.0;
-                double porcentRechazadasSumatoria = 0.0;
-                int porcentRechazadasCantidad = 0;
-                double porcentRechazadasPromedio = 0.0;
                 
                 for (Cotizacion co: listaCotizacionesRechazadas) {
                     double montoBase=co.CalcularMontoBase();
@@ -337,25 +338,30 @@ public class GestorInformesGenerales {
                         porcentRechazadasSumatoria+=gananciaPorcentajeTotal;
                     }
                 }
-                if(porcentRechazadasCantidad > 0){
-                    porcentRechazadasPromedio=porcentRechazadasSumatoria / porcentRechazadasCantidad;
-                }
+                 
                 
-                if(porcentAceptadasMinimo<=100) {
+      //      }
+            
+      //  }
+        
+        if(porcentAceptadasCantidad > 0){
+             porcentAceptadasPromedio=porcentAceptadasSumatoria / porcentAceptadasCantidad;
+        }
+        if(porcentRechazadasCantidad > 0){
+            porcentRechazadasPromedio=porcentRechazadasSumatoria / porcentRechazadasCantidad;
+        }
+                
+        if(porcentAceptadasCantidad > 0) {
                     datos.put("porcentajeAceptadasMaximo", porcentAceptadasMaximo);
                     datos.put("porcentajeAceptadasMinimo", porcentAceptadasMinimo);
                     datos.put("porcentajeAceptadasPromedio", porcentAceptadasPromedio);
-                }
-                if(porcentRechazadasMinimo<=100) {
+        }
+        if(porcentRechazadasCantidad > 0) {
                     datos.put("porcentajeRechazadasMaximo", porcentRechazadasMaximo);
                     datos.put("porcentajeRechazadasMinimo", porcentRechazadasMinimo);
                     datos.put("porcentajeRechazadasPromedio", porcentRechazadasPromedio);
-                }
-                
-            }
-            
         }
-        
+                
         if(!ban){
                 throw new Exception("No hay cotizaciones rechazadas o aceptadas dentro del rango d fechas seleccionado");
             }
