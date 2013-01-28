@@ -47,21 +47,34 @@ public class InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones extends R
     private double porcentRechazadasMaximo;
     private double porcentRechazadasMinimo;
     private double porcentRechazadasPromedio;
+    boolean tieneAceptadas;
+        boolean tieneRechazadas;
     
     @Override
     protected void makeCuerpo(HashMap<String,Object> params) throws DocumentException
     {
-        
+        tieneAceptadas = true;
+        tieneRechazadas = true;
         this.empreasaCliente = (NTupla)params.get("Cliente");
         
+        
+        try{
         porcentAceptadasMaximo = (Double)params.get("porcentajeAceptadasMaximo");
         porcentAceptadasMinimo = (Double)params.get("porcentajeAceptadasMinimo");
         porcentAceptadasPromedio = (Double)params.get("porcentajeAceptadasPromedio");
-    
+        }
+        catch(NullPointerException npe){
+            tieneAceptadas=false;
+        }
+        
+        try{
         porcentRechazadasMaximo = (Double)params.get("porcentajeRechazadasMaximo");
         porcentRechazadasMinimo = (Double)params.get("porcentajeRechazadasMinimo");
         porcentRechazadasPromedio = (Double)params.get("porcentajeRechazadasPromedio");
-        
+        }
+        catch(NullPointerException npe){
+            tieneRechazadas = false;
+        }
         
         
         fechaInicio = (Date) params.get("INFORME_FECHA_INICIO");         
@@ -108,41 +121,60 @@ public class InformPorcentajeDeBeneficiosSegunAceptacionDeCotizaciones extends R
       
     
     private void mostrarTablaResultados() throws DocumentException {
-        super.insertarSubTitulo("Beneficio en cotizaciones Aceptadas");      
         
-        PdfPTable tablaA = new PdfPTable(3);
-        tablaA.setWidthPercentage(100);
-        tablaA.setSpacingBefore(5f);
+        
         float[] anchos = {5f,5f, 5f};
-        tablaA.setWidths(anchos);
-
-        insertarCeldaHeaderEnTabla(tablaA,"Beneficio Minimo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
-        insertarCeldaHeaderEnTabla(tablaA,"Beneficio Promedio",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
-        insertarCeldaHeaderEnTabla(tablaA,"Beneficio Máximo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
-
-        insertarCeldaEnTabla(tablaA,porcentAceptadasMinimo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
-        insertarCeldaEnTabla(tablaA,porcentAceptadasPromedio+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
-        insertarCeldaEnTabla(tablaA,porcentAceptadasMaximo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);        
-
-        super.doc.add(tablaA);    
+        super.insertarSubTitulo("Beneficio en cotizaciones Aceptadas");
         
+        if(tieneAceptadas) {
+            PdfPTable tablaA = new PdfPTable(3);
+            tablaA.setWidthPercentage(100);
+            tablaA.setSpacingBefore(5f);
+
+            tablaA.setWidths(anchos);
+
+            insertarCeldaHeaderEnTabla(tablaA,"Beneficio Minimo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+            insertarCeldaHeaderEnTabla(tablaA,"Beneficio Promedio",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+            insertarCeldaHeaderEnTabla(tablaA,"Beneficio Máximo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+
+            insertarCeldaEnTabla(tablaA,porcentAceptadasMinimo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
+            insertarCeldaEnTabla(tablaA,porcentAceptadasPromedio+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
+            insertarCeldaEnTabla(tablaA,porcentAceptadasMaximo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);        
+
+            super.doc.add(tablaA);    
+        }
+        else{
+            Paragraph result = new Paragraph();
+            result.setAlignment(Paragraph.ALIGN_LEFT);      
+            result.add( new Phrase("No se encontraron cotizaciones aceptadas", ReportDesigner.FUENTE_INFORMES_NORMAL));
+            super.doc.add(result);
+        }
         
         super.insertarSubTitulo("Beneficio en cotizaciones Rechazadas"); 
         
-        PdfPTable tablaR = new PdfPTable(3);
-        tablaR.setWidthPercentage(100);
-        tablaR.setSpacingBefore(5f);
-        tablaR.setWidths(anchos);
+        
+        if(tieneRechazadas) {
+            PdfPTable tablaR = new PdfPTable(3);
+            tablaR.setWidthPercentage(100);
+            tablaR.setSpacingBefore(5f);
+            tablaR.setWidths(anchos);
 
-        insertarCeldaHeaderEnTabla(tablaR,"Beneficio Minimo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
-        insertarCeldaHeaderEnTabla(tablaR,"Beneficio Promedio",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
-        insertarCeldaHeaderEnTabla(tablaR,"Beneficio Máximo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+            insertarCeldaHeaderEnTabla(tablaR,"Beneficio Minimo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+            insertarCeldaHeaderEnTabla(tablaR,"Beneficio Promedio",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
+            insertarCeldaHeaderEnTabla(tablaR,"Beneficio Máximo",ReportDesigner.FUENTE_INFORMES_NORMAL_B,PdfPCell.ALIGN_LEFT);
 
-        insertarCeldaEnTabla(tablaR,porcentRechazadasMinimo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
-        insertarCeldaEnTabla(tablaR,porcentRechazadasPromedio+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
-        insertarCeldaEnTabla(tablaR,porcentRechazadasMaximo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);        
+            insertarCeldaEnTabla(tablaR,porcentRechazadasMinimo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
+            insertarCeldaEnTabla(tablaR,porcentRechazadasPromedio+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);
+            insertarCeldaEnTabla(tablaR,porcentRechazadasMaximo+" %",ReportDesigner.FUENTE_INFORMES_NORMAL,PdfPCell.ALIGN_LEFT);        
 
-        super.doc.add(tablaR); 
+            super.doc.add(tablaR); 
+        }
+        else{
+            Paragraph result = new Paragraph();
+            result.setAlignment(Paragraph.ALIGN_LEFT);      
+            result.add( new Phrase("No se encontraron cotizaciones rechazadas", ReportDesigner.FUENTE_INFORMES_NORMAL));
+            super.doc.add(result);
+        }
         
     }
 
