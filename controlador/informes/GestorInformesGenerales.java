@@ -617,9 +617,9 @@ public class GestorInformesGenerales {
         else // Mostrar sólo el seleccionado
         { 
             detallesEjecucion = (List) HibernateUtil.getSession()
-                    .createQuery("FROM DetalleTareaEjecucion "
-                    + "WHERE :empleado in elements (empleados) "
-                    + "AND empleados IS NOT EMPTY")
+                    .createQuery("FROM DetalleTareaEjecucion AS dte "
+                    + "WHERE :empleado in elements (dte.empleados) "
+                    + "AND dte.empleados IS NOT EMPTY")
                     .setParameter("empleado", id)
                     .list();
         }
