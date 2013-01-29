@@ -144,7 +144,10 @@ public class FechaUtil {
         }
         
         System.out.println("Chequeo Rango de Fechas -> Fecha:"+FechaUtil.getFecha(fecha)+" en rango["+FechaUtil.getFecha(rangoInicio)+"/"+FechaUtil.getFecha(rangoFin)+"]");
-
+        
+//      Alternativa:        
+//      return !(fecha.before(rangoInicio) || fecha.after(rangoFin));
+        
         long f = fecha.getTime();
         long ri = rangoInicio.getTime();
         long rf = rangoFin.getTime();

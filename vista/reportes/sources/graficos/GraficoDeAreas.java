@@ -7,9 +7,15 @@ package vista.reportes.sources.graficos;
 
 import java.awt.Color;
 import java.awt.Paint;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
+import org.jfree.chart.labels.XYItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
@@ -55,8 +61,8 @@ public class GraficoDeAreas {
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.white);  
-        
+        plot.setRangeGridlinePaint(Color.white); 
+       
         Paint[] paints= new Paint[] { new Color( 153, 0, 255 ,100 ), 
                               new Color( 204,0,255, 150 ) };
         
@@ -65,6 +71,10 @@ public class GraficoDeAreas {
         renderer.setSeriesPaint(1, Color.red);
         renderer.setSeriesPaint(2, Color.blue);
         renderer.setSeriesPaint(3, Color.orange);
+        
+        StandardCategoryItemLabelGenerator labelGen = new StandardCategoryItemLabelGenerator("$ {2}", new DecimalFormat("0.00"));
+        renderer.setBaseItemLabelGenerator(labelGen);
+        renderer.setBaseItemLabelsVisible(true);
         
         return chart;
     }

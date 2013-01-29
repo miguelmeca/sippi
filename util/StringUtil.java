@@ -1,5 +1,7 @@
 package util;
 
+import java.text.DecimalFormat;
+
 /**
  * Descripción: Utilidades varias para tratamiento de cadenas de texto
  * @version 1.0
@@ -36,4 +38,26 @@ public class StringUtil {
 
     }
 
+
+    /**
+     * Convierte a un MONTO float redondeado de 2 decimales
+     * @param cantidad
+     * @return 
+     */
+    public static String roundAmount(float cantidad){
+        DecimalFormat df = new DecimalFormat("#.00");
+        String textoCantidad = df.format(cantidad).replaceAll(",",".");
+        return textoCantidad;
+    }
+    
+    /**
+     * Convierte a un MONTO float redondeado de 2 decimales
+     * @param cantidad
+     * @return 
+     */
+    public static String roundAmount(double cantidad){
+        DecimalFormat df = new DecimalFormat("#.00");
+        String textoCantidad = df.format(cantidad).replaceAll(",",".");
+        return textoCantidad;
+    }    
 }

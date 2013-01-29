@@ -38,8 +38,8 @@ import util.FechaUtil;
  */
 public class ReportDesigner 
 {
-    private static final int GRAFICO_DEFAULT_DPI_ANCHO = 1000;
-    private static final int GRAFICO_DEFAULT_DPI_ALTO = 500;
+    private static final int GRAFICO_DEFAULT_DPI_ANCHO = 700;
+    private static final int GRAFICO_DEFAULT_DPI_ALTO = 400;
     private final String URL_DIR_REPORTES = "Reportes/";
     
     public static final int REPORTE_TIPO_OTROS         = 0;

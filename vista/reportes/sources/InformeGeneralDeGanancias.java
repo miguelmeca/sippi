@@ -15,8 +15,11 @@ import modelo.PedidoObra;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import util.FechaUtil;
+import util.StringUtil;
 import vista.reportes.ReportDesigner;
 import vista.reportes.sources.graficos.GraficoDeAreas;
+import vista.reportes.sources.graficos.GraficoDeBarras;
+import vista.reportes.sources.graficos.GraficoDeLineas;
 
 /**
  *
@@ -87,12 +90,12 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
                 insertarCeldaEnTabla(tabla,po.getNombre(),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_LEFT);
                 // Monto Cotizado
                 double montoCotizado = buscarMontoCotizado(po);
-                insertarCeldaEnTabla(tabla,"$ "+montoCotizado,ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
+                insertarCeldaEnTabla(tabla,"$ "+StringUtil.roundAmount(montoCotizado),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
                 // Monto Ejecutado
                 double montoEjecutado = buscarMontoEjecutado(po);
-                insertarCeldaEnTabla(tabla,"$ "+montoEjecutado,ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
+                insertarCeldaEnTabla(tabla,"$ "+StringUtil.roundAmount(montoEjecutado),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
                 // Monto SubTotal
-                insertarCeldaEnTabla(tabla,"$ "+(montoCotizado-montoEjecutado),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
+                insertarCeldaEnTabla(tabla,"$ "+StringUtil.roundAmount((montoCotizado-montoEjecutado)),ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
                 subTotal += (montoCotizado-montoEjecutado);
             }
         }
@@ -101,7 +104,7 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         insertarCeldaEnTabla(tabla,"",ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
         insertarCeldaEnTabla(tabla,"",ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
         insertarCeldaEnTabla(tabla,"",ReportDesigner.FUENTE_NORMAL,PdfPCell.ALIGN_CENTER);
-        insertarCeldaEnTabla(tabla,"Total:\n$ "+subTotal,ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
+        insertarCeldaEnTabla(tabla,"Total:\n$ "+StringUtil.roundAmount(subTotal),ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
         
         super.doc.add(tabla);
         
