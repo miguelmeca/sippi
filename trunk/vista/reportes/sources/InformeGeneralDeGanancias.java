@@ -79,7 +79,7 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         insertarCeldaHeaderEnTabla(tabla,"Nombre de la Obra",ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_LEFT);
         insertarCeldaHeaderEnTabla(tabla,"Monto Cotizado",ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
         insertarCeldaHeaderEnTabla(tabla,"Monto Ejecutado",ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
-        insertarCeldaHeaderEnTabla(tabla,"SubTotal",ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
+        insertarCeldaHeaderEnTabla(tabla,"Diferencia",ReportDesigner.FUENTE_NORMAL_B,PdfPCell.ALIGN_CENTER);
        
         double subTotal = 0;
         for (int i = 0; i < obras.size(); i++) {
