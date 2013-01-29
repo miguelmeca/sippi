@@ -38,9 +38,11 @@ public class InformeCompletoControl extends ReportDesigner{
         mostrarObrasInvolucradas();
         
         try{
+                super.insertarSaltoDePagina();
             mostrarComparativaDeCostos();
             mostrarComparativaHerramientas();
             mostrarComparativaGastosVarios();
+                super.insertarSaltoDePagina();
             mostrarComparativaAlquileresCompras();
         }catch(Exception e){
             throw new DocumentException(e);
@@ -91,7 +93,7 @@ public class InformeCompletoControl extends ReportDesigner{
         tabla.setSpacingBefore(5f);
         tabla.setSpacingAfter(5f);
         tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
-        tabla.setWidthPercentage(50);
+        tabla.setWidthPercentage(90);
         float[] anchos = {1f};
         tabla.setWidths(anchos);
        

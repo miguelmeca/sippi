@@ -72,7 +72,7 @@ public class GraficoDeAreas {
         renderer.setSeriesPaint(2, Color.blue);
         renderer.setSeriesPaint(3, Color.orange);
         
-        StandardCategoryItemLabelGenerator labelGen = new StandardCategoryItemLabelGenerator("$ {2}", new DecimalFormat("0.00"));
+        StandardCategoryItemLabelGenerator labelGen = new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0.00"));
         renderer.setBaseItemLabelGenerator(labelGen);
         renderer.setBaseItemLabelsVisible(true);
         

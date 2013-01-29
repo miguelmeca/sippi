@@ -402,6 +402,13 @@ public class ReportDesigner
         url += ext;
         return new File(url);
     }
+
+    /**
+     * Inserta un salto de página ... como en Word.
+     */
+    public void insertarSaltoDePagina() {
+        this.doc.newPage();
+    }
     
     
     
