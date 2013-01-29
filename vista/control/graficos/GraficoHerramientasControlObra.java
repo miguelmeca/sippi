@@ -95,6 +95,7 @@ public class GraficoHerramientasControlObra {
         
         GraficoDeBarras gdb = new GraficoDeBarras("", dataset,"Etapas de la Obra","Horas de Uso");
         gdb.setCategoryRenderer(renderer);
+        gdb.setMostrarLabels(false);
         final JFreeChart chart = gdb.createGraph();
         
         return chart;        
