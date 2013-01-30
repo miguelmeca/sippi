@@ -352,6 +352,49 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
             try
             {
                 HibernateUtil.beginTransaction();
+                
+                Iterator<SubObra> itSO = this.cot.getSubObras().iterator();
+                while(itSO.hasNext())
+                {
+                    SubObra subObra = itSO.next();
+                    
+                    Iterator<SubObraXMaterial> itMateriales = subObra.getMateriales().iterator();
+                    while(itMateriales.hasNext())
+                    {
+                        SubObraXMaterial material = itMateriales.next();
+                        HibernateUtil.getSession().saveOrUpdate(material);
+                    }
+                    Iterator<SubObraXHerramienta> itHerramientas = subObra.getHerramientas().iterator();
+                    while(itHerramientas.hasNext())
+                    {
+                        SubObraXHerramienta herramienta = itHerramientas.next();
+                        HibernateUtil.getSession().saveOrUpdate(herramienta);
+                    }
+                    Iterator<SubObraXAlquilerCompra> itAC = subObra.getAlquileresCompras().iterator();
+                    while(itAC.hasNext())
+                    {
+                        SubObraXAlquilerCompra ac = itAC.next();
+                        HibernateUtil.getSession().saveOrUpdate(ac);
+                    }
+                    Iterator<SubObraXAdicional> itAdicionales = subObra.getAdicionales().iterator();
+                    while(itAdicionales.hasNext())
+                    {
+                        SubObraXAdicional adicional = itAdicionales.next();
+                        HibernateUtil.getSession().saveOrUpdate(adicional);
+                    }
+                    Iterator<SubObraXTarea> itTareas = subObra.getTareas().iterator();
+                    while(itTareas.hasNext())
+                    {
+                        SubObraXTarea tarea = itTareas.next();
+                        Iterator<DetalleSubObraXTarea> itSub = tarea.getDetalles().iterator();
+                        while(itSub.hasNext())
+                        {
+                            DetalleSubObraXTarea detalle = itSub.next();
+                            HibernateUtil.getSession().saveOrUpdate(detalle);
+                        }
+                        HibernateUtil.getSession().saveOrUpdate(tarea);
+                    }
+                }
                 sesion.saveOrUpdate(this.cot);
                 HibernateUtil.commitTransaction();
                 necesita_guardar = false;
