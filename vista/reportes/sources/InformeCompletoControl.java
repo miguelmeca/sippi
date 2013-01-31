@@ -38,11 +38,16 @@ public class InformeCompletoControl extends ReportDesigner{
         mostrarObrasInvolucradas();
         
         try{
+                mostrarContinuaEnPaginaSiguiente();
                 super.insertarSaltoDePagina();
+            
             mostrarComparativaDeCostos();
             mostrarComparativaHerramientas();
             mostrarComparativaGastosVarios();
+                
+                mostrarContinuaEnPaginaSiguiente();
                 super.insertarSaltoDePagina();
+                
             mostrarComparativaAlquileresCompras();
         }catch(Exception e){
             throw new DocumentException(e);
@@ -112,6 +117,12 @@ public class InformeCompletoControl extends ReportDesigner{
         }
         
         super.doc.add(tabla);
+    }
+
+    private void mostrarContinuaEnPaginaSiguiente() throws DocumentException {
+        Paragraph paContinua = new Paragraph();
+            paContinua.add(new Phrase("Continua en la siguiente página ...",ReportDesigner.FUENTE_INFORMES_NORMAL_I));
+        super.doc.add(paContinua);
     }
     
 }

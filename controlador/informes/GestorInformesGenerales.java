@@ -81,7 +81,7 @@ public class GestorInformesGenerales {
         datos.put("LISTA_PEDIDOS_OBRA", listaObrasFiltradas);
 
         if (listaObrasFiltradas.isEmpty()) {
-            throw new Exception("No hay obras finalizadas en el período de tiempo ingresado");
+            throw new Exception("No hay obras que cumplan con el criterio en el período de tiempo seleccionado");
         }
 
         // Historicos
@@ -149,7 +149,7 @@ public class GestorInformesGenerales {
         }
 
         if (listaObrasFiltradas.isEmpty()) {
-            throw new Exception("No hay obras finalizadas en el período de tiempo ingresado");
+            throw new Exception("No hay obras que cumplan con el criterio en el período de tiempo seleccionado");
         }
 
         datos.put("LISTA_PEDIDOS_OBRA", listaObrasFiltradas);
@@ -452,7 +452,7 @@ public class GestorInformesGenerales {
 
     }
 
-    public void generarInformeControlObras(int cantidadYears) throws Exception{
+    public void generarInformeControlObras(int cantidadYears, boolean considerarSoloFinalizadas) throws Exception{
         // Cotizaciones comunes
         List<PedidoObra> listaObras = null;
         try {
@@ -472,12 +472,20 @@ public class GestorInformesGenerales {
 
             if (FechaUtil.fechaEnRango(po.getFechaInicio(), fechaInicio, fechaFin)
                     && !po.getEstado().equals(PedidoObra.ESTADO_CANCELADO)) {
-                listaObrasFiltradas.add(po);
+                
+                if(considerarSoloFinalizadas){
+                    if(po.getEstado().equals(PedidoObra.ESTADO_FINALIZADO)){
+                        listaObrasFiltradas.add(po);
+                    }
+                }else{
+                    listaObrasFiltradas.add(po);
+                }
+                
             }
         }
 
         if (listaObrasFiltradas.isEmpty()) {
-            throw new Exception("No hay obras finalizadas en el período de tiempo ingresado");
+            throw new Exception("No hay obras que cumplan con el criterio en el período de tiempo seleccionado");
         }
         
          generarInformeControlObras(listaObrasFiltradas, cantidadYears);
