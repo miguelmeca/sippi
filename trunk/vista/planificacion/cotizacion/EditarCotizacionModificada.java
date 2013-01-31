@@ -39,7 +39,10 @@ public class EditarCotizacionModificada extends EditarCotizacion{
         pantallaPadre= pantallaP;
         this.plan = plan;
         editarMenuLateral();
-        
+        if(gestor != null && gestor.getSubObra() != null)
+        {
+            this.setTitle("Editar Subobra: "+gestor.getSubObra().getNombre());
+        }
     }
 
     @Override

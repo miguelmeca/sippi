@@ -100,6 +100,11 @@ public class EditarPlanificacion extends javax.swing.JInternalFrame implements I
         tblTareas.setDefaultRenderer(Object.class, new ListaDeTareasRender());        
         treeRecursos.setCellRenderer(new IconTreeRenderer());
         treeRecursos.setRootVisible(false);
+        
+        if(_gestor != null && _gestor.getPedidoDeObra() != null)
+        {
+            this.setTitle("Editar Planificación: " + _gestor.getPedidoDeObra().getNombre());
+        }
 
         initArbolRecursos();
         initDatosGenerales(idObra);
