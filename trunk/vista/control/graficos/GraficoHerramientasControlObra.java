@@ -58,30 +58,36 @@ public class GraficoHerramientasControlObra {
         
             // Agrego las herramientas cotizados
             Iterator it = herramientasCotizadas.entrySet().iterator();
+            double totalHerramientaCotizada = 0;
             while (it.hasNext()) {
                 Map.Entry e = (Map.Entry) it.next();
                 HerramientaDeEmpresa hde = (HerramientaDeEmpresa)e.getKey();
                 double cantidad = (Double)e.getValue();
-                dataset.addValue(cantidad,"Cotizado","[Coti]"+hde.getNombre());
+                totalHerramientaCotizada += cantidad;
             }
+            dataset.addValue(totalHerramientaCotizada,"Horas","Hs. Cotizadas de Herramientas");
         
             // Agrego las herramientas planificadas
+            double totalHerramientaPlanificada = 0;
             Iterator itp = herramientasPlanificadas.entrySet().iterator();
             while (itp.hasNext()) {
                 Map.Entry e = (Map.Entry) itp.next();
                 HerramientaDeEmpresa hde = (HerramientaDeEmpresa)e.getKey();
                 double cantidad = (Double)e.getValue();
-                dataset.addValue(cantidad,"Planificado","[Plan]"+hde.getNombre());
+                totalHerramientaPlanificada += cantidad;
             }
+            dataset.addValue(totalHerramientaPlanificada,"Horas","Hs. Planificadas de Herramientas");
             
             // Agrego las herramientas ejecutadas
+            double totalHerramientaEjecutadas = 0;
             Iterator ite = herramientasEjecutadas.entrySet().iterator();
             while (ite.hasNext()) {
                 Map.Entry e = (Map.Entry) ite.next();
                 HerramientaDeEmpresa hde = (HerramientaDeEmpresa)e.getKey();
                 double cantidad = (Double)e.getValue();
-                dataset.addValue(cantidad,"Ejecutado","[Ejec]"+hde.getNombre());
+                totalHerramientaEjecutadas += cantidad;
             }
+            dataset.addValue(totalHerramientaEjecutadas,"Horas","Hs. Ejecutadas de Herramientas");
         
         final GraficoDeBarrasCustomRenderer renderer;        
         renderer = new GraficoDeBarrasCustomRenderer(
@@ -95,7 +101,7 @@ public class GraficoHerramientasControlObra {
         
         GraficoDeBarras gdb = new GraficoDeBarras("", dataset,"Etapas de la Obra","Horas de Uso");
         gdb.setCategoryRenderer(renderer);
-        gdb.setMostrarLabels(false);
+        gdb.setMostrarLabels(true);
         final JFreeChart chart = gdb.createGraph();
         
         return chart;        
