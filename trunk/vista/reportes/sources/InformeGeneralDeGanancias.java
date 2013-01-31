@@ -142,8 +142,4 @@ public class InformeGeneralDeGanancias extends ReportDesigner{
         
     }
 
-
-    
-    
-    
 }
