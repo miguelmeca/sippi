@@ -66,7 +66,7 @@ public class GraficoMontosControlObra {
             if(po.getPlanificacion()!=null){
                 if(po.getPlanificacion().getCotizacion()!=null &&
                         po.getPlanificacion().getCotizacion().getCotizacionOriginal()!=null){
-                    return po.getPlanificacion().getCotizacion().getCotizacionOriginal().CalcularTotal();
+                    return po.getPlanificacion().getCotizacion().getCotizacionOriginal().CalcularMontoBase();
                 }
             }
         }
