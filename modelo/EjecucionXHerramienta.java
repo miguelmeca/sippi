@@ -64,7 +64,7 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
             EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
             
             if(dia.esFecha(fechaDelNuevo)){
-                if(dia.getHorasUtilizadas()!=0) {
+                if(dia.getHorasUtilizadas()==0) {
                     return true;
                 }
                 encontroFecha=true;
@@ -77,7 +77,7 @@ public class EjecucionXHerramienta extends PlanificacionXHerramienta{
                 EjecucionXHerramientaXDia dia= usoHerramientasXdia.get(i);
 
                 if(dia.esFecha(fechaDelNuevo)){
-                    if(dia.getHorasUtilizadas()!=0) {
+                    if(dia.getHorasUtilizadas()==0) {
                         return true;
                     }
                     encontroFecha=true;

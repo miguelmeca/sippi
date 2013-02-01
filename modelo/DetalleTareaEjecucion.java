@@ -132,7 +132,7 @@ public class DetalleTareaEjecucion extends DetalleTareaPlanificacion{
                 DetalleTareaEjecucionXDia dia= listaDetallePorDia.get(i);
 
                 if(dia.esFecha(fecha)){
-                    if(dia.getCantidadDeHorasTotales()!=0.0) {
+                    if(dia.getCantidadDeHorasTotales()==0.0) {
                         return true;
                     }
                     encontroFecha=true;
