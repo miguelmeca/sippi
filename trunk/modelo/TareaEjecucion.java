@@ -382,19 +382,29 @@ public class TareaEjecucion extends TareaPlanificacion{
     
     
     //en este caso, la varialbe alFinal es solo para optimiza el recorrido de los for
-    private boolean validarDiaVacio(Date fechaDelNuevo, boolean alFinal) throws Exception{
+    private boolean validarDiaVacio(Date fecha, boolean alFinal) throws Exception{
+        
+        //la fecha no existe, entonces el dia esta vacio (se usa para subtareas)
+        if(!FechaUtil.fechaEnRango(fecha,this.fechaInicio, this.fechaFin)){
+            return true;
+        }
         
       try{
         for (int i = 0; i < this.detalles.size(); i++){
-            if(!((DetalleTareaEjecucion)(this.detalles.get(i))).esDiaVacioEnFecha(fechaDelNuevo, alFinal)){
+            if(!((DetalleTareaEjecucion)(this.detalles.get(i))).esDiaVacioEnFecha(fecha, alFinal)){
                 return false;
             }
         }
         for (int i = 0; i < this.herramientas.size(); i++){
-            if(((EjecucionXHerramienta)(this.herramientas.get(i))).esDiaVacioEnFecha(fechaDelNuevo, alFinal)){
+            if(!((EjecucionXHerramienta)(this.herramientas.get(i))).esDiaVacioEnFecha(fecha, alFinal)){
                 return false;
             }
         } 
+          for (int i = 0; i < this.subtareas.size(); i++) {
+             if(!((TareaEjecucion)this.subtareas.get(i)).validarDiaVacio(fecha, alFinal)){
+                 return false;
+             }
+          }
         
         return true;
       }
