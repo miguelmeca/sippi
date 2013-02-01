@@ -907,7 +907,7 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
            if(detalleCotizacion==null)
             {
                 detalleCotizacion=estructuraNuevoDetalleNoCotizadoSubtarea(caminoDeTareas,  detalleActual, tareaConCotizacion);
-                tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
+                ///tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
             }
             if(this.isTareaHijaDePlanificacion())
             {
@@ -1004,32 +1004,37 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
             DetalleSubObraXTareaModif detalleCotizacion=new DetalleSubObraXTareaModif();
             tareaConCotizacion.getTareaCotizada().agreagarDetalle(detalleCotizacion);
             DetalleTareaPlanificacion padreNuevoAncestroViejo=null;
-             for (int i = 0; i < caminoDeTareas.size()-1; i++) 
-             {
-                DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(detalleActual);
-                padreNuevoAncestro.setCantHorasNormales(0.0);
-                padreNuevoAncestro.setCantHorasAl50(0.0);
-                padreNuevoAncestro.setCantHorasAl100(0.0);
-
-                caminoDeTareas.get(i).addDetalle(padreNuevoAncestro);
-          
-
-                if (i == 0) {
-                    if (caminoDeTareas.get(i).equals(tareaConCotizacion)) {
-                        
-                        padreNuevoAncestro.setCotizado(detalleCotizacion);
-                        
-                        /*
-                         * }
-                         */
-                    } else {
-                        throw new Exception("Error en el indice de tareas - tareaConCotizacion");
-                    }
-                }
-
-                padreNuevoAncestro.setearPadre(padreNuevoAncestroViejo);
-                padreNuevoAncestroViejo = padreNuevoAncestro;                
+            if(tareaHijaDePlanificacion){
+                detalleActual.setCotizado(detalleCotizacion);
             }
+            else{
+                for (int i = 0; i < caminoDeTareas.size()-1; i++) 
+                {
+                   DetalleTareaPlanificacion padreNuevoAncestro = new DetalleTareaPlanificacion(detalleActual);
+                   padreNuevoAncestro.setCantHorasNormales(0.0);
+                   padreNuevoAncestro.setCantHorasAl50(0.0);
+                   padreNuevoAncestro.setCantHorasAl100(0.0);
+
+                   caminoDeTareas.get(i).addDetalle(padreNuevoAncestro);
+
+
+                   if (i == 0) {
+                       if (caminoDeTareas.get(i).equals(tareaConCotizacion)) {
+
+                           padreNuevoAncestro.setCotizado(detalleCotizacion);
+
+                           /*
+                            * }
+                            */
+                       } else {
+                           throw new Exception("Error en el indice de tareas - tareaConCotizacion");
+                       }
+                   }
+
+                   padreNuevoAncestro.setearPadre(padreNuevoAncestroViejo);
+                   padreNuevoAncestroViejo = padreNuevoAncestro;                
+               }
+             }
             detalleActual.setearPadre(padreNuevoAncestroViejo); 
             return detalleCotizacion;
         
