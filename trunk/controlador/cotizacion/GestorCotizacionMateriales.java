@@ -29,7 +29,7 @@ import vista.planificacion.cotizacion.EditarCotizacionModificada;
 public class GestorCotizacionMateriales implements IGestorCotizacion{
     
     private GestorEditarCotizacion gestorPadre;
-    private SubObra subObra;
+//    private SubObra subObra;
     private CotizacionMateriales pantalla;
     private SeleccionProveedorCotizacion pantallaSeleccion;
 
@@ -37,13 +37,13 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     
     public GestorCotizacionMateriales(GestorEditarCotizacion gestorPadre) {
         this.gestorPadre = gestorPadre;
-        this.subObra = gestorPadre.getSubObraActual();
+//        this.subObra = gestorPadre.getSubObraActual();
         pantallaSeleccion = null;
     }
 
     public GestorCotizacionMateriales() {
         this.gestorPadre = null;
-        this.subObra = null;
+//        this.subObra = null;
         pantallaSeleccion = null;
     }
 
@@ -104,7 +104,7 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
     public ArrayList<NTupla> getMaterialesAUtilizar() {
         ArrayList<NTupla> mau = new ArrayList<NTupla>();
         try {
-            Iterator<SubObraXMaterial> it = this.subObra.getMateriales().iterator();
+            Iterator<SubObraXMaterial> it = getSubObraActual().getMateriales().iterator();
             SubObraXMaterial soxm = null;
             while(it.hasNext()){
                 NTupla nt = new NTupla();
@@ -224,7 +224,8 @@ public class GestorCotizacionMateriales implements IGestorCotizacion{
                 soxm.setCantidad(cantidad);
                 soxm.setDescripcion(desc);
                 soxm.setPrecioUnitario(precio);
-                subObra.getMateriales().add(soxm);
+//                subObra.getMateriales().add(soxm);
+                getSubObraActual().getMateriales().add(soxm);
                 refrescarPantallas();
                 HibernateUtil.commitTransaction();
             }
