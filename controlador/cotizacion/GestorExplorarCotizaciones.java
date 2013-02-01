@@ -49,23 +49,27 @@ public class GestorExplorarCotizaciones
 
         ArrayList<NTupla> listaCotizaciones = new ArrayList<NTupla>();
         for (int i = 0; i < lista.size(); i++) {
-            if(lista.get(i).getClass().getSimpleName().equals("Cotizacion")){
-                Cotizacion cot = (Cotizacion) lista.get(i);
-                String nombrePedidoObra = "";
-                if (cot.buscarPedidoObra() != null) {
-                    nombrePedidoObra = cot.buscarPedidoObra().getNombre();
+            if(lista.get(i).getClass().getSimpleName().equals("CotizacionModificada")){
+                // Nothing to do here ...
+            }else{
+                if(lista.get(i).getClass().getSimpleName().equals("Cotizacion")){
+                    Cotizacion cot = (Cotizacion) lista.get(i);
+                    String nombrePedidoObra = "";
+                    if (cot.buscarPedidoObra() != null) {
+                        nombrePedidoObra = cot.buscarPedidoObra().getNombre();
+                    }
+                    NTupla tupla = new NTupla(cot.getId());
+                    tupla.setNombre(nombrePedidoObra);//No me gusta como queda esto... Pero es la 1er columna...
+                    String[] datos = new String[6];
+                    datos[0] = String.valueOf(cot.getNroCotizacion());
+                    datos[1] = String.valueOf(cot.getNroRevision());
+                    datos[2] = String.valueOf(cot.getEstado());
+                    datos[3] = String.valueOf(FechaUtil.getFecha(cot.getFechaCreacion()));
+                    datos[4] = String.valueOf(FechaUtil.getFecha(cot.getFechaModificacion()));
+                    datos[5] = "$ " + String.valueOf(cot.CalcularTotal());
+                    tupla.setData(datos);
+                    listaCotizaciones.add(tupla);
                 }
-                NTupla tupla = new NTupla(cot.getId());
-                tupla.setNombre(nombrePedidoObra);//No me gusta como queda esto... Pero es la 1er columna...
-                String[] datos = new String[6];
-                datos[0] = String.valueOf(cot.getNroCotizacion());
-                datos[1] = String.valueOf(cot.getNroRevision());
-                datos[2] = String.valueOf(cot.getEstado());
-                datos[3] = String.valueOf(FechaUtil.getFecha(cot.getFechaCreacion()));
-                datos[4] = String.valueOf(FechaUtil.getFecha(cot.getFechaModificacion()));
-                datos[5] = "$ " + String.valueOf(cot.CalcularTotal());
-                tupla.setData(datos);
-                listaCotizaciones.add(tupla);
             }
         }
 
