@@ -72,6 +72,7 @@ public class CotizacionInterna extends ReportDesigner{
             
                 // TAblas
                 PdfPTable tabla = new PdfPTable(3);
+                tabla.setWidths(new int[] {1,3,1});
                 tabla.setHorizontalAlignment(PdfPTable.ALIGN_CENTER);
                 tabla.setWidthPercentage(95);
                     PdfPCell celdaNombre = new PdfPCell(new Paragraph((i+1)+"-"+so.getNombre(),ReportDesigner.FUENTE_NORMAL));
