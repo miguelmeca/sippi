@@ -127,7 +127,7 @@ public class CotizacionInterna extends ReportDesigner{
                         for (int j = 0; j < so.getHerramientas().size(); j++) 
                         {
                             SubObraXHerramienta som = so.getHerramientas().get(j);
-                            detalleHerr += som.getHerramienta().getNroSerie()+"\n";
+                            detalleHerr += som.getHerramienta().getNombre() + " (Nro. " + som.getHerramienta().getNroSerie()+")\n";
                             subtotalherr += "$"+som.calcularSubtotal()+"\n";
                         }                       
                     PdfPCell celdaHerrD = new PdfPCell(new Paragraph(detalleHerr,ReportDesigner.FUENTE_NORMAL));
