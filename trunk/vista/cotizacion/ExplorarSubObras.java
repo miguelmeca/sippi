@@ -1068,9 +1068,9 @@ public class ExplorarSubObras extends javax.swing.JInternalFrame implements ICal
             EditarCotizacion mod = new EditarCotizacion(gestor.getGestorEditarCotizacion(tp.getId()));
             
             if(tblMenu.getSelectedRow() >=0)
-                mod.setTitle("Editar Cotización: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
+                mod.setTitle("Editar Sub-obra: "+modelo.getValueAt(tblMenu.getSelectedRow(), 0));
             else
-                mod.setTitle("Editar Cotización: Default");
+                mod.setTitle("Editar Sub-obra: Default");
             SwingPanel.getInstance().addWindow(mod);
             mod.setVisible(true);
         }
