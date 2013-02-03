@@ -814,6 +814,26 @@ public class TareaPlanificacion
                 subT+=detalles.get(i).calcularSubtotal();
             }
         } 
+        ///////////////
+        for (int i = 0; i < herramientas.size(); i++) 
+        {
+            if(herramientas.get(i)!=null){
+                subT+=herramientas.get(i).calcularSubtotal();
+            }
+        } 
+        for (int i = 0; i < materiales.size(); i++) 
+        {
+            if(materiales.get(i)!=null){
+                subT+=materiales.get(i).calcularSubtotal();
+            }
+        } 
+        for (int i = 0; i < alquilerCompras.size(); i++) 
+        {
+            if(alquilerCompras.get(i)!=null){
+                subT+=alquilerCompras.get(i).calcularSubtotal();
+            }
+        } 
+        /////////////
         for (TareaPlanificacion subtarea: subtareas) 
         {
             if(subtarea!=null){

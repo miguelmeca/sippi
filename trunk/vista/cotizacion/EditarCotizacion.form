@@ -177,7 +177,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="471" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="475" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -198,7 +198,7 @@
                       <Data value="Herramientas"/>
                       <Data value="Materiales"/>
                       <Data value="Alquileres/Compras"/>
-                      <Data value="Recursos Humanos"/>
+                      <Data value="Tareas"/>
                       <Data value="Gastos Varios"/>
                       <Data value="Beneficios"/>
                     </Column>

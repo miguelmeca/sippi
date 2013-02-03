@@ -88,7 +88,7 @@ public class CotizacionExternaSubObras extends ReportDesigner{
                     celdaNombre.setColspan(3);
                     tabla.addCell(celdaNombre);
                    
-                    PdfPCell celdaST = new PdfPCell(new Paragraph("$"+so.calcularSubtotal(),new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
+                    PdfPCell celdaST = new PdfPCell(new Paragraph("$"+((double)Math.round(so.calcularSubtotal() * 100) / 100),new Font(Font.FontFamily.HELVETICA,10,Font.BOLD)));
                     celdaST.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
                     celdaST.setVerticalAlignment(PdfPCell.ALIGN_BOTTOM);
                     tabla.addCell(celdaST);

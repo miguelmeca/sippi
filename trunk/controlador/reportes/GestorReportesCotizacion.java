@@ -57,7 +57,7 @@ public class GestorReportesCotizacion {
                     params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
                     params.put("LISTA_SUB_OBRAS",listaSubObras);
-                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    params.put("COTIZACION_TOTAL","$"+((double)Math.round(cot.CalcularTotal() * 100) / 100));
                     
                     params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
@@ -114,7 +114,7 @@ public class GestorReportesCotizacion {
 
                     params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
-                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    params.put("COTIZACION_TOTAL","$"+((double)Math.round(cot.CalcularTotal() * 100) / 100));
 
                     params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
@@ -179,7 +179,7 @@ public class GestorReportesCotizacion {
                     params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
                     params.put("LISTA_SUB_OBRAS",listaSubObras);
-                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    params.put("COTIZACION_TOTAL","$"+((double)Math.round(cot.CalcularTotal() * 100) / 100));
 
                     params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
@@ -244,7 +244,7 @@ public class GestorReportesCotizacion {
                     params.put("COTIZACION_NRO",cot.getNroCotizacion()+" Rev:"+cot.getNroRevision());
                     params.put("COTIZACION_MEMDESC",cot.getDescripcion());
                     params.put("LISTA_SUB_OBRAS",listaSubObras);
-                    params.put("COTIZACION_TOTAL","$"+cot.CalcularTotal());
+                    params.put("COTIZACION_TOTAL","$"+((double)Math.round(cot.CalcularTotal() * 100) / 100));
                     
                     params.put("FORMA_DE_PAGO",po.getFormaPago().getNombre());
                     params.put("PLAZO_ENTREGA",cot.getPlazoEntrega());
