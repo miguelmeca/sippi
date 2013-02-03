@@ -76,8 +76,21 @@ public class SubObra implements ISubtotal
         
         
     }
-
+    
+    @Deprecated
     public void setGananciaMonto(double gananciaMonto) 
+    {
+       this.gananciaMonto = gananciaMonto;
+       
+        
+    }
+    
+    @Deprecated
+    public void setGananciaPorcentaje(double gananciaPorcentaje) {
+       this.gananciaPorcentaje = gananciaPorcentaje;            
+    }
+
+    public void setearGananciaMonto(double gananciaMonto) 
     {
         try{
             flagGananciaPorcentaje=false;
@@ -93,7 +106,7 @@ public class SubObra implements ISubtotal
         return gananciaPorcentaje;
     }
 
-    public void setGananciaPorcentaje(double gananciaPorcentaje) {
+    public void setearGananciaPorcentaje(double gananciaPorcentaje) {
         try {
             flagGananciaPorcentaje=true;
             this.gananciaPorcentaje = gananciaPorcentaje;

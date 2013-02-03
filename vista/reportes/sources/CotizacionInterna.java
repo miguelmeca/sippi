@@ -179,6 +179,10 @@ public class CotizacionInterna extends ReportDesigner{
                         if(so.getGananciaPorcentaje()!=0)
                         {
                             detalleBen = so.getGananciaPorcentaje()+"%";
+                            
+                            //WORKAROUND!! Para evitar el monto con valor cero.
+                            so.setearGananciaPorcentaje(so.getGananciaPorcentaje());
+                            
                         }
                         subtotalBen ="$"+((double)Math.round(so.getGananciaMonto() * 100) / 100);
 
