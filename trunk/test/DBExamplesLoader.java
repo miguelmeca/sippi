@@ -1238,7 +1238,7 @@ public class DBExamplesLoader {
                 soxm.setPrecioUnitario(gestor.getPrecioMaterial(rxp1.getId(), 44));
                 so1.addMaterial(soxm);
 
-                so1.setGananciaMonto(500.0);
+                so1.setearGananciaMonto(500.0);
                 cot.addSubObra(so1);
 
                 //SUBOBRA 2
@@ -1260,7 +1260,7 @@ public class DBExamplesLoader {
                 soxac.setTipoAlquilerCompra((TipoAlquilerCompra)sesion.load(TipoAlquilerCompra.class,3));
                 soxac.setDescripcion("Flete desde Cordoba");
                 so2.addAlquilerCompra(soxac);
-                so2.setGananciaPorcentaje(5.0);
+                so2.setearGananciaPorcentaje(5.0);
                 cot.addSubObra(so2);
 
 
@@ -1364,8 +1364,8 @@ public class DBExamplesLoader {
                 List<SubObraXTarea> subObraXTareaModifs = new ArrayList<SubObraXTarea>();
                    
                 subObraMod.setDescripcion(subObra.getDescripcion());
-                subObraMod.setGananciaMonto(subObra.getGananciaMonto());
-                subObraMod.setGananciaPorcentaje(subObra.getGananciaPorcentaje());
+                subObraMod.setearGananciaMonto(subObra.getGananciaMonto());
+                subObraMod.setearGananciaPorcentaje(subObra.getGananciaPorcentaje());
                 subObraMod.setNombre(subObra.getNombre());
                 Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();
                 

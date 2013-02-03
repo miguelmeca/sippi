@@ -394,7 +394,9 @@ public class GestorExplorarSubObras implements IGestorCotizacion{
                         }
                         HibernateUtil.getSession().saveOrUpdate(tarea);
                     }
+                    HibernateUtil.getSession().saveOrUpdate(subObra);
                 }
+                
                 sesion.saveOrUpdate(this.cot);
                 HibernateUtil.commitTransaction();
                 necesita_guardar = false;

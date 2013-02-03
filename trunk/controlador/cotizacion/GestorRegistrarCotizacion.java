@@ -169,9 +169,9 @@ public class GestorRegistrarCotizacion {
             SubObra nuevaSO=new SubObra();
             nuevaSO.setDescripcion(so.getDescripcion());
             if(so.isFlagGananciaPorcentaje())
-            {nuevaSO.setGananciaPorcentaje(so.getGananciaPorcentaje());}
+            {nuevaSO.setearGananciaPorcentaje(so.getGananciaPorcentaje());}
             else
-            {nuevaSO.setGananciaMonto(so.getGananciaMonto());}            
+            {nuevaSO.setearGananciaMonto(so.getGananciaMonto());}            
             nuevaSO.setNombre(so.getNombre());
             //Copio SubObrasXTareas
             Iterator<SubObraXTarea> it = so.getTareas().iterator();

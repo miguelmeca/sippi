@@ -58,8 +58,8 @@ public class Trazabilidad {
             List<SubObraXMaterial> subObraXMaterialModifs = new ArrayList<SubObraXMaterial>();
             List<SubObraXTarea> subObraXTareaModifs = new ArrayList<SubObraXTarea>();
             subObraMod.setDescripcion(subObra.getDescripcion());
-            subObraMod.setGananciaMonto(subObra.getGananciaMonto());
-            subObraMod.setGananciaPorcentaje(subObra.getGananciaPorcentaje());
+            subObraMod.setearGananciaMonto(subObra.getGananciaMonto());
+            subObraMod.setearGananciaPorcentaje(subObra.getGananciaPorcentaje());
             subObraMod.setNombre(subObra.getNombre());
                 
             Iterator<SubObraXAdicional> itSubObraXAdcional = subObra.getAdicionales().iterator();

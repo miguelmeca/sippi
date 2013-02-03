@@ -171,7 +171,7 @@ public class CotizacionModificada extends Cotizacion{
         general.setDescripcion(descripcionSubObraGeneral);
         general.setNombre(nombreSubObraGeneral);
         general.setSubObraGeneralALaPlanificacion(true);
-        general.setGananciaMonto(0.0);
+        general.setearGananciaMonto(0.0);
         
         subObras.add(0, general);
         return general;

@@ -54,14 +54,14 @@ public class GestorCotizacionBeneficios implements IGestorCotizacion {
         if(flagGananciaPorcentaje)
         {
             porcentageGanancia=ganancia;            
-            subObraActual.setGananciaPorcentaje(ganancia);
+            subObraActual.setearGananciaPorcentaje(ganancia);
             montoGanancia=subObraActual.getGananciaMonto();
             
         }
         else
         {
             montoGanancia=ganancia;            
-            subObraActual.setGananciaMonto(ganancia);
+            subObraActual.setearGananciaMonto(ganancia);
             porcentageGanancia=subObraActual.getGananciaPorcentaje();
         }
         
