@@ -165,10 +165,11 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasNormales()),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl50()),ReportDesigner.FUENTE_NORMAL)));
                 tablaManoDeObra.addCell(new PdfPCell(new Paragraph(String.valueOf(soxt.obtenerTotalDeHorasAl100()),ReportDesigner.FUENTE_NORMAL)));
-                tablaManoDeObra.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxt.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaManoDeObra.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(((double)Math.round(soxt.calcularSubtotal() * 100) / 100)),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxt.calcularSubtotal();
             }
             if(subtotal != 0){
+                subtotal=((double)Math.round(subtotal * 100) / 100);
                 tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");
                 tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");tablaManoDeObra.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
@@ -188,10 +189,11 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaMateriales.addCell(new PdfPCell(new Paragraph(m.getNombre(),ReportDesigner.FUENTE_NORMAL)));
                 tablaMateriales.addCell(new PdfPCell(new Paragraph(re.getNombre(),ReportDesigner.FUENTE_NORMAL)));
                 tablaMateriales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxm.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaMateriales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxm.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaMateriales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(((double)Math.round(soxm.calcularSubtotal() * 100) / 100)),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxm.calcularSubtotal();
             }
             if(subtotal != 0){
+                subtotal=((double)Math.round(subtotal * 100) / 100);
                 tablaMateriales.addCell("");tablaMateriales.addCell("");tablaMateriales.addCell("");
                 tablaMateriales.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
@@ -210,10 +212,11 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
 //                tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantDias()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph(String.valueOf(soxh.getCantHoras()),ReportDesigner.FUENTE_NORMAL)));
                 tablaHerramientas.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxh.getCostoXHora()),ReportDesigner.FUENTE_NORMAL)));
-                tablaHerramientas.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxh.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaHerramientas.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(((double)Math.round(soxh.calcularSubtotal() * 100) / 100)),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxh.calcularSubtotal();
             }
             if(subtotal != 0){
+                subtotal=((double)Math.round(subtotal * 100) / 100);
                 tablaHerramientas.addCell("");tablaHerramientas.addCell("");tablaHerramientas.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
@@ -229,10 +232,11 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaCompras.addCell(new PdfPCell(new Paragraph(String.valueOf(soxac.getCantidad()),ReportDesigner.FUENTE_NORMAL)));
                 tablaCompras.addCell(new PdfPCell(new Paragraph(soxac.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
                 tablaCompras.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxac.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaCompras.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxac.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaCompras.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(((double)Math.round(soxac.calcularSubtotal() * 100) / 100)),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxac.calcularSubtotal();
             }
             if(subtotal != 0){
+                subtotal=((double)Math.round(subtotal * 100) / 100);
                 tablaCompras.addCell("");tablaCompras.addCell("");tablaCompras.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
@@ -249,11 +253,12 @@ public class CotizacionExternaXRecurso extends ReportDesigner{
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph(soxa.getTipoAdicional().getNombre()+" - "+soxa.getDescripcion(),ReportDesigner.FUENTE_NORMAL)));
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph(String.valueOf(soxa.getCantidad()),ReportDesigner.FUENTE_NORMAL)));
                 tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.getPrecioUnitario()),ReportDesigner.FUENTE_NORMAL)));
-                tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(soxa.calcularSubtotal()),ReportDesigner.FUENTE_NORMAL)));
+                tablaAdicionales.addCell(new PdfPCell(new Paragraph("$"+String.valueOf(((double)Math.round(soxa.calcularSubtotal() * 100) / 100)),ReportDesigner.FUENTE_NORMAL)));
                 subtotal += soxa.calcularSubtotal();
             }
             
             if(subtotal != 0){
+                subtotal=((double)Math.round(subtotal * 100) / 100);
                 tablaAdicionales.addCell("");tablaAdicionales.addCell("");tablaAdicionales.addCell("");
                 PdfPCell celdaSubTotal = new PdfPCell(new Paragraph("$"+String.valueOf(subtotal),ReportDesigner.FUENTE_NORMAL_B));
                 celdaSubTotal.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);

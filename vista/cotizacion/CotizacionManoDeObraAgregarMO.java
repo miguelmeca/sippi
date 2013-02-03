@@ -117,8 +117,9 @@ public class CotizacionManoDeObraAgregarMO extends javax.swing.JInternalFrame {
     
     public void tomarValoresDeDatos(SubObraXTarea tarea, int indiceFila)
     {
-        this.setTitle("Modificar Tarea");
+        
         tareaActual=tarea;
+        this.setTitle("Modificar Tarea "+tareaActual.getNombre());
         indiceFilaModificada=indiceFila;
         hashCodeTarea=tarea.hashCode();
         idTarea=tarea.getId();

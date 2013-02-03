@@ -95,7 +95,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             SubObraXTarea som = so.getTareas().get(j);
                             detalleMO += som.getNombre()+"\n";
-                            subtotalmo += "$"+som.calcularSubtotal()+"\n";
+                            subtotalmo += "$"+((double)Math.round(som.calcularSubtotal() * 100) / 100)+"\n";
                         }                      
                     PdfPCell celdaMOD = new PdfPCell(new Paragraph(detalleMO,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaMOD);
@@ -112,7 +112,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             SubObraXMaterial som = so.getMateriales().get(j);
                             detalle += som.getDescripcion()+"\n";
-                            subtotalmat += "$"+som.calcularSubtotal()+"\n";
+                            subtotalmat += "$"+((double)Math.round(som.calcularSubtotal() * 100) / 100)+"\n";
                         }                    
                     PdfPCell celdaMatD = new PdfPCell(new Paragraph(detalle,ReportDesigner.FUENTE_NORMAL_K));
                     tabla.addCell(celdaMatD);
@@ -129,7 +129,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             SubObraXHerramienta som = so.getHerramientas().get(j);
                             detalleHerr += som.getHerramienta().getNombre() + " (Nro. " + som.getHerramienta().getNroSerie()+")\n";
-                            subtotalherr += "$"+som.calcularSubtotal()+"\n";
+                            subtotalherr += "$"+((double)Math.round(som.calcularSubtotal() * 100) / 100)+"\n";
                         }                       
                     PdfPCell celdaHerrD = new PdfPCell(new Paragraph(detalleHerr,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaHerrD);
@@ -146,7 +146,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             SubObraXAlquilerCompra som = so.getAlquileresCompras().get(j);
                             detalleComp += som.getTipoAlquilerCompra().getNombre()+"\n";
-                            subtotalcomp += "$"+som.calcularSubtotal()+"\n";
+                            subtotalcomp += "$"+((double)Math.round(som.calcularSubtotal() * 100) / 100)+"\n";
                         }                       
                     PdfPCell celdaCompD = new PdfPCell(new Paragraph(detalleComp,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaCompD);
@@ -163,7 +163,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             SubObraXAdicional som = so.getAdicionales().get(j);
                             detalleAdic += som.getTipoAdicional().getNombre()+"\n";
-                            subtotalAdic += "$"+som.calcularSubtotal()+"\n";
+                            subtotalAdic += "$"+((double)Math.round(som.calcularSubtotal() * 100) / 100)+"\n";
                         }                       
                     PdfPCell celdaAdicD = new PdfPCell(new Paragraph(detalleAdic,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaAdicD);
@@ -180,7 +180,7 @@ public class CotizacionInterna extends ReportDesigner{
                         {
                             detalleBen = so.getGananciaPorcentaje()+"%";
                         }
-                        subtotalBen ="$"+so.getGananciaMonto();
+                        subtotalBen ="$"+((double)Math.round(so.getGananciaMonto() * 100) / 100);
 
                     PdfPCell celdaBenD = new PdfPCell(new Paragraph(detalleBen,ReportDesigner.FUENTE_NORMAL));
                     tabla.addCell(celdaBenD);

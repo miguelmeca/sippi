@@ -82,6 +82,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     public EditarTareaDetallesABM(ICallBack_v3 pantalla, GestorEditarTareaDetalles gestor, boolean modificacion, boolean tareaHijaDePlanificacion) {
         gestorConsultarEmpleado = new GestorConsultarEmpleado();
         this.tareaHijaDePlanificacion=tareaHijaDePlanificacion;
+        this.setTitle("Detalle de Recursos Humanos - Tarea "+gestor.getTareaActual().getNombre());        
         initComponents();        
         this.gestor = gestor;
         gestor.setPantallaABM(this);
