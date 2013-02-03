@@ -90,6 +90,9 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaObrasMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaObrasMousePressed(evt);
+            }
         });
         jScrollPane1.setViewportView(tablaObras);
 
@@ -105,7 +108,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -142,7 +145,7 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -178,17 +181,19 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(339, Short.MAX_VALUE)
-                .addComponent(btnNuevaCotizacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificarCotizacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnNuevaCotizacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificarCotizacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -250,11 +255,6 @@ public class ExplorarCotizacionObra extends javax.swing.JInternalFrame implement
 
 private void tablaObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaObrasMouseClicked
 
-    if(tablaObras.getSelectedRow()!=-1 && tablaObras.getValueAt(tablaObras.getSelectedRow(),0) instanceof ExplorarCotizacionObra_celdaObras)
-    {
-        ExplorarCotizacionObra_celdaObras t = (ExplorarCotizacionObra_celdaObras)tablaObras.getValueAt(tablaObras.getSelectedRow(),0);
-        llenarTablaCotizaciones(gestor.getCotizaciones(t.getId()));
-    }
     
 }//GEN-LAST:event_tablaObrasMouseClicked
 
@@ -263,6 +263,15 @@ private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     this.dispose();
     
 }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void tablaObrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaObrasMousePressed
+       if(tablaObras.getSelectedRow()!=-1 && tablaObras.getValueAt(tablaObras.getSelectedRow(),0) instanceof ExplorarCotizacionObra_celdaObras)
+        {
+            ExplorarCotizacionObra_celdaObras t = (ExplorarCotizacionObra_celdaObras)tablaObras.getValueAt(tablaObras.getSelectedRow(),0);
+            llenarTablaCotizaciones(gestor.getCotizaciones(t.getId()));
+        }
+    
+    }//GEN-LAST:event_tablaObrasMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

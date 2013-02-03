@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.*;
 import org.hibernate.Session;
+import util.FechaUtil;
 import util.HibernateUtil;
 import util.LogUtil;
 import util.NTupla;
@@ -1200,6 +1201,160 @@ public ArrayList<NTupla> mostrarRangos(TipoEspecialidad te)
         if(detalle.getCantidadHijos()==0)
         {
             detalle.borrar(caminoTareas);            
+        }
+    }
+    
+     public String validarDisponibilidad(Empleado emp){
+        try {
+            Session sesion = HibernateUtil.getSession();
+                 
+                 HibernateUtil.beginTransaction();
+                 //Traigo solo tareas con rango en fecha, junto a la planificacion a la que pertenecen
+                  List<Object[]> plans= sesion.createQuery("from Planificacion P, TareaPlanificacion TP, PedidoObra PO "
+                         + "where P.id not in (select P1.id from Planificacion P1, Ejecucion E  where E.planificacionOriginal=P1) "                        
+                         + "and TP in elements(P.tareas) and ((TP.fechaInicio <= :fechaFinT AND TP.fechaFin >= :fechaFinT) OR (TP.fechaInicio <= :fechaInicioT AND TP.fechaFin >= :fechaInicioT)) "
+                         + "and (PO.planificacion = P OR PO.ejecucion = P) and P.estado LIKE 'Creada'"
+                         + "").setParameter("fechaInicioT", this.tareaActual.getFechaInicio()).setParameter("fechaFinT", this.tareaActual.getFechaFin()).list();
+                  
+                  //Consulta completas usando HSQL, sin necesida de codigo posterior. No funciona para subtareas                  
+                  /* List<Object[]> subtars= sesion.createQuery("from TareaPlanificacion TP, DetalleTareaPlanificacion D "
+                         + "where P.id not in (select P1.id from Planificacion P1, Ejecucion E  where E.planificacionOriginal=P1) "                        
+                         + "and TP in elements(P.tareas) and TP.fechaInicio <= :fechaFinT  and TP.fechaFin >= :fechaInicioT "
+                         + "and D in elements(TP.detalles) and :emp in elements(D.empleados)"
+                         + "").setParameter("fechaInicioT", this.tareaActual.getFechaInicio()).setParameter("fechaFinT", this.tareaActual.getFechaFin()).list();
+                */
+                  
+                 
+                  
+                  
+                  //Codigo de prueba de fechas validas
+                  /*
+                 for (int i = 0; i < plans.size(); i++) {
+                     boolean inicioEnRango=false;
+                     boolean finEnRango=false;
+                     TareaPlanificacion t= (TareaPlanificacion)plans.get(i)[1];
+                     if(FechaUtil.fechaEnRango(this.tareaActual.getFechaInicio(), t.getFechaInicio(), t.getFechaFin())){
+                         inicioEnRango=true;
+                     }
+                     if(FechaUtil.fechaEnRango(this.tareaActual.getFechaFin(), t.getFechaInicio(), t.getFechaFin())){
+                         finEnRango=true;
+                     }
+                     System.out.println(" Tarea:"+inicioEnRango+"-"+finEnRango);
+                     if(!inicioEnRango){
+                      System.out.println("inicioEnRango FALLO");
+                     }
+                     if(!finEnRango){
+                      System.out.println("finEnRango FALLO");
+                     }  
+                }*/
+                  
+                   HibernateUtil.commitTransaction();
+                  
+                  
+                  ArrayList<Object[]> tareasSolapadas=new ArrayList<Object[]>();
+                  
+                for (int i = 0; i < plans.size(); i++) {
+                     TareaPlanificacion t= (TareaPlanificacion)plans.get(i)[1]; 
+                     Planificacion p= (Planificacion)plans.get(i)[0]; 
+                     PedidoObra po= (PedidoObra)plans.get(i)[2];
+                     boolean inicioEnRango=false;
+                     boolean finEnRango=false;
+                      if(FechaUtil.fechaEnRango(this.tareaActual.getFechaInicio(), t.getFechaInicio(), t.getFechaFin())){
+                            inicioEnRango=true;
+                     }
+                     if(FechaUtil.fechaEnRango(this.tareaActual.getFechaFin(), t.getFechaInicio(), t.getFechaFin())){
+                            finEnRango=true;
+                     }
+                     if(inicioEnRango || finEnRango) {         
+                         escarbarEnTareas(emp,  p,  t, tareasSolapadas, po);
+                     }
+                     //escarbarEnTareas(emp,  p,  t, tareasSolapadas, po);
+                }  
+                StringBuilder sB = new StringBuilder();
+                
+                if(tareasSolapadas.size()==0){
+                    return null;
+                }
+                
+               for (int i = 0; i < tareasSolapadas.size(); i++) {
+                   sB.append("_________________________\n");
+                   sB.append("Obra: ");                
+                   sB.append(((PedidoObra)(tareasSolapadas.get(i)[1])).getNombre() + "  ID:"+((PedidoObra)(tareasSolapadas.get(i)[1])).getId());
+                   sB.append(" - "); 
+                   sB.append("Planificacion: "+((Planificacion)(tareasSolapadas.get(i)[2])).getId()); 
+                   sB.append(" - ");   
+                   sB.append("Tarea: "); 
+                   sB.append(((TareaPlanificacion)(tareasSolapadas.get(i)[0])).getNombre()+" TareaID:"+((TareaPlanificacion)(tareasSolapadas.get(i)[0])).getId());
+                   sB.append(" - ");   
+                   sB.append("Detalle: "+((DetalleTareaPlanificacion)(tareasSolapadas.get(i)[3])).getId());                    
+                   sB.append("\n");   
+                   
+               }
+               /* for (int i = 0; i < tareasSolapadas.size(); i++) {
+                   sB.append("Obra: ");                
+                   sB.append(((PedidoObra)(tareasSolapadas.get(i)[1])).getNombre());
+                   sB.append(" - ");   
+                   sB.append("Tarea: "); 
+                   sB.append(((TareaPlanificacion)(tareasSolapadas.get(i)[0])).getNombre());
+                   sB.append("\n");                
+               }*/
+               
+               return sB.toString();  
+                 
+           // ArrayList<Planificacion> planificaciones; = 
+            //ArrayList<Ejecucion> ejecucion;
+            //planificaciones=getPlanificacionesEnRango(fechaInicio, fechaFin);
+            //planificaciones=getPlanificacionesEnRango(fechaInicio, fechaFin);
+        } catch (Exception ex) {
+            Logger.getLogger(GestorEditarTareaDetalles.class.getName()).log(Level.SEVERE, null, ex);
+            HibernateUtil.rollbackTransaction();
+            return null;
+        }         
+        
+            
+    }
+    
+    private void escarbarEnTareas(Empleado emp, Planificacion plan, TareaPlanificacion t, ArrayList<Object[]> tareasSolapadas, PedidoObra PO){
+        List<DetalleTareaPlanificacion> detall=t.getDetallesSinDetallesVacios();
+        for (int j = 0; j < detall.size(); j++) {
+             DetalleTareaPlanificacion dtp=detall.get(j);
+                         
+              for (int k = 0; k < dtp.getEmpleados().size(); k++) {
+                   if(dtp.getEmpleados().get(k).getOID()==emp.getOID()){
+                         Object[] arr=new Object[4];                         
+                         arr[0]=t;
+                         arr[1]=PO;
+                         arr[2]=plan;
+                         arr[3]=dtp;
+                         tareasSolapadas.add(arr);
+                         break;
+                   }
+              }                        
+        }        
+        for (int h = 0; h < t.getSubtareas().size(); h++) {
+            TareaPlanificacion subTar=t.getSubtareas().get(h);
+            boolean inicioEnRango=false;
+            boolean finEnRango=false;
+            if(FechaUtil.fechaEnRango(this.tareaActual.getFechaInicio(), t.getFechaInicio(), t.getFechaFin())){
+                   inicioEnRango=true;
+            }
+            if(FechaUtil.fechaEnRango(this.tareaActual.getFechaFin(), t.getFechaInicio(), t.getFechaFin())){
+                   finEnRango=true;
+            }
+            if(inicioEnRango || finEnRango) {         
+                escarbarEnTareas(emp,  plan, subTar,  tareasSolapadas, PO);
+            }
+           
+        }
+           
+    }
+    
+    public boolean todosLosEmpleadosAsignados(){
+        if(detalleActual.getCantidadPersonas() > detalleActual.getCantidadPersonasAsignadas()){
+            return false;
+        }
+        else{
+            return true;
         }
     }
 
