@@ -1084,7 +1084,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         
         //this.actualizarPantallas();
         //this.limpiarDatosDetalleEnPantalla();
-        if(!huboFocoEnAsignaciones)
+        if(!huboFocoEnAsignaciones && !gestor.todosLosEmpleadosAsignados())
         {
             int resp = JOptionPane.showConfirmDialog(this.getParent(), "¿Desea asignar empleados a los detalles antes de finalizar?", "Asignar empleados", JOptionPane.YES_NO_OPTION);
             if (resp == JOptionPane.YES_OPTION) 
@@ -1257,12 +1257,37 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
        {
            if(selectedRow!=-1 )
             {
-                DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
-                DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
-                int altura = tblEmpleadosDisponibles.getRowHeight(tblEmpleadosDisponibles.getSelectedRow());
-                modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
-                tblEmpleadosAsignados.setRowHeight(tblEmpleadosAsignados.getRowCount()-1, altura);
-                modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());  
+		///////////////////////////////
+		Empleado e=((ExplorarEmpleados_celdaDatos)tblEmpleadosDisponibles.getValueAt(selectedRow, 1)).getEmpleado();
+                boolean asignarlo= true;
+		String solapadas =  gestor.validarDisponibilidad(e);                           
+		if(solapadas!=null){
+                    String encabezado="Durante las fechas de la tarea, el empleado "+e.getNombreEmpleado()+" \n ya se encuentra asignado en las siguientes tareas:"                                   
+                                + "\n ";
+                            //+ "              ************************************************* \n"*;
+                   // JOptionPane.showMessageDialog(this.getParent(), encabezado+solapadas+"\n ¿Desea asignarlo de todos modos?", "El empleado se encuentra asignado a otras tareas en esa fecha", JOptionPane.INFORMATION_MESSAGE);
+                    /////////
+                    int resp = JOptionPane.showConfirmDialog(this.getParent(), encabezado+solapadas+"\n ¿Desea asignarlo de todos modos?", "El empleado se encuentra asignado a otras tareas en esa fecha", JOptionPane.YES_NO_OPTION);
+                    if (resp == JOptionPane.NO_OPTION) {
+                        asignarlo= true;
+                        /*DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
+                        DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+                        int altura = tblEmpleadosDisponibles.getRowHeight(tblEmpleadosDisponibles.getSelectedRow());
+                        modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
+                        tblEmpleadosAsignados.setRowHeight(tblEmpleadosAsignados.getRowCount()-1, altura);
+                        modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());  */
+                    }
+                    ///////////
+		}
+		/////////////////
+                if(asignarlo){
+                    DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
+                    DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
+                    int altura = tblEmpleadosDisponibles.getRowHeight(tblEmpleadosDisponibles.getSelectedRow());
+                    modeloAsignados.addRow((Vector)modeloDisponibles.getDataVector().elementAt(tblEmpleadosDisponibles.getSelectedRow()));
+                    tblEmpleadosAsignados.setRowHeight(tblEmpleadosAsignados.getRowCount()-1, altura);
+                    modeloDisponibles.removeRow(tblEmpleadosDisponibles.getSelectedRow());  
+                }
             }
        }
        else {
@@ -1276,10 +1301,7 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
     private void btnQuitarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarEmpleadoActionPerformed
       int selectedRow=tblEmpleadosAsignados.getSelectedRow();
       if(selectedRow!=-1)
-       {
-           /*int id;
-           id=((ExplorarEmpleados_celdaDatos)(tblEmpleadosAsignados.getModel().getValueAt(tblEmpleadosAsignados.getSelectedRow(), 1))).getId();
-           */
+       {		   
            DefaultTableModel modeloDisponibles = (DefaultTableModel) tblEmpleadosDisponibles.getModel();           
            DefaultTableModel modeloAsignados = (DefaultTableModel) tblEmpleadosAsignados.getModel();
            int altura = tblEmpleadosAsignados.getRowHeight(tblEmpleadosAsignados.getSelectedRow());
@@ -1795,14 +1817,14 @@ public class EditarTareaDetallesABM extends javax.swing.JInternalFrame {
         if(!Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
        {  
           if(mostrarErrores)
-          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es vÃ¡lido", "Error",JOptionPane.ERROR_MESSAGE);
+          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
           txtCosto.requestFocusInWindow();}
           return false;          
        } 
         if(!Validaciones.validarNumeroPositivo(txtCosto.getText().replace( ',','.' )))
        {  
           if(mostrarErrores)
-          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es vÃ¡lido", "Error",JOptionPane.ERROR_MESSAGE);
+          {JOptionPane.showMessageDialog(this.getParent(), "El costo ingresado no es válido", "Error",JOptionPane.ERROR_MESSAGE);
           txtCosto.requestFocusInWindow();}
           return false;          
        }

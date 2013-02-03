@@ -1117,19 +1117,19 @@ private void btnEliminarSubObraActionPerformed(java.awt.event.ActionEvent evt) {
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        if(txtNroCotizacion.getText().equals("P0000-0000000"))
+      /*  if(txtNroCotizacion.getText().equals("P0000-0000000"))
         {
             JOptionPane.showMessageDialog(new JInternalFrame(),"Debe ingresar un número de Cotización para continuar", "Atencion!",JOptionPane.ERROR_MESSAGE);
         }
-        else
-        {
+        else*
+        {*/
             int nx = JOptionPane.showConfirmDialog(this,"¿Realmente desea guardar los cambios en la Cotización? '","Está Seguro?",JOptionPane.YES_NO_OPTION);
 
             if(nx==JOptionPane.YES_OPTION)
             {
                 guardarCotizacion();
             }        
-        }
+      /*  }*/
     
 }//GEN-LAST:event_btnSaveActionPerformed
 
