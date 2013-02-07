@@ -47,26 +47,26 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         lblLegajo.setText(String.valueOf(emp.getLegajo()));
         lblEstado.setText(emp.getEstado().getNombre());
         lblNombre.setText(emp.getApellido()+", "+emp.getNombre());
-        lblEmail.setText(emp.getEmail());
         String especialidades = "<HTML><BODY style='text-align: center;'>";
         Iterator<Especialidad> itEspecialidades = emp.getEspecialidades().iterator();
-        int alturaAux = 0;
+        int countEsp=0;
         while(itEspecialidades.hasNext())
         {
+            
             Especialidad especialidad = itEspecialidades.next();
             especialidades+=especialidad.getTipo().getNombre() + " (" + especialidad.getRango().getNombre() + ")<br>";
 
-            Rectangle celdaBounds = this.getBounds();
-            celdaBounds.height+=alturaAux;
-            this.setBounds(celdaBounds);
-            altura+=alturaAux;
-            
-            alturaAux+=16;
+           // Rectangle celdaBounds = this.getBounds();
+           // celdaBounds.height+=alturaAux;
+          //  this.setBounds(celdaBounds);
+            if(countEsp>3) {
+                altura+=16;
+            }
+            //alturaAux+=16;
+            countEsp++;
             
         }
         lblRango.setText(especialidades);
-        if(!emp.getTelefonos().isEmpty())
-        {lblTelefono.setText(emp.getTelefonos().iterator().next().getNumero());}
     }
     
     /** This method is called from within the constructor to
@@ -80,8 +80,6 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
 
         lblNombre = new javax.swing.JLabel();
         lblRango = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        lblTelefono = new javax.swing.JLabel();
         lblLegajo = new javax.swing.JLabel();
         lblasdASD = new javax.swing.JLabel();
         lblasdASD1 = new javax.swing.JLabel();
@@ -96,12 +94,7 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
 
         lblRango.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRango.setText("Experto");
-
-        lblEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEmail.setText("serjtankian@soad.com");
-
-        lblTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTelefono.setText("+32569856655896");
+        lblRango.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         lblLegajo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLegajo.setText("1234");
@@ -121,10 +114,13 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(22, 22, 22)
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblasdASD1)
@@ -133,35 +129,27 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblasdASD)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                    .addComponent(lblRango, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addComponent(lblLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRango, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(lblEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLegajo)
-                    .addComponent(lblasdASD)
-                    .addComponent(lblTelefono))
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEstado)
-                    .addComponent(lblasdASD1)
-                    .addComponent(lblRango))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRango, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLegajo)
+                            .addComponent(lblasdASD))
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEstado)
+                            .addComponent(lblasdASD1))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,7 +158,7 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
     @Override
     public String toString()
     {
-        String retorno=lblNombre.getText()+" "+lblEstado.getText()+" "+lblLegajo.getText()+" "+lblEmail.getText()+" "+lblRango.getText();
+        String retorno=lblNombre.getText()+" "+lblEstado.getText()+" "+lblLegajo.getText()+" "+lblRango.getText();
         return retorno;
     }
     public void setSelected(boolean flag)
@@ -199,12 +187,10 @@ public class ExplorarEmpleados_celdaDatos extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLegajo;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblRango;
-    private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblasdASD;
     private javax.swing.JLabel lblasdASD1;
     // End of variables declaration//GEN-END:variables
