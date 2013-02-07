@@ -5,8 +5,10 @@
 
 package util;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Herramienta;
@@ -20,24 +22,21 @@ import modelo.RecursoXProveedor;
  * @author dell
  */
 public class RecursosUtil {
+    static Map<RecursoXProveedor, RecursoEspecifico> mapaMateriales = new HashMap<RecursoXProveedor, RecursoEspecifico>();
+    
+    
     public static RecursoEspecifico getRecursoEspecifico(RecursoXProveedor rxp){
         RecursoEspecifico reEncontrado=null;
         RecursoEspecifico re=null;
+        if (mapaMateriales.containsKey(rxp)) {
+                 // Sumo las horas solamente
+                 return mapaMateriales.get(rxp);
+        }
+        else{}
         try {
             reEncontrado= (RecursoEspecifico)HibernateUtil.getSession().createQuery("from RecursoEspecifico RE where :cID in elements(RE.proveedores)").setParameter("cID", rxp).uniqueResult();
-            /*Iterator it = HibernateUtil.getSession().createQuery("FROM RecursoEspecifico").iterate();
-            while(it.hasNext()){
-                re=(RecursoEspecifico)it.next();
-                Iterator<RecursoXProveedor> itre = re.getRecursosXProveedor().iterator();
-                RecursoXProveedor rx = null;
-                while(itre.hasNext()){
-                    rx = itre.next();
-                    if(rx.getId()==rxp.getId()){
-                        reEncontrado= re;
-                        break;
-                    }
-                }
-            }*/
+             mapaMateriales.put(rxp, reEncontrado);
+             
         } catch (Exception ex) {
             Logger.getLogger(RecursosUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
